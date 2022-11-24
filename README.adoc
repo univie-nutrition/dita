@@ -3,8 +3,9 @@
 Scientific Nutrition and Dietary Intake Assessment (Umbrella)
 
 Provides specifications for 
-. 24h Recall Interview Data
-. Food Description Models (eg. FoodEx - EFSA)
-. Nutrition related Entities (eg. Nutrition Lookup Table and various Mapping Relations)
-. Data Validation
-. File Formats and Interfaces for Data Exchange (eg. XML)
+
+* 24h Recall Interview Data
+* Food Description Models (eg. FoodEx - EFSA)
+* Nutrition related Entities (eg. Nutrition Lookup Table and various Mapping Relations)
+* Data Validation
+* File Formats and Interfaces for Data Exchange (eg. XML)
