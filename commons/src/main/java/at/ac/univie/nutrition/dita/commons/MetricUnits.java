@@ -70,7 +70,7 @@ public class MetricUnits {
 
     /**
      * Optionally converts given {@link Quantity} to desired {@link Unit},
-     * based on whether thats .
+     * based on whether both units are compatible.
      */
     @SuppressWarnings("unchecked")
     public <Q extends Quantity<Q>> Optional<Quantity<Q>> asUnit(final Quantity<?> quantity, final Unit<Q> unit) {
