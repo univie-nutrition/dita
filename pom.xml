@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
+	license agreements. See the NOTICE file distributed with this work for additional
+	information regarding copyright ownership. The ASF licenses this file to
+	you under the Apache License, Version 2.0 (the "License"); you may not use
+	this file except in compliance with the License. You may obtain a copy of
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required
+	by applicable law or agreed to in writing, software distributed under the
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
+	OF ANY KIND, either express or implied. See the License for the specific
+	language governing permissions and limitations under the License. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>at.ac.univie.nutrition.dita</groupId>
+	<artifactId>dita-bom</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	
+	<name>Dita (Umbrella)</name>
+	<description>Open Scientific Nutrition and Dietary Assessment (Umbrella)</description>
+	<url>https://github.com/univie-nutrition/dita</url>
+
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.release>17</maven.compiler.release>
+		
+		<indriya-version>2.1.3</indriya-version>
+		<junit-version>[5,)</junit-version>
+		<lombok-version>1.18.24</lombok-version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok-version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- SUB MODULES -->
+
+			<dependency>
+				<groupId>at.ac.univie.nutrition.dita</groupId>
+				<artifactId>dita-commons</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>at.ac.univie.nutrition.recall24</groupId>
+				<artifactId>dita-recall24</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			
+			<!-- MEASURE API -->
+
+			<dependency>
+			    <groupId>tech.units</groupId>
+			    <artifactId>indriya</artifactId>
+			    <version>${indriya-version}</version>
+			</dependency>
+
+			<!-- OTHER -->
+
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombok-version}</version>
+			</dependency>
+
+			<!-- TESTING -->
+			
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit-version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>${junit-version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+	    		<groupId>org.junit.jupiter</groupId>
+	    		<artifactId>junit-jupiter-params</artifactId>
+	    		<version>${junit-version}</version>
+				<scope>test</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+	
+	<modules>
+		<module>commons</module>
+		<module>recall24</module>
+		<module>validators</module>
+	</modules>
+	
+	<!-- META DATA -->
+	
+	<inceptionYear>Nov 2022</inceptionYear>
+    <scm>
+        <url>https://github.com/univie-nutrition/dita</url>
+        <tag>HEAD</tag>
+    </scm>
+	    <issueManagement>
+        <system>Jira</system>
+        <url>https://issues.apache.org/jira/browse/CAUSEWAY</url>
+    </issueManagement>
+    <ciManagement>
+        <system>CI</system>
+        <url>https://github.com/univie-nutrition/dita</url>
+    </ciManagement>
+    <developers>
+        <developer>
+            <id>ahuber</id>
+            <name>Andi Huber</name>
+            <email>a.huber@corax.at</email>
+            <roles>
+                <role>committer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+    
+</project>
