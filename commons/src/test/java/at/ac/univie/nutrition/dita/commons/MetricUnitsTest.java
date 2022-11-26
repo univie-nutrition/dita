@@ -26,6 +26,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.resources._Serializables;
@@ -35,26 +36,47 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.experimental.Accessors;
+import tech.units.indriya.unit.Units;
 
 class MetricUnitsTest {
 
     @RequiredArgsConstructor
     @Getter @Accessors(fluent=true)
     enum Scenario {
-        ONE(MetricUnits.one(), "1.000"),
-        G(MetricUnits.grams(Math.PI), "3.142g"),
-        L(MetricUnits.litres(Math.PI), "3.142l"),
-        MILLI_G(MetricUnits.milliGrams(Math.PI), "3.142mg"),
-        MILLI_L(MetricUnits.milliLitres(Math.PI), "3.142ml"),
+        ONE(MetricUnits.one(), "1.000", Double.NaN),
+        MATH_PI(MetricUnits.dimensionless(Math.PI), "3.142", Double.NaN),
+        G(MetricUnits.grams(Math.PI), "3.142g", Math.PI),
+        L(MetricUnits.litres(Math.PI), "3.142l", Double.NaN),
+        MILLI_G(MetricUnits.milliGrams(Math.PI), "3.142mg", Math.PI * 0.001),
+        MILLI_L(MetricUnits.milliLitres(Math.PI), "3.142ml", Double.NaN),
         ;
         final Quantity<?> quantity;
         final String expectedFormat;
+        final double expectedAsGrams;
         void assertValidFormat() {
             assertEquals(expectedFormat(), MetricUnits.formatted(quantity()));
         }
         void assertValidSerialization() {
             val q = (Serializable)quantity();
             assertEquals(q, roundtrip(q));
+        }
+        void assertValidConversion() {
+            assertFalse(MetricUnits.asUnit(quantity(), Units.LUX).isPresent());
+            assertEquals(expectedAsGrams(),
+                MetricUnits.asUnit(quantity(), Units.GRAM)
+                .map(Quantity::getValue)
+                .map(Number::doubleValue)
+                .orElse(Double.NaN),
+                1E-12);
+        }
+
+        // -- HELPER
+
+        @SneakyThrows
+        private static <T extends Serializable> T roundtrip(final T object) {
+            val bytes = _Serializables.write(object);
+            return _Casts.uncheckedCast(
+                    _Serializables.read(object.getClass(), bytes));
         }
     }
 
@@ -70,13 +92,10 @@ class MetricUnitsTest {
         scenario.assertValidSerialization();
     }
 
-    // -- HELPER
-
-    @SneakyThrows
-    private static <T extends Serializable> T roundtrip(final T object) {
-        val bytes = _Serializables.write(object);
-        return _Casts.uncheckedCast(
-                _Serializables.read(object.getClass(), bytes));
+    @ParameterizedTest
+    @EnumSource
+    void testConversion(final Scenario scenario) {
+        scenario.assertValidConversion();
     }
 
 }

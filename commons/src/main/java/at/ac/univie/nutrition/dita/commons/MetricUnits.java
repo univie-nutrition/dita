@@ -21,6 +21,7 @@ package at.ac.univie.nutrition.dita.commons;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
@@ -45,6 +46,10 @@ public class MetricUnits {
         return Quantities.getQuantity(1, AbstractUnit.ONE);
     }
 
+    public static Quantity<?> dimensionless(final Number amount) {
+        return Quantities.getQuantity(amount, AbstractUnit.ONE);
+    }
+
     public Quantity<Mass> grams(final Number amount) {
         return Quantities.getQuantity(amount, Units.GRAM);
     }
@@ -59,6 +64,19 @@ public class MetricUnits {
 
     public Quantity<Volume> milliLitres(final Number amount) {
         return Quantities.getQuantity(amount, MetricPrefix.MILLI(Units.LITRE));
+    }
+
+    // -- CONVERSION
+
+    /**
+     * Optionally converts given {@link Quantity} to desired {@link Unit},
+     * based on whether thats .
+     */
+    @SuppressWarnings("unchecked")
+    public <Q extends Quantity<Q>> Optional<Quantity<Q>> asUnit(final Quantity<?> quantity, final Unit<Q> unit) {
+        return quantity.getUnit().isCompatible(unit)
+                ? Optional.of(((Quantity<Q>)quantity).to(unit))
+                : Optional.empty();
     }
 
     // -- FORMATTING
