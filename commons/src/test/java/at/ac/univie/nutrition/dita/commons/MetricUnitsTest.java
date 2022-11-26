@@ -18,10 +18,6 @@
  */
 package at.ac.univie.nutrition.dita.commons;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
 import java.io.Serializable;
 
 import javax.measure.Quantity;
@@ -34,10 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.resources._Serializables;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -60,8 +53,8 @@ class MetricUnitsTest {
             assertEquals(expectedFormat(), MetricUnits.formatted(quantity()));
         }
         void assertValidSerialization() {
-            val holder = new QuantityHolder(quantity());
-            assertEquals(holder, roundtrip(holder));
+            val q = (Serializable)quantity();
+            assertEquals(q, roundtrip(q));
         }
     }
 
@@ -78,19 +71,6 @@ class MetricUnitsTest {
     }
 
     // -- HELPER
-
-    @Data @AllArgsConstructor @NoArgsConstructor
-    private static class QuantityHolder implements Externalizable {
-        private Quantity<?> quantity;
-        @Override
-        public void writeExternal(final ObjectOutput out) throws IOException {
-            MetricUnits.serialize(quantity, out);
-        }
-        @Override
-        public void readExternal(final ObjectInput in) throws IOException, ClassNotFoundException {
-            quantity = MetricUnits.deserialize(in);
-        }
-    }
 
     @SneakyThrows
     private static <T extends Serializable> T roundtrip(final T object) {

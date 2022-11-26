@@ -18,24 +18,18 @@
  */
 package at.ac.univie.nutrition.dita.commons;
 
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
-import javax.measure.Quantity.Scale;
 import javax.measure.Unit;
 import javax.measure.format.UnitFormat;
 import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Mass;
 import javax.measure.quantity.Volume;
 
-import lombok.SneakyThrows;
-import lombok.val;
 import lombok.experimental.UtilityClass;
 import tech.units.indriya.AbstractUnit;
 import tech.units.indriya.format.EBNFUnitFormat;
@@ -67,7 +61,6 @@ public class MetricUnits {
         return Quantities.getQuantity(amount, MetricPrefix.MILLI(Units.LITRE));
     }
 
-
     // -- FORMATTING
 
     private final DecimalFormat decimal3Format =
@@ -85,25 +78,6 @@ public class MetricUnits {
     /** SI prefixed unit symbol */
     public String formatted(final Unit<?> unit) {
         return unitFormat.format(unit);
-    }
-
-    // -- SERIALIZATION
-
-    /** assuming used {@link Unit} is {@link Serializable} */
-    @SneakyThrows
-    public void serialize(final Quantity<?> quantity, final ObjectOutput out) {
-        out.writeObject(quantity.getValue());
-        out.writeObject(quantity.getScale());
-        out.writeObject(quantity.getUnit());
-    }
-
-    /** assuming used {@link Unit} is {@link Serializable} */
-    @SneakyThrows
-    public Quantity<?> deserialize(final ObjectInput in) {
-        val amount = (Number)in.readObject();
-        val scale = (Scale)in.readObject();
-        val unit = (Unit)in.readObject();
-        return Quantities.getQuantity(amount, unit, scale);
     }
 
 }
