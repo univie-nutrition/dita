@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.resources._Serializables;
 
+import at.ac.univie.nutrition.dita.commons.types.MetricUnits;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

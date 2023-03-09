@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package at.ac.univie.nutrition.dita.commons;
+package at.ac.univie.nutrition.dita.commons.types;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
