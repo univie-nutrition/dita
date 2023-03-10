@@ -28,6 +28,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 
+import at.ac.univie.nutrition.dita.commons.jaxb.JaxbAdapters;
 import at.ac.univie.nutrition.dita.commons.types.Gender;
 import lombok.Data;
 
@@ -44,6 +45,7 @@ public class RespondentDto {
     private LocalDate dateOfBirth;
 
     @XmlElement(name="gender")
+    @XmlJavaTypeAdapter(value=JaxbAdapters.GenderAdapter.class)
     private Gender gender;
 
 }

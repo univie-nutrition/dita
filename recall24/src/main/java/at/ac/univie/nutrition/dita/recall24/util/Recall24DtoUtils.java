@@ -38,17 +38,17 @@ public class Recall24DtoUtils {
                 .readFromXml(dataSource);
     }
 
-    public Try<Void> tryWriteSurvey(final InterviewSetDto survey, final DataSink dataSink) {
+    public Try<Void> tryWriteSurvey(final InterviewSetDto interviewSet, final DataSink dataSink) {
         return new _JaxbWriter()
-                .tryWriteTo(survey, dataSink);
+                .tryWriteTo(interviewSet, dataSink);
     }
 
-    public Try<Blob> tryZip(final InterviewSetDto survey) {
+    public Try<Blob> tryZip(final String zipEntryName, final InterviewSetDto interviewSet) {
         return new _JaxbWriter()
-                .tryToString(survey)
+                .tryToString(interviewSet)
                 .mapEmptyToFailure()
                 .mapSuccessAsNullable(xml->
-                    Clob.of("survey-" + survey.hashCode(), CommonMimeType.XML, xml)
+                    Clob.of(zipEntryName, CommonMimeType.XML, xml)
                     .toBlobUtf8()
                     .zip());
     }

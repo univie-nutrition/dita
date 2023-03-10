@@ -25,6 +25,8 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import at.ac.univie.nutrition.dita.recall24.api.Record24;
 import lombok.Data;
@@ -35,6 +37,7 @@ import lombok.Data;
 public class RecordDto {
 
     @XmlElement(name="type")
+    @XmlJavaTypeAdapter(value=RecordDto.RecordTypeAdapter.class)
     private Record24.Type type;
 
     @XmlElement(name="name")
@@ -46,5 +49,16 @@ public class RecordDto {
     @XmlElementWrapper(name="ingredients")
     @XmlElement(name="ingredient", type=IngredientDto.class)
     private List<IngredientDto> ingredients;
+
+    static final class RecordTypeAdapter extends XmlAdapter<String, Record24.Type>{
+        @Override public Record24.Type unmarshal(final String v) throws Exception {
+            return Record24.Type.destringify(v);
+        }
+        @Override public String marshal(final Record24.Type v) throws Exception {
+            return v!=null
+                    ? v.stringify()
+                    : null;
+        }
+    }
 
 }

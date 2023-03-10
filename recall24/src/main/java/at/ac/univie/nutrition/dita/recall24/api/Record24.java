@@ -18,6 +18,9 @@
  */
 package at.ac.univie.nutrition.dita.recall24.api;
 
+import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
+
 import org.apache.causeway.commons.collections.Can;
 
 public interface Record24 {
@@ -44,6 +47,17 @@ public interface Record24 {
         public boolean isComposite() { return this == COMPOSITE; }
         public boolean isProduct() { return this == PRODUCT; }
         public boolean isInformal() { return this == INFORMAL; }
+
+        public String stringify() {
+            return name().toLowerCase();
+        }
+
+        @Nullable
+        public static Type destringify(final String stringified) {
+            return StringUtils.hasLength(stringified)
+                    ? Type.valueOf(stringified.toUpperCase())
+                    : null;
+        }
     }
 
     /**

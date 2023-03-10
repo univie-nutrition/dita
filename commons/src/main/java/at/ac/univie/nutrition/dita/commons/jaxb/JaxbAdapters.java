@@ -26,12 +26,24 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.springframework.util.StringUtils;
 
+import at.ac.univie.nutrition.dita.commons.types.Gender;
 import lombok.experimental.UtilityClass;
 import tech.units.indriya.format.SimpleUnitFormat;
 import tech.units.indriya.quantity.Quantities;
 
 @UtilityClass
 public class JaxbAdapters {
+
+    public static final class GenderAdapter extends XmlAdapter<String, Gender>{
+        @Override public Gender unmarshal(final String v) throws Exception {
+            return Gender.destringify(v);
+        }
+        @Override public String marshal(final Gender v) throws Exception {
+            return v!=null
+                    ? v.stringify()
+                    : null;
+        }
+    }
 
     public static final class QuantityAdapter extends XmlAdapter<String, Quantity<?>>{
 
@@ -66,7 +78,7 @@ public class JaxbAdapters {
          */
         private static String substringEmbeddedBy(final String x, final String prefix, final String suffix) {
             int p=0;
-            if(!StringUtils.hasLength(prefix)){
+            if(StringUtils.hasLength(prefix)){
                 p = x.indexOf(prefix);
                 if(p==-1)
                     p=0; // prefix not found
@@ -74,7 +86,7 @@ public class JaxbAdapters {
                     p=p+prefix.length();
             }
             int q = -1;
-            if(!StringUtils.hasLength(suffix))
+            if(StringUtils.hasLength(suffix))
                 q = x.indexOf(suffix,p);
             if(q==-1)
                 return x.substring(p); // suffix not found

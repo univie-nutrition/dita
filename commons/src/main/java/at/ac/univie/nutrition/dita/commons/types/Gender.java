@@ -18,6 +18,9 @@
  */
 package at.ac.univie.nutrition.dita.commons.types;
 
+import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -28,10 +31,25 @@ public enum Gender {
     MALE,
     FEMALE;
 
+    public boolean isUnclassified() { return this==UNCLASSIFIED; }
+    public boolean isMale() { return this==MALE; }
+    public boolean isFemale() { return this==FEMALE; }
+
     /**
      * 0=unclassified, 1=male, 2=female
      */
     public final int referenceOrdinal() {
         return ordinal();
+    }
+
+    public String stringify() {
+        return name().toLowerCase();
+    }
+
+    @Nullable
+    public static Gender destringify(final String stringified) {
+        return StringUtils.hasLength(stringified)
+                ? Gender.valueOf(stringified.toUpperCase())
+                : null;
     }
 }
