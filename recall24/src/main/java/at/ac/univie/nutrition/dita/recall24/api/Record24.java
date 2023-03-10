@@ -25,11 +25,10 @@ import org.apache.causeway.commons.collections.Can;
 
 public interface Record24 {
 
-    //TODO - it should be enough to distinguish between just 2: REGULAR and INFORMAL
     public static enum Type {
 
         /**
-         * Also used as Proxy to 'Composite Food' (eg. gd-recipe-manager) or 'Product'
+         * Also used as Proxy to 'Composite Food' (eg. recipe-manager) or 'Product'
          */
         FOOD,
 
@@ -38,8 +37,14 @@ public interface Record24 {
          */
         COMPOSITE,
 
+        /**
+         * Has no ingredients/ eg. supplements.
+         */
         PRODUCT,
 
+        /**
+         * Either to be ignored or food w/o identifier.
+         */
         INFORMAL
         ;
 
