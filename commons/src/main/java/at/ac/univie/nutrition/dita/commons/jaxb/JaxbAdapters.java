@@ -36,7 +36,12 @@ public class JaxbAdapters {
 
     public static final class GenderAdapter extends XmlAdapter<String, Gender>{
         @Override public Gender unmarshal(final String v) throws Exception {
-            return Gender.destringify(v);
+            try {
+                return Gender.destringify(v);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
         }
         @Override public String marshal(final Gender v) throws Exception {
             return v!=null
@@ -50,11 +55,16 @@ public class JaxbAdapters {
         private final UnitFormat format = SimpleUnitFormat.getInstance();
 
         @Override public Quantity<?> unmarshal(final String v) throws Exception {
-            final String unitLiteral = substringEmbeddedBy(v, "[", "]");
-            final String valueLiteral = substringEmbeddedBy(v, null, "[");
-            final double value = Double.parseDouble(valueLiteral);
-            final Unit<?> unit = format.parse(unitLiteral);
-            return Quantities.getQuantity(value, unit);
+            try {
+                final String unitLiteral = substringEmbeddedBy(v, "[", "]");
+                final String valueLiteral = substringEmbeddedBy(v, null, "[");
+                final double value = Double.parseDouble(valueLiteral);
+                final Unit<?> unit = format.parse(unitLiteral);
+                return Quantities.getQuantity(value, unit);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
         }
 
         @Override public String marshal(final Quantity<?> v) throws Exception {

@@ -52,7 +52,12 @@ public class RecordDto {
 
     static final class RecordTypeAdapter extends XmlAdapter<String, Record24.Type>{
         @Override public Record24.Type unmarshal(final String v) throws Exception {
-            return Record24.Type.destringify(v);
+            try {
+                return Record24.Type.destringify(v);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
         }
         @Override public String marshal(final Record24.Type v) throws Exception {
             return v!=null
