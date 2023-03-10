@@ -44,7 +44,7 @@ public class RecordDto {
     private String facetSids;
 
     @XmlElementWrapper(name="ingredients")
-    @XmlElement(name="ingredient", type=Ingredient.class)
-    private List<Ingredient> ingredients;
+    @XmlElement(name="ingredient", type=IngredientDto.class)
+    private List<IngredientDto> ingredients;
 
 }

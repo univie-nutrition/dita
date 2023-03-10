@@ -32,7 +32,7 @@ import lombok.Data;
 @XmlRootElement(name="ingredient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class Ingredient {
+public class IngredientDto {
 
     @XmlElement(name="sid")
     private String sid;

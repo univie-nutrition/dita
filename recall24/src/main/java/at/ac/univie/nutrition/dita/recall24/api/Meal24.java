@@ -19,7 +19,8 @@
 package at.ac.univie.nutrition.dita.recall24.api;
 
 import java.time.LocalTime;
-import java.util.List;
+
+import org.apache.causeway.commons.collections.Can;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -50,6 +51,6 @@ public interface Meal24 {
     /**
      * Memorized food for this meal.
      */
-    List<? extends MemorizedFood24> memorizedFood();
+    Can<? extends MemorizedFood24> memorizedFood();
 
 }

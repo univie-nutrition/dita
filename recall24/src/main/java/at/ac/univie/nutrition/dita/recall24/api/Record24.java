@@ -18,7 +18,7 @@
  */
 package at.ac.univie.nutrition.dita.recall24.api;
 
-import java.util.List;
+import org.apache.causeway.commons.collections.Can;
 
 public interface Record24 {
 
@@ -62,8 +62,14 @@ public interface Record24 {
     String name();
 
     /**
+     * Comma separated list of facet identifiers,
+     * ordered (by some natural order).
+     */
+    String facetSids();
+
+    /**
      * Ingredients of this record.
      */
-    List<? extends Ingredient24> ingredients();
+    Can<? extends Ingredient24> ingredients();
 
 }

@@ -18,18 +18,26 @@
  */
 package at.ac.univie.nutrition.dita.recall24.api;
 
+import java.util.Optional;
+
+import org.apache.causeway.commons.collections.Can;
+
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
-public interface Survey24 extends InterviewSet24 {
+public interface InterviewSet24 {
 
     /**
-     * Survey identifier.
+     * Respondents that belong to this survey.
      */
-    String key();
+    Can<? extends Respondent24> respondents();
 
     /**
-     * Human readable survey name.
+     * Interviews that belong to this survey.
      */
-    String name();
+    Can<? extends Interview24> interviews();
+
+    Optional<? extends Respondent24> lookupRespondent(String respondentAlias);
+    Can<? extends Interview24> lookupInterviews(String respondentAlias);
+
 }

@@ -19,10 +19,8 @@
 package at.ac.univie.nutrition.dita.recall24.api;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import at.ac.univie.nutrition.dita.recall24.model.Respondent24;
-import at.ac.univie.nutrition.dita.recall24.model.RespondentMetaData24;
+import org.apache.causeway.commons.collections.Can;
 
 /**
  * Represents a (single) 24h recall interview event.
@@ -55,7 +53,7 @@ public interface Interview24 {
     /**
      * The meals of this interview.
      */
-    List<? extends Meal24> meals();
+    Can<? extends Meal24> meals();
 
     // -- SHORTCUTS
 

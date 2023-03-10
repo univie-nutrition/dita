@@ -42,7 +42,7 @@ public final class IntRef {
 
     @Override
     public boolean equals(final Object obj) {
-        return this==obj;
+        return obj instanceof IntRef;
     }
 
     @Override

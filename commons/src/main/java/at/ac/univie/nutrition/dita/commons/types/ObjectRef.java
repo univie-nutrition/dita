@@ -45,7 +45,7 @@ public final class ObjectRef<T> {
 
     @Override
     public boolean equals(final Object obj) {
-        return this==obj;
+        return obj instanceof ObjectRef;
     }
 
     @Override
@@ -56,8 +56,10 @@ public final class ObjectRef<T> {
     @Override
     public String toString() {
         return value==null
-                ? "ObjectRef[empty]"
-                : value.toString();
+                ? "ObjectRef[]"
+                : value.getClass().isPrimitive()
+                    ? value.toString()
+                    : String.format("ObjectRef[%s]", value.getClass().getSimpleName());
     }
 
 }

@@ -18,7 +18,7 @@
  */
 package at.ac.univie.nutrition.dita.recall24.api;
 
-import java.util.List;
+import org.apache.causeway.commons.collections.Can;
 
 public interface MemorizedFood24 {
 
@@ -35,6 +35,6 @@ public interface MemorizedFood24 {
     /**
      * Records for this memorized food.
      */
-    List<? extends Record24> records();
+    Can<? extends Record24> records();
 
 }
