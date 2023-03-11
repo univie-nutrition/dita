@@ -28,35 +28,55 @@ public interface Record24 {
     public static enum Type {
 
         /**
-         * Also used as Proxy to 'Composite Food' (eg. recipe-manager) or 'Product'
+         * Generic food, identified within the standard food description model (food-list)
+         * or identified within eg. a recipe data base.
          */
         FOOD,
 
         /**
-         * Recipe with ingredients, where the recipe itself and its ingredients have facets.
+         * A composition of identified generic food or recipes.
+         * <p>
+         * Eg. 'on-the-fly' recipes, that were recorded during an interview.
          */
         COMPOSITE,
 
         /**
-         * Has no ingredients/ eg. supplements.
+         * Product identified within a product data base. <p>Eg. supplements.
          */
         PRODUCT,
 
         /**
-         * Either to be ignored or food w/o identifier.
+         * To be ignored by statistical analysis. However, providing commentary.
          */
-        INFORMAL
+        INFORMAL,
+
+        /**
+         * Incomplete record of some sort, that is NOT {@link #INFORMAL}.
+         * Required to be post-processed before statistical analysis.
+         * <p>
+         * Eg. food that cannot be identified within the standard food description model (food-list),
+         * or other data base, because an appropriate entry is yet missing.
+         */
+        INCOMPLETE,
         ;
 
-        public boolean isFoodOrProxy() { return this == FOOD; }
+        /** @see #FOOD */
+        public boolean isFood() { return this == FOOD; }
+        /** @see #COMPOSITE */
         public boolean isComposite() { return this == COMPOSITE; }
+        /** @see #PRODUCT */
         public boolean isProduct() { return this == PRODUCT; }
+        /** @see #INFORMAL */
         public boolean isInformal() { return this == INFORMAL; }
+        /** @see #INCOMPLETE */
+        public boolean isIncomplete() { return this == INCOMPLETE; }
 
+        /** to DTO */
         public String stringify() {
             return name().toLowerCase();
         }
 
+        /** from DTO */
         @Nullable
         public static Type destringify(final String stringified) {
             return StringUtils.hasLength(stringified)
