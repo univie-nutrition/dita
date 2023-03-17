@@ -34,6 +34,31 @@
 	</properties>
 
 	<build>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>src/test/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -60,6 +85,21 @@
 			<name>Central Repository</name>
 			<url>https://repo.maven.apache.org/maven2</url>
 		</repository>
+		<repository>
+	        <releases>
+	          <enabled>true</enabled>
+	          <updatePolicy>always</updatePolicy>
+	          <checksumPolicy>fail</checksumPolicy>
+	        </releases>
+	        <snapshots>
+	          <enabled>true</enabled>
+	          <updatePolicy>always</updatePolicy>
+	          <checksumPolicy>fail</checksumPolicy>
+	        </snapshots>
+	        <id>causeway-nightly-snapshots</id>
+	        <name>Causeway Nightly Snapshots (maven)</name>
+	        <url>https://raw.githubusercontent.com/apache-causeway-committers/causeway-nightly/master/mvn-snapshots</url>
+	      </repository>
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
@@ -96,13 +136,13 @@
 			<dependency>
 				<groupId>org.apache.causeway.commons</groupId>
 				<artifactId>causeway-commons</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0-M1.20230316-1315-1627b877</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.apache.causeway.core</groupId>
 				<artifactId>causeway-applib</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
+				<version>3.0.0-M1.20230316-1315-1627b877</version>
 			</dependency>
 
 			<!-- OTHER -->
