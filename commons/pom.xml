@@ -27,6 +27,7 @@
 	</description>
 
 	<properties>
+		<maven.compiler.release>20</maven.compiler.release>
 		<jar-plugin.automaticModuleName>at.ac.univie.nutrition.dita.commons</jar-plugin.automaticModuleName>
 		<git-plugin.propertiesDir>at/ac/univie/nutrition/dita/commons</git-plugin.propertiesDir>
 	</properties>
