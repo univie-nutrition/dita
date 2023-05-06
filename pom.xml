@@ -28,6 +28,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
 		
+		<spring-boot.version>3.0.6</spring-boot.version>
+		<causeway.version>3.0.0-M1.20230506-0225-d5d82aa7</causeway.version>
+		
 		<indriya-version>2.1.3</indriya-version>
 		<junit-version>[5,)</junit-version>
 		<lombok-version>1.18.26</lombok-version>
@@ -123,6 +126,18 @@
 				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
 			
+			<dependency>
+				<groupId>at.ac.univie.nutrition.dita</groupId>
+				<artifactId>dita-foodex-validator-api</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>at.ac.univie.nutrition.dita</groupId>
+				<artifactId>dita-foodex-validator-service</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			
 			<!-- MEASURE API -->
 
 			<dependency>
@@ -136,14 +151,28 @@
 			<dependency>
 				<groupId>org.apache.causeway.commons</groupId>
 				<artifactId>causeway-commons</artifactId>
-				<version>3.0.0-M1.20230316-1315-1627b877</version>
+				<version>${causeway.version}</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.apache.causeway.core</groupId>
 				<artifactId>causeway-applib</artifactId>
-				<version>3.0.0-M1.20230316-1315-1627b877</version>
+				<version>${causeway.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.causeway.viewer</groupId>
+				<artifactId>causeway-viewer-restfulobjects-client</artifactId>
+				<version>${causeway.version}</version>
+			</dependency>
+			
+			<!-- SPRING -->
+			
+			<dependency>
+            	<groupId>org.springframework.boot</groupId>
+            	<artifactId>spring-boot-starter-web</artifactId>
+            	<version>${spring-boot.version}</version>
+            </dependency>
 
 			<!-- OTHER -->
 
@@ -201,8 +230,8 @@
 	
 	<modules>
 		<module>commons</module>
+		<module>foodex</module>
 		<module>recall24</module>
-<!--		<module>validators</module>-->
 	</modules>
 	
 	<!-- META DATA -->

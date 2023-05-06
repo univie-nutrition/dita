@@ -1,0 +1,100 @@
+Scientific Nutrition and Dietary Intake Assessment - Foodex Validator
+
+# Modules
+
+## Foodex Validator
+- Allows for FoodEx2 Codes to be verified against the latest Business Rules as provided by EFSA.
+- The module is implemented as a Restful Service listening on port 8080.
+- Included is a `Dockerfile` to automate most parts of the setup procedure. The `Catalogue` databases still need to be copied over to the docker container's host file-system to be mapped onto the `/opt/openefsa` path in the container . That is the `app` folder from a regular installation of the `EFSA Catalogue Browser`. (Version 1.2.5)
+
+
+Copy over the `app` folder from the 'efsa-browser-installation' (to be executed at the docker host): 
+
+```
+DB_SRC="/location-of-efsa-browser-installation"
+TARGET="/opt/docker/dita/foodexval"
+
+mkdir -p $TARGET
+rm -rf $TARGET/app
+cp -ax $DB_SRC/app $TARGET/
+```
+
+Example container setup, assuming you have created a docker-image on the host by the name of `foodex-validator`:
+
+```
+docker run --detach \
+--publish 8080:8080 \
+--name foodex-validator \
+--volume /opt/docker/dita/foodexval:/opt/openefsa \
+foodex-validator
+
+```
+
+## Foodex Validator API
+- Client components to access the `Foodex Validator` Restful Service.
+- Includes `ValidationRequest` and `ValidationResponse` Data-Transfer-Objects and a Client Side Service to issue validation requests.
+
+Example JUnit Test
+
+```java
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import lombok.val;
+import dita.foodex.validate.client.ValidationClientService;
+
+class FoodexValidatorMicroServiceTest {
+
+    ValidationClientService client;
+    
+    @BeforeEach
+    void setUp() throws Exception {
+        
+        client = new ValidationClientService();
+        client.setValidatorResourceUrl("https://path-to-validator-endpoint:8080/");
+        client.setVerbose(true);
+        client.init();
+        
+    }
+
+    @Test
+    void clientService_shouldNotWarn() {
+        
+        val result = client.validate("A03AM#F03.A06JL$F10.A077K$F22.A07SH$F28.A07HV");
+        System.out.println("result=" + result);
+        
+        assertEquals(true, result.isEmpty());
+        
+    }
+
+    @Test
+    void clientService_shouldWarnLOW() {
+        
+        val result = client.validate("A01SP#F04.A0EZM$F22.A07SS$F28.A07HS");
+        System.out.println("result=" + result);
+        
+        assertEquals("LOW", result.getMessages().get(0).getRisk());
+        
+    }
+    
+    @Test
+    void clientService_shouldWarnHIGH() {
+        
+        val result = client.validate("A03XM#F01.A04SF$F22.A07SP$F28.A07GV");
+        System.out.println("result=" + result);
+        
+        assertEquals("HIGH", result.getMessages().get(0).getRisk());
+        
+    }
+}
+```  
+
+# General Information
+
+## Agenda
+Since 2014, in collaboration with the department of nutrition science at the _University of Vienna_, we developed several tools and conceptual documentation for the latest Austrian Dietary Assessment study.
+
+We are in the process of opening up documentation and _Java_ source code for international contribution.
+
+## Credits
+The project's icon is made by [Freepik](www.freepik.com) from [Flaticon](www.flaticon.com) and is licensed by 
+[Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/) 
