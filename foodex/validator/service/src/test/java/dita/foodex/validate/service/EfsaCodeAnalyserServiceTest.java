@@ -18,43 +18,34 @@
  */
 package dita.foodex.validate.service;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dita.foodex.validate.service.EfsaCodeAnalyserService;
 import dita.foodex.validate.service.EfsaCodeAnalyserService.Options;
 import lombok.val;
 
+@Disabled("needs test resources")
 class EfsaCodeAnalyserServiceTest {
-    
+
     private static EfsaCodeAnalyserService analyser;
-    
+
     @BeforeAll
     static void prepare() {
-        
+
         EfsaCodeAnalyserService.consoleLoggerOnly();
-        
+
         //GlobalUtil is a mess with its static initializers
         System.setProperty("workingDir", "N:\\dev\\efsa-catalogue-browser-1.2.5\\app");
-        
+
         val options = Options.builder()
                 .workingDir("N:\\dev\\efsa-catalogue-browser-1.2.5\\app")
                 .build();
-        
+
         analyser = new EfsaCodeAnalyserService();
         analyser.init(options);
-    }
-
-    @BeforeEach
-    void setUp() throws Exception {
-    }
-
-    @AfterEach
-    void tearDown() throws Exception {
     }
 
     @Test
@@ -62,7 +53,7 @@ class EfsaCodeAnalyserServiceTest {
         val validation = analyser.validate("A01SP#F22.A07SS$F28.A07GT$F28.A07HS");
         assertEquals("", validation);
     }
-    
+
     @Test
     void expectsWarning() {
         val validation = analyser.validate("A01SP#F04.A0EZM$F22.A07SS$F28.A07HS");
