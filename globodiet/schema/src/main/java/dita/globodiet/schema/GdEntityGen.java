@@ -46,7 +46,7 @@ public class GdEntityGen {
         val schema = OrmModel.Schema.fromYaml(yaml);
 
         val entityGen = new OrmEntityGenerator(schema);
-        entityGen.streamAsJavaModels("dita.globodiet.dom.entities")
+        entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.dom.entities.")
             .forEach(model->{
                 //TODO actually write to file
                 System.err.println("---------------------------------------");

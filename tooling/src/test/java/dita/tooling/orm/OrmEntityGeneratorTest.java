@@ -32,7 +32,7 @@ class OrmEntityGeneratorTest {
 
         //val dest = FileUtils.tempDir("dita-tmp");
 
-        entityGen.streamAsJavaModels("samples")
+        entityGen.streamAsJavaModels("test.", "test.samples.")
             .forEach(sample->{
                 System.err.println("---------------------------------------");
                 System.err.printf("%s%n", sample.buildJavaFile().toString());

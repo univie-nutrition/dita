@@ -79,6 +79,7 @@ AverageForAnthropometricValues:
       foreignKeys:
       description: |
         Default value of height or weight
+        
 BrandName:
   namespace: params.food_descript.
   table: BRANDNAM
@@ -120,6 +121,7 @@ BrandName:
       foreignKeys:
       description: |
         Name of brand
+        
 CenterInvolved:
   namespace: params.general_info
   table: CENTERS
@@ -151,6 +153,7 @@ CenterInvolved:
       foreignKeys:
       description: |
         Center name
+        
 ItemDisplayedForCheckPerFCO:
   namespace: params.general_info
   table: CHKLIST
@@ -173,6 +176,7 @@ ItemDisplayedForCheckPerFCO:
       foreignKeys:
       description: |
         Item label
+        
 CountryInvolved:
   namespace: params.general_info
   table: COUNTRY
@@ -195,6 +199,7 @@ CountryInvolved:
       foreignKeys:
       description: |
         Country name
+        
 ComposedRecipeIngredient:
   namespace: params.food_list
   table: CRING
@@ -229,6 +234,7 @@ ComposedRecipeIngredient:
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list
+        
 DayOfWeek:
   namespace: params.setting
   table: DAYOWEEK
@@ -251,6 +257,7 @@ DayOfWeek:
       foreignKeys:
       description: |
         Day name
+        
 DensityFactorForFood:
   namespace: params.food_coefficient
   table: DENSITY
@@ -321,6 +328,7 @@ DensityFactorForFood:
       description: |
         1 = density for food/ingredient,
         2 = density for recipe
+        
 ImprobableSequencesOfFacetsAndDescriptors:
   namespace: params.food_descript.
   table: DESC_IMP
@@ -389,6 +397,7 @@ ImprobableSequencesOfFacetsAndDescriptors:
       foreignKeys:
       description: |
         Facet string
+        
 DescriptorPerFacet:
   namespace: params.recipe_description
   table: R_DESCFACE
@@ -455,6 +464,7 @@ DescriptorPerFacet:
       description: |
         0=not single descriptor
         1=single descriptor
+        
 FacetDescriptorThatCannotBeSubstituted:
   namespace: params.setting
   table: DESCSUBS
@@ -479,6 +489,7 @@ FacetDescriptorThatCannotBeSubstituted:
         descface.descr_code
       description: |
         Descriptor code
+        
 DietarySupplementClassification:
   namespace: params.classification
   table: DS_CLASSIF
@@ -509,6 +520,7 @@ DietarySupplementClassification:
       foreignKeys:
       description: |
         Dietary Supplement classification code attached to (for subgroup)
+        
 DietarySupplementDescriptor:
   namespace: params.supplement_description
   table: DS_DESCFACE
@@ -592,6 +604,7 @@ DietarySupplementDescriptor:
       foreignKeys:
       description: |
         Not in name flag
+        
 DietarySupplementFacet:
   namespace: params.supplement_description
   table: DS_FACET
@@ -655,6 +668,7 @@ DietarySupplementFacet:
       foreignKeys:
       description: |
         Label on how to ask the facet question
+        
 EdiblePartCoefficientForFood:
   namespace: params.food_coefficient
   table: EDIBLEP
@@ -696,6 +710,7 @@ EdiblePartCoefficientForFood:
       foreignKeys:
       description: |
         Priority order
+        
 TranslationInCountryLanguage:
   namespace: params.general_info
   table: EPICTEXT
@@ -742,6 +757,7 @@ TranslationInCountryLanguage:
       foreignKeys:
       description: |
         Data entry Text in English
+        
 RuleAppliedToFacets:
   namespace: params.recipe_description
   table: R_FACETRUL
@@ -788,6 +804,7 @@ RuleAppliedToFacets:
         rsubgr.subgroup
       description: |
         Recipe Subgroup code
+        
 Facet:
   namespace: params.recipe_description
   table: R_FACET
@@ -853,6 +870,7 @@ Facet:
       foreignKeys:
       description: |
         Label on how to ask the facet question
+        
 PercentOfFatLeftInTheDishForFood:
   namespace: params.food_coefficient
   table: FATLEFTO
@@ -894,6 +912,7 @@ PercentOfFatLeftInTheDishForFood:
       foreignKeys:
       description: |
         Percentage of fat left in the dish
+        
 FoodConsumptionOccasion:
   namespace: params.general_info
   table: FCO
@@ -941,6 +960,7 @@ FoodConsumptionOccasion:
       description: |
         1=main FCO (to be displayed in nutrient check screen)
         0=non main FCO
+        
 ExceptionForSomeFoodToTheFacetDescriptorPathway:
   namespace: params.food_descript.
   table: FOODFAEX
@@ -974,6 +994,7 @@ ExceptionForSomeFoodToTheFacetDescriptorPathway:
       foreignKeys:
       description: |
         Order to display the facets for the attached food (same order as order_fac from Groupfac table)
+        
 FoodOrProductOrAlias:
   namespace: params.food_list
   table: FOODS
@@ -1063,6 +1084,7 @@ FoodOrProductOrAlias:
       foreignKeys:
       description: |
         0=food 1=food & dietary supplement
+        
 CrossReferenceBetweenFoodAndFacet:
   namespace: params.food_descript.
   table: GROUPFAC
@@ -1146,6 +1168,7 @@ CrossReferenceBetweenFoodAndFacet:
       foreignKeys:
       description: |
         Order to displayed the descriptors within a group/subgroup and a facet
+        
 FoodGroup:
   namespace: params.classification
   table: GROUPS
@@ -1176,6 +1199,7 @@ FoodGroup:
       foreignKeys:
       description: |
         Food group short name
+        
 Interviewer:
   namespace: params.general_info
   table: INTVIEWR
@@ -1319,6 +1343,7 @@ FoodOrRecipeOrAttachment:
       foreignKeys:
       description: |
         Comment
+        
 HouseholdMeasure:
   namespace: params.quant
   table: M_HHM
@@ -1365,6 +1390,7 @@ HouseholdMeasure:
       foreignKeys:
       description: |
         Order to display the HHM
+        
 PhotoForQuantity:
   namespace: params.quant
   table: M_PHOTOS
@@ -1411,6 +1437,7 @@ PhotoForQuantity:
       foreignKeys:
       description: |
         G = in grams, V = in ml (volume)
+        
 Shape:
   namespace: params.quant
   table: M_SHAPES
@@ -1449,6 +1476,7 @@ Shape:
       foreignKeys:
       description: |
         Order to display the standard unit
+        
 FoodStandardUnitsAndPortionsForFoods:
   namespace: params.food_quantif.
   table: M_STDPOR
@@ -1520,6 +1548,7 @@ FoodStandardUnitsAndPortionsForFoods:
       foreignKeys:
       description: |
         Order to display the standard portion
+        
 FoodStandardUnitsAndPortionsForFoodsAndRecipes:
   namespace: params.quantif.
   table: M_STDUTS
@@ -1600,6 +1629,7 @@ FoodStandardUnitsAndPortionsForFoodsAndRecipes:
       foreignKeys:
       description: |
         Order to display the standard unit
+        
 MaximumValueForARecipeOrASubGroup:
   namespace: params.recipe_max
   table: MAXRVAL
@@ -1641,6 +1671,7 @@ MaximumValueForARecipeOrASubGroup:
       foreignKeys:
       description: |
         Maximum value
+        
 MaximumValueForAFoodOrASubSubGroup:
   namespace: params.food_max
   table: MAXVAL
@@ -1708,7 +1739,8 @@ MaximumValueForAFoodOrASubSubGroup:
       foreignKeys:
       description: |
         Priority order
-MixedRecipes:IngredientsDescription/quantification:
+        
+MixedRecipeIngredient:
   namespace: params.recipe_list
   table: MIXEDING
   description: |
@@ -2049,7 +2081,7 @@ MixedRecipes:IngredientsDescription/quantification:
       foreignKeys:
       description: |
         
-MixedRecipes:IngredientsQuantificationForShapeAndPhotoMethods:
+MixedRecipeIngredientsQuantification:
   namespace: params.recipe_list
   table: MIXEDING_QT
   description: |
@@ -2158,8 +2190,9 @@ MixedRecipes:IngredientsQuantificationForShapeAndPhotoMethods:
       unique: true
       foreignKeys:
       description: |
-        Sequential Number for Ingredients within a Sub-Recipe 
-MixedRecipes:Names,IdentificationNumberAndClass:
+        Sequential Number for Ingredients within a Sub-Recipe
+        
+MixedRecipeNames:
   namespace: params.recipe_list
   table: MIXEDREC
   description: |
@@ -2261,6 +2294,7 @@ Months:
       foreignKeys:
       description: |
         Month name
+        
 NutrientValuesPerNutrientAndItem:
   namespace: params.food_table
   table: NTR_VALUE
@@ -2291,7 +2325,8 @@ NutrientValuesPerNutrientAndItem:
       foreignKeys:
       description: |
         Nutrient value for the attached item & nutrient
-MinimumAndMaximumValueForMacro-nutrient:
+        
+MacroNutrientLimit:
   namespace: params.setting
   table: NUTLIMIT
   description: |
@@ -2345,6 +2380,7 @@ MinimumAndMaximumValueForMacro-nutrient:
       foreignKeys:
       description: |
         PAL value
+        
 NutrientListAndDefinition:
   namespace: params.food_table
   table: NUTRIENT
@@ -2391,7 +2427,8 @@ NutrientListAndDefinition:
       foreignKeys:
       description: |
         Comment on nutrient
-SelectedParameters:
+        
+SelectedParameter:
   namespace: params.setting
   table: PARAM
   description: |
@@ -2413,6 +2450,7 @@ SelectedParameters:
       foreignKeys:
       description: |
         Parameter value
+        
 SelectedParametersForDataEntry:
   namespace: params.setting
   table: PARAMDE
@@ -2435,6 +2473,7 @@ SelectedParametersForDataEntry:
       foreignKeys:
       description: |
         Parameter value for data entry
+        
 PlaceOfConsumptionOccasion:
   namespace: params.general_info
   table: POC
@@ -2465,7 +2504,8 @@ PlaceOfConsumptionOccasion:
       foreignKeys:
       description: |
         0=not a 'Other' place 1='Other' place
-ProbingQuestionsPathwaysForFoods:
+        
+ProbingQuestionsPathwaysForFood:
   namespace: params.food_probing
   table: PQPATH
   description: |
@@ -2516,6 +2556,7 @@ ProbingQuestionsPathwaysForFoods:
         foods.foodnum
       description: |
         Food identification number (FOODNUM)
+        
 ProbingQuestions:
   namespace: params.probing
   table: PROBQUE
@@ -2538,7 +2579,8 @@ ProbingQuestions:
       foreignKeys:
       description: |
         Probing question label
-QuantificationMethodsPathwayForIndividualFoods:
+        
+QuantificationMethodsPathwayForIndividualFood:
   namespace: params.food_quantif.
   table: QM_FOODS
   description: |
@@ -2571,7 +2613,8 @@ QuantificationMethodsPathwayForIndividualFoods:
         m_shapes.sh_code
       description: |
         Photo code (if method=’P’ and 'A'); either M_photos.ph_code or M_shapes.sh_code
-QuantificationMethodsPathwayForFoodGroups/subgroups:
+        
+QuantificationMethodsPathwayForFoodGroup:
   namespace: params.food_quantif.
   table: QM_GROUP
   description: |
@@ -2648,7 +2691,8 @@ QuantificationMethodsPathwayForFoodGroups/subgroups:
       foreignKeys:
       description: |
         Comment
-QuantificationMethodsPathwayForRecipeGroup/subgroups:
+        
+QuantificationMethodsPathwayForRecipeGroup:
   namespace: params.recipe_quantif.
   table: QM_RCLAS
   description: |
@@ -2689,7 +2733,8 @@ QuantificationMethodsPathwayForRecipeGroup/subgroups:
       foreignKeys:
       description: |
         Comment
-QuantificationMethodsPathwayForRecipes:
+        
+QuantificationMethodPathwayForRecipes:
   namespace: params.recipe_quantif.
   table: QM_RECIP
   description: |
@@ -2722,6 +2767,7 @@ QuantificationMethodsPathwayForRecipes:
         m_shapes.sh_code
       description: |
         Photo code (if method=’P’ and 'A'); either M_photos.ph_code or M_shapes.sh_code
+        
 BrandnameListForMixedRecipes:
   namespace: params.recipe_description
   table: R_BRAND
@@ -2828,7 +2874,8 @@ CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor:
       foreignKeys:
       description: |
         Order to displayed the descriptors within a group/subgroup and a facet
-ExceptionsForSomeRecipesToTheFacets/DescriptorsPathway:
+        
+ExceptionsForSomeRecipesToTheFacetsPathway:
   namespace: params.recipe_description
   table: R_RCPFAEX
   description: |
@@ -2901,6 +2948,7 @@ RawToCookedConversionFactorsForFoods:
       foreignKeys:
       description: |
         Priority order
+        
 DefinitionOfRecipePathway:
   namespace: params.setting
   table: RCP_PATH
@@ -2964,6 +3012,7 @@ DefinitionOfRecipePathway:
         0 = No display of note window 
         1 = Display of note window 
         2 = Display of note window only for Add & Delete functions
+        
 RecipeGroup:
   namespace: params.classification
   table: RGROUPS
@@ -2994,6 +3043,7 @@ RecipeGroup:
       foreignKeys:
       description: |
         Short Name of the Recipe group
+        
 ProbingQuestionPathwayForRecipes:
   namespace: params.recipe_probing
   table: RPQPATH
@@ -3036,6 +3086,7 @@ ProbingQuestionPathwayForRecipes:
         mixedrec.r_idnum
       description: |
         Recipe identification number (R_ IDNUM)
+        
 RecipeGroupOrSubgroup:
   namespace: params.classification
   table: RSUBGR
@@ -3075,6 +3126,7 @@ RecipeGroupOrSubgroup:
       foreignKeys:
       description: |
         Short Name of the recipe (sub-)group
+        
 SpecialDayPredefinedAnswer:
   namespace: params.general_info
   table: SPECDAY
@@ -3097,6 +3149,7 @@ SpecialDayPredefinedAnswer:
       foreignKeys:
       description: |
         Special day label
+        
 SpecialDietPredefinedAnswer:
   namespace: params.general_info
   table: SPECDIET
@@ -3119,6 +3172,7 @@ SpecialDietPredefinedAnswer:
       foreignKeys:
       description: |
         Special diet label
+        
 PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
   namespace: params.food_coefficient
   table: SPFACOOK
@@ -3205,6 +3259,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
       foreignKeys:
       description: |
         Percentage of fat
+        
 PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
   namespace: params.recipe_coefficient
   table: SPFACORE
@@ -3282,6 +3337,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
       foreignKeys:
       description: |
         Percentage of fat
+        
 PercentOfFatUseDuringCookingAttachedToAFood:
   namespace: params.food_coefficient
   table: SPFDCOOK
@@ -3378,6 +3434,7 @@ PercentOfFatUseDuringCookingAttachedToAFood:
       foreignKeys:
       description: |
         Percentage of fat absorbed during cooking
+        
 NoteStatus:
   namespace: params.setting
   table: STATUS
@@ -3410,6 +3467,7 @@ NoteStatus:
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 
         1=Yes hide (e.g. 1=hide for status “action done”)
+        
 FoodGroupOrSubgroup:
   namespace: params.classification
   table: SUBGROUP
@@ -3483,6 +3541,7 @@ FoodGroupOrSubgroup:
       foreignKeys:
       description: |
         Short Name of the food (sub-)(sub-)group
+        
 SubjectToBeInterviewed:
   namespace: params.subject
   table: SUBJECTS
@@ -3611,7 +3670,8 @@ SubjectToBeInterviewed:
       foreignKeys:
       description: |
         Recall Date (mm/dd/yy)
-Group/subgroupThatCanBeSubstitutable:
+        
+GroupOrSubgroupThatCanBeSubstitutable:
   namespace: params.setting
   table: SUBSTIT
   description: |
@@ -3668,6 +3728,7 @@ Group/subgroupThatCanBeSubstitutable:
       foreignKeys:
       description: |
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
+        
 DietarySupplementList:
   namespace: params.supplement_list
   table: SUPPLEMENTS
@@ -3716,6 +3777,7 @@ DietarySupplementList:
         ds_facet.dsfacet_code
       description: |
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
+        
 ListOfThicknessForShapeMethod:
   namespace: params.quant
   table: THICKNESS

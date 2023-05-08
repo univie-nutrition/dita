@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.squareup.javapoet.TypeName;
+
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.base._Text;
@@ -105,6 +107,9 @@ public class OrmModel {
                     (Boolean)map.get("unique"),
                     parseMultilineString((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
+        }
+        public TypeName asJavaType() {
+            return _TypeMapping.dbToJava(columnType());
         }
     }
 

@@ -47,7 +47,7 @@ public class OrmEntityWriterUtils {
         modelStream
         .forEach(javaModel->{
 
-                final String className = javaModel.name().canonicalName();
+                final String className = javaModel.className().canonicalName();
 
                 System.err.println("=================================");
                 System.err.println("writing: " + className);
