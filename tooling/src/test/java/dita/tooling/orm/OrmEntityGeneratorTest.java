@@ -20,24 +20,22 @@ package dita.tooling.orm;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import lombok.val;
 
-class OrmSchemaUtilsTest {
+class OrmEntityGeneratorTest {
 
     @Test
-    void test() {
+    void entityGen() {
+        val schema = OrmModel.sample();
 
-        val schema = OrmSchemaUtils.sample();
-        val yaml = schema.toYaml();
+        val entityGen = new OrmEntityGenerator(schema);
 
-        //debug
-        //System.err.printf("%s%n", yaml);
+        //val dest = FileUtils.tempDir("dita-tmp");
 
-        assertEquals(
-                schema,
-                OrmSchemaUtils.Schema.fromYaml(yaml));
-
+        entityGen.streamAsJavaModels("samples")
+            .forEach(sample->{
+                System.err.println("---------------------------------------");
+                System.err.printf("%s%n", sample.buildJavaFile().toString());
+            });
     }
 }

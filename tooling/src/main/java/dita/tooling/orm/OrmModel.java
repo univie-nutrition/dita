@@ -38,7 +38,7 @@ import lombok.experimental.UtilityClass;
  * Read and write schema model from and to YAML format.
  */
 @UtilityClass
-public class OrmSchemaUtils {
+public class OrmModel {
 
     public record Entity(
             String name,
@@ -72,6 +72,7 @@ public class OrmSchemaUtils {
             return yaml.toString();
         }
 
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         static Entity parse(final Map.Entry<String, Map> entry) {
             val map = entry.getValue();
             val fieldsAsMap = (Map<String, Map>)map.get("fields");
@@ -94,6 +95,7 @@ public class OrmSchemaUtils {
             boolean unique,
             List<String> foreignKeys,
             List<String> description) {
+        @SuppressWarnings("rawtypes")
         static Field parse(final Map.Entry<String, Map> entry) {
             val map = entry.getValue();
             return new Field(entry.getKey(),
@@ -108,14 +110,15 @@ public class OrmSchemaUtils {
 
     public record Schema(Map<String, Entity> entities) {
         public static Schema of(final Iterable<Entity> entities) {
-            val schema = new Schema(new LinkedHashMap<String, OrmSchemaUtils.Entity>());
+            val schema = new Schema(new LinkedHashMap<String, OrmModel.Entity>());
             for(val entity: entities) {
                 schema.entities().put(entity.name(), entity);
             }
             return schema;
         }
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         public static Schema fromYaml(final String yaml) {
-            val entities = new LinkedHashMap<String, OrmSchemaUtils.Entity>();
+            val entities = new LinkedHashMap<String, OrmModel.Entity>();
             YamlUtils.tryRead(Map.class, yaml)
             .ifFailureFail()
             .getValue()

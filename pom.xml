@@ -139,6 +139,12 @@
 				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
 			
+			<dependency>
+				<groupId>at.ac.univie.nutrition.dita</groupId>
+				<artifactId>dita-tooling</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			
 			<!-- MEASURE API -->
 
 			<dependency>

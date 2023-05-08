@@ -25,5 +25,14 @@
 	<description>
 		Globodiet DB Schema.
 	</description>
+	
+	<dependencies>
+		
+		<dependency>
+			<groupId>at.ac.univie.nutrition.dita</groupId>
+			<artifactId>dita-tooling</artifactId>
+		</dependency>
+		
+	</dependencies>
     
 </project>
