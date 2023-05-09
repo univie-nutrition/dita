@@ -21,7 +21,7 @@ package dita.globodiet.schema;
 import java.io.File;
 
 import org.apache.causeway.commons.functional.Try;
-import org.apache.causeway.commons.internal.resources._Resources;
+import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 
 import dita.tooling.orm.OrmEntityGenerator;
@@ -40,17 +40,24 @@ public class GdEntityGen {
         final File destDir = new File(args[0]);
         FileUtils.existingDirectoryElseFail(destDir);
 
-        val yaml = Try.call(()->_Resources.loadAsStringUtf8(GdEntityGen.class, "/gd-params.schema.yaml"))
-                .valueAsNonNullElseFail();
+        val yaml = DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+            .tryReadAsStringUtf8()
+            .valueAsNonNullElseFail();
 
         val schema = OrmModel.Schema.fromYaml(yaml);
 
         val entityGen = new OrmEntityGenerator(schema);
         entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.dom.entities.")
             .forEach(model->{
-                //TODO actually write to file
-                System.err.println("---------------------------------------");
-                System.err.printf("%s%n", model.buildJavaFile().toString());
+
+                val javaFile = model.buildJavaFile();
+
+                System.err.printf("----%s-----------------------------------%n", model.typeSpec().name);
+                System.err.printf("%s%n", javaFile.toString());
+
+                Try.run(()->javaFile.writeToFile(destDir))
+                    .ifFailureFail();
+
             });
 
         System.out.println("done.");

@@ -34,6 +34,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Annotations {
 
+    private final static String FIRST_ARG_DOUBLE_QUOTED = "\"$1L\"";
+
     // -- LOMBOK
 
     AnnotationSpec getter() {
@@ -52,7 +54,7 @@ class _Annotations {
      */
     AnnotationSpec named(final String logicalTypeName) {
         return AnnotationSpec.builder(Named.class)
-                .addMember("value", "$1L", logicalTypeName)
+                .addMember("value", FIRST_ARG_DOUBLE_QUOTED, logicalTypeName)
                 .build();
     }
 
@@ -71,7 +73,7 @@ class _Annotations {
      */
     AnnotationSpec propertyLayout(final String describedAs) {
         return AnnotationSpec.builder(PropertyLayout.class)
-                .addMember("describedAs", "\"$1L\"", describedAs)
+                .addMember("describedAs", FIRST_ARG_DOUBLE_QUOTED, describedAs)
                 .build();
     }
 
@@ -85,7 +87,7 @@ class _Annotations {
     AnnotationSpec datastoreIdentity() {
         return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "DatastoreIdentity"))
                 .addMember("strategy", "$1L", "javax.jdo.annotations.IdGeneratorStrategy.IDENTITY")
-                .addMember("column", "$1L", "id")
+                .addMember("column", FIRST_ARG_DOUBLE_QUOTED, "id")
                 .build();
     }
     /**
@@ -99,8 +101,8 @@ class _Annotations {
             final int maxLength) {
         val annotBuilder = AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Column"));
         _Strings.nonEmpty(_Strings.trim(columnName))
-            .ifPresent(name->annotBuilder.addMember("name", "$1L", name));
-        annotBuilder.addMember("allowsNull", "$1L", "" + allowsNull);
+            .ifPresent(name->annotBuilder.addMember("name", FIRST_ARG_DOUBLE_QUOTED, name));
+        annotBuilder.addMember("allowsNull", FIRST_ARG_DOUBLE_QUOTED, "" + allowsNull);
         if(maxLength>0) {
             annotBuilder.addMember("length", "$1L", maxLength);
         }
