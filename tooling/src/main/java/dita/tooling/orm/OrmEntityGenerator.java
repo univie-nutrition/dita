@@ -102,12 +102,24 @@ public record OrmEntityGenerator(@NonNull OrmModel.Schema schema) {
         return fields.stream()
                 .map(field->
                         FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
+                            .addJavadoc(formatDescription(field, "<br>\n"))
                             .addAnnotation(_Annotations.property())
-                            .addAnnotation(_Annotations.column(field.required(), field.maxLength()))
+                            .addAnnotation(_Annotations.propertyLayout(formatDescription(field, "\"\n+ \" ")))
+                            .addAnnotation(_Annotations.column(field.column(), field.required(), field.maxLength()))
                             .addAnnotation(_Annotations.getter())
                             .addAnnotation(_Annotations.setter())
                             .build())
                 .collect(Collectors.toList());
+    }
+
+    private static String formatDescription(final OrmModel.Field field, final String continuation) {
+        if(field.isDescriptionBlank()) {
+            return "has no description";
+        }
+        return field.description()
+                .stream()
+                .map(String::trim)
+                .collect(Collectors.joining(continuation));
     }
 
 }

@@ -119,6 +119,11 @@ public class OrmModel {
                 .getValue();
             return _Ints.parseInt(lengthLiteralOrColumnType, 10).orElse(-1);
         }
+        public boolean isDescriptionBlank() {
+            return _NullSafe.size(description())==0
+                ? true
+                : _Strings.isNullOrEmpty(description().stream().collect(Collectors.joining("")).trim());
+        }
     }
 
     public record Schema(Map<String, Entity> entities) {

@@ -25,6 +25,8 @@ import com.squareup.javapoet.ClassName;
 
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.Property;
+import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -64,6 +66,14 @@ class _Annotations {
         return AnnotationSpec.builder(Property.class)
                 .build();
     }
+    /**
+     * @param describedAs - property description
+     */
+    AnnotationSpec propertyLayout(final String describedAs) {
+        return AnnotationSpec.builder(PropertyLayout.class)
+                .addMember("describedAs", "\"$1L\"", describedAs)
+                .build();
+    }
 
     // -- JDO
 
@@ -79,12 +89,18 @@ class _Annotations {
                 .build();
     }
     /**
+     * @param columnName - name of the db column, if null or empty uses default name
      * @param allowsNull - whether null is allowed as database value for this column
      * @param maxLength - ignored if less than one
      */
-    AnnotationSpec column(final boolean allowsNull, final int maxLength) {
-        val annotBuilder = AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Column"))
-                .addMember("allowsNull", "$1L", "" + allowsNull);
+    AnnotationSpec column(
+            final String columnName,
+            final boolean allowsNull,
+            final int maxLength) {
+        val annotBuilder = AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Column"));
+        _Strings.nonEmpty(_Strings.trim(columnName))
+            .ifPresent(name->annotBuilder.addMember("name", "$1L", name));
+        annotBuilder.addMember("allowsNull", "$1L", "" + allowsNull);
         if(maxLength>0) {
             annotBuilder.addMember("length", "$1L", maxLength);
         }
