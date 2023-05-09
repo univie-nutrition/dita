@@ -1345,7 +1345,7 @@ FoodOrRecipeOrAttachment:
         Comment
         
 HouseholdMeasure:
-  namespace: params.quant
+  namespace: params.quantif
   table: M_HHM
   description: |
     Household Measure
@@ -1393,7 +1393,7 @@ HouseholdMeasure:
         Order to display the HouseholdMeasure
         
 PhotoForQuantity:
-  namespace: params.quant
+  namespace: params.quantif
   table: M_PHOTOS
   description: |
     Photo and its quantities
@@ -1440,7 +1440,7 @@ PhotoForQuantity:
         G = in grams, V = in ml (volume)
         
 Shape:
-  namespace: params.quant
+  namespace: params.quantif
   table: M_SHAPES
   description: |
     Shape
@@ -3804,7 +3804,7 @@ DietarySupplementList:
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
         
 ListOfThicknessForShapeMethod:
-  namespace: params.quant
+  namespace: params.quantif
   table: THICKNESS
   description: |
     list of thickness for shape method

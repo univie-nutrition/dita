@@ -50,7 +50,7 @@ public class GdEntityGen {
         val entityGen = new OrmEntityGenerator(schema);
 
         OrmEntityWriterUtils.writeToDirectory(
-                entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.dom.entities.", LicenseHeader.ASF_V2),
+                entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.entities.", LicenseHeader.ASF_V2),
                 destDir);
 
         System.out.println("done.");
