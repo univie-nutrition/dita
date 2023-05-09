@@ -25,17 +25,12 @@ import java.util.stream.Stream;
 
 import javax.lang.model.element.Modifier;
 
-import jakarta.inject.Named;
-
-import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 
 import org.springframework.util.ReflectionUtils;
-
-import org.apache.causeway.applib.annotation.DomainObject;
 
 import lombok.NonNull;
 import lombok.val;
@@ -89,10 +84,10 @@ public record OrmEntityGenerator(@NonNull OrmModel.Schema schema) {
     private TypeSpec classModel(final String logicalNameSpace, final OrmModel.Entity entityModel) {
 
         val typeModelBuilder = TypeSpec.classBuilder(entityModel.name())
-                .addAnnotation(annotNamed(logicalNameSpace + "." + entityModel.name()))
-                .addAnnotation(annotDomainObject())
-                .addAnnotation(annotPersistenceCapable())
-                .addAnnotation(annotDatastoreIdentity())
+                .addAnnotation(_Annotations.named(logicalNameSpace + "." + entityModel.name()))
+                .addAnnotation(_Annotations.domainObject())
+                .addAnnotation(_Annotations.persistenceCapable())
+                .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)
                 //.addSuperinterfaces(asClassNames(t.getInterfaces()))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
@@ -101,32 +96,16 @@ public record OrmEntityGenerator(@NonNull OrmModel.Schema schema) {
         return typeModelBuilder.build();
     }
 
-    private AnnotationSpec annotNamed(final String logicalTypeName) {
-        return AnnotationSpec.builder(Named.class)
-                .addMember("value", "$1L", logicalTypeName)
-                .build();
-    }
-    private AnnotationSpec annotDomainObject() {
-        return AnnotationSpec.builder(DomainObject.class)
-                .build();
-    }
-    private AnnotationSpec annotPersistenceCapable() {
-        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "PersistenceCapable"))
-                .build();
-    }
-    private AnnotationSpec annotDatastoreIdentity() {
-        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "DatastoreIdentity"))
-                .addMember("strategy", "$1L", "javax.jdo.annotations.IdGeneratorStrategy.IDENTITY")
-                .addMember("column", "$1L", "id")
-                .build();
-    }
-
     private Iterable<FieldSpec> asFields(
             final List<OrmModel.Field> fields,
             final Modifier ... modifiers) {
         return fields.stream()
                 .map(field->
                         FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
+                            .addAnnotation(_Annotations.property())
+                            .addAnnotation(_Annotations.column(field.required(), field.maxLength()))
+                            .addAnnotation(_Annotations.getter())
+                            .addAnnotation(_Annotations.setter())
                             .build())
                 .collect(Collectors.toList());
     }

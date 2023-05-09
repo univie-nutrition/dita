@@ -29,7 +29,8 @@ import com.squareup.javapoet.TypeName;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
-import org.apache.causeway.commons.internal.base._Text;
+import org.apache.causeway.commons.internal.primitives._Ints;
+import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.SneakyThrows;
@@ -111,6 +112,13 @@ public class OrmModel {
         public TypeName asJavaType() {
             return _TypeMapping.dbToJava(columnType());
         }
+        public int maxLength() {
+            val lengthLiteralOrColumnType = TextUtils.cutter(columnType())
+                .keepAfter("(")
+                .keepBeforeLast(")")
+                .getValue();
+            return _Ints.parseInt(lengthLiteralOrColumnType, 10).orElse(-1);
+        }
     }
 
     public record Schema(Map<String, Entity> entities) {
@@ -144,7 +152,7 @@ public class OrmModel {
         }
         @SneakyThrows
         public void writeToFileAsYaml(final File file) {
-            _Text.writeLinesToFile(List.of(toYaml()), file, StandardCharsets.UTF_8);
+            TextUtils.writeLinesToFile(List.of(toYaml()), file, StandardCharsets.UTF_8);
         }
     }
 
