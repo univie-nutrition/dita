@@ -20,10 +20,14 @@ package dita.tooling.orm;
 
 import jakarta.inject.Named;
 
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
+import org.springframework.javapoet.AnnotationSpec;
+import org.springframework.javapoet.ClassName;
+
+//import com.squareup.javapoet.AnnotationSpec;
+//import com.squareup.javapoet.ClassName;
 
 import org.apache.causeway.applib.annotation.DomainObject;
+import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -34,8 +38,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Annotations {
 
-    private final static String FIRST_ARG_DOUBLE_QUOTED = "\"$1L\"";
-
+    private final static String FIRST_ARG_DOUBLE_QUOTED = "$1S";
     // -- LOMBOK
 
     AnnotationSpec getter() {
@@ -62,6 +65,14 @@ class _Annotations {
 
     AnnotationSpec domainObject() {
         return AnnotationSpec.builder(DomainObject.class)
+                .build();
+    }
+    /**
+     * @param describedAs - entity description
+     */
+    AnnotationSpec domainObjectLayout(final String describedAs) {
+        return AnnotationSpec.builder(DomainObjectLayout.class)
+                .addMember("describedAs", FIRST_ARG_DOUBLE_QUOTED, describedAs)
                 .build();
     }
     AnnotationSpec property() {

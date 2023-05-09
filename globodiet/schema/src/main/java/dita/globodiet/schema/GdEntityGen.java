@@ -20,11 +20,12 @@ package dita.globodiet.schema;
 
 import java.io.File;
 
-import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 
+import dita.tooling.orm.LicenseHeader;
 import dita.tooling.orm.OrmEntityGenerator;
+import dita.tooling.orm.OrmEntityWriterUtils;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
 
@@ -47,18 +48,10 @@ public class GdEntityGen {
         val schema = OrmModel.Schema.fromYaml(yaml);
 
         val entityGen = new OrmEntityGenerator(schema);
-        entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.dom.entities.")
-            .forEach(model->{
 
-                val javaFile = model.buildJavaFile();
-
-                System.err.printf("----%s-----------------------------------%n", model.typeSpec().name);
-                System.err.printf("%s%n", javaFile.toString());
-
-                Try.run(()->javaFile.writeToFile(destDir))
-                    .ifFailureFail();
-
-            });
+        OrmEntityWriterUtils.writeToDirectory(
+                entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.dom.entities.", LicenseHeader.ASF_V2),
+                destDir);
 
         System.out.println("done.");
 

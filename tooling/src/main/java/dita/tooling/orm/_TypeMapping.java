@@ -18,8 +18,8 @@
  */
 package dita.tooling.orm;
 
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.TypeName;
+import org.springframework.javapoet.ClassName;
+import org.springframework.javapoet.TypeName;
 
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 

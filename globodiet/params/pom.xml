@@ -16,32 +16,33 @@
 	
 	<parent>
 		<groupId>at.ac.univie.nutrition.dita</groupId>
-		<artifactId>dita-bom</artifactId>
+		<artifactId>dita-globodiet</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>dita-tooling</artifactId>
-	<name>Dita - Tooling</name>
+	<artifactId>dita-globodiet-params</artifactId>
+	<name>Dita - Globodiet Prameters</name>
 	<description>
-		Dita Tooling library, docs and meta-programming.
+		Globodiet Prameters.
 	</description>
-
-	<properties>
-		<jar-plugin.automaticModuleName>at.ac.univie.nutrition.dita.tooling</jar-plugin.automaticModuleName>
-		<git-plugin.propertiesDir>at/ac/univie/nutrition/dita/tooling</git-plugin.propertiesDir>
-	</properties>
 	
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>at.ac.univie.nutrition.dita</groupId>
 			<artifactId>dita-commons</artifactId>
 		</dependency>
-
+		
 		<dependency>
-		    <groupId>org.apache.causeway.core</groupId>
-		    <artifactId>causeway-applib</artifactId>
+			<groupId>org.apache.causeway.core</groupId>
+			<artifactId>causeway-applib</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.causeway.persistence</groupId>
+			<artifactId>causeway-persistence-jdo-applib</artifactId>
+		</dependency>
+		
 	</dependencies>
     
 </project>

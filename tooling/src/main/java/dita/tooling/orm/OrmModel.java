@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.squareup.javapoet.TypeName;
+import org.springframework.javapoet.TypeName;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -49,7 +49,19 @@ public class OrmModel {
             String table,
             List<String> description,
             List<Field> fields) {
-
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        static Entity parse(final Map.Entry<String, Map> entry) {
+            val map = entry.getValue();
+            val fieldsAsMap = (Map<String, Map>)map.get("fields");
+            val fields = fieldsAsMap.entrySet().stream()
+                    .map(Field::parse)
+                    .collect(Collectors.toList());
+            return new Entity(entry.getKey(),
+                    (String)map.get("namespace"),
+                    (String)map.get("table"),
+                    parseMultilineString((String)map.get("description")),
+                    fields);
+        }
         String toYaml() {
             val yaml = new YamlWriter();
             yaml.write(name, ":").nl();
@@ -74,19 +86,14 @@ public class OrmModel {
             });
             return yaml.toString();
         }
-
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        static Entity parse(final Map.Entry<String, Map> entry) {
-            val map = entry.getValue();
-            val fieldsAsMap = (Map<String, Map>)map.get("fields");
-            val fields = fieldsAsMap.entrySet().stream()
-                    .map(Field::parse)
-                    .collect(Collectors.toList());
-            return new Entity(entry.getKey(),
-                    (String)map.get("namespace"),
-                    (String)map.get("table"),
-                    parseMultilineString((String)map.get("description")),
-                    fields);
+        public String formatDescription(final String continuation) {
+            if(isMultilineStringBlank(description)) {
+                return "has no description";
+            }
+            return description()
+                    .stream()
+                    .map(String::trim)
+                    .collect(Collectors.joining(continuation));
         }
     }
 
@@ -119,10 +126,14 @@ public class OrmModel {
                 .getValue();
             return _Ints.parseInt(lengthLiteralOrColumnType, 10).orElse(-1);
         }
-        public boolean isDescriptionBlank() {
-            return _NullSafe.size(description())==0
-                ? true
-                : _Strings.isNullOrEmpty(description().stream().collect(Collectors.joining("")).trim());
+        public String formatDescription(final String continuation) {
+            if(isMultilineStringBlank(description)) {
+                return "has no description";
+            }
+            return description()
+                    .stream()
+                    .map(String::trim)
+                    .collect(Collectors.joining(continuation));
         }
     }
 
@@ -198,5 +209,12 @@ public class OrmModel {
             .filter(_Strings::isNotEmpty)
             .collect(Collectors.toList());
     }
+
+    public boolean isMultilineStringBlank(final List<String> lines) {
+        return _NullSafe.size(lines)==0
+            ? true
+            : _Strings.isNullOrEmpty(lines.stream().collect(Collectors.joining("")).trim());
+    }
+
 
 }

@@ -20,16 +20,26 @@ package dita.tooling.orm;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.stream.Stream;
 
+import org.springframework.javapoet.JavaFile;
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.FileUtils;
+import org.apache.causeway.commons.io.TextUtils;
 
 import dita.tooling.orm.OrmEntityGenerator.JavaModel;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -48,21 +58,57 @@ public class OrmEntityWriterUtils {
         .forEach(javaModel->{
 
                 final String className = javaModel.className().canonicalName();
-
-                System.err.println("=================================");
-                System.err.println("writing: " + className);
-                System.err.println("=================================");
-
-                val destFile = new File(destDir, className);
                 val javaFile = javaModel.buildJavaFile();
 
+                System.err.printf("------%s----%n", className);
+                System.err.printf("%s%n", javaFile.toString());
+
                 try {
-                    javaFile.writeTo(destFile.toPath(), StandardCharsets.UTF_8);
+                    writeToPath(javaFile, destDir.toPath(), javaModel.licenseHeader());
                 } catch (IOException e) {
-                    throw _Exceptions.unrecoverable(e, "failed to write java file %s", destFile);
+                    throw _Exceptions.unrecoverable(e, "failed to write java file %s", className);
                 }
         });
 
+    }
+
+    /**
+     * Workaround the fact, that JavaPoet has no support for multi-line file comments. (at the time of writing)
+     * <p>
+     * Writes this to {@code directory} with the provided {@code charset} using the standard directory
+     * structure.
+     * Returns the {@link Path} instance to which source is actually written.
+     * @see JavaFile#writeToPath(Path, Charset)
+     */
+    private Path writeToPath(final JavaFile javaFile, final Path directory, final LicenseHeader licenseHeader) throws IOException {
+        _Assert.assertTrue(Files.notExists(directory) || Files.isDirectory(directory),
+                ()->String.format("path %s exists but is not a directory.", directory));
+        Path outputDirectory = directory;
+        if (!javaFile.packageName.isEmpty()) {
+            for (String packageComponent : javaFile.packageName.split("\\.")) {
+                outputDirectory = outputDirectory.resolve(packageComponent);
+            }
+            Files.createDirectories(outputDirectory);
+        }
+
+        final Path outputPath = outputDirectory.resolve(javaFile.typeSpec.name + ".java");
+        try (Writer writer = new OutputStreamWriter(Files.newOutputStream(outputPath), StandardCharsets.UTF_8)) {
+            _Strings.nonEmpty(licenseHeader.text())
+                .ifPresent(licenseText->writeMultilineComment(writer, licenseText));
+            javaFile.writeTo(writer);
+        }
+        return outputPath;
+    }
+
+    @SneakyThrows
+    private void writeMultilineComment(final Writer writer, final String text) {
+        writer.write("/*\n");
+        for(val line : TextUtils.readLines(text)) {
+            writer.write(" * ");
+            writer.write(line);
+            writer.write("\n");
+        }
+        writer.write(" */\n");
     }
 
 }

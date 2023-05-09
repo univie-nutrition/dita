@@ -32,7 +32,7 @@ class OrmEntityGeneratorTest {
 
         //val dest = FileUtils.tempDir("dita-tmp");
 
-        entityGen.streamAsJavaModels("test.", "test.samples.")
+        entityGen.streamAsJavaModels("test.", "test.samples.", LicenseHeader.ASF_V2)
             .forEach(sample->{
                 System.err.println("---------------------------------------");
                 System.err.printf("%s%n", sample.buildJavaFile().toString());

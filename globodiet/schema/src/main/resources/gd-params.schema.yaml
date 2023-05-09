@@ -81,7 +81,7 @@ AverageForAnthropometricValues:
         Default value of height or weight
         
 BrandName:
-  namespace: params.food_descript.
+  namespace: params.food_descript
   table: BRANDNAM
   description: |
     Brand names are used in the food description phase
@@ -330,7 +330,7 @@ DensityFactorForFood:
         2 = density for recipe
         
 ImprobableSequencesOfFacetsAndDescriptors:
-  namespace: params.food_descript.
+  namespace: params.food_descript
   table: DESC_IMP
   description: |
     Improbable sequence of facets/descriptors
@@ -962,7 +962,7 @@ FoodConsumptionOccasion:
         0=non main FCO
         
 ExceptionForSomeFoodToTheFacetDescriptorPathway:
-  namespace: params.food_descript.
+  namespace: params.food_descript
   table: FOODFAEX
   description: |
     Exception for some food to the Facets/Descriptors pathway
@@ -1086,7 +1086,7 @@ FoodOrProductOrAlias:
         0=food 1=food & dietary supplement
         
 CrossReferenceBetweenFoodAndFacet:
-  namespace: params.food_descript.
+  namespace: params.food_descript
   table: GROUPFAC
   description: |
     Cross reference between Food (sub)group and Facet/Descriptor (default pathway)
@@ -1479,7 +1479,7 @@ Shape:
         Order to display the standard unit
         
 FoodStandardUnitsAndPortionsForFoods:
-  namespace: params.food_quantif.
+  namespace: params.food_quantif
   table: M_STDPOR
   description: |
     food standard units and portions for foods
@@ -1551,7 +1551,7 @@ FoodStandardUnitsAndPortionsForFoods:
         Order to display the standard portion
         
 FoodStandardUnitsAndPortionsForFoodsAndRecipes:
-  namespace: params.quantif.
+  namespace: params.quantif
   table: M_STDUTS
   description: |
     food standard units and portions for foods and recipes
@@ -1756,7 +1756,7 @@ MixedRecipeIngredient:
         mixedrec.r_idnum
       description: |
         Recipe ID number the ingredient belongs to
-    ingr.Substitutable:
+    ingredientSubstitutable:
       column: ING_TYPE
       column-type: nvarchar(2)
       required: false
@@ -2585,7 +2585,7 @@ ProbingQuestions:
         Probing question label
         
 QuantificationMethodsPathwayForIndividualFood:
-  namespace: params.food_quantif.
+  namespace: params.food_quantif
   table: QM_FOODS
   description: |
     Quantification methods pathway for individual foods
@@ -2624,7 +2624,7 @@ QuantificationMethodsPathwayForIndividualFood:
         either M_photos.ph_code or M_shapes.sh_code
         
 QuantificationMethodsPathwayForFoodGroup:
-  namespace: params.food_quantif.
+  namespace: params.food_quantif
   table: QM_GROUP
   description: |
     Quantification methods pathway for food groups/subgroups
@@ -2708,7 +2708,7 @@ QuantificationMethodsPathwayForFoodGroup:
         Comment
         
 QuantificationMethodsPathwayForRecipeGroup:
-  namespace: params.recipe_quantif.
+  namespace: params.recipe_quantif
   table: QM_RCLAS
   description: |
     Quantification methods pathway for recipe group/subgroups
@@ -2755,7 +2755,7 @@ QuantificationMethodsPathwayForRecipeGroup:
         Comment
         
 QuantificationMethodPathwayForRecipes:
-  namespace: params.recipe_quantif.
+  namespace: params.recipe_quantif
   table: QM_RECIP
   description: |
     Quantification methods pathway for recipes
