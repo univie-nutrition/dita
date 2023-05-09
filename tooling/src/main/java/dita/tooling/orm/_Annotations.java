@@ -23,9 +23,6 @@ import jakarta.inject.Named;
 import org.springframework.javapoet.AnnotationSpec;
 import org.springframework.javapoet.ClassName;
 
-//import com.squareup.javapoet.AnnotationSpec;
-//import com.squareup.javapoet.ClassName;
-
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Property;

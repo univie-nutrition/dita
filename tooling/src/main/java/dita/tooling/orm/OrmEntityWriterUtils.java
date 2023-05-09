@@ -73,10 +73,9 @@ public class OrmEntityWriterUtils {
     }
 
     /**
-     * Workaround the fact, that JavaPoet has no support for multi-line file comments. (at the time of writing)
+     * Workaround the fact, that JavaPoet (at the time of writing) has no support for multi-line file comments.
      * <p>
-     * Writes this to {@code directory} with the provided {@code charset} using the standard directory
-     * structure.
+     * Writes this to {@code directory} using the standard directory structure.
      * Returns the {@link Path} instance to which source is actually written.
      * @see JavaFile#writeToPath(Path, Charset)
      */
