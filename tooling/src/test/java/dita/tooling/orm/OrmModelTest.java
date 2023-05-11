@@ -28,7 +28,7 @@ class OrmModelTest {
 
     @Test
     void yamlRoundTrip() {
-        val schema = OrmModel.sample();
+        val schema = OrmModel.examples().getElseFail(0);
         val yaml = schema.toYaml();
 
         assertEquals(

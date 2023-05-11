@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.tooling.orm;
+package dita.tooling.domgen;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,14 +37,14 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.TextUtils;
 
-import dita.tooling.orm.OrmEntityGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.JavaModel;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class OrmEntityWriterUtils {
+class _DomainWriter {
 
     public void writeToDirectory(final @Nullable Stream<JavaModel> modelStream, final @NonNull File destDir) {
 
@@ -60,8 +60,8 @@ public class OrmEntityWriterUtils {
                 final String className = javaModel.className().canonicalName();
                 val javaFile = javaModel.buildJavaFile();
 
-                System.err.printf("------%s----%n", className);
-                System.err.printf("%s%n", javaFile.toString());
+                System.out.printf("------%s----%n", className);
+                System.out.printf("%s%n", javaFile.toString());
 
                 try {
                     writeToPath(javaFile, destDir.toPath(), javaModel.licenseHeader());

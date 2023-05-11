@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.javapoet.TypeName;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.primitives._Ints;
@@ -172,6 +173,19 @@ public class OrmModel {
         }
     }
 
+    /**
+     * JUnit support.
+     */
+    public Can<Schema> examples() {
+        return Can.of(
+                Schema.of(List.of(
+                new Entity("FoodList", "dita", "FOODS", List.of("Food List and Aliases"),
+                        List.of(
+                                new Field("name", "NAME", "nvarchar(100)", true, false,
+                                        List.of("a.b", "c.d"), List.of("aa", "bb", "cc"))))
+                )));
+    }
+
     // -- HELPER
 
     private static class YamlWriter {
@@ -193,15 +207,6 @@ public class OrmModel {
             sb.append('\n');
             return this;
         }
-    }
-
-    Schema sample() {
-        return Schema.of(List.of(
-                new Entity("FoodList", "dita", "FOODS", List.of("Food List and Aliases"),
-                        List.of(
-                                new Field("name", "NAME", "nvarchar(100)", true, false,
-                                        List.of("a.b", "c.d"), List.of("aa", "bb", "cc"))))
-                ));
     }
 
     private static List<String> parseMultilineString(final String input) {

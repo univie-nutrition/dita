@@ -16,23 +16,31 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.tooling.orm;
+package dita.tooling.domgen;
 
 import org.junit.jupiter.api.Test;
 
+import dita.tooling.orm.OrmModel;
 import lombok.val;
 
 class OrmEntityGeneratorTest {
 
     @Test
     void entityGen() {
-        val schema = OrmModel.sample();
+        val schema = OrmModel.examples().getElseFail(0);
 
-        val entityGen = new OrmEntityGenerator(schema);
+        val config = DomainGenerator.Config.builder()
+                .logicalNamespacePrefix("test.logical")
+                .packageNamePrefix("test.actual")
+                .licenseHeader(LicenseHeader.ASF_V2)
+                .schema(schema)
+                .entitiesModulePackageName("mod")
+                .entitiesModuleClassSimpleName("MyEntitiesModule")
+                .build();
 
-        //val dest = FileUtils.tempDir("dita-tmp");
+        val entityGen = new DomainGenerator(config);
 
-        entityGen.streamAsJavaModels("test.", "test.samples.", LicenseHeader.ASF_V2)
+        entityGen.streamAsJavaModels()
             .forEach(sample->{
                 System.err.println("---------------------------------------");
                 System.err.printf("%s%n", sample.buildJavaFile().toString());

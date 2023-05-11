@@ -16,10 +16,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.tooling.orm;
+package dita.tooling.domgen;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Named;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.javapoet.AnnotationSpec;
 import org.springframework.javapoet.ClassName;
 
@@ -35,7 +40,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Annotations {
 
-    private final static String FIRST_ARG_DOUBLE_QUOTED = "$1S";
     // -- LOMBOK
 
     AnnotationSpec getter() {
@@ -54,7 +58,24 @@ class _Annotations {
      */
     AnnotationSpec named(final String logicalTypeName) {
         return AnnotationSpec.builder(Named.class)
-                .addMember("value", FIRST_ARG_DOUBLE_QUOTED, logicalTypeName)
+                .addMember("value", "$1S", logicalTypeName)
+                .build();
+    }
+
+    // -- SPRING
+
+    AnnotationSpec configuration() {
+        return AnnotationSpec.builder(Configuration.class)
+                .build();
+    }
+    AnnotationSpec imports(final Collection<ClassName> imports) {
+
+        final String entityImportsLiteral = imports.stream()
+            .map(_import->String.format("    %s.class", _import.canonicalName()))
+            .collect(Collectors.joining(",\n"));
+
+        return AnnotationSpec.builder(Import.class)
+                .addMember("value", "{\n    // Entities\n$1L\n}", entityImportsLiteral)
                 .build();
     }
 
@@ -69,7 +90,7 @@ class _Annotations {
      */
     AnnotationSpec domainObjectLayout(final String describedAs) {
         return AnnotationSpec.builder(DomainObjectLayout.class)
-                .addMember("describedAs", FIRST_ARG_DOUBLE_QUOTED, describedAs)
+                .addMember("describedAs", "$1S", describedAs)
                 .build();
     }
     AnnotationSpec property() {
@@ -81,7 +102,7 @@ class _Annotations {
      */
     AnnotationSpec propertyLayout(final String describedAs) {
         return AnnotationSpec.builder(PropertyLayout.class)
-                .addMember("describedAs", FIRST_ARG_DOUBLE_QUOTED, describedAs)
+                .addMember("describedAs", "$1S", describedAs)
                 .build();
     }
 
@@ -95,7 +116,7 @@ class _Annotations {
     AnnotationSpec datastoreIdentity() {
         return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "DatastoreIdentity"))
                 .addMember("strategy", "$1L", "javax.jdo.annotations.IdGeneratorStrategy.IDENTITY")
-                .addMember("column", FIRST_ARG_DOUBLE_QUOTED, "id")
+                .addMember("column", "$1S", "id")
                 .build();
     }
     /**
@@ -109,8 +130,8 @@ class _Annotations {
             final int maxLength) {
         val annotBuilder = AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Column"));
         _Strings.nonEmpty(_Strings.trim(columnName))
-            .ifPresent(name->annotBuilder.addMember("name", FIRST_ARG_DOUBLE_QUOTED, name));
-        annotBuilder.addMember("allowsNull", FIRST_ARG_DOUBLE_QUOTED, "" + allowsNull);
+            .ifPresent(name->annotBuilder.addMember("name", "$1S", name));
+        annotBuilder.addMember("allowsNull", "$1S", "" + allowsNull);
         if(maxLength>0) {
             annotBuilder.addMember("length", "$1L", maxLength);
         }
