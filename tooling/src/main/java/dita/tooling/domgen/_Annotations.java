@@ -69,11 +69,9 @@ class _Annotations {
                 .build();
     }
     AnnotationSpec imports(final Collection<ClassName> imports) {
-
         final String entityImportsLiteral = imports.stream()
             .map(_import->String.format("    %s.class", _import.canonicalName()))
             .collect(Collectors.joining(",\n"));
-
         return AnnotationSpec.builder(Import.class)
                 .addMember("value", "{\n    // Entities\n$1L\n}", entityImportsLiteral)
                 .build();
@@ -112,7 +110,11 @@ class _Annotations {
         return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "PersistenceCapable"))
                 .build();
     }
-
+    AnnotationSpec persistenceCapable(final String tableName) {
+        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "PersistenceCapable"))
+                .addMember("table", "$1S", tableName)
+                .build();
+    }
     AnnotationSpec datastoreIdentity() {
         return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "DatastoreIdentity"))
                 .addMember("strategy", "$1L", "javax.jdo.annotations.IdGeneratorStrategy.IDENTITY")

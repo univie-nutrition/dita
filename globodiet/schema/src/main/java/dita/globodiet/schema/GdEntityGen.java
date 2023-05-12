@@ -23,9 +23,8 @@ import java.io.File;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 
-import dita.tooling.orm.LicenseHeader;
-import dita.tooling.orm.OrmEntityGenerator;
-import dita.tooling.orm.OrmEntityWriterUtils;
+import dita.tooling.domgen.DomainGenerator;
+import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
 
@@ -47,11 +46,17 @@ public class GdEntityGen {
 
         val schema = OrmModel.Schema.fromYaml(yaml);
 
-        val entityGen = new OrmEntityGenerator(schema);
+        val config = DomainGenerator.Config.builder()
+            .logicalNamespacePrefix("dita.globodiet")
+            .packageNamePrefix("dita.globodiet.entities")
+            .licenseHeader(LicenseHeader.ASF_V2)
+            .schema(schema)
+            .entitiesModulePackageName("params")
+            .entitiesModuleClassSimpleName("DitaModuleGdParams")
+            .build();
 
-        OrmEntityWriterUtils.writeToDirectory(
-                entityGen.streamAsJavaModels("dita.globodiet.", "dita.globodiet.entities.", LicenseHeader.ASF_V2),
-                destDir);
+        new DomainGenerator(config)
+            .writeToDirectory(destDir);
 
         System.out.println("done.");
 

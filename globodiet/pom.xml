@@ -30,6 +30,7 @@
 	
 	<modules>
 		<module>params</module>
+		<module>manager</module>
 		<module>schema</module>
 	</modules>
     

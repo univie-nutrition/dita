@@ -55,7 +55,7 @@ class _GenEntity {
                 .addAnnotation(_Annotations.named(logicalNamespace + "." + entityModel.name()))
                 .addAnnotation(_Annotations.domainObject())
                 .addAnnotation(_Annotations.domainObjectLayout(entityModel.formatDescription("\n")))
-                .addAnnotation(_Annotations.persistenceCapable())
+                .addAnnotation(_Annotations.persistenceCapable(entityModel.table()))
                 .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)
                 //.addSuperinterfaces(asClassNames(t.getInterfaces()))
