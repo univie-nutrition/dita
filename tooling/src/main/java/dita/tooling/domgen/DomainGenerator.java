@@ -68,6 +68,9 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                     .stream()
                     .collect(Collectors.joining("."));
         }
+        public ClassName javaPoetClassName(final OrmModel.Entity entityModel) {
+            return ClassName.get(fullPackageName(entityModel.namespace()), entityModel.name());
+        }
     }
 
     public record JavaModel(
@@ -104,11 +107,16 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         val javaModels = new ArrayList<JavaModel>();
         val entityModels = config().schema().entities().values().stream().toList();
 
-        javaModels.add(_GenEntitiesModule.toJavaModel(entityModels, config()));
+        // module
+        javaModels.add(_GenModule.toJavaModel(entityModels, config()));
 
+        // entities
         entityModels.stream()
             .map(entityModel->_GenEntity.toJavaModel(entityModel, config()))
             .forEach(javaModels::add);
+
+        // menu entries
+        javaModels.add(_GenMenu.toJavaModel(entityModels, config()));
 
         return javaModels.stream();
     }

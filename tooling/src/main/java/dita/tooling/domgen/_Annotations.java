@@ -18,9 +18,9 @@
  */
 package dita.tooling.domgen;
 
-import java.util.Collection;
 import java.util.stream.Collectors;
 
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.springframework.context.annotation.Configuration;
@@ -28,11 +28,15 @@ import org.springframework.context.annotation.Import;
 import org.springframework.javapoet.AnnotationSpec;
 import org.springframework.javapoet.ClassName;
 
+import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.DomainService;
+import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -61,6 +65,10 @@ class _Annotations {
                 .addMember("value", "$1S", logicalTypeName)
                 .build();
     }
+    AnnotationSpec inject() {
+        return AnnotationSpec.builder(Inject.class)
+                .build();
+    }
 
     // -- SPRING
 
@@ -68,12 +76,26 @@ class _Annotations {
         return AnnotationSpec.builder(Configuration.class)
                 .build();
     }
-    AnnotationSpec imports(final Collection<ClassName> imports) {
-        final String entityImportsLiteral = imports.stream()
-            .map(_import->String.format("    %s.class", _import.canonicalName()))
-            .collect(Collectors.joining(",\n"));
+    AnnotationSpec imports(final ListMultimap<String, ClassName> importsByCategory) {
+
+        val sb = new StringBuilder();
+
+        importsByCategory.entrySet()
+        .forEach(entry->{
+
+            // category comment
+            sb.append("\n").append(String.format("// %s\n", entry.getKey()));
+
+            final String importsLiteral = entry.getValue().stream()
+                    .map(_import->String.format("%s.class,", _import.canonicalName()))
+                    .collect(Collectors.joining("\n"));
+
+            sb.append(importsLiteral).append("\n");
+
+        });
+
         return AnnotationSpec.builder(Import.class)
-                .addMember("value", "{\n    // Entities\n$1L\n}", entityImportsLiteral)
+                .addMember("value", "{\n$1L\n}", sb.toString())
                 .build();
     }
 
@@ -83,12 +105,21 @@ class _Annotations {
         return AnnotationSpec.builder(DomainObject.class)
                 .build();
     }
+    AnnotationSpec domainService(final NatureOfService natureOfService) {
+        return AnnotationSpec.builder(DomainService.class)
+                .addMember("nature", NatureOfService.class.getName() + ".$1L", natureOfService.name())
+                .build();
+    }
     /**
      * @param describedAs - entity description
      */
     AnnotationSpec domainObjectLayout(final String describedAs) {
         return AnnotationSpec.builder(DomainObjectLayout.class)
                 .addMember("describedAs", "$1S", describedAs)
+                .build();
+    }
+    AnnotationSpec action() {
+        return AnnotationSpec.builder(Action.class)
                 .build();
     }
     AnnotationSpec property() {

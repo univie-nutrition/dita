@@ -18,12 +18,18 @@
  */
 package dita.tooling.domgen;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.lang.model.element.Modifier;
 
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.TypeSpec;
+
+import org.apache.causeway.commons.internal.collections._Multimaps;
+import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
 import dita.tooling.domgen.DomainGenerator.JavaModel;
 import dita.tooling.orm.OrmModel;
@@ -31,7 +37,7 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class _GenEntitiesModule {
+class _GenModule {
 
     JavaModel toJavaModel(
             final Collection<OrmModel.Entity> entityModels,
@@ -40,24 +46,29 @@ class _GenEntitiesModule {
         val logicalNameSpace = ""; // not used in this context
         val packageName = config.fullPackageName(config.entitiesModulePackageName());
 
-        val imports = entityModels.stream()
-        .map(entityModel->ClassName.get(config.fullPackageName(entityModel.namespace()), entityModel.name()))
-        .toList();
+        final ListMultimap<String, ClassName> importsByCategory = _Multimaps
+                .newListMultimap(LinkedHashMap<String, List<ClassName>>::new, ArrayList::new);
 
+        importsByCategory.put("Menu Entries", List.of(
+                ClassName.get(packageName, "EntitiesMenu")));
+
+        importsByCategory.put("Entities", entityModels.stream()
+                .map(entityModel->config.javaPoetClassName(entityModel))
+                .toList());
 
         return new JavaModel(
                 logicalNameSpace,
                 packageName,
-                classModel(ClassName.get(packageName, config.entitiesModuleClassSimpleName()), imports),
+                classModel(ClassName.get(packageName, config.entitiesModuleClassSimpleName()), importsByCategory),
                 config.licenseHeader());
     }
 
     // -- HELPER
 
-    private TypeSpec classModel(final ClassName nameOfClassToGenerate, final Collection<ClassName> imports) {
+    private TypeSpec classModel(final ClassName nameOfClassToGenerate, final ListMultimap<String, ClassName> importsByCategory) {
         val typeModelBuilder = TypeSpec.classBuilder(nameOfClassToGenerate)
                 .addAnnotation(_Annotations.configuration())
-                .addAnnotation(_Annotations.imports(imports))
+                .addAnnotation(_Annotations.imports(importsByCategory))
                 .addModifiers(Modifier.PUBLIC)
                 ;
         return typeModelBuilder.build();
