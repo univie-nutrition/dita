@@ -118,7 +118,7 @@ public class OrmModel {
                     parseMultilineString((String)map.get("description")));
         }
         public TypeName asJavaType() {
-            return _TypeMapping.dbToJava(columnType());
+            return _TypeMapping.dbToJava(columnType(), !required);
         }
         public int maxLength() {
             val lengthLiteralOrColumnType = TextUtils.cutter(columnType())

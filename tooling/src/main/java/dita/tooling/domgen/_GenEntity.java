@@ -74,7 +74,7 @@ class _GenEntity {
                             .addJavadoc(field.formatDescription("<br>\n"))
                             .addAnnotation(_Annotations.property())
                             .addAnnotation(_Annotations.propertyLayout(field.formatDescription("\n")))
-                            .addAnnotation(_Annotations.column(field.column(), field.required(), field.maxLength()))
+                            .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                             .addAnnotation(_Annotations.getter())
                             .addAnnotation(_Annotations.setter())
                             .build())

@@ -28,20 +28,26 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _TypeMapping {
 
-    TypeName dbToJava(final String typeName) {
+    TypeName dbToJava(final String typeName, final boolean nullable) {
         if(typeName.startsWith("nvarchar")) {
             return ClassName.get("java.lang", "String");
         }
         if(typeName.equals("bit(1)")) {
-            return TypeName.BOOLEAN;
+            return nullable
+                    ? ClassName.get("java.lang", "Boolean")
+                    : TypeName.BOOLEAN;
         }
         if(typeName.startsWith("int")
                 || typeName.startsWith("smallint")
                 || typeName.startsWith("tinyint")) {
-            return TypeName.INT;
+            return nullable
+                    ? ClassName.get("java.lang", "Integer")
+                    : TypeName.INT;
         }
         if(typeName.startsWith("float")) {
-            return TypeName.DOUBLE;
+            return nullable
+                    ? ClassName.get("java.lang", "Double")
+                    : TypeName.DOUBLE;
         }
         if(typeName.equals("datetime")
                 || typeName.equals("datetime(23)")) {
