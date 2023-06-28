@@ -28,8 +28,9 @@
 		<maven.compiler.release>17</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<spring-boot.version>3.0.6</spring-boot.version>
-		<causeway.version>3.0.0-M1.20230509-0607-5f90bb6a</causeway.version>
+		<spring-boot.version>3.1.1</spring-boot.version>
+<!--		<causeway.version>3.0.0-M1.20230509-0607-5f90bb6a</causeway.version>-->
+		<causeway.version>3.0.0-SNAPSHOT</causeway.version>
 		
 		<indriya-version>2.1.3</indriya-version>
 		<junit-version>[5,)</junit-version>
@@ -125,6 +126,12 @@
 			
 			<dependency>
 				<groupId>at.ac.univie.nutrition.dita</groupId>
+				<artifactId>dita-causeway-replicator</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>at.ac.univie.nutrition.dita</groupId>
 				<artifactId>dita-foodex-validator-api</artifactId>
 				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
@@ -181,6 +188,12 @@
 			<dependency>
 				<groupId>org.apache.causeway.core</groupId>
 				<artifactId>causeway-applib</artifactId>
+				<version>${causeway.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.causeway.core</groupId>
+				<artifactId>causeway-core-metamodel</artifactId>
 				<version>${causeway.version}</version>
 			</dependency>
 			
@@ -294,6 +307,7 @@
 	
 	<modules>
 		<module>commons</module>
+		<module>causeway</module>
 		<module>foodex</module>
 		<module>globodiet</module>
 		<module>recall24</module>
