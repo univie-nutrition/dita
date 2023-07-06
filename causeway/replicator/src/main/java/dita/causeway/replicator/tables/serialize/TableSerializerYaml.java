@@ -31,6 +31,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
+import dita.causeway.replicator.tables.model.DataTableOptions;
 import dita.causeway.replicator.tables.model.DataTableProvider;
 import dita.causeway.replicator.tables.model.DataTables;
 import lombok.val;
@@ -48,7 +49,7 @@ public class TableSerializerYaml {
                 .filter(dataTable->filter.test(dataTable.getElementType()))
                 .collect(Can.toCan()));
 
-        val yaml = dataTables.toYaml();
+        val yaml = dataTables.toYaml(DataTableOptions.WriteOptions.defaults());
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 

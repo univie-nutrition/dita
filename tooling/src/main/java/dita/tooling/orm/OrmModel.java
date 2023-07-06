@@ -121,11 +121,24 @@ public class OrmModel {
             return _TypeMapping.dbToJava(columnType(), !required);
         }
         public int maxLength() {
+
+            if(_TypeMapping.isMaxLengthSuppressedFor(columnType())) {
+                return -1;
+            }
+
             val lengthLiteralOrColumnType = TextUtils.cutter(columnType())
                 .keepAfter("(")
                 .keepBeforeLast(")")
                 .getValue();
-            return _Ints.parseInt(lengthLiteralOrColumnType, 10).orElse(-1);
+
+            final int parsedMaxLength = _Ints.parseInt(lengthLiteralOrColumnType, 10).orElse(-1);
+
+            //H2 max
+            if(parsedMaxLength>1000000000) {
+                return 1000000000;
+            }
+
+            return parsedMaxLength;
         }
         public String formatDescription(final String continuation) {
             if(isMultilineStringBlank(description)) {

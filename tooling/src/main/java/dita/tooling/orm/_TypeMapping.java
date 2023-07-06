@@ -56,4 +56,13 @@ class _TypeMapping {
         throw _Exceptions.unmatchedCase(typeName);
     }
 
+    boolean isMaxLengthSuppressedFor(final String typeName) {
+        return typeName.equals("bit(1)")
+                || typeName.startsWith("int")
+                || typeName.startsWith("smallint")
+                || typeName.startsWith("tinyint")
+                || typeName.startsWith("float")
+                || typeName.startsWith("datetime");
+    }
+
 }

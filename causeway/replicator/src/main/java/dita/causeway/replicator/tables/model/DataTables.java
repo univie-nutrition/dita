@@ -18,15 +18,27 @@
  */
 package dita.causeway.replicator.tables.model;
 
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
 
 public class DataTables {
+
+    // -- READING
+
+    public static DataTables fromYaml(final String yaml, final DataTableOptions.ReadOptions readOptions) {
+
+        val asMap = YamlUtils.tryRead(HashMap.class, yaml);
+        //TODO implement parsing
+
+        return null;
+    }
 
     // -- CONSTRUCTION
 
@@ -37,7 +49,9 @@ public class DataTables {
         this.dataTables = dataTables;
     }
 
-    public String toYaml() {
+    // -- WRITING
+
+    public String toYaml(final DataTableOptions.WriteOptions writeOptions) {
         val yaml = new YamlWriter();
 
         yaml.write("tables:").nl();
@@ -54,7 +68,7 @@ public class DataTables {
                     .map(desc->String.format("%s: %s", colName, desc.replace('\n', '|')))
                     .orElse(colName);
 
-                yaml.ind().ind().ind().ul().write("\"", colLiteral, "\"").nl();
+                yaml.ind().ind().ind().ul().doubleQuoted(colLiteral).nl();
             });
 
             yaml.ind().ind().ind().write("rows:").nl();
@@ -62,10 +76,10 @@ public class DataTables {
                 val rowLiteral = dataTable.getDataColumns()
                         .stream()
                         .map(dataRow::getCellElement)
-                        .map(cell->cell!=null ? cell.getTitle() : "ø")
-                        .collect(Collectors.joining("|"));
+                        .map(cell->cell!=null ? writeOptions.asCellValue(cell.getTitle()) : writeOptions.nullSymbol())
+                        .collect(Collectors.joining(writeOptions.columnSeparator()));
 
-                yaml.ind().ind().ind().ul().write("\"", rowLiteral, "\"").nl();
+                yaml.ind().ind().ind().ul().doubleQuoted(rowLiteral).nl();
             });
         });
         return yaml.toString();
@@ -78,6 +92,10 @@ public class DataTables {
         @Override public String toString() { return sb.toString(); }
         YamlWriter write(final String ...s) {
             for(val str:s) sb.append(str);
+            return this;
+        }
+        YamlWriter doubleQuoted(final String s) {
+            write("\"", s, "\"");
             return this;
         }
         YamlWriter ind() {
