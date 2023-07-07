@@ -64,7 +64,7 @@ causeway:
         version: 1.0.0-SNAPSHOT
       credit:
         - url:  https://github.com/univie-nutrition/dita
-          image: images/dita/uni-logo.png
+          image: images/dita/uni-logo.jpg
           name: Dita (Dietary Intake Assessment)
     wicket:
       css: css/application.css
