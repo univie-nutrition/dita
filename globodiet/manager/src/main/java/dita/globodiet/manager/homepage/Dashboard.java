@@ -38,6 +38,8 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
+import org.apache.causeway.tooling.model4adoc.AsciiDocFactory;
+import org.apache.causeway.tooling.model4adoc.AsciiDocWriter;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
@@ -81,28 +83,15 @@ public class Dashboard {
     @Action
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
     public AsciiDoc loadYml(final Clob tableData) {
-        //TODO use asciidoc factory/builder utils instead
-        return new AsciiDoc(
-                "[source,yml]\n----\n"
-                + tableSerializer.load(tableData, tableFilter())
-                + "\n----\n");
-    }
 
-    @Deprecated // debugging
-    @Action
-    @ActionLayout(fieldSetName="About", position = Position.PANEL)
-    public AsciiDoc adocSample() {
-        return new AsciiDoc(
-                """
-                [source,yml]
-                .yaml
-                ----
-                first:
-                  second:
-                  - x
-                  - y
-                ----
-                """);
+        val doc = AsciiDocFactory.doc();
+        doc.setTitle("Table Import Result");
+
+        val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml",
+                tableSerializer.load(tableData, tableFilter()));
+        sourceBlock.setTitle("Serialized Table Data (yaml)");
+
+        return new AsciiDoc(AsciiDocWriter.toString(doc));
     }
 
     private Predicate<ObjectSpecification> tableFilter() {

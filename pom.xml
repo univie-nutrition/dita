@@ -216,6 +216,14 @@
 				<type>pom</type>
 	            <scope>import</scope>
 	        </dependency>
+	        
+	        <!-- UNPUBLISHED -->
+	        
+	        <dependency>
+			    <groupId>org.apache.causeway.tooling</groupId>
+			    <artifactId>causeway-tooling-model4adoc</artifactId>
+			    <version>${causeway.version}</version>
+			</dependency>
 			
 			<!-- SPRING -->
 			

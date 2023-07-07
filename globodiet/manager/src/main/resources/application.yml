@@ -63,9 +63,12 @@ causeway:
         name: Dita Globodiet Manager
         version: 1.0.0-SNAPSHOT
       credit:
+        - url:  https://nutrition.univie.ac.at/
+          image: images/credit/uni-logo.jpg
+          name: University of Vienna (Nutrition)
         - url:  https://github.com/univie-nutrition/dita
-          image: images/dita/uni-logo.jpg
-          name: Dita (Dietary Intake Assessment)
+          image: images/credit/github-mark.svg
+          name: Dita Project (Github)
     wicket:
       css: css/application.css
       js: scripts/application.js
