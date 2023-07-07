@@ -26,21 +26,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class DataTableOptions {
 
-    public record ReadOptions(
+    public record FormatOptions(
             @NonNull String columnSeparator,
-            @NonNull String nullSymbol) {
+            @NonNull String nullSymbol,
+            @NonNull String doubleQuoteSymbol) {
 
-        public static ReadOptions defaults() {
-            return new ReadOptions("|", "ø");
-        }
-    }
-
-    public record WriteOptions(
-            @NonNull String columnSeparator,
-            @NonNull String nullSymbol) {
-
-        public static WriteOptions defaults() {
-            return new WriteOptions("|", "ø");
+        public static FormatOptions defaults() {
+            return new FormatOptions("|", "ø", "¯");
         }
 
         public String asCellValue(final String raw) {
@@ -53,10 +45,13 @@ public class DataTableOptions {
 
         private String check(final String raw) {
             if(raw.contains(columnSeparator())
-                || raw.contains(nullSymbol())) {
-                throw _Exceptions.illegalArgument("raw cell value '%s' must not contain delimiter or null-symbol", raw);
+                || raw.contains(nullSymbol())
+                || raw.contains(doubleQuoteSymbol())) {
+                throw _Exceptions.illegalArgument("raw cell value '%s' must not contain delimiter "
+                        + "nor null-symbol "
+                        + "nor double-quote-symbol", raw);
             }
-            return raw;
+            return raw.replace("\"", doubleQuoteSymbol());
         }
 
     }

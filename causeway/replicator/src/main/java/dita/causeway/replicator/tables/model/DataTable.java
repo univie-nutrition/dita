@@ -31,25 +31,29 @@ public class DataTable {
     // -- CONSTRUCTION
 
     @Getter private final @NonNull ObjectSpecification elementType;
-    @Getter private final @NonNull Can<ManagedObject> dataElements;
     @Getter private final @NonNull Can<DataColumn> dataColumns;
-    @Getter private final @NonNull Can<DataRow> dataRows;
+
+    @Getter private @NonNull Can<ManagedObject> dataElements;
+    @Getter private @NonNull Can<DataRow> dataRows;
 
     public DataTable(
-            final ObjectSpecification elementType,
-            final Can<ManagedObject> dataElements) {
+            final ObjectSpecification elementType) {
 
         this.elementType = elementType;
-        this.dataElements = dataElements;
-
-        this.dataRows = dataElements
-                .map(domainObject->new DataRow(this, domainObject));
-
         this.dataColumns = elementType
                 .streamProperties(MixedIn.EXCLUDED)
                 .filter(prop->prop.isIncludedWithSnapshots())
                 .map(property->new DataColumn(this, property))
                 .collect(Can.toCan());
+
+        this.dataElements = Can.empty();
+        this.dataRows = Can.empty();
+    }
+
+    public void setDataElements(final Can<ManagedObject> dataElements) {
+        this.dataElements = dataElements;
+        this.dataRows = dataElements
+                .map(domainObject->new DataRow(this, domainObject));
     }
 
     /**

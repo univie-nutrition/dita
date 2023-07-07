@@ -43,13 +43,9 @@ public class TableSerializerYaml {
     @Inject DataTableProvider dataTableProvider;
 
     public Clob clob(final String name, final Predicate<ObjectSpecification> filter) {
-
-        val dataTables = new DataTables(
-            dataTableProvider.streamDataTables()
-                .filter(dataTable->filter.test(dataTable.getElementType()))
-                .collect(Can.toCan()));
-
-        val yaml = dataTables.toYaml(DataTableOptions.WriteOptions.defaults());
+        val yaml = dataTables(filter)
+                .populateFromDatabase(repositoryService)
+                .toYaml(DataTableOptions.FormatOptions.defaults());
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
@@ -58,15 +54,22 @@ public class TableSerializerYaml {
      */
     public String load(final Clob clob, final Predicate<ObjectSpecification> filter) {
 
-        val dataTables = new DataTables(
-            dataTableProvider.streamDataTables()
-                .filter(dataTable->filter.test(dataTable.getElementType()))
-                .collect(Can.toCan()));
+        val yaml = dataTables(filter)
+                .populateFromYaml(clob.asString(), DataTableOptions.FormatOptions.defaults())
+                .toYaml(DataTableOptions.FormatOptions.defaults());
 
         //TODO update those filtered list of tables; then persist; then reassess
-
-        val yaml = dataTables.toYaml(DataTableOptions.WriteOptions.defaults());
         return yaml;
+    }
+
+    // -- HELPER
+
+    private DataTables dataTables(final Predicate<ObjectSpecification> filter){
+        val dataTables = new DataTables(
+                dataTableProvider.streamDataTables()
+                    .filter(dataTable->filter.test(dataTable.getElementType()))
+                    .collect(Can.toCan()));
+        return dataTables;
     }
 
 }

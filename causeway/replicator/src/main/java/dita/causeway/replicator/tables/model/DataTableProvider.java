@@ -24,10 +24,8 @@ import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.config.beans.CausewayBeanTypeRegistry;
-import org.apache.causeway.core.metamodel.object.ManagedObject;
+import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.specloader.SpecificationLoader;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
@@ -36,20 +34,28 @@ import lombok.val;
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "DataTableProvider")
 public class DataTableProvider {
 
-    @Inject RepositoryService repositoryService;
     @Inject SpecificationLoader specLoader;
     @Inject CausewayBeanTypeRegistry beanTypeRegistry;
 
     public DataTable dataTable(final Class<?> entityType) {
         val typeSpec = specLoader.specForTypeElseFail(entityType);
-        return new DataTable(typeSpec, Can.ofCollection(repositoryService.allInstances(entityType))
-                .map(entityPojo->ManagedObject.adaptSingular(typeSpec, entityPojo)));
+        return new DataTable(typeSpec);
     }
 
     public Stream<DataTable> streamDataTables() {
-        return beanTypeRegistry.getEntityTypes().keySet()
-            .stream()
-            .sorted((a, b)->a.getSimpleName().compareTo(b.getSimpleName()))
+        return streamEntityClasses()
             .map(this::dataTable);
     }
+
+    public Stream<ObjectSpecification> streamEntities() {
+        return streamEntityClasses()
+                .map(specLoader::specForTypeElseFail);
+    }
+
+    public Stream<Class<?>> streamEntityClasses() {
+        return beanTypeRegistry.getEntityTypes().keySet()
+            .stream()
+            .sorted((a, b)->a.getSimpleName().compareTo(b.getSimpleName()));
+    }
+
 }

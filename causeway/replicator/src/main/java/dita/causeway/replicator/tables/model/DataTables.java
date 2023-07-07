@@ -21,24 +21,16 @@ package dita.causeway.replicator.tables.model;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.apache.causeway.core.metamodel.object.ManagedObject;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
 
 public class DataTables {
-
-    // -- READING
-
-    public static DataTables fromYaml(final String yaml, final DataTableOptions.ReadOptions readOptions) {
-
-        val asMap = YamlUtils.tryRead(HashMap.class, yaml);
-        //TODO implement parsing
-
-        return null;
-    }
 
     // -- CONSTRUCTION
 
@@ -49,9 +41,34 @@ public class DataTables {
         this.dataTables = dataTables;
     }
 
+    // -- POPULATING
+
+    public DataTables populateFromDatabase(final RepositoryService repositoryService) {
+        dataTables.forEach(dataTable->{
+            dataTable.setDataElements(
+                    Can
+                        .ofCollection(repositoryService.allInstances(dataTable.getElementType().getCorrespondingClass()))
+                        .map(entityPojo->ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo)));
+        });
+        return this;
+    }
+
+    public DataTables populateFromYaml(final String yaml, final DataTableOptions.FormatOptions formatOptions) {
+        val asMap = YamlUtils
+                .tryRead(HashMap.class, yaml, loader->{
+                    loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
+                    return loader;
+                })
+                .valueAsNonNullElseFail();
+
+        //TODO parse data from the map, and populate tables, that are already in the Can<DataTable>
+        System.err.printf("asMap %s%n", asMap);
+        return this;
+    }
+
     // -- WRITING
 
-    public String toYaml(final DataTableOptions.WriteOptions writeOptions) {
+    public String toYaml(final DataTableOptions.FormatOptions formatOptions) {
         val yaml = new YamlWriter();
 
         yaml.write("tables:").nl();
@@ -76,8 +93,8 @@ public class DataTables {
                 val rowLiteral = dataTable.getDataColumns()
                         .stream()
                         .map(dataRow::getCellElement)
-                        .map(cell->cell!=null ? writeOptions.asCellValue(cell.getTitle()) : writeOptions.nullSymbol())
-                        .collect(Collectors.joining(writeOptions.columnSeparator()));
+                        .map(cell->cell!=null ? formatOptions.asCellValue(cell.getTitle()) : formatOptions.nullSymbol())
+                        .collect(Collectors.joining(formatOptions.columnSeparator()));
 
                 yaml.ind().ind().ind().ul().doubleQuoted(rowLiteral).nl();
             });
