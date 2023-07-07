@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bs3:grid xsi:schemaLocation="https://causeway.apache.org/applib/layout/component https://www.corax.at/uploads/xsd/applib/layout/component/component.xsd https://causeway.apache.org/applib/layout/links https://www.corax.at/uploads/xsd/applib/layout/links/links.xsd https://causeway.apache.org/applib/layout/grid/bootstrap3 https://www.corax.at/uploads/xsd/applib/layout/grid/bootstrap3/bootstrap3.xsd" xmlns:bs3="https://causeway.apache.org/applib/layout/grid/bootstrap3" xmlns:cpt="https://causeway.apache.org/applib/layout/component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <bs3:row>
+        <bs3:col span="12" unreferencedActions="true">
+            <cpt:domainObject/>
+            <cpt:action id="clearHints"/>
+            <cpt:action id="downloadLayoutXml"/>
+            <cpt:action id="rebuildMetamodel"/>
+        </bs3:col>
+    </bs3:row>
+    <bs3:row>
+        <bs3:col span="6">
+            <cpt:fieldSet name="Nutrient Tabel Entries" id="nutrientTabelEntries" unreferencedProperties="true">
+                <cpt:property id="nutrientTabelEntryCount"/>
+                <cpt:property id="verifiedCount"/>
+                <cpt:property id="pendingVerificationCount"/>
+            </cpt:fieldSet>
+        </bs3:col>
+        <bs3:col span="6">
+            <cpt:fieldSet name="About" id="about">
+                <cpt:property id="version"/>
+                <cpt:property id="buildDate"/>
+            </cpt:fieldSet>
+        </bs3:col>
+        <bs3:col span="8" unreferencedCollections="true"/>
+    </bs3:row>
+</bs3:grid>

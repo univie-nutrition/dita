@@ -1,0 +1,114 @@
+#
+# Recommend use for static configuration that does not change between environments.
+#
+# See also config/application.properties
+#
+causeway:
+
+  applib:
+    annotation:
+      action:
+        explicit: true
+        command-publishing: all
+        execution-publishing: all
+      action-layout:
+        css-class:
+          patterns:
+            delete.*:btn-danger,
+            discard.*:btn-warning,
+            remove.*:btn-warning
+      property:
+        command-publishing: all
+        execution-publishing: all
+      domain-object:
+        editing: false
+        entity-change-publishing: all
+  core:
+    meta-model:
+      introspector:
+        lock-after-full-introspection: true
+      validator:
+        allow-deprecated: false
+        no-params-only: true
+        explicit-object-type: true
+
+    runtime-services:
+      translation:
+        po:
+          mode: disabled
+
+  extensions:
+    secman:
+      seed:
+        admin:
+          user-name: "secman-admin"
+          password: "pass"
+          role-name: "causeway-ext-secman-admin"
+          namespace-permissions:
+            sticky: "dita"
+#            additional: ...
+        regular-user:
+          role-name: "causeway-ext-secman-user"
+      permissions-evaluation-policy: allow_beats_veto
+      user-menu-me-action-policy: hide
+
+  viewer:
+    common:
+      application:
+        about: Dita Globodiet Manager
+        brand-logo-signin: images/dita/dita-logo-banner.png
+        brand-logo-header: images/dita/dita-logo-48px.png
+        favicon-url: images/favicon.png
+        menubars-layout-file: menubars.layout.xml
+        name: Dita Globodiet Manager
+        version: 1.0.0-SNAPSHOT
+      credit:
+        - url:  https://github.com/univie-nutrition/dita
+          image: images/dita/uni-logo.png
+          name: Dita (Dietary Intake Assessment)
+    wicket:
+      css: css/application.css
+      js: scripts/application.js
+
+      bookmarked-pages:
+        show-chooser: true
+        show-drop-down-on-footer: true
+
+      max-title-length-in-standalone-tables: 0
+      max-title-length-in-parented-tables: 0
+
+      themes:
+        show-chooser: true
+
+      table:
+        decoration:
+          data-tables-net:
+            options: "info: false, pagingType: 'numbers'"
+
+# note that properties under 'datanucleus' must use camelCase rather than kebab-case
+datanucleus:
+  schema:
+    validateTables: true
+    validateConstraints: true
+
+  persistenceByReachabilityAtCommit: false
+  identifier:
+    case: MixedCase
+
+  cache:
+    level2:
+      type: none
+      mode: ENABLE_SELECTIVE
+
+resteasy:
+  jaxrs:
+    app:
+      registration: beans
+    defaultPath: "/restful"
+
+server:
+  max-http-header-size: 16KB
+
+spring:
+  banner:
+    location: banner.txt

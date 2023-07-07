@@ -47,6 +47,11 @@
 			<artifactId>dita-globodiet-params</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>at.ac.univie.nutrition.dita</groupId>
+			<artifactId>dita-causeway-replicator</artifactId>
+		</dependency>
+		
 		<!-- WEB STACK -->
 		
 		<dependency>
@@ -94,59 +99,23 @@
             <groupId>org.apache.causeway.extensions</groupId>
             <artifactId>causeway-extensions-secman-persistence-jdo</artifactId>
         </dependency>
+
+		<!-- JDBC -->
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+	    	<artifactId>mariadb-java-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+        </dependency>
 		
 	</dependencies>
-	
-    <profiles>
-
-		<profile>
-            <id>jdbc-mariadb</id>
-            <activation>
-                <property>
-                    <name>spring.profiles.active</name>
-                    <value>MARIADB</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.mariadb.jdbc</groupId>
-			    	<artifactId>mariadb-java-client</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>jdbc-sqlserver</id>
-            <activation>
-                <property>
-                    <name>spring.profiles.active</name>
-                    <value>SQLSERVER</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.microsoft.sqlserver</groupId>
-                    <artifactId>mssql-jdbc</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-
-        <profile>
-            <id>jdbc-postgresql</id>
-            <activation>
-                <property>
-                    <name>spring.profiles.active</name>
-                    <value>POSTGRESQL</value>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.postgresql</groupId>
-		    		<artifactId>postgresql</artifactId>
-                </dependency>
-            </dependencies>
-        </profile>
-        
-    </profiles>
     
 </project>
