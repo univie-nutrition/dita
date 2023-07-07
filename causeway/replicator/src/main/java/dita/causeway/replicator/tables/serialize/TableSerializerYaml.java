@@ -33,7 +33,6 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableOptions;
 import dita.causeway.replicator.tables.model.DataTableProvider;
-import dita.causeway.replicator.tables.model.DataTables;
 import lombok.val;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
@@ -64,8 +63,8 @@ public class TableSerializerYaml {
 
     // -- HELPER
 
-    private DataTables dataTables(final Predicate<ObjectSpecification> filter){
-        val dataTables = new DataTables(
+    private DataTableSet dataTables(final Predicate<ObjectSpecification> filter){
+        val dataTables = new DataTableSet(
                 dataTableProvider.streamDataTables()
                     .filter(dataTable->filter.test(dataTable.getElementType()))
                     .collect(Can.toCan()));

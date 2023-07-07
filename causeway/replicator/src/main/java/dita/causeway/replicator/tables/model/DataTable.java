@@ -56,6 +56,10 @@ public class DataTable {
                 .map(domainObject->new DataRow(this, domainObject));
     }
 
+    public String getLogicalName() {
+        return getElementType().getLogicalTypeName();
+    }
+
     /**
      * Count data rows.
      */

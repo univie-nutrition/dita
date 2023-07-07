@@ -23,8 +23,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 
-import org.apache.causeway.core.config.util.SpringProfileUtil;
-
 /**
  * Bootstrap the DitA Manager application.
  */
@@ -43,7 +41,7 @@ public class DitaGdManagerApp extends SpringBootServletInitializer {
         //CausewayPresets.logging(ResourceServlet.class, "DEBUG");
 
         //SpringProfileUtil.addActiveProfile("SQLSERVER");
-        SpringProfileUtil.addActiveProfile("H2");
+        //SpringProfileUtil.addActiveProfile("H2");
 
         SpringApplication.run(new Class[] { DitaGdManagerApp.class }, args);
     }

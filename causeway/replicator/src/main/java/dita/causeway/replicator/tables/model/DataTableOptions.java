@@ -41,6 +41,10 @@ public class DataTableOptions {
                     : check(raw);
         }
 
+        public void parseRow(final String rowLiteral, final String[] cellLiterals) {
+            // TODO implement
+        }
+
         // -- HELPER
 
         private String check(final String raw) {
