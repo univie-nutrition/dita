@@ -53,4 +53,20 @@ public class TableSerializerYaml {
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
+    /**
+     * Returns the serialized version of the load result.
+     */
+    public String load(final Clob clob, final Predicate<ObjectSpecification> filter) {
+
+        val dataTables = new DataTables(
+            dataTableProvider.streamDataTables()
+                .filter(dataTable->filter.test(dataTable.getElementType()))
+                .collect(Can.toCan()));
+
+        //TODO update those filtered list of tables; then persist; then reassess
+
+        val yaml = dataTables.toYaml(DataTableOptions.WriteOptions.defaults());
+        return yaml;
+    }
+
 }
