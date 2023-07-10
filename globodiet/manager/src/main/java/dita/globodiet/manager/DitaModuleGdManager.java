@@ -25,6 +25,7 @@ import org.springframework.context.annotation.PropertySources;
 
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
+import org.apache.causeway.extensions.docgen.CausewayModuleExtDocgen;
 import org.apache.causeway.extensions.secman.encryption.spring.CausewayModuleExtSecmanEncryptionSpring;
 import org.apache.causeway.extensions.secman.integration.CausewayModuleExtSecmanIntegration;
 import org.apache.causeway.extensions.secman.integration.authenticator.AuthenticatorSecmanAutoConfiguration;
@@ -69,6 +70,9 @@ import dita.globodiet.manager.homepage.Dashboard;
     AsciiDocValueSemantics.class,
     CausewayModuleValAsciidocUiWkt.class,
     CausewayModuleExtExcelDownloadWicketUi.class, // allows for collection download as excel
+
+    // docs
+    CausewayModuleExtDocgen.class,
 
     // Homepage
     Dashboard.class,

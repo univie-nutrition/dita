@@ -116,11 +116,16 @@
             <artifactId>mssql-jdbc</artifactId>
         </dependency>
         
-        <!-- TOOLING -->
+        <!-- EXTENSIONS/TOOLING -->
         
         <dependency>
 		    <groupId>org.apache.causeway.tooling</groupId>
 		    <artifactId>causeway-tooling-model4adoc</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.causeway.extensions</groupId>
+			<artifactId>causeway-extensions-docgen</artifactId>
 		</dependency>
 		
 	</dependencies>

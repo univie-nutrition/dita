@@ -210,6 +210,12 @@
 			</dependency>
 			
 			<dependency>
+				<groupId>org.apache.causeway.extensions</groupId>
+				<artifactId>causeway-extensions-docgen</artifactId>
+				<version>${causeway.version}</version>
+			</dependency>
+			
+			<dependency>
 				<groupId>org.apache.causeway.app</groupId>
 				<artifactId>causeway-app-starter-parent</artifactId>
 				<version>${causeway.version}</version>
