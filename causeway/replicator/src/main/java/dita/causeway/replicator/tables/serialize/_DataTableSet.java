@@ -64,8 +64,11 @@ class _DataTableSet {
         dataTables.forEach(dataTable->{
             dataTable.setDataElements(
                     Can
-                        .ofCollection(repositoryService.allInstances(dataTable.getElementType().getCorrespondingClass()))
-                        .map(entityPojo->ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo)));
+                        .ofCollection(
+                                repositoryService
+                                    .allInstances(dataTable.getElementType().getCorrespondingClass()))
+                        .map(entityPojo->
+                                ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo)));
         });
         return this;
     }
@@ -78,8 +81,9 @@ class _DataTableSet {
                 })
                 .valueAsNonNullElseFail();
 
-        //TODO parse data from the map, and populate tables, that are already in the Can<DataTable>
+        // parse data from the map, and populate tables, that are already in the Can<DataTable>
 
+        @SuppressWarnings("unchecked")
         val tables = (Iterable<Map<String, ?>>) asMap.get("tables");
         tables.forEach(table->{
             table.entrySet().stream()
@@ -94,11 +98,12 @@ class _DataTableSet {
                 val entitySpec = dataTable.getElementType();
                 val entityClass = entitySpec.getCorrespondingClass();
                 val factoryService = entitySpec.getFactoryService();
-                val objectManager = entitySpec.getObjectManager();
 
+                @SuppressWarnings("unchecked")
                 val tableColsAndRows = (Map<String, ?>)tableEntry.getValue();
-
+                @SuppressWarnings("unchecked")
                 val colLiterals = (Iterable<String>) tableColsAndRows.get("cols");
+                @SuppressWarnings("unchecked")
                 val rowLiterals = (Iterable<String>) tableColsAndRows.get("rows");
 
                 System.err.printf("table %s%n", entityLogicalTypeName);
@@ -113,42 +118,43 @@ class _DataTableSet {
                 val cellLiterals = new String[colCount];
 
                 //System.err.printf("  rows:%n");
-                _NullSafe.stream(rowLiterals).forEach(rowLiteral->{
-                    //System.err.printf("  - %s%n", rowLiteral);
+                val dataElements = _NullSafe.stream(rowLiterals)
+                    .map(rowLiteral->{
+                        //System.err.printf("  - %s%n", rowLiteral);
 
-                    // create a new entity instance from each row
+                        // create a new entity instance from each row
 
-                    val entityPojo = factoryService.detachedEntity(entityClass);
-                    objectManager.adapt(entityPojo);
+                        val entityPojo = factoryService.detachedEntity(entityClass);
+                        val entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
 
-                    val entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
+                        formatOptions.parseRow(rowLiteral, cellLiterals);
 
-                    formatOptions.parseRow(rowLiteral, cellLiterals);
+                        int colIndex = 0;
 
-                    int colIndex = 0;
+                        for(val col : dataTable.getDataColumns()){
+                            val colMetamodel = col.getPropertyMetaModel();
+                            val valueSpec = colMetamodel.getElementType();
+                            // assuming value
+                            val valueFacet = valueSpec.valueFacetElseFail();
 
-                    for(val col : dataTable.getDataColumns()){
-                        val colMetamodel = col.getPropertyMetaModel();
-                        val valueSpec = colMetamodel.getElementType();
-                        // assuming value
-                        val valueFacet = valueSpec.valueFacetElseFail();
+                            // parse value
+                            final String valueStringified = cellLiterals[colIndex];
+                            val value = valueStringified!=null
+                                    ? ManagedObject.adaptSingular(
+                                            valueSpec,
+                                            valueFacet.destring(Format.JSON, valueStringified))
+                                    : colMetamodel.getDefault(entity);
 
-                        // parse value
-                        final String valueStringified = cellLiterals[colIndex];
-                        val value = valueStringified!=null
-                                ? ManagedObject.adaptSingular(
-                                        valueSpec,
-                                        valueFacet.destring(Format.JSON, valueStringified))
-                                : colMetamodel.getDefault(entity);
+                            // directly set entity property
+                            colMetamodel.set(entity, value, InteractionInitiatedBy.PASS_THROUGH);
 
-                        // directly set entity property
-                        colMetamodel.set(entity, value, InteractionInitiatedBy.PASS_THROUGH);
+                            colIndex++;
+                        }
+                        return entity;
+                    })
+                    .collect(Can.toCan());
 
-                        colIndex++;
-                    }
-
-                });
-
+                dataTable.setDataElements(dataElements);
             });
         });
 
@@ -206,8 +212,10 @@ class _DataTableSet {
         // assuming value
         val valueFacet = valueSpec.valueFacetElseFail();
 
-        return formatOptions.encodeCellValue(
+        @SuppressWarnings("unchecked")
+        val stringifiedValue = formatOptions.encodeCellValue(
                         valueFacet.enstring(Format.JSON, cellValue.getPojo()));
+        return stringifiedValue;
     }
 
     private static class YamlWriter {

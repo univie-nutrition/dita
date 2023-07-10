@@ -18,6 +18,7 @@
  */
 package dita.causeway.replicator.tables.model;
 
+import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class DataRow {
     }
 
     public ManagedObject getCellElement(final @NonNull DataColumn column) {
-        return column.getPropertyMetaModel().get(getRowElement());
+        return column.getPropertyMetaModel().get(getRowElement(), InteractionInitiatedBy.PASS_THROUGH);
     }
 
 }
