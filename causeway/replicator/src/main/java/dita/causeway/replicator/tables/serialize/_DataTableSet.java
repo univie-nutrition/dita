@@ -161,7 +161,18 @@ class _DataTableSet {
         return this;
     }
 
-    // -- WRITING
+    // -- WRITING TO DB
+
+    public _DataTableSet insertToDatabasse(final RepositoryService repositoryService) {
+        dataTables.forEach(dataTable->{
+            dataTable.getDataElements().forEach(entity->{
+                repositoryService.persist(entity);
+            });
+        });
+        return this;
+    }
+
+    // -- WRITING TO YML
 
     public String toYaml(final DataTableOptions.FormatOptions formatOptions) {
         val yaml = new YamlWriter();

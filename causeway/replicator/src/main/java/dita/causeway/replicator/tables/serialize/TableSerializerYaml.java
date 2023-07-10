@@ -52,12 +52,10 @@ public class TableSerializerYaml {
      * Returns the serialized version of the load result.
      */
     public String load(final Clob clob, final Predicate<ObjectSpecification> filter) {
-
         val yaml = dataTables(filter)
                 .populateFromYaml(clob.asString(), DataTableOptions.FormatOptions.defaults())
+                .insertToDatabasse(repositoryService)
                 .toYaml(DataTableOptions.FormatOptions.defaults());
-
-        //TODO update those filtered list of tables; then persist; then reassess
         return yaml;
     }
 
