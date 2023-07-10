@@ -24,11 +24,16 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import org.springframework.lang.Nullable;
+
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
+import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Format;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
+import org.apache.causeway.core.metamodel.object.ManagedObjects;
 
 import dita.causeway.replicator.tables.model.DataTable;
 import dita.causeway.replicator.tables.model.DataTableOptions;
@@ -39,14 +44,14 @@ import lombok.val;
 /**
  * Represents an ordered set of {@link DataTable}(s). Order is by logical entity type name (lexicographically).
  */
-public class DataTableSet {
+class _DataTableSet {
 
     // -- CONSTRUCTION
 
     @Getter private final @NonNull Can<DataTable> dataTables;
     private final @NonNull Map<String, DataTable> dataTableByLogicalName;
 
-    public DataTableSet(
+    public _DataTableSet(
             final Can<DataTable> dataTables) {
         this.dataTables = dataTables;
         this.dataTableByLogicalName = dataTables.stream()
@@ -55,7 +60,7 @@ public class DataTableSet {
 
     // -- POPULATING
 
-    public DataTableSet populateFromDatabase(final RepositoryService repositoryService) {
+    public _DataTableSet populateFromDatabase(final RepositoryService repositoryService) {
         dataTables.forEach(dataTable->{
             dataTable.setDataElements(
                     Can
@@ -65,8 +70,8 @@ public class DataTableSet {
         return this;
     }
 
-    public DataTableSet populateFromYaml(final String yaml, final DataTableOptions.FormatOptions formatOptions) {
-        var asMap = YamlUtils
+    public _DataTableSet populateFromYaml(final String yaml, final DataTableOptions.FormatOptions formatOptions) {
+        val asMap = YamlUtils
                 .tryRead(HashMap.class, yaml, loader->{
                     loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
                     return loader;
@@ -75,26 +80,26 @@ public class DataTableSet {
 
         //TODO parse data from the map, and populate tables, that are already in the Can<DataTable>
 
-        var tables = (Iterable<Map<String, ?>>) asMap.get("tables");
+        val tables = (Iterable<Map<String, ?>>) asMap.get("tables");
         tables.forEach(table->{
             table.entrySet().stream()
             .forEach(tableEntry->{
-                var entityLogicalTypeName = tableEntry.getKey();
+                val entityLogicalTypeName = tableEntry.getKey();
 
-                var dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
+                val dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
                         .orElse(null);
                 if(dataTable==null) {
                     return; // skip
                 }
-                var entitySpec = dataTable.getElementType();
-                var entityClass = entitySpec.getCorrespondingClass();
-                var factoryService = entitySpec.getFactoryService();
-                var objectManager = entitySpec.getObjectManager();
+                val entitySpec = dataTable.getElementType();
+                val entityClass = entitySpec.getCorrespondingClass();
+                val factoryService = entitySpec.getFactoryService();
+                val objectManager = entitySpec.getObjectManager();
 
-                var tableColsAndRows = (Map<String, ?>)tableEntry.getValue();
+                val tableColsAndRows = (Map<String, ?>)tableEntry.getValue();
 
-                var colLiterals = (Iterable<String>) tableColsAndRows.get("cols");
-                var rowLiterals = (Iterable<String>) tableColsAndRows.get("rows");
+                val colLiterals = (Iterable<String>) tableColsAndRows.get("cols");
+                val rowLiterals = (Iterable<String>) tableColsAndRows.get("rows");
 
                 System.err.printf("table %s%n", entityLogicalTypeName);
                 //System.err.printf("  cols:%n");
@@ -105,7 +110,7 @@ public class DataTableSet {
 
                 final int colCount = (int)_NullSafe.stream(colLiterals).count();
 
-                var cellLiterals = new String[colCount];
+                val cellLiterals = new String[colCount];
 
                 //System.err.printf("  rows:%n");
                 _NullSafe.stream(rowLiterals).forEach(rowLiteral->{
@@ -120,18 +125,27 @@ public class DataTableSet {
 
                     formatOptions.parseRow(rowLiteral, cellLiterals);
 
-                    dataTable.getDataColumns().forEach(col->{
+                    int colIndex = 0;
 
-                        var colMetamodel = col.getPropertyMetaModel();
+                    for(val col : dataTable.getDataColumns()){
+                        val colMetamodel = col.getPropertyMetaModel();
+                        val valueSpec = colMetamodel.getElementType();
+                        // assuming value
+                        val valueFacet = valueSpec.valueFacetElseFail();
 
-                        var defaultValue = colMetamodel.getDefault(entity);
-                        var value = defaultValue;
-                        // TODO instead use the actual value after parsing
+                        // parse value
+                        final String valueStringified = cellLiterals[colIndex];
+                        val value = valueStringified!=null
+                                ? ManagedObject.adaptSingular(
+                                        valueSpec,
+                                        valueFacet.destring(Format.JSON, valueStringified))
+                                : colMetamodel.getDefault(entity);
 
-                        //TODO this sets using rules and triggers events - need to set directly
-                        colMetamodel.set(entity, value);
+                        // directly set entity property
+                        colMetamodel.set(entity, value, InteractionInitiatedBy.PASS_THROUGH);
 
-                    });
+                        colIndex++;
+                    }
 
                 });
 
@@ -168,7 +182,7 @@ public class DataTableSet {
                 val rowLiteral = dataTable.getDataColumns()
                         .stream()
                         .map(dataRow::getCellElement)
-                        .map(cell->cell!=null ? formatOptions.asCellValue(cell.getTitle()) : formatOptions.nullSymbol())
+                        .map(cellValue->stringify(cellValue, formatOptions))
                         .collect(Collectors.joining(formatOptions.columnSeparator()));
 
                 yaml.ind().ind().ind().ul().doubleQuoted(rowLiteral).nl();
@@ -178,6 +192,23 @@ public class DataTableSet {
     }
 
     // -- HELPER
+
+    private static String stringify(
+            final @Nullable ManagedObject cellValue,
+            final @NonNull DataTableOptions.FormatOptions formatOptions) {
+
+        if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue)) {
+            return formatOptions.nullSymbol();
+        }
+
+        val valueSpec = cellValue.getSpecification();
+
+        // assuming value
+        val valueFacet = valueSpec.valueFacetElseFail();
+
+        return formatOptions.encodeCellValue(
+                        valueFacet.enstring(Format.JSON, cellValue.getPojo()));
+    }
 
     private static class YamlWriter {
         final StringBuilder sb = new StringBuilder();

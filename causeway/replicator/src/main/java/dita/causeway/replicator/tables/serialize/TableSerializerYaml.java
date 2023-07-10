@@ -63,8 +63,8 @@ public class TableSerializerYaml {
 
     // -- HELPER
 
-    private DataTableSet dataTables(final Predicate<ObjectSpecification> filter){
-        val dataTables = new DataTableSet(
+    private _DataTableSet dataTables(final Predicate<ObjectSpecification> filter){
+        val dataTables = new _DataTableSet(
                 dataTableProvider.streamDataTables()
                     .filter(dataTable->filter.test(dataTable.getElementType()))
                     .collect(Can.toCan()));

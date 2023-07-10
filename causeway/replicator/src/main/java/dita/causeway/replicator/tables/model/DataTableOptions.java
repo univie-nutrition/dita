@@ -18,6 +18,8 @@
  */
 package dita.causeway.replicator.tables.model;
 
+import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.NonNull;
@@ -35,14 +37,32 @@ public class DataTableOptions {
             return new FormatOptions("|", "ø", "¯");
         }
 
-        public String asCellValue(final String raw) {
-            return raw==null
+        /**
+         * Encode into serialized format.
+         */
+        public String encodeCellValue(final String string) {
+            return string==null
                     ? nullSymbol()
-                    : check(raw);
+                    : check(string);
         }
 
-        public void parseRow(final String rowLiteral, final String[] cellLiterals) {
-            // TODO implement
+        /**
+         * Decode from serialized format.
+         */
+        public String decodeCellValue(final String string) {
+            return string.equals(nullSymbol())
+                    ? null
+                    : string.replace(doubleQuoteSymbol(), "\"");
+        }
+
+        /**
+         * Fills the given {@code cellLiterals} array with the split up {@code rowLiteral}.
+         */
+        public void parseRow(final @NonNull String rowLiteral, final @NonNull String[] cellLiterals) {
+            _Strings.splitThenStream(rowLiteral, columnSeparator())
+            .map(this::decodeCellValue)
+            .forEach(IndexedConsumer.zeroBased((index, cellLiteral)->
+                cellLiterals[index] = cellLiteral));
         }
 
         // -- HELPER

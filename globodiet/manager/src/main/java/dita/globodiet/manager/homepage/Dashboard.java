@@ -35,6 +35,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.HomePage;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
@@ -82,7 +84,10 @@ public class Dashboard {
 
     @Action
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
-    public AsciiDoc loadYml(final Clob tableData) {
+    public AsciiDoc loadYml(
+            @Parameter
+            @ParameterLayout(named = "tableData")
+            final Clob tableData) {
 
         val doc = AsciiDocFactory.doc();
         doc.setTitle("Table Import Result");
