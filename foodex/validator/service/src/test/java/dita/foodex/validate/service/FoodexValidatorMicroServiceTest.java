@@ -54,7 +54,7 @@ class FoodexValidatorMicroServiceTest {
     void test() throws JsonParseException, JsonMappingException, IOException {
 
         RestfulClientConfig clientConfig = RestfulClientConfig.builder()
-        .restfulBase("http://localhost:8080/")
+        .restfulBaseUrl("http://localhost:8080/")
         // setup request/response debug logging
         .useRequestDebugLogging(true) // default = false
         .build();

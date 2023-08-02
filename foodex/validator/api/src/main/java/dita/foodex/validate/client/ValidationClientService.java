@@ -71,7 +71,7 @@ public class ValidationClientService {
         }
 
         val clientConfig = RestfulClientConfig.builder()
-        .restfulBase(validatorResourceUrl)
+        .restfulBaseUrl(validatorResourceUrl)
         .useRequestDebugLogging(verbose) //for debugging
         .build();
 

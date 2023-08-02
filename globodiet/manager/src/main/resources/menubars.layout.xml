@@ -16,15 +16,20 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <mb3:primary>
         <mb3:menu>
-            <mb3:named>Simple Objects</mb3:named>
+            <mb3:named>Featured</mb3:named>
             <mb3:section>
-                <mb3:serviceAction objectType="simple.SimpleObjects" id="create"/>
-                <mb3:serviceAction objectType="simple.SimpleObjects" id="findByName"/>
-                <mb3:serviceAction objectType="simple.SimpleObjects" id="listAll"/>
+                <mb3:named>Brands</mb3:named>
+                <mb3:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllBrandName"/>
+                <mb3:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageBrands"/>
+            </mb3:section>
+            <mb3:section>
+                <mb3:named>Food</mb3:named>
+                <mb3:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFoodOrProductOrAlias"/>
+                <mb3:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageFoodList"/>
             </mb3:section>
         </mb3:menu>
         <mb3:menu unreferencedActions="true">
-            <mb3:named>Other</mb3:named>
+            <mb3:named>Other Lists</mb3:named>
         </mb3:menu>
     </mb3:primary>
     <mb3:secondary>
