@@ -38,6 +38,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.tooling.model4adoc.AsciiDocFactory;
@@ -75,16 +76,16 @@ public class Dashboard {
                     .orElse(null);
     }
 
-    @Action
+    @Action(restrictTo = RestrictTo.PROTOTYPING)
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
-    public Clob generateYml() {
+    public Clob generateYaml() {
         val clob = tableSerializer.clob("gd-params", tableFilter());
         return clob;
     }
 
-    @Action
+    @Action(restrictTo = RestrictTo.PROTOTYPING)
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
-    public AsciiDoc loadYml(
+    public AsciiDoc loadYaml(
             @Parameter
             @ParameterLayout(named = "tableData")
             final Clob tableData) {

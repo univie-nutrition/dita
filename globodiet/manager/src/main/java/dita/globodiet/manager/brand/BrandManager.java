@@ -18,12 +18,7 @@
  */
 package dita.globodiet.manager.brand;
 
-import java.util.Optional;
-
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import org.springframework.boot.info.BuildProperties;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -42,8 +37,6 @@ import dita.globodiet.manager.FontawesomeConstants;
 @DomainObjectLayout(
         cssClassFa = FontawesomeConstants.ICON_BRANDS)
 public class BrandManager {
-
-    @Inject Optional<BuildProperties> buildProperties;
 
     @ObjectSupport
     public String title() {

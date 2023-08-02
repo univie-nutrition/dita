@@ -28,8 +28,10 @@ public class FontawesomeConstants {
     public final String FA_BRANDS_NUTRITIONIX = "fa-brands fa-nutritionix";
     public final String FA_BRANDS_SHOPIFY = "fa-brands fa-shopify";
     public final String FA_CART_SHOPPING_SOLID = "fa-solid fa-cart-shopping";
+    public final String FA_CODE_BRANCH_SOLID = "fa-solid fa-code-branch";
     public final String FA_DOWNLOAD_REGULAR = "fa-regular fa-download";
     public final String FA_DROPLET_SOLID = "fa-solid fa-droplet";
+    public final String FA_FLOPPY_DISK_REGULAR = "fa-regular fa-floppy-disk";
     public final String FA_HASHTAG_SOLID = "fa-solid fa-hashtag";
     public final String FA_INDUSTRY_SOLID = "fa-solid fa-industry";
     public final String FA_INFO_CIRCLE_SOLID = "fa-solid fa-circle-info";
@@ -53,5 +55,6 @@ public class FontawesomeConstants {
 
     public final String ICON_BRANDS = FA_BRANDS_SHOPIFY + " do-brand";
     public final String ICON_FOODLIST = FA_UTENSILS_SOLID + " do-food";
+    public final String ICON_BLOBSTORE = FA_CODE_BRANCH_SOLID + " do-blobstore";
 
 }

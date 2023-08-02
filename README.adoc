@@ -9,3 +9,42 @@ Provides specifications for
 * Nutrition related Entities (eg. Nutrition Lookup Table and various Mapping Relations)
 * Data Validation
 * File Formats and Interfaces for Data Exchange (eg. XML)
+
+== Globodiet
+
+=== Parameter Data Management
+
+Application to manage the _Globodiet Parameter Model_ is provided under
+
+[source]
+----
+globodiet/manager/
+----
+
+This builds and saves your _Docker_ image to `target/jib-image.tar`
+
+[source]
+----
+cd globodiet/manager
+mvn compile jib:buildTar
+----
+ 
+which you can load into docker with:
+
+[source]
+----
+docker load --input target/jib-image.tar
+----
+
+For the application to run, 
+it needs a blob store for the various versions of the 
+Parameter Model, which is realized on the local file system of the host:
+
+[source]
+.Environment Variable
+----
+dita.blobstore.root=<path-to-blob-store>
+----
+
+ 
+  

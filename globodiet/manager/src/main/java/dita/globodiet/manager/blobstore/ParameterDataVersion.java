@@ -16,7 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.food;
+package dita.globodiet.manager.blobstore;
+
+import java.io.File;
 
 import jakarta.inject.Named;
 
@@ -27,32 +29,50 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
-import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Property;
+import org.apache.causeway.applib.annotation.PropertyLayout;
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
+import lombok.val;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
-@Named(DitaModuleGdManager.NAMESPACE + ".FoodManager")
+@Named(DitaModuleGdManager.NAMESPACE + ".ParameterDataVersion")
 @DomainObjectLayout(
-        cssClassFa = FontawesomeConstants.ICON_FOODLIST)
-public class FoodManager {
+        cssClassFa = FontawesomeConstants.ICON_BLOBSTORE)
+@NoArgsConstructor
+public class ParameterDataVersion {
+
+    public static ParameterDataVersion fromDirectory(final @NonNull File dir) {
+        val paramDataVersion = new ParameterDataVersion();
+        paramDataVersion.setName(dir.getName());
+        return paramDataVersion;
+    }
 
     @ObjectSupport
     public String title() {
-        return "Manage Food List";
+        return String.format("Parameter-Data [%s]", getName());
     }
 
+    @Property(optionality = Optionality.MANDATORY)
+    @Getter @Setter
+    private String name;
+
+    @Property
+    @PropertyLayout(multiLine = 4)
+    @Getter @Setter
+    private String description;
+
     @Action
-    @ActionLayout(fieldSetName="About", position = Position.PANEL)
-    public FoodManager addFood(
-
-            @Parameter
-            final String name) {
-
-        return this;
+    @ActionLayout(fieldSetName="Details", position = Position.PANEL)
+    public void checkout() {
+        //TODO load model from blob-store
+        // warn if pending changes
     }
 
 }
-
-

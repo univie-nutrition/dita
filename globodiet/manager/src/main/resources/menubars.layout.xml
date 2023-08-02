@@ -15,8 +15,16 @@
         xmlns:mb3="https://causeway.apache.org/applib/layout/menubars/bootstrap3"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <mb3:primary>
+    
         <mb3:menu>
-            <mb3:named>Featured</mb3:named>
+            <mb3:named>Versions</mb3:named>
+            <mb3:section>
+                <mb3:serviceAction objectType="dita.globodiet.manager.BlobStoreMenu" id="parameterDataVersions"/>
+            </mb3:section>
+        </mb3:menu>
+    
+        <mb3:menu>
+            <mb3:named>Edit</mb3:named>
             <mb3:section>
                 <mb3:named>Brands</mb3:named>
                 <mb3:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllBrandName"/>
