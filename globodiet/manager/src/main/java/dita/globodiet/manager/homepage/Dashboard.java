@@ -21,7 +21,6 @@ package dita.globodiet.manager.homepage;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -40,13 +39,13 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
-import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.tooling.model4adoc.AsciiDocFactory;
 import org.apache.causeway.tooling.model4adoc.AsciiDocWriter;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.globodiet.manager.DitaModuleGdManager;
+import dita.globodiet.manager.blobstore.BlobStore;
 import lombok.val;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
@@ -79,7 +78,7 @@ public class Dashboard {
     @Action(restrictTo = RestrictTo.PROTOTYPING)
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
     public Clob generateYaml() {
-        val clob = tableSerializer.clob("gd-params", tableFilter());
+        val clob = tableSerializer.clob("gd-params", BlobStore.paramsTableFilter());
         return clob;
     }
 
@@ -94,15 +93,10 @@ public class Dashboard {
         doc.setTitle("Table Import Result");
 
         val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml",
-                tableSerializer.load(tableData, tableFilter()));
+                tableSerializer.load(tableData, BlobStore.paramsTableFilter()));
         sourceBlock.setTitle("Serialized Table Data (yaml)");
 
         return new AsciiDoc(AsciiDocWriter.toString(doc));
-    }
-
-    private Predicate<ObjectSpecification> tableFilter() {
-        return entityType->entityType.getLogicalTypeName()
-                .startsWith("dita.globodiet.params.");
     }
 
 }

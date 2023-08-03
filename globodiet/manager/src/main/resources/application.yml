@@ -77,11 +77,14 @@ causeway:
         show-chooser: true
         show-drop-down-on-footer: true
 
+      dialog-mode: modal
+      dialog-mode-for-menu: modal
+
       max-title-length-in-standalone-tables: 0
       max-title-length-in-parented-tables: 0
 
       themes:
-        show-chooser: true
+        show-chooser: false
 
       table:
         decoration:

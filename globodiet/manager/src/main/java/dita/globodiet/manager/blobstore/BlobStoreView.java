@@ -21,15 +21,13 @@ package dita.globodiet.manager.blobstore;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import org.apache.causeway.applib.annotation.Action;
-import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
-import org.apache.causeway.applib.annotation.Optionality;
-import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.Property;
+import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.commons.collections.Can;
 
 import dita.globodiet.manager.DitaModuleGdManager;
@@ -48,21 +46,17 @@ public class BlobStoreView {
         return "Manage Parameter-Data Versions";
     }
 
+    @Property
+    @PropertyLayout(describedAs = "The currently checked-out version, "
+            + "thats enabled for EDITING. "
+            + "If NONE, then clone or checkout an exising version.")
+    public ParameterDataVersion getCurrentlyCheckedOutVersion() {
+        return blobStore.getCurrentlyCheckedOutVersion();
+    }
+
     @Collection
     public Can<ParameterDataVersion> getVersions() {
         return blobStore.getVersions();
-    }
-
-    @Action
-    @ActionLayout(
-            associateWith = "versions",
-            cssClassFa = FontawesomeConstants.FA_FLOPPY_DISK_REGULAR)
-    public BlobStoreView saveAs(
-            @Parameter(optionality = Optionality.MANDATORY)
-            final String name) {
-        //TODO save current param data model to blob-store
-        // disabled if not dirty? but then cloning is a valid use-case
-        return this;
     }
 
 }

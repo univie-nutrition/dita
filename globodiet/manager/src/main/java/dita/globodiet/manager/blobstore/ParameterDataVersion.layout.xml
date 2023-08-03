@@ -6,44 +6,42 @@
         </bs:col>
     </bs:row>
     <bs:row>
-        <bs:col span="4">
+        <bs:col span="6">
             <bs:row>
                 <bs:col span="12">
                     <bs:tabGroup>
-                        <bs:tab name="Identity">
+                        <bs:tab name="Details">
                             <bs:row>
-<bs:col span="12">
-    <cpt:fieldSet name="Identity" id="identity"/>
-</bs:col>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="Details" id="details">
+                                        <cpt:property id="name" />
+                                        <cpt:property id="locked" />
+                                        <cpt:property id="description" />
+                                    </cpt:fieldSet>
+                                </bs:col>
                             </bs:row>
                         </bs:tab>
                         <bs:tab name="Other">
                             <bs:row>
-<bs:col span="12">
-    <cpt:fieldSet name="Other" id="other" unreferencedProperties="true"/>
-</bs:col>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="Other" id="other" unreferencedProperties="true"/>
+                                </bs:col>
                             </bs:row>
                         </bs:tab>
                         <bs:tab name="Metadata">
                             <bs:row>
-<bs:col span="12">
-    <cpt:fieldSet name="Metadata" id="metadata"/>
-</bs:col>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="Metadata" id="metadata">
+                                        <cpt:property id="__id" />
+                                    </cpt:fieldSet>
+                                </bs:col>
                             </bs:row>
                         </bs:tab>
                     </bs:tabGroup>
                 </bs:col>
             </bs:row>
-            <bs:row>
-                <bs:col span="12">
-                    <cpt:fieldSet name="Details" id="details">
-                        <cpt:property id="name" />
-                        <cpt:property id="description" />
-                    </cpt:fieldSet>
-                </bs:col>
-            </bs:row>
         </bs:col>
-        <bs:col span="8">
+        <bs:col span="6">
             <bs:tabGroup unreferencedCollections="true"/>
         </bs:col>
     </bs:row>

@@ -28,6 +28,9 @@ public class FontawesomeConstants {
     public final String FA_BRANDS_NUTRITIONIX = "fa-brands fa-nutritionix";
     public final String FA_BRANDS_SHOPIFY = "fa-brands fa-shopify";
     public final String FA_CART_SHOPPING_SOLID = "fa-solid fa-cart-shopping";
+    public final String FA_CLONE_SOLID = "fa-solid fa-clone";
+    public final String FA_CLOUD_ARROW_DOWN_SOLID = "fa-solid fa-cloud-arrow-down";
+    public final String FA_CLOUD_ARROW_UP_SOLID = "fa-solid fa-cloud-arrow-up";
     public final String FA_CODE_BRANCH_SOLID = "fa-solid fa-code-branch";
     public final String FA_DOWNLOAD_REGULAR = "fa-regular fa-download";
     public final String FA_DROPLET_SOLID = "fa-solid fa-droplet";
