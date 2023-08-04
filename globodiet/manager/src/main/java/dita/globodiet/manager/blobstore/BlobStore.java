@@ -35,6 +35,7 @@ import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
@@ -98,20 +99,32 @@ public class BlobStore {
      * There can be only ONE version checked out, which is then shared among all users for editing or viewing.
      */
     public void checkout(final @Nullable ParameterDataVersion version) {
-        //TODO does this clear before load?
+        //TODO clear all before load
         tableSerializer.load(getTableData(version), paramsTableFilter());
         this.currentlyCheckedOutVersion = version;
     }
 
     /**
+     * <ol>
+     * <li>generate the clone's directory</li>
+     * <li>write the clone's manifest</li>
+     * <li>copy the 'gd-params.yml.zip' file from master to clone directory</li>
+     * </ol>
      * @param master - the version to generate a clone from
      * @param clone - __id is auto generated - so can be left zero
      */
     public void clone(final ParameterDataVersion master, final ParameterDataVersion clone) {
-        clone.set__id(getNextFreeVersionId());
-        //TODO (1) generate the clone's directory
-        // (2) write the clone's manifest
-        // (3) copy the 'gd-params.yml' file (zipped)
+        final int cloneId = getNextFreeVersionId();
+        clone.set__id(cloneId);
+
+        val cloneDir = FileUtils.makeDir(new File(rootDirectory, "" + cloneId));
+        clone.writeManifest(cloneDir);
+
+        val masterDir = new File(rootDirectory, "" + master.get__id());
+
+        FileUtils.copy(
+                new File(masterDir, "gd-params.yml.zip"),
+                new File(cloneDir, "gd-params.yml.zip"));
     }
 
     /**
@@ -145,6 +158,9 @@ public class BlobStore {
         return DataSource.ofFile(new File(versionFolder, resourceName));
     }
 
+    /**
+     * Loads a zipped resource into a Blob, but does not unzip.
+     */
     private Blob resolveZippedResource(
             final ParameterDataVersion parameterDataVersion,
             final String resourceName,

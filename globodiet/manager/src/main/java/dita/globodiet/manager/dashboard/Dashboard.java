@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.homepage;
+package dita.globodiet.manager.dashboard;
 
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -46,12 +46,14 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import lombok.val;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".Dashboard")
 @HomePage
-public class Dashboard {
+public class Dashboard
+implements HasCurrentlyCheckedOutVersion {
 
     @Inject Optional<BuildProperties> buildProperties;
     @Inject TableSerializerYaml tableSerializer;

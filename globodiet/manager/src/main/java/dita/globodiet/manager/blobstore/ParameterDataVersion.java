@@ -35,6 +35,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
@@ -43,6 +44,7 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
 
@@ -243,6 +245,14 @@ public class ParameterDataVersion {
         return guardAgainstDeleted() // just in case
                 .or(()->guardAgainstSticky("This version is marked STICKY by an administrator, hence cannot be deleted."))
                 .orElse(null);
+    }
+
+    // -- UTILITY
+
+    @Programmatic
+    public void writeManifest(final @NonNull File dir) {
+        val dataSink = DataSink.ofFile(new File(dir, "manifest.yml"));
+        YamlUtils.write(this, dataSink);
     }
 
     // -- HELPER

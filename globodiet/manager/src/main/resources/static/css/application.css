@@ -14,6 +14,13 @@
 	--bs-primary-rgb: 80,101,168;
     --link-color: steelblue;
     --link-color-hover: rgb(10, 70, 140);
+   	/* fixates alert button and toast colors, as with causeway-bootstrap-growl.js, we have hardcoded white text */
+	--bs-info: #3498db;
+	--bs-warning: #f39c12;
+	--bs-danger: #e74c3c;
+	--bs-info-rgb: 52,152,219;
+	--bs-warning-rgb: 243,156,18;
+	--bs-danger-rgb: 231,76,60;
 }
 
 /* fixate menu label color */
