@@ -41,6 +41,8 @@ import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion;
+import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
+import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 
 /**
@@ -80,6 +82,8 @@ import dita.globodiet.manager.dashboard.Dashboard;
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
+    ParameterDataVersion_updateName.class,
+    ParameterDataVersion_updateDescription.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

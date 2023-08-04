@@ -18,6 +18,7 @@
  */
 package dita.globodiet.manager.blobstore;
 
+import java.io.File;
 import java.io.FileFilter;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -26,7 +27,6 @@ import java.util.function.Predicate;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import org.apache.wicket.util.file.File;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +41,7 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -86,6 +87,7 @@ public class BlobStore {
      */
     public void delete(final ParameterDataVersion version) {
         version.setDeleted(true);
+        writeManifest(version);
     }
 
     /**
@@ -93,6 +95,7 @@ public class BlobStore {
      */
     public void restore(final ParameterDataVersion version) {
         version.setDeleted(false);
+        writeManifest(version);
     }
 
     /**
@@ -120,7 +123,7 @@ public class BlobStore {
         val cloneDir = FileUtils.makeDir(new File(rootDirectory, "" + cloneId));
         clone.writeManifest(cloneDir);
 
-        val masterDir = new File(rootDirectory, "" + master.get__id());
+        val masterDir = lookupVersionFolderElseFail(master);
 
         FileUtils.copy(
                 new File(masterDir, "gd-params.yml.zip"),
@@ -142,6 +145,13 @@ public class BlobStore {
     }
 
     // -- UTILITY
+
+    public void writeManifest(final @Nullable ParameterDataVersion version) {
+        if(version==null) {
+            return;
+        }
+        version.writeManifest(lookupVersionFolderElseFail(version));
+    }
 
     public static Predicate<ObjectSpecification> paramsTableFilter() {
         return entityType->entityType.getLogicalTypeName()
@@ -178,6 +188,19 @@ public class BlobStore {
                 .mapToInt(ParameterDataVersion::get__id)
                 .max()
                 .orElse(10001);
+    }
+
+//    private Optional<File> lookupVersionFolder(final @Nullable ParameterDataVersion version) {
+//        if(version==null) {
+//            return Optional.empty();
+//        }
+//        val versionFolder = new File(rootDirectory, "" + version.get__id());
+//        return FileUtils.existingDirectory(versionFolder);
+//    }
+
+    private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
+        val versionFolder = new File(rootDirectory, "" + version.get__id());
+        return FileUtils.existingDirectoryElseFail(versionFolder);
     }
 
 }

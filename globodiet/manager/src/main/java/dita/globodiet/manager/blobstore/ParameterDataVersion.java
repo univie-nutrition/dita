@@ -233,7 +233,8 @@ public class ParameterDataVersion {
     @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
     @ActionLayout(
             sequence = "5",
-            describedAs = "MS-SQL Server backup file, that can be imported with the GloboDiet client application.",
+            describedAs = "Does not actually delete from blob-store, just changes the manifest, "
+                    + "such that given version no longer appears in the user interface.",
             fieldSetName="Details",
             position = Position.PANEL)
     public String delete() {
@@ -250,32 +251,32 @@ public class ParameterDataVersion {
     // -- UTILITY
 
     @Programmatic
-    public void writeManifest(final @NonNull File dir) {
+    void writeManifest(final @NonNull File dir) {
         val dataSink = DataSink.ofFile(new File(dir, "manifest.yml"));
         YamlUtils.write(this, dataSink);
     }
 
     // -- HELPER
 
-    private Optional<String> guardAgainstDeleted() {
+    Optional<String> guardAgainstDeleted() {
         return isDeleted()
             ? Optional.of("This version was deleted.")
             : Optional.empty();
     }
 
-    private Optional<String> guardAgainstSticky(final String message) {
+    Optional<String> guardAgainstSticky(final String message) {
         return isSticky()
             ? Optional.of(message)
             : Optional.empty();
     }
 
-//    private Optional<String> guardAgainstCommitted(final String message) {
-//        return isCommitted()
-//            ? Optional.of(message)
-//            : Optional.empty();
-//    }
+    Optional<String> guardAgainstCommitted(final String message) {
+        return isCommitted()
+            ? Optional.of(message)
+            : Optional.empty();
+    }
 
-    private Optional<String> guardAgainstNotCommitted(final String message) {
+    Optional<String> guardAgainstNotCommitted(final String message) {
         return !isCommitted()
             ? Optional.of(message)
             : Optional.empty();
