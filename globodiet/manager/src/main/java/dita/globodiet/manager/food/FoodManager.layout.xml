@@ -15,9 +15,6 @@
             <bs:row>
                 <bs:col span="6">
                     <cpt:fieldSet id="details" unreferencedProperties="true">
-                        <cpt:property id="name" />
-                        <cpt:property id="locked" />
-                        <cpt:property id="description" />
                     </cpt:fieldSet>
                 </bs:col>
             </bs:row>

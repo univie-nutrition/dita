@@ -40,6 +40,7 @@ import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.globodiet.dom.params.DitaModuleGdParams;
+import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion;
 import dita.globodiet.manager.homepage.Dashboard;
 
 /**
@@ -76,6 +77,9 @@ import dita.globodiet.manager.homepage.Dashboard;
 
     // Homepage
     Dashboard.class,
+
+    // Mixins
+    HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

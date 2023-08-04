@@ -36,8 +36,8 @@ import dita.globodiet.manager.food.FoodManager;
         nature = org.apache.causeway.applib.annotation.NatureOfService.VIEW
         )
 public class FeaturedMenu {
-    @Inject
-    private FactoryService factoryService;
+
+    @Inject FactoryService factoryService;
 
     @Action
     @ActionLayout(cssClassFa = FontawesomeConstants.ICON_BRANDS)
@@ -46,7 +46,7 @@ public class FeaturedMenu {
     }
 
     @Action
-    @ActionLayout(cssClassFa = FontawesomeConstants.ICON_FOODLIST)
+    @ActionLayout(cssClassFa = FontawesomeConstants.ICON_FOOD)
     public FoodManager manageFoodList() {
         return factoryService.viewModel(new FoodManager());
     }

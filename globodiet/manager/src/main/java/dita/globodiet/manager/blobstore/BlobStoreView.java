@@ -26,18 +26,18 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
-import org.apache.causeway.applib.annotation.Property;
-import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.commons.collections.Can;
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
+import dita.globodiet.manager.blobstore.BlobStore.VersionFilter;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".BlobStoreView")
 @DomainObjectLayout(
-        cssClassFa = FontawesomeConstants.ICON_BLOBSTORE)
-public class BlobStoreView {
+        cssClassFa = FontawesomeConstants.ICON_VERSIONS)
+public class BlobStoreView
+implements HasCurrentlyCheckedOutVersion {
 
     @Inject BlobStore blobStore;
 
@@ -46,17 +46,10 @@ public class BlobStoreView {
         return "Manage Parameter-Data Versions";
     }
 
-    @Property
-    @PropertyLayout(describedAs = "The currently checked-out version, "
-            + "thats enabled for EDITING. "
-            + "If NONE, then clone or checkout an exising version.")
-    public ParameterDataVersion getCurrentlyCheckedOutVersion() {
-        return blobStore.getCurrentlyCheckedOutVersion();
-    }
-
     @Collection
     public Can<ParameterDataVersion> getVersions() {
-        return blobStore.getVersions();
+        return blobStore.getVersions()
+                .filter(VersionFilter.NOT_DELETED);
     }
 
 }

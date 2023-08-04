@@ -74,8 +74,8 @@ causeway:
       js: scripts/application.js
 
       bookmarked-pages:
-        show-chooser: true
-        show-drop-down-on-footer: true
+        show-chooser: false
+        show-drop-down-on-footer: false
 
       dialog-mode: modal
       dialog-mode-for-menu: modal
@@ -84,6 +84,7 @@ causeway:
       max-title-length-in-parented-tables: 0
 
       themes:
+        initial: Default
         show-chooser: false
 
       table:

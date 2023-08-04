@@ -5,6 +5,38 @@
 .fa-do-food {
 	color: darkgreen;
 }
-.fa-do-blobstore {
+.fa-do-version {
 	color: blueviolet;
+}
+
+/* theme colors */
+:root {
+	--bs-primary-rgb: 80,101,168;
+    --link-color: steelblue;
+    --link-color-hover: rgb(10, 70, 140);
+}
+
+/* fixate menu label color */
+.bg-primary .navbar-nav .nav-link,
+.bg-primary .navbar-nav .nav-link.active, 
+.bg-primary .navbar-nav .nav-link:focus, 
+.bg-primary .navbar-nav .nav-link:hover {
+	color: white !important;
+}
+
+.select2-container.input-sm .select2-choice,
+.input-group-sm .select2-container .select2-choice {
+    height: 33px;
+}
+
+.select2-container.select2-container-disabled .select2-choice,
+.select2-container.select2-container-disabled .select2-choices {
+    background-color: #ecf0f1;
+}
+
+header nav.navbar {
+	padding: 0.5rem 0.5rem;
+}
+header .navbar-header .navbar-brand {
+	padding-bottom: 0px;
 }

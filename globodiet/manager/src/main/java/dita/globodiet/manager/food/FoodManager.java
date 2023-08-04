@@ -18,40 +18,63 @@
  */
 package dita.globodiet.manager.food;
 
+import java.util.List;
+
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
+import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 
+import dita.globodiet.dom.params.EntitiesMenu;
+import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
+import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".FoodManager")
 @DomainObjectLayout(
-        cssClassFa = FontawesomeConstants.ICON_FOODLIST)
-public class FoodManager {
+        cssClassFa = FontawesomeConstants.ICON_FOOD)
+public class FoodManager
+implements HasCurrentlyCheckedOutVersion {
+
+    @Inject EntitiesMenu entities;
+    @Inject BlobStore blobStore;
 
     @ObjectSupport
     public String title() {
         return "Manage Food List";
     }
 
+    @Collection
+    public List<FoodOrRecipeOrAttachment> getFoodList() {
+        return entities.listAllFoodOrRecipeOrAttachment();
+    }
+
     @Action
-    @ActionLayout(fieldSetName="About", position = Position.PANEL)
+    @ActionLayout(fieldSetName="foodList", position = Position.PANEL)
     public FoodManager addFood(
 
             @Parameter
             final String name) {
-
+        //TODO this is just a stub
         return this;
     }
+    @MemberSupport public String disableAddFood() {
+        return guardAgainstCannotEditVersion(blobStore)
+                .orElse(null);
+    }
+
 
 }
 

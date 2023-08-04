@@ -18,39 +18,61 @@
  */
 package dita.globodiet.manager.brand;
 
+import java.util.List;
+
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
+import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 
+import dita.globodiet.dom.params.EntitiesMenu;
+import dita.globodiet.dom.params.food_descript.BrandName;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
+import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".BrandManager")
 @DomainObjectLayout(
         cssClassFa = FontawesomeConstants.ICON_BRANDS)
-public class BrandManager {
+public class BrandManager
+implements HasCurrentlyCheckedOutVersion {
+
+    @Inject EntitiesMenu entities;
+    @Inject BlobStore blobStore;
 
     @ObjectSupport
     public String title() {
         return "Manage Brands";
     }
 
+    @Collection
+    public List<BrandName> getBrandNames() {
+        return entities.listAllBrandName();
+    }
+
     @Action
-    @ActionLayout(fieldSetName="About", position = Position.PANEL)
+    @ActionLayout(associateWith = "brandNames", position = Position.PANEL)
     public BrandManager addBrand(
 
             @Parameter
             final String name) {
-
+        //TODO this is just a stub
         return this;
+    }
+    @MemberSupport public String disableAddBrand() {
+        return guardAgainstCannotEditVersion(blobStore)
+                .orElse(null);
     }
 
 }

@@ -36,11 +36,11 @@ import dita.globodiet.manager.FontawesomeConstants;
         nature = org.apache.causeway.applib.annotation.NatureOfService.VIEW
         )
 public class BlobStoreMenu {
-    @Inject
-    private FactoryService factoryService;
+
+    @Inject FactoryService factoryService;
 
     @Action
-    @ActionLayout(cssClassFa = FontawesomeConstants.ICON_BLOBSTORE)
+    @ActionLayout(cssClassFa = FontawesomeConstants.ICON_VERSIONS)
     public BlobStoreView parameterDataVersions() {
         return factoryService.viewModel(new BlobStoreView());
     }
