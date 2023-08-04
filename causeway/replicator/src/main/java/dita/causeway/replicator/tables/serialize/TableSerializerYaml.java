@@ -48,13 +48,20 @@ public class TableSerializerYaml {
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
+    public enum InsertMode {
+        ADD,
+        DELETE_ALL_THEN_ADD;
+        public boolean isAdd() { return this == ADD;}
+        public boolean isDeleteAllThenAdd() { return this == DELETE_ALL_THEN_ADD;}
+    }
+
     /**
      * Returns the serialized version of the load result.
      */
-    public String load(final Clob clob, final Predicate<ObjectSpecification> filter) {
+    public String load(final Clob clob, final Predicate<ObjectSpecification> filter, final InsertMode insertMode) {
         val yaml = dataTables(filter)
                 .populateFromYaml(clob.asString(), DataTableOptions.FormatOptions.defaults())
-                .insertToDatabasse(repositoryService)
+                .insertToDatabasse(repositoryService, insertMode)
                 .toYaml(DataTableOptions.FormatOptions.defaults());
         return yaml;
     }

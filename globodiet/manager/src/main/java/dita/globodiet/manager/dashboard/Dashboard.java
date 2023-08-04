@@ -44,6 +44,7 @@ import org.apache.causeway.tooling.model4adoc.AsciiDocWriter;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
@@ -95,7 +96,7 @@ implements HasCurrentlyCheckedOutVersion {
         doc.setTitle("Table Import Result");
 
         val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml",
-                tableSerializer.load(tableData, BlobStore.paramsTableFilter()));
+                tableSerializer.load(tableData, BlobStore.paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD));
         sourceBlock.setTitle("Serialized Table Data (yaml)");
 
         return new AsciiDoc(AsciiDocWriter.toString(doc));

@@ -25,11 +25,12 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 
 import lombok.RequiredArgsConstructor;
 
 @Action
-@ActionLayout(associateWith = "name")
+@ActionLayout(associateWith = "description")
 @RequiredArgsConstructor
 public class ParameterDataVersion_updateDescription {
 
@@ -40,6 +41,7 @@ public class ParameterDataVersion_updateDescription {
     @MemberSupport
     public ParameterDataVersion act(
             @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(multiLine = 4)
             final String description) {
 
         version.setDescription(description);
@@ -51,5 +53,9 @@ public class ParameterDataVersion_updateDescription {
         return version.guardAgainstDeleted() // just in case
                 .or(()->version.guardAgainstSticky("This version is marked STICKY by an administrator, hence cannot be edited."))
                 .orElse(null);
+    }
+
+    @MemberSupport public String defaultDescription() {
+        return version.getDescription();
     }
 }

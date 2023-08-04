@@ -37,6 +37,7 @@ import org.apache.causeway.core.metamodel.object.ManagedObjects;
 
 import dita.causeway.replicator.tables.model.DataTable;
 import dita.causeway.replicator.tables.model.DataTableOptions;
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
@@ -163,7 +164,17 @@ class _DataTableSet {
 
     // -- WRITING TO DB
 
-    public _DataTableSet insertToDatabasse(final RepositoryService repositoryService) {
+    public _DataTableSet insertToDatabasse(
+            final RepositoryService repositoryService,
+            final InsertMode insertMode) {
+        // delete all existing entities
+        if(insertMode.isDeleteAllThenAdd()) {
+            dataTables.forEach(dataTable->{
+                val entityClass = dataTable.getElementType().getCorrespondingClass();
+                repositoryService.removeAll(entityClass);
+            });
+        }
+        // insert new entities
         dataTables.forEach(dataTable->{
             dataTable.getDataElements().forEach(entity->{
                 repositoryService.persist(entity);

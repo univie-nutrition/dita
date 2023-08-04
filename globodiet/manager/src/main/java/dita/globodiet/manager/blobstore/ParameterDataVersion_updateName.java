@@ -51,4 +51,9 @@ public class ParameterDataVersion_updateName {
                 .or(()->version.guardAgainstSticky("This version is marked STICKY by an administrator, hence cannot be edited."))
                 .orElse(null);
     }
+
+    @MemberSupport public String defaultName() {
+        return version.getName();
+    }
+
 }

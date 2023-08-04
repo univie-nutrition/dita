@@ -39,6 +39,7 @@ import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Getter;
 import lombok.NonNull;
@@ -102,8 +103,7 @@ public class BlobStore {
      * There can be only ONE version checked out, which is then shared among all users for editing or viewing.
      */
     public void checkout(final @Nullable ParameterDataVersion version) {
-        //TODO clear all before load
-        tableSerializer.load(getTableData(version), paramsTableFilter());
+        tableSerializer.load(getTableData(version), paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
         this.currentlyCheckedOutVersion = version;
     }
 

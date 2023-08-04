@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 
 import dita.globodiet.dom.params.EntitiesMenu;
-import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
+import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 import dita.globodiet.manager.blobstore.BlobStore;
@@ -57,8 +57,8 @@ implements HasCurrentlyCheckedOutVersion {
     }
 
     @Collection
-    public List<FoodOrRecipeOrAttachment> getFoodList() {
-        return entities.listAllFoodOrRecipeOrAttachment();
+    public List<FoodOrProductOrAlias> getFoodList() {
+        return entities.listAllFoodOrProductOrAlias();
     }
 
     @Action
