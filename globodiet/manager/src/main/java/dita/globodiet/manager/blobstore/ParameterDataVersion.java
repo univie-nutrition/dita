@@ -146,6 +146,7 @@ public class ParameterDataVersion {
     }
     @MemberSupport public String disableCheckout() {
         return guardAgainstDeleted()
+                .or(()->guardAgainstThisVersionAlreadyCheckedOut("This version is already checked out."))
                 .orElse(null);
     }
 
@@ -278,6 +279,14 @@ public class ParameterDataVersion {
 
     Optional<String> guardAgainstNotCommitted(final String message) {
         return !isCommitted()
+            ? Optional.of(message)
+            : Optional.empty();
+    }
+
+    Optional<String> guardAgainstThisVersionAlreadyCheckedOut(final String message) {
+        return Optional.ofNullable(blobStore.getCurrentlyCheckedOutVersion())
+                .map(v->this.get__id() == v.get__id())
+                .orElse(false)
             ? Optional.of(message)
             : Optional.empty();
     }
