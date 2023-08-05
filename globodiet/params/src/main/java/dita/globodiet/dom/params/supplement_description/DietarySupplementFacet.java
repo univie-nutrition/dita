@@ -54,6 +54,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Facet code for Dietary Supplement"
   )
   @Column(
@@ -70,6 +71,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Facet name for Dietary Supplement"
   )
   @Column(
@@ -87,6 +89,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
               + "Only 1 facet (physical state) is used for quantification."
   )
@@ -103,6 +106,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Facet with Mono or Multi selection of descriptors 0=mono, 1=multi"
   )
   @Column(
@@ -118,6 +122,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
   )
   @Column(
@@ -133,6 +138,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Order to ask the facet (first, second...)"
   )
   @Column(
@@ -148,6 +154,7 @@ public class DietarySupplementFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Label on how to ask the facet question"
   )
   @Column(

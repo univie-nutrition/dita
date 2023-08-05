@@ -54,6 +54,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Anthropometry variable (Height or Weight)"
   )
   @Column(
@@ -70,6 +71,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Sex (1 for men, 2 for women, blank for both)"
   )
   @Column(
@@ -85,6 +87,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Age minimum range"
   )
   @Column(
@@ -100,6 +103,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Age maximum range"
   )
   @Column(
@@ -115,6 +119,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Minimum value of height or weight"
   )
   @Column(
@@ -130,6 +135,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Maximum value of height or weight"
   )
   @Column(
@@ -145,6 +151,7 @@ public class AverageForAnthropometricValues {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Default value of height or weight"
   )
   @Column(

@@ -54,6 +54,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Facet code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Descriptor code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Descriptor name"
   )
   @Column(
@@ -103,6 +106,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Only for the facet with Dsfacet_type=1,\n"
               + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0"
   )
@@ -122,6 +126,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Default Descriptor.\n"
               + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
               + "1=default,\n"
@@ -140,6 +145,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Descriptor with type='other' : 1=yes 0=no"
   )
   @Column(
@@ -155,6 +161,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "0=not single descriptor 1=single descriptor"
   )
   @Column(
@@ -170,6 +177,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Display order (1=first, 2=second…)"
   )
   @Column(
@@ -185,6 +193,7 @@ public class DietarySupplementDescriptor {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Not in name flag"
   )
   @Column(

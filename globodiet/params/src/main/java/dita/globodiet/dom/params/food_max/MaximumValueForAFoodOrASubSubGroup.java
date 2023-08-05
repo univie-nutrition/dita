@@ -54,6 +54,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food group code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food subgroup code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food sub-Subgroup code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Food code"
   )
   @Column(
@@ -118,6 +122,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Maximum value"
   )
   @Column(
@@ -133,6 +138,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
   )
   @Column(
@@ -149,6 +155,7 @@ public class MaximumValueForAFoodOrASubSubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Priority order"
   )
   @Column(

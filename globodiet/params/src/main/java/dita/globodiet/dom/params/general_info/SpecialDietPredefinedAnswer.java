@@ -53,6 +53,7 @@ public class SpecialDietPredefinedAnswer {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Special diet code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class SpecialDietPredefinedAnswer {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Special diet label"
   )
   @Column(

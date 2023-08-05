@@ -54,6 +54,7 @@ public class HouseholdMeasure {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "HouseholdMeasure code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class HouseholdMeasure {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "HouseholdMeasure volume in cm3."
   )
   @Column(
@@ -86,6 +88,7 @@ public class HouseholdMeasure {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
               + "The value of each expression will be evaluated as factor of the total volume"
   )
@@ -103,6 +106,7 @@ public class HouseholdMeasure {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Comment attached to the HouseholdMeasure"
   )
   @Column(
@@ -119,6 +123,7 @@ public class HouseholdMeasure {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Order to display the HouseholdMeasure"
   )
   @Column(

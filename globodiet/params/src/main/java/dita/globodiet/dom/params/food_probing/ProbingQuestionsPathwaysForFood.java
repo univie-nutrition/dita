@@ -53,6 +53,7 @@ public class ProbingQuestionsPathwaysForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Probing question code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class ProbingQuestionsPathwaysForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food group code"
   )
   @Column(
@@ -85,6 +87,7 @@ public class ProbingQuestionsPathwaysForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food subgroup code"
   )
   @Column(
@@ -101,6 +104,7 @@ public class ProbingQuestionsPathwaysForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Food sub-subgroup code"
   )
   @Column(
@@ -117,6 +121,7 @@ public class ProbingQuestionsPathwaysForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Food identification number (FOODNUM)"
   )
   @Column(

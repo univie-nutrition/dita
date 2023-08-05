@@ -54,6 +54,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Standard unit quantity"
   )
   @Column(
@@ -69,6 +70,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum"
   )
   @Column(
@@ -85,6 +87,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "1 = raw, 2 = cooked (as estimated)"
   )
   @Column(
@@ -101,6 +104,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
   )
   @Column(
@@ -117,6 +121,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "1 = STDU for food, 2 = STDU for recipe"
   )
   @Column(
@@ -133,6 +138,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Comment attached to the standard unit"
   )
   @Column(
@@ -149,6 +155,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)"
   )
   @Column(
@@ -165,6 +172,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "G = in grams, V = in ml (volume)"
   )
   @Column(
@@ -181,6 +189,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Order to display the standard unit"
   )
   @Column(

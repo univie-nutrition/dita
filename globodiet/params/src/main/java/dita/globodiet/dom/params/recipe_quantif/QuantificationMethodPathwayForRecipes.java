@@ -53,6 +53,7 @@ public class QuantificationMethodPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe identification number (R_IDNUM)"
   )
   @Column(
@@ -73,6 +74,7 @@ public class QuantificationMethodPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Quantification method code:\n"
               + "'P' for photo,\n"
               + "'H' for HHM,\n"
@@ -94,6 +96,7 @@ public class QuantificationMethodPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Photo code (if method='P' and 'A');\n"
               + "either M_photos.ph_code or M_shapes.sh_code"
   )

@@ -54,6 +54,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe group code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Recipe subgroup code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Recipe code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Fat group code for Fat or Sauce or Sweetener"
   )
   @Column(
@@ -118,6 +122,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Fat subgroup code for Fat or Sauce or Sweetener"
   )
   @Column(
@@ -134,6 +139,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener"
   )
   @Column(
@@ -150,6 +156,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Fat code for Fat or Sauce or Sweetener"
   )
   @Column(
@@ -166,6 +173,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Percentage of fat"
   )
   @Column(

@@ -54,6 +54,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe ID number the ingredient belong to"
   )
   @Column(
@@ -70,6 +71,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Sequential Number within a Mixed Recipe for Ingredient"
   )
   @Column(
@@ -85,6 +87,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Ingredient Food or Recipe ID number"
   )
   @Column(
@@ -101,6 +104,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Order of shape selection (e.g. 1)"
   )
   @Column(
@@ -116,6 +120,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Shape code (e.g. S001)"
   )
   @Column(
@@ -132,6 +137,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals"
   )
   @Column(
@@ -147,6 +153,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Shape: Thickness code (e.g. A or 58_1)"
   )
   @Column(
@@ -163,6 +170,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals"
   )
   @Column(
@@ -178,6 +186,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)"
   )
   @Column(
@@ -194,6 +203,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "10",
       describedAs = "Photo quantity"
   )
   @Column(
@@ -209,6 +219,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "11",
       describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)"
   )
   @Column(
@@ -225,6 +236,7 @@ public class MixedRecipeIngredientsQuantification {
    */
   @Property
   @PropertyLayout(
+      sequence = "12",
       describedAs = "Sequential Number for Ingredients within a Sub-Recipe"
   )
   @Column(

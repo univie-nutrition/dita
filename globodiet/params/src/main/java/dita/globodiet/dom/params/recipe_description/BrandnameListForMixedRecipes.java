@@ -53,6 +53,7 @@ public class BrandnameListForMixedRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe group"
   )
   @Column(
@@ -69,6 +70,7 @@ public class BrandnameListForMixedRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Recipe subgroup"
   )
   @Column(
@@ -85,6 +87,7 @@ public class BrandnameListForMixedRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "has no description"
   )
   @Column(

@@ -53,6 +53,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food group code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food sub-group code"
   )
   @Column(
@@ -85,6 +87,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food sub-sub-group code"
   )
   @Column(
@@ -101,6 +104,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Name of the food (sub-)(sub-)group"
   )
   @Column(
@@ -117,6 +121,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
   )
   @Column(
@@ -134,6 +139,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "0=non fat/sauce subgroup\n"
               + "1= fat/sauce subgroup that can be left over in the dish"
   )
@@ -152,6 +158,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "0=non fat during cooking subgroup\n"
               + "1= fat during cooking subgroup"
   )
@@ -169,6 +176,7 @@ public class FoodGroupOrSubgroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Short Name of the food (sub-)(sub-)group"
   )
   @Column(

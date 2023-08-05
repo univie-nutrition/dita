@@ -53,6 +53,7 @@ public class DietarySupplementClassification {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Dietary Supplement classification code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class DietarySupplementClassification {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Name of the food (sub-)(sub-)group"
   )
   @Column(
@@ -85,6 +87,7 @@ public class DietarySupplementClassification {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Dietary Supplement classification code attached to (for subgroup)"
   )
   @Column(

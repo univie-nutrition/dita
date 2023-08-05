@@ -53,6 +53,7 @@ public class ProbingQuestionPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Probing question code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class ProbingQuestionPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Recipe group code"
   )
   @Column(
@@ -85,6 +87,7 @@ public class ProbingQuestionPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Recipe subgroup code"
   )
   @Column(
@@ -101,6 +104,7 @@ public class ProbingQuestionPathwayForRecipes {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Recipe identification number (R_ IDNUM)"
   )
   @Column(

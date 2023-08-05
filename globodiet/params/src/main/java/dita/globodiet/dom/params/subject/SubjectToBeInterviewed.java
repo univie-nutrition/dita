@@ -56,6 +56,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Interview number"
   )
   @Column(
@@ -71,6 +72,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Subject birth date"
   )
   @Column(
@@ -86,6 +88,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Subject code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Subject first name"
   )
   @Column(
@@ -118,6 +122,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Subject height in cm"
   )
   @Column(
@@ -133,6 +138,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Subject name"
   )
   @Column(
@@ -149,6 +155,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Subject sex (1=man, 2=woman)"
   )
   @Column(
@@ -165,6 +172,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Subject weight in kg"
   )
   @Column(
@@ -180,6 +188,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "1=interview done, 0=interview to be done"
   )
   @Column(
@@ -195,6 +204,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "10",
       describedAs = "Country code"
   )
   @Column(
@@ -211,6 +221,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "11",
       describedAs = "Center code"
   )
   @Column(
@@ -227,6 +238,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "12",
       describedAs = "Interviewer Country code"
   )
   @Column(
@@ -243,6 +255,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "13",
       describedAs = "Interviewer Center code"
   )
   @Column(
@@ -259,6 +272,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "14",
       describedAs = "Interviewer code"
   )
   @Column(
@@ -275,6 +289,7 @@ public class SubjectToBeInterviewed {
    */
   @Property
   @PropertyLayout(
+      sequence = "15",
       describedAs = "Recall Date (mm/dd/yy)"
   )
   @Column(

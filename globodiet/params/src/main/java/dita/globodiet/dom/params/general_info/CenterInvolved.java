@@ -53,6 +53,7 @@ public class CenterInvolved {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Center code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class CenterInvolved {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Attached Country code"
   )
   @Column(
@@ -85,6 +87,7 @@ public class CenterInvolved {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Center name"
   )
   @Column(

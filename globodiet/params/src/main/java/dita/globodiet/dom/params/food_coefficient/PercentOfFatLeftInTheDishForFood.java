@@ -54,6 +54,7 @@ public class PercentOfFatLeftInTheDishForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Group code of the FAT's group"
   )
   @Column(
@@ -70,6 +71,7 @@ public class PercentOfFatLeftInTheDishForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Subgroup code of the FAT"
   )
   @Column(
@@ -86,6 +88,7 @@ public class PercentOfFatLeftInTheDishForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Sub-Subgroup code of the FAT"
   )
   @Column(
@@ -102,6 +105,7 @@ public class PercentOfFatLeftInTheDishForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Percentage of fat left in the dish"
   )
   @Column(

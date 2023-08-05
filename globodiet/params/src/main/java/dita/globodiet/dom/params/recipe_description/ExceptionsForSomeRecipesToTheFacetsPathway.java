@@ -54,6 +54,7 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe ID number"
   )
   @Column(
@@ -70,6 +71,7 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)"
   )
   @Column(
@@ -86,6 +88,7 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "has no description"
   )
   @Column(

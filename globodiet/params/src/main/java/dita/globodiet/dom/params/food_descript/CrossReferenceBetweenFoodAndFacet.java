@@ -54,6 +54,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food group code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food Subgroup code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food Sub-subgroup code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Facet code"
   )
   @Column(
@@ -118,6 +122,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Descriptor code"
   )
   @Column(
@@ -134,6 +139,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Default flag (if set to 'D' it is the default descriptor)"
   )
   @Column(
@@ -150,6 +156,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Not in name flag"
   )
   @Column(
@@ -166,6 +173,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Order to displayed the facets within a group/subgroup"
   )
   @Column(
@@ -181,6 +189,7 @@ public class CrossReferenceBetweenFoodAndFacet {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Order to displayed the descriptors within a group/subgroup and a facet"
   )
   @Column(

@@ -53,6 +53,7 @@ public class TranslationInCountryLanguage {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Text name"
   )
   @Column(
@@ -69,6 +70,7 @@ public class TranslationInCountryLanguage {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Text in specific Country language"
   )
   @Column(
@@ -85,6 +87,7 @@ public class TranslationInCountryLanguage {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Text in English"
   )
   @Column(
@@ -101,6 +104,7 @@ public class TranslationInCountryLanguage {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Data entry Text in specific Country language"
   )
   @Column(
@@ -117,6 +121,7 @@ public class TranslationInCountryLanguage {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Data entry Text in English"
   )
   @Column(

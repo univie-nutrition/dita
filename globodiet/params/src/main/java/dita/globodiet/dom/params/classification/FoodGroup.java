@@ -53,6 +53,7 @@ public class FoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food group code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class FoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food group name"
   )
   @Column(
@@ -85,6 +87,7 @@ public class FoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food group short name"
   )
   @Column(

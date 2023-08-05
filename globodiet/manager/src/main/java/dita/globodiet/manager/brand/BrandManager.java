@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.globodiet.dom.params.EntitiesMenu;
 import dita.globodiet.dom.params.food_descript.BrandName;
@@ -40,6 +41,7 @@ import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
+import lombok.val;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".BrandManager")
@@ -50,6 +52,7 @@ implements HasCurrentlyCheckedOutVersion {
 
     @Inject EntitiesMenu entities;
     @Inject BlobStore blobStore;
+    @Inject RepositoryService repo;
 
     @ObjectSupport
     public String title() {
@@ -64,16 +67,30 @@ implements HasCurrentlyCheckedOutVersion {
     @Action
     @ActionLayout(associateWith = "brandNames", position = Position.PANEL)
     public BrandManager addBrand(
-
             @Parameter
-            final String name) {
-        //TODO this is just a stub
+            final String nameOfBrand,
+            @Parameter
+            final String foodGroup,
+            @Parameter
+            final String foodSubgroup,
+            @Parameter
+            final String foodSubSubgroup) {
+
+        val brandName = repo.detachedEntity(new BrandName());
+
+        brandName.setNameOfBrand(nameOfBrand);
+        brandName.setFoodGroup(foodGroup);
+        brandName.setFoodSubgroup(foodSubgroup);
+        brandName.setFoodSubSubgroup(foodSubSubgroup);
+
+        repo.persist(brandName);
         return this;
     }
     @MemberSupport public String disableAddBrand() {
         return guardAgainstCannotEditVersion(blobStore)
                 .orElse(null);
     }
+    // TODO dialog needs lookup tables - perhaps auto-generate mixins via schema?
 
 }
 

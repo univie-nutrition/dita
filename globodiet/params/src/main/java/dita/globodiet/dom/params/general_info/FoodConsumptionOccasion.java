@@ -54,6 +54,7 @@ public class FoodConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "FCO code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class FoodConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "FCO long label (text displayed on screen)"
   )
   @Column(
@@ -86,6 +88,7 @@ public class FoodConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
   )
   @Column(
@@ -102,6 +105,7 @@ public class FoodConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "FCO short label to identify easily the FCO"
   )
   @Column(
@@ -119,6 +123,7 @@ public class FoodConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "1=main FCO (to be displayed in nutrient check screen)\n"
               + "0=non main FCO"
   )

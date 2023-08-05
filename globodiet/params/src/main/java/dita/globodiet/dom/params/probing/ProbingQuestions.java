@@ -53,6 +53,7 @@ public class ProbingQuestions {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Probing question code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class ProbingQuestions {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Probing question label"
   )
   @Column(

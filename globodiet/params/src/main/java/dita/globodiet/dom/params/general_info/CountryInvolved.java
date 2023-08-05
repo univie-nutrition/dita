@@ -53,6 +53,7 @@ public class CountryInvolved {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Country code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class CountryInvolved {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Country name"
   )
   @Column(

@@ -54,6 +54,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Sequential number"
   )
   @Column(
@@ -69,6 +70,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached"
   )
   @Column(
@@ -85,6 +87,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food or recipe group"
   )
   @Column(
@@ -101,6 +104,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Food or recipe sub-group"
   )
   @Column(
@@ -117,6 +121,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Food sub-sub-group"
   )
   @Column(
@@ -133,6 +138,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Food or Recipe code"
   )
   @Column(
@@ -149,6 +155,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Facet string"
   )
   @Column(
@@ -165,6 +172,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Brand name"
   )
   @Column(
@@ -181,6 +189,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Priority order"
   )
   @Column(
@@ -196,6 +205,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "10",
       describedAs = "Attached records: only for the Type=A2 & A3"
   )
   @Column(
@@ -211,6 +221,7 @@ public class FoodOrRecipeOrAttachment {
    */
   @Property
   @PropertyLayout(
+      sequence = "11",
       describedAs = "Comment"
   )
   @Column(

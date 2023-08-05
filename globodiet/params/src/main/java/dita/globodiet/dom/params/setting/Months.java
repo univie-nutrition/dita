@@ -53,6 +53,7 @@ public class Months {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Month number"
   )
   @Column(
@@ -69,6 +70,7 @@ public class Months {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Month name"
   )
   @Column(

@@ -129,8 +129,9 @@ class _Annotations {
     /**
      * @param describedAs - property description
      */
-    AnnotationSpec propertyLayout(final String describedAs) {
+    AnnotationSpec propertyLayout(final String sequence, final String describedAs) {
         return AnnotationSpec.builder(PropertyLayout.class)
+                .addMember("sequence", "$1S", sequence)
                 .addMember("describedAs", "$1S", describedAs)
                 .build();
     }

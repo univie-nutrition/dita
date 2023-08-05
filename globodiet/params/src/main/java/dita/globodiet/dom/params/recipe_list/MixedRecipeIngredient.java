@@ -56,6 +56,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe ID number the ingredient belongs to"
   )
   @Column(
@@ -73,6 +74,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3)\n"
               + "or type of fat used (=A2) or type of milk/liquid used(=A3)"
   )
@@ -90,6 +92,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food type (GI or blank)"
   )
   @Column(
@@ -106,6 +109,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Description text (facet/descriptor text)"
   )
   @Column(
@@ -122,6 +126,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Ingredient name"
   )
   @Column(
@@ -138,6 +143,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Ingredient food or recipe group"
   )
   @Column(
@@ -154,6 +160,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Ingredient food or recipe subgroup"
   )
   @Column(
@@ -170,6 +177,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Ingredient food sub-subgroup"
   )
   @Column(
@@ -186,6 +194,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Ingredient brand name (if any)"
   )
   @Column(
@@ -202,6 +211,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "10",
       describedAs = "Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
   )
   @Column(
@@ -218,6 +228,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "11",
       describedAs = "=1 if ingredient described and quantified else =2"
   )
   @Column(
@@ -234,6 +245,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "12",
       describedAs = "Final quantity in g (with coefficient applied)"
   )
   @Column(
@@ -249,6 +261,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "13",
       describedAs = "Estimated quantity (before coefficient applied)"
   )
   @Column(
@@ -266,6 +279,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "14",
       describedAs = "Quantity Estimated Raw or Cooked\n"
               + "1 = Raw\n"
               + "2 = Cooked or Not applicable"
@@ -286,6 +300,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "15",
       describedAs = "Quantity Consumed Raw or Cooked\n"
               + "1 = Raw\n"
               + "2 = Cooked or Not applicable"
@@ -304,6 +319,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "16",
       describedAs = "Conversion factor raw->cooked"
   )
   @Column(
@@ -319,6 +335,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "17",
       describedAs = "Quantity as estimated: 1=without un-edible part & 2=with un-edible part"
   )
   @Column(
@@ -335,6 +352,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "18",
       describedAs = "Conversion factor for edible part"
   )
   @Column(
@@ -350,6 +368,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "19",
       describedAs = "Quantity in gram/volume attached to the selected Photo, HHM, STDU"
   )
   @Column(
@@ -365,6 +384,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "20",
       describedAs = "Proportion of Photo, HHM, STDU"
   )
   @Column(
@@ -381,6 +401,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "21",
       describedAs = "Type of quantification method"
   )
   @Column(
@@ -397,6 +418,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "22",
       describedAs = "Quantification method code"
   )
   @Column(
@@ -413,6 +435,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "23",
       describedAs = "Density Coefficient only for HHM"
   )
   @Column(
@@ -428,6 +451,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "24",
       describedAs = "Sequential Number for Ingredients within a Mixed Recipe"
   )
   @Column(
@@ -443,6 +467,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "25",
       describedAs = "Fat Left-Over Percentage"
   )
   @Column(
@@ -458,6 +483,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "26",
       describedAs = "Fat Left-Over Code (F=False, T=True)"
   )
   @Column(
@@ -473,6 +499,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "27",
       describedAs = "HHM Fraction"
   )
   @Column(
@@ -489,6 +516,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "28",
       describedAs = "Consumed quantity in pound"
   )
   @Column(
@@ -504,6 +532,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "29",
       describedAs = "Consumed quantity in ounce"
   )
   @Column(
@@ -519,6 +548,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "30",
       describedAs = "Consumed quantity in quart"
   )
   @Column(
@@ -534,6 +564,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "31",
       describedAs = "Consumed quantity in pint"
   )
   @Column(
@@ -549,6 +580,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "32",
       describedAs = "Consumed quantity in flounce"
   )
   @Column(
@@ -564,6 +596,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "33",
       describedAs = "Sequential Number for Ingredients within a Sub-Recipe"
   )
   @Column(
@@ -579,6 +612,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "34",
       describedAs = "Raw quantity without inedible (sans dechet)"
   )
   @Column(
@@ -594,6 +628,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "35",
       describedAs = "Percentage/Proportion as Estimated for Recipe Ingredients"
   )
   @Column(
@@ -609,6 +644,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "36",
       describedAs = "Percentage/Proportion as Consumed for Recipe Ingredients"
   )
   @Column(
@@ -624,6 +660,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "37",
       describedAs = "Type of item: 1 for food, 2 for recipe"
   )
   @Column(
@@ -639,6 +676,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "38",
       describedAs = "Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
   )
   @Column(
@@ -655,6 +693,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "39",
       describedAs = "Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)"
   )
   @Column(
@@ -671,6 +710,7 @@ public class MixedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "40",
       describedAs = "has no description"
   )
   @Column(

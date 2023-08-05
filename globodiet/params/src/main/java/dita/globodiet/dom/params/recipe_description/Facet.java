@@ -54,6 +54,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Facet code for recipes"
   )
   @Column(
@@ -70,6 +71,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Facet name"
   )
   @Column(
@@ -86,6 +88,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Facet text (text to show on the screen describing the facet)"
   )
   @Column(
@@ -103,6 +106,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
               + "1=Facets with descriptors available in RBrand table"
   )
@@ -120,6 +124,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "0 = facet with mono-selection of descriptor\n"
               + "1 = facets with multi-selection of descriptors"
   )
@@ -137,6 +142,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "0 = standard facet\n"
               + "1 = Main facet (with non modified descriptor)"
   )
@@ -153,6 +159,7 @@ public class Facet {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Label on how to ask the facet question"
   )
   @Column(

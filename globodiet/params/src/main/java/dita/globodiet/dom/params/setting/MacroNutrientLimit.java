@@ -54,6 +54,7 @@ public class MacroNutrientLimit {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Name of nutrient"
   )
   @Column(
@@ -70,6 +71,7 @@ public class MacroNutrientLimit {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Minimum value"
   )
   @Column(
@@ -85,6 +87,7 @@ public class MacroNutrientLimit {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Maximum value"
   )
   @Column(
@@ -100,6 +103,7 @@ public class MacroNutrientLimit {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Unit (g, kcal or blanc)"
   )
   @Column(
@@ -116,6 +120,7 @@ public class MacroNutrientLimit {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "1=man, 2=woman"
   )
   @Column(
@@ -132,6 +137,7 @@ public class MacroNutrientLimit {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "PAL value"
   )
   @Column(

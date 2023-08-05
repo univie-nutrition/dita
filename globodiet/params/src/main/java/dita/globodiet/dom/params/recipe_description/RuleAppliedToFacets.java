@@ -53,6 +53,7 @@ public class RuleAppliedToFacets {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Facet where the rule must be applied."
   )
   @Column(
@@ -74,6 +75,7 @@ public class RuleAppliedToFacets {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Rule: Facet (facet_code) will be displayed only if descriptor in facdesc\n"
               + "is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).\n"
               + "- When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).\n"
@@ -95,6 +97,7 @@ public class RuleAppliedToFacets {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Recipe Group code"
   )
   @Column(
@@ -111,6 +114,7 @@ public class RuleAppliedToFacets {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Recipe Subgroup code"
   )
   @Column(

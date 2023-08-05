@@ -54,6 +54,7 @@ public class ListOfThicknessForShapeMethod {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
   )
   @Column(
@@ -70,6 +71,7 @@ public class ListOfThicknessForShapeMethod {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "has no description"
   )
   @Column(
@@ -85,6 +87,7 @@ public class ListOfThicknessForShapeMethod {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
   )
   @Column(
@@ -105,6 +108,7 @@ public class ListOfThicknessForShapeMethod {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
               + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
               + "When this field is empty, that means that this thickness has always to be proposed\n"
@@ -128,6 +132,7 @@ public class ListOfThicknessForShapeMethod {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
               + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
               + "When this field is empty, that means that this thickness has always to be proposed\n"

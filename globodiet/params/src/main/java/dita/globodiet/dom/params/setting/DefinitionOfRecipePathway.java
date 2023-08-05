@@ -62,6 +62,7 @@ public class DefinitionOfRecipePathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Type of recipe:\n"
               + "1.1=Open – Known\n"
               + "1.2=Open – Unknown\n"
@@ -86,6 +87,7 @@ public class DefinitionOfRecipePathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "1 = The ingredient window is displayed 0 = The ingredient window is not displayed"
   )
   @Column(
@@ -104,6 +106,7 @@ public class DefinitionOfRecipePathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
               + "1 = S - Substitute\n"
               + "2 = SAD - Substitute, Add & Delete\n"
@@ -125,6 +128,7 @@ public class DefinitionOfRecipePathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
               + "1 = S - Substitute\n"
               + "2 = SAD - Substitute, Add & Delete\n"
@@ -146,6 +150,7 @@ public class DefinitionOfRecipePathway {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Display of the automatic note window:\n"
               + "0 = No display of note window\n"
               + "1 = Display of note window\n"

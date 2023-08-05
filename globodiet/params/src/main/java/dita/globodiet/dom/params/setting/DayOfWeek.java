@@ -53,6 +53,7 @@ public class DayOfWeek {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Day number"
   )
   @Column(
@@ -69,6 +70,7 @@ public class DayOfWeek {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Day name"
   )
   @Column(

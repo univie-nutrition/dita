@@ -53,6 +53,7 @@ public class SelectedParametersForDataEntry {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Parameter code for data entry"
   )
   @Column(
@@ -69,6 +70,7 @@ public class SelectedParametersForDataEntry {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Parameter value for data entry"
   )
   @Column(

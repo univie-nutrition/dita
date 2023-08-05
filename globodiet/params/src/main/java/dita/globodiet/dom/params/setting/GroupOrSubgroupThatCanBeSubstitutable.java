@@ -53,6 +53,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "0=Food classification 1=Recipe classification"
   )
   @Column(
@@ -69,6 +70,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food group code"
   )
   @Column(
@@ -85,6 +87,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food subgroup code"
   )
   @Column(
@@ -101,6 +104,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Food sub-Subgroup code"
   )
   @Column(
@@ -117,6 +121,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)"
   )
   @Column(
@@ -133,6 +138,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)"
   )
   @Column(

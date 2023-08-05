@@ -53,6 +53,7 @@ public class ItemDisplayedForCheckPerFCO {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "FCO code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class ItemDisplayedForCheckPerFCO {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Item label"
   )
   @Column(

@@ -53,6 +53,7 @@ public class DietarySupplementList {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Vitamin/supplement code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class DietarySupplementList {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Vitamin/supplement name"
   )
   @Column(
@@ -85,6 +87,7 @@ public class DietarySupplementList {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Blank or 'GI' for generic vitamin/supplement"
   )
   @Column(
@@ -101,6 +104,7 @@ public class DietarySupplementList {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Dietary Supplement classification code (optionnal)"
   )
   @Column(
@@ -117,6 +121,7 @@ public class DietarySupplementList {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)"
   )
   @Column(

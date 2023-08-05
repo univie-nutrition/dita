@@ -49,10 +49,28 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 )
 public class BrandName {
   /**
+   * Name of brand
+   */
+  @Property
+  @PropertyLayout(
+      sequence = "1",
+      describedAs = "Name of brand"
+  )
+  @Column(
+      name = "NAME",
+      allowsNull = "true",
+      length = 100
+  )
+  @Getter
+  @Setter
+  private String nameOfBrand;
+
+  /**
    * Food group code
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food group code"
   )
   @Column(
@@ -62,14 +80,15 @@ public class BrandName {
   )
   @Getter
   @Setter
-  private String foodGroupCode;
+  private String foodGroup;
 
   /**
-   * Food subgroup
+   * Food subgroup code
    */
   @Property
   @PropertyLayout(
-      describedAs = "Food subgroup"
+      sequence = "3",
+      describedAs = "Food subgroup code"
   )
   @Column(
       name = "SUBGROUP1",
@@ -81,11 +100,12 @@ public class BrandName {
   private String foodSubgroup;
 
   /**
-   * Food sub-subgroup
+   * Food sub-subgroup code
    */
   @Property
   @PropertyLayout(
-      describedAs = "Food sub-subgroup"
+      sequence = "4",
+      describedAs = "Food sub-subgroup code"
   )
   @Column(
       name = "SUBGROUP2",
@@ -95,20 +115,4 @@ public class BrandName {
   @Getter
   @Setter
   private String foodSubSubgroup;
-
-  /**
-   * Name of brand
-   */
-  @Property
-  @PropertyLayout(
-      describedAs = "Name of brand"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String nameOfBrand;
 }

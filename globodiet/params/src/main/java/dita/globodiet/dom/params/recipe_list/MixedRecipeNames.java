@@ -54,6 +54,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe ID number"
   )
   @Column(
@@ -70,6 +71,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Group code of the recipe classification"
   )
   @Column(
@@ -86,6 +88,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Subgroup code of the recipe classification"
   )
   @Column(
@@ -102,6 +105,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Recipe name"
   )
   @Column(
@@ -118,6 +122,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Type of recipe: 1.1=Open – Known 1.2=Open – Unknown 1.3=Open with brand 2.1=Closed 2.2=Closed with brand 3.0=Commercial 4.1=New – Known 4.2=New – Unknown"
   )
   @Column(
@@ -134,6 +139,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Brand name for commercial recipe"
   )
   @Column(
@@ -150,6 +156,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "SH = Shadow or blank"
   )
   @Column(
@@ -167,6 +174,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "0=recipe without sub-recipe\n"
               + "1=recipe with sub-recipe"
   )
@@ -183,6 +191,7 @@ public class MixedRecipeNames {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "has no description"
   )
   @Column(

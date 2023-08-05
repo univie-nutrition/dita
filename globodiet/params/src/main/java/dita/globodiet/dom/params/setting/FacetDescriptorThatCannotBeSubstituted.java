@@ -53,6 +53,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Facet code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Descriptor code"
   )
   @Column(

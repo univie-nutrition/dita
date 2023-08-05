@@ -53,6 +53,7 @@ public class SpecialDayPredefinedAnswer {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Special day code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class SpecialDayPredefinedAnswer {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Special day label"
   )
   @Column(

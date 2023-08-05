@@ -54,6 +54,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Standard portion quantity"
   )
   @Column(
@@ -69,6 +70,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food identification number (=FOODMUM)"
   )
   @Column(
@@ -85,6 +87,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "1 = raw, 2 = cooked (as estimated)"
   )
   @Column(
@@ -101,6 +104,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
   )
   @Column(
@@ -117,6 +121,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Comment attached to the standard portion"
   )
   @Column(
@@ -133,6 +138,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Standard portion code for the same food (0001, 0002, 0003)"
   )
   @Column(
@@ -149,6 +155,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "G = in grams, V = in ml (volume)"
   )
   @Column(
@@ -165,6 +172,7 @@ public class FoodStandardUnitsAndPortionsForFoods {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Order to display the standard portion"
   )
   @Column(

@@ -53,6 +53,7 @@ public class SelectedParameter {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Parameter code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class SelectedParameter {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Parameter value"
   )
   @Column(

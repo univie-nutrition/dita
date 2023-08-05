@@ -54,6 +54,7 @@ public class EdiblePartCoefficientForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food identification number (FOODNUM)"
   )
   @Column(
@@ -70,6 +71,7 @@ public class EdiblePartCoefficientForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Edible part coefficient"
   )
   @Column(
@@ -85,6 +87,7 @@ public class EdiblePartCoefficientForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
   )
   @Column(
@@ -101,6 +104,7 @@ public class EdiblePartCoefficientForFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Priority order"
   )
   @Column(

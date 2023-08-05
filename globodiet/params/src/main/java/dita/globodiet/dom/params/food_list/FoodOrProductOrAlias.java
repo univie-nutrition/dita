@@ -54,6 +54,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food Group code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food Subgroup code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food Sub(sub)group code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Food/C.R. Identification Code"
   )
   @Column(
@@ -118,6 +122,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Food/C.R. Name (Country name)"
   )
   @Column(
@@ -149,6 +154,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Type of item:\n"
               + "-> Normal Food Item (a.huber: or product?)\n"
               + "GI -> Generic Food Item\n"
@@ -181,6 +187,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Auxiliary field to force an internal order within each subgroup\n"
               + "(if GI then 1 otherwise 2, this forces the GI at the top)"
   )
@@ -198,6 +205,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "0=food 1=food & dietary supplement"
   )
   @Column(

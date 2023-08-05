@@ -54,6 +54,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food group code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food subgroup code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food sub-Subgroup code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Food code"
   )
   @Column(
@@ -118,6 +122,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Fat group code for fat"
   )
   @Column(
@@ -134,6 +139,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Fat subgroup code for fat"
   )
   @Column(
@@ -150,6 +156,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Fat sub-subgroup code for fat"
   )
   @Column(
@@ -166,6 +173,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Fat code for fat"
   )
   @Column(
@@ -182,6 +190,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "9",
       describedAs = "Cooking method Facet and Descriptor codes (e.g. 0305)"
   )
   @Column(
@@ -198,6 +207,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
    */
   @Property
   @PropertyLayout(
+      sequence = "10",
       describedAs = "Percentage of fat absorbed during cooking"
   )
   @Column(

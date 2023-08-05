@@ -53,6 +53,7 @@ public class ComposedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)"
   )
   @Column(
@@ -70,6 +71,7 @@ public class ComposedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food (ingredient) Identification Code\n"
               + "either Foods.foodnum OR Mixedrec.r_idnum"
   )
@@ -88,6 +90,7 @@ public class ComposedRecipeIngredient {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "If type=1 ingredient from Food list,\n"
               + "If type=2 ingredient from Recipe list"
   )

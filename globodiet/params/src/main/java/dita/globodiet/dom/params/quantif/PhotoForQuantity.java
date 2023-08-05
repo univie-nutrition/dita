@@ -53,6 +53,7 @@ public class PhotoForQuantity {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Photo series code (P001,P002,P003,...)"
   )
   @Column(
@@ -69,6 +70,7 @@ public class PhotoForQuantity {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
   )
   @Column(
@@ -85,6 +87,7 @@ public class PhotoForQuantity {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "1 = raw, 2 = cooked (as estimated)"
   )
   @Column(
@@ -101,6 +104,7 @@ public class PhotoForQuantity {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
   )
   @Column(
@@ -117,6 +121,7 @@ public class PhotoForQuantity {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "G = in grams, V = in ml (volume)"
   )
   @Column(

@@ -86,7 +86,15 @@ BrandName:
   description: |
     Brand names are used in the food description phase
   fields:
-    foodGroupCode:
+    nameOfBrand:
+      column: NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Name of brand
+    foodGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -103,7 +111,7 @@ BrandName:
       foreignKeys: |
         subgroup.subgroup1
       description: |
-        Food subgroup
+        Food subgroup code
     foodSubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
@@ -112,15 +120,7 @@ BrandName:
       foreignKeys: |
         subgroup.subgroup2
       description: |
-        Food sub-subgroup
-    nameOfBrand:
-      column: NAME
-      column-type: nvarchar(100)
-      required: false
-      unique: true
-      foreignKeys:
-      description: |
-        Name of brand
+        Food sub-subgroup code
         
 CenterInvolved:
   namespace: params.general_info

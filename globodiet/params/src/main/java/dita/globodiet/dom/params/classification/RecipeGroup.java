@@ -53,6 +53,7 @@ public class RecipeGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe Group code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class RecipeGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Name of the Recipe group"
   )
   @Column(
@@ -85,6 +87,7 @@ public class RecipeGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Short Name of the Recipe group"
   )
   @Column(

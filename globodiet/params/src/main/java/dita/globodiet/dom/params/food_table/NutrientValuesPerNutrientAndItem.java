@@ -54,6 +54,7 @@ public class NutrientValuesPerNutrientAndItem {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Item Sequential number"
   )
   @Column(
@@ -69,6 +70,7 @@ public class NutrientValuesPerNutrientAndItem {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Nutrient code"
   )
   @Column(
@@ -84,6 +86,7 @@ public class NutrientValuesPerNutrientAndItem {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Nutrient value for the attached item & nutrient"
   )
   @Column(

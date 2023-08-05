@@ -53,6 +53,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Food group code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Food subgroup code"
   )
   @Column(
@@ -85,6 +87,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Food sub-subgroup code"
   )
   @Column(
@@ -101,6 +104,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)"
   )
   @Column(
@@ -117,6 +121,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "1=raw, 2=cooked (as Consumed)"
   )
   @Column(
@@ -138,6 +143,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "6",
       describedAs = "Quantification method code:\n"
               + "'P' for photo,\n"
               + "'H' for HHM,\n"
@@ -160,6 +166,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "7",
       describedAs = "Photo code (if method='P' and 'A');\n"
               + "either M_photos.ph_code or M_shapes.sh_code"
   )
@@ -177,6 +184,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "8",
       describedAs = "Comment"
   )
   @Column(

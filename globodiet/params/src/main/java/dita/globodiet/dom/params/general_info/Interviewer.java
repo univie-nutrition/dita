@@ -53,6 +53,7 @@ public class Interviewer {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Interviewer code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class Interviewer {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Interviewer family name"
   )
   @Column(
@@ -85,6 +87,7 @@ public class Interviewer {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Interviewer name"
   )
   @Column(
@@ -101,6 +104,7 @@ public class Interviewer {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Country code"
   )
   @Column(
@@ -117,6 +121,7 @@ public class Interviewer {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Center code"
   )
   @Column(

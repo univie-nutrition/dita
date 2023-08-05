@@ -55,6 +55,7 @@ public class Shape {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Shape code (e.g. S001,S002,S003,...)"
   )
   @Column(
@@ -71,6 +72,7 @@ public class Shape {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
   )
   @Column(
@@ -86,6 +88,7 @@ public class Shape {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
   )
   @Column(
@@ -102,6 +105,7 @@ public class Shape {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Order to display the standard unit"
   )
   @Column(

@@ -54,6 +54,7 @@ public class MaximumValueForARecipeOrASubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Recipe group code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class MaximumValueForARecipeOrASubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Recipe subgroup code"
   )
   @Column(
@@ -86,6 +88,7 @@ public class MaximumValueForARecipeOrASubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Recipe code"
   )
   @Column(
@@ -102,6 +105,7 @@ public class MaximumValueForARecipeOrASubGroup {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "Maximum value"
   )
   @Column(

@@ -54,6 +54,7 @@ public class NutrientListAndDefinition {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Nutrient code"
   )
   @Column(
@@ -69,6 +70,7 @@ public class NutrientListAndDefinition {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Nutrient Name"
   )
   @Column(
@@ -85,6 +87,7 @@ public class NutrientListAndDefinition {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
   )
   @Column(
@@ -102,6 +105,7 @@ public class NutrientListAndDefinition {
    */
   @Property
   @PropertyLayout(
+      sequence = "4",
       describedAs = "0=not displayed in the 'nutrient checks' screen\n"
               + "1=displayed in the 'nutrient checks' screen"
   )
@@ -118,6 +122,7 @@ public class NutrientListAndDefinition {
    */
   @Property
   @PropertyLayout(
+      sequence = "5",
       describedAs = "Comment on nutrient"
   )
   @Column(

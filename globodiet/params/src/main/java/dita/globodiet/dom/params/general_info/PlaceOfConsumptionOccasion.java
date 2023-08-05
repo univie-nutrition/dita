@@ -54,6 +54,7 @@ public class PlaceOfConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "1",
       describedAs = "Place of consumption code"
   )
   @Column(
@@ -70,6 +71,7 @@ public class PlaceOfConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "2",
       describedAs = "Place of consumption name"
   )
   @Column(
@@ -87,6 +89,7 @@ public class PlaceOfConsumptionOccasion {
    */
   @Property
   @PropertyLayout(
+      sequence = "3",
       describedAs = "0=not a 'Other' place\n"
               + "1='Other' place"
   )
