@@ -20,12 +20,20 @@ package dita.causeway.replicator.tables.model;
 
 import java.util.Optional;
 
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.core.metamodel.spec.feature.OneToOneAssociation;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.val;
 
-public class DataColumn {
+/**
+ * @implNote implements {@link Comparable} such that
+ *      column order is in alphabetical order
+ *      by column's underlying field name (property id),
+ *      while ignoring case
+ */
+public class DataColumn implements Comparable<DataColumn> {
 
     @Getter private final @NonNull OneToOneAssociation propertyMetaModel;
     @Getter private final @NonNull String columnFriendlyName;
@@ -35,6 +43,18 @@ public class DataColumn {
         this.propertyMetaModel = propertyMetaModel;
         this.columnFriendlyName = propertyMetaModel.getCanonicalFriendlyName();
         this.columnDescription = propertyMetaModel.getCanonicalDescription();
+    }
+
+    @Override
+    public int compareTo(final DataColumn o) {
+        val thisId = this.getPropertyMetaModel().getId();
+        val otherId = o!=null
+                ? o.getPropertyMetaModel().getId()
+                : null;
+
+        return _Strings.compareNullsFirst(
+                _Strings.asLowerCase.apply(thisId),
+                _Strings.asLowerCase.apply(otherId));
     }
 
 }

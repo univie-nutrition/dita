@@ -28,13 +28,17 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Format;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.object.ManagedObjects;
 
+import dita.causeway.replicator.tables.model.DataColumn;
 import dita.causeway.replicator.tables.model.DataTable;
 import dita.causeway.replicator.tables.model.DataTableOptions;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
@@ -74,7 +78,8 @@ class _DataTableSet {
         return this;
     }
 
-    public _DataTableSet populateFromYaml(final String yaml, final DataTableOptions.FormatOptions formatOptions) {
+    public _DataTableSet populateFromYaml(
+            final String yaml, final DataTableOptions.FormatOptions formatOptions) {
         val asMap = YamlUtils
                 .tryRead(HashMap.class, yaml, loader->{
                     loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
@@ -109,12 +114,13 @@ class _DataTableSet {
 
                 System.err.printf("table %s%n", entityLogicalTypeName);
                 //System.err.printf("  cols:%n");
-                _NullSafe.stream(colLiterals).forEach(colLiteral->{
-                    //System.err.printf("  - %s%n", colLiteral);
-                    //TODO verify matches current col. metamodel
-                });
 
-                final int colCount = (int)_NullSafe.stream(colLiterals).count();
+                final int[] colIndexMapping = guardAgainstColumnsVsMetamodelMismatch(
+                        dataTable,
+                        Can.ofIterable(colLiterals)
+                            .map(_DataTableSet::parseColumnIdFromStringified));
+
+                final int colCount = colIndexMapping.length;
 
                 val cellLiterals = new String[colCount];
 
@@ -139,7 +145,7 @@ class _DataTableSet {
                             val valueFacet = valueSpec.valueFacetElseFail();
 
                             // parse value
-                            final String valueStringified = cellLiterals[colIndex];
+                            final String valueStringified = cellLiterals[colIndexMapping[colIndex]];
                             val value = valueStringified!=null
                                     ? ManagedObject.adaptSingular(
                                             valueSpec,
@@ -220,6 +226,52 @@ class _DataTableSet {
     }
 
     // -- HELPER
+
+    /**
+     * All serialized columns must exist in current meta-model (as entity fields/properties) and vice versa.
+     * @returns the data-table-column index to serialized column index mapping
+     */
+    private int[] guardAgainstColumnsVsMetamodelMismatch(
+            final DataTable dataTable,
+            final Can<String> colLiterals) {
+
+        // sort for canonical comparison
+        val colLiteralsSorted = colLiterals
+                .sorted((a, b)->_Strings.compareNullsFirst(
+                        _Strings.asLowerCase.apply(a),
+                        _Strings.asLowerCase.apply(b)));
+        // sort for canonical comparison
+        val colFromMetamodelSorted = dataTable.getDataColumns().sorted(DataColumn::compareTo);
+
+        colLiteralsSorted.zip(colFromMetamodelSorted, (String colLiteral, DataColumn col)->{
+            // verify read in data matches meta-model
+            _Assert.assertEquals(colLiteral, col.getPropertyMetaModel().getId(), ()->
+                    String.format("Column specifications %s from %s do not match current meta-model.",
+                            colLiterals,
+                            dataTable.getLogicalName()));
+        });
+        colFromMetamodelSorted.zip(colLiteralsSorted, (DataColumn col, String colLiteral)->{
+             // verify read in data matches meta-model
+            _Assert.assertEquals(colLiteral, col.getPropertyMetaModel().getId(), ()->
+                    String.format("Column specifications %s from %s do not match current meta-model.",
+                            colLiterals,
+                            dataTable.getLogicalName()));
+        });
+        final int colCount = (int)_NullSafe.stream(colLiterals).count();
+        final int[] colIndexMapping = new int[colCount];
+        dataTable.getDataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
+            col.getPropertyMetaModel().getId();
+            colIndexMapping[index] = colLiterals.indexOf(col.getPropertyMetaModel().getId());
+        }));
+        return colIndexMapping;
+    }
+
+    private static String parseColumnIdFromStringified(final String colLiteral) {
+        return _Strings.splitThenStream(colLiteral, ":")
+                .findFirst()
+                .orElse(colLiteral);
+    }
+
 
     private static String stringify(
             final @Nullable ManagedObject cellValue,

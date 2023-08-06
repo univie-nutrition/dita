@@ -44,6 +44,7 @@ public class DataTable {
                 .streamProperties(MixedIn.EXCLUDED)
                 .filter(prop->prop.isIncludedWithSnapshots())
                 .map(property->new DataColumn(this, property))
+                //.sorted() // don't sort, use meta-model's order, to preserve order from schema
                 .collect(Can.toCan());
 
         this.dataElements = Can.empty();
