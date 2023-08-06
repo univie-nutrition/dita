@@ -26,6 +26,7 @@
 
 	<properties>
 		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.arg>-parameters</maven.compiler.arg>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
 		<spring-boot.version>3.1.2</spring-boot.version>
@@ -71,6 +72,10 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
 				<configuration>
+					<release>${maven.compiler.release}</release>
+					<compilerArgs>
+						<arg>${maven.compiler.arg}</arg>
+					</compilerArgs>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
