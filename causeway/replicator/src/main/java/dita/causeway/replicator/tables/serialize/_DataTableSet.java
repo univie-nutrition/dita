@@ -257,8 +257,7 @@ class _DataTableSet {
                             colLiterals,
                             dataTable.getLogicalName()));
         });
-        final int colCount = (int)_NullSafe.stream(colLiterals).count();
-        final int[] colIndexMapping = new int[colCount];
+        final int[] colIndexMapping = new int[colLiterals.size()];
         dataTable.getDataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
             col.getPropertyMetaModel().getId();
             colIndexMapping[index] = colLiterals.indexOf(col.getPropertyMetaModel().getId());
