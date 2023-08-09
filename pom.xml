@@ -98,21 +98,6 @@
 			<url>https://repo.maven.apache.org/maven2</url>
 		</repository>
 		<repository>
-	        <releases>
-	          <enabled>true</enabled>
-	          <updatePolicy>always</updatePolicy>
-	          <checksumPolicy>fail</checksumPolicy>
-	        </releases>
-	        <snapshots>
-	          <enabled>true</enabled>
-	          <updatePolicy>always</updatePolicy>
-	          <checksumPolicy>fail</checksumPolicy>
-	        </snapshots>
-	        <id>causeway-nightly-snapshots</id>
-	        <name>Causeway Nightly Snapshots (maven)</name>
-	        <url>https://raw.githubusercontent.com/apache-causeway-committers/causeway-nightly/master/mvn-snapshots</url>
-	      </repository>
-		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
