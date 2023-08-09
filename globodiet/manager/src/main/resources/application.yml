@@ -41,6 +41,7 @@ causeway:
   extensions:
     secman:
       seed:
+        yaml-file: /opt/config/secman-permissions.yml
         admin:
           user-name: "secman-admin"
           password: "pass"
@@ -71,6 +72,7 @@ causeway:
           image: images/credit/github-mark.svg
           name: Dita Project (Github)
     wicket:
+      basePath: /w/
       css: css/application.css
       js: scripts/application.js
 
