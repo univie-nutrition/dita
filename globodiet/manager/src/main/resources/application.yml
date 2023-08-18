@@ -41,7 +41,7 @@ causeway:
   extensions:
     secman:
       seed:
-        yaml-file: /opt/config/secman-permissions.yml
+        # yaml-file: configured in custom config
         admin:
           user-name: "secman-admin"
           password: "pass"
