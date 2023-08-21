@@ -1172,6 +1172,7 @@ CrossReferenceBetweenFoodAndFacet:
 FoodGroup:
   namespace: params.classification
   table: GROUPS
+  title: String.format("%s (code=%s)", foodGroupName, foodGroupCode)
   description: |
     Food group
   fields:

@@ -23,6 +23,7 @@ package dita.globodiet.dom.params.food_table;
 import jakarta.inject.Named;
 import java.lang.Double;
 import java.lang.Integer;
+import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.PersistenceCapable;
@@ -30,6 +31,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
@@ -96,4 +98,9 @@ public class NutrientValuesPerNutrientAndItem {
   @Getter
   @Setter
   private Double nutrientValueForTheAttachedItemAndNutrient;
+
+  @ObjectSupport
+  public String title() {
+    return this.toString();
+  }
 }

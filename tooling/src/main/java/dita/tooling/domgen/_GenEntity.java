@@ -23,13 +23,17 @@ import java.util.stream.Collectors;
 
 import javax.lang.model.element.Modifier;
 
+import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.FieldSpec;
+import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.commons.functional.IndexedFunction;
+import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.tooling.domgen.DomainGenerator.JavaModel;
 import dita.tooling.orm.OrmModel;
+import dita.tooling.orm.OrmModel.Entity;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -61,10 +65,22 @@ class _GenEntity {
                 .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)
                 //.addSuperinterfaces(asClassNames(t.getInterfaces()))
+                .addMethod(asTitleMethod(entityModel, Modifier.PUBLIC))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 //.addMethods(asMethods(t.getFields(), Modifier.PUBLIC))
                 ;
         return typeModelBuilder.build();
+    }
+
+    private MethodSpec asTitleMethod(final Entity entityModel, final Modifier ... modifiers) {
+        final String code = _Strings.nonEmpty(entityModel.title())
+                .orElse("this.toString()");
+        return MethodSpec.methodBuilder("title")
+                .addModifiers(modifiers)
+                .addAnnotation(_Annotations.objectSupport())
+                .returns(ClassName.get("java.lang", "String"))
+                .addCode("return " + code + ";")
+                .build();
     }
 
     private Iterable<FieldSpec> asFields(

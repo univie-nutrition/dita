@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.annotation.NatureOfService;
+import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -133,6 +134,11 @@ class _Annotations {
         return AnnotationSpec.builder(PropertyLayout.class)
                 .addMember("sequence", "$1S", sequence)
                 .addMember("describedAs", "$1S", describedAs)
+                .build();
+    }
+
+    AnnotationSpec objectSupport() {
+        return AnnotationSpec.builder(ObjectSupport.class)
                 .build();
     }
 

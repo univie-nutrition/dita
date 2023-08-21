@@ -30,6 +30,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
@@ -98,4 +99,9 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway {
   @Getter
   @Setter
   private Integer ORDER_FAC;
+
+  @ObjectSupport
+  public String title() {
+    return this.toString();
+  }
 }

@@ -30,6 +30,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
@@ -163,4 +164,9 @@ public class DefinitionOfRecipePathway {
   @Getter
   @Setter
   private Integer displayOfTheAutomaticNoteWindow;
+
+  @ObjectSupport
+  public String title() {
+    return this.toString();
+  }
 }
