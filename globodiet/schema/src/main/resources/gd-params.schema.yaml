@@ -3505,9 +3505,9 @@ FoodSubgroup:
   title: |
     String.format("%s (code=%s|%s|%s)", 
      nameOfTheFoodSubSubGroup, 
-     foodGroupCode, 
-     foodSubGroupCode, 
-     foodSubSubGroupCode)
+     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubGroupCode))
   icon: solid layer-group olive
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups

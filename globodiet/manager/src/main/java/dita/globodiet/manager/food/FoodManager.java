@@ -34,7 +34,6 @@ import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.apache.causeway.commons.internal.base._NullSafe;
 
 import dita.globodiet.dom.params.EntitiesMenu;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
@@ -60,15 +59,8 @@ implements HasCurrentlyCheckedOutVersion {
     }
 
     @Collection
-    public List<FoodOrProductOrAlias> getFoodListRaw() {
+    public List<FoodOrProductOrAlias> getFoodList() {
         return entities.listAllFoodOrProductOrAlias();
-    }
-
-    @Collection
-    public List<FoodOrProductOrAliasView> getFoodList() {
-        return _NullSafe.stream(entities.listAllFoodOrProductOrAlias())
-                .map(entity->FoodOrProductOrAliasView.wrap(repositoryService, entity))
-                .toList();
     }
 
     @Action

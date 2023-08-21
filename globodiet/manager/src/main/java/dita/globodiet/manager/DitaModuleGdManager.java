@@ -44,6 +44,9 @@ import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyC
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
+import dita.globodiet.manager.food.FoodOrProductOrAlias_foodGroup;
+import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubSubgroup;
+import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubgroup;
 
 /**
  * Makes the integral parts of the web application.
@@ -84,6 +87,9 @@ import dita.globodiet.manager.dashboard.Dashboard;
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
     ParameterDataVersion_updateName.class,
     ParameterDataVersion_updateDescription.class,
+    FoodOrProductOrAlias_foodGroup.class,
+    FoodOrProductOrAlias_foodSubgroup.class,
+    FoodOrProductOrAlias_foodSubSubgroup.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

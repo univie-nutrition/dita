@@ -194,9 +194,9 @@ public class FoodSubgroup {
   public String title() {
     return String.format("%s (code=%s|%s|%s)", 
      nameOfTheFoodSubSubGroup, 
-     foodGroupCode, 
-     foodSubGroupCode, 
-     foodSubSubGroupCode)
+     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubGroupCode))
     ;
   }
 }

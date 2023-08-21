@@ -24,6 +24,9 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
+
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -52,5 +55,11 @@ public class FormatUtils {
         return decimalSeparator=='.'
                 ? plainString
                 : plainString.replace('.', decimalSeparator);
+    }
+
+    public String emptyToDash(final @Nullable String string) {
+        return StringUtils.hasLength(string)
+                ? string
+                : "-";
     }
 }
