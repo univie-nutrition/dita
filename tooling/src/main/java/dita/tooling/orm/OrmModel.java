@@ -49,6 +49,7 @@ public class OrmModel {
             String namespace,
             String table,
             String title,
+            String icon,
             List<String> description,
             List<Field> fields) {
         @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -62,6 +63,7 @@ public class OrmModel {
                     (String)map.get("namespace"),
                     (String)map.get("table"),
                     (String)map.get("title"),
+                    (String)map.get("icon"),
                     parseMultilineString((String)map.get("description")),
                     fields);
         }
@@ -71,6 +73,7 @@ public class OrmModel {
             yaml.ind().write("namespace: ", namespace).nl();
             yaml.ind().write("table: ", table).nl();
             yaml.ind().write("title: ", title).nl();
+            yaml.ind().write("icon: ", icon).nl();
             yaml.ind().write("description:").multilineStartIfNotEmtpy(description).nl();
             description.forEach(line->
                 yaml.ind().ind().write(line).nl());
@@ -195,7 +198,7 @@ public class OrmModel {
     public Can<Schema> examples() {
         return Can.of(
                 Schema.of(List.of(
-                new Entity("FoodList", "dita", "FOODS", "title", List.of("Food List and Aliases"),
+                new Entity("FoodList", "dita", "FOODS", "name", "fa-pencil", List.of("Food List and Aliases"),
                         List.of(
                                 new Field("name", "NAME", "nvarchar(100)", true, false,
                                         List.of("a.b", "c.d"), List.of("aa", "bb", "cc"))))

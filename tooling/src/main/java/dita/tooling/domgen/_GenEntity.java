@@ -60,7 +60,9 @@ class _GenEntity {
                 .addJavadoc(entityModel.formatDescription("<br>\n"))
                 .addAnnotation(_Annotations.named(logicalNamespace + "." + entityModel.name()))
                 .addAnnotation(_Annotations.domainObject())
-                .addAnnotation(_Annotations.domainObjectLayout(entityModel.formatDescription("\n")))
+                .addAnnotation(_Annotations.domainObjectLayout(
+                        entityModel.formatDescription("\n"),
+                        entityModel.icon()))
                 .addAnnotation(_Annotations.persistenceCapable(entityModel.table()))
                 .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)

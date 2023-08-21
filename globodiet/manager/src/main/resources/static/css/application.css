@@ -1,10 +1,14 @@
 /* domain object styling */
+
+.fa-deeppink,
 .fa-do-brand {
 	color: DeepPink;
 }
+.fa-darkgreen,
 .fa-do-food {
 	color: darkgreen;
 }
+.fa-blueviolet,
 .fa-do-version {
 	color: blueviolet;
 }

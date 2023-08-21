@@ -40,7 +40,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_list.FoodOrProductOrAlias")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food List and Shadow item list entry"
+    describedAs = "Food List and Shadow item list entry",
+    cssClassFa = "solid utensils darkgreen"
 )
 @PersistenceCapable(
     table = "FOODS"
@@ -219,6 +220,6 @@ public class FoodOrProductOrAlias {
 
   @ObjectSupport
   public String title() {
-    return this.toString();
+    return String.format("%s (code=%s)", foodNativeName, foodIdNumber);
   }
 }

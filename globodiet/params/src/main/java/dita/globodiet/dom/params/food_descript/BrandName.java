@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_descript.BrandName")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Brand names are used in the food description phase"
+    describedAs = "Brand names are used in the food description phase",
+    cssClassFa = "brands shopify deeppink"
 )
 @PersistenceCapable(
     table = "BRANDNAM"
@@ -119,6 +120,6 @@ public class BrandName {
 
   @ObjectSupport
   public String title() {
-    return this.toString();
+    return String.format("%s", nameOfBrand);
   }
 }

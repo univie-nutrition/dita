@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.FoodGroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food group"
+    describedAs = "Food group",
+    cssClassFa = "solid layer-group green"
 )
 @PersistenceCapable(
     table = "GROUPS"

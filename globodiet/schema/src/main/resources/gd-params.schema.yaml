@@ -83,6 +83,8 @@ AverageForAnthropometricValues:
 BrandName:
   namespace: params.food_descript
   table: BRANDNAM
+  title: String.format("%s", nameOfBrand)
+  icon: brands shopify deeppink
   description: |
     Brand names are used in the food description phase
   fields:
@@ -998,6 +1000,8 @@ ExceptionForSomeFoodToTheFacetDescriptorPathway:
 FoodOrProductOrAlias:
   namespace: params.food_list
   table: FOODS
+  title: String.format("%s (code=%s)", foodNativeName, foodIdNumber)
+  icon: solid utensils darkgreen 
   description: |
     Food List and Shadow item list entry
   fields:
@@ -1173,6 +1177,7 @@ FoodGroup:
   namespace: params.classification
   table: GROUPS
   title: String.format("%s (code=%s)", foodGroupName, foodGroupCode)
+  icon: solid layer-group green
   description: |
     Food group
   fields:

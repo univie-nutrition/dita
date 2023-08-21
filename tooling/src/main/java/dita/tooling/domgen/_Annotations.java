@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.javapoet.AnnotationSpec;
 import org.springframework.javapoet.ClassName;
+import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -113,11 +114,17 @@ class _Annotations {
     }
     /**
      * @param describedAs - entity description
+     * @param cssClassFa - entity icon (Font Awesome)
      */
-    AnnotationSpec domainObjectLayout(final String describedAs) {
-        return AnnotationSpec.builder(DomainObjectLayout.class)
-                .addMember("describedAs", "$1S", describedAs)
-                .build();
+    AnnotationSpec domainObjectLayout(
+            final @Nullable String describedAs,
+            final @Nullable String cssClassFa) {
+        val builder = AnnotationSpec.builder(DomainObjectLayout.class);
+        _Strings.nonEmpty(describedAs)
+            .ifPresent(__->builder.addMember("describedAs", "$1S", describedAs));
+        _Strings.nonEmpty(cssClassFa)
+            .ifPresent(__->builder.addMember("cssClassFa", "$1S", cssClassFa));
+        return builder.build();
     }
     AnnotationSpec action() {
         return AnnotationSpec.builder(Action.class)
