@@ -30,17 +30,23 @@ import jakarta.inject.Named;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.applib.events.metamodel.MetamodelListener;
+import org.apache.causeway.applib.services.iactnlayer.InteractionService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
+import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.globodiet.manager.DitaModuleGdManager;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -48,9 +54,10 @@ import lombok.val;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".BlobStore")
-public class BlobStore {
+public class BlobStore implements MetamodelListener {
 
     @Inject TableSerializerYaml tableSerializer;
+    @Inject InteractionService iaService;
 
     private File rootDirectory = new File(System.getenv("dita.blobstore.root"));
 
@@ -82,6 +89,13 @@ public class BlobStore {
                 : Can.empty();
     }
 
+    public Optional<ParameterDataVersion> lookupVersion(final int versionId) {
+        return getVersions()
+                .stream()
+                .filter(v->v.get__id() == versionId)
+                .findFirst();
+    }
+
     /**
      * Does not actually delete from blob-store,
      * just changes the manifest, such that given version no longer appears in the UI.
@@ -105,6 +119,20 @@ public class BlobStore {
     public void checkout(final @Nullable ParameterDataVersion version) {
         tableSerializer.load(getTableData(version), paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
         this.currentlyCheckedOutVersion = version;
+        // persist so we can recover state on next startup via 'onMetamodelLoaded'
+        writeState();
+    }
+
+    @Override
+    public void onMetamodelLoaded() {
+        readState()
+            .getValue()
+            .ifPresent(state->{
+                lookupVersion(state.getLastCheckedOutVersionId())
+                    .ifPresent(version->{
+                        iaService.runAnonymous(()->this.checkout(version));
+                    });
+            });
     }
 
     /**
@@ -201,6 +229,30 @@ public class BlobStore {
     private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
         val versionFolder = new File(rootDirectory, "" + version.get__id());
         return FileUtils.existingDirectoryElseFail(versionFolder);
+    }
+
+    // -- STATE HANDLER
+
+    @Data
+    public static class BlobStoreState {
+        private int lastCheckedOutVersionId;
+    }
+
+    private File blobStoreStateFile() {
+        return new File(rootDirectory, "state.yml");
+    }
+
+    private Try<BlobStoreState> readState() {
+        val readStateTrial =
+                YamlUtils.tryRead(BlobStoreState.class, DataSource.ofFile(blobStoreStateFile()));
+        return readStateTrial;
+    }
+
+    private void writeState() {
+        if(currentlyCheckedOutVersion==null) return;
+        val state = new BlobStoreState();
+        state.setLastCheckedOutVersionId(currentlyCheckedOutVersion.get__id());
+        YamlUtils.write(state, DataSink.ofFile(blobStoreStateFile()));
     }
 
 }
