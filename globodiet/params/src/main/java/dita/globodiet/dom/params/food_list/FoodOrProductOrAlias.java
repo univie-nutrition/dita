@@ -50,11 +50,28 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 )
 public class FoodOrProductOrAlias {
   /**
-   * Food Group code
+   * Food/C.R. Identification Code
    */
   @Property
   @PropertyLayout(
       sequence = "1",
+      describedAs = "Food/C.R. Identification Code"
+  )
+  @Column(
+      name = "FOODNUM",
+      allowsNull = "true",
+      length = 5
+  )
+  @Getter
+  @Setter
+  private String foodIdNumber;
+
+  /**
+   * Food Group code
+   */
+  @Property
+  @PropertyLayout(
+      sequence = "2",
       describedAs = "Food Group code"
   )
   @Column(
@@ -71,7 +88,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
-      sequence = "2",
+      sequence = "3",
       describedAs = "Food Subgroup code"
   )
   @Column(
@@ -88,7 +105,7 @@ public class FoodOrProductOrAlias {
    */
   @Property
   @PropertyLayout(
-      sequence = "3",
+      sequence = "4",
       describedAs = "Food Sub(sub)group code"
   )
   @Column(
@@ -99,23 +116,6 @@ public class FoodOrProductOrAlias {
   @Getter
   @Setter
   private String foodSubSubgroupCode;
-
-  /**
-   * Food/C.R. Identification Code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food/C.R. Identification Code"
-  )
-  @Column(
-      name = "FOODNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdNumber;
 
   /**
    * Food/C.R. Name (Country name)

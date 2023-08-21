@@ -117,8 +117,7 @@ public class BlobStore implements MetamodelListener {
      * There can be only ONE version checked out, which is then shared among all users for editing or viewing.
      */
     public void checkout(final @Nullable ParameterDataVersion version) {
-        tableSerializer.load(getTableData(version), paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
-        this.currentlyCheckedOutVersion = version;
+        checkoutAsCurrent(version);
         // persist so we can recover state on next startup via 'onMetamodelLoaded'
         writeState();
     }
@@ -130,7 +129,7 @@ public class BlobStore implements MetamodelListener {
             .ifPresent(state->{
                 lookupVersion(state.getLastCheckedOutVersionId())
                     .ifPresent(version->{
-                        iaService.runAnonymous(()->this.checkout(version));
+                        iaService.runAnonymous(()->this.checkoutAsCurrent(version));
                     });
             });
     }
@@ -187,6 +186,11 @@ public class BlobStore implements MetamodelListener {
     }
 
     // -- HELPER
+
+    private void checkoutAsCurrent(final @Nullable ParameterDataVersion version) {
+        tableSerializer.load(getTableData(version), paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
+        this.currentlyCheckedOutVersion = version;
+    }
 
     /**
      * Resolves a file resource relative to the given version's blob-store sub-folder.

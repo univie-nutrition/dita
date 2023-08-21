@@ -33,6 +33,8 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.internal.base._NullSafe;
 
 import dita.globodiet.dom.params.EntitiesMenu;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
@@ -50,6 +52,7 @@ implements HasCurrentlyCheckedOutVersion {
 
     @Inject EntitiesMenu entities;
     @Inject BlobStore blobStore;
+    @Inject RepositoryService repositoryService;
 
     @ObjectSupport
     public String title() {
@@ -57,8 +60,15 @@ implements HasCurrentlyCheckedOutVersion {
     }
 
     @Collection
-    public List<FoodOrProductOrAlias> getFoodList() {
+    public List<FoodOrProductOrAlias> getFoodListRaw() {
         return entities.listAllFoodOrProductOrAlias();
+    }
+
+    @Collection
+    public List<FoodOrProductOrAliasView> getFoodList() {
+        return _NullSafe.stream(entities.listAllFoodOrProductOrAlias())
+                .map(entity->FoodOrProductOrAliasView.wrap(repositoryService, entity))
+                .toList();
     }
 
     @Action

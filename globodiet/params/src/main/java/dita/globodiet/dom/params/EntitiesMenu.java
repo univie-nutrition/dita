@@ -22,7 +22,7 @@ package dita.globodiet.dom.params;
 
 import dita.globodiet.dom.params.classification.DietarySupplementClassification;
 import dita.globodiet.dom.params.classification.FoodGroup;
-import dita.globodiet.dom.params.classification.FoodGroupOrSubgroup;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeGroup;
 import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
@@ -432,8 +432,8 @@ public class EntitiesMenu {
   }
 
   @Action
-  public List<FoodGroupOrSubgroup> listAllFoodGroupOrSubgroup() {
-    return repositoryService.allInstances(FoodGroupOrSubgroup.class);
+  public List<FoodSubgroup> listAllFoodSubgroup() {
+    return repositoryService.allInstances(FoodSubgroup.class);
   }
 
   @Action

@@ -33,12 +33,12 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
 /**
- * Food groups or subgroup
+ * Food groups further narrowed down by subgroups and optional sub-subgroups
  */
-@Named("dita.globodiet.params.classification.FoodGroupOrSubgroup")
+@Named("dita.globodiet.params.classification.FoodSubgroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food groups or subgroup"
+    describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups"
 )
 @PersistenceCapable(
     table = "SUBGROUP"
@@ -47,7 +47,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
     strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
     column = "id"
 )
-public class FoodGroupOrSubgroup {
+public class FoodSubgroup {
   /**
    * Food group code
    */

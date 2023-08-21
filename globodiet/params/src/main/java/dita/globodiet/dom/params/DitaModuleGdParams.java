@@ -93,7 +93,7 @@ import org.springframework.context.annotation.Import;
     dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe.class,
     dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingAttachedToAFood.class,
     dita.globodiet.dom.params.setting.NoteStatus.class,
-    dita.globodiet.dom.params.classification.FoodGroupOrSubgroup.class,
+    dita.globodiet.dom.params.classification.FoodSubgroup.class,
     dita.globodiet.dom.params.subject.SubjectToBeInterviewed.class,
     dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable.class,
     dita.globodiet.dom.params.supplement_list.DietarySupplementList.class,

@@ -1001,6 +1001,14 @@ FoodOrProductOrAlias:
   description: |
     Food List and Shadow item list entry
   fields:
+    foodIdNumber:
+      column: FOODNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Food/C.R. Identification Code
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
@@ -1028,14 +1036,6 @@ FoodOrProductOrAlias:
         subgroup.subgroup2
       description: |
         Food Sub(sub)group code
-    foodIdNumber:
-      column: FOODNUM
-      column-type: nvarchar(5)
-      required: false
-      unique: true
-      foreignKeys:
-      description: |
-        Food/C.R. Identification Code
     foodNativeName:
       column: NAME
       column-type: nvarchar(100)
@@ -3493,11 +3493,11 @@ NoteStatus:
         0=No hide, 
         1=Yes hide (e.g. 1=hide for status “action done”)
         
-FoodGroupOrSubgroup:
+FoodSubgroup:
   namespace: params.classification
   table: SUBGROUP
   description: |
-    Food groups or subgroup
+    Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:
     foodGroupCode:
       column: GROUP
