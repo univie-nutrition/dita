@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.FoodSubgroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups"
+    describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
+    cssClassFa = "solid layer-group olive"
 )
 @PersistenceCapable(
     table = "SUBGROUP"
@@ -191,6 +192,11 @@ public class FoodSubgroup {
 
   @ObjectSupport
   public String title() {
-    return this.toString();
+    return String.format("%s (code=%s|%s|%s)", 
+     nameOfTheFoodSubSubGroup, 
+     foodGroupCode, 
+     foodSubGroupCode, 
+     foodSubSubGroupCode)
+    ;
   }
 }

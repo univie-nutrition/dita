@@ -1177,7 +1177,7 @@ FoodGroup:
   namespace: params.classification
   table: GROUPS
   title: String.format("%s (code=%s)", foodGroupName, foodGroupCode)
-  icon: solid layer-group green
+  icon: solid layer-group darkgreen
   description: |
     Food group
   fields:
@@ -3502,6 +3502,13 @@ NoteStatus:
 FoodSubgroup:
   namespace: params.classification
   table: SUBGROUP
+  title: |
+    String.format("%s (code=%s|%s|%s)", 
+     nameOfTheFoodSubSubGroup, 
+     foodGroupCode, 
+     foodSubGroupCode, 
+     foodSubSubGroupCode)
+  icon: solid layer-group olive
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:
