@@ -1052,7 +1052,7 @@ FoodOrProductOrAlias:
       foreignKeys:
       description: |
         Type of item: 
-             -> Normal Food Item (a.huber: or product?)
+          {} -> Normal Food Item
           GI -> Generic Food Item 
           SH -> Shadow Item 
           CR -> Composed Recipe (a.huber: does not appear to be used anywhere)
@@ -1067,7 +1067,7 @@ FoodOrProductOrAlias:
                 - Tomato 
                 - Cucumber 
                 - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
-    forceInternalOrderWithinEachSubgroupQ:
+    groupOrdinal:
       column: ORDER
       column-type: nvarchar(1)
       required: false

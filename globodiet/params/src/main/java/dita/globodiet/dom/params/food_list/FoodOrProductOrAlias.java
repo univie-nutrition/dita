@@ -136,7 +136,7 @@ public class FoodOrProductOrAlias {
 
   /**
    * Type of item:<br>
-   * -> Normal Food Item (a.huber: or product?)<br>
+   * {} -> Normal Food Item<br>
    * GI -> Generic Food Item<br>
    * SH -> Shadow Item<br>
    * CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>
@@ -156,7 +156,7 @@ public class FoodOrProductOrAlias {
   @PropertyLayout(
       sequence = "6",
       describedAs = "Type of item:\n"
-              + "-> Normal Food Item (a.huber: or product?)\n"
+              + "{} -> Normal Food Item\n"
               + "GI -> Generic Food Item\n"
               + "SH -> Shadow Item\n"
               + "CR -> Composed Recipe (a.huber: does not appear to be used anywhere)\n"
@@ -198,7 +198,7 @@ public class FoodOrProductOrAlias {
   )
   @Getter
   @Setter
-  private String forceInternalOrderWithinEachSubgroupQ;
+  private String groupOrdinal;
 
   /**
    * 0=food 1=food & dietary supplement
