@@ -39,8 +39,8 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
-import org.apache.causeway.tooling.model4adoc.AsciiDocFactory;
-import org.apache.causeway.tooling.model4adoc.AsciiDocWriter;
+import org.apache.causeway.extensions.docgen.model4adoc.AsciiDocFactory;
+import org.apache.causeway.extensions.docgen.model4adoc.AsciiDocWriter;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;

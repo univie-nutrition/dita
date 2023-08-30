@@ -25,7 +25,7 @@ import org.springframework.context.annotation.PropertySources;
 
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
-import org.apache.causeway.extensions.docgen.CausewayModuleExtDocgen;
+import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
 import org.apache.causeway.extensions.secman.encryption.spring.CausewayModuleExtSecmanEncryptionSpring;
 import org.apache.causeway.extensions.secman.integration.CausewayModuleExtSecmanIntegration;
 import org.apache.causeway.extensions.secman.integration.authenticator.AuthenticatorSecmanAutoConfiguration;
@@ -66,19 +66,18 @@ import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubgroup;
     CausewayModuleViewerRestfulObjectsViewer.class,
     CausewayModuleViewerRestfulObjectsJaxrsResteasy.class,
 
-    // Security Manager Extension (secman)
+    // Security Manager Extension
     CausewayModuleExtSecmanIntegration.class,
     CausewayModuleExtSecmanPersistenceJdo.class,
     CausewayModuleExtSecmanEncryptionSpring.class,
-    // autoconfig
     AuthenticatorSecmanAutoConfiguration.class,
 
     AsciiDocValueSemantics.class,
     CausewayModuleValAsciidocUiWkt.class,
     CausewayModuleExtExcelDownloadWicketUi.class, // allows for collection download as excel
 
-    // docs
-    CausewayModuleExtDocgen.class,
+    // Docs
+    CausewayModuleExtDocgenHelp.class,
 
     // Homepage
     Dashboard.class,
