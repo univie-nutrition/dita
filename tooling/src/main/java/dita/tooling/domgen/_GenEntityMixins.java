@@ -30,6 +30,7 @@ import org.springframework.javapoet.TypeSpec;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.tooling.domgen.DomainGenerator.JavaModel;
@@ -61,7 +62,7 @@ class _GenEntityMixins {
             final OrmModel.Field field,
             final Can<OrmModel.Field> foreignFields) {
         val entityModel = field.parent();
-        val typeModelBuilder = TypeSpec.classBuilder(entityModel.name() + "_" + field.name())
+        val typeModelBuilder = TypeSpec.classBuilder(mixinClassName(field))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
                 .addAnnotation(_Annotations.propertyLayout(field.sequence() + ".1", field.formatDescription("\n")))
@@ -97,11 +98,12 @@ class _GenEntityMixins {
 
         val localKeyGetter = field.getter();
 
+        //TODO debug
         System.err.printf("--resolve %s%n", foreignFields);
 
         val foreignEntity = foreignFields.stream()
             .map(OrmModel.Field::parent)
-            .peek(x->System.err.printf("peek %s%n", x))
+            .peek(x->System.err.printf("peek %s%n", x)) //TODO debug
             .distinct()
             .limit(1) // FIXME
             .collect(Can.toCan())
@@ -130,5 +132,12 @@ class _GenEntityMixins {
                 .build();
     }
 
+    private String mixinClassName(final OrmModel.Field field) {
+        val entityModel = field.parent();
+        val mixedInPropertyName = field.name().endsWith("Code")
+                ? _Strings.substring(field.name(), 0, -4)
+                : field.name() + "Obj";
+        return entityModel.name() + "_" + mixedInPropertyName;
+    }
 
 }
