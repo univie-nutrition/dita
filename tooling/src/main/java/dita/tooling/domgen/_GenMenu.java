@@ -40,8 +40,8 @@ import lombok.experimental.UtilityClass;
 class _GenMenu {
 
     JavaModel toJavaModel(
-            final Collection<OrmModel.Entity> entityModels,
-            final DomainGenerator.Config config) {
+            final DomainGenerator.Config config,
+            final Collection<OrmModel.Entity> entityModels) {
 
         val logicalNamespace = config.fullLogicalName(config.entitiesModulePackageName());
         val packageName = config.fullPackageName(config.entitiesModulePackageName());

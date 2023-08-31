@@ -19,7 +19,6 @@
 package dita.tooling.domgen;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -32,7 +31,7 @@ import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
 import dita.tooling.domgen.DomainGenerator.JavaModel;
-import dita.tooling.orm.OrmModel;
+import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -40,8 +39,9 @@ import lombok.experimental.UtilityClass;
 class _GenModule {
 
     JavaModel toJavaModel(
-            final Collection<OrmModel.Entity> entityModels,
-            final DomainGenerator.Config config) {
+            final @NonNull DomainGenerator.Config config,
+            final @NonNull List<JavaModel> entities,
+            final @NonNull List<JavaModel> mixins) {
 
         val logicalNameSpace = ""; // not used in this context
         val packageName = config.fullPackageName(config.entitiesModulePackageName());
@@ -52,8 +52,12 @@ class _GenModule {
         importsByCategory.put("Menu Entries", List.of(
                 ClassName.get(packageName, "EntitiesMenu")));
 
-        importsByCategory.put("Entities", entityModels.stream()
-                .map(entityModel->config.javaPoetClassName(entityModel))
+        importsByCategory.put("Entities", entities.stream()
+                .map(JavaModel::className)
+                .toList());
+
+        importsByCategory.put("Mixins", mixins.stream()
+                .map(JavaModel::className)
                 .toList());
 
         return new JavaModel(

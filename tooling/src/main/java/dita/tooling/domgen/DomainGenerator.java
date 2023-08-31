@@ -158,9 +158,6 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
 
         val domainModel = new DomainModel(config().schema());
 
-        // module
-        domainModel.modules().add(_GenModule.toJavaModel(entityModels, config()));
-
         // entities
         entityModels.stream()
             .map(entityModel->_GenEntity.toJavaModel(entityModel, config()))
@@ -181,8 +178,11 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                 });
             });
 
+        // module
+        domainModel.modules().add(_GenModule.toJavaModel(config(), domainModel.entities(), domainModel.entityMixins()));
+
         // menu entries
-        domainModel.menus().add(_GenMenu.toJavaModel(entityModels, config()));
+        domainModel.menus().add(_GenMenu.toJavaModel(config(), entityModels));
 
         return domainModel;
     }
