@@ -40,131 +40,131 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.AverageForAnthropometricValues")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Average for anthropometric values (height, weight)"
+        describedAs = "Average for anthropometric values (height, weight)"
 )
 @PersistenceCapable(
-    table = "ANTHROP"
+        table = "ANTHROP"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class AverageForAnthropometricValues {
-  /**
-   * Anthropometry variable (Height or Weight)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Anthropometry variable (Height or Weight)"
-  )
-  @Column(
-      name = "ANT_VAR",
-      allowsNull = "true",
-      length = 15
-  )
-  @Getter
-  @Setter
-  private String anthropometryVariable;
+    /**
+     * Anthropometry variable (Height or Weight)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Anthropometry variable (Height or Weight)"
+    )
+    @Column(
+            name = "ANT_VAR",
+            allowsNull = "true",
+            length = 15
+    )
+    @Getter
+    @Setter
+    private String anthropometryVariable;
 
-  /**
-   * Sex (1 for men, 2 for women, blank for both)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Sex (1 for men, 2 for women, blank for both)"
-  )
-  @Column(
-      name = "SEX",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer sex;
+    /**
+     * Sex (1 for men, 2 for women, blank for both)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Sex (1 for men, 2 for women, blank for both)"
+    )
+    @Column(
+            name = "SEX",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer sex;
 
-  /**
-   * Age minimum range
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Age minimum range"
-  )
-  @Column(
-      name = "AGE_MIN",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer ageMinimumRange;
+    /**
+     * Age minimum range
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Age minimum range"
+    )
+    @Column(
+            name = "AGE_MIN",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer ageMinimumRange;
 
-  /**
-   * Age maximum range
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Age maximum range"
-  )
-  @Column(
-      name = "AGE_MAX",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer ageMaximumRange;
+    /**
+     * Age maximum range
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Age maximum range"
+    )
+    @Column(
+            name = "AGE_MAX",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer ageMaximumRange;
 
-  /**
-   * Minimum value of height or weight
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Minimum value of height or weight"
-  )
-  @Column(
-      name = "ANT_MIN",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer minimumValueOfHeightOrWeight;
+    /**
+     * Minimum value of height or weight
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Minimum value of height or weight"
+    )
+    @Column(
+            name = "ANT_MIN",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer minimumValueOfHeightOrWeight;
 
-  /**
-   * Maximum value of height or weight
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Maximum value of height or weight"
-  )
-  @Column(
-      name = "ANT_MAX",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer maximumValueOfHeightOrWeight;
+    /**
+     * Maximum value of height or weight
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Maximum value of height or weight"
+    )
+    @Column(
+            name = "ANT_MAX",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer maximumValueOfHeightOrWeight;
 
-  /**
-   * Default value of height or weight
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Default value of height or weight"
-  )
-  @Column(
-      name = "ANT_DEF",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer defaultValueOfHeightOrWeight;
+    /**
+     * Default value of height or weight
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Default value of height or weight"
+    )
+    @Column(
+            name = "ANT_DEF",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer defaultValueOfHeightOrWeight;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

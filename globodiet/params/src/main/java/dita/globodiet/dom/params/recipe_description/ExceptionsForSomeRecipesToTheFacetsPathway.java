@@ -40,68 +40,68 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_description.ExceptionsForSomeRecipesToTheFacetsPathway")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Exceptions for some Recipes to the Facets/Descriptors pathway"
+        describedAs = "Exceptions for some Recipes to the Facets/Descriptors pathway"
 )
 @PersistenceCapable(
-    table = "R_RCPFAEX"
+        table = "R_RCPFAEX"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ExceptionsForSomeRecipesToTheFacetsPathway {
-  /**
-   * Recipe ID number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe ID number"
-  )
-  @Column(
-      name = "R_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeIDNumber;
+    /**
+     * Recipe ID number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe ID number"
+    )
+    @Column(
+            name = "R_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeIDNumber;
 
-  /**
-   * Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)"
-  )
-  @Column(
-      name = "RFACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisRecipe;
+    /**
+     * Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)"
+    )
+    @Column(
+            name = "RFACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisRecipe;
 
-  /**
-   * has no description
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "has no description"
-  )
-  @Column(
-      name = "ORDER_FAC",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer ORDER_FAC;
+    /**
+     * has no description
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "has no description"
+    )
+    @Column(
+            name = "ORDER_FAC",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer ORDER_FAC;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

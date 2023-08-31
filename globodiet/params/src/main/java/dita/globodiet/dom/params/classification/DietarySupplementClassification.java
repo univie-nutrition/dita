@@ -39,69 +39,69 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.DietarySupplementClassification")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Dietary supplement classification"
+        describedAs = "Dietary supplement classification"
 )
 @PersistenceCapable(
-    table = "DS_CLASSIF"
+        table = "DS_CLASSIF"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class DietarySupplementClassification {
-  /**
-   * Dietary Supplement classification code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Dietary Supplement classification code"
-  )
-  @Column(
-      name = "DS_CLASS",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String dietarySupplementClassificationCode;
+    /**
+     * Dietary Supplement classification code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Dietary Supplement classification code"
+    )
+    @Column(
+            name = "DS_CLASS",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String dietarySupplementClassificationCode;
 
-  /**
-   * Name of the food (sub-)(sub-)group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Name of the food (sub-)(sub-)group"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 50
-  )
-  @Getter
-  @Setter
-  private String nameOfTheFood;
+    /**
+     * Name of the food (sub-)(sub-)group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Name of the food (sub-)(sub-)group"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 50
+    )
+    @Getter
+    @Setter
+    private String nameOfTheFood;
 
-  /**
-   * Dietary Supplement classification code attached to (for subgroup)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Dietary Supplement classification code attached to (for subgroup)"
-  )
-  @Column(
-      name = "DS_DS_CLASS",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String dietarySupplementClassificationCodeAttachedTo;
+    /**
+     * Dietary Supplement classification code attached to (for subgroup)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Dietary Supplement classification code attached to (for subgroup)"
+    )
+    @Column(
+            name = "DS_DS_CLASS",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String dietarySupplementClassificationCodeAttachedTo;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

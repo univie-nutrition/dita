@@ -40,70 +40,70 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.PlaceOfConsumptionOccasion")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Place of Consumption Occasion"
+        describedAs = "Place of Consumption Occasion"
 )
 @PersistenceCapable(
-    table = "POC"
+        table = "POC"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class PlaceOfConsumptionOccasion {
-  /**
-   * Place of consumption code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Place of consumption code"
-  )
-  @Column(
-      name = "POC_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String placeOfConsumptionCode;
+    /**
+     * Place of consumption code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Place of consumption code"
+    )
+    @Column(
+            name = "POC_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String placeOfConsumptionCode;
 
-  /**
-   * Place of consumption name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Place of consumption name"
-  )
-  @Column(
-      name = "POC_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String placeOfConsumptionName;
+    /**
+     * Place of consumption name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Place of consumption name"
+    )
+    @Column(
+            name = "POC_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String placeOfConsumptionName;
 
-  /**
-   * 0=not a 'Other' place<br>
-   * 1='Other' place
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "0=not a 'Other' place\n"
-              + "1='Other' place"
-  )
-  @Column(
-      name = "POC_OTHER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer whetherOtherPlace;
+    /**
+     * 0=not a 'Other' place<br>
+     * 1='Other' place
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "0=not a 'Other' place\n"
+                            + "1='Other' place"
+    )
+    @Column(
+            name = "POC_OTHER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer whetherOtherPlace;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

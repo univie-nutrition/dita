@@ -40,169 +40,169 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.quantif.FoodStandardUnitsAndPortionsForFoodsAndRecipes")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "food standard units and portions for foods and recipes"
+        describedAs = "food standard units and portions for foods and recipes"
 )
 @PersistenceCapable(
-    table = "M_STDUTS"
+        table = "M_STDUTS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
-  /**
-   * Standard unit quantity
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Standard unit quantity"
-  )
-  @Column(
-      name = "STDU_QUANT",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double standardUnitQuantity;
+    /**
+     * Standard unit quantity
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Standard unit quantity"
+    )
+    @Column(
+            name = "STDU_QUANT",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double standardUnitQuantity;
 
-  /**
-   * Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum"
-  )
-  @Column(
-      name = "ID_NUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodOrRecipeIdentificationNumber;
+    /**
+     * Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum"
+    )
+    @Column(
+            name = "ID_NUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodOrRecipeIdentificationNumber;
 
-  /**
-   * 1 = raw, 2 = cooked (as estimated)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "1 = raw, 2 = cooked (as estimated)"
-  )
-  @Column(
-      name = "RAW_COOKED",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String rawOrCooked;
+    /**
+     * 1 = raw, 2 = cooked (as estimated)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "1 = raw, 2 = cooked (as estimated)"
+    )
+    @Column(
+            name = "RAW_COOKED",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String rawOrCooked;
 
-  /**
-   * 1 = without un-edible part, 2 = with un-edible (as estimated)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
-  )
-  @Column(
-      name = "EDIB",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String withUnediblePartQ;
+    /**
+     * 1 = without un-edible part, 2 = with un-edible (as estimated)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
+    )
+    @Column(
+            name = "EDIB",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String withUnediblePartQ;
 
-  /**
-   * 1 = STDU for food, 2 = STDU for recipe
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "1 = STDU for food, 2 = STDU for recipe"
-  )
-  @Column(
-      name = "TYPE",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String type;
+    /**
+     * 1 = STDU for food, 2 = STDU for recipe
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "1 = STDU for food, 2 = STDU for recipe"
+    )
+    @Column(
+            name = "TYPE",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String type;
 
-  /**
-   * Comment attached to the standard unit
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Comment attached to the standard unit"
-  )
-  @Column(
-      name = "COMMENT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String commentAttachedToTheStandardUnit;
+    /**
+     * Comment attached to the standard unit
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Comment attached to the standard unit"
+    )
+    @Column(
+            name = "COMMENT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String commentAttachedToTheStandardUnit;
 
-  /**
-   * Standard unit code for the same food/recipe (0001, 0002, 0003)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)"
-  )
-  @Column(
-      name = "UNIT_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String standardUnitCodeForTheSameFoodOrRecipe;
+    /**
+     * Standard unit code for the same food/recipe (0001, 0002, 0003)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)"
+    )
+    @Column(
+            name = "UNIT_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String standardUnitCodeForTheSameFoodOrRecipe;
 
-  /**
-   * G = in grams, V = in ml (volume)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "G = in grams, V = in ml (volume)"
-  )
-  @Column(
-      name = "STDU_UNIT",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String unit;
+    /**
+     * G = in grams, V = in ml (volume)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "G = in grams, V = in ml (volume)"
+    )
+    @Column(
+            name = "STDU_UNIT",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String unit;
 
-  /**
-   * Order to display the standard unit
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "9",
-      describedAs = "Order to display the standard unit"
-  )
-  @Column(
-      name = "D_ORDER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double orderToDisplayTheStandardUnit;
+    /**
+     * Order to display the standard unit
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "9",
+            describedAs = "Order to display the standard unit"
+    )
+    @Column(
+            name = "D_ORDER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double orderToDisplayTheStandardUnit;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

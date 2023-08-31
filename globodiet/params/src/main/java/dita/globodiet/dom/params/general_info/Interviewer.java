@@ -39,103 +39,103 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.Interviewer")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Interviewer"
+        describedAs = "Interviewer"
 )
 @PersistenceCapable(
-    table = "INTVIEWR"
+        table = "INTVIEWR"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class Interviewer {
-  /**
-   * Interviewer code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Interviewer code"
-  )
-  @Column(
-      name = "INTV_CODE",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String interviewerCode;
+    /**
+     * Interviewer code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Interviewer code"
+    )
+    @Column(
+            name = "INTV_CODE",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String interviewerCode;
 
-  /**
-   * Interviewer family name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Interviewer family name"
-  )
-  @Column(
-      name = "INTV_FNAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String interviewerFamilyName;
+    /**
+     * Interviewer family name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Interviewer family name"
+    )
+    @Column(
+            name = "INTV_FNAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String interviewerFamilyName;
 
-  /**
-   * Interviewer name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Interviewer name"
-  )
-  @Column(
-      name = "INTV_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String interviewerName;
+    /**
+     * Interviewer name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Interviewer name"
+    )
+    @Column(
+            name = "INTV_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String interviewerName;
 
-  /**
-   * Country code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Country code"
-  )
-  @Column(
-      name = "COUNTRY",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String countryCode;
+    /**
+     * Country code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Country code"
+    )
+    @Column(
+            name = "COUNTRY",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String countryCode;
 
-  /**
-   * Center code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Center code"
-  )
-  @Column(
-      name = "CENTER",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String centerCode;
+    /**
+     * Center code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Center code"
+    )
+    @Column(
+            name = "CENTER",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String centerCode;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

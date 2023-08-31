@@ -40,103 +40,103 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_table.NutrientListAndDefinition")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Nutrient list and definition"
+        describedAs = "Nutrient list and definition"
 )
 @PersistenceCapable(
-    table = "NUTRIENT"
+        table = "NUTRIENT"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class NutrientListAndDefinition {
-  /**
-   * Nutrient code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Nutrient code"
-  )
-  @Column(
-      name = "NTR_CODE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer nutrientCode;
+    /**
+     * Nutrient code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Nutrient code"
+    )
+    @Column(
+            name = "NTR_CODE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer nutrientCode;
 
-  /**
-   * Nutrient Name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Nutrient Name"
-  )
-  @Column(
-      name = "NTR_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String nutrientName;
+    /**
+     * Nutrient Name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Nutrient Name"
+    )
+    @Column(
+            name = "NTR_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String nutrientName;
 
-  /**
-   * Nutrient unit (e.g. kcal, g, mg…)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
-  )
-  @Column(
-      name = "NTR_UNIT",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String nutrientUnit;
+    /**
+     * Nutrient unit (e.g. kcal, g, mg…)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
+    )
+    @Column(
+            name = "NTR_UNIT",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String nutrientUnit;
 
-  /**
-   * 0=not displayed in the 'nutrient checks' screen<br>
-   * 1=displayed in the 'nutrient checks' screen
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "0=not displayed in the 'nutrient checks' screen\n"
-              + "1=displayed in the 'nutrient checks' screen"
-  )
-  @Column(
-      name = "NTR_DISPLAY",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer whetherDisplayedInTheNutrientChecksScreen;
+    /**
+     * 0=not displayed in the 'nutrient checks' screen<br>
+     * 1=displayed in the 'nutrient checks' screen
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "0=not displayed in the 'nutrient checks' screen\n"
+                            + "1=displayed in the 'nutrient checks' screen"
+    )
+    @Column(
+            name = "NTR_DISPLAY",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer whetherDisplayedInTheNutrientChecksScreen;
 
-  /**
-   * Comment on nutrient
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Comment on nutrient"
-  )
-  @Column(
-      name = "COMMENT",
-      allowsNull = "true",
-      length = 1000000000
-  )
-  @Getter
-  @Setter
-  private String commentOnNutrient;
+    /**
+     * Comment on nutrient
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Comment on nutrient"
+    )
+    @Column(
+            name = "COMMENT",
+            allowsNull = "true",
+            length = 1000000000
+    )
+    @Getter
+    @Setter
+    private String commentOnNutrient;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

@@ -40,216 +40,216 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_list.MixedRecipeIngredientsQuantification")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Mixed recipes: Ingredients quantification for shape and photo methods"
+        describedAs = "Mixed recipes: Ingredients quantification for shape and photo methods"
 )
 @PersistenceCapable(
-    table = "MIXEDING_QT"
+        table = "MIXEDING_QT"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class MixedRecipeIngredientsQuantification {
-  /**
-   * Recipe ID number the ingredient belong to
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe ID number the ingredient belong to"
-  )
-  @Column(
-      name = "R_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeIDNumberTheIngredientBelongTo;
+    /**
+     * Recipe ID number the ingredient belong to
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe ID number the ingredient belong to"
+    )
+    @Column(
+            name = "R_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeIDNumberTheIngredientBelongTo;
 
-  /**
-   * Sequential Number within a Mixed Recipe for Ingredient
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Sequential Number within a Mixed Recipe for Ingredient"
-  )
-  @Column(
-      name = "ING_NUM",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double sequentialNumberWithinAMixedRecipeForIngredient;
+    /**
+     * Sequential Number within a Mixed Recipe for Ingredient
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Sequential Number within a Mixed Recipe for Ingredient"
+    )
+    @Column(
+            name = "ING_NUM",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double sequentialNumberWithinAMixedRecipeForIngredient;
 
-  /**
-   * Ingredient Food or Recipe ID number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Ingredient Food or Recipe ID number"
-  )
-  @Column(
-      name = "FOODNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String ingredientFoodOrRecipeIDNumber;
+    /**
+     * Ingredient Food or Recipe ID number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Ingredient Food or Recipe ID number"
+    )
+    @Column(
+            name = "FOODNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String ingredientFoodOrRecipeIDNumber;
 
-  /**
-   * Order of shape selection (e.g. 1)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Order of shape selection (e.g. 1)"
-  )
-  @Column(
-      name = "ORDER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double orderOfShapeSelection;
+    /**
+     * Order of shape selection (e.g. 1)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Order of shape selection (e.g. 1)"
+    )
+    @Column(
+            name = "ORDER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double orderOfShapeSelection;
 
-  /**
-   * Shape code (e.g. S001)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Shape code (e.g. S001)"
-  )
-  @Column(
-      name = "SH_CODE",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String shapeCode;
+    /**
+     * Shape code (e.g. S001)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Shape code (e.g. S001)"
+    )
+    @Column(
+            name = "SH_CODE",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String shapeCode;
 
-  /**
-   * Shape surface in cm2 (e.g. 200cm2). 2 decimals
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals"
-  )
-  @Column(
-      name = "SH_SURFACE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double shapeSurfaceInCm2;
+    /**
+     * Shape surface in cm2 (e.g. 200cm2). 2 decimals
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals"
+    )
+    @Column(
+            name = "SH_SURFACE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double shapeSurfaceInCm2;
 
-  /**
-   * Shape: Thickness code (e.g. A or 58_1)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Shape: Thickness code (e.g. A or 58_1)"
-  )
-  @Column(
-      name = "TH_CODE",
-      allowsNull = "true",
-      length = 10
-  )
-  @Getter
-  @Setter
-  private String shapeThicknessCode;
+    /**
+     * Shape: Thickness code (e.g. A or 58_1)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Shape: Thickness code (e.g. A or 58_1)"
+    )
+    @Column(
+            name = "TH_CODE",
+            allowsNull = "true",
+            length = 10
+    )
+    @Getter
+    @Setter
+    private String shapeThicknessCode;
 
-  /**
-   * Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals"
-  )
-  @Column(
-      name = "TH_THICK",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double thicknessInMm;
+    /**
+     * Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals"
+    )
+    @Column(
+            name = "TH_THICK",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double thicknessInMm;
 
-  /**
-   * Photo: Number of the Selected Photo (e.g. 1 or 4)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "9",
-      describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)"
-  )
-  @Column(
-      name = "PH_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String photoNumberOfTheSelectedPhoto;
+    /**
+     * Photo: Number of the Selected Photo (e.g. 1 or 4)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "9",
+            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)"
+    )
+    @Column(
+            name = "PH_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String photoNumberOfTheSelectedPhoto;
 
-  /**
-   * Photo quantity
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "10",
-      describedAs = "Photo quantity"
-  )
-  @Column(
-      name = "PH_QTY",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double photoQuantity;
+    /**
+     * Photo quantity
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "10",
+            describedAs = "Photo quantity"
+    )
+    @Column(
+            name = "PH_QTY",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double photoQuantity;
 
-  /**
-   * Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "11",
-      describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)"
-  )
-  @Column(
-      name = "FRACT",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String shapeAndPhotoFractionOrUnit;
+    /**
+     * Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "11",
+            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)"
+    )
+    @Column(
+            name = "FRACT",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String shapeAndPhotoFractionOrUnit;
 
-  /**
-   * Sequential Number for Ingredients within a Sub-Recipe
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "12",
-      describedAs = "Sequential Number for Ingredients within a Sub-Recipe"
-  )
-  @Column(
-      name = "S_ING_NUM",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double sequentialNumberForIngredientsWithinASubRecipe;
+    /**
+     * Sequential Number for Ingredients within a Sub-Recipe
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "12",
+            describedAs = "Sequential Number for Ingredients within a Sub-Recipe"
+    )
+    @Column(
+            name = "S_ING_NUM",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double sequentialNumberForIngredientsWithinASubRecipe;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

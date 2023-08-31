@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.SelectedParametersForDataEntry")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Selected parameters for data entry"
+        describedAs = "Selected parameters for data entry"
 )
 @PersistenceCapable(
-    table = "PARAMDE"
+        table = "PARAMDE"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class SelectedParametersForDataEntry {
-  /**
-   * Parameter code for data entry
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Parameter code for data entry"
-  )
-  @Column(
-      name = "PARAM_LAB",
-      allowsNull = "true",
-      length = 40
-  )
-  @Getter
-  @Setter
-  private String parameterCodeForDataEntry;
+    /**
+     * Parameter code for data entry
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Parameter code for data entry"
+    )
+    @Column(
+            name = "PARAM_LAB",
+            allowsNull = "true",
+            length = 40
+    )
+    @Getter
+    @Setter
+    private String parameterCodeForDataEntry;
 
-  /**
-   * Parameter value for data entry
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Parameter value for data entry"
-  )
-  @Column(
-      name = "PARAM_LIB",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String parameterValueForDataEntry;
+    /**
+     * Parameter value for data entry
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Parameter value for data entry"
+    )
+    @Column(
+            name = "PARAM_LIB",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String parameterValueForDataEntry;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

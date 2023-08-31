@@ -39,137 +39,137 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_descript.ImprobableSequencesOfFacetsAndDescriptors")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Improbable sequence of facets/descriptors"
+        describedAs = "Improbable sequence of facets/descriptors"
 )
 @PersistenceCapable(
-    table = "DESC_IMP"
+        table = "DESC_IMP"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ImprobableSequencesOfFacetsAndDescriptors {
-  /**
-   * Food identification number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food identification number"
-  )
-  @Column(
-      name = "FOODNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdentificationNumber;
+    /**
+     * Food identification number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food identification number"
+    )
+    @Column(
+            name = "FOODNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodIdentificationNumber;
 
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubgroupCode;
+    /**
+     * Food subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubgroupCode;
 
-  /**
-   * Food sub-subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food sub-subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubgroupCode;
+    /**
+     * Food sub-subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food sub-subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubgroupCode;
 
-  /**
-   * Facet code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Facet code"
-  )
-  @Column(
-      name = "FACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String facetCode;
+    /**
+     * Facet code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Facet code"
+    )
+    @Column(
+            name = "FACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetCode;
 
-  /**
-   * Descriptor code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Descriptor code"
-  )
-  @Column(
-      name = "DESCR_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String descriptorCode;
+    /**
+     * Descriptor code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Descriptor code"
+    )
+    @Column(
+            name = "DESCR_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String descriptorCode;
 
-  /**
-   * Facet string
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Facet string"
-  )
-  @Column(
-      name = "FACET_STR",
-      allowsNull = "true",
-      length = 1000000000
-  )
-  @Getter
-  @Setter
-  private String facetString;
+    /**
+     * Facet string
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Facet string"
+    )
+    @Column(
+            name = "FACET_STR",
+            allowsNull = "true",
+            length = 1000000000
+    )
+    @Getter
+    @Setter
+    private String facetString;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

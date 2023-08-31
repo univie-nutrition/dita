@@ -39,87 +39,87 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_descript.BrandName")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Brand names are used in the food description phase",
-    cssClassFa = "brands shopify deeppink"
+        describedAs = "Brand names are used in the food description phase",
+        cssClassFa = "brands shopify deeppink"
 )
 @PersistenceCapable(
-    table = "BRANDNAM"
+        table = "BRANDNAM"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class BrandName {
-  /**
-   * Name of brand
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Name of brand"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String nameOfBrand;
+    /**
+     * Name of brand
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Name of brand"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String nameOfBrand;
 
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroup;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroup;
 
-  /**
-   * Food subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubgroup;
+    /**
+     * Food subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubgroup;
 
-  /**
-   * Food sub-subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food sub-subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubgroup;
+    /**
+     * Food sub-subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food sub-subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubgroup;
 
-  @ObjectSupport
-  public String title() {
-    return String.format("%s", nameOfBrand);
-  }
+    @ObjectSupport
+    public String title() {
+        return String.format("%s", nameOfBrand);
+    }
 }

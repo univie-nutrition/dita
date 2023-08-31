@@ -40,187 +40,187 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_coefficient.PercentOfFatUseDuringCookingAttachedToAFood")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "% of fat use during cooking attached to a food"
+        describedAs = "% of fat use during cooking attached to a food"
 )
 @PersistenceCapable(
-    table = "SPFDCOOK"
+        table = "SPFDCOOK"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class PercentOfFatUseDuringCookingAttachedToAFood {
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "FOOD_GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "FOOD_GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food subgroup code"
-  )
-  @Column(
-      name = "FOOD_SUBG1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubgroupCode;
+    /**
+     * Food subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food subgroup code"
+    )
+    @Column(
+            name = "FOOD_SUBG1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubgroupCode;
 
-  /**
-   * Food sub-Subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food sub-Subgroup code"
-  )
-  @Column(
-      name = "FOOD_SUBG2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubgroupCode;
+    /**
+     * Food sub-Subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food sub-Subgroup code"
+    )
+    @Column(
+            name = "FOOD_SUBG2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubgroupCode;
 
-  /**
-   * Food code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food code"
-  )
-  @Column(
-      name = "FOOD_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodCode;
+    /**
+     * Food code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food code"
+    )
+    @Column(
+            name = "FOOD_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodCode;
 
-  /**
-   * Fat group code for fat
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Fat group code for fat"
-  )
-  @Column(
-      name = "FAT_GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String fatGroupCodeForFat;
+    /**
+     * Fat group code for fat
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Fat group code for fat"
+    )
+    @Column(
+            name = "FAT_GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String fatGroupCodeForFat;
 
-  /**
-   * Fat subgroup code for fat
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Fat subgroup code for fat"
-  )
-  @Column(
-      name = "FAT_SUBG1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String fatSubgroupCodeForFat;
+    /**
+     * Fat subgroup code for fat
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Fat subgroup code for fat"
+    )
+    @Column(
+            name = "FAT_SUBG1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String fatSubgroupCodeForFat;
 
-  /**
-   * Fat sub-subgroup code for fat
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Fat sub-subgroup code for fat"
-  )
-  @Column(
-      name = "FAT_SUBG2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String fatSubSubgroupCodeForFat;
+    /**
+     * Fat sub-subgroup code for fat
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Fat sub-subgroup code for fat"
+    )
+    @Column(
+            name = "FAT_SUBG2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String fatSubSubgroupCodeForFat;
 
-  /**
-   * Fat code for fat
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Fat code for fat"
-  )
-  @Column(
-      name = "FAT_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String fatCodeForFat;
+    /**
+     * Fat code for fat
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Fat code for fat"
+    )
+    @Column(
+            name = "FAT_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String fatCodeForFat;
 
-  /**
-   * Cooking method Facet and Descriptor codes (e.g. 0305)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "9",
-      describedAs = "Cooking method Facet and Descriptor codes (e.g. 0305)"
-  )
-  @Column(
-      name = "COOK_METH",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String cookingMethodFacetAndDescriptorCodes;
+    /**
+     * Cooking method Facet and Descriptor codes (e.g. 0305)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "9",
+            describedAs = "Cooking method Facet and Descriptor codes (e.g. 0305)"
+    )
+    @Column(
+            name = "COOK_METH",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String cookingMethodFacetAndDescriptorCodes;
 
-  /**
-   * Percentage of fat absorbed during cooking
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "10",
-      describedAs = "Percentage of fat absorbed during cooking"
-  )
-  @Column(
-      name = "PCT_ABSOR",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double percentageOfFatAbsorbedDuringCooking;
+    /**
+     * Percentage of fat absorbed during cooking
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "10",
+            describedAs = "Percentage of fat absorbed during cooking"
+    )
+    @Column(
+            name = "PCT_ABSOR",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double percentageOfFatAbsorbedDuringCooking;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

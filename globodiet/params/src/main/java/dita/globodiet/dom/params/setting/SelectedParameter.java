@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.SelectedParameter")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Selected parameters"
+        describedAs = "Selected parameters"
 )
 @PersistenceCapable(
-    table = "PARAM"
+        table = "PARAM"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class SelectedParameter {
-  /**
-   * Parameter code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Parameter code"
-  )
-  @Column(
-      name = "PARAM_LAB",
-      allowsNull = "true",
-      length = 40
-  )
-  @Getter
-  @Setter
-  private String parameterCode;
+    /**
+     * Parameter code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Parameter code"
+    )
+    @Column(
+            name = "PARAM_LAB",
+            allowsNull = "true",
+            length = 40
+    )
+    @Getter
+    @Setter
+    private String parameterCode;
 
-  /**
-   * Parameter value
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Parameter value"
-  )
-  @Column(
-      name = "PARAM_LIB",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String parameterValue;
+    /**
+     * Parameter value
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Parameter value"
+    )
+    @Column(
+            name = "PARAM_LIB",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String parameterValue;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

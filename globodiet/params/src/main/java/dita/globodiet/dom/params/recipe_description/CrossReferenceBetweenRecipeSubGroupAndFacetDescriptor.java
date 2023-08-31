@@ -40,152 +40,152 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_description.CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Cross reference between Recipe (sub)group and Facet/Descriptor (default pathway)"
+        describedAs = "Cross reference between Recipe (sub)group and Facet/Descriptor (default pathway)"
 )
 @PersistenceCapable(
-    table = "R_GROUPFAC"
+        table = "R_GROUPFAC"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor {
-  /**
-   * Recipe group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe group code"
-  )
-  @Column(
-      name = "RGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroupCode;
+    /**
+     * Recipe group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe group code"
+    )
+    @Column(
+            name = "RGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroupCode;
 
-  /**
-   * Recipe Subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe Subgroup code"
-  )
-  @Column(
-      name = "RSUBGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubgroupCode;
+    /**
+     * Recipe Subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe Subgroup code"
+    )
+    @Column(
+            name = "RSUBGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubgroupCode;
 
-  /**
-   * Recipe Facet code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Recipe Facet code"
-  )
-  @Column(
-      name = "RFACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeFacetCode;
+    /**
+     * Recipe Facet code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Recipe Facet code"
+    )
+    @Column(
+            name = "RFACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeFacetCode;
 
-  /**
-   * Recipe Descriptor code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Recipe Descriptor code"
-  )
-  @Column(
-      name = "RDESCR_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeDescriptorCode;
+    /**
+     * Recipe Descriptor code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Recipe Descriptor code"
+    )
+    @Column(
+            name = "RDESCR_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeDescriptorCode;
 
-  /**
-   * Default flag (if set to 'D', it is the default descriptor else blank)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Default flag (if set to 'D', it is the default descriptor else blank)"
-  )
-  @Column(
-      name = "RDEFAULT",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String defaultFlag;
+    /**
+     * Default flag (if set to 'D', it is the default descriptor else blank)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Default flag (if set to 'D', it is the default descriptor else blank)"
+    )
+    @Column(
+            name = "RDEFAULT",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String defaultFlag;
 
-  /**
-   * Not in name flag (if set to 'N', the descriptor is not in the name else blank)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Not in name flag (if set to 'N', the descriptor is not in the name else blank)"
-  )
-  @Column(
-      name = "RNOTINNAME",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String notInNameFlag;
+    /**
+     * Not in name flag (if set to 'N', the descriptor is not in the name else blank)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Not in name flag (if set to 'N', the descriptor is not in the name else blank)"
+    )
+    @Column(
+            name = "RNOTINNAME",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String notInNameFlag;
 
-  /**
-   * Order to displayed the facets within a group/subgroup
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Order to displayed the facets within a group/subgroup"
-  )
-  @Column(
-      name = "ORDER_FAC",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer orderToDisplayedTheFacetsWithinAGroupOrSubgroup;
+    /**
+     * Order to displayed the facets within a group/subgroup
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Order to displayed the facets within a group/subgroup"
+    )
+    @Column(
+            name = "ORDER_FAC",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer orderToDisplayedTheFacetsWithinAGroupOrSubgroup;
 
-  /**
-   * Order to displayed the descriptors within a group/subgroup and a facet
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Order to displayed the descriptors within a group/subgroup and a facet"
-  )
-  @Column(
-      name = "ORDER_DESC",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer orderToDisplayedTheDescriptorsWithinAGroupOrSubgroupAndAFacet;
+    /**
+     * Order to displayed the descriptors within a group/subgroup and a facet
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Order to displayed the descriptors within a group/subgroup and a facet"
+    )
+    @Column(
+            name = "ORDER_DESC",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer orderToDisplayedTheDescriptorsWithinAGroupOrSubgroupAndAFacet;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

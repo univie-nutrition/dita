@@ -39,70 +39,70 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.FoodGroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food group",
-    cssClassFa = "solid layer-group darkgreen"
+        describedAs = "Food group",
+        cssClassFa = "solid layer-group darkgreen"
 )
 @PersistenceCapable(
-    table = "GROUPS"
+        table = "GROUPS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodGroup {
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food group name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food group name"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String foodGroupName;
+    /**
+     * Food group name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food group name"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String foodGroupName;
 
-  /**
-   * Food group short name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food group short name"
-  )
-  @Column(
-      name = "NAME_SHORT",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String foodGroupShortName;
+    /**
+     * Food group short name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food group short name"
+    )
+    @Column(
+            name = "NAME_SHORT",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String foodGroupShortName;
 
-  @ObjectSupport
-  public String title() {
-    return String.format("%s (code=%s)", foodGroupName, foodGroupCode);
-  }
+    @ObjectSupport
+    public String title() {
+        return String.format("%s (code=%s)", foodGroupName, foodGroupCode);
+    }
 }

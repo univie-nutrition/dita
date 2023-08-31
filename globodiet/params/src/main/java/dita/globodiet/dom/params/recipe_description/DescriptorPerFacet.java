@@ -40,139 +40,139 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_description.DescriptorPerFacet")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Descriptor per facet"
+        describedAs = "Descriptor per facet"
 )
 @PersistenceCapable(
-    table = "R_DESCFACE"
+        table = "R_DESCFACE"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class DescriptorPerFacet {
-  /**
-   * Facet code for recipes
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Facet code for recipes"
-  )
-  @Column(
-      name = "RFACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String facetCodeForRecipes;
+    /**
+     * Facet code for recipes
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Facet code for recipes"
+    )
+    @Column(
+            name = "RFACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetCodeForRecipes;
 
-  /**
-   * Descriptor code for recipes
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Descriptor code for recipes"
-  )
-  @Column(
-      name = "RDESCR_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String descriptorCodeForRecipes;
+    /**
+     * Descriptor code for recipes
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Descriptor code for recipes"
+    )
+    @Column(
+            name = "RDESCR_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String descriptorCodeForRecipes;
 
-  /**
-   * Descriptor name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Descriptor name"
-  )
-  @Column(
-      name = "RDESCR_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String descriptorName;
+    /**
+     * Descriptor name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Descriptor name"
+    )
+    @Column(
+            name = "RDESCR_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String descriptorName;
 
-  /**
-   * Only for facet recipe production:<br>
-   * 0=not homemade descriptor<br>
-   * 1=Homemade descriptor
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Only for facet recipe production:\n"
-              + "0=not homemade descriptor\n"
-              + "1=Homemade descriptor"
-  )
-  @Column(
-      name = "RDESCR_TYPE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer homemadeOrNot;
+    /**
+     * Only for facet recipe production:<br>
+     * 0=not homemade descriptor<br>
+     * 1=Homemade descriptor
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Only for facet recipe production:\n"
+                            + "0=not homemade descriptor\n"
+                            + "1=Homemade descriptor"
+    )
+    @Column(
+            name = "RDESCR_TYPE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer homemadeOrNot;
 
-  /**
-   * Only for facet known/unknown: 1=unknown 2=known
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Only for facet known/unknown: 1=unknown 2=known"
-  )
-  @Column(
-      name = "RDESCR_KNOWN",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer knownOrUnknown;
+    /**
+     * Only for facet known/unknown: 1=unknown 2=known
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Only for facet known/unknown: 1=unknown 2=known"
+    )
+    @Column(
+            name = "RDESCR_KNOWN",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer knownOrUnknown;
 
-  /**
-   * Descriptor with type='other' : 1=yes 0=no
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Descriptor with type='other' : 1=yes 0=no"
-  )
-  @Column(
-      name = "RDESCR_OTHER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer yesOrNo;
+    /**
+     * Descriptor with type='other' : 1=yes 0=no
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Descriptor with type='other' : 1=yes 0=no"
+    )
+    @Column(
+            name = "RDESCR_OTHER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer yesOrNo;
 
-  /**
-   * 0=not single descriptor<br>
-   * 1=single descriptor
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "0=not single descriptor\n"
-              + "1=single descriptor"
-  )
-  @Column(
-      name = "RDESCR_SINGLE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer singleOrNot;
+    /**
+     * 0=not single descriptor<br>
+     * 1=single descriptor
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "0=not single descriptor\n"
+                            + "1=single descriptor"
+    )
+    @Column(
+            name = "RDESCR_SINGLE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer singleOrNot;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

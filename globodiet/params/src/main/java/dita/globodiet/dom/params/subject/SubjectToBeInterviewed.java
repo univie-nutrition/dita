@@ -42,267 +42,267 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.subject.SubjectToBeInterviewed")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Subjects to be interviewed"
+        describedAs = "Subjects to be interviewed"
 )
 @PersistenceCapable(
-    table = "SUBJECTS"
+        table = "SUBJECTS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class SubjectToBeInterviewed {
-  /**
-   * Interview number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Interview number"
-  )
-  @Column(
-      name = "INT_NUM",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer interviewNumber;
+    /**
+     * Interview number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Interview number"
+    )
+    @Column(
+            name = "INT_NUM",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer interviewNumber;
 
-  /**
-   * Subject birth date
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Subject birth date"
-  )
-  @Column(
-      name = "PAT_BDATE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Timestamp subjectBirthDate;
+    /**
+     * Subject birth date
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Subject birth date"
+    )
+    @Column(
+            name = "PAT_BDATE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Timestamp subjectBirthDate;
 
-  /**
-   * Subject code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Subject code"
-  )
-  @Column(
-      name = "PAT_CODE",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String subjectCode;
+    /**
+     * Subject code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Subject code"
+    )
+    @Column(
+            name = "PAT_CODE",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String subjectCode;
 
-  /**
-   * Subject first name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Subject first name"
-  )
-  @Column(
-      name = "PAT_FNAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String subjectFirstName;
+    /**
+     * Subject first name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Subject first name"
+    )
+    @Column(
+            name = "PAT_FNAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String subjectFirstName;
 
-  /**
-   * Subject height in cm
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Subject height in cm"
-  )
-  @Column(
-      name = "PAT_HEIGHT",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double subjectHeightInCm;
+    /**
+     * Subject height in cm
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Subject height in cm"
+    )
+    @Column(
+            name = "PAT_HEIGHT",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double subjectHeightInCm;
 
-  /**
-   * Subject name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Subject name"
-  )
-  @Column(
-      name = "PAT_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String subjectName;
+    /**
+     * Subject name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Subject name"
+    )
+    @Column(
+            name = "PAT_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String subjectName;
 
-  /**
-   * Subject sex (1=man, 2=woman)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Subject sex (1=man, 2=woman)"
-  )
-  @Column(
-      name = "PAT_SEX",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String subjectSex;
+    /**
+     * Subject sex (1=man, 2=woman)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Subject sex (1=man, 2=woman)"
+    )
+    @Column(
+            name = "PAT_SEX",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String subjectSex;
 
-  /**
-   * Subject weight in kg
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Subject weight in kg"
-  )
-  @Column(
-      name = "PAT_WEIGHT",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double subjectWeightInKg;
+    /**
+     * Subject weight in kg
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Subject weight in kg"
+    )
+    @Column(
+            name = "PAT_WEIGHT",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double subjectWeightInKg;
 
-  /**
-   * 1=interview done, 0=interview to be done
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "9",
-      describedAs = "1=interview done, 0=interview to be done"
-  )
-  @Column(
-      name = "DONE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer doneQ;
+    /**
+     * 1=interview done, 0=interview to be done
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "9",
+            describedAs = "1=interview done, 0=interview to be done"
+    )
+    @Column(
+            name = "DONE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer doneQ;
 
-  /**
-   * Country code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "10",
-      describedAs = "Country code"
-  )
-  @Column(
-      name = "COUNTRY",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String countryCode;
+    /**
+     * Country code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "10",
+            describedAs = "Country code"
+    )
+    @Column(
+            name = "COUNTRY",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String countryCode;
 
-  /**
-   * Center code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "11",
-      describedAs = "Center code"
-  )
-  @Column(
-      name = "CENTER",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String centerCode;
+    /**
+     * Center code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "11",
+            describedAs = "Center code"
+    )
+    @Column(
+            name = "CENTER",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String centerCode;
 
-  /**
-   * Interviewer Country code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "12",
-      describedAs = "Interviewer Country code"
-  )
-  @Column(
-      name = "INTV_COUNTRY",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String interviewerCountryCode;
+    /**
+     * Interviewer Country code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "12",
+            describedAs = "Interviewer Country code"
+    )
+    @Column(
+            name = "INTV_COUNTRY",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String interviewerCountryCode;
 
-  /**
-   * Interviewer Center code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "13",
-      describedAs = "Interviewer Center code"
-  )
-  @Column(
-      name = "INTV_CENTER",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String interviewerCenterCode;
+    /**
+     * Interviewer Center code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "13",
+            describedAs = "Interviewer Center code"
+    )
+    @Column(
+            name = "INTV_CENTER",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String interviewerCenterCode;
 
-  /**
-   * Interviewer code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "14",
-      describedAs = "Interviewer code"
-  )
-  @Column(
-      name = "INTV_CODE",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String interviewerCode;
+    /**
+     * Interviewer code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "14",
+            describedAs = "Interviewer code"
+    )
+    @Column(
+            name = "INTV_CODE",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String interviewerCode;
 
-  /**
-   * Recall Date (mm/dd/yy)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "15",
-      describedAs = "Recall Date (mm/dd/yy)"
-  )
-  @Column(
-      name = "DATE_REC",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Timestamp recallDate;
+    /**
+     * Recall Date (mm/dd/yy)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "15",
+            describedAs = "Recall Date (mm/dd/yy)"
+    )
+    @Column(
+            name = "DATE_REC",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Timestamp recallDate;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

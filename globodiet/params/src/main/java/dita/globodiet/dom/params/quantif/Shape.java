@@ -41,84 +41,84 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.quantif.Shape")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Shape"
+        describedAs = "Shape"
 )
 @PersistenceCapable(
-    table = "M_SHAPES"
+        table = "M_SHAPES"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class Shape {
-  /**
-   * Shape code (e.g. S001,S002,S003,...)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Shape code (e.g. S001,S002,S003,...)"
-  )
-  @Column(
-      name = "SH_CODE",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String shapeCode;
+    /**
+     * Shape code (e.g. S001,S002,S003,...)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Shape code (e.g. S001,S002,S003,...)"
+    )
+    @Column(
+            name = "SH_CODE",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String shapeCode;
 
-  /**
-   * Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
-  )
-  @Column(
-      name = "SH_SURFACE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double shapeSurfaceInCm2;
+    /**
+     * Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
+    )
+    @Column(
+            name = "SH_SURFACE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double shapeSurfaceInCm2;
 
-  /**
-   * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
-  )
-  @Column(
-      name = "SH_COMMENT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String commentAttachedToTheShape;
+    /**
+     * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
+    )
+    @Column(
+            name = "SH_COMMENT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String commentAttachedToTheShape;
 
-  /**
-   * Order to display the standard unit
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Order to display the standard unit"
-  )
-  @Column(
-      name = "SH_ORDER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer orderToDisplayTheStandardUnit;
+    /**
+     * Order to display the standard unit
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Order to display the standard unit"
+    )
+    @Column(
+            name = "SH_ORDER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer orderToDisplayTheStandardUnit;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

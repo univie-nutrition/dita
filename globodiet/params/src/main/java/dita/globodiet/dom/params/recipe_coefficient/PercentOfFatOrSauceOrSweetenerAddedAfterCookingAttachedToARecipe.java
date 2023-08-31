@@ -40,153 +40,153 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "% of fat/sauce/sweeteners added after cooking attached to a recipe"
+        describedAs = "% of fat/sauce/sweeteners added after cooking attached to a recipe"
 )
 @PersistenceCapable(
-    table = "SPFACORE"
+        table = "SPFACORE"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe {
-  /**
-   * Recipe group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe group code"
-  )
-  @Column(
-      name = "RECI_GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroupCode;
+    /**
+     * Recipe group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe group code"
+    )
+    @Column(
+            name = "RECI_GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroupCode;
 
-  /**
-   * Recipe subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe subgroup code"
-  )
-  @Column(
-      name = "RECI_SUBGR",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubgroupCode;
+    /**
+     * Recipe subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe subgroup code"
+    )
+    @Column(
+            name = "RECI_SUBGR",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubgroupCode;
 
-  /**
-   * Recipe code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Recipe code"
-  )
-  @Column(
-      name = "RECI_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeCode;
+    /**
+     * Recipe code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Recipe code"
+    )
+    @Column(
+            name = "RECI_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeCode;
 
-  /**
-   * Fat group code for Fat or Sauce or Sweetener
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Fat group code for Fat or Sauce or Sweetener"
-  )
-  @Column(
-      name = "X_GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String fatGroupCodeForFSS;
+    /**
+     * Fat group code for Fat or Sauce or Sweetener
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Fat group code for Fat or Sauce or Sweetener"
+    )
+    @Column(
+            name = "X_GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String fatGroupCodeForFSS;
 
-  /**
-   * Fat subgroup code for Fat or Sauce or Sweetener
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Fat subgroup code for Fat or Sauce or Sweetener"
-  )
-  @Column(
-      name = "X_SUBG1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String fatSubgroupCodeForFSS;
+    /**
+     * Fat subgroup code for Fat or Sauce or Sweetener
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Fat subgroup code for Fat or Sauce or Sweetener"
+    )
+    @Column(
+            name = "X_SUBG1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String fatSubgroupCodeForFSS;
 
-  /**
-   * Fat sub-subgroup code for Fat or Sauce or Sweetener
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener"
-  )
-  @Column(
-      name = "X_SUBG2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String fatSubSubgroupCodeForFSS;
+    /**
+     * Fat sub-subgroup code for Fat or Sauce or Sweetener
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener"
+    )
+    @Column(
+            name = "X_SUBG2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String fatSubSubgroupCodeForFSS;
 
-  /**
-   * Fat code for Fat or Sauce or Sweetener
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Fat code for Fat or Sauce or Sweetener"
-  )
-  @Column(
-      name = "X_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String fatCodeForFSS;
+    /**
+     * Fat code for Fat or Sauce or Sweetener
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Fat code for Fat or Sauce or Sweetener"
+    )
+    @Column(
+            name = "X_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String fatCodeForFSS;
 
-  /**
-   * Percentage of fat
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Percentage of fat"
-  )
-  @Column(
-      name = "PCT_ADDED",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double percentageOfFat;
+    /**
+     * Percentage of fat
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Percentage of fat"
+    )
+    @Column(
+            name = "PCT_ADDED",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double percentageOfFat;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

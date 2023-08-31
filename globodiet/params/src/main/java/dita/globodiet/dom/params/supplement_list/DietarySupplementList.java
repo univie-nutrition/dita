@@ -39,103 +39,103 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.supplement_list.DietarySupplementList")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Dietary supplement list"
+        describedAs = "Dietary supplement list"
 )
 @PersistenceCapable(
-    table = "SUPPLEMENTS"
+        table = "SUPPLEMENTS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class DietarySupplementList {
-  /**
-   * Vitamin/supplement code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Vitamin/supplement code"
-  )
-  @Column(
-      name = "CODE_VITA",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String vitaminOrSupplementCode;
+    /**
+     * Vitamin/supplement code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Vitamin/supplement code"
+    )
+    @Column(
+            name = "CODE_VITA",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String vitaminOrSupplementCode;
 
-  /**
-   * Vitamin/supplement name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Vitamin/supplement name"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String vitaminOrSupplementName;
+    /**
+     * Vitamin/supplement name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Vitamin/supplement name"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String vitaminOrSupplementName;
 
-  /**
-   * Blank or 'GI' for generic vitamin/supplement
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Blank or 'GI' for generic vitamin/supplement"
-  )
-  @Column(
-      name = "TYPE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String blankOrGIForGenericVitaminOrSupplement;
+    /**
+     * Blank or 'GI' for generic vitamin/supplement
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Blank or 'GI' for generic vitamin/supplement"
+    )
+    @Column(
+            name = "TYPE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String blankOrGIForGenericVitaminOrSupplement;
 
-  /**
-   * Dietary Supplement classification code (optionnal)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Dietary Supplement classification code (optionnal)"
-  )
-  @Column(
-      name = "DS_CLASS",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String dietarySupplementClassificationCode;
+    /**
+     * Dietary Supplement classification code (optionnal)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Dietary Supplement classification code (optionnal)"
+    )
+    @Column(
+            name = "DS_CLASS",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String dietarySupplementClassificationCode;
 
-  /**
-   * Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)"
-  )
-  @Column(
-      name = "DS_FACET",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement;
+    /**
+     * Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)"
+    )
+    @Column(
+            name = "DS_FACET",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

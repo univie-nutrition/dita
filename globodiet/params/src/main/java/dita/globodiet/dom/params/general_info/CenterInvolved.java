@@ -39,69 +39,69 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.CenterInvolved")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Center involved"
+        describedAs = "Center involved"
 )
 @PersistenceCapable(
-    table = "CENTERS"
+        table = "CENTERS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class CenterInvolved {
-  /**
-   * Center code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Center code"
-  )
-  @Column(
-      name = "CNTR_CODE",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String centerCode;
+    /**
+     * Center code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Center code"
+    )
+    @Column(
+            name = "CNTR_CODE",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String centerCode;
 
-  /**
-   * Attached Country code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Attached Country code"
-  )
-  @Column(
-      name = "CTRYCODE",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String attachedCountryCode;
+    /**
+     * Attached Country code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Attached Country code"
+    )
+    @Column(
+            name = "CTRYCODE",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String attachedCountryCode;
 
-  /**
-   * Center name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Center name"
-  )
-  @Column(
-      name = "CNTR_NAME",
-      allowsNull = "true",
-      length = 50
-  )
-  @Getter
-  @Setter
-  private String centerName;
+    /**
+     * Center name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Center name"
+    )
+    @Column(
+            name = "CNTR_NAME",
+            allowsNull = "true",
+            length = 50
+    )
+    @Getter
+    @Setter
+    private String centerName;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

@@ -39,96 +39,96 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_description.RuleAppliedToFacets")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Rule applied to facets"
+        describedAs = "Rule applied to facets"
 )
 @PersistenceCapable(
-    table = "R_FACETRUL"
+        table = "R_FACETRUL"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class RuleAppliedToFacets {
-  /**
-   * Facet where the rule must be applied.
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Facet where the rule must be applied."
-  )
-  @Column(
-      name = "RFACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String facetWhereTheRuleMustBeApplied;
+    /**
+     * Facet where the rule must be applied.
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Facet where the rule must be applied."
+    )
+    @Column(
+            name = "RFACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetWhereTheRuleMustBeApplied;
 
-  /**
-   * Rule: Facet (facet_code) will be displayed only if descriptor in facdesc<br>
-   * is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).<br>
-   * - When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).<br>
-   * - When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).<br>
-   * - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).<br>
-   * - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Rule: Facet (facet_code) will be displayed only if descriptor in facdesc\n"
-              + "is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).\n"
-              + "- When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).\n"
-              + "- When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).\n"
-              + "- When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).\n"
-              + "- When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification."
-  )
-  @Column(
-      name = "R_FACDESC",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String matchOnPreviouslySelectedFacetDescriptorBySubject;
+    /**
+     * Rule: Facet (facet_code) will be displayed only if descriptor in facdesc<br>
+     * is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).<br>
+     * - When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).<br>
+     * - When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).<br>
+     * - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).<br>
+     * - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Rule: Facet (facet_code) will be displayed only if descriptor in facdesc\n"
+                            + "is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).\n"
+                            + "- When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).\n"
+                            + "- When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).\n"
+                            + "- When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).\n"
+                            + "- When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification."
+    )
+    @Column(
+            name = "R_FACDESC",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String matchOnPreviouslySelectedFacetDescriptorBySubject;
 
-  /**
-   * Recipe Group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Recipe Group code"
-  )
-  @Column(
-      name = "RGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroupCode;
+    /**
+     * Recipe Group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Recipe Group code"
+    )
+    @Column(
+            name = "RGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroupCode;
 
-  /**
-   * Recipe Subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Recipe Subgroup code"
-  )
-  @Column(
-      name = "RSUBGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubgroupCode;
+    /**
+     * Recipe Subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Recipe Subgroup code"
+    )
+    @Column(
+            name = "RSUBGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubgroupCode;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

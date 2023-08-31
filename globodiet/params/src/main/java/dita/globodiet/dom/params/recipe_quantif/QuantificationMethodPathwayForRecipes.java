@@ -39,79 +39,79 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_quantif.QuantificationMethodPathwayForRecipes")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Quantification methods pathway for recipes"
+        describedAs = "Quantification methods pathway for recipes"
 )
 @PersistenceCapable(
-    table = "QM_RECIP"
+        table = "QM_RECIP"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class QuantificationMethodPathwayForRecipes {
-  /**
-   * Recipe identification number (R_IDNUM)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe identification number (R_IDNUM)"
-  )
-  @Column(
-      name = "ID_NUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeIdNumber;
+    /**
+     * Recipe identification number (R_IDNUM)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe identification number (R_IDNUM)"
+    )
+    @Column(
+            name = "ID_NUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeIdNumber;
 
-  /**
-   * Quantification method code:<br>
-   * 'P' for photo,<br>
-   * 'H' for HHM,<br>
-   * 'U' for stdu,<br>
-   * 'A' Shape
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Quantification method code:\n"
-              + "'P' for photo,\n"
-              + "'H' for HHM,\n"
-              + "'U' for stdu,\n"
-              + "'A' Shape"
-  )
-  @Column(
-      name = "METHOD",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String quantificationMethodCode;
+    /**
+     * Quantification method code:<br>
+     * 'P' for photo,<br>
+     * 'H' for HHM,<br>
+     * 'U' for stdu,<br>
+     * 'A' Shape
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Quantification method code:\n"
+                            + "'P' for photo,\n"
+                            + "'H' for HHM,\n"
+                            + "'U' for stdu,\n"
+                            + "'A' Shape"
+    )
+    @Column(
+            name = "METHOD",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String quantificationMethodCode;
 
-  /**
-   * Photo code (if method='P' and 'A');<br>
-   * either M_photos.ph_code or M_shapes.sh_code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Photo code (if method='P' and 'A');\n"
-              + "either M_photos.ph_code or M_shapes.sh_code"
-  )
-  @Column(
-      name = "METH_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String photoCode;
+    /**
+     * Photo code (if method='P' and 'A');<br>
+     * either M_photos.ph_code or M_shapes.sh_code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Photo code (if method='P' and 'A');\n"
+                            + "either M_photos.ph_code or M_shapes.sh_code"
+    )
+    @Column(
+            name = "METH_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String photoCode;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

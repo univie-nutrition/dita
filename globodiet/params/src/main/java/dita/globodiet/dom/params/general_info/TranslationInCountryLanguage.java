@@ -39,103 +39,103 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.TranslationInCountryLanguage")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Translation in country language"
+        describedAs = "Translation in country language"
 )
 @PersistenceCapable(
-    table = "EPICTEXT"
+        table = "EPICTEXT"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class TranslationInCountryLanguage {
-  /**
-   * Text name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Text name"
-  )
-  @Column(
-      name = "ARRAY_REF",
-      allowsNull = "true",
-      length = 19
-  )
-  @Getter
-  @Setter
-  private String textName;
+    /**
+     * Text name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Text name"
+    )
+    @Column(
+            name = "ARRAY_REF",
+            allowsNull = "true",
+            length = 19
+    )
+    @Getter
+    @Setter
+    private String textName;
 
-  /**
-   * Text in specific Country language
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Text in specific Country language"
-  )
-  @Column(
-      name = "TEXT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String textInSpecificCountryLanguage;
+    /**
+     * Text in specific Country language
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Text in specific Country language"
+    )
+    @Column(
+            name = "TEXT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String textInSpecificCountryLanguage;
 
-  /**
-   * Text in English
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Text in English"
-  )
-  @Column(
-      name = "TEXT_ENG",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String textInEnglish;
+    /**
+     * Text in English
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Text in English"
+    )
+    @Column(
+            name = "TEXT_ENG",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String textInEnglish;
 
-  /**
-   * Data entry Text in specific Country language
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Data entry Text in specific Country language"
-  )
-  @Column(
-      name = "DE_TEXT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String dataEntryTextInSpecificCountryLanguage;
+    /**
+     * Data entry Text in specific Country language
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Data entry Text in specific Country language"
+    )
+    @Column(
+            name = "DE_TEXT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String dataEntryTextInSpecificCountryLanguage;
 
-  /**
-   * Data entry Text in English
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Data entry Text in English"
-  )
-  @Column(
-      name = "DE_TEXT_ENG",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String dataEntryTextInEnglish;
+    /**
+     * Data entry Text in English
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Data entry Text in English"
+    )
+    @Column(
+            name = "DE_TEXT_ENG",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String dataEntryTextInEnglish;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

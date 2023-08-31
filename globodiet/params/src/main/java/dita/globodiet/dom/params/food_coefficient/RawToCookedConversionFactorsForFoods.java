@@ -40,85 +40,85 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_coefficient.RawToCookedConversionFactorsForFoods")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Raw to cooked conversion factors for foods"
+        describedAs = "Raw to cooked conversion factors for foods"
 )
 @PersistenceCapable(
-    table = "RAWCOOK"
+        table = "RAWCOOK"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class RawToCookedConversionFactorsForFoods {
-  /**
-   * Food identification number (FOODNUM)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food identification number (FOODNUM)"
-  )
-  @Column(
-      name = "ID_NUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdNumber;
+    /**
+     * Food identification number (FOODNUM)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food identification number (FOODNUM)"
+    )
+    @Column(
+            name = "ID_NUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodIdNumber;
 
-  /**
-   * Raw to cooked factor
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Raw to cooked factor"
-  )
-  @Column(
-      name = "RC_FACTOR",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double rawToCookedFactor;
+    /**
+     * Raw to cooked factor
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Raw to cooked factor"
+    )
+    @Column(
+            name = "RC_FACTOR",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double rawToCookedFactor;
 
-  /**
-   * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
-  )
-  @Column(
-      name = "FACETS_STR",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String facetString;
+    /**
+     * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+    )
+    @Column(
+            name = "FACETS_STR",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String facetString;
 
-  /**
-   * Priority order
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Priority order"
-  )
-  @Column(
-      name = "PRIORITY",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String priorityOrder;
+    /**
+     * Priority order
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Priority order"
+    )
+    @Column(
+            name = "PRIORITY",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String priorityOrder;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

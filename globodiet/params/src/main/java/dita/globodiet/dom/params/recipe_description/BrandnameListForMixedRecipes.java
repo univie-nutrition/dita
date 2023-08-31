@@ -39,69 +39,69 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_description.BrandnameListForMixedRecipes")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Brandname list for mixed recipes"
+        describedAs = "Brandname list for mixed recipes"
 )
 @PersistenceCapable(
-    table = "R_BRAND"
+        table = "R_BRAND"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class BrandnameListForMixedRecipes {
-  /**
-   * Recipe group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe group"
-  )
-  @Column(
-      name = "RGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroup;
+    /**
+     * Recipe group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe group"
+    )
+    @Column(
+            name = "RGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroup;
 
-  /**
-   * Recipe subgroup
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe subgroup"
-  )
-  @Column(
-      name = "RSUBGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubgroup;
+    /**
+     * Recipe subgroup
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe subgroup"
+    )
+    @Column(
+            name = "RSUBGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubgroup;
 
-  /**
-   * has no description
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "has no description"
-  )
-  @Column(
-      name = "RNAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String RNAME;
+    /**
+     * has no description
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "has no description"
+    )
+    @Column(
+            name = "RNAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String RNAME;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

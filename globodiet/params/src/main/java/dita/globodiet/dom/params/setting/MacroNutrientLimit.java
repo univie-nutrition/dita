@@ -40,117 +40,117 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.MacroNutrientLimit")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Minimum and maximum value for macro-nutrient"
+        describedAs = "Minimum and maximum value for macro-nutrient"
 )
 @PersistenceCapable(
-    table = "NUTLIMIT"
+        table = "NUTLIMIT"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class MacroNutrientLimit {
-  /**
-   * Name of nutrient
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Name of nutrient"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 50
-  )
-  @Getter
-  @Setter
-  private String nameOfNutrient;
+    /**
+     * Name of nutrient
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Name of nutrient"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 50
+    )
+    @Getter
+    @Setter
+    private String nameOfNutrient;
 
-  /**
-   * Minimum value
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Minimum value"
-  )
-  @Column(
-      name = "MIN",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double minimumValue;
+    /**
+     * Minimum value
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Minimum value"
+    )
+    @Column(
+            name = "MIN",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double minimumValue;
 
-  /**
-   * Maximum value
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Maximum value"
-  )
-  @Column(
-      name = "MAX",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double maximumValue;
+    /**
+     * Maximum value
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Maximum value"
+    )
+    @Column(
+            name = "MAX",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double maximumValue;
 
-  /**
-   * Unit (g, kcal or blanc)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Unit (g, kcal or blanc)"
-  )
-  @Column(
-      name = "UNIT",
-      allowsNull = "true",
-      length = 50
-  )
-  @Getter
-  @Setter
-  private String unit;
+    /**
+     * Unit (g, kcal or blanc)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Unit (g, kcal or blanc)"
+    )
+    @Column(
+            name = "UNIT",
+            allowsNull = "true",
+            length = 50
+    )
+    @Getter
+    @Setter
+    private String unit;
 
-  /**
-   * 1=man, 2=woman
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "1=man, 2=woman"
-  )
-  @Column(
-      name = "SEX",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String sex;
+    /**
+     * 1=man, 2=woman
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "1=man, 2=woman"
+    )
+    @Column(
+            name = "SEX",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String sex;
 
-  /**
-   * PAL value
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "PAL value"
-  )
-  @Column(
-      name = "VAL",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double pALValue;
+    /**
+     * PAL value
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "PAL value"
+    )
+    @Column(
+            name = "VAL",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double pALValue;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

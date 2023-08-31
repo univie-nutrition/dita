@@ -40,85 +40,85 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_coefficient.PercentOfFatLeftInTheDishForFood")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "% of fat left in the dish for food"
+        describedAs = "% of fat left in the dish for food"
 )
 @PersistenceCapable(
-    table = "FATLEFTO"
+        table = "FATLEFTO"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class PercentOfFatLeftInTheDishForFood {
-  /**
-   * Group code of the FAT's group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Group code of the FAT's group"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String groupCodeOfFat;
+    /**
+     * Group code of the FAT's group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Group code of the FAT's group"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String groupCodeOfFat;
 
-  /**
-   * Subgroup code of the FAT
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Subgroup code of the FAT"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String subgroupCodeOfFat;
+    /**
+     * Subgroup code of the FAT
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Subgroup code of the FAT"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String subgroupCodeOfFat;
 
-  /**
-   * Sub-Subgroup code of the FAT
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Sub-Subgroup code of the FAT"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String subSubgroupCodeOfFat;
+    /**
+     * Sub-Subgroup code of the FAT
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Sub-Subgroup code of the FAT"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String subSubgroupCodeOfFat;
 
-  /**
-   * Percentage of fat left in the dish
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Percentage of fat left in the dish"
-  )
-  @Column(
-      name = "PCT_LEFT",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double percentageOfFatLeftInTheDish;
+    /**
+     * Percentage of fat left in the dish
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Percentage of fat left in the dish"
+    )
+    @Column(
+            name = "PCT_LEFT",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double percentageOfFatLeftInTheDish;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

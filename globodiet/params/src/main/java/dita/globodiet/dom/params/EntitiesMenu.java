@@ -34,7 +34,10 @@ import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorsFo
 import dita.globodiet.dom.params.food_descript.BrandName;
 import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodAndFacet;
 import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
+import dita.globodiet.dom.params.food_descript.Facet;
+import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequencesOfFacetsAndDescriptors;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubGroup;
@@ -58,15 +61,15 @@ import dita.globodiet.dom.params.general_info.TranslationInCountryLanguage;
 import dita.globodiet.dom.params.probing.ProbingQuestions;
 import dita.globodiet.dom.params.quantif.FoodStandardUnitsAndPortionsForFoodsAndRecipes;
 import dita.globodiet.dom.params.quantif.HouseholdMeasure;
-import dita.globodiet.dom.params.quantif.ListOfThicknessForShapeMethod;
 import dita.globodiet.dom.params.quantif.PhotoForQuantity;
 import dita.globodiet.dom.params.quantif.Shape;
+import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe;
 import dita.globodiet.dom.params.recipe_description.BrandnameListForMixedRecipes;
 import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor;
 import dita.globodiet.dom.params.recipe_description.DescriptorPerFacet;
 import dita.globodiet.dom.params.recipe_description.ExceptionsForSomeRecipesToTheFacetsPathway;
-import dita.globodiet.dom.params.recipe_description.Facet;
+import dita.globodiet.dom.params.recipe_description.FacetForRecipe;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredientsQuantification;
@@ -97,363 +100,381 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 @Named("dita.globodiet.params.EntitiesMenu")
 @DomainService(
-    nature = org.apache.causeway.applib.annotation.NatureOfService.VIEW
+        nature = org.apache.causeway.applib.annotation.NatureOfService.VIEW
 )
 public class EntitiesMenu {
-  @Inject
-  private RepositoryService repositoryService;
-
-  @Action
-  public List<AverageForAnthropometricValues> listAllAverageForAnthropometricValues() {
-    return repositoryService.allInstances(AverageForAnthropometricValues.class);
-  }
-
-  @Action
-  public List<BrandName> listAllBrandName() {
-    return repositoryService.allInstances(BrandName.class);
-  }
-
-  @Action
-  public List<CenterInvolved> listAllCenterInvolved() {
-    return repositoryService.allInstances(CenterInvolved.class);
-  }
-
-  @Action
-  public List<ItemDisplayedForCheckPerFCO> listAllItemDisplayedForCheckPerFCO() {
-    return repositoryService.allInstances(ItemDisplayedForCheckPerFCO.class);
-  }
-
-  @Action
-  public List<CountryInvolved> listAllCountryInvolved() {
-    return repositoryService.allInstances(CountryInvolved.class);
-  }
-
-  @Action
-  public List<ComposedRecipeIngredient> listAllComposedRecipeIngredient() {
-    return repositoryService.allInstances(ComposedRecipeIngredient.class);
-  }
-
-  @Action
-  public List<DayOfWeek> listAllDayOfWeek() {
-    return repositoryService.allInstances(DayOfWeek.class);
-  }
-
-  @Action
-  public List<DensityFactorForFood> listAllDensityFactorForFood() {
-    return repositoryService.allInstances(DensityFactorForFood.class);
-  }
-
-  @Action
-  public List<ImprobableSequencesOfFacetsAndDescriptors> listAllImprobableSequencesOfFacetsAndDescriptors(
-      ) {
-    return repositoryService.allInstances(ImprobableSequencesOfFacetsAndDescriptors.class);
-  }
-
-  @Action
-  public List<DescriptorPerFacet> listAllDescriptorPerFacet() {
-    return repositoryService.allInstances(DescriptorPerFacet.class);
-  }
-
-  @Action
-  public List<FacetDescriptorThatCannotBeSubstituted> listAllFacetDescriptorThatCannotBeSubstituted(
-      ) {
-    return repositoryService.allInstances(FacetDescriptorThatCannotBeSubstituted.class);
-  }
-
-  @Action
-  public List<DietarySupplementClassification> listAllDietarySupplementClassification() {
-    return repositoryService.allInstances(DietarySupplementClassification.class);
-  }
-
-  @Action
-  public List<DietarySupplementDescriptor> listAllDietarySupplementDescriptor() {
-    return repositoryService.allInstances(DietarySupplementDescriptor.class);
-  }
-
-  @Action
-  public List<DietarySupplementFacet> listAllDietarySupplementFacet() {
-    return repositoryService.allInstances(DietarySupplementFacet.class);
-  }
-
-  @Action
-  public List<EdiblePartCoefficientForFood> listAllEdiblePartCoefficientForFood() {
-    return repositoryService.allInstances(EdiblePartCoefficientForFood.class);
-  }
-
-  @Action
-  public List<TranslationInCountryLanguage> listAllTranslationInCountryLanguage() {
-    return repositoryService.allInstances(TranslationInCountryLanguage.class);
-  }
-
-  @Action
-  public List<RuleAppliedToFacets> listAllRuleAppliedToFacets() {
-    return repositoryService.allInstances(RuleAppliedToFacets.class);
-  }
-
-  @Action
-  public List<Facet> listAllFacet() {
-    return repositoryService.allInstances(Facet.class);
-  }
-
-  @Action
-  public List<PercentOfFatLeftInTheDishForFood> listAllPercentOfFatLeftInTheDishForFood() {
-    return repositoryService.allInstances(PercentOfFatLeftInTheDishForFood.class);
-  }
-
-  @Action
-  public List<FoodConsumptionOccasion> listAllFoodConsumptionOccasion() {
-    return repositoryService.allInstances(FoodConsumptionOccasion.class);
-  }
-
-  @Action
-  public List<ExceptionForSomeFoodToTheFacetDescriptorPathway> listAllExceptionForSomeFoodToTheFacetDescriptorPathway(
-      ) {
-    return repositoryService.allInstances(ExceptionForSomeFoodToTheFacetDescriptorPathway.class);
-  }
-
-  @Action
-  public List<FoodOrProductOrAlias> listAllFoodOrProductOrAlias() {
-    return repositoryService.allInstances(FoodOrProductOrAlias.class);
-  }
-
-  @Action
-  public List<CrossReferenceBetweenFoodAndFacet> listAllCrossReferenceBetweenFoodAndFacet() {
-    return repositoryService.allInstances(CrossReferenceBetweenFoodAndFacet.class);
-  }
-
-  @Action
-  public List<FoodGroup> listAllFoodGroup() {
-    return repositoryService.allInstances(FoodGroup.class);
-  }
-
-  @Action
-  public List<Interviewer> listAllInterviewer() {
-    return repositoryService.allInstances(Interviewer.class);
-  }
-
-  @Action
-  public List<FoodOrRecipeOrAttachment> listAllFoodOrRecipeOrAttachment() {
-    return repositoryService.allInstances(FoodOrRecipeOrAttachment.class);
-  }
-
-  @Action
-  public List<HouseholdMeasure> listAllHouseholdMeasure() {
-    return repositoryService.allInstances(HouseholdMeasure.class);
-  }
-
-  @Action
-  public List<PhotoForQuantity> listAllPhotoForQuantity() {
-    return repositoryService.allInstances(PhotoForQuantity.class);
-  }
-
-  @Action
-  public List<Shape> listAllShape() {
-    return repositoryService.allInstances(Shape.class);
-  }
-
-  @Action
-  public List<FoodStandardUnitsAndPortionsForFoods> listAllFoodStandardUnitsAndPortionsForFoods() {
-    return repositoryService.allInstances(FoodStandardUnitsAndPortionsForFoods.class);
-  }
-
-  @Action
-  public List<FoodStandardUnitsAndPortionsForFoodsAndRecipes> listAllFoodStandardUnitsAndPortionsForFoodsAndRecipes(
-      ) {
-    return repositoryService.allInstances(FoodStandardUnitsAndPortionsForFoodsAndRecipes.class);
-  }
-
-  @Action
-  public List<MaximumValueForARecipeOrASubGroup> listAllMaximumValueForARecipeOrASubGroup() {
-    return repositoryService.allInstances(MaximumValueForARecipeOrASubGroup.class);
-  }
-
-  @Action
-  public List<MaximumValueForAFoodOrASubSubGroup> listAllMaximumValueForAFoodOrASubSubGroup() {
-    return repositoryService.allInstances(MaximumValueForAFoodOrASubSubGroup.class);
-  }
-
-  @Action
-  public List<MixedRecipeIngredient> listAllMixedRecipeIngredient() {
-    return repositoryService.allInstances(MixedRecipeIngredient.class);
-  }
-
-  @Action
-  public List<MixedRecipeIngredientsQuantification> listAllMixedRecipeIngredientsQuantification() {
-    return repositoryService.allInstances(MixedRecipeIngredientsQuantification.class);
-  }
-
-  @Action
-  public List<MixedRecipeNames> listAllMixedRecipeNames() {
-    return repositoryService.allInstances(MixedRecipeNames.class);
-  }
-
-  @Action
-  public List<Months> listAllMonths() {
-    return repositoryService.allInstances(Months.class);
-  }
-
-  @Action
-  public List<NutrientValuesPerNutrientAndItem> listAllNutrientValuesPerNutrientAndItem() {
-    return repositoryService.allInstances(NutrientValuesPerNutrientAndItem.class);
-  }
-
-  @Action
-  public List<MacroNutrientLimit> listAllMacroNutrientLimit() {
-    return repositoryService.allInstances(MacroNutrientLimit.class);
-  }
-
-  @Action
-  public List<NutrientListAndDefinition> listAllNutrientListAndDefinition() {
-    return repositoryService.allInstances(NutrientListAndDefinition.class);
-  }
-
-  @Action
-  public List<SelectedParameter> listAllSelectedParameter() {
-    return repositoryService.allInstances(SelectedParameter.class);
-  }
-
-  @Action
-  public List<SelectedParametersForDataEntry> listAllSelectedParametersForDataEntry() {
-    return repositoryService.allInstances(SelectedParametersForDataEntry.class);
-  }
-
-  @Action
-  public List<PlaceOfConsumptionOccasion> listAllPlaceOfConsumptionOccasion() {
-    return repositoryService.allInstances(PlaceOfConsumptionOccasion.class);
-  }
-
-  @Action
-  public List<ProbingQuestionsPathwaysForFood> listAllProbingQuestionsPathwaysForFood() {
-    return repositoryService.allInstances(ProbingQuestionsPathwaysForFood.class);
-  }
-
-  @Action
-  public List<ProbingQuestions> listAllProbingQuestions() {
-    return repositoryService.allInstances(ProbingQuestions.class);
-  }
-
-  @Action
-  public List<QuantificationMethodsPathwayForIndividualFood> listAllQuantificationMethodsPathwayForIndividualFood(
-      ) {
-    return repositoryService.allInstances(QuantificationMethodsPathwayForIndividualFood.class);
-  }
-
-  @Action
-  public List<QuantificationMethodsPathwayForFoodGroup> listAllQuantificationMethodsPathwayForFoodGroup(
-      ) {
-    return repositoryService.allInstances(QuantificationMethodsPathwayForFoodGroup.class);
-  }
-
-  @Action
-  public List<QuantificationMethodsPathwayForRecipeGroup> listAllQuantificationMethodsPathwayForRecipeGroup(
-      ) {
-    return repositoryService.allInstances(QuantificationMethodsPathwayForRecipeGroup.class);
-  }
-
-  @Action
-  public List<QuantificationMethodPathwayForRecipes> listAllQuantificationMethodPathwayForRecipes(
-      ) {
-    return repositoryService.allInstances(QuantificationMethodPathwayForRecipes.class);
-  }
-
-  @Action
-  public List<BrandnameListForMixedRecipes> listAllBrandnameListForMixedRecipes() {
-    return repositoryService.allInstances(BrandnameListForMixedRecipes.class);
-  }
-
-  @Action
-  public List<CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor> listAllCrossReferenceBetweenRecipeSubGroupAndFacetDescriptor(
-      ) {
-    return repositoryService.allInstances(CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor.class);
-  }
-
-  @Action
-  public List<ExceptionsForSomeRecipesToTheFacetsPathway> listAllExceptionsForSomeRecipesToTheFacetsPathway(
-      ) {
-    return repositoryService.allInstances(ExceptionsForSomeRecipesToTheFacetsPathway.class);
-  }
-
-  @Action
-  public List<RawToCookedConversionFactorsForFoods> listAllRawToCookedConversionFactorsForFoods() {
-    return repositoryService.allInstances(RawToCookedConversionFactorsForFoods.class);
-  }
-
-  @Action
-  public List<DefinitionOfRecipePathway> listAllDefinitionOfRecipePathway() {
-    return repositoryService.allInstances(DefinitionOfRecipePathway.class);
-  }
-
-  @Action
-  public List<RecipeGroup> listAllRecipeGroup() {
-    return repositoryService.allInstances(RecipeGroup.class);
-  }
-
-  @Action
-  public List<ProbingQuestionPathwayForRecipes> listAllProbingQuestionPathwayForRecipes() {
-    return repositoryService.allInstances(ProbingQuestionPathwayForRecipes.class);
-  }
-
-  @Action
-  public List<RecipeGroupOrSubgroup> listAllRecipeGroupOrSubgroup() {
-    return repositoryService.allInstances(RecipeGroupOrSubgroup.class);
-  }
-
-  @Action
-  public List<SpecialDayPredefinedAnswer> listAllSpecialDayPredefinedAnswer() {
-    return repositoryService.allInstances(SpecialDayPredefinedAnswer.class);
-  }
-
-  @Action
-  public List<SpecialDietPredefinedAnswer> listAllSpecialDietPredefinedAnswer() {
-    return repositoryService.allInstances(SpecialDietPredefinedAnswer.class);
-  }
-
-  @Action
-  public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood(
-      ) {
-    return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood.class);
-  }
-
-  @Action
-  public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe(
-      ) {
-    return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe.class);
-  }
-
-  @Action
-  public List<PercentOfFatUseDuringCookingAttachedToAFood> listAllPercentOfFatUseDuringCookingAttachedToAFood(
-      ) {
-    return repositoryService.allInstances(PercentOfFatUseDuringCookingAttachedToAFood.class);
-  }
-
-  @Action
-  public List<NoteStatus> listAllNoteStatus() {
-    return repositoryService.allInstances(NoteStatus.class);
-  }
-
-  @Action
-  public List<FoodSubgroup> listAllFoodSubgroup() {
-    return repositoryService.allInstances(FoodSubgroup.class);
-  }
-
-  @Action
-  public List<SubjectToBeInterviewed> listAllSubjectToBeInterviewed() {
-    return repositoryService.allInstances(SubjectToBeInterviewed.class);
-  }
-
-  @Action
-  public List<GroupOrSubgroupThatCanBeSubstitutable> listAllGroupOrSubgroupThatCanBeSubstitutable(
-      ) {
-    return repositoryService.allInstances(GroupOrSubgroupThatCanBeSubstitutable.class);
-  }
-
-  @Action
-  public List<DietarySupplementList> listAllDietarySupplementList() {
-    return repositoryService.allInstances(DietarySupplementList.class);
-  }
-
-  @Action
-  public List<ListOfThicknessForShapeMethod> listAllListOfThicknessForShapeMethod() {
-    return repositoryService.allInstances(ListOfThicknessForShapeMethod.class);
-  }
+    @Inject
+    private RepositoryService repositoryService;
+
+    @Action
+    public List<AverageForAnthropometricValues> listAllAverageForAnthropometricValues() {
+        return repositoryService.allInstances(AverageForAnthropometricValues.class);
+    }
+
+    @Action
+    public List<BrandName> listAllBrandName() {
+        return repositoryService.allInstances(BrandName.class);
+    }
+
+    @Action
+    public List<CenterInvolved> listAllCenterInvolved() {
+        return repositoryService.allInstances(CenterInvolved.class);
+    }
+
+    @Action
+    public List<ItemDisplayedForCheckPerFCO> listAllItemDisplayedForCheckPerFCO() {
+        return repositoryService.allInstances(ItemDisplayedForCheckPerFCO.class);
+    }
+
+    @Action
+    public List<CountryInvolved> listAllCountryInvolved() {
+        return repositoryService.allInstances(CountryInvolved.class);
+    }
+
+    @Action
+    public List<ComposedRecipeIngredient> listAllComposedRecipeIngredient() {
+        return repositoryService.allInstances(ComposedRecipeIngredient.class);
+    }
+
+    @Action
+    public List<DayOfWeek> listAllDayOfWeek() {
+        return repositoryService.allInstances(DayOfWeek.class);
+    }
+
+    @Action
+    public List<DensityFactorForFood> listAllDensityFactorForFood() {
+        return repositoryService.allInstances(DensityFactorForFood.class);
+    }
+
+    @Action
+    public List<ImprobableSequencesOfFacetsAndDescriptors> listAllImprobableSequencesOfFacetsAndDescriptors(
+            ) {
+        return repositoryService.allInstances(ImprobableSequencesOfFacetsAndDescriptors.class);
+    }
+
+    @Action
+    public List<FacetDescriptor> listAllFacetDescriptor() {
+        return repositoryService.allInstances(FacetDescriptor.class);
+    }
+
+    @Action
+    public List<FacetDescriptorThatCannotBeSubstituted> listAllFacetDescriptorThatCannotBeSubstituted(
+            ) {
+        return repositoryService.allInstances(FacetDescriptorThatCannotBeSubstituted.class);
+    }
+
+    @Action
+    public List<DietarySupplementClassification> listAllDietarySupplementClassification() {
+        return repositoryService.allInstances(DietarySupplementClassification.class);
+    }
+
+    @Action
+    public List<DietarySupplementDescriptor> listAllDietarySupplementDescriptor() {
+        return repositoryService.allInstances(DietarySupplementDescriptor.class);
+    }
+
+    @Action
+    public List<DietarySupplementFacet> listAllDietarySupplementFacet() {
+        return repositoryService.allInstances(DietarySupplementFacet.class);
+    }
+
+    @Action
+    public List<EdiblePartCoefficientForFood> listAllEdiblePartCoefficientForFood() {
+        return repositoryService.allInstances(EdiblePartCoefficientForFood.class);
+    }
+
+    @Action
+    public List<TranslationInCountryLanguage> listAllTranslationInCountryLanguage() {
+        return repositoryService.allInstances(TranslationInCountryLanguage.class);
+    }
+
+    @Action
+    public List<RuleAppliedToFacet> listAllRuleAppliedToFacet() {
+        return repositoryService.allInstances(RuleAppliedToFacet.class);
+    }
+
+    @Action
+    public List<Facet> listAllFacet() {
+        return repositoryService.allInstances(Facet.class);
+    }
+
+    @Action
+    public List<PercentOfFatLeftInTheDishForFood> listAllPercentOfFatLeftInTheDishForFood() {
+        return repositoryService.allInstances(PercentOfFatLeftInTheDishForFood.class);
+    }
+
+    @Action
+    public List<FoodConsumptionOccasion> listAllFoodConsumptionOccasion() {
+        return repositoryService.allInstances(FoodConsumptionOccasion.class);
+    }
+
+    @Action
+    public List<ExceptionForSomeFoodToTheFacetDescriptorPathway> listAllExceptionForSomeFoodToTheFacetDescriptorPathway(
+            ) {
+        return repositoryService.allInstances(ExceptionForSomeFoodToTheFacetDescriptorPathway.class);
+    }
+
+    @Action
+    public List<FoodOrProductOrAlias> listAllFoodOrProductOrAlias() {
+        return repositoryService.allInstances(FoodOrProductOrAlias.class);
+    }
+
+    @Action
+    public List<CrossReferenceBetweenFoodAndFacet> listAllCrossReferenceBetweenFoodAndFacet() {
+        return repositoryService.allInstances(CrossReferenceBetweenFoodAndFacet.class);
+    }
+
+    @Action
+    public List<FoodGroup> listAllFoodGroup() {
+        return repositoryService.allInstances(FoodGroup.class);
+    }
+
+    @Action
+    public List<Interviewer> listAllInterviewer() {
+        return repositoryService.allInstances(Interviewer.class);
+    }
+
+    @Action
+    public List<FoodOrRecipeOrAttachment> listAllFoodOrRecipeOrAttachment() {
+        return repositoryService.allInstances(FoodOrRecipeOrAttachment.class);
+    }
+
+    @Action
+    public List<HouseholdMeasure> listAllHouseholdMeasure() {
+        return repositoryService.allInstances(HouseholdMeasure.class);
+    }
+
+    @Action
+    public List<PhotoForQuantity> listAllPhotoForQuantity() {
+        return repositoryService.allInstances(PhotoForQuantity.class);
+    }
+
+    @Action
+    public List<Shape> listAllShape() {
+        return repositoryService.allInstances(Shape.class);
+    }
+
+    @Action
+    public List<FoodStandardUnitsAndPortionsForFoods> listAllFoodStandardUnitsAndPortionsForFoods(
+            ) {
+        return repositoryService.allInstances(FoodStandardUnitsAndPortionsForFoods.class);
+    }
+
+    @Action
+    public List<FoodStandardUnitsAndPortionsForFoodsAndRecipes> listAllFoodStandardUnitsAndPortionsForFoodsAndRecipes(
+            ) {
+        return repositoryService.allInstances(FoodStandardUnitsAndPortionsForFoodsAndRecipes.class);
+    }
+
+    @Action
+    public List<MaximumValueForARecipeOrASubGroup> listAllMaximumValueForARecipeOrASubGroup() {
+        return repositoryService.allInstances(MaximumValueForARecipeOrASubGroup.class);
+    }
+
+    @Action
+    public List<MaximumValueForAFoodOrASubSubGroup> listAllMaximumValueForAFoodOrASubSubGroup() {
+        return repositoryService.allInstances(MaximumValueForAFoodOrASubSubGroup.class);
+    }
+
+    @Action
+    public List<MixedRecipeIngredient> listAllMixedRecipeIngredient() {
+        return repositoryService.allInstances(MixedRecipeIngredient.class);
+    }
+
+    @Action
+    public List<MixedRecipeIngredientsQuantification> listAllMixedRecipeIngredientsQuantification(
+            ) {
+        return repositoryService.allInstances(MixedRecipeIngredientsQuantification.class);
+    }
+
+    @Action
+    public List<MixedRecipeNames> listAllMixedRecipeNames() {
+        return repositoryService.allInstances(MixedRecipeNames.class);
+    }
+
+    @Action
+    public List<Months> listAllMonths() {
+        return repositoryService.allInstances(Months.class);
+    }
+
+    @Action
+    public List<NutrientValuesPerNutrientAndItem> listAllNutrientValuesPerNutrientAndItem() {
+        return repositoryService.allInstances(NutrientValuesPerNutrientAndItem.class);
+    }
+
+    @Action
+    public List<MacroNutrientLimit> listAllMacroNutrientLimit() {
+        return repositoryService.allInstances(MacroNutrientLimit.class);
+    }
+
+    @Action
+    public List<NutrientListAndDefinition> listAllNutrientListAndDefinition() {
+        return repositoryService.allInstances(NutrientListAndDefinition.class);
+    }
+
+    @Action
+    public List<SelectedParameter> listAllSelectedParameter() {
+        return repositoryService.allInstances(SelectedParameter.class);
+    }
+
+    @Action
+    public List<SelectedParametersForDataEntry> listAllSelectedParametersForDataEntry() {
+        return repositoryService.allInstances(SelectedParametersForDataEntry.class);
+    }
+
+    @Action
+    public List<PlaceOfConsumptionOccasion> listAllPlaceOfConsumptionOccasion() {
+        return repositoryService.allInstances(PlaceOfConsumptionOccasion.class);
+    }
+
+    @Action
+    public List<ProbingQuestionsPathwaysForFood> listAllProbingQuestionsPathwaysForFood() {
+        return repositoryService.allInstances(ProbingQuestionsPathwaysForFood.class);
+    }
+
+    @Action
+    public List<ProbingQuestions> listAllProbingQuestions() {
+        return repositoryService.allInstances(ProbingQuestions.class);
+    }
+
+    @Action
+    public List<QuantificationMethodsPathwayForIndividualFood> listAllQuantificationMethodsPathwayForIndividualFood(
+            ) {
+        return repositoryService.allInstances(QuantificationMethodsPathwayForIndividualFood.class);
+    }
+
+    @Action
+    public List<QuantificationMethodsPathwayForFoodGroup> listAllQuantificationMethodsPathwayForFoodGroup(
+            ) {
+        return repositoryService.allInstances(QuantificationMethodsPathwayForFoodGroup.class);
+    }
+
+    @Action
+    public List<QuantificationMethodsPathwayForRecipeGroup> listAllQuantificationMethodsPathwayForRecipeGroup(
+            ) {
+        return repositoryService.allInstances(QuantificationMethodsPathwayForRecipeGroup.class);
+    }
+
+    @Action
+    public List<QuantificationMethodPathwayForRecipes> listAllQuantificationMethodPathwayForRecipes(
+            ) {
+        return repositoryService.allInstances(QuantificationMethodPathwayForRecipes.class);
+    }
+
+    @Action
+    public List<BrandnameListForMixedRecipes> listAllBrandnameListForMixedRecipes() {
+        return repositoryService.allInstances(BrandnameListForMixedRecipes.class);
+    }
+
+    @Action
+    public List<RuleAppliedToFacets> listAllRuleAppliedToFacets() {
+        return repositoryService.allInstances(RuleAppliedToFacets.class);
+    }
+
+    @Action
+    public List<FacetForRecipe> listAllFacetForRecipe() {
+        return repositoryService.allInstances(FacetForRecipe.class);
+    }
+
+    @Action
+    public List<DescriptorPerFacet> listAllDescriptorPerFacet() {
+        return repositoryService.allInstances(DescriptorPerFacet.class);
+    }
+
+    @Action
+    public List<CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor> listAllCrossReferenceBetweenRecipeSubGroupAndFacetDescriptor(
+            ) {
+        return repositoryService.allInstances(CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor.class);
+    }
+
+    @Action
+    public List<ExceptionsForSomeRecipesToTheFacetsPathway> listAllExceptionsForSomeRecipesToTheFacetsPathway(
+            ) {
+        return repositoryService.allInstances(ExceptionsForSomeRecipesToTheFacetsPathway.class);
+    }
+
+    @Action
+    public List<RawToCookedConversionFactorsForFoods> listAllRawToCookedConversionFactorsForFoods(
+            ) {
+        return repositoryService.allInstances(RawToCookedConversionFactorsForFoods.class);
+    }
+
+    @Action
+    public List<DefinitionOfRecipePathway> listAllDefinitionOfRecipePathway() {
+        return repositoryService.allInstances(DefinitionOfRecipePathway.class);
+    }
+
+    @Action
+    public List<RecipeGroup> listAllRecipeGroup() {
+        return repositoryService.allInstances(RecipeGroup.class);
+    }
+
+    @Action
+    public List<ProbingQuestionPathwayForRecipes> listAllProbingQuestionPathwayForRecipes() {
+        return repositoryService.allInstances(ProbingQuestionPathwayForRecipes.class);
+    }
+
+    @Action
+    public List<RecipeGroupOrSubgroup> listAllRecipeGroupOrSubgroup() {
+        return repositoryService.allInstances(RecipeGroupOrSubgroup.class);
+    }
+
+    @Action
+    public List<SpecialDayPredefinedAnswer> listAllSpecialDayPredefinedAnswer() {
+        return repositoryService.allInstances(SpecialDayPredefinedAnswer.class);
+    }
+
+    @Action
+    public List<SpecialDietPredefinedAnswer> listAllSpecialDietPredefinedAnswer() {
+        return repositoryService.allInstances(SpecialDietPredefinedAnswer.class);
+    }
+
+    @Action
+    public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood(
+            ) {
+        return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood.class);
+    }
+
+    @Action
+    public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe(
+            ) {
+        return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe.class);
+    }
+
+    @Action
+    public List<PercentOfFatUseDuringCookingAttachedToAFood> listAllPercentOfFatUseDuringCookingAttachedToAFood(
+            ) {
+        return repositoryService.allInstances(PercentOfFatUseDuringCookingAttachedToAFood.class);
+    }
+
+    @Action
+    public List<NoteStatus> listAllNoteStatus() {
+        return repositoryService.allInstances(NoteStatus.class);
+    }
+
+    @Action
+    public List<FoodSubgroup> listAllFoodSubgroup() {
+        return repositoryService.allInstances(FoodSubgroup.class);
+    }
+
+    @Action
+    public List<SubjectToBeInterviewed> listAllSubjectToBeInterviewed() {
+        return repositoryService.allInstances(SubjectToBeInterviewed.class);
+    }
+
+    @Action
+    public List<GroupOrSubgroupThatCanBeSubstitutable> listAllGroupOrSubgroupThatCanBeSubstitutable(
+            ) {
+        return repositoryService.allInstances(GroupOrSubgroupThatCanBeSubstitutable.class);
+    }
+
+    @Action
+    public List<DietarySupplementList> listAllDietarySupplementList() {
+        return repositoryService.allInstances(DietarySupplementList.class);
+    }
+
+    @Action
+    public List<ThicknessForShapeMethod> listAllThicknessForShapeMethod() {
+        return repositoryService.allInstances(ThicknessForShapeMethod.class);
+    }
 }

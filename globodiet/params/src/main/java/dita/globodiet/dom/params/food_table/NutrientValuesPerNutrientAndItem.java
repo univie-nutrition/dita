@@ -41,66 +41,66 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_table.NutrientValuesPerNutrientAndItem")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Nutrient values per nutrient and item"
+        describedAs = "Nutrient values per nutrient and item"
 )
 @PersistenceCapable(
-    table = "NTR_VALUE"
+        table = "NTR_VALUE"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class NutrientValuesPerNutrientAndItem {
-  /**
-   * Item Sequential number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Item Sequential number"
-  )
-  @Column(
-      name = "SEQ",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer itemSequentialNumber;
+    /**
+     * Item Sequential number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Item Sequential number"
+    )
+    @Column(
+            name = "SEQ",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer itemSequentialNumber;
 
-  /**
-   * Nutrient code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Nutrient code"
-  )
-  @Column(
-      name = "NTR_CODE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer nutrientCode;
+    /**
+     * Nutrient code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Nutrient code"
+    )
+    @Column(
+            name = "NTR_CODE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer nutrientCode;
 
-  /**
-   * Nutrient value for the attached item & nutrient
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Nutrient value for the attached item & nutrient"
-  )
-  @Column(
-      name = "VAL",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double nutrientValueForTheAttachedItemAndNutrient;
+    /**
+     * Nutrient value for the attached item & nutrient
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Nutrient value for the attached item & nutrient"
+    )
+    @Column(
+            name = "VAL",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double nutrientValueForTheAttachedItemAndNutrient;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

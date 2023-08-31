@@ -39,120 +39,120 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.GroupOrSubgroupThatCanBeSubstitutable")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Group/subgroup that can be substitutable"
+        describedAs = "Group/subgroup that can be substitutable"
 )
 @PersistenceCapable(
-    table = "SUBSTIT"
+        table = "SUBSTIT"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class GroupOrSubgroupThatCanBeSubstitutable {
-  /**
-   * 0=Food classification 1=Recipe classification
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "0=Food classification 1=Recipe classification"
-  )
-  @Column(
-      name = "TYPE",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String type;
+    /**
+     * 0=Food classification 1=Recipe classification
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "0=Food classification 1=Recipe classification"
+    )
+    @Column(
+            name = "TYPE",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String type;
 
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubgroupCode;
+    /**
+     * Food subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubgroupCode;
 
-  /**
-   * Food sub-Subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food sub-Subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubgroupCode;
+    /**
+     * Food sub-Subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food sub-Subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubgroupCode;
 
-  /**
-   * List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)"
-  )
-  @Column(
-      name = "F_CLASS",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String listOfFoodGroupsOrSubgroupsToApplyTheSubstitution;
+    /**
+     * List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)"
+    )
+    @Column(
+            name = "F_CLASS",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String listOfFoodGroupsOrSubgroupsToApplyTheSubstitution;
 
-  /**
-   * List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)"
-  )
-  @Column(
-      name = "R_CLASS",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String listOfRecipeGroupsOrsubgroupsToApplyTheSubstitution;
+    /**
+     * List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)"
+    )
+    @Column(
+            name = "R_CLASS",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String listOfRecipeGroupsOrsubgroupsToApplyTheSubstitution;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

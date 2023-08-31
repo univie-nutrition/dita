@@ -40,152 +40,152 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_quantif.FoodStandardUnitsAndPortionsForFoods")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "food standard units and portions for foods"
+        describedAs = "food standard units and portions for foods"
 )
 @PersistenceCapable(
-    table = "M_STDPOR"
+        table = "M_STDPOR"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodStandardUnitsAndPortionsForFoods {
-  /**
-   * Standard portion quantity
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Standard portion quantity"
-  )
-  @Column(
-      name = "STDP_QUANT",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double standardPortionQuantity;
+    /**
+     * Standard portion quantity
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Standard portion quantity"
+    )
+    @Column(
+            name = "STDP_QUANT",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double standardPortionQuantity;
 
-  /**
-   * Food identification number (=FOODMUM)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food identification number (=FOODMUM)"
-  )
-  @Column(
-      name = "ID_NUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdNumber;
+    /**
+     * Food identification number (=FOODMUM)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food identification number (=FOODMUM)"
+    )
+    @Column(
+            name = "ID_NUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodIdNumber;
 
-  /**
-   * 1 = raw, 2 = cooked (as estimated)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "1 = raw, 2 = cooked (as estimated)"
-  )
-  @Column(
-      name = "RAW_COOKED",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String rawOrCooked;
+    /**
+     * 1 = raw, 2 = cooked (as estimated)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "1 = raw, 2 = cooked (as estimated)"
+    )
+    @Column(
+            name = "RAW_COOKED",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String rawOrCooked;
 
-  /**
-   * 1 = without un-edible part, 2 = with un-edible (as estimated)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
-  )
-  @Column(
-      name = "EDIB",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String withUnediblePartQ;
+    /**
+     * 1 = without un-edible part, 2 = with un-edible (as estimated)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
+    )
+    @Column(
+            name = "EDIB",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String withUnediblePartQ;
 
-  /**
-   * Comment attached to the standard portion
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Comment attached to the standard portion"
-  )
-  @Column(
-      name = "COMMENT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String commentAttachedToTheStandardPortion;
+    /**
+     * Comment attached to the standard portion
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Comment attached to the standard portion"
+    )
+    @Column(
+            name = "COMMENT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String commentAttachedToTheStandardPortion;
 
-  /**
-   * Standard portion code for the same food (0001, 0002, 0003)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Standard portion code for the same food (0001, 0002, 0003)"
-  )
-  @Column(
-      name = "PORT_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String standardPortionCodeForTheSameFood;
+    /**
+     * Standard portion code for the same food (0001, 0002, 0003)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Standard portion code for the same food (0001, 0002, 0003)"
+    )
+    @Column(
+            name = "PORT_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String standardPortionCodeForTheSameFood;
 
-  /**
-   * G = in grams, V = in ml (volume)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "G = in grams, V = in ml (volume)"
-  )
-  @Column(
-      name = "STDP_UNIT",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String unit;
+    /**
+     * G = in grams, V = in ml (volume)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "G = in grams, V = in ml (volume)"
+    )
+    @Column(
+            name = "STDP_UNIT",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String unit;
 
-  /**
-   * Order to display the standard portion
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Order to display the standard portion"
-  )
-  @Column(
-      name = "D_ORDER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double orderToDisplayTheStandardPortion;
+    /**
+     * Order to display the standard portion
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Order to display the standard portion"
+    )
+    @Column(
+            name = "D_ORDER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double orderToDisplayTheStandardPortion;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

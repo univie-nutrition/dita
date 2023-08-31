@@ -39,73 +39,73 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_list.ComposedRecipeIngredient")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Composed Recipe Ingredient"
+        describedAs = "Composed Recipe Ingredient"
 )
 @PersistenceCapable(
-    table = "CRING"
+        table = "CRING"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ComposedRecipeIngredient {
-  /**
-   * Recipe identification number (FOODNUM in the FOODS.DBF file)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)"
-  )
-  @Column(
-      name = "R_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeIdentificationNumber;
+    /**
+     * Recipe identification number (FOODNUM in the FOODS.DBF file)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)"
+    )
+    @Column(
+            name = "R_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeIdentificationNumber;
 
-  /**
-   * Food (ingredient) Identification Code<br>
-   * either Foods.foodnum OR Mixedrec.r_idnum
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food (ingredient) Identification Code\n"
-              + "either Foods.foodnum OR Mixedrec.r_idnum"
-  )
-  @Column(
-      name = "FOODNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdentificationNumber;
+    /**
+     * Food (ingredient) Identification Code<br>
+     * either Foods.foodnum OR Mixedrec.r_idnum
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food (ingredient) Identification Code\n"
+                            + "either Foods.foodnum OR Mixedrec.r_idnum"
+    )
+    @Column(
+            name = "FOODNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodIdentificationNumber;
 
-  /**
-   * If type=1 ingredient from Food list,<br>
-   * If type=2 ingredient from Recipe list
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "If type=1 ingredient from Food list,\n"
-              + "If type=2 ingredient from Recipe list"
-  )
-  @Column(
-      name = "TYPE",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String type;
+    /**
+     * If type=1 ingredient from Food list,<br>
+     * If type=2 ingredient from Recipe list
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "If type=1 ingredient from Food list,\n"
+                            + "If type=2 ingredient from Recipe list"
+    )
+    @Column(
+            name = "TYPE",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String type;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

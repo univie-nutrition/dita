@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.SpecialDayPredefinedAnswer")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Special day predefined answer"
+        describedAs = "Special day predefined answer"
 )
 @PersistenceCapable(
-    table = "SPECDAY"
+        table = "SPECDAY"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class SpecialDayPredefinedAnswer {
-  /**
-   * Special day code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Special day code"
-  )
-  @Column(
-      name = "SPY_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String specialDayCode;
+    /**
+     * Special day code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Special day code"
+    )
+    @Column(
+            name = "SPY_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String specialDayCode;
 
-  /**
-   * Special day label
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Special day label"
-  )
-  @Column(
-      name = "SPY_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String specialDayLabel;
+    /**
+     * Special day label
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Special day label"
+    )
+    @Column(
+            name = "SPY_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String specialDayLabel;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

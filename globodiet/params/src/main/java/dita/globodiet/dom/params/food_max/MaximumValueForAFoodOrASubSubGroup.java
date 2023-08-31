@@ -40,136 +40,136 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_max.MaximumValueForAFoodOrASubSubGroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Maximum value for a food or a (sub-)(sub-)group"
+        describedAs = "Maximum value for a food or a (sub-)(sub-)group"
 )
 @PersistenceCapable(
-    table = "MAXVAL"
+        table = "MAXVAL"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class MaximumValueForAFoodOrASubSubGroup {
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubgroupCode;
+    /**
+     * Food subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubgroupCode;
 
-  /**
-   * Food sub-Subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food sub-Subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubgroupCode;
+    /**
+     * Food sub-Subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food sub-Subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubgroupCode;
 
-  /**
-   * Food code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food code"
-  )
-  @Column(
-      name = "IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodCode;
+    /**
+     * Food code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food code"
+    )
+    @Column(
+            name = "IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodCode;
 
-  /**
-   * Maximum value
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Maximum value"
-  )
-  @Column(
-      name = "MAXIMA",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double maximumValue;
+    /**
+     * Maximum value
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Maximum value"
+    )
+    @Column(
+            name = "MAXIMA",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double maximumValue;
 
-  /**
-   * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
-  )
-  @Column(
-      name = "FACETS_STR",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String facetString;
+    /**
+     * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+    )
+    @Column(
+            name = "FACETS_STR",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String facetString;
 
-  /**
-   * Priority order
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Priority order"
-  )
-  @Column(
-      name = "PRIORITY",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String priorityOrder;
+    /**
+     * Priority order
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Priority order"
+    )
+    @Column(
+            name = "PRIORITY",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String priorityOrder;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

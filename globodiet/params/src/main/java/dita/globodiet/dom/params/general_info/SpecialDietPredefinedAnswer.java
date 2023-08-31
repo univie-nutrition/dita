@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.SpecialDietPredefinedAnswer")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Special diet predefined answer"
+        describedAs = "Special diet predefined answer"
 )
 @PersistenceCapable(
-    table = "SPECDIET"
+        table = "SPECDIET"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class SpecialDietPredefinedAnswer {
-  /**
-   * Special diet code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Special diet code"
-  )
-  @Column(
-      name = "SPD_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String specialDietCode;
+    /**
+     * Special diet code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Special diet code"
+    )
+    @Column(
+            name = "SPD_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String specialDietCode;
 
-  /**
-   * Special diet label
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Special diet label"
-  )
-  @Column(
-      name = "SPD_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String specialDietLabel;
+    /**
+     * Special diet label
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Special diet label"
+    )
+    @Column(
+            name = "SPD_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String specialDietLabel;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

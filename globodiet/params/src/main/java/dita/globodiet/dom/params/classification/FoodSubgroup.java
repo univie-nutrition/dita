@@ -39,164 +39,164 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.FoodSubgroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
-    cssClassFa = "solid layer-group olive"
+        describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
+        cssClassFa = "solid layer-group olive"
 )
 @PersistenceCapable(
-    table = "SUBGROUP"
+        table = "SUBGROUP"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodSubgroup {
-  /**
-   * Food group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food sub-group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food sub-group code"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubGroupCode;
+    /**
+     * Food sub-group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food sub-group code"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubGroupCode;
 
-  /**
-   * Food sub-sub-group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food sub-sub-group code"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubGroupCode;
+    /**
+     * Food sub-sub-group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food sub-sub-group code"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubGroupCode;
 
-  /**
-   * Name of the food (sub-)(sub-)group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Name of the food (sub-)(sub-)group"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String nameOfTheFoodSubSubGroup;
+    /**
+     * Name of the food (sub-)(sub-)group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Name of the food (sub-)(sub-)group"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String nameOfTheFoodSubSubGroup;
 
-  /**
-   * 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
-  )
-  @Column(
-      name = "SGRP_FSS",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String fatOrSauceSweetenerSubgroupQ;
+    /**
+     * 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
+    )
+    @Column(
+            name = "SGRP_FSS",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String fatOrSauceSweetenerSubgroupQ;
 
-  /**
-   * 0=non fat/sauce subgroup<br>
-   * 1= fat/sauce subgroup that can be left over in the dish
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "0=non fat/sauce subgroup\n"
-              + "1= fat/sauce subgroup that can be left over in the dish"
-  )
-  @Column(
-      name = "SGRP_FLO",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ;
+    /**
+     * 0=non fat/sauce subgroup<br>
+     * 1= fat/sauce subgroup that can be left over in the dish
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "0=non fat/sauce subgroup\n"
+                            + "1= fat/sauce subgroup that can be left over in the dish"
+    )
+    @Column(
+            name = "SGRP_FLO",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ;
 
-  /**
-   * 0=non fat during cooking subgroup<br>
-   * 1= fat during cooking subgroup
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "0=non fat during cooking subgroup\n"
-              + "1= fat during cooking subgroup"
-  )
-  @Column(
-      name = "SGRP_FDC",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String fatDuringCookingSubgroupQ;
+    /**
+     * 0=non fat during cooking subgroup<br>
+     * 1= fat during cooking subgroup
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "0=non fat during cooking subgroup\n"
+                            + "1= fat during cooking subgroup"
+    )
+    @Column(
+            name = "SGRP_FDC",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String fatDuringCookingSubgroupQ;
 
-  /**
-   * Short Name of the food (sub-)(sub-)group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Short Name of the food (sub-)(sub-)group"
-  )
-  @Column(
-      name = "NAME_SHORT",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String shortNameOfTheFoodSubSubGroup;
+    /**
+     * Short Name of the food (sub-)(sub-)group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Short Name of the food (sub-)(sub-)group"
+    )
+    @Column(
+            name = "NAME_SHORT",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String shortNameOfTheFoodSubSubGroup;
 
-  @ObjectSupport
-  public String title() {
-    return String.format("%s (code=%s|%s|%s)", 
-     nameOfTheFoodSubSubGroup, 
-     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubSubGroupCode))
-    ;
-  }
+    @ObjectSupport
+    public String title() {
+        return String.format("%s (code=%s|%s|%s)", 
+         nameOfTheFoodSubSubGroup, 
+         dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+         dita.commons.format.FormatUtils.emptyToDash(foodSubGroupCode), 
+         dita.commons.format.FormatUtils.emptyToDash(foodSubSubGroupCode))
+        ;
+    }
 }

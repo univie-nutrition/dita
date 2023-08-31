@@ -40,103 +40,103 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.quantif.HouseholdMeasure")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Household Measure"
+        describedAs = "Household Measure"
 )
 @PersistenceCapable(
-    table = "M_HHM"
+        table = "M_HHM"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class HouseholdMeasure {
-  /**
-   * HouseholdMeasure code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "HouseholdMeasure code"
-  )
-  @Column(
-      name = "HHM_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String code;
+    /**
+     * HouseholdMeasure code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "HouseholdMeasure code"
+    )
+    @Column(
+            name = "HHM_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String code;
 
-  /**
-   * HouseholdMeasure volume in cm3.
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "HouseholdMeasure volume in cm3."
-  )
-  @Column(
-      name = "HHM_VOLUME",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double volumeInCm3;
+    /**
+     * HouseholdMeasure volume in cm3.
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "HouseholdMeasure volume in cm3."
+    )
+    @Column(
+            name = "HHM_VOLUME",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double volumeInCm3;
 
-  /**
-   * HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.<br>
-   * The value of each expression will be evaluated as factor of the total volume
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
-              + "The value of each expression will be evaluated as factor of the total volume"
-  )
-  @Column(
-      name = "HHM_FRACT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String fractions;
+    /**
+     * HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.<br>
+     * The value of each expression will be evaluated as factor of the total volume
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
+                            + "The value of each expression will be evaluated as factor of the total volume"
+    )
+    @Column(
+            name = "HHM_FRACT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String fractions;
 
-  /**
-   * Comment attached to the HouseholdMeasure
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Comment attached to the HouseholdMeasure"
-  )
-  @Column(
-      name = "COMMENT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String comment;
+    /**
+     * Comment attached to the HouseholdMeasure
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Comment attached to the HouseholdMeasure"
+    )
+    @Column(
+            name = "COMMENT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String comment;
 
-  /**
-   * Order to display the HouseholdMeasure
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Order to display the HouseholdMeasure"
-  )
-  @Column(
-      name = "D_ORDER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double displayOrder;
+    /**
+     * Order to display the HouseholdMeasure
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Order to display the HouseholdMeasure"
+    )
+    @Column(
+            name = "D_ORDER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double displayOrder;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

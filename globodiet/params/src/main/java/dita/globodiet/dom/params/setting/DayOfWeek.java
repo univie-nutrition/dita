@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.DayOfWeek")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Day of week constant"
+        describedAs = "Day of week constant"
 )
 @PersistenceCapable(
-    table = "DAYOWEEK"
+        table = "DAYOWEEK"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class DayOfWeek {
-  /**
-   * Day number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Day number"
-  )
-  @Column(
-      name = "DAYOFWEEK",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String dayNumber;
+    /**
+     * Day number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Day number"
+    )
+    @Column(
+            name = "DAYOFWEEK",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String dayNumber;
 
-  /**
-   * Day name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Day name"
-  )
-  @Column(
-      name = "DAY",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String dayName;
+    /**
+     * Day name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Day name"
+    )
+    @Column(
+            name = "DAY",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String dayName;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

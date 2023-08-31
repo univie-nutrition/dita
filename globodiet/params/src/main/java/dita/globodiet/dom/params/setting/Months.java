@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.Months")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "has no description"
+        describedAs = "has no description"
 )
 @PersistenceCapable(
-    table = "MONTHS"
+        table = "MONTHS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class Months {
-  /**
-   * Month number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Month number"
-  )
-  @Column(
-      name = "MONTH_NUM",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String monthNumber;
+    /**
+     * Month number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Month number"
+    )
+    @Column(
+            name = "MONTH_NUM",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String monthNumber;
 
-  /**
-   * Month name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Month name"
-  )
-  @Column(
-      name = "MONTH",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String monthName;
+    /**
+     * Month name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Month name"
+    )
+    @Column(
+            name = "MONTH",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String monthName;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

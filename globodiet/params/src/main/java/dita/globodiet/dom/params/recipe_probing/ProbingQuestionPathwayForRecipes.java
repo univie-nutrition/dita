@@ -39,86 +39,86 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_probing.ProbingQuestionPathwayForRecipes")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Probing question pathway for recipes"
+        describedAs = "Probing question pathway for recipes"
 )
 @PersistenceCapable(
-    table = "RPQPATH"
+        table = "RPQPATH"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ProbingQuestionPathwayForRecipes {
-  /**
-   * Probing question code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Probing question code"
-  )
-  @Column(
-      name = "PQ_CODE",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String probingQuestionCode;
+    /**
+     * Probing question code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Probing question code"
+    )
+    @Column(
+            name = "PQ_CODE",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String probingQuestionCode;
 
-  /**
-   * Recipe group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroupCode;
+    /**
+     * Recipe group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroupCode;
 
-  /**
-   * Recipe subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Recipe subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubgroupCode;
+    /**
+     * Recipe subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Recipe subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubgroupCode;
 
-  /**
-   * Recipe identification number (R_ IDNUM)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Recipe identification number (R_ IDNUM)"
-  )
-  @Column(
-      name = "ID_NUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeIdNumber;
+    /**
+     * Recipe identification number (R_ IDNUM)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Recipe identification number (R_ IDNUM)"
+    )
+    @Column(
+            name = "ID_NUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeIdNumber;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

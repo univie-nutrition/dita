@@ -40,85 +40,85 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_max.MaximumValueForARecipeOrASubGroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Maximum value for a recipe or a (sub-)group"
+        describedAs = "Maximum value for a recipe or a (sub-)group"
 )
 @PersistenceCapable(
-    table = "MAXRVAL"
+        table = "MAXRVAL"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class MaximumValueForARecipeOrASubGroup {
-  /**
-   * Recipe group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe group code"
-  )
-  @Column(
-      name = "R_GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroupCode;
+    /**
+     * Recipe group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe group code"
+    )
+    @Column(
+            name = "R_GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroupCode;
 
-  /**
-   * Recipe subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe subgroup code"
-  )
-  @Column(
-      name = "R_SUBGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubgroupCode;
+    /**
+     * Recipe subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe subgroup code"
+    )
+    @Column(
+            name = "R_SUBGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubgroupCode;
 
-  /**
-   * Recipe code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Recipe code"
-  )
-  @Column(
-      name = "R_IDNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String recipeCode;
+    /**
+     * Recipe code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Recipe code"
+    )
+    @Column(
+            name = "R_IDNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String recipeCode;
 
-  /**
-   * Maximum value
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Maximum value"
-  )
-  @Column(
-      name = "MAXIMA",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Double maximumValue;
+    /**
+     * Maximum value
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Maximum value"
+    )
+    @Column(
+            name = "MAXIMA",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Double maximumValue;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

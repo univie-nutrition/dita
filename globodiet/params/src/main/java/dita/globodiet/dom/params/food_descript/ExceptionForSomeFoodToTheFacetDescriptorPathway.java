@@ -40,70 +40,70 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Exception for some food to the Facets/Descriptors pathway"
+        describedAs = "Exception for some food to the Facets/Descriptors pathway"
 )
 @PersistenceCapable(
-    table = "FOODFAEX"
+        table = "FOODFAEX"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
-  /**
-   * food ID number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "food ID number"
-  )
-  @Column(
-      name = "FOODNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdNumber;
+    /**
+     * food ID number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "food ID number"
+    )
+    @Column(
+            name = "FOODNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodIdNumber;
 
-  /**
-   * Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).<br>
-   * The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).\n"
-              + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)"
-  )
-  @Column(
-      name = "FACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood;
+    /**
+     * Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).<br>
+     * The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).\n"
+                            + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)"
+    )
+    @Column(
+            name = "FACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood;
 
-  /**
-   * Order to display the facets for the attached food (same order as order_fac from Groupfac table)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)"
-  )
-  @Column(
-      name = "ORDER_FAC",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer orderToDisplayFacetsForTheAttachedFood;
+    /**
+     * Order to display the facets for the attached food (same order as order_fac from Groupfac table)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)"
+    )
+    @Column(
+            name = "ORDER_FAC",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer orderToDisplayFacetsForTheAttachedFood;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

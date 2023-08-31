@@ -400,72 +400,64 @@ ImprobableSequencesOfFacetsAndDescriptors:
       description: |
         Facet string
         
-DescriptorPerFacet:
-  namespace: params.recipe_description
-  table: R_DESCFACE
+params.food_descript.FacetDescriptor:
+  name: FacetDescriptor
+  namespace: params.food_descript
+  table: DESCFACE
   description: |
-    Descriptor per facet
+    Descriptor for food facets (not recipe facets)
   fields:
-    facetCodeForRecipes:
-      column: RFACET_CODE
+    facetCode:
+      column: FACET_CODE
       column-type: nvarchar(2)
       required: false
       unique: true
       foreignKeys: |
         facets.facet_code
       description: |
-        Facet code for recipes
-    descriptorCodeForRecipes:
-      column: RDESCR_CODE
+        Facet code
+    descriptorCode:
+      column: DESCR_CODE
       column-type: nvarchar(2)
       required: false
       unique: true
       foreignKeys:
       description: |
-        Descriptor code for recipes
+        Descriptor code
     descriptorName:
-      column: RDESCR_NAME
+      column: DESCR_NAME
       column-type: nvarchar(100)
       required: false
       unique: false
       foreignKeys:
       description: |
         Descriptor name
-    homemadeOrNot:
-      column: RDESCR_TYPE
+    descriptorType:
+      column: DESC_COOK
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Only for facet recipe production: 
-        0=not homemade descriptor 
-        1=Homemade descriptor
-    knownOrUnknown:
-      column: RDESCR_KNOWN
+        0=Other descriptor without consequences in the algorithms (also from other facets)
+        1=Raw descriptor 
+        2=Descriptors to ask the question 'fat used during cooking' 
+    single:
+      column: DESC_SINGLE
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Only for facet known/unknown: 1=unknown 2=known
-    yesOrNo:
-      column: RDESCR_OTHER
+        TODO missing description
+    other:
+      column: DESC_OTHER
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Descriptor with type='other' : 1=yes 0=no
-    singleOrNot:
-      column: RDESCR_SINGLE
-      column-type: tinyint(3)
-      required: false
-      unique: false
-      foreignKeys:
-      description: |
-        0=not single descriptor
-        1=single descriptor
+        TODO missing description
         
 FacetDescriptorThatCannotBeSubstituted:
   namespace: params.setting
@@ -759,15 +751,16 @@ TranslationInCountryLanguage:
       foreignKeys:
       description: |
         Data entry Text in English
-        
-RuleAppliedToFacets:
-  namespace: params.recipe_description
-  table: R_FACETRUL
+
+params.food_descript.RuleAppliedToFacet:
+  name: RuleAppliedToFacet
+  namespace: params.food_descript
+  table: FACETRUL
   description: |
-    Rule applied to facets 
+    Rule applied to facet 
   fields:
-    facetWhereTheRuleMustBeApplied:
-      column: RFACET_CODE
+    facetWhereTheRuleMustBeAppliedCode:
+      column: FACET_CODE
       column-type: nvarchar(2)
       required: false
       unique: true
@@ -775,79 +768,91 @@ RuleAppliedToFacets:
         facets.facet_code
       description: |
         Facet where the rule must be applied.
-    matchOnPreviouslySelectedFacetDescriptorBySubject:
-      column: R_FACDESC
+    facetAndDescriptorCode:
+      column: FACDESC
       column-type: nvarchar(4)
       required: false
-      unique: false
-      foreignKeys:
+      unique: true
+      foreignKeys: |
+        descface.facet_code
+        descface.descr_code
       description: |
-        Rule: Facet (facet_code) will be displayed only if descriptor in facdesc 
-        is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2). 
-        - When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).
-        - When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).
-        - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).
-        - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
-    recipeGroupCode:
-      column: RGROUP
+        Facet code + Descriptor code that must exist in the current food description 
+        to allow the facet (FACET_CODE) to be asked. 
+        Additionally a group/subgroup code can be defined to force the food being described 
+        to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).
+    groupCode:
+      column: GROUP
       column-type: nvarchar(2)
       required: false
       unique: true
       foreignKeys: |
-        rgroups.group
+        groups.group
       description: |
-        Recipe Group code
-    recipeSubgroupCode:
-      column: RSUBGROUP
+        Group code
+    subgroupCode:
+      column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
       unique: true
       foreignKeys: |
-        rsubgr.subgroup
+        subgroup.subgroup1
       description: |
-        Recipe Subgroup code
-        
-Facet:
-  namespace: params.recipe_description
-  table: R_FACET
+        Subgroup code
+    subSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup2
+      description: |
+        Sub-subgroup code
+
+params.food_descript.Facet:
+  name: Facet
+  namespace: params.food_descript
+  table: FACETS
   description: |
-    Facet
+    Facet describing food (not recipe)
   fields:
-    facetCodeForRecipes:
-      column: RFACET_CODE
+    facetCode:
+      column: FACET_CODE
       column-type: nvarchar(2)
       required: false
       unique: true
       foreignKeys:
       description: |
-        Facet code for recipes
+        Facet code
     facetName:
-      column: RFACET_NAME
+      column: FACET_NAME
       column-type: nvarchar(100)
       required: false
       unique: false
       foreignKeys:
       description: |
         Facet name
-    textToShowOnTheScreenDescribingTheFacet:
-      column: RFACET_TEXT
+    facetText: 
+      column: FACET_TEXT
       column-type: nvarchar(100)
       required: false
       unique: false
       foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
-    descriptorsAvailableForRecipesOrBrands:
-      column: RFACET_TYPE
+    faceType:
+      column: FACET_TYPE
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        0=Standard facets with descriptors available in R_Descface table
-        1=Facets with descriptors available in RBrand table
-    singleOrMultiSelectDescriptor:
-      column: RFACET_TYPE_S
+        0=Standard facets with descriptors available in Descface table 
+        1=Facets with descriptors available in Brandnam table 
+        2=Facets with descriptors available in Foods table - facet 15 type of fat 
+        3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+    facetTypeCardinality:
+      column: FACET_TYPE_S
       column-type: tinyint(3)
       required: false
       unique: false
@@ -855,17 +860,17 @@ Facet:
       description: |
         0 = facet with mono-selection of descriptor 
         1 = facets with multi-selection of descriptors
-    standardOrMainFacet:
-      column: RFACET_MAIN
-      column-type: tinyint(3)
+    facetGroup:
+      column: FACET_GRP
+      column-type: nvarchar(2147483647)
       required: false
       unique: false
       foreignKeys:
       description: |
-        0 = standard facet 
-        1 = Main facet (with non modified descriptor)
+        If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table. 
+        Comma is used as delimiter (e.g. 10,050701,050702)
     labelOnHowToAskTheFacetQuestion:
-      column: RFACET_QUEST
+      column: FACET_QUEST
       column-type: nvarchar(300)
       required: false
       unique: false
@@ -2161,7 +2166,7 @@ MixedRecipeIngredientsQuantification:
       required: false
       unique: false
       foreignKeys: |
-        thickness.th_tick
+        thickness.th_thick
       description: |
         Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
     photoNumberOfTheSelectedPhoto:
@@ -2830,6 +2835,187 @@ BrandnameListForMixedRecipes:
       unique: false
       foreignKeys:
       description: |
+      
+params.recipe_description.RuleAppliedToFacets:
+  namespace: params.recipe_description
+  table: R_FACETRUL
+  description: |
+    Rule applied to facets 
+  fields:
+    facetWhereTheRuleMustBeApplied:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        facets.facet_code
+      description: |
+        Facet where the rule must be applied.
+    matchOnPreviouslySelectedFacetDescriptorBySubject:
+      column: R_FACDESC
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Rule: Facet (facet_code) will be displayed only if descriptor in facdesc 
+        is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2). 
+        - When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).
+        - When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).
+        - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).
+        - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
+    recipeGroupCode:
+      column: RGROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        rgroups.group
+      description: |
+        Recipe Group code
+    recipeSubgroupCode:
+      column: RSUBGROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        rsubgr.subgroup
+      description: |
+        Recipe Subgroup code
+
+params.recipe_description.FacetForRecipe:
+  name: FacetForRecipe
+  namespace: params.recipe_description
+  table: R_FACET
+  description: |
+    Recipe Facet
+  fields:
+    facetCodeForRecipes:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Facet code for recipes
+    facetName:
+      column: RFACET_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet name
+    textToShowOnTheScreenDescribingTheFacet:
+      column: RFACET_TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet text (text to show on the screen describing the facet)
+    descriptorsAvailableForRecipesOrBrands:
+      column: RFACET_TYPE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=Standard facets with descriptors available in R_Descface table
+        1=Facets with descriptors available in RBrand table
+    singleOrMultiSelectDescriptor:
+      column: RFACET_TYPE_S
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0 = facet with mono-selection of descriptor 
+        1 = facets with multi-selection of descriptors
+    standardOrMainFacet:
+      column: RFACET_MAIN
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0 = standard facet 
+        1 = Main facet (with non modified descriptor)
+    labelOnHowToAskTheFacetQuestion:
+      column: RFACET_QUEST
+      column-type: nvarchar(300)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Label on how to ask the facet question    
+        
+DescriptorPerFacet:
+  namespace: params.recipe_description
+  table: R_DESCFACE
+  description: |
+    Descriptor per facet
+  fields:
+    facetCodeForRecipes:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        facets.facet_code
+      description: |
+        Facet code for recipes
+    descriptorCodeForRecipes:
+      column: RDESCR_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Descriptor code for recipes
+    descriptorName:
+      column: RDESCR_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Descriptor name
+    homemadeOrNot:
+      column: RDESCR_TYPE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Only for facet recipe production: 
+        0=not homemade descriptor 
+        1=Homemade descriptor
+    knownOrUnknown:
+      column: RDESCR_KNOWN
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Only for facet known/unknown: 1=unknown 2=known
+    yesOrNo:
+      column: RDESCR_OTHER
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Descriptor with type='other' : 1=yes 0=no
+    singleOrNot:
+      column: RDESCR_SINGLE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=not single descriptor
+        1=single descriptor          
         
 CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor:
   namespace: params.recipe_description
@@ -3816,11 +4002,11 @@ DietarySupplementList:
       description: |
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
         
-ListOfThicknessForShapeMethod:
+ThicknessForShapeMethod:
   namespace: params.quantif
   table: THICKNESS
   description: |
-    list of thickness for shape method
+    Thickness for shape method
   fields:
     thicknessCode:
       column: TH_CODE

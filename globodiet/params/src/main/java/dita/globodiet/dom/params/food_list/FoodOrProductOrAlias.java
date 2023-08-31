@@ -40,186 +40,186 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_list.FoodOrProductOrAlias")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food List and Shadow item list entry",
-    cssClassFa = "solid utensils darkgreen"
+        describedAs = "Food List and Shadow item list entry",
+        cssClassFa = "solid utensils darkgreen"
 )
 @PersistenceCapable(
-    table = "FOODS"
+        table = "FOODS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodOrProductOrAlias {
-  /**
-   * Food/C.R. Identification Code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Food/C.R. Identification Code"
-  )
-  @Column(
-      name = "FOODNUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodIdNumber;
+    /**
+     * Food/C.R. Identification Code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Food/C.R. Identification Code"
+    )
+    @Column(
+            name = "FOODNUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodIdNumber;
 
-  /**
-   * Food Group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Food Group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodGroupCode;
+    /**
+     * Food Group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Food Group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodGroupCode;
 
-  /**
-   * Food Subgroup code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food Subgroup code"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubgroupCode;
+    /**
+     * Food Subgroup code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food Subgroup code"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubgroupCode;
 
-  /**
-   * Food Sub(sub)group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food Sub(sub)group code"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubgroupCode;
+    /**
+     * Food Sub(sub)group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food Sub(sub)group code"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubgroupCode;
 
-  /**
-   * Food/C.R. Name (Country name)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Food/C.R. Name (Country name)"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String foodNativeName;
+    /**
+     * Food/C.R. Name (Country name)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Food/C.R. Name (Country name)"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String foodNativeName;
 
-  /**
-   * Type of item:<br>
-   * {} -> Normal Food Item<br>
-   * GI -> Generic Food Item<br>
-   * SH -> Shadow Item<br>
-   * CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>
-   * Definition: its different ingredients can be identified and<br>
-   * quantified separately after preparation<br>
-   * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>
-   * or just before mixing (e.g. coffee with milk).<br>
-   * Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>
-   * They are made from items listed below/linked to a quick list item.<br>
-   * Example: Salad<br>
-   * - Lettuce<br>
-   * - Tomato<br>
-   * - Cucumber<br>
-   * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Type of item:\n"
-              + "{} -> Normal Food Item\n"
-              + "GI -> Generic Food Item\n"
-              + "SH -> Shadow Item\n"
-              + "CR -> Composed Recipe (a.huber: does not appear to be used anywhere)\n"
-              + "Definition: its different ingredients can be identified and\n"
-              + "quantified separately after preparation\n"
-              + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
-              + "or just before mixing (e.g. coffee with milk).\n"
-              + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
-              + "They are made from items listed below/linked to a quick list item.\n"
-              + "Example: Salad\n"
-              + "- Lettuce\n"
-              + "- Tomato\n"
-              + "- Cucumber\n"
-              + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
-  )
-  @Column(
-      name = "TYPE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String typeOfItem;
+    /**
+     * Type of item:<br>
+     * {} -> Normal Food Item<br>
+     * GI -> Generic Food Item<br>
+     * SH -> Shadow Item<br>
+     * CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>
+     * Definition: its different ingredients can be identified and<br>
+     * quantified separately after preparation<br>
+     * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>
+     * or just before mixing (e.g. coffee with milk).<br>
+     * Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>
+     * They are made from items listed below/linked to a quick list item.<br>
+     * Example: Salad<br>
+     * - Lettuce<br>
+     * - Tomato<br>
+     * - Cucumber<br>
+     * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Type of item:\n"
+                            + "{} -> Normal Food Item\n"
+                            + "GI -> Generic Food Item\n"
+                            + "SH -> Shadow Item\n"
+                            + "CR -> Composed Recipe (a.huber: does not appear to be used anywhere)\n"
+                            + "Definition: its different ingredients can be identified and\n"
+                            + "quantified separately after preparation\n"
+                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
+                            + "or just before mixing (e.g. coffee with milk).\n"
+                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
+                            + "They are made from items listed below/linked to a quick list item.\n"
+                            + "Example: Salad\n"
+                            + "- Lettuce\n"
+                            + "- Tomato\n"
+                            + "- Cucumber\n"
+                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
+    )
+    @Column(
+            name = "TYPE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String typeOfItem;
 
-  /**
-   * Auxiliary field to force an internal order within each subgroup<br>
-   * (if GI then 1 otherwise 2, this forces the GI at the top)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Auxiliary field to force an internal order within each subgroup\n"
-              + "(if GI then 1 otherwise 2, this forces the GI at the top)"
-  )
-  @Column(
-      name = "ORDER",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String groupOrdinal;
+    /**
+     * Auxiliary field to force an internal order within each subgroup<br>
+     * (if GI then 1 otherwise 2, this forces the GI at the top)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Auxiliary field to force an internal order within each subgroup\n"
+                            + "(if GI then 1 otherwise 2, this forces the GI at the top)"
+    )
+    @Column(
+            name = "ORDER",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String groupOrdinal;
 
-  /**
-   * 0=food 1=food & dietary supplement
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "0=food 1=food & dietary supplement"
-  )
-  @Column(
-      name = "SUPPL",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer dietarySupplementQ;
+    /**
+     * 0=food 1=food & dietary supplement
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "0=food 1=food & dietary supplement"
+    )
+    @Column(
+            name = "SUPPL",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer dietarySupplementQ;
 
-  @ObjectSupport
-  public String title() {
-    return String.format("%s (code=%s)", foodNativeName, foodIdNumber);
-  }
+    @ObjectSupport
+    public String title() {
+        return String.format("%s (code=%s)", foodNativeName, foodIdNumber);
+    }
 }

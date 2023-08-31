@@ -39,96 +39,96 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Quantification methods pathway for recipe group/subgroups"
+        describedAs = "Quantification methods pathway for recipe group/subgroups"
 )
 @PersistenceCapable(
-    table = "QM_RCLAS"
+        table = "QM_RCLAS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class QuantificationMethodsPathwayForRecipeGroup {
-  /**
-   * Recipe group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe group"
-  )
-  @Column(
-      name = "R_GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroup;
+    /**
+     * Recipe group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe group"
+    )
+    @Column(
+            name = "R_GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroup;
 
-  /**
-   * Quantification method code:<br>
-   * 'P' for photo,<br>
-   * 'H' for HHM,<br>
-   * 'U' for stdu,<br>
-   * 'A' for shape
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Quantification method code:\n"
-              + "'P' for photo,\n"
-              + "'H' for HHM,\n"
-              + "'U' for stdu,\n"
-              + "'A' for shape"
-  )
-  @Column(
-      name = "METHOD",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String quantificationMethodCode;
+    /**
+     * Quantification method code:<br>
+     * 'P' for photo,<br>
+     * 'H' for HHM,<br>
+     * 'U' for stdu,<br>
+     * 'A' for shape
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Quantification method code:\n"
+                            + "'P' for photo,\n"
+                            + "'H' for HHM,\n"
+                            + "'U' for stdu,\n"
+                            + "'A' for shape"
+    )
+    @Column(
+            name = "METHOD",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String quantificationMethodCode;
 
-  /**
-   * Photo code (if method='P' and 'A');<br>
-   * either M_photos.ph_code or M_shapes.sh_code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Photo code (if method='P' and 'A');\n"
-              + "either M_photos.ph_code or M_shapes.sh_code"
-  )
-  @Column(
-      name = "METH_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String photoCode;
+    /**
+     * Photo code (if method='P' and 'A');<br>
+     * either M_photos.ph_code or M_shapes.sh_code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Photo code (if method='P' and 'A');\n"
+                            + "either M_photos.ph_code or M_shapes.sh_code"
+    )
+    @Column(
+            name = "METH_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String photoCode;
 
-  /**
-   * Comment
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Comment"
-  )
-  @Column(
-      name = "COMMENT",
-      allowsNull = "true",
-      length = 200
-  )
-  @Getter
-  @Setter
-  private String comment;
+    /**
+     * Comment
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Comment"
+    )
+    @Column(
+            name = "COMMENT",
+            allowsNull = "true",
+            length = 200
+    )
+    @Getter
+    @Setter
+    private String comment;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

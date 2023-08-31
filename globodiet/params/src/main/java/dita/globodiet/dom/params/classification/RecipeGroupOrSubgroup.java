@@ -39,86 +39,86 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.RecipeGroupOrSubgroup")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Recipe group or subgroup"
+        describedAs = "Recipe group or subgroup"
 )
 @PersistenceCapable(
-    table = "RSUBGR"
+        table = "RSUBGR"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class RecipeGroupOrSubgroup {
-  /**
-   * Recipe group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Recipe group code"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeGroupCode;
+    /**
+     * Recipe group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Recipe group code"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeGroupCode;
 
-  /**
-   * Recipe sub-group code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Recipe sub-group code"
-  )
-  @Column(
-      name = "SUBGROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String recipeSubGroupCode;
+    /**
+     * Recipe sub-group code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Recipe sub-group code"
+    )
+    @Column(
+            name = "SUBGROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String recipeSubGroupCode;
 
-  /**
-   * Name of the recipe (sub-)group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Name of the recipe (sub-)group"
-  )
-  @Column(
-      name = "NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String nameOfTheRecipeSubGroup;
+    /**
+     * Name of the recipe (sub-)group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Name of the recipe (sub-)group"
+    )
+    @Column(
+            name = "NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String nameOfTheRecipeSubGroup;
 
-  /**
-   * Short Name of the recipe (sub-)group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Short Name of the recipe (sub-)group"
-  )
-  @Column(
-      name = "NAMES_SHORT",
-      allowsNull = "true",
-      length = 20
-  )
-  @Getter
-  @Setter
-  private String shortNameOfTheRecipeSubGroup;
+    /**
+     * Short Name of the recipe (sub-)group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Short Name of the recipe (sub-)group"
+    )
+    @Column(
+            name = "NAMES_SHORT",
+            allowsNull = "true",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String shortNameOfTheRecipeSubGroup;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

@@ -40,72 +40,72 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.NoteStatus")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Note status"
+        describedAs = "Note status"
 )
 @PersistenceCapable(
-    table = "STATUS"
+        table = "STATUS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class NoteStatus {
-  /**
-   * Status code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Status code"
-  )
-  @Column(
-      name = "S_CODE",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String statusCode;
+    /**
+     * Status code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Status code"
+    )
+    @Column(
+            name = "S_CODE",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String statusCode;
 
-  /**
-   * Status label
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Status label"
-  )
-  @Column(
-      name = "S_LABEL",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String statusLabel;
+    /**
+     * Status label
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Status label"
+    )
+    @Column(
+            name = "S_LABEL",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String statusLabel;
 
-  /**
-   * Allow the possibility to display or not the note in the view note window:<br>
-   * 0=No hide,<br>
-   * 1=Yes hide (e.g. 1=hide for status “action done”)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Allow the possibility to display or not the note in the view note window:\n"
-              + "0=No hide,\n"
-              + "1=Yes hide (e.g. 1=hide for status “action done”)"
-  )
-  @Column(
-      name = "S_HIDE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow;
+    /**
+     * Allow the possibility to display or not the note in the view note window:<br>
+     * 0=No hide,<br>
+     * 1=Yes hide (e.g. 1=hide for status “action done”)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Allow the possibility to display or not the note in the view note window:\n"
+                            + "0=No hide,\n"
+                            + "1=Yes hide (e.g. 1=hide for status “action done”)"
+    )
+    @Column(
+            name = "S_HIDE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

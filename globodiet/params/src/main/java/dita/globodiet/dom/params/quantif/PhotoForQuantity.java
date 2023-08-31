@@ -39,103 +39,103 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.quantif.PhotoForQuantity")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Photo and its quantities"
+        describedAs = "Photo and its quantities"
 )
 @PersistenceCapable(
-    table = "M_PHOTOS"
+        table = "M_PHOTOS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class PhotoForQuantity {
-  /**
-   * Photo series code (P001,P002,P003,...)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Photo series code (P001,P002,P003,...)"
-  )
-  @Column(
-      name = "PH_CODE",
-      allowsNull = "true",
-      length = 4
-  )
-  @Getter
-  @Setter
-  private String code;
+    /**
+     * Photo series code (P001,P002,P003,...)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Photo series code (P001,P002,P003,...)"
+    )
+    @Column(
+            name = "PH_CODE",
+            allowsNull = "true",
+            length = 4
+    )
+    @Getter
+    @Setter
+    private String code;
 
-  /**
-   * Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
-  )
-  @Column(
-      name = "PH_QSTR",
-      allowsNull = "true",
-      length = 1000000000
-  )
-  @Getter
-  @Setter
-  private String quantificationStringThatDefinesTheQuantitiesOfEachPhotos;
+    /**
+     * Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
+    )
+    @Column(
+            name = "PH_QSTR",
+            allowsNull = "true",
+            length = 1000000000
+    )
+    @Getter
+    @Setter
+    private String quantificationStringThatDefinesTheQuantitiesOfEachPhotos;
 
-  /**
-   * 1 = raw, 2 = cooked (as estimated)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "1 = raw, 2 = cooked (as estimated)"
-  )
-  @Column(
-      name = "RAW_COOKED",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String rawOrCooked;
+    /**
+     * 1 = raw, 2 = cooked (as estimated)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "1 = raw, 2 = cooked (as estimated)"
+    )
+    @Column(
+            name = "RAW_COOKED",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String rawOrCooked;
 
-  /**
-   * 1 = without un-edible part, 2 = with un-edible (as estimated)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
-  )
-  @Column(
-      name = "EDIB",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String withUnediblePartQ;
+    /**
+     * 1 = without un-edible part, 2 = with un-edible (as estimated)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
+    )
+    @Column(
+            name = "EDIB",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String withUnediblePartQ;
 
-  /**
-   * G = in grams, V = in ml (volume)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "G = in grams, V = in ml (volume)"
-  )
-  @Column(
-      name = "PH_UNIT",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String unit;
+    /**
+     * G = in grams, V = in ml (volume)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "G = in grams, V = in ml (volume)"
+    )
+    @Column(
+            name = "PH_UNIT",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String unit;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

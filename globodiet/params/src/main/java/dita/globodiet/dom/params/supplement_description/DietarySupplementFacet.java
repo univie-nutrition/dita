@@ -40,135 +40,135 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.supplement_description.DietarySupplementFacet")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Dietary supplement facet"
+        describedAs = "Dietary supplement facet"
 )
 @PersistenceCapable(
-    table = "DS_FACET"
+        table = "DS_FACET"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class DietarySupplementFacet {
-  /**
-   * Facet code for Dietary Supplement
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Facet code for Dietary Supplement"
-  )
-  @Column(
-      name = "DSFACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String facetCodeForDietarySupplement;
+    /**
+     * Facet code for Dietary Supplement
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Facet code for Dietary Supplement"
+    )
+    @Column(
+            name = "DSFACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetCodeForDietarySupplement;
 
-  /**
-   * Facet name for Dietary Supplement
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Facet name for Dietary Supplement"
-  )
-  @Column(
-      name = "DSFACET_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String facetNameForDietarySupplement;
+    /**
+     * Facet name for Dietary Supplement
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Facet name for Dietary Supplement"
+    )
+    @Column(
+            name = "DSFACET_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String facetNameForDietarySupplement;
 
-  /**
-   * To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>
-   * Only 1 facet (physical state) is used for quantification.
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
-              + "Only 1 facet (physical state) is used for quantification."
-  )
-  @Column(
-      name = "DSFACET_QUANT",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer mandatoryFacetUsedForQuantificationQ;
+    /**
+     * To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>
+     * Only 1 facet (physical state) is used for quantification.
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
+                            + "Only 1 facet (physical state) is used for quantification."
+    )
+    @Column(
+            name = "DSFACET_QUANT",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer mandatoryFacetUsedForQuantificationQ;
 
-  /**
-   * Facet with Mono or Multi selection of descriptors 0=mono, 1=multi
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Facet with Mono or Multi selection of descriptors 0=mono, 1=multi"
-  )
-  @Column(
-      name = "DSFACET_TYPE",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer singleOrMultiSelectionOfDescriptors;
+    /**
+     * Facet with Mono or Multi selection of descriptors 0=mono, 1=multi
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Facet with Mono or Multi selection of descriptors 0=mono, 1=multi"
+    )
+    @Column(
+            name = "DSFACET_TYPE",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer singleOrMultiSelectionOfDescriptors;
 
-  /**
-   * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
-  )
-  @Column(
-      name = "DSFACET_MAIN",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer attributedToAllSupplementsQ;
+    /**
+     * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
+    )
+    @Column(
+            name = "DSFACET_MAIN",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer attributedToAllSupplementsQ;
 
-  /**
-   * Order to ask the facet (first, second...)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Order to ask the facet (first, second...)"
-  )
-  @Column(
-      name = "DSFACET_ORDER",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer orderToAsk;
+    /**
+     * Order to ask the facet (first, second...)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Order to ask the facet (first, second...)"
+    )
+    @Column(
+            name = "DSFACET_ORDER",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer orderToAsk;
 
-  /**
-   * Label on how to ask the facet question
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Label on how to ask the facet question"
-  )
-  @Column(
-      name = "DSFACET_QUEST",
-      allowsNull = "true",
-      length = 300
-  )
-  @Getter
-  @Setter
-  private String labelOnHowToAskTheFacetQuestion;
+    /**
+     * Label on how to ask the facet question
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Label on how to ask the facet question"
+    )
+    @Column(
+            name = "DSFACET_QUEST",
+            allowsNull = "true",
+            length = 300
+    )
+    @Getter
+    @Setter
+    private String labelOnHowToAskTheFacetQuestion;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

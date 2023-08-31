@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.probing.ProbingQuestions")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Probing questions"
+        describedAs = "Probing questions"
 )
 @PersistenceCapable(
-    table = "PROBQUE"
+        table = "PROBQUE"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ProbingQuestions {
-  /**
-   * Probing question code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Probing question code"
-  )
-  @Column(
-      name = "PQ_CODE",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String probingQuestionCode;
+    /**
+     * Probing question code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Probing question code"
+    )
+    @Column(
+            name = "PQ_CODE",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String probingQuestionCode;
 
-  /**
-   * Probing question label
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Probing question label"
-  )
-  @Column(
-      name = "PQ_TEXT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String probingQuestionLabel;
+    /**
+     * Probing question label
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Probing question label"
+    )
+    @Column(
+            name = "PQ_TEXT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String probingQuestionLabel;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

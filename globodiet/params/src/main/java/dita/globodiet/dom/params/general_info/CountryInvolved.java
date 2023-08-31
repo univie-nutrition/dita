@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.CountryInvolved")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Country involved"
+        describedAs = "Country involved"
 )
 @PersistenceCapable(
-    table = "COUNTRY"
+        table = "COUNTRY"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class CountryInvolved {
-  /**
-   * Country code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Country code"
-  )
-  @Column(
-      name = "CTRYCODE",
-      allowsNull = "true",
-      length = 3
-  )
-  @Getter
-  @Setter
-  private String countryCode;
+    /**
+     * Country code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Country code"
+    )
+    @Column(
+            name = "CTRYCODE",
+            allowsNull = "true",
+            length = 3
+    )
+    @Getter
+    @Setter
+    private String countryCode;
 
-  /**
-   * Country name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Country name"
-  )
-  @Column(
-      name = "CTRY_NAME",
-      allowsNull = "true",
-      length = 50
-  )
-  @Getter
-  @Setter
-  private String countryName;
+    /**
+     * Country name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Country name"
+    )
+    @Column(
+            name = "CTRY_NAME",
+            allowsNull = "true",
+            length = 50
+    )
+    @Getter
+    @Setter
+    private String countryName;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

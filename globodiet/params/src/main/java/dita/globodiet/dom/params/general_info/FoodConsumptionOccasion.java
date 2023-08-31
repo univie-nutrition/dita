@@ -40,104 +40,104 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.FoodConsumptionOccasion")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Food Consumption Occasion"
+        describedAs = "Food Consumption Occasion"
 )
 @PersistenceCapable(
-    table = "FCO"
+        table = "FCO"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodConsumptionOccasion {
-  /**
-   * FCO code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "FCO code"
-  )
-  @Column(
-      name = "FCM_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String code;
+    /**
+     * FCO code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "FCO code"
+    )
+    @Column(
+            name = "FCM_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String code;
 
-  /**
-   * FCO long label (text displayed on screen)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "FCO long label (text displayed on screen)"
-  )
-  @Column(
-      name = "FCM_NAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String textDisplayedOnScreen;
+    /**
+     * FCO long label (text displayed on screen)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "FCO long label (text displayed on screen)"
+    )
+    @Column(
+            name = "FCM_NAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String textDisplayedOnScreen;
 
-  /**
-   * FCO type: if =1 the FCO can be selected several times (e.g. During morning)
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
-  )
-  @Column(
-      name = "FCM_MODE",
-      allowsNull = "true",
-      length = 1
-  )
-  @Getter
-  @Setter
-  private String mode;
+    /**
+     * FCO type: if =1 the FCO can be selected several times (e.g. During morning)
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
+    )
+    @Column(
+            name = "FCM_MODE",
+            allowsNull = "true",
+            length = 1
+    )
+    @Getter
+    @Setter
+    private String mode;
 
-  /**
-   * FCO short label to identify easily the FCO
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "FCO short label to identify easily the FCO"
-  )
-  @Column(
-      name = "FCM_SNAME",
-      allowsNull = "true",
-      length = 50
-  )
-  @Getter
-  @Setter
-  private String shortLabelToIdentifyEasily;
+    /**
+     * FCO short label to identify easily the FCO
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "FCO short label to identify easily the FCO"
+    )
+    @Column(
+            name = "FCM_SNAME",
+            allowsNull = "true",
+            length = 50
+    )
+    @Getter
+    @Setter
+    private String shortLabelToIdentifyEasily;
 
-  /**
-   * 1=main FCO (to be displayed in nutrient check screen)<br>
-   * 0=non main FCO
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "1=main FCO (to be displayed in nutrient check screen)\n"
-              + "0=non main FCO"
-  )
-  @Column(
-      name = "FCM_PRINCIPAL",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer displayInNutrientCheckScreenQ;
+    /**
+     * 1=main FCO (to be displayed in nutrient check screen)<br>
+     * 0=non main FCO
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "1=main FCO (to be displayed in nutrient check screen)\n"
+                            + "0=non main FCO"
+    )
+    @Column(
+            name = "FCM_PRINCIPAL",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer displayInNutrientCheckScreenQ;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

@@ -40,202 +40,202 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_table.FoodOrRecipeOrAttachment")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Items list and definition"
+        describedAs = "Items list and definition"
 )
 @PersistenceCapable(
-    table = "ITEMS_DEF"
+        table = "ITEMS_DEF"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FoodOrRecipeOrAttachment {
-  /**
-   * Sequential number
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Sequential number"
-  )
-  @Column(
-      name = "ITEM_SEQ",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer sequentialNumber;
+    /**
+     * Sequential number
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Sequential number"
+    )
+    @Column(
+            name = "ITEM_SEQ",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer sequentialNumber;
 
-  /**
-   * Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached"
-  )
-  @Column(
-      name = "TYPE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String typeOfRecord;
+    /**
+     * Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached"
+    )
+    @Column(
+            name = "TYPE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String typeOfRecord;
 
-  /**
-   * Food or recipe group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "3",
-      describedAs = "Food or recipe group"
-  )
-  @Column(
-      name = "GROUP",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodOrRecipeGroup;
+    /**
+     * Food or recipe group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Food or recipe group"
+    )
+    @Column(
+            name = "GROUP",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodOrRecipeGroup;
 
-  /**
-   * Food or recipe sub-group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "4",
-      describedAs = "Food or recipe sub-group"
-  )
-  @Column(
-      name = "SUBGROUP1",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodOrRecipeSubGroup;
+    /**
+     * Food or recipe sub-group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "4",
+            describedAs = "Food or recipe sub-group"
+    )
+    @Column(
+            name = "SUBGROUP1",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodOrRecipeSubGroup;
 
-  /**
-   * Food sub-sub-group
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "5",
-      describedAs = "Food sub-sub-group"
-  )
-  @Column(
-      name = "SUBGROUP2",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodSubSubGroup;
+    /**
+     * Food sub-sub-group
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "5",
+            describedAs = "Food sub-sub-group"
+    )
+    @Column(
+            name = "SUBGROUP2",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodSubSubGroup;
 
-  /**
-   * Food or Recipe code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "6",
-      describedAs = "Food or Recipe code"
-  )
-  @Column(
-      name = "ID_NUM",
-      allowsNull = "true",
-      length = 5
-  )
-  @Getter
-  @Setter
-  private String foodOrRecipeCode;
+    /**
+     * Food or Recipe code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "6",
+            describedAs = "Food or Recipe code"
+    )
+    @Column(
+            name = "ID_NUM",
+            allowsNull = "true",
+            length = 5
+    )
+    @Getter
+    @Setter
+    private String foodOrRecipeCode;
 
-  /**
-   * Facet string
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "7",
-      describedAs = "Facet string"
-  )
-  @Column(
-      name = "FACET_STR",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String facetString;
+    /**
+     * Facet string
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "7",
+            describedAs = "Facet string"
+    )
+    @Column(
+            name = "FACET_STR",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String facetString;
 
-  /**
-   * Brand name
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "8",
-      describedAs = "Brand name"
-  )
-  @Column(
-      name = "BRANDNAME",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String brandName;
+    /**
+     * Brand name
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "8",
+            describedAs = "Brand name"
+    )
+    @Column(
+            name = "BRANDNAME",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String brandName;
 
-  /**
-   * Priority order
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "9",
-      describedAs = "Priority order"
-  )
-  @Column(
-      name = "PRIORITY",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer priorityOrder;
+    /**
+     * Priority order
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "9",
+            describedAs = "Priority order"
+    )
+    @Column(
+            name = "PRIORITY",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer priorityOrder;
 
-  /**
-   * Attached records: only for the Type=A2 & A3
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "10",
-      describedAs = "Attached records: only for the Type=A2 & A3"
-  )
-  @Column(
-      name = "ITEM_SEQ_SEQ",
-      allowsNull = "true"
-  )
-  @Getter
-  @Setter
-  private Integer attachedRecords;
+    /**
+     * Attached records: only for the Type=A2 & A3
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "10",
+            describedAs = "Attached records: only for the Type=A2 & A3"
+    )
+    @Column(
+            name = "ITEM_SEQ_SEQ",
+            allowsNull = "true"
+    )
+    @Getter
+    @Setter
+    private Integer attachedRecords;
 
-  /**
-   * Comment
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "11",
-      describedAs = "Comment"
-  )
-  @Column(
-      name = "COMMENT",
-      allowsNull = "true",
-      length = 1000000000
-  )
-  @Getter
-  @Setter
-  private String comment;
+    /**
+     * Comment
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "11",
+            describedAs = "Comment"
+    )
+    @Column(
+            name = "COMMENT",
+            allowsNull = "true",
+            length = 1000000000
+    )
+    @Getter
+    @Setter
+    private String comment;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

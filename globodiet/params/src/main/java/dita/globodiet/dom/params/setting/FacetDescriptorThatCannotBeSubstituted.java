@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.setting.FacetDescriptorThatCannotBeSubstituted")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Facet/descriptor that cannot be substituted"
+        describedAs = "Facet/descriptor that cannot be substituted"
 )
 @PersistenceCapable(
-    table = "DESCSUBS"
+        table = "DESCSUBS"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class FacetDescriptorThatCannotBeSubstituted {
-  /**
-   * Facet code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "Facet code"
-  )
-  @Column(
-      name = "FACET_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String facetCode;
+    /**
+     * Facet code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Facet code"
+    )
+    @Column(
+            name = "FACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetCode;
 
-  /**
-   * Descriptor code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Descriptor code"
-  )
-  @Column(
-      name = "DESC_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String descriptorCode;
+    /**
+     * Descriptor code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Descriptor code"
+    )
+    @Column(
+            name = "DESC_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String descriptorCode;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }

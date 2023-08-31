@@ -39,52 +39,52 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.ItemDisplayedForCheckPerFCO")
 @DomainObject
 @DomainObjectLayout(
-    describedAs = "Items displayed for check per FCO (Food Consumption Occasion)"
+        describedAs = "Items displayed for check per FCO (Food Consumption Occasion)"
 )
 @PersistenceCapable(
-    table = "CHKLIST"
+        table = "CHKLIST"
 )
 @DatastoreIdentity(
-    strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-    column = "id"
+        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
+        column = "id"
 )
 public class ItemDisplayedForCheckPerFCO {
-  /**
-   * FCO code
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "1",
-      describedAs = "FCO code"
-  )
-  @Column(
-      name = "FCO_CODE",
-      allowsNull = "true",
-      length = 2
-  )
-  @Getter
-  @Setter
-  private String foodConsumptionOccasionCode;
+    /**
+     * FCO code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "FCO code"
+    )
+    @Column(
+            name = "FCO_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String foodConsumptionOccasionCode;
 
-  /**
-   * Item label
-   */
-  @Property
-  @PropertyLayout(
-      sequence = "2",
-      describedAs = "Item label"
-  )
-  @Column(
-      name = "TEXT",
-      allowsNull = "true",
-      length = 100
-  )
-  @Getter
-  @Setter
-  private String itemLabel;
+    /**
+     * Item label
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Item label"
+    )
+    @Column(
+            name = "TEXT",
+            allowsNull = "true",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String itemLabel;
 
-  @ObjectSupport
-  public String title() {
-    return this.toString();
-  }
+    @ObjectSupport
+    public String title() {
+        return this.toString();
+    }
 }
