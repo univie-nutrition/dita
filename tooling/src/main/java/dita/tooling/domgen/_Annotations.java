@@ -33,10 +33,12 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
+import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
@@ -134,6 +136,11 @@ class _Annotations {
         return AnnotationSpec.builder(Property.class)
                 .build();
     }
+    AnnotationSpec property(final Snapshot snapshot) {
+        return AnnotationSpec.builder(Property.class)
+                .addMember("snapshot", Snapshot.class.getName() + ".$1L", snapshot.name())
+                .build();
+    }
     /**
      * @param describedAs - property description
      */
@@ -141,6 +148,11 @@ class _Annotations {
         return AnnotationSpec.builder(PropertyLayout.class)
                 .addMember("sequence", "$1S", sequence)
                 .addMember("describedAs", "$1S", describedAs)
+                .build();
+    }
+
+    AnnotationSpec memberSupport() {
+        return AnnotationSpec.builder(MemberSupport.class)
                 .build();
     }
 

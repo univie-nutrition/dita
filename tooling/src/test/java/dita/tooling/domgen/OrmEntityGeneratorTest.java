@@ -40,7 +40,7 @@ class OrmEntityGeneratorTest {
 
         val entityGen = new DomainGenerator(config);
 
-        entityGen.streamAsJavaModels()
+        entityGen.createDomainModel().streamJavaModels()
             .forEach(sample->{
                 System.err.println("---------------------------------------");
                 System.err.printf("%s%n", sample.buildJavaFile().toString());

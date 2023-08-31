@@ -28,7 +28,6 @@ import org.springframework.javapoet.FieldSpec;
 import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
-import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.tooling.domgen.DomainGenerator.JavaModel;
@@ -89,15 +88,15 @@ class _GenEntity {
             final List<OrmModel.Field> fields,
             final Modifier ... modifiers) {
         return fields.stream()
-                .map(IndexedFunction.offset(1, (index, field)->
+                .map(field->
                     FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
                     .addJavadoc(field.formatDescription("<br>\n"))
                     .addAnnotation(_Annotations.property())
-                    .addAnnotation(_Annotations.propertyLayout("" + index, field.formatDescription("\n")))
+                    .addAnnotation(_Annotations.propertyLayout(field.sequence(), field.formatDescription("\n")))
                     .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                     .addAnnotation(_Annotations.getter())
                     .addAnnotation(_Annotations.setter())
-                    .build()))
+                    .build())
                 .collect(Collectors.toList());
     }
 

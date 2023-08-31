@@ -20,14 +20,17 @@ package dita.tooling.orm;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.javapoet.TypeName;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.primitives._Ints;
@@ -56,20 +59,31 @@ public class OrmModel {
         static Entity parse(final Map.Entry<String, Map> entry) {
             val map = entry.getValue();
             val fieldsAsMap = (Map<String, Map>)map.get("fields");
-            val fields = fieldsAsMap.entrySet().stream()
-                    .map(Field::parse)
-                    .collect(Collectors.toList());
-            return new Entity(entry.getKey(),
-                    (String)map.get("namespace"),
+            final String namespace = (String)map.get("namespace");
+            final String name = _Strings.nonEmpty((String)map.get("name"))
+                    .orElseGet(()->
+                        entry.getKey().startsWith(namespace)
+                            ? entry.getKey().substring(namespace.length() + 1)
+                            : entry.getKey()
+                    );
+            val entity = new Entity(name,
+                    namespace,
                     (String)map.get("table"),
                     (String)map.get("title"),
                     (String)map.get("icon"),
                     parseMultilineString((String)map.get("description")),
-                    fields);
+                    new ArrayList<>());
+            fieldsAsMap.entrySet().stream()
+                    .map(IndexedFunction.zeroBased((index, innerEntry)->Field.parse(entity, index, innerEntry)))
+                    .forEach(entity.fields()::add);
+            return entity;
+        }
+        String key() {
+            return String.format("%s.%s", namespace, name);
         }
         String toYaml() {
             val yaml = new YamlWriter();
-            yaml.write(name, ":").nl();
+            yaml.write(key(), ":").nl();
             yaml.ind().write("namespace: ", namespace).nl();
             yaml.ind().write("table: ", table).nl();
             yaml.ind().write("title: ", title).nl();
@@ -102,9 +116,16 @@ public class OrmModel {
                     .map(String::trim)
                     .collect(Collectors.joining(continuation));
         }
+        public Optional<OrmModel.Field> lookupFieldByColumnName(final String columnName) {
+            return fields().stream()
+                    .filter(f->f.column().equalsIgnoreCase(columnName))
+                    .findFirst();
+        }
     }
 
     public record Field(
+            _SneakyRef<Entity> parentRef,
+            int ordinal,
             String name,
             String column,
             String columnType,
@@ -113,9 +134,11 @@ public class OrmModel {
             List<String> foreignKeys,
             List<String> description) {
         @SuppressWarnings("rawtypes")
-        static Field parse(final Map.Entry<String, Map> entry) {
+        static Field parse(final Entity parent, final int ordinal, final Map.Entry<String, Map> entry) {
             val map = entry.getValue();
-            return new Field(entry.getKey(),
+            return new Field(_SneakyRef.of(parent),
+                    ordinal,
+                    entry.getKey(),
                     (String)map.get("column"),
                     (String)map.get("column-type"),
                     (Boolean)map.get("required"),
@@ -123,8 +146,21 @@ public class OrmModel {
                     parseMultilineString((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
         }
+        public Entity parent() {
+            return parentRef.value();
+        }
         public TypeName asJavaType() {
             return _TypeMapping.dbToJava(columnType(), !required);
+        }
+        public boolean hasForeignKeys() {
+            return foreignKeys.size()>0;
+        }
+        public boolean isBooleanPrimitive() {
+            return asJavaType().equals(TypeName.BOOLEAN);
+        }
+        public String getter() {
+            return (isBooleanPrimitive() ? "is" : "get")
+                    + _Strings.capitalize(name());
         }
         public int maxLength() {
 
@@ -155,13 +191,16 @@ public class OrmModel {
                     .map(String::trim)
                     .collect(Collectors.joining(continuation));
         }
+        public String sequence() {
+            return "" + (ordinal + 1);
+        }
     }
 
     public record Schema(Map<String, Entity> entities) {
         public static Schema of(final Iterable<Entity> entities) {
             val schema = new Schema(new LinkedHashMap<String, OrmModel.Entity>());
             for(val entity: entities) {
-                schema.entities().put(entity.name(), entity);
+                schema.entities().put(entity.key(), entity);
             }
             return schema;
         }
@@ -175,7 +214,7 @@ public class OrmModel {
             .ifPresent(map->{
                 map.entrySet().stream()
                 .map(Entity::parse)
-                .forEach(entity->entities.put(entity.name(), entity));
+                .forEach(entity->entities.put(entity.key(), entity));
             });
             return new Schema(entities);
         }
@@ -200,7 +239,7 @@ public class OrmModel {
                 Schema.of(List.of(
                 new Entity("FoodList", "dita", "FOODS", "name", "fa-pencil", List.of("Food List and Aliases"),
                         List.of(
-                                new Field("name", "NAME", "nvarchar(100)", true, false,
+                                new Field(/*parent*/null, /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false,
                                         List.of("a.b", "c.d"), List.of("aa", "bb", "cc"))))
                 )));
     }
