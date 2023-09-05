@@ -40,7 +40,7 @@ import dita.globodiet.dom.params.food_descript.ImprobableSequencesOfFacetsAndDes
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
-import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubGroup;
+import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
 import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
 import dita.globodiet.dom.params.food_quantif.FoodStandardUnitsAndPortionsForFoods;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
@@ -66,15 +66,15 @@ import dita.globodiet.dom.params.quantif.Shape;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe;
 import dita.globodiet.dom.params.recipe_description.BrandnameListForMixedRecipes;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor;
+import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
 import dita.globodiet.dom.params.recipe_description.DescriptorPerFacet;
 import dita.globodiet.dom.params.recipe_description.ExceptionsForSomeRecipesToTheFacetsPathway;
 import dita.globodiet.dom.params.recipe_description.FacetForRecipe;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredientsQuantification;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeNames;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubGroup;
+import dita.globodiet.dom.params.recipe_list.MixedRecipeName;
+import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipes;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
@@ -83,7 +83,7 @@ import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
 import dita.globodiet.dom.params.setting.MacroNutrientLimit;
-import dita.globodiet.dom.params.setting.Months;
+import dita.globodiet.dom.params.setting.Month;
 import dita.globodiet.dom.params.setting.NoteStatus;
 import dita.globodiet.dom.params.setting.SelectedParameter;
 import dita.globodiet.dom.params.setting.SelectedParametersForDataEntry;
@@ -267,13 +267,13 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<MaximumValueForARecipeOrASubGroup> listAllMaximumValueForARecipeOrASubGroup() {
-        return repositoryService.allInstances(MaximumValueForARecipeOrASubGroup.class);
+    public List<MaximumValueForARecipeOrASubgroup> listAllMaximumValueForARecipeOrASubgroup() {
+        return repositoryService.allInstances(MaximumValueForARecipeOrASubgroup.class);
     }
 
     @Action
-    public List<MaximumValueForAFoodOrASubSubGroup> listAllMaximumValueForAFoodOrASubSubGroup() {
-        return repositoryService.allInstances(MaximumValueForAFoodOrASubSubGroup.class);
+    public List<MaximumValueForAFoodOrASubSubgroup> listAllMaximumValueForAFoodOrASubSubgroup() {
+        return repositoryService.allInstances(MaximumValueForAFoodOrASubSubgroup.class);
     }
 
     @Action
@@ -288,13 +288,13 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<MixedRecipeNames> listAllMixedRecipeNames() {
-        return repositoryService.allInstances(MixedRecipeNames.class);
+    public List<MixedRecipeName> listAllMixedRecipeName() {
+        return repositoryService.allInstances(MixedRecipeName.class);
     }
 
     @Action
-    public List<Months> listAllMonths() {
-        return repositoryService.allInstances(Months.class);
+    public List<Month> listAllMonth() {
+        return repositoryService.allInstances(Month.class);
     }
 
     @Action
@@ -382,9 +382,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor> listAllCrossReferenceBetweenRecipeSubGroupAndFacetDescriptor(
+    public List<CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor> listAllCrossReferenceBetweenRecipeSubgroupAndFacetDescriptor(
             ) {
-        return repositoryService.allInstances(CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor.class);
+        return repositoryService.allInstances(CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor.class);
     }
 
     @Action

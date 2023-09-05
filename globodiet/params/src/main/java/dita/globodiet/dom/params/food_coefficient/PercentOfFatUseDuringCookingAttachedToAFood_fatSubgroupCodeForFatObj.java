@@ -47,7 +47,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood_fatSubgroupCodeForFatOb
     public FoodSubgroup prop() {
         return repositoryService
             .uniqueMatch(FoodSubgroup.class,
-                foreign->Objects.equals(foreign.getFoodSubGroupCode(), mixee.getFatSubgroupCodeForFat()))
+                foreign->Objects.equals(foreign.getFoodSubgroupCode(), mixee.getFatSubgroupCodeForFat()))
             .orElse(null);
     }
 }

@@ -47,7 +47,7 @@ public class BrandName_foodSubSubgroupObj {
     public FoodSubgroup prop() {
         return repositoryService
             .uniqueMatch(FoodSubgroup.class,
-                foreign->Objects.equals(foreign.getFoodSubSubGroupCode(), mixee.getFoodSubSubgroup()))
+                foreign->Objects.equals(foreign.getFoodSubSubgroupCode(), mixee.getFoodSubSubgroup()))
             .orElse(null);
     }
 }

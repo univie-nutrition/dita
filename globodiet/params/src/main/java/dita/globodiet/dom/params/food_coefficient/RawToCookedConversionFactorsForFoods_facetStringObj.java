@@ -47,7 +47,9 @@ public class RawToCookedConversionFactorsForFoods_facetStringObj {
     public FacetDescriptor prop() {
         return repositoryService
             .uniqueMatch(FacetDescriptor.class,
-                foreign->Objects.equals(foreign.getFacetCode(), mixee.getFacetString()))
+                foreign->Objects.equals(foreign.getFacetCode(), mixee.getFacetString())
+                    && Objects.equals(foreign.getDescriptorCode(), mixee.getFacetString())
+                )
             .orElse(null);
     }
 }

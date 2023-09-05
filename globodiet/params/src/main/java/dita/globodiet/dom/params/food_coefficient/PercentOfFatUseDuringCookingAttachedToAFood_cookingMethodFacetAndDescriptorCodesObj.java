@@ -47,7 +47,9 @@ public class PercentOfFatUseDuringCookingAttachedToAFood_cookingMethodFacetAndDe
     public FacetDescriptor prop() {
         return repositoryService
             .uniqueMatch(FacetDescriptor.class,
-                foreign->Objects.equals(foreign.getFacetCode(), mixee.getCookingMethodFacetAndDescriptorCodes()))
+                foreign->Objects.equals(foreign.getFacetCode(), mixee.getCookingMethodFacetAndDescriptorCodes())
+                    && Objects.equals(foreign.getDescriptorCode(), mixee.getCookingMethodFacetAndDescriptorCodes())
+                )
             .orElse(null);
     }
 }

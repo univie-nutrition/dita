@@ -37,7 +37,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 /**
  * Cross reference between Recipe (sub)group and Facet/Descriptor (default pathway)
  */
-@Named("dita.globodiet.params.recipe_description.CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor")
+@Named("dita.globodiet.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Cross reference between Recipe (sub)group and Facet/Descriptor (default pathway)"
@@ -49,7 +49,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor {
+public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor {
     /**
      * Recipe group code
      */

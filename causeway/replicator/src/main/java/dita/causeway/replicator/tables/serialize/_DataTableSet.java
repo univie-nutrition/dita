@@ -96,7 +96,7 @@ class _DataTableSet {
 
             final Can<String> colNames = tableEntry.columns().map(Column::name);
 
-            System.err.printf("table %s%n", entityLogicalTypeName);
+            System.err.printf("table %s | %s%n", entityLogicalTypeName, colNames);
             //System.err.printf("  cols:%n");
 
             final int[] colIndexMapping =

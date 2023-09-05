@@ -60,8 +60,8 @@ class _DomainWriter {
                 final String className = javaModel.className().canonicalName();
                 val javaFile = javaModel.buildJavaFile();
 
-                System.out.printf("------%s----%n", className);
-                System.out.printf("%s%n", javaFile.toString());
+                //System.out.printf("------%s----%n", className);
+                //System.out.printf("%s%n", javaFile.toString());
 
                 try {
                     writeToPath(javaFile, destDir.toPath(), javaModel.licenseHeader());

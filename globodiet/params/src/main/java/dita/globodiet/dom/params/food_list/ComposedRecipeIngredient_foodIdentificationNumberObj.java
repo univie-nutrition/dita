@@ -21,9 +21,7 @@
 package dita.globodiet.dom.params.food_list;
 
 import jakarta.inject.Inject;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.services.repository.RepositoryService;
@@ -42,12 +40,4 @@ public class ComposedRecipeIngredient_foodIdentificationNumberObj {
     RepositoryService repositoryService;
 
     private final ComposedRecipeIngredient mixee;
-
-    @MemberSupport
-    public FoodOrProductOrAlias prop() {
-        return repositoryService
-            .uniqueMatch(FoodOrProductOrAlias.class,
-                foreign->Objects.equals(foreign.getFoodIdNumber(), mixee.getFoodIdentificationNumber()))
-            .orElse(null);
-    }
 }

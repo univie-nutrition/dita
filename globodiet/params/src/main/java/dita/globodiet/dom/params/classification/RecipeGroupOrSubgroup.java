@@ -81,7 +81,7 @@ public class RecipeGroupOrSubgroup {
     )
     @Getter
     @Setter
-    private String recipeSubGroupCode;
+    private String recipeSubgroupCode;
 
     /**
      * Name of the recipe (sub-)group
@@ -98,7 +98,7 @@ public class RecipeGroupOrSubgroup {
     )
     @Getter
     @Setter
-    private String nameOfTheRecipeSubGroup;
+    private String nameOfTheRecipeSubgroup;
 
     /**
      * Short Name of the recipe (sub-)group
@@ -115,7 +115,7 @@ public class RecipeGroupOrSubgroup {
     )
     @Getter
     @Setter
-    private String shortNameOfTheRecipeSubGroup;
+    private String shortNameOfTheRecipeSubgroup;
 
     @ObjectSupport
     public String title() {

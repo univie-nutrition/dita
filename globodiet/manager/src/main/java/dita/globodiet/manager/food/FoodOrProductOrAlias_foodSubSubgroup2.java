@@ -51,8 +51,8 @@ public class FoodOrProductOrAlias_foodSubSubgroup2 {
             // SUB GROUP
             return repositoryService.uniqueMatch(FoodSubgroup.class,
                     group->Objects.equals(group.getFoodGroupCode(), mixee.getFoodGroupCode())
-                        && Objects.equals(group.getFoodSubGroupCode(), mixee.getFoodSubgroupCode())
-                        && Objects.equals(group.getFoodSubSubGroupCode(), mixee.getFoodSubSubgroupCode()))
+                        && Objects.equals(group.getFoodSubgroupCode(), mixee.getFoodSubgroupCode())
+                        && Objects.equals(group.getFoodSubSubgroupCode(), mixee.getFoodSubSubgroupCode()))
             .orElse(null);
         }
 

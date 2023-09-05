@@ -47,7 +47,9 @@ public class QuantificationMethodsPathwayForFoodGroup_descriptorCodeOfPhysicalSt
     public FacetDescriptor prop() {
         return repositoryService
             .uniqueMatch(FacetDescriptor.class,
-                foreign->Objects.equals(foreign.getFacetCode(), mixee.getDescriptorCodeOfPhysicalStateFacet()))
+                foreign->Objects.equals(foreign.getFacetCode(), mixee.getDescriptorCodeOfPhysicalStateFacet())
+                    && Objects.equals(foreign.getDescriptorCode(), mixee.getDescriptorCodeOfPhysicalStateFacet())
+                )
             .orElse(null);
     }
 }

@@ -47,7 +47,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable_foodSubSubgroup {
     public FoodSubgroup prop() {
         return repositoryService
             .uniqueMatch(FoodSubgroup.class,
-                foreign->Objects.equals(foreign.getFoodSubSubGroupCode(), mixee.getFoodSubSubgroupCode()))
+                foreign->Objects.equals(foreign.getFoodSubSubgroupCode(), mixee.getFoodSubSubgroupCode()))
             .orElse(null);
     }
 }

@@ -82,7 +82,7 @@ public class FoodSubgroup {
     )
     @Getter
     @Setter
-    private String foodSubGroupCode;
+    private String foodSubgroupCode;
 
     /**
      * Food sub-sub-group code
@@ -99,7 +99,7 @@ public class FoodSubgroup {
     )
     @Getter
     @Setter
-    private String foodSubSubGroupCode;
+    private String foodSubSubgroupCode;
 
     /**
      * Name of the food (sub-)(sub-)group
@@ -116,7 +116,7 @@ public class FoodSubgroup {
     )
     @Getter
     @Setter
-    private String nameOfTheFoodSubSubGroup;
+    private String nameOfTheFoodSubSubgroup;
 
     /**
      * 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
@@ -188,15 +188,15 @@ public class FoodSubgroup {
     )
     @Getter
     @Setter
-    private String shortNameOfTheFoodSubSubGroup;
+    private String shortNameOfTheFoodSubSubgroup;
 
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s|%s|%s)", 
-         nameOfTheFoodSubSubGroup, 
+         nameOfTheFoodSubSubgroup, 
          dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-         dita.commons.format.FormatUtils.emptyToDash(foodSubGroupCode), 
-         dita.commons.format.FormatUtils.emptyToDash(foodSubSubGroupCode))
+         dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+         dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
         ;
     }
 }

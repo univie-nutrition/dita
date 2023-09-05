@@ -49,7 +49,9 @@ public class RuleAppliedToFacet_facetAndDescriptor {
     public FacetDescriptor prop() {
         return repositoryService
             .uniqueMatch(FacetDescriptor.class,
-                foreign->Objects.equals(foreign.getFacetCode(), mixee.getFacetAndDescriptorCode()))
+                foreign->Objects.equals(foreign.getFacetCode(), mixee.getFacetAndDescriptorCode())
+                    && Objects.equals(foreign.getDescriptorCode(), mixee.getFacetAndDescriptorCode())
+                )
             .orElse(null);
     }
 }

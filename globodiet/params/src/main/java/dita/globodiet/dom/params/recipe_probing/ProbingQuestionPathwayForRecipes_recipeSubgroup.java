@@ -47,7 +47,7 @@ public class ProbingQuestionPathwayForRecipes_recipeSubgroup {
     public RecipeGroupOrSubgroup prop() {
         return repositoryService
             .uniqueMatch(RecipeGroupOrSubgroup.class,
-                foreign->Objects.equals(foreign.getRecipeSubGroupCode(), mixee.getRecipeSubgroupCode()))
+                foreign->Objects.equals(foreign.getRecipeSubgroupCode(), mixee.getRecipeSubgroupCode()))
             .orElse(null);
     }
 }

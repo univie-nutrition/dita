@@ -37,7 +37,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 /**
  * Mixed recipes: Names, identification number and class
  */
-@Named("dita.globodiet.params.recipe_list.MixedRecipeNames")
+@Named("dita.globodiet.params.recipe_list.MixedRecipeName")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Mixed recipes: Names, identification number and class"
@@ -49,7 +49,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class MixedRecipeNames {
+public class MixedRecipeName {
     /**
      * Recipe ID number
      */

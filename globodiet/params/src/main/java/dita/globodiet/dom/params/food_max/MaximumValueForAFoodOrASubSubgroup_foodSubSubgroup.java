@@ -37,17 +37,17 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         describedAs = "Food sub-Subgroup code"
 )
 @RequiredArgsConstructor
-public class MaximumValueForAFoodOrASubSubGroup_foodSubSubgroup {
+public class MaximumValueForAFoodOrASubSubgroup_foodSubSubgroup {
     @Inject
     RepositoryService repositoryService;
 
-    private final MaximumValueForAFoodOrASubSubGroup mixee;
+    private final MaximumValueForAFoodOrASubSubgroup mixee;
 
     @MemberSupport
     public FoodSubgroup prop() {
         return repositoryService
             .uniqueMatch(FoodSubgroup.class,
-                foreign->Objects.equals(foreign.getFoodSubSubGroupCode(), mixee.getFoodSubSubgroupCode()))
+                foreign->Objects.equals(foreign.getFoodSubSubgroupCode(), mixee.getFoodSubSubgroupCode()))
             .orElse(null);
     }
 }

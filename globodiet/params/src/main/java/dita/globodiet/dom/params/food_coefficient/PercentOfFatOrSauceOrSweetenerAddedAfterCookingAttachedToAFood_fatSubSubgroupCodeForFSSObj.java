@@ -47,7 +47,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood_fatS
     public FoodSubgroup prop() {
         return repositoryService
             .uniqueMatch(FoodSubgroup.class,
-                foreign->Objects.equals(foreign.getFoodSubSubGroupCode(), mixee.getFatSubSubgroupCodeForFSS()))
+                foreign->Objects.equals(foreign.getFoodSubSubgroupCode(), mixee.getFatSubSubgroupCodeForFSS()))
             .orElse(null);
     }
 }

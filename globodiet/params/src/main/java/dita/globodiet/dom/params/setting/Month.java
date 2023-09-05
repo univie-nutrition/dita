@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 /**
  * has no description
  */
-@Named("dita.globodiet.params.setting.Months")
+@Named("dita.globodiet.params.setting.Month")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "has no description"
@@ -48,7 +48,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class Months {
+public class Month {
     /**
      * Month number
      */

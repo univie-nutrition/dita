@@ -1290,7 +1290,7 @@ FoodOrRecipeOrAttachment:
       foreignKeys:
       description: |
         Food or recipe group
-    foodOrRecipeSubGroup:
+    foodOrRecipeSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -1298,7 +1298,7 @@ FoodOrRecipeOrAttachment:
       foreignKeys:
       description: |
         Food or recipe sub-group
-    foodSubSubGroup:
+    foodSubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -1642,7 +1642,7 @@ FoodStandardUnitsAndPortionsForFoodsAndRecipes:
       description: |
         Order to display the standard unit
         
-MaximumValueForARecipeOrASubGroup:
+MaximumValueForARecipeOrASubgroup:
   namespace: params.recipe_max
   table: MAXRVAL
   description: |
@@ -1684,7 +1684,7 @@ MaximumValueForARecipeOrASubGroup:
       description: |
         Maximum value
         
-MaximumValueForAFoodOrASubSubGroup:
+MaximumValueForAFoodOrASubSubgroup:
   namespace: params.food_max
   table: MAXVAL
   description: |
@@ -2204,7 +2204,7 @@ MixedRecipeIngredientsQuantification:
       description: |
         Sequential Number for Ingredients within a Sub-Recipe
         
-MixedRecipeNames:
+MixedRecipeName:
   namespace: params.recipe_list
   table: MIXEDREC
   description: |
@@ -2285,7 +2285,7 @@ MixedRecipeNames:
       foreignKeys:
       description: |
         
-Months:
+Month:
   namespace: params.setting
   table: MONTHS
   description: |
@@ -3017,7 +3017,7 @@ DescriptorPerFacet:
         0=not single descriptor
         1=single descriptor          
         
-CrossReferenceBetweenRecipeSubGroupAndFacetDescriptor:
+CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor:
   namespace: params.recipe_description
   table: R_GROUPFAC
   description: |
@@ -3319,7 +3319,7 @@ RecipeGroupOrSubgroup:
         rgroups.group
       description: |
         Recipe group code
-    recipeSubGroupCode:
+    recipeSubgroupCode:
       column: SUBGROUP
       column-type: nvarchar(2)
       required: false
@@ -3327,7 +3327,7 @@ RecipeGroupOrSubgroup:
       foreignKeys:
       description: |
         Recipe sub-group code
-    nameOfTheRecipeSubGroup:
+    nameOfTheRecipeSubgroup:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -3335,7 +3335,7 @@ RecipeGroupOrSubgroup:
       foreignKeys:
       description: |
         Name of the recipe (sub-)group
-    shortNameOfTheRecipeSubGroup:
+    shortNameOfTheRecipeSubgroup:
       column: NAMES_SHORT
       column-type: nvarchar(20)
       required: false
@@ -3690,10 +3690,10 @@ FoodSubgroup:
   table: SUBGROUP
   title: |
     String.format("%s (code=%s|%s|%s)", 
-     nameOfTheFoodSubSubGroup, 
+     nameOfTheFoodSubSubgroup, 
      dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubSubGroupCode))
+     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
   icon: solid layer-group olive
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
@@ -3707,7 +3707,7 @@ FoodSubgroup:
         groups.group
       description: |
         Food group code
-    foodSubGroupCode:
+    foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -3715,7 +3715,7 @@ FoodSubgroup:
       foreignKeys:
       description: |
         Food sub-group code
-    foodSubSubGroupCode:
+    foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -3723,7 +3723,7 @@ FoodSubgroup:
       foreignKeys:
       description: |
         Food sub-sub-group code
-    nameOfTheFoodSubSubGroup:
+    nameOfTheFoodSubSubgroup:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -3757,7 +3757,7 @@ FoodSubgroup:
       description: |
         0=non fat during cooking subgroup 
         1= fat during cooking subgroup
-    shortNameOfTheFoodSubSubGroup:
+    shortNameOfTheFoodSubSubgroup:
       column: NAME_SHORT
       column-type: nvarchar(20)
       required: false
@@ -4032,7 +4032,7 @@ ThicknessForShapeMethod:
       foreignKeys:
       description: |
         Comment attached to the thickness (e.g. small, medium, large…)
-    forTheFoodItemsTheFoodSubGroupsForWhichThisThicknessHasToBeProposed:
+    forTheFoodItemsTheFoodSubgroupsForWhichThisThicknessHasToBeProposed:
       column: TH_FDCLASS
       column-type: nvarchar(100)
       required: false
@@ -4047,7 +4047,7 @@ ThicknessForShapeMethod:
         When this field is empty, that means that this thickness has always to be proposed
         whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1 
         and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
-    forTheRecipeItemsTheRecipeSubGroupsForWhichThisThicknessHasToBeProposed:
+    forTheRecipeItemsTheRecipeSubgroupsForWhichThisThicknessHasToBeProposed:
       column: TH_RCPCLASS
       column-type: nvarchar(100)
       required: false

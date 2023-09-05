@@ -115,7 +115,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private String foodOrRecipeSubGroup;
+    private String foodOrRecipeSubgroup;
 
     /**
      * Food sub-sub-group
@@ -132,7 +132,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private String foodSubSubGroup;
+    private String foodSubSubgroup;
 
     /**
      * Food or Recipe code

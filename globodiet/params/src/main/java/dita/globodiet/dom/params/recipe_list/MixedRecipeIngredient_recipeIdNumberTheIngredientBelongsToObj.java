@@ -43,9 +43,9 @@ public class MixedRecipeIngredient_recipeIdNumberTheIngredientBelongsToObj {
     private final MixedRecipeIngredient mixee;
 
     @MemberSupport
-    public MixedRecipeNames prop() {
+    public MixedRecipeName prop() {
         return repositoryService
-            .uniqueMatch(MixedRecipeNames.class,
+            .uniqueMatch(MixedRecipeName.class,
                 foreign->Objects.equals(foreign.getRecipeIDNumber(), mixee.getRecipeIdNumberTheIngredientBelongsTo()))
             .orElse(null);
     }

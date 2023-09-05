@@ -117,15 +117,6 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
 
         DomainModel(final OrmModel.Schema schema) {
             this(schema, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-
-            //TODO debug
-            schema.entities().values()
-            .stream()
-            .sorted((a, b)->a.table().compareTo(b.table()))
-            .forEach(e->{
-                System.err.printf("%s->%s%n", e.table(), e.name());
-            });
-
         }
 
         Optional<OrmModel.Entity> lookupEntityByTableName(final String tableName) {

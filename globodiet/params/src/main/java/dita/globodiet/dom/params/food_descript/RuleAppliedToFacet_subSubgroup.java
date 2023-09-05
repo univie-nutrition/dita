@@ -47,7 +47,7 @@ public class RuleAppliedToFacet_subSubgroup {
     public FoodSubgroup prop() {
         return repositoryService
             .uniqueMatch(FoodSubgroup.class,
-                foreign->Objects.equals(foreign.getFoodSubSubGroupCode(), mixee.getSubSubgroupCode()))
+                foreign->Objects.equals(foreign.getFoodSubSubgroupCode(), mixee.getSubSubgroupCode()))
             .orElse(null);
     }
 }

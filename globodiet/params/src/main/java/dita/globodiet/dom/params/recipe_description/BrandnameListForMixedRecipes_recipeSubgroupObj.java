@@ -47,7 +47,7 @@ public class BrandnameListForMixedRecipes_recipeSubgroupObj {
     public RecipeGroupOrSubgroup prop() {
         return repositoryService
             .uniqueMatch(RecipeGroupOrSubgroup.class,
-                foreign->Objects.equals(foreign.getRecipeSubGroupCode(), mixee.getRecipeSubgroup()))
+                foreign->Objects.equals(foreign.getRecipeSubgroupCode(), mixee.getRecipeSubgroup()))
             .orElse(null);
     }
 }

@@ -123,7 +123,7 @@ public class ThicknessForShapeMethod {
     )
     @Getter
     @Setter
-    private String forTheFoodItemsTheFoodSubGroupsForWhichThisThicknessHasToBeProposed;
+    private String forTheFoodItemsTheFoodSubgroupsForWhichThisThicknessHasToBeProposed;
 
     /**
      * For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.<br>
@@ -146,7 +146,7 @@ public class ThicknessForShapeMethod {
     )
     @Getter
     @Setter
-    private String forTheRecipeItemsTheRecipeSubGroupsForWhichThisThicknessHasToBeProposed;
+    private String forTheRecipeItemsTheRecipeSubgroupsForWhichThisThicknessHasToBeProposed;
 
     @ObjectSupport
     public String title() {

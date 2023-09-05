@@ -47,7 +47,9 @@ public class MixedRecipeIngredient_facetDescriptorsCodesToDescribeTheIngredientO
     public FacetDescriptor prop() {
         return repositoryService
             .uniqueMatch(FacetDescriptor.class,
-                foreign->Objects.equals(foreign.getFacetCode(), mixee.getFacetDescriptorsCodesToDescribeTheIngredient()))
+                foreign->Objects.equals(foreign.getFacetCode(), mixee.getFacetDescriptorsCodesToDescribeTheIngredient())
+                    && Objects.equals(foreign.getDescriptorCode(), mixee.getFacetDescriptorsCodesToDescribeTheIngredient())
+                )
             .orElse(null);
     }
 }
