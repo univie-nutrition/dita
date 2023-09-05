@@ -94,15 +94,13 @@ class _DataTableSet {
             val entityClass = entitySpec.getCorrespondingClass();
             val factoryService = entitySpec.getFactoryService();
 
-            Can<String> colLiterals = tableEntry.columns().map(Column::name);
+            final Can<String> colNames = tableEntry.columns().map(Column::name);
 
             System.err.printf("table %s%n", entityLogicalTypeName);
             //System.err.printf("  cols:%n");
 
-            final int[] colIndexMapping = guardAgainstColumnsVsMetamodelMismatch(
-                    dataTable,
-                    Can.ofIterable(colLiterals)
-                        .map(_DataTableSet::parseColumnIdFromStringified));
+            final int[] colIndexMapping =
+                    guardAgainstColumnsVsMetamodelMismatch(dataTable, colNames);
 
             //System.err.printf("  rows:%n");
             val dataElements = tableEntry.rows()
@@ -113,7 +111,6 @@ class _DataTableSet {
 
                     val entityPojo = factoryService.detachedEntity(entityClass);
                     val entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
-
 
                     int colIndex = 0;
 
@@ -146,7 +143,7 @@ class _DataTableSet {
         return this;
     }
 
-    public TabularData toDataBase(final TabularData.Format formatOptions) {
+    public TabularData toTabularData(final TabularData.Format formatOptions) {
         return new TabularData(dataTables.map(dataTable->
             new Table(
                     dataTable.getElementType().getLogicalTypeName(),
@@ -195,44 +192,37 @@ class _DataTableSet {
      */
     private int[] guardAgainstColumnsVsMetamodelMismatch(
             final DataTable dataTable,
-            final Can<String> colLiterals) {
+            final Can<String> colNames) {
 
         // sort for canonical comparison
-        val colLiteralsSorted = colLiterals
+        val colNamesSorted = colNames
                 .sorted((a, b)->_Strings.compareNullsFirst(
                         _Strings.asLowerCase.apply(a),
                         _Strings.asLowerCase.apply(b)));
         // sort for canonical comparison
         val colFromMetamodelSorted = dataTable.getDataColumns().sorted(DataColumn::compareTo);
 
-        colLiteralsSorted.zip(colFromMetamodelSorted, (String colLiteral, DataColumn col)->{
+        colNamesSorted.zip(colFromMetamodelSorted, (String colName, DataColumn col)->{
             // verify read in data matches meta-model
-            _Assert.assertEquals(colLiteral, col.getPropertyMetaModel().getId(), ()->
+            _Assert.assertEquals(colName, col.getPropertyMetaModel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
-                            colLiterals,
+                            colNames,
                             dataTable.getLogicalName()));
         });
-        colFromMetamodelSorted.zip(colLiteralsSorted, (DataColumn col, String colLiteral)->{
+        colFromMetamodelSorted.zip(colNamesSorted, (DataColumn col, String colName)->{
              // verify read in data matches meta-model
-            _Assert.assertEquals(colLiteral, col.getPropertyMetaModel().getId(), ()->
+            _Assert.assertEquals(colName, col.getPropertyMetaModel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
-                            colLiterals,
+                            colNames,
                             dataTable.getLogicalName()));
         });
-        final int[] colIndexMapping = new int[colLiterals.size()];
+        final int[] colIndexMapping = new int[colNames.size()];
         dataTable.getDataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
             col.getPropertyMetaModel().getId();
-            colIndexMapping[index] = colLiterals.indexOf(col.getPropertyMetaModel().getId());
+            colIndexMapping[index] = colNames.indexOf(col.getPropertyMetaModel().getId());
         }));
         return colIndexMapping;
     }
-
-    private static String parseColumnIdFromStringified(final String colLiteral) {
-        return _Strings.splitThenStream(colLiteral, ":")
-                .findFirst()
-                .orElse(colLiteral);
-    }
-
 
     private static String stringify(
             final @Nullable ManagedObject cellValue,

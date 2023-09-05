@@ -48,7 +48,7 @@ public class TableSerializerYaml {
             final Predicate<ObjectSpecification> filter) {
         val yaml = dataTables(filter)
                 .populateFromDatabase(repositoryService)
-                .toDataBase(format())
+                .toTabularData(format())
                 .transform(nameTransformer)
                 .toYaml(format());
         return Clob.of(name, CommonMimeType.YAML, yaml);
@@ -76,7 +76,7 @@ public class TableSerializerYaml {
         val yaml = dataTables(filter)
                 .populateFromTabularData(tabularData, format())
                 .insertToDatabasse(repositoryService, insertMode)
-                .toDataBase(format())
+                .toTabularData(format())
                 .toYaml(TabularData.Format.defaults());
         return yaml;
     }
