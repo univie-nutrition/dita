@@ -82,10 +82,19 @@ implements HasCurrentlyCheckedOutVersion {
                     .orElse(null);
     }
 
+    public enum ExportFormat {
+        TABLE,
+        ENTITY
+    }
+
     @Action(restrictTo = RestrictTo.PROTOTYPING)
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
-    public Clob generateYaml() {
-        val clob = tableSerializer.clob("gd-params", null, BlobStore.paramsTableFilter());
+    public Clob generateYaml(@Parameter final ExportFormat format) {
+        val clob = tableSerializer.clob("gd-params",
+                format==ExportFormat.ENTITY
+                    ? DataBase.NameTransformer.IDENTITY
+                    : entity2table,
+                BlobStore.paramsTableFilter());
         return clob;
     }
 
