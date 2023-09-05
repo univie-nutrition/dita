@@ -18,11 +18,14 @@
  */
 package dita.globodiet.manager;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
+import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
 import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
@@ -39,6 +42,7 @@ import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRest
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
+import dita.commons.types.tabular.DataBase;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
@@ -47,6 +51,11 @@ import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.food.FoodOrProductOrAlias_foodGroup2;
 import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubSubgroup2;
 import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubgroup2;
+import dita.globodiet.schema.GdEntityGen;
+import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
+import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
+import dita.tooling.orm.OrmModel;
+import lombok.val;
 
 /**
  * Makes the integral parts of the web application.
@@ -98,4 +107,23 @@ import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubgroup2;
 public class DitaModuleGdManager {
 
     public final static String NAMESPACE = "dita.globodiet.manager";
+
+    @Bean
+    public OrmModel.Schema gdParamsSchema() {
+        val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+                .tryReadAsStringUtf8()
+                .valueAsNonNullElseFail());
+        return schema;
+    }
+
+    @Bean @Qualifier("entity2table")
+    public DataBase.NameTransformer entity2table(final OrmModel.Schema gdParamsSchema) {
+        return new EntityToTableTransformerFromSchema("dita.globodiet", gdParamsSchema);
+    }
+
+    @Bean @Qualifier("table2entity")
+    public DataBase.NameTransformer table2entity(final OrmModel.Schema gdParamsSchema) {
+        return new TableToEntityTransformerFromSchema("dita.globodiet", gdParamsSchema);
+    }
+
 }

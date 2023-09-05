@@ -27,33 +27,105 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Lists;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import dita.commons.types.BiString;
+import lombok.NonNull;
 import lombok.val;
 
 /**
- * Represents a database snapshot.
+ * Represents a database snapshot with stringified cell values.
  */
 public record DataBase(Can<DataBase.Table> dataTables) {
 
-    static record Row(List<String> cellLiterals) {
+    /**
+     * Transforms table and columns names.
+     */
+    public static interface NameTransformer {
+        String transformTable(String key);
+        String transformColumn(BiString key);
+        // -- IDENTITY IMPLEMENTATION
+        public static class Identity implements NameTransformer {
+            @Override public String transformTable(final String key) {
+                return key; }
+            @Override public String transformColumn(final BiString key) {
+                return key.right(); }
+        }
+        static final Identity IDENTITY = new Identity();
+        static Identity identity() { return IDENTITY; }
+    }
+
+    public record Format(
+            @NonNull String columnSeparator,
+            @NonNull String nullSymbol,
+            @NonNull String doubleQuoteSymbol) {
+
+        public static Format defaults() {
+            return new Format("|", "ø", "¯");
+        }
+
+        /**
+         * Encode into serialized format.
+         */
+        public String encodeCellValue(final String string) {
+            return string==null
+                    ? nullSymbol()
+                    : check(string);
+        }
+
+        /**
+         * Decode from serialized format.
+         */
+        public String decodeCellValue(final String string) {
+            return string.equals(nullSymbol())
+                    ? null
+                    : string.replace(doubleQuoteSymbol(), "\"");
+        }
+
+        /**
+         * Fills the given {@code cellLiterals} array with the split up {@code rowLiteral}.
+         */
+        public void parseRow(final @NonNull String rowLiteral, final @NonNull String[] cellLiterals) {
+            _Strings.splitThenStream(rowLiteral, columnSeparator())
+            .map(this::decodeCellValue)
+            .forEach(IndexedConsumer.zeroBased((index, cellLiteral)->
+                cellLiterals[index] = cellLiteral));
+        }
+
+        // -- HELPER
+
+        private String check(final String raw) {
+            if(raw.contains(columnSeparator())
+                || raw.contains(nullSymbol())
+                || raw.contains(doubleQuoteSymbol())) {
+                throw _Exceptions.illegalArgument("raw cell value '%s' must not contain delimiter "
+                        + "nor null-symbol "
+                        + "nor double-quote-symbol", raw);
+            }
+            return raw.replace("\"", doubleQuoteSymbol());
+        }
 
     }
 
-    static record Column(String name, Optional<String> description) {
+    public static record Row(List<String> cellLiterals) {
 
     }
 
-    static record Table(String key, Can<Column> columns, Can<Row> rows) {
+    public static record Column(String name, Optional<String> description) {
+
+    }
+
+    public static record Table(String key, Can<Column> columns, Can<Row> rows) {
 
     }
 
     public static DataBase populateFromYaml(
-            final String tableDataSerializedAsYaml, final TabularUtils.Format formatOptions) {
+            final String tableDataSerializedAsYaml, final DataBase.Format formatOptions) {
 
         val asMap = YamlUtils
                 .tryRead(HashMap.class, tableDataSerializedAsYaml, loader->{
@@ -112,7 +184,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
         return new DataBase(Can.ofCollection(dataTables));
     }
 
-    public DataBase transform(final TabularUtils.NameTransformer transformer) {
+    public DataBase transform(final NameTransformer transformer) {
         return new DataBase(dataTables.map(dataTable->
             new Table(
                     transformer.transformTable(dataTable.key()),
@@ -137,7 +209,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
 
     }
 
-    public String toYaml(final TabularUtils.Format formatOptions) {
+    public String toYaml(final DataBase.Format formatOptions) {
 
         val yaml = new YamlWriter();
 
@@ -168,7 +240,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
         return yaml.toString();
     }
 
-    private String toYaml(final String cellValue, final TabularUtils.Format formatOptions) {
+    private String toYaml(final String cellValue, final DataBase.Format formatOptions) {
         return cellValue==null
                 ? formatOptions.nullSymbol()
                 : cellValue.replaceAll("\"", formatOptions.doubleQuoteSymbol());

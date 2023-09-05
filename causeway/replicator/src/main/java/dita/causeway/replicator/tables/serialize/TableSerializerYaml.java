@@ -32,7 +32,8 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableProvider;
-import dita.commons.types.tabular.TabularUtils;
+import dita.commons.types.tabular.DataBase;
+import dita.commons.types.tabular.DataBase.NameTransformer;
 import lombok.val;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
@@ -41,10 +42,15 @@ public class TableSerializerYaml {
     @Inject RepositoryService repositoryService;
     @Inject DataTableProvider dataTableProvider;
 
-    public Clob clob(final String name, final Predicate<ObjectSpecification> filter) {
+    public Clob clob(
+            final String name,
+            final NameTransformer nameTransformer,
+            final Predicate<ObjectSpecification> filter) {
         val yaml = dataTables(filter)
                 .populateFromDatabase(repositoryService)
-                .toYaml(TabularUtils.Format.defaults());
+                .toDataBase(format())
+                .transform(nameTransformer)
+                .toYaml(format());
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
@@ -58,11 +64,20 @@ public class TableSerializerYaml {
     /**
      * Returns the serialized version of the load result.
      */
-    public String load(final Clob clob, final Predicate<ObjectSpecification> filter, final InsertMode insertMode) {
+    public String load(
+            final Clob clob,
+            final NameTransformer nameTransformer,
+            final Predicate<ObjectSpecification> filter,
+            final InsertMode insertMode) {
+
+        val tabularData = DataBase.populateFromYaml(clob.asString(), format())
+                .transform(nameTransformer);
+
         val yaml = dataTables(filter)
-                .populateFromYaml(clob.asString(), TabularUtils.Format.defaults())
+                .populateFromTabularData(tabularData, format())
                 .insertToDatabasse(repositoryService, insertMode)
-                .toYaml(TabularUtils.Format.defaults());
+                .toDataBase(format())
+                .toYaml(DataBase.Format.defaults());
         return yaml;
     }
 
@@ -74,6 +89,10 @@ public class TableSerializerYaml {
                     .filter(dataTable->filter.test(dataTable.getElementType()))
                     .collect(Can.toCan()));
         return dataTables;
+    }
+
+    private static DataBase.Format format() {
+        return DataBase.Format.defaults();
     }
 
 }

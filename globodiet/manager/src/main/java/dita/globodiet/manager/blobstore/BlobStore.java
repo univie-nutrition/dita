@@ -27,6 +27,7 @@ import java.util.function.Predicate;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +46,7 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
+import dita.commons.types.tabular.DataBase;
 import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Data;
 import lombok.Getter;
@@ -58,6 +60,9 @@ public class BlobStore implements MetamodelListener {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject InteractionService iaService;
+
+    @Inject @Qualifier("entity2table") DataBase.NameTransformer entity2table;
+    @Inject @Qualifier("table2entity") DataBase.NameTransformer table2entity;
 
     private File rootDirectory = new File(System.getenv("dita.blobstore.root"));
 
@@ -188,7 +193,7 @@ public class BlobStore implements MetamodelListener {
     // -- HELPER
 
     private void checkoutAsCurrent(final @Nullable ParameterDataVersion version) {
-        tableSerializer.load(getTableData(version), paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
+        tableSerializer.load(getTableData(version), table2entity, paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
         this.currentlyCheckedOutVersion = version;
     }
 

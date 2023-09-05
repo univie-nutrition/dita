@@ -25,6 +25,7 @@ import java.util.Optional;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.info.BuildProperties;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -45,6 +46,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocWriter;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
+import dita.commons.types.tabular.DataBase;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
@@ -58,6 +60,8 @@ implements HasCurrentlyCheckedOutVersion {
 
     @Inject Optional<BuildProperties> buildProperties;
     @Inject TableSerializerYaml tableSerializer;
+    @Inject @Qualifier("entity2table") DataBase.NameTransformer entity2table;
+    @Inject @Qualifier("table2entity") DataBase.NameTransformer table2entity;
 
     @ObjectSupport
     public String title() {
@@ -81,7 +85,7 @@ implements HasCurrentlyCheckedOutVersion {
     @Action(restrictTo = RestrictTo.PROTOTYPING)
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
     public Clob generateYaml() {
-        val clob = tableSerializer.clob("gd-params", BlobStore.paramsTableFilter());
+        val clob = tableSerializer.clob("gd-params", null, BlobStore.paramsTableFilter());
         return clob;
     }
 
@@ -96,7 +100,9 @@ implements HasCurrentlyCheckedOutVersion {
         doc.setTitle("Table Import Result");
 
         val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml",
-                tableSerializer.load(tableData, BlobStore.paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD));
+                tableSerializer.load(tableData,
+                        table2entity,
+                        BlobStore.paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD));
         sourceBlock.setTitle("Serialized Table Data (yaml)");
 
         return new AsciiDoc(AsciiDocWriter.toString(doc));
