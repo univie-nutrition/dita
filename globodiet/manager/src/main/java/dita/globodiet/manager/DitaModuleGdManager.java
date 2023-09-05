@@ -42,7 +42,7 @@ import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRest
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
-import dita.commons.types.tabular.DataBase;
+import dita.commons.types.tabular.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
@@ -117,12 +117,12 @@ public class DitaModuleGdManager {
     }
 
     @Bean @Qualifier("entity2table")
-    public DataBase.NameTransformer entity2table(final OrmModel.Schema gdParamsSchema) {
+    public TabularData.NameTransformer entity2table(final OrmModel.Schema gdParamsSchema) {
         return new EntityToTableTransformerFromSchema("dita.globodiet", gdParamsSchema);
     }
 
     @Bean @Qualifier("table2entity")
-    public DataBase.NameTransformer table2entity(final OrmModel.Schema gdParamsSchema) {
+    public TabularData.NameTransformer table2entity(final OrmModel.Schema gdParamsSchema) {
         return new TableToEntityTransformerFromSchema("dita.globodiet", gdParamsSchema);
     }
 

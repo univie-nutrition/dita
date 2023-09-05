@@ -41,7 +41,7 @@ import lombok.val;
 /**
  * Represents a database snapshot with stringified cell values.
  */
-public record DataBase(Can<DataBase.Table> dataTables) {
+public record TabularData(Can<TabularData.Table> dataTables) {
 
     /**
      * Transforms table and columns names.
@@ -124,8 +124,8 @@ public record DataBase(Can<DataBase.Table> dataTables) {
 
     }
 
-    public static DataBase populateFromYaml(
-            final String tableDataSerializedAsYaml, final DataBase.Format formatOptions) {
+    public static TabularData populateFromYaml(
+            final String tableDataSerializedAsYaml, final TabularData.Format formatOptions) {
 
         val asMap = YamlUtils
                 .tryRead(HashMap.class, tableDataSerializedAsYaml, loader->{
@@ -136,7 +136,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
 
         // parse data from the map, and populate tables, that are already in the Can<DataTable>
 
-        val dataTables = new ArrayList<DataBase.Table>();
+        val dataTables = new ArrayList<TabularData.Table>();
 
         @SuppressWarnings("unchecked")
         val tables = (Collection<Map<String, ?>>) asMap.get("tables");
@@ -158,7 +158,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
                 //System.err.printf("  cols:%n");
 
                 val columns = Can.ofIterable(colLiterals)
-                    .map(DataBase::parseColumnFromStringified);
+                    .map(TabularData::parseColumnFromStringified);
 
                 //columns.forEach(c->System.err.printf("   %s%n", c));
 
@@ -176,16 +176,16 @@ public record DataBase(Can<DataBase.Table> dataTables) {
                     .map(Row::new)
                     .collect(Can.toCan());
 
-                val dataTable = new DataBase.Table(tableKey, columns, rows);
+                val dataTable = new TabularData.Table(tableKey, columns, rows);
                 dataTables.add(dataTable);
             });
         });
 
-        return new DataBase(Can.ofCollection(dataTables));
+        return new TabularData(Can.ofCollection(dataTables));
     }
 
-    public DataBase transform(final NameTransformer transformer) {
-        return new DataBase(dataTables.map(dataTable->
+    public TabularData transform(final NameTransformer transformer) {
+        return new TabularData(dataTables.map(dataTable->
             new Table(
                     transformer.transformTable(dataTable.key()),
                     dataTable
@@ -209,7 +209,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
 
     }
 
-    public String toYaml(final DataBase.Format formatOptions) {
+    public String toYaml(final TabularData.Format formatOptions) {
 
         val yaml = new YamlWriter();
 
@@ -240,7 +240,7 @@ public record DataBase(Can<DataBase.Table> dataTables) {
         return yaml.toString();
     }
 
-    private String toYaml(final String cellValue, final DataBase.Format formatOptions) {
+    private String toYaml(final String cellValue, final TabularData.Format formatOptions) {
         return cellValue==null
                 ? formatOptions.nullSymbol()
                 : cellValue.replaceAll("\"", formatOptions.doubleQuoteSymbol());

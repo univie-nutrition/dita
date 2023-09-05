@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.causeway.commons.io.DataSource;
 
-import dita.commons.types.tabular.DataBase;
+import dita.commons.types.tabular.TabularData;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
 import dita.tooling.orm.OrmModel;
@@ -40,7 +40,7 @@ class TableDataRoundtripTest {
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail();
 
-        val dbHigh = DataBase.populateFromYaml(gdParamDataHighLevelYaml, DataBase.Format.defaults());
+        val dbHigh = TabularData.populateFromYaml(gdParamDataHighLevelYaml, TabularData.Format.defaults());
 
         val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
                 .tryReadAsStringUtf8()

@@ -46,7 +46,7 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
-import dita.commons.types.tabular.DataBase;
+import dita.commons.types.tabular.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Data;
 import lombok.Getter;
@@ -61,8 +61,8 @@ public class BlobStore implements MetamodelListener {
     @Inject TableSerializerYaml tableSerializer;
     @Inject InteractionService iaService;
 
-    @Inject @Qualifier("entity2table") DataBase.NameTransformer entity2table;
-    @Inject @Qualifier("table2entity") DataBase.NameTransformer table2entity;
+    @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
+    @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
 
     private File rootDirectory = new File(System.getenv("dita.blobstore.root"));
 

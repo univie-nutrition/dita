@@ -32,8 +32,8 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableProvider;
-import dita.commons.types.tabular.DataBase;
-import dita.commons.types.tabular.DataBase.NameTransformer;
+import dita.commons.types.tabular.TabularData;
+import dita.commons.types.tabular.TabularData.NameTransformer;
 import lombok.val;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
@@ -70,14 +70,14 @@ public class TableSerializerYaml {
             final Predicate<ObjectSpecification> filter,
             final InsertMode insertMode) {
 
-        val tabularData = DataBase.populateFromYaml(clob.asString(), format())
+        val tabularData = TabularData.populateFromYaml(clob.asString(), format())
                 .transform(nameTransformer);
 
         val yaml = dataTables(filter)
                 .populateFromTabularData(tabularData, format())
                 .insertToDatabasse(repositoryService, insertMode)
                 .toDataBase(format())
-                .toYaml(DataBase.Format.defaults());
+                .toYaml(TabularData.Format.defaults());
         return yaml;
     }
 
@@ -91,8 +91,8 @@ public class TableSerializerYaml {
         return dataTables;
     }
 
-    private static DataBase.Format format() {
-        return DataBase.Format.defaults();
+    private static TabularData.Format format() {
+        return TabularData.Format.defaults();
     }
 
 }

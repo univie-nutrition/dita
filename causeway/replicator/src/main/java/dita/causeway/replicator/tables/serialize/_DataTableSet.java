@@ -38,9 +38,9 @@ import org.apache.causeway.core.metamodel.object.ManagedObjects;
 import dita.causeway.replicator.tables.model.DataColumn;
 import dita.causeway.replicator.tables.model.DataTable;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
-import dita.commons.types.tabular.DataBase;
-import dita.commons.types.tabular.DataBase.Column;
-import dita.commons.types.tabular.DataBase.Table;
+import dita.commons.types.tabular.TabularData;
+import dita.commons.types.tabular.TabularData.Column;
+import dita.commons.types.tabular.TabularData.Table;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
@@ -78,7 +78,7 @@ class _DataTableSet {
     }
 
     public _DataTableSet populateFromTabularData(
-            final DataBase dataBase, final DataBase.Format formatOptions) {
+            final TabularData dataBase, final TabularData.Format formatOptions) {
 
         dataBase.dataTables()
         .forEach(tableEntry->{
@@ -146,15 +146,15 @@ class _DataTableSet {
         return this;
     }
 
-    public DataBase toDataBase(final DataBase.Format formatOptions) {
-        return new DataBase(dataTables.map(dataTable->
+    public TabularData toDataBase(final TabularData.Format formatOptions) {
+        return new TabularData(dataTables.map(dataTable->
             new Table(
                     dataTable.getElementType().getLogicalTypeName(),
                     dataTable.getDataColumns()
-                        .map(col->new DataBase.Column(
+                        .map(col->new TabularData.Column(
                             col.getPropertyMetaModel().getId(),
                             col.getColumnDescription())),
-                    dataTable.getDataRows().map(dataRow->new DataBase.Row(
+                    dataTable.getDataRows().map(dataRow->new TabularData.Row(
 
                             dataTable.getDataColumns()
                             .stream()
@@ -236,7 +236,7 @@ class _DataTableSet {
 
     private static String stringify(
             final @Nullable ManagedObject cellValue,
-            final @NonNull DataBase.Format formatOptions) {
+            final @NonNull TabularData.Format formatOptions) {
 
         if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue)) {
             return formatOptions.nullSymbol();

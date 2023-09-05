@@ -46,7 +46,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocWriter;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
-import dita.commons.types.tabular.DataBase;
+import dita.commons.types.tabular.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
@@ -60,8 +60,8 @@ implements HasCurrentlyCheckedOutVersion {
 
     @Inject Optional<BuildProperties> buildProperties;
     @Inject TableSerializerYaml tableSerializer;
-    @Inject @Qualifier("entity2table") DataBase.NameTransformer entity2table;
-    @Inject @Qualifier("table2entity") DataBase.NameTransformer table2entity;
+    @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
+    @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
 
     @ObjectSupport
     public String title() {
@@ -92,7 +92,7 @@ implements HasCurrentlyCheckedOutVersion {
     public Clob generateYaml(@Parameter final ExportFormat format) {
         val clob = tableSerializer.clob("gd-params",
                 format==ExportFormat.ENTITY
-                    ? DataBase.NameTransformer.IDENTITY
+                    ? TabularData.NameTransformer.IDENTITY
                     : entity2table,
                 BlobStore.paramsTableFilter());
         return clob;
