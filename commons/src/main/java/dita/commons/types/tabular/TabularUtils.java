@@ -16,25 +16,44 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.causeway.replicator.tables.model;
+package dita.commons.types.tabular;
 
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
+import dita.commons.types.BiString;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class DataTableOptions {
+public class TabularUtils {
 
-    public record FormatOptions(
+    /**
+     * Transforms table and columns names.
+     */
+    public static interface NameTransformer {
+        String transformTable(String key);
+        String transformColumn(BiString key);
+        // -- IDENTITY IMPLEMENTATION
+        public static class Identity implements NameTransformer {
+            @Override public String transformTable(final String key) {
+                return key; }
+            @Override public String transformColumn(final BiString key) {
+                return key.right(); }
+        }
+        static final Identity IDENTITY = new Identity();
+        static Identity identity() { return IDENTITY; }
+    }
+
+
+    public record Format(
             @NonNull String columnSeparator,
             @NonNull String nullSymbol,
             @NonNull String doubleQuoteSymbol) {
 
-        public static FormatOptions defaults() {
-            return new FormatOptions("|", "ø", "¯");
+        public static Format defaults() {
+            return new Format("|", "ø", "¯");
         }
 
         /**
@@ -79,6 +98,5 @@ public class DataTableOptions {
         }
 
     }
-
 
 }

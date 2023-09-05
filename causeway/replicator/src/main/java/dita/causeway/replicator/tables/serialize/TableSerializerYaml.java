@@ -31,8 +31,8 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
-import dita.causeway.replicator.tables.model.DataTableOptions;
 import dita.causeway.replicator.tables.model.DataTableProvider;
+import dita.commons.types.tabular.TabularUtils;
 import lombok.val;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
@@ -44,7 +44,7 @@ public class TableSerializerYaml {
     public Clob clob(final String name, final Predicate<ObjectSpecification> filter) {
         val yaml = dataTables(filter)
                 .populateFromDatabase(repositoryService)
-                .toYaml(DataTableOptions.FormatOptions.defaults());
+                .toYaml(TabularUtils.Format.defaults());
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
@@ -60,9 +60,9 @@ public class TableSerializerYaml {
      */
     public String load(final Clob clob, final Predicate<ObjectSpecification> filter, final InsertMode insertMode) {
         val yaml = dataTables(filter)
-                .populateFromYaml(clob.asString(), DataTableOptions.FormatOptions.defaults())
+                .populateFromYaml(clob.asString(), TabularUtils.Format.defaults())
                 .insertToDatabasse(repositoryService, insertMode)
-                .toYaml(DataTableOptions.FormatOptions.defaults());
+                .toYaml(TabularUtils.Format.defaults());
         return yaml;
     }
 

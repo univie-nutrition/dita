@@ -40,8 +40,8 @@ import org.apache.causeway.core.metamodel.object.ManagedObjects;
 
 import dita.causeway.replicator.tables.model.DataColumn;
 import dita.causeway.replicator.tables.model.DataTable;
-import dita.causeway.replicator.tables.model.DataTableOptions;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
+import dita.commons.types.tabular.TabularUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
@@ -79,7 +79,7 @@ class _DataTableSet {
     }
 
     public _DataTableSet populateFromYaml(
-            final String yaml, final DataTableOptions.FormatOptions formatOptions) {
+            final String yaml, final TabularUtils.Format formatOptions) {
         val asMap = YamlUtils
                 .tryRead(HashMap.class, yaml, loader->{
                     loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
@@ -191,7 +191,7 @@ class _DataTableSet {
 
     // -- WRITING TO YML
 
-    public String toYaml(final DataTableOptions.FormatOptions formatOptions) {
+    public String toYaml(final TabularUtils.Format formatOptions) {
         val yaml = new YamlWriter();
 
         yaml.write("tables:").nl();
@@ -274,7 +274,7 @@ class _DataTableSet {
 
     private static String stringify(
             final @Nullable ManagedObject cellValue,
-            final @NonNull DataTableOptions.FormatOptions formatOptions) {
+            final @NonNull TabularUtils.Format formatOptions) {
 
         if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue)) {
             return formatOptions.nullSymbol();

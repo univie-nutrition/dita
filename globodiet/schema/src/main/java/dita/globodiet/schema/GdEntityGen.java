@@ -32,9 +32,6 @@ public class GdEntityGen {
 
     public static void main(final String[] args) {
 
-        /* TODO perhaps only specify the project root dir and we then put generated files
-         * under <root>/target/generated-sources/cwy (cwy...causeway)
-         */
         if(args.length==0) {
             System.err.println("please provide the destination directory as input parameter - exiting");
             System.exit(1);
