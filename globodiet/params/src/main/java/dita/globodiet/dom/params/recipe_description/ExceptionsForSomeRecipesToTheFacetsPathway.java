@@ -98,7 +98,7 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway {
     )
     @Getter
     @Setter
-    private Integer ORDER_FAC;
+    private Integer order;
 
     @ObjectSupport
     public String title() {

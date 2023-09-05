@@ -1979,7 +1979,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Fat Left-Over Code (F=False, T=True)
-    hHMFraction:
+    hhmFraction:
       column: HHMFRACT
       column-type: nvarchar(5)
       required: false
@@ -2085,7 +2085,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum) 
-    PCT_RAW:
+    percentageRaw:
       column: PCT_RAW
       column-type: float(53)
       required: false
@@ -2277,7 +2277,7 @@ MixedRecipeNames:
       description: |
         0=recipe without sub-recipe 
         1=recipe with sub-recipe
-    STATUS:
+    status:
       column: STATUS
       column-type: nvarchar(1)
       required: false
@@ -2385,7 +2385,7 @@ MacroNutrientLimit:
       foreignKeys:
       description: |
         1=man, 2=woman
-    pALValue:
+    palValue:
       column: VAL
       column-type: float(53)
       required: false
@@ -2828,7 +2828,7 @@ BrandnameListForMixedRecipes:
         rsubgr.subgroup
       description: |
         Recipe subgroup
-    RNAME:
+    recipeName:
       column: RNAME
       column-type: nvarchar(100)
       required: false
@@ -3116,7 +3116,7 @@ ExceptionsForSomeRecipesToTheFacetsPathway:
         r_facet.rfacet_code
       description: |
         Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)
-    ORDER_FAC:
+    order:
       column: ORDER_FAC
       column-type: int(10)
       required: false

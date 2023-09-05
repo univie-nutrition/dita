@@ -147,7 +147,7 @@ public class MacroNutrientLimit {
     )
     @Getter
     @Setter
-    private Double pALValue;
+    private Double palValue;
 
     @ObjectSupport
     public String title() {

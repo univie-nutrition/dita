@@ -98,7 +98,7 @@ public class BrandnameListForMixedRecipes {
     )
     @Getter
     @Setter
-    private String RNAME;
+    private String recipeName;
 
     @ObjectSupport
     public String title() {

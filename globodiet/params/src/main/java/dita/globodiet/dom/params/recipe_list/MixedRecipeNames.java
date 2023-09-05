@@ -202,7 +202,7 @@ public class MixedRecipeNames {
     )
     @Getter
     @Setter
-    private String STATUS;
+    private String status;
 
     @ObjectSupport
     public String title() {

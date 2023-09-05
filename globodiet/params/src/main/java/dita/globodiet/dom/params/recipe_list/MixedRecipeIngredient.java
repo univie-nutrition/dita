@@ -510,7 +510,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String hHMFraction;
+    private String hhmFraction;
 
     /**
      * Consumed quantity in pound
@@ -720,7 +720,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private Double PCT_RAW;
+    private Double percentageRaw;
 
     @ObjectSupport
     public String title() {
