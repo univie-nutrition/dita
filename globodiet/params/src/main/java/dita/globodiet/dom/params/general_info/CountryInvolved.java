@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.CountryInvolved")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Country involved"
+        describedAs = "Country involved",
+        cssClassFa = "earth-europe"
 )
 @PersistenceCapable(
         table = "COUNTRY"
@@ -85,6 +86,6 @@ public class CountryInvolved {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s", countryName);
     }
 }
