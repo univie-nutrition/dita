@@ -236,13 +236,13 @@ public class OrmModel {
      * JUnit support.
      */
     public Can<Schema> examples() {
+        val entity = new Entity("FoodList", "dita", "FOODS", "name", "fa-pencil", List.of("Food List and Aliases"),
+                new ArrayList<OrmModel.Field>());
+        val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false,
+                List.of(), List.of("aa", "bb", "cc"));
+        entity.fields().add(field);
         return Can.of(
-                Schema.of(List.of(
-                new Entity("FoodList", "dita", "FOODS", "name", "fa-pencil", List.of("Food List and Aliases"),
-                        List.of(
-                                new Field(/*parent*/null, /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false,
-                                        List.of("a.b", "c.d"), List.of("aa", "bb", "cc"))))
-                )));
+                Schema.of(List.of(entity)));
     }
 
     // -- HELPER
