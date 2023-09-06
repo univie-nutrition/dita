@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.causeway.commons.io.DataSource;
 
-import dita.commons.types.tabular.TabularData;
+import dita.commons.types.TabularData;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
 import dita.tooling.orm.OrmModel;

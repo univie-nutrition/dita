@@ -115,7 +115,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Getter
     @Setter
-    private String descriptorCodeOfPhysicalStateFacet;
+    private String physicalStateFacetDescriptorLookupKey;
 
     /**
      * 1=raw, 2=cooked (as Consumed)

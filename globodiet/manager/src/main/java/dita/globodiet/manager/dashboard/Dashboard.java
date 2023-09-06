@@ -46,7 +46,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocWriter;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
-import dita.commons.types.tabular.TabularData;
+import dita.commons.types.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;

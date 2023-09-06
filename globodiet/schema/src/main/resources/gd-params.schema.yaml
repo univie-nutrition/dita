@@ -285,7 +285,7 @@ DensityFactorForFood:
       foreignKeys:
       description: |
         Density coefficient
-    facetString:
+    facetDescriptorLookupKey:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
@@ -686,7 +686,7 @@ EdiblePartCoefficientForFood:
       foreignKeys:
       description: |
         Edible part coefficient
-    facetString:
+    facetDescriptorLookupKey:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
@@ -768,7 +768,7 @@ params.food_descript.RuleAppliedToFacet:
         facets.facet_code
       description: |
         Facet where the rule must be applied.
-    facetAndDescriptorCode:
+    facetDescriptorLookupKey:
       column: FACDESC
       column-type: nvarchar(4)
       required: false
@@ -1733,7 +1733,7 @@ MaximumValueForAFoodOrASubSubgroup:
       foreignKeys:
       description: |
         Maximum value
-    facetString:
+    facetDescriptorLookupKey:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
@@ -1767,7 +1767,7 @@ MixedRecipeIngredient:
         mixedrec.r_idnum
       description: |
         Recipe ID number the ingredient belongs to
-    ingredientSubstitutable:
+    substitutable:
       column: ING_TYPE
       column-type: nvarchar(2)
       required: false
@@ -1792,7 +1792,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Description text (facet/descriptor text)
-    ingredientName:
+    name:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -1800,7 +1800,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Ingredient name
-    ingredientFoodOrRecipeGroup:
+    foodOrRecipeGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -1810,7 +1810,7 @@ MixedRecipeIngredient:
         rgroups.group
       description: |
         Ingredient food or recipe group
-    ingredientFoodOrRecipeSubgroup:
+    foodOrRecipeSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -1820,7 +1820,7 @@ MixedRecipeIngredient:
         rsubgr.subgroup
       description: |
         Ingredient food or recipe subgroup
-    ingredientFoodSubSubgroup:
+    foodSubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -1829,7 +1829,7 @@ MixedRecipeIngredient:
         subgroup.subgroup2
       description: |
         Ingredient food sub-subgroup
-    ingredientBrandName:
+    brandName:
       column: BRANDNAME
       column-type: nvarchar(100)
       required: false
@@ -1837,7 +1837,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Ingredient brand name (if any)
-    facetDescriptorsCodesToDescribeTheIngredient:
+    facetDescriptorLookupKey:
       column: FACETS_STR
       column-type: nvarchar(2147483647)
       required: false
@@ -1847,7 +1847,7 @@ MixedRecipeIngredient:
         descface.descr_code
       description: |
         Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    ingredientDescribedAndQuantifiedQ:
+    describedAndQuantifiedQ:
       column: STATUS
       column-type: nvarchar(1)
       required: false
@@ -2067,7 +2067,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Type of item: 1 for food, 2 for recipe
-    ingredientFoodOrRecipeIdNumber:
+    foodOrRecipeIdNumber:
       column: IDNUM
       column-type: nvarchar(5)
       required: false
@@ -2667,7 +2667,7 @@ QuantificationMethodsPathwayForFoodGroup:
         subgroup.subgroup2
       description: |
         Food sub-subgroup code
-    descriptorCodeOfPhysicalStateFacet:
+    physicalStateFacetDescriptorLookupKey:
       column: PHYS_STATE
       column-type: nvarchar(4)
       required: false
@@ -3147,7 +3147,7 @@ RawToCookedConversionFactorsForFoods:
       foreignKeys:
       description: |
         Raw to cooked factor
-    facetString:
+    facetDescriptorLookupKey:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
@@ -3633,7 +3633,7 @@ PercentOfFatUseDuringCookingAttachedToAFood:
         foods.foodnum
       description: |
         Fat code for fat
-    cookingMethodFacetAndDescriptorCodes:
+    cookingMethodFacetDescriptorLookupKey:
       column: COOK_METH
       column-type: nvarchar(4)
       required: false
@@ -4032,7 +4032,7 @@ ThicknessForShapeMethod:
       foreignKeys:
       description: |
         Comment attached to the thickness (e.g. small, medium, large…)
-    forTheFoodItemsTheFoodSubgroupsForWhichThisThicknessHasToBeProposed:
+    foodSubgroupsLookupKey:
       column: TH_FDCLASS
       column-type: nvarchar(100)
       required: false
@@ -4047,7 +4047,7 @@ ThicknessForShapeMethod:
         When this field is empty, that means that this thickness has always to be proposed
         whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1 
         and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
-    forTheRecipeItemsTheRecipeSubgroupsForWhichThisThicknessHasToBeProposed:
+    recipeSubgroupsLookupKey:
       column: TH_RCPCLASS
       column-type: nvarchar(100)
       required: false

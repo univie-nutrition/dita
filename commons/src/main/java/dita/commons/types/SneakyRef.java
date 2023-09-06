@@ -16,31 +16,44 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.tooling.orm;
+package dita.commons.types;
+
+import org.springframework.util.ClassUtils;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
+/**
+ * Specifically designed to be used with Java record types,
+ * to allow circular references such as parent child relations.
+ * <p>
+ * Nonnull immutable variant of {@link ObjectRef}
+ *
+ * @see ObjectRef
+ */
 @RequiredArgsConstructor(staticName = "of")
-public class _SneakyRef<T> {
+public final class SneakyRef<T> {
 
     @Getter @Accessors(fluent=true)
     private final @NonNull T value;
 
     @Override
     public boolean equals(final Object obj) {
-        return obj instanceof _SneakyRef;
+        return obj instanceof SneakyRef;
     }
 
     @Override
     public int hashCode() {
-        return 0;
+        return 1;
     }
 
     @Override
     public String toString() {
-        return "SneakyRef";
+        return ClassUtils.isPrimitiveOrWrapper(value.getClass())
+                    ? value.toString()
+                    : String.format("SneakyRef[%s]", value.getClass().getSimpleName());
     }
+
 }

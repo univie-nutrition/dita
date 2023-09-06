@@ -18,7 +18,7 @@
  */
 package dita.tooling.domgen;
 
-import java.util.Objects;
+import java.util.List;
 import java.util.Optional;
 
 import javax.lang.model.element.Modifier;
@@ -29,10 +29,10 @@ import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.Snapshot;
-import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
+import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.tooling.domgen.DomainGenerator.JavaModel;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
@@ -67,7 +67,7 @@ class _GenEntityMixins {
                 .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
                 .addAnnotation(_Annotations.propertyLayout(field.sequence() + ".1", field.formatDescription("\n")))
                 .addAnnotation(RequiredArgsConstructor.class)
-                .addField(injectedField(RepositoryService.class, "repositoryService"))
+                .addField(injectedField(ForeignKeyLookupService.class, "foreignKeyLookup"))
                 .addField(mixeeField(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
                 ;
 
@@ -136,35 +136,34 @@ class _GenEntityMixins {
 
         switch(foreignKeyGetters.size()) {
         case 1: builder.addCode("""
-                    return repositoryService
-                        .uniqueMatch($1T.class,
-                            foreign->$2T.equals(foreign.$3L(), mixee.$4L()))
+                    return foreignKeyLookup
+                        .uniqueMatch(
+                            // local
+                            mixee, mixee.$1L(),
+                            // foreign
+                            $2T.class, foreign->foreign.$3L())
                         .orElse(null);
-                    """, foreignEntityClass, Objects.class, foreignKeyGetters.getFirstElseFail(), localKeyGetter);
+                    """, localKeyGetter, foreignEntityClass, foreignKeyGetters.getFirstElseFail());
             break;
         case 2: builder.addCode("""
-                return repositoryService
-                    .uniqueMatch($1T.class,
-                        foreign->$2T.equals(foreign.$3L(), mixee.$4L())
-                            && $2T.equals(foreign.$5L(), mixee.$6L())
-                        )
-                    .orElse(null);
-                """, foreignEntityClass, Objects.class,
-                    foreignKeyGetters.getFirstElseFail(), localKeyGetter,
-                    foreignKeyGetters.getElseFail(1), localKeyGetter);
+                    return foreignKeyLookup
+                        .uniqueMatch(
+                            // local
+                            mixee, mixee.$1L(),
+                            // foreign
+                            $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L())
+                        .orElse(null);
+                    """, localKeyGetter, foreignEntityClass, foreignKeyGetters.getElseFail(0), foreignKeyGetters.getElseFail(1));
             break;
         case 3: builder.addCode("""
-                return repositoryService
-                    .uniqueMatch($1T.class,
-                        foreign->$2T.equals(foreign.$3L(), mixee.$4L())
-                            && $2T.equals(foreign.$5L(), mixee.$6L())
-                            && $2T.equals(foreign.$7L(), mixee.$8L())
-                        )
+                return foreignKeyLookup
+                    .uniqueMatch(
+                        // local
+                        mixee, mixee.$1L(),
+                        // foreign
+                        $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L(), foreign->foreign.$5L())
                     .orElse(null);
-                """, foreignEntityClass, Objects.class,
-                    foreignKeyGetters.getFirstElseFail(), localKeyGetter,
-                    foreignKeyGetters.getElseFail(1), localKeyGetter,
-                    foreignKeyGetters.getElseFail(2), localKeyGetter);
+                """, localKeyGetter, foreignEntityClass, foreignKeyGetters.getElseFail(0), foreignKeyGetters.getElseFail(1), foreignKeyGetters.getElseFail(2));
             break;
         default:
             System.err.printf("WARNING: %d foreign key count not supported in %s; skipping mixin generation%n",
@@ -176,11 +175,17 @@ class _GenEntityMixins {
         return Optional.of(builder.build());
     }
 
+    private final static List<String> knownPropertyNameSuffixes = List.of(
+            "Code",
+            "LookupKey");
+
     private String mixinClassName(final OrmModel.Field field) {
         val entityModel = field.parent();
-        val mixedInPropertyName = field.name().endsWith("Code")
-                ? _Strings.substring(field.name(), 0, -4)
-                : field.name() + "Obj";
+        val mixedInPropertyName = knownPropertyNameSuffixes.stream()
+                .filter(field.name()::endsWith)
+                .findFirst()
+                .map(suffix->_Strings.substring(field.name(), 0, -suffix.length()))
+                .orElseGet(()->field.name() + "Obj");
         return entityModel.name() + "_" + mixedInPropertyName;
     }
 

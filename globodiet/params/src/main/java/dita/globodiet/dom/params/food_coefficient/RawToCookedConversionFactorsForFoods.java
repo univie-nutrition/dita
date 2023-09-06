@@ -98,7 +98,7 @@ public class RawToCookedConversionFactorsForFoods {
     )
     @Getter
     @Setter
-    private String facetString;
+    private String facetDescriptorLookupKey;
 
     /**
      * Priority order

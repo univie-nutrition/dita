@@ -28,6 +28,10 @@ import lombok.Setter;
 /**
  * Specifically designed to be used with Java record types,
  * to allow circular references such as parent child relations.
+ * <p>
+ * Nullable mutable variant of {@link SneakyRef}
+ *
+ * @see SneakyRef
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE) @AllArgsConstructor
 public final class ObjectRef<T> {

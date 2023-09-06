@@ -87,7 +87,7 @@ public class RuleAppliedToFacet {
     )
     @Getter
     @Setter
-    private String facetAndDescriptorCode;
+    private String facetDescriptorLookupKey;
 
     /**
      * Group code

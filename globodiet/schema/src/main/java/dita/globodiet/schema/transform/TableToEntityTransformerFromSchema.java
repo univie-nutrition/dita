@@ -23,7 +23,7 @@ import java.util.Optional;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.types.BiString;
-import dita.commons.types.tabular.TabularData.NameTransformer;
+import dita.commons.types.TabularData.NameTransformer;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
 import lombok.val;

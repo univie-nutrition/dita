@@ -32,8 +32,8 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableProvider;
-import dita.commons.types.tabular.TabularData;
-import dita.commons.types.tabular.TabularData.NameTransformer;
+import dita.commons.types.TabularData;
+import dita.commons.types.TabularData.NameTransformer;
 import lombok.val;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")

@@ -201,7 +201,7 @@ public class PercentOfFatUseDuringCookingAttachedToAFood {
     )
     @Getter
     @Setter
-    private String cookingMethodFacetAndDescriptorCodes;
+    private String cookingMethodFacetDescriptorLookupKey;
 
     /**
      * Percentage of fat absorbed during cooking

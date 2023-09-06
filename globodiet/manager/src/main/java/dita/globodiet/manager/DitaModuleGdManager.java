@@ -42,7 +42,7 @@ import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRest
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
-import dita.commons.types.tabular.TabularData;
+import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
@@ -90,6 +90,9 @@ import lombok.val;
 
     // Homepage
     Dashboard.class,
+
+    // Services
+    ForeignKeyLookupGdParams.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,

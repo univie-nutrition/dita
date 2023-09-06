@@ -18,14 +18,23 @@
  */
 package dita.commons.types;
 
+import java.util.Objects;
+
 import org.apache.causeway.commons.internal.base._Strings;
 
 /**
  * Pair of {@link String}. Simply a typed tuple.
  */
 public record BiString(String left, String right) {
+
     public BiString {
         _Strings.requireNonEmpty(left, "left");
         _Strings.requireNonEmpty(right, "right");
     }
+
+    public boolean equalsPair(final String left, final String right) {
+        return Objects.equals(this.left, left)
+            && Objects.equals(this.right, right);
+    }
+
 }

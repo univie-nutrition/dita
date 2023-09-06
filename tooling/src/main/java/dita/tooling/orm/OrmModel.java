@@ -37,6 +37,7 @@ import org.apache.causeway.commons.internal.primitives._Ints;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import dita.commons.types.SneakyRef;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -124,7 +125,7 @@ public class OrmModel {
     }
 
     public record Field(
-            _SneakyRef<Entity> parentRef,
+            SneakyRef<Entity> parentRef,
             int ordinal,
             String name,
             String column,
@@ -136,7 +137,7 @@ public class OrmModel {
         @SuppressWarnings("rawtypes")
         static Field parse(final Entity parent, final int ordinal, final Map.Entry<String, Map> entry) {
             val map = entry.getValue();
-            return new Field(_SneakyRef.of(parent),
+            return new Field(SneakyRef.of(parent),
                     ordinal,
                     entry.getKey(),
                     (String)map.get("column"),

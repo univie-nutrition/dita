@@ -86,7 +86,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientSubstitutable;
+    private String substitutable;
 
     /**
      * Food type (GI or blank)
@@ -137,7 +137,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientName;
+    private String name;
 
     /**
      * Ingredient food or recipe group
@@ -154,7 +154,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientFoodOrRecipeGroup;
+    private String foodOrRecipeGroup;
 
     /**
      * Ingredient food or recipe subgroup
@@ -171,7 +171,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientFoodOrRecipeSubgroup;
+    private String foodOrRecipeSubgroup;
 
     /**
      * Ingredient food sub-subgroup
@@ -188,7 +188,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientFoodSubSubgroup;
+    private String foodSubSubgroup;
 
     /**
      * Ingredient brand name (if any)
@@ -205,7 +205,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientBrandName;
+    private String brandName;
 
     /**
      * Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
@@ -222,7 +222,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String facetDescriptorsCodesToDescribeTheIngredient;
+    private String facetDescriptorLookupKey;
 
     /**
      * =1 if ingredient described and quantified else =2
@@ -239,7 +239,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientDescribedAndQuantifiedQ;
+    private String describedAndQuantifiedQ;
 
     /**
      * Final quantity in g (with coefficient applied)
@@ -687,7 +687,7 @@ public class MixedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String ingredientFoodOrRecipeIdNumber;
+    private String foodOrRecipeIdNumber;
 
     /**
      * Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)
