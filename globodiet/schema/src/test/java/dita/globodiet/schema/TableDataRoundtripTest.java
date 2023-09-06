@@ -19,6 +19,7 @@
 package dita.globodiet.schema;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,6 +33,8 @@ import lombok.val;
 
 class TableDataRoundtripTest {
 
+    // disabled until we have fake data for testing, that can be published
+    @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
     @Test
     void transformerRoundtrip() {
 
