@@ -44,9 +44,9 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway_recipeFacetCodesThatMUST
     @MemberSupport
     public FacetForRecipe prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisRecipe(),
+                mixee, "recipeFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisRecipe", mixee.getRecipeFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisRecipe(),
                 // foreign
                 FacetForRecipe.class, foreign->foreign.getFacetCodeForRecipes())
             .orElse(null);

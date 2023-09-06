@@ -44,9 +44,9 @@ public class MixedRecipeIngredientsQuantification_recipeIDNumberTheIngredientBel
     @MemberSupport
     public MixedRecipeName prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeIDNumberTheIngredientBelongTo(),
+                mixee, "recipeIDNumberTheIngredientBelongTo", mixee.getRecipeIDNumberTheIngredientBelongTo(),
                 // foreign
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);

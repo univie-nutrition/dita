@@ -45,7 +45,7 @@ public class MixedRecipeIngredient_facetDescriptor {
     @MemberSupport
     public FacetDescriptor prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .binary(
                 // local
                 mixee, mixee.getFacetDescriptorLookupKey(),
                 // foreign

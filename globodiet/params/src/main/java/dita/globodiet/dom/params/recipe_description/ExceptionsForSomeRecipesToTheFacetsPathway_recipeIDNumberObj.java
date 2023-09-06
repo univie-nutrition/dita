@@ -45,9 +45,9 @@ public class ExceptionsForSomeRecipesToTheFacetsPathway_recipeIDNumberObj {
     @MemberSupport
     public MixedRecipeName prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeIDNumber(),
+                mixee, "recipeIDNumber", mixee.getRecipeIDNumber(),
                 // foreign
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);

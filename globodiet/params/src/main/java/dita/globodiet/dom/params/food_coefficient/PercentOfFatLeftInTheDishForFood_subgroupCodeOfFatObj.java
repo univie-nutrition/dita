@@ -45,9 +45,9 @@ public class PercentOfFatLeftInTheDishForFood_subgroupCodeOfFatObj {
     @MemberSupport
     public FoodSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getSubgroupCodeOfFat(),
+                mixee, "subgroupCodeOfFat", mixee.getSubgroupCodeOfFat(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode())
             .orElse(null);

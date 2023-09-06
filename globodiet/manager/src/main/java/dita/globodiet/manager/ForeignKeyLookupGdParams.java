@@ -28,14 +28,18 @@ import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.commons.types.BiString;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
+import dita.globodiet.dom.params.food_descript.BrandName;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import lombok.NonNull;
 import lombok.val;
 
@@ -46,15 +50,45 @@ implements ForeignKeyLookupService {
     @Inject RepositoryService repositoryService;
 
     @Override
-    public <L, F> Optional<F> uniqueMatch(final L localEntity, final Object localField,
+    public <L, F> Optional<F> unary(final L localEntity, final String localFieldName, final Object localField,
             final Class<F> foreignType, final Function<F, Object> foreignFieldGetter) {
+
+        if(localField == null) return Optional.empty();
+
+        if(FoodSubgroup.class.equals(foreignType)) {
+            // discrimination by 3 fields, where first 2 are always populated
+            val isLookingForSubSubgroup = localFieldName.toLowerCase().contains("subsub");
+            if(localEntity instanceof BrandName) {
+                val local = (BrandName) localEntity;
+                val subsubgroup = isLookingForSubSubgroup
+                        ? local.getFoodSubSubgroupCode()
+                        : null;
+                return repositoryService.uniqueMatch(foreignType, foreign->{
+                    val foodSubgroup = (FoodSubgroup)foreign;
+                    return Objects.equals(local.getFoodGroupCode(), foodSubgroup.getFoodGroupCode())
+                            && Objects.equals(local.getFoodSubgroupCode(), foodSubgroup.getFoodSubgroupCode())
+                            && Objects.equals(subsubgroup, foodSubgroup.getFoodSubSubgroupCode());
+                });
+            } else if(localEntity instanceof FoodOrProductOrAlias) {
+                val local = (FoodOrProductOrAlias) localEntity;
+                val subsubgroup = isLookingForSubSubgroup
+                        ? local.getFoodSubSubgroupCode()
+                        : null;
+                return repositoryService.uniqueMatch(foreignType, foreign->{
+                    val foodSubgroup = (FoodSubgroup)foreign;
+                    return Objects.equals(local.getFoodGroupCode(), foodSubgroup.getFoodGroupCode())
+                            && Objects.equals(local.getFoodSubgroupCode(), foodSubgroup.getFoodSubgroupCode())
+                            && Objects.equals(subsubgroup, foodSubgroup.getFoodSubSubgroupCode());
+                });
+            }
+        }
 
         return repositoryService.uniqueMatch(foreignType, foreign->
             Objects.equals(localField, foreignFieldGetter.apply(foreign)));
     }
 
     @Override
-    public <L, F> Optional<F> uniqueMatch(final L localEntity, final Object localField,
+    public <L, F> Optional<F> binary(final L localEntity, final Object localField,
             final Class<F> foreignType,
             final Function<F, Object> foreignFieldGetter1,
             final Function<F, Object> foreignFieldGetter2) {
@@ -92,12 +126,27 @@ implements ForeignKeyLookupService {
     }
 
     @Override
-    public <L, F> Optional<F> uniqueMatch(
+    public <L, F1, F2> Optional<Either<F1, F2>> binary(final L localEntity, final Object localField,
+            final Class<F1> foreignType1, final Function<F1, Object> foreignFieldGetter1,
+            final Class<F2> foreignType2, final Function<F2, Object> foreignFieldGetter2) {
+
+        // FIXME[DITA-110] return either F1 or F2 wrapped
+        return Optional.empty();
+    }
+
+    @Override
+    public <L, F> Optional<F> ternary(
             final L localEntity, final Object localField,
             final Class<F> foreignType,
             final Function<F, Object> foreignFieldGetter1,
             final Function<F, Object> foreignFieldGetter2,
             final Function<F, Object> foreignFieldGetter3) {
+
+        if(FoodSubgroup.class.equals(foreignType)) {
+            val keys = decodeGroupListLookupKey((String) localField);
+            // FIXME[DITA-110] return FoodSubgroup
+            return Optional.empty();
+        }
 
         throw _Exceptions.unrecoverable("3-ary foreign key lookup not implemented for foreign type %s",
                 foreignType.getName());
@@ -114,20 +163,37 @@ implements ForeignKeyLookupService {
     }
 
     /**
+     * Pair of {@link String}. Simply a typed tuple. With the second field an optional
+     */
+    record GroupDiscriminator(String left, Optional<String> right) {
+
+        public GroupDiscriminator {
+            _Strings.requireNonEmpty(left, "left");
+            right.ifPresent(r->_Strings.requireNonEmpty(r, "right"));
+        }
+
+        public boolean equalsPair(final String left, final String right) {
+            return Objects.equals(this.left, left)
+                && Objects.equals(this.right.orElse(null), right);
+        }
+
+    }
+
+    /**
      * comma separated (e.g. 02 or 0300)
      */
-    static BiString decodeGroupLookupKey(final @NonNull String input) {
+    static GroupDiscriminator decodeGroupLookupKey(final @NonNull String input) {
         _Assert.assertTrue(input.length()==2
                 || input.length()==4);
-        return new BiString(input.substring(0, 2), input.length()==4
-                ? input.substring(2)
-                : null);
+        return new GroupDiscriminator(input.substring(0, 2), input.length()==4
+                ? Optional.of(input.substring(2))
+                : Optional.empty());
     }
 
     /**
      * comma separated (e.g. 02,0300,0301)
      */
-    static Can<BiString> decodeGroupListLookupKey(final @NonNull String input) {
+    static Can<GroupDiscriminator> decodeGroupListLookupKey(final @NonNull String input) {
         return _Strings.splitThenStream(input, ",")
             .map(chunk->decodeGroupLookupKey(chunk))
             .collect(Can.toCan());

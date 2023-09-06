@@ -45,9 +45,9 @@ public class ProbingQuestionPathwayForRecipes_recipeIdNumberObj {
     @MemberSupport
     public MixedRecipeName prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeIdNumber(),
+                mixee, "recipeIdNumber", mixee.getRecipeIdNumber(),
                 // foreign
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);

@@ -45,9 +45,9 @@ public class DietarySupplementList_dietarySupplementClassification {
     @MemberSupport
     public DietarySupplementClassification prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getDietarySupplementClassificationCode(),
+                mixee, "dietarySupplementClassificationCode", mixee.getDietarySupplementClassificationCode(),
                 // foreign
                 DietarySupplementClassification.class, foreign->foreign.getDietarySupplementClassificationCode())
             .orElse(null);

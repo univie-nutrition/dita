@@ -45,9 +45,9 @@ public class PercentOfFatUseDuringCookingAttachedToAFood_food {
     @MemberSupport
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodCode(),
+                mixee, "foodCode", mixee.getFoodCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
             .orElse(null);

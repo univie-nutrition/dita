@@ -48,9 +48,6 @@ import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyC
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
-import dita.globodiet.manager.food.FoodOrProductOrAlias_foodGroup2;
-import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubSubgroup2;
-import dita.globodiet.manager.food.FoodOrProductOrAlias_foodSubgroup2;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -98,9 +95,6 @@ import lombok.val;
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
     ParameterDataVersion_updateName.class,
     ParameterDataVersion_updateDescription.class,
-    FoodOrProductOrAlias_foodGroup2.class,
-    FoodOrProductOrAlias_foodSubgroup2.class,
-    FoodOrProductOrAlias_foodSubSubgroup2.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

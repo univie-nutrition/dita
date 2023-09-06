@@ -44,9 +44,9 @@ public class RuleAppliedToFacet_facetWhereTheRuleMustBeApplied {
     @MemberSupport
     public Facet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFacetWhereTheRuleMustBeAppliedCode(),
+                mixee, "facetWhereTheRuleMustBeAppliedCode", mixee.getFacetWhereTheRuleMustBeAppliedCode(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

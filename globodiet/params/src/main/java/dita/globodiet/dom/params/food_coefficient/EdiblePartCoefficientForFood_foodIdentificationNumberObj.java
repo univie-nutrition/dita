@@ -45,9 +45,9 @@ public class EdiblePartCoefficientForFood_foodIdentificationNumberObj {
     @MemberSupport
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodIdentificationNumber(),
+                mixee, "foodIdentificationNumber", mixee.getFoodIdentificationNumber(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
             .orElse(null);

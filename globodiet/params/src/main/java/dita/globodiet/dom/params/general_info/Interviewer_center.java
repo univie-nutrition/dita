@@ -44,9 +44,9 @@ public class Interviewer_center {
     @MemberSupport
     public CenterInvolved prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getCenterCode(),
+                mixee, "centerCode", mixee.getCenterCode(),
                 // foreign
                 CenterInvolved.class, foreign->foreign.getCenterCode())
             .orElse(null);

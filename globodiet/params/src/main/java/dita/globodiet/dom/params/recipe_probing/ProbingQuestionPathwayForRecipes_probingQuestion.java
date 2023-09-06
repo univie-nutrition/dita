@@ -45,9 +45,9 @@ public class ProbingQuestionPathwayForRecipes_probingQuestion {
     @MemberSupport
     public ProbingQuestions prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getProbingQuestionCode(),
+                mixee, "probingQuestionCode", mixee.getProbingQuestionCode(),
                 // foreign
                 ProbingQuestions.class, foreign->foreign.getProbingQuestionCode())
             .orElse(null);

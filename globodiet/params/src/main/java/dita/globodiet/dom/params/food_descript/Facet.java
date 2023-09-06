@@ -40,7 +40,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_descript.Facet")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Facet describing food (not recipe)"
+        describedAs = "Facet describing food (not recipe)",
+        cssClassFa = "tags olive"
 )
 @PersistenceCapable(
         table = "FACETS"
@@ -179,6 +180,6 @@ public class Facet {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", facetName, facetCode);
     }
 }

@@ -44,9 +44,9 @@ public class CenterInvolved_attachedCountry {
     @MemberSupport
     public CountryInvolved prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getAttachedCountryCode(),
+                mixee, "attachedCountryCode", mixee.getAttachedCountryCode(),
                 // foreign
                 CountryInvolved.class, foreign->foreign.getCountryCode())
             .orElse(null);

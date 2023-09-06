@@ -45,9 +45,9 @@ public class RuleAppliedToFacet_subgroup {
     @MemberSupport
     public FoodSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getSubgroupCode(),
+                mixee, "subgroupCode", mixee.getSubgroupCode(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode())
             .orElse(null);

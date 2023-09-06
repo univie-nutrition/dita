@@ -45,9 +45,9 @@ public class GroupOrSubgroupThatCanBeSubstitutable_foodGroup {
     @MemberSupport
     public FoodGroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodGroupCode(),
+                mixee, "foodGroupCode", mixee.getFoodGroupCode(),
                 // foreign
                 FoodGroup.class, foreign->foreign.getFoodGroupCode())
             .orElse(null);

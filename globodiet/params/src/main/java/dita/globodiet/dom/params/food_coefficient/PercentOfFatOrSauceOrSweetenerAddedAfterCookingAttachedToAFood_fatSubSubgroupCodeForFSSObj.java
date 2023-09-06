@@ -45,9 +45,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood_fatS
     @MemberSupport
     public FoodSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFatSubSubgroupCodeForFSS(),
+                mixee, "fatSubSubgroupCodeForFSS", mixee.getFatSubSubgroupCodeForFSS(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubSubgroupCode())
             .orElse(null);

@@ -40,7 +40,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.food_descript.FacetDescriptor")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Descriptor for food facets (not recipe facets)"
+        describedAs = "Descriptor for food facets (not recipe facets)",
+        cssClassFa = "tag darkgreen"
 )
 @PersistenceCapable(
         table = "DESCFACE"
@@ -155,6 +156,6 @@ public class FacetDescriptor {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s|%s)", descriptorName, facetCode, descriptorCode);
     }
 }

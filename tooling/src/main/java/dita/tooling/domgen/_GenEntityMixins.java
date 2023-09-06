@@ -30,6 +30,7 @@ import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
@@ -104,70 +105,107 @@ class _GenEntityMixins {
         //TODO debug
         //System.err.printf("--resolve %s%n", foreignFields);
 
+        record Foreign(ClassName foreignEntity, String foreignKeyGetter) {
+        }
+
+        final Can<Foreign> foreigners = foreignFields.stream()
+                .map((OrmModel.Field foreignField)->{
+                    val foreignEntity = foreignField.parent();
+                    val foreignPackageName = config.fullPackageName(foreignEntity.namespace());
+                    val foreignEntityClass = ClassName.get(foreignPackageName, foreignEntity.name());
+                    return new Foreign(foreignEntityClass, foreignField.getter());
+                })
+                .collect(Can.toCan());
+
+        if(foreigners.getCardinality().isZero()) {
+            return Optional.empty();
+        }
+
         val foreignEntities = foreignFields.stream()
-            .map(OrmModel.Field::parent)
-            //.peek(x->System.err.printf("peek %s%n", x)) //TODO debug
-            .distinct()
-            .collect(Can.toCan());
-
-
-        if(foreignEntities.getCardinality().isZero()) {
-            return Optional.empty();
-        }
-        if(foreignEntities.getCardinality().isMultiple()) {
-            System.err.printf("WARNING: singleton entity check for foreign fields %s failed; skipping mixin generation%n",
-                    foreignFields.map(f->f.parent().name() + "::" + f.name()));
-            return Optional.empty();
-        }
-
-        val foreignEntity = foreignEntities.getSingletonOrFail();
-        val foreignPackageName = config.fullPackageName(foreignEntity.namespace());
-        val foreignEntityClass = ClassName.get(foreignPackageName, foreignEntity.name());
-
-        val foreignKeyGetters = foreignFields.stream()
-            .map(OrmModel.Field::getter)
-            .collect(Can.toCan());
+                .map(OrmModel.Field::parent)
+                .distinct()
+                .collect(Can.toCan());
 
         final MethodSpec.Builder builder = MethodSpec.methodBuilder("prop")
                 .addModifiers(modifiers)
                 .addAnnotation(_Annotations.memberSupport())
-                .returns(foreignEntityClass);
+                .returns(foreignEntities.isCardinalityOne()
+                        ? foreigners.getFirstElseFail().foreignEntity()
+                        : ClassName.OBJECT); // common super type
 
-
-        switch(foreignKeyGetters.size()) {
-        case 1: builder.addCode("""
+        switch(foreigners.size()) {
+        case 1: {
+            val foreigner = foreigners.getSingletonOrFail();
+            builder.addCode("""
                     return foreignKeyLookup
-                        .uniqueMatch(
+                        .unary(
                             // local
-                            mixee, mixee.$1L(),
+                            mixee, $1S, mixee.$2L(),
                             // foreign
-                            $2T.class, foreign->foreign.$3L())
+                            $3T.class, foreign->foreign.$4L())
                         .orElse(null);
-                    """, localKeyGetter, foreignEntityClass, foreignKeyGetters.getFirstElseFail());
+                    """, field.name(), localKeyGetter,
+                    foreigner.foreignEntity(), foreigner.foreignKeyGetter());
             break;
-        case 2: builder.addCode("""
-                    return foreignKeyLookup
-                        .uniqueMatch(
-                            // local
-                            mixee, mixee.$1L(),
-                            // foreign
-                            $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L())
-                        .orElse(null);
-                    """, localKeyGetter, foreignEntityClass, foreignKeyGetters.getElseFail(0), foreignKeyGetters.getElseFail(1));
+        }
+        case 2: {
+            val foreigner1 = foreigners.getElseFail(0);
+            val foreigner2 = foreigners.getElseFail(1);
+            if(foreignEntities.isCardinalityOne()) {
+                // SHARED FOREIGN ENTITY TYPE
+                builder.addCode("""
+                        return foreignKeyLookup
+                            .binary(
+                                // local
+                                mixee, mixee.$1L(),
+                                // foreign
+                                $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L())
+                            .orElse(null);
+                        """, localKeyGetter, foreigner1.foreignEntity(),
+                        foreigner1.foreignKeyGetter(), foreigner2.foreignKeyGetter());
+            } else {
+                // MUTLIPLE FOREIGN ENTITY TYPES
+                builder.addCode("""
+                        return foreignKeyLookup
+                            .binary(
+                                // local
+                                mixee, mixee.$1L(),
+                                // foreign
+                                $2T.class, foreign->foreign.$3L(),
+                                $4T.class, foreign->foreign.$5L())
+                            .map(either->either.isLeft()
+                                ? either.left()
+                                : either.right())
+                            .orElse(null);
+                        """, localKeyGetter,
+                        foreigner1.foreignEntity(), foreigner1.foreignKeyGetter(),
+                        foreigner2.foreignEntity(), foreigner2.foreignKeyGetter());
+            }
             break;
-        case 3: builder.addCode("""
+        }
+        case 3: {
+            _Assert.assertTrue(foreignEntities.isCardinalityOne(),
+                    ()->"not implemented for multiple referenced foreign entity types");
+            val foreigner1 = foreigners.getElseFail(0);
+            val foreigner2 = foreigners.getElseFail(1);
+            val foreigner3 = foreigners.getElseFail(2);
+            builder.addCode("""
                 return foreignKeyLookup
-                    .uniqueMatch(
+                    .ternary(
                         // local
                         mixee, mixee.$1L(),
                         // foreign
                         $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L(), foreign->foreign.$5L())
                     .orElse(null);
-                """, localKeyGetter, foreignEntityClass, foreignKeyGetters.getElseFail(0), foreignKeyGetters.getElseFail(1), foreignKeyGetters.getElseFail(2));
+                """, localKeyGetter, foreigner1.foreignEntity(),
+                foreigner1.foreignKeyGetter(),
+                foreigner2.foreignKeyGetter(),
+                foreigner3.foreignKeyGetter());
             break;
+        }
         default:
             System.err.printf("WARNING: %d foreign key count not supported in %s; skipping mixin generation%n",
-                    foreignKeyGetters.size(),
+                    foreigners.size(),
                     foreignFields.map(f->f.parent().name() + "::" + f.name()));
             return Optional.empty();
         };

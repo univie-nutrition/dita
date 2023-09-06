@@ -45,9 +45,9 @@ public class FoodStandardUnitsAndPortionsForFoods_foodIdNumberObj {
     @MemberSupport
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodIdNumber(),
+                mixee, "foodIdNumber", mixee.getFoodIdNumber(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
             .orElse(null);

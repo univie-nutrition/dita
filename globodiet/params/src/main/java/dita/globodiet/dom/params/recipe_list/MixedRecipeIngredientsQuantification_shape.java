@@ -45,9 +45,9 @@ public class MixedRecipeIngredientsQuantification_shape {
     @MemberSupport
     public Shape prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getShapeCode(),
+                mixee, "shapeCode", mixee.getShapeCode(),
                 // foreign
                 Shape.class, foreign->foreign.getShapeCode())
             .orElse(null);

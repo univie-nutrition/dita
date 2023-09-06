@@ -45,9 +45,9 @@ public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeSubgrou
     @MemberSupport
     public RecipeGroupOrSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeSubgroupCode(),
+                mixee, "recipeSubgroupCode", mixee.getRecipeSubgroupCode(),
                 // foreign
                 RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
             .orElse(null);

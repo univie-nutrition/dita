@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.classification.FoodGroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -32,24 +32,24 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "3.1",
-        describedAs = "Food subgroup code"
+        sequence = "2.1",
+        describedAs = "Food group code"
 )
 @RequiredArgsConstructor
-public class BrandName_foodSubgroupObj {
+public class BrandName_foodGroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final BrandName mixee;
 
     @MemberSupport
-    public FoodSubgroup prop() {
+    public FoodGroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodSubgroup(),
+                mixee, "foodGroupCode", mixee.getFoodGroupCode(),
                 // foreign
-                FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode())
+                FoodGroup.class, foreign->foreign.getFoodGroupCode())
             .orElse(null);
     }
 }

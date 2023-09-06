@@ -82,7 +82,7 @@ public class BrandName {
     )
     @Getter
     @Setter
-    private String foodGroup;
+    private String foodGroupCode;
 
     /**
      * Food subgroup code
@@ -99,7 +99,7 @@ public class BrandName {
     )
     @Getter
     @Setter
-    private String foodSubgroup;
+    private String foodSubgroupCode;
 
     /**
      * Food sub-subgroup code
@@ -116,7 +116,7 @@ public class BrandName {
     )
     @Getter
     @Setter
-    private String foodSubSubgroup;
+    private String foodSubSubgroupCode;
 
     @ObjectSupport
     public String title() {

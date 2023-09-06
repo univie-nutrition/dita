@@ -45,9 +45,9 @@ public class DietarySupplementList_sequenceOfFacetCodesThatIndicatesTheFacetsToB
     @MemberSupport
     public DietarySupplementFacet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getSequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement(),
+                mixee, "sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement", mixee.getSequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement(),
                 // foreign
                 DietarySupplementFacet.class, foreign->foreign.getFacetCodeForDietarySupplement())
             .orElse(null);

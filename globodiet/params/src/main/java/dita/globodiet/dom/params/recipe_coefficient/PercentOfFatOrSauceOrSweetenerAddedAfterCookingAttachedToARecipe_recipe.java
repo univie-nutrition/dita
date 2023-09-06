@@ -45,9 +45,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe_re
     @MemberSupport
     public MixedRecipeName prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeCode(),
+                mixee, "recipeCode", mixee.getRecipeCode(),
                 // foreign
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);

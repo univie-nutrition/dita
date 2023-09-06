@@ -44,9 +44,9 @@ public class DietarySupplementDescriptor_facet {
     @MemberSupport
     public DietarySupplementFacet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFacetCode(),
+                mixee, "facetCode", mixee.getFacetCode(),
                 // foreign
                 DietarySupplementFacet.class, foreign->foreign.getFacetCodeForDietarySupplement())
             .orElse(null);

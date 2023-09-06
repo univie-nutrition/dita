@@ -96,7 +96,7 @@ BrandName:
       foreignKeys:
       description: |
         Name of brand
-    foodGroup:
+    foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -105,7 +105,7 @@ BrandName:
         groups.group
       description: |
         Food group code
-    foodSubgroup:
+    foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -114,7 +114,7 @@ BrandName:
         subgroup.subgroup1
       description: |
         Food subgroup code
-    foodSubSubgroup:
+    foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -404,6 +404,8 @@ params.food_descript.FacetDescriptor:
   name: FacetDescriptor
   namespace: params.food_descript
   table: DESCFACE
+  title: String.format("%s (code=%s|%s)", descriptorName, facetCode, descriptorCode)
+  icon: tag darkgreen
   description: |
     Descriptor for food facets (not recipe facets)
   fields:
@@ -813,6 +815,8 @@ params.food_descript.Facet:
   name: Facet
   namespace: params.food_descript
   table: FACETS
+  title: String.format("%s (code=%s)", facetName, facetCode)
+  icon: tags olive
   description: |
     Facet describing food (not recipe)
   fields:
@@ -1182,7 +1186,7 @@ FoodGroup:
   namespace: params.classification
   table: GROUPS
   title: String.format("%s (code=%s)", foodGroupName, foodGroupCode)
-  icon: solid layer-group darkgreen
+  icon: solid layer-group olive
   description: |
     Food group
   fields:
@@ -3694,7 +3698,7 @@ FoodSubgroup:
      dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
-  icon: solid layer-group olive
+  icon: solid layer-group darkgreen
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:

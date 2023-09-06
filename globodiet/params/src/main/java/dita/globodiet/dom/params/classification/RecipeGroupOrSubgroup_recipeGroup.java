@@ -44,9 +44,9 @@ public class RecipeGroupOrSubgroup_recipeGroup {
     @MemberSupport
     public RecipeGroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeGroupCode(),
+                mixee, "recipeGroupCode", mixee.getRecipeGroupCode(),
                 // foreign
                 RecipeGroup.class, foreign->foreign.getRecipeGroupCode())
             .orElse(null);

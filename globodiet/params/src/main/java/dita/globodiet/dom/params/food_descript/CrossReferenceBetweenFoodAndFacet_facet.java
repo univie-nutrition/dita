@@ -44,9 +44,9 @@ public class CrossReferenceBetweenFoodAndFacet_facet {
     @MemberSupport
     public Facet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFacetCode(),
+                mixee, "facetCode", mixee.getFacetCode(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

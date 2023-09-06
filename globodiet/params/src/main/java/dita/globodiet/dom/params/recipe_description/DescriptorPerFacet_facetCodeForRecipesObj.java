@@ -45,9 +45,9 @@ public class DescriptorPerFacet_facetCodeForRecipesObj {
     @MemberSupport
     public Facet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFacetCodeForRecipes(),
+                mixee, "facetCodeForRecipes", mixee.getFacetCodeForRecipes(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

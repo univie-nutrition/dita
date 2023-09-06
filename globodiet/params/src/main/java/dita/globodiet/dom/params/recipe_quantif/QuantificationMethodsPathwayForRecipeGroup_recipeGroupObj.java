@@ -45,9 +45,9 @@ public class QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj {
     @MemberSupport
     public RecipeGroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeGroup(),
+                mixee, "recipeGroup", mixee.getRecipeGroup(),
                 // foreign
                 RecipeGroup.class, foreign->foreign.getRecipeGroupCode())
             .orElse(null);

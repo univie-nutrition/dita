@@ -21,16 +21,18 @@ package dita.commons.services.foreignkey;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.apache.causeway.commons.functional.Either;
+
 public interface ForeignKeyLookupService {
 
-    <L, F> Optional<F> uniqueMatch(
+    <L, F> Optional<F> unary(
             // local
-            L localEntity, Object localField,
+            L localEntity, String localFieldName, Object localField,
             // foreign
             Class<F> foreignType,
             Function<F, Object> foreignFieldGetter);
 
-    <L, F> Optional<F> uniqueMatch(
+    <L, F> Optional<F> binary(
             // local
             L localEntity, Object localField,
             // foreign
@@ -38,7 +40,15 @@ public interface ForeignKeyLookupService {
             Function<F, Object> foreignFieldGetter1,
             Function<F, Object> foreignFieldGetter2);
 
-    <L, F> Optional<F> uniqueMatch(
+    <L, F1, F2> Optional<Either<F1, F2>> binary(
+            // local
+            L localEntity, Object localField,
+            // foreign 1
+            Class<F1> foreignType1, Function<F1, Object> foreignFieldGetter1,
+            // foreign 2
+            Class<F2> foreignType2, Function<F2, Object> foreignFieldGetter2);
+
+    <L, F> Optional<F> ternary(
             // local
             L localEntity, Object localField,
             // foreign

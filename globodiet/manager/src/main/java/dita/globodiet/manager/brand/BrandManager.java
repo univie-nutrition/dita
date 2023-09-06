@@ -79,9 +79,9 @@ implements HasCurrentlyCheckedOutVersion {
         val brandName = repo.detachedEntity(new BrandName());
 
         brandName.setNameOfBrand(nameOfBrand);
-        brandName.setFoodGroup(foodGroup);
-        brandName.setFoodSubgroup(foodSubgroup);
-        brandName.setFoodSubSubgroup(foodSubSubgroup);
+        brandName.setFoodGroupCode(foodGroup);
+        brandName.setFoodSubgroupCode(foodSubgroup);
+        brandName.setFoodSubSubgroupCode(foodSubSubgroup);
 
         repo.persist(brandName);
         return this;

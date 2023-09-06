@@ -45,9 +45,9 @@ public class ProbingQuestionsPathwaysForFood_foodSubSubgroup {
     @MemberSupport
     public FoodSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodSubSubgroupCode(),
+                mixee, "foodSubSubgroupCode", mixee.getFoodSubSubgroupCode(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubSubgroupCode())
             .orElse(null);

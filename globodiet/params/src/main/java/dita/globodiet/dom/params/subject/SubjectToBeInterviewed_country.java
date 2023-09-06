@@ -45,9 +45,9 @@ public class SubjectToBeInterviewed_country {
     @MemberSupport
     public CountryInvolved prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getCountryCode(),
+                mixee, "countryCode", mixee.getCountryCode(),
                 // foreign
                 CountryInvolved.class, foreign->foreign.getCountryCode())
             .orElse(null);

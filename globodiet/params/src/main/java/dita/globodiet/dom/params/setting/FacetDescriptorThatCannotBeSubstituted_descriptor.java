@@ -45,9 +45,9 @@ public class FacetDescriptorThatCannotBeSubstituted_descriptor {
     @MemberSupport
     public FacetDescriptor prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getDescriptorCode(),
+                mixee, "descriptorCode", mixee.getDescriptorCode(),
                 // foreign
                 FacetDescriptor.class, foreign->foreign.getDescriptorCode())
             .orElse(null);

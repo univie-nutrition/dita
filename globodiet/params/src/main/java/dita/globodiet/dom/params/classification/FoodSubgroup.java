@@ -40,7 +40,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
-        cssClassFa = "solid layer-group olive"
+        cssClassFa = "solid layer-group darkgreen"
 )
 @PersistenceCapable(
         table = "SUBGROUP"

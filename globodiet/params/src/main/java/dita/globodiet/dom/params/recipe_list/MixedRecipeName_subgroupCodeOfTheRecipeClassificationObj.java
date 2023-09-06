@@ -45,9 +45,9 @@ public class MixedRecipeName_subgroupCodeOfTheRecipeClassificationObj {
     @MemberSupport
     public RecipeGroupOrSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getSubgroupCodeOfTheRecipeClassification(),
+                mixee, "subgroupCodeOfTheRecipeClassification", mixee.getSubgroupCodeOfTheRecipeClassification(),
                 // foreign
                 RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
             .orElse(null);

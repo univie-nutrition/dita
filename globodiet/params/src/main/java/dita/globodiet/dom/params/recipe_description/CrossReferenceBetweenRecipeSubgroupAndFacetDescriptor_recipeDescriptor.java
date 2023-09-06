@@ -44,9 +44,9 @@ public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeDescrip
     @MemberSupport
     public DescriptorPerFacet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getRecipeDescriptorCode(),
+                mixee, "recipeDescriptorCode", mixee.getRecipeDescriptorCode(),
                 // foreign
                 DescriptorPerFacet.class, foreign->foreign.getDescriptorCodeForRecipes())
             .orElse(null);

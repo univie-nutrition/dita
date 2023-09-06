@@ -44,9 +44,9 @@ public class ImprobableSequencesOfFacetsAndDescriptors_facet {
     @MemberSupport
     public FacetDescriptor prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFacetCode(),
+                mixee, "facetCode", mixee.getFacetCode(),
                 // foreign
                 FacetDescriptor.class, foreign->foreign.getFacetCode())
             .orElse(null);

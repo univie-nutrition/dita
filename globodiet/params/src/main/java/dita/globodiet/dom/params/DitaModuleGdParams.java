@@ -103,9 +103,9 @@ import org.springframework.context.annotation.Import;
         dita.globodiet.dom.params.quantif.ThicknessForShapeMethod.class,
 
         // Mixins
-        dita.globodiet.dom.params.food_descript.BrandName_foodGroupObj.class,
-        dita.globodiet.dom.params.food_descript.BrandName_foodSubgroupObj.class,
-        dita.globodiet.dom.params.food_descript.BrandName_foodSubSubgroupObj.class,
+        dita.globodiet.dom.params.food_descript.BrandName_foodGroup.class,
+        dita.globodiet.dom.params.food_descript.BrandName_foodSubgroup.class,
+        dita.globodiet.dom.params.food_descript.BrandName_foodSubSubgroup.class,
         dita.globodiet.dom.params.general_info.CenterInvolved_attachedCountry.class,
         dita.globodiet.dom.params.food_list.ComposedRecipeIngredient_foodIdentificationNumberObj.class,
         dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_foodIdentificationNumberObj.class,
@@ -234,8 +234,8 @@ import org.springframework.context.annotation.Import;
         dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable_foodSubSubgroup.class,
         dita.globodiet.dom.params.supplement_list.DietarySupplementList_dietarySupplementClassification.class,
         dita.globodiet.dom.params.supplement_list.DietarySupplementList_sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplementObj.class,
-        dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_forTheFoodItemsTheFoodSubgroupsForWhichThisThicknessHasToBeProposedObj.class,
-        dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_forTheRecipeItemsTheRecipeSubgroupsForWhichThisThicknessHasToBeProposedObj.class,
+        dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups.class,
+        dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_recipeSubgroups.class,
 
         })
 public class DitaModuleGdParams {

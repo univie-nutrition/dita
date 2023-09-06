@@ -45,9 +45,9 @@ public class MaximumValueForAFoodOrASubSubgroup_foodSubgroup {
     @MemberSupport
     public FoodSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFoodSubgroupCode(),
+                mixee, "foodSubgroupCode", mixee.getFoodSubgroupCode(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode())
             .orElse(null);

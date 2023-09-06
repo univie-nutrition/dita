@@ -45,7 +45,7 @@ public class QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescript
     @MemberSupport
     public FacetDescriptor prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .binary(
                 // local
                 mixee, mixee.getPhysicalStateFacetDescriptorLookupKey(),
                 // foreign

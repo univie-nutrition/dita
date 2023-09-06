@@ -45,9 +45,9 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_facetCodesThatMUSTA
     @MemberSupport
     public Facet prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood(),
+                mixee, "facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood", mixee.getFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

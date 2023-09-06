@@ -21,8 +21,12 @@
 package dita.globodiet.dom.params.recipe_quantif;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
+import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.Shape;
 import jakarta.inject.Inject;
+import java.lang.Object;
 import lombok.RequiredArgsConstructor;
+import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
@@ -40,4 +44,19 @@ public class QuantificationMethodPathwayForRecipes_photo {
     ForeignKeyLookupService foreignKeyLookup;
 
     private final QuantificationMethodPathwayForRecipes mixee;
+
+    @MemberSupport
+    public Object prop() {
+        return foreignKeyLookup
+            .binary(
+                // local
+                mixee, mixee.getPhotoCode(),
+                // foreign
+                PhotoForQuantity.class, foreign->foreign.getCode(),
+                Shape.class, foreign->foreign.getShapeCode())
+            .map(either->either.isLeft()
+                ? either.left()
+                : either.right())
+            .orElse(null);
+    }
 }

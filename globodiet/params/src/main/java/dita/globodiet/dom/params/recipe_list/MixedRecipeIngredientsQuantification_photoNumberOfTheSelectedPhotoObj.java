@@ -45,9 +45,9 @@ public class MixedRecipeIngredientsQuantification_photoNumberOfTheSelectedPhotoO
     @MemberSupport
     public PhotoForQuantity prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .unary(
                 // local
-                mixee, mixee.getPhotoNumberOfTheSelectedPhoto(),
+                mixee, "photoNumberOfTheSelectedPhoto", mixee.getPhotoNumberOfTheSelectedPhoto(),
                 // foreign
                 PhotoForQuantity.class, foreign->foreign.getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos())
             .orElse(null);

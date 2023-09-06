@@ -40,7 +40,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
                         + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
 )
 @RequiredArgsConstructor
-public class ThicknessForShapeMethod_forTheFoodItemsTheFoodSubgroupsForWhichThisThicknessHasToBeProposedObj {
+public class ThicknessForShapeMethod_foodSubgroups {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -49,9 +49,9 @@ public class ThicknessForShapeMethod_forTheFoodItemsTheFoodSubgroupsForWhichThis
     @MemberSupport
     public FoodSubgroup prop() {
         return foreignKeyLookup
-            .uniqueMatch(
+            .ternary(
                 // local
-                mixee, mixee.getForTheFoodItemsTheFoodSubgroupsForWhichThisThicknessHasToBeProposed(),
+                mixee, mixee.getFoodSubgroupsLookupKey(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodGroupCode(), foreign->foreign.getFoodSubgroupCode(), foreign->foreign.getFoodSubSubgroupCode())
             .orElse(null);
