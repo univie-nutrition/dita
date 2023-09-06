@@ -55,7 +55,12 @@ implements ForeignKeyLookupService {
 
         if(localField == null) return Optional.empty();
 
-        if(FoodSubgroup.class.equals(foreignType)) {
+        if(FoodOrProductOrAlias.class.equals(foreignType)) {
+            // do not lookup SH entries (aliases)
+            return repositoryService.uniqueMatch(foreignType, foreign->
+                Objects.equals(localField, foreignFieldGetter.apply(foreign))
+                    && !Objects.equals("SH", ((FoodOrProductOrAlias)foreign).getTypeOfItem()));
+        } else if(FoodSubgroup.class.equals(foreignType)) {
             // discrimination by 3 fields, where first 2 are always populated
             val isLookingForSubSubgroup = localFieldName.toLowerCase().contains("subsub");
             if(localEntity instanceof BrandName) {
@@ -112,13 +117,9 @@ implements ForeignKeyLookupService {
                         (String)foreignFieldGetter1.apply(foreign),
                         (String)foreignFieldGetter2.apply(foreign)));
             case MULTIPLE ->
-            // FIXME[DITA-110] need a way to perhaps display multiple links in tables
-            repositoryService.uniqueMatch(foreignType, foreign->
-                keys.getFirstElseFail().equalsPair(
-                        (String)foreignFieldGetter1.apply(foreign),
-                        (String)foreignFieldGetter2.apply(foreign)));
+                // FIXME[DITA-110] need a way to perhaps display multiple links in tables
+                Optional.empty();
             };
-
         }
 
         throw _Exceptions.unrecoverable("2-ary foreign key lookup not implemented for foreign type %s",
@@ -130,8 +131,29 @@ implements ForeignKeyLookupService {
             final Class<F1> foreignType1, final Function<F1, Object> foreignFieldGetter1,
             final Class<F2> foreignType2, final Function<F2, Object> foreignFieldGetter2) {
 
-        // FIXME[DITA-110] return either F1 or F2 wrapped
-        return Optional.empty();
+        final Optional<F1> left = unary(localEntity, "", localField, foreignType1, foreignFieldGetter1);
+        final Optional<F2> right = left.isPresent()
+                ? Optional.empty()
+                : unary(localEntity, "", localField, foreignType2, foreignFieldGetter2);
+        final Either<F1, F2> either = left.isPresent()
+                ? Either.left(left.get())
+                : right.isPresent()
+                        ? Either.right(right.get())
+                        : null;
+
+        return Optional.ofNullable(either);
+
+        //FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
+        //MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
+
+        //PhotoForQuantity.class, foreign->foreign.getCode(),
+        //Shape.class, foreign->foreign.getShapeCode())
+
+        //FoodGroup.class, foreign->foreign.getFoodGroupCode(),
+        //RecipeGroup.class, foreign->foreign.getRecipeGroupCode())
+
+        //FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode(),
+        //RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
     }
 
     @Override

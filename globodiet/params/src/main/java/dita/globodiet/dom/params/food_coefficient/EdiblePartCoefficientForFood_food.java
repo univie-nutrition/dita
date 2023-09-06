@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         describedAs = "Food identification number (FOODNUM)"
 )
 @RequiredArgsConstructor
-public class EdiblePartCoefficientForFood_foodIdentificationNumberObj {
+public class EdiblePartCoefficientForFood_food {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -47,7 +47,7 @@ public class EdiblePartCoefficientForFood_foodIdentificationNumberObj {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "foodIdentificationNumber", mixee.getFoodIdentificationNumber(),
+                mixee, "foodCode", mixee.getFoodCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
             .orElse(null);

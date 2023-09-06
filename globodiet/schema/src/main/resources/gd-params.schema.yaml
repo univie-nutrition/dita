@@ -127,6 +127,8 @@ BrandName:
 CenterInvolved:
   namespace: params.general_info
   table: CENTERS
+  title: String.format("%s", centerName)
+  icon: building
   description: |
     Center involved
   fields:
@@ -210,7 +212,7 @@ ComposedRecipeIngredient:
   description: |
     Composed Recipe Ingredient
   fields:
-    recipeIdentificationNumber:
+    recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -218,7 +220,7 @@ ComposedRecipeIngredient:
       foreignKeys:
       description: |
         Recipe identification number (FOODNUM in the FOODS.DBF file)
-    foodIdentificationNumber:
+    foodCode:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
@@ -268,7 +270,7 @@ DensityFactorForFood:
   description: |
     Density factor for food
   fields:
-    foodIdentificationNumber:
+    foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -298,7 +300,7 @@ DensityFactorForFood:
       description: |
         Facet string
         multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    priorityOrder:
+    priority:
       column: PRIORITY
       column-type: nvarchar(2)
       required: false
@@ -322,7 +324,8 @@ DensityFactorForFood:
       unique: false
       foreignKeys:
       description: |
-        1 = raw, 2 = cooked (as estimated) 
+        1 = raw, 
+        2 = cooked (as estimated) 
     densityForFoodOrRecipe:
       column: D_TYPE
       column-type: tinyint(3)
@@ -339,7 +342,7 @@ ImprobableSequencesOfFacetsAndDescriptors:
   description: |
     Improbable sequence of facets/descriptors
   fields:
-    foodIdentificationNumber:
+    foodCode:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
@@ -673,7 +676,7 @@ EdiblePartCoefficientForFood:
   description: |
     Edible part coefficients for foods
   fields:
-    foodIdentificationNumber:
+    foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -700,7 +703,7 @@ EdiblePartCoefficientForFood:
         descface.descr_code
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    priorityOrder:
+    priority:
       column: PRIORITY
       column-type: nvarchar(2)
       required: false
@@ -1336,7 +1339,7 @@ FoodOrRecipeOrAttachment:
       foreignKeys:
       description: |
         Brand name
-    priorityOrder:
+    priority:
       column: PRIORITY
       column-type: int(10)
       required: false
@@ -1581,7 +1584,7 @@ FoodStandardUnitsAndPortionsForFoodsAndRecipes:
       foreignKeys:
       description: |
         Standard unit quantity
-    foodOrRecipeIdentificationNumber:
+    foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -1749,7 +1752,7 @@ MaximumValueForAFoodOrASubSubgroup:
         descface.descr_code
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    priorityOrder:
+    priority:
       column: PRIORITY
       column-type: nvarchar(2)
       required: false
@@ -3163,7 +3166,7 @@ RawToCookedConversionFactorsForFoods:
         descface.descr_code
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    priorityOrder:
+    priority:
       column: PRIORITY
       column-type: nvarchar(3)
       required: false

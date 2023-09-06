@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.general_info.CenterInvolved")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Center involved"
+        describedAs = "Center involved",
+        cssClassFa = "building"
 )
 @PersistenceCapable(
         table = "CENTERS"
@@ -102,6 +103,6 @@ public class CenterInvolved {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s", centerName);
     }
 }

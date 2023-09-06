@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
                         + "either Foods.foodnum OR Mixedrec.r_idnum"
 )
 @RequiredArgsConstructor
-public class ComposedRecipeIngredient_foodIdentificationNumberObj {
+public class ComposedRecipeIngredient_food {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -49,13 +49,13 @@ public class ComposedRecipeIngredient_foodIdentificationNumberObj {
         return foreignKeyLookup
             .binary(
                 // local
-                mixee, mixee.getFoodIdentificationNumber(),
+                mixee, mixee.getFoodCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .map(either->either.isLeft()
-                ? either.left()
-                : either.right())
+                ? either.leftIfAny()
+                : either.rightIfAny())
             .orElse(null);
     }
 }

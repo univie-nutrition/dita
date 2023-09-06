@@ -54,8 +54,8 @@ public class MixedRecipeIngredient_foodOrRecipeGroupObj {
                 FoodGroup.class, foreign->foreign.getFoodGroupCode(),
                 RecipeGroup.class, foreign->foreign.getRecipeGroupCode())
             .map(either->either.isLeft()
-                ? either.left()
-                : either.right())
+                ? either.leftIfAny()
+                : either.rightIfAny())
             .orElse(null);
     }
 }

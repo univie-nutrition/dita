@@ -199,7 +199,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private Integer priorityOrder;
+    private Integer priority;
 
     /**
      * Attached records: only for the Type=A2 & A3

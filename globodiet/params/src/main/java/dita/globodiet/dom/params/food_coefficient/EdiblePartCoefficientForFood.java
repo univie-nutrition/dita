@@ -65,7 +65,7 @@ public class EdiblePartCoefficientForFood {
     )
     @Getter
     @Setter
-    private String foodIdentificationNumber;
+    private String foodCode;
 
     /**
      * Edible part coefficient
@@ -115,7 +115,7 @@ public class EdiblePartCoefficientForFood {
     )
     @Getter
     @Setter
-    private String priorityOrder;
+    private String priority;
 
     @ObjectSupport
     public String title() {

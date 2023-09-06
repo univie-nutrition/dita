@@ -174,8 +174,8 @@ class _GenEntityMixins {
                                 $2T.class, foreign->foreign.$3L(),
                                 $4T.class, foreign->foreign.$5L())
                             .map(either->either.isLeft()
-                                ? either.left()
-                                : either.right())
+                                ? either.leftIfAny()
+                                : either.rightIfAny())
                             .orElse(null);
                         """, localKeyGetter,
                         foreigner1.foreignEntity(), foreigner1.foreignKeyGetter(),

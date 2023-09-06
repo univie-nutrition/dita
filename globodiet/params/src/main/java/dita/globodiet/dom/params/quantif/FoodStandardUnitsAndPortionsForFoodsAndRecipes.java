@@ -81,7 +81,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes {
     )
     @Getter
     @Setter
-    private String foodOrRecipeIdentificationNumber;
+    private String foodOrRecipeCode;
 
     /**
      * 1 = raw, 2 = cooked (as estimated)

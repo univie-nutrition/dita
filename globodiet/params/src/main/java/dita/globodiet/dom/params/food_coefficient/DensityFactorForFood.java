@@ -68,7 +68,7 @@ public class DensityFactorForFood {
     )
     @Getter
     @Setter
-    private String foodIdentificationNumber;
+    private String foodOrRecipeCode;
 
     /**
      * Density coefficient
@@ -120,7 +120,7 @@ public class DensityFactorForFood {
     )
     @Getter
     @Setter
-    private String priorityOrder;
+    private String priority;
 
     /**
      * 1 = without un-edible part,<br>
@@ -142,12 +142,14 @@ public class DensityFactorForFood {
     private String withUnediblePartQ;
 
     /**
-     * 1 = raw, 2 = cooked (as estimated)
+     * 1 = raw,<br>
+     * 2 = cooked (as estimated)
      */
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "1 = raw, 2 = cooked (as estimated)"
+            describedAs = "1 = raw,\n"
+                            + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAWCOOK",

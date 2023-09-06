@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum"
 )
 @RequiredArgsConstructor
-public class FoodStandardUnitsAndPortionsForFoodsAndRecipes_foodOrRecipeIdentificationNumberObj {
+public class FoodStandardUnitsAndPortionsForFoodsAndRecipes_foodOrRecipe {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -49,13 +49,13 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes_foodOrRecipeIdentifi
         return foreignKeyLookup
             .binary(
                 // local
-                mixee, mixee.getFoodOrRecipeIdentificationNumber(),
+                mixee, mixee.getFoodOrRecipeCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .map(either->either.isLeft()
-                ? either.left()
-                : either.right())
+                ? either.leftIfAny()
+                : either.rightIfAny())
             .orElse(null);
     }
 }

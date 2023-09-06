@@ -53,8 +53,8 @@ public class MixedRecipeIngredient_foodOrRecipeIdNumberObj {
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
                 MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
             .map(either->either.isLeft()
-                ? either.left()
-                : either.right())
+                ? either.leftIfAny()
+                : either.rightIfAny())
             .orElse(null);
     }
 }

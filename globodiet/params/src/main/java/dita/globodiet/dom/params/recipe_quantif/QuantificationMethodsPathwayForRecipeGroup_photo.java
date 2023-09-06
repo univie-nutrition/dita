@@ -55,8 +55,8 @@ public class QuantificationMethodsPathwayForRecipeGroup_photo {
                 PhotoForQuantity.class, foreign->foreign.getCode(),
                 Shape.class, foreign->foreign.getShapeCode())
             .map(either->either.isLeft()
-                ? either.left()
-                : either.right())
+                ? either.leftIfAny()
+                : either.rightIfAny())
             .orElse(null);
     }
 }

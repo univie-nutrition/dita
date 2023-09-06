@@ -115,7 +115,7 @@ public class RawToCookedConversionFactorsForFoods {
     )
     @Getter
     @Setter
-    private String priorityOrder;
+    private String priority;
 
     @ObjectSupport
     public String title() {

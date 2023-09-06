@@ -64,7 +64,7 @@ public class ImprobableSequencesOfFacetsAndDescriptors {
     )
     @Getter
     @Setter
-    private String foodIdentificationNumber;
+    private String foodCode;
 
     /**
      * Food group code

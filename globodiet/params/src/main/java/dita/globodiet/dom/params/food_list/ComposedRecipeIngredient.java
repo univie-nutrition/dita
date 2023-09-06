@@ -64,7 +64,7 @@ public class ComposedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String recipeIdentificationNumber;
+    private String recipeCode;
 
     /**
      * Food (ingredient) Identification Code<br>
@@ -83,7 +83,7 @@ public class ComposedRecipeIngredient {
     )
     @Getter
     @Setter
-    private String foodIdentificationNumber;
+    private String foodCode;
 
     /**
      * If type=1 ingredient from Food list,<br>
