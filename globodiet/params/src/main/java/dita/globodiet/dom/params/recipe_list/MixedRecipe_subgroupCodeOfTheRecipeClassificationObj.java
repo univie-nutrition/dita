@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -36,20 +36,20 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         describedAs = "Subgroup code of the recipe classification"
 )
 @RequiredArgsConstructor
-public class MixedRecipeName_subgroupCodeOfTheRecipeClassificationObj {
+public class MixedRecipe_subgroupCodeOfTheRecipeClassificationObj {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final MixedRecipeName mixee;
+    private final MixedRecipe mixee;
 
     @MemberSupport
-    public RecipeGroupOrSubgroup prop() {
+    public RecipeSubgroup prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, "subgroupCodeOfTheRecipeClassification", mixee.getSubgroupCodeOfTheRecipeClassification(),
                 // foreign
-                RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
+                RecipeSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
             .orElse(null);
     }
 }

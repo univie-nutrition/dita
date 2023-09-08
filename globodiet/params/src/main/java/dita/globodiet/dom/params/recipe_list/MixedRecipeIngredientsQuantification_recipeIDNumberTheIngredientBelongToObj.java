@@ -42,13 +42,13 @@ public class MixedRecipeIngredientsQuantification_recipeIDNumberTheIngredientBel
     private final MixedRecipeIngredientsQuantification mixee;
 
     @MemberSupport
-    public MixedRecipeName prop() {
+    public MixedRecipe prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, "recipeIDNumberTheIngredientBelongTo", mixee.getRecipeIDNumberTheIngredientBelongTo(),
                 // foreign
-                MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
+                MixedRecipe.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);
     }
 }

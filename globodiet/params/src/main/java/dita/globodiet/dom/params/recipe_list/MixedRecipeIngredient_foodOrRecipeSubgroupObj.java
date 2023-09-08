@@ -22,7 +22,7 @@ package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class MixedRecipeIngredient_foodOrRecipeSubgroupObj {
                 mixee, mixee.getFoodOrRecipeSubgroup(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode(),
-                RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
+                RecipeSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
             .map(either->either.isLeft()
                 ? either.leftIfAny()
                 : either.rightIfAny())

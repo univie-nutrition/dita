@@ -2215,7 +2215,7 @@ MixedRecipeIngredientsQuantification:
       description: |
         Sequential Number for Ingredients within a Sub-Recipe
         
-MixedRecipeName:
+MixedRecipe:
   namespace: params.recipe_list
   table: MIXEDREC
   description: |
@@ -3315,11 +3315,11 @@ ProbingQuestionPathwayForRecipes:
       description: |
         Recipe identification number (R_ IDNUM)
         
-RecipeGroupOrSubgroup:
+RecipeSubgroup:
   namespace: params.classification
   table: RSUBGR
   description: |
-    Recipe group or subgroup
+    Recipe subgroup
   fields:
     recipeGroupCode:
       column: GROUP

@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.recipe_probing;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeName;
+import dita.globodiet.dom.params.recipe_list.MixedRecipe;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -43,13 +43,13 @@ public class ProbingQuestionPathwayForRecipes_recipeIdNumberObj {
     private final ProbingQuestionPathwayForRecipes mixee;
 
     @MemberSupport
-    public MixedRecipeName prop() {
+    public MixedRecipe prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, "recipeIdNumber", mixee.getRecipeIdNumber(),
                 // foreign
-                MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
+                MixedRecipe.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);
     }
 }

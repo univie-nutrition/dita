@@ -22,7 +22,7 @@ package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeName;
+import dita.globodiet.dom.params.recipe_list.MixedRecipe;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class FoodStandardUnitsAndPortionsForFoodsAndRecipes_foodOrRecipe {
                 mixee, mixee.getFoodOrRecipeCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
-                MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
+                MixedRecipe.class, foreign->foreign.getRecipeIDNumber())
             .map(either->either.isLeft()
                 ? either.leftIfAny()
                 : either.rightIfAny())

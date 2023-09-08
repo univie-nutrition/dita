@@ -36,7 +36,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.commons.types.BiString;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_descript.BrandName;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
@@ -107,7 +107,7 @@ implements ForeignKeyLookupService {
                         (String)foreignFieldGetter1.apply(foreign),
                         (String)foreignFieldGetter2.apply(foreign)));
 
-        } else if(RecipeGroupOrSubgroup.class.equals(foreignType)) {
+        } else if(RecipeSubgroup.class.equals(foreignType)) {
             val keys = decodeGroupListLookupKey((String) localField);
 
             return switch(keys.getCardinality()) {

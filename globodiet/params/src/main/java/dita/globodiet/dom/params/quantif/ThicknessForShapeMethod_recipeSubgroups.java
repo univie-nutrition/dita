@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -46,13 +46,13 @@ public class ThicknessForShapeMethod_recipeSubgroups {
     private final ThicknessForShapeMethod mixee;
 
     @MemberSupport
-    public RecipeGroupOrSubgroup prop() {
+    public RecipeSubgroup prop() {
         return foreignKeyLookup
             .binary(
                 // local
                 mixee, mixee.getRecipeSubgroupsLookupKey(),
                 // foreign
-                RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeGroupCode(), foreign->foreign.getRecipeSubgroupCode())
+                RecipeSubgroup.class, foreign->foreign.getRecipeGroupCode(), foreign->foreign.getRecipeSubgroupCode())
             .orElse(null);
     }
 }

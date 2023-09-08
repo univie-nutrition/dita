@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.recipe_coefficient;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeName;
+import dita.globodiet.dom.params.recipe_list.MixedRecipe;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -43,13 +43,13 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe_re
     private final PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe mixee;
 
     @MemberSupport
-    public MixedRecipeName prop() {
+    public MixedRecipe prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, "recipeCode", mixee.getRecipeCode(),
                 // foreign
-                MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
+                MixedRecipe.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);
     }
 }

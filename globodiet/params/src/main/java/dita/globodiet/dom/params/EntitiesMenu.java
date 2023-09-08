@@ -23,7 +23,7 @@ package dita.globodiet.dom.params;
 import dita.globodiet.dom.params.classification.FoodGroup;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeGroup;
-import dita.globodiet.dom.params.classification.RecipeGroupOrSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
@@ -71,9 +71,9 @@ import dita.globodiet.dom.params.recipe_description.DescriptorPerFacet;
 import dita.globodiet.dom.params.recipe_description.ExceptionsForSomeRecipesToTheFacetsPathway;
 import dita.globodiet.dom.params.recipe_description.FacetForRecipe;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
+import dita.globodiet.dom.params.recipe_list.MixedRecipe;
 import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredientsQuantification;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeName;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipes;
@@ -288,8 +288,8 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<MixedRecipeName> listAllMixedRecipeName() {
-        return repositoryService.allInstances(MixedRecipeName.class);
+    public List<MixedRecipe> listAllMixedRecipe() {
+        return repositoryService.allInstances(MixedRecipe.class);
     }
 
     @Action
@@ -415,8 +415,8 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<RecipeGroupOrSubgroup> listAllRecipeGroupOrSubgroup() {
-        return repositoryService.allInstances(RecipeGroupOrSubgroup.class);
+    public List<RecipeSubgroup> listAllRecipeSubgroup() {
+        return repositoryService.allInstances(RecipeSubgroup.class);
     }
 
     @Action

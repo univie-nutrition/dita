@@ -34,12 +34,12 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
 /**
- * Recipe group or subgroup
+ * Recipe subgroup
  */
-@Named("dita.globodiet.params.classification.RecipeGroupOrSubgroup")
+@Named("dita.globodiet.params.classification.RecipeSubgroup")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Recipe group or subgroup"
+        describedAs = "Recipe subgroup"
 )
 @PersistenceCapable(
         table = "RSUBGR"
@@ -48,7 +48,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class RecipeGroupOrSubgroup {
+public class RecipeSubgroup {
     /**
      * Recipe group code
      */
