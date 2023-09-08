@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
@@ -29,6 +30,8 @@ import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
 import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
+import org.apache.causeway.extensions.docgen.help.applib.HelpNode.HelpTopic;
+import org.apache.causeway.extensions.docgen.help.topics.domainobjects.CausewayEntityDiagramPage;
 import org.apache.causeway.extensions.secman.encryption.spring.CausewayModuleExtSecmanEncryptionSpring;
 import org.apache.causeway.extensions.secman.integration.CausewayModuleExtSecmanIntegration;
 import org.apache.causeway.extensions.secman.integration.authenticator.AuthenticatorSecmanAutoConfiguration;
@@ -48,6 +51,7 @@ import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyC
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
+import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -82,7 +86,11 @@ import lombok.val;
     CausewayModuleValAsciidocUiWkt.class,
     CausewayModuleExtExcelDownloadWicketUi.class, // allows for collection download as excel
 
-    // Docs
+    // Help Pages
+    DitaEntityDiagramPage.class,
+    CausewayEntityDiagramPage.class,
+    // Help Modules
+    DitaModuleGdManager.Help.class, // to register before the DocGen module
     CausewayModuleExtDocgenHelp.class,
 
     // Homepage
@@ -121,6 +129,33 @@ public class DitaModuleGdManager {
     @Bean @Qualifier("table2entity")
     public TabularData.NameTransformer table2entity(final OrmModel.Schema gdParamsSchema) {
         return new TableToEntityTransformerFromSchema("dita.globodiet", gdParamsSchema);
+    }
+
+    @Configuration
+    public static class Help {
+
+        /**
+         * The help index (tree), overriding the default.
+         */
+        @Bean(NAMESPACE + ".RootHelpTopic")
+        @Primary
+        public HelpTopic rootHelpTopicForDita(
+                final CausewayEntityDiagramPage causewayEntityDiagramPage,
+                final DitaEntityDiagramPage ditaEntityDiagramPage) {
+
+            val root = HelpTopic.root("Topics");
+
+            //root.addPage(welcomeHelpPage);
+
+            root.subTopic("Causeway")
+                .addPage(causewayEntityDiagramPage);
+
+            root.subTopic("Dita")
+                .addPage(ditaEntityDiagramPage);
+
+            return root;
+        }
+
     }
 
 }

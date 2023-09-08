@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.food;
+package dita.globodiet.manager.editing.brand;
 
 import java.util.List;
 
@@ -36,47 +36,61 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.globodiet.dom.params.EntitiesMenu;
-import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_descript.BrandName;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
+import lombok.val;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
-@Named(DitaModuleGdManager.NAMESPACE + ".FoodManager")
+@Named(DitaModuleGdManager.NAMESPACE + ".BrandManager")
 @DomainObjectLayout(
-        cssClassFa = FontawesomeConstants.ICON_FOOD)
-public class FoodManager
+        cssClassFa = FontawesomeConstants.ICON_BRANDS)
+public class BrandManager
 implements HasCurrentlyCheckedOutVersion {
 
     @Inject EntitiesMenu entities;
     @Inject BlobStore blobStore;
-    @Inject RepositoryService repositoryService;
+    @Inject RepositoryService repo;
 
     @ObjectSupport
     public String title() {
-        return "Manage Food List";
+        return "Manage Brands";
     }
 
     @Collection
-    public List<FoodOrProductOrAlias> getFoodList() {
-        return entities.listAllFoodOrProductOrAlias();
+    public List<BrandName> getBrandNames() {
+        return entities.listAllBrandName();
     }
 
     @Action
-    @ActionLayout(fieldSetName="foodList", position = Position.PANEL)
-    public FoodManager addFood(
-
+    @ActionLayout(associateWith = "brandNames", position = Position.PANEL)
+    public BrandManager addBrand(
             @Parameter
-            final String name) {
-        //TODO this is just a stub
+            final String nameOfBrand,
+            @Parameter
+            final String foodGroup,
+            @Parameter
+            final String foodSubgroup,
+            @Parameter
+            final String foodSubSubgroup) {
+
+        val brandName = repo.detachedEntity(new BrandName());
+
+        brandName.setNameOfBrand(nameOfBrand);
+        brandName.setFoodGroupCode(foodGroup);
+        brandName.setFoodSubgroupCode(foodSubgroup);
+        brandName.setFoodSubSubgroupCode(foodSubSubgroup);
+
+        repo.persist(brandName);
         return this;
     }
-    @MemberSupport public String disableAddFood() {
+    @MemberSupport public String disableAddBrand() {
         return guardAgainstCannotEditVersion(blobStore)
                 .orElse(null);
     }
-
+    // TODO dialog needs lookup tables - perhaps auto-generate mixins via schema?
 
 }
 

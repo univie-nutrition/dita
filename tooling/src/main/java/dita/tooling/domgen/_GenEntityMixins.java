@@ -48,7 +48,7 @@ class _GenEntityMixins {
             final OrmModel.Field fieldWithForeignKeys,
             final Can<OrmModel.Field> foreignFields) {
 
-        val entityModel = fieldWithForeignKeys.parent();
+        val entityModel = fieldWithForeignKeys.parentEntity();
         val packageName = config.fullPackageName(entityModel.namespace());
         return new JavaModel(
                 "",
@@ -62,7 +62,7 @@ class _GenEntityMixins {
             final String packageName, // shared with entity and mixin
             final OrmModel.Field field,
             final Can<OrmModel.Field> foreignFields) {
-        val entityModel = field.parent();
+        val entityModel = field.parentEntity();
         val typeModelBuilder = TypeSpec.classBuilder(mixinClassName(field))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
@@ -110,7 +110,7 @@ class _GenEntityMixins {
 
         final Can<Foreign> foreigners = foreignFields.stream()
                 .map((OrmModel.Field foreignField)->{
-                    val foreignEntity = foreignField.parent();
+                    val foreignEntity = foreignField.parentEntity();
                     val foreignPackageName = config.fullPackageName(foreignEntity.namespace());
                     val foreignEntityClass = ClassName.get(foreignPackageName, foreignEntity.name());
                     return new Foreign(foreignEntityClass, foreignField.getter());
@@ -122,7 +122,7 @@ class _GenEntityMixins {
         }
 
         val foreignEntities = foreignFields.stream()
-                .map(OrmModel.Field::parent)
+                .map(OrmModel.Field::parentEntity)
                 .distinct()
                 .collect(Can.toCan());
 
@@ -206,7 +206,7 @@ class _GenEntityMixins {
         default:
             System.err.printf("WARNING: %d foreign key count not supported in %s; skipping mixin generation%n",
                     foreigners.size(),
-                    foreignFields.map(f->f.parent().name() + "::" + f.name()));
+                    foreignFields.map(f->f.parentEntity().name() + "::" + f.name()));
             return Optional.empty();
         };
 
@@ -218,7 +218,7 @@ class _GenEntityMixins {
             "LookupKey");
 
     private String mixinClassName(final OrmModel.Field field) {
-        val entityModel = field.parent();
+        val entityModel = field.parentEntity();
         val mixedInPropertyName = knownPropertyNameSuffixes.stream()
                 .filter(field.name()::endsWith)
                 .findFirst()

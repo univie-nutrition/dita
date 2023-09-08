@@ -28,8 +28,8 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
 
-import dita.globodiet.manager.brand.BrandManager;
-import dita.globodiet.manager.food.FoodManager;
+import dita.globodiet.manager.editing.brand.BrandManager;
+import dita.globodiet.manager.editing.food.FoodManager;
 
 @Named(DitaModuleGdManager.NAMESPACE + ".FeaturedMenu")
 @DomainService(

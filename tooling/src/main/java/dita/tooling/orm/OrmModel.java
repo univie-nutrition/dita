@@ -31,8 +31,10 @@ import org.springframework.javapoet.TypeName;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedFunction;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.primitives._Ints;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
@@ -147,7 +149,7 @@ public class OrmModel {
                     parseMultilineString((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
         }
-        public Entity parent() {
+        public Entity parentEntity() {
             return parentRef.value();
         }
         public TypeName asJavaType() {
@@ -229,6 +231,26 @@ public class OrmModel {
         @SneakyThrows
         public void writeToFileAsYaml(final File file) {
             TextUtils.writeLinesToFile(List.of(toYaml()), file, StandardCharsets.UTF_8);
+        }
+        public Optional<OrmModel.Entity> lookupEntityByTableName(final String tableName) {
+            return entities().values()
+                    .stream()
+                    .filter(e->e.table().equalsIgnoreCase(tableName))
+                    .findFirst();
+        }
+        public Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {
+            val parts = _Strings.splitThenStream(tableDotColumn, ".")
+                    .collect(Can.toCan());
+            _Assert.assertEquals(2, parts.size(), ()->String.format(
+                    "could not parse foreign key '%s'", tableDotColumn));
+            val tableName = parts.getElseFail(0);
+            val columnName = parts.getElseFail(1);
+            return lookupEntityByTableName(tableName)
+                    .flatMap(entity->entity.lookupFieldByColumnName(columnName));
+        }
+        public OrmModel.Field lookupForeignKeyFieldElseFail(final String tableDotColumn) {
+            return lookupForeignKeyField(tableDotColumn)
+                    .orElseThrow(()->_Exceptions.noSuchElement("foreign key not found '%s'", tableDotColumn));
         }
     }
 

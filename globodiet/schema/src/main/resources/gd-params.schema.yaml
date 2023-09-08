@@ -1000,8 +1000,10 @@ ExceptionForSomeFoodToTheFacetDescriptorPathway:
       foreignKeys: |
         facets.facet_code
       description: |
-        Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).
-        The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)
+        Facet codes that MUST appear in the sequence of facets corresponding to this food 
+        (superseeding its group pathway).
+        The list of descriptors will be the ones defined for the subgroup in GROUPFAC file 
+        (Assuming always a subset)
     orderToDisplayFacetsForTheAttachedFood:
       column: ORDER_FAC
       column-type: int(10)

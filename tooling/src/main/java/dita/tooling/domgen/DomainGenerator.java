@@ -21,7 +21,6 @@ package dita.tooling.domgen;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,9 +30,7 @@ import org.springframework.javapoet.TypeSpec;
 import org.springframework.util.ReflectionUtils;
 
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
-import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.tooling.orm.OrmModel;
 import lombok.Builder;
@@ -118,26 +115,6 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         DomainModel(final OrmModel.Schema schema) {
             this(schema, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
-
-        Optional<OrmModel.Entity> lookupEntityByTableName(final String tableName) {
-            return schema.entities().values()
-                    .stream()
-                    .filter(e->e.table().equalsIgnoreCase(tableName))
-                    .findFirst();
-        }
-        Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {
-            val parts = _Strings.splitThenStream(tableDotColumn, ".")
-                .collect(Can.toCan());
-            _Assert.assertEquals(2, parts.size(), ()->String.format("could not parse foreign key '%s'", tableDotColumn));
-            val tableName = parts.getElseFail(0);
-            val columnName = parts.getElseFail(1);
-            return lookupEntityByTableName(tableName)
-                    .flatMap(entity->entity.lookupFieldByColumnName(columnName));
-        }
-        OrmModel.Field lookupForeignKeyFieldElseFail(final String tableDotColumn) {
-            return lookupForeignKeyField(tableDotColumn)
-                    .orElseThrow(()->_Exceptions.noSuchElement("foreign key not found '%s'", tableDotColumn));
-        }
         Stream<JavaModel> streamJavaModels() {
             return Stream.of(modules, menus, entities, entityMixins).flatMap(List::stream);
         }
@@ -161,7 +138,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                 .filter(field->field.hasForeignKeys())
                 .forEach(field->{
                     val foreignFields = field.foreignKeys().stream()
-                        .map(domainModel::lookupForeignKeyFieldElseFail)
+                        .map(domainModel.schema()::lookupForeignKeyFieldElseFail)
                         .collect(Can.toCan());
 
                     domainModel.entityMixins().add(
