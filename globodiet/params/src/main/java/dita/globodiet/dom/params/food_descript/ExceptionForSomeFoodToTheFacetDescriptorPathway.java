@@ -68,14 +68,18 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     private String foodIdNumber;
 
     /**
-     * Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).<br>
-     * The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)
+     * Facet codes that MUST appear in the sequence of facets corresponding to this food<br>
+     * (superseeding its group pathway).<br>
+     * The list of descriptors will be the ones defined for the subgroup in GROUPFAC file<br>
+     * (Assuming always a subset)
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food (superseeding its group pathway).\n"
-                            + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file (Assuming always a subset)"
+            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food\n"
+                            + "(superseeding its group pathway).\n"
+                            + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file\n"
+                            + "(Assuming always a subset)"
     )
     @Column(
             name = "FACET_CODE",

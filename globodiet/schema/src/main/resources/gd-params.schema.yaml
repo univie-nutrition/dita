@@ -125,7 +125,7 @@ BrandName:
         Food sub-subgroup code
         
 CenterInvolved:
-  namespace: params.general_info
+  namespace: params.interview
   table: CENTERS
   title: String.format("%s", centerName)
   icon: building
@@ -182,7 +182,7 @@ ItemDisplayedForCheckPerFCO:
         Item label
         
 CountryInvolved:
-  namespace: params.general_info
+  namespace: params.interview
   table: COUNTRY
   title: String.format("%s", countryName)
   icon: earth-europe
@@ -492,7 +492,7 @@ FacetDescriptorThatCannotBeSubstituted:
         Descriptor code
         
 DietarySupplementClassification:
-  namespace: params.classification
+  namespace: params.supplement
   table: DS_CLASSIF
   description: |
     Dietary supplement classification
@@ -523,7 +523,7 @@ DietarySupplementClassification:
         Dietary Supplement classification code attached to (for subgroup)
         
 DietarySupplementDescriptor:
-  namespace: params.supplement_description
+  namespace: params.supplement
   table: DS_DESCFACE
   description: |
     Dietary supplement descriptor
@@ -607,7 +607,7 @@ DietarySupplementDescriptor:
         Not in name flag
         
 DietarySupplementFacet:
-  namespace: params.supplement_description
+  namespace: params.supplement
   table: DS_FACET
   description: |
     Dietary supplement facet
@@ -1223,7 +1223,7 @@ FoodGroup:
         Food group short name
         
 Interviewer:
-  namespace: params.general_info
+  namespace: params.interview
   table: INTVIEWR
   description: |
     Interviewer
@@ -3778,7 +3778,7 @@ FoodSubgroup:
         Short Name of the food (sub-)(sub-)group
         
 SubjectToBeInterviewed:
-  namespace: params.subject
+  namespace: params.interview
   table: SUBJECTS
   description: |
     Subjects to be interviewed
@@ -3965,7 +3965,7 @@ GroupOrSubgroupThatCanBeSubstitutable:
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
         
 DietarySupplementList:
-  namespace: params.supplement_list
+  namespace: params.supplement
   table: SUPPLEMENTS
   description: |
     Dietary supplement list
