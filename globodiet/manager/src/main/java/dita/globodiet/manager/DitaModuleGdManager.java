@@ -52,6 +52,7 @@ import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
+import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -88,6 +89,7 @@ import lombok.val;
 
     // Help Pages
     DitaEntityDiagramPage.class,
+    DitaEntityDiagramPage2.class,
     CausewayEntityDiagramPage.class,
     // Help Modules
     DitaModuleGdManager.Help.class, // to register before the DocGen module
@@ -141,7 +143,8 @@ public class DitaModuleGdManager {
         @Primary
         public HelpTopic rootHelpTopicForDita(
                 final CausewayEntityDiagramPage causewayEntityDiagramPage,
-                final DitaEntityDiagramPage ditaEntityDiagramPage) {
+                final DitaEntityDiagramPage ditaEntityDiagramPage,
+                final DitaEntityDiagramPage2 ditaEntityDiagramPage2) {
 
             val root = HelpTopic.root("Topics");
 
@@ -151,7 +154,8 @@ public class DitaModuleGdManager {
                 .addPage(causewayEntityDiagramPage);
 
             root.subTopic("Dita")
-                .addPage(ditaEntityDiagramPage);
+                .addPage(ditaEntityDiagramPage)
+                .addPage(ditaEntityDiagramPage2);
 
             return root;
         }

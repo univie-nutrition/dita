@@ -32,19 +32,23 @@ import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.ObjectGraph;
 import org.apache.causeway.applib.services.metamodel.ObjectGraph.RelationType;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
+import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
+import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
+import org.apache.causeway.valuetypes.asciidoc.builder.objgraph.d3js.ObjectGraphRendererD3js;
+import org.apache.causeway.valuetypes.asciidoc.builder.objgraph.d3js.ObjectGraphRendererD3js.GraphRenderOptions;
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
 
 @Component
-@Named(DitaModuleGdManager.NAMESPACE + ".DitaEntityDiagramPage")
-public class DitaEntityDiagramPage extends EntityDiagramPageAbstract {
+@Named(DitaModuleGdManager.NAMESPACE + ".DitaEntityDiagramPage2")
+public class DitaEntityDiagramPage2 extends EntityDiagramPageAbstract {
 
     private final OrmModel.Schema gdParamsSchema;
 
     @Inject
-    public DitaEntityDiagramPage(
+    public DitaEntityDiagramPage2(
             final OrmModel.Schema gdParamsSchema,
             final MetaModelService metaModelService) {
         super(metaModelService);
@@ -127,24 +131,16 @@ public class DitaEntityDiagramPage extends EntityDiagramPageAbstract {
         });
     }
 
-
-//    @Override
-//    public AsciiDoc getContent() {
-//        val title = getTitle();
-//        val plantumlSource = entityTypesAsDiagram();
-//
-//        val doc = AsciiDocFactory.doc();
-//        doc.setTitle(getTitle());
-//
-//        final String asciidocSource = AsciiDocWriter.toString(doc);
-//
-//        val diagramBlock = AsciiDocFactory
-//                .diagramBlock(doc, "plantuml", Can.of(getTitle() ,"svg"), plantumlSource);
-//
-//        val adoc = AsciiDoc.valueOf(asciidocSource);
-//        return adoc;
-//    }
-
+    /**
+     * Returns ascii-doc syntax with Plantuml rendered diagrams. Can be overwritten to customize.
+     */
+    protected String renderObjectGraph(final ObjectGraph objectGraph) {
+        val d3jsSource = objectGraph.render(new ObjectGraphRendererD3js(GraphRenderOptions.builder().build()));
+        return new AsciiDocBuilder()
+                .append(doc->doc.setTitle(getTitle()))
+                .append(doc->AsciiDocFactory.htmlPassthroughBlock(doc, d3jsSource))
+                .build();
+    }
 
 }
 
