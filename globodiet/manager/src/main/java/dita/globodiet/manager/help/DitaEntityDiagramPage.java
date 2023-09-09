@@ -124,7 +124,8 @@ public class DitaEntityDiagramPage extends EntityDiagramPageAbstract {
                 .forEach(transformed.relations()::add);
 
             return transformed;
-        });
+        })
+        .transform(ObjectGraph.Transformers.relationMerger());
     }
 
 

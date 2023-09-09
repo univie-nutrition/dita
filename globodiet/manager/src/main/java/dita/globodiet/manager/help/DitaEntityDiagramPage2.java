@@ -97,6 +97,11 @@ public class DitaEntityDiagramPage2 extends EntityDiagramPageAbstract {
                             .forEach(foreignField->{
 
                                 final ObjectGraph.Object to = objectByEntity.get(foreignField.parentEntity());
+//
+//                                if(to.name().equals("FoodSubgroup")
+//                                        || to.name().equals("RecipeSubgroup")) {
+//                                    return; //skip
+//                                }
 
                                 relationsToRender.add(new ObjectGraph.Relation(
                                         RelationType.MERGED_ASSOCIATIONS, from, to, field.name(), ""));
@@ -128,7 +133,8 @@ public class DitaEntityDiagramPage2 extends EntityDiagramPageAbstract {
                 .forEach(transformed.relations()::add);
 
             return transformed;
-        });
+        })
+        .transform(ObjectGraph.Transformers.relationMerger());
     }
 
     /**
