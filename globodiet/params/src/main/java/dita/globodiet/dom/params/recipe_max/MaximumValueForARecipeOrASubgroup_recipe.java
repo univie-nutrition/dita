@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.recipe_max;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_list.MixedRecipe;
+import dita.globodiet.dom.params.recipe_list.Recipe;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -43,13 +43,13 @@ public class MaximumValueForARecipeOrASubgroup_recipe {
     private final MaximumValueForARecipeOrASubgroup mixee;
 
     @MemberSupport
-    public MixedRecipe prop() {
+    public Recipe prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, "recipeCode", mixee.getRecipeCode(),
                 // foreign
-                MixedRecipe.class, foreign->foreign.getRecipeIDNumber())
+                Recipe.class, foreign->foreign.getRecipeIDNumber())
             .orElse(null);
     }
 }

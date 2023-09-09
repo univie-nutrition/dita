@@ -48,7 +48,7 @@ public class DietarySupplementDescriptor_facet {
                 // local
                 mixee, "facetCode", mixee.getFacetCode(),
                 // foreign
-                DietarySupplementFacet.class, foreign->foreign.getFacetCodeForDietarySupplement())
+                DietarySupplementFacet.class, foreign->foreign.getFacetCode())
             .orElse(null);
     }
 }

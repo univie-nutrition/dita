@@ -48,7 +48,7 @@ public class DietarySupplementList_sequenceOfFacetCodesThatIndicatesTheFacetsToB
                 // local
                 mixee, "sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement", mixee.getSequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement(),
                 // foreign
-                DietarySupplementFacet.class, foreign->foreign.getFacetCodeForDietarySupplement())
+                DietarySupplementFacet.class, foreign->foreign.getFacetCode())
             .orElse(null);
     }
 }

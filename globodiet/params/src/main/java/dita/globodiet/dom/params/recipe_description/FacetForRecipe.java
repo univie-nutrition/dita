@@ -65,7 +65,7 @@ public class FacetForRecipe {
     )
     @Getter
     @Setter
-    private String facetCodeForRecipes;
+    private String recipeFacetCode;
 
     /**
      * Facet name
@@ -117,7 +117,7 @@ public class FacetForRecipe {
     )
     @Getter
     @Setter
-    private Integer descriptorsAvailableForRecipesOrBrands;
+    private Integer descriptorsAvailableForRecipeOrBrandQ;
 
     /**
      * 0 = facet with mono-selection of descriptor<br>
@@ -135,7 +135,7 @@ public class FacetForRecipe {
     )
     @Getter
     @Setter
-    private Integer singleOrMultiSelectDescriptor;
+    private Integer singleOrMultiSelectDescriptorQ;
 
     /**
      * 0 = standard facet<br>
@@ -153,7 +153,7 @@ public class FacetForRecipe {
     )
     @Getter
     @Setter
-    private Integer standardOrMainFacet;
+    private Integer standardOrMainFacetQ;
 
     /**
      * Label on how to ask the facet question

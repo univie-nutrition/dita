@@ -48,7 +48,7 @@ public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeFacet {
                 // local
                 mixee, "recipeFacetCode", mixee.getRecipeFacetCode(),
                 // foreign
-                FacetForRecipe.class, foreign->foreign.getFacetCodeForRecipes())
+                FacetForRecipe.class, foreign->foreign.getRecipeFacetCode())
             .orElse(null);
     }
 }

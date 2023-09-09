@@ -65,7 +65,7 @@ public class DescriptorPerFacet {
     )
     @Getter
     @Setter
-    private String facetCodeForRecipes;
+    private String recipeFacetCode;
 
     /**
      * Descriptor code for recipes
@@ -82,7 +82,7 @@ public class DescriptorPerFacet {
     )
     @Getter
     @Setter
-    private String descriptorCodeForRecipes;
+    private String recipeDescriptorCode;
 
     /**
      * Descriptor name

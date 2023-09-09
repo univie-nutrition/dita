@@ -27,23 +27,23 @@ import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingAttachedToAFood;
-import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorsForFoods;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
+import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_descript.BrandName;
 import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodAndFacet;
 import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
 import dita.globodiet.dom.params.food_descript.Facet;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
-import dita.globodiet.dom.params.food_descript.ImprobableSequencesOfFacetsAndDescriptors;
+import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
 import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
-import dita.globodiet.dom.params.food_quantif.FoodStandardUnitsAndPortionsForFoods;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForIndividualFood;
+import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
 import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
 import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
@@ -59,24 +59,24 @@ import dita.globodiet.dom.params.interview.CountryInvolved;
 import dita.globodiet.dom.params.interview.Interviewer;
 import dita.globodiet.dom.params.interview.SubjectToBeInterviewed;
 import dita.globodiet.dom.params.probing.ProbingQuestions;
-import dita.globodiet.dom.params.quantif.FoodStandardUnitsAndPortionsForFoodsAndRecipes;
 import dita.globodiet.dom.params.quantif.HouseholdMeasure;
 import dita.globodiet.dom.params.quantif.PhotoForQuantity;
 import dita.globodiet.dom.params.quantif.Shape;
+import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe;
-import dita.globodiet.dom.params.recipe_description.BrandnameListForMixedRecipes;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
+import dita.globodiet.dom.params.recipe_description.BrandnameListForRecipe;
 import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
 import dita.globodiet.dom.params.recipe_description.DescriptorPerFacet;
-import dita.globodiet.dom.params.recipe_description.ExceptionsForSomeRecipesToTheFacetsPathway;
+import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_description.FacetForRecipe;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
-import dita.globodiet.dom.params.recipe_list.MixedRecipe;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.MixedRecipeIngredientsQuantification;
+import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredientsQuantification;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipes;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
 import dita.globodiet.dom.params.setting.DayOfWeek;
 import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway;
@@ -86,7 +86,7 @@ import dita.globodiet.dom.params.setting.MacroNutrientLimit;
 import dita.globodiet.dom.params.setting.Month;
 import dita.globodiet.dom.params.setting.NoteStatus;
 import dita.globodiet.dom.params.setting.SelectedParameter;
-import dita.globodiet.dom.params.setting.SelectedParametersForDataEntry;
+import dita.globodiet.dom.params.setting.SelectedParameterForDataEntry;
 import dita.globodiet.dom.params.supplement.DietarySupplementClassification;
 import dita.globodiet.dom.params.supplement.DietarySupplementDescriptor;
 import dita.globodiet.dom.params.supplement.DietarySupplementFacet;
@@ -147,9 +147,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<ImprobableSequencesOfFacetsAndDescriptors> listAllImprobableSequencesOfFacetsAndDescriptors(
+    public List<ImprobableSequenceOfFacetAndDescriptor> listAllImprobableSequenceOfFacetAndDescriptor(
             ) {
-        return repositoryService.allInstances(ImprobableSequencesOfFacetsAndDescriptors.class);
+        return repositoryService.allInstances(ImprobableSequenceOfFacetAndDescriptor.class);
     }
 
     @Action
@@ -255,15 +255,13 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<FoodStandardUnitsAndPortionsForFoods> listAllFoodStandardUnitsAndPortionsForFoods(
-            ) {
-        return repositoryService.allInstances(FoodStandardUnitsAndPortionsForFoods.class);
+    public List<StandardPortionForFood> listAllStandardPortionForFood() {
+        return repositoryService.allInstances(StandardPortionForFood.class);
     }
 
     @Action
-    public List<FoodStandardUnitsAndPortionsForFoodsAndRecipes> listAllFoodStandardUnitsAndPortionsForFoodsAndRecipes(
-            ) {
-        return repositoryService.allInstances(FoodStandardUnitsAndPortionsForFoodsAndRecipes.class);
+    public List<StandardUnitForFoodOrRecipe> listAllStandardUnitForFoodOrRecipe() {
+        return repositoryService.allInstances(StandardUnitForFoodOrRecipe.class);
     }
 
     @Action
@@ -277,19 +275,18 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<MixedRecipeIngredient> listAllMixedRecipeIngredient() {
-        return repositoryService.allInstances(MixedRecipeIngredient.class);
+    public List<RecipeIngredient> listAllRecipeIngredient() {
+        return repositoryService.allInstances(RecipeIngredient.class);
     }
 
     @Action
-    public List<MixedRecipeIngredientsQuantification> listAllMixedRecipeIngredientsQuantification(
-            ) {
-        return repositoryService.allInstances(MixedRecipeIngredientsQuantification.class);
+    public List<RecipeIngredientsQuantification> listAllRecipeIngredientsQuantification() {
+        return repositoryService.allInstances(RecipeIngredientsQuantification.class);
     }
 
     @Action
-    public List<MixedRecipe> listAllMixedRecipe() {
-        return repositoryService.allInstances(MixedRecipe.class);
+    public List<Recipe> listAllRecipe() {
+        return repositoryService.allInstances(Recipe.class);
     }
 
     @Action
@@ -318,8 +315,8 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<SelectedParametersForDataEntry> listAllSelectedParametersForDataEntry() {
-        return repositoryService.allInstances(SelectedParametersForDataEntry.class);
+    public List<SelectedParameterForDataEntry> listAllSelectedParameterForDataEntry() {
+        return repositoryService.allInstances(SelectedParameterForDataEntry.class);
     }
 
     @Action
@@ -338,9 +335,8 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<QuantificationMethodsPathwayForIndividualFood> listAllQuantificationMethodsPathwayForIndividualFood(
-            ) {
-        return repositoryService.allInstances(QuantificationMethodsPathwayForIndividualFood.class);
+    public List<QuantificationMethodsPathwayForFood> listAllQuantificationMethodsPathwayForFood() {
+        return repositoryService.allInstances(QuantificationMethodsPathwayForFood.class);
     }
 
     @Action
@@ -356,14 +352,14 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<QuantificationMethodPathwayForRecipes> listAllQuantificationMethodPathwayForRecipes(
+    public List<QuantificationMethodPathwayForRecipe> listAllQuantificationMethodPathwayForRecipe(
             ) {
-        return repositoryService.allInstances(QuantificationMethodPathwayForRecipes.class);
+        return repositoryService.allInstances(QuantificationMethodPathwayForRecipe.class);
     }
 
     @Action
-    public List<BrandnameListForMixedRecipes> listAllBrandnameListForMixedRecipes() {
-        return repositoryService.allInstances(BrandnameListForMixedRecipes.class);
+    public List<BrandnameListForRecipe> listAllBrandnameListForRecipe() {
+        return repositoryService.allInstances(BrandnameListForRecipe.class);
     }
 
     @Action
@@ -388,15 +384,13 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<ExceptionsForSomeRecipesToTheFacetsPathway> listAllExceptionsForSomeRecipesToTheFacetsPathway(
-            ) {
-        return repositoryService.allInstances(ExceptionsForSomeRecipesToTheFacetsPathway.class);
+    public List<ExceptionToFacetsPathwayForRecipe> listAllExceptionToFacetsPathwayForRecipe() {
+        return repositoryService.allInstances(ExceptionToFacetsPathwayForRecipe.class);
     }
 
     @Action
-    public List<RawToCookedConversionFactorsForFoods> listAllRawToCookedConversionFactorsForFoods(
-            ) {
-        return repositoryService.allInstances(RawToCookedConversionFactorsForFoods.class);
+    public List<RawToCookedConversionFactorForFood> listAllRawToCookedConversionFactorForFood() {
+        return repositoryService.allInstances(RawToCookedConversionFactorForFood.class);
     }
 
     @Action
@@ -410,8 +404,8 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<ProbingQuestionPathwayForRecipes> listAllProbingQuestionPathwayForRecipes() {
-        return repositoryService.allInstances(ProbingQuestionPathwayForRecipes.class);
+    public List<ProbingQuestionPathwayForRecipe> listAllProbingQuestionPathwayForRecipe() {
+        return repositoryService.allInstances(ProbingQuestionPathwayForRecipe.class);
     }
 
     @Action
@@ -430,21 +424,20 @@ public class EntitiesMenu {
     }
 
     @Action
-    public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood(
+    public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood(
             ) {
-        return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood.class);
+        return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class);
     }
 
     @Action
-    public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe(
+    public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe(
             ) {
-        return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe.class);
+        return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class);
     }
 
     @Action
-    public List<PercentOfFatUseDuringCookingAttachedToAFood> listAllPercentOfFatUseDuringCookingAttachedToAFood(
-            ) {
-        return repositoryService.allInstances(PercentOfFatUseDuringCookingAttachedToAFood.class);
+    public List<PercentOfFatUseDuringCookingForFood> listAllPercentOfFatUseDuringCookingForFood() {
+        return repositoryService.allInstances(PercentOfFatUseDuringCookingForFood.class);
     }
 
     @Action

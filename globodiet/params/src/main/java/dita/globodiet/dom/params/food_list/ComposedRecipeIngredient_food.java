@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.food_list;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_list.MixedRecipe;
+import dita.globodiet.dom.params.recipe_list.Recipe;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class ComposedRecipeIngredient_food {
                 mixee, mixee.getFoodCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
-                MixedRecipe.class, foreign->foreign.getRecipeIDNumber())
+                Recipe.class, foreign->foreign.getRecipeIDNumber())
             .map(either->either.isLeft()
                 ? either.leftIfAny()
                 : either.rightIfAny())

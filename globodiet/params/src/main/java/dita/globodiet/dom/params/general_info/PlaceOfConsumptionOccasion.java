@@ -65,7 +65,7 @@ public class PlaceOfConsumptionOccasion {
     )
     @Getter
     @Setter
-    private String placeOfConsumptionCode;
+    private String code;
 
     /**
      * Place of consumption name
@@ -82,7 +82,7 @@ public class PlaceOfConsumptionOccasion {
     )
     @Getter
     @Setter
-    private String placeOfConsumptionName;
+    private String name;
 
     /**
      * 0=not a 'Other' place<br>
@@ -100,7 +100,7 @@ public class PlaceOfConsumptionOccasion {
     )
     @Getter
     @Setter
-    private Integer whetherOtherPlace;
+    private Integer whetherOtherPlaceQ;
 
     @ObjectSupport
     public String title() {

@@ -65,7 +65,7 @@ public class DietarySupplementFacet {
     )
     @Getter
     @Setter
-    private String facetCodeForDietarySupplement;
+    private String facetCode;
 
     /**
      * Facet name for Dietary Supplement
@@ -82,7 +82,7 @@ public class DietarySupplementFacet {
     )
     @Getter
     @Setter
-    private String facetNameForDietarySupplement;
+    private String facetName;
 
     /**
      * To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>
@@ -103,12 +103,16 @@ public class DietarySupplementFacet {
     private Integer mandatoryFacetUsedForQuantificationQ;
 
     /**
-     * Facet with Mono or Multi selection of descriptors 0=mono, 1=multi
+     * Facet with Mono or Multi selection of descriptors<br>
+     * 0=mono,<br>
+     * 1=multi
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Facet with Mono or Multi selection of descriptors 0=mono, 1=multi"
+            describedAs = "Facet with Mono or Multi selection of descriptors\n"
+                            + "0=mono,\n"
+                            + "1=multi"
     )
     @Column(
             name = "DSFACET_TYPE",
@@ -116,7 +120,7 @@ public class DietarySupplementFacet {
     )
     @Getter
     @Setter
-    private Integer singleOrMultiSelectionOfDescriptors;
+    private Integer singleOrMultiSelectionOfDescriptorsQ;
 
     /**
      * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.

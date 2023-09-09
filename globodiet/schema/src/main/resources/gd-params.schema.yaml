@@ -336,7 +336,7 @@ DensityFactorForFood:
         1 = density for food/ingredient,
         2 = density for recipe
         
-ImprobableSequencesOfFacetsAndDescriptors:
+ImprobableSequenceOfFacetAndDescriptor:
   namespace: params.food_descript
   table: DESC_IMP
   description: |
@@ -612,7 +612,7 @@ DietarySupplementFacet:
   description: |
     Dietary supplement facet
   fields:
-    facetCodeForDietarySupplement:
+    facetCode:
       column: DSFACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -620,7 +620,7 @@ DietarySupplementFacet:
       foreignKeys:
       description: |
         Facet code for Dietary Supplement
-    facetNameForDietarySupplement:
+    facetName:
       column: DSFACET_NAME
       column-type: nvarchar(100)
       required: false
@@ -637,14 +637,16 @@ DietarySupplementFacet:
       description: |
         To identify the mandatory facet used for quantification: 1=yes, 0=no.
         Only 1 facet (physical state) is used for quantification.
-    singleOrMultiSelectionOfDescriptors:
+    singleOrMultiSelectionOfDescriptorsQ:
       column: DSFACET_TYPE
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Facet with Mono or Multi selection of descriptors 0=mono, 1=multi
+        Facet with Mono or Multi selection of descriptors 
+        0=mono, 
+        1=multi
     attributedToAllSupplementsQ:
       column: DSFACET_MAIN
       column-type: tinyint(3)
@@ -1500,11 +1502,11 @@ Shape:
       description: |
         Order to display the standard unit
         
-FoodStandardUnitsAndPortionsForFoods:
+StandardPortionForFood:
   namespace: params.food_quantif
   table: M_STDPOR
   description: |
-    food standard units and portions for foods
+    standard portions for foods
   fields:
     standardPortionQuantity:
       column: STDP_QUANT
@@ -1547,7 +1549,7 @@ FoodStandardUnitsAndPortionsForFoods:
       foreignKeys:
       description: |
         Comment attached to the standard portion
-    standardPortionCodeForTheSameFood:
+    standardPortionCode:
       column: PORT_CODE
       column-type: nvarchar(4)
       required: false
@@ -1572,11 +1574,11 @@ FoodStandardUnitsAndPortionsForFoods:
       description: |
         Order to display the standard portion
         
-FoodStandardUnitsAndPortionsForFoodsAndRecipes:
+StandardUnitForFoodOrRecipe:
   namespace: params.quantif
   table: M_STDUTS
   description: |
-    food standard units and portions for foods and recipes
+    standard units for foods and recipes
   fields:
     standardUnitQuantity:
       column: STDU_QUANT
@@ -1603,7 +1605,8 @@ FoodStandardUnitsAndPortionsForFoodsAndRecipes:
       unique: false
       foreignKeys:
       description: |
-        1 = raw, 2 = cooked (as estimated)
+        1 = raw, 
+        2 = cooked (as estimated)
     withUnediblePartQ:
       column: EDIB
       column-type: nvarchar(1)
@@ -1619,7 +1622,8 @@ FoodStandardUnitsAndPortionsForFoodsAndRecipes:
       unique: true
       foreignKeys:
       description: |
-        1 = STDU for food, 2 = STDU for recipe
+        1 = STDU for food, 
+        2 = STDU for recipe
     commentAttachedToTheStandardUnit:
       column: COMMENT
       column-type: nvarchar(100)
@@ -1628,7 +1632,7 @@ FoodStandardUnitsAndPortionsForFoodsAndRecipes:
       foreignKeys:
       description: |
         Comment attached to the standard unit
-    standardUnitCodeForTheSameFoodOrRecipe:
+    standardUnitCode:
       column: UNIT_CODE
       column-type: nvarchar(4)
       required: false
@@ -1763,7 +1767,7 @@ MaximumValueForAFoodOrASubSubgroup:
       description: |
         Priority order
         
-MixedRecipeIngredient:
+RecipeIngredient:
   namespace: params.recipe_list
   table: MIXEDING
   description: |
@@ -1966,7 +1970,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         Density Coefficient only for HHM
-    sequentialNumberForIngredientsWithinAMixedRecipe:
+    sequentialNumberForIngredientsWithinARecipe:
       column: ING_NUM
       column-type: float(53)
       required: false
@@ -2104,7 +2108,7 @@ MixedRecipeIngredient:
       foreignKeys:
       description: |
         
-MixedRecipeIngredientsQuantification:
+RecipeIngredientsQuantification:
   namespace: params.recipe_list
   table: MIXEDING_QT
   description: |
@@ -2119,7 +2123,7 @@ MixedRecipeIngredientsQuantification:
         mixedrec.r_idnum
       description: |
         Recipe ID number the ingredient belong to
-    sequentialNumberWithinAMixedRecipeForIngredient:
+    sequentialNumberWithinARecipeForIngredient:
       column: ING_NUM
       column-type: float(53)
       required: false
@@ -2215,7 +2219,7 @@ MixedRecipeIngredientsQuantification:
       description: |
         Sequential Number for Ingredients within a Sub-Recipe
         
-MixedRecipe:
+Recipe:
   namespace: params.recipe_list
   table: MIXEDREC
   description: |
@@ -2476,13 +2480,13 @@ SelectedParameter:
       description: |
         Parameter value
         
-SelectedParametersForDataEntry:
+SelectedParameterForDataEntry:
   namespace: params.setting
   table: PARAMDE
   description: |
     Selected parameters for data entry
   fields:
-    parameterCodeForDataEntry:
+    parameterCode:
       column: PARAM_LAB
       column-type: nvarchar(40)
       required: false
@@ -2490,7 +2494,7 @@ SelectedParametersForDataEntry:
       foreignKeys:
       description: |
         Parameter code for data entry
-    parameterValueForDataEntry:
+    parameterValue:
       column: PARAM_LIB
       column-type: nvarchar(100)
       required: false
@@ -2505,7 +2509,7 @@ PlaceOfConsumptionOccasion:
   description: |
     Place of Consumption Occasion
   fields:
-    placeOfConsumptionCode:
+    code:
       column: POC_CODE
       column-type: nvarchar(2)
       required: false
@@ -2513,7 +2517,7 @@ PlaceOfConsumptionOccasion:
       foreignKeys:
       description: |
         Place of consumption code
-    placeOfConsumptionName:
+    name:
       column: POC_NAME
       column-type: nvarchar(100)
       required: false
@@ -2521,7 +2525,7 @@ PlaceOfConsumptionOccasion:
       foreignKeys:
       description: |
         Place of consumption name
-    whetherOtherPlace:
+    whetherOtherPlaceQ:
       column: POC_OTHER
       column-type: tinyint(3)
       required: false
@@ -2606,7 +2610,7 @@ ProbingQuestions:
       description: |
         Probing question label
         
-QuantificationMethodsPathwayForIndividualFood:
+QuantificationMethodsPathwayForFood:
   namespace: params.food_quantif
   table: QM_FOODS
   description: |
@@ -2776,7 +2780,7 @@ QuantificationMethodsPathwayForRecipeGroup:
       description: |
         Comment
         
-QuantificationMethodPathwayForRecipes:
+QuantificationMethodPathwayForRecipe:
   namespace: params.recipe_quantif
   table: QM_RECIP
   description: |
@@ -2815,7 +2819,7 @@ QuantificationMethodPathwayForRecipes:
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
         
-BrandnameListForMixedRecipes:
+BrandnameListForRecipe:
   namespace: params.recipe_description
   table: R_BRAND
   description: |
@@ -2901,7 +2905,7 @@ params.recipe_description.FacetForRecipe:
   description: |
     Recipe Facet
   fields:
-    facetCodeForRecipes:
+    recipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -2925,7 +2929,7 @@ params.recipe_description.FacetForRecipe:
       foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
-    descriptorsAvailableForRecipesOrBrands:
+    descriptorsAvailableForRecipeOrBrandQ:
       column: RFACET_TYPE
       column-type: tinyint(3)
       required: false
@@ -2934,7 +2938,7 @@ params.recipe_description.FacetForRecipe:
       description: |
         0=Standard facets with descriptors available in R_Descface table
         1=Facets with descriptors available in RBrand table
-    singleOrMultiSelectDescriptor:
+    singleOrMultiSelectDescriptorQ:
       column: RFACET_TYPE_S
       column-type: tinyint(3)
       required: false
@@ -2943,7 +2947,7 @@ params.recipe_description.FacetForRecipe:
       description: |
         0 = facet with mono-selection of descriptor 
         1 = facets with multi-selection of descriptors
-    standardOrMainFacet:
+    standardOrMainFacetQ:
       column: RFACET_MAIN
       column-type: tinyint(3)
       required: false
@@ -2967,7 +2971,7 @@ DescriptorPerFacet:
   description: |
     Descriptor per facet
   fields:
-    facetCodeForRecipes:
+    recipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -2976,7 +2980,7 @@ DescriptorPerFacet:
         facets.facet_code
       description: |
         Facet code for recipes
-    descriptorCodeForRecipes:
+    recipeDescriptorCode:
       column: RDESCR_CODE
       column-type: nvarchar(2)
       required: false
@@ -3103,7 +3107,7 @@ CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor:
       description: |
         Order to displayed the descriptors within a group/subgroup and a facet
         
-ExceptionsForSomeRecipesToTheFacetsPathway:
+ExceptionToFacetsPathwayForRecipe:
   namespace: params.recipe_description
   table: R_RCPFAEX
   description: |
@@ -3118,7 +3122,7 @@ ExceptionsForSomeRecipesToTheFacetsPathway:
         mixedrec.r_idnum
       description: |
         Recipe ID number
-    recipeFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisRecipe:
+    recipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -3126,7 +3130,10 @@ ExceptionsForSomeRecipesToTheFacetsPathway:
       foreignKeys: |
         r_facet.rfacet_code
       description: |
-        Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe (superseeding its group pathway). The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file (Assuming always a subset)
+        Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe 
+        (superseeding its group pathway). 
+        The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file 
+        (Assuming always a subset)
     order:
       column: ORDER_FAC
       column-type: int(10)
@@ -3135,7 +3142,7 @@ ExceptionsForSomeRecipesToTheFacetsPathway:
       foreignKeys:
       description: |
         
-RawToCookedConversionFactorsForFoods:
+RawToCookedConversionFactorForFood:
   namespace: params.food_coefficient
   table: RAWCOOK
   description: |
@@ -3272,7 +3279,7 @@ RecipeGroup:
       description: |
         Short Name of the Recipe group
         
-ProbingQuestionPathwayForRecipes:
+ProbingQuestionPathwayForRecipe:
   namespace: params.recipe_probing
   table: RPQPATH
   description: |
@@ -3401,7 +3408,7 @@ SpecialDietPredefinedAnswer:
       description: |
         Special diet label
         
-PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
+PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
   namespace: params.food_coefficient
   table: SPFACOOK
   description: |
@@ -3443,7 +3450,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
         foods.foodnum
       description: |
         Food code
-    fatGroupCodeForFSS:
+    fssFatGroupCode:
       column: X_GROUP
       column-type: nvarchar(2)
       required: false
@@ -3452,7 +3459,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
         groups.group
       description: |
         Fat group code for F/S/S
-    fatSubgroupCodeForFSS:
+    fssFatSubgroupCode:
       column: X_SUBG1
       column-type: nvarchar(2)
       required: false
@@ -3461,7 +3468,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
         subgroup.subgroup1
       description: |
         Fat subgroup code for F/S/S
-    fatSubSubgroupCodeForFSS:
+    fssFatSubSubgroupCode:
       column: X_SUBG2
       column-type: nvarchar(2)
       required: false
@@ -3470,7 +3477,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
         subgroup.subgroup2
       description: |
         Fat sub-subgroup code for F/S/S
-    fatCodeForFSS:
+    fssFatCode:
       column: X_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -3488,7 +3495,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToAFood:
       description: |
         Percentage of fat
         
-PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
+PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe:
   namespace: params.recipe_coefficient
   table: SPFACORE
   description: |
@@ -3521,7 +3528,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
         mixedrec.r_idnum
       description: |
         Recipe code
-    fatGroupCodeForFSS:
+    fssFatGroupCode:
       column: X_GROUP
       column-type: nvarchar(2)
       required: false
@@ -3530,7 +3537,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
         groups.group
       description: |
         Fat group code for Fat or Sauce or Sweetener
-    fatSubgroupCodeForFSS:
+    fssFatSubgroupCode:
       column: X_SUBG1
       column-type: nvarchar(2)
       required: false
@@ -3539,7 +3546,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
         subgroup.subgroup1
       description: |
         Fat subgroup code for Fat or Sauce or Sweetener
-    fatSubSubgroupCodeForFSS:
+    fssFatSubSubgroupCode:
       column: X_SUBG2
       column-type: nvarchar(2)
       required: false
@@ -3548,7 +3555,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
         subgroup.subgroup2
       description: |
         Fat sub-subgroup code for Fat or Sauce or Sweetener
-    fatCodeForFSS:
+    fssFatCode:
       column: X_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -3566,7 +3573,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingAttachedToARecipe:
       description: |
         Percentage of fat
         
-PercentOfFatUseDuringCookingAttachedToAFood:
+PercentOfFatUseDuringCookingForFood:
   namespace: params.food_coefficient
   table: SPFDCOOK
   description: |
@@ -3608,7 +3615,7 @@ PercentOfFatUseDuringCookingAttachedToAFood:
         foods.foodnum
       description: |
         Food code
-    fatGroupCodeForFat:
+    fatGroupCode:
       column: FAT_GROUP
       column-type: nvarchar(2)
       required: false
@@ -3617,7 +3624,7 @@ PercentOfFatUseDuringCookingAttachedToAFood:
         groups.group
       description: |
         Fat group code for fat
-    fatSubgroupCodeForFat:
+    fatSubgroupCode:
       column: FAT_SUBG1
       column-type: nvarchar(2)
       required: false
@@ -3626,7 +3633,7 @@ PercentOfFatUseDuringCookingAttachedToAFood:
         subgroup.subgroup1
       description: |
         Fat subgroup code for fat
-    fatSubSubgroupCodeForFat:
+    fatSubSubgroupCode:
       column: FAT_SUBG2
       column-type: nvarchar(2)
       required: false
@@ -3635,7 +3642,7 @@ PercentOfFatUseDuringCookingAttachedToAFood:
         subgroup.subgroup2
       description: |
         Fat sub-subgroup code for fat
-    fatCodeForFat:
+    fatCode:
       column: FAT_IDNUM
       column-type: nvarchar(5)
       required: false
