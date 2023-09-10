@@ -18,37 +18,26 @@
  */
 package dita.globodiet.manager.help;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.springframework.stereotype.Component;
 
-import org.apache.causeway.applib.id.LogicalType;
-import org.apache.causeway.applib.services.metamodel.BeanSort;
 import org.apache.causeway.applib.services.metamodel.MetaModelService;
-import org.apache.causeway.applib.services.metamodel.ObjectGraph;
-import org.apache.causeway.applib.services.metamodel.ObjectGraph.RelationType;
-import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
+import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.tooling.orm.OrmModel;
-import lombok.val;
 
 @Component
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaEntityDiagramPage")
-public class DitaEntityDiagramPage extends EntityDiagramPageAbstract {
-
-    private final OrmModel.Schema gdParamsSchema;
+public class DitaEntityDiagramPage extends DitaEntityDiagramPageAbstract {
 
     @Inject
     public DitaEntityDiagramPage(
             final OrmModel.Schema gdParamsSchema,
             final MetaModelService metaModelService) {
-        super(metaModelService);
-        this.gdParamsSchema = gdParamsSchema;
+        super(gdParamsSchema, metaModelService);
     }
 
     @Override
@@ -57,95 +46,14 @@ public class DitaEntityDiagramPage extends EntityDiagramPageAbstract {
     }
 
     @Override
-    protected boolean accept(final BeanSort beanSort, final LogicalType logicalType) {
-        if(!beanSort.isEntity()) return false;
-        val ns = "" + logicalType.getNamespace();
-        return !ns.equals("causeway")
-                && !ns.startsWith("causeway.");
+    protected String diagramTitle() {
+        return "Entity Relations";
     }
 
     @Override
-    protected ObjectGraph createObjectGraph() {
-        return super.createObjectGraph()
-        // add foreign key relations from schema
-        .transform(g->{
-
-            val objectByEntity = new HashMap<OrmModel.Entity, ObjectGraph.Object>();
-            val relationsToRender = new ArrayList<ObjectGraph.Relation>(g.relations());
-
-            gdParamsSchema.entities().values()
-                .forEach(entity->{
-                    g.objects().stream()
-                        .filter(obj->obj.packageName().endsWith(entity.namespace())
-                                && obj.name().equals(entity.name()))
-                        .findAny()
-                        .ifPresent(obj->objectByEntity.put(entity, obj));
-                });
-
-            gdParamsSchema.entities().values()
-                .forEach(entity->{
-
-                    final ObjectGraph.Object from = objectByEntity.get(entity);
-
-                    entity.fields().forEach(field->{
-                        field.foreignKeys().stream()
-                            .map(gdParamsSchema::lookupForeignKeyFieldElseFail)
-                            .forEach(foreignField->{
-
-                                final ObjectGraph.Object to = objectByEntity.get(foreignField.parentEntity());
-
-                                relationsToRender.add(new ObjectGraph.Relation(
-                                        RelationType.MERGED_ASSOCIATIONS, from, to, field.name(), ""));
-                            });
-                    });
-                });
-
-
-            val transformed = new ObjectGraph();
-            transformed.objects().addAll(g.objects());
-            transformed.relations().addAll(relationsToRender);
-            return transformed;
-
-        })
-        // rename packages (strip 'dita.globodiet.params')
-        .transform(g->{
-            val stripLen = "dita.globodiet.params.".length();
-
-            val transformed = new ObjectGraph();
-
-            g.objects().stream()
-                .map(obj->obj.withPackageName(obj.packageName().substring(stripLen)))
-                .forEach(transformed.objects()::add);
-
-            val objectById = transformed.objectById();
-
-            g.relations().stream()
-                .map(rel->rel.withFrom(objectById.get(rel.fromId())).withTo(objectById.get(rel.toId())))
-                .forEach(transformed.relations()::add);
-
-            return transformed;
-        })
-        .transform(ObjectGraph.Transformers.relationMerger());
+    protected String renderObjectGraph(final ObjectGraph objectGraph) {
+        return super.renderObjectGraphUsingPlantuml(objectGraph);
     }
-
-
-//    @Override
-//    public AsciiDoc getContent() {
-//        val title = getTitle();
-//        val plantumlSource = entityTypesAsDiagram();
-//
-//        val doc = AsciiDocFactory.doc();
-//        doc.setTitle(getTitle());
-//
-//        final String asciidocSource = AsciiDocWriter.toString(doc);
-//
-//        val diagramBlock = AsciiDocFactory
-//                .diagramBlock(doc, "plantuml", Can.of(getTitle() ,"svg"), plantumlSource);
-//
-//        val adoc = AsciiDoc.valueOf(asciidocSource);
-//        return adoc;
-//    }
-
 
 }
 
