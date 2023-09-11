@@ -108,7 +108,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Only for the facet with Dsfacet_type=1,\n"
+            describedAs = "Only for the facet with Dsfacet_type=1,<br>\n"
                             + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0"
     )
     @Column(
@@ -128,9 +128,9 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Default Descriptor.\n"
-                            + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
-                            + "1=default,\n"
+            describedAs = "Default Descriptor.<br>\n"
+                            + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):<br>\n"
+                            + "1=default,<br>\n"
                             + "0=other"
     )
     @Column(

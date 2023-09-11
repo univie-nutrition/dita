@@ -97,6 +97,7 @@ class _GenMenu {
                             //)
                             ))
                     .addAnnotation(_Annotations.action())
+                    .addAnnotation(_Annotations.actionLayout(entityModel.icon()))
                     .addCode("return repositoryService.allInstances($1L.class);", entityModel.name())
                     .build();
     }

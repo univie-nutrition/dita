@@ -111,9 +111,9 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=Standard facets with descriptors available in Descface table\n"
-                            + "1=Facets with descriptors available in Brandnam table\n"
-                            + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
+            describedAs = "0=Standard facets with descriptors available in Descface table<br>\n"
+                            + "1=Facets with descriptors available in Brandnam table<br>\n"
+                            + "2=Facets with descriptors available in Foods table - facet 15 type of fat<br>\n"
                             + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
     )
     @Column(
@@ -131,7 +131,7 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0 = facet with mono-selection of descriptor\n"
+            describedAs = "0 = facet with mono-selection of descriptor<br>\n"
                             + "1 = facets with multi-selection of descriptors"
     )
     @Column(
@@ -149,7 +149,7 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
+            describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>\n"
                             + "Comma is used as delimiter (e.g. 10,050701,050702)"
     )
     @Column(

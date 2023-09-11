@@ -76,10 +76,10 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Quantification method code:\n"
-                            + "'P' for photo,\n"
-                            + "'H' for HHM,\n"
-                            + "'U' for stdu,\n"
+            describedAs = "Quantification method code:<br>\n"
+                            + "'P' for photo,<br>\n"
+                            + "'H' for HHM,<br>\n"
+                            + "'U' for stdu,<br>\n"
                             + "'A' for shape"
     )
     @Column(
@@ -98,7 +98,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Photo code (if method='P' and 'A');\n"
+            describedAs = "Photo code (if method='P' and 'A');<br>\n"
                             + "either M_photos.ph_code or M_shapes.sh_code"
     )
     @Column(

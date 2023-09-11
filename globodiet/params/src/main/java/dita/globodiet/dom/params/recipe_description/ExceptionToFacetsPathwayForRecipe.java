@@ -76,9 +76,9 @@ public class ExceptionToFacetsPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe\n"
-                            + "(superseeding its group pathway).\n"
-                            + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file\n"
+            describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>\n"
+                            + "(superseeding its group pathway).<br>\n"
+                            + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file<br>\n"
                             + "(Assuming always a subset)"
     )
     @Column(

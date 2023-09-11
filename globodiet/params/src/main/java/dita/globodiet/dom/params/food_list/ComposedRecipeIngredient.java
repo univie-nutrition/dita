@@ -73,7 +73,7 @@ public class ComposedRecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food (ingredient) Identification Code\n"
+            describedAs = "Food (ingredient) Identification Code<br>\n"
                             + "either Foods.foodnum OR Mixedrec.r_idnum"
     )
     @Column(
@@ -92,7 +92,7 @@ public class ComposedRecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "If type=1 ingredient from Food list,\n"
+            describedAs = "If type=1 ingredient from Food list,<br>\n"
                             + "If type=2 ingredient from Recipe list"
     )
     @Column(

@@ -157,21 +157,21 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Type of item:\n"
-                            + "{} -> Normal Food Item\n"
-                            + "GI -> Generic Food Item\n"
-                            + "SH -> Shadow Item\n"
-                            + "CR -> Composed Recipe (a.huber: does not appear to be used anywhere)\n"
-                            + "Definition: its different ingredients can be identified and\n"
-                            + "quantified separately after preparation\n"
-                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
-                            + "or just before mixing (e.g. coffee with milk).\n"
-                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
-                            + "They are made from items listed below/linked to a quick list item.\n"
-                            + "Example: Salad\n"
-                            + "- Lettuce\n"
-                            + "- Tomato\n"
-                            + "- Cucumber\n"
+            describedAs = "Type of item:<br>\n"
+                            + "{} -> Normal Food Item<br>\n"
+                            + "GI -> Generic Food Item<br>\n"
+                            + "SH -> Shadow Item<br>\n"
+                            + "CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>\n"
+                            + "Definition: its different ingredients can be identified and<br>\n"
+                            + "quantified separately after preparation<br>\n"
+                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>\n"
+                            + "or just before mixing (e.g. coffee with milk).<br>\n"
+                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>\n"
+                            + "They are made from items listed below/linked to a quick list item.<br>\n"
+                            + "Example: Salad<br>\n"
+                            + "- Lettuce<br>\n"
+                            + "- Tomato<br>\n"
+                            + "- Cucumber<br>\n"
                             + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
     )
     @Column(
@@ -190,7 +190,7 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Auxiliary field to force an internal order within each subgroup\n"
+            describedAs = "Auxiliary field to force an internal order within each subgroup<br>\n"
                             + "(if GI then 1 otherwise 2, this forces the GI at the top)"
     )
     @Column(

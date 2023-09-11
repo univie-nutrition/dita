@@ -108,7 +108,7 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
+            describedAs = "0=Standard facets with descriptors available in R_Descface table<br>\n"
                             + "1=Facets with descriptors available in RBrand table"
     )
     @Column(
@@ -126,7 +126,7 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0 = facet with mono-selection of descriptor\n"
+            describedAs = "0 = facet with mono-selection of descriptor<br>\n"
                             + "1 = facets with multi-selection of descriptors"
     )
     @Column(
@@ -144,7 +144,7 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "0 = standard facet\n"
+            describedAs = "0 = standard facet<br>\n"
                             + "1 = Main facet (with non modified descriptor)"
     )
     @Column(

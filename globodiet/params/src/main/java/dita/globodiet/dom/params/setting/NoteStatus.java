@@ -92,8 +92,8 @@ public class NoteStatus {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Allow the possibility to display or not the note in the view note window:\n"
-                            + "0=No hide,\n"
+            describedAs = "Allow the possibility to display or not the note in the view note window:<br>\n"
+                            + "0=No hide,<br>\n"
                             + "1=Yes hide (e.g. 1=hide for status “action done”)"
     )
     @Column(

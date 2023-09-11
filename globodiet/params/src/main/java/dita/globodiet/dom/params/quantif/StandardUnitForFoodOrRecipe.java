@@ -90,7 +90,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw,\n"
+            describedAs = "1 = raw,<br>\n"
                             + "2 = cooked (as estimated)"
     )
     @Column(
@@ -126,7 +126,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1 = STDU for food,\n"
+            describedAs = "1 = STDU for food,<br>\n"
                             + "2 = STDU for recipe"
     )
     @Column(

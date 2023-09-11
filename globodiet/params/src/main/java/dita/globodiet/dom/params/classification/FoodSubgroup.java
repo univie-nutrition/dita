@@ -142,7 +142,7 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "0=non fat/sauce subgroup\n"
+            describedAs = "0=non fat/sauce subgroup<br>\n"
                             + "1= fat/sauce subgroup that can be left over in the dish"
     )
     @Column(
@@ -161,7 +161,7 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "0=non fat during cooking subgroup\n"
+            describedAs = "0=non fat during cooking subgroup<br>\n"
                             + "1= fat during cooking subgroup"
     )
     @Column(

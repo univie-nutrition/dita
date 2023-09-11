@@ -90,7 +90,7 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
+            describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.<br>\n"
                             + "The value of each expression will be evaluated as factor of the total volume"
     )
     @Column(

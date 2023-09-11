@@ -91,7 +91,7 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
+            describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>\n"
                             + "Only 1 facet (physical state) is used for quantification."
     )
     @Column(
@@ -110,8 +110,8 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Facet with Mono or Multi selection of descriptors\n"
-                            + "0=mono,\n"
+            describedAs = "Facet with Mono or Multi selection of descriptors<br>\n"
+                            + "0=mono,<br>\n"
                             + "1=multi"
     )
     @Column(

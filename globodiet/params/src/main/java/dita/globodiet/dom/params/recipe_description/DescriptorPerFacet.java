@@ -109,8 +109,8 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Only for facet recipe production:\n"
-                            + "0=not homemade descriptor\n"
+            describedAs = "Only for facet recipe production:<br>\n"
+                            + "0=not homemade descriptor<br>\n"
                             + "1=Homemade descriptor"
     )
     @Column(
@@ -160,7 +160,7 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "0=not single descriptor\n"
+            describedAs = "0=not single descriptor<br>\n"
                             + "1=single descriptor"
     )
     @Column(

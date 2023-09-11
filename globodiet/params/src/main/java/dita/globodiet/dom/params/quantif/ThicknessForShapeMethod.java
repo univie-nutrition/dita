@@ -110,10 +110,10 @@ public class ThicknessForShapeMethod {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
-                            + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
-                            + "When this field is empty, that means that this thickness has always to be proposed\n"
-                            + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
+            describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.<br>\n"
+                            + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)<br>\n"
+                            + "When this field is empty, that means that this thickness has always to be proposed<br>\n"
+                            + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1<br>\n"
                             + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
     )
     @Column(
@@ -134,9 +134,9 @@ public class ThicknessForShapeMethod {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
-                            + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
-                            + "When this field is empty, that means that this thickness has always to be proposed\n"
+            describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.<br>\n"
+                            + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)<br>\n"
+                            + "When this field is empty, that means that this thickness has always to be proposed<br>\n"
                             + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)"
     )
     @Column(

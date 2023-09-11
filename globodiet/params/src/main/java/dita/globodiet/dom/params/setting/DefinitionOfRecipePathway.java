@@ -64,14 +64,14 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Type of recipe:\n"
-                            + "1.1=Open – Known\n"
-                            + "1.2=Open – Unknown\n"
-                            + "1.3=Open with brand\n"
-                            + "2.1=Closed\n"
-                            + "2.2=Closed with brand\n"
-                            + "3.0=Commercial\n"
-                            + "4.1=New – Known\n"
+            describedAs = "Type of recipe:<br>\n"
+                            + "1.1=Open – Known<br>\n"
+                            + "1.2=Open – Unknown<br>\n"
+                            + "1.3=Open with brand<br>\n"
+                            + "2.1=Closed<br>\n"
+                            + "2.2=Closed with brand<br>\n"
+                            + "3.0=Commercial<br>\n"
+                            + "4.1=New – Known<br>\n"
                             + "4.2=New – Unknown"
     )
     @Column(
@@ -108,9 +108,9 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
-                            + "1 = S - Substitute\n"
-                            + "2 = SAD - Substitute, Add & Delete\n"
+            describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>\n"
+                            + "1 = S - Substitute<br>\n"
+                            + "2 = SAD - Substitute, Add & Delete<br>\n"
                             + "3 = SADQ - Substitute, Add, Delete & Quantify"
     )
     @Column(
@@ -130,9 +130,9 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
-                            + "1 = S - Substitute\n"
-                            + "2 = SAD - Substitute, Add & Delete\n"
+            describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):<br>\n"
+                            + "1 = S - Substitute<br>\n"
+                            + "2 = SAD - Substitute, Add & Delete<br>\n"
                             + "3 = SADQ - Substitute, Add, Delete & Quantify"
     )
     @Column(
@@ -152,9 +152,9 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Display of the automatic note window:\n"
-                            + "0 = No display of note window\n"
-                            + "1 = Display of note window\n"
+            describedAs = "Display of the automatic note window:<br>\n"
+                            + "0 = No display of note window<br>\n"
+                            + "1 = Display of note window<br>\n"
                             + "2 = Display of note window only for Add & Delete functions"
     )
     @Column(

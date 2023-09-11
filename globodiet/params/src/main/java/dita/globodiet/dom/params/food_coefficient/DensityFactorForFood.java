@@ -58,7 +58,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)\n"
+            describedAs = "Food identification number (FOODNUM)<br>\n"
                             + "either Foods.foodnum OR Mixedrec.r_idnum"
     )
     @Column(
@@ -93,7 +93,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet string\n"
+            describedAs = "Facet string<br>\n"
                             + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
     )
     @Column(
@@ -129,7 +129,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1 = without un-edible part,\n"
+            describedAs = "1 = without un-edible part,<br>\n"
                             + "2 = with un-edible (as estimated)"
     )
     @Column(
@@ -148,7 +148,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "1 = raw,\n"
+            describedAs = "1 = raw,<br>\n"
                             + "2 = cooked (as estimated)"
     )
     @Column(
@@ -167,7 +167,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "1 = density for food/ingredient,\n"
+            describedAs = "1 = density for food/ingredient,<br>\n"
                             + "2 = density for recipe"
     )
     @Column(

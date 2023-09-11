@@ -110,8 +110,8 @@ public class FacetDescriptor {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
-                            + "1=Raw descriptor\n"
+            describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)<br>\n"
+                            + "1=Raw descriptor<br>\n"
                             + "2=Descriptors to ask the question 'fat used during cooking'"
     )
     @Column(

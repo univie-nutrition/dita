@@ -91,6 +91,8 @@ causeway:
       themes:
         initial: Default
         show-chooser: false
+        
+      tooltip-text-mode: html
 
       table:
         decoration:

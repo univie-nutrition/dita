@@ -76,7 +76,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3)\n"
+            describedAs = "Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3)<br>\n"
                             + "or type of fat used (=A2) or type of milk/liquid used(=A3)"
     )
     @Column(
@@ -281,8 +281,8 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "14",
-            describedAs = "Quantity Estimated Raw or Cooked\n"
-                            + "1 = Raw\n"
+            describedAs = "Quantity Estimated Raw or Cooked<br>\n"
+                            + "1 = Raw<br>\n"
                             + "2 = Cooked or Not applicable"
     )
     @Column(
@@ -302,8 +302,8 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "15",
-            describedAs = "Quantity Consumed Raw or Cooked\n"
-                            + "1 = Raw\n"
+            describedAs = "Quantity Consumed Raw or Cooked<br>\n"
+                            + "1 = Raw<br>\n"
                             + "2 = Cooked or Not applicable"
     )
     @Column(

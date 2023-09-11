@@ -60,7 +60,7 @@ class _GenEntity {
                 .addAnnotation(_Annotations.named(logicalNamespace + "." + entityModel.name()))
                 .addAnnotation(_Annotations.domainObject())
                 .addAnnotation(_Annotations.domainObjectLayout(
-                        entityModel.formatDescription("\n"),
+                        entityModel.formatDescription("<br>\n"),
                         entityModel.icon()))
                 .addAnnotation(_Annotations.persistenceCapable(entityModel.table()))
                 .addAnnotation(_Annotations.datastoreIdentity())
@@ -92,7 +92,7 @@ class _GenEntity {
                     FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
                     .addJavadoc(field.formatDescription("<br>\n"))
                     .addAnnotation(_Annotations.property())
-                    .addAnnotation(_Annotations.propertyLayout(field.sequence(), field.formatDescription("\n")))
+                    .addAnnotation(_Annotations.propertyLayout(field.sequence(), field.formatDescription("<br>\n")))
                     .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                     .addAnnotation(_Annotations.getter())
                     .addAnnotation(_Annotations.setter())

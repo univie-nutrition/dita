@@ -91,7 +91,7 @@ public class PlaceOfConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "0=not a 'Other' place\n"
+            describedAs = "0=not a 'Other' place<br>\n"
                             + "1='Other' place"
     )
     @Column(

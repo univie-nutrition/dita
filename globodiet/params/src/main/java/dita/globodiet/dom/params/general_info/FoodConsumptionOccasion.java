@@ -125,7 +125,7 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=main FCO (to be displayed in nutrient check screen)\n"
+            describedAs = "1=main FCO (to be displayed in nutrient check screen)<br>\n"
                             + "0=non main FCO"
     )
     @Column(

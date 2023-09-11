@@ -30,6 +30,7 @@ import org.springframework.javapoet.ClassName;
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
+import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
@@ -131,6 +132,12 @@ class _Annotations {
     AnnotationSpec action() {
         return AnnotationSpec.builder(Action.class)
                 .build();
+    }
+    AnnotationSpec actionLayout(final String cssClassFa) {
+        val builder = AnnotationSpec.builder(ActionLayout.class);
+        _Strings.nonEmpty(cssClassFa)
+            .ifPresent(__->builder.addMember("cssClassFa", "$1S", cssClassFa));
+        return builder.build();
     }
     AnnotationSpec property() {
         return AnnotationSpec.builder(Property.class)

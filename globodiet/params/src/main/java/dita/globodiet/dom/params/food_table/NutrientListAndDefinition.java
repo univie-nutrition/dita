@@ -107,7 +107,7 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=not displayed in the 'nutrient checks' screen\n"
+            describedAs = "0=not displayed in the 'nutrient checks' screen<br>\n"
                             + "1=displayed in the 'nutrient checks' screen"
     )
     @Column(

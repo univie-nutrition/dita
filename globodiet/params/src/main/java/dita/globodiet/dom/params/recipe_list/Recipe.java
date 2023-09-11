@@ -35,12 +35,50 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 
 /**
- * Mixed recipes: Names, identification number and class
+ * Mixed recipes: Names, identification number and class.<br>
+ * Definition: Recipes where, after preparation,<br>
+ * the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.<br>
+ * The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),<br>
+ * internet or are based on information received from the industry (for commercial recipes).<br>
+ * They are entered as standard recipes with the RECIPE MANAGER and handled at the country level<br>
+ * prior to the commencement of the interviews.<br>
+ * The mixed recipe database may contain three types of recipes:<br>
+ * 1) ‘open recipes’,<br>
+ * 2) ‘closed recipes’ and<br>
+ * 3) ‘strictly commercial with brand recipes’.<br>
+ * For each mixed recipe, information on the expected variation of ingredients<br>
+ * within the study population needs to be collected, too.<br>
+ * If the variation is found to be great, the recipe should be treated as an open recipe.<br>
+ * It is also possible to enter several standard variations of a recipe depending on regions.<br>
+ * If no variations are expected, a recipe should be treated as a closed recipe<br>
+ * or as a strictly commercial recipe.<br>
+ * Furthermore, it has to be decided if each ingredient is fixed or substitutable.<br>
+ * When entering the recipe ingredients with RECIPE MANAGER,<br>
+ * the ingredients are described and quantified like in the food pathway.
  */
 @Named("dita.globodiet.params.recipe_list.Recipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Mixed recipes: Names, identification number and class"
+        describedAs = "Mixed recipes: Names, identification number and class.<br>\n"
+                        + "Definition: Recipes where, after preparation,<br>\n"
+                        + "the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.<br>\n"
+                        + "The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),<br>\n"
+                        + "internet or are based on information received from the industry (for commercial recipes).<br>\n"
+                        + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level<br>\n"
+                        + "prior to the commencement of the interviews.<br>\n"
+                        + "The mixed recipe database may contain three types of recipes:<br>\n"
+                        + "1) ‘open recipes’,<br>\n"
+                        + "2) ‘closed recipes’ and<br>\n"
+                        + "3) ‘strictly commercial with brand recipes’.<br>\n"
+                        + "For each mixed recipe, information on the expected variation of ingredients<br>\n"
+                        + "within the study population needs to be collected, too.<br>\n"
+                        + "If the variation is found to be great, the recipe should be treated as an open recipe.<br>\n"
+                        + "It is also possible to enter several standard variations of a recipe depending on regions.<br>\n"
+                        + "If no variations are expected, a recipe should be treated as a closed recipe<br>\n"
+                        + "or as a strictly commercial recipe.<br>\n"
+                        + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.<br>\n"
+                        + "When entering the recipe ingredients with RECIPE MANAGER,<br>\n"
+                        + "the ingredients are described and quantified like in the food pathway."
 )
 @PersistenceCapable(
         table = "MIXEDREC"
@@ -119,12 +157,28 @@ public class Recipe {
     private String recipeName;
 
     /**
-     * Type of recipe: 1.1=Open – Known 1.2=Open – Unknown 1.3=Open with brand 2.1=Closed 2.2=Closed with brand 3.0=Commercial 4.1=New – Known 4.2=New – Unknown
+     * Type of recipe:<br>
+     * 1.1=Open – Known<br>
+     * 1.2=Open – Unknown<br>
+     * 1.3=Open with brand<br>
+     * 2.1=Closed<br>
+     * 2.2=Closed with brand<br>
+     * 3.0=Commercial<br>
+     * 4.1=New – Known<br>
+     * 4.2=New – Unknown
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Type of recipe: 1.1=Open – Known 1.2=Open – Unknown 1.3=Open with brand 2.1=Closed 2.2=Closed with brand 3.0=Commercial 4.1=New – Known 4.2=New – Unknown"
+            describedAs = "Type of recipe:<br>\n"
+                            + "1.1=Open – Known<br>\n"
+                            + "1.2=Open – Unknown<br>\n"
+                            + "1.3=Open with brand<br>\n"
+                            + "2.1=Closed<br>\n"
+                            + "2.2=Closed with brand<br>\n"
+                            + "3.0=Commercial<br>\n"
+                            + "4.1=New – Known<br>\n"
+                            + "4.2=New – Unknown"
     )
     @Column(
             name = "R_TYPE",
@@ -176,7 +230,7 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=recipe without sub-recipe\n"
+            describedAs = "0=recipe without sub-recipe<br>\n"
                             + "1=recipe with sub-recipe"
     )
     @Column(
