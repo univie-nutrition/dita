@@ -27,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.value.Markup;
+import org.apache.causeway.commons.collections.Can;
 
 @Property(
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
@@ -47,13 +49,12 @@ public class ThicknessForShapeMethod_foodSubgroups {
     private final ThicknessForShapeMethod mixee;
 
     @MemberSupport
-    public FoodSubgroup prop() {
+    public Markup prop() {
         return foreignKeyLookup
-            .ternary(
-                // local
+            .plural(
                 mixee, mixee.getFoodSubgroupsLookupKey(),
                 // foreign
-                FoodSubgroup.class, foreign->foreign.getFoodGroupCode(), foreign->foreign.getFoodSubgroupCode(), foreign->foreign.getFoodSubSubgroupCode())
-            .orElse(null);
+                FoodSubgroup.class,
+                Can.of(FoodSubgroup::getFoodGroupCode, FoodSubgroup::getFoodSubgroupCode, FoodSubgroup::getFoodSubSubgroupCode));
     }
 }

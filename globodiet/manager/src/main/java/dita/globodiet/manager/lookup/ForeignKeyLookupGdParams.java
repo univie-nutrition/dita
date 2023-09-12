@@ -21,12 +21,15 @@ package dita.globodiet.manager.lookup;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -35,11 +38,27 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.commons.types.BiString;
+import dita.globodiet.dom.params.classification.FoodGroup;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.classification.RecipeGroup;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
+import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
+import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
+import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
 import lombok.NonNull;
 import lombok.val;
 
@@ -48,6 +67,7 @@ public class ForeignKeyLookupGdParams
 implements ForeignKeyLookupService {
 
     @Inject RepositoryService repositoryService;
+    @Inject DeepLinkService deepLinkService;
 
     @Override
     public <L, F> Optional<F> unary(final L localEntity, final String localFieldName, final Object localField,
@@ -60,32 +80,12 @@ implements ForeignKeyLookupService {
             return repositoryService.uniqueMatch(foreignType, foreign->
                 Objects.equals(localField, foreignFieldGetter.apply(foreign))
                     && !Objects.equals("SH", ((FoodOrProductOrAlias)foreign).getTypeOfItem()));
-        } else if(FoodSubgroup.class.equals(foreignType)) {
-            // discrimination by 3 fields, where first 2 are always populated
-            val isLookingForSubSubgroup = localFieldName.toLowerCase().contains("subsub");
-            if(localEntity instanceof Brand) {
-                val local = (Brand) localEntity;
-                val subsubgroup = isLookingForSubSubgroup
-                        ? local.getFoodSubSubgroupCode()
-                        : null;
-                return repositoryService.uniqueMatch(foreignType, foreign->{
-                    val foodSubgroup = (FoodSubgroup)foreign;
-                    return Objects.equals(local.getFoodGroupCode(), foodSubgroup.getFoodGroupCode())
-                            && Objects.equals(local.getFoodSubgroupCode(), foodSubgroup.getFoodSubgroupCode())
-                            && Objects.equals(subsubgroup, foodSubgroup.getFoodSubSubgroupCode());
-                });
-            } else if(localEntity instanceof FoodOrProductOrAlias) {
-                val local = (FoodOrProductOrAlias) localEntity;
-                val subsubgroup = isLookingForSubSubgroup
-                        ? local.getFoodSubSubgroupCode()
-                        : null;
-                return repositoryService.uniqueMatch(foreignType, foreign->{
-                    val foodSubgroup = (FoodSubgroup)foreign;
-                    return Objects.equals(local.getFoodGroupCode(), foodSubgroup.getFoodGroupCode())
-                            && Objects.equals(local.getFoodSubgroupCode(), foodSubgroup.getFoodSubgroupCode())
-                            && Objects.equals(subsubgroup, foodSubgroup.getFoodSubSubgroupCode());
-                });
-            }
+        }
+        if(FoodSubgroup.class.equals(foreignType)) {
+            return foodSubgroup(foreignType, GroupDiscriminator.auto(localEntity));
+        }
+        if(RecipeSubgroup.class.equals(foreignType)) {
+            return recipeSubgroup(foreignType, GroupDiscriminator.auto(localEntity));
         }
 
         return repositoryService.uniqueMatch(foreignType, foreign->
@@ -99,7 +99,6 @@ implements ForeignKeyLookupService {
             final Function<F, Object> foreignFieldGetter2) {
 
         if(localField == null) return Optional.empty();
-
         if(FacetDescriptor.class.equals(foreignType)) {
             val key = decodeFacetDescriptorLookupKey((String) localField);
             return repositoryService.uniqueMatch(foreignType, foreign->
@@ -107,27 +106,13 @@ implements ForeignKeyLookupService {
                         (String)foreignFieldGetter1.apply(foreign),
                         (String)foreignFieldGetter2.apply(foreign)));
 
-        } else if(RecipeSubgroup.class.equals(foreignType)) {
-            val keys = decodeGroupListLookupKey((String) localField);
-
-            return switch(keys.getCardinality()) {
-            case ZERO -> Optional.empty();
-            case ONE -> repositoryService.uniqueMatch(foreignType, foreign->
-                keys.getFirstElseFail().equalsPair(
-                        (String)foreignFieldGetter1.apply(foreign),
-                        (String)foreignFieldGetter2.apply(foreign)));
-            case MULTIPLE ->
-                // FIXME[DITA-110] need a way to perhaps display multiple links in tables
-                Optional.empty();
-            };
         }
-
         throw _Exceptions.unrecoverable("2-ary foreign key lookup not implemented for foreign type %s",
                 foreignType.getName());
     }
 
     @Override
-    public <L, F1, F2> Optional<Either<F1, F2>> binary(final L localEntity, final Object localField,
+    public <L, F1, F2> Optional<Either<F1, F2>> either(final L localEntity, final Object localField,
             final Class<F1> foreignType1, final Function<F1, Object> foreignFieldGetter1,
             final Class<F2> foreignType2, final Function<F2, Object> foreignFieldGetter2) {
 
@@ -156,21 +141,31 @@ implements ForeignKeyLookupService {
         //RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
     }
 
+    /**
+     * @see ThicknessForShapeMethod_foodSubgroups
+     */
     @Override
-    public <L, F> Optional<F> ternary(
+    public <L, F> Markup plural(
             final L localEntity, final Object localField,
             final Class<F> foreignType,
-            final Function<F, Object> foreignFieldGetter1,
-            final Function<F, Object> foreignFieldGetter2,
-            final Function<F, Object> foreignFieldGetter3) {
+            final Can<Function<F, Object>> foreignFieldGetters) {
 
         if(FoodSubgroup.class.equals(foreignType)) {
             val keys = decodeGroupListLookupKey((String) localField);
-            // FIXME[DITA-110] return FoodSubgroup
-            return Optional.empty();
+            final Can<Either<FoodGroup, FoodSubgroup>> groups = keys.map(this::foodGroupOrSubgroupElseThrow);
+            return new Markup(groups.stream()
+                    .map(group->group.fold(FoodGroup::title, FoodSubgroup::title))
+                    .collect(Collectors.joining("<br>")));
+        }
+        if(RecipeSubgroup.class.equals(foreignType)) {
+            val keys = decodeGroupListLookupKey((String) localField);
+            final Can<Either<RecipeGroup, RecipeSubgroup>> groups = keys.map(this::recipeGroupOrSubgroupElseThrow);
+            return new Markup(groups.stream()
+                    .map(group->group.fold(RecipeGroup::title, RecipeSubgroup::title))
+                    .collect(Collectors.joining("<br>")));
         }
 
-        throw _Exceptions.unrecoverable("3-ary foreign key lookup not implemented for foreign type %s",
+        throw _Exceptions.unrecoverable("plural foreign key lookup not implemented for foreign type %s",
                 foreignType.getName());
     }
 
@@ -187,18 +182,73 @@ implements ForeignKeyLookupService {
     /**
      * Pair of {@link String}. Simply a typed tuple. With the second field an optional
      */
-    record GroupDiscriminator(String left, Optional<String> right) {
-
+    record GroupDiscriminator(String left, Optional<String> middle, Optional<String> right) {
         public GroupDiscriminator {
             _Strings.requireNonEmpty(left, "left");
+            middle.ifPresent(r->_Strings.requireNonEmpty(r, "middle"));
             right.ifPresent(r->_Strings.requireNonEmpty(r, "right"));
         }
+        static GroupDiscriminator of(final String left, final String middle, final String right) {
+            return new GroupDiscriminator(left, Optional.ofNullable(middle), Optional.ofNullable(right));
+        }
+        static GroupDiscriminator auto(final Object entity) {
+            if(entity instanceof Brand local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof FoodOrProductOrAlias local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof GroupOrSubgroupThatCanBeSubstitutable local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof MaximumValueForAFoodOrASubSubgroup local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof PercentOfFatLeftInTheDishForFood local) {
+                return of(local.getFatGroupCode(), local.getFatSubgroupCode(), local.getFatSubSubgroupCode());
+            }
+            //TODO ambiguous with fss...
+            if(entity instanceof PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof PercentOfFatUseDuringCookingForFood local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof ProbingQuestionsPathwaysForFood local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof RuleAppliedToFacet local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
+            if(entity instanceof QuantificationMethodsPathwayForFoodGroup local) {
+                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
 
-        public boolean equalsPair(final String left, final String right) {
-            return Objects.equals(this.left, left)
-                && Objects.equals(this.right.orElse(null), right);
+            if(entity instanceof BrandForRecipe local) {
+                return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
+            }
+            if(entity instanceof MaximumValueForARecipeOrASubgroup local) {
+                return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
+            }
+            if(entity instanceof PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe local) {
+                return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
+            }
+            if(entity instanceof ProbingQuestionPathwayForRecipe local) {
+                return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
+            }
+            if(entity instanceof Recipe local) {
+                return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
+            }
+
+            throw _Exceptions.illegalArgument("Unrecognized entity %s", entity.getClass());
+
         }
 
+//        public boolean equalsTuple(final String left, final String middle, final String right) {
+//            return Objects.equals(this.left, left)
+//                && Objects.equals(this.middle.orElse(null), middle)
+//                && Objects.equals(this.right.orElse(null), right);
+//        }
     }
 
     /**
@@ -206,10 +256,17 @@ implements ForeignKeyLookupService {
      */
     static GroupDiscriminator decodeGroupLookupKey(final @NonNull String input) {
         _Assert.assertTrue(input.length()==2
-                || input.length()==4);
-        return new GroupDiscriminator(input.substring(0, 2), input.length()==4
-                ? Optional.of(input.substring(2))
-                : Optional.empty());
+                || input.length()==4
+                || input.length()==6);
+        return new GroupDiscriminator(
+                input.substring(0, 2),
+                input.length()>=4
+                    ? Optional.of(input.substring(2, 4))
+                    : Optional.empty(),
+                input.length()==6
+                    ? Optional.of(input.substring(4))
+                    : Optional.empty()
+                );
     }
 
     /**
@@ -220,5 +277,79 @@ implements ForeignKeyLookupService {
             .map(chunk->decodeGroupLookupKey(chunk))
             .collect(Can.toCan());
     }
+
+    // -- GROUP LOOKUPS (FOOD)
+
+    private Either<FoodGroup, FoodSubgroup> foodGroupOrSubgroupElseThrow(final GroupDiscriminator discriminator){
+        return discriminator.middle().isPresent()
+                ? Either.right(foodSubgroupElseThrow(discriminator.left(), discriminator.middle().get(), discriminator.right().orElse(null)))
+                : Either.left(foodGroupElseThrow(discriminator.left()));
+    }
+
+    private FoodGroup foodGroupElseThrow(
+            final String groupDiscriminator){
+        return repositoryService.uniqueMatch(FoodGroup.class, group->
+                    Objects.equals(groupDiscriminator, group.getCode()))
+                .orElseThrow(()->_Exceptions.noSuchElement("FoodGroup not found matching %s",
+                        _Strings.nonEmpty(groupDiscriminator).orElse("-")));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <F> Optional<F> foodSubgroup(final Class<F> foreignType, final GroupDiscriminator discriminator){
+        return Optional.of((F)foodSubgroupElseThrow(
+                discriminator.left(),
+                discriminator.middle().orElse(null),
+                discriminator.right().orElse(null)));
+    }
+
+    private FoodSubgroup foodSubgroupElseThrow(
+            final String groupDiscriminator,
+            final String subgroupDiscriminator,
+            final String subsubgroupDiscriminator){
+        return repositoryService.uniqueMatch(FoodSubgroup.class, subgroup->
+            Objects.equals(groupDiscriminator, subgroup.getFoodGroupCode())
+                    && Objects.equals(subgroupDiscriminator, subgroup.getFoodSubgroupCode())
+                    && Objects.equals(subsubgroupDiscriminator, subgroup.getFoodSubSubgroupCode()))
+                .orElseThrow(()->_Exceptions.noSuchElement("FoodSubgroup not found matching %s|%s|%s",
+                        _Strings.nonEmpty(groupDiscriminator).orElse("-"),
+                        _Strings.nonEmpty(subgroupDiscriminator).orElse("-"),
+                        _Strings.nonEmpty(subsubgroupDiscriminator).orElse("-")));
+    }
+
+    // -- GROUP LOOKUPS (RECIPE)
+
+    private Either<RecipeGroup, RecipeSubgroup> recipeGroupOrSubgroupElseThrow(final GroupDiscriminator discriminator){
+        return discriminator.middle().isPresent()
+                ? Either.right(recipeSubgroupElseThrow(discriminator.left(), discriminator.middle().get()))
+                : Either.left(recipeGroupElseThrow(discriminator.left()));
+    }
+
+    private RecipeGroup recipeGroupElseThrow(
+            final String groupDiscriminator){
+        return repositoryService.uniqueMatch(RecipeGroup.class, group->
+                    Objects.equals(groupDiscriminator, group.getCode()))
+                .orElseThrow(()->_Exceptions.noSuchElement("RecipeGroup not found matching %s",
+                        _Strings.nonEmpty(groupDiscriminator).orElse("-")));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <F> Optional<F> recipeSubgroup(final Class<F> foreignType, final GroupDiscriminator discriminator){
+        return Optional.of((F)recipeSubgroupElseThrow(
+                discriminator.left(),
+                discriminator.middle().orElse(null)));
+    }
+
+    private RecipeSubgroup recipeSubgroupElseThrow(
+            final String groupDiscriminator,
+            final String subgroupDiscriminator){
+        return repositoryService.uniqueMatch(RecipeSubgroup.class, subgroup->
+            Objects.equals(groupDiscriminator, subgroup.getRecipeGroupCode())
+                    && Objects.equals(subgroupDiscriminator, subgroup.getCode()))
+                .orElseThrow(()->_Exceptions.noSuchElement("RecipeSubgroup not found matching %s|%s",
+                        _Strings.nonEmpty(groupDiscriminator).orElse("-"),
+                        _Strings.nonEmpty(subgroupDiscriminator).orElse("-")));
+    }
+
+    // --
 
 }

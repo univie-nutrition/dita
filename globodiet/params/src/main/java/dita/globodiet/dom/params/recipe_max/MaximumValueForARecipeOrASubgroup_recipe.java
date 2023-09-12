@@ -49,7 +49,7 @@ public class MaximumValueForARecipeOrASubgroup_recipe {
                 // local
                 mixee, "recipeCode", mixee.getRecipeCode(),
                 // foreign
-                Recipe.class, foreign->foreign.getRecipeIDNumber())
+                Recipe.class, foreign->foreign.getRecipeCode())
             .orElse(null);
     }
 }

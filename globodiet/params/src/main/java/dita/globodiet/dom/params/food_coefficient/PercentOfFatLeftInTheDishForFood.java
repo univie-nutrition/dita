@@ -65,7 +65,7 @@ public class PercentOfFatLeftInTheDishForFood {
     )
     @Getter
     @Setter
-    private String groupCodeOfFat;
+    private String fatGroupCode;
 
     /**
      * Subgroup code of the FAT
@@ -82,7 +82,7 @@ public class PercentOfFatLeftInTheDishForFood {
     )
     @Getter
     @Setter
-    private String subgroupCodeOfFat;
+    private String fatSubgroupCode;
 
     /**
      * Sub-Subgroup code of the FAT
@@ -99,7 +99,7 @@ public class PercentOfFatLeftInTheDishForFood {
     )
     @Getter
     @Setter
-    private String subSubgroupCodeOfFat;
+    private String fatSubSubgroupCode;
 
     /**
      * Percentage of fat left in the dish

@@ -21,6 +21,8 @@ package dita.commons.services.foreignkey;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.apache.causeway.applib.value.Markup;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Either;
 
 public interface ForeignKeyLookupService {
@@ -40,7 +42,7 @@ public interface ForeignKeyLookupService {
             Function<F, Object> foreignFieldGetter1,
             Function<F, Object> foreignFieldGetter2);
 
-    <L, F1, F2> Optional<Either<F1, F2>> binary(
+    <L, F1, F2> Optional<Either<F1, F2>> either(
             // local
             L localEntity, Object localField,
             // foreign 1
@@ -48,13 +50,14 @@ public interface ForeignKeyLookupService {
             // foreign 2
             Class<F2> foreignType2, Function<F2, Object> foreignFieldGetter2);
 
-    <L, F> Optional<F> ternary(
+    /**
+     * TODO[DITA-110] Yet this does not allow for reverse lookup mixins to properly find dependants.
+     */
+    <L, F> Markup plural(
             // local
             L localEntity, Object localField,
             // foreign
             Class<F> foreignType,
-            Function<F, Object> foreignFieldGetter1,
-            Function<F, Object> foreignFieldGetter2,
-            Function<F, Object> foreignFieldGetter3);
+            final Can<Function<F, Object>> foreignFieldGetters);
 
 }

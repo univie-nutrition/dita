@@ -48,12 +48,12 @@ public class DensityFactorForFood_foodOrRecipe {
     @MemberSupport
     public Object prop() {
         return foreignKeyLookup
-            .binary(
+            .either(
                 // local
                 mixee, mixee.getFoodOrRecipeCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
-                Recipe.class, foreign->foreign.getRecipeIDNumber())
+                Recipe.class, foreign->foreign.getRecipeCode())
             .map(either->either.isLeft()
                 ? either.leftIfAny()
                 : either.rightIfAny())

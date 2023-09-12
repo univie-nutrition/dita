@@ -116,7 +116,7 @@ public class FoodSubgroup {
     )
     @Getter
     @Setter
-    private String nameOfTheFoodSubSubgroup;
+    private String name;
 
     /**
      * 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
@@ -188,12 +188,12 @@ public class FoodSubgroup {
     )
     @Getter
     @Setter
-    private String shortNameOfTheFoodSubSubgroup;
+    private String shortName;
 
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s|%s|%s)", 
-         nameOfTheFoodSubSubgroup, 
+         name, 
          dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
          dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
          dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))

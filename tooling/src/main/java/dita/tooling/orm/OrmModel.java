@@ -148,6 +148,7 @@ public class OrmModel {
             String columnType,
             boolean required,
             boolean unique,
+            boolean plural,
             List<String> foreignKeys,
             List<String> description) {
         @SuppressWarnings("rawtypes")
@@ -160,6 +161,7 @@ public class OrmModel {
                     (String)map.get("column-type"),
                     (Boolean)map.get("required"),
                     (Boolean)map.get("unique"),
+                    (boolean)Optional.ofNullable((Boolean)map.get("plural")).orElse(false),
                     parseMultilineString((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
         }
@@ -306,7 +308,7 @@ public class OrmModel {
     public Can<Schema> examples() {
         val entity = new Entity("FoodList", "dita", "FOODS", "name", "fa-pencil", List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
-        val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false,
+        val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false, false,
                 List.of(), List.of("aa", "bb", "cc"));
         entity.fields().add(field);
         return Can.of(

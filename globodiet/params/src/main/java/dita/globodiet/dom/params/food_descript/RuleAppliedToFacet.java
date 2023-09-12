@@ -64,7 +64,7 @@ public class RuleAppliedToFacet {
     )
     @Getter
     @Setter
-    private String facetWhereTheRuleMustBeAppliedCode;
+    private String facetCode;
 
     /**
      * Facet code + Descriptor code that must exist in the current food description<br>
@@ -104,7 +104,7 @@ public class RuleAppliedToFacet {
     )
     @Getter
     @Setter
-    private String groupCode;
+    private String foodGroupCode;
 
     /**
      * Subgroup code
@@ -121,7 +121,7 @@ public class RuleAppliedToFacet {
     )
     @Getter
     @Setter
-    private String subgroupCode;
+    private String foodSubgroupCode;
 
     /**
      * Sub-subgroup code
@@ -138,7 +138,7 @@ public class RuleAppliedToFacet {
     )
     @Getter
     @Setter
-    private String subSubgroupCode;
+    private String foodSubSubgroupCode;
 
     @ObjectSupport
     public String title() {

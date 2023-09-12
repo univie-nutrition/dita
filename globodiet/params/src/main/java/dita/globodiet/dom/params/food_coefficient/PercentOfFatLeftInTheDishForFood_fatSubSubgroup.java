@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodGroup;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -32,24 +32,24 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "1.1",
-        describedAs = "Group code of the FAT's group"
+        sequence = "3.1",
+        describedAs = "Sub-Subgroup code of the FAT"
 )
 @RequiredArgsConstructor
-public class PercentOfFatLeftInTheDishForFood_groupCodeOfFatObj {
+public class PercentOfFatLeftInTheDishForFood_fatSubSubgroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final PercentOfFatLeftInTheDishForFood mixee;
 
     @MemberSupport
-    public FoodGroup prop() {
+    public FoodSubgroup prop() {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "groupCodeOfFat", mixee.getGroupCodeOfFat(),
+                mixee, "fatSubSubgroupCode", mixee.getFatSubSubgroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getFoodGroupCode())
+                FoodSubgroup.class, foreign->foreign.getFoodSubSubgroupCode())
             .orElse(null);
     }
 }

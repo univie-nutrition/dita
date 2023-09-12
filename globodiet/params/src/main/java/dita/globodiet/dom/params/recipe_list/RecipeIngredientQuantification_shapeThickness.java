@@ -49,7 +49,7 @@ public class RecipeIngredientQuantification_shapeThickness {
                 // local
                 mixee, "shapeThicknessCode", mixee.getShapeThicknessCode(),
                 // foreign
-                ThicknessForShapeMethod.class, foreign->foreign.getThicknessCode())
+                ThicknessForShapeMethod.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

@@ -471,7 +471,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid layer-group olive"
+    )
     public List<RecipeGroup> listAllRecipeGroup() {
         return repositoryService.allInstances(RecipeGroup.class);
     }
@@ -483,7 +485,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid layer-group deepgreen"
+    )
     public List<RecipeSubgroup> listAllRecipeSubgroup() {
         return repositoryService.allInstances(RecipeSubgroup.class);
     }

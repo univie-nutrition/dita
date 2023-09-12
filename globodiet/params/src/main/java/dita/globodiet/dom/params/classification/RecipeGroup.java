@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.RecipeGroup")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Recipe group"
+        describedAs = "Recipe group",
+        cssClassFa = "solid layer-group olive"
 )
 @PersistenceCapable(
         table = "RGROUPS"
@@ -64,7 +65,7 @@ public class RecipeGroup {
     )
     @Getter
     @Setter
-    private String recipeGroupCode;
+    private String code;
 
     /**
      * Name of the Recipe group
@@ -81,7 +82,7 @@ public class RecipeGroup {
     )
     @Getter
     @Setter
-    private String nameOfTheRecipeGroup;
+    private String name;
 
     /**
      * Short Name of the Recipe group
@@ -98,10 +99,10 @@ public class RecipeGroup {
     )
     @Getter
     @Setter
-    private String shortNameOfTheRecipeGroup;
+    private String shortName;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", name, code);
     }
 }

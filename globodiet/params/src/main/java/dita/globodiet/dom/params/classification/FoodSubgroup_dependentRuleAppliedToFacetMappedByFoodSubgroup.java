@@ -21,8 +21,8 @@
 package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
-import dita.globodiet.dom.params.recipe_list.Recipe;
-import dita.globodiet.dom.params.recipe_list.Recipe_groupCodeOfTheRecipeClassificationObj;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodSubgroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,18 +31,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class RecipeGroup_dependentRecipeMappedByGroupCodeOfTheRecipeClassificationObj {
+public class FoodSubgroup_dependentRuleAppliedToFacetMappedByFoodSubgroup {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final RecipeGroup mixee;
+    private final FoodSubgroup mixee;
 
     @MemberSupport
-    public List<Recipe> coll() {
+    public List<RuleAppliedToFacet> coll() {
         return dependantLookup.findDependants(
-            Recipe.class,
-            Recipe_groupCodeOfTheRecipeClassificationObj.class,
-            Recipe_groupCodeOfTheRecipeClassificationObj::prop,
+            RuleAppliedToFacet.class,
+            RuleAppliedToFacet_foodSubgroup.class,
+            RuleAppliedToFacet_foodSubgroup::prop,
             mixee);
     }
 }

@@ -65,7 +65,7 @@ public class ThicknessForShapeMethod {
     )
     @Getter
     @Setter
-    private String thicknessCode;
+    private String code;
 
     /**
      * has no description

@@ -39,7 +39,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @Named("dita.globodiet.params.classification.RecipeSubgroup")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Recipe subgroup"
+        describedAs = "Recipe subgroup",
+        cssClassFa = "solid layer-group deepgreen"
 )
 @PersistenceCapable(
         table = "RSUBGR"
@@ -81,7 +82,7 @@ public class RecipeSubgroup {
     )
     @Getter
     @Setter
-    private String recipeSubgroupCode;
+    private String code;
 
     /**
      * Name of the recipe (sub-)group
@@ -98,7 +99,7 @@ public class RecipeSubgroup {
     )
     @Getter
     @Setter
-    private String nameOfTheRecipeSubgroup;
+    private String name;
 
     /**
      * Short Name of the recipe (sub-)group
@@ -115,10 +116,10 @@ public class RecipeSubgroup {
     )
     @Getter
     @Setter
-    private String shortNameOfTheRecipeSubgroup;
+    private String shortName;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s|%s)", name, recipeGroupCode, code);
     }
 }

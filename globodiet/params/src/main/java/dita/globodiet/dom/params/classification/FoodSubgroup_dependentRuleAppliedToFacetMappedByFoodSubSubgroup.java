@@ -21,8 +21,8 @@
 package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood_subgroupCodeOfFatObj;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodSubSubgroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,18 +31,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class FoodSubgroup_dependentPercentOfFatLeftInTheDishForFoodMappedBySubgroupCodeOfFatObj {
+public class FoodSubgroup_dependentRuleAppliedToFacetMappedByFoodSubSubgroup {
     @Inject
     DependantLookupService dependantLookup;
 
     private final FoodSubgroup mixee;
 
     @MemberSupport
-    public List<PercentOfFatLeftInTheDishForFood> coll() {
+    public List<RuleAppliedToFacet> coll() {
         return dependantLookup.findDependants(
-            PercentOfFatLeftInTheDishForFood.class,
-            PercentOfFatLeftInTheDishForFood_subgroupCodeOfFatObj.class,
-            PercentOfFatLeftInTheDishForFood_subgroupCodeOfFatObj::prop,
+            RuleAppliedToFacet.class,
+            RuleAppliedToFacet_foodSubSubgroup.class,
+            RuleAppliedToFacet_foodSubSubgroup::prop,
             mixee);
     }
 }

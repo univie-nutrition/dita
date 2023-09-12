@@ -38,28 +38,28 @@ class TableDataRoundtripTest {
     @Test
     void transformerRoundtrip() {
 
-        final String gdParamDataHighLevelYaml = DataSource.ofResource(
-                TableDataRoundtripTest.class, "gd-params-hi.yml")
+        final String gdParamDataLowLevelYaml = DataSource.ofResource(
+                TableDataRoundtripTest.class, "gd-params.yml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail();
 
-        val dbHigh = TabularData.populateFromYaml(gdParamDataHighLevelYaml, TabularData.Format.defaults());
+        val dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
 
         val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
-        val e2tTransformer = new EntityToTableTransformerFromSchema("dita.globodiet", schema);
-        val dbLow = dbHigh.transform(e2tTransformer);
-
         val t2eTransformer = new TableToEntityTransformerFromSchema("dita.globodiet", schema);
-        val dbHighRecovered = dbLow.transform(t2eTransformer);
+        val dbHigh = dbLow.transform(t2eTransformer);
+
+        val e2tTransformer = new EntityToTableTransformerFromSchema("dita.globodiet", schema);
+        val dbLowAfterRoundtrip = dbHigh.transform(e2tTransformer);
 
 // debug
 //        TextUtils.writeLinesToFile(TextUtils.readLines(dbLow.toYaml(TabularUtils.Format.defaults())),
 //              new File("src/test/java/dita/globodiet/schema/gd-params-low.yml"), StandardCharsets.UTF_8);
 
-        assertEquals(dbHigh, dbHighRecovered);
+        assertEquals(dbLow, dbLowAfterRoundtrip);
 
         System.out.println("done.");
     }

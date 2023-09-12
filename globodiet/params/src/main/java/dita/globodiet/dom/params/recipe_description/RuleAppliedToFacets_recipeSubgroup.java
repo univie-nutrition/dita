@@ -49,7 +49,7 @@ public class RuleAppliedToFacets_recipeSubgroup {
                 // local
                 mixee, "recipeSubgroupCode", mixee.getRecipeSubgroupCode(),
                 // foreign
-                RecipeSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
+                RecipeSubgroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

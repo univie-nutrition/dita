@@ -49,7 +49,7 @@ public class QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj {
                 // local
                 mixee, "recipeGroup", mixee.getRecipeGroup(),
                 // foreign
-                RecipeGroup.class, foreign->foreign.getRecipeGroupCode())
+                RecipeGroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

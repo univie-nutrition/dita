@@ -49,7 +49,7 @@ public class ImprobableSequenceOfFacetAndDescriptor_foodGroup {
                 // local
                 mixee, "foodGroupCode", mixee.getFoodGroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getFoodGroupCode())
+                FoodGroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

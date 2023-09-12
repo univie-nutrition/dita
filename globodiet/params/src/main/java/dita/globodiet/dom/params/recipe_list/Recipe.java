@@ -103,7 +103,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private String recipeIDNumber;
+    private String recipeCode;
 
     /**
      * Group code of the recipe classification
@@ -120,7 +120,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private String groupCodeOfTheRecipeClassification;
+    private String recipeGroupCode;
 
     /**
      * Subgroup code of the recipe classification
@@ -137,7 +137,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private String subgroupCodeOfTheRecipeClassification;
+    private String recipeSubgroupCode;
 
     /**
      * Recipe name
@@ -154,7 +154,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private String recipeName;
+    private String name;
 
     /**
      * Type of recipe:<br>
@@ -187,7 +187,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private String typeOfRecipe;
+    private String recipeType;
 
     /**
      * Brand name for commercial recipe
@@ -207,12 +207,12 @@ public class Recipe {
     private String brandNameForCommercialRecipe;
 
     /**
-     * SH = Shadow or blank
+     * SH=Shadow
      */
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "SH = Shadow or blank"
+            describedAs = "SH=Shadow"
     )
     @Column(
             name = "TYPE",
@@ -221,7 +221,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private String shadowOrBlank;
+    private String shadowQ;
 
     /**
      * 0=recipe without sub-recipe<br>
@@ -239,7 +239,7 @@ public class Recipe {
     )
     @Getter
     @Setter
-    private Integer recipeWithOrWithoutSubRecipe;
+    private Integer hasSubRecipeQ;
 
     /**
      * has no description

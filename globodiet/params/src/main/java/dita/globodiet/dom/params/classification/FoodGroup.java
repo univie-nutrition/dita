@@ -65,7 +65,7 @@ public class FoodGroup {
     )
     @Getter
     @Setter
-    private String foodGroupCode;
+    private String code;
 
     /**
      * Food group name
@@ -82,7 +82,7 @@ public class FoodGroup {
     )
     @Getter
     @Setter
-    private String foodGroupName;
+    private String name;
 
     /**
      * Food group short name
@@ -99,10 +99,10 @@ public class FoodGroup {
     )
     @Getter
     @Setter
-    private String foodGroupShortName;
+    private String shortName;
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s)", foodGroupName, foodGroupCode);
+        return String.format("%s (code=%s)", name, code);
     }
 }

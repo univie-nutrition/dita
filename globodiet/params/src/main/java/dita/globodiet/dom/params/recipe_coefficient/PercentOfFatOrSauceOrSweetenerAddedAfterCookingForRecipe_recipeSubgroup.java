@@ -49,7 +49,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubg
                 // local
                 mixee, "recipeSubgroupCode", mixee.getRecipeSubgroupCode(),
                 // foreign
-                RecipeSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
+                RecipeSubgroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

@@ -49,7 +49,7 @@ public class PercentOfFatUseDuringCookingForFood_fatGroup {
                 // local
                 mixee, "fatGroupCode", mixee.getFatGroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getFoodGroupCode())
+                FoodGroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

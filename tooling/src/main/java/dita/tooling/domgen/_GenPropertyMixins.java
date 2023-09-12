@@ -19,6 +19,7 @@
 package dita.tooling.domgen;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.lang.model.element.Modifier;
 
@@ -27,6 +28,7 @@ import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 
@@ -102,7 +104,7 @@ class _GenPropertyMixins {
             return Optional.empty();
         }
 
-        val foreignEntities = foreignFields.stream()
+        val distinctForeignEntities = foreignFields.stream()
                 .map(OrmModel.Field::parentEntity)
                 .distinct()
                 .collect(Can.toCan());
@@ -110,9 +112,34 @@ class _GenPropertyMixins {
         final MethodSpec.Builder builder = MethodSpec.methodBuilder("prop")
                 .addModifiers(modifiers)
                 .addAnnotation(_Annotations.memberSupport())
-                .returns(foreignEntities.isCardinalityOne()
+                .returns(distinctForeignEntities.isCardinalityOne()
                         ? foreigners.getFirstElseFail().foreignEntity()
                         : ClassName.OBJECT); // common super type
+
+        if(field.plural()) {
+            _Assert.assertTrue(distinctForeignEntities.isCardinalityOne(),
+                    ()->"not implemented for multiple referenced foreign entity types");
+
+            val foreignType = foreigners.getFirstElseFail().foreignEntity();
+            builder.addCode("""
+                return foreignKeyLookup
+                    .plural(
+                        mixee, mixee.$2L(),
+                        // foreign
+                        $3T.class,
+                        $1T.of($4L));
+                """,
+                Can.class, //1
+                localKeyGetter, //2
+                foreignType, //3
+                foreigners.stream()
+                    .map(f->String.format("%s::%s", f.foreignEntity().simpleName(), f.foreignKeyGetter()))
+                    .collect(Collectors.joining(", ")) //4
+                );
+            builder.returns(Markup.class);
+
+            return Optional.of(builder.build());
+        }
 
         switch(foreigners.size()) {
         case 1: {
@@ -132,7 +159,7 @@ class _GenPropertyMixins {
         case 2: {
             val foreigner1 = foreigners.getElseFail(0);
             val foreigner2 = foreigners.getElseFail(1);
-            if(foreignEntities.isCardinalityOne()) {
+            if(distinctForeignEntities.isCardinalityOne()) {
                 // SHARED FOREIGN ENTITY TYPE
                 builder.addCode("""
                         return foreignKeyLookup
@@ -145,10 +172,10 @@ class _GenPropertyMixins {
                         """, localKeyGetter, foreigner1.foreignEntity(),
                         foreigner1.foreignKeyGetter(), foreigner2.foreignKeyGetter());
             } else {
-                // MUTLIPLE FOREIGN ENTITY TYPES
+                // TWO FOREIGN ENTITY TYPES
                 builder.addCode("""
                         return foreignKeyLookup
-                            .binary(
+                            .either(
                                 // local
                                 mixee, mixee.$1L(),
                                 // foreign
@@ -162,26 +189,6 @@ class _GenPropertyMixins {
                         foreigner1.foreignEntity(), foreigner1.foreignKeyGetter(),
                         foreigner2.foreignEntity(), foreigner2.foreignKeyGetter());
             }
-            break;
-        }
-        case 3: {
-            _Assert.assertTrue(foreignEntities.isCardinalityOne(),
-                    ()->"not implemented for multiple referenced foreign entity types");
-            val foreigner1 = foreigners.getElseFail(0);
-            val foreigner2 = foreigners.getElseFail(1);
-            val foreigner3 = foreigners.getElseFail(2);
-            builder.addCode("""
-                return foreignKeyLookup
-                    .ternary(
-                        // local
-                        mixee, mixee.$1L(),
-                        // foreign
-                        $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L(), foreign->foreign.$5L())
-                    .orElse(null);
-                """, localKeyGetter, foreigner1.foreignEntity(),
-                foreigner1.foreignKeyGetter(),
-                foreigner2.foreignKeyGetter(),
-                foreigner3.foreignKeyGetter());
             break;
         }
         default:

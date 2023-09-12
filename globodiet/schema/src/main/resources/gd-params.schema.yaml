@@ -768,7 +768,7 @@ params.food_descript.RuleAppliedToFacet:
   description: |
     Rule applied to facet 
   fields:
-    facetWhereTheRuleMustBeAppliedCode:
+    facetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -790,7 +790,7 @@ params.food_descript.RuleAppliedToFacet:
         to allow the facet (FACET_CODE) to be asked. 
         Additionally a group/subgroup code can be defined to force the food being described 
         to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).
-    groupCode:
+    foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -799,7 +799,7 @@ params.food_descript.RuleAppliedToFacet:
         groups.group
       description: |
         Group code
-    subgroupCode:
+    foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -808,7 +808,7 @@ params.food_descript.RuleAppliedToFacet:
         subgroup.subgroup1
       description: |
         Subgroup code
-    subSubgroupCode:
+    foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -895,7 +895,7 @@ PercentOfFatLeftInTheDishForFood:
   description: |
     % of fat left in the dish for food
   fields:
-    groupCodeOfFat:
+    fatGroupCode:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -904,7 +904,7 @@ PercentOfFatLeftInTheDishForFood:
         groups.group
       description: |
         Group code of the FAT's group
-    subgroupCodeOfFat:
+    fatSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -913,7 +913,7 @@ PercentOfFatLeftInTheDishForFood:
         subgroup.subgroup1
       description: |
         Subgroup code of the FAT
-    subSubgroupCodeOfFat:
+    fatSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -1194,12 +1194,12 @@ CrossReferenceBetweenFoodAndFacet:
 FoodGroup:
   namespace: params.classification
   table: GROUPS
-  title: String.format("%s (code=%s)", foodGroupName, foodGroupCode)
+  title: String.format("%s (code=%s)", name, code)
   icon: solid layer-group olive
   description: |
     Food group
   fields:
-    foodGroupCode:
+    code:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -1207,7 +1207,7 @@ FoodGroup:
       foreignKeys:
       description: |
         Food group code
-    foodGroupName:
+    name:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -1215,7 +1215,7 @@ FoodGroup:
       foreignKeys:
       description: |
         Food group name
-    foodGroupShortName:
+    shortName:
       column: NAME_SHORT
       column-type: nvarchar(20)
       required: false
@@ -2244,7 +2244,7 @@ Recipe:
     When entering the recipe ingredients with RECIPE MANAGER, 
     the ingredients are described and quantified like in the food pathway.
   fields:
-    recipeIDNumber:
+    recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -2252,7 +2252,7 @@ Recipe:
       foreignKeys:
       description: |
         Recipe ID number
-    groupCodeOfTheRecipeClassification:
+    recipeGroupCode:
       column: R_GROUP
       column-type: nvarchar(2)
       required: false
@@ -2261,7 +2261,7 @@ Recipe:
         rgroups.group
       description: |
         Group code of the recipe classification
-    subgroupCodeOfTheRecipeClassification:
+    recipeSubgroupCode:
       column: R_SUBGROUP
       column-type: nvarchar(2)
       required: false
@@ -2270,7 +2270,7 @@ Recipe:
         rsubgr.subgroup
       description: |
         Subgroup code of the recipe classification
-    recipeName:
+    name:
       column: R_NAME
       column-type: nvarchar(100)
       required: false
@@ -2278,7 +2278,7 @@ Recipe:
       foreignKeys:
       description: |
         Recipe name
-    typeOfRecipe:
+    recipeType:
       column: R_TYPE
       column-type: nvarchar(3)
       required: false
@@ -2302,15 +2302,15 @@ Recipe:
       foreignKeys:
       description: |
         Brand name for commercial recipe
-    shadowOrBlank:
+    shadowQ:
       column: TYPE
       column-type: nvarchar(2)
       required: false
       unique: true
       foreignKeys:
       description: |
-        SH = Shadow or blank
-    recipeWithOrWithoutSubRecipe:
+        SH=Shadow
+    hasSubRecipeQ:
       column: R_SUB
       column-type: tinyint(3)
       required: false
@@ -2852,7 +2852,7 @@ BrandForRecipe:
   description: |
     Brandname list for mixed recipes
   fields:
-    recipeGroup:
+    recipeGroupCode:
       column: RGROUP
       column-type: nvarchar(2)
       required: false
@@ -2861,7 +2861,7 @@ BrandForRecipe:
         rgroups.group
       description: |
         Recipe group
-    recipeSubgroup:
+    recipeSubgroupCode:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
@@ -3192,11 +3192,12 @@ RawToCookedConversionFactorForFood:
       foreignKeys:
       description: |
         Raw to cooked factor
-    facetDescriptorLookupKey:
+    facetDescriptorsLookupKey:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
       unique: true
+      plural: true
       foreignKeys: |
         descface.facet_code
         descface.descr_code
@@ -3278,10 +3279,12 @@ DefinitionOfRecipePathway:
 RecipeGroup:
   namespace: params.classification
   table: RGROUPS
+  title: String.format("%s (code=%s)", name, code)
+  icon: solid layer-group olive
   description: |
     Recipe group 
   fields:
-    recipeGroupCode:
+    code:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -3289,7 +3292,7 @@ RecipeGroup:
       foreignKeys:
       description: |
         Recipe Group code
-    nameOfTheRecipeGroup:
+    name:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -3297,7 +3300,7 @@ RecipeGroup:
       foreignKeys:
       description: |
         Name of the Recipe group
-    shortNameOfTheRecipeGroup:
+    shortName:
       column: NAMEG_SHORT
       column-type: nvarchar(20)
       required: false
@@ -3352,6 +3355,8 @@ ProbingQuestionPathwayForRecipe:
 RecipeSubgroup:
   namespace: params.classification
   table: RSUBGR
+  title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
+  icon: solid layer-group deepgreen
   description: |
     Recipe subgroup
   fields:
@@ -3364,7 +3369,7 @@ RecipeSubgroup:
         rgroups.group
       description: |
         Recipe group code
-    recipeSubgroupCode:
+    code:
       column: SUBGROUP
       column-type: nvarchar(2)
       required: false
@@ -3372,7 +3377,7 @@ RecipeSubgroup:
       foreignKeys:
       description: |
         Recipe sub-group code
-    nameOfTheRecipeSubgroup:
+    name:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -3380,7 +3385,7 @@ RecipeSubgroup:
       foreignKeys:
       description: |
         Name of the recipe (sub-)group
-    shortNameOfTheRecipeSubgroup:
+    shortName:
       column: NAMES_SHORT
       column-type: nvarchar(20)
       required: false
@@ -3735,7 +3740,7 @@ FoodSubgroup:
   table: SUBGROUP
   title: |
     String.format("%s (code=%s|%s|%s)", 
-     nameOfTheFoodSubSubgroup, 
+     name, 
      dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
@@ -3768,7 +3773,7 @@ FoodSubgroup:
       foreignKeys:
       description: |
         Food sub-sub-group code
-    nameOfTheFoodSubSubgroup:
+    name:
       column: NAME
       column-type: nvarchar(100)
       required: false
@@ -3802,7 +3807,7 @@ FoodSubgroup:
       description: |
         0=non fat during cooking subgroup 
         1= fat during cooking subgroup
-    shortNameOfTheFoodSubSubgroup:
+    shortName:
       column: NAME_SHORT
       column-type: nvarchar(20)
       required: false
@@ -4053,7 +4058,7 @@ ThicknessForShapeMethod:
   description: |
     Thickness for shape method
   fields:
-    thicknessCode:
+    code:
       column: TH_CODE
       column-type: nvarchar(10)
       required: false
@@ -4082,6 +4087,7 @@ ThicknessForShapeMethod:
       column-type: nvarchar(100)
       required: false
       unique: false
+      plural: true
       foreignKeys: |
         subgroup.group
         subgroup.subgroup1
@@ -4097,6 +4103,7 @@ ThicknessForShapeMethod:
       column-type: nvarchar(100)
       required: false
       unique: false
+      plural: true
       foreignKeys: |
         rsubgr.group
         rsubgr.subgroup

@@ -88,11 +88,13 @@ class _GenCollectionMixins {
                 .addModifiers(modifiers)
                 .addAnnotation(_Annotations.memberSupport())
                 .returns(ParameterizedTypeName.get(ClassName.get(java.util.List.class), dependantType))
-                .addCode("return dependantLookup.findDependants(\n"
-                        + "    $1T.class,\n"
-                        + "    $2T.class,\n"
-                        + "    $2T::prop,\n"
-                        + "    mixee);",
+                .addCode("""
+                        return dependantLookup.findDependants(
+                            $1T.class,
+                            $2T.class,
+                            $2T::prop,
+                            mixee);
+                        """,
                         dependantType,
                         propertyMixinClassName);
         return builder.build();

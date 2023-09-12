@@ -47,12 +47,12 @@ public class RecipeIngredient_foodOrRecipeSubgroupObj {
     @MemberSupport
     public Object prop() {
         return foreignKeyLookup
-            .binary(
+            .either(
                 // local
                 mixee, mixee.getFoodOrRecipeSubgroup(),
                 // foreign
                 FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode(),
-                RecipeSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
+                RecipeSubgroup.class, foreign->foreign.getCode())
             .map(either->either.isLeft()
                 ? either.leftIfAny()
                 : either.rightIfAny())

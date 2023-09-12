@@ -49,7 +49,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatGroup 
                 // local
                 mixee, "fssFatGroupCode", mixee.getFssFatGroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getFoodGroupCode())
+                FoodGroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

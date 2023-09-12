@@ -21,6 +21,7 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
+import dita.globodiet.dom.params.classification.FoodGroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -31,24 +32,24 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "1.1",
-        describedAs = "Facet where the rule must be applied."
+        sequence = "3.1",
+        describedAs = "Group code"
 )
 @RequiredArgsConstructor
-public class RuleAppliedToFacet_facetWhereTheRuleMustBeApplied {
+public class RuleAppliedToFacet_foodGroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final RuleAppliedToFacet mixee;
 
     @MemberSupport
-    public Facet prop() {
+    public FoodGroup prop() {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "facetWhereTheRuleMustBeAppliedCode", mixee.getFacetWhereTheRuleMustBeAppliedCode(),
+                mixee, "foodGroupCode", mixee.getFoodGroupCode(),
                 // foreign
-                Facet.class, foreign->foreign.getFacetCode())
+                FoodGroup.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

@@ -22,7 +22,7 @@ package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_subgroup;
+import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodGroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,18 +31,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class FoodSubgroup_dependentRuleAppliedToFacetMappedBySubgroup {
+public class FoodGroup_dependentRuleAppliedToFacetMappedByFoodGroup {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final FoodSubgroup mixee;
+    private final FoodGroup mixee;
 
     @MemberSupport
     public List<RuleAppliedToFacet> coll() {
         return dependantLookup.findDependants(
             RuleAppliedToFacet.class,
-            RuleAppliedToFacet_subgroup.class,
-            RuleAppliedToFacet_subgroup::prop,
+            RuleAppliedToFacet_foodGroup.class,
+            RuleAppliedToFacet_foodGroup::prop,
             mixee);
     }
 }

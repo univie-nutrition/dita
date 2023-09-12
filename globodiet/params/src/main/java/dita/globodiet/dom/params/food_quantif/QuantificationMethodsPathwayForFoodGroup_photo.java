@@ -48,7 +48,7 @@ public class QuantificationMethodsPathwayForFoodGroup_photo {
     @MemberSupport
     public Object prop() {
         return foreignKeyLookup
-            .binary(
+            .either(
                 // local
                 mixee, mixee.getPhotoCode(),
                 // foreign

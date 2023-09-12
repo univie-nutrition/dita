@@ -64,7 +64,7 @@ public class BrandForRecipe {
     )
     @Getter
     @Setter
-    private String recipeGroup;
+    private String recipeGroupCode;
 
     /**
      * Recipe subgroup
@@ -81,7 +81,7 @@ public class BrandForRecipe {
     )
     @Getter
     @Setter
-    private String recipeSubgroup;
+    private String recipeSubgroupCode;
 
     /**
      * has no description
