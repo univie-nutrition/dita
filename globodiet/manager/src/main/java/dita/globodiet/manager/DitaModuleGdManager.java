@@ -53,6 +53,8 @@ import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
+import dita.globodiet.manager.lookup.DependantLookupGdParams;
+import dita.globodiet.manager.lookup.ForeignKeyLookupGdParams;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -99,6 +101,7 @@ import lombok.val;
     Dashboard.class,
 
     // Services
+    DependantLookupGdParams.class,
     ForeignKeyLookupGdParams.class,
 
     // Mixins

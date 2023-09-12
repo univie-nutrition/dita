@@ -31,6 +31,7 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
+import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
@@ -146,6 +147,10 @@ class _Annotations {
     AnnotationSpec property(final Snapshot snapshot) {
         return AnnotationSpec.builder(Property.class)
                 .addMember("snapshot", Snapshot.class.getName() + ".$1L", snapshot.name())
+                .build();
+    }
+    AnnotationSpec collection() {
+        return AnnotationSpec.builder(Collection.class)
                 .build();
     }
     /**

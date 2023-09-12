@@ -18,20 +18,17 @@
  */
 package dita.tooling.domgen;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.lang.model.element.Modifier;
 
 import org.springframework.javapoet.ClassName;
-import org.springframework.javapoet.FieldSpec;
 import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.tooling.domgen.DomainGenerator.JavaModel;
@@ -41,7 +38,7 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class _GenEntityMixins {
+class _GenPropertyMixins {
 
     JavaModel toJavaModel(
             final DomainGenerator.Config config,
@@ -63,35 +60,19 @@ class _GenEntityMixins {
             final OrmModel.Field field,
             final Can<OrmModel.Field> foreignFields) {
         val entityModel = field.parentEntity();
-        val typeModelBuilder = TypeSpec.classBuilder(mixinClassName(field))
+        val typeModelBuilder = TypeSpec.classBuilder(_Mixins.propertyMixinClassName(field))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
                 .addAnnotation(_Annotations.propertyLayout(field.sequence() + ".1", field.formatDescription("\n")))
                 .addAnnotation(RequiredArgsConstructor.class)
-                .addField(injectedField(ForeignKeyLookupService.class, "foreignKeyLookup"))
-                .addField(mixeeField(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
+                .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
+                .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
                 ;
 
         mixedInProperty(config, field, foreignFields, Modifier.PUBLIC)
             .ifPresent(typeModelBuilder::addMethod);
 
         return typeModelBuilder.build();
-    }
-
-    private FieldSpec injectedField(
-            final Class<?> injectedType,
-            final String fieldName,
-            final Modifier ... modifiers) {
-        return FieldSpec.builder(injectedType, fieldName, modifiers)
-            .addAnnotation(_Annotations.inject())
-            .build();
-    }
-
-    private FieldSpec mixeeField(
-            final ClassName mixeeType,
-            final Modifier ... modifiers) {
-        return FieldSpec.builder(mixeeType, "mixee", modifiers)
-            .build();
     }
 
     private Optional<MethodSpec> mixedInProperty(
@@ -211,20 +192,6 @@ class _GenEntityMixins {
         };
 
         return Optional.of(builder.build());
-    }
-
-    private final static List<String> knownPropertyNameSuffixes = List.of(
-            "Code",
-            "LookupKey");
-
-    private String mixinClassName(final OrmModel.Field field) {
-        val entityModel = field.parentEntity();
-        val mixedInPropertyName = knownPropertyNameSuffixes.stream()
-                .filter(field.name()::endsWith)
-                .findFirst()
-                .map(suffix->_Strings.substring(field.name(), 0, -suffix.length()))
-                .orElseGet(()->field.name() + "Obj");
-        return entityModel.name() + "_" + mixedInPropertyName;
     }
 
 }

@@ -74,8 +74,7 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
                     final ObjectGraph.Object from = objectByEntity.get(entity);
 
                     entity.fields().forEach(field->{
-                        field.foreignKeys().stream()
-                            .map(gdParamsSchema::lookupForeignKeyFieldElseFail)
+                        field.foreignFields(gdParamsSchema)
                             .forEach(foreignField->{
 
                                 final ObjectGraph.Object to = objectByEntity.get(foreignField.parentEntity());

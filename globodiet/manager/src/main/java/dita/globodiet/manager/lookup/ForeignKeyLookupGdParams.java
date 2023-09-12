@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager;
+package dita.globodiet.manager.lookup;
 
 import java.util.Objects;
 import java.util.Optional;

@@ -20,6 +20,7 @@ package dita.tooling.domgen;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,7 +31,9 @@ import org.springframework.javapoet.TypeSpec;
 import org.springframework.util.ReflectionUtils;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.collections._Multimaps;
 
 import dita.tooling.orm.OrmModel;
 import lombok.Builder;
@@ -137,14 +140,46 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                 entityModel.fields().stream()
                 .filter(field->field.hasForeignKeys())
                 .forEach(field->{
-                    val foreignFields = field.foreignKeys().stream()
-                        .map(domainModel.schema()::lookupForeignKeyFieldElseFail)
-                        .collect(Can.toCan());
+                    val foreignFields = field.foreignFields(domainModel.schema());
 
-                    domainModel.entityMixins().add(
-                        _GenEntityMixins.toJavaModel(config(), field, foreignFields));
+                    final JavaModel propertyMixinModel;
+
+                    domainModel.entityMixins().add(propertyMixinModel =
+                            _GenPropertyMixins.toJavaModel(config(), field, foreignFields));
+
+                    val propertyMixin = propertyMixinModel.className;
+
+                    // for each property mixin created, there is at least one collection counterpart
+
+                    switch (foreignFields.getCardinality()) {
+                    case ZERO:
+                        return; // unexpected code reach
+                    case ONE:
+                        domainModel.entityMixins().add(
+                                _GenCollectionMixins.toJavaModel(config(), field, foreignFields, propertyMixin));
+                        return;
+                    case MULTIPLE:
+                        // group foreign fields by foreign entity, then for each foreign entity create a collection mixin
+                        val multiMap = _Multimaps.<OrmModel.Entity, OrmModel.Field>newListMultimap();
+                        foreignFields.forEach(foreignField->multiMap.putElement(foreignField.parentEntity(), foreignField));
+                        multiMap.forEach((foreignEntity, groupedForeignFields)->{
+                            domainModel.entityMixins().add(
+                                    _GenCollectionMixins.toJavaModel(config(), field, Can.ofCollection(groupedForeignFields),
+                                            propertyMixin));
+                        });
+                        return;
+                    }
                 });
             });
+
+        // assert, that we have no mixin created twice
+        {
+            val mixinNames = new HashSet<String>();
+            val messages = new ArrayList<String>();
+            domainModel.entityMixins().stream().map(x->x.className().canonicalName())
+                .forEach(fqcn->{if(!mixinNames.add(fqcn)) { messages.add(String.format("duplicated mixin %s", fqcn));}});
+            _Assert.assertTrue(messages.isEmpty(), ()->messages.stream().collect(Collectors.joining("\n")));
+        }
 
         // module
         domainModel.modules().add(_GenModule.toJavaModel(config(), domainModel.entities(), domainModel.entityMixins()));

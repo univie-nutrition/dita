@@ -81,7 +81,7 @@ public class OrmModel {
                     .forEach(entity.fields()::add);
             return entity;
         }
-        String key() {
+        public String key() {
             return String.format("%s.%s", namespace, name);
         }
         String toYaml() {
@@ -123,6 +123,20 @@ public class OrmModel {
             return fields().stream()
                     .filter(f->f.column().equalsIgnoreCase(columnName))
                     .findFirst();
+        }
+        @Override
+        public boolean equals(final Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Entity)) {
+                return false;
+            }
+            return this.key().equals(((Entity) o).key());
+        }
+        @Override
+        public int hashCode() {
+            return key().hashCode();
         }
     }
 
@@ -197,6 +211,38 @@ public class OrmModel {
         public String sequence() {
             return "" + (ordinal + 1);
         }
+        public Can<Field> foreignFields(final Schema schema) {
+            return foreignKeys().stream()
+                    .map(schema::lookupForeignKeyFieldElseFail)
+                    .collect(Can.toCan());
+        }
+        @Deprecated
+        public Can<Join> incomingJoins(final Schema schema) {
+            val tableDotColumn = parentEntity().table()  + "." + column();
+            // incoming relations
+            return schema.entities().values().stream()
+                .filter(dependant->!dependant.equals(parentEntity()))
+                .flatMap(dependant->dependant.fields().stream())
+                .filter(dependantField->{
+                    if(!dependantField.hasForeignKeys()) return false;
+                    return dependantField.foreignKeys().stream()
+                            .anyMatch(tableDotColumn::equalsIgnoreCase);
+                })
+                .map(dependantField->new Join(this, dependantField))
+                .collect(Can.toCan());
+        }
+    }
+
+    @Deprecated
+    public record Join(
+            Field localField,
+            Field foreignField) {
+        public Entity localEntity() {
+            return localField.parentEntity();
+        }
+        public Entity foreignEntity() {
+            return foreignField.parentEntity();
+        }
     }
 
     public record Schema(Map<String, Entity> entities) {
@@ -238,7 +284,7 @@ public class OrmModel {
                     .filter(e->e.table().equalsIgnoreCase(tableName))
                     .findFirst();
         }
-        public Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {
+        private Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {
             val parts = _Strings.splitThenStream(tableDotColumn, ".")
                     .collect(Can.toCan());
             _Assert.assertEquals(2, parts.size(), ()->String.format(
@@ -248,7 +294,7 @@ public class OrmModel {
             return lookupEntityByTableName(tableName)
                     .flatMap(entity->entity.lookupFieldByColumnName(columnName));
         }
-        public OrmModel.Field lookupForeignKeyFieldElseFail(final String tableDotColumn) {
+        private OrmModel.Field lookupForeignKeyFieldElseFail(final String tableDotColumn) {
             return lookupForeignKeyField(tableDotColumn)
                     .orElseThrow(()->_Exceptions.noSuchElement("foreign key not found '%s'", tableDotColumn));
         }

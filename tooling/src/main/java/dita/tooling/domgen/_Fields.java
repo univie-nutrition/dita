@@ -20,6 +20,7 @@ package dita.tooling.domgen;
 
 import javax.lang.model.element.Modifier;
 
+import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.FieldSpec;
 import org.springframework.javapoet.TypeName;
 
@@ -34,8 +35,13 @@ class _Fields {
             .build();
     }
 
-    FieldSpec inject(final Class<?> cls, final String fieldName, final Modifier... modifiers) {
-        return inject(TypeName.get(cls), fieldName, modifiers);
+    FieldSpec inject(final Class<?> injectedType, final String fieldName, final Modifier... modifiers) {
+        return inject(TypeName.get(injectedType), fieldName, modifiers);
+    }
+
+    FieldSpec mixee(final ClassName mixeeType, final Modifier ... modifiers) {
+        return FieldSpec.builder(mixeeType, "mixee", modifiers)
+            .build();
     }
 
 }

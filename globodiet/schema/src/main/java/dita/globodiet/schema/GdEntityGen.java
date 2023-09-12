@@ -26,10 +26,12 @@ import org.apache.causeway.commons.io.FileUtils;
 import dita.tooling.domgen.DomainGenerator;
 import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
+import lombok.SneakyThrows;
 import lombok.val;
 
 public class GdEntityGen {
 
+    @SneakyThrows
     public static void main(final String[] args) {
 
         if(args.length==0) {
@@ -39,6 +41,9 @@ public class GdEntityGen {
 
         final File destDir = new File(args[0]);
         FileUtils.existingDirectoryElseFail(destDir);
+
+        FileUtils.searchFiles(destDir, dir->true, file->true, FileUtils::deleteFile);
+
 
         val yaml = DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
             .tryReadAsStringUtf8()
