@@ -65,7 +65,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     )
     @Getter
     @Setter
-    private String foodIdNumber;
+    private String foodCode;
 
     /**
      * Facet codes that MUST appear in the sequence of facets corresponding to this food<br>

@@ -81,7 +81,7 @@ public class StandardPortionForFood {
     )
     @Getter
     @Setter
-    private String foodIdNumber;
+    private String foodCode;
 
     /**
      * 1 = raw, 2 = cooked (as estimated)

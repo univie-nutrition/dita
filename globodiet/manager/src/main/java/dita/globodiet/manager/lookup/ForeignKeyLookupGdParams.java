@@ -37,7 +37,7 @@ import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.commons.types.BiString;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
-import dita.globodiet.dom.params.food_descript.BrandName;
+import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import lombok.NonNull;
@@ -63,8 +63,8 @@ implements ForeignKeyLookupService {
         } else if(FoodSubgroup.class.equals(foreignType)) {
             // discrimination by 3 fields, where first 2 are always populated
             val isLookingForSubSubgroup = localFieldName.toLowerCase().contains("subsub");
-            if(localEntity instanceof BrandName) {
-                val local = (BrandName) localEntity;
+            if(localEntity instanceof Brand) {
+                val local = (Brand) localEntity;
                 val subsubgroup = isLookingForSubSubgroup
                         ? local.getFoodSubSubgroupCode()
                         : null;

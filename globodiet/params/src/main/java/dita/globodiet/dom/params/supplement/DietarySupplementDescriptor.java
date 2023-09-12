@@ -51,28 +51,11 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 )
 public class DietarySupplementDescriptor {
     /**
-     * Facet code
-     */
-    @Property
-    @PropertyLayout(
-            sequence = "1",
-            describedAs = "Facet code"
-    )
-    @Column(
-            name = "DSFACET_CODE",
-            allowsNull = "true",
-            length = 2
-    )
-    @Getter
-    @Setter
-    private String facetCode;
-
-    /**
      * Descriptor code
      */
     @Property
     @PropertyLayout(
-            sequence = "2",
+            sequence = "1",
             describedAs = "Descriptor code"
     )
     @Column(
@@ -89,7 +72,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
-            sequence = "3",
+            sequence = "2",
             describedAs = "Descriptor name"
     )
     @Column(
@@ -100,6 +83,23 @@ public class DietarySupplementDescriptor {
     @Getter
     @Setter
     private String descriptorName;
+
+    /**
+     * Facet code
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "3",
+            describedAs = "Facet code"
+    )
+    @Column(
+            name = "DSFACET_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String facetCode;
 
     /**
      * Only for the facet with Dsfacet_type=1,<br>

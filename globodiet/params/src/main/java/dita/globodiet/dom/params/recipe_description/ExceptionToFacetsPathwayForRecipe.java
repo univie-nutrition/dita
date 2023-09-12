@@ -65,7 +65,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     )
     @Getter
     @Setter
-    private String recipeIDNumber;
+    private String recipeCode;
 
     /**
      * Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>

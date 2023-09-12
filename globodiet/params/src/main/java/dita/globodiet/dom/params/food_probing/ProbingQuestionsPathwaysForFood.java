@@ -132,7 +132,7 @@ public class ProbingQuestionsPathwaysForFood {
     )
     @Getter
     @Setter
-    private String foodIdNumber;
+    private String foodCode;
 
     @ObjectSupport
     public String title() {

@@ -65,7 +65,7 @@ public class RawToCookedConversionFactorForFood {
     )
     @Getter
     @Setter
-    private String foodIdNumber;
+    private String foodCode;
 
     /**
      * Raw to cooked factor

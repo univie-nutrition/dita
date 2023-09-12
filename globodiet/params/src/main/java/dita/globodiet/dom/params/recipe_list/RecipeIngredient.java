@@ -67,7 +67,7 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String recipeIdNumberTheIngredientBelongsTo;
+    private String recipeCode;
 
     /**
      * Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3)<br>
@@ -687,7 +687,7 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String foodOrRecipeIdNumber;
+    private String foodOrRecipeCode;
 
     /**
      * Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)

@@ -31,22 +31,22 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "3.1",
-        describedAs = "Facet code"
+        sequence = "5.1",
+        describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)"
 )
 @RequiredArgsConstructor
-public class DietarySupplementDescriptor_facet {
+public class DietarySupplement_sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplementObj {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final DietarySupplementDescriptor mixee;
+    private final DietarySupplement mixee;
 
     @MemberSupport
     public DietarySupplementFacet prop() {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "facetCode", mixee.getFacetCode(),
+                mixee, "sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement", mixee.getSequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement(),
                 // foreign
                 DietarySupplementFacet.class, foreign->foreign.getFacetCode())
             .orElse(null);

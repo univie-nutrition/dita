@@ -80,7 +80,7 @@ AverageForAnthropometricValues:
       description: |
         Default value of height or weight
         
-BrandName:
+Brand:
   namespace: params.food_descript
   table: BRANDNAM
   title: String.format("%s", nameOfBrand)
@@ -220,7 +220,7 @@ ComposedRecipeIngredient:
       foreignKeys:
       description: |
         Recipe identification number (FOODNUM in the FOODS.DBF file)
-    foodCode:
+    foodOrRecipeCode:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
@@ -528,15 +528,6 @@ DietarySupplementDescriptor:
   description: |
     Dietary supplement descriptor
   fields:
-    facetCode:
-      column: DSFACET_CODE
-      column-type: nvarchar(2)
-      required: false
-      unique: true
-      foreignKeys: |
-        ds_facet.dsfacet_code
-      description: |
-        Facet code
     descriptorCode:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
@@ -553,6 +544,15 @@ DietarySupplementDescriptor:
       foreignKeys:
       description: |
         Descriptor name
+    facetCode:
+      column: DSFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        ds_facet.dsfacet_code
+      description: |
+        Facet code
     householdMeasuresProposedOrNot:
       column: DSDESCR_HHM
       column-type: tinyint(3)
@@ -985,7 +985,7 @@ ExceptionForSomeFoodToTheFacetDescriptorPathway:
   description: |
     Exception for some food to the Facets/Descriptors pathway
   fields:
-    foodIdNumber:
+    foodCode:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
@@ -1516,7 +1516,7 @@ StandardPortionForFood:
       foreignKeys:
       description: |
         Standard portion quantity
-    foodIdNumber:
+    foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -1773,7 +1773,7 @@ RecipeIngredient:
   description: |
     Mixed recipes: Ingredients description/quantification
   fields:
-    recipeIdNumberTheIngredientBelongsTo:
+    recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -2082,7 +2082,7 @@ RecipeIngredient:
       foreignKeys:
       description: |
         Type of item: 1 for food, 2 for recipe
-    foodOrRecipeIdNumber:
+    foodOrRecipeCode:
       column: IDNUM
       column-type: nvarchar(5)
       required: false
@@ -2108,13 +2108,13 @@ RecipeIngredient:
       foreignKeys:
       description: |
         
-RecipeIngredientsQuantification:
+RecipeIngredientQuantification:
   namespace: params.recipe_list
   table: MIXEDING_QT
   description: |
     Mixed recipes: Ingredients quantification for shape and photo methods
   fields:
-    recipeIDNumberTheIngredientBelongTo:
+    recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -2131,7 +2131,7 @@ RecipeIngredientsQuantification:
       foreignKeys:
       description: |
         Sequential Number within a Mixed Recipe for Ingredient
-    ingredientFoodOrRecipeIDNumber:
+    ingredientFoodOrRecipeCode:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
@@ -2604,7 +2604,7 @@ ProbingQuestionsPathwaysForFood:
         subgroup.subgroup2
       description: |
         Food sub-subgroup code
-    foodIdNumber:
+    foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -2643,7 +2643,7 @@ QuantificationMethodsPathwayForFood:
   description: |
     Quantification methods pathway for individual foods
   fields:
-    foodIdNumber:
+    foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -2813,7 +2813,7 @@ QuantificationMethodPathwayForRecipe:
   description: |
     Quantification methods pathway for recipes
   fields:
-    recipeIdNumber:
+    recipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -2846,7 +2846,7 @@ QuantificationMethodPathwayForRecipe:
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
         
-BrandnameListForRecipe:
+BrandForRecipe:
   namespace: params.recipe_description
   table: R_BRAND
   description: |
@@ -3140,7 +3140,7 @@ ExceptionToFacetsPathwayForRecipe:
   description: |
     Exceptions for some Recipes to the Facets/Descriptors pathway
   fields:
-    recipeIDNumber:
+    recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -3175,7 +3175,7 @@ RawToCookedConversionFactorForFood:
   description: |
     Raw to cooked conversion factors for foods
   fields:
-    foodIdNumber:
+    foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -3339,7 +3339,7 @@ ProbingQuestionPathwayForRecipe:
         rsubgr.subgroup
       description: |
         Recipe subgroup code
-    recipeIdNumber:
+    recipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
@@ -3998,11 +3998,11 @@ GroupOrSubgroupThatCanBeSubstitutable:
       description: |
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
         
-DietarySupplementList:
+DietarySupplement:
   namespace: params.supplement
   table: SUPPLEMENTS
   description: |
-    Dietary supplement list
+    Dietary supplement
   fields:
     vitaminOrSupplementCode:
       column: CODE_VITA

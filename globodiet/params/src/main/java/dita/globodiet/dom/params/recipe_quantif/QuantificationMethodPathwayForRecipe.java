@@ -64,7 +64,7 @@ public class QuantificationMethodPathwayForRecipe {
     )
     @Getter
     @Setter
-    private String recipeIdNumber;
+    private String recipeCode;
 
     /**
      * Quantification method code:<br>

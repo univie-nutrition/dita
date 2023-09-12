@@ -31,24 +31,24 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "3.1",
-        describedAs = "Facet code"
+        sequence = "4.1",
+        describedAs = "Dietary Supplement classification code (optionnal)"
 )
 @RequiredArgsConstructor
-public class DietarySupplementDescriptor_facet {
+public class DietarySupplement_dietarySupplementClassification {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final DietarySupplementDescriptor mixee;
+    private final DietarySupplement mixee;
 
     @MemberSupport
-    public DietarySupplementFacet prop() {
+    public DietarySupplementClassification prop() {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "facetCode", mixee.getFacetCode(),
+                mixee, "dietarySupplementClassificationCode", mixee.getDietarySupplementClassificationCode(),
                 // foreign
-                DietarySupplementFacet.class, foreign->foreign.getFacetCode())
+                DietarySupplementClassification.class, foreign->foreign.getDietarySupplementClassificationCode())
             .orElse(null);
     }
 }

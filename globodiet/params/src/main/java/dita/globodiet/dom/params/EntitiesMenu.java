@@ -30,7 +30,7 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
-import dita.globodiet.dom.params.food_descript.BrandName;
+import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodAndFacet;
 import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
 import dita.globodiet.dom.params.food_descript.Facet;
@@ -65,7 +65,7 @@ import dita.globodiet.dom.params.quantif.Shape;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
-import dita.globodiet.dom.params.recipe_description.BrandnameListForRecipe;
+import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
 import dita.globodiet.dom.params.recipe_description.DescriptorPerFacet;
 import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
@@ -73,7 +73,7 @@ import dita.globodiet.dom.params.recipe_description.FacetForRecipe;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientsQuantification;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
@@ -87,10 +87,10 @@ import dita.globodiet.dom.params.setting.Month;
 import dita.globodiet.dom.params.setting.NoteStatus;
 import dita.globodiet.dom.params.setting.SelectedParameter;
 import dita.globodiet.dom.params.setting.SelectedParameterForDataEntry;
+import dita.globodiet.dom.params.supplement.DietarySupplement;
 import dita.globodiet.dom.params.supplement.DietarySupplementClassification;
 import dita.globodiet.dom.params.supplement.DietarySupplementDescriptor;
 import dita.globodiet.dom.params.supplement.DietarySupplementFacet;
-import dita.globodiet.dom.params.supplement.DietarySupplementList;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.List;
@@ -117,8 +117,8 @@ public class EntitiesMenu {
     @ActionLayout(
             cssClassFa = "brands shopify deeppink"
     )
-    public List<BrandName> listAllBrandName() {
-        return repositoryService.allInstances(BrandName.class);
+    public List<Brand> listAllBrand() {
+        return repositoryService.allInstances(Brand.class);
     }
 
     @Action
@@ -330,8 +330,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<RecipeIngredientsQuantification> listAllRecipeIngredientsQuantification() {
-        return repositoryService.allInstances(RecipeIngredientsQuantification.class);
+    public List<RecipeIngredientQuantification> listAllRecipeIngredientQuantification() {
+        return repositoryService.allInstances(RecipeIngredientQuantification.class);
     }
 
     @Action
@@ -423,8 +423,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<BrandnameListForRecipe> listAllBrandnameListForRecipe() {
-        return repositoryService.allInstances(BrandnameListForRecipe.class);
+    public List<BrandForRecipe> listAllBrandForRecipe() {
+        return repositoryService.allInstances(BrandForRecipe.class);
     }
 
     @Action
@@ -549,8 +549,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<DietarySupplementList> listAllDietarySupplementList() {
-        return repositoryService.allInstances(DietarySupplementList.class);
+    public List<DietarySupplement> listAllDietarySupplement() {
+        return repositoryService.allInstances(DietarySupplement.class);
     }
 
     @Action

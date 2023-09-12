@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.globodiet.dom.params.EntitiesMenu;
-import dita.globodiet.dom.params.food_descript.BrandName;
+import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 import dita.globodiet.manager.blobstore.BlobStore;
@@ -60,8 +60,8 @@ implements HasCurrentlyCheckedOutVersion {
     }
 
     @Collection
-    public List<BrandName> getBrandNames() {
-        return entities.listAllBrandName();
+    public List<Brand> getBrands() {
+        return entities.listAllBrand();
     }
 
     @Action
@@ -76,7 +76,7 @@ implements HasCurrentlyCheckedOutVersion {
             @Parameter
             final String foodSubSubgroup) {
 
-        val brandName = repo.detachedEntity(new BrandName());
+        val brandName = repo.detachedEntity(new Brand());
 
         brandName.setNameOfBrand(nameOfBrand);
         brandName.setFoodGroupCode(foodGroup);

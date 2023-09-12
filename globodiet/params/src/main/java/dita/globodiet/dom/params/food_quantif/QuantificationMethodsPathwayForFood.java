@@ -64,7 +64,7 @@ public class QuantificationMethodsPathwayForFood {
     )
     @Getter
     @Setter
-    private String foodIdNumber;
+    private String foodCode;
 
     /**
      * Quantification method code:<br>

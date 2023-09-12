@@ -115,7 +115,7 @@ public class ProbingQuestionPathwayForRecipe {
     )
     @Getter
     @Setter
-    private String recipeIdNumber;
+    private String recipeCode;
 
     @ObjectSupport
     public String title() {
