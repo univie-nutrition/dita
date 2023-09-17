@@ -27,7 +27,7 @@
             <mb3:named>Edit</mb3:named>
             <mb3:section>
                 <mb3:named>Brands</mb3:named>
-                <mb3:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllBrandName"/>
+                <mb3:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllBrand"/>
                 <mb3:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageBrands"/>
             </mb3:section>
             <mb3:section>

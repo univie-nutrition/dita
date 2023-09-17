@@ -83,7 +83,7 @@ public class FacetDescriptor {
     )
     @Getter
     @Setter
-    private String descriptorCode;
+    private String code;
 
     /**
      * Descriptor name
@@ -100,7 +100,7 @@ public class FacetDescriptor {
     )
     @Getter
     @Setter
-    private String descriptorName;
+    private String name;
 
     /**
      * 0=Other descriptor without consequences in the algorithms (also from other facets)<br>
@@ -120,7 +120,7 @@ public class FacetDescriptor {
     )
     @Getter
     @Setter
-    private Integer descriptorType;
+    private Integer type;
 
     /**
      * TODO missing description
@@ -156,6 +156,6 @@ public class FacetDescriptor {
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s|%s)", descriptorName, facetCode, descriptorCode);
+        return String.format("%s (code=%s|%s)", name, facetCode, code);
     }
 }

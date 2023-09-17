@@ -51,6 +51,6 @@ public class RawToCookedConversionFactorForFood_facetDescriptors {
                 mixee, mixee.getFacetDescriptorsLookupKey(),
                 // foreign
                 FacetDescriptor.class,
-                Can.of(FacetDescriptor::getFacetCode, FacetDescriptor::getDescriptorCode));
+                Can.of(FacetDescriptor::getFacetCode, FacetDescriptor::getCode));
     }
 }

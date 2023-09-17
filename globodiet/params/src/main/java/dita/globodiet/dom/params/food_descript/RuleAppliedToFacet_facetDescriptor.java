@@ -51,7 +51,7 @@ public class RuleAppliedToFacet_facetDescriptor {
                 // local
                 mixee, mixee.getFacetDescriptorLookupKey(),
                 // foreign
-                FacetDescriptor.class, foreign->foreign.getFacetCode(), foreign->foreign.getDescriptorCode())
+                FacetDescriptor.class, foreign->foreign.getFacetCode(), foreign->foreign.getCode())
             .orElse(null);
     }
 }

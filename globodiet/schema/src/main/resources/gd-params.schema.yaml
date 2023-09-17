@@ -409,7 +409,7 @@ params.food_descript.FacetDescriptor:
   name: FacetDescriptor
   namespace: params.food_descript
   table: DESCFACE
-  title: String.format("%s (code=%s|%s)", descriptorName, facetCode, descriptorCode)
+  title: String.format("%s (code=%s|%s)", name, facetCode, code)
   icon: tag darkgreen
   description: |
     Descriptor for food facets (not recipe facets)
@@ -423,7 +423,7 @@ params.food_descript.FacetDescriptor:
         facets.facet_code
       description: |
         Facet code
-    descriptorCode:
+    code:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: false
@@ -431,7 +431,7 @@ params.food_descript.FacetDescriptor:
       foreignKeys:
       description: |
         Descriptor code
-    descriptorName:
+    name:
       column: DESCR_NAME
       column-type: nvarchar(100)
       required: false
@@ -439,7 +439,7 @@ params.food_descript.FacetDescriptor:
       foreignKeys:
       description: |
         Descriptor name
-    descriptorType:
+    type:
       column: DESC_COOK
       column-type: tinyint(3)
       required: false

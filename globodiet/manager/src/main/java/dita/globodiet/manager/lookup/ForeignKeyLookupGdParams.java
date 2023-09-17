@@ -46,7 +46,9 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_descript.Brand;
+import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodAndFacet;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
@@ -58,6 +60,7 @@ import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
 import lombok.NonNull;
 import lombok.val;
@@ -86,6 +89,9 @@ implements ForeignKeyLookupService {
         }
         if(RecipeSubgroup.class.equals(foreignType)) {
             return recipeSubgroup(foreignType, GroupDiscriminator.auto(localEntity));
+        }
+        if(FacetDescriptor.class.equals(foreignType)) {
+            return facetDescriptor(foreignType, SecondaryKeyForFacetDescriptor.auto(localEntity));
         }
 
         return repositoryService.uniqueMatch(foreignType, foreign->
@@ -179,17 +185,39 @@ implements ForeignKeyLookupService {
         return new BiString(input.substring(0, 2), input.substring(2));
     }
 
+    enum LookupMode {
+        /**
+         * Fail if referenced entity cannot be found.
+         */
+        STRICT,
+        /**
+         * Finding no match is valid business logic.
+         */
+        NULLABLE,
+        /**
+         * Return a pseudo entity indicating that a matching entity could not be found.
+         */
+        RELAXED;
+        public boolean isStrict() { return this == STRICT;}
+        public boolean isNullable() { return this == NULLABLE;}
+        public boolean isRelaxed() { return this == RELAXED;}
+    }
+
     /**
      * Pair of {@link String}. Simply a typed tuple. With the second field an optional
      */
-    record GroupDiscriminator(String left, Optional<String> middle, Optional<String> right) {
+    record GroupDiscriminator(LookupMode lookupMode, String left, Optional<String> middle, Optional<String> right) {
         public GroupDiscriminator {
+
             _Strings.requireNonEmpty(left, "left");
             middle.ifPresent(r->_Strings.requireNonEmpty(r, "middle"));
             right.ifPresent(r->_Strings.requireNonEmpty(r, "right"));
         }
         static GroupDiscriminator of(final String left, final String middle, final String right) {
-            return new GroupDiscriminator(left, Optional.ofNullable(middle), Optional.ofNullable(right));
+            return new GroupDiscriminator(LookupMode.STRICT, left, Optional.ofNullable(middle), Optional.ofNullable(right));
+        }
+        static GroupDiscriminator ofRelaxed(final String left, final String middle, final String right) {
+            return new GroupDiscriminator(LookupMode.RELAXED, left, Optional.ofNullable(middle), Optional.ofNullable(right));
         }
         static GroupDiscriminator auto(final Object entity) {
             if(entity instanceof Brand local) {
@@ -199,7 +227,7 @@ implements ForeignKeyLookupService {
                 return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
             if(entity instanceof GroupOrSubgroupThatCanBeSubstitutable local) {
-                return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+                return ofRelaxed(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
             if(entity instanceof MaximumValueForAFoodOrASubSubgroup local) {
                 return of(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
@@ -230,6 +258,7 @@ implements ForeignKeyLookupService {
             if(entity instanceof MaximumValueForARecipeOrASubgroup local) {
                 return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
             }
+            //FIXME ambiguous type to return here? RECIPE- or FOOD-GROUP which shall it be
             if(entity instanceof PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe local) {
                 return of(local.getRecipeGroupCode(), local.getRecipeSubgroupCode(), null);
             }
@@ -258,14 +287,14 @@ implements ForeignKeyLookupService {
         _Assert.assertTrue(input.length()==2
                 || input.length()==4
                 || input.length()==6);
-        return new GroupDiscriminator(
+        return GroupDiscriminator.of(
                 input.substring(0, 2),
                 input.length()>=4
-                    ? Optional.of(input.substring(2, 4))
-                    : Optional.empty(),
+                    ? input.substring(2, 4)
+                    : null,
                 input.length()==6
-                    ? Optional.of(input.substring(4))
-                    : Optional.empty()
+                    ? input.substring(4)
+                    : null
                 );
     }
 
@@ -295,11 +324,32 @@ implements ForeignKeyLookupService {
     }
 
     @SuppressWarnings("unchecked")
-    private <F> Optional<F> foodSubgroup(final Class<F> foreignType, final GroupDiscriminator discriminator){
-        return Optional.of((F)foodSubgroupElseThrow(
-                discriminator.left(),
-                discriminator.middle().orElse(null),
-                discriminator.right().orElse(null)));
+    private <F> Optional<F> foodSubgroup(final Class<F> foreignType, final GroupDiscriminator key){
+
+        final String d1 = key.left();
+        final String d2 = key.middle().orElse(null);
+        final String d3 = key.right().orElse(null);
+
+        switch (key.lookupMode()) {
+        case STRICT:
+            return Optional.of((F)foodSubgroupElseThrow(d1, d2, d3));
+        case RELAXED:
+            return Optional.of((F)lookupFoodSubgroup(d1, d2, d3)
+                    .orElseGet(()->Unresolvables.foodSubgroupNotFound(d1, d2, d3)));
+        case NULLABLE:
+            return (Optional<F>)lookupFoodSubgroup(d1, d2, d3);
+        }
+        throw _Exceptions.unmatchedCase(key.lookupMode());
+    }
+
+    private Optional<FoodSubgroup> lookupFoodSubgroup(
+            final String groupDiscriminator,
+            final String subgroupDiscriminator,
+            final String subsubgroupDiscriminator){
+        return repositoryService.uniqueMatch(FoodSubgroup.class, subgroup->
+            Objects.equals(groupDiscriminator, subgroup.getFoodGroupCode())
+                    && Objects.equals(subgroupDiscriminator, subgroup.getFoodSubgroupCode())
+                    && Objects.equals(subsubgroupDiscriminator, subgroup.getFoodSubSubgroupCode()));
     }
 
     private FoodSubgroup foodSubgroupElseThrow(
@@ -350,6 +400,52 @@ implements ForeignKeyLookupService {
                         _Strings.nonEmpty(subgroupDiscriminator).orElse("-")));
     }
 
-    // --
+    // -- FACET DESCRIPTOR LOOKUP
+
+    record SecondaryKeyForFacetDescriptor(LookupMode lookupMode, String facetCode, String descriptorCode) {
+        static SecondaryKeyForFacetDescriptor auto(final Object referencedFromEntity) {
+            if(referencedFromEntity instanceof CrossReferenceBetweenFoodAndFacet x) {
+                return new SecondaryKeyForFacetDescriptor(LookupMode.STRICT, x.getFacetCode(), x.getDescriptorCode());
+            }
+            if(referencedFromEntity instanceof FacetDescriptorThatCannotBeSubstituted x) {
+                return new SecondaryKeyForFacetDescriptor(LookupMode.STRICT, x.getFacetCode(), x.getDescriptorCode());
+            }
+            if(referencedFromEntity instanceof ImprobableSequenceOfFacetAndDescriptor x) {
+                return new SecondaryKeyForFacetDescriptor(LookupMode.RELAXED, x.getFacetCode(), x.getDescriptorCode());
+            }
+            throw _Exceptions.noSuchElement("SecondaryKeyForFacetDescriptor not implemented for %s",
+                    referencedFromEntity.getClass());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private <F> Optional<F> facetDescriptor(
+            final Class<F> foreignType, final SecondaryKeyForFacetDescriptor key) {
+        switch (key.lookupMode()) {
+        case STRICT:
+            return Optional.of((F)facetDescriptorElseThrow(key));
+        case RELAXED:
+            return Optional.of((F)facetDescriptorElseUnresolved(key));
+        case NULLABLE:
+            return (Optional<F>)lookupFacetDescriptor(key);
+        }
+        throw _Exceptions.unmatchedCase(key.lookupMode());
+    }
+
+    private Optional<FacetDescriptor> lookupFacetDescriptor(final SecondaryKeyForFacetDescriptor key) {
+        return repositoryService.uniqueMatch(FacetDescriptor.class, fd->
+            Objects.equals(fd.getFacetCode(), key.facetCode())
+                    && Objects.equals(fd.getCode(), key.descriptorCode()));
+    }
+    private FacetDescriptor facetDescriptorElseThrow(final SecondaryKeyForFacetDescriptor key) {
+        return lookupFacetDescriptor(key)
+                .orElseThrow(()->_Exceptions.noSuchElement("FacetDescriptor not found matching %s|%s",
+                        _Strings.nonEmpty(key.facetCode()).orElse("-"),
+                        _Strings.nonEmpty(key.descriptorCode()).orElse("-")));
+    }
+    private FacetDescriptor facetDescriptorElseUnresolved(final SecondaryKeyForFacetDescriptor key) {
+        return lookupFacetDescriptor(key)
+                .orElseGet(()->Unresolvables.facetDescriptorNotFound(key.facetCode(), key.facetCode()));
+    }
 
 }

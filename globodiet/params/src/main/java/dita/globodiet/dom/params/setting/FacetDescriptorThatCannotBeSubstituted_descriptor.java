@@ -49,7 +49,7 @@ public class FacetDescriptorThatCannotBeSubstituted_descriptor {
                 // local
                 mixee, "descriptorCode", mixee.getDescriptorCode(),
                 // foreign
-                FacetDescriptor.class, foreign->foreign.getDescriptorCode())
+                FacetDescriptor.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

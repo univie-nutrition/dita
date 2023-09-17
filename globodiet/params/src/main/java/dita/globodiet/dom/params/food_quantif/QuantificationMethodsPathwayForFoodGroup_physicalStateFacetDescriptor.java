@@ -49,7 +49,7 @@ public class QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescript
                 // local
                 mixee, mixee.getPhysicalStateFacetDescriptorLookupKey(),
                 // foreign
-                FacetDescriptor.class, foreign->foreign.getFacetCode(), foreign->foreign.getDescriptorCode())
+                FacetDescriptor.class, foreign->foreign.getFacetCode(), foreign->foreign.getCode())
             .orElse(null);
     }
 }
