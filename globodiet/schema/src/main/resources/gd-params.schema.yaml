@@ -1227,6 +1227,8 @@ FoodGroup:
 Interviewer:
   namespace: params.interview
   table: INTVIEWR
+  title: String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode)
+  icon: solid user
   description: |
     Interviewer
   fields:
@@ -3827,6 +3829,8 @@ FoodSubgroup:
 SubjectToBeInterviewed:
   namespace: params.interview
   table: SUBJECTS
+  title: String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode)
+  icon: solid person-circle-question
   description: |
     Subjects to be interviewed
   fields:

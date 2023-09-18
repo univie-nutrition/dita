@@ -269,7 +269,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid user"
+    )
     public List<Interviewer> listAllInterviewer() {
         return repositoryService.allInstances(Interviewer.class);
     }
@@ -539,7 +541,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-circle-question"
+    )
     public List<SubjectToBeInterviewed> listAllSubjectToBeInterviewed() {
         return repositoryService.allInstances(SubjectToBeInterviewed.class);
     }

@@ -43,7 +43,8 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.interview.SubjectToBeInterviewed")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Subjects to be interviewed"
+        describedAs = "Subjects to be interviewed",
+        cssClassFa = "solid person-circle-question"
 )
 @PersistenceCapable(
         table = "SUBJECTS"
@@ -319,6 +320,6 @@ public class SubjectToBeInterviewed {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode);
     }
 }

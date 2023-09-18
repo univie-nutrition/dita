@@ -40,7 +40,8 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.interview.Interviewer")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Interviewer"
+        describedAs = "Interviewer",
+        cssClassFa = "solid user"
 )
 @PersistenceCapable(
         table = "INTVIEWR"
@@ -142,6 +143,6 @@ public class Interviewer {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode);
     }
 }
