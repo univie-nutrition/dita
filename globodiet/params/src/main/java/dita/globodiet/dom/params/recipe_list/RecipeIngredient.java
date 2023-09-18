@@ -70,14 +70,20 @@ public class RecipeIngredient {
     private String recipeCode;
 
     /**
-     * Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3)<br>
-     * or type of fat used (=A2) or type of milk/liquid used(=A3)
+     * 1 = ingredient fixed<br>
+     * 2 = ingredient substitutable<br>
+     * 3 = fat during cooking<br>
+     * A2 = type of fat used<br>
+     * A3 = type of milk/liquid used
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3)<br>\n"
-                            + "or type of fat used (=A2) or type of milk/liquid used(=A3)"
+            describedAs = "1 = ingredient fixed<br>\n"
+                            + "2 = ingredient substitutable<br>\n"
+                            + "3 = fat during cooking<br>\n"
+                            + "A2 = type of fat used<br>\n"
+                            + "A3 = type of milk/liquid used"
     )
     @Column(
             name = "ING_TYPE",
@@ -154,7 +160,7 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String foodOrRecipeGroup;
+    private String foodOrRecipeGroupCode;
 
     /**
      * Ingredient food or recipe subgroup
@@ -171,7 +177,7 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String foodOrRecipeSubgroup;
+    private String foodOrRecipeSubgroupCode;
 
     /**
      * Ingredient food sub-subgroup
@@ -188,15 +194,15 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String foodSubSubgroup;
+    private String foodSubSubgroupCode;
 
     /**
-     * Ingredient brand name (if any)
+     * Ingredient brand (if any)
      */
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Ingredient brand name (if any)"
+            describedAs = "Ingredient brand (if any)"
     )
     @Column(
             name = "BRANDNAME",
@@ -208,12 +214,14 @@ public class RecipeIngredient {
     private String brandName;
 
     /**
-     * Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
+     * Facets-Descriptors codes used to describe the ingredient;<br>
+     * multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
      */
     @Property
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+            describedAs = "Facets-Descriptors codes used to describe the ingredient;<br>\n"
+                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
     )
     @Column(
             name = "FACETS_STR",
@@ -222,15 +230,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String facetDescriptorLookupKey;
+    private String facetDescriptorLookupKeys;
 
     /**
-     * =1 if ingredient described and quantified else =2
+     * 1 = ingredient described and quantified<br>
+     * 2 = otherwise
      */
     @Property
     @PropertyLayout(
             sequence = "11",
-            describedAs = "=1 if ingredient described and quantified else =2"
+            describedAs = "1 = ingredient described and quantified<br>\n"
+                            + "2 = otherwise"
     )
     @Column(
             name = "STATUS",
@@ -657,12 +667,14 @@ public class RecipeIngredient {
     private Double percentageOrProportionAsConsumedForRecipeIngredients;
 
     /**
-     * Type of item: 1 for food, 2 for recipe
+     * 1 = food<br>
+     * 2 = recipe
      */
     @Property
     @PropertyLayout(
             sequence = "37",
-            describedAs = "Type of item: 1 for food, 2 for recipe"
+            describedAs = "1 = food<br>\n"
+                            + "2 = recipe"
     )
     @Column(
             name = "TYPE_IT",

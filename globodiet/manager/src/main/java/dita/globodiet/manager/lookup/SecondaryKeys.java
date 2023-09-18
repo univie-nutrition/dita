@@ -49,6 +49,7 @@ import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoo
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
@@ -106,17 +107,21 @@ public class SecondaryKeys {
          * Facet string multiple (descface.facet_code + descface.descr_code)comma separated (e.g. 0401,0203,051)
          */
         static FacetDescriptorKey decodeLookupKey(final LookupMode lookupMode, final @NonNull String input) {
-            _Assert.assertEquals(4, input.length());
+            _Assert.assertEquals(4, input.length(),
+                    ()->String.format("invalid 4 digit facet descriptor lookup key: %s", input));
             return new FacetDescriptorKey(lookupMode, input.substring(0, 2), input.substring(2));
         }
 
         /**
          * comma separated (e.g. 0300,0301)
          */
-        static Can<FacetDescriptorKey> decodeLookupKeyList(final @NonNull String input) {
-            return _Strings.splitThenStream(input, ",")
-                .map(chunk->decodeLookupKey(LookupMode.STRICT, chunk))
-                .collect(Can.toCan());
+        static Can<FacetDescriptorKey> decodeLookupKeyList(final @Nullable String input) {
+            return _Strings.isEmpty(input)
+                    ? Can.empty()
+                    : _Strings.splitThenStream(input, ",")
+                    //TODO relaxed because of FacetDescriptor not found matching 04|03 in RawToCookedConversionFactorForFood
+                    .map(chunk->decodeLookupKey(LookupMode.RELAXED, chunk))
+                    .collect(Can.toCan());
         }
 
         // -- MATCHING
@@ -207,14 +212,6 @@ public class SecondaryKeys {
             _Strings.requireNonEmpty(foodSubgroupCode, "foodSubgroupCode");
         }
 
-        static FoodSubgroupKey of(
-                final String recipeGroupCode,
-                final String recipeSubgroupCode,
-                final @Nullable String foodSubSubgroupCode) {
-            return new FoodSubgroupKey(LookupMode.STRICT,
-                    recipeGroupCode, recipeSubgroupCode, foodSubSubgroupCode);
-        }
-
         static Either<FoodGroupKey, FoodSubgroupKey> auto(
                 final @NonNull LookupMode lookupMode,
                 final @NonNull String foodGroupCode,
@@ -222,7 +219,8 @@ public class SecondaryKeys {
                 final @Nullable String foodSubSubgroupCode) {
             return _Strings.isEmpty(foodSubgroupCode)
                     ? Either.left(FoodGroupKey.of(foodGroupCode))
-                    : Either.right(of(foodGroupCode, foodSubgroupCode, foodSubSubgroupCode));
+                    : Either.right(new FoodSubgroupKey(lookupMode,
+                            foodGroupCode, foodSubgroupCode, foodSubSubgroupCode));
         }
 
         static Either<FoodGroupKey, FoodSubgroupKey> strict(
@@ -239,6 +237,12 @@ public class SecondaryKeys {
             return auto(LookupMode.RELAXED, foodGroupCode, foodSubgroupCode, foodSubSubgroupCode);
         }
 
+        static Either<FoodGroupKey, FoodSubgroupKey> nullable(
+                final @NonNull String foodGroupCode,
+                final @Nullable String foodSubgroupCode,
+                final @Nullable String foodSubSubgroupCode) {
+            return auto(LookupMode.NULLABLE, foodGroupCode, foodSubgroupCode, foodSubSubgroupCode);
+        }
 
         static Either<FoodGroupKey, FoodSubgroupKey> auto(final Object entity) {
             if(entity instanceof Brand local) {
@@ -267,6 +271,9 @@ public class SecondaryKeys {
             if(entity instanceof ProbingQuestionsPathwaysForFood local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
+            if(entity instanceof RecipeIngredient local) {
+                return strict(local.getFoodOrRecipeGroupCode(), local.getFoodOrRecipeSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
             if(entity instanceof RuleAppliedToFacet local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
@@ -276,7 +283,7 @@ public class SecondaryKeys {
             if(entity instanceof PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe local) {
                 return strict(local.getFssFatGroupCode(), local.getFssFatSubgroupCode(), local.getFssFatSubSubgroupCode());
             }
-            throw _Exceptions.illegalArgument("Unrecognized entity %s", entity.getClass());
+            throw _Exceptions.illegalArgument("FoodSubgroupKey: Unrecognized entity %s", entity.getClass());
         }
 
 
@@ -428,6 +435,9 @@ public class SecondaryKeys {
             }
             if(entity instanceof Recipe local) {
                 return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
+            }
+            if(entity instanceof RecipeIngredient local) {
+                return auto(local.getFoodOrRecipeGroupCode(), local.getFoodOrRecipeSubgroupCode());
             }
             throw _Exceptions.illegalArgument("Unrecognized entity %s", entity.getClass());
         }

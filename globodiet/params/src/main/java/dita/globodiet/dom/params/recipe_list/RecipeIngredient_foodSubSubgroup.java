@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -32,24 +32,24 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "10.1",
-        describedAs = "Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+        sequence = "8.1",
+        describedAs = "Ingredient food sub-subgroup"
 )
 @RequiredArgsConstructor
-public class RecipeIngredient_facetDescriptor {
+public class RecipeIngredient_foodSubSubgroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final RecipeIngredient mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
+    public FoodSubgroup prop() {
         return foreignKeyLookup
-            .binary(
+            .unary(
                 // local
-                mixee, mixee.getFacetDescriptorLookupKey(),
+                mixee, "foodSubSubgroupCode", mixee.getFoodSubSubgroupCode(),
                 // foreign
-                FacetDescriptor.class, foreign->foreign.getFacetCode(), foreign->foreign.getCode())
+                FoodSubgroup.class, foreign->foreign.getFoodSubSubgroupCode())
             .orElse(null);
     }
 }

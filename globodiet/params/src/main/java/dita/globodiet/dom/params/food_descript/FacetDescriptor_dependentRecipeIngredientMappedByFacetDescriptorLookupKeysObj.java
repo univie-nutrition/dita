@@ -22,7 +22,7 @@ package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.foreignkey.DependantLookupService;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredient_facetDescriptor;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredient_facetDescriptorLookupKeysObj;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptor {
+public class FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptorLookupKeysObj {
     @Inject
     DependantLookupService dependantLookup;
 
@@ -41,8 +41,8 @@ public class FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptor {
     public List<RecipeIngredient> coll() {
         return dependantLookup.findDependants(
             RecipeIngredient.class,
-            RecipeIngredient_facetDescriptor.class,
-            RecipeIngredient_facetDescriptor::prop,
+            RecipeIngredient_facetDescriptorLookupKeysObj.class,
+            RecipeIngredient_facetDescriptorLookupKeysObj::prop,
             mixee);
     }
 }

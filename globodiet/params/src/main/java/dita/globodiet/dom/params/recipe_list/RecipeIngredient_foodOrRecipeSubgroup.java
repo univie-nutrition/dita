@@ -21,8 +21,8 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodGroup;
-import dita.globodiet.dom.params.classification.RecipeGroup;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import lombok.RequiredArgsConstructor;
@@ -34,11 +34,11 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
         snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "6.1",
-        describedAs = "Ingredient food or recipe group"
+        sequence = "7.1",
+        describedAs = "Ingredient food or recipe subgroup"
 )
 @RequiredArgsConstructor
-public class RecipeIngredient_foodOrRecipeGroupObj {
+public class RecipeIngredient_foodOrRecipeSubgroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -49,10 +49,10 @@ public class RecipeIngredient_foodOrRecipeGroupObj {
         return foreignKeyLookup
             .either(
                 // local
-                mixee, mixee.getFoodOrRecipeGroup(),
+                mixee, mixee.getFoodOrRecipeSubgroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getCode(),
-                RecipeGroup.class, foreign->foreign.getCode())
+                FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode(),
+                RecipeSubgroup.class, foreign->foreign.getCode())
             .map(either->either.isLeft()
                 ? either.leftIfAny()
                 : either.rightIfAny())

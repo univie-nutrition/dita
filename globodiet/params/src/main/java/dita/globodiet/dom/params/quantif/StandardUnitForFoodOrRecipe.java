@@ -173,12 +173,14 @@ public class StandardUnitForFoodOrRecipe {
     private String standardUnitCode;
 
     /**
-     * G = in grams, V = in ml (volume)
+     * G = in grams,<br>
+     * V = in ml (volume)
      */
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "G = in grams, V = in ml (volume)"
+            describedAs = "G = in grams,<br>\n"
+                            + "V = in ml (volume)"
     )
     @Column(
             name = "STDU_UNIT",

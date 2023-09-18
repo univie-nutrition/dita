@@ -1647,7 +1647,8 @@ StandardUnitForFoodOrRecipe:
       unique: false
       foreignKeys:
       description: |
-        G = in grams, V = in ml (volume)
+        G = in grams, 
+        V = in ml (volume)
     orderToDisplayTheStandardUnit:
       column: D_ORDER
       column-type: float(53)
@@ -1789,8 +1790,11 @@ RecipeIngredient:
       unique: false
       foreignKeys:
       description: |
-        Ingr. Substitutable(=2) or Ingr. Fixed(=1) or fat during cooking(=3) 
-        or type of fat used (=A2) or type of milk/liquid used(=A3)
+        1 = ingredient fixed
+        2 = ingredient substitutable
+        3 = fat during cooking
+        A2 = type of fat used
+        A3 = type of milk/liquid used
     foodType:
       column: TYPE
       column-type: nvarchar(2)
@@ -1815,7 +1819,7 @@ RecipeIngredient:
       foreignKeys:
       description: |
         Ingredient name
-    foodOrRecipeGroup:
+    foodOrRecipeGroupCode:
       column: GROUP
       column-type: nvarchar(2)
       required: false
@@ -1825,7 +1829,7 @@ RecipeIngredient:
         rgroups.group
       description: |
         Ingredient food or recipe group
-    foodOrRecipeSubgroup:
+    foodOrRecipeSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
@@ -1835,7 +1839,7 @@ RecipeIngredient:
         rsubgr.subgroup
       description: |
         Ingredient food or recipe subgroup
-    foodSubSubgroup:
+    foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
@@ -1851,17 +1855,19 @@ RecipeIngredient:
       unique: false
       foreignKeys:
       description: |
-        Ingredient brand name (if any)
-    facetDescriptorLookupKey:
+        Ingredient brand (if any)
+    facetDescriptorLookupKeys:
       column: FACETS_STR
       column-type: nvarchar(2147483647)
       required: false
       unique: false
+      plural: true
       foreignKeys: |
         descface.facet_code
         descface.descr_code
       description: |
-        Facets-Descriptors codes used to describe the ingredient; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
+        Facets-Descriptors codes used to describe the ingredient; 
+        multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
     describedAndQuantifiedQ:
       column: STATUS
       column-type: nvarchar(1)
@@ -1869,7 +1875,8 @@ RecipeIngredient:
       unique: false
       foreignKeys:
       description: |
-        =1 if ingredient described and quantified else =2
+        1 = ingredient described and quantified 
+        2 = otherwise
     finalQuantityInG:
       column: CONS_QTY
       column-type: float(53)
@@ -2081,7 +2088,8 @@ RecipeIngredient:
       unique: true
       foreignKeys:
       description: |
-        Type of item: 1 for food, 2 for recipe
+        1 = food 
+        2 = recipe
     foodOrRecipeCode:
       column: IDNUM
       column-type: nvarchar(5)

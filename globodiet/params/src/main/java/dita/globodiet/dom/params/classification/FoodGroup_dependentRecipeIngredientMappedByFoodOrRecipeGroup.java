@@ -22,7 +22,7 @@ package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipeGroupObj;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipeGroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class FoodGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroupObj {
+public class FoodGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroup {
     @Inject
     DependantLookupService dependantLookup;
 
@@ -41,8 +41,8 @@ public class FoodGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroupObj {
     public List<RecipeIngredient> coll() {
         return dependantLookup.findDependants(
             RecipeIngredient.class,
-            RecipeIngredient_foodOrRecipeGroupObj.class,
-            RecipeIngredient_foodOrRecipeGroupObj::prop,
+            RecipeIngredient_foodOrRecipeGroup.class,
+            RecipeIngredient_foodOrRecipeGroup::prop,
             mixee);
     }
 }

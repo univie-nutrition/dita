@@ -42,6 +42,7 @@ import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.manager.lookup.SecondaryKeys.FacetDescriptorKey;
 import dita.globodiet.manager.lookup.SecondaryKeys.FoodSubgroupKey;
 import dita.globodiet.manager.lookup.SecondaryKeys.LookupMode;
@@ -103,6 +104,14 @@ implements ForeignKeyLookupService {
                 foreignType.getName());
     }
 
+    enum Triage {
+        LEFT,
+        RIGHT,
+        TRY_LEFT_FIRST;
+        boolean isLeftAllowed() {return this!=RIGHT;}
+        boolean isRightAllowed() {return this!=LEFT;}
+    }
+
     /**
      * FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),<br>
      * MixedRecipeName.class, foreign->foreign.getRecipeIDNumber())
@@ -121,10 +130,27 @@ implements ForeignKeyLookupService {
             final Class<F1> foreignType1, final Function<F1, Object> foreignFieldGetter1,
             final Class<F2> foreignType2, final Function<F2, Object> foreignFieldGetter2) {
 
-        final Optional<F1> left = unary(localEntity, "", localField, foreignType1, foreignFieldGetter1);
-        final Optional<F2> right = left.isPresent()
-                ? Optional.empty()
-                : unary(localEntity, "", localField, foreignType2, foreignFieldGetter2);
+        Triage triage = Triage.TRY_LEFT_FIRST;
+
+        if(FoodGroup.class.equals(foreignType1)
+                && RecipeGroup.class.equals(foreignType2)
+                && (localEntity instanceof RecipeIngredient recipeIngredient)) {
+
+            triage = switch(recipeIngredient.getTypeOfItem()) {
+                case 1->Triage.LEFT;
+                case 2->Triage.RIGHT;
+                default -> throw new IllegalArgumentException("Unexpected value: " + recipeIngredient.getTypeOfItem());
+            };
+        }
+
+        final Optional<F1> left = triage.isLeftAllowed()
+                ? unary(localEntity, "", localField, foreignType1, foreignFieldGetter1)
+                : Optional.empty();
+        final Optional<F2> right = triage.isRightAllowed()
+                && left.isEmpty()
+                ? unary(localEntity, "", localField, foreignType2, foreignFieldGetter2)
+                : Optional.empty();
+
         final Either<F1, F2> either = left.isPresent()
                 ? Either.left(left.get())
                 : right.isPresent()
