@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "4.1",
         describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor {

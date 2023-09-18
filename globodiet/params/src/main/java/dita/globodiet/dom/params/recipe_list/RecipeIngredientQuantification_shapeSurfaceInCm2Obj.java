@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "6.1",
         describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_shapeSurfaceInCm2Obj {

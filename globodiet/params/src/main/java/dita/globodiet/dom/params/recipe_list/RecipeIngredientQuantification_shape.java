@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "5.1",
         describedAs = "Shape code (e.g. S001)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_shape {

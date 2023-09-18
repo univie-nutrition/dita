@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "9.1",
         describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj {

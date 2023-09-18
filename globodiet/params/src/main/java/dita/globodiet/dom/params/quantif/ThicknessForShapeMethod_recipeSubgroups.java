@@ -41,7 +41,7 @@ import org.apache.causeway.commons.collections.Can;
                         + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
                         + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class ThicknessForShapeMethod_recipeSubgroups {

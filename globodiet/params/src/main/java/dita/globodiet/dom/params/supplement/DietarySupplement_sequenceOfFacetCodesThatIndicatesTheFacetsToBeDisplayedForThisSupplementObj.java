@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "5.1",
         describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class DietarySupplement_sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplementObj {

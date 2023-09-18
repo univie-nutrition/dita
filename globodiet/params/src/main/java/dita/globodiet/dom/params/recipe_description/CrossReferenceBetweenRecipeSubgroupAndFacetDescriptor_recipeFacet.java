@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "3.1",
         describedAs = "Recipe Facet code",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeFacet {

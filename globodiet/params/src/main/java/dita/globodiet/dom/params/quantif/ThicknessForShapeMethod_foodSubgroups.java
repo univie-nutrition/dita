@@ -42,7 +42,7 @@ import org.apache.causeway.commons.collections.Can;
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
                         + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
                         + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class ThicknessForShapeMethod_foodSubgroups {

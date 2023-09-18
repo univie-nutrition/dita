@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "7.1",
         describedAs = "Shape: Thickness code (e.g. A or 58_1)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_shapeThickness {

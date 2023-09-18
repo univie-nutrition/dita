@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "4.1",
         describedAs = "Fat group code for Fat or Sauce or Sweetener",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatGroup {

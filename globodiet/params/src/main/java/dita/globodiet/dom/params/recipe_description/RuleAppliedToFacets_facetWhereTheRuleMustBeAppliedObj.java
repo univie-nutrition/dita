@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "1.1",
         describedAs = "Facet where the rule must be applied.",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {

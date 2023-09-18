@@ -39,7 +39,7 @@ import org.apache.causeway.applib.annotation.Where;
         sequence = "7.1",
         describedAs = "Photo code (if method='P' and 'A');\n"
                         + "either M_photos.ph_code or M_shapes.sh_code",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class QuantificationMethodsPathwayForFoodGroup_photo {

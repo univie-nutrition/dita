@@ -66,6 +66,11 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllCrossReferenceBetweenRecipeSubgroupAndFacetDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDensityFactorForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood"/>
+            </mb:section>
+        </mb:menu>
+        <mb:menu>
+            <mb:named>Large Lists</mb:named>
+            <mb:section>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllRawToCookedConversionFactorForFood"/>
             </mb:section>
         </mb:menu>

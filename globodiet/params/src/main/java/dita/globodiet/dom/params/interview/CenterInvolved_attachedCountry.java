@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "2.1",
         describedAs = "Attached Country code",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class CenterInvolved_attachedCountry {

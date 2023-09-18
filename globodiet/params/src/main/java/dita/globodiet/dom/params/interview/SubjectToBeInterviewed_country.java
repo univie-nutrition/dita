@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "10.1",
         describedAs = "Country code",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class SubjectToBeInterviewed_country {

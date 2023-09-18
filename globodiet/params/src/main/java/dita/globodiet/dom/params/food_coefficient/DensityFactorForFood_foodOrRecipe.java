@@ -39,7 +39,7 @@ import org.apache.causeway.applib.annotation.Where;
         sequence = "1.1",
         describedAs = "Food identification number (FOODNUM)\n"
                         + "either Foods.foodnum OR Mixedrec.r_idnum",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class DensityFactorForFood_foodOrRecipe {

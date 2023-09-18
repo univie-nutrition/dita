@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
                         + "to allow the facet (FACET_CODE) to be asked.\n"
                         + "Additionally a group/subgroup code can be defined to force the food being described\n"
                         + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RuleAppliedToFacet_facetDescriptor {

@@ -36,7 +36,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "4.1",
         describedAs = "Food sub-Subgroup code",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class GroupOrSubgroupThatCanBeSubstitutable_foodSubSubgroup {

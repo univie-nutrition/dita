@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "2.1",
         describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class StandardUnitForFoodOrRecipe_foodOrRecipe {

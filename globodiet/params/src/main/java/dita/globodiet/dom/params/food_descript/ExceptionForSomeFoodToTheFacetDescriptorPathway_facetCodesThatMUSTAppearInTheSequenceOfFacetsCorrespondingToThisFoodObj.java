@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
                         + "(superseeding its group pathway).\n"
                         + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file\n"
                         + "(Assuming always a subset)",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class ExceptionForSomeFoodToTheFacetDescriptorPathway_facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFoodObj {

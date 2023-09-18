@@ -68,7 +68,7 @@ class _GenPropertyMixins {
                 .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
                 .addAnnotation(_Annotations.propertyLayout(
                         field.sequence() + ".1", field.formatDescription("\n"),
-                        Where.NOT_SPECIFIED))
+                        Where.REFERENCES_PARENT))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))

@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
         sequence = "2.1",
         describedAs = "Food (ingredient) Identification Code\n"
                         + "either Foods.foodnum OR Mixedrec.r_idnum",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class ComposedRecipeIngredient_foodOrRecipe {

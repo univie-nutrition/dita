@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "7.1",
         describedAs = "Ingredient food or recipe subgroup",
-        hidden = Where.NOT_SPECIFIED
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
 public class RecipeIngredient_foodOrRecipeSubgroup {
