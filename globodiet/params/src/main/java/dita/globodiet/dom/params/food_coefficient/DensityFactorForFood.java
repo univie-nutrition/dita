@@ -34,6 +34,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Density factor for food
@@ -59,7 +60,8 @@ public class DensityFactorForFood {
     @PropertyLayout(
             sequence = "1",
             describedAs = "Food identification number (FOODNUM)<br>\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum"
+                            + "either Foods.foodnum OR Mixedrec.r_idnum",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",
@@ -76,7 +78,8 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Density coefficient"
+            describedAs = "Density coefficient",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "D_FACTOR",
@@ -94,7 +97,8 @@ public class DensityFactorForFood {
     @PropertyLayout(
             sequence = "3",
             describedAs = "Facet string<br>\n"
-                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACETS_STR",
@@ -111,7 +115,8 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Priority order"
+            describedAs = "Priority order",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PRIORITY",
@@ -130,7 +135,8 @@ public class DensityFactorForFood {
     @PropertyLayout(
             sequence = "5",
             describedAs = "1 = without un-edible part,<br>\n"
-                            + "2 = with un-edible (as estimated)"
+                            + "2 = with un-edible (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "EDIB",
@@ -149,7 +155,8 @@ public class DensityFactorForFood {
     @PropertyLayout(
             sequence = "6",
             describedAs = "1 = raw,<br>\n"
-                            + "2 = cooked (as estimated)"
+                            + "2 = cooked (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RAWCOOK",
@@ -168,7 +175,8 @@ public class DensityFactorForFood {
     @PropertyLayout(
             sequence = "7",
             describedAs = "1 = density for food/ingredient,<br>\n"
-                            + "2 = density for recipe"
+                            + "2 = density for recipe",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "D_TYPE",

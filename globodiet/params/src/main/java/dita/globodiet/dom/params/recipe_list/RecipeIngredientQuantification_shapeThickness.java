@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "7.1",
-        describedAs = "Shape: Thickness code (e.g. A or 58_1)"
+        describedAs = "Shape: Thickness code (e.g. A or 58_1)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_shapeThickness {
@@ -47,7 +50,7 @@ public class RecipeIngredientQuantification_shapeThickness {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "shapeThicknessCode", mixee.getShapeThicknessCode(),
+                mixee, mixee.getShapeThicknessCode(),
                 // foreign
                 ThicknessForShapeMethod.class, foreign->foreign.getCode())
             .orElse(null);

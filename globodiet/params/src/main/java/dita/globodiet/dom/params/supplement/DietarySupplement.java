@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Dietary supplement
@@ -55,7 +56,8 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Vitamin/supplement code"
+            describedAs = "Vitamin/supplement code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "CODE_VITA",
@@ -72,7 +74,8 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Vitamin/supplement name"
+            describedAs = "Vitamin/supplement name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -89,7 +92,8 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Blank or 'GI' for generic vitamin/supplement"
+            describedAs = "Blank or 'GI' for generic vitamin/supplement",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",
@@ -106,7 +110,8 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Dietary Supplement classification code (optionnal)"
+            describedAs = "Dietary Supplement classification code (optionnal)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "DS_CLASS",
@@ -123,7 +128,8 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)"
+            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "DS_FACET",

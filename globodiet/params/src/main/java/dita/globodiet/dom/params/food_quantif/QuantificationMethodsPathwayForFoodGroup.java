@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Quantification methods pathway for food groups/subgroups
@@ -55,7 +56,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -72,7 +74,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -89,7 +92,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-subgroup code"
+            describedAs = "Food sub-subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -106,7 +110,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)"
+            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "PHYS_STATE",
@@ -123,7 +128,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=raw, 2=cooked (as Consumed)"
+            describedAs = "1=raw, 2=cooked (as Consumed)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RAW_COOKED",
@@ -150,7 +156,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
                             + "'H' for HHM,<br>\n"
                             + "'U' for stdu,<br>\n"
                             + "'S' for standard portion,<br>\n"
-                            + "'A' for shape"
+                            + "'A' for shape",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "METHOD",
@@ -169,7 +176,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @PropertyLayout(
             sequence = "7",
             describedAs = "Photo code (if method='P' and 'A');<br>\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code"
+                            + "either M_photos.ph_code or M_shapes.sh_code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "METH_CODE",
@@ -186,7 +194,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Comment"
+            describedAs = "Comment",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",

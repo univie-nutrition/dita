@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Recipe Facet
@@ -56,7 +57,8 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code for recipes"
+            describedAs = "Facet code for recipes",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_CODE",
@@ -73,7 +75,8 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet name"
+            describedAs = "Facet name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_NAME",
@@ -90,7 +93,8 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet text (text to show on the screen describing the facet)"
+            describedAs = "Facet text (text to show on the screen describing the facet)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_TEXT",
@@ -109,7 +113,8 @@ public class FacetForRecipe {
     @PropertyLayout(
             sequence = "4",
             describedAs = "0=Standard facets with descriptors available in R_Descface table<br>\n"
-                            + "1=Facets with descriptors available in RBrand table"
+                            + "1=Facets with descriptors available in RBrand table",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_TYPE",
@@ -127,7 +132,8 @@ public class FacetForRecipe {
     @PropertyLayout(
             sequence = "5",
             describedAs = "0 = facet with mono-selection of descriptor<br>\n"
-                            + "1 = facets with multi-selection of descriptors"
+                            + "1 = facets with multi-selection of descriptors",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_TYPE_S",
@@ -145,7 +151,8 @@ public class FacetForRecipe {
     @PropertyLayout(
             sequence = "6",
             describedAs = "0 = standard facet<br>\n"
-                            + "1 = Main facet (with non modified descriptor)"
+                            + "1 = Main facet (with non modified descriptor)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_MAIN",
@@ -161,7 +168,8 @@ public class FacetForRecipe {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Label on how to ask the facet question"
+            describedAs = "Label on how to ask the facet question",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RFACET_QUEST",

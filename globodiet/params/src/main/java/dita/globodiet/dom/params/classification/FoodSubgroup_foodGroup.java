@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Food group code"
+        describedAs = "Food group code",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class FoodSubgroup_foodGroup {
@@ -46,7 +49,7 @@ public class FoodSubgroup_foodGroup {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "foodGroupCode", mixee.getFoodGroupCode(),
+                mixee, mixee.getFoodGroupCode(),
                 // foreign
                 FoodGroup.class, foreign->foreign.getCode())
             .orElse(null);

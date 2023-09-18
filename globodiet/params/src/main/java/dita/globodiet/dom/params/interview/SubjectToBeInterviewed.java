@@ -35,6 +35,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Subjects to be interviewed
@@ -58,7 +59,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Interview number"
+            describedAs = "Interview number",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INT_NUM",
@@ -74,7 +76,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Subject birth date"
+            describedAs = "Subject birth date",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_BDATE",
@@ -90,7 +93,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Subject code"
+            describedAs = "Subject code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_CODE",
@@ -107,7 +111,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Subject first name"
+            describedAs = "Subject first name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_FNAME",
@@ -124,7 +129,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Subject height in cm"
+            describedAs = "Subject height in cm",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_HEIGHT",
@@ -140,7 +146,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Subject name"
+            describedAs = "Subject name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_NAME",
@@ -157,7 +164,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Subject sex (1=man, 2=woman)"
+            describedAs = "Subject sex (1=man, 2=woman)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_SEX",
@@ -174,7 +182,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Subject weight in kg"
+            describedAs = "Subject weight in kg",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PAT_WEIGHT",
@@ -190,7 +199,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "1=interview done, 0=interview to be done"
+            describedAs = "1=interview done, 0=interview to be done",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DONE",
@@ -206,7 +216,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Country code"
+            describedAs = "Country code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "COUNTRY",
@@ -223,7 +234,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Center code"
+            describedAs = "Center code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "CENTER",
@@ -240,7 +252,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "12",
-            describedAs = "Interviewer Country code"
+            describedAs = "Interviewer Country code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INTV_COUNTRY",
@@ -257,7 +270,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "13",
-            describedAs = "Interviewer Center code"
+            describedAs = "Interviewer Center code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INTV_CENTER",
@@ -274,7 +288,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "14",
-            describedAs = "Interviewer code"
+            describedAs = "Interviewer code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INTV_CODE",
@@ -291,7 +306,8 @@ public class SubjectToBeInterviewed {
     @Property
     @PropertyLayout(
             sequence = "15",
-            describedAs = "Recall Date (mm/dd/yy)"
+            describedAs = "Recall Date (mm/dd/yy)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DATE_REC",

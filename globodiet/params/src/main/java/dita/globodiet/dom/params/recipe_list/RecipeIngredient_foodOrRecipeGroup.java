@@ -29,13 +29,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "6.1",
-        describedAs = "Ingredient food or recipe group"
+        describedAs = "Ingredient food or recipe group",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RecipeIngredient_foodOrRecipeGroup {

@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Note status
@@ -56,7 +57,8 @@ public class NoteStatus {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Status code"
+            describedAs = "Status code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "S_CODE",
@@ -73,7 +75,8 @@ public class NoteStatus {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Status label"
+            describedAs = "Status label",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "S_LABEL",
@@ -94,7 +97,8 @@ public class NoteStatus {
             sequence = "3",
             describedAs = "Allow the possibility to display or not the note in the view note window:<br>\n"
                             + "0=No hide,<br>\n"
-                            + "1=Yes hide (e.g. 1=hide for status “action done”)"
+                            + "1=Yes hide (e.g. 1=hide for status “action done”)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "S_HIDE",

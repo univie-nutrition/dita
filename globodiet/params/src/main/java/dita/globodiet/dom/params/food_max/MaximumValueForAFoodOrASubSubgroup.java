@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Maximum value for a food or a (sub-)(sub-)group
@@ -56,7 +57,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -73,7 +75,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -90,7 +93,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-Subgroup code"
+            describedAs = "Food sub-Subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -107,7 +111,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food code"
+            describedAs = "Food code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "IDNUM",
@@ -124,7 +129,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Maximum value"
+            describedAs = "Maximum value",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "MAXIMA",
@@ -140,7 +146,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACETS_STR",
@@ -157,7 +164,8 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Priority order"
+            describedAs = "Priority order",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PRIORITY",

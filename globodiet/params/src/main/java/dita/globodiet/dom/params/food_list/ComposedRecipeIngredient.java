@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Composed Recipe Ingredient
@@ -55,7 +56,8 @@ public class ComposedRecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)"
+            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_IDNUM",
@@ -74,7 +76,8 @@ public class ComposedRecipeIngredient {
     @PropertyLayout(
             sequence = "2",
             describedAs = "Food (ingredient) Identification Code<br>\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum"
+                            + "either Foods.foodnum OR Mixedrec.r_idnum",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOODNUM",
@@ -93,7 +96,8 @@ public class ComposedRecipeIngredient {
     @PropertyLayout(
             sequence = "3",
             describedAs = "If type=1 ingredient from Food list,<br>\n"
-                            + "If type=2 ingredient from Recipe list"
+                            + "If type=2 ingredient from Recipe list",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",

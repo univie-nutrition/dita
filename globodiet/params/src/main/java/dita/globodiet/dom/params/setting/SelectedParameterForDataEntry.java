@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Selected parameters for data entry
@@ -55,7 +56,8 @@ public class SelectedParameterForDataEntry {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Parameter code for data entry"
+            describedAs = "Parameter code for data entry",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PARAM_LAB",
@@ -72,7 +74,8 @@ public class SelectedParameterForDataEntry {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Parameter value for data entry"
+            describedAs = "Parameter value for data entry",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PARAM_LIB",

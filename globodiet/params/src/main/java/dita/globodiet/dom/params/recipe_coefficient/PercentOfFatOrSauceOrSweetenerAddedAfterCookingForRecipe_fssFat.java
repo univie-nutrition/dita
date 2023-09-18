@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "7.1",
-        describedAs = "Fat code for Fat or Sauce or Sweetener"
+        describedAs = "Fat code for Fat or Sauce or Sweetener",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat {
@@ -47,7 +50,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "fssFatCode", mixee.getFssFatCode(),
+                mixee, mixee.getFssFatCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
             .orElse(null);

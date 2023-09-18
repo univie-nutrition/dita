@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Cross reference between Food (sub)group and Facet/Descriptor (default pathway)
@@ -56,7 +57,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -73,7 +75,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food Subgroup code"
+            describedAs = "Food Subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -90,7 +93,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food Sub-subgroup code"
+            describedAs = "Food Sub-subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -107,7 +111,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Facet code"
+            describedAs = "Facet code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACET_CODE",
@@ -124,7 +129,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Descriptor code"
+            describedAs = "Descriptor code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "DESCR_CODE",
@@ -141,7 +147,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Default flag (if set to 'D' it is the default descriptor)"
+            describedAs = "Default flag (if set to 'D' it is the default descriptor)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DEFAULT",
@@ -158,7 +165,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Not in name flag"
+            describedAs = "Not in name flag",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NOTINNAME",
@@ -175,7 +183,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Order to displayed the facets within a group/subgroup"
+            describedAs = "Order to displayed the facets within a group/subgroup",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ORDER_FAC",
@@ -191,7 +200,8 @@ public class CrossReferenceBetweenFoodAndFacet {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Order to displayed the descriptors within a group/subgroup and a facet"
+            describedAs = "Order to displayed the descriptors within a group/subgroup and a facet",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ORDER_DESC",

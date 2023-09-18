@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Recipe group"
+        describedAs = "Recipe group",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj {
@@ -47,7 +50,7 @@ public class QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "recipeGroup", mixee.getRecipeGroup(),
+                mixee, mixee.getRecipeGroup(),
                 // foreign
                 RecipeGroup.class, foreign->foreign.getCode())
             .orElse(null);

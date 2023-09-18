@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "4.1",
-        describedAs = "Recipe Descriptor code"
+        describedAs = "Recipe Descriptor code",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeDescriptor {
@@ -46,7 +49,7 @@ public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeDescrip
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "recipeDescriptorCode", mixee.getRecipeDescriptorCode(),
+                mixee, mixee.getRecipeDescriptorCode(),
                 // foreign
                 DescriptorPerFacet.class, foreign->foreign.getRecipeDescriptorCode())
             .orElse(null);

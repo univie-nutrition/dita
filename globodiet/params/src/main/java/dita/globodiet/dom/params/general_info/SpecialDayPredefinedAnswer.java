@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Special day predefined answer
@@ -55,7 +56,8 @@ public class SpecialDayPredefinedAnswer {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Special day code"
+            describedAs = "Special day code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SPY_CODE",
@@ -72,7 +74,8 @@ public class SpecialDayPredefinedAnswer {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Special day label"
+            describedAs = "Special day label",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SPY_NAME",

@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Dietary supplement descriptor
@@ -56,7 +57,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Descriptor code"
+            describedAs = "Descriptor code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_CODE",
@@ -73,7 +75,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor name"
+            describedAs = "Descriptor name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_NAME",
@@ -90,7 +93,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet code"
+            describedAs = "Facet code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "DSFACET_CODE",
@@ -109,7 +113,8 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             sequence = "4",
             describedAs = "Only for the facet with Dsfacet_type=1,<br>\n"
-                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0"
+                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_HHM",
@@ -131,7 +136,8 @@ public class DietarySupplementDescriptor {
             describedAs = "Default Descriptor.<br>\n"
                             + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):<br>\n"
                             + "1=default,<br>\n"
-                            + "0=other"
+                            + "0=other",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_DEFAULT",
@@ -147,7 +153,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no"
+            describedAs = "Descriptor with type='other' : 1=yes 0=no",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_OTHER",
@@ -163,7 +170,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "0=not single descriptor 1=single descriptor"
+            describedAs = "0=not single descriptor 1=single descriptor",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_SINGLE",
@@ -179,7 +187,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Display order (1=first, 2=second…)"
+            describedAs = "Display order (1=first, 2=second…)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSDESCR_ORDER",
@@ -195,7 +204,8 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Not in name flag"
+            describedAs = "Not in name flag",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NOTINNAME",

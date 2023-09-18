@@ -27,11 +27,13 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "4.1",
@@ -39,7 +41,8 @@ import org.apache.causeway.commons.collections.Can;
                         + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
                         + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
-                        + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
+                        + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class ThicknessForShapeMethod_foodSubgroups {

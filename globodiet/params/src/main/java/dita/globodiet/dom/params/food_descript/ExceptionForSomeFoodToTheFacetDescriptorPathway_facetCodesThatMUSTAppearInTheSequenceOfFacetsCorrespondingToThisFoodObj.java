@@ -26,16 +26,19 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "2.1",
         describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food\n"
                         + "(superseeding its group pathway).\n"
                         + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file\n"
-                        + "(Assuming always a subset)"
+                        + "(Assuming always a subset)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class ExceptionForSomeFoodToTheFacetDescriptorPathway_facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFoodObj {
@@ -49,7 +52,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_facetCodesThatMUSTA
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood", mixee.getFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood(),
+                mixee, mixee.getFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

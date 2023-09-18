@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Mixed recipes: Ingredients quantification for shape and photo methods
@@ -56,7 +57,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number the ingredient belong to"
+            describedAs = "Recipe ID number the ingredient belong to",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_IDNUM",
@@ -73,7 +75,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Sequential Number within a Mixed Recipe for Ingredient"
+            describedAs = "Sequential Number within a Mixed Recipe for Ingredient",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ING_NUM",
@@ -89,7 +92,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Ingredient Food or Recipe ID number"
+            describedAs = "Ingredient Food or Recipe ID number",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOODNUM",
@@ -106,7 +110,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Order of shape selection (e.g. 1)"
+            describedAs = "Order of shape selection (e.g. 1)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ORDER",
@@ -122,7 +127,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Shape code (e.g. S001)"
+            describedAs = "Shape code (e.g. S001)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SH_CODE",
@@ -139,7 +145,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals"
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SH_SURFACE",
@@ -155,7 +162,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Shape: Thickness code (e.g. A or 58_1)"
+            describedAs = "Shape: Thickness code (e.g. A or 58_1)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "TH_CODE",
@@ -172,7 +180,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals"
+            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "TH_THICK",
@@ -188,7 +197,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)"
+            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "PH_CODE",
@@ -205,7 +215,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Photo quantity"
+            describedAs = "Photo quantity",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "PH_QTY",
@@ -221,7 +232,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)"
+            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FRACT",
@@ -238,7 +250,8 @@ public class RecipeIngredientQuantification {
     @Property
     @PropertyLayout(
             sequence = "12",
-            describedAs = "Sequential Number for Ingredients within a Sub-Recipe"
+            describedAs = "Sequential Number for Ingredients within a Sub-Recipe",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "S_ING_NUM",

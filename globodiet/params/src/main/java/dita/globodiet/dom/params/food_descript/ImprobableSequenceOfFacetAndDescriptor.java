@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Improbable sequence of facets/descriptors
@@ -55,7 +56,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number"
+            describedAs = "Food identification number",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOODNUM",
@@ -72,7 +74,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -89,7 +92,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -106,7 +110,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-subgroup code"
+            describedAs = "Food sub-subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -123,7 +128,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Facet code"
+            describedAs = "Facet code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACET_CODE",
@@ -140,7 +146,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Descriptor code"
+            describedAs = "Descriptor code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "DESCR_CODE",
@@ -157,7 +164,8 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Facet string"
+            describedAs = "Facet string",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_STR",

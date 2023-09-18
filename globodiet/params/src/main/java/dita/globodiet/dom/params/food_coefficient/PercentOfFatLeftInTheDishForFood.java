@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * % of fat left in the dish for food
@@ -56,7 +57,8 @@ public class PercentOfFatLeftInTheDishForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Group code of the FAT's group"
+            describedAs = "Group code of the FAT's group",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -73,7 +75,8 @@ public class PercentOfFatLeftInTheDishForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Subgroup code of the FAT"
+            describedAs = "Subgroup code of the FAT",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -90,7 +93,8 @@ public class PercentOfFatLeftInTheDishForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Sub-Subgroup code of the FAT"
+            describedAs = "Sub-Subgroup code of the FAT",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -107,7 +111,8 @@ public class PercentOfFatLeftInTheDishForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Percentage of fat left in the dish"
+            describedAs = "Percentage of fat left in the dish",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PCT_LEFT",

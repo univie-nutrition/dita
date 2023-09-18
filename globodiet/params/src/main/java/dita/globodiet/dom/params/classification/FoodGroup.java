@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Food group
@@ -56,7 +57,8 @@ public class FoodGroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "GROUP",
@@ -73,7 +75,8 @@ public class FoodGroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group name"
+            describedAs = "Food group name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -90,7 +93,8 @@ public class FoodGroup {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food group short name"
+            describedAs = "Food group short name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME_SHORT",

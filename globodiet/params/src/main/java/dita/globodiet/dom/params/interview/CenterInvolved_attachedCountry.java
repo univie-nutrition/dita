@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "2.1",
-        describedAs = "Attached Country code"
+        describedAs = "Attached Country code",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class CenterInvolved_attachedCountry {
@@ -46,7 +49,7 @@ public class CenterInvolved_attachedCountry {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "attachedCountryCode", mixee.getAttachedCountryCode(),
+                mixee, mixee.getAttachedCountryCode(),
                 // foreign
                 CountryInvolved.class, foreign->foreign.getCountryCode())
             .orElse(null);

@@ -57,7 +57,7 @@ implements ForeignKeyLookupService {
     @Inject DeepLinkService deepLinkService;
 
     @Override
-    public <L, F> Optional<F> unary(final L localEntity, final String localFieldName, final Object localField,
+    public <L, F> Optional<F> unary(final L localEntity, final Object localField,
             final Class<F> foreignType, final Function<F, Object> foreignFieldGetter) {
 
         if(localField == null) return Optional.empty();
@@ -144,11 +144,11 @@ implements ForeignKeyLookupService {
         }
 
         final Optional<F1> left = triage.isLeftAllowed()
-                ? unary(localEntity, "", localField, foreignType1, foreignFieldGetter1)
+                ? unary(localEntity, localField, foreignType1, foreignFieldGetter1)
                 : Optional.empty();
         final Optional<F2> right = triage.isRightAllowed()
                 && left.isEmpty()
-                ? unary(localEntity, "", localField, foreignType2, foreignFieldGetter2)
+                ? unary(localEntity, localField, foreignType2, foreignFieldGetter2)
                 : Optional.empty();
 
         final Either<F1, F2> either = left.isPresent()

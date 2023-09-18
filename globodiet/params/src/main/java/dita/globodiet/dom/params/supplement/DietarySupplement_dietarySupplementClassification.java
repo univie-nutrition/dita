@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "4.1",
-        describedAs = "Dietary Supplement classification code (optionnal)"
+        describedAs = "Dietary Supplement classification code (optionnal)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class DietarySupplement_dietarySupplementClassification {
@@ -46,7 +49,7 @@ public class DietarySupplement_dietarySupplementClassification {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "dietarySupplementClassificationCode", mixee.getDietarySupplementClassificationCode(),
+                mixee, mixee.getDietarySupplementClassificationCode(),
                 // foreign
                 DietarySupplementClassification.class, foreign->foreign.getDietarySupplementClassificationCode())
             .orElse(null);

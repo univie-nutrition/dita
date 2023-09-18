@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Probing question pathway for recipes
@@ -55,7 +56,8 @@ public class ProbingQuestionPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Probing question code"
+            describedAs = "Probing question code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "PQ_CODE",
@@ -72,7 +74,8 @@ public class ProbingQuestionPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe group code"
+            describedAs = "Recipe group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -89,7 +92,8 @@ public class ProbingQuestionPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe subgroup code"
+            describedAs = "Recipe subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP",
@@ -106,7 +110,8 @@ public class ProbingQuestionPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe identification number (R_ IDNUM)"
+            describedAs = "Recipe identification number (R_ IDNUM)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",

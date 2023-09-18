@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Food Consumption Occasion
@@ -56,7 +57,8 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "FCO code"
+            describedAs = "FCO code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FCM_CODE",
@@ -73,7 +75,8 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "FCO long label (text displayed on screen)"
+            describedAs = "FCO long label (text displayed on screen)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FCM_NAME",
@@ -90,7 +93,8 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
+            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FCM_MODE",
@@ -107,7 +111,8 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "FCO short label to identify easily the FCO"
+            describedAs = "FCO short label to identify easily the FCO",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FCM_SNAME",
@@ -126,7 +131,8 @@ public class FoodConsumptionOccasion {
     @PropertyLayout(
             sequence = "5",
             describedAs = "1=main FCO (to be displayed in nutrient check screen)<br>\n"
-                            + "0=non main FCO"
+                            + "0=non main FCO",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FCM_PRINCIPAL",

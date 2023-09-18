@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Quantification methods pathway for recipe group/subgroups
@@ -55,7 +56,8 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group"
+            describedAs = "Recipe group",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_GROUP",
@@ -80,7 +82,8 @@ public class QuantificationMethodsPathwayForRecipeGroup {
                             + "'P' for photo,<br>\n"
                             + "'H' for HHM,<br>\n"
                             + "'U' for stdu,<br>\n"
-                            + "'A' for shape"
+                            + "'A' for shape",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "METHOD",
@@ -99,7 +102,8 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @PropertyLayout(
             sequence = "3",
             describedAs = "Photo code (if method='P' and 'A');<br>\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code"
+                            + "either M_photos.ph_code or M_shapes.sh_code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "METH_CODE",
@@ -116,7 +120,8 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Comment"
+            describedAs = "Comment",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",

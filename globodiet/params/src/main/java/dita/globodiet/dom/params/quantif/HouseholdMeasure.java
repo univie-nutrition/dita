@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Household Measure
@@ -56,7 +57,8 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "HouseholdMeasure code"
+            describedAs = "HouseholdMeasure code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "HHM_CODE",
@@ -73,7 +75,8 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "HouseholdMeasure volume in cm3."
+            describedAs = "HouseholdMeasure volume in cm3.",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "HHM_VOLUME",
@@ -91,7 +94,8 @@ public class HouseholdMeasure {
     @PropertyLayout(
             sequence = "3",
             describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.<br>\n"
-                            + "The value of each expression will be evaluated as factor of the total volume"
+                            + "The value of each expression will be evaluated as factor of the total volume",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "HHM_FRACT",
@@ -108,7 +112,8 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Comment attached to the HouseholdMeasure"
+            describedAs = "Comment attached to the HouseholdMeasure",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",
@@ -125,7 +130,8 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Order to display the HouseholdMeasure"
+            describedAs = "Order to display the HouseholdMeasure",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "D_ORDER",

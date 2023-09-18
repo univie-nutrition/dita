@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Interviewer
@@ -55,7 +56,8 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Interviewer code"
+            describedAs = "Interviewer code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INTV_CODE",
@@ -72,7 +74,8 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Interviewer family name"
+            describedAs = "Interviewer family name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INTV_FNAME",
@@ -89,7 +92,8 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Interviewer name"
+            describedAs = "Interviewer name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "INTV_NAME",
@@ -106,7 +110,8 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Country code"
+            describedAs = "Country code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "COUNTRY",
@@ -123,7 +128,8 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Center code"
+            describedAs = "Center code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "CENTER",

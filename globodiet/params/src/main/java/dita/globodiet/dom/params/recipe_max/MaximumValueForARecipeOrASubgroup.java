@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Maximum value for a recipe or a (sub-)group
@@ -56,7 +57,8 @@ public class MaximumValueForARecipeOrASubgroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group code"
+            describedAs = "Recipe group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_GROUP",
@@ -73,7 +75,8 @@ public class MaximumValueForARecipeOrASubgroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe subgroup code"
+            describedAs = "Recipe subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_SUBGROUP",
@@ -90,7 +93,8 @@ public class MaximumValueForARecipeOrASubgroup {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe code"
+            describedAs = "Recipe code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_IDNUM",
@@ -107,7 +111,8 @@ public class MaximumValueForARecipeOrASubgroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Maximum value"
+            describedAs = "Maximum value",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "MAXIMA",

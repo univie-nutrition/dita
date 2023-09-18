@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Probing questions pathways for foods
@@ -55,7 +56,8 @@ public class ProbingQuestionsPathwaysForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Probing question code"
+            describedAs = "Probing question code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "PQ_CODE",
@@ -72,7 +74,8 @@ public class ProbingQuestionsPathwaysForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -89,7 +92,8 @@ public class ProbingQuestionsPathwaysForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -106,7 +110,8 @@ public class ProbingQuestionsPathwaysForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-subgroup code"
+            describedAs = "Food sub-subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -123,7 +128,8 @@ public class ProbingQuestionsPathwaysForFood {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food identification number (FOODNUM)"
+            describedAs = "Food identification number (FOODNUM)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",

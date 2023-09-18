@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Dietary supplement facet
@@ -56,7 +57,8 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code for Dietary Supplement"
+            describedAs = "Facet code for Dietary Supplement",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_CODE",
@@ -73,7 +75,8 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet name for Dietary Supplement"
+            describedAs = "Facet name for Dietary Supplement",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_NAME",
@@ -92,7 +95,8 @@ public class DietarySupplementFacet {
     @PropertyLayout(
             sequence = "3",
             describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>\n"
-                            + "Only 1 facet (physical state) is used for quantification."
+                            + "Only 1 facet (physical state) is used for quantification.",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_QUANT",
@@ -112,7 +116,8 @@ public class DietarySupplementFacet {
             sequence = "4",
             describedAs = "Facet with Mono or Multi selection of descriptors<br>\n"
                             + "0=mono,<br>\n"
-                            + "1=multi"
+                            + "1=multi",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_TYPE",
@@ -128,7 +133,8 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
+            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_MAIN",
@@ -144,7 +150,8 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Order to ask the facet (first, second...)"
+            describedAs = "Order to ask the facet (first, second...)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_ORDER",
@@ -160,7 +167,8 @@ public class DietarySupplementFacet {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Label on how to ask the facet question"
+            describedAs = "Label on how to ask the facet question",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DSFACET_QUEST",

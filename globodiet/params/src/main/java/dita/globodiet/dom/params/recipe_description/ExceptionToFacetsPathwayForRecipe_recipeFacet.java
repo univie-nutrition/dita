@@ -26,16 +26,19 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "2.1",
         describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe\n"
                         + "(superseeding its group pathway).\n"
                         + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file\n"
-                        + "(Assuming always a subset)"
+                        + "(Assuming always a subset)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class ExceptionToFacetsPathwayForRecipe_recipeFacet {
@@ -49,7 +52,7 @@ public class ExceptionToFacetsPathwayForRecipe_recipeFacet {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "recipeFacetCode", mixee.getRecipeFacetCode(),
+                mixee, mixee.getRecipeFacetCode(),
                 // foreign
                 FacetForRecipe.class, foreign->foreign.getRecipeFacetCode())
             .orElse(null);

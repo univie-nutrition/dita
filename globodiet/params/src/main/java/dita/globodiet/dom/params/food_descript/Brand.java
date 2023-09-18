@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Brand names are used in the food description phase
@@ -56,7 +57,8 @@ public class Brand {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Name of brand"
+            describedAs = "Name of brand",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -73,7 +75,8 @@ public class Brand {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -90,7 +93,8 @@ public class Brand {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -107,7 +111,8 @@ public class Brand {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-subgroup code"
+            describedAs = "Food sub-subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",

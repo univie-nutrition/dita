@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Facet where the rule must be applied."
+        describedAs = "Facet where the rule must be applied.",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
@@ -47,7 +50,7 @@ public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "facetWhereTheRuleMustBeApplied", mixee.getFacetWhereTheRuleMustBeApplied(),
+                mixee, mixee.getFacetWhereTheRuleMustBeApplied(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

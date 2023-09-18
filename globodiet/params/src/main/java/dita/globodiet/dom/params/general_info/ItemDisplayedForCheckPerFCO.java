@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Items displayed for check per FCO (Food Consumption Occasion)
@@ -55,7 +56,8 @@ public class ItemDisplayedForCheckPerFCO {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "FCO code"
+            describedAs = "FCO code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FCO_CODE",
@@ -72,7 +74,8 @@ public class ItemDisplayedForCheckPerFCO {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Item label"
+            describedAs = "Item label",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TEXT",

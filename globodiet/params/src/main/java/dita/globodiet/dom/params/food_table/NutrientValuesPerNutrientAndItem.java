@@ -34,6 +34,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Nutrient values per nutrient and item
@@ -57,7 +58,8 @@ public class NutrientValuesPerNutrientAndItem {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Item Sequential number"
+            describedAs = "Item Sequential number",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SEQ",
@@ -73,7 +75,8 @@ public class NutrientValuesPerNutrientAndItem {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Nutrient code"
+            describedAs = "Nutrient code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NTR_CODE",
@@ -89,7 +92,8 @@ public class NutrientValuesPerNutrientAndItem {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Nutrient value for the attached item & nutrient"
+            describedAs = "Nutrient value for the attached item & nutrient",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "VAL",

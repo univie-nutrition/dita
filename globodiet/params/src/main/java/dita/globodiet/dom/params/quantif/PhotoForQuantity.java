@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Photo and its quantities
@@ -55,7 +56,8 @@ public class PhotoForQuantity {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Photo series code (P001,P002,P003,...)"
+            describedAs = "Photo series code (P001,P002,P003,...)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PH_CODE",
@@ -72,7 +74,8 @@ public class PhotoForQuantity {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
+            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PH_QSTR",
@@ -89,7 +92,8 @@ public class PhotoForQuantity {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw, 2 = cooked (as estimated)"
+            describedAs = "1 = raw, 2 = cooked (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RAW_COOKED",
@@ -106,7 +110,8 @@ public class PhotoForQuantity {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "EDIB",
@@ -123,7 +128,8 @@ public class PhotoForQuantity {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "G = in grams, V = in ml (volume)"
+            describedAs = "G = in grams, V = in ml (volume)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PH_UNIT",

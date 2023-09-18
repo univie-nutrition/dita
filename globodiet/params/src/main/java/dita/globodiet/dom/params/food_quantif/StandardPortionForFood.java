@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * standard portions for foods
@@ -56,7 +57,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Standard portion quantity"
+            describedAs = "Standard portion quantity",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "STDP_QUANT",
@@ -72,7 +74,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food identification number (=FOODMUM)"
+            describedAs = "Food identification number (=FOODMUM)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",
@@ -89,7 +92,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw, 2 = cooked (as estimated)"
+            describedAs = "1 = raw, 2 = cooked (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RAW_COOKED",
@@ -106,7 +110,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "EDIB",
@@ -123,7 +128,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Comment attached to the standard portion"
+            describedAs = "Comment attached to the standard portion",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",
@@ -140,7 +146,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Standard portion code for the same food (0001, 0002, 0003)"
+            describedAs = "Standard portion code for the same food (0001, 0002, 0003)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PORT_CODE",
@@ -157,7 +164,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "G = in grams, V = in ml (volume)"
+            describedAs = "G = in grams, V = in ml (volume)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "STDP_UNIT",
@@ -174,7 +182,8 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Order to display the standard portion"
+            describedAs = "Order to display the standard portion",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "D_ORDER",

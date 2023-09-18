@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Descriptor per facet
@@ -56,7 +57,8 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code for recipes"
+            describedAs = "Facet code for recipes",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "RFACET_CODE",
@@ -73,7 +75,8 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor code for recipes"
+            describedAs = "Descriptor code for recipes",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RDESCR_CODE",
@@ -90,7 +93,8 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Descriptor name"
+            describedAs = "Descriptor name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RDESCR_NAME",
@@ -111,7 +115,8 @@ public class DescriptorPerFacet {
             sequence = "4",
             describedAs = "Only for facet recipe production:<br>\n"
                             + "0=not homemade descriptor<br>\n"
-                            + "1=Homemade descriptor"
+                            + "1=Homemade descriptor",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RDESCR_TYPE",
@@ -127,7 +132,8 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Only for facet known/unknown: 1=unknown 2=known"
+            describedAs = "Only for facet known/unknown: 1=unknown 2=known",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RDESCR_KNOWN",
@@ -143,7 +149,8 @@ public class DescriptorPerFacet {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no"
+            describedAs = "Descriptor with type='other' : 1=yes 0=no",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RDESCR_OTHER",
@@ -161,7 +168,8 @@ public class DescriptorPerFacet {
     @PropertyLayout(
             sequence = "7",
             describedAs = "0=not single descriptor<br>\n"
-                            + "1=single descriptor"
+                            + "1=single descriptor",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RDESCR_SINGLE",

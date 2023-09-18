@@ -28,6 +28,7 @@ import org.springframework.javapoet.FieldSpec;
 import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
+import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.tooling.domgen.DomainGenerator.JavaModel;
@@ -92,7 +93,12 @@ class _GenEntity {
                     FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
                     .addJavadoc(field.formatDescription("<br>\n"))
                     .addAnnotation(_Annotations.property())
-                    .addAnnotation(_Annotations.propertyLayout(field.sequence(), field.formatDescription("<br>\n")))
+                    .addAnnotation(_Annotations.propertyLayout(
+                            field.sequence(),
+                            field.formatDescription("<br>\n"),
+                            field.hasForeignKeys()
+                            ? Where.ALL_TABLES
+                            : Where.NOWHERE))
                     .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                     .addAnnotation(_Annotations.getter())
                     .addAnnotation(_Annotations.setter())

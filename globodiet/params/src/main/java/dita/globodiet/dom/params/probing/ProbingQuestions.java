@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Probing questions
@@ -55,7 +56,8 @@ public class ProbingQuestions {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Probing question code"
+            describedAs = "Probing question code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PQ_CODE",
@@ -72,7 +74,8 @@ public class ProbingQuestions {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Probing question label"
+            describedAs = "Probing question label",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PQ_TEXT",

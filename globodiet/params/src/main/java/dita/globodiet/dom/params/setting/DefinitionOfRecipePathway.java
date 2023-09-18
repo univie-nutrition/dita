@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Definition of recipe pathway (available for each recipe type)
@@ -72,7 +73,8 @@ public class DefinitionOfRecipePathway {
                             + "2.2=Closed with brand<br>\n"
                             + "3.0=Commercial<br>\n"
                             + "4.1=New – Known<br>\n"
-                            + "4.2=New – Unknown"
+                            + "4.2=New – Unknown",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_TYPE",
@@ -89,7 +91,8 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "1 = The ingredient window is displayed 0 = The ingredient window is not displayed"
+            describedAs = "1 = The ingredient window is displayed 0 = The ingredient window is not displayed",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_ING",
@@ -111,7 +114,8 @@ public class DefinitionOfRecipePathway {
             describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>\n"
                             + "1 = S - Substitute<br>\n"
                             + "2 = SAD - Substitute, Add & Delete<br>\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify"
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "N_IFUNCTION",
@@ -133,7 +137,8 @@ public class DefinitionOfRecipePathway {
             describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):<br>\n"
                             + "1 = S - Substitute<br>\n"
                             + "2 = SAD - Substitute, Add & Delete<br>\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify"
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "E_IFUNCTION",
@@ -155,7 +160,8 @@ public class DefinitionOfRecipePathway {
             describedAs = "Display of the automatic note window:<br>\n"
                             + "0 = No display of note window<br>\n"
                             + "1 = Display of note window<br>\n"
-                            + "2 = Display of note window only for Add & Delete functions"
+                            + "2 = Display of note window only for Add & Delete functions",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "D_NOTES",

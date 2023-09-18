@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * has no description
@@ -55,7 +56,8 @@ public class Month {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Month number"
+            describedAs = "Month number",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "MONTH_NUM",
@@ -72,7 +74,8 @@ public class Month {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Month name"
+            describedAs = "Month name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "MONTH",

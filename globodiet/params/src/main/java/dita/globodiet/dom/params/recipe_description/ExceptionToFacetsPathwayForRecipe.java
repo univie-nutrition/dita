@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Exceptions for some Recipes to the Facets/Descriptors pathway
@@ -56,7 +57,8 @@ public class ExceptionToFacetsPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number"
+            describedAs = "Recipe ID number",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_IDNUM",
@@ -79,7 +81,8 @@ public class ExceptionToFacetsPathwayForRecipe {
             describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>\n"
                             + "(superseeding its group pathway).<br>\n"
                             + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file<br>\n"
-                            + "(Assuming always a subset)"
+                            + "(Assuming always a subset)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "RFACET_CODE",
@@ -96,7 +99,8 @@ public class ExceptionToFacetsPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "has no description"
+            describedAs = "has no description",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ORDER_FAC",

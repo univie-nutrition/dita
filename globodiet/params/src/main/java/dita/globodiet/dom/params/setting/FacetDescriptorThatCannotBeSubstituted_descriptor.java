@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "2.1",
-        describedAs = "Descriptor code"
+        describedAs = "Descriptor code",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class FacetDescriptorThatCannotBeSubstituted_descriptor {
@@ -47,7 +50,7 @@ public class FacetDescriptorThatCannotBeSubstituted_descriptor {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "descriptorCode", mixee.getDescriptorCode(),
+                mixee, mixee.getDescriptorCode(),
                 // foreign
                 FacetDescriptor.class, foreign->foreign.getCode())
             .orElse(null);

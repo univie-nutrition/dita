@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Center involved
@@ -56,7 +57,8 @@ public class CenterInvolved {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Center code"
+            describedAs = "Center code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "CNTR_CODE",
@@ -73,7 +75,8 @@ public class CenterInvolved {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Attached Country code"
+            describedAs = "Attached Country code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "CTRYCODE",
@@ -90,7 +93,8 @@ public class CenterInvolved {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Center name"
+            describedAs = "Center name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "CNTR_NAME",

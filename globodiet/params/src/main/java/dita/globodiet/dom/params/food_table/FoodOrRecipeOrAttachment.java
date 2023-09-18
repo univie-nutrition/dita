@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Items list and definition
@@ -56,7 +57,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Sequential number"
+            describedAs = "Sequential number",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ITEM_SEQ",
@@ -72,7 +74,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached"
+            describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",
@@ -89,7 +92,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food or recipe group"
+            describedAs = "Food or recipe group",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "GROUP",
@@ -106,7 +110,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food or recipe sub-group"
+            describedAs = "Food or recipe sub-group",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SUBGROUP1",
@@ -123,7 +128,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food sub-sub-group"
+            describedAs = "Food sub-sub-group",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SUBGROUP2",
@@ -140,7 +146,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Food or Recipe code"
+            describedAs = "Food or Recipe code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ID_NUM",
@@ -157,7 +164,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Facet string"
+            describedAs = "Facet string",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_STR",
@@ -174,7 +182,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Brand name"
+            describedAs = "Brand name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "BRANDNAME",
@@ -191,7 +200,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Priority order"
+            describedAs = "Priority order",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PRIORITY",
@@ -207,7 +217,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Attached records: only for the Type=A2 & A3"
+            describedAs = "Attached records: only for the Type=A2 & A3",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ITEM_SEQ_SEQ",
@@ -223,7 +234,8 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Comment"
+            describedAs = "Comment",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",

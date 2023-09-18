@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Descriptor for food facets (not recipe facets)
@@ -57,7 +58,8 @@ public class FacetDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code"
+            describedAs = "Facet code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACET_CODE",
@@ -74,7 +76,8 @@ public class FacetDescriptor {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor code"
+            describedAs = "Descriptor code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DESCR_CODE",
@@ -91,7 +94,8 @@ public class FacetDescriptor {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Descriptor name"
+            describedAs = "Descriptor name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DESCR_NAME",
@@ -112,7 +116,8 @@ public class FacetDescriptor {
             sequence = "4",
             describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)<br>\n"
                             + "1=Raw descriptor<br>\n"
-                            + "2=Descriptors to ask the question 'fat used during cooking'"
+                            + "2=Descriptors to ask the question 'fat used during cooking'",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DESC_COOK",
@@ -128,7 +133,8 @@ public class FacetDescriptor {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "TODO missing description"
+            describedAs = "TODO missing description",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DESC_SINGLE",
@@ -144,7 +150,8 @@ public class FacetDescriptor {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "TODO missing description"
+            describedAs = "TODO missing description",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DESC_OTHER",

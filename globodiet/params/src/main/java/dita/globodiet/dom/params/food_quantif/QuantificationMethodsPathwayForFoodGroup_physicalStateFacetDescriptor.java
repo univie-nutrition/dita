@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "4.1",
-        describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)"
+        describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor {

@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Nutrient list and definition
@@ -56,7 +57,8 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Nutrient code"
+            describedAs = "Nutrient code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NTR_CODE",
@@ -72,7 +74,8 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Nutrient Name"
+            describedAs = "Nutrient Name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NTR_NAME",
@@ -89,7 +92,8 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
+            describedAs = "Nutrient unit (e.g. kcal, g, mg…)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NTR_UNIT",
@@ -108,7 +112,8 @@ public class NutrientListAndDefinition {
     @PropertyLayout(
             sequence = "4",
             describedAs = "0=not displayed in the 'nutrient checks' screen<br>\n"
-                            + "1=displayed in the 'nutrient checks' screen"
+                            + "1=displayed in the 'nutrient checks' screen",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NTR_DISPLAY",
@@ -124,7 +129,8 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Comment on nutrient"
+            describedAs = "Comment on nutrient",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",

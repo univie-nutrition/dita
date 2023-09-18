@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Facet describing food (not recipe)
@@ -57,7 +58,8 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code"
+            describedAs = "Facet code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_CODE",
@@ -74,7 +76,8 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet name"
+            describedAs = "Facet name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_NAME",
@@ -91,7 +94,8 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet text (text to show on the screen describing the facet)"
+            describedAs = "Facet text (text to show on the screen describing the facet)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_TEXT",
@@ -114,7 +118,8 @@ public class Facet {
             describedAs = "0=Standard facets with descriptors available in Descface table<br>\n"
                             + "1=Facets with descriptors available in Brandnam table<br>\n"
                             + "2=Facets with descriptors available in Foods table - facet 15 type of fat<br>\n"
-                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
+                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_TYPE",
@@ -132,7 +137,8 @@ public class Facet {
     @PropertyLayout(
             sequence = "5",
             describedAs = "0 = facet with mono-selection of descriptor<br>\n"
-                            + "1 = facets with multi-selection of descriptors"
+                            + "1 = facets with multi-selection of descriptors",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_TYPE_S",
@@ -150,7 +156,8 @@ public class Facet {
     @PropertyLayout(
             sequence = "6",
             describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>\n"
-                            + "Comma is used as delimiter (e.g. 10,050701,050702)"
+                            + "Comma is used as delimiter (e.g. 10,050701,050702)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_GRP",
@@ -167,7 +174,8 @@ public class Facet {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Label on how to ask the facet question"
+            describedAs = "Label on how to ask the facet question",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_QUEST",

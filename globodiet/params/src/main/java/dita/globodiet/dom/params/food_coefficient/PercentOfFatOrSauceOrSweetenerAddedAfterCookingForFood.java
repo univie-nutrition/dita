@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * % of fat/sauce/sweetener added after cooking attached to a food
@@ -56,7 +57,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOOD_GROUP",
@@ -73,7 +75,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOOD_SUBG1",
@@ -90,7 +93,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-Subgroup code"
+            describedAs = "Food sub-Subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOOD_SUBG2",
@@ -107,7 +111,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food code"
+            describedAs = "Food code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FOOD_IDNUM",
@@ -124,7 +129,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Fat group code for F/S/S"
+            describedAs = "Fat group code for F/S/S",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "X_GROUP",
@@ -141,7 +147,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Fat subgroup code for F/S/S"
+            describedAs = "Fat subgroup code for F/S/S",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "X_SUBG1",
@@ -158,7 +165,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Fat sub-subgroup code for F/S/S"
+            describedAs = "Fat sub-subgroup code for F/S/S",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "X_SUBG2",
@@ -175,7 +183,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Fat code for F/S/S"
+            describedAs = "Fat code for F/S/S",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "X_IDNUM",
@@ -192,7 +201,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Percentage of fat"
+            describedAs = "Percentage of fat",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PCT_ADDED",

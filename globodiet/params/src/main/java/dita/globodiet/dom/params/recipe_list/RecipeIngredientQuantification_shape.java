@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "5.1",
-        describedAs = "Shape code (e.g. S001)"
+        describedAs = "Shape code (e.g. S001)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_shape {
@@ -47,7 +50,7 @@ public class RecipeIngredientQuantification_shape {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "shapeCode", mixee.getShapeCode(),
+                mixee, mixee.getShapeCode(),
                 // foreign
                 Shape.class, foreign->foreign.getShapeCode())
             .orElse(null);

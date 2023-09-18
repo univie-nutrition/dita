@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Country involved
@@ -56,7 +57,8 @@ public class CountryInvolved {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Country code"
+            describedAs = "Country code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "CTRYCODE",
@@ -73,7 +75,8 @@ public class CountryInvolved {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Country name"
+            describedAs = "Country name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "CTRY_NAME",

@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Probing question code"
+        describedAs = "Probing question code",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class ProbingQuestionsPathwaysForFood_probingQuestion {
@@ -47,7 +50,7 @@ public class ProbingQuestionsPathwaysForFood_probingQuestion {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "probingQuestionCode", mixee.getProbingQuestionCode(),
+                mixee, mixee.getProbingQuestionCode(),
                 // foreign
                 ProbingQuestions.class, foreign->foreign.getProbingQuestionCode())
             .orElse(null);

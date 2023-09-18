@@ -26,16 +26,19 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "2.1",
         describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
                         + "to allow the facet (FACET_CODE) to be asked.\n"
                         + "Additionally a group/subgroup code can be defined to force the food being described\n"
-                        + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable)."
+                        + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RuleAppliedToFacet_facetDescriptor {

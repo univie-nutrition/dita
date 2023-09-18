@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Mixed recipes: Names, identification number and class.<br>
@@ -94,7 +95,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number"
+            describedAs = "Recipe ID number",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_IDNUM",
@@ -111,7 +113,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Group code of the recipe classification"
+            describedAs = "Group code of the recipe classification",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_GROUP",
@@ -128,7 +131,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Subgroup code of the recipe classification"
+            describedAs = "Subgroup code of the recipe classification",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "R_SUBGROUP",
@@ -145,7 +149,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe name"
+            describedAs = "Recipe name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_NAME",
@@ -178,7 +183,8 @@ public class Recipe {
                             + "2.2=Closed with brand<br>\n"
                             + "3.0=Commercial<br>\n"
                             + "4.1=New – Known<br>\n"
-                            + "4.2=New – Unknown"
+                            + "4.2=New – Unknown",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_TYPE",
@@ -195,7 +201,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Brand name for commercial recipe"
+            describedAs = "Brand name for commercial recipe",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_BRAND",
@@ -212,7 +219,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "SH=Shadow"
+            describedAs = "SH=Shadow",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",
@@ -231,7 +239,8 @@ public class Recipe {
     @PropertyLayout(
             sequence = "8",
             describedAs = "0=recipe without sub-recipe<br>\n"
-                            + "1=recipe with sub-recipe"
+                            + "1=recipe with sub-recipe",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_SUB",
@@ -247,7 +256,8 @@ public class Recipe {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "has no description"
+            describedAs = "has no description",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "STATUS",

@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Place of Consumption Occasion
@@ -56,7 +57,8 @@ public class PlaceOfConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Place of consumption code"
+            describedAs = "Place of consumption code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "POC_CODE",
@@ -73,7 +75,8 @@ public class PlaceOfConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Place of consumption name"
+            describedAs = "Place of consumption name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "POC_NAME",
@@ -92,7 +95,8 @@ public class PlaceOfConsumptionOccasion {
     @PropertyLayout(
             sequence = "3",
             describedAs = "0=not a 'Other' place<br>\n"
-                            + "1='Other' place"
+                            + "1='Other' place",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "POC_OTHER",

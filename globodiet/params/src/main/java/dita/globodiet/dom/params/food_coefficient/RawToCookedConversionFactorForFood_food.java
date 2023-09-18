@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Food identification number (FOODNUM)"
+        describedAs = "Food identification number (FOODNUM)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RawToCookedConversionFactorForFood_food {
@@ -47,7 +50,7 @@ public class RawToCookedConversionFactorForFood_food {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "foodCode", mixee.getFoodCode(),
+                mixee, mixee.getFoodCode(),
                 // foreign
                 FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
             .orElse(null);

@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Dietary supplement classification
@@ -55,7 +56,8 @@ public class DietarySupplementClassification {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Dietary Supplement classification code"
+            describedAs = "Dietary Supplement classification code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DS_CLASS",
@@ -72,7 +74,8 @@ public class DietarySupplementClassification {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Name of the food (sub-)(sub-)group"
+            describedAs = "Name of the food (sub-)(sub-)group",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -89,7 +92,8 @@ public class DietarySupplementClassification {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Dietary Supplement classification code attached to (for subgroup)"
+            describedAs = "Dietary Supplement classification code attached to (for subgroup)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DS_DS_CLASS",

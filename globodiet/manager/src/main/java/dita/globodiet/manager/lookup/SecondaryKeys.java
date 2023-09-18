@@ -48,6 +48,7 @@ import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
+import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
@@ -248,6 +249,9 @@ public class SecondaryKeys {
             if(entity instanceof Brand local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
+            if(entity instanceof CrossReferenceBetweenFoodAndFacet local) {
+                return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+            }
             if(entity instanceof FoodOrProductOrAlias local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
@@ -422,6 +426,9 @@ public class SecondaryKeys {
 
         static Either<RecipeGroupKey, RecipeSubgroupKey> auto(final Object entity) {
             if(entity instanceof BrandForRecipe local) {
+                return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
+            }
+            if(entity instanceof CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor local) {
                 return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
             }
             if(entity instanceof MaximumValueForARecipeOrASubgroup local) {

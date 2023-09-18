@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Translation in country language
@@ -55,7 +56,8 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Text name"
+            describedAs = "Text name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ARRAY_REF",
@@ -72,7 +74,8 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Text in specific Country language"
+            describedAs = "Text in specific Country language",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TEXT",
@@ -89,7 +92,8 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Text in English"
+            describedAs = "Text in English",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TEXT_ENG",
@@ -106,7 +110,8 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Data entry Text in specific Country language"
+            describedAs = "Data entry Text in specific Country language",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DE_TEXT",
@@ -123,7 +128,8 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Data entry Text in English"
+            describedAs = "Data entry Text in English",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DE_TEXT_ENG",

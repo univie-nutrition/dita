@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Minimum and maximum value for macro-nutrient
@@ -56,7 +57,8 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Name of nutrient"
+            describedAs = "Name of nutrient",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -73,7 +75,8 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Minimum value"
+            describedAs = "Minimum value",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "MIN",
@@ -89,7 +92,8 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Maximum value"
+            describedAs = "Maximum value",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "MAX",
@@ -105,7 +109,8 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Unit (g, kcal or blanc)"
+            describedAs = "Unit (g, kcal or blanc)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "UNIT",
@@ -122,7 +127,8 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=man, 2=woman"
+            describedAs = "1=man, 2=woman",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SEX",
@@ -139,7 +145,8 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "PAL value"
+            describedAs = "PAL value",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "VAL",

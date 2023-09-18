@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Day of week constant
@@ -55,7 +56,8 @@ public class DayOfWeek {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Day number"
+            describedAs = "Day number",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DAYOFWEEK",
@@ -72,7 +74,8 @@ public class DayOfWeek {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Day name"
+            describedAs = "Day name",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "DAY",

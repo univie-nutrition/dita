@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Raw to cooked conversion factors for foods
@@ -56,7 +57,8 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)"
+            describedAs = "Food identification number (FOODNUM)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",
@@ -73,7 +75,8 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Raw to cooked factor"
+            describedAs = "Raw to cooked factor",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RC_FACTOR",
@@ -89,7 +92,8 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACETS_STR",
@@ -106,7 +110,8 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Priority order"
+            describedAs = "Priority order",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PRIORITY",

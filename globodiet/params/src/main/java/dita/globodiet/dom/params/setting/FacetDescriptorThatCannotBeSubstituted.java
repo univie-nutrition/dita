@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Facet/descriptor that cannot be substituted
@@ -55,7 +56,8 @@ public class FacetDescriptorThatCannotBeSubstituted {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code"
+            describedAs = "Facet code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACET_CODE",
@@ -72,7 +74,8 @@ public class FacetDescriptorThatCannotBeSubstituted {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor code"
+            describedAs = "Descriptor code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "DESC_CODE",

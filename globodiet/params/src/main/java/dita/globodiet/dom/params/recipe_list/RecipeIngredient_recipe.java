@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Recipe ID number the ingredient belongs to"
+        describedAs = "Recipe ID number the ingredient belongs to",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RecipeIngredient_recipe {
@@ -46,7 +49,7 @@ public class RecipeIngredient_recipe {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "recipeCode", mixee.getRecipeCode(),
+                mixee, mixee.getRecipeCode(),
                 // foreign
                 Recipe.class, foreign->foreign.getRecipeCode())
             .orElse(null);

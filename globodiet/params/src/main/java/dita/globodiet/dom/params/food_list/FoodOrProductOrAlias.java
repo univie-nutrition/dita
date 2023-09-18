@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Food List and Shadow item list entry
@@ -57,7 +58,8 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food/C.R. Identification Code"
+            describedAs = "Food/C.R. Identification Code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FOODNUM",
@@ -74,7 +76,8 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food Group code"
+            describedAs = "Food Group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -91,7 +94,8 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food Subgroup code"
+            describedAs = "Food Subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -108,7 +112,8 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food Sub(sub)group code"
+            describedAs = "Food Sub(sub)group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -125,7 +130,8 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food/C.R. Name (Country name)"
+            describedAs = "Food/C.R. Name (Country name)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -172,7 +178,8 @@ public class FoodOrProductOrAlias {
                             + "- Lettuce<br>\n"
                             + "- Tomato<br>\n"
                             + "- Cucumber<br>\n"
-                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
+                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",
@@ -191,7 +198,8 @@ public class FoodOrProductOrAlias {
     @PropertyLayout(
             sequence = "7",
             describedAs = "Auxiliary field to force an internal order within each subgroup<br>\n"
-                            + "(if GI then 1 otherwise 2, this forces the GI at the top)"
+                            + "(if GI then 1 otherwise 2, this forces the GI at the top)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "ORDER",
@@ -208,7 +216,8 @@ public class FoodOrProductOrAlias {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=food 1=food & dietary supplement"
+            describedAs = "0=food 1=food & dietary supplement",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SUPPL",

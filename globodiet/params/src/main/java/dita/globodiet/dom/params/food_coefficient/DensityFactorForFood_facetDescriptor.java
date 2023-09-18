@@ -27,14 +27,17 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "3.1",
         describedAs = "Facet string\n"
-                        + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+                        + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class DensityFactorForFood_facetDescriptor {

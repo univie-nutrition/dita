@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Group/subgroup that can be substitutable
@@ -55,7 +56,8 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "0=Food classification 1=Recipe classification"
+            describedAs = "0=Food classification 1=Recipe classification",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",
@@ -72,7 +74,8 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -89,7 +92,8 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code"
+            describedAs = "Food subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -106,7 +110,8 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-Subgroup code"
+            describedAs = "Food sub-Subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -123,7 +128,8 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)"
+            describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "F_CLASS",
@@ -140,7 +146,8 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)"
+            describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "R_CLASS",

@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "9.1",
-        describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)"
+        describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj {
@@ -47,7 +50,7 @@ public class RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "photoNumberOfTheSelectedPhoto", mixee.getPhotoNumberOfTheSelectedPhoto(),
+                mixee, mixee.getPhotoNumberOfTheSelectedPhoto(),
                 // foreign
                 PhotoForQuantity.class, foreign->foreign.getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos())
             .orElse(null);

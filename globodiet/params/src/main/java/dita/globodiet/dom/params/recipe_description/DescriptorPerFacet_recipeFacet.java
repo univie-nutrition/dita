@@ -27,13 +27,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Facet code for recipes"
+        describedAs = "Facet code for recipes",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class DescriptorPerFacet_recipeFacet {
@@ -47,7 +50,7 @@ public class DescriptorPerFacet_recipeFacet {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "recipeFacetCode", mixee.getRecipeFacetCode(),
+                mixee, mixee.getRecipeFacetCode(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

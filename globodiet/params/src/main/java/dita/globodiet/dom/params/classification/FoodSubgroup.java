@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Food groups further narrowed down by subgroups and optional sub-subgroups
@@ -56,7 +57,8 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code"
+            describedAs = "Food group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -73,7 +75,8 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food sub-group code"
+            describedAs = "Food sub-group code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SUBGROUP1",
@@ -90,7 +93,8 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-sub-group code"
+            describedAs = "Food sub-sub-group code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SUBGROUP2",
@@ -107,7 +111,8 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Name of the food (sub-)(sub-)group"
+            describedAs = "Name of the food (sub-)(sub-)group",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME",
@@ -124,7 +129,8 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
+            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SGRP_FSS",
@@ -143,7 +149,8 @@ public class FoodSubgroup {
     @PropertyLayout(
             sequence = "6",
             describedAs = "0=non fat/sauce subgroup<br>\n"
-                            + "1= fat/sauce subgroup that can be left over in the dish"
+                            + "1= fat/sauce subgroup that can be left over in the dish",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SGRP_FLO",
@@ -162,7 +169,8 @@ public class FoodSubgroup {
     @PropertyLayout(
             sequence = "7",
             describedAs = "0=non fat during cooking subgroup<br>\n"
-                            + "1= fat during cooking subgroup"
+                            + "1= fat during cooking subgroup",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SGRP_FDC",
@@ -179,7 +187,8 @@ public class FoodSubgroup {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Short Name of the food (sub-)(sub-)group"
+            describedAs = "Short Name of the food (sub-)(sub-)group",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "NAME_SHORT",

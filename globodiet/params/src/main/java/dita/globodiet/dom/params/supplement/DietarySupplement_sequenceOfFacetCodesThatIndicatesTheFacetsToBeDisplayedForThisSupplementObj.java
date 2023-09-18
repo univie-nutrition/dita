@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "5.1",
-        describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)"
+        describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class DietarySupplement_sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplementObj {
@@ -46,7 +49,7 @@ public class DietarySupplement_sequenceOfFacetCodesThatIndicatesTheFacetsToBeDis
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement", mixee.getSequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement(),
+                mixee, mixee.getSequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement(),
                 // foreign
                 DietarySupplementFacet.class, foreign->foreign.getFacetCode())
             .orElse(null);

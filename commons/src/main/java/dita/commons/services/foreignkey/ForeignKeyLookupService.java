@@ -29,7 +29,7 @@ public interface ForeignKeyLookupService {
 
     <L, F> Optional<F> unary(
             // local
-            L localEntity, String localFieldName, Object localField,
+            L localEntity, Object localField,
             // foreign
             Class<F> foreignType,
             Function<F, Object> foreignFieldGetter);

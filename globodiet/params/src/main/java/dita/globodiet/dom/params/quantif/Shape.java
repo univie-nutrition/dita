@@ -34,6 +34,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Shape
@@ -57,7 +58,8 @@ public class Shape {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Shape code (e.g. S001,S002,S003,...)"
+            describedAs = "Shape code (e.g. S001,S002,S003,...)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SH_CODE",
@@ -74,7 +76,8 @@ public class Shape {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SH_SURFACE",
@@ -90,7 +93,8 @@ public class Shape {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
+            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SH_COMMENT",
@@ -107,7 +111,8 @@ public class Shape {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Order to display the standard unit"
+            describedAs = "Order to display the standard unit",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SH_ORDER",

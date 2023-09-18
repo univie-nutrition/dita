@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Thickness for shape method
@@ -56,7 +57,8 @@ public class ThicknessForShapeMethod {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
+            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TH_CODE",
@@ -73,7 +75,8 @@ public class ThicknessForShapeMethod {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "has no description"
+            describedAs = "has no description",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TH_THICK",
@@ -89,7 +92,8 @@ public class ThicknessForShapeMethod {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
+            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TH_COMMENT",
@@ -114,7 +118,8 @@ public class ThicknessForShapeMethod {
                             + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)<br>\n"
                             + "When this field is empty, that means that this thickness has always to be proposed<br>\n"
                             + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1<br>\n"
-                            + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
+                            + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "TH_FDCLASS",
@@ -137,7 +142,8 @@ public class ThicknessForShapeMethod {
             describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.<br>\n"
                             + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)<br>\n"
                             + "When this field is empty, that means that this thickness has always to be proposed<br>\n"
-                            + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)"
+                            + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "TH_RCPCLASS",

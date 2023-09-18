@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Rule applied to facet
@@ -55,7 +56,8 @@ public class RuleAppliedToFacet {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet where the rule must be applied."
+            describedAs = "Facet where the rule must be applied.",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACET_CODE",
@@ -78,7 +80,8 @@ public class RuleAppliedToFacet {
             describedAs = "Facet code + Descriptor code that must exist in the current food description<br>\n"
                             + "to allow the facet (FACET_CODE) to be asked.<br>\n"
                             + "Additionally a group/subgroup code can be defined to force the food being described<br>\n"
-                            + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable)."
+                            + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "FACDESC",
@@ -95,7 +98,8 @@ public class RuleAppliedToFacet {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Group code"
+            describedAs = "Group code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -112,7 +116,8 @@ public class RuleAppliedToFacet {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Subgroup code"
+            describedAs = "Subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -129,7 +134,8 @@ public class RuleAppliedToFacet {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Sub-subgroup code"
+            describedAs = "Sub-subgroup code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",

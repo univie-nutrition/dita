@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
@@ -146,7 +147,7 @@ class _Annotations {
     }
     AnnotationSpec property(final Snapshot snapshot) {
         return AnnotationSpec.builder(Property.class)
-                .addMember("snapshot", Snapshot.class.getName() + ".$1L", snapshot.name())
+                .addMember("snapshot", "$1T.$2L", Snapshot.class, snapshot.name())
                 .build();
     }
     AnnotationSpec collection() {
@@ -156,10 +157,11 @@ class _Annotations {
     /**
      * @param describedAs - property description
      */
-    AnnotationSpec propertyLayout(final String sequence, final String describedAs) {
+    AnnotationSpec propertyLayout(final String sequence, final String describedAs, final Where hiddenWhere) {
         return AnnotationSpec.builder(PropertyLayout.class)
                 .addMember("sequence", "$1S", sequence)
                 .addMember("describedAs", "$1S", describedAs)
+                .addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name())
                 .build();
     }
 

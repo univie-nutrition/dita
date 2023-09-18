@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Special diet predefined answer
@@ -55,7 +56,8 @@ public class SpecialDietPredefinedAnswer {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Special diet code"
+            describedAs = "Special diet code",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SPD_CODE",
@@ -72,7 +74,8 @@ public class SpecialDietPredefinedAnswer {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Special diet label"
+            describedAs = "Special diet label",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SPD_NAME",

@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Quantification methods pathway for individual foods
@@ -55,7 +56,8 @@ public class QuantificationMethodsPathwayForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)"
+            describedAs = "Food identification number (FOODNUM)",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",
@@ -80,7 +82,8 @@ public class QuantificationMethodsPathwayForFood {
                             + "'P' for photo,<br>\n"
                             + "'H' for HHM,<br>\n"
                             + "'U' for stdu,<br>\n"
-                            + "'S' for standard portion"
+                            + "'S' for standard portion",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "METHOD",
@@ -99,7 +102,8 @@ public class QuantificationMethodsPathwayForFood {
     @PropertyLayout(
             sequence = "3",
             describedAs = "Photo code (if method='P' and 'A');<br>\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code"
+                            + "either M_photos.ph_code or M_shapes.sh_code",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "METH_CODE",

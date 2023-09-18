@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * standard units for foods and recipes
@@ -56,7 +57,8 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Standard unit quantity"
+            describedAs = "Standard unit quantity",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "STDU_QUANT",
@@ -72,7 +74,8 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum"
+            describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",
@@ -91,7 +94,8 @@ public class StandardUnitForFoodOrRecipe {
     @PropertyLayout(
             sequence = "3",
             describedAs = "1 = raw,<br>\n"
-                            + "2 = cooked (as estimated)"
+                            + "2 = cooked (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RAW_COOKED",
@@ -108,7 +112,8 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)"
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "EDIB",
@@ -127,7 +132,8 @@ public class StandardUnitForFoodOrRecipe {
     @PropertyLayout(
             sequence = "5",
             describedAs = "1 = STDU for food,<br>\n"
-                            + "2 = STDU for recipe"
+                            + "2 = STDU for recipe",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TYPE",
@@ -144,7 +150,8 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Comment attached to the standard unit"
+            describedAs = "Comment attached to the standard unit",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",
@@ -161,7 +168,8 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)"
+            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "UNIT_CODE",
@@ -180,7 +188,8 @@ public class StandardUnitForFoodOrRecipe {
     @PropertyLayout(
             sequence = "8",
             describedAs = "G = in grams,<br>\n"
-                            + "V = in ml (volume)"
+                            + "V = in ml (volume)",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "STDU_UNIT",
@@ -197,7 +206,8 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Order to display the standard unit"
+            describedAs = "Order to display the standard unit",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "D_ORDER",

@@ -63,11 +63,19 @@
         <mb:menu>
             <mb:named>Broken Lists</mb:named>
             <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllCrossReferenceBetweenFoodAndFacet"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllCrossReferenceBetweenRecipeSubgroupAndFacetDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDensityFactorForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllRawToCookedConversionFactorForFood"/>
+            </mb:section>
+        </mb:menu>
+        <mb:menu>
+            <mb:named>Interviews</mb:named>
+            <mb:section>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllCenterInvolved"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllCountryInvolved"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllInterviewer"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSubjectToBeInterviewed"/>
             </mb:section>
         </mb:menu>
         <mb:menu unreferencedActions="true">

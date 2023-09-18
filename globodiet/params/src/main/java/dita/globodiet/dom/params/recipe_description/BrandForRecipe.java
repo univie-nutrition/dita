@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Brandname list for mixed recipes
@@ -55,7 +56,8 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group"
+            describedAs = "Recipe group",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "RGROUP",
@@ -72,7 +74,8 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe subgroup"
+            describedAs = "Recipe subgroup",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "RSUBGROUP",
@@ -89,7 +92,8 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "has no description"
+            describedAs = "has no description",
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "RNAME",

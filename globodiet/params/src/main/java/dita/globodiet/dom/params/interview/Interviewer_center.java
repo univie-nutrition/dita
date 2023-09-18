@@ -26,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 
 @Property(
-        snapshot = org.apache.causeway.applib.annotation.Snapshot.EXCLUDED
+        snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         sequence = "5.1",
-        describedAs = "Center code"
+        describedAs = "Center code",
+        hidden = Where.NOT_SPECIFIED
 )
 @RequiredArgsConstructor
 public class Interviewer_center {
@@ -46,7 +49,7 @@ public class Interviewer_center {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, "centerCode", mixee.getCenterCode(),
+                mixee, mixee.getCenterCode(),
                 // foreign
                 CenterInvolved.class, foreign->foreign.getCenterCode())
             .orElse(null);

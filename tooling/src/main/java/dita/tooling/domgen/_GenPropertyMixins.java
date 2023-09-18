@@ -28,6 +28,7 @@ import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -65,7 +66,9 @@ class _GenPropertyMixins {
         val typeModelBuilder = TypeSpec.classBuilder(_Mixins.propertyMixinClassName(field))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
-                .addAnnotation(_Annotations.propertyLayout(field.sequence() + ".1", field.formatDescription("\n")))
+                .addAnnotation(_Annotations.propertyLayout(
+                        field.sequence() + ".1", field.formatDescription("\n"),
+                        Where.NOT_SPECIFIED))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
@@ -148,11 +151,11 @@ class _GenPropertyMixins {
                     return foreignKeyLookup
                         .unary(
                             // local
-                            mixee, $1S, mixee.$2L(),
+                            mixee, mixee.$1L(),
                             // foreign
-                            $3T.class, foreign->foreign.$4L())
+                            $2T.class, foreign->foreign.$3L())
                         .orElse(null);
-                    """, field.name(), localKeyGetter,
+                    """, localKeyGetter,
                     foreigner.foreignEntity(), foreigner.foreignKeyGetter());
             break;
         }
