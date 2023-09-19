@@ -48,10 +48,11 @@ public class DietarySupplement_facet {
     public DietarySupplementFacet prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFacetCode(),
                 // foreign
-                DietarySupplementFacet.class, foreign->foreign.getCode())
+                DietarySupplementFacet.class, DietarySupplementFacet::getCode)
             .orElse(null);
     }
 }

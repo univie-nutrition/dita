@@ -52,6 +52,7 @@ public class DensityFactorForFood_facetDescriptor {
     public Markup prop() {
         return foreignKeyLookup
             .plural(
+                this,
                 mixee, mixee.getFacetDescriptorLookupKey(),
                 // foreign
                 FacetDescriptor.class,

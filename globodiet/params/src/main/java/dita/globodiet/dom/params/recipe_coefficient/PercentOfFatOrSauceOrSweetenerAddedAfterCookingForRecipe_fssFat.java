@@ -49,10 +49,11 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat {
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFssFatCode(),
                 // foreign
-                FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
+                FoodOrProductOrAlias.class, FoodOrProductOrAlias::getFoodIdNumber)
             .orElse(null);
     }
 }

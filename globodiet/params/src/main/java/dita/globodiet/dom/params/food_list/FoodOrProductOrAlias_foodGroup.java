@@ -49,10 +49,11 @@ public class FoodOrProductOrAlias_foodGroup {
     public FoodGroup prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFoodGroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getCode())
+                FoodGroup.class, FoodGroup::getCode)
             .orElse(null);
     }
 }

@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Import;
         dita.globodiet.dom.params.EntitiesMenu.class,
 
         // Entities
-        dita.globodiet.dom.params.general_info.AverageForAnthropometricValues.class,
+        dita.globodiet.dom.params.general_info.AnthropometricAverage.class,
         dita.globodiet.dom.params.food_descript.Brand.class,
         dita.globodiet.dom.params.interview.CenterInvolved.class,
         dita.globodiet.dom.params.general_info.ItemDisplayedForCheckPerFCO.class,

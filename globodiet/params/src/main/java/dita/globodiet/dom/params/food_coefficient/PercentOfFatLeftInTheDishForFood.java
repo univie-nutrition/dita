@@ -41,7 +41,8 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.food_coefficient.PercentOfFatLeftInTheDishForFood")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "% of fat left in the dish for food"
+        describedAs = "% of fat left in the dish for food",
+        cssClassFa = "solid percent"
 )
 @PersistenceCapable(
         table = "FATLEFTO"

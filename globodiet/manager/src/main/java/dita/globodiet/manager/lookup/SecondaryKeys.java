@@ -36,6 +36,8 @@ import dita.globodiet.dom.params.classification.RecipeGroup;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
@@ -56,7 +58,6 @@ import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
-import dita.globodiet.manager.lookup.SecondaryKeys.LookupMode;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
@@ -296,7 +297,7 @@ public class SecondaryKeys {
             return auto(LookupMode.NULLABLE, foodGroupCode, foodSubgroupCode, foodSubSubgroupCode);
         }
 
-        static Either<FoodGroupKey, FoodSubgroupKey> auto(final Object entity) {
+        static Either<FoodGroupKey, FoodSubgroupKey> auto(final Class<?> mixinClass, final Object entity) {
             if(entity instanceof Brand local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
@@ -315,10 +316,12 @@ public class SecondaryKeys {
             if(entity instanceof PercentOfFatLeftInTheDishForFood local) {
                 return strict(local.getFatGroupCode(), local.getFatSubgroupCode(), local.getFatSubSubgroupCode());
             }
-            //TODO ambiguous with fss... requires more context
             if(entity instanceof PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood local) {
-                throw _Exceptions.unrecoverable("what to lookup foodGroup or fssFoodGroup?");
-                //return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
+                if(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup.class.equals(mixinClass)
+                        || PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup.class.equals(mixinClass)) {
+                    return strict(local.getFssFatGroupCode(), local.getFssFatSubgroupCode(), local.getFssFatSubSubgroupCode());
+                }
+                return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
             if(entity instanceof PercentOfFatUseDuringCookingForFood local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());

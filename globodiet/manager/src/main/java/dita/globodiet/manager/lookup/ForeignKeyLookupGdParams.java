@@ -42,6 +42,8 @@ import dita.globodiet.dom.params.classification.FoodGroup;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeGroup;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
@@ -62,7 +64,9 @@ implements ForeignKeyLookupService {
     @Inject DeepLinkService deepLinkService;
 
     @Override
-    public <L, F> Optional<F> unary(final L localEntity, final Object localField,
+    public <L, F> Optional<F> unary(
+            final Object caller,
+            final L localEntity, final Object localField,
             final Class<F> foreignType, final Function<F, Object> foreignFieldGetter) {
 
         if(localField == null) return Optional.empty();
@@ -75,7 +79,13 @@ implements ForeignKeyLookupService {
                 ()->String.format("%s AND typeOfItem!='SH'", localField));
         }
         if(FoodSubgroup.class.equals(foreignType)) {
-            return FoodSubgroupKey.auto(localEntity).right().orElseThrow().lookup(repositoryService)
+            val mixinClass = caller.getClass();
+            if(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup.class.equals(mixinClass)
+                    || PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup.class.equals(mixinClass)) {
+                return FoodSubgroupKey.auto(mixinClass, localEntity).right().flatMap(secKey->secKey.lookup(repositoryService))
+                        .map(foreignType::cast);
+            }
+            return FoodSubgroupKey.auto(mixinClass, localEntity).right().orElseThrow().lookup(repositoryService)
                     .map(foreignType::cast);
         }
         if(RecipeSubgroup.class.equals(foreignType)) {
@@ -97,7 +107,9 @@ implements ForeignKeyLookupService {
     }
 
     @Override
-    public <L, F> Optional<F> binary(final L localEntity, final Object localField,
+    public <L, F> Optional<F> binary(
+            final Object caller,
+            final L localEntity, final Object localField,
             final Class<F> foreignType,
             final Function<F, Object> foreignFieldGetter1,
             final Function<F, Object> foreignFieldGetter2) {
@@ -138,7 +150,9 @@ implements ForeignKeyLookupService {
      * RecipeGroupOrSubgroup.class, foreign->foreign.getRecipeSubgroupCode())
      */
     @Override
-    public <L, F1, F2> Optional<Either<F1, F2>> either(final L localEntity, final Object localField,
+    public <L, F1, F2> Optional<Either<F1, F2>> either(
+            final Object caller,
+            final L localEntity, final Object localField,
             final Class<F1> foreignType1, final Function<F1, Object> foreignFieldGetter1,
             final Class<F2> foreignType2, final Function<F2, Object> foreignFieldGetter2) {
 
@@ -156,11 +170,11 @@ implements ForeignKeyLookupService {
         }
 
         final Optional<F1> left = triage.isLeftAllowed()
-                ? unary(localEntity, localField, foreignType1, foreignFieldGetter1)
+                ? unary(caller, localEntity, localField, foreignType1, foreignFieldGetter1)
                 : Optional.empty();
         final Optional<F2> right = triage.isRightAllowed()
                 && left.isEmpty()
-                ? unary(localEntity, localField, foreignType2, foreignFieldGetter2)
+                ? unary(caller, localEntity, localField, foreignType2, foreignFieldGetter2)
                 : Optional.empty();
 
         final Either<F1, F2> either = left.isPresent()
@@ -177,6 +191,7 @@ implements ForeignKeyLookupService {
      */
     @Override
     public <L, F> Markup plural(
+            final Object caller,
             final L localEntity, final Object localField,
             final Class<F> foreignType,
             final Can<Function<F, Object>> foreignFieldGetters) {

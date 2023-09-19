@@ -55,6 +55,7 @@ public class ThicknessForShapeMethod_foodSubgroups {
     public Markup prop() {
         return foreignKeyLookup
             .plural(
+                this,
                 mixee, mixee.getFoodSubgroupsLookupKey(),
                 // foreign
                 FoodSubgroup.class,

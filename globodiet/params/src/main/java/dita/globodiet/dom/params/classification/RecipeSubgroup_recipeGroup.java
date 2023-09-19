@@ -48,10 +48,11 @@ public class RecipeSubgroup_recipeGroup {
     public RecipeGroup prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getRecipeGroupCode(),
                 // foreign
-                RecipeGroup.class, foreign->foreign.getCode())
+                RecipeGroup.class, RecipeGroup::getCode)
             .orElse(null);
     }
 }

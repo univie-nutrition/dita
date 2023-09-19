@@ -49,10 +49,11 @@ public class RecipeIngredientQuantification_shapeThickness {
     public ThicknessForShapeMethod prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getShapeThicknessCode(),
                 // foreign
-                ThicknessForShapeMethod.class, foreign->foreign.getCode())
+                ThicknessForShapeMethod.class, ThicknessForShapeMethod::getCode)
             .orElse(null);
     }
 }

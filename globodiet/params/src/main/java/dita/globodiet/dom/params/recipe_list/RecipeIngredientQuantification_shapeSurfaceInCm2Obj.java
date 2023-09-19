@@ -49,10 +49,11 @@ public class RecipeIngredientQuantification_shapeSurfaceInCm2Obj {
     public Shape prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getShapeSurfaceInCm2(),
                 // foreign
-                Shape.class, foreign->foreign.getShapeSurfaceInCm2())
+                Shape.class, Shape::getShapeSurfaceInCm2)
             .orElse(null);
     }
 }

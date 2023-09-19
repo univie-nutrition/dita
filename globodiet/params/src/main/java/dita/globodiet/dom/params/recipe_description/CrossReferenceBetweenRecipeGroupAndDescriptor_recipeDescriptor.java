@@ -48,10 +48,11 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor {
     public RecipeDescriptor prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getRecipeDescriptorCode(),
                 // foreign
-                RecipeDescriptor.class, foreign->foreign.getCode())
+                RecipeDescriptor.class, RecipeDescriptor::getCode)
             .orElse(null);
     }
 }

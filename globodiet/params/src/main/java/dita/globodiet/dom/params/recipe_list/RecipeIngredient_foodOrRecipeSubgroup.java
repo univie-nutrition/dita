@@ -51,6 +51,7 @@ public class RecipeIngredient_foodOrRecipeSubgroup {
     public Object prop() {
         return foreignKeyLookup
             .either(
+                this,
                 // local
                 mixee, mixee.getFoodOrRecipeSubgroupCode(),
                 // foreign

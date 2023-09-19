@@ -49,10 +49,11 @@ public class MaximumValueForARecipeOrASubgroup_recipe {
     public Recipe prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getRecipeCode(),
                 // foreign
-                Recipe.class, foreign->foreign.getRecipeCode())
+                Recipe.class, Recipe::getRecipeCode)
             .orElse(null);
     }
 }

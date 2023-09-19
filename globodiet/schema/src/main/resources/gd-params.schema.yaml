@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-AverageForAnthropometricValues:
+AnthropometricAverage:
   namespace: params.general_info
   table: ANTHROP
   description: |
@@ -896,6 +896,7 @@ params.food_descript.Facet:
 PercentOfFatLeftInTheDishForFood:
   namespace: params.food_coefficient
   table: FATLEFTO
+  icon: solid percent
   description: |
     % of fat left in the dish for food
   fields:
@@ -3460,6 +3461,7 @@ SpecialDietPredefinedAnswer:
 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
   namespace: params.food_coefficient
   table: SPFACOOK
+  icon: solid percent
   description: |
     % of fat/sauce/sweetener added after cooking attached to a food
   fields:
@@ -3547,6 +3549,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe:
   namespace: params.recipe_coefficient
   table: SPFACORE
+  icon: solid percent
   description: |
     % of fat/sauce/sweeteners added after cooking attached to a recipe
   fields:
@@ -3625,6 +3628,7 @@ PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe:
 PercentOfFatUseDuringCookingForFood:
   namespace: params.food_coefficient
   table: SPFDCOOK
+  icon: solid percent
   description: |
     % of fat use during cooking attached to a food
   fields:

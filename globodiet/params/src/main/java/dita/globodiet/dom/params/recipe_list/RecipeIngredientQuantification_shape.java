@@ -49,10 +49,11 @@ public class RecipeIngredientQuantification_shape {
     public Shape prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getShapeCode(),
                 // foreign
-                Shape.class, foreign->foreign.getShapeCode())
+                Shape.class, Shape::getShapeCode)
             .orElse(null);
     }
 }

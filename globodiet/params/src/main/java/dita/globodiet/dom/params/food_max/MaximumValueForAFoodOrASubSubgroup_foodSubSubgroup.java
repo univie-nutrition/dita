@@ -49,10 +49,11 @@ public class MaximumValueForAFoodOrASubSubgroup_foodSubSubgroup {
     public FoodSubgroup prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFoodSubSubgroupCode(),
                 // foreign
-                FoodSubgroup.class, foreign->foreign.getFoodSubSubgroupCode())
+                FoodSubgroup.class, FoodSubgroup::getFoodSubSubgroupCode)
             .orElse(null);
     }
 }

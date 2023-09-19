@@ -49,10 +49,11 @@ public class PercentOfFatUseDuringCookingForFood_fat {
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFatCode(),
                 // foreign
-                FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
+                FoodOrProductOrAlias.class, FoodOrProductOrAlias::getFoodIdNumber)
             .orElse(null);
     }
 }

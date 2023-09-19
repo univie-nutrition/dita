@@ -51,10 +51,11 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequence
     public Facet prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getMandatoryInSequenceOfFacetsCode(),
                 // foreign
-                Facet.class, foreign->foreign.getCode())
+                Facet.class, Facet::getCode)
             .orElse(null);
     }
 }

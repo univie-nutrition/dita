@@ -28,6 +28,8 @@ import org.apache.causeway.commons.functional.Either;
 public interface ForeignKeyLookupService {
 
     <L, F> Optional<F> unary(
+            // context
+            Object caller,
             // local
             L localEntity, Object localField,
             // foreign
@@ -35,6 +37,8 @@ public interface ForeignKeyLookupService {
             Function<F, Object> foreignFieldGetter);
 
     <L, F> Optional<F> binary(
+            // context
+            Object caller,
             // local
             L localEntity, Object localField,
             // foreign
@@ -43,6 +47,8 @@ public interface ForeignKeyLookupService {
             Function<F, Object> foreignFieldGetter2);
 
     <L, F1, F2> Optional<Either<F1, F2>> either(
+            // context
+            Object caller,
             // local
             L localEntity, Object localField,
             // foreign 1
@@ -54,6 +60,8 @@ public interface ForeignKeyLookupService {
      * TODO[DITA-110] Yet this does not allow for reverse lookup mixins to properly find dependants.
      */
     <L, F> Markup plural(
+            // context
+            Object caller,
             // local
             L localEntity, Object localField,
             // foreign

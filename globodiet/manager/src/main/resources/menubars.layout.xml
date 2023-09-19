@@ -39,7 +39,7 @@
         <mb:menu>
             <mb:named>Having no Relations</mb:named>
             <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllAverageForAnthropometricValues"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllAnthropometricAverage"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDayOfWeek"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDefinitionOfRecipePathway"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFoodConsumptionOccasion"/>
@@ -66,19 +66,6 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplementClassification"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplementDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplementFacet"/>
-            </mb:section>
-        </mb:menu>
-        <mb:menu>
-            <mb:named>Broken Lists</mb:named>
-            <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDensityFactorForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood"/>
-            </mb:section>
-        </mb:menu>
-        <mb:menu>
-            <mb:named>Large Lists</mb:named>
-            <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllRawToCookedConversionFactorForFood"/>
             </mb:section>
         </mb:menu>
         <mb:menu>

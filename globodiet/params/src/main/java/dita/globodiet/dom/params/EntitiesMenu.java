@@ -47,7 +47,7 @@ import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
 import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
 import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
-import dita.globodiet.dom.params.general_info.AverageForAnthropometricValues;
+import dita.globodiet.dom.params.general_info.AnthropometricAverage;
 import dita.globodiet.dom.params.general_info.FoodConsumptionOccasion;
 import dita.globodiet.dom.params.general_info.ItemDisplayedForCheckPerFCO;
 import dita.globodiet.dom.params.general_info.PlaceOfConsumptionOccasion;
@@ -109,8 +109,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<AverageForAnthropometricValues> listAllAverageForAnthropometricValues() {
-        return repositoryService.allInstances(AverageForAnthropometricValues.class);
+    public List<AnthropometricAverage> listAllAnthropometricAverage() {
+        return repositoryService.allInstances(AnthropometricAverage.class);
     }
 
     @Action
@@ -228,7 +228,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid percent"
+    )
     public List<PercentOfFatLeftInTheDishForFood> listAllPercentOfFatLeftInTheDishForFood() {
         return repositoryService.allInstances(PercentOfFatLeftInTheDishForFood.class);
     }
@@ -512,21 +514,27 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid percent"
+    )
     public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood(
             ) {
         return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class);
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid percent"
+    )
     public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> listAllPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe(
             ) {
         return repositoryService.allInstances(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class);
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid percent"
+    )
     public List<PercentOfFatUseDuringCookingForFood> listAllPercentOfFatUseDuringCookingForFood() {
         return repositoryService.allInstances(PercentOfFatUseDuringCookingForFood.class);
     }

@@ -127,6 +127,7 @@ class _GenPropertyMixins {
             builder.addCode("""
                 return foreignKeyLookup
                     .plural(
+                        this,
                         mixee, mixee.$2L(),
                         // foreign
                         $3T.class,
@@ -150,10 +151,11 @@ class _GenPropertyMixins {
             builder.addCode("""
                     return foreignKeyLookup
                         .unary(
+                            this,
                             // local
                             mixee, mixee.$1L(),
                             // foreign
-                            $2T.class, foreign->foreign.$3L())
+                            $2T.class, $2T::$3L)
                         .orElse(null);
                     """, localKeyGetter,
                     foreigner.foreignEntity(), foreigner.foreignKeyGetter());
@@ -167,6 +169,7 @@ class _GenPropertyMixins {
                 builder.addCode("""
                         return foreignKeyLookup
                             .binary(
+                                this,
                                 // local
                                 mixee, mixee.$1L(),
                                 // foreign
@@ -179,6 +182,7 @@ class _GenPropertyMixins {
                 builder.addCode("""
                         return foreignKeyLookup
                             .either(
+                                this,
                                 // local
                                 mixee, mixee.$1L(),
                                 // foreign

@@ -48,10 +48,11 @@ public class DietarySupplement_classification {
     public DietarySupplementClassification prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getClassificationCode(),
                 // foreign
-                DietarySupplementClassification.class, foreign->foreign.getCode())
+                DietarySupplementClassification.class, DietarySupplementClassification::getCode)
             .orElse(null);
     }
 }

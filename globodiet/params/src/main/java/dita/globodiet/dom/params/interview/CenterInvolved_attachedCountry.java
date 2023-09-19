@@ -48,10 +48,11 @@ public class CenterInvolved_attachedCountry {
     public CountryInvolved prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getAttachedCountryCode(),
                 // foreign
-                CountryInvolved.class, foreign->foreign.getCountryCode())
+                CountryInvolved.class, CountryInvolved::getCountryCode)
             .orElse(null);
     }
 }

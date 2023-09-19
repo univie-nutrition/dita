@@ -51,6 +51,7 @@ public class RawToCookedConversionFactorForFood_facetDescriptors {
     public Markup prop() {
         return foreignKeyLookup
             .plural(
+                this,
                 mixee, mixee.getFacetDescriptorsLookupKey(),
                 // foreign
                 FacetDescriptor.class,

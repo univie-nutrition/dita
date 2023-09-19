@@ -49,10 +49,11 @@ public class RuleAppliedToFacets_recipeSubgroup {
     public RecipeSubgroup prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getRecipeSubgroupCode(),
                 // foreign
-                RecipeSubgroup.class, foreign->foreign.getCode())
+                RecipeSubgroup.class, RecipeSubgroup::getCode)
             .orElse(null);
     }
 }

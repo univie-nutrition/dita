@@ -49,10 +49,11 @@ public class ProbingQuestionPathwayForRecipe_probingQuestion {
     public ProbingQuestions prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getProbingQuestionCode(),
                 // foreign
-                ProbingQuestions.class, foreign->foreign.getProbingQuestionCode())
+                ProbingQuestions.class, ProbingQuestions::getProbingQuestionCode)
             .orElse(null);
     }
 }

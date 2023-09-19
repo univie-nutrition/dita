@@ -48,10 +48,11 @@ public class ImprobableSequenceOfFacetAndDescriptor_descriptor {
     public FacetDescriptor prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getDescriptorCode(),
                 // foreign
-                FacetDescriptor.class, foreign->foreign.getCode())
+                FacetDescriptor.class, FacetDescriptor::getCode)
             .orElse(null);
     }
 }

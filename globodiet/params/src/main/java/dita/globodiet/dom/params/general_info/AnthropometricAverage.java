@@ -38,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
 /**
  * Average for anthropometric values (height, weight)
  */
-@Named("dita.globodiet.params.general_info.AverageForAnthropometricValues")
+@Named("dita.globodiet.params.general_info.AnthropometricAverage")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Average for anthropometric values (height, weight)"
@@ -50,7 +50,7 @@ import org.apache.causeway.applib.annotation.Where;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class AverageForAnthropometricValues {
+public class AnthropometricAverage {
     /**
      * Anthropometry variable (Height or Weight)
      */

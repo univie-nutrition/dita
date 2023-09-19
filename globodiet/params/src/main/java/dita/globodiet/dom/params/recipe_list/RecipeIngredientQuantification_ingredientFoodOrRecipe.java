@@ -49,10 +49,11 @@ public class RecipeIngredientQuantification_ingredientFoodOrRecipe {
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getIngredientFoodOrRecipeCode(),
                 // foreign
-                FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
+                FoodOrProductOrAlias.class, FoodOrProductOrAlias::getFoodIdNumber)
             .orElse(null);
     }
 }

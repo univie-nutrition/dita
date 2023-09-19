@@ -48,10 +48,11 @@ public class Interviewer_country {
     public CountryInvolved prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getCountryCode(),
                 // foreign
-                CountryInvolved.class, foreign->foreign.getCountryCode())
+                CountryInvolved.class, CountryInvolved::getCountryCode)
             .orElse(null);
     }
 }

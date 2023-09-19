@@ -49,10 +49,11 @@ public class EdiblePartCoefficientForFood_food {
     public FoodOrProductOrAlias prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFoodCode(),
                 // foreign
-                FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber())
+                FoodOrProductOrAlias.class, FoodOrProductOrAlias::getFoodIdNumber)
             .orElse(null);
     }
 }

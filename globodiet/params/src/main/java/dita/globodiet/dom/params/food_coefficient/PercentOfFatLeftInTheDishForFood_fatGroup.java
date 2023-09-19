@@ -49,10 +49,11 @@ public class PercentOfFatLeftInTheDishForFood_fatGroup {
     public FoodGroup prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFatGroupCode(),
                 // foreign
-                FoodGroup.class, foreign->foreign.getCode())
+                FoodGroup.class, FoodGroup::getCode)
             .orElse(null);
     }
 }

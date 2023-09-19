@@ -48,10 +48,11 @@ public class RuleAppliedToFacet_facet {
     public Facet prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFacetCode(),
                 // foreign
-                Facet.class, foreign->foreign.getCode())
+                Facet.class, Facet::getCode)
             .orElse(null);
     }
 }

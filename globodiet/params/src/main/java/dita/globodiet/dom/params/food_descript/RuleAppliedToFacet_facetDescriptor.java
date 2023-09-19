@@ -51,6 +51,7 @@ public class RuleAppliedToFacet_facetDescriptor {
     public FacetDescriptor prop() {
         return foreignKeyLookup
             .binary(
+                this,
                 // local
                 mixee, mixee.getFacetDescriptorLookupKey(),
                 // foreign

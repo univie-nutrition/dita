@@ -52,6 +52,7 @@ public class QuantificationMethodsPathwayForRecipeGroup_photo {
     public Object prop() {
         return foreignKeyLookup
             .either(
+                this,
                 // local
                 mixee, mixee.getPhotoCode(),
                 // foreign

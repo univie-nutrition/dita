@@ -49,10 +49,11 @@ public class Brand_foodSubgroup {
     public FoodSubgroup prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getFoodSubgroupCode(),
                 // foreign
-                FoodSubgroup.class, foreign->foreign.getFoodSubgroupCode())
+                FoodSubgroup.class, FoodSubgroup::getFoodSubgroupCode)
             .orElse(null);
     }
 }

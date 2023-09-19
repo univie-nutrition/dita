@@ -51,6 +51,7 @@ public class StandardUnitForFoodOrRecipe_foodOrRecipe {
     public Object prop() {
         return foreignKeyLookup
             .either(
+                this,
                 // local
                 mixee, mixee.getFoodOrRecipeCode(),
                 // foreign

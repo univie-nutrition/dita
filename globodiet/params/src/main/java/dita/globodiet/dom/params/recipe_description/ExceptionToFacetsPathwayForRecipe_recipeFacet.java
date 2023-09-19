@@ -51,10 +51,11 @@ public class ExceptionToFacetsPathwayForRecipe_recipeFacet {
     public RecipeFacet prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getRecipeFacetCode(),
                 // foreign
-                RecipeFacet.class, foreign->foreign.getCode())
+                RecipeFacet.class, RecipeFacet::getCode)
             .orElse(null);
     }
 }

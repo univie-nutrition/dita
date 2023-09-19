@@ -48,10 +48,11 @@ public class Interviewer_center {
     public CenterInvolved prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getCenterCode(),
                 // foreign
-                CenterInvolved.class, foreign->foreign.getCenterCode())
+                CenterInvolved.class, CenterInvolved::getCenterCode)
             .orElse(null);
     }
 }

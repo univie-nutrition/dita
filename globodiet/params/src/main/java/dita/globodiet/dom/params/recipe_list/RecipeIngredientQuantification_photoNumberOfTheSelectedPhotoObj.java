@@ -49,10 +49,11 @@ public class RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj {
     public PhotoForQuantity prop() {
         return foreignKeyLookup
             .unary(
+                this,
                 // local
                 mixee, mixee.getPhotoNumberOfTheSelectedPhoto(),
                 // foreign
-                PhotoForQuantity.class, foreign->foreign.getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos())
+                PhotoForQuantity.class, PhotoForQuantity::getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos)
             .orElse(null);
     }
 }

@@ -49,6 +49,7 @@ public class PercentOfFatUseDuringCookingForFood_cookingMethodFacetDescriptor {
     public FacetDescriptor prop() {
         return foreignKeyLookup
             .binary(
+                this,
                 // local
                 mixee, mixee.getCookingMethodFacetDescriptorLookupKey(),
                 // foreign

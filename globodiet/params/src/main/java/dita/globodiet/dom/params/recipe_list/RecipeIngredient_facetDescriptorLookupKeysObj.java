@@ -52,6 +52,7 @@ public class RecipeIngredient_facetDescriptorLookupKeysObj {
     public Markup prop() {
         return foreignKeyLookup
             .plural(
+                this,
                 mixee, mixee.getFacetDescriptorLookupKeys(),
                 // foreign
                 FacetDescriptor.class,
