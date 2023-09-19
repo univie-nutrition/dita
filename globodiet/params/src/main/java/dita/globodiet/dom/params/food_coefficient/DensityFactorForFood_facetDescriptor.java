@@ -29,6 +29,8 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.applib.value.Markup;
+import org.apache.causeway.commons.collections.Can;
 
 @Property(
         snapshot = Snapshot.EXCLUDED
@@ -47,13 +49,12 @@ public class DensityFactorForFood_facetDescriptor {
     private final DensityFactorForFood mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
+    public Markup prop() {
         return foreignKeyLookup
-            .binary(
-                // local
+            .plural(
                 mixee, mixee.getFacetDescriptorLookupKey(),
                 // foreign
-                FacetDescriptor.class, foreign->foreign.getFacetCode(), foreign->foreign.getCode())
-            .orElse(null);
+                FacetDescriptor.class,
+                Can.of(FacetDescriptor::getFacetCode, FacetDescriptor::getCode));
     }
 }

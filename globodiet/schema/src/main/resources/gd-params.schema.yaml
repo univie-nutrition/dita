@@ -294,6 +294,7 @@ DensityFactorForFood:
       column-type: nvarchar(100)
       required: false
       unique: true
+      plural: true
       foreignKeys: |
         descface.facet_code
         descface.descr_code
