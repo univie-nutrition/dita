@@ -37,9 +37,8 @@
             </mb:section>
         </mb:menu>
         <mb:menu>
-            <mb:named>Trivial Lists</mb:named>
+            <mb:named>Having no Relations</mb:named>
             <mb:section>
-                <mb:named>Entities w/o Relations</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllAverageForAnthropometricValues"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDayOfWeek"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDefinitionOfRecipePathway"/>
@@ -58,6 +57,15 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSpecialDayPredefinedAnswer"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSpecialDietPredefinedAnswer"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllTranslationInCountryLanguage"/>
+            </mb:section>
+        </mb:menu>
+        <mb:menu>
+            <mb:named>Supplements</mb:named>
+            <mb:section>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplement"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplementClassification"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplementDescriptor"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDietarySupplementFacet"/>
             </mb:section>
         </mb:menu>
         <mb:menu>

@@ -91,7 +91,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     )
     @Getter
     @Setter
-    private String facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood;
+    private String mandatoryInSequenceOfFacetsCode;
 
     /**
      * Order to display the facets for the attached food (same order as order_fac from Groupfac table)
@@ -108,7 +108,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     )
     @Getter
     @Setter
-    private Integer orderToDisplayFacetsForTheAttachedFood;
+    private Integer displayOrder;
 
     @ObjectSupport
     public String title() {

@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -43,7 +42,6 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
@@ -128,45 +126,55 @@ implements HasCurrentlyCheckedOutVersion {
     @ActionLayout(fieldSetName="About", position = Position.PANEL)
     public AsciiDoc menuLayoutGenerator() {
 
-        val foreignKeyFields = // as table.column literal
-            gdParamsSchema.entities().values().stream().flatMap(fe->fe.fields().stream())
-                .flatMap(ff->ff.foreignKeys().stream())
-                .map(String::toLowerCase)
-                .collect(Collectors.toSet());
-
-        val entitiesWithoutRelations =  gdParamsSchema.entities().values().stream()
-            .filter(e->!e.fields().stream().anyMatch(f->f.hasForeignKeys()))
-            .filter(e->!e.fields().stream().anyMatch(f->
-                foreignKeyFields.contains(e.table().toLowerCase() + "." + f.column().toLowerCase())))
-            .sorted((a, b)->_Strings.compareNullsFirst(a.name(), b.name()))
-            .collect(Can.toCan());
+        val entitiesWithoutRelations =  gdParamsSchema.findEntitiesWithoutRelations();
+        val interviewMenu =  gdParamsSchema.entities().values().stream()
+                .filter(e->e.namespace().equals("params.interview")).collect(Can.toCan());
+        val supplementMenu =  gdParamsSchema.entities().values().stream()
+                .filter(e->e.namespace().equals("params.supplement")).collect(Can.toCan());
 
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Menu Entries"));
         adoc.append(doc->{
             val sourceBlock = AsciiDocFactory.sourceBlock(doc, "xml", String.format(
             """
-            <mb3:menu>
-                <mb3:named>Trivial Lists</mb3:named>
-                <mb3:section>
-                    <mb3:named>Entities w/o Relations</mb3:named>
+            <mb:menu>
+                <mb:named>Supplements</mb:named>
+                <mb:section>
             %s
-                </mb3:section>
-            </mb3:menu>
-            """, toServiceActions(entitiesWithoutRelations.stream())));
+                </mb:section>
+            </mb:menu>
+            <mb:menu>
+                <mb:named>Interviews</mb:named>
+                <mb:section>
+            %s
+                </mb:section>
+            </mb:menu>
+            <mb:menu>
+                <mb:named>Having no Relations</mb:named>
+                <mb:section>
+            %s
+                </mb:section>
+            </mb:menu>
+            """,
+            toServiceActionXmlLayoutEntries(supplementMenu),
+            toServiceActionXmlLayoutEntries(interviewMenu),
+            toServiceActionXmlLayoutEntries(entitiesWithoutRelations)
+            ));
             sourceBlock.setTitle("menu-layout.xml");
         });
 
         return adoc.buildAsValue();
     }
-
-    private static String toServiceActions(final Stream<OrmModel.Entity> entities) {
-        return entities
-        .map(e->String.format(
-                """
-                        <mb3:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>
-                """, "listAll" + e.name()))
+    private static String toServiceActionXmlLayoutEntries(final Can<OrmModel.Entity> entities) {
+        return entities.stream()
+                .map(Dashboard::toServiceActionXmlLayoutEntry)
                 .collect(Collectors.joining());
+    }
+    private static String toServiceActionXmlLayoutEntry(final OrmModel.Entity entity) {
+        return String.format(
+                """
+                        <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>
+                """, "listAll" + entity.name());
     }
 
 }

@@ -67,7 +67,7 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private String descriptorCode;
+    private String code;
 
     /**
      * Descriptor name
@@ -85,7 +85,7 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private String descriptorName;
+    private String name;
 
     /**
      * Facet code
@@ -122,7 +122,7 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private Integer householdMeasuresProposedOrNot;
+    private Integer householdMeasuresProposedQ;
 
     /**
      * Default Descriptor.<br>
@@ -217,6 +217,6 @@ public class DietarySupplementDescriptor {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", name, code);
     }
 }

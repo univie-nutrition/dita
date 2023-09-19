@@ -67,9 +67,9 @@ import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
-import dita.globodiet.dom.params.recipe_description.DescriptorPerFacet;
 import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_description.FacetForRecipe;
+import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
+import dita.globodiet.dom.params.recipe_description.RecipeFacet;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
@@ -437,14 +437,14 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<FacetForRecipe> listAllFacetForRecipe() {
-        return repositoryService.allInstances(FacetForRecipe.class);
+    public List<RecipeFacet> listAllRecipeFacet() {
+        return repositoryService.allInstances(RecipeFacet.class);
     }
 
     @Action
     @ActionLayout
-    public List<DescriptorPerFacet> listAllDescriptorPerFacet() {
-        return repositoryService.allInstances(DescriptorPerFacet.class);
+    public List<RecipeDescriptor> listAllRecipeDescriptor() {
+        return repositoryService.allInstances(RecipeDescriptor.class);
     }
 
     @Action

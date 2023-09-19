@@ -49,12 +49,14 @@ import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoo
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
+import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
+import dita.globodiet.manager.lookup.SecondaryKeys.LookupMode;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
@@ -162,6 +164,56 @@ public class SecondaryKeys {
         }
     }
 
+    // --
+
+    record RecipeDescriptorKey(LookupMode lookupMode, String recipeDescriptorCode, String recipeFacetCode)
+    implements SecondaryKeyLookup<RecipeDescriptor> {
+
+        // -- FACTORIES
+
+        static RecipeDescriptorKey auto(final Object referencingEntity) {
+            if(referencingEntity instanceof CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor x) {
+                //TODO RELAXED for debugging
+                return new RecipeDescriptorKey(LookupMode.RELAXED, x.getRecipeFacetCode(), x.getRecipeDescriptorCode());
+            }
+            throw _Exceptions.noSuchElement("RecipeDescriptorKey not implemented for %s",
+                    referencingEntity.getClass());
+        }
+
+        // -- MATCHING
+
+        boolean matches(final String recipeDescriptorCode, final String recipeFacetCode) {
+            return Objects.equals(this.recipeDescriptorCode(), recipeDescriptorCode)
+                    && Objects.equals(this.recipeFacetCode(), recipeFacetCode);
+        }
+
+        @Override
+        public Optional<RecipeDescriptor> lookup(final RepositoryService repositoryService) {
+            switch (lookupMode()) {
+            case STRICT:
+                return Optional.of(recipeDescriptorElseThrow(repositoryService));
+            case RELAXED:
+                return Optional.of(recipeDescriptorElseUnresolved(repositoryService));
+            case NULLABLE:
+                return lookupRecipeDescriptor(repositoryService);
+            }
+            throw _Exceptions.unmatchedCase(lookupMode());
+        }
+        private Optional<RecipeDescriptor> lookupRecipeDescriptor(final RepositoryService repositoryService) {
+            return repositoryService.uniqueMatch(RecipeDescriptor.class, fd->
+                matches(fd.getCode(), fd.getRecipeFacetCode()));
+        }
+        private RecipeDescriptor recipeDescriptorElseThrow(final RepositoryService repositoryService) {
+            return lookupRecipeDescriptor(repositoryService)
+                    .orElseThrow(()->_Exceptions.noSuchElement("RecipeDescriptor not found matching %s|%s",
+                            _Strings.nonEmpty(this.recipeDescriptorCode()).orElse("-"),
+                            _Strings.nonEmpty(this.recipeFacetCode()).orElse("-")));
+        }
+        private RecipeDescriptor recipeDescriptorElseUnresolved(final RepositoryService repositoryService) {
+            return lookupRecipeDescriptor(repositoryService)
+                    .orElseGet(()->Unresolvables.recipeDescriptorNotFound(this));
+        }
+    }
 
     // -- FOOD GROUP
 

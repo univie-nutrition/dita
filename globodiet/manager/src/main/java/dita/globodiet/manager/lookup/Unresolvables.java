@@ -23,7 +23,9 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.manager.lookup.SecondaryKeys.FacetDescriptorKey;
+import dita.globodiet.manager.lookup.SecondaryKeys.RecipeDescriptorKey;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -44,6 +46,23 @@ public class Unresolvables {
     public class FacetDescriptorNotFound extends FacetDescriptor
     implements ViewModel {
         public FacetDescriptorNotFound(final String memento) { setName(memento); }
+        @Override public String viewModelMemento() { return getName(); }
+    }
+
+    // -- RECIPE DESCRIPTOR
+
+    public RecipeDescriptorNotFound recipeDescriptorNotFound(final RecipeDescriptorKey key) {
+        val entity = new RecipeDescriptorNotFound("UNRESOLVABLE");
+        entity.setCode(key.recipeDescriptorCode());
+        entity.setRecipeFacetCode(key.recipeFacetCode());
+        return entity;
+    }
+
+    @DomainObjectLayout(
+            cssClassFa = "solid tag red")
+    public class RecipeDescriptorNotFound extends RecipeDescriptor
+    implements ViewModel {
+        public RecipeDescriptorNotFound(final String memento) { setName(memento); }
         @Override public String viewModelMemento() { return getName(); }
     }
 

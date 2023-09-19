@@ -29,18 +29,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class DescriptorPerFacet_dependentCrossReferenceBetweenRecipeSubgroupAndFacetDescriptorMappedByRecipeDescriptor {
+public class RecipeFacet_dependentExceptionToFacetsPathwayForRecipeMappedByRecipeFacet {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final DescriptorPerFacet mixee;
+    private final RecipeFacet mixee;
 
     @MemberSupport
-    public List<CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor> coll() {
+    public List<ExceptionToFacetsPathwayForRecipe> coll() {
         return dependantLookup.findDependants(
-            CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor.class,
-            CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeDescriptor.class,
-            CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeDescriptor::prop,
+            ExceptionToFacetsPathwayForRecipe.class,
+            ExceptionToFacetsPathwayForRecipe_recipeFacet.class,
+            ExceptionToFacetsPathwayForRecipe_recipeFacet::prop,
             mixee);
     }
 }

@@ -48,13 +48,13 @@ public class ExceptionToFacetsPathwayForRecipe_recipeFacet {
     private final ExceptionToFacetsPathwayForRecipe mixee;
 
     @MemberSupport
-    public FacetForRecipe prop() {
+    public RecipeFacet prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, mixee.getRecipeFacetCode(),
                 // foreign
-                FacetForRecipe.class, foreign->foreign.getRecipeFacetCode())
+                RecipeFacet.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

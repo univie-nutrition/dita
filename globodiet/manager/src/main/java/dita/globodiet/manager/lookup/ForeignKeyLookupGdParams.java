@@ -21,12 +21,15 @@ package dita.globodiet.manager.lookup;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.applib.exceptions.unrecoverable.RepositoryException;
 import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.applib.value.Markup;
@@ -42,10 +45,12 @@ import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
+import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.manager.lookup.SecondaryKeys.FacetDescriptorKey;
 import dita.globodiet.manager.lookup.SecondaryKeys.FoodSubgroupKey;
 import dita.globodiet.manager.lookup.SecondaryKeys.LookupMode;
+import dita.globodiet.manager.lookup.SecondaryKeys.RecipeDescriptorKey;
 import dita.globodiet.manager.lookup.SecondaryKeys.RecipeSubgroupKey;
 import lombok.val;
 
@@ -64,9 +69,10 @@ implements ForeignKeyLookupService {
 
         if(FoodOrProductOrAlias.class.equals(foreignType)) {
             // do not lookup SH entries (aliases)
-            return repositoryService.uniqueMatch(foreignType, foreign->
+            return uniqueMatch(foreignType, foreign->
                 Objects.equals(localField, foreignFieldGetter.apply(foreign))
-                    && !Objects.equals("SH", ((FoodOrProductOrAlias)foreign).getTypeOfItem()));
+                    && !Objects.equals("SH", ((FoodOrProductOrAlias)foreign).getTypeOfItem()),
+                ()->String.format("%s AND typeOfItem!='SH'", localField));
         }
         if(FoodSubgroup.class.equals(foreignType)) {
             return FoodSubgroupKey.auto(localEntity).right().orElseThrow().lookup(repositoryService)
@@ -80,9 +86,14 @@ implements ForeignKeyLookupService {
             return FacetDescriptorKey.auto(localEntity).lookup(repositoryService)
                     .map(foreignType::cast);
         }
+        if(RecipeDescriptor.class.equals(foreignType)) {
+            return RecipeDescriptorKey.auto(localEntity).lookup(repositoryService)
+                .map(foreignType::cast);
+        }
 
-        return repositoryService.uniqueMatch(foreignType, foreign->
-            Objects.equals(localField, foreignFieldGetter.apply(foreign)));
+        return uniqueMatch(foreignType, foreign->
+            Objects.equals(localField, foreignFieldGetter.apply(foreign)),
+            ()->String.format("%s", localField));
     }
 
     @Override
@@ -94,10 +105,11 @@ implements ForeignKeyLookupService {
         if(localField == null) return Optional.empty();
         if(FacetDescriptor.class.equals(foreignType)) {
             val key = FacetDescriptorKey.decodeLookupKey(LookupMode.STRICT, (String) localField);
-            return repositoryService.uniqueMatch(foreignType, foreign->
+            return uniqueMatch(foreignType, foreign->
                 key.matches(
                         (String)foreignFieldGetter1.apply(foreign),
-                        (String)foreignFieldGetter2.apply(foreign)));
+                        (String)foreignFieldGetter2.apply(foreign)),
+                ()->String.format("key==%s", key));
 
         }
         throw _Exceptions.unrecoverable("2-ary foreign key lookup not implemented for foreign type %s",
@@ -211,6 +223,21 @@ implements ForeignKeyLookupService {
 
         throw _Exceptions.unrecoverable("plural foreign key lookup not implemented for foreign type %s",
                 foreignType.getName());
+    }
+
+    <T> Optional<T> uniqueMatch(
+            final Class<T> ofType,
+            final Predicate<T> predicate,
+            final Supplier<String> exceptionMessageProvider) {
+        try {
+            return repositoryService.uniqueMatch(ofType, predicate);
+        } catch (RepositoryException e) {
+            throw new RepositoryException(
+                    String.format("Found more than one instance of class %s matching filter %s",
+                            ofType.getSimpleName(),
+                            exceptionMessageProvider.get()),
+                    e);
+        }
     }
 
 }

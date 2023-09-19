@@ -494,10 +494,11 @@ FacetDescriptorThatCannotBeSubstituted:
 DietarySupplementClassification:
   namespace: params.supplement
   table: DS_CLASSIF
+  title: String.format("%s (code=%s)", name, code)
   description: |
     Dietary supplement classification
   fields:
-    dietarySupplementClassificationCode:
+    code:
       column: DS_CLASS
       column-type: nvarchar(20)
       required: false
@@ -505,7 +506,7 @@ DietarySupplementClassification:
       foreignKeys:
       description: |
         Dietary Supplement classification code
-    nameOfTheFood:
+    name:
       column: NAME
       column-type: nvarchar(50)
       required: false
@@ -513,7 +514,7 @@ DietarySupplementClassification:
       foreignKeys:
       description: |
         Name of the food (sub-)(sub-)group 
-    dietarySupplementClassificationCodeAttachedTo:
+    attachedToCode:
       column: DS_DS_CLASS
       column-type: nvarchar(20)
       required: false
@@ -525,10 +526,11 @@ DietarySupplementClassification:
 DietarySupplementDescriptor:
   namespace: params.supplement
   table: DS_DESCFACE
+  title: String.format("%s (code=%s)", name, code)
   description: |
     Dietary supplement descriptor
   fields:
-    descriptorCode:
+    code:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
       required: false
@@ -536,7 +538,7 @@ DietarySupplementDescriptor:
       foreignKeys:
       description: |
         Descriptor code
-    descriptorName:
+    name:
       column: DSDESCR_NAME
       column-type: nvarchar(100)
       required: false
@@ -553,7 +555,7 @@ DietarySupplementDescriptor:
         ds_facet.dsfacet_code
       description: |
         Facet code
-    householdMeasuresProposedOrNot:
+    householdMeasuresProposedQ:
       column: DSDESCR_HHM
       column-type: tinyint(3)
       required: false
@@ -609,10 +611,11 @@ DietarySupplementDescriptor:
 DietarySupplementFacet:
   namespace: params.supplement
   table: DS_FACET
+  title: String.format("%s (code=%s)", name, code)
   description: |
     Dietary supplement facet
   fields:
-    facetCode:
+    code:
       column: DSFACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -620,7 +623,7 @@ DietarySupplementFacet:
       foreignKeys:
       description: |
         Facet code for Dietary Supplement
-    facetName:
+    name:
       column: DSFACET_NAME
       column-type: nvarchar(100)
       required: false
@@ -994,7 +997,7 @@ ExceptionForSomeFoodToTheFacetDescriptorPathway:
         foods.foodnum
       description: |
         food ID number
-    facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood:
+    mandatoryInSequenceOfFacetsCode:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -1006,7 +1009,7 @@ ExceptionForSomeFoodToTheFacetDescriptorPathway:
         (superseeding its group pathway).
         The list of descriptors will be the ones defined for the subgroup in GROUPFAC file 
         (Assuming always a subset)
-    orderToDisplayFacetsForTheAttachedFood:
+    displayOrder:
       column: ORDER_FAC
       column-type: int(10)
       required: false
@@ -2935,14 +2938,14 @@ params.recipe_description.RuleAppliedToFacets:
       description: |
         Recipe Subgroup code
 
-params.recipe_description.FacetForRecipe:
-  name: FacetForRecipe
+params.recipe_description.RecipeFacet:
   namespace: params.recipe_description
   table: R_FACET
+  title: String.format("%s (code=%s)", name, code)
   description: |
-    Recipe Facet
+    Facet for Recipe 
   fields:
-    recipeFacetCode:
+    code:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -2950,7 +2953,7 @@ params.recipe_description.FacetForRecipe:
       foreignKeys:
       description: |
         Facet code for recipes
-    facetName:
+    name:
       column: RFACET_NAME
       column-type: nvarchar(100)
       required: false
@@ -3002,12 +3005,21 @@ params.recipe_description.FacetForRecipe:
       description: |
         Label on how to ask the facet question    
         
-DescriptorPerFacet:
+RecipeDescriptor:
   namespace: params.recipe_description
   table: R_DESCFACE
+  title: String.format("%s (code=%s|%s)", name, code, recipeFacetCode)
   description: |
     Descriptor per facet
   fields:
+    code:
+      column: RDESCR_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Descriptor code for recipes
     recipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
@@ -3017,15 +3029,7 @@ DescriptorPerFacet:
         facets.facet_code
       description: |
         Facet code for recipes
-    recipeDescriptorCode:
-      column: RDESCR_CODE
-      column-type: nvarchar(2)
-      required: false
-      unique: true
-      foreignKeys:
-      description: |
-        Descriptor code for recipes
-    descriptorName:
+    name:
       column: RDESCR_NAME
       column-type: nvarchar(100)
       required: false
@@ -4018,6 +4022,7 @@ GroupOrSubgroupThatCanBeSubstitutable:
 DietarySupplement:
   namespace: params.supplement
   table: SUPPLEMENTS
+  title: String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode)
   description: |
     Dietary supplement
   fields:
@@ -4045,7 +4050,7 @@ DietarySupplement:
       foreignKeys:
       description: |
         Blank or 'GI' for generic vitamin/supplement
-    dietarySupplementClassificationCode:
+    classificationCode:
       column: DS_CLASS
       column-type: nvarchar(20)
       required: false
@@ -4053,8 +4058,8 @@ DietarySupplement:
       foreignKeys: |
         ds_classif.ds_class
       description: |
-        Dietary Supplement classification code (optionnal)
-    sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement:
+        Dietary Supplement classification code (optional)
+    facetCode:
       column: DS_FACET
       column-type: nvarchar(100)
       required: false

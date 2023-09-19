@@ -66,7 +66,7 @@ public class DietarySupplementClassification {
     )
     @Getter
     @Setter
-    private String dietarySupplementClassificationCode;
+    private String code;
 
     /**
      * Name of the food (sub-)(sub-)group
@@ -84,7 +84,7 @@ public class DietarySupplementClassification {
     )
     @Getter
     @Setter
-    private String nameOfTheFood;
+    private String name;
 
     /**
      * Dietary Supplement classification code attached to (for subgroup)
@@ -102,10 +102,10 @@ public class DietarySupplementClassification {
     )
     @Getter
     @Setter
-    private String dietarySupplementClassificationCodeAttachedTo;
+    private String attachedToCode;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", name, code);
     }
 }

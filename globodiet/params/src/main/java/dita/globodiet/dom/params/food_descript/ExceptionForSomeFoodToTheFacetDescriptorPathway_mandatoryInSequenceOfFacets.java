@@ -41,7 +41,7 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class ExceptionForSomeFoodToTheFacetDescriptorPathway_facetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFoodObj {
+public class ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequenceOfFacets {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -52,7 +52,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_facetCodesThatMUSTA
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, mixee.getFacetCodesThatMUSTAppearInTheSequenceOfFacetsCorrespondingToThisFood(),
+                mixee, mixee.getMandatoryInSequenceOfFacetsCode(),
                 // foreign
                 Facet.class, foreign->foreign.getFacetCode())
             .orElse(null);

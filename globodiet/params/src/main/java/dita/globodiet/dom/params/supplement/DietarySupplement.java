@@ -105,12 +105,12 @@ public class DietarySupplement {
     private String blankOrGIForGenericVitaminOrSupplement;
 
     /**
-     * Dietary Supplement classification code (optionnal)
+     * Dietary Supplement classification code (optional)
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Dietary Supplement classification code (optionnal)",
+            describedAs = "Dietary Supplement classification code (optional)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -120,7 +120,7 @@ public class DietarySupplement {
     )
     @Getter
     @Setter
-    private String dietarySupplementClassificationCode;
+    private String classificationCode;
 
     /**
      * Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
@@ -138,10 +138,10 @@ public class DietarySupplement {
     )
     @Getter
     @Setter
-    private String sequenceOfFacetCodesThatIndicatesTheFacetsToBeDisplayedForThisSupplement;
+    private String facetCode;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode);
     }
 }

@@ -286,6 +286,21 @@ public class OrmModel {
                     .filter(e->e.table().equalsIgnoreCase(tableName))
                     .findFirst();
         }
+        public Can<Entity> findEntitiesWithoutRelations(){
+            val foreignKeyFields = // as table.column literal
+                    entities().values().stream().flatMap(fe->fe.fields().stream())
+                        .flatMap(ff->ff.foreignKeys().stream())
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toSet());
+            val entitiesWithoutRelations =  entities().values().stream()
+                .filter(e->!e.fields().stream().anyMatch(f->f.hasForeignKeys()))
+                .filter(e->!e.fields().stream().anyMatch(f->
+                    foreignKeyFields.contains(e.table().toLowerCase() + "." + f.column().toLowerCase())))
+                .sorted((a, b)->_Strings.compareNullsFirst(a.name(), b.name()))
+                .collect(Can.toCan());
+            return entitiesWithoutRelations;
+        }
+        // -- HELPER
         private Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {
             val parts = _Strings.splitThenStream(tableDotColumn, ".")
                     .collect(Can.toCan());
@@ -344,7 +359,7 @@ public class OrmModel {
             .collect(Collectors.toList());
     }
 
-    public boolean isMultilineStringBlank(final List<String> lines) {
+    private boolean isMultilineStringBlank(final List<String> lines) {
         return _NullSafe.size(lines)==0
             ? true
             : _Strings.isNullOrEmpty(lines.stream().collect(Collectors.joining("")).trim());

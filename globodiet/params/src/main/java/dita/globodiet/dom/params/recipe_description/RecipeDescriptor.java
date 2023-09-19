@@ -36,29 +36,47 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Recipe Facet
+ * Descriptor per facet
  */
-@Named("dita.globodiet.params.recipe_description.FacetForRecipe")
+@Named("dita.globodiet.params.recipe_description.RecipeDescriptor")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Recipe Facet"
+        describedAs = "Descriptor per facet"
 )
 @PersistenceCapable(
-        table = "R_FACET"
+        table = "R_DESCFACE"
 )
 @DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class FacetForRecipe {
+public class RecipeDescriptor {
+    /**
+     * Descriptor code for recipes
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "1",
+            describedAs = "Descriptor code for recipes",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "RDESCR_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String code;
+
     /**
      * Facet code for recipes
      */
     @Property
     @PropertyLayout(
-            sequence = "1",
+            sequence = "2",
             describedAs = "Facet code for recipes",
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "RFACET_CODE",
@@ -70,118 +88,99 @@ public class FacetForRecipe {
     private String recipeFacetCode;
 
     /**
-     * Facet name
-     */
-    @Property
-    @PropertyLayout(
-            sequence = "2",
-            describedAs = "Facet name",
-            hidden = Where.NOWHERE
-    )
-    @Column(
-            name = "RFACET_NAME",
-            allowsNull = "true",
-            length = 100
-    )
-    @Getter
-    @Setter
-    private String facetName;
-
-    /**
-     * Facet text (text to show on the screen describing the facet)
+     * Descriptor name
      */
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet text (text to show on the screen describing the facet)",
+            describedAs = "Descriptor name",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "RFACET_TEXT",
+            name = "RDESCR_NAME",
             allowsNull = "true",
             length = 100
     )
     @Getter
     @Setter
-    private String textToShowOnTheScreenDescribingTheFacet;
+    private String name;
 
     /**
-     * 0=Standard facets with descriptors available in R_Descface table<br>
-     * 1=Facets with descriptors available in RBrand table
+     * Only for facet recipe production:<br>
+     * 0=not homemade descriptor<br>
+     * 1=Homemade descriptor
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=Standard facets with descriptors available in R_Descface table<br>\n"
-                            + "1=Facets with descriptors available in RBrand table",
+            describedAs = "Only for facet recipe production:<br>\n"
+                            + "0=not homemade descriptor<br>\n"
+                            + "1=Homemade descriptor",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "RFACET_TYPE",
+            name = "RDESCR_TYPE",
             allowsNull = "true"
     )
     @Getter
     @Setter
-    private Integer descriptorsAvailableForRecipeOrBrandQ;
+    private Integer homemadeOrNot;
 
     /**
-     * 0 = facet with mono-selection of descriptor<br>
-     * 1 = facets with multi-selection of descriptors
+     * Only for facet known/unknown: 1=unknown 2=known
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0 = facet with mono-selection of descriptor<br>\n"
-                            + "1 = facets with multi-selection of descriptors",
+            describedAs = "Only for facet known/unknown: 1=unknown 2=known",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "RFACET_TYPE_S",
+            name = "RDESCR_KNOWN",
             allowsNull = "true"
     )
     @Getter
     @Setter
-    private Integer singleOrMultiSelectDescriptorQ;
+    private Integer knownOrUnknown;
 
     /**
-     * 0 = standard facet<br>
-     * 1 = Main facet (with non modified descriptor)
+     * Descriptor with type='other' : 1=yes 0=no
      */
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "0 = standard facet<br>\n"
-                            + "1 = Main facet (with non modified descriptor)",
+            describedAs = "Descriptor with type='other' : 1=yes 0=no",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "RFACET_MAIN",
+            name = "RDESCR_OTHER",
             allowsNull = "true"
     )
     @Getter
     @Setter
-    private Integer standardOrMainFacetQ;
+    private Integer yesOrNo;
 
     /**
-     * Label on how to ask the facet question
+     * 0=not single descriptor<br>
+     * 1=single descriptor
      */
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Label on how to ask the facet question",
+            describedAs = "0=not single descriptor<br>\n"
+                            + "1=single descriptor",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "RFACET_QUEST",
-            allowsNull = "true",
-            length = 300
+            name = "RDESCR_SINGLE",
+            allowsNull = "true"
     )
     @Getter
     @Setter
-    private String labelOnHowToAskTheFacetQuestion;
+    private Integer singleOrNot;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s|%s)", name, code, recipeFacetCode);
     }
 }

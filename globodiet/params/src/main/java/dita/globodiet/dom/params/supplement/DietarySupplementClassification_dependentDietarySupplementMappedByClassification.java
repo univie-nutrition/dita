@@ -29,7 +29,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class DietarySupplementClassification_dependentDietarySupplementMappedByDietarySupplementClassification {
+public class DietarySupplementClassification_dependentDietarySupplementMappedByClassification {
     @Inject
     DependantLookupService dependantLookup;
 
@@ -39,8 +39,8 @@ public class DietarySupplementClassification_dependentDietarySupplementMappedByD
     public List<DietarySupplement> coll() {
         return dependantLookup.findDependants(
             DietarySupplement.class,
-            DietarySupplement_dietarySupplementClassification.class,
-            DietarySupplement_dietarySupplementClassification::prop,
+            DietarySupplement_classification.class,
+            DietarySupplement_classification::prop,
             mixee);
     }
 }

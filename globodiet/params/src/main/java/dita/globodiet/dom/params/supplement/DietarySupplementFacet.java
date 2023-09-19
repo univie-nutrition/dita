@@ -67,7 +67,7 @@ public class DietarySupplementFacet {
     )
     @Getter
     @Setter
-    private String facetCode;
+    private String code;
 
     /**
      * Facet name for Dietary Supplement
@@ -85,7 +85,7 @@ public class DietarySupplementFacet {
     )
     @Getter
     @Setter
-    private String facetName;
+    private String name;
 
     /**
      * To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>
@@ -181,6 +181,6 @@ public class DietarySupplementFacet {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", name, code);
     }
 }
