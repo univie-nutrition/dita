@@ -68,7 +68,7 @@ public class Facet {
     )
     @Getter
     @Setter
-    private String facetCode;
+    private String code;
 
     /**
      * Facet name
@@ -86,7 +86,7 @@ public class Facet {
     )
     @Getter
     @Setter
-    private String facetName;
+    private String name;
 
     /**
      * Facet text (text to show on the screen describing the facet)
@@ -104,7 +104,7 @@ public class Facet {
     )
     @Getter
     @Setter
-    private String facetText;
+    private String text;
 
     /**
      * 0=Standard facets with descriptors available in Descface table<br>
@@ -127,7 +127,7 @@ public class Facet {
     )
     @Getter
     @Setter
-    private Integer faceType;
+    private Integer type;
 
     /**
      * 0 = facet with mono-selection of descriptor<br>
@@ -146,7 +146,7 @@ public class Facet {
     )
     @Getter
     @Setter
-    private Integer facetTypeCardinality;
+    private Integer typeCardinality;
 
     /**
      * If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>
@@ -166,7 +166,7 @@ public class Facet {
     )
     @Getter
     @Setter
-    private String facetGroup;
+    private String group;
 
     /**
      * Label on how to ask the facet question
@@ -188,6 +188,6 @@ public class Facet {
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s)", facetName, facetCode);
+        return String.format("%s (code=%s)", name, code);
     }
 }

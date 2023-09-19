@@ -21,7 +21,6 @@
 package dita.globodiet.dom.params.recipe_description;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.RecipeGroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,25 +33,25 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "1.1",
-        describedAs = "Recipe group code",
+        sequence = "4.1",
+        describedAs = "Recipe Descriptor code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeGroup {
+public class CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor mixee;
+    private final CrossReferenceBetweenRecipeGroupAndDescriptor mixee;
 
     @MemberSupport
-    public RecipeGroup prop() {
+    public RecipeDescriptor prop() {
         return foreignKeyLookup
             .unary(
                 // local
-                mixee, mixee.getRecipeGroupCode(),
+                mixee, mixee.getRecipeDescriptorCode(),
                 // foreign
-                RecipeGroup.class, foreign->foreign.getCode())
+                RecipeDescriptor.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

@@ -825,12 +825,12 @@ params.food_descript.Facet:
   name: Facet
   namespace: params.food_descript
   table: FACETS
-  title: String.format("%s (code=%s)", facetName, facetCode)
+  title: String.format("%s (code=%s)", name, code)
   icon: tags olive
   description: |
     Facet describing food (not recipe)
   fields:
-    facetCode:
+    code:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -838,7 +838,7 @@ params.food_descript.Facet:
       foreignKeys:
       description: |
         Facet code
-    facetName:
+    name:
       column: FACET_NAME
       column-type: nvarchar(100)
       required: false
@@ -846,7 +846,7 @@ params.food_descript.Facet:
       foreignKeys:
       description: |
         Facet name
-    facetText: 
+    text: 
       column: FACET_TEXT
       column-type: nvarchar(100)
       required: false
@@ -854,7 +854,7 @@ params.food_descript.Facet:
       foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
-    faceType:
+    type:
       column: FACET_TYPE
       column-type: tinyint(3)
       required: false
@@ -865,7 +865,7 @@ params.food_descript.Facet:
         1=Facets with descriptors available in Brandnam table 
         2=Facets with descriptors available in Foods table - facet 15 type of fat 
         3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
-    facetTypeCardinality:
+    typeCardinality:
       column: FACET_TYPE_S
       column-type: tinyint(3)
       required: false
@@ -874,7 +874,7 @@ params.food_descript.Facet:
       description: |
         0 = facet with mono-selection of descriptor 
         1 = facets with multi-selection of descriptors
-    facetGroup:
+    group:
       column: FACET_GRP
       column-type: nvarchar(2147483647)
       required: false
@@ -1110,9 +1110,10 @@ FoodOrProductOrAlias:
       description: |
         0=food 1=food & dietary supplement
         
-CrossReferenceBetweenFoodAndFacet:
+CrossReferenceBetweenFoodGroupAndDescriptor:
   namespace: params.food_descript
   table: GROUPFAC
+  icon: solid right-left
   description: |
     Cross reference between Food (sub)group and Facet/Descriptor (default pathway)
   fields:
@@ -1177,22 +1178,22 @@ CrossReferenceBetweenFoodAndFacet:
       foreignKeys:
       description: |
         Not in name flag
-    orderToDisplayedTheFacetsWithinAGroupOrSubgroup:
+    facetDisplayOrder:
       column: ORDER_FAC
       column-type: int(10)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Order to displayed the facets within a group/subgroup
-    orderToDisplayedTheDescriptorsWithinAGroupOrSubgroupAndAFacet:
+        Order to display the facets within a group/subgroup
+    descriptorDisplayOrder:
       column: ORDER_DESC
       column-type: int(10)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Order to displayed the descriptors within a group/subgroup and a facet
+        Order to display the descriptors within a group/subgroup and a facet
         
 FoodGroup:
   namespace: params.classification
@@ -3008,10 +3009,19 @@ params.recipe_description.RecipeFacet:
 RecipeDescriptor:
   namespace: params.recipe_description
   table: R_DESCFACE
-  title: String.format("%s (code=%s|%s)", name, code, recipeFacetCode)
+  title: String.format("%s (code=%s|%s)", name, recipeFacetCode, code)
   description: |
     Descriptor per facet
   fields:
+    recipeFacetCode:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        r_facet.rfacet_code
+      description: |
+        Facet code for recipes
     code:
       column: RDESCR_CODE
       column-type: nvarchar(2)
@@ -3020,15 +3030,6 @@ RecipeDescriptor:
       foreignKeys:
       description: |
         Descriptor code for recipes
-    recipeFacetCode:
-      column: RFACET_CODE
-      column-type: nvarchar(2)
-      required: false
-      unique: true
-      foreignKeys: |
-        facets.facet_code
-      description: |
-        Facet code for recipes
     name:
       column: RDESCR_NAME
       column-type: nvarchar(100)
@@ -3073,9 +3074,10 @@ RecipeDescriptor:
         0=not single descriptor
         1=single descriptor          
         
-CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor:
+CrossReferenceBetweenRecipeGroupAndDescriptor:
   namespace: params.recipe_description
   table: R_GROUPFAC
+  icon: solid right-left
   description: |
     Cross reference between Recipe (sub)group and Facet/Descriptor (default pathway)
   fields:
@@ -3115,7 +3117,7 @@ CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor:
         r_descface.rdescr_code
       description: |
         Recipe Descriptor code
-    defaultFlag:
+    defaultFlagQ:
       column: RDEFAULT
       column-type: nvarchar(2)
       required: false
@@ -3123,7 +3125,7 @@ CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor:
       foreignKeys:
       description: |
         Default flag (if set to 'D', it is the default descriptor else blank)
-    notInNameFlag:
+    notInNameQ:
       column: RNOTINNAME
       column-type: nvarchar(2)
       required: false
@@ -3131,22 +3133,22 @@ CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor:
       foreignKeys:
       description: |
         Not in name flag (if set to 'N', the descriptor is not in the name else blank)
-    orderToDisplayedTheFacetsWithinAGroupOrSubgroup:
+    facetDisplayOrder:
       column: ORDER_FAC
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Order to displayed the facets within a group/subgroup
-    orderToDisplayedTheDescriptorsWithinAGroupOrSubgroupAndAFacet:
+        Order to display the facets within a group/subgroup
+    descriptorDisplayOrder:
       column: ORDER_DESC
       column-type: tinyint(3)
       required: false
       unique: false
       foreignKeys:
       description: |
-        Order to displayed the descriptors within a group/subgroup and a facet
+        Order to display the descriptors within a group/subgroup and a facet
         
 ExceptionToFacetsPathwayForRecipe:
   namespace: params.recipe_description

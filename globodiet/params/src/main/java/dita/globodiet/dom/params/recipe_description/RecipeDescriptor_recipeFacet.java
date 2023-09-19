@@ -21,7 +21,6 @@
 package dita.globodiet.dom.params.recipe_description;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.Facet;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,7 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "2.1",
+        sequence = "1.1",
         describedAs = "Facet code for recipes",
         hidden = Where.REFERENCES_PARENT
 )
@@ -46,13 +45,13 @@ public class RecipeDescriptor_recipeFacet {
     private final RecipeDescriptor mixee;
 
     @MemberSupport
-    public Facet prop() {
+    public RecipeFacet prop() {
         return foreignKeyLookup
             .unary(
                 // local
                 mixee, mixee.getRecipeFacetCode(),
                 // foreign
-                Facet.class, foreign->foreign.getFacetCode())
+                RecipeFacet.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

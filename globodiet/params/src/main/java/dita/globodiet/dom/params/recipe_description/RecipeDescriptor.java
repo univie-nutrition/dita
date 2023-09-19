@@ -52,29 +52,11 @@ import org.apache.causeway.applib.annotation.Where;
 )
 public class RecipeDescriptor {
     /**
-     * Descriptor code for recipes
-     */
-    @Property
-    @PropertyLayout(
-            sequence = "1",
-            describedAs = "Descriptor code for recipes",
-            hidden = Where.NOWHERE
-    )
-    @Column(
-            name = "RDESCR_CODE",
-            allowsNull = "true",
-            length = 2
-    )
-    @Getter
-    @Setter
-    private String code;
-
-    /**
      * Facet code for recipes
      */
     @Property
     @PropertyLayout(
-            sequence = "2",
+            sequence = "1",
             describedAs = "Facet code for recipes",
             hidden = Where.ALL_TABLES
     )
@@ -86,6 +68,24 @@ public class RecipeDescriptor {
     @Getter
     @Setter
     private String recipeFacetCode;
+
+    /**
+     * Descriptor code for recipes
+     */
+    @Property
+    @PropertyLayout(
+            sequence = "2",
+            describedAs = "Descriptor code for recipes",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "RDESCR_CODE",
+            allowsNull = "true",
+            length = 2
+    )
+    @Getter
+    @Setter
+    private String code;
 
     /**
      * Descriptor name
@@ -181,6 +181,6 @@ public class RecipeDescriptor {
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s|%s)", name, code, recipeFacetCode);
+        return String.format("%s (code=%s|%s)", name, recipeFacetCode, code);
     }
 }

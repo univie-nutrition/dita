@@ -38,11 +38,11 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeFacet {
+public class CrossReferenceBetweenRecipeGroupAndDescriptor_recipeFacet {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor mixee;
+    private final CrossReferenceBetweenRecipeGroupAndDescriptor mixee;
 
     @MemberSupport
     public RecipeFacet prop() {

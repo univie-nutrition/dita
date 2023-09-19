@@ -52,7 +52,7 @@ public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
                 // local
                 mixee, mixee.getFacetWhereTheRuleMustBeApplied(),
                 // foreign
-                Facet.class, foreign->foreign.getFacetCode())
+                Facet.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

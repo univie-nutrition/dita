@@ -54,7 +54,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequence
                 // local
                 mixee, mixee.getMandatoryInSequenceOfFacetsCode(),
                 // foreign
-                Facet.class, foreign->foreign.getFacetCode())
+                Facet.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

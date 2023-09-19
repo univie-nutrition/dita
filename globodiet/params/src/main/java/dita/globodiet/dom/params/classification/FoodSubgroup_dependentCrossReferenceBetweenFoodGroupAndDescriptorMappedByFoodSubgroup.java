@@ -21,8 +21,8 @@
 package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeSubgroup;
+import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
+import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_foodSubgroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,18 +31,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class RecipeSubgroup_dependentCrossReferenceBetweenRecipeSubgroupAndFacetDescriptorMappedByRecipeSubgroup {
+public class FoodSubgroup_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFoodSubgroup {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final RecipeSubgroup mixee;
+    private final FoodSubgroup mixee;
 
     @MemberSupport
-    public List<CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor> coll() {
+    public List<CrossReferenceBetweenFoodGroupAndDescriptor> coll() {
         return dependantLookup.findDependants(
-            CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor.class,
-            CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeSubgroup.class,
-            CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor_recipeSubgroup::prop,
+            CrossReferenceBetweenFoodGroupAndDescriptor.class,
+            CrossReferenceBetweenFoodGroupAndDescriptor_foodSubgroup.class,
+            CrossReferenceBetweenFoodGroupAndDescriptor_foodSubgroup::prop,
             mixee);
     }
 }

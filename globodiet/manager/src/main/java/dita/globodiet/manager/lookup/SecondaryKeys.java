@@ -38,7 +38,7 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_descript.Brand;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodAndFacet;
+import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
@@ -48,7 +48,7 @@ import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
+import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
@@ -93,7 +93,7 @@ public class SecondaryKeys {
         // -- FACTORIES
 
         static FacetDescriptorKey auto(final Object referencingEntity) {
-            if(referencingEntity instanceof CrossReferenceBetweenFoodAndFacet x) {
+            if(referencingEntity instanceof CrossReferenceBetweenFoodGroupAndDescriptor x) {
                 return new FacetDescriptorKey(LookupMode.STRICT, x.getFacetCode(), x.getDescriptorCode());
             }
             if(referencingEntity instanceof FacetDescriptorThatCannotBeSubstituted x) {
@@ -164,17 +164,16 @@ public class SecondaryKeys {
         }
     }
 
-    // --
+    // -- RECIPE DESCRIPTOR
 
-    record RecipeDescriptorKey(LookupMode lookupMode, String recipeDescriptorCode, String recipeFacetCode)
+    record RecipeDescriptorKey(LookupMode lookupMode, String recipeFacetCode, String recipeDescriptorCode)
     implements SecondaryKeyLookup<RecipeDescriptor> {
 
         // -- FACTORIES
 
         static RecipeDescriptorKey auto(final Object referencingEntity) {
-            if(referencingEntity instanceof CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor x) {
-                //TODO RELAXED for debugging
-                return new RecipeDescriptorKey(LookupMode.RELAXED, x.getRecipeFacetCode(), x.getRecipeDescriptorCode());
+            if(referencingEntity instanceof CrossReferenceBetweenRecipeGroupAndDescriptor x) {
+                return new RecipeDescriptorKey(LookupMode.STRICT, x.getRecipeFacetCode(), x.getRecipeDescriptorCode());
             }
             throw _Exceptions.noSuchElement("RecipeDescriptorKey not implemented for %s",
                     referencingEntity.getClass());
@@ -182,9 +181,9 @@ public class SecondaryKeys {
 
         // -- MATCHING
 
-        boolean matches(final String recipeDescriptorCode, final String recipeFacetCode) {
-            return Objects.equals(this.recipeDescriptorCode(), recipeDescriptorCode)
-                    && Objects.equals(this.recipeFacetCode(), recipeFacetCode);
+        boolean matches(final String recipeFacetCode, final String recipeDescriptorCode) {
+            return Objects.equals(this.recipeFacetCode(), recipeFacetCode)
+                    && Objects.equals(this.recipeDescriptorCode(), recipeDescriptorCode);
         }
 
         @Override
@@ -201,7 +200,7 @@ public class SecondaryKeys {
         }
         private Optional<RecipeDescriptor> lookupRecipeDescriptor(final RepositoryService repositoryService) {
             return repositoryService.uniqueMatch(RecipeDescriptor.class, fd->
-                matches(fd.getCode(), fd.getRecipeFacetCode()));
+                matches(fd.getRecipeFacetCode(), fd.getCode()));
         }
         private RecipeDescriptor recipeDescriptorElseThrow(final RepositoryService repositoryService) {
             return lookupRecipeDescriptor(repositoryService)
@@ -301,7 +300,7 @@ public class SecondaryKeys {
             if(entity instanceof Brand local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
-            if(entity instanceof CrossReferenceBetweenFoodAndFacet local) {
+            if(entity instanceof CrossReferenceBetweenFoodGroupAndDescriptor local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
             if(entity instanceof FoodOrProductOrAlias local) {
@@ -480,7 +479,7 @@ public class SecondaryKeys {
             if(entity instanceof BrandForRecipe local) {
                 return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
             }
-            if(entity instanceof CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor local) {
+            if(entity instanceof CrossReferenceBetweenRecipeGroupAndDescriptor local) {
                 return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
             }
             if(entity instanceof MaximumValueForARecipeOrASubgroup local) {

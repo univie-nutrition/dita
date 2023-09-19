@@ -51,7 +51,7 @@ public class FacetDescriptor_facet {
                 // local
                 mixee, mixee.getFacetCode(),
                 // foreign
-                Facet.class, foreign->foreign.getFacetCode())
+                Facet.class, foreign->foreign.getCode())
             .orElse(null);
     }
 }

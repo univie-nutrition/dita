@@ -31,7 +31,7 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetener
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_descript.Brand;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodAndFacet;
+import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
 import dita.globodiet.dom.params.food_descript.Facet;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
@@ -66,7 +66,7 @@ import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor;
+import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor;
 import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet;
@@ -255,9 +255,12 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
-    public List<CrossReferenceBetweenFoodAndFacet> listAllCrossReferenceBetweenFoodAndFacet() {
-        return repositoryService.allInstances(CrossReferenceBetweenFoodAndFacet.class);
+    @ActionLayout(
+            cssClassFa = "solid right-left"
+    )
+    public List<CrossReferenceBetweenFoodGroupAndDescriptor> listAllCrossReferenceBetweenFoodGroupAndDescriptor(
+            ) {
+        return repositoryService.allInstances(CrossReferenceBetweenFoodGroupAndDescriptor.class);
     }
 
     @Action
@@ -448,10 +451,12 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
-    public List<CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor> listAllCrossReferenceBetweenRecipeSubgroupAndFacetDescriptor(
+    @ActionLayout(
+            cssClassFa = "solid right-left"
+    )
+    public List<CrossReferenceBetweenRecipeGroupAndDescriptor> listAllCrossReferenceBetweenRecipeGroupAndDescriptor(
             ) {
-        return repositoryService.allInstances(CrossReferenceBetweenRecipeSubgroupAndFacetDescriptor.class);
+        return repositoryService.allInstances(CrossReferenceBetweenRecipeGroupAndDescriptor.class);
     }
 
     @Action
