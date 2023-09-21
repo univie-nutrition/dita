@@ -142,21 +142,21 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                 .forEach(field->{
                     val foreignFields = field.foreignFields(domainModel.schema());
 
-                    final JavaModel propertyMixinModel;
+                    final JavaModel associationMixinModel;
 
-                    domainModel.entityMixins().add(propertyMixinModel =
-                            _GenAssociationMixins.toJavaModel(config(), field, foreignFields));
+                    domainModel.entityMixins().add(associationMixinModel =
+                            _GenAssociationMixin.toJavaModel(config(), field, foreignFields));
 
-                    val propertyMixin = propertyMixinModel.className;
+                    val associationMixin = associationMixinModel.className;
 
-                    // for each property mixin created, there is at least one collection counterpart
+                    // for each association mixin created, there is at least one collection counterpart
 
                     switch (foreignFields.getCardinality()) {
                     case ZERO:
                         return; // unexpected code reach
                     case ONE:
                         domainModel.entityMixins().add(
-                                _GenDependantsMixins.toJavaModel(config(), field, foreignFields, propertyMixin));
+                                _GenDependantsMixin.toJavaModel(config(), field, foreignFields, associationMixin));
                         return;
                     case MULTIPLE:
                         // group foreign fields by foreign entity, then for each foreign entity create a collection mixin
@@ -164,8 +164,8 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                         foreignFields.forEach(foreignField->multiMap.putElement(foreignField.parentEntity(), foreignField));
                         multiMap.forEach((foreignEntity, groupedForeignFields)->{
                             domainModel.entityMixins().add(
-                                    _GenDependantsMixins.toJavaModel(config(), field, Can.ofCollection(groupedForeignFields),
-                                            propertyMixin));
+                                    _GenDependantsMixin.toJavaModel(config(), field, Can.ofCollection(groupedForeignFields),
+                                            associationMixin));
                         });
                         return;
                     }

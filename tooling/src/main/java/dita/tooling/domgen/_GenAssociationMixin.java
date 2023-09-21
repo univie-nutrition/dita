@@ -41,7 +41,7 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class _GenAssociationMixins {
+class _GenAssociationMixin {
 
     JavaModel toJavaModel(
             final DomainGenerator.Config config,

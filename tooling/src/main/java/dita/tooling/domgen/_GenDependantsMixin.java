@@ -35,7 +35,7 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class _GenDependantsMixins {
+class _GenDependantsMixin {
 
     JavaModel toJavaModel(
             final DomainGenerator.Config config,
