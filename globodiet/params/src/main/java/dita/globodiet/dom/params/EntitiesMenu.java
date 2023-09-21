@@ -40,7 +40,7 @@ import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
@@ -49,8 +49,8 @@ import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
 import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
 import dita.globodiet.dom.params.general_info.AnthropometricAverage;
 import dita.globodiet.dom.params.general_info.FoodConsumptionOccasion;
-import dita.globodiet.dom.params.general_info.ItemDisplayedForCheckPerFCO;
-import dita.globodiet.dom.params.general_info.PlaceOfConsumptionOccasion;
+import dita.globodiet.dom.params.general_info.PlaceOfConsumption;
+import dita.globodiet.dom.params.general_info.PlaceOfConsumptionDisplayItem;
 import dita.globodiet.dom.params.general_info.SpecialDayPredefinedAnswer;
 import dita.globodiet.dom.params.general_info.SpecialDietPredefinedAnswer;
 import dita.globodiet.dom.params.general_info.TranslationInCountryLanguage;
@@ -58,7 +58,7 @@ import dita.globodiet.dom.params.interview.CenterInvolved;
 import dita.globodiet.dom.params.interview.CountryInvolved;
 import dita.globodiet.dom.params.interview.Interviewer;
 import dita.globodiet.dom.params.interview.SubjectToBeInterviewed;
-import dita.globodiet.dom.params.probing.ProbingQuestions;
+import dita.globodiet.dom.params.probing.ProbingQuestion;
 import dita.globodiet.dom.params.quantif.HouseholdMeasure;
 import dita.globodiet.dom.params.quantif.PhotoForQuantity;
 import dita.globodiet.dom.params.quantif.Shape;
@@ -75,7 +75,7 @@ import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
 import dita.globodiet.dom.params.setting.DayOfWeek;
@@ -130,9 +130,11 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
-    public List<ItemDisplayedForCheckPerFCO> listAllItemDisplayedForCheckPerFCO() {
-        return repositoryService.allInstances(ItemDisplayedForCheckPerFCO.class);
+    @ActionLayout(
+            cssClassFa = "regular message"
+    )
+    public List<PlaceOfConsumptionDisplayItem> listAllPlaceOfConsumptionDisplayItem() {
+        return repositoryService.allInstances(PlaceOfConsumptionDisplayItem.class);
     }
 
     @Action
@@ -384,21 +386,27 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
-    public List<PlaceOfConsumptionOccasion> listAllPlaceOfConsumptionOccasion() {
-        return repositoryService.allInstances(PlaceOfConsumptionOccasion.class);
+    @ActionLayout(
+            cssClassFa = "solid building-flag"
+    )
+    public List<PlaceOfConsumption> listAllPlaceOfConsumption() {
+        return repositoryService.allInstances(PlaceOfConsumption.class);
     }
 
     @Action
-    @ActionLayout
-    public List<ProbingQuestionsPathwaysForFood> listAllProbingQuestionsPathwaysForFood() {
-        return repositoryService.allInstances(ProbingQuestionsPathwaysForFood.class);
+    @ActionLayout(
+            cssClassFa = "solid right-left"
+    )
+    public List<ProbingQuestionPathwayForFoods> listAllProbingQuestionPathwayForFoods() {
+        return repositoryService.allInstances(ProbingQuestionPathwayForFoods.class);
     }
 
     @Action
-    @ActionLayout
-    public List<ProbingQuestions> listAllProbingQuestions() {
-        return repositoryService.allInstances(ProbingQuestions.class);
+    @ActionLayout(
+            cssClassFa = "solid circle-question"
+    )
+    public List<ProbingQuestion> listAllProbingQuestion() {
+        return repositoryService.allInstances(ProbingQuestion.class);
     }
 
     @Action
@@ -488,9 +496,11 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
-    public List<ProbingQuestionPathwayForRecipe> listAllProbingQuestionPathwayForRecipe() {
-        return repositoryService.allInstances(ProbingQuestionPathwayForRecipe.class);
+    @ActionLayout(
+            cssClassFa = "solid right-left"
+    )
+    public List<ProbingQuestionPathwayForRecipes> listAllProbingQuestionPathwayForRecipes() {
+        return repositoryService.allInstances(ProbingQuestionPathwayForRecipes.class);
     }
 
     @Action

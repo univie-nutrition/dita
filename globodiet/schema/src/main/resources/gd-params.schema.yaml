@@ -158,21 +158,24 @@ CenterInvolved:
       description: |
         Center name
         
-ItemDisplayedForCheckPerFCO:
+PlaceOfConsumptionDisplayItem:
   namespace: params.general_info
   table: CHKLIST
+  title: String.format("%s", label)
+  icon: regular message
   description: |
-    Items displayed for check per FCO (Food Consumption Occasion)
+    Items displayed for check per Place of Consumption
   fields:
-    foodConsumptionOccasionCode:
+    placeOfConsumptionCode:
       column: FCO_CODE
       column-type: nvarchar(2)
       required: false
       unique: true
-      foreignKeys:
+      foreignKeys: |
+        poc.poc_code
       description: |
-        FCO code
-    itemLabel:
+        Place of Consumption code
+    label:
       column: TEXT
       column-type: nvarchar(100)
       required: false
@@ -2547,11 +2550,13 @@ SelectedParameterForDataEntry:
       description: |
         Parameter value for data entry
         
-PlaceOfConsumptionOccasion:
+PlaceOfConsumption:
   namespace: params.general_info
   table: POC
+  title: String.format("%s (code=%s)", name, code)
+  icon: solid building-flag
   description: |
-    Place of Consumption Occasion
+    Place (Occasion) of Consumption
   fields:
     code:
       column: POC_CODE
@@ -2569,7 +2574,7 @@ PlaceOfConsumptionOccasion:
       foreignKeys:
       description: |
         Place of consumption name
-    whetherOtherPlaceQ:
+    otherPlaceQ:
       column: POC_OTHER
       column-type: tinyint(3)
       required: false
@@ -2579,11 +2584,12 @@ PlaceOfConsumptionOccasion:
         0=not a 'Other' place 
         1='Other' place
         
-ProbingQuestionsPathwaysForFood:
+ProbingQuestionPathwayForFoods:
   namespace: params.food_probing
   table: PQPATH
+  icon: solid right-left
   description: |
-    Probing questions pathways for foods
+    Probing questions pathway for foods
   fields:
     probingQuestionCode:
       column: PQ_CODE
@@ -2631,13 +2637,15 @@ ProbingQuestionsPathwaysForFood:
       description: |
         Food identification number (FOODNUM)
         
-ProbingQuestions:
+ProbingQuestion:
   namespace: params.probing
   table: PROBQUE
+  title: String.format("%s (code=)", code, label)
+  icon: solid circle-question
   description: |
-    Probing questions
+    Probing question
   fields:
-    probingQuestionCode:
+    code:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: false
@@ -2645,7 +2653,7 @@ ProbingQuestions:
       foreignKeys:
       description: |
         Probing question code
-    probingQuestionLabel:
+    label:
       column: PQ_TEXT
       column-type: nvarchar(100)
       required: false
@@ -3328,9 +3336,10 @@ RecipeGroup:
       description: |
         Short Name of the Recipe group
         
-ProbingQuestionPathwayForRecipe:
+ProbingQuestionPathwayForRecipes:
   namespace: params.recipe_probing
   table: RPQPATH
+  icon: solid right-left
   description: |
     Probing question pathway for recipes
   fields:

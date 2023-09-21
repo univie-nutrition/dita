@@ -45,13 +45,11 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFoodConsumptionOccasion"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFoodOrRecipeOrAttachment"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllHouseholdMeasure"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllItemDisplayedForCheckPerFCO"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllMacroNutrientLimit"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllMonth"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllNoteStatus"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllNutrientListAndDefinition"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllNutrientValuesPerNutrientAndItem"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllPlaceOfConsumptionOccasion"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSelectedParameter"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSelectedParameterForDataEntry"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSpecialDayPredefinedAnswer"/>

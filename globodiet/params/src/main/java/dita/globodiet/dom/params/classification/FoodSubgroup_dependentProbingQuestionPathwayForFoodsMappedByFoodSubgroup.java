@@ -21,8 +21,8 @@
 package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood_foodGroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_foodSubgroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,18 +31,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class FoodGroup_dependentProbingQuestionsPathwaysForFoodMappedByFoodGroup {
+public class FoodSubgroup_dependentProbingQuestionPathwayForFoodsMappedByFoodSubgroup {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final FoodGroup mixee;
+    private final FoodSubgroup mixee;
 
     @MemberSupport
-    public List<ProbingQuestionsPathwaysForFood> coll() {
+    public List<ProbingQuestionPathwayForFoods> coll() {
         return dependantLookup.findDependants(
-            ProbingQuestionsPathwaysForFood.class,
-            ProbingQuestionsPathwaysForFood_foodGroup.class,
-            ProbingQuestionsPathwaysForFood_foodGroup::prop,
+            ProbingQuestionPathwayForFoods.class,
+            ProbingQuestionPathwayForFoods_foodSubgroup.class,
+            ProbingQuestionPathwayForFoods_foodSubgroup::prop,
             mixee);
     }
 }

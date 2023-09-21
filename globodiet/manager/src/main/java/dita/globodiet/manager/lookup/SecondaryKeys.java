@@ -46,7 +46,7 @@ import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescr
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionsPathwaysForFood;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
@@ -55,7 +55,7 @@ import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
 import lombok.NonNull;
@@ -326,7 +326,7 @@ public class SecondaryKeys {
             if(entity instanceof PercentOfFatUseDuringCookingForFood local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
-            if(entity instanceof ProbingQuestionsPathwaysForFood local) {
+            if(entity instanceof ProbingQuestionPathwayForFoods local) {
                 return strict(local.getFoodGroupCode(), local.getFoodSubgroupCode(), local.getFoodSubSubgroupCode());
             }
             if(entity instanceof RecipeIngredient local) {
@@ -491,7 +491,7 @@ public class SecondaryKeys {
             if(entity instanceof PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe local) {
                 return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
             }
-            if(entity instanceof ProbingQuestionPathwayForRecipe local) {
+            if(entity instanceof ProbingQuestionPathwayForRecipes local) {
                 return auto(local.getRecipeGroupCode(), local.getRecipeSubgroupCode());
             }
             if(entity instanceof Recipe local) {

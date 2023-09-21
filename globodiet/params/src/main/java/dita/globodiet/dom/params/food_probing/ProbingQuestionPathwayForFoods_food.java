@@ -39,11 +39,11 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class ProbingQuestionsPathwaysForFood_food {
+public class ProbingQuestionPathwayForFoods_food {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final ProbingQuestionsPathwaysForFood mixee;
+    private final ProbingQuestionPathwayForFoods mixee;
 
     @MemberSupport
     public FoodOrProductOrAlias prop() {

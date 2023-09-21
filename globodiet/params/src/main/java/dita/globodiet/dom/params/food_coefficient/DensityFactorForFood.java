@@ -188,6 +188,6 @@ public class DensityFactorForFood {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%f", densityCoefficient);
     }
 }

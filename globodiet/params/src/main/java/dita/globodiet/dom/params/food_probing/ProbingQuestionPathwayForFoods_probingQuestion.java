@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.food_probing;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.probing.ProbingQuestions;
+import dita.globodiet.dom.params.probing.ProbingQuestion;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -39,21 +39,21 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class ProbingQuestionsPathwaysForFood_probingQuestion {
+public class ProbingQuestionPathwayForFoods_probingQuestion {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final ProbingQuestionsPathwaysForFood mixee;
+    private final ProbingQuestionPathwayForFoods mixee;
 
     @MemberSupport
-    public ProbingQuestions prop() {
+    public ProbingQuestion prop() {
         return foreignKeyLookup
             .unary(
                 this,
                 // local
                 mixee, mixee.getProbingQuestionCode(),
                 // foreign
-                ProbingQuestions.class, ProbingQuestions::getProbingQuestionCode)
+                ProbingQuestion.class, ProbingQuestion::getCode)
             .orElse(null);
     }
 }

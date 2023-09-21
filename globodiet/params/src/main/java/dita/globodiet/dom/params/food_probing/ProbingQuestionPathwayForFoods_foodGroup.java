@@ -21,7 +21,7 @@
 package dita.globodiet.dom.params.food_probing;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.classification.FoodGroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,26 +34,26 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
-        sequence = "4.1",
-        describedAs = "Food sub-subgroup code",
+        sequence = "2.1",
+        describedAs = "Food group code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class ProbingQuestionsPathwaysForFood_foodSubSubgroup {
+public class ProbingQuestionPathwayForFoods_foodGroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final ProbingQuestionsPathwaysForFood mixee;
+    private final ProbingQuestionPathwayForFoods mixee;
 
     @MemberSupport
-    public FoodSubgroup prop() {
+    public FoodGroup prop() {
         return foreignKeyLookup
             .unary(
                 this,
                 // local
-                mixee, mixee.getFoodSubSubgroupCode(),
+                mixee, mixee.getFoodGroupCode(),
                 // foreign
-                FoodSubgroup.class, FoodSubgroup::getFoodSubSubgroupCode)
+                FoodGroup.class, FoodGroup::getCode)
             .orElse(null);
     }
 }

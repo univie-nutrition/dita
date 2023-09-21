@@ -36,12 +36,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Place of Consumption Occasion
+ * Place (Occasion) of Consumption
  */
-@Named("dita.globodiet.params.general_info.PlaceOfConsumptionOccasion")
+@Named("dita.globodiet.params.general_info.PlaceOfConsumption")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Place of Consumption Occasion"
+        describedAs = "Place (Occasion) of Consumption",
+        cssClassFa = "solid building-flag"
 )
 @PersistenceCapable(
         table = "POC"
@@ -50,7 +51,7 @@ import org.apache.causeway.applib.annotation.Where;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class PlaceOfConsumptionOccasion {
+public class PlaceOfConsumption {
     /**
      * Place of consumption code
      */
@@ -104,10 +105,10 @@ public class PlaceOfConsumptionOccasion {
     )
     @Getter
     @Setter
-    private Integer whetherOtherPlaceQ;
+    private Integer otherPlaceQ;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s)", name, code);
     }
 }
