@@ -23,7 +23,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
@@ -32,9 +31,9 @@ import org.springframework.stereotype.Service;
 import org.apache.causeway.applib.exceptions.unrecoverable.RepositoryException;
 import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Either;
+import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
@@ -190,7 +189,7 @@ implements ForeignKeyLookupService {
      * @see ThicknessForShapeMethod_foodSubgroups
      */
     @Override
-    public <L, F> Markup plural(
+    public <L, F> Can<F> plural(
             final Object caller,
             final L localEntity, final Object localField,
             final Class<F> foreignType,
@@ -207,9 +206,8 @@ implements ForeignKeyLookupService {
                                 .map(FoodSubgroup.class::cast)
                                 .orElseThrow())
                     );
-            return new Markup(groups.stream()
-                    .map(group->group.fold(FoodGroup::title, FoodSubgroup::title))
-                    .collect(Collectors.joining("<br>")));
+            return groups
+                    .map(group->group.fold(foreignType::cast, foreignType::cast));
         }
         if(RecipeSubgroup.class.equals(foreignType)) {
             final Can<Either<RecipeGroup, RecipeSubgroup>> groups =
@@ -222,18 +220,15 @@ implements ForeignKeyLookupService {
                                 .map(RecipeSubgroup.class::cast)
                                 .orElseThrow())
                     );
-            return new Markup(groups.stream()
-                    .map(group->group.fold(RecipeGroup::title, RecipeSubgroup::title))
-                    .collect(Collectors.joining("<br>")));
+            return groups
+                    .map(group->group.fold(foreignType::cast, foreignType::cast));
         }
         if(FacetDescriptor.class.equals(foreignType)) {
             final Can<FacetDescriptor> descriptors =
                     FacetDescriptorKey.decodeLookupKeyList((String) localField)
                     .map(key->key.lookup(repositoryService)
                             .orElseThrow());
-            return new Markup(descriptors.stream()
-                    .map(FacetDescriptor::title)
-                    .collect(Collectors.joining("<br>")));
+            return _Casts.uncheckedCast(descriptors);
         }
 
         throw _Exceptions.unrecoverable("plural foreign key lookup not implemented for foreign type %s",

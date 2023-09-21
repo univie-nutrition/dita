@@ -35,7 +35,7 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class _GenCollectionMixins {
+class _GenDependantsMixins {
 
     JavaModel toJavaModel(
             final DomainGenerator.Config config,
@@ -78,7 +78,7 @@ class _GenCollectionMixins {
             final OrmModel.Entity localEntity, // entity this mixin contributes to
             final OrmModel.Field fieldWithForeignKeys,
             final Can<OrmModel.Field> foreignFields,
-            final ClassName propertyMixinClassName,
+            final ClassName associationMixinClassName,
             final Modifier ... modifiers) {
 
         val dependantEntity = fieldWithForeignKeys.parentEntity();
@@ -92,11 +92,14 @@ class _GenCollectionMixins {
                         return dependantLookup.findDependants(
                             $1T.class,
                             $2T.class,
-                            $2T::prop,
+                            $2T::$3L,
                             mixee);
                         """,
                         dependantType,
-                        propertyMixinClassName);
+                        associationMixinClassName,
+                        fieldWithForeignKeys.plural()
+                            ? "coll"
+                            : "prop");
         return builder.build();
     }
 

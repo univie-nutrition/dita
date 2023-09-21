@@ -24,24 +24,19 @@ import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
+import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.Property;
-import org.apache.causeway.applib.annotation.PropertyLayout;
-import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 
-@Property(
-        snapshot = Snapshot.EXCLUDED
-)
-@PropertyLayout(
-        sequence = "5.1",
+@Collection
+@CollectionLayout(
         describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
                         + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
                         + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)",
-        hidden = Where.REFERENCES_PARENT
+        hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
 public class ThicknessForShapeMethod_recipeSubgroups {
@@ -51,7 +46,7 @@ public class ThicknessForShapeMethod_recipeSubgroups {
     private final ThicknessForShapeMethod mixee;
 
     @MemberSupport
-    public Markup prop() {
+    public Can<RecipeSubgroup> coll() {
         return foreignKeyLookup
             .plural(
                 this,

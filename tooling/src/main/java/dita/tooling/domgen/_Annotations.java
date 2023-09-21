@@ -32,6 +32,7 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
@@ -152,6 +153,12 @@ class _Annotations {
     }
     AnnotationSpec collection() {
         return AnnotationSpec.builder(Collection.class)
+                .build();
+    }
+    AnnotationSpec collectionLayout(final String describedAs, final Where hiddenWhere) {
+        return AnnotationSpec.builder(CollectionLayout.class)
+                .addMember("describedAs", "$1S", describedAs)
+                .addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name())
                 .build();
     }
     /**

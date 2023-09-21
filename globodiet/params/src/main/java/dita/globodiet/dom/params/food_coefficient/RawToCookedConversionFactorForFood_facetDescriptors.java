@@ -24,21 +24,16 @@ import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
+import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.Property;
-import org.apache.causeway.applib.annotation.PropertyLayout;
-import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 
-@Property(
-        snapshot = Snapshot.EXCLUDED
-)
-@PropertyLayout(
-        sequence = "3.1",
+@Collection
+@CollectionLayout(
         describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
-        hidden = Where.REFERENCES_PARENT
+        hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
 public class RawToCookedConversionFactorForFood_facetDescriptors {
@@ -48,7 +43,7 @@ public class RawToCookedConversionFactorForFood_facetDescriptors {
     private final RawToCookedConversionFactorForFood mixee;
 
     @MemberSupport
-    public Markup prop() {
+    public Can<FacetDescriptor> coll() {
         return foreignKeyLookup
             .plural(
                 this,

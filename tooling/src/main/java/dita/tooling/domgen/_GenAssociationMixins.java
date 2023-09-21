@@ -25,11 +25,11 @@ import javax.lang.model.element.Modifier;
 
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.MethodSpec;
+import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 
@@ -41,7 +41,7 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-class _GenPropertyMixins {
+class _GenAssociationMixins {
 
     JavaModel toJavaModel(
             final DomainGenerator.Config config,
@@ -62,30 +62,41 @@ class _GenPropertyMixins {
             final String packageName, // shared with entity and mixin
             final OrmModel.Field field,
             final Can<OrmModel.Field> foreignFields) {
+
+        val isPlural = field.plural();
+
         val entityModel = field.parentEntity();
         val typeModelBuilder = TypeSpec.classBuilder(_Mixins.propertyMixinClassName(field))
                 .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(_Annotations.property(Snapshot.EXCLUDED))
-                .addAnnotation(_Annotations.propertyLayout(
-                        field.sequence() + ".1", field.formatDescription("\n"),
-                        Where.REFERENCES_PARENT))
+                .addAnnotation(isPlural
+                        ? _Annotations.collection()
+                        : _Annotations.property(Snapshot.EXCLUDED))
+                .addAnnotation(
+                        isPlural
+                        ? _Annotations.collectionLayout(
+                                field.formatDescription("\n"),
+                                Where.NOWHERE)
+                        : _Annotations.propertyLayout(
+                                field.sequence() + ".1", field.formatDescription("\n"),
+                                Where.REFERENCES_PARENT))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
                 ;
 
-        mixedInProperty(config, field, foreignFields, Modifier.PUBLIC)
+        mixedInAssociation(config, field, foreignFields, Modifier.PUBLIC)
             .ifPresent(typeModelBuilder::addMethod);
 
         return typeModelBuilder.build();
     }
 
-    private Optional<MethodSpec> mixedInProperty(
+    private Optional<MethodSpec> mixedInAssociation(
             final DomainGenerator.Config config,
             final OrmModel.Field field,
             final Can<OrmModel.Field> foreignFields,
             final Modifier ... modifiers) {
 
+        val isPlural = field.plural();
         val localKeyGetter = field.getter();
 
         //TODO debug
@@ -112,14 +123,20 @@ class _GenPropertyMixins {
                 .distinct()
                 .collect(Can.toCan());
 
-        final MethodSpec.Builder builder = MethodSpec.methodBuilder("prop")
+        final MethodSpec.Builder builder = MethodSpec.methodBuilder(isPlural
+                    ? "coll"
+                    : "prop")
                 .addModifiers(modifiers)
                 .addAnnotation(_Annotations.memberSupport())
-                .returns(distinctForeignEntities.isCardinalityOne()
-                        ? foreigners.getFirstElseFail().foreignEntity()
-                        : ClassName.OBJECT); // common super type
+                .returns(distinctForeignEntities.isCardinalityMultiple()
+                        ? ClassName.OBJECT // common super type
+                        : isPlural
+                                ? ParameterizedTypeName.get(
+                                        ClassName.get(Can.class),
+                                        foreigners.getFirstElseFail().foreignEntity())
+                                : foreigners.getFirstElseFail().foreignEntity());
 
-        if(field.plural()) {
+        if(isPlural) {
             _Assert.assertTrue(distinctForeignEntities.isCardinalityOne(),
                     ()->"not implemented for multiple referenced foreign entity types");
 
@@ -140,7 +157,6 @@ class _GenPropertyMixins {
                     .map(f->String.format("%s::%s", f.foreignEntity().simpleName(), f.foreignKeyGetter()))
                     .collect(Collectors.joining(", ")) //4
                 );
-            builder.returns(Markup.class);
 
             return Optional.of(builder.build());
         }

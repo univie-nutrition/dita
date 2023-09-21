@@ -24,25 +24,20 @@ import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
+import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.Property;
-import org.apache.causeway.applib.annotation.PropertyLayout;
-import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 
-@Property(
-        snapshot = Snapshot.EXCLUDED
-)
-@PropertyLayout(
-        sequence = "4.1",
+@Collection
+@CollectionLayout(
         describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
                         + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
                         + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
                         + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
-        hidden = Where.REFERENCES_PARENT
+        hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
 public class ThicknessForShapeMethod_foodSubgroups {
@@ -52,7 +47,7 @@ public class ThicknessForShapeMethod_foodSubgroups {
     private final ThicknessForShapeMethod mixee;
 
     @MemberSupport
-    public Markup prop() {
+    public Can<FoodSubgroup> coll() {
         return foreignKeyLookup
             .plural(
                 this,

@@ -18,11 +18,13 @@
  */
 package dita.globodiet.manager.lookup;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
 import jakarta.inject.Inject;
+
+import com.google.common.collect.ImmutableCollection;
 
 import org.springframework.stereotype.Service;
 
@@ -41,14 +43,25 @@ implements DependantLookupService {
     @Override
     public <D, M, L> List<D> findDependants(
             final Class<D> dependantType,
-            final Class<M> dependantPropertyMixinClass,
-            final Function<M, L> dependantPropertyMixinGetter,
+            final Class<M> dependantAssociationMixinClass,
+            final Function<M, L> dependantAssociationMixinGetter,
             final L localEntity) {
         return repositoryService.allMatches(dependantType, candidate->
-            Objects.equals(
+            equalsOrIsContainedIn(
                     localEntity,
-                    dependantPropertyMixinGetter.apply(
-                            factoryService.mixin(dependantPropertyMixinClass, candidate))));
+                    dependantAssociationMixinGetter.apply(
+                            factoryService.mixin(dependantAssociationMixinClass, candidate))));
+    }
+
+    public static boolean equalsOrIsContainedIn(final Object a, final Object b) {
+        if(b instanceof ImmutableCollection coll) {
+            return coll.contains(a);
+        }
+        if(b instanceof Collection coll) {
+            return coll.contains(a);
+        }
+        return (a == b)
+                || (a != null && a.equals(b));
     }
 
 }

@@ -241,7 +241,7 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String facetDescriptorLookupKeys;
+    private String facetDescriptorsLookupKey;
 
     /**
      * 1 = ingredient described and quantified<br>

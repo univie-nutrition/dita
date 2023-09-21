@@ -145,7 +145,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                     final JavaModel propertyMixinModel;
 
                     domainModel.entityMixins().add(propertyMixinModel =
-                            _GenPropertyMixins.toJavaModel(config(), field, foreignFields));
+                            _GenAssociationMixins.toJavaModel(config(), field, foreignFields));
 
                     val propertyMixin = propertyMixinModel.className;
 
@@ -156,7 +156,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                         return; // unexpected code reach
                     case ONE:
                         domainModel.entityMixins().add(
-                                _GenCollectionMixins.toJavaModel(config(), field, foreignFields, propertyMixin));
+                                _GenDependantsMixins.toJavaModel(config(), field, foreignFields, propertyMixin));
                         return;
                     case MULTIPLE:
                         // group foreign fields by foreign entity, then for each foreign entity create a collection mixin
@@ -164,7 +164,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                         foreignFields.forEach(foreignField->multiMap.putElement(foreignField.parentEntity(), foreignField));
                         multiMap.forEach((foreignEntity, groupedForeignFields)->{
                             domainModel.entityMixins().add(
-                                    _GenCollectionMixins.toJavaModel(config(), field, Can.ofCollection(groupedForeignFields),
+                                    _GenDependantsMixins.toJavaModel(config(), field, Can.ofCollection(groupedForeignFields),
                                             propertyMixin));
                         });
                         return;

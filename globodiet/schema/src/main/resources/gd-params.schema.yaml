@@ -267,6 +267,7 @@ DayOfWeek:
 DensityFactorForFood:
   namespace: params.food_coefficient
   table: DENSITY
+  title: String.format("%f", densityCoefficient)
   description: |
     Density factor for food
   fields:
@@ -289,7 +290,7 @@ DensityFactorForFood:
       foreignKeys:
       description: |
         Density coefficient
-    facetDescriptorLookupKey:
+    facetDescriptorsLookupKey:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
@@ -1864,7 +1865,7 @@ RecipeIngredient:
       foreignKeys:
       description: |
         Ingredient brand (if any)
-    facetDescriptorLookupKeys:
+    facetDescriptorsLookupKey:
       column: FACETS_STR
       column-type: nvarchar(2147483647)
       required: false

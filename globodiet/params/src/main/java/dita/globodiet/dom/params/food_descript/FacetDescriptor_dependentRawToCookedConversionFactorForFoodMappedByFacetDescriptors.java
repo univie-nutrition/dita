@@ -42,7 +42,7 @@ public class FacetDescriptor_dependentRawToCookedConversionFactorForFoodMappedBy
         return dependantLookup.findDependants(
             RawToCookedConversionFactorForFood.class,
             RawToCookedConversionFactorForFood_facetDescriptors.class,
-            RawToCookedConversionFactorForFood_facetDescriptors::prop,
+            RawToCookedConversionFactorForFood_facetDescriptors::coll,
             mixee);
     }
 }

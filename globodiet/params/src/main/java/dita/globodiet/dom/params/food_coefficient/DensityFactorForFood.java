@@ -107,7 +107,7 @@ public class DensityFactorForFood {
     )
     @Getter
     @Setter
-    private String facetDescriptorLookupKey;
+    private String facetDescriptorsLookupKey;
 
     /**
      * Priority order

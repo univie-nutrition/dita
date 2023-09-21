@@ -28,14 +28,14 @@ public interface DependantLookupService {
      * @param <M> mixin type
      * @param <L> local type
      * @param dependantType - type to lookup/enumerate
-     * @param dependantPropertyMixinClass mixin that contributes a property, that potentially matches
-     * @param dependantPropertyMixinGetter
+     * @param dependantAssociationMixinClass mixin that contributes an association, that potentially matches
+     * @param dependantAssociationMixinGetter
      * @param localEntity
      */
     <D, M, L> List<D> findDependants(
             Class<D> dependantType,
-            Class<M> dependantPropertyMixinClass,
-            Function<M, L> dependantPropertyMixinGetter,
+            Class<M> dependantAssociationMixinClass,
+            Function<M, L> dependantAssociationMixinGetter,
             L localEntity);
 
 }

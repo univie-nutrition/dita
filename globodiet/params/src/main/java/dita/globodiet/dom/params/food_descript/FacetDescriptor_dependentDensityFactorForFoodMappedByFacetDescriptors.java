@@ -22,7 +22,7 @@ package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.foreignkey.DependantLookupService;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_facetDescriptor;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_facetDescriptors;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptor {
+public class FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors {
     @Inject
     DependantLookupService dependantLookup;
 
@@ -41,8 +41,8 @@ public class FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescripto
     public List<DensityFactorForFood> coll() {
         return dependantLookup.findDependants(
             DensityFactorForFood.class,
-            DensityFactorForFood_facetDescriptor.class,
-            DensityFactorForFood_facetDescriptor::prop,
+            DensityFactorForFood_facetDescriptors.class,
+            DensityFactorForFood_facetDescriptors::coll,
             mixee);
     }
 }

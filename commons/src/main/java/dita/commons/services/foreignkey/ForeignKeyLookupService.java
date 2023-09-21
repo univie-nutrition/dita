@@ -21,7 +21,6 @@ package dita.commons.services.foreignkey;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.apache.causeway.applib.value.Markup;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Either;
 
@@ -59,7 +58,7 @@ public interface ForeignKeyLookupService {
     /**
      * TODO[DITA-110] Yet this does not allow for reverse lookup mixins to properly find dependants.
      */
-    <L, F> Markup plural(
+    <L, F> Can<F> plural(
             // context
             Object caller,
             // local

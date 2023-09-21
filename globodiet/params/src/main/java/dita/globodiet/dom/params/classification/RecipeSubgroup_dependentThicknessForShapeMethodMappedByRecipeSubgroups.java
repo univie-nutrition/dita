@@ -42,7 +42,7 @@ public class RecipeSubgroup_dependentThicknessForShapeMethodMappedByRecipeSubgro
         return dependantLookup.findDependants(
             ThicknessForShapeMethod.class,
             ThicknessForShapeMethod_recipeSubgroups.class,
-            ThicknessForShapeMethod_recipeSubgroups::prop,
+            ThicknessForShapeMethod_recipeSubgroups::coll,
             mixee);
     }
 }
