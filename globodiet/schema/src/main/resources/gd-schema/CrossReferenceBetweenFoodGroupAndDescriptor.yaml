@@ -67,6 +67,8 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator: |
+        facet_code
       foreignKeys: |
         descface.descr_code
       description: |

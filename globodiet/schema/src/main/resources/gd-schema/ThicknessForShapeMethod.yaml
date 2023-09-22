@@ -20,8 +20,9 @@
 params.quantif.ThicknessForShapeMethod:
   namespace: params.quantif
   table: THICKNESS
-  secondaryKey:
-  title: null
+  secondaryKey: |
+    TH_CODE
+  title: String.format("%f (code=%s)", thickness)
   icon: null
   description: |
     Thickness for shape method
@@ -41,7 +42,7 @@ params.quantif.ThicknessForShapeMethod:
       unique: false
       foreignKeys:
       description:
-    commentAttachedToTheThickness:
+    comment:
       column: TH_COMMENT
       column-type: nvarchar(100)
       required: false

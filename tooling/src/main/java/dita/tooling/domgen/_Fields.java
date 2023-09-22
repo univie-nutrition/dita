@@ -44,4 +44,11 @@ class _Fields {
             .build();
     }
 
+    //private static final long serialVersionUID = 1L;
+    FieldSpec serialVersionUID(final long value) {
+        return FieldSpec.builder(ClassName.LONG, "serialVersionUID", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                .initializer("$1L", value)
+                .build();
+    }
+
 }

@@ -21,8 +21,8 @@ params.food_list.FoodOrProductOrAlias:
   namespace: params.food_list
   table: FOODS
   secondaryKey: |
-    code
-  title: String.format("%s (code=%s)", foodNativeName, foodIdNumber)
+    foodnum
+  title: String.format("%s (code=%s)", foodNativeName, code)
   icon: solid utensils darkgreen
   description: |
     Food List and Shadow item list entry

@@ -45,13 +45,7 @@ public class DietarySupplement_classification {
 
     @MemberSupport
     public DietarySupplementClassification prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getClassificationCode(),
-                // foreign
-                DietarySupplementClassification.class, DietarySupplementClassification::getCode)
-            .orElse(null);
+        final var lookupKey = new DietarySupplementClassification.SecondaryKey(mixee.getClassificationCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -20,7 +20,8 @@
 params.general_info.PlaceOfConsumption:
   namespace: params.general_info
   table: POC
-  secondaryKey:
+  secondaryKey: |
+    POC_CODE
   title: String.format("%s (code=%s)", name, code)
   icon: solid building-flag
   description: |

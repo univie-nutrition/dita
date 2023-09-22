@@ -74,8 +74,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      foreignKeys: |
-        m_shapes.sh_surface
       description: |
         Shape surface in cm2 (e.g. 200cm2). 2 decimals
     shapeThicknessCode:
@@ -92,17 +90,16 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      foreignKeys: |
-        thickness.th_thick
+      foreignKeys:
       description: |
         Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
-    photoNumberOfTheSelectedPhoto:
+    photoCode:
       column: PH_CODE
       column-type: nvarchar(4)
       required: false
       unique: false
       foreignKeys: |
-        m_photos.ph_qstr
+        m_photos.ph_code
       description: |
         Photo: Number of the Selected Photo (e.g. 1 or 4)
     photoQuantity:
@@ -110,8 +107,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      foreignKeys: |
-        m_photos.ph_qstr
       description: |
         Photo quantity
     shapeAndPhotoFractionOrUnit:

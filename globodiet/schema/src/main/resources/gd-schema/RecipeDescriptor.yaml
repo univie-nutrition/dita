@@ -20,7 +20,9 @@
 params.recipe_description.RecipeDescriptor:
   namespace: params.recipe_description
   table: R_DESCFACE
-  secondaryKey:
+  secondaryKey: |
+    RFACET_CODE
+    RDESCR_CODE
   title: String.format("%s (code=%s|%s)", name, recipeFacetCode, code)
   icon: null
   description: |

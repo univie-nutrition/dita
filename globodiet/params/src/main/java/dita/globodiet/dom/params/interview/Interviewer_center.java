@@ -45,13 +45,7 @@ public class Interviewer_center {
 
     @MemberSupport
     public CenterInvolved prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getCenterCode(),
-                // foreign
-                CenterInvolved.class, CenterInvolved::getCenterCode)
-            .orElse(null);
+        final var lookupKey = new CenterInvolved.SecondaryKey(mixee.getCenterCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -20,7 +20,8 @@
 params.food_descript.Facet:
   namespace: params.food_descript
   table: FACETS
-  secondaryKey:
+  secondaryKey: |
+    FACET_CODE
   title: String.format("%s (code=%s)", name, code)
   icon: tags olive
   description: |

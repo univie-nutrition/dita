@@ -46,13 +46,7 @@ public class PercentOfFatUseDuringCookingForFood_food {
 
     @MemberSupport
     public FoodOrProductOrAlias prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFoodCode(),
-                // foreign
-                FoodOrProductOrAlias.class, FoodOrProductOrAlias::getFoodIdNumber)
-            .orElse(null);
+        final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

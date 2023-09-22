@@ -46,13 +46,7 @@ public class Brand_foodGroup {
 
     @MemberSupport
     public FoodGroup prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFoodGroupCode(),
-                // foreign
-                FoodGroup.class, FoodGroup::getCode)
-            .orElse(null);
+        final var lookupKey = new FoodGroup.SecondaryKey(mixee.getFoodGroupCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

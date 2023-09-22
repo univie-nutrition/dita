@@ -20,7 +20,9 @@
 params.classification.RecipeSubgroup:
   namespace: params.classification
   table: RSUBGR
-  secondaryKey:
+  secondaryKey: |
+    group
+    subgroup
   title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
   icon: solid layer-group deepgreen
   description: |

@@ -45,13 +45,7 @@ public class PlaceOfConsumptionDisplayItem_placeOfConsumption {
 
     @MemberSupport
     public PlaceOfConsumption prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getPlaceOfConsumptionCode(),
-                // foreign
-                PlaceOfConsumption.class, PlaceOfConsumption::getCode)
-            .orElse(null);
+        final var lookupKey = new PlaceOfConsumption.SecondaryKey(mixee.getPlaceOfConsumptionCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -30,6 +30,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 @Property(
         snapshot = Snapshot.EXCLUDED
@@ -38,7 +39,7 @@ import org.apache.causeway.applib.annotation.Where;
         sequence = "3.1",
         describedAs = "Photo code (if method='P' and 'A');\n"
                         + "either M_photos.ph_code or M_shapes.sh_code",
-        hidden = Where.REFERENCES_PARENT
+        hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
 public class QuantificationMethodsPathwayForRecipeGroup_photo {
@@ -49,17 +50,16 @@ public class QuantificationMethodsPathwayForRecipeGroup_photo {
 
     @MemberSupport
     public Object prop() {
-        return foreignKeyLookup
-            .either(
-                this,
-                // local
-                mixee, mixee.getPhotoCode(),
-                // foreign
-                PhotoForQuantity.class, foreign->foreign.getCode(),
-                Shape.class, foreign->foreign.getShapeCode())
-            .map(either->either.isLeft()
-                ? either.leftIfAny()
-                : either.rightIfAny())
-            .orElse(null);
+        final int switchOn = foreignKeyLookup.switchOn(mixee);
+        switch(switchOn) {
+        case 1: {
+            final var lookupKey = new PhotoForQuantity.SecondaryKey(mixee.getPhotoCode());
+            return foreignKeyLookup.nullable(lookupKey);
+        }
+        case 2: {
+            final var lookupKey = new Shape.SecondaryKey(mixee.getPhotoCode());
+            return foreignKeyLookup.nullable(lookupKey);
+        }}
+        throw _Exceptions.unexpectedCodeReach();
     }
 }

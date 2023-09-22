@@ -46,13 +46,7 @@ public class QuantificationMethodPathwayForRecipe_recipe {
 
     @MemberSupport
     public Recipe prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getRecipeCode(),
-                // foreign
-                Recipe.class, Recipe::getCode)
-            .orElse(null);
+        final var lookupKey = new Recipe.SecondaryKey(mixee.getRecipeCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -22,18 +22,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.Either;
 
 public interface ForeignKeyLookupService {
-
-    <L, F> Optional<F> unary(
-            // context
-            Object caller,
-            // local
-            L localEntity, Object localField,
-            // foreign
-            Class<F> foreignType,
-            Function<F, Object> foreignFieldGetter);
 
     <L, F> Optional<F> binary(
             // context
@@ -44,16 +34,6 @@ public interface ForeignKeyLookupService {
             Class<F> foreignType,
             Function<F, Object> foreignFieldGetter1,
             Function<F, Object> foreignFieldGetter2);
-
-    <L, F1, F2> Optional<Either<F1, F2>> either(
-            // context
-            Object caller,
-            // local
-            L localEntity, Object localField,
-            // foreign 1
-            Class<F1> foreignType1, Function<F1, Object> foreignFieldGetter1,
-            // foreign 2
-            Class<F2> foreignType2, Function<F2, Object> foreignFieldGetter2);
 
     /**
      * TODO[DITA-110] Yet this does not allow for reverse lookup mixins to properly find dependants.
@@ -66,5 +46,10 @@ public interface ForeignKeyLookupService {
             // foreign
             Class<F> foreignType,
             final Can<Function<F, Object>> foreignFieldGetters);
+
+    int switchOn(Object entity);
+
+    <T> T unique(ISecondaryKey<T> lookupKey);
+    <T> T nullable(ISecondaryKey<T> lookupKey);
 
 }

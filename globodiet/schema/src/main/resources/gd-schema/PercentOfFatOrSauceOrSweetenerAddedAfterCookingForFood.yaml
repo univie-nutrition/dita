@@ -76,6 +76,8 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator: |
+        X_GROUP
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -85,6 +87,9 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator: |
+        X_GROUP
+        X_SUBG1
       foreignKeys: |
         subgroup.subgroup2
       description: |

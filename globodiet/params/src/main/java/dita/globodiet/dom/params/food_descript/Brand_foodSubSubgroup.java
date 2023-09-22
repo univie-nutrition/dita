@@ -46,13 +46,7 @@ public class Brand_foodSubSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFoodSubSubgroupCode(),
-                // foreign
-                FoodSubgroup.class, FoodSubgroup::getFoodSubSubgroupCode)
-            .orElse(null);
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), mixee.getFoodSubSubgroupCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

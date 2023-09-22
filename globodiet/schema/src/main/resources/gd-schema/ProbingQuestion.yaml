@@ -20,7 +20,8 @@
 params.probing.ProbingQuestion:
   namespace: params.probing
   table: PROBQUE
-  secondaryKey:
+  secondaryKey: |
+    PQ_CODE
   title: String.format("%s (code=)", code, label)
   icon: solid circle-question
   description: |

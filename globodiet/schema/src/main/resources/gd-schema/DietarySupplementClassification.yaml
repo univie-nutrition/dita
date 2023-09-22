@@ -20,7 +20,8 @@
 params.supplement.DietarySupplementClassification:
   namespace: params.supplement
   table: DS_CLASSIF
-  secondaryKey:
+  secondaryKey: |
+    DS_CLASS
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |

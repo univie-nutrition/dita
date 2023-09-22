@@ -68,7 +68,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       required: false
       unique: true
       foreignKeys: |
-        descface.facet_code
+        facets.facet_code
       description: |
         Facet code
     descriptorCode:
@@ -76,6 +76,8 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator: |
+        facet_code
       foreignKeys: |
         descface.descr_code
       description: |

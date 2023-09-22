@@ -46,13 +46,7 @@ public class PercentOfFatUseDuringCookingForFood_fatGroup {
 
     @MemberSupport
     public FoodGroup prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFatGroupCode(),
-                // foreign
-                FoodGroup.class, FoodGroup::getCode)
-            .orElse(null);
+        final var lookupKey = new FoodGroup.SecondaryKey(mixee.getFatGroupCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

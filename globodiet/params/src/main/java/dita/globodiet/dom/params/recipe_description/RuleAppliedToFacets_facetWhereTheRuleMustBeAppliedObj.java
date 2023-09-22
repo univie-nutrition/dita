@@ -46,13 +46,7 @@ public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
 
     @MemberSupport
     public Facet prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFacetWhereTheRuleMustBeApplied(),
-                // foreign
-                Facet.class, Facet::getCode)
-            .orElse(null);
+        final var lookupKey = new Facet.SecondaryKey(mixee.getFacetWhereTheRuleMustBeApplied());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

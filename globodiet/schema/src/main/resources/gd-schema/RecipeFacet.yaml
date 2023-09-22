@@ -20,7 +20,8 @@
 params.recipe_description.RecipeFacet:
   namespace: params.recipe_description
   table: R_FACET
-  secondaryKey:
+  secondaryKey: |
+    RFACET_CODE
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |

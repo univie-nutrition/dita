@@ -46,13 +46,7 @@ public class RecipeIngredientQuantification_shape {
 
     @MemberSupport
     public Shape prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getShapeCode(),
-                // foreign
-                Shape.class, Shape::getShapeCode)
-            .orElse(null);
+        final var lookupKey = new Shape.SecondaryKey(mixee.getShapeCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

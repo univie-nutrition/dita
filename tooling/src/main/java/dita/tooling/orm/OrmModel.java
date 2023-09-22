@@ -84,10 +84,29 @@ public class OrmModel {
             fieldsAsMap.entrySet().stream()
                     .map(IndexedFunction.zeroBased((index, innerEntry)->Field.parse(entity, index, innerEntry)))
                     .forEach(entity.fields()::add);
+            //validate
+//            entity.secondaryKeyFields().forEach((final OrmModel.Field f)->_Assert.assertEquals(
+//                    Can.empty(), Can.ofCollection(f.foreignKeys()),
+//                        ()->String.format("invalid secondary key member %s#%s: must not have any foreign-keys",
+//                                entity.name(), f.name())));
             return entity;
         }
         public String key() {
             return String.format("%s.%s", namespace, name);
+        }
+        public boolean hasSecondaryKey() {
+            return secondaryKey.size()>0;
+        }
+        public List<Field> secondaryKeyFields() {
+            return _NullSafe.stream(secondaryKey)
+                    .map(fieldId->fields()
+                            .stream()
+                            .filter(field->field.column().equalsIgnoreCase(fieldId))
+                            .findAny()
+                            .orElseThrow(()->_Exceptions
+                                    .noSuchElement("secondary-key field not found by column name '%s' in %s",
+                                            fieldId, key())))
+                    .collect(Collectors.toList());
         }
         String toYaml() {
             val yaml = new YamlWriter();
@@ -121,6 +140,9 @@ public class OrmModel {
                 if(field.plural()) {
                     yaml.ind().ind().ind().write("plural: ", "true").nl();
                 }
+                yaml.ind().ind().ind().write("discriminator:").multilineStartIfNotEmtpy(field.discriminator).nl();
+                field.discriminator.forEach(line->
+                    yaml.ind().ind().ind().ind().write(line).nl());
                 yaml.ind().ind().ind().write("foreignKeys:").multilineStartIfNotEmtpy(field.foreignKeys).nl();
                 field.foreignKeys.forEach(line->
                     yaml.ind().ind().ind().ind().write(line).nl());
@@ -169,6 +191,7 @@ public class OrmModel {
             boolean required,
             boolean unique,
             boolean plural,
+            List<String> discriminator,
             List<String> foreignKeys,
             List<String> description) {
         @SuppressWarnings("rawtypes")
@@ -182,6 +205,7 @@ public class OrmModel {
                     (Boolean)map.get("required"),
                     (Boolean)map.get("unique"),
                     (boolean)Optional.ofNullable((Boolean)map.get("plural")).orElse(false),
+                    parseMultilineString((String)map.get("discriminator")),
                     parseMultilineString((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
         }
@@ -190,6 +214,20 @@ public class OrmModel {
         }
         public TypeName asJavaType() {
             return _TypeMapping.dbToJava(columnType(), !required);
+        }
+        public boolean hasDiscriminator() {
+            return discriminator.size()>0;
+        }
+        public List<Field> discriminatorFields() {
+            return _NullSafe.stream(discriminator)
+                    .map(fieldId->parentEntity().fields()
+                            .stream()
+                            .filter(field->field.column().equalsIgnoreCase(fieldId))
+                            .findAny()
+                            .orElseThrow(()->_Exceptions
+                                    .noSuchElement("secondary-key field not found by column name '%s' in %s",
+                                            fieldId, parentEntity().key())))
+                    .collect(Collectors.toList());
         }
         public boolean hasForeignKeys() {
             return foreignKeys.size()>0;
@@ -376,7 +414,7 @@ public class OrmModel {
         val entity = new Entity("FoodList", "dita", "FOODS", List.of(), "name", "fa-pencil", List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
         val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false, false,
-                List.of(), List.of("aa", "bb", "cc"));
+                List.of(), List.of(), List.of("aa", "bb", "cc"));
         entity.fields().add(field);
         return Can.of(
                 Schema.of(List.of(entity)));

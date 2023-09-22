@@ -45,13 +45,7 @@ public class DietarySupplement_facet {
 
     @MemberSupport
     public DietarySupplementFacet prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFacetCode(),
-                // foreign
-                DietarySupplementFacet.class, DietarySupplementFacet::getCode)
-            .orElse(null);
+        final var lookupKey = new DietarySupplementFacet.SecondaryKey(mixee.getFacetCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

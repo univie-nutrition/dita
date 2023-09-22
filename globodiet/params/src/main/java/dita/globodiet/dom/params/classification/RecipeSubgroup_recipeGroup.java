@@ -45,13 +45,7 @@ public class RecipeSubgroup_recipeGroup {
 
     @MemberSupport
     public RecipeGroup prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getRecipeGroupCode(),
-                // foreign
-                RecipeGroup.class, RecipeGroup::getCode)
-            .orElse(null);
+        final var lookupKey = new RecipeGroup.SecondaryKey(mixee.getRecipeGroupCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

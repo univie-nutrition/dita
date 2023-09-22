@@ -46,13 +46,7 @@ public class ProbingQuestionPathwayForRecipes_recipeSubgroup {
 
     @MemberSupport
     public RecipeSubgroup prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getRecipeSubgroupCode(),
-                // foreign
-                RecipeSubgroup.class, RecipeSubgroup::getCode)
-            .orElse(null);
+        final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getRecipeSubgroupCode(), null);
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

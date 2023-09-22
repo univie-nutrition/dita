@@ -22,7 +22,7 @@ params.recipe_list.Recipe:
   table: MIXEDREC
   secondaryKey: |
     r_idnum
-  title: null
+  title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |
     Mixed recipes: Names, identification number and class.

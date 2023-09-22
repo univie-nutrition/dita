@@ -145,7 +145,7 @@ public class RecipeIngredientQuantification {
     @PropertyLayout(
             sequence = "6",
             describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals",
-            hidden = Where.ALL_TABLES
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "SH_SURFACE",
@@ -180,7 +180,7 @@ public class RecipeIngredientQuantification {
     @PropertyLayout(
             sequence = "8",
             describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals",
-            hidden = Where.ALL_TABLES
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "TH_THICK",
@@ -206,7 +206,7 @@ public class RecipeIngredientQuantification {
     )
     @Getter
     @Setter
-    private String photoNumberOfTheSelectedPhoto;
+    private String photoCode;
 
     /**
      * Photo quantity
@@ -215,7 +215,7 @@ public class RecipeIngredientQuantification {
     @PropertyLayout(
             sequence = "10",
             describedAs = "Photo quantity",
-            hidden = Where.ALL_TABLES
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "PH_QTY",

@@ -45,13 +45,7 @@ public class Interviewer_country {
 
     @MemberSupport
     public CountryInvolved prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getCountryCode(),
-                // foreign
-                CountryInvolved.class, CountryInvolved::getCountryCode)
-            .orElse(null);
+        final var lookupKey = new CountryInvolved.SecondaryKey(mixee.getCountryCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

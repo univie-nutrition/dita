@@ -30,6 +30,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 @Property(
         snapshot = Snapshot.EXCLUDED
@@ -37,7 +38,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         sequence = "6.1",
         describedAs = "Ingredient food or recipe group",
-        hidden = Where.REFERENCES_PARENT
+        hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
 public class RecipeIngredient_foodOrRecipeGroup {
@@ -48,17 +49,16 @@ public class RecipeIngredient_foodOrRecipeGroup {
 
     @MemberSupport
     public Object prop() {
-        return foreignKeyLookup
-            .either(
-                this,
-                // local
-                mixee, mixee.getFoodOrRecipeGroupCode(),
-                // foreign
-                FoodGroup.class, foreign->foreign.getCode(),
-                RecipeGroup.class, foreign->foreign.getCode())
-            .map(either->either.isLeft()
-                ? either.leftIfAny()
-                : either.rightIfAny())
-            .orElse(null);
+        final int switchOn = foreignKeyLookup.switchOn(mixee);
+        switch(switchOn) {
+        case 1: {
+            final var lookupKey = new FoodGroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode());
+            return foreignKeyLookup.nullable(lookupKey);
+        }
+        case 2: {
+            final var lookupKey = new RecipeGroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode());
+            return foreignKeyLookup.nullable(lookupKey);
+        }}
+        throw _Exceptions.unexpectedCodeReach();
     }
 }

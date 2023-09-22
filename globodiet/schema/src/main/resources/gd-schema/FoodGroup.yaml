@@ -20,7 +20,8 @@
 params.classification.FoodGroup:
   namespace: params.classification
   table: GROUPS
-  secondaryKey:
+  secondaryKey: |
+    group
   title: String.format("%s (code=%s)", name, code)
   icon: solid layer-group olive
   description: |

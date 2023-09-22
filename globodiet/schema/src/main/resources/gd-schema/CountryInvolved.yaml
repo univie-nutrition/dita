@@ -20,7 +20,8 @@
 params.interview.CountryInvolved:
   namespace: params.interview
   table: COUNTRY
-  secondaryKey:
+  secondaryKey: |
+    CTRYCODE
   title: String.format("%s", countryName)
   icon: earth-europe
   description: |

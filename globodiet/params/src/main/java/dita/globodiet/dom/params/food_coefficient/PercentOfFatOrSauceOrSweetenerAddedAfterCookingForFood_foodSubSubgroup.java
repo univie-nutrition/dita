@@ -46,13 +46,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubSubgr
 
     @MemberSupport
     public FoodSubgroup prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFoodSubSubgroupCode(),
-                // foreign
-                FoodSubgroup.class, FoodSubgroup::getFoodSubSubgroupCode)
-            .orElse(null);
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodSubSubgroupCode(), null, null);
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -46,13 +46,7 @@ public class RecipeIngredientQuantification_shapeThickness {
 
     @MemberSupport
     public ThicknessForShapeMethod prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getShapeThicknessCode(),
-                // foreign
-                ThicknessForShapeMethod.class, ThicknessForShapeMethod::getCode)
-            .orElse(null);
+        final var lookupKey = new ThicknessForShapeMethod.SecondaryKey(mixee.getShapeThicknessCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

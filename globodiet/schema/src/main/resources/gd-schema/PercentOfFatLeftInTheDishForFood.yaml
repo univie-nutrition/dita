@@ -40,6 +40,8 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator: |
+        group
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -49,6 +51,9 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator: |
+        group
+        subgroup1
       foreignKeys: |
         subgroup.subgroup2
       description: |

@@ -46,13 +46,7 @@ public class ProbingQuestionPathwayForRecipes_probingQuestion {
 
     @MemberSupport
     public ProbingQuestion prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getProbingQuestionCode(),
-                // foreign
-                ProbingQuestion.class, ProbingQuestion::getCode)
-            .orElse(null);
+        final var lookupKey = new ProbingQuestion.SecondaryKey(mixee.getProbingQuestionCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

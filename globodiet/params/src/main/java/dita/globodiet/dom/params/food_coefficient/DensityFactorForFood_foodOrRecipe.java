@@ -30,6 +30,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 @Property(
         snapshot = Snapshot.EXCLUDED
@@ -38,7 +39,7 @@ import org.apache.causeway.applib.annotation.Where;
         sequence = "1.1",
         describedAs = "Food identification number (FOODNUM)\n"
                         + "either Foods.foodnum OR Mixedrec.r_idnum",
-        hidden = Where.REFERENCES_PARENT
+        hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
 public class DensityFactorForFood_foodOrRecipe {
@@ -49,17 +50,16 @@ public class DensityFactorForFood_foodOrRecipe {
 
     @MemberSupport
     public Object prop() {
-        return foreignKeyLookup
-            .either(
-                this,
-                // local
-                mixee, mixee.getFoodOrRecipeCode(),
-                // foreign
-                FoodOrProductOrAlias.class, foreign->foreign.getFoodIdNumber(),
-                Recipe.class, foreign->foreign.getCode())
-            .map(either->either.isLeft()
-                ? either.leftIfAny()
-                : either.rightIfAny())
-            .orElse(null);
+        final int switchOn = foreignKeyLookup.switchOn(mixee);
+        switch(switchOn) {
+        case 1: {
+            final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodOrRecipeCode());
+            return foreignKeyLookup.nullable(lookupKey);
+        }
+        case 2: {
+            final var lookupKey = new Recipe.SecondaryKey(mixee.getFoodOrRecipeCode());
+            return foreignKeyLookup.nullable(lookupKey);
+        }}
+        throw _Exceptions.unexpectedCodeReach();
     }
 }

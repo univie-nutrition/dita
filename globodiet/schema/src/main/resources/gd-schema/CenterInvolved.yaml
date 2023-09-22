@@ -20,7 +20,8 @@
 params.interview.CenterInvolved:
   namespace: params.interview
   table: CENTERS
-  secondaryKey:
+  secondaryKey: |
+    CNTR_CODE
   title: String.format("%s", centerName)
   icon: building
   description: |

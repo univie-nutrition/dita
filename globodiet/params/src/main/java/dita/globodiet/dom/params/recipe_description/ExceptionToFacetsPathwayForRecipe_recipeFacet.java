@@ -48,13 +48,7 @@ public class ExceptionToFacetsPathwayForRecipe_recipeFacet {
 
     @MemberSupport
     public RecipeFacet prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getRecipeFacetCode(),
-                // foreign
-                RecipeFacet.class, RecipeFacet::getCode)
-            .orElse(null);
+        final var lookupKey = new RecipeFacet.SecondaryKey(mixee.getRecipeFacetCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -44,14 +44,8 @@ public class ImprobableSequenceOfFacetAndDescriptor_facet {
     private final ImprobableSequenceOfFacetAndDescriptor mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getFacetCode(),
-                // foreign
-                FacetDescriptor.class, FacetDescriptor::getFacetCode)
-            .orElse(null);
+    public Facet prop() {
+        final var lookupKey = new Facet.SecondaryKey(mixee.getFacetCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

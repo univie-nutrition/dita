@@ -21,7 +21,7 @@ package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.foreignkey.DependantLookupService;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj;
+import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_photo;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class PhotoForQuantity_dependentRecipeIngredientQuantificationMappedByPhotoNumberOfTheSelectedPhotoObj {
+public class PhotoForQuantity_dependentRecipeIngredientQuantificationMappedByPhoto {
     @Inject
     DependantLookupService dependantLookup;
 
@@ -40,8 +40,8 @@ public class PhotoForQuantity_dependentRecipeIngredientQuantificationMappedByPho
     public List<RecipeIngredientQuantification> coll() {
         return dependantLookup.findDependants(
             RecipeIngredientQuantification.class,
-            RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj.class,
-            RecipeIngredientQuantification_photoNumberOfTheSelectedPhotoObj::prop,
+            RecipeIngredientQuantification_photo.class,
+            RecipeIngredientQuantification_photo::prop,
             mixee);
     }
 }

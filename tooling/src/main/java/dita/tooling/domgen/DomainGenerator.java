@@ -150,25 +150,30 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                     val associationMixin = associationMixinModel.className;
 
                     // for each association mixin created, there is at least one collection counterpart
+                    final List<Can<OrmModel.Field>> foreignFieldGroups =  switch (foreignFields.getCardinality()) {
+                        case ZERO -> List.of(); // unexpected code reach
+                        case ONE -> List.of(foreignFields);
+                        case MULTIPLE -> {
+                            val result = new ArrayList<Can<OrmModel.Field>>();
+                            // group foreign fields by foreign entity, then for each foreign entity create a collection mixin
+                            val multiMap = _Multimaps.<OrmModel.Entity, OrmModel.Field>newListMultimap();
+                            foreignFields.forEach(foreignField->multiMap.putElement(foreignField.parentEntity(), foreignField));
+                            multiMap.forEach((foreignEntity, groupedForeignFields)->{
+                                result.add(Can.ofCollection(groupedForeignFields));
+                            });
+                            yield result;
+                        }
+                    };
 
-                    switch (foreignFields.getCardinality()) {
-                    case ZERO:
-                        return; // unexpected code reach
-                    case ONE:
+                    /*
+                     * refactoring hint: could collect these all first then group by type they contribute to,
+                     * then consolidate into single class with nested mixins
+                     */
+                    foreignFieldGroups.forEach(foreignFieldGgroup->{
                         domainModel.entityMixins().add(
-                                _GenDependantsMixin.toJavaModel(config(), field, foreignFields, associationMixin));
-                        return;
-                    case MULTIPLE:
-                        // group foreign fields by foreign entity, then for each foreign entity create a collection mixin
-                        val multiMap = _Multimaps.<OrmModel.Entity, OrmModel.Field>newListMultimap();
-                        foreignFields.forEach(foreignField->multiMap.putElement(foreignField.parentEntity(), foreignField));
-                        multiMap.forEach((foreignEntity, groupedForeignFields)->{
-                            domainModel.entityMixins().add(
-                                    _GenDependantsMixin.toJavaModel(config(), field, Can.ofCollection(groupedForeignFields),
-                                            associationMixin));
-                        });
-                        return;
-                    }
+                            _GenDependantsMixin.toJavaModel(config(), field, foreignFieldGgroup, associationMixin));
+                    });
+
                 });
             });
 

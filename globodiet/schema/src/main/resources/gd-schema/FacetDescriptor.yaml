@@ -20,7 +20,9 @@
 params.food_descript.FacetDescriptor:
   namespace: params.food_descript
   table: DESCFACE
-  secondaryKey:
+  secondaryKey: |
+    facet_code
+    descr_code
   title: String.format("%s (code=%s|%s)", name, facetCode, code)
   icon: tag darkgreen
   description: |

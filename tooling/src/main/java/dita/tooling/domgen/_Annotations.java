@@ -39,6 +39,7 @@ import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
@@ -52,14 +53,39 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Annotations {
 
+    // -- JAVA
+
+    AnnotationSpec override() {
+        return AnnotationSpec.builder(ClassName.get(Override.class))
+                .build();
+    }
+
     // -- LOMBOK
 
+    AnnotationSpec requiredArgsConstructor() {
+        return AnnotationSpec.builder(ClassName.get("lombok", "RequiredArgsConstructor"))
+                .build();
+    }
+    AnnotationSpec lombokValue() {
+        return AnnotationSpec.builder(ClassName.get("lombok", "Value"))
+                .build();
+    }
     AnnotationSpec getter() {
         return AnnotationSpec.builder(ClassName.get("lombok", "Getter"))
                 .build();
     }
+    AnnotationSpec getterWithOverride() {
+        return AnnotationSpec.builder(ClassName.get("lombok", "Getter"))
+                .addMember("onMethod_", "{@Override}")
+                .build();
+    }
     AnnotationSpec setter() {
         return AnnotationSpec.builder(ClassName.get("lombok", "Setter"))
+                .build();
+    }
+    AnnotationSpec accessorsFluent() {
+        return AnnotationSpec.builder(ClassName.get("lombok.experimental", "Accessors"))
+                .addMember("fluent", "true")
                 .build();
     }
 
@@ -179,6 +205,11 @@ class _Annotations {
 
     AnnotationSpec objectSupport() {
         return AnnotationSpec.builder(ObjectSupport.class)
+                .build();
+    }
+
+    AnnotationSpec programmatic() {
+        return AnnotationSpec.builder(Programmatic.class)
                 .build();
     }
 

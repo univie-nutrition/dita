@@ -20,7 +20,8 @@
 params.quantif.PhotoForQuantity:
   namespace: params.quantif
   table: M_PHOTOS
-  secondaryKey:
+  secondaryKey: |
+    ph_code
   title: null
   icon: null
   description: |

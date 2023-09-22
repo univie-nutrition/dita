@@ -45,13 +45,7 @@ public class CenterInvolved_attachedCountry {
 
     @MemberSupport
     public CountryInvolved prop() {
-        return foreignKeyLookup
-            .unary(
-                this,
-                // local
-                mixee, mixee.getAttachedCountryCode(),
-                // foreign
-                CountryInvolved.class, CountryInvolved::getCountryCode)
-            .orElse(null);
+        final var lookupKey = new CountryInvolved.SecondaryKey(mixee.getAttachedCountryCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -20,7 +20,8 @@
 params.quantif.Shape:
   namespace: params.quantif
   table: M_SHAPES
-  secondaryKey:
+  secondaryKey: |
+    sh_code
   title: null
   icon: null
   description: |
