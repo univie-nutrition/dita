@@ -207,7 +207,7 @@ implements ForeignKeyLookupService {
                                 .orElseThrow())
                     );
             return groups
-                    .map(group->group.fold(foreignType::cast, foreignType::cast));
+                    .map(group->group.fold(foreignType::cast, foreignType::cast)); //FIXME invalid cast
         }
         if(RecipeSubgroup.class.equals(foreignType)) {
             final Can<Either<RecipeGroup, RecipeSubgroup>> groups =
@@ -221,7 +221,7 @@ implements ForeignKeyLookupService {
                                 .orElseThrow())
                     );
             return groups
-                    .map(group->group.fold(foreignType::cast, foreignType::cast));
+                    .map(group->group.fold(foreignType::cast, foreignType::cast)); //FIXME invalid cast
         }
         if(FacetDescriptor.class.equals(foreignType)) {
             final Can<FacetDescriptor> descriptors =

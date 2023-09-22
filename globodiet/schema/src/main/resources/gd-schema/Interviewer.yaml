@@ -1,0 +1,71 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.interview.Interviewer:
+  namespace: params.interview
+  table: INTVIEWR
+  secondaryKey:
+  title: String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode)
+  icon: solid user
+  description: |
+    Interviewer
+  fields:
+    interviewerCode:
+      column: INTV_CODE
+      column-type: nvarchar(20)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Interviewer code
+    interviewerFamilyName:
+      column: INTV_FNAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Interviewer family name
+    interviewerName:
+      column: INTV_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Interviewer name
+    countryCode:
+      column: COUNTRY
+      column-type: nvarchar(3)
+      required: false
+      unique: true
+      foreignKeys: |
+        country.ctrycode
+      description: |
+        Country code
+    centerCode:
+      column: CENTER
+      column-type: nvarchar(3)
+      required: false
+      unique: true
+      foreignKeys: |
+        centers.cntr_code
+      description: |
+        Center code
+

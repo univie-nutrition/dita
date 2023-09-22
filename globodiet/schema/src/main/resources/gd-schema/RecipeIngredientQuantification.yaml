@@ -1,0 +1,133 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.recipe_list.RecipeIngredientQuantification:
+  namespace: params.recipe_list
+  table: MIXEDING_QT
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Mixed recipes: Ingredients quantification for shape and photo methods
+  fields:
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        mixedrec.r_idnum
+      description: |
+        Recipe ID number the ingredient belong to
+    sequentialNumberWithinARecipeForIngredient:
+      column: ING_NUM
+      column-type: float(53)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Sequential Number within a Mixed Recipe for Ingredient
+    ingredientFoodOrRecipeCode:
+      column: FOODNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        foods.foodnum
+      description: |
+        Ingredient Food or Recipe ID number
+    orderOfShapeSelection:
+      column: ORDER
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Order of shape selection (e.g. 1)
+    shapeCode:
+      column: SH_CODE
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys: |
+        m_shapes.sh_code
+      description: |
+        Shape code (e.g. S001)
+    shapeSurfaceInCm2:
+      column: SH_SURFACE
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys: |
+        m_shapes.sh_surface
+      description: |
+        Shape surface in cm2 (e.g. 200cm2). 2 decimals
+    shapeThicknessCode:
+      column: TH_CODE
+      column-type: nvarchar(10)
+      required: false
+      unique: false
+      foreignKeys: |
+        thickness.th_code
+      description: |
+        Shape: Thickness code (e.g. A or 58_1)
+    thicknessInMm:
+      column: TH_THICK
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys: |
+        thickness.th_thick
+      description: |
+        Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
+    photoNumberOfTheSelectedPhoto:
+      column: PH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        m_photos.ph_qstr
+      description: |
+        Photo: Number of the Selected Photo (e.g. 1 or 4)
+    photoQuantity:
+      column: PH_QTY
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys: |
+        m_photos.ph_qstr
+      description: |
+        Photo quantity
+    shapeAndPhotoFractionOrUnit:
+      column: FRACT
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
+    sequentialNumberForIngredientsWithinASubRecipe:
+      column: S_ING_NUM
+      column-type: float(53)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Sequential Number for Ingredients within a Sub-Recipe
+

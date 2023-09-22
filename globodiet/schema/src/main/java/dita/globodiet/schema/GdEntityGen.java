@@ -20,7 +20,6 @@ package dita.globodiet.schema;
 
 import java.io.File;
 
-import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 
 import dita.tooling.domgen.DomainGenerator;
@@ -42,14 +41,25 @@ public class GdEntityGen {
         final File destDir = new File(args[0]);
         FileUtils.existingDirectoryElseFail(destDir);
 
+        final File projRoot = new File("").getAbsoluteFile();
+        final File resourceRoot = new File(projRoot, "src/main/resources");
+        FileUtils.existingDirectoryElseFail(resourceRoot);
+
         FileUtils.searchFiles(destDir, dir->true, file->true, FileUtils::deleteFile);
 
+        var schema = OrmModel.Schema.fromYamlFolder(
+                new File(resourceRoot, "gd-schema"));
 
-        val yaml = DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
-            .tryReadAsStringUtf8()
-            .valueAsNonNullElseFail();
+        schema.writeToFileAsYaml(
+                new File(resourceRoot, "gd-params.schema.yaml"),
+                LicenseHeader.ASF_V2);
 
-        val schema = OrmModel.Schema.fromYaml(yaml);
+//        val yaml = DataSource.ofResource(GdEntityGen.class, "/gd-params.schema~.yaml")
+//            .tryReadAsStringUtf8()
+//            .valueAsNonNullElseFail();
+//
+//        val schema = OrmModel.Schema.fromYaml(yaml);
+//        schema.splitIntoFiles(new File(resourceRoot, "gd-schema"), LicenseHeader.ASF_V2);
 
         val config = DomainGenerator.Config.builder()
             .logicalNamespacePrefix("dita.globodiet")

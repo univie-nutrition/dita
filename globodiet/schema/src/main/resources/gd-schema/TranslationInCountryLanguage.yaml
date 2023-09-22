@@ -1,0 +1,69 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.general_info.TranslationInCountryLanguage:
+  namespace: params.general_info
+  table: EPICTEXT
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Translation in country language
+  fields:
+    textName:
+      column: ARRAY_REF
+      column-type: nvarchar(19)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Text name
+    textInSpecificCountryLanguage:
+      column: TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Text in specific Country language
+    textInEnglish:
+      column: TEXT_ENG
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Text in English
+    dataEntryTextInSpecificCountryLanguage:
+      column: DE_TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Data entry Text in specific Country language
+    dataEntryTextInEnglish:
+      column: DE_TEXT_ENG
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Data entry Text in English
+

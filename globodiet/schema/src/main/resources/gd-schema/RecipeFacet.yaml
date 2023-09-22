@@ -1,0 +1,88 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.recipe_description.RecipeFacet:
+  namespace: params.recipe_description
+  table: R_FACET
+  secondaryKey:
+  title: String.format("%s (code=%s)", name, code)
+  icon: null
+  description: |
+    Facet for Recipe 
+  fields:
+    code:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Facet code for recipes
+    name:
+      column: RFACET_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet name
+    textToShowOnTheScreenDescribingTheFacet:
+      column: RFACET_TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet text (text to show on the screen describing the facet)
+    descriptorsAvailableForRecipeOrBrandQ:
+      column: RFACET_TYPE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=Standard facets with descriptors available in R_Descface table
+        1=Facets with descriptors available in RBrand table
+    singleOrMultiSelectDescriptorQ:
+      column: RFACET_TYPE_S
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0 = facet with mono-selection of descriptor 
+        1 = facets with multi-selection of descriptors
+    standardOrMainFacetQ:
+      column: RFACET_MAIN
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0 = standard facet 
+        1 = Main facet (with non modified descriptor)
+    labelOnHowToAskTheFacetQuestion:
+      column: RFACET_QUEST
+      column-type: nvarchar(300)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Label on how to ask the facet question    
+

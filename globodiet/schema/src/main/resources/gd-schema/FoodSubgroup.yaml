@@ -1,0 +1,102 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.classification.FoodSubgroup:
+  namespace: params.classification
+  table: SUBGROUP
+  secondaryKey:
+  title: |
+    String.format("%s (code=%s|%s|%s)", 
+     name, 
+     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
+    
+  icon: solid layer-group darkgreen
+  description: |
+    Food groups further narrowed down by subgroups and optional sub-subgroups
+  fields:
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        groups.group
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Food sub-group code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Food sub-sub-group code
+    name:
+      column: NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Name of the food (sub-)(sub-)group
+    fatOrSauceSweetenerSubgroupQ:
+      column: SGRP_FSS
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
+    fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ:
+      column: SGRP_FLO
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=non fat/sauce subgroup 
+        1= fat/sauce subgroup that can be left over in the dish
+    fatDuringCookingSubgroupQ:
+      column: SGRP_FDC
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=non fat during cooking subgroup 
+        1= fat during cooking subgroup
+    shortName:
+      column: NAME_SHORT
+      column-type: nvarchar(20)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Short Name of the food (sub-)(sub-)group
+

@@ -1,0 +1,370 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.recipe_list.RecipeIngredient:
+  namespace: params.recipe_list
+  table: MIXEDING
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Mixed recipes: Ingredients description/quantification
+  fields:
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        mixedrec.r_idnum
+      description: |
+        Recipe ID number the ingredient belongs to
+    substitutable:
+      column: ING_TYPE
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        1 = ingredient fixed
+        2 = ingredient substitutable
+        3 = fat during cooking
+        A2 = type of fat used
+        A3 = type of milk/liquid used
+    foodType:
+      column: TYPE
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Food type (GI or blank)
+    descriptionText:
+      column: TEXT
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Description text (facet/descriptor text)
+    name:
+      column: NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Ingredient name
+    foodOrRecipeGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        groups.group
+        rgroups.group
+      description: |
+        Ingredient food or recipe group
+    foodOrRecipeSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        subgroup.subgroup1
+        rsubgr.subgroup
+      description: |
+        Ingredient food or recipe subgroup
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        subgroup.subgroup2
+      description: |
+        Ingredient food sub-subgroup
+    brandName:
+      column: BRANDNAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Ingredient brand (if any)
+    facetDescriptorsLookupKey:
+      column: FACETS_STR
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: false
+      plural: true
+      foreignKeys: |
+        descface.facet_code
+        descface.descr_code
+      description: |
+        Facets-Descriptors codes used to describe the ingredient; 
+        multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
+    describedAndQuantifiedQ:
+      column: STATUS
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        1 = ingredient described and quantified 
+        2 = otherwise
+    finalQuantityInG:
+      column: CONS_QTY
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Final quantity in g (with coefficient applied)
+    estimatedQuantityBeforeCoefficientApplied:
+      column: ESTIM_QTY
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Estimated quantity (before coefficient applied)
+    quantityEstimatedRawOrCooked:
+      column: RAWCOOKED
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Quantity Estimated Raw or Cooked 
+        1 = Raw 
+        2 = Cooked or Not applicable
+    quantityConsumedRawOrCooked:
+      column: CONSRAWCO
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Quantity Consumed Raw or Cooked 
+        1 = Raw 
+        2 = Cooked or Not applicable
+    conversionFactorRawToCooked:
+      column: CONVER
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Conversion factor raw->cooked
+    withUnediblePartQ:
+      column: EDIB
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Quantity as estimated: 1=without un-edible part & 2=with un-edible part
+    conversionFactorForEdiblePart:
+      column: EDIB_CSTE
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Conversion factor for edible part
+    quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU:
+      column: NGRAMS
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Quantity in gram/volume attached to the selected Photo, HHM, STDU
+    proportionOfPhotoHHMSTDU:
+      column: PROPORT
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Proportion of Photo, HHM, STDU
+    typeOfQuantificationMethod:
+      column: Q_METHOD
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Type of quantification method
+    quantificationMethodCode:
+      column: QM_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Quantification method code
+    densityCoefficientOnlyForHHM:
+      column: DENSITY
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Density Coefficient only for HHM
+    sequentialNumberForIngredientsWithinARecipe:
+      column: ING_NUM
+      column-type: float(53)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Sequential Number for Ingredients within a Mixed Recipe 
+    fatLeftOverPercentage:
+      column: FATL_PCT
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Fat Left-Over Percentage
+    fatLeftOverQ:
+      column: FATLEFTO
+      column-type: bit(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Fat Left-Over Code (F=False, T=True)
+    hhmFraction:
+      column: HHMFRACT
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        HHM Fraction
+    consumedQuantityInPound:
+      column: POUND
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Consumed quantity in pound
+    consumedQuantityInOunce:
+      column: OUNCE
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Consumed quantity in ounce
+    consumedQuantityInQuart:
+      column: QUART
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Consumed quantity in quart
+    consumedQuantityInPint:
+      column: PINT
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Consumed quantity in pint
+    consumedQuantityInFlounce:
+      column: FLOUNCE
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Consumed quantity in flounce
+    sequentialNumberForIngredientsWithinASubRecipe:
+      column: S_ING_NUM
+      column-type: float(53)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Sequential Number for Ingredients within a Sub-Recipe 
+    rawQuantityWithoutInedible:
+      column: RAW_Q
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Raw quantity without inedible (sans dechet)
+    percentageOrProportionAsEstimatedForRecipeIngredients:
+      column: PCT_ESTIM
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Percentage/Proportion as Estimated for Recipe Ingredients
+    percentageOrProportionAsConsumedForRecipeIngredients:
+      column: PCT_CONS
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Percentage/Proportion as Consumed for Recipe Ingredients
+    typeOfItem:
+      column: TYPE_IT
+      column-type: tinyint(3)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        1 = food 
+        2 = recipe
+    foodOrRecipeCode:
+      column: IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        foods.foodnum
+        mixedrec.r_idnum
+      description: |
+        Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum
+    unitOfSelectedQuantityForMethod:
+      column: Q_UNIT
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum) 
+    percentageRaw:
+      column: PCT_RAW
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description:
+

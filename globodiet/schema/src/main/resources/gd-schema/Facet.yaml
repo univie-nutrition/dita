@@ -1,0 +1,90 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.food_descript.Facet:
+  namespace: params.food_descript
+  table: FACETS
+  secondaryKey:
+  title: String.format("%s (code=%s)", name, code)
+  icon: tags olive
+  description: |
+    Facet describing food (not recipe)
+  fields:
+    code:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Facet code
+    name:
+      column: FACET_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet name
+    text:
+      column: FACET_TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet text (text to show on the screen describing the facet)
+    type:
+      column: FACET_TYPE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=Standard facets with descriptors available in Descface table 
+        1=Facets with descriptors available in Brandnam table 
+        2=Facets with descriptors available in Foods table - facet 15 type of fat 
+        3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+    typeCardinality:
+      column: FACET_TYPE_S
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0 = facet with mono-selection of descriptor 
+        1 = facets with multi-selection of descriptors
+    group:
+      column: FACET_GRP
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table. 
+        Comma is used as delimiter (e.g. 10,050701,050702)
+    labelOnHowToAskTheFacetQuestion:
+      column: FACET_QUEST
+      column-type: nvarchar(300)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Label on how to ask the facet question
+

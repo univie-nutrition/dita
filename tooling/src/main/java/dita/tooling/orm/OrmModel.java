@@ -21,10 +21,10 @@ package dita.tooling.orm;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.javapoet.TypeName;
@@ -36,10 +36,13 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.primitives._Ints;
+import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import dita.commons.types.SneakyRef;
+import dita.tooling.domgen.LicenseHeader;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -54,6 +57,7 @@ public class OrmModel {
             String name,
             String namespace,
             String table,
+            List<String> secondaryKey,
             String title,
             String icon,
             List<String> description,
@@ -72,6 +76,7 @@ public class OrmModel {
             val entity = new Entity(name,
                     namespace,
                     (String)map.get("table"),
+                    parseMultilineString((String)map.get("secondaryKey")),
                     (String)map.get("title"),
                     (String)map.get("icon"),
                     parseMultilineString((String)map.get("description")),
@@ -89,7 +94,19 @@ public class OrmModel {
             yaml.write(key(), ":").nl();
             yaml.ind().write("namespace: ", namespace).nl();
             yaml.ind().write("table: ", table).nl();
-            yaml.ind().write("title: ", title).nl();
+            yaml.ind().write("secondaryKey:").multilineStartIfNotEmtpy(secondaryKey).nl();
+            secondaryKey.forEach(line->
+                yaml.ind().ind().write(line).nl());
+            {   // title
+                var titleLines = TextUtils.readLines(title);
+                if(titleLines.isCardinalityMultiple()) {
+                    yaml.ind().write("title:").multilineStartIfNotEmtpy(titleLines.toList()).nl();
+                    titleLines.forEach(line->
+                        yaml.ind().ind().write(line).nl());
+                } else {
+                    yaml.ind().write("title: ", title).nl();
+                }
+            }
             yaml.ind().write("icon: ", icon).nl();
             yaml.ind().write("description:").multilineStartIfNotEmtpy(description).nl();
             description.forEach(line->
@@ -101,6 +118,9 @@ public class OrmModel {
                 yaml.ind().ind().ind().write("column-type: ", field.columnType()).nl();
                 yaml.ind().ind().ind().write("required: ", ""+field.required()).nl();
                 yaml.ind().ind().ind().write("unique: ", ""+field.unique()).nl();
+                if(field.plural()) {
+                    yaml.ind().ind().ind().write("plural: ", "true").nl();
+                }
                 yaml.ind().ind().ind().write("foreignKeys:").multilineStartIfNotEmtpy(field.foreignKeys).nl();
                 field.foreignKeys.forEach(line->
                     yaml.ind().ind().ind().ind().write(line).nl());
@@ -249,7 +269,7 @@ public class OrmModel {
 
     public record Schema(Map<String, Entity> entities) {
         public static Schema of(final Iterable<Entity> entities) {
-            val schema = new Schema(new LinkedHashMap<String, OrmModel.Entity>());
+            val schema = new Schema(new TreeMap<String, OrmModel.Entity>());
             for(val entity: entities) {
                 schema.entities().put(entity.key(), entity);
             }
@@ -257,7 +277,7 @@ public class OrmModel {
         }
         @SuppressWarnings({ "rawtypes", "unchecked" })
         public static Schema fromYaml(final String yaml) {
-            val entities = new LinkedHashMap<String, OrmModel.Entity>();
+            val entities = new TreeMap<String, OrmModel.Entity>();
             YamlUtils.tryRead(Map.class, yaml)
             .ifFailureFail()
             .getValue()
@@ -277,8 +297,10 @@ public class OrmModel {
             return sb.toString();
         }
         @SneakyThrows
-        public void writeToFileAsYaml(final File file) {
-            TextUtils.writeLinesToFile(List.of(toYaml()), file, StandardCharsets.UTF_8);
+        public void writeToFileAsYaml(final File file, final LicenseHeader licenseHeader) {
+            val lic = licenseHeaderAsYaml(licenseHeader);
+            val yaml = TextUtils.readLines(toYaml());
+            TextUtils.writeLinesToFile(lic.addAll(yaml), file, StandardCharsets.UTF_8);
         }
         public Optional<OrmModel.Entity> lookupEntityByTableName(final String tableName) {
             return entities().values()
@@ -300,6 +322,29 @@ public class OrmModel {
                 .collect(Can.toCan());
             return entitiesWithoutRelations;
         }
+        // -- UTILITY
+        @SneakyThrows
+        public static Schema fromYamlFolder(final File rootDirectory) {
+            val root = FileUtils.existingDirectoryElseFail(rootDirectory);
+            val sb = new StringBuilder();
+            FileUtils.searchFiles(root, dir->true, file->file.getName().endsWith(".yaml"))
+                .stream()
+                .map(DataSource::ofFile)
+                .forEach(ds->{
+                    sb.append(ds.tryReadAsStringUtf8().valueAsNonNullElseFail()).append("\n\n");
+                });
+            return fromYaml(sb.toString());
+        }
+        public void splitIntoFiles(final File rootDirectory, final LicenseHeader licenseHeader) {
+            val dir0 = FileUtils.makeDir(rootDirectory);
+            val dir1 = FileUtils.existingDirectoryElseFail(dir0);
+            entities().values().forEach(entity->{
+                val destFile = new File(dir1, entity.name() + ".yaml");
+                val lic = licenseHeaderAsYaml(licenseHeader);
+                val yaml = TextUtils.readLines(entity.toYaml());
+                TextUtils.writeLinesToFile(lic.addAll(yaml), destFile, StandardCharsets.UTF_8);
+            });
+        }
         // -- HELPER
         private Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {
             val parts = _Strings.splitThenStream(tableDotColumn, ".")
@@ -315,13 +360,20 @@ public class OrmModel {
             return lookupForeignKeyField(tableDotColumn)
                     .orElseThrow(()->_Exceptions.noSuchElement("foreign key not found '%s'", tableDotColumn));
         }
+        private Can<String> licenseHeaderAsYaml(final LicenseHeader licenseHeader){
+            return Can.of("-----------------------------------------------------------")
+                    .addAll(TextUtils.readLines(licenseHeader.text()))
+                    .add("-----------------------------------------------------------")
+                    .map(s->"# " + s)
+                    .add("");
+        }
     }
 
     /**
      * JUnit support.
      */
     public Can<Schema> examples() {
-        val entity = new Entity("FoodList", "dita", "FOODS", "name", "fa-pencil", List.of("Food List and Aliases"),
+        val entity = new Entity("FoodList", "dita", "FOODS", List.of(), "name", "fa-pencil", List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
         val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false, false,
                 List.of(), List.of("aa", "bb", "cc"));

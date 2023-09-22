@@ -1,0 +1,91 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
+  namespace: params.food_descript
+  table: DESC_IMP
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Improbable sequence of facets/descriptors
+  fields:
+    foodCode:
+      column: FOODNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        foods.foodnum
+      description: |
+        Food identification number
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        groups.group
+      description: |
+        Food group code 
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup2
+      description: |
+        Food sub-subgroup code
+    facetCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        descface.facet_code
+      description: |
+        Facet code
+    descriptorCode:
+      column: DESCR_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        descface.descr_code
+      description: |
+        Descriptor code
+    facetString:
+      column: FACET_STR
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet string
+

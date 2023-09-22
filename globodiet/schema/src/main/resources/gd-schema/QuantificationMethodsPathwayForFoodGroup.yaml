@@ -1,0 +1,106 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
+  namespace: params.food_quantif
+  table: QM_GROUP
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Quantification methods pathway for food groups/subgroups
+  fields:
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        groups.group
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup2
+      description: |
+        Food sub-subgroup code
+    physicalStateFacetDescriptorLookupKey:
+      column: PHYS_STATE
+      column-type: nvarchar(4)
+      required: false
+      unique: true
+      foreignKeys: |
+        descface.facet_code
+        descface.descr_code
+      description: |
+        Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)
+    rawOrCookedAsConsumed:
+      column: RAW_COOKED
+      column-type: nvarchar(1)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        1=raw, 2=cooked (as Consumed)
+    quantificationMethodCode:
+      column: METHOD
+      column-type: nvarchar(1)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Quantification method code:
+        'P' for photo, 
+        'H' for HHM, 
+        'U' for stdu, 
+        'S' for standard portion, 
+        'A' for shape
+    photoCode:
+      column: METH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: true
+      foreignKeys: |
+        m_photos.ph_code
+        m_shapes.sh_code
+      description: |
+        Photo code (if method='P' and 'A'); 
+        either M_photos.ph_code or M_shapes.sh_code
+    comment:
+      column: COMMENT
+      column-type: nvarchar(200)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Comment
+

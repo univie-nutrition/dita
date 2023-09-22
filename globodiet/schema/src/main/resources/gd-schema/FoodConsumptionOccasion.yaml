@@ -1,0 +1,70 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.general_info.FoodConsumptionOccasion:
+  namespace: params.general_info
+  table: FCO
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Food Consumption Occasion
+  fields:
+    code:
+      column: FCM_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        FCO code
+    textDisplayedOnScreen:
+      column: FCM_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        FCO long label (text displayed on screen)
+    mode:
+      column: FCM_MODE
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        FCO type: if =1 the FCO can be selected several times (e.g. During morning)
+    shortLabelToIdentifyEasily:
+      column: FCM_SNAME
+      column-type: nvarchar(50)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        FCO short label to identify easily the FCO
+    displayInNutrientCheckScreenQ:
+      column: FCM_PRINCIPAL
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        1=main FCO (to be displayed in nutrient check screen)
+        0=non main FCO
+

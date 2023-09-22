@@ -1,0 +1,151 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.interview.SubjectToBeInterviewed:
+  namespace: params.interview
+  table: SUBJECTS
+  secondaryKey:
+  title: String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode)
+  icon: solid person-circle-question
+  description: |
+    Subjects to be interviewed
+  fields:
+    interviewNumber:
+      column: INT_NUM
+      column-type: smallint(5)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Interview number
+    subjectBirthDate:
+      column: PAT_BDATE
+      column-type: datetime(23)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Subject birth date
+    subjectCode:
+      column: PAT_CODE
+      column-type: nvarchar(20)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Subject code
+    subjectFirstName:
+      column: PAT_FNAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Subject first name
+    subjectHeightInCm:
+      column: PAT_HEIGHT
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Subject height in cm
+    subjectName:
+      column: PAT_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Subject name
+    subjectSex:
+      column: PAT_SEX
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Subject sex (1=man, 2=woman)
+    subjectWeightInKg:
+      column: PAT_WEIGHT
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Subject weight in kg
+    doneQ:
+      column: DONE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        1=interview done, 0=interview to be done
+    countryCode:
+      column: COUNTRY
+      column-type: nvarchar(3)
+      required: false
+      unique: true
+      foreignKeys: |
+        country.ctrycode
+      description: |
+        Country code
+    centerCode:
+      column: CENTER
+      column-type: nvarchar(3)
+      required: false
+      unique: true
+      foreignKeys: |
+        centers.cntr_code
+      description: |
+        Center code
+    interviewerCountryCode:
+      column: INTV_COUNTRY
+      column-type: nvarchar(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Interviewer Country code
+    interviewerCenterCode:
+      column: INTV_CENTER
+      column-type: nvarchar(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Interviewer Center code
+    interviewerCode:
+      column: INTV_CODE
+      column-type: nvarchar(20)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Interviewer code
+    recallDate:
+      column: DATE_REC
+      column-type: datetime(23)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Recall Date (mm/dd/yy)
+

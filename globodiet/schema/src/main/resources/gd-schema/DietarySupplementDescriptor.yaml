@@ -1,0 +1,106 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.supplement.DietarySupplementDescriptor:
+  namespace: params.supplement
+  table: DS_DESCFACE
+  secondaryKey:
+  title: String.format("%s (code=%s)", name, code)
+  icon: null
+  description: |
+    Dietary supplement descriptor
+  fields:
+    code:
+      column: DSDESCR_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Descriptor code
+    name:
+      column: DSDESCR_NAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Descriptor name
+    facetCode:
+      column: DSFACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        ds_facet.dsfacet_code
+      description: |
+        Facet code
+    householdMeasuresProposedQ:
+      column: DSDESCR_HHM
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Only for the facet with Dsfacet_type=1, 
+        for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0
+    defaultDescriptor:
+      column: DSDESCR_DEFAULT
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Default Descriptor. 
+        When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty): 
+        1=default, 
+        0=other
+    otherQ:
+      column: DSDESCR_OTHER
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Descriptor with type='other' : 1=yes 0=no
+    singleDescriptorQ:
+      column: DSDESCR_SINGLE
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        0=not single descriptor 1=single descriptor
+    displayOrderFirstOrSecond:
+      column: DSDESCR_ORDER
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Display order (1=first, 2=second…)
+    notInName:
+      column: NOTINNAME
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Not in name flag
+

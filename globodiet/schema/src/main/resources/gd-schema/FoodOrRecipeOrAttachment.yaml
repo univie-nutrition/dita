@@ -1,0 +1,117 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.food_table.FoodOrRecipeOrAttachment:
+  namespace: params.food_table
+  table: ITEMS_DEF
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Items list and definition
+  fields:
+    sequentialNumber:
+      column: ITEM_SEQ
+      column-type: int(10)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Sequential number
+    typeOfRecord:
+      column: TYPE
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
+    foodOrRecipeGroup:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Food or recipe group
+    foodOrRecipeSubgroup:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Food or recipe sub-group
+    foodSubSubgroup:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Food sub-sub-group
+    foodOrRecipeCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Food or Recipe code
+    facetString:
+      column: FACET_STR
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Facet string
+    brandName:
+      column: BRANDNAME
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Brand name
+    priority:
+      column: PRIORITY
+      column-type: int(10)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Priority order
+    attachedRecords:
+      column: ITEM_SEQ_SEQ
+      column-type: int(10)
+      required: false
+      unique: true
+      foreignKeys:
+      description: |
+        Attached records: only for the Type=A2 & A3
+    comment:
+      column: COMMENT
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Comment
+

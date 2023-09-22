@@ -1,0 +1,119 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.food_coefficient.PercentOfFatUseDuringCookingForFood:
+  namespace: params.food_coefficient
+  table: SPFDCOOK
+  secondaryKey:
+  title: null
+  icon: solid percent
+  description: |
+    % of fat use during cooking attached to a food
+  fields:
+    foodGroupCode:
+      column: FOOD_GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        groups.group
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: FOOD_SUBG1
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: FOOD_SUBG2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup2
+      description: |
+        Food sub-Subgroup code
+    foodCode:
+      column: FOOD_IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        foods.foodnum
+      description: |
+        Food code
+    fatGroupCode:
+      column: FAT_GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        groups.group
+      description: |
+        Fat group code for fat
+    fatSubgroupCode:
+      column: FAT_SUBG1
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup1
+      description: |
+        Fat subgroup code for fat
+    fatSubSubgroupCode:
+      column: FAT_SUBG2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      foreignKeys: |
+        subgroup.subgroup2
+      description: |
+        Fat sub-subgroup code for fat
+    fatCode:
+      column: FAT_IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        foods.foodnum
+      description: |
+        Fat code for fat
+    cookingMethodFacetDescriptorLookupKey:
+      column: COOK_METH
+      column-type: nvarchar(4)
+      required: false
+      unique: true
+      foreignKeys: |
+        descface.facet_code
+        descface.descr_code
+      description: |
+        Cooking method Facet and Descriptor codes (e.g. 0305)
+    percentageOfFatAbsorbedDuringCooking:
+      column: PCT_ABSOR
+      column-type: float(53)
+      required: false
+      unique: false
+      foreignKeys:
+      description: |
+        Percentage of fat absorbed during cooking
+
