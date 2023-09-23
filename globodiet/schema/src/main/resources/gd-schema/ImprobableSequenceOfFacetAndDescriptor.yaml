@@ -51,7 +51,8 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -61,7 +62,9 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |

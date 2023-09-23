@@ -46,7 +46,7 @@ public class RuleAppliedToFacet_foodSubSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodSubSubgroupCode(), null, null);
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), mixee.getFoodSubSubgroupCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

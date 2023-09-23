@@ -65,7 +65,8 @@ params.recipe_description.RuleAppliedToFacets:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        RGROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |

@@ -51,7 +51,8 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -61,7 +62,9 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |

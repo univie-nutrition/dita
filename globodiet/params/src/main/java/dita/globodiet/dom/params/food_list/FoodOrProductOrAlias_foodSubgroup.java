@@ -46,7 +46,7 @@ public class FoodOrProductOrAlias_foodSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodSubgroupCode(), null, null);
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

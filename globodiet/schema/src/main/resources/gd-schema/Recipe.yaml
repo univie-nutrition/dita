@@ -70,7 +70,8 @@ params.recipe_list.Recipe:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        R_GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |

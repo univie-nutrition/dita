@@ -46,7 +46,7 @@ public class PercentOfFatUseDuringCookingForFood_fatSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFatSubgroupCode(), null, null);
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFatGroupCode(), mixee.getFatSubgroupCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

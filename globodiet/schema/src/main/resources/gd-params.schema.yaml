@@ -437,7 +437,8 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        FOOD_GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -447,7 +448,9 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        FOOD_GROUP
+        FOOD_SUBG1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -538,7 +541,8 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        FOOD_GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -548,7 +552,9 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        FOOD_GROUP
+        FOOD_SUBG1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -578,7 +584,8 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        FAT_GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -588,7 +595,9 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        FAT_GROUP
+        FAT_SUBG1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -747,7 +756,8 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -757,7 +767,9 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -1040,7 +1052,8 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -1050,7 +1063,9 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -1133,7 +1148,8 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -1143,7 +1159,9 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -1222,7 +1240,8 @@ params.food_list.FoodOrProductOrAlias:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -1232,7 +1251,9 @@ params.food_list.FoodOrProductOrAlias:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -1313,7 +1334,8 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -1323,7 +1345,9 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -1400,7 +1424,8 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -1410,7 +1435,9 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -1493,7 +1520,8 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -1503,7 +1531,9 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -2798,7 +2828,8 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        RECI_GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |
@@ -2828,7 +2859,8 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        X_GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -2838,7 +2870,9 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        X_GROUP
+        X_SUBG1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -3229,7 +3263,8 @@ params.recipe_description.RuleAppliedToFacets:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
+      discriminator: |
+        RGROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |
@@ -3287,7 +3322,8 @@ params.recipe_list.Recipe:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        R_GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |
@@ -3429,7 +3465,8 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
         RSUBGR.SUBGROUP
@@ -3440,7 +3477,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
@@ -3890,7 +3929,8 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        R_GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |
@@ -3948,7 +3988,8 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |

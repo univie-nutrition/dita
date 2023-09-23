@@ -52,11 +52,11 @@ public class RecipeIngredient_foodOrRecipeSubgroup {
         final int switchOn = foreignKeyLookup.switchOn(mixee);
         switch(switchOn) {
         case 1: {
-            final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodOrRecipeSubgroupCode(), null, null);
+            final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode(), null);
             return foreignKeyLookup.unique(lookupKey);
         }
         case 2: {
-            final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getFoodOrRecipeSubgroupCode(), null);
+            final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode());
             return foreignKeyLookup.unique(lookupKey);
         }}
         throw _Exceptions.unexpectedCodeReach();

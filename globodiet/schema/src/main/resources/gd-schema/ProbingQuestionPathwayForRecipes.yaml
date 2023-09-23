@@ -51,7 +51,8 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |
