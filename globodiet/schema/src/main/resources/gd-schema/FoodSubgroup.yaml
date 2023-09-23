@@ -39,7 +39,7 @@ params.classification.FoodSubgroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -49,7 +49,7 @@ params.classification.FoodSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -58,7 +58,7 @@ params.classification.FoodSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -67,7 +67,7 @@ params.classification.FoodSubgroup:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -105,7 +105,7 @@ params.classification.FoodSubgroup:
       column: NAME_SHORT
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

@@ -65,7 +65,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Center code",
+            describedAs = "Center code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -83,7 +83,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Attached Country code",
+            describedAs = "Attached Country code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -101,7 +101,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Center name",
+            describedAs = "Center name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

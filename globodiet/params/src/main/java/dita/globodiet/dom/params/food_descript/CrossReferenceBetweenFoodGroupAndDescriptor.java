@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code",
+            describedAs = "Food group code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -71,10 +72,12 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Food Subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food Subgroup code",
+            describedAs = "Food Subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,10 +92,12 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Food Sub-subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food Sub-subgroup code",
+            describedAs = "Food Sub-subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -110,7 +115,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Facet code",
+            describedAs = "Facet code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -128,7 +133,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Descriptor code",
+            describedAs = "Descriptor code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -143,10 +148,12 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Default flag (if set to 'D' it is the default descriptor)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Default flag (if set to 'D' it is the default descriptor)",
+            describedAs = "Default flag (if set to 'D' it is the default descriptor)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -161,10 +168,12 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Not in name flag
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Not in name flag",
+            describedAs = "Not in name flag<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -182,7 +191,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Order to display the facets within a group/subgroup",
+            describedAs = "Order to display the facets within a group/subgroup<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -199,7 +208,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Order to display the descriptors within a group/subgroup and a facet",
+            describedAs = "Order to display the descriptors within a group/subgroup and a facet<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

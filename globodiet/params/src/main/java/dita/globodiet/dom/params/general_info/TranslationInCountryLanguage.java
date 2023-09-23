@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Text name",
+            describedAs = "Text name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -70,10 +71,12 @@ public class TranslationInCountryLanguage {
     /**
      * Text in specific Country language
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Text in specific Country language",
+            describedAs = "Text in specific Country language<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -88,10 +91,12 @@ public class TranslationInCountryLanguage {
     /**
      * Text in English
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Text in English",
+            describedAs = "Text in English<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -106,10 +111,12 @@ public class TranslationInCountryLanguage {
     /**
      * Data entry Text in specific Country language
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Data entry Text in specific Country language",
+            describedAs = "Data entry Text in specific Country language<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -124,10 +131,12 @@ public class TranslationInCountryLanguage {
     /**
      * Data entry Text in English
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Data entry Text in English",
+            describedAs = "Data entry Text in English<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

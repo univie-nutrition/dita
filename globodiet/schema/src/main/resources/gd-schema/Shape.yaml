@@ -31,7 +31,7 @@ params.quantif.Shape:
       column: SH_CODE
       column-type: nvarchar(5)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -58,7 +58,7 @@ params.quantif.Shape:
       column: SH_ORDER
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

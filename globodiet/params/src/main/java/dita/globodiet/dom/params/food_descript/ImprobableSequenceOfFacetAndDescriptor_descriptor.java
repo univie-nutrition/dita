@@ -33,7 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "6.1",
-        describedAs = "Descriptor code",
+        describedAs = "Descriptor code<br>----<br>required=true, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

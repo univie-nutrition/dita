@@ -55,7 +55,7 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "FCO code",
+            describedAs = "FCO code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +73,7 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "FCO long label (text displayed on screen)",
+            describedAs = "FCO long label (text displayed on screen)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,7 +91,7 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)",
+            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -109,7 +109,7 @@ public class FoodConsumptionOccasion {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "FCO short label to identify easily the FCO",
+            describedAs = "FCO short label to identify easily the FCO<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -122,14 +122,13 @@ public class FoodConsumptionOccasion {
     private String shortLabelToIdentifyEasily;
 
     /**
-     * 1=main FCO (to be displayed in nutrient check screen)<br>
+     * 1=main FCO (to be displayed in nutrient check screen)
      * 0=non main FCO
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=main FCO (to be displayed in nutrient check screen)<br>\n"
-                            + "0=non main FCO",
+            describedAs = "1=main FCO (to be displayed in nutrient check screen)<br>0=non main FCO<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

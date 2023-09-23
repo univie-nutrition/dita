@@ -98,7 +98,7 @@ class Decoders {
     /**
      * comma separated list of either 2, 4 or 6 digit chunks
      */
-    Can<Either<FoodGroup.SecondaryKey, FoodSubgroup.SecondaryKey>> decodeFoodGroupLookupKeyList(final @NonNull String input) {
+    Can<Either<FoodGroup.SecondaryKey, FoodSubgroup.SecondaryKey>> decodeFoodGroupLookupKeyList(final @Nullable String input) {
         return decodeStringList(input)
                 .map(Decoders::decodeFoodGroupLookupKey)
                 .collect(Can.toCan());
@@ -107,7 +107,7 @@ class Decoders {
     /**
      * comma separated list of either 2 or 4 digit chunks
      */
-    Can<Either<RecipeGroup.SecondaryKey, RecipeSubgroup.SecondaryKey>> decodeRecipeGroupLookupKeyList(final @NonNull String input) {
+    Can<Either<RecipeGroup.SecondaryKey, RecipeSubgroup.SecondaryKey>> decodeRecipeGroupLookupKeyList(final @Nullable String input) {
         return decodeStringList(input)
                 .map(Decoders::decodeRecipeGroupLookupKey)
                 .collect(Can.toCan());

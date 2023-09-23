@@ -33,7 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "5.1",
-        describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)",
+        describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)<br>----<br>required=true, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

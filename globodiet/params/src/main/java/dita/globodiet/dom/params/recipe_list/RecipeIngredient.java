@@ -30,6 +30,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number the ingredient belongs to",
+            describedAs = "Recipe ID number the ingredient belongs to<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -69,20 +70,16 @@ public class RecipeIngredient {
     private String recipeCode;
 
     /**
-     * 1 = ingredient fixed<br>
-     * 2 = ingredient substitutable<br>
-     * 3 = fat during cooking<br>
-     * A2 = type of fat used<br>
+     * 1 = ingredient fixed
+     * 2 = ingredient substitutable
+     * 3 = fat during cooking
+     * A2 = type of fat used
      * A3 = type of milk/liquid used
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "1 = ingredient fixed<br>\n"
-                            + "2 = ingredient substitutable<br>\n"
-                            + "3 = fat during cooking<br>\n"
-                            + "A2 = type of fat used<br>\n"
-                            + "A3 = type of milk/liquid used",
+            describedAs = "1 = ingredient fixed<br>2 = ingredient substitutable<br>3 = fat during cooking<br>A2 = type of fat used<br>A3 = type of milk/liquid used<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,10 +94,12 @@ public class RecipeIngredient {
     /**
      * Food type (GI or blank)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food type (GI or blank)",
+            describedAs = "Food type (GI or blank)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -115,10 +114,12 @@ public class RecipeIngredient {
     /**
      * Description text (facet/descriptor text)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Description text (facet/descriptor text)",
+            describedAs = "Description text (facet/descriptor text)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -136,7 +137,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Ingredient name",
+            describedAs = "Ingredient name<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -154,7 +155,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Ingredient food or recipe group",
+            describedAs = "Ingredient food or recipe group<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -172,7 +173,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Ingredient food or recipe subgroup",
+            describedAs = "Ingredient food or recipe subgroup<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -187,10 +188,12 @@ public class RecipeIngredient {
     /**
      * Ingredient food sub-subgroup
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Ingredient food sub-subgroup",
+            describedAs = "Ingredient food sub-subgroup<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -205,10 +208,12 @@ public class RecipeIngredient {
     /**
      * Ingredient brand (if any)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Ingredient brand (if any)",
+            describedAs = "Ingredient brand (if any)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -221,14 +226,15 @@ public class RecipeIngredient {
     private String brandName;
 
     /**
-     * Facets-Descriptors codes used to describe the ingredient;<br>
+     * Facets-Descriptors codes used to describe the ingredient;
      * multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Facets-Descriptors codes used to describe the ingredient;<br>\n"
-                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+            describedAs = "Facets-Descriptors codes used to describe the ingredient;<br>multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -241,14 +247,13 @@ public class RecipeIngredient {
     private String facetDescriptorsLookupKey;
 
     /**
-     * 1 = ingredient described and quantified<br>
+     * 1 = ingredient described and quantified
      * 2 = otherwise
      */
     @Property
     @PropertyLayout(
             sequence = "11",
-            describedAs = "1 = ingredient described and quantified<br>\n"
-                            + "2 = otherwise",
+            describedAs = "1 = ingredient described and quantified<br>2 = otherwise<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -266,7 +271,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "12",
-            describedAs = "Final quantity in g (with coefficient applied)",
+            describedAs = "Final quantity in g (with coefficient applied)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -283,7 +288,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "13",
-            describedAs = "Estimated quantity (before coefficient applied)",
+            describedAs = "Estimated quantity (before coefficient applied)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -295,16 +300,14 @@ public class RecipeIngredient {
     private double estimatedQuantityBeforeCoefficientApplied;
 
     /**
-     * Quantity Estimated Raw or Cooked<br>
-     * 1 = Raw<br>
+     * Quantity Estimated Raw or Cooked
+     * 1 = Raw
      * 2 = Cooked or Not applicable
      */
     @Property
     @PropertyLayout(
             sequence = "14",
-            describedAs = "Quantity Estimated Raw or Cooked<br>\n"
-                            + "1 = Raw<br>\n"
-                            + "2 = Cooked or Not applicable",
+            describedAs = "Quantity Estimated Raw or Cooked<br>1 = Raw<br>2 = Cooked or Not applicable<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -317,16 +320,14 @@ public class RecipeIngredient {
     private String quantityEstimatedRawOrCooked;
 
     /**
-     * Quantity Consumed Raw or Cooked<br>
-     * 1 = Raw<br>
+     * Quantity Consumed Raw or Cooked
+     * 1 = Raw
      * 2 = Cooked or Not applicable
      */
     @Property
     @PropertyLayout(
             sequence = "15",
-            describedAs = "Quantity Consumed Raw or Cooked<br>\n"
-                            + "1 = Raw<br>\n"
-                            + "2 = Cooked or Not applicable",
+            describedAs = "Quantity Consumed Raw or Cooked<br>1 = Raw<br>2 = Cooked or Not applicable<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -344,7 +345,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "16",
-            describedAs = "Conversion factor raw->cooked",
+            describedAs = "Conversion factor raw->cooked<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -361,7 +362,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "17",
-            describedAs = "Quantity as estimated: 1=without un-edible part & 2=with un-edible part",
+            describedAs = "Quantity as estimated: 1=without un-edible part & 2=with un-edible part<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -379,7 +380,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "18",
-            describedAs = "Conversion factor for edible part",
+            describedAs = "Conversion factor for edible part<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -396,7 +397,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "19",
-            describedAs = "Quantity in gram/volume attached to the selected Photo, HHM, STDU",
+            describedAs = "Quantity in gram/volume attached to the selected Photo, HHM, STDU<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -413,7 +414,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "20",
-            describedAs = "Proportion of Photo, HHM, STDU",
+            describedAs = "Proportion of Photo, HHM, STDU<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -428,10 +429,12 @@ public class RecipeIngredient {
     /**
      * Type of quantification method
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "21",
-            describedAs = "Type of quantification method",
+            describedAs = "Type of quantification method<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -446,10 +449,12 @@ public class RecipeIngredient {
     /**
      * Quantification method code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "22",
-            describedAs = "Quantification method code",
+            describedAs = "Quantification method code<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -467,7 +472,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "23",
-            describedAs = "Density Coefficient only for HHM",
+            describedAs = "Density Coefficient only for HHM<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -484,7 +489,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "24",
-            describedAs = "Sequential Number for Ingredients within a Mixed Recipe",
+            describedAs = "Sequential Number for Ingredients within a Mixed Recipe<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -501,7 +506,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "25",
-            describedAs = "Fat Left-Over Percentage",
+            describedAs = "Fat Left-Over Percentage<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -518,7 +523,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "26",
-            describedAs = "Fat Left-Over Code (F=False, T=True)",
+            describedAs = "Fat Left-Over Code (F=False, T=True)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -532,10 +537,12 @@ public class RecipeIngredient {
     /**
      * HHM Fraction
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "27",
-            describedAs = "HHM Fraction",
+            describedAs = "HHM Fraction<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -553,7 +560,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "28",
-            describedAs = "Consumed quantity in pound",
+            describedAs = "Consumed quantity in pound<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -570,7 +577,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "29",
-            describedAs = "Consumed quantity in ounce",
+            describedAs = "Consumed quantity in ounce<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -587,7 +594,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "30",
-            describedAs = "Consumed quantity in quart",
+            describedAs = "Consumed quantity in quart<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -604,7 +611,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "31",
-            describedAs = "Consumed quantity in pint",
+            describedAs = "Consumed quantity in pint<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -621,7 +628,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "32",
-            describedAs = "Consumed quantity in flounce",
+            describedAs = "Consumed quantity in flounce<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -638,7 +645,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "33",
-            describedAs = "Sequential Number for Ingredients within a Sub-Recipe",
+            describedAs = "Sequential Number for Ingredients within a Sub-Recipe<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -655,7 +662,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "34",
-            describedAs = "Raw quantity without inedible (sans dechet)",
+            describedAs = "Raw quantity without inedible (sans dechet)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -669,10 +676,12 @@ public class RecipeIngredient {
     /**
      * Percentage/Proportion as Estimated for Recipe Ingredients
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "35",
-            describedAs = "Percentage/Proportion as Estimated for Recipe Ingredients",
+            describedAs = "Percentage/Proportion as Estimated for Recipe Ingredients<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -686,10 +695,12 @@ public class RecipeIngredient {
     /**
      * Percentage/Proportion as Consumed for Recipe Ingredients
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "36",
-            describedAs = "Percentage/Proportion as Consumed for Recipe Ingredients",
+            describedAs = "Percentage/Proportion as Consumed for Recipe Ingredients<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -701,14 +712,13 @@ public class RecipeIngredient {
     private Double percentageOrProportionAsConsumedForRecipeIngredients;
 
     /**
-     * 1 = food<br>
+     * 1 = food
      * 2 = recipe
      */
     @Property
     @PropertyLayout(
             sequence = "37",
-            describedAs = "1 = food<br>\n"
-                            + "2 = recipe",
+            describedAs = "1 = food<br>2 = recipe<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -725,7 +735,7 @@ public class RecipeIngredient {
     @Property
     @PropertyLayout(
             sequence = "38",
-            describedAs = "Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum",
+            describedAs = "Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -740,10 +750,12 @@ public class RecipeIngredient {
     /**
      * Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "39",
-            describedAs = "Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)",
+            describedAs = "Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -758,10 +770,12 @@ public class RecipeIngredient {
     /**
      * has no description
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "40",
-            describedAs = "has no description",
+            describedAs = "has no description<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -65,7 +65,7 @@ public class FoodGroup implements HasSecondaryKey<FoodGroup> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code",
+            describedAs = "Food group code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -83,7 +83,7 @@ public class FoodGroup implements HasSecondaryKey<FoodGroup> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group name",
+            describedAs = "Food group name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -101,7 +101,7 @@ public class FoodGroup implements HasSecondaryKey<FoodGroup> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food group short name",
+            describedAs = "Food group short name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -31,8 +31,7 @@ import org.apache.causeway.commons.collections.Can;
 
 @Collection
 @CollectionLayout(
-        describedAs = "Facets-Descriptors codes used to describe the ingredient;\n"
-                        + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+        describedAs = "Facets-Descriptors codes used to describe the ingredient;<br>multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

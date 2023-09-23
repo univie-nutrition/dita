@@ -30,7 +30,7 @@ params.setting.SelectedParameterForDataEntry:
       column: PARAM_LAB
       column-type: nvarchar(40)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

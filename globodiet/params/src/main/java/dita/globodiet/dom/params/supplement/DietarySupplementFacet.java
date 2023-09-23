@@ -64,7 +64,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code for Dietary Supplement",
+            describedAs = "Facet code for Dietary Supplement<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -82,7 +82,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet name for Dietary Supplement",
+            describedAs = "Facet name for Dietary Supplement<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -95,14 +95,13 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     private String name;
 
     /**
-     * To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>
+     * To identify the mandatory facet used for quantification: 1=yes, 0=no.
      * Only 1 facet (physical state) is used for quantification.
      */
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>\n"
-                            + "Only 1 facet (physical state) is used for quantification.",
+            describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.<br>Only 1 facet (physical state) is used for quantification.<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,16 +113,14 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     private int mandatoryFacetUsedForQuantificationQ;
 
     /**
-     * Facet with Mono or Multi selection of descriptors<br>
-     * 0=mono,<br>
+     * Facet with Mono or Multi selection of descriptors
+     * 0=mono,
      * 1=multi
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Facet with Mono or Multi selection of descriptors<br>\n"
-                            + "0=mono,<br>\n"
-                            + "1=multi",
+            describedAs = "Facet with Mono or Multi selection of descriptors<br>0=mono,<br>1=multi<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -140,7 +137,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.",
+            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -157,7 +154,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Order to ask the facet (first, second...)",
+            describedAs = "Order to ask the facet (first, second...)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -174,7 +171,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Label on how to ask the facet question",
+            describedAs = "Label on how to ask the facet question<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

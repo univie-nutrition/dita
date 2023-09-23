@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class QuantificationMethodsPathwayForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)",
+            describedAs = "Food identification number (FOODNUM)<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -68,20 +69,16 @@ public class QuantificationMethodsPathwayForFood {
     private String foodCode;
 
     /**
-     * Quantification method code:<br>
-     * 'P' for photo,<br>
-     * 'H' for HHM,<br>
-     * 'U' for stdu,<br>
+     * Quantification method code:
+     * 'P' for photo,
+     * 'H' for HHM,
+     * 'U' for stdu,
      * 'S' for standard portion
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Quantification method code:<br>\n"
-                            + "'P' for photo,<br>\n"
-                            + "'H' for HHM,<br>\n"
-                            + "'U' for stdu,<br>\n"
-                            + "'S' for standard portion",
+            describedAs = "Quantification method code:<br>'P' for photo,<br>'H' for HHM,<br>'U' for stdu,<br>'S' for standard portion<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -94,14 +91,15 @@ public class QuantificationMethodsPathwayForFood {
     private String quantificationMethodCode;
 
     /**
-     * Photo code (if method='P' and 'A');<br>
+     * Photo code (if method='P' and 'A');
      * either M_photos.ph_code or M_shapes.sh_code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Photo code (if method='P' and 'A');<br>\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code",
+            describedAs = "Photo code (if method='P' and 'A');<br>either M_photos.ph_code or M_shapes.sh_code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

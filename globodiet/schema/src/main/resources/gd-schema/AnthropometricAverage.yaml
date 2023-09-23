@@ -30,7 +30,7 @@ params.general_info.AnthropometricAverage:
       column: ANT_VAR
       column-type: nvarchar(15)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.general_info.AnthropometricAverage:
       column: SEX
       column-type: tinyint(3)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -48,7 +48,7 @@ params.general_info.AnthropometricAverage:
       column: AGE_MIN
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -57,7 +57,7 @@ params.general_info.AnthropometricAverage:
       column: AGE_MAX
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

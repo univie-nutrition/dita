@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Interviewer code",
+            describedAs = "Interviewer code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -71,10 +72,12 @@ public class Interviewer {
     /**
      * Interviewer family name
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Interviewer family name",
+            describedAs = "Interviewer family name<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -92,7 +95,7 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Interviewer name",
+            describedAs = "Interviewer name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -110,7 +113,7 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Country code",
+            describedAs = "Country code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -128,7 +131,7 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Center code",
+            describedAs = "Center code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

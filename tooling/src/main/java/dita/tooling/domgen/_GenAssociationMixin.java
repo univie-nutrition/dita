@@ -83,10 +83,11 @@ class _GenAssociationMixin {
                 .addAnnotation(
                         isPlural
                         ? _Annotations.collectionLayout(
-                                field.formatDescription("\n"),
+                                field.formatDescription("<br>"),
                                 Where.NOWHERE)
                         : _Annotations.propertyLayout(
-                                field.sequence() + ".1", field.formatDescription("\n"),
+                                field.sequence() + ".1", field.formatDescription("<br>", "----",
+                                        String.format("required=%b, unique=%b", field.required(), field.unique())),
                                 useEitherPattern
                                     ? Where.NOWHERE
                                     : Where.REFERENCES_PARENT))

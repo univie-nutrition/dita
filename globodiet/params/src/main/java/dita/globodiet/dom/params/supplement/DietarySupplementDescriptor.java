@@ -55,7 +55,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Descriptor code",
+            describedAs = "Descriptor code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +73,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor name",
+            describedAs = "Descriptor name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,7 +91,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet code",
+            describedAs = "Facet code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -104,14 +104,13 @@ public class DietarySupplementDescriptor {
     private String facetCode;
 
     /**
-     * Only for the facet with Dsfacet_type=1,<br>
+     * Only for the facet with Dsfacet_type=1,
      * for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Only for the facet with Dsfacet_type=1,<br>\n"
-                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0",
+            describedAs = "Only for the facet with Dsfacet_type=1,<br>for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,18 +122,15 @@ public class DietarySupplementDescriptor {
     private int householdMeasuresProposedQ;
 
     /**
-     * Default Descriptor.<br>
-     * When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):<br>
-     * 1=default,<br>
+     * Default Descriptor.
+     * When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):
+     * 1=default,
      * 0=other
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Default Descriptor.<br>\n"
-                            + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):<br>\n"
-                            + "1=default,<br>\n"
-                            + "0=other",
+            describedAs = "Default Descriptor.<br>When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):<br>1=default,<br>0=other<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -151,7 +147,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no",
+            describedAs = "Descriptor with type='other' : 1=yes 0=no<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -168,7 +164,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "0=not single descriptor 1=single descriptor",
+            describedAs = "0=not single descriptor 1=single descriptor<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -185,7 +181,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Display order (1=first, 2=second…)",
+            describedAs = "Display order (1=first, 2=second…)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -202,7 +198,7 @@ public class DietarySupplementDescriptor {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Not in name flag",
+            describedAs = "Not in name flag<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

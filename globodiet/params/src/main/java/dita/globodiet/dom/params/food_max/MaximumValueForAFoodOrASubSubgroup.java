@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -52,10 +53,12 @@ public class MaximumValueForAFoodOrASubSubgroup {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code",
+            describedAs = "Food group code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -70,10 +73,12 @@ public class MaximumValueForAFoodOrASubSubgroup {
     /**
      * Food subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code",
+            describedAs = "Food subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,10 +93,12 @@ public class MaximumValueForAFoodOrASubSubgroup {
     /**
      * Food sub-Subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-Subgroup code",
+            describedAs = "Food sub-Subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -106,10 +113,12 @@ public class MaximumValueForAFoodOrASubSubgroup {
     /**
      * Food code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food code",
+            describedAs = "Food code<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -127,7 +136,7 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Maximum value",
+            describedAs = "Maximum value<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -141,10 +150,12 @@ public class MaximumValueForAFoodOrASubSubgroup {
     /**
      * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -162,7 +173,7 @@ public class MaximumValueForAFoodOrASubSubgroup {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Priority order",
+            describedAs = "Priority order<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

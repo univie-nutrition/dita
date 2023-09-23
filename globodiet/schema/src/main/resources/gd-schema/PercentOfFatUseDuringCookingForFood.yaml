@@ -30,7 +30,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -40,7 +40,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -50,7 +50,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -60,7 +60,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -70,7 +70,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -80,7 +80,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -90,7 +90,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -100,7 +100,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -110,7 +110,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: COOK_METH
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE

@@ -30,7 +30,7 @@ params.food_coefficient.DensityFactorForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -51,7 +51,7 @@ params.food_coefficient.DensityFactorForFood:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
-      unique: true
+      unique: false
       plural: true
       discriminator:
       foreignKeys: |
@@ -64,7 +64,7 @@ params.food_coefficient.DensityFactorForFood:
       column: PRIORITY
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -73,7 +73,7 @@ params.food_coefficient.DensityFactorForFood:
       column: EDIB
       column-type: nvarchar(1)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -93,7 +93,7 @@ params.food_coefficient.DensityFactorForFood:
       column: D_TYPE
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

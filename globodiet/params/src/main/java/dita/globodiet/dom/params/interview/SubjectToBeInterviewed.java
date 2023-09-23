@@ -32,6 +32,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,10 +57,12 @@ public class SubjectToBeInterviewed {
     /**
      * Interview number
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Interview number",
+            describedAs = "Interview number<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,10 +76,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject birth date
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Subject birth date",
+            describedAs = "Subject birth date<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -90,10 +95,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Subject code",
+            describedAs = "Subject code<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -108,10 +115,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject first name
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Subject first name",
+            describedAs = "Subject first name<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -126,10 +135,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject height in cm
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Subject height in cm",
+            describedAs = "Subject height in cm<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -143,10 +154,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject name
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Subject name",
+            describedAs = "Subject name<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -161,10 +174,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject sex (1=man, 2=woman)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Subject sex (1=man, 2=woman)",
+            describedAs = "Subject sex (1=man, 2=woman)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -179,10 +194,12 @@ public class SubjectToBeInterviewed {
     /**
      * Subject weight in kg
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Subject weight in kg",
+            describedAs = "Subject weight in kg<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -196,10 +213,12 @@ public class SubjectToBeInterviewed {
     /**
      * 1=interview done, 0=interview to be done
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "9",
-            describedAs = "1=interview done, 0=interview to be done",
+            describedAs = "1=interview done, 0=interview to be done<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -213,10 +232,12 @@ public class SubjectToBeInterviewed {
     /**
      * Country code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Country code",
+            describedAs = "Country code<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -231,10 +252,12 @@ public class SubjectToBeInterviewed {
     /**
      * Center code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Center code",
+            describedAs = "Center code<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -249,10 +272,12 @@ public class SubjectToBeInterviewed {
     /**
      * Interviewer Country code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "12",
-            describedAs = "Interviewer Country code",
+            describedAs = "Interviewer Country code<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -267,10 +292,12 @@ public class SubjectToBeInterviewed {
     /**
      * Interviewer Center code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "13",
-            describedAs = "Interviewer Center code",
+            describedAs = "Interviewer Center code<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -285,10 +312,12 @@ public class SubjectToBeInterviewed {
     /**
      * Interviewer code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "14",
-            describedAs = "Interviewer code",
+            describedAs = "Interviewer code<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -303,10 +332,12 @@ public class SubjectToBeInterviewed {
     /**
      * Recall Date (mm/dd/yy)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "15",
-            describedAs = "Recall Date (mm/dd/yy)",
+            describedAs = "Recall Date (mm/dd/yy)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

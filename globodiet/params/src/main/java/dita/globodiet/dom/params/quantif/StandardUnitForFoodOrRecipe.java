@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Standard unit quantity",
+            describedAs = "Standard unit quantity<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -72,7 +73,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum",
+            describedAs = "Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -85,14 +86,15 @@ public class StandardUnitForFoodOrRecipe {
     private String foodOrRecipeCode;
 
     /**
-     * 1 = raw,<br>
+     * 1 = raw,
      * 2 = cooked (as estimated)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw,<br>\n"
-                            + "2 = cooked (as estimated)",
+            describedAs = "1 = raw,<br>2 = cooked (as estimated)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -107,10 +109,12 @@ public class StandardUnitForFoodOrRecipe {
     /**
      * 1 = without un-edible part, 2 = with un-edible (as estimated)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)",
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,14 +127,13 @@ public class StandardUnitForFoodOrRecipe {
     private String withUnediblePartQ;
 
     /**
-     * 1 = STDU for food,<br>
+     * 1 = STDU for food,
      * 2 = STDU for recipe
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1 = STDU for food,<br>\n"
-                            + "2 = STDU for recipe",
+            describedAs = "1 = STDU for food,<br>2 = STDU for recipe<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -148,7 +151,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Comment attached to the standard unit",
+            describedAs = "Comment attached to the standard unit<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -166,7 +169,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)",
+            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -179,14 +182,13 @@ public class StandardUnitForFoodOrRecipe {
     private String standardUnitCode;
 
     /**
-     * G = in grams,<br>
+     * G = in grams,
      * V = in ml (volume)
      */
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "G = in grams,<br>\n"
-                            + "V = in ml (volume)",
+            describedAs = "G = in grams,<br>V = in ml (volume)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -204,7 +206,7 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Order to display the standard unit",
+            describedAs = "Order to display the standard unit<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -30,7 +30,7 @@ params.food_table.NutrientListAndDefinition:
       column: NTR_CODE
       column-type: int(10)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.food_table.NutrientListAndDefinition:
       column: NTR_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -67,7 +67,7 @@ params.food_table.NutrientListAndDefinition:
       column: COMMENT
       column-type: nvarchar(2147483647)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

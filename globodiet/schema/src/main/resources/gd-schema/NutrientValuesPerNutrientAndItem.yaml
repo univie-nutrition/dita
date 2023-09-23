@@ -30,7 +30,7 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column: SEQ
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column: NTR_CODE
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

@@ -55,7 +55,7 @@ public class NoteStatus {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Status code",
+            describedAs = "Status code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +73,7 @@ public class NoteStatus {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Status label",
+            describedAs = "Status label<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -86,16 +86,14 @@ public class NoteStatus {
     private String statusLabel;
 
     /**
-     * Allow the possibility to display or not the note in the view note window:<br>
-     * 0=No hide,<br>
+     * Allow the possibility to display or not the note in the view note window:
+     * 0=No hide,
      * 1=Yes hide (e.g. 1=hide for status “action done”)
      */
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Allow the possibility to display or not the note in the view note window:<br>\n"
-                            + "0=No hide,<br>\n"
-                            + "1=Yes hide (e.g. 1=hide for status “action done”)",
+            describedAs = "Allow the possibility to display or not the note in the view note window:<br>0=No hide,<br>1=Yes hide (e.g. 1=hide for status “action done”)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

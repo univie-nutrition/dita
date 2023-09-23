@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -52,10 +53,12 @@ public class ComposedRecipeIngredient {
     /**
      * Recipe identification number (FOODNUM in the FOODS.DBF file)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)",
+            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -68,14 +71,15 @@ public class ComposedRecipeIngredient {
     private String recipeCode;
 
     /**
-     * Food (ingredient) Identification Code<br>
+     * Food (ingredient) Identification Code
      * either Foods.foodnum OR Mixedrec.r_idnum
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food (ingredient) Identification Code<br>\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum",
+            describedAs = "Food (ingredient) Identification Code<br>either Foods.foodnum OR Mixedrec.r_idnum<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,14 +92,15 @@ public class ComposedRecipeIngredient {
     private String foodOrRecipeCode;
 
     /**
-     * If type=1 ingredient from Food list,<br>
+     * If type=1 ingredient from Food list,
      * If type=2 ingredient from Recipe list
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "If type=1 ingredient from Food list,<br>\n"
-                            + "If type=2 ingredient from Recipe list",
+            describedAs = "If type=1 ingredient from Food list,<br>If type=2 ingredient from Recipe list<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

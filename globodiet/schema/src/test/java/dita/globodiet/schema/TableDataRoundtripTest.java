@@ -100,7 +100,8 @@ class TableDataRoundtripTest {
                         .collect(Can.toCan());
                 var nullable = columnValues.size()<table.rows().size();
                 var required = !nullable;
-                var unique = columnValues.distinct().size()<columnValues.size();
+                var hasDuplicates = columnValues.distinct().size()<columnValues.size();
+                var unique = !hasDuplicates;
 
                 if(required && !field.required()) {
                     System.err.printf("required %s.%s -> but schema says nullable%n",
@@ -112,8 +113,9 @@ class TableDataRoundtripTest {
                     field.withRequired(false);
                 }
                 if(unique && !field.unique()) {
-//                    System.err.printf("unique %s.%s -> but schema says repeatable%n",
-//                            table.key(), col.name());
+                    System.err.printf("unique %s.%s -> but schema says repeatable%n",
+                            table.key(), col.name());
+                    field.withUnique(true);
                 } else if(!unique && field.unique()) {
                     System.err.printf("repeated %s.%s -> but schema says unique%n",
                             table.key(), col.name());

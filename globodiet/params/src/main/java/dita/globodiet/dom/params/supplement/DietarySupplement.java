@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Vitamin/supplement code",
+            describedAs = "Vitamin/supplement code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +74,7 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Vitamin/supplement name",
+            describedAs = "Vitamin/supplement name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -88,10 +89,12 @@ public class DietarySupplement {
     /**
      * Blank or 'GI' for generic vitamin/supplement
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Blank or 'GI' for generic vitamin/supplement",
+            describedAs = "Blank or 'GI' for generic vitamin/supplement<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -106,10 +109,12 @@ public class DietarySupplement {
     /**
      * Dietary Supplement classification code (optional)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Dietary Supplement classification code (optional)",
+            describedAs = "Dietary Supplement classification code (optional)<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -127,7 +132,7 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)",
+            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

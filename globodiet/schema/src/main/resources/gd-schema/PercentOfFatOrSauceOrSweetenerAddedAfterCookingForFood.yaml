@@ -30,7 +30,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -40,7 +40,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -50,7 +50,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -60,7 +60,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -70,7 +70,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -80,7 +80,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         X_GROUP
       foreignKeys: |
@@ -91,7 +91,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         X_GROUP
         X_SUBG1
@@ -103,7 +103,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM

@@ -30,7 +30,7 @@ params.setting.NoteStatus:
       column: S_CODE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.setting.NoteStatus:
       column: S_LABEL
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

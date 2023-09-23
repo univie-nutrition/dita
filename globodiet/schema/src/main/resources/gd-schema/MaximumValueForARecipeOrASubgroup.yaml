@@ -30,7 +30,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column: R_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -40,7 +40,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column: R_SUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -50,7 +50,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM

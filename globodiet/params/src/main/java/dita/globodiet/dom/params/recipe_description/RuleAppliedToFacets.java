@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class RuleAppliedToFacets {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet where the rule must be applied.",
+            describedAs = "Facet where the rule must be applied.<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -68,22 +69,17 @@ public class RuleAppliedToFacets {
     private String facetWhereTheRuleMustBeApplied;
 
     /**
-     * Rule: Facet (facet_code) will be displayed only if descriptor in facdesc<br>
-     * is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).<br>
-     * - When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).<br>
-     * - When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).<br>
-     * - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).<br>
+     * Rule: Facet (facet_code) will be displayed only if descriptor in facdesc
+     * is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).
+     * - When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).
+     * - When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).
+     * - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).
      * - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Rule: Facet (facet_code) will be displayed only if descriptor in facdesc<br>\n"
-                            + "is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).<br>\n"
-                            + "- When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).<br>\n"
-                            + "- When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).<br>\n"
-                            + "- When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).<br>\n"
-                            + "- When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.",
+            describedAs = "Rule: Facet (facet_code) will be displayed only if descriptor in facdesc<br>is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).<br>- When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).<br>- When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).<br>- When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).<br>- When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -98,10 +94,12 @@ public class RuleAppliedToFacets {
     /**
      * Recipe Group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe Group code",
+            describedAs = "Recipe Group code<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -116,10 +114,12 @@ public class RuleAppliedToFacets {
     /**
      * Recipe Subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe Subgroup code",
+            describedAs = "Recipe Subgroup code<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(

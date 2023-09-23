@@ -30,7 +30,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ
       column-type: int(10)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -93,7 +93,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: BRANDNAME
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -111,7 +111,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ_SEQ
       column-type: int(10)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -120,7 +120,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: COMMENT
       column-type: nvarchar(2147483647)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

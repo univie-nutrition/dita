@@ -33,7 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "4.1",
-        describedAs = "Dietary Supplement classification code (optional)",
+        describedAs = "Dietary Supplement classification code (optional)<br>----<br>required=false, unique=true",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

@@ -37,6 +37,7 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -65,7 +66,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code",
+            describedAs = "Facet code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -83,7 +84,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet name",
+            describedAs = "Facet name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -101,7 +102,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet text (text to show on the screen describing the facet)",
+            describedAs = "Facet text (text to show on the screen describing the facet)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,18 +115,15 @@ public class Facet implements HasSecondaryKey<Facet> {
     private String text;
 
     /**
-     * 0=Standard facets with descriptors available in Descface table<br>
-     * 1=Facets with descriptors available in Brandnam table<br>
-     * 2=Facets with descriptors available in Foods table - facet 15 type of fat<br>
+     * 0=Standard facets with descriptors available in Descface table
+     * 1=Facets with descriptors available in Brandnam table
+     * 2=Facets with descriptors available in Foods table - facet 15 type of fat
      * 3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=Standard facets with descriptors available in Descface table<br>\n"
-                            + "1=Facets with descriptors available in Brandnam table<br>\n"
-                            + "2=Facets with descriptors available in Foods table - facet 15 type of fat<br>\n"
-                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used",
+            describedAs = "0=Standard facets with descriptors available in Descface table<br>1=Facets with descriptors available in Brandnam table<br>2=Facets with descriptors available in Foods table - facet 15 type of fat<br>3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -137,14 +135,13 @@ public class Facet implements HasSecondaryKey<Facet> {
     private int type;
 
     /**
-     * 0 = facet with mono-selection of descriptor<br>
+     * 0 = facet with mono-selection of descriptor
      * 1 = facets with multi-selection of descriptors
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0 = facet with mono-selection of descriptor<br>\n"
-                            + "1 = facets with multi-selection of descriptors",
+            describedAs = "0 = facet with mono-selection of descriptor<br>1 = facets with multi-selection of descriptors<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -156,14 +153,15 @@ public class Facet implements HasSecondaryKey<Facet> {
     private int typeCardinality;
 
     /**
-     * If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>
+     * If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.
      * Comma is used as delimiter (e.g. 10,050701,050702)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>\n"
-                            + "Comma is used as delimiter (e.g. 10,050701,050702)",
+            describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>Comma is used as delimiter (e.g. 10,050701,050702)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -181,7 +179,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Label on how to ask the facet question",
+            describedAs = "Label on how to ask the facet question<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

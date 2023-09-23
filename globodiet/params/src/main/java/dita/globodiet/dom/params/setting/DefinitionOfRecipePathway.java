@@ -30,6 +30,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -51,28 +52,20 @@ import org.apache.causeway.applib.annotation.Where;
 )
 public class DefinitionOfRecipePathway {
     /**
-     * Type of recipe:<br>
-     * 1.1=Open – Known<br>
-     * 1.2=Open – Unknown<br>
-     * 1.3=Open with brand<br>
-     * 2.1=Closed<br>
-     * 2.2=Closed with brand<br>
-     * 3.0=Commercial<br>
-     * 4.1=New – Known<br>
+     * Type of recipe:
+     * 1.1=Open – Known
+     * 1.2=Open – Unknown
+     * 1.3=Open with brand
+     * 2.1=Closed
+     * 2.2=Closed with brand
+     * 3.0=Commercial
+     * 4.1=New – Known
      * 4.2=New – Unknown
      */
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Type of recipe:<br>\n"
-                            + "1.1=Open – Known<br>\n"
-                            + "1.2=Open – Unknown<br>\n"
-                            + "1.3=Open with brand<br>\n"
-                            + "2.1=Closed<br>\n"
-                            + "2.2=Closed with brand<br>\n"
-                            + "3.0=Commercial<br>\n"
-                            + "4.1=New – Known<br>\n"
-                            + "4.2=New – Unknown",
+            describedAs = "Type of recipe:<br>1.1=Open – Known<br>1.2=Open – Unknown<br>1.3=Open with brand<br>2.1=Closed<br>2.2=Closed with brand<br>3.0=Commercial<br>4.1=New – Known<br>4.2=New – Unknown<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -90,7 +83,7 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "1 = The ingredient window is displayed 0 = The ingredient window is not displayed",
+            describedAs = "1 = The ingredient window is displayed 0 = The ingredient window is not displayed<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -102,18 +95,17 @@ public class DefinitionOfRecipePathway {
     private int ingredientWindowIsDisplayedQ;
 
     /**
-     * Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>
-     * 1 = S - Substitute<br>
-     * 2 = SAD - Substitute, Add & Delete<br>
+     * Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):
+     * 1 = S - Substitute
+     * 2 = SAD - Substitute, Add & Delete
      * 3 = SADQ - Substitute, Add, Delete & Quantify
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>\n"
-                            + "1 = S - Substitute<br>\n"
-                            + "2 = SAD - Substitute, Add & Delete<br>\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
+            describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>1 = S - Substitute<br>2 = SAD - Substitute, Add & Delete<br>3 = SADQ - Substitute, Add, Delete & Quantify<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -125,18 +117,15 @@ public class DefinitionOfRecipePathway {
     private Integer functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed;
 
     /**
-     * Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):<br>
-     * 1 = S - Substitute<br>
-     * 2 = SAD - Substitute, Add & Delete<br>
+     * Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):
+     * 1 = S - Substitute
+     * 2 = SAD - Substitute, Add & Delete
      * 3 = SADQ - Substitute, Add, Delete & Quantify
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):<br>\n"
-                            + "1 = S - Substitute<br>\n"
-                            + "2 = SAD - Substitute, Add & Delete<br>\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
+            describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):<br>1 = S - Substitute<br>2 = SAD - Substitute, Add & Delete<br>3 = SADQ - Substitute, Add, Delete & Quantify<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -148,18 +137,15 @@ public class DefinitionOfRecipePathway {
     private int functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed;
 
     /**
-     * Display of the automatic note window:<br>
-     * 0 = No display of note window<br>
-     * 1 = Display of note window<br>
+     * Display of the automatic note window:
+     * 0 = No display of note window
+     * 1 = Display of note window
      * 2 = Display of note window only for Add & Delete functions
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Display of the automatic note window:<br>\n"
-                            + "0 = No display of note window<br>\n"
-                            + "1 = Display of note window<br>\n"
-                            + "2 = Display of note window only for Add & Delete functions",
+            describedAs = "Display of the automatic note window:<br>0 = No display of note window<br>1 = Display of note window<br>2 = Display of note window only for Add & Delete functions<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

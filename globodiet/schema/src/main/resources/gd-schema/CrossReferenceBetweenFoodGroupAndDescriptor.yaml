@@ -30,7 +30,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -40,7 +40,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -50,7 +50,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -60,7 +60,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -70,7 +70,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator: |
         FACET_CODE
       foreignKeys: |

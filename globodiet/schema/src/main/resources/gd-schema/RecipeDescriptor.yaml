@@ -32,7 +32,7 @@ params.recipe_description.RecipeDescriptor:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_FACET.RFACET_CODE
@@ -42,7 +42,7 @@ params.recipe_description.RecipeDescriptor:
       column: RDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -51,7 +51,7 @@ params.recipe_description.RecipeDescriptor:
       column: RDESCR_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

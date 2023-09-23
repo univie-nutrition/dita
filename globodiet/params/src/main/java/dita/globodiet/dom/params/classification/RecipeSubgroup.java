@@ -65,7 +65,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group code",
+            describedAs = "Recipe group code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -83,7 +83,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe sub-group code",
+            describedAs = "Recipe sub-group code<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -101,7 +101,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Name of the recipe (sub-)group",
+            describedAs = "Name of the recipe (sub-)group<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -119,7 +119,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Short Name of the recipe (sub-)group",
+            describedAs = "Short Name of the recipe (sub-)group<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -30,7 +30,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column: R_GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -40,7 +40,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -53,7 +53,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE

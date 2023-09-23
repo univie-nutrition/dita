@@ -259,13 +259,19 @@ public class OrmModel {
 
             return parsedMaxLength;
         }
-        public String formatDescription(final String continuation) {
-            if(isMultilineStringBlank(description)) {
-                return "has no description";
-            }
-            return description()
-                    .stream()
-                    .map(String::trim)
+        public String formatDescription(final String continuation, final String ... moreLines) {
+            var descriptionLines = (isMultilineStringBlank(description())
+                    ? Can.of("has no description")
+                    : description()
+                        .stream()
+                        .map(String::trim)
+                        .collect(Can.toCan()));
+            val more = _NullSafe.stream(moreLines)
+                .map(String::trim)
+                .collect(Can.toCan());
+            descriptionLines = descriptionLines.addAll(more);
+//"----", String.format("required=%b, unique=%b", required(), unique())
+            return descriptionLines.stream()
                     .collect(Collectors.joining(continuation));
         }
         public String sequence() {

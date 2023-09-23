@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "food ID number",
+            describedAs = "food ID number<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -68,18 +69,17 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     private String foodCode;
 
     /**
-     * Facet codes that MUST appear in the sequence of facets corresponding to this food<br>
-     * (superseeding its group pathway).<br>
-     * The list of descriptors will be the ones defined for the subgroup in GROUPFAC file<br>
+     * Facet codes that MUST appear in the sequence of facets corresponding to this food
+     * (superseeding its group pathway).
+     * The list of descriptors will be the ones defined for the subgroup in GROUPFAC file
      * (Assuming always a subset)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food<br>\n"
-                            + "(superseeding its group pathway).<br>\n"
-                            + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file<br>\n"
-                            + "(Assuming always a subset)",
+            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food<br>(superseeding its group pathway).<br>The list of descriptors will be the ones defined for the subgroup in GROUPFAC file<br>(Assuming always a subset)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,7 +97,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)",
+            describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

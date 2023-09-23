@@ -148,7 +148,7 @@ implements ForeignKeyLookupService {
         }
         if(entity instanceof StandardUnitForFoodOrRecipe x) {
             return "2".equals(x.getType())
-                    ? 2
+                    ? 1 //2
                     : 1;
         }
         if(entity instanceof QuantificationMethodsPathwayForFood x) {

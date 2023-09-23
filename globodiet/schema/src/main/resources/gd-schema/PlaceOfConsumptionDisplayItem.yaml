@@ -30,7 +30,7 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       column: FCO_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         POC.POC_CODE
@@ -40,7 +40,7 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       column: TEXT
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

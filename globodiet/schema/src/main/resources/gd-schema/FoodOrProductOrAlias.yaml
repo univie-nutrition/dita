@@ -31,7 +31,7 @@ params.food_list.FoodOrProductOrAlias:
       column: FOODNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -40,7 +40,7 @@ params.food_list.FoodOrProductOrAlias:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -50,7 +50,7 @@ params.food_list.FoodOrProductOrAlias:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -60,7 +60,7 @@ params.food_list.FoodOrProductOrAlias:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -70,7 +70,7 @@ params.food_list.FoodOrProductOrAlias:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -79,7 +79,7 @@ params.food_list.FoodOrProductOrAlias:
       column: TYPE
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

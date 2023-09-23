@@ -30,7 +30,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -40,7 +40,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -53,7 +53,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE

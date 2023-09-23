@@ -55,7 +55,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Standard portion quantity",
+            describedAs = "Standard portion quantity<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -72,7 +72,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food identification number (=FOODMUM)",
+            describedAs = "Food identification number (=FOODMUM)<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -90,7 +90,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw, 2 = cooked (as estimated)",
+            describedAs = "1 = raw, 2 = cooked (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -108,7 +108,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)",
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -126,7 +126,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Comment attached to the standard portion",
+            describedAs = "Comment attached to the standard portion<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -144,7 +144,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Standard portion code for the same food (0001, 0002, 0003)",
+            describedAs = "Standard portion code for the same food (0001, 0002, 0003)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -162,7 +162,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "G = in grams, V = in ml (volume)",
+            describedAs = "G = in grams, V = in ml (volume)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -180,7 +180,7 @@ public class StandardPortionForFood {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Order to display the standard portion",
+            describedAs = "Order to display the standard portion<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

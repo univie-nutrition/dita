@@ -32,7 +32,7 @@ params.food_descript.FacetDescriptor:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -42,7 +42,7 @@ params.food_descript.FacetDescriptor:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

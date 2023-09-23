@@ -50,7 +50,7 @@ params.recipe_list.Recipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -59,7 +59,7 @@ params.recipe_list.Recipe:
       column: R_GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -69,7 +69,7 @@ params.recipe_list.Recipe:
       column: R_SUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -79,7 +79,7 @@ params.recipe_list.Recipe:
       column: R_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -105,7 +105,7 @@ params.recipe_list.Recipe:
       column: R_BRAND
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -114,7 +114,7 @@ params.recipe_list.Recipe:
       column: TYPE
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

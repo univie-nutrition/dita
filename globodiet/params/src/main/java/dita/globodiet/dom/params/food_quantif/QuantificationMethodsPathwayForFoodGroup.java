@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code",
+            describedAs = "Food group code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -73,7 +74,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code",
+            describedAs = "Food subgroup code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,10 +89,12 @@ public class QuantificationMethodsPathwayForFoodGroup {
     /**
      * Food sub-subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-subgroup code",
+            describedAs = "Food sub-subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -106,10 +109,12 @@ public class QuantificationMethodsPathwayForFoodGroup {
     /**
      * Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)",
+            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -124,10 +129,12 @@ public class QuantificationMethodsPathwayForFoodGroup {
     /**
      * 1=raw, 2=cooked (as Consumed)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=raw, 2=cooked (as Consumed)",
+            describedAs = "1=raw, 2=cooked (as Consumed)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -140,22 +147,17 @@ public class QuantificationMethodsPathwayForFoodGroup {
     private String rawOrCookedAsConsumed;
 
     /**
-     * Quantification method code:<br>
-     * 'P' for photo,<br>
-     * 'H' for HHM,<br>
-     * 'U' for stdu,<br>
-     * 'S' for standard portion,<br>
+     * Quantification method code:
+     * 'P' for photo,
+     * 'H' for HHM,
+     * 'U' for stdu,
+     * 'S' for standard portion,
      * 'A' for shape
      */
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Quantification method code:<br>\n"
-                            + "'P' for photo,<br>\n"
-                            + "'H' for HHM,<br>\n"
-                            + "'U' for stdu,<br>\n"
-                            + "'S' for standard portion,<br>\n"
-                            + "'A' for shape",
+            describedAs = "Quantification method code:<br>'P' for photo,<br>'H' for HHM,<br>'U' for stdu,<br>'S' for standard portion,<br>'A' for shape<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -168,14 +170,15 @@ public class QuantificationMethodsPathwayForFoodGroup {
     private String quantificationMethodCode;
 
     /**
-     * Photo code (if method='P' and 'A');<br>
+     * Photo code (if method='P' and 'A');
      * either M_photos.ph_code or M_shapes.sh_code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Photo code (if method='P' and 'A');<br>\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code",
+            describedAs = "Photo code (if method='P' and 'A');<br>either M_photos.ph_code or M_shapes.sh_code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -193,7 +196,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Comment",
+            describedAs = "Comment<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -64,7 +64,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Photo series code (P001,P002,P003,...)",
+            describedAs = "Photo series code (P001,P002,P003,...)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -82,7 +82,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)",
+            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -100,7 +100,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw, 2 = cooked (as estimated)",
+            describedAs = "1 = raw, 2 = cooked (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -118,7 +118,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)",
+            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -136,7 +136,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "G = in grams, V = in ml (volume)",
+            describedAs = "G = in grams, V = in ml (volume)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

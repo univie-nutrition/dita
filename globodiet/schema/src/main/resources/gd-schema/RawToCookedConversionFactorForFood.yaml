@@ -30,7 +30,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -49,7 +49,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
-      unique: true
+      unique: false
       plural: true
       discriminator:
       foreignKeys: |
@@ -61,7 +61,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       column: PRIORITY
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

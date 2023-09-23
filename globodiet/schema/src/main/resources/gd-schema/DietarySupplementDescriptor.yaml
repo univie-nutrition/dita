@@ -30,7 +30,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -48,7 +48,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DS_FACET.DSFACET_CODE
@@ -98,7 +98,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_ORDER
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

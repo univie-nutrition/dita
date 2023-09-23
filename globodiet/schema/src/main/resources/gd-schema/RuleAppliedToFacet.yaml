@@ -30,7 +30,7 @@ params.food_descript.RuleAppliedToFacet:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -40,7 +40,7 @@ params.food_descript.RuleAppliedToFacet:
       column: FACDESC
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
@@ -54,7 +54,7 @@ params.food_descript.RuleAppliedToFacet:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -64,7 +64,7 @@ params.food_descript.RuleAppliedToFacet:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -74,7 +74,7 @@ params.food_descript.RuleAppliedToFacet:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2

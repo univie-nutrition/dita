@@ -37,6 +37,7 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -61,10 +62,12 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     /**
      * Dietary Supplement classification code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Dietary Supplement classification code",
+            describedAs = "Dietary Supplement classification code<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -79,10 +82,12 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     /**
      * Name of the food (sub-)(sub-)group
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Name of the food (sub-)(sub-)group",
+            describedAs = "Name of the food (sub-)(sub-)group<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,10 +102,12 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     /**
      * Dietary Supplement classification code attached to (for subgroup)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Dietary Supplement classification code attached to (for subgroup)",
+            describedAs = "Dietary Supplement classification code attached to (for subgroup)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -30,6 +30,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -53,10 +54,12 @@ public class RecipeIngredientQuantification {
     /**
      * Recipe ID number the ingredient belong to
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number the ingredient belong to",
+            describedAs = "Recipe ID number the ingredient belong to<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -71,10 +74,12 @@ public class RecipeIngredientQuantification {
     /**
      * Sequential Number within a Mixed Recipe for Ingredient
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Sequential Number within a Mixed Recipe for Ingredient",
+            describedAs = "Sequential Number within a Mixed Recipe for Ingredient<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -88,10 +93,12 @@ public class RecipeIngredientQuantification {
     /**
      * Ingredient Food or Recipe ID number
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Ingredient Food or Recipe ID number",
+            describedAs = "Ingredient Food or Recipe ID number<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -106,10 +113,12 @@ public class RecipeIngredientQuantification {
     /**
      * Order of shape selection (e.g. 1)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Order of shape selection (e.g. 1)",
+            describedAs = "Order of shape selection (e.g. 1)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,10 +132,12 @@ public class RecipeIngredientQuantification {
     /**
      * Shape code (e.g. S001)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Shape code (e.g. S001)",
+            describedAs = "Shape code (e.g. S001)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -141,10 +152,12 @@ public class RecipeIngredientQuantification {
     /**
      * Shape surface in cm2 (e.g. 200cm2). 2 decimals
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals",
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -158,10 +171,12 @@ public class RecipeIngredientQuantification {
     /**
      * Shape: Thickness code (e.g. A or 58_1)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Shape: Thickness code (e.g. A or 58_1)",
+            describedAs = "Shape: Thickness code (e.g. A or 58_1)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -176,10 +191,12 @@ public class RecipeIngredientQuantification {
     /**
      * Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals",
+            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -193,10 +210,12 @@ public class RecipeIngredientQuantification {
     /**
      * Photo: Number of the Selected Photo (e.g. 1 or 4)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)",
+            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -211,10 +230,12 @@ public class RecipeIngredientQuantification {
     /**
      * Photo quantity
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Photo quantity",
+            describedAs = "Photo quantity<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -228,10 +249,12 @@ public class RecipeIngredientQuantification {
     /**
      * Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)",
+            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -246,10 +269,12 @@ public class RecipeIngredientQuantification {
     /**
      * Sequential Number for Ingredients within a Sub-Recipe
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "12",
-            describedAs = "Sequential Number for Ingredients within a Sub-Recipe",
+            describedAs = "Sequential Number for Ingredients within a Sub-Recipe<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

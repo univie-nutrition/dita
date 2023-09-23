@@ -30,7 +30,7 @@ params.quantif.HouseholdMeasure:
       column: HHM_CODE
       column-type: nvarchar(4)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -58,7 +58,7 @@ params.quantif.HouseholdMeasure:
       column: COMMENT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -67,7 +67,7 @@ params.quantif.HouseholdMeasure:
       column: D_ORDER
       column-type: float(53)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

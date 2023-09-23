@@ -34,7 +34,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "7.1",
-        describedAs = "Shape: Thickness code (e.g. A or 58_1)",
+        describedAs = "Shape: Thickness code (e.g. A or 58_1)<br>----<br>required=false, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

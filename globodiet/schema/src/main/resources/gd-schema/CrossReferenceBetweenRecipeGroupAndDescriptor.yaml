@@ -30,7 +30,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RGROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -40,7 +40,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -50,7 +50,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_FACET.RFACET_CODE
@@ -60,7 +60,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_DESCFACE.RDESCR_CODE

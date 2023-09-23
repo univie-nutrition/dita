@@ -30,7 +30,7 @@ params.interview.Interviewer:
       column: INTV_CODE
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.interview.Interviewer:
       column: INTV_FNAME
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -48,7 +48,7 @@ params.interview.Interviewer:
       column: INTV_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -57,7 +57,7 @@ params.interview.Interviewer:
       column: COUNTRY
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         COUNTRY.CTRYCODE
@@ -67,7 +67,7 @@ params.interview.Interviewer:
       column: CENTER
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         CENTERS.CNTR_CODE

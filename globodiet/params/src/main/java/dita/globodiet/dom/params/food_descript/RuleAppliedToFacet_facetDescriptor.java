@@ -33,10 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "2.1",
-        describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
-                        + "to allow the facet (FACET_CODE) to be asked.\n"
-                        + "Additionally a group/subgroup code can be defined to force the food being described\n"
-                        + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
+        describedAs = "Facet code + Descriptor code that must exist in the current food description<br>to allow the facet (FACET_CODE) to be asked.<br>Additionally a group/subgroup code can be defined to force the food being described<br>to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).<br>----<br>required=true, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

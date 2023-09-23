@@ -30,7 +30,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       column: FOODNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -40,7 +40,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE

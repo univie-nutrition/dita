@@ -39,7 +39,7 @@ params.food_quantif.StandardPortionForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -76,7 +76,7 @@ params.food_quantif.StandardPortionForFood:
       column: PORT_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

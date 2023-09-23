@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class PercentOfFatLeftInTheDishForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Group code of the FAT's group",
+            describedAs = "Group code of the FAT's group<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -71,10 +72,12 @@ public class PercentOfFatLeftInTheDishForFood {
     /**
      * Subgroup code of the FAT
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Subgroup code of the FAT",
+            describedAs = "Subgroup code of the FAT<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,10 +92,12 @@ public class PercentOfFatLeftInTheDishForFood {
     /**
      * Sub-Subgroup code of the FAT
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Sub-Subgroup code of the FAT",
+            describedAs = "Sub-Subgroup code of the FAT<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -110,7 +115,7 @@ public class PercentOfFatLeftInTheDishForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Percentage of fat left in the dish",
+            describedAs = "Percentage of fat left in the dish<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

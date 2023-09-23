@@ -37,6 +37,7 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -64,7 +65,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)",
+            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -82,7 +83,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "has no description",
+            describedAs = "has no description<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -99,7 +100,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)",
+            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -112,20 +113,16 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     private String comment;
 
     /**
-     * For the food items, the food (sub)groups for which this thickness has to be proposed.<br>
-     * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)<br>
-     * When this field is empty, that means that this thickness has always to be proposed<br>
-     * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1<br>
+     * For the food items, the food (sub)groups for which this thickness has to be proposed.
+     * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)
+     * When this field is empty, that means that this thickness has always to be proposed
+     * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1
      * and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.<br>\n"
-                            + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)<br>\n"
-                            + "When this field is empty, that means that this thickness has always to be proposed<br>\n"
-                            + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1<br>\n"
-                            + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
+            describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.<br>These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)<br>When this field is empty, that means that this thickness has always to be proposed<br>whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1<br>and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -138,18 +135,17 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     private String foodSubgroupsLookupKey;
 
     /**
-     * For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.<br>
-     * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)<br>
-     * When this field is empty, that means that this thickness has always to be proposed<br>
+     * For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
+     * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
+     * When this field is empty, that means that this thickness has always to be proposed
      * whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.<br>\n"
-                            + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)<br>\n"
-                            + "When this field is empty, that means that this thickness has always to be proposed<br>\n"
-                            + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)",
+            describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.<br>These (sub)groups have to be separated with a comma (e.g. 01,02,0301)<br>When this field is empty, that means that this thickness has always to be proposed<br>whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

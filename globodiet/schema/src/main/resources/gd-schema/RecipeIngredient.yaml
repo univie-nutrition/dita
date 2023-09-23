@@ -30,7 +30,7 @@ params.recipe_list.RecipeIngredient:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -112,7 +112,7 @@ params.recipe_list.RecipeIngredient:
       column: BRANDNAME
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -256,7 +256,7 @@ params.recipe_list.RecipeIngredient:
       column: ING_NUM
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -337,7 +337,7 @@ params.recipe_list.RecipeIngredient:
       column: S_ING_NUM
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -373,7 +373,7 @@ params.recipe_list.RecipeIngredient:
       column: TYPE_IT
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -383,7 +383,7 @@ params.recipe_list.RecipeIngredient:
       column: IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -403,7 +403,7 @@ params.recipe_list.RecipeIngredient:
       column: PCT_RAW
       column-type: float(53)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description:

@@ -56,7 +56,7 @@ public class PlaceOfConsumptionDisplayItem {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Place of Consumption code",
+            describedAs = "Place of Consumption code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -74,7 +74,7 @@ public class PlaceOfConsumptionDisplayItem {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Item label",
+            describedAs = "Item label<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

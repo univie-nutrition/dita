@@ -30,7 +30,7 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -40,7 +40,7 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       column: DESC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator: |
         FACET_CODE
       foreignKeys: |

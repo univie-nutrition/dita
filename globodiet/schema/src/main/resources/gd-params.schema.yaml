@@ -31,7 +31,7 @@ params.classification.FoodGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -40,7 +40,7 @@ params.classification.FoodGroup:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -49,7 +49,7 @@ params.classification.FoodGroup:
       column: NAME_SHORT
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -76,7 +76,7 @@ params.classification.FoodSubgroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -86,7 +86,7 @@ params.classification.FoodSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -95,7 +95,7 @@ params.classification.FoodSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -104,7 +104,7 @@ params.classification.FoodSubgroup:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -142,7 +142,7 @@ params.classification.FoodSubgroup:
       column: NAME_SHORT
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -161,7 +161,7 @@ params.classification.RecipeGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -170,7 +170,7 @@ params.classification.RecipeGroup:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -179,7 +179,7 @@ params.classification.RecipeGroup:
       column: NAMEG_SHORT
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -199,7 +199,7 @@ params.classification.RecipeSubgroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -209,7 +209,7 @@ params.classification.RecipeSubgroup:
       column: SUBGROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -218,7 +218,7 @@ params.classification.RecipeSubgroup:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -227,7 +227,7 @@ params.classification.RecipeSubgroup:
       column: NAMES_SHORT
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -245,7 +245,7 @@ params.food_coefficient.DensityFactorForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -266,7 +266,7 @@ params.food_coefficient.DensityFactorForFood:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
-      unique: true
+      unique: false
       plural: true
       discriminator:
       foreignKeys: |
@@ -279,7 +279,7 @@ params.food_coefficient.DensityFactorForFood:
       column: PRIORITY
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -288,7 +288,7 @@ params.food_coefficient.DensityFactorForFood:
       column: EDIB
       column-type: nvarchar(1)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -308,7 +308,7 @@ params.food_coefficient.DensityFactorForFood:
       column: D_TYPE
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -327,7 +327,7 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -346,7 +346,7 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
@@ -357,7 +357,7 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column: PRIORITY
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -375,7 +375,7 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -385,7 +385,7 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         GROUP
       foreignKeys: |
@@ -396,7 +396,7 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         GROUP
         SUBGROUP1
@@ -426,7 +426,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -436,7 +436,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -446,7 +446,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -456,7 +456,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: FOOD_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -466,7 +466,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -476,7 +476,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         X_GROUP
       foreignKeys: |
@@ -487,7 +487,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         X_GROUP
         X_SUBG1
@@ -499,7 +499,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       column: X_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -527,7 +527,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -537,7 +537,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -547,7 +547,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -557,7 +557,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FOOD_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -567,7 +567,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -577,7 +577,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -587,7 +587,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -597,7 +597,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: FAT_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -607,7 +607,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column: COOK_METH
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
@@ -636,7 +636,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -655,7 +655,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
-      unique: true
+      unique: false
       plural: true
       discriminator:
       foreignKeys: |
@@ -667,7 +667,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       column: PRIORITY
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -685,7 +685,7 @@ params.food_descript.Brand:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -694,7 +694,7 @@ params.food_descript.Brand:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -704,7 +704,7 @@ params.food_descript.Brand:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         GROUP
       foreignKeys: |
@@ -715,7 +715,7 @@ params.food_descript.Brand:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         GROUP
         SUBGROUP1
@@ -736,7 +736,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -746,7 +746,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -756,7 +756,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -766,7 +766,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -776,7 +776,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator: |
         FACET_CODE
       foreignKeys: |
@@ -832,7 +832,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       column: FOODNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -842,7 +842,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -874,7 +874,7 @@ params.food_descript.Facet:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -883,7 +883,7 @@ params.food_descript.Facet:
       column: FACET_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -892,7 +892,7 @@ params.food_descript.Facet:
       column: FACET_TEXT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -923,7 +923,7 @@ params.food_descript.Facet:
       column: FACET_GRP
       column-type: nvarchar(2147483647)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -933,7 +933,7 @@ params.food_descript.Facet:
       column: FACET_QUEST
       column-type: nvarchar(300)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -953,7 +953,7 @@ params.food_descript.FacetDescriptor:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -963,7 +963,7 @@ params.food_descript.FacetDescriptor:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1019,7 +1019,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -1029,7 +1029,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -1039,7 +1039,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -1049,7 +1049,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -1059,7 +1059,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -1069,7 +1069,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator: |
         FACET_CODE
       foreignKeys: |
@@ -1098,7 +1098,7 @@ params.food_descript.RuleAppliedToFacet:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -1108,7 +1108,7 @@ params.food_descript.RuleAppliedToFacet:
       column: FACDESC
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
@@ -1122,7 +1122,7 @@ params.food_descript.RuleAppliedToFacet:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -1132,7 +1132,7 @@ params.food_descript.RuleAppliedToFacet:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -1142,7 +1142,7 @@ params.food_descript.RuleAppliedToFacet:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -1202,7 +1202,7 @@ params.food_list.FoodOrProductOrAlias:
       column: FOODNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1211,7 +1211,7 @@ params.food_list.FoodOrProductOrAlias:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -1221,7 +1221,7 @@ params.food_list.FoodOrProductOrAlias:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -1231,7 +1231,7 @@ params.food_list.FoodOrProductOrAlias:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -1241,7 +1241,7 @@ params.food_list.FoodOrProductOrAlias:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1250,7 +1250,7 @@ params.food_list.FoodOrProductOrAlias:
       column: TYPE
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1302,7 +1302,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -1312,7 +1312,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -1322,7 +1322,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -1332,7 +1332,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column: IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1350,7 +1350,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column: FACETS_STR
       column-type: nvarchar(100)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
@@ -1361,7 +1361,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       column: PRIORITY
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1379,7 +1379,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         PROBQUE.PQ_CODE
@@ -1389,7 +1389,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -1399,7 +1399,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -1409,7 +1409,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -1419,7 +1419,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -1438,7 +1438,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -1448,7 +1448,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1461,7 +1461,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
@@ -1482,7 +1482,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -1492,7 +1492,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -1502,7 +1502,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -1512,7 +1512,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: PHYS_STATE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
@@ -1523,7 +1523,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: RAW_COOKED
       column-type: nvarchar(1)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1532,7 +1532,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1546,7 +1546,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
@@ -1585,7 +1585,7 @@ params.food_quantif.StandardPortionForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -1622,7 +1622,7 @@ params.food_quantif.StandardPortionForFood:
       column: PORT_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1658,7 +1658,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ
       column-type: int(10)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1721,7 +1721,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: BRANDNAME
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1739,7 +1739,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ_SEQ
       column-type: int(10)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1748,7 +1748,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: COMMENT
       column-type: nvarchar(2147483647)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1766,7 +1766,7 @@ params.food_table.NutrientListAndDefinition:
       column: NTR_CODE
       column-type: int(10)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1775,7 +1775,7 @@ params.food_table.NutrientListAndDefinition:
       column: NTR_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1803,7 +1803,7 @@ params.food_table.NutrientListAndDefinition:
       column: COMMENT
       column-type: nvarchar(2147483647)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1821,7 +1821,7 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column: SEQ
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1830,7 +1830,7 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column: NTR_CODE
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1857,7 +1857,7 @@ params.general_info.AnthropometricAverage:
       column: ANT_VAR
       column-type: nvarchar(15)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1866,7 +1866,7 @@ params.general_info.AnthropometricAverage:
       column: SEX
       column-type: tinyint(3)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1875,7 +1875,7 @@ params.general_info.AnthropometricAverage:
       column: AGE_MIN
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1884,7 +1884,7 @@ params.general_info.AnthropometricAverage:
       column: AGE_MAX
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1929,7 +1929,7 @@ params.general_info.FoodConsumptionOccasion:
       column: FCM_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1938,7 +1938,7 @@ params.general_info.FoodConsumptionOccasion:
       column: FCM_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1956,7 +1956,7 @@ params.general_info.FoodConsumptionOccasion:
       column: FCM_SNAME
       column-type: nvarchar(50)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1985,7 +1985,7 @@ params.general_info.PlaceOfConsumption:
       column: POC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -1994,7 +1994,7 @@ params.general_info.PlaceOfConsumption:
       column: POC_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2022,7 +2022,7 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       column: FCO_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         POC.POC_CODE
@@ -2032,7 +2032,7 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       column: TEXT
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2050,7 +2050,7 @@ params.general_info.SpecialDayPredefinedAnswer:
       column: SPY_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2059,7 +2059,7 @@ params.general_info.SpecialDayPredefinedAnswer:
       column: SPY_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2077,7 +2077,7 @@ params.general_info.SpecialDietPredefinedAnswer:
       column: SPD_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2086,7 +2086,7 @@ params.general_info.SpecialDietPredefinedAnswer:
       column: SPD_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2104,7 +2104,7 @@ params.general_info.TranslationInCountryLanguage:
       column: ARRAY_REF
       column-type: nvarchar(19)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2159,7 +2159,7 @@ params.interview.CenterInvolved:
       column: CNTR_CODE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2168,7 +2168,7 @@ params.interview.CenterInvolved:
       column: CTRYCODE
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         COUNTRY.CTRYCODE
@@ -2178,7 +2178,7 @@ params.interview.CenterInvolved:
       column: CNTR_NAME
       column-type: nvarchar(50)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2197,7 +2197,7 @@ params.interview.CountryInvolved:
       column: CTRYCODE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2206,7 +2206,7 @@ params.interview.CountryInvolved:
       column: CTRY_NAME
       column-type: nvarchar(50)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2224,7 +2224,7 @@ params.interview.Interviewer:
       column: INTV_CODE
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2233,7 +2233,7 @@ params.interview.Interviewer:
       column: INTV_FNAME
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2242,7 +2242,7 @@ params.interview.Interviewer:
       column: INTV_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2251,7 +2251,7 @@ params.interview.Interviewer:
       column: COUNTRY
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         COUNTRY.CTRYCODE
@@ -2261,7 +2261,7 @@ params.interview.Interviewer:
       column: CENTER
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         CENTERS.CNTR_CODE
@@ -2427,7 +2427,7 @@ params.probing.ProbingQuestion:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2436,7 +2436,7 @@ params.probing.ProbingQuestion:
       column: PQ_TEXT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2454,7 +2454,7 @@ params.quantif.HouseholdMeasure:
       column: HHM_CODE
       column-type: nvarchar(4)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2482,7 +2482,7 @@ params.quantif.HouseholdMeasure:
       column: COMMENT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2491,7 +2491,7 @@ params.quantif.HouseholdMeasure:
       column: D_ORDER
       column-type: float(53)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2510,7 +2510,7 @@ params.quantif.PhotoForQuantity:
       column: PH_CODE
       column-type: nvarchar(4)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2565,7 +2565,7 @@ params.quantif.Shape:
       column: SH_CODE
       column-type: nvarchar(5)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2592,7 +2592,7 @@ params.quantif.Shape:
       column: SH_ORDER
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2619,7 +2619,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -2649,7 +2649,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column: TYPE
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2668,7 +2668,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column: UNIT_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2706,7 +2706,7 @@ params.quantif.ThicknessForShapeMethod:
       column: TH_CODE
       column-type: nvarchar(10)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2723,7 +2723,7 @@ params.quantif.ThicknessForShapeMethod:
       column: TH_COMMENT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -2773,7 +2773,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: RECI_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -2783,7 +2783,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: RECI_SUBGR
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -2793,7 +2793,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: RECI_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -2803,7 +2803,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: X_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -2813,7 +2813,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: X_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -2823,7 +2823,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: X_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -2833,7 +2833,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column: X_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -2861,7 +2861,7 @@ params.recipe_description.BrandForRecipe:
       column: RGROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -2871,7 +2871,7 @@ params.recipe_description.BrandForRecipe:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -2898,7 +2898,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RGROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -2908,7 +2908,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -2918,7 +2918,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_FACET.RFACET_CODE
@@ -2928,7 +2928,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column: RDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_DESCFACE.RDESCR_CODE
@@ -2983,7 +2983,7 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -2993,7 +2993,7 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_FACET.RFACET_CODE
@@ -3025,7 +3025,7 @@ params.recipe_description.RecipeDescriptor:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         R_FACET.RFACET_CODE
@@ -3035,7 +3035,7 @@ params.recipe_description.RecipeDescriptor:
       column: RDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3044,7 +3044,7 @@ params.recipe_description.RecipeDescriptor:
       column: RDESCR_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3102,7 +3102,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3111,7 +3111,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3120,7 +3120,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_TEXT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3159,7 +3159,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_QUEST
       column-type: nvarchar(300)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3177,7 +3177,7 @@ params.recipe_description.RuleAppliedToFacets:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -3187,7 +3187,7 @@ params.recipe_description.RuleAppliedToFacets:
       column: R_FACDESC
       column-type: nvarchar(4)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3201,7 +3201,7 @@ params.recipe_description.RuleAppliedToFacets:
       column: RGROUP
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -3211,7 +3211,7 @@ params.recipe_description.RuleAppliedToFacets:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -3250,7 +3250,7 @@ params.recipe_list.Recipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3259,7 +3259,7 @@ params.recipe_list.Recipe:
       column: R_GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -3269,7 +3269,7 @@ params.recipe_list.Recipe:
       column: R_SUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -3279,7 +3279,7 @@ params.recipe_list.Recipe:
       column: R_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3305,7 +3305,7 @@ params.recipe_list.Recipe:
       column: R_BRAND
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3314,7 +3314,7 @@ params.recipe_list.Recipe:
       column: TYPE
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3350,7 +3350,7 @@ params.recipe_list.RecipeIngredient:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -3432,7 +3432,7 @@ params.recipe_list.RecipeIngredient:
       column: BRANDNAME
       column-type: nvarchar(100)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -3576,7 +3576,7 @@ params.recipe_list.RecipeIngredient:
       column: ING_NUM
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3657,7 +3657,7 @@ params.recipe_list.RecipeIngredient:
       column: S_ING_NUM
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3693,7 +3693,7 @@ params.recipe_list.RecipeIngredient:
       column: TYPE_IT
       column-type: tinyint(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3703,7 +3703,7 @@ params.recipe_list.RecipeIngredient:
       column: IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -3723,7 +3723,7 @@ params.recipe_list.RecipeIngredient:
       column: PCT_RAW
       column-type: float(53)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description:
@@ -3862,7 +3862,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column: R_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -3872,7 +3872,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column: R_SUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -3882,7 +3882,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -3910,7 +3910,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         PROBQUE.PQ_CODE
@@ -3920,7 +3920,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -3930,7 +3930,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: SUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -3940,7 +3940,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -3959,7 +3959,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
@@ -3969,7 +3969,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3982,7 +3982,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
@@ -4003,7 +4003,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column: R_GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -4013,7 +4013,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4026,7 +4026,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
@@ -4056,7 +4056,7 @@ params.setting.DayOfWeek:
       column: DAYOFWEEK
       column-type: nvarchar(1)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4065,7 +4065,7 @@ params.setting.DayOfWeek:
       column: DAY
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4083,7 +4083,7 @@ params.setting.DefinitionOfRecipePathway:
       column: R_TYPE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4154,7 +4154,7 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -4164,7 +4164,7 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       column: DESC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator: |
         FACET_CODE
       foreignKeys: |
@@ -4184,7 +4184,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: TYPE
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4193,7 +4193,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -4203,7 +4203,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -4213,7 +4213,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -4250,7 +4250,7 @@ params.setting.MacroNutrientLimit:
       column: NAME
       column-type: nvarchar(50)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4259,7 +4259,7 @@ params.setting.MacroNutrientLimit:
       column: MIN
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4268,7 +4268,7 @@ params.setting.MacroNutrientLimit:
       column: MAX
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4286,7 +4286,7 @@ params.setting.MacroNutrientLimit:
       column: SEX
       column-type: nvarchar(1)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4312,7 +4312,7 @@ params.setting.Month:
       column: MONTH_NUM
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4321,7 +4321,7 @@ params.setting.Month:
       column: MONTH
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4339,7 +4339,7 @@ params.setting.NoteStatus:
       column: S_CODE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4348,7 +4348,7 @@ params.setting.NoteStatus:
       column: S_LABEL
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4377,7 +4377,7 @@ params.setting.SelectedParameter:
       column: PARAM_LAB
       column-type: nvarchar(40)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4404,7 +4404,7 @@ params.setting.SelectedParameterForDataEntry:
       column: PARAM_LAB
       column-type: nvarchar(40)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4431,7 +4431,7 @@ params.supplement.DietarySupplement:
       column: CODE_VITA
       column-type: nvarchar(5)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4440,7 +4440,7 @@ params.supplement.DietarySupplement:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4458,7 +4458,7 @@ params.supplement.DietarySupplement:
       column: DS_CLASS
       column-type: nvarchar(20)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         DS_CLASSIF.DS_CLASS
@@ -4524,7 +4524,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4533,7 +4533,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4542,7 +4542,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         DS_FACET.DSFACET_CODE
@@ -4592,7 +4592,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_ORDER
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4620,7 +4620,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4629,7 +4629,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4638,7 +4638,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_QUANT
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4648,7 +4648,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_TYPE
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4659,7 +4659,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_MAIN
       column-type: tinyint(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4668,7 +4668,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_ORDER
       column-type: int(10)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -4677,7 +4677,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_QUEST
       column-type: nvarchar(300)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

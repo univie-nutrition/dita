@@ -30,6 +30,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class AnthropometricAverage {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Anthropometry variable (Height or Weight)",
+            describedAs = "Anthropometry variable (Height or Weight)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -71,10 +72,12 @@ public class AnthropometricAverage {
     /**
      * Sex (1 for men, 2 for women, blank for both)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Sex (1 for men, 2 for women, blank for both)",
+            describedAs = "Sex (1 for men, 2 for women, blank for both)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,7 +94,7 @@ public class AnthropometricAverage {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Age minimum range",
+            describedAs = "Age minimum range<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -108,7 +111,7 @@ public class AnthropometricAverage {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Age maximum range",
+            describedAs = "Age maximum range<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -125,7 +128,7 @@ public class AnthropometricAverage {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Minimum value of height or weight",
+            describedAs = "Minimum value of height or weight<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -142,7 +145,7 @@ public class AnthropometricAverage {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Maximum value of height or weight",
+            describedAs = "Maximum value of height or weight<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -159,7 +162,7 @@ public class AnthropometricAverage {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Default value of height or weight",
+            describedAs = "Default value of height or weight<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

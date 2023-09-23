@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class RuleAppliedToFacet {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet where the rule must be applied.",
+            describedAs = "Facet where the rule must be applied.<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -68,18 +69,15 @@ public class RuleAppliedToFacet {
     private String facetCode;
 
     /**
-     * Facet code + Descriptor code that must exist in the current food description<br>
-     * to allow the facet (FACET_CODE) to be asked.<br>
-     * Additionally a group/subgroup code can be defined to force the food being described<br>
+     * Facet code + Descriptor code that must exist in the current food description
+     * to allow the facet (FACET_CODE) to be asked.
+     * Additionally a group/subgroup code can be defined to force the food being described
      * to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet code + Descriptor code that must exist in the current food description<br>\n"
-                            + "to allow the facet (FACET_CODE) to be asked.<br>\n"
-                            + "Additionally a group/subgroup code can be defined to force the food being described<br>\n"
-                            + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
+            describedAs = "Facet code + Descriptor code that must exist in the current food description<br>to allow the facet (FACET_CODE) to be asked.<br>Additionally a group/subgroup code can be defined to force the food being described<br>to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -94,10 +92,12 @@ public class RuleAppliedToFacet {
     /**
      * Group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Group code",
+            describedAs = "Group code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -112,10 +112,12 @@ public class RuleAppliedToFacet {
     /**
      * Subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Subgroup code",
+            describedAs = "Subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -130,10 +132,12 @@ public class RuleAppliedToFacet {
     /**
      * Sub-subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Sub-subgroup code",
+            describedAs = "Sub-subgroup code<br>----<br>required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(

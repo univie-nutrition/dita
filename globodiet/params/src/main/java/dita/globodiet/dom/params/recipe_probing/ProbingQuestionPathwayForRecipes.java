@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -53,10 +54,12 @@ public class ProbingQuestionPathwayForRecipes {
     /**
      * Probing question code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Probing question code",
+            describedAs = "Probing question code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -71,10 +74,12 @@ public class ProbingQuestionPathwayForRecipes {
     /**
      * Recipe group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe group code",
+            describedAs = "Recipe group code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,10 +94,12 @@ public class ProbingQuestionPathwayForRecipes {
     /**
      * Recipe subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe subgroup code",
+            describedAs = "Recipe subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -107,10 +114,12 @@ public class ProbingQuestionPathwayForRecipes {
     /**
      * Recipe identification number (R_ IDNUM)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe identification number (R_ IDNUM)",
+            describedAs = "Recipe identification number (R_ IDNUM)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

@@ -30,7 +30,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: TYPE
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -49,7 +49,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -59,7 +59,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2

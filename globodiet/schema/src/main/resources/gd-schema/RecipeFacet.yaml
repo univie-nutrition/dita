@@ -31,7 +31,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -40,7 +40,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -49,7 +49,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_TEXT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -88,7 +88,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_QUEST
       column-type: nvarchar(300)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

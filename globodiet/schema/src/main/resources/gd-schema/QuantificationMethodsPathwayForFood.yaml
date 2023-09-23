@@ -30,7 +30,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column: ID_NUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -40,7 +40,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column: METHOD
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -53,7 +53,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE

@@ -30,6 +30,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Sequential number",
+            describedAs = "Sequential number<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +74,7 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached",
+            describedAs = "Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -88,10 +89,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Food or recipe group
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food or recipe group",
+            describedAs = "Food or recipe group<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -106,10 +109,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Food or recipe sub-group
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food or recipe sub-group",
+            describedAs = "Food or recipe sub-group<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -124,10 +129,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Food sub-sub-group
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food sub-sub-group",
+            describedAs = "Food sub-sub-group<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -142,10 +149,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Food or Recipe code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Food or Recipe code",
+            describedAs = "Food or Recipe code<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -160,10 +169,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Facet string
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Facet string",
+            describedAs = "Facet string<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -178,10 +189,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Brand name
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Brand name",
+            describedAs = "Brand name<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -199,7 +212,7 @@ public class FoodOrRecipeOrAttachment {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Priority order",
+            describedAs = "Priority order<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -213,10 +226,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Attached records: only for the Type=A2 & A3
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Attached records: only for the Type=A2 & A3",
+            describedAs = "Attached records: only for the Type=A2 & A3<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -230,10 +245,12 @@ public class FoodOrRecipeOrAttachment {
     /**
      * Comment
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Comment",
+            describedAs = "Comment<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

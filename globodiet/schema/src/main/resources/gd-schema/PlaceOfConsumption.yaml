@@ -31,7 +31,7 @@ params.general_info.PlaceOfConsumption:
       column: POC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -40,7 +40,7 @@ params.general_info.PlaceOfConsumption:
       column: POC_NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

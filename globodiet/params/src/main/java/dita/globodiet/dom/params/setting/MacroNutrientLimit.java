@@ -30,6 +30,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Name of nutrient",
+            describedAs = "Name of nutrient<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -74,7 +75,7 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Minimum value",
+            describedAs = "Minimum value<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,7 +92,7 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Maximum value",
+            describedAs = "Maximum value<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -105,10 +106,12 @@ public class MacroNutrientLimit {
     /**
      * Unit (g, kcal or blanc)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Unit (g, kcal or blanc)",
+            describedAs = "Unit (g, kcal or blanc)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,10 +126,12 @@ public class MacroNutrientLimit {
     /**
      * 1=man, 2=woman
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=man, 2=woman",
+            describedAs = "1=man, 2=woman<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -141,10 +146,12 @@ public class MacroNutrientLimit {
     /**
      * PAL value
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "PAL value",
+            describedAs = "PAL value<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -50,14 +51,13 @@ import org.apache.causeway.applib.annotation.Where;
 )
 public class DensityFactorForFood {
     /**
-     * Food identification number (FOODNUM)<br>
+     * Food identification number (FOODNUM)
      * either Foods.foodnum OR Mixedrec.r_idnum
      */
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)<br>\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum",
+            describedAs = "Food identification number (FOODNUM)<br>either Foods.foodnum OR Mixedrec.r_idnum<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -75,7 +75,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Density coefficient",
+            describedAs = "Density coefficient<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -87,14 +87,15 @@ public class DensityFactorForFood {
     private double densityCoefficient;
 
     /**
-     * Facet string<br>
+     * Facet string
      * multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet string<br>\n"
-                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+            describedAs = "Facet string<br>multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -112,7 +113,7 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Priority order",
+            describedAs = "Priority order<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -125,14 +126,15 @@ public class DensityFactorForFood {
     private String priority;
 
     /**
-     * 1 = without un-edible part,<br>
+     * 1 = without un-edible part,
      * 2 = with un-edible (as estimated)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1 = without un-edible part,<br>\n"
-                            + "2 = with un-edible (as estimated)",
+            describedAs = "1 = without un-edible part,<br>2 = with un-edible (as estimated)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -145,14 +147,15 @@ public class DensityFactorForFood {
     private String withUnediblePartQ;
 
     /**
-     * 1 = raw,<br>
+     * 1 = raw,
      * 2 = cooked (as estimated)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "1 = raw,<br>\n"
-                            + "2 = cooked (as estimated)",
+            describedAs = "1 = raw,<br>2 = cooked (as estimated)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -165,14 +168,13 @@ public class DensityFactorForFood {
     private String rawOrCooked;
 
     /**
-     * 1 = density for food/ingredient,<br>
+     * 1 = density for food/ingredient,
      * 2 = density for recipe
      */
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "1 = density for food/ingredient,<br>\n"
-                            + "2 = density for recipe",
+            describedAs = "1 = density for food/ingredient,<br>2 = density for recipe<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

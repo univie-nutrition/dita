@@ -30,7 +30,7 @@ params.food_descript.Brand:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.food_descript.Brand:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -49,7 +49,7 @@ params.food_descript.Brand:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         GROUP
       foreignKeys: |
@@ -60,7 +60,7 @@ params.food_descript.Brand:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator: |
         GROUP
         SUBGROUP1

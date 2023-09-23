@@ -55,7 +55,7 @@ public class NutrientValuesPerNutrientAndItem {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Item Sequential number",
+            describedAs = "Item Sequential number<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -72,7 +72,7 @@ public class NutrientValuesPerNutrientAndItem {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Nutrient code",
+            describedAs = "Nutrient code<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,7 +89,7 @@ public class NutrientValuesPerNutrientAndItem {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Nutrient value for the attached item & nutrient",
+            describedAs = "Nutrient value for the attached item & nutrient<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

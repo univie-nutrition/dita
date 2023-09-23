@@ -30,7 +30,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         PROBQUE.PQ_CODE
@@ -40,7 +40,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -50,7 +50,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: SUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -60,7 +60,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column: ID_NUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM

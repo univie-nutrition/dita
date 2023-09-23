@@ -55,7 +55,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number",
+            describedAs = "Recipe ID number<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -68,18 +68,15 @@ public class ExceptionToFacetsPathwayForRecipe {
     private String recipeCode;
 
     /**
-     * Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>
-     * (superseeding its group pathway).<br>
-     * The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file<br>
+     * Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe
+     * (superseeding its group pathway).
+     * The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file
      * (Assuming always a subset)
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>\n"
-                            + "(superseeding its group pathway).<br>\n"
-                            + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file<br>\n"
-                            + "(Assuming always a subset)",
+            describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>(superseeding its group pathway).<br>The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file<br>(Assuming always a subset)<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,7 +94,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "has no description",
+            describedAs = "has no description<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

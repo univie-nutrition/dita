@@ -30,7 +30,7 @@ params.supplement.DietarySupplement:
       column: CODE_VITA
       column-type: nvarchar(5)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.supplement.DietarySupplement:
       column: NAME
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -57,7 +57,7 @@ params.supplement.DietarySupplement:
       column: DS_CLASS
       column-type: nvarchar(20)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         DS_CLASSIF.DS_CLASS

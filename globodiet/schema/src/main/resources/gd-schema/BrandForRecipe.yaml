@@ -30,7 +30,7 @@ params.recipe_description.BrandForRecipe:
       column: RGROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RGROUPS.GROUP
@@ -40,7 +40,7 @@ params.recipe_description.BrandForRecipe:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         RSUBGR.SUBGROUP

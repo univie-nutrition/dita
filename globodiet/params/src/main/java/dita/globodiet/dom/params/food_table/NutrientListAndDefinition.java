@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Nutrient code",
+            describedAs = "Nutrient code<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -72,7 +73,7 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Nutrient Name",
+            describedAs = "Nutrient Name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -90,7 +91,7 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Nutrient unit (e.g. kcal, g, mg…)",
+            describedAs = "Nutrient unit (e.g. kcal, g, mg…)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -103,14 +104,13 @@ public class NutrientListAndDefinition {
     private String nutrientUnit;
 
     /**
-     * 0=not displayed in the 'nutrient checks' screen<br>
+     * 0=not displayed in the 'nutrient checks' screen
      * 1=displayed in the 'nutrient checks' screen
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=not displayed in the 'nutrient checks' screen<br>\n"
-                            + "1=displayed in the 'nutrient checks' screen",
+            describedAs = "0=not displayed in the 'nutrient checks' screen<br>1=displayed in the 'nutrient checks' screen<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -124,10 +124,12 @@ public class NutrientListAndDefinition {
     /**
      * Comment on nutrient
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Comment on nutrient",
+            describedAs = "Comment on nutrient<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

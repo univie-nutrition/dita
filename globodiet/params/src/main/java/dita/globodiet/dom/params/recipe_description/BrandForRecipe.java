@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -55,7 +56,7 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group",
+            describedAs = "Recipe group<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -70,10 +71,12 @@ public class BrandForRecipe {
     /**
      * Recipe subgroup
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe subgroup",
+            describedAs = "Recipe subgroup<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -91,7 +94,7 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "has no description",
+            describedAs = "has no description<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

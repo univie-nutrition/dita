@@ -37,6 +37,7 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -65,7 +66,7 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food/C.R. Identification Code",
+            describedAs = "Food/C.R. Identification Code<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -80,10 +81,12 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     /**
      * Food Group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food Group code",
+            describedAs = "Food Group code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -98,10 +101,12 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     /**
      * Food Subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food Subgroup code",
+            describedAs = "Food Subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -116,10 +121,12 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     /**
      * Food Sub(sub)group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food Sub(sub)group code",
+            describedAs = "Food Sub(sub)group code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -137,7 +144,7 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food/C.R. Name (Country name)",
+            describedAs = "Food/C.R. Name (Country name)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -150,42 +157,29 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     private String foodNativeName;
 
     /**
-     * Type of item:<br>
-     * (none) -> Normal Food Item<br>
-     * GI -> Generic Food Item<br>
-     * SH -> Shadow Item<br>
-     * CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>
-     * Definition: its different ingredients can be identified and<br>
-     * quantified separately after preparation<br>
-     * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>
-     * or just before mixing (e.g. coffee with milk).<br>
-     * Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>
-     * They are made from items listed below/linked to a quick list item.<br>
-     * Example: Salad<br>
-     * - Lettuce<br>
-     * - Tomato<br>
-     * - Cucumber<br>
+     * Type of item:
+     * (none) -> Normal Food Item
+     * GI -> Generic Food Item
+     * SH -> Shadow Item
+     * CR -> Composed Recipe (a.huber: does not appear to be used anywhere)
+     * Definition: its different ingredients can be identified and
+     * quantified separately after preparation
+     * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)
+     * or just before mixing (e.g. coffee with milk).
+     * Composed recipes are built during the interview: there is no a priori list of composed recipes.
+     * They are made from items listed below/linked to a quick list item.
+     * Example: Salad
+     * - Lettuce
+     * - Tomato
+     * - Cucumber
      * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Type of item:<br>\n"
-                            + "(none) -> Normal Food Item<br>\n"
-                            + "GI -> Generic Food Item<br>\n"
-                            + "SH -> Shadow Item<br>\n"
-                            + "CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>\n"
-                            + "Definition: its different ingredients can be identified and<br>\n"
-                            + "quantified separately after preparation<br>\n"
-                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>\n"
-                            + "or just before mixing (e.g. coffee with milk).<br>\n"
-                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>\n"
-                            + "They are made from items listed below/linked to a quick list item.<br>\n"
-                            + "Example: Salad<br>\n"
-                            + "- Lettuce<br>\n"
-                            + "- Tomato<br>\n"
-                            + "- Cucumber<br>\n"
-                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)",
+            describedAs = "Type of item:<br>(none) -> Normal Food Item<br>GI -> Generic Food Item<br>SH -> Shadow Item<br>CR -> Composed Recipe (a.huber: does not appear to be used anywhere)<br>Definition: its different ingredients can be identified and<br>quantified separately after preparation<br>(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>or just before mixing (e.g. coffee with milk).<br>Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>They are made from items listed below/linked to a quick list item.<br>Example: Salad<br>- Lettuce<br>- Tomato<br>- Cucumber<br>- Salad dressing (can be a recipe in some projects where all sauces are in recipes)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -198,14 +192,13 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     private String typeOfItem;
 
     /**
-     * Auxiliary field to force an internal order within each subgroup<br>
+     * Auxiliary field to force an internal order within each subgroup
      * (if GI then 1 otherwise 2, this forces the GI at the top)
      */
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Auxiliary field to force an internal order within each subgroup<br>\n"
-                            + "(if GI then 1 otherwise 2, this forces the GI at the top)",
+            describedAs = "Auxiliary field to force an internal order within each subgroup<br>(if GI then 1 otherwise 2, this forces the GI at the top)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -223,7 +216,7 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=food 1=food & dietary supplement",
+            describedAs = "0=food 1=food & dietary supplement<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

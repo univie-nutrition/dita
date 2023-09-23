@@ -37,6 +37,7 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -102,7 +103,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number",
+            describedAs = "Recipe ID number<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,7 +121,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Group code of the recipe classification",
+            describedAs = "Group code of the recipe classification<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -135,10 +136,12 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * Subgroup code of the recipe classification
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Subgroup code of the recipe classification",
+            describedAs = "Subgroup code of the recipe classification<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -156,7 +159,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe name",
+            describedAs = "Recipe name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -169,28 +172,20 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     private String name;
 
     /**
-     * Type of recipe:<br>
-     * 1.1=Open – Known<br>
-     * 1.2=Open – Unknown<br>
-     * 1.3=Open with brand<br>
-     * 2.1=Closed<br>
-     * 2.2=Closed with brand<br>
-     * 3.0=Commercial<br>
-     * 4.1=New – Known<br>
+     * Type of recipe:
+     * 1.1=Open – Known
+     * 1.2=Open – Unknown
+     * 1.3=Open with brand
+     * 2.1=Closed
+     * 2.2=Closed with brand
+     * 3.0=Commercial
+     * 4.1=New – Known
      * 4.2=New – Unknown
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Type of recipe:<br>\n"
-                            + "1.1=Open – Known<br>\n"
-                            + "1.2=Open – Unknown<br>\n"
-                            + "1.3=Open with brand<br>\n"
-                            + "2.1=Closed<br>\n"
-                            + "2.2=Closed with brand<br>\n"
-                            + "3.0=Commercial<br>\n"
-                            + "4.1=New – Known<br>\n"
-                            + "4.2=New – Unknown",
+            describedAs = "Type of recipe:<br>1.1=Open – Known<br>1.2=Open – Unknown<br>1.3=Open with brand<br>2.1=Closed<br>2.2=Closed with brand<br>3.0=Commercial<br>4.1=New – Known<br>4.2=New – Unknown<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -205,10 +200,12 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * Brand name for commercial recipe
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Brand name for commercial recipe",
+            describedAs = "Brand name for commercial recipe<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -223,10 +220,12 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * SH=Shadow
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "SH=Shadow",
+            describedAs = "SH=Shadow<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -239,14 +238,13 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     private String shadowQ;
 
     /**
-     * 0=recipe without sub-recipe<br>
+     * 0=recipe without sub-recipe
      * 1=recipe with sub-recipe
      */
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=recipe without sub-recipe<br>\n"
-                            + "1=recipe with sub-recipe",
+            describedAs = "0=recipe without sub-recipe<br>1=recipe with sub-recipe<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -263,7 +261,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "has no description",
+            describedAs = "has no description<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

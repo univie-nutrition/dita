@@ -29,6 +29,7 @@ import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
 
@@ -167,11 +168,14 @@ class _GenEntity {
         return fields.stream()
                 .map(field->
                     FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
-                    .addJavadoc(field.formatDescription("<br>\n"))
-                    .addAnnotation(_Annotations.property())
+                    .addJavadoc(field.formatDescription("\n"))
+                    .addAnnotation(!field.required()
+                            ? _Annotations.property(Optionality.OPTIONAL)
+                            : _Annotations.property())
                     .addAnnotation(_Annotations.propertyLayout(
                             field.sequence(),
-                            field.formatDescription("<br>\n"),
+                            field.formatDescription("<br>", "----",
+                                    String.format("required=%b, unique=%b", field.required(), field.unique())),
                             field.hasForeignKeys()
                             ? Where.ALL_TABLES
                             : Where.NOWHERE))
@@ -188,7 +192,7 @@ class _GenEntity {
         return fields.stream()
                 .map(field->
                     FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
-                    .addJavadoc(field.formatDescription("<br>\n"))
+                    .addJavadoc(field.formatDescription("<br>"))
                     .build())
                 .collect(Collectors.toList());
     }

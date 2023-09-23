@@ -34,7 +34,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "7.1",
-        describedAs = "Fat code for Fat or Sauce or Sweetener",
+        describedAs = "Fat code for Fat or Sauce or Sweetener<br>----<br>required=false, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

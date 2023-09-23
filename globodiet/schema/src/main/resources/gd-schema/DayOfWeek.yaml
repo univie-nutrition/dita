@@ -30,7 +30,7 @@ params.setting.DayOfWeek:
       column: DAYOFWEEK
       column-type: nvarchar(1)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.setting.DayOfWeek:
       column: DAY
       column-type: nvarchar(20)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

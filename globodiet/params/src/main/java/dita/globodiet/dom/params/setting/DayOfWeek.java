@@ -55,7 +55,7 @@ public class DayOfWeek {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Day number",
+            describedAs = "Day number<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +73,7 @@ public class DayOfWeek {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Day name",
+            describedAs = "Day name<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

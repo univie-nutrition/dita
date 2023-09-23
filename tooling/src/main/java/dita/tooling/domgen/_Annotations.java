@@ -39,6 +39,7 @@ import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -170,6 +171,11 @@ class _Annotations {
     }
     AnnotationSpec property() {
         return AnnotationSpec.builder(Property.class)
+                .build();
+    }
+    AnnotationSpec property(final Optionality optional) {
+        return AnnotationSpec.builder(Property.class)
+                .addMember("optionality", "$1T.$2L", Optionality.class, optional.name())
                 .build();
     }
     AnnotationSpec property(final Snapshot snapshot) {

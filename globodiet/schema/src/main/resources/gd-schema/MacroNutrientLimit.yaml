@@ -30,7 +30,7 @@ params.setting.MacroNutrientLimit:
       column: NAME
       column-type: nvarchar(50)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -39,7 +39,7 @@ params.setting.MacroNutrientLimit:
       column: MIN
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -48,7 +48,7 @@ params.setting.MacroNutrientLimit:
       column: MAX
       column-type: float(53)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -66,7 +66,7 @@ params.setting.MacroNutrientLimit:
       column: SEX
       column-type: nvarchar(1)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

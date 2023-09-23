@@ -29,6 +29,7 @@ import lombok.Setter;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
@@ -53,10 +54,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code",
+            describedAs = "Food group code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -71,10 +74,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Food subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code",
+            describedAs = "Food subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,10 +94,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Food sub-Subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-Subgroup code",
+            describedAs = "Food sub-Subgroup code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -107,10 +114,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Food code
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food code",
+            describedAs = "Food code<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -125,10 +134,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Fat group code for F/S/S
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Fat group code for F/S/S",
+            describedAs = "Fat group code for F/S/S<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -143,10 +154,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Fat subgroup code for F/S/S
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Fat subgroup code for F/S/S",
+            describedAs = "Fat subgroup code for F/S/S<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -161,10 +174,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Fat sub-subgroup code for F/S/S
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Fat sub-subgroup code for F/S/S",
+            describedAs = "Fat sub-subgroup code for F/S/S<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -179,10 +194,12 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Fat code for F/S/S
      */
-    @Property
+    @Property(
+            optionality = Optionality.OPTIONAL
+    )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Fat code for F/S/S",
+            describedAs = "Fat code for F/S/S<br>----<br>required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -200,7 +217,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Percentage of fat",
+            describedAs = "Percentage of fat<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

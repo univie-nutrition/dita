@@ -30,7 +30,7 @@ params.setting.DefinitionOfRecipePathway:
       column: R_TYPE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

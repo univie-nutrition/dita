@@ -64,7 +64,7 @@ public class Shape implements HasSecondaryKey<Shape> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Shape code (e.g. S001,S002,S003,...)",
+            describedAs = "Shape code (e.g. S001,S002,S003,...)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -82,7 +82,7 @@ public class Shape implements HasSecondaryKey<Shape> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible",
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -99,7 +99,7 @@ public class Shape implements HasSecondaryKey<Shape> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)",
+            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -117,7 +117,7 @@ public class Shape implements HasSecondaryKey<Shape> {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Order to display the standard unit",
+            describedAs = "Order to display the standard unit<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

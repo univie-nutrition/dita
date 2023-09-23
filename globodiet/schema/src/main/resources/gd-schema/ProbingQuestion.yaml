@@ -31,7 +31,7 @@ params.probing.ProbingQuestion:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |
@@ -40,7 +40,7 @@ params.probing.ProbingQuestion:
       column: PQ_TEXT
       column-type: nvarchar(100)
       required: true
-      unique: false
+      unique: true
       discriminator:
       foreignKeys:
       description: |

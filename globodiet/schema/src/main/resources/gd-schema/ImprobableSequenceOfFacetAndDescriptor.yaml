@@ -30,7 +30,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         FOODS.FOODNUM
@@ -40,7 +40,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         GROUPS.GROUP
@@ -50,7 +50,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
@@ -60,7 +60,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: false
+      unique: true
       discriminator:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
@@ -70,7 +70,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
@@ -80,7 +80,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator: |
         FACET_CODE
       foreignKeys: |
