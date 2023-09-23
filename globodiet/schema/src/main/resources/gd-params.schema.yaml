@@ -2866,8 +2866,8 @@ params.recipe_description.BrandForRecipe:
   namespace: params.recipe_description
   table: R_BRAND
   secondaryKey:
-  title: null
-  icon: null
+  title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
+  icon: brands shopify deeppink
   description: |
     Brandname list for mixed recipes
   fields:
@@ -2886,7 +2886,8 @@ params.recipe_description.BrandForRecipe:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        RGROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |

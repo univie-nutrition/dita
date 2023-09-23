@@ -40,7 +40,8 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.recipe_description.BrandForRecipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Brandname list for mixed recipes"
+        describedAs = "Brandname list for mixed recipes",
+        cssClassFa = "brands shopify deeppink"
 )
 @PersistenceCapable(
         table = "R_BRAND"
@@ -108,6 +109,6 @@ public class BrandForRecipe {
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode);
     }
 }

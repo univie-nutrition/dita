@@ -429,7 +429,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "brands shopify deeppink"
+    )
     public List<BrandForRecipe> listAllBrandForRecipe() {
         return repositoryService.allInstances(BrandForRecipe.class);
     }
