@@ -42,7 +42,6 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllAnthropometricAverage"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDayOfWeek"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllDefinitionOfRecipePathway"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFoodOrRecipeOrAttachment"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllHouseholdMeasure"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllMacroNutrientLimit"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllMonth"/>
