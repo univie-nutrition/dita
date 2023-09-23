@@ -68,9 +68,13 @@ params.general_info.FoodConsumptionOccasion:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0=Secondary:to be displayed in nutrient check screen
+        1=Primary
       discriminator:
       foreignKeys:
       description: |
-        1=main FCO (to be displayed in nutrient check screen)
         0=non main FCO
+        1=main FCO (to be displayed in nutrient check screen)
+        
 

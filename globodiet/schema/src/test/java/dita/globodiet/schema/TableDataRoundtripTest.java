@@ -74,7 +74,7 @@ class TableDataRoundtripTest {
 
     // disabled until we have fake data for testing, that can be published
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
-    @Test
+    //@Test
     void nullableAutodetect() {
 
         final String gdParamDataLowLevelYaml = DataSource.ofResource(
@@ -129,6 +129,22 @@ class TableDataRoundtripTest {
         schema.splitIntoFiles(new File("d:/tmp/", "gd-schema"), LicenseHeader.ASF_V2);
 
         System.out.println("done.");
+    }
+
+    @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
+    @Test
+    void genSortedChecklist() {
+
+        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+                .tryReadAsStringUtf8()
+                .valueAsNonNullElseFail());
+
+        schema.entities().values()
+            .stream()
+            .sorted((a, b)->a.name().compareTo(b.name()))
+            .forEach(t->{
+                System.err.printf("- [ ] %s (%s)%n", t.name(), t.table());
+            });
     }
 
 

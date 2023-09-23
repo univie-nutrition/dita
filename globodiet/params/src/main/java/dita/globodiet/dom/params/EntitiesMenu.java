@@ -282,7 +282,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid paperclip"
+    )
     public List<FoodOrRecipeOrAttachment> listAllFoodOrRecipeOrAttachment() {
         return repositoryService.allInstances(FoodOrRecipeOrAttachment.class);
     }

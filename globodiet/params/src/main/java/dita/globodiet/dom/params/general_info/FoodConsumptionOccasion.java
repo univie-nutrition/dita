@@ -132,13 +132,13 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     private String shortLabelToIdentifyEasily;
 
     /**
-     * 1=main FCO (to be displayed in nutrient check screen)
      * 0=non main FCO
+     * 1=main FCO (to be displayed in nutrient check screen)
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=main FCO (to be displayed in nutrient check screen)<br>0=non main FCO<br>----<br>required=true, unique=false",
+            describedAs = "0=non main FCO<br>1=main FCO (to be displayed in nutrient check screen)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -22,7 +22,7 @@ params.food_table.FoodOrRecipeOrAttachment:
   table: ITEMS_DEF
   secondaryKey:
   title: null
-  icon: null
+  icon: solid paperclip
   description: |
     Items list and definition
   fields:
@@ -44,31 +44,39 @@ params.food_table.FoodOrRecipeOrAttachment:
       foreignKeys:
       description: |
         Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
-    foodOrRecipeGroup:
+    foodOrRecipeGroupCode:
       column: GROUP
       column-type: nvarchar(2)
       required: false
       unique: false
       discriminator:
-      foreignKeys:
+      foreignKeys: |
+        GROUPS.GROUP
+        RGROUPS.GROUP
       description: |
         Food or recipe group
-    foodOrRecipeSubgroup:
+    foodOrRecipeSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+        RSUBGR.SUBGROUP
       description: |
         Food or recipe sub-group
-    foodSubSubgroup:
+    foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-sub-group
     foodOrRecipeCode:
@@ -77,7 +85,9 @@ params.food_table.FoodOrRecipeOrAttachment:
       required: false
       unique: false
       discriminator:
-      foreignKeys:
+      foreignKeys: |
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food or Recipe code
     facetString:

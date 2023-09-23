@@ -52,6 +52,7 @@ import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
@@ -144,6 +145,12 @@ implements ForeignKeyLookupService {
         }
         if(entity instanceof DensityFactorForFood x) {
             return x.getDensityForFoodOrRecipe();
+        }
+        if(entity instanceof FoodOrRecipeOrAttachment x) {
+            //Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
+            return "R".equals(x.getTypeOfRecord())
+                    ? 2
+                    : 1;
         }
         if(entity instanceof RecipeIngredient x) {
             return x.getTypeOfItem();

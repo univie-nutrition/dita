@@ -41,7 +41,8 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.food_table.FoodOrRecipeOrAttachment")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Items list and definition"
+        describedAs = "Items list and definition",
+        cssClassFa = "solid paperclip"
 )
 @PersistenceCapable(
         table = "ITEMS_DEF"
@@ -95,7 +96,7 @@ public class FoodOrRecipeOrAttachment {
     @PropertyLayout(
             sequence = "3",
             describedAs = "Food or recipe group<br>----<br>required=false, unique=false",
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "GROUP",
@@ -104,7 +105,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private String foodOrRecipeGroup;
+    private String foodOrRecipeGroupCode;
 
     /**
      * Food or recipe sub-group
@@ -115,7 +116,7 @@ public class FoodOrRecipeOrAttachment {
     @PropertyLayout(
             sequence = "4",
             describedAs = "Food or recipe sub-group<br>----<br>required=false, unique=false",
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP1",
@@ -124,7 +125,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private String foodOrRecipeSubgroup;
+    private String foodOrRecipeSubgroupCode;
 
     /**
      * Food sub-sub-group
@@ -135,7 +136,7 @@ public class FoodOrRecipeOrAttachment {
     @PropertyLayout(
             sequence = "5",
             describedAs = "Food sub-sub-group<br>----<br>required=false, unique=false",
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SUBGROUP2",
@@ -144,7 +145,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private String foodSubSubgroup;
+    private String foodSubSubgroupCode;
 
     /**
      * Food or Recipe code
@@ -155,7 +156,7 @@ public class FoodOrRecipeOrAttachment {
     @PropertyLayout(
             sequence = "6",
             describedAs = "Food or Recipe code<br>----<br>required=false, unique=false",
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "ID_NUM",
