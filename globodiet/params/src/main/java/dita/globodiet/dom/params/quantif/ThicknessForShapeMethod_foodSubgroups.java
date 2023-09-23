@@ -47,12 +47,7 @@ public class ThicknessForShapeMethod_foodSubgroups {
 
     @MemberSupport
     public Can<FoodSubgroup> coll() {
-        return foreignKeyLookup
-            .plural(
-                this,
-                mixee, mixee.getFoodSubgroupsLookupKey(),
-                // foreign
-                FoodSubgroup.class,
-                Can.of(FoodSubgroup::getFoodGroupCode, FoodSubgroup::getFoodSubgroupCode, FoodSubgroup::getFoodSubSubgroupCode));
+        return foreignKeyLookup.decodeLookupKeyList(FoodSubgroup.class, mixee.getFoodSubgroupsLookupKey())
+            .map(foreignKeyLookup::unique);
     }
 }

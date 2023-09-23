@@ -18,35 +18,11 @@
  */
 package dita.commons.services.foreignkey;
 
-import java.util.Optional;
-import java.util.function.Function;
-
 import org.apache.causeway.commons.collections.Can;
 
 public interface ForeignKeyLookupService {
 
-    <L, F> Optional<F> binary(
-            // context
-            Object caller,
-            // local
-            L localEntity, Object localField,
-            // foreign
-            Class<F> foreignType,
-            Function<F, Object> foreignFieldGetter1,
-            Function<F, Object> foreignFieldGetter2);
-
-    /**
-     * TODO[DITA-110] Yet this does not allow for reverse lookup mixins to properly find dependants.
-     */
-    <L, F> Can<F> plural(
-            // context
-            Object caller,
-            // local
-            L localEntity, Object localField,
-            // foreign
-            Class<F> foreignType,
-            final Can<Function<F, Object>> foreignFieldGetters);
-
+    <T> Can<ISecondaryKey<T>> decodeLookupKeyList(Class<T> type, String stringList);
     int switchOn(Object entity);
 
     <T> T unique(ISecondaryKey<T> lookupKey);

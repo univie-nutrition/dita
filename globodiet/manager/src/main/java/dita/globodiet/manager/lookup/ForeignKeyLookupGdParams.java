@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import jakarta.inject.Inject;
@@ -34,8 +33,8 @@ import org.apache.causeway.applib.services.bookmark.BookmarkService;
 import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.base._Casts;
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.functions._Predicates;
@@ -54,8 +53,9 @@ import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
 import lombok.val;
 
 @Service
@@ -65,64 +65,6 @@ implements ForeignKeyLookupService {
     @Inject BookmarkService bookmarkService;
     @Inject RepositoryService repositoryService;
     @Inject DeepLinkService deepLinkService;
-
-    @Override
-    public <L, F> Optional<F> binary(
-            final Object caller,
-            final L localEntity, final Object localField,
-            final Class<F> foreignType,
-            final Function<F, Object> foreignFieldGetter1,
-            final Function<F, Object> foreignFieldGetter2) {
-
-        if(localField == null) return Optional.empty();
-        if(FacetDescriptor.class.equals(foreignType)) {
-            val secondaryKey = Decoders.decodeFacetDecriptorLookupKey((String) localField);
-            return (Optional<F>) Optional.of(unique(secondaryKey));
-        }
-        throw _Exceptions.unrecoverable("2-ary foreign key lookup not implemented for foreign type %s",
-                foreignType.getName());
-    }
-
-    /**
-     * @see ThicknessForShapeMethod_foodSubgroups
-     */
-    @Override
-    public <L, F> Can<F> plural(
-            final Object caller,
-            final L localEntity, final Object localField,
-            final Class<F> foreignType,
-            final Can<Function<F, Object>> foreignFieldGetters) {
-
-        if(FoodSubgroup.class.equals(foreignType)) {
-            final Can<Either<FoodGroup, FoodSubgroup>> groups =
-                    Decoders.decodeFoodGroupLookupKeyList((String) localField)
-                    .map(key->key.map(
-                            foodGroupKey->(FoodGroup)unique(foodGroupKey),
-                            foodSubgroupKey->(FoodSubgroup)unique(foodSubgroupKey))
-                    );
-            return groups
-                    .map(group->group.fold(foreignType::cast, foreignType::cast)); //FIXME invalid cast
-        }
-        if(RecipeSubgroup.class.equals(foreignType)) {
-            final Can<Either<RecipeGroup, RecipeSubgroup>> groups =
-                    Decoders.decodeRecipeGroupLookupKeyList((String) localField)
-                    .map(key->key.map(
-                            recipeGroupKey->(RecipeGroup)unique(recipeGroupKey),
-                            recipeSubgroupKey->(RecipeSubgroup)unique(recipeSubgroupKey))
-                    );
-            return groups
-                    .map(group->group.fold(foreignType::cast, foreignType::cast)); //FIXME invalid cast
-        }
-        if(FacetDescriptor.class.equals(foreignType)) {
-            final Can<FacetDescriptor> descriptors =
-                    Decoders.decodeFacetDecriptorLookupKeyList((String) localField)
-                    .map(key->unique(key));
-            return _Casts.uncheckedCast(descriptors);
-        }
-
-        throw _Exceptions.unrecoverable("plural foreign key lookup not implemented for foreign type %s",
-                foreignType.getName());
-    }
 
     // -- PREFILTER
 
@@ -193,9 +135,6 @@ implements ForeignKeyLookupService {
 
     @Override
     public int switchOn(final Object entity) {
-        if(entity instanceof RecipeIngredient x) {
-            return x.getTypeOfItem();
-        }
         if(entity instanceof ComposedRecipeIngredient x) {
             return "2".equals(x.getType())
                     ? 2
@@ -204,23 +143,77 @@ implements ForeignKeyLookupService {
         if(entity instanceof DensityFactorForFood x) {
             return x.getDensityForFoodOrRecipe();
         }
-        if(entity instanceof QuantificationMethodsPathwayForFoodGroup x) {
-            return "P".equalsIgnoreCase(x.getPhotoCode())
-                    ? 1
-                    : 2;
-        }
-        if(entity instanceof QuantificationMethodsPathwayForFood x) {
-            return "P".equalsIgnoreCase(x.getPhotoCode())
-                    ? 1
-                    : 2;
+        if(entity instanceof RecipeIngredient x) {
+            return x.getTypeOfItem();
         }
         if(entity instanceof StandardUnitForFoodOrRecipe x) {
             return "2".equals(x.getType())
                     ? 2
                     : 1;
         }
+        if(entity instanceof QuantificationMethodsPathwayForFood x) {
+            return "P".equalsIgnoreCase(x.getPhotoCode())
+                    ? 1
+                    : 2;
+        }
+        if(entity instanceof QuantificationMethodsPathwayForFoodGroup x) {
+            return "P".equalsIgnoreCase(x.getPhotoCode())
+                    ? 1
+                    : 2;
+        }
+        if(entity instanceof QuantificationMethodPathwayForRecipe x) {
+            return "P".equalsIgnoreCase(x.getPhotoCode())
+                    ? 1
+                    : 2;
+        }
+        if(entity instanceof QuantificationMethodsPathwayForRecipeGroup x) {
+            return "P".equalsIgnoreCase(x.getPhotoCode())
+                    ? 1
+                    : 2;
+        }
+
         throw _Exceptions.unrecoverable("switchOn type %s not implemented",
                 entity.getClass().getSimpleName());
+    }
+
+    @Override
+    public <T> Can<ISecondaryKey<T>> decodeLookupKeyList(final Class<T> foreignType, final String stringList) {
+        if(FoodSubgroup.class.equals(foreignType)) {
+            var keys = Decoders.decodeFoodGroupLookupKeyList(stringList).stream()
+                    .map(either->either.fold(
+                            (FoodGroup.SecondaryKey left)->FoodGroup.class.equals(foreignType)
+                                    ? left
+                                    : null,
+                            (FoodSubgroup.SecondaryKey right)->FoodSubgroup.class.equals(foreignType)
+                                    ? right
+                                    : null))
+                    .filter(_NullSafe::isPresent)
+                    .map(ISecondaryKey.class::cast)
+                    .collect(Can.toCan());
+            return _Casts.uncheckedCast(keys);
+
+        }
+        if(RecipeSubgroup.class.equals(foreignType)) {
+            var keys = Decoders.decodeRecipeGroupLookupKeyList(stringList).stream()
+                    .map(either->either.fold(
+                            (RecipeGroup.SecondaryKey left)->RecipeGroup.class.equals(foreignType)
+                                    ? left
+                                    : null,
+                            (RecipeSubgroup.SecondaryKey right)->RecipeSubgroup.class.equals(foreignType)
+                                    ? right
+                                    : null))
+                    .filter(_NullSafe::isPresent)
+                    .map(ISecondaryKey.class::cast)
+                    .collect(Can.toCan());
+            return _Casts.uncheckedCast(keys);
+        }
+        if(FacetDescriptor.class.equals(foreignType)) {
+            return _Casts.uncheckedCast(Decoders.decodeFacetDecriptorLookupKeyList(stringList));
+        }
+
+        throw _Exceptions.unrecoverable("decodeLookupKey(List) not implemented for foreign type %s",
+                foreignType.getName());
+
     }
 
 }

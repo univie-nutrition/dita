@@ -171,21 +171,11 @@ class _GenAssociationMixin {
 
             val foreignType = foreigners.getFirstElseFail().foreignEntity();
             builder.addCode("""
-                return foreignKeyLookup
-                    .plural(
-                        this,
-                        mixee, mixee.$2L(),
-                        // foreign
-                        $3T.class,
-                        $1T.of($4L));
+                return foreignKeyLookup.decodeLookupKeyList($1T.class, mixee.$2L())
+                    .map(foreignKeyLookup::unique);
                 """,
-                Can.class, //1
-                localKeyGetter, //2
-                foreignType, //3
-                foreigners.stream()
-                    .map(f->String.format("%s::%s", f.foreignEntity().simpleName(), f.foreignKeyGetter()))
-                    .collect(Collectors.joining(", ")) //4
-                );
+                foreignType,
+                localKeyGetter);
 
             return Optional.of(builder.build());
         }
@@ -213,16 +203,11 @@ class _GenAssociationMixin {
             if(distinctForeignEntities.isCardinalityOne()) {
                 // SHARED FOREIGN ENTITY TYPE
                 builder.addCode("""
-                        return foreignKeyLookup
-                            .binary(
-                                this,
-                                // local
-                                mixee, mixee.$1L(),
-                                // foreign
-                                $2T.class, foreign->foreign.$3L(), foreign->foreign.$4L())
-                            .orElse(null);
-                        """, localKeyGetter, foreigner1.foreignEntity(),
-                        foreigner1.foreignKeyGetter(), foreigner2.foreignKeyGetter());
+                        return foreignKeyLookup.decodeLookupKeyList($1T.class, mixee.$2L())
+                            .map(foreignKeyLookup::unique)
+                            .getSingletonOrFail();
+                        """, foreigner1.foreignEntity(),
+                        localKeyGetter);
             } else {
                 // TWO FOREIGN ENTITY TYPES
 

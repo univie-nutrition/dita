@@ -44,12 +44,7 @@ public class RecipeIngredient_facetDescriptors {
 
     @MemberSupport
     public Can<FacetDescriptor> coll() {
-        return foreignKeyLookup
-            .plural(
-                this,
-                mixee, mixee.getFacetDescriptorsLookupKey(),
-                // foreign
-                FacetDescriptor.class,
-                Can.of(FacetDescriptor::getFacetCode, FacetDescriptor::getCode));
+        return foreignKeyLookup.decodeLookupKeyList(FacetDescriptor.class, mixee.getFacetDescriptorsLookupKey())
+            .map(foreignKeyLookup::unique);
     }
 }
