@@ -33,19 +33,19 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "1.1",
-        describedAs = "Place of Consumption code<br>----<br>required=true, unique=false",
+        describedAs = "Food Consumption Occasion code<br>----<br>required=true, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class PlaceOfConsumptionDisplayItem_placeOfConsumption {
+public class FoodConsumptionOccasionDisplayItem_foodConsumptionOccasion {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final PlaceOfConsumptionDisplayItem mixee;
+    private final FoodConsumptionOccasionDisplayItem mixee;
 
     @MemberSupport
-    public PlaceOfConsumption prop() {
-        final var lookupKey = new PlaceOfConsumption.SecondaryKey(mixee.getPlaceOfConsumptionCode());
+    public FoodConsumptionOccasion prop() {
+        final var lookupKey = new FoodConsumptionOccasion.SecondaryKey(mixee.getFoodConsumptionOccasionCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

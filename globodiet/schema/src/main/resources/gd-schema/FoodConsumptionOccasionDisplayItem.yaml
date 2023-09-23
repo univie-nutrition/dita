@@ -17,26 +17,29 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.PlaceOfConsumptionDisplayItem:
+params.general_info.FoodConsumptionOccasionDisplayItem:
   namespace: params.general_info
   table: CHKLIST
   secondaryKey:
-  title: String.format("%s", label)
+  title: String.format("%s", text)
   icon: regular message
   description: |
-    Items displayed for check per Place of Consumption
+    List of foods often eaten at each food consumption occasion. 
+    During the quick list step, this list will appear as a reminder 
+    or a help to the interviewer when a food consumption occasion (FCO) is proposed 
+    (before choosing a FCO and after filling in a FCO quick list).
   fields:
-    placeOfConsumptionCode:
+    foodConsumptionOccasionCode:
       column: FCO_CODE
       column-type: nvarchar(2)
       required: true
       unique: false
       discriminator:
       foreignKeys: |
-        POC.POC_CODE
+        FCO.FCM_CODE
       description: |
-        Place of Consumption code
-    label:
+        Food Consumption Occasion code
+    text:
       column: TEXT
       column-type: nvarchar(100)
       required: true
@@ -44,5 +47,5 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       discriminator:
       foreignKeys:
       description: |
-        Item label
+        Text representing Food.
 

@@ -43,13 +43,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Place (Occasion) of Consumption
+ * Place of Consumption
  */
 @Named("dita.globodiet.params.general_info.PlaceOfConsumption")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Place (Occasion) of Consumption",
-        cssClassFa = "solid building-flag"
+        describedAs = "Place of Consumption",
+        cssClassFa = "solid building-user"
 )
 @PersistenceCapable(
         table = "POC"

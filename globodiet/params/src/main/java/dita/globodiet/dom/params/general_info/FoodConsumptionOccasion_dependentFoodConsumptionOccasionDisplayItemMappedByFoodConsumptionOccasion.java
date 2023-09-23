@@ -28,18 +28,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class PlaceOfConsumption_dependentPlaceOfConsumptionDisplayItemMappedByPlaceOfConsumption {
+public class FoodConsumptionOccasion_dependentFoodConsumptionOccasionDisplayItemMappedByFoodConsumptionOccasion {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final PlaceOfConsumption mixee;
+    private final FoodConsumptionOccasion mixee;
 
     @MemberSupport
-    public List<PlaceOfConsumptionDisplayItem> coll() {
+    public List<FoodConsumptionOccasionDisplayItem> coll() {
         return dependantLookup.findDependants(
-            PlaceOfConsumptionDisplayItem.class,
-            PlaceOfConsumptionDisplayItem_placeOfConsumption.class,
-            PlaceOfConsumptionDisplayItem_placeOfConsumption::prop,
+            FoodConsumptionOccasionDisplayItem.class,
+            FoodConsumptionOccasionDisplayItem_foodConsumptionOccasion.class,
+            FoodConsumptionOccasionDisplayItem_foodConsumptionOccasion::prop,
             mixee);
     }
 }

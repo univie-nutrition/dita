@@ -20,9 +20,10 @@
 params.general_info.FoodConsumptionOccasion:
   namespace: params.general_info
   table: FCO
-  secondaryKey:
-  title: null
-  icon: null
+  secondaryKey: |
+    FCM_CODE
+  title: String.format("%s (code=%s)", textDisplayedOnScreen, code)
+  icon: solid user-clock
   description: |
     Food Consumption Occasion
   fields:
@@ -34,7 +35,7 @@ params.general_info.FoodConsumptionOccasion:
       discriminator:
       foreignKeys:
       description: |
-        FCO code
+        Food Consumption Occasion code
     textDisplayedOnScreen:
       column: FCM_NAME
       column-type: nvarchar(100)

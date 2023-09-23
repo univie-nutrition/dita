@@ -48,8 +48,8 @@ import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
 import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
 import dita.globodiet.dom.params.general_info.AnthropometricAverage;
 import dita.globodiet.dom.params.general_info.FoodConsumptionOccasion;
+import dita.globodiet.dom.params.general_info.FoodConsumptionOccasionDisplayItem;
 import dita.globodiet.dom.params.general_info.PlaceOfConsumption;
-import dita.globodiet.dom.params.general_info.PlaceOfConsumptionDisplayItem;
 import dita.globodiet.dom.params.general_info.SpecialDayPredefinedAnswer;
 import dita.globodiet.dom.params.general_info.SpecialDietPredefinedAnswer;
 import dita.globodiet.dom.params.general_info.TranslationInCountryLanguage;
@@ -306,25 +306,27 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid user-clock"
+    )
     public List<FoodConsumptionOccasion> listAllFoodConsumptionOccasion() {
         return repositoryService.allInstances(FoodConsumptionOccasion.class);
     }
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid building-flag"
+            cssClassFa = "regular message"
     )
-    public List<PlaceOfConsumption> listAllPlaceOfConsumption() {
-        return repositoryService.allInstances(PlaceOfConsumption.class);
+    public List<FoodConsumptionOccasionDisplayItem> listAllFoodConsumptionOccasionDisplayItem() {
+        return repositoryService.allInstances(FoodConsumptionOccasionDisplayItem.class);
     }
 
     @Action
     @ActionLayout(
-            cssClassFa = "regular message"
+            cssClassFa = "solid building-user"
     )
-    public List<PlaceOfConsumptionDisplayItem> listAllPlaceOfConsumptionDisplayItem() {
-        return repositoryService.allInstances(PlaceOfConsumptionDisplayItem.class);
+    public List<PlaceOfConsumption> listAllPlaceOfConsumption() {
+        return repositoryService.allInstances(PlaceOfConsumption.class);
     }
 
     @Action

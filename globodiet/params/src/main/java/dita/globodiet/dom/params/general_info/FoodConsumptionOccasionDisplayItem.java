@@ -34,12 +34,18 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Items displayed for check per Place of Consumption
+ * List of foods often eaten at each food consumption occasion.<br>
+ * During the quick list step, this list will appear as a reminder<br>
+ * or a help to the interviewer when a food consumption occasion (FCO) is proposed<br>
+ * (before choosing a FCO and after filling in a FCO quick list).
  */
-@Named("dita.globodiet.params.general_info.PlaceOfConsumptionDisplayItem")
+@Named("dita.globodiet.params.general_info.FoodConsumptionOccasionDisplayItem")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Items displayed for check per Place of Consumption",
+        describedAs = "List of foods often eaten at each food consumption occasion.<br>\n"
+                        + "During the quick list step, this list will appear as a reminder<br>\n"
+                        + "or a help to the interviewer when a food consumption occasion (FCO) is proposed<br>\n"
+                        + "(before choosing a FCO and after filling in a FCO quick list).",
         cssClassFa = "regular message"
 )
 @PersistenceCapable(
@@ -49,14 +55,14 @@ import org.apache.causeway.applib.annotation.Where;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class PlaceOfConsumptionDisplayItem {
+public class FoodConsumptionOccasionDisplayItem {
     /**
-     * Place of Consumption code
+     * Food Consumption Occasion code
      */
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Place of Consumption code<br>----<br>required=true, unique=false",
+            describedAs = "Food Consumption Occasion code<br>----<br>required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -66,15 +72,15 @@ public class PlaceOfConsumptionDisplayItem {
     )
     @Getter
     @Setter
-    private String placeOfConsumptionCode;
+    private String foodConsumptionOccasionCode;
 
     /**
-     * Item label
+     * Text representing Food.
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Item label<br>----<br>required=true, unique=false",
+            describedAs = "Text representing Food.<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -84,10 +90,10 @@ public class PlaceOfConsumptionDisplayItem {
     )
     @Getter
     @Setter
-    private String label;
+    private String text;
 
     @ObjectSupport
     public String title() {
-        return String.format("%s", label);
+        return String.format("%s", text);
     }
 }

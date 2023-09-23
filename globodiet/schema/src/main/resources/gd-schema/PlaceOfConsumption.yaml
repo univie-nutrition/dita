@@ -23,9 +23,9 @@ params.general_info.PlaceOfConsumption:
   secondaryKey: |
     POC_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: solid building-flag
+  icon: solid building-user
   description: |
-    Place (Occasion) of Consumption
+    Place of Consumption
   fields:
     code:
       column: POC_CODE
