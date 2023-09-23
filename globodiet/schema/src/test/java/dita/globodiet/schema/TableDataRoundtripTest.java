@@ -96,9 +96,7 @@ class TableDataRoundtripTest {
                 var field = entity.lookupFieldByColumnName(col.name()).orElseThrow();
                 var columnValues = table.rows().stream()
                         .map(row->row.cellLiterals().get(colIndex))
-                        .map(value->(value instanceof String s)
-                                ? _Strings.emptyToNull(s)
-                                : value)
+                        .map(_Strings::emptyToNull)
                         .collect(Can.toCan());
                 var nullable = columnValues.size()<table.rows().size();
                 var required = !nullable;

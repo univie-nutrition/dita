@@ -231,7 +231,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 2
     )
     @Getter

@@ -113,7 +113,7 @@ params.recipe_list.Recipe:
     shadowQ:
       column: TYPE
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
