@@ -96,7 +96,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 2
     )
     @Getter
@@ -114,7 +114,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "SUBGROUP1",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 2
     )
     @Getter
@@ -132,7 +132,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "SUBGROUP2",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 2
     )
     @Getter
@@ -150,7 +150,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 5
     )
     @Getter
@@ -168,7 +168,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "FACET_STR",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 100
     )
     @Getter

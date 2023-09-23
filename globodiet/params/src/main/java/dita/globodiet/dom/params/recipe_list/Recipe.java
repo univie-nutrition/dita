@@ -143,7 +143,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_SUBGROUP",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 2
     )
     @Getter
@@ -213,7 +213,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_BRAND",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 100
     )
     @Getter

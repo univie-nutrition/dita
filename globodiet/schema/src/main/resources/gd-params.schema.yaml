@@ -1675,7 +1675,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodOrRecipeGroup:
       column: GROUP
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -1684,7 +1684,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodOrRecipeSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -1693,7 +1693,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodSubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -1702,7 +1702,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -1711,7 +1711,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     facetString:
       column: FACET_STR
       column-type: nvarchar(100)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -3268,7 +3268,7 @@ params.recipe_list.Recipe:
     recipeSubgroupCode:
       column: R_SUBGROUP
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: true
       discriminator:
       foreignKeys: |
@@ -3304,7 +3304,7 @@ params.recipe_list.Recipe:
     brandNameForCommercialRecipe:
       column: R_BRAND
       column-type: nvarchar(100)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -3314,7 +3314,7 @@ params.recipe_list.Recipe:
       column: TYPE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3372,7 +3372,7 @@ params.recipe_list.RecipeIngredient:
     foodType:
       column: TYPE
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:

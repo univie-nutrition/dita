@@ -105,7 +105,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "false",
+            allowsNull = "true",
             length = 2
     )
     @Getter

@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.types.TabularData;
@@ -93,7 +94,11 @@ class TableDataRoundtripTest {
             table.columns().forEach(IndexedConsumer.zeroBased((colIndex, col)->{
                 var entity = schema.lookupEntityByTableName(table.key()).orElseThrow();
                 var field = entity.lookupFieldByColumnName(col.name()).orElseThrow();
-                var columnValues = table.rows().stream().map(row->row.cellLiterals().get(colIndex))
+                var columnValues = table.rows().stream()
+                        .map(row->row.cellLiterals().get(colIndex))
+                        .map(value->(value instanceof String s)
+                                ? _Strings.emptyToNull(s)
+                                : value)
                         .collect(Can.toCan());
                 var nullable = columnValues.size()<table.rows().size();
                 var required = !nullable;
@@ -106,6 +111,7 @@ class TableDataRoundtripTest {
                 } else if(!required && field.required()) {
                     System.err.printf("nullable %s.%s -> but schema says required%n",
                             table.key(), col.name());
+                    field.withRequired(false);
                 }
                 if(unique && !field.unique()) {
 //                    System.err.printf("unique %s.%s -> but schema says repeatable%n",

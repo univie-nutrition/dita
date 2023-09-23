@@ -47,7 +47,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodOrRecipeGroup:
       column: GROUP
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -56,7 +56,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodOrRecipeSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -65,7 +65,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodSubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -74,7 +74,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -83,7 +83,7 @@ params.food_table.FoodOrRecipeOrAttachment:
     facetString:
       column: FACET_STR
       column-type: nvarchar(100)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:

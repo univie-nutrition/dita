@@ -68,7 +68,7 @@ params.recipe_list.Recipe:
     recipeSubgroupCode:
       column: R_SUBGROUP
       column-type: nvarchar(2)
-      required: true
+      required: false
       unique: true
       discriminator:
       foreignKeys: |
@@ -104,7 +104,7 @@ params.recipe_list.Recipe:
     brandNameForCommercialRecipe:
       column: R_BRAND
       column-type: nvarchar(100)
-      required: true
+      required: false
       unique: false
       discriminator:
       foreignKeys:
@@ -114,7 +114,7 @@ params.recipe_list.Recipe:
       column: TYPE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

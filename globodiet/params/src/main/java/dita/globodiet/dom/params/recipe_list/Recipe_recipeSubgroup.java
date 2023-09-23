@@ -47,6 +47,6 @@ public class Recipe_recipeSubgroup {
     @MemberSupport
     public RecipeSubgroup prop() {
         final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getRecipeSubgroupCode(), null);
-        return foreignKeyLookup.unique(lookupKey);
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }
