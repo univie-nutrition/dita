@@ -29,16 +29,18 @@ params.general_info.SpecialDayPredefinedAnswer:
     specialDayCode:
       column: SPY_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Special day code
     specialDayLabel:
       column: SPY_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Special day label

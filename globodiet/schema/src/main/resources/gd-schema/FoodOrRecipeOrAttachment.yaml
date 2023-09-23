@@ -29,56 +29,63 @@ params.food_table.FoodOrRecipeOrAttachment:
     sequentialNumber:
       column: ITEM_SEQ
       column-type: int(10)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Sequential number
     typeOfRecord:
       column: TYPE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
     foodOrRecipeGroup:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Food or recipe group
     foodOrRecipeSubgroup:
       column: SUBGROUP1
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Food or recipe sub-group
     foodSubSubgroup:
       column: SUBGROUP2
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Food sub-sub-group
     foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Food or Recipe code
     facetString:
       column: FACET_STR
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet string
@@ -87,14 +94,16 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Brand name
     priority:
       column: PRIORITY
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Priority order
@@ -103,6 +112,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: int(10)
       required: false
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Attached records: only for the Type=A2 & A3
@@ -111,6 +121,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(2147483647)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment

@@ -29,16 +29,18 @@ params.food_descript.Brand:
     nameOfBrand:
       column: NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Name of brand
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |

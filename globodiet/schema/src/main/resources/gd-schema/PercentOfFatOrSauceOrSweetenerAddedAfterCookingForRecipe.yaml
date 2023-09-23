@@ -31,6 +31,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -40,6 +41,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rsubgr.subgroup
       description: |
@@ -49,6 +51,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(5)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         mixedrec.r_idnum
       description: |
@@ -58,6 +61,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -67,6 +71,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -76,6 +81,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup2
       description: |
@@ -85,6 +91,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(5)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -92,8 +99,9 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
     percentageOfFat:
       column: PCT_ADDED
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Percentage of fat

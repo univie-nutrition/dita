@@ -69,7 +69,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Column(
             name = "PH_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 4
     )
     @Getter
@@ -87,7 +87,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Column(
             name = "PH_QSTR",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1000000000
     )
     @Getter
@@ -105,7 +105,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Column(
             name = "RAW_COOKED",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -123,7 +123,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Column(
             name = "EDIB",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -141,7 +141,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Column(
             name = "PH_UNIT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter

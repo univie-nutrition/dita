@@ -70,7 +70,7 @@ public class FoodGroup implements HasSecondaryKey<FoodGroup> {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +88,7 @@ public class FoodGroup implements HasSecondaryKey<FoodGroup> {
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -106,7 +106,7 @@ public class FoodGroup implements HasSecondaryKey<FoodGroup> {
     )
     @Column(
             name = "NAME_SHORT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter

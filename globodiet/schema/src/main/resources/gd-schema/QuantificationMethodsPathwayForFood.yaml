@@ -29,8 +29,9 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
     foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -38,8 +39,9 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
     quantificationMethodCode:
       column: METHOD
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Quantification method code: 
@@ -52,6 +54,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       column-type: nvarchar(4)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         m_photos.ph_code
         m_shapes.sh_code

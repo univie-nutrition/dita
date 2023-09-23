@@ -29,8 +29,9 @@ params.interview.Interviewer:
     interviewerCode:
       column: INTV_CODE
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Interviewer code
@@ -39,22 +40,25 @@ params.interview.Interviewer:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Interviewer family name
     interviewerName:
       column: INTV_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Interviewer name
     countryCode:
       column: COUNTRY
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         country.ctrycode
       description: |
@@ -62,8 +66,9 @@ params.interview.Interviewer:
     centerCode:
       column: CENTER
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         centers.cntr_code
       description: |

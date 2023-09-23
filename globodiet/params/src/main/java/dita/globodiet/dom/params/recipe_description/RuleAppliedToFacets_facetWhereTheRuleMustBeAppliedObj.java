@@ -47,6 +47,6 @@ public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
     @MemberSupport
     public Facet prop() {
         final var lookupKey = new Facet.SecondaryKey(mixee.getFacetWhereTheRuleMustBeApplied());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

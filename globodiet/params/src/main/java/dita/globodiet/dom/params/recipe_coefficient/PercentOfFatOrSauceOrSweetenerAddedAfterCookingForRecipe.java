@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.recipe_coefficient;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -188,11 +187,11 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @Column(
             name = "PCT_ADDED",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double percentageOfFat;
+    private double percentageOfFat;
 
     @ObjectSupport
     public String title() {

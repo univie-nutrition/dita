@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -62,7 +61,7 @@ public class PercentOfFatLeftInTheDishForFood {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -116,11 +115,11 @@ public class PercentOfFatLeftInTheDishForFood {
     )
     @Column(
             name = "PCT_LEFT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double percentageOfFatLeftInTheDish;
+    private double percentageOfFatLeftInTheDish;
 
     @ObjectSupport
     public String title() {

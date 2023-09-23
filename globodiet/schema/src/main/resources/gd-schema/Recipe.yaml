@@ -49,16 +49,18 @@ params.recipe_list.Recipe:
     code:
       column: R_IDNUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Recipe ID number
     recipeGroupCode:
       column: R_GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -66,8 +68,9 @@ params.recipe_list.Recipe:
     recipeSubgroupCode:
       column: R_SUBGROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         rsubgr.subgroup
       description: |
@@ -75,16 +78,18 @@ params.recipe_list.Recipe:
     name:
       column: R_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Recipe name
     recipeType:
       column: R_TYPE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Type of recipe: 
@@ -99,24 +104,27 @@ params.recipe_list.Recipe:
     brandNameForCommercialRecipe:
       column: R_BRAND
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Brand name for commercial recipe
     shadowQ:
       column: TYPE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         SH=Shadow
     hasSubRecipeQ:
       column: R_SUB
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=recipe without sub-recipe 
@@ -124,8 +132,9 @@ params.recipe_list.Recipe:
     status:
       column: STATUS
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description:
 

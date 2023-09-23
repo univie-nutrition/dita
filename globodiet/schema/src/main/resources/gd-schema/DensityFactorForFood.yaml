@@ -29,8 +29,9 @@ params.food_coefficient.DensityFactorForFood:
     foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
         mixedrec.r_idnum
@@ -40,8 +41,9 @@ params.food_coefficient.DensityFactorForFood:
     densityCoefficient:
       column: D_FACTOR
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Density coefficient
@@ -51,6 +53,7 @@ params.food_coefficient.DensityFactorForFood:
       required: false
       unique: true
       plural: true
+      discriminator:
       foreignKeys: |
         descface.facet_code
         descface.descr_code
@@ -60,8 +63,9 @@ params.food_coefficient.DensityFactorForFood:
     priority:
       column: PRIORITY
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Priority order
@@ -70,6 +74,7 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = without un-edible part,
@@ -79,6 +84,7 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = raw, 
@@ -86,8 +92,9 @@ params.food_coefficient.DensityFactorForFood:
     densityForFoodOrRecipe:
       column: D_TYPE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         1 = density for food/ingredient,

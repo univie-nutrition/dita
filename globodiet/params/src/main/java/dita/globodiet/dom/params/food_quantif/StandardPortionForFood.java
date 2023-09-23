@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_quantif;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,11 +60,11 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "STDP_QUANT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double standardPortionQuantity;
+    private double standardPortionQuantity;
 
     /**
      * Food identification number (=FOODMUM)
@@ -78,7 +77,7 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -96,7 +95,7 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "RAW_COOKED",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -114,7 +113,7 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "EDIB",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -132,7 +131,7 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -150,7 +149,7 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "PORT_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 4
     )
     @Getter
@@ -168,7 +167,7 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "STDP_UNIT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -186,11 +185,11 @@ public class StandardPortionForFood {
     )
     @Column(
             name = "D_ORDER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double orderToDisplayTheStandardPortion;
+    private double orderToDisplayTheStandardPortion;
 
     @ObjectSupport
     public String title() {

@@ -70,7 +70,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     )
     @Column(
             name = "PQ_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -88,7 +88,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     )
     @Column(
             name = "PQ_TEXT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

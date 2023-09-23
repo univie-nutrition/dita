@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_max;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -133,11 +132,11 @@ public class MaximumValueForAFoodOrASubSubgroup {
     )
     @Column(
             name = "MAXIMA",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double maximumValue;
+    private double maximumValue;
 
     /**
      * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
@@ -168,7 +167,7 @@ public class MaximumValueForAFoodOrASubSubgroup {
     )
     @Column(
             name = "PRIORITY",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter

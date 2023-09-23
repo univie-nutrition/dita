@@ -29,8 +29,9 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
     recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         mixedrec.r_idnum
       description: |
@@ -38,8 +39,9 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
     recipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         r_facet.rfacet_code
       description: |
@@ -50,8 +52,9 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
     order:
       column: ORDER_FAC
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description:
 

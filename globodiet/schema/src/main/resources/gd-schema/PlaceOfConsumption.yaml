@@ -30,24 +30,27 @@ params.general_info.PlaceOfConsumption:
     code:
       column: POC_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Place of consumption code
     name:
       column: POC_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Place of consumption name
     otherPlaceQ:
       column: POC_OTHER
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=not a 'Other' place 

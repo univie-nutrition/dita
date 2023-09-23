@@ -61,11 +61,11 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "ITEM_SEQ",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer sequentialNumber;
+    private int sequentialNumber;
 
     /**
      * Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
@@ -78,7 +78,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -96,7 +96,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -114,7 +114,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "SUBGROUP1",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -132,7 +132,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "SUBGROUP2",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -150,7 +150,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -168,7 +168,7 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "FACET_STR",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -204,11 +204,11 @@ public class FoodOrRecipeOrAttachment {
     )
     @Column(
             name = "PRIORITY",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer priority;
+    private int priority;
 
     /**
      * Attached records: only for the Type=A2 & A3

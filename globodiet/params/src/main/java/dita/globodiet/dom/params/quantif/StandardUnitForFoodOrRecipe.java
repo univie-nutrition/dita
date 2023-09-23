@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.quantif;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,11 +60,11 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "STDU_QUANT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double standardUnitQuantity;
+    private double standardUnitQuantity;
 
     /**
      * Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
@@ -78,7 +77,7 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -136,7 +135,7 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -154,7 +153,7 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -172,7 +171,7 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "UNIT_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 4
     )
     @Getter
@@ -192,7 +191,7 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "STDU_UNIT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -210,11 +209,11 @@ public class StandardUnitForFoodOrRecipe {
     )
     @Column(
             name = "D_ORDER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double orderToDisplayTheStandardUnit;
+    private double orderToDisplayTheStandardUnit;
 
     @ObjectSupport
     public String title() {

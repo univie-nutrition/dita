@@ -30,16 +30,18 @@ params.interview.CenterInvolved:
     centerCode:
       column: CNTR_CODE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Center code
     attachedCountryCode:
       column: CTRYCODE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         country.ctrycode
       description: |
@@ -47,8 +49,9 @@ params.interview.CenterInvolved:
     centerName:
       column: CNTR_NAME
       column-type: nvarchar(50)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Center name

@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -206,7 +205,7 @@ public class PercentOfFatUseDuringCookingForFood {
     )
     @Column(
             name = "COOK_METH",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 4
     )
     @Getter
@@ -224,11 +223,11 @@ public class PercentOfFatUseDuringCookingForFood {
     )
     @Column(
             name = "PCT_ABSOR",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double percentageOfFatAbsorbedDuringCooking;
+    private double percentageOfFatAbsorbedDuringCooking;
 
     @ObjectSupport
     public String title() {

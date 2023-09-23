@@ -29,40 +29,45 @@ params.general_info.FoodConsumptionOccasion:
     code:
       column: FCM_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         FCO code
     textDisplayedOnScreen:
       column: FCM_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         FCO long label (text displayed on screen)
     mode:
       column: FCM_MODE
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         FCO type: if =1 the FCO can be selected several times (e.g. During morning)
     shortLabelToIdentifyEasily:
       column: FCM_SNAME
       column-type: nvarchar(50)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         FCO short label to identify easily the FCO
     displayInNutrientCheckScreenQ:
       column: FCM_PRINCIPAL
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1=main FCO (to be displayed in nutrient check screen)

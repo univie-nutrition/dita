@@ -20,9 +20,7 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import jakarta.inject.Named;
-import java.lang.Boolean;
 import java.lang.Double;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -63,7 +61,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "R_IDNUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -89,7 +87,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "ING_TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -107,7 +105,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -143,7 +141,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -161,7 +159,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -179,7 +177,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "SUBGROUP1",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -255,7 +253,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "STATUS",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -273,11 +271,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "CONS_QTY",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double finalQuantityInG;
+    private double finalQuantityInG;
 
     /**
      * Estimated quantity (before coefficient applied)
@@ -290,11 +288,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "ESTIM_QTY",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double estimatedQuantityBeforeCoefficientApplied;
+    private double estimatedQuantityBeforeCoefficientApplied;
 
     /**
      * Quantity Estimated Raw or Cooked<br>
@@ -311,7 +309,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "RAWCOOKED",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -333,7 +331,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "CONSRAWCO",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -351,11 +349,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "CONVER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double conversionFactorRawToCooked;
+    private double conversionFactorRawToCooked;
 
     /**
      * Quantity as estimated: 1=without un-edible part & 2=with un-edible part
@@ -368,7 +366,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "EDIB",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -386,11 +384,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "EDIB_CSTE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double conversionFactorForEdiblePart;
+    private double conversionFactorForEdiblePart;
 
     /**
      * Quantity in gram/volume attached to the selected Photo, HHM, STDU
@@ -403,11 +401,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "NGRAMS",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU;
+    private double quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU;
 
     /**
      * Proportion of Photo, HHM, STDU
@@ -420,7 +418,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "PROPORT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -474,11 +472,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "DENSITY",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double densityCoefficientOnlyForHHM;
+    private double densityCoefficientOnlyForHHM;
 
     /**
      * Sequential Number for Ingredients within a Mixed Recipe
@@ -491,11 +489,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "ING_NUM",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double sequentialNumberForIngredientsWithinARecipe;
+    private double sequentialNumberForIngredientsWithinARecipe;
 
     /**
      * Fat Left-Over Percentage
@@ -508,11 +506,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "FATL_PCT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double fatLeftOverPercentage;
+    private double fatLeftOverPercentage;
 
     /**
      * Fat Left-Over Code (F=False, T=True)
@@ -525,11 +523,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "FATLEFTO",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Boolean fatLeftOverQ;
+    private boolean fatLeftOverQ;
 
     /**
      * HHM Fraction
@@ -560,11 +558,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "POUND",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double consumedQuantityInPound;
+    private double consumedQuantityInPound;
 
     /**
      * Consumed quantity in ounce
@@ -577,11 +575,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "OUNCE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double consumedQuantityInOunce;
+    private double consumedQuantityInOunce;
 
     /**
      * Consumed quantity in quart
@@ -594,11 +592,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "QUART",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double consumedQuantityInQuart;
+    private double consumedQuantityInQuart;
 
     /**
      * Consumed quantity in pint
@@ -611,11 +609,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "PINT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double consumedQuantityInPint;
+    private double consumedQuantityInPint;
 
     /**
      * Consumed quantity in flounce
@@ -628,11 +626,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "FLOUNCE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double consumedQuantityInFlounce;
+    private double consumedQuantityInFlounce;
 
     /**
      * Sequential Number for Ingredients within a Sub-Recipe
@@ -645,11 +643,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "S_ING_NUM",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double sequentialNumberForIngredientsWithinASubRecipe;
+    private double sequentialNumberForIngredientsWithinASubRecipe;
 
     /**
      * Raw quantity without inedible (sans dechet)
@@ -662,11 +660,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "RAW_Q",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double rawQuantityWithoutInedible;
+    private double rawQuantityWithoutInedible;
 
     /**
      * Percentage/Proportion as Estimated for Recipe Ingredients
@@ -715,11 +713,11 @@ public class RecipeIngredient {
     )
     @Column(
             name = "TYPE_IT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer typeOfItem;
+    private int typeOfItem;
 
     /**
      * Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum
@@ -732,7 +730,7 @@ public class RecipeIngredient {
     )
     @Column(
             name = "IDNUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter

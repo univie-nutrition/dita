@@ -29,24 +29,27 @@ params.supplement.DietarySupplementDescriptor:
     code:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Descriptor code
     name:
       column: DSDESCR_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Descriptor name
     facetCode:
       column: DSFACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         ds_facet.dsfacet_code
       description: |
@@ -54,8 +57,9 @@ params.supplement.DietarySupplementDescriptor:
     householdMeasuresProposedQ:
       column: DSDESCR_HHM
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Only for the facet with Dsfacet_type=1, 
@@ -63,8 +67,9 @@ params.supplement.DietarySupplementDescriptor:
     defaultDescriptor:
       column: DSDESCR_DEFAULT
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Default Descriptor. 
@@ -74,32 +79,36 @@ params.supplement.DietarySupplementDescriptor:
     otherQ:
       column: DSDESCR_OTHER
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleDescriptorQ:
       column: DSDESCR_SINGLE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=not single descriptor 1=single descriptor
     displayOrderFirstOrSecond:
       column: DSDESCR_ORDER
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Display order (1=first, 2=second…)
     notInName:
       column: NOTINNAME
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Not in name flag

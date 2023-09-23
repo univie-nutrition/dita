@@ -29,8 +29,9 @@ params.general_info.PlaceOfConsumptionDisplayItem:
     placeOfConsumptionCode:
       column: FCO_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         poc.poc_code
       description: |
@@ -38,8 +39,9 @@ params.general_info.PlaceOfConsumptionDisplayItem:
     label:
       column: TEXT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Item label

@@ -47,6 +47,6 @@ public class FacetDescriptorThatCannotBeSubstituted_descriptor {
     @MemberSupport
     public FacetDescriptor prop() {
         final var lookupKey = new FacetDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

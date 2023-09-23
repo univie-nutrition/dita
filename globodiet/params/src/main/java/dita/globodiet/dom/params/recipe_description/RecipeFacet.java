@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -70,7 +69,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +87,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -106,7 +105,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_TEXT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -126,11 +125,11 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_TYPE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer descriptorsAvailableForRecipeOrBrandQ;
+    private int descriptorsAvailableForRecipeOrBrandQ;
 
     /**
      * 0 = facet with mono-selection of descriptor<br>
@@ -145,11 +144,11 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_TYPE_S",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer singleOrMultiSelectDescriptorQ;
+    private int singleOrMultiSelectDescriptorQ;
 
     /**
      * 0 = standard facet<br>
@@ -164,11 +163,11 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_MAIN",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer standardOrMainFacetQ;
+    private int standardOrMainFacetQ;
 
     /**
      * Label on how to ask the facet question
@@ -181,7 +180,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Column(
             name = "RFACET_QUEST",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 300
     )
     @Getter

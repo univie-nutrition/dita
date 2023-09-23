@@ -31,6 +31,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(3)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         probque.pq_code
       description: |
@@ -40,6 +41,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -49,6 +51,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -58,6 +61,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup2
       description: |
@@ -67,6 +71,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(5)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |

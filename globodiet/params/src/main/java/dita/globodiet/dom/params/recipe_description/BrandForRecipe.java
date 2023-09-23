@@ -60,7 +60,7 @@ public class BrandForRecipe {
     )
     @Column(
             name = "RGROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -96,7 +96,7 @@ public class BrandForRecipe {
     )
     @Column(
             name = "RNAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

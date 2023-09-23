@@ -29,24 +29,27 @@ params.food_table.NutrientValuesPerNutrientAndItem:
     itemSequentialNumber:
       column: SEQ
       column-type: int(10)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Item Sequential number
     nutrientCode:
       column: NTR_CODE
       column-type: int(10)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Nutrient code
     nutrientValueForTheAttachedItemAndNutrient:
       column: VAL
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Nutrient value for the attached item & nutrient

@@ -30,24 +30,27 @@ params.supplement.DietarySupplementFacet:
     code:
       column: DSFACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Facet code for Dietary Supplement
     name:
       column: DSFACET_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet name for Dietary Supplement
     mandatoryFacetUsedForQuantificationQ:
       column: DSFACET_QUANT
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         To identify the mandatory facet used for quantification: 1=yes, 0=no.
@@ -55,8 +58,9 @@ params.supplement.DietarySupplementFacet:
     singleOrMultiSelectionOfDescriptorsQ:
       column: DSFACET_TYPE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet with Mono or Multi selection of descriptors 
@@ -65,24 +69,27 @@ params.supplement.DietarySupplementFacet:
     attributedToAllSupplementsQ:
       column: DSFACET_MAIN
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
     orderToAsk:
       column: DSFACET_ORDER
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to ask the facet (first, second...)
     labelOnHowToAskTheFacetQuestion:
       column: DSFACET_QUEST
       column-type: nvarchar(300)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Label on how to ask the facet question

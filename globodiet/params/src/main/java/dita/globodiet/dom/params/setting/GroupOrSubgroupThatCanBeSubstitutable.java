@@ -60,7 +60,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -78,7 +78,7 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter

@@ -29,8 +29,9 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
     recipeGroup:
       column: R_GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -38,8 +39,9 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
     quantificationMethodCode:
       column: METHOD
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Quantification method code:
@@ -52,6 +54,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column-type: nvarchar(4)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         m_photos.ph_code
         m_shapes.sh_code
@@ -61,8 +64,9 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
     comment:
       column: COMMENT
       column-type: nvarchar(200)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment

@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -71,7 +70,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     )
     @Column(
             name = "POC_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -89,7 +88,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     )
     @Column(
             name = "POC_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -109,11 +108,11 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     )
     @Column(
             name = "POC_OTHER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer otherPlaceQ;
+    private int otherPlaceQ;
 
     @ObjectSupport
     public String title() {

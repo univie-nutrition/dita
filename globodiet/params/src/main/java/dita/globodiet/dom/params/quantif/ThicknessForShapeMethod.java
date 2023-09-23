@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -70,7 +69,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     )
     @Column(
             name = "TH_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 10
     )
     @Getter
@@ -88,11 +87,11 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     )
     @Column(
             name = "TH_THICK",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double thickness;
+    private double thickness;
 
     /**
      * Comment attached to the thickness (e.g. small, medium, large…)
@@ -105,7 +104,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     )
     @Column(
             name = "TH_COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -131,7 +130,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     )
     @Column(
             name = "TH_FDCLASS",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

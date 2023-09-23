@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -71,7 +70,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Column(
             name = "FACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -89,7 +88,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Column(
             name = "DESCR_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -107,7 +106,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Column(
             name = "DESCR_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -129,11 +128,11 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Column(
             name = "DESC_COOK",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer type;
+    private int type;
 
     /**
      * TODO missing description
@@ -146,11 +145,11 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Column(
             name = "DESC_SINGLE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer single;
+    private int single;
 
     /**
      * TODO missing description
@@ -163,11 +162,11 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Column(
             name = "DESC_OTHER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer other;
+    private int other;
 
     @ObjectSupport
     public String title() {

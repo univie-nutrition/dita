@@ -60,7 +60,7 @@ public class QuantificationMethodPathwayForRecipe {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -86,7 +86,7 @@ public class QuantificationMethodPathwayForRecipe {
     )
     @Column(
             name = "METHOD",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter

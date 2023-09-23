@@ -46,6 +46,6 @@ public class CenterInvolved_attachedCountry {
     @MemberSupport
     public CountryInvolved prop() {
         final var lookupKey = new CountryInvolved.SecondaryKey(mixee.getAttachedCountryCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

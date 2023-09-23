@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.general_info;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class FoodConsumptionOccasion {
     )
     @Column(
             name = "FCM_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -79,7 +78,7 @@ public class FoodConsumptionOccasion {
     )
     @Column(
             name = "FCM_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -97,7 +96,7 @@ public class FoodConsumptionOccasion {
     )
     @Column(
             name = "FCM_MODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -115,7 +114,7 @@ public class FoodConsumptionOccasion {
     )
     @Column(
             name = "FCM_SNAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 50
     )
     @Getter
@@ -135,11 +134,11 @@ public class FoodConsumptionOccasion {
     )
     @Column(
             name = "FCM_PRINCIPAL",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer displayInNutrientCheckScreenQ;
+    private int displayInNutrientCheckScreenQ;
 
     @ObjectSupport
     public String title() {

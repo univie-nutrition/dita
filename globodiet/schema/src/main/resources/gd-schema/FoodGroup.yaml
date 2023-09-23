@@ -30,24 +30,27 @@ params.classification.FoodGroup:
     code:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Food group code
     name:
       column: NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Food group name
     shortName:
       column: NAME_SHORT
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Food group short name

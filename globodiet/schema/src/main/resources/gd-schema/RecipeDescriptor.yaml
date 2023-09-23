@@ -31,8 +31,9 @@ params.recipe_description.RecipeDescriptor:
     recipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         r_facet.rfacet_code
       description: |
@@ -40,24 +41,27 @@ params.recipe_description.RecipeDescriptor:
     code:
       column: RDESCR_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Descriptor code for recipes
     name:
       column: RDESCR_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Descriptor name
     homemadeOrNot:
       column: RDESCR_TYPE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Only for facet recipe production: 
@@ -66,24 +70,27 @@ params.recipe_description.RecipeDescriptor:
     knownOrUnknown:
       column: RDESCR_KNOWN
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Only for facet known/unknown: 1=unknown 2=known
     yesOrNo:
       column: RDESCR_OTHER
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleOrNot:
       column: RDESCR_SINGLE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=not single descriptor

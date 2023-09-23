@@ -60,7 +60,7 @@ public class RuleAppliedToFacets {
     )
     @Column(
             name = "RFACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +88,7 @@ public class RuleAppliedToFacets {
     )
     @Column(
             name = "R_FACDESC",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 4
     )
     @Getter

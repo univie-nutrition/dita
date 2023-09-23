@@ -29,24 +29,27 @@ params.setting.NoteStatus:
     statusCode:
       column: S_CODE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Status code
     statusLabel:
       column: S_LABEL
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Status label
     allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow:
       column: S_HIDE
       column-type: smallint(5)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Allow the possibility to display or not the note in the view note window: 

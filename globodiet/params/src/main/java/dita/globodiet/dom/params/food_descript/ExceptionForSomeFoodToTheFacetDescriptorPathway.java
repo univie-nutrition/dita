@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_descript;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     )
     @Column(
             name = "FOODNUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -103,11 +102,11 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     )
     @Column(
             name = "ORDER_FAC",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer displayOrder;
+    private int displayOrder;
 
     @ObjectSupport
     public String title() {

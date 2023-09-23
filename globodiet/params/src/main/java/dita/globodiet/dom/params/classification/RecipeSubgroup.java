@@ -70,7 +70,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +88,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     )
     @Column(
             name = "SUBGROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -106,7 +106,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -124,7 +124,7 @@ public class RecipeSubgroup implements HasSecondaryKey<RecipeSubgroup> {
     )
     @Column(
             name = "NAMES_SHORT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter

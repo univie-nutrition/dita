@@ -31,6 +31,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(3)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         probque.pq_code
       description: |
@@ -40,6 +41,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -49,6 +51,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rsubgr.subgroup
       description: |
@@ -58,6 +61,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(5)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         mixedrec.r_idnum
       description: |

@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.recipe_max;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -115,11 +114,11 @@ public class MaximumValueForARecipeOrASubgroup {
     )
     @Column(
             name = "MAXIMA",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double maximumValue;
+    private double maximumValue;
 
     @ObjectSupport
     public String title() {

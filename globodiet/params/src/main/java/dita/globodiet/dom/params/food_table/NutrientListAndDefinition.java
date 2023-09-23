@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_table;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,11 +60,11 @@ public class NutrientListAndDefinition {
     )
     @Column(
             name = "NTR_CODE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer nutrientCode;
+    private int nutrientCode;
 
     /**
      * Nutrient Name
@@ -78,7 +77,7 @@ public class NutrientListAndDefinition {
     )
     @Column(
             name = "NTR_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -96,7 +95,7 @@ public class NutrientListAndDefinition {
     )
     @Column(
             name = "NTR_UNIT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter
@@ -116,11 +115,11 @@ public class NutrientListAndDefinition {
     )
     @Column(
             name = "NTR_DISPLAY",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer whetherDisplayedInTheNutrientChecksScreen;
+    private int whetherDisplayedInTheNutrientChecksScreen;
 
     /**
      * Comment on nutrient

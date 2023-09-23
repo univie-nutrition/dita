@@ -60,7 +60,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -78,7 +78,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Column(
             name = "SUBGROUP1",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -160,7 +160,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Column(
             name = "METHOD",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -198,7 +198,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Column(
             name = "COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 200
     )
     @Getter

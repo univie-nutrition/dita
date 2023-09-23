@@ -29,8 +29,9 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
     foodCode:
       column: FOODNUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -40,6 +41,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         facets.facet_code
       description: |
@@ -50,8 +52,9 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
     displayOrder:
       column: ORDER_FAC
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the facets for the attached food (same order as order_fac from Groupfac table)

@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class EdiblePartCoefficientForFood {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -79,11 +78,11 @@ public class EdiblePartCoefficientForFood {
     )
     @Column(
             name = "EPC_FACT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double ediblePartCoefficient;
+    private double ediblePartCoefficient;
 
     /**
      * Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
@@ -114,7 +113,7 @@ public class EdiblePartCoefficientForFood {
     )
     @Column(
             name = "PRIORITY",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter

@@ -29,32 +29,36 @@ params.food_table.NutrientListAndDefinition:
     nutrientCode:
       column: NTR_CODE
       column-type: int(10)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Nutrient code
     nutrientName:
       column: NTR_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Nutrient Name
     nutrientUnit:
       column: NTR_UNIT
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Nutrient unit (e.g. kcal, g, mg…)
     whetherDisplayedInTheNutrientChecksScreen:
       column: NTR_DISPLAY
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=not displayed in the 'nutrient checks' screen 
@@ -64,6 +68,7 @@ params.food_table.NutrientListAndDefinition:
       column-type: nvarchar(2147483647)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment on nutrient

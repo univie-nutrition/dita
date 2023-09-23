@@ -30,16 +30,18 @@ params.probing.ProbingQuestion:
     code:
       column: PQ_CODE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Probing question code
     label:
       column: PQ_TEXT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Probing question label

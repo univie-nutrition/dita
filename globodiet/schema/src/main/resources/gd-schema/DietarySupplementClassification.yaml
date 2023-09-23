@@ -32,6 +32,7 @@ params.supplement.DietarySupplementClassification:
       column-type: nvarchar(20)
       required: false
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Dietary Supplement classification code
@@ -40,6 +41,7 @@ params.supplement.DietarySupplementClassification:
       column-type: nvarchar(50)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Name of the food (sub-)(sub-)group 
@@ -48,6 +50,7 @@ params.supplement.DietarySupplementClassification:
       column-type: nvarchar(20)
       required: false
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Dietary Supplement classification code attached to (for subgroup)

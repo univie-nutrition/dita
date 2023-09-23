@@ -29,16 +29,18 @@ params.quantif.StandardUnitForFoodOrRecipe:
     standardUnitQuantity:
       column: STDU_QUANT
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Standard unit quantity
     foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
         mixedrec.r_idnum
@@ -49,6 +51,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = raw, 
@@ -58,14 +61,16 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = without un-edible part, 2 = with un-edible (as estimated)
     type:
       column: TYPE
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         1 = STDU for food, 
@@ -73,24 +78,27 @@ params.quantif.StandardUnitForFoodOrRecipe:
     commentAttachedToTheStandardUnit:
       column: COMMENT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment attached to the standard unit
     standardUnitCode:
       column: UNIT_CODE
       column-type: nvarchar(4)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Standard unit code for the same food/recipe (0001, 0002, 0003)
     unit:
       column: STDU_UNIT
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         G = in grams, 
@@ -98,8 +106,9 @@ params.quantif.StandardUnitForFoodOrRecipe:
     orderToDisplayTheStandardUnit:
       column: D_ORDER
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the standard unit

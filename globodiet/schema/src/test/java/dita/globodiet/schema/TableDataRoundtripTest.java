@@ -18,16 +18,21 @@
  */
 package dita.globodiet.schema;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.types.TabularData;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
+import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
 
@@ -35,7 +40,7 @@ class TableDataRoundtripTest {
 
     // disabled until we have fake data for testing, that can be published
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
-    @Test
+    //@Test
     void transformerRoundtrip() {
 
         final String gdParamDataLowLevelYaml = DataSource.ofResource(
@@ -66,6 +71,58 @@ class TableDataRoundtripTest {
 
     // -- UTIL
 
+    // disabled until we have fake data for testing, that can be published
+    @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
+    @Test
+    void nullableAutodetect() {
+
+        final String gdParamDataLowLevelYaml = DataSource.ofResource(
+                TableDataRoundtripTest.class, "gd-params.yml")
+                .tryReadAsStringUtf8()
+                .valueAsNonNullElseFail();
+
+        var dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
+
+        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+                .tryReadAsStringUtf8()
+                .valueAsNonNullElseFail());
+
+        dbLow.dataTables().stream()
+        .filter(table->table.rows().size()>0)
+        .forEach(table->{
+            table.columns().forEach(IndexedConsumer.zeroBased((colIndex, col)->{
+                var entity = schema.lookupEntityByTableName(table.key()).orElseThrow();
+                var field = entity.lookupFieldByColumnName(col.name()).orElseThrow();
+                var columnValues = table.rows().stream().map(row->row.cellLiterals().get(colIndex))
+                        .collect(Can.toCan());
+                var nullable = columnValues.size()<table.rows().size();
+                var required = !nullable;
+                var unique = columnValues.distinct().size()<columnValues.size();
+
+                if(required && !field.required()) {
+                    System.err.printf("required %s.%s -> but schema says nullable%n",
+                            table.key(), col.name());
+                    field.withRequired(true);
+                } else if(!required && field.required()) {
+                    System.err.printf("nullable %s.%s -> but schema says required%n",
+                            table.key(), col.name());
+                }
+                if(unique && !field.unique()) {
+//                    System.err.printf("unique %s.%s -> but schema says repeatable%n",
+//                            table.key(), col.name());
+                } else if(!unique && field.unique()) {
+                    System.err.printf("repeated %s.%s -> but schema says unique%n",
+                            table.key(), col.name());
+                }
+
+
+            }));
+        });
+
+        schema.splitIntoFiles(new File("d:/tmp/", "gd-schema"), LicenseHeader.ASF_V2);
+
+        System.out.println("done.");
+    }
 
 
 }

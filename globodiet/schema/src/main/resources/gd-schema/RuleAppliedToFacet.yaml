@@ -29,8 +29,9 @@ params.food_descript.RuleAppliedToFacet:
     facetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         facets.facet_code
       description: |
@@ -38,8 +39,9 @@ params.food_descript.RuleAppliedToFacet:
     facetDescriptorLookupKey:
       column: FACDESC
       column-type: nvarchar(4)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         descface.facet_code
         descface.descr_code
@@ -53,6 +55,7 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -62,6 +65,7 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -71,6 +75,7 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup2
       description: |

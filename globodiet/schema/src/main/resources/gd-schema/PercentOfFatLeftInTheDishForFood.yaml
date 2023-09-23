@@ -29,8 +29,9 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
     fatGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -61,8 +62,9 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
     percentageOfFatLeftInTheDish:
       column: PCT_LEFT
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Percentage of fat left in the dish

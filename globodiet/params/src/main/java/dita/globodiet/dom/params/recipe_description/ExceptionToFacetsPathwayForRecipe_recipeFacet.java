@@ -49,6 +49,6 @@ public class ExceptionToFacetsPathwayForRecipe_recipeFacet {
     @MemberSupport
     public RecipeFacet prop() {
         final var lookupKey = new RecipeFacet.SecondaryKey(mixee.getRecipeFacetCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

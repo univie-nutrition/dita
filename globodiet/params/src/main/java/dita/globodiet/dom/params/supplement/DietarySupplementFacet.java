@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -70,7 +69,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +87,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -108,11 +107,11 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_QUANT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer mandatoryFacetUsedForQuantificationQ;
+    private int mandatoryFacetUsedForQuantificationQ;
 
     /**
      * Facet with Mono or Multi selection of descriptors<br>
@@ -129,11 +128,11 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_TYPE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer singleOrMultiSelectionOfDescriptorsQ;
+    private int singleOrMultiSelectionOfDescriptorsQ;
 
     /**
      * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
@@ -146,11 +145,11 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_MAIN",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer attributedToAllSupplementsQ;
+    private int attributedToAllSupplementsQ;
 
     /**
      * Order to ask the facet (first, second...)
@@ -163,11 +162,11 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_ORDER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer orderToAsk;
+    private int orderToAsk;
 
     /**
      * Label on how to ask the facet question
@@ -180,7 +179,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Column(
             name = "DSFACET_QUEST",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 300
     )
     @Getter

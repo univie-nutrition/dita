@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.setting;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class NoteStatus {
     )
     @Column(
             name = "S_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -79,7 +78,7 @@ public class NoteStatus {
     )
     @Column(
             name = "S_LABEL",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -101,11 +100,11 @@ public class NoteStatus {
     )
     @Column(
             name = "S_HIDE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow;
+    private int allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow;
 
     @ObjectSupport
     public String title() {

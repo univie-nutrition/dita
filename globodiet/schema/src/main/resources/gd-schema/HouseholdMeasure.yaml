@@ -29,24 +29,27 @@ params.quantif.HouseholdMeasure:
     code:
       column: HHM_CODE
       column-type: nvarchar(4)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         HouseholdMeasure code
     volumeInCm3:
       column: HHM_VOLUME
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         HouseholdMeasure volume in cm3.
     fractions:
       column: HHM_FRACT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas. 
@@ -54,16 +57,18 @@ params.quantif.HouseholdMeasure:
     comment:
       column: COMMENT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment attached to the HouseholdMeasure
     displayOrder:
       column: D_ORDER
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the HouseholdMeasure

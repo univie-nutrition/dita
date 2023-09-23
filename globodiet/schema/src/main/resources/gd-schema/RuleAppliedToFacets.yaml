@@ -29,8 +29,9 @@ params.recipe_description.RuleAppliedToFacets:
     facetWhereTheRuleMustBeApplied:
       column: RFACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         facets.facet_code
       description: |
@@ -38,8 +39,9 @@ params.recipe_description.RuleAppliedToFacets:
     matchOnPreviouslySelectedFacetDescriptorBySubject:
       column: R_FACDESC
       column-type: nvarchar(4)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Rule: Facet (facet_code) will be displayed only if descriptor in facdesc 
@@ -53,6 +55,7 @@ params.recipe_description.RuleAppliedToFacets:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -62,6 +65,7 @@ params.recipe_description.RuleAppliedToFacets:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rsubgr.subgroup
       description: |

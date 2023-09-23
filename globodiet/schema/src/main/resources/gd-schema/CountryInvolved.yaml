@@ -30,16 +30,18 @@ params.interview.CountryInvolved:
     countryCode:
       column: CTRYCODE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Country code
     countryName:
       column: CTRY_NAME
       column-type: nvarchar(50)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Country name

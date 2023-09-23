@@ -60,7 +60,7 @@ public class SpecialDayPredefinedAnswer {
     )
     @Column(
             name = "SPY_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -78,7 +78,7 @@ public class SpecialDayPredefinedAnswer {
     )
     @Column(
             name = "SPY_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

@@ -29,16 +29,18 @@ params.setting.SelectedParameterForDataEntry:
     parameterCode:
       column: PARAM_LAB
       column-type: nvarchar(40)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Parameter code for data entry
     parameterValue:
       column: PARAM_LIB
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Parameter value for data entry

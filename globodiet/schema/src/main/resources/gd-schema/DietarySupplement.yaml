@@ -29,16 +29,18 @@ params.supplement.DietarySupplement:
     vitaminOrSupplementCode:
       column: CODE_VITA
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Vitamin/supplement code
     vitaminOrSupplementName:
       column: NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Vitamin/supplement name
@@ -47,6 +49,7 @@ params.supplement.DietarySupplement:
       column-type: nvarchar(2)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Blank or 'GI' for generic vitamin/supplement
@@ -55,6 +58,7 @@ params.supplement.DietarySupplement:
       column-type: nvarchar(20)
       required: false
       unique: false
+      discriminator:
       foreignKeys: |
         ds_classif.ds_class
       description: |
@@ -62,8 +66,9 @@ params.supplement.DietarySupplement:
     facetCode:
       column: DS_FACET
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys: |
         ds_facet.dsfacet_code
       description: |

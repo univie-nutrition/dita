@@ -61,7 +61,7 @@ public class AnthropometricAverage {
     )
     @Column(
             name = "ANT_VAR",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 15
     )
     @Getter
@@ -96,11 +96,11 @@ public class AnthropometricAverage {
     )
     @Column(
             name = "AGE_MIN",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer ageMinimumRange;
+    private int ageMinimumRange;
 
     /**
      * Age maximum range
@@ -113,11 +113,11 @@ public class AnthropometricAverage {
     )
     @Column(
             name = "AGE_MAX",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer ageMaximumRange;
+    private int ageMaximumRange;
 
     /**
      * Minimum value of height or weight
@@ -130,11 +130,11 @@ public class AnthropometricAverage {
     )
     @Column(
             name = "ANT_MIN",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer minimumValueOfHeightOrWeight;
+    private int minimumValueOfHeightOrWeight;
 
     /**
      * Maximum value of height or weight
@@ -147,11 +147,11 @@ public class AnthropometricAverage {
     )
     @Column(
             name = "ANT_MAX",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer maximumValueOfHeightOrWeight;
+    private int maximumValueOfHeightOrWeight;
 
     /**
      * Default value of height or weight
@@ -164,11 +164,11 @@ public class AnthropometricAverage {
     )
     @Column(
             name = "ANT_DEF",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer defaultValueOfHeightOrWeight;
+    private int defaultValueOfHeightOrWeight;
 
     @ObjectSupport
     public String title() {

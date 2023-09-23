@@ -60,7 +60,7 @@ public class SelectedParameterForDataEntry {
     )
     @Column(
             name = "PARAM_LAB",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 40
     )
     @Getter
@@ -78,7 +78,7 @@ public class SelectedParameterForDataEntry {
     )
     @Column(
             name = "PARAM_LIB",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

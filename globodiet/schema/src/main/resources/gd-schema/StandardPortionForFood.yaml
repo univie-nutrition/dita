@@ -29,16 +29,18 @@ params.food_quantif.StandardPortionForFood:
     standardPortionQuantity:
       column: STDP_QUANT
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Standard portion quantity
     foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -46,48 +48,54 @@ params.food_quantif.StandardPortionForFood:
     rawOrCooked:
       column: RAW_COOKED
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = raw, 2 = cooked (as estimated)
     withUnediblePartQ:
       column: EDIB
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = without un-edible part, 2 = with un-edible (as estimated)
     commentAttachedToTheStandardPortion:
       column: COMMENT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment attached to the standard portion
     standardPortionCode:
       column: PORT_CODE
       column-type: nvarchar(4)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Standard portion code for the same food (0001, 0002, 0003)
     unit:
       column: STDP_UNIT
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         G = in grams, V = in ml (volume)
     orderToDisplayTheStandardPortion:
       column: D_ORDER
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the standard portion

@@ -31,6 +31,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: smallint(5)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Interview number
@@ -39,6 +40,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: datetime(23)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Subject birth date
@@ -47,6 +49,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(20)
       required: false
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Subject code
@@ -55,6 +58,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Subject first name
@@ -63,6 +67,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: float(53)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Subject height in cm
@@ -71,6 +76,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Subject name
@@ -79,6 +85,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Subject sex (1=man, 2=woman)
@@ -87,6 +94,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: float(53)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Subject weight in kg
@@ -95,6 +103,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: tinyint(3)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1=interview done, 0=interview to be done
@@ -103,6 +112,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(3)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         country.ctrycode
       description: |
@@ -112,6 +122,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(3)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         centers.cntr_code
       description: |
@@ -121,6 +132,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(3)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Interviewer Country code
@@ -129,6 +141,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(3)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Interviewer Center code
@@ -137,6 +150,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(20)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Interviewer code
@@ -145,6 +159,7 @@ params.interview.SubjectToBeInterviewed:
       column-type: datetime(23)
       required: false
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Recall Date (mm/dd/yy)

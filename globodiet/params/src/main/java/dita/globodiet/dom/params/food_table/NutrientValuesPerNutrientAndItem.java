@@ -20,8 +20,6 @@
 package dita.globodiet.dom.params.food_table;
 
 import jakarta.inject.Named;
-import java.lang.Double;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -62,11 +60,11 @@ public class NutrientValuesPerNutrientAndItem {
     )
     @Column(
             name = "SEQ",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer itemSequentialNumber;
+    private int itemSequentialNumber;
 
     /**
      * Nutrient code
@@ -79,11 +77,11 @@ public class NutrientValuesPerNutrientAndItem {
     )
     @Column(
             name = "NTR_CODE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer nutrientCode;
+    private int nutrientCode;
 
     /**
      * Nutrient value for the attached item & nutrient
@@ -96,11 +94,11 @@ public class NutrientValuesPerNutrientAndItem {
     )
     @Column(
             name = "VAL",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double nutrientValueForTheAttachedItemAndNutrient;
+    private double nutrientValueForTheAttachedItemAndNutrient;
 
     @ObjectSupport
     public String title() {

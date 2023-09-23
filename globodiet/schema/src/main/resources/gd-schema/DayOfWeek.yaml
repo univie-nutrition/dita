@@ -29,16 +29,18 @@ params.setting.DayOfWeek:
     dayNumber:
       column: DAYOFWEEK
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Day number
     dayName:
       column: DAY
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Day name

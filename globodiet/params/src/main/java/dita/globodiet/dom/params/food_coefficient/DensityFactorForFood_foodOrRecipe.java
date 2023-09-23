@@ -54,11 +54,11 @@ public class DensityFactorForFood_foodOrRecipe {
         switch(switchOn) {
         case 1: {
             final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodOrRecipeCode());
-            return foreignKeyLookup.nullable(lookupKey);
+            return foreignKeyLookup.unique(lookupKey);
         }
         case 2: {
             final var lookupKey = new Recipe.SecondaryKey(mixee.getFoodOrRecipeCode());
-            return foreignKeyLookup.nullable(lookupKey);
+            return foreignKeyLookup.unique(lookupKey);
         }}
         throw _Exceptions.unexpectedCodeReach();
     }

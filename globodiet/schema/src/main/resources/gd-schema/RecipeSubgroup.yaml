@@ -31,8 +31,9 @@ params.classification.RecipeSubgroup:
     recipeGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -40,24 +41,27 @@ params.classification.RecipeSubgroup:
     code:
       column: SUBGROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Recipe sub-group code
     name:
       column: NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Name of the recipe (sub-)group
     shortName:
       column: NAMES_SHORT
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Short Name of the recipe (sub-)group

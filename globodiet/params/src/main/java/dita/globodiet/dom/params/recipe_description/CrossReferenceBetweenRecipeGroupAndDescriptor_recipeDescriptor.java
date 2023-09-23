@@ -46,6 +46,6 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor {
     @MemberSupport
     public RecipeDescriptor prop() {
         final var lookupKey = new RecipeDescriptor.SecondaryKey(mixee.getRecipeDescriptorCode(), null);
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

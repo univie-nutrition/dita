@@ -29,8 +29,9 @@ params.recipe_description.BrandForRecipe:
     recipeGroupCode:
       column: RGROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         rgroups.group
       description: |
@@ -40,6 +41,7 @@ params.recipe_description.BrandForRecipe:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         rsubgr.subgroup
       description: |
@@ -47,8 +49,9 @@ params.recipe_description.BrandForRecipe:
     recipeName:
       column: RNAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description:
 

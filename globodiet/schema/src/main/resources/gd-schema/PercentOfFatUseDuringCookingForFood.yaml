@@ -31,6 +31,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -40,6 +41,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -49,6 +51,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup2
       description: |
@@ -58,6 +61,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(5)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -67,6 +71,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -76,6 +81,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -85,6 +91,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup2
       description: |
@@ -94,6 +101,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       column-type: nvarchar(5)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -101,8 +109,9 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
     cookingMethodFacetDescriptorLookupKey:
       column: COOK_METH
       column-type: nvarchar(4)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         descface.facet_code
         descface.descr_code
@@ -111,8 +120,9 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
     percentageOfFatAbsorbedDuringCooking:
       column: PCT_ABSOR
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Percentage of fat absorbed during cooking

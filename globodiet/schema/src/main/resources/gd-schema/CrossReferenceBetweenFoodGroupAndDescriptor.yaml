@@ -29,8 +29,9 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -40,6 +41,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup1
       description: |
@@ -49,6 +51,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys: |
         subgroup.subgroup2
       description: |
@@ -56,8 +59,9 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
     facetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         facets.facet_code
       description: |
@@ -65,7 +69,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
     descriptorCode:
       column: DESCR_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
       discriminator: |
         facet_code
@@ -78,6 +82,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Default flag (if set to 'D' it is the default descriptor)
@@ -86,22 +91,25 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(1)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Not in name flag
     facetDisplayOrder:
       column: ORDER_FAC
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the facets within a group/subgroup
     descriptorDisplayOrder:
       column: ORDER_DESC
       column-type: int(10)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the descriptors within a group/subgroup and a facet

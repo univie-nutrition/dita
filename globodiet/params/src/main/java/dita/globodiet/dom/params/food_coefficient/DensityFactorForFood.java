@@ -20,8 +20,6 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import jakarta.inject.Named;
-import java.lang.Double;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -64,7 +62,7 @@ public class DensityFactorForFood {
     )
     @Column(
             name = "ID_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -82,11 +80,11 @@ public class DensityFactorForFood {
     )
     @Column(
             name = "D_FACTOR",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double densityCoefficient;
+    private double densityCoefficient;
 
     /**
      * Facet string<br>
@@ -119,7 +117,7 @@ public class DensityFactorForFood {
     )
     @Column(
             name = "PRIORITY",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -179,11 +177,11 @@ public class DensityFactorForFood {
     )
     @Column(
             name = "D_TYPE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer densityForFoodOrRecipe;
+    private int densityForFoodOrRecipe;
 
     @ObjectSupport
     public String title() {

@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.quantif;
 
 import jakarta.inject.Named;
-import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class HouseholdMeasure {
     )
     @Column(
             name = "HHM_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 4
     )
     @Getter
@@ -79,11 +78,11 @@ public class HouseholdMeasure {
     )
     @Column(
             name = "HHM_VOLUME",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double volumeInCm3;
+    private double volumeInCm3;
 
     /**
      * HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.<br>
@@ -98,7 +97,7 @@ public class HouseholdMeasure {
     )
     @Column(
             name = "HHM_FRACT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -116,7 +115,7 @@ public class HouseholdMeasure {
     )
     @Column(
             name = "COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -134,11 +133,11 @@ public class HouseholdMeasure {
     )
     @Column(
             name = "D_ORDER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double displayOrder;
+    private double displayOrder;
 
     @ObjectSupport
     public String title() {

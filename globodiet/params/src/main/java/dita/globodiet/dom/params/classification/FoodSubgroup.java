@@ -70,7 +70,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +88,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "SUBGROUP1",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -124,7 +124,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -142,7 +142,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "SGRP_FSS",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -162,7 +162,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "SGRP_FLO",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -182,7 +182,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "SGRP_FDC",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -200,7 +200,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Column(
             name = "NAME_SHORT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter

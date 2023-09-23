@@ -47,6 +47,6 @@ public class BrandForRecipe_recipeGroup {
     @MemberSupport
     public RecipeGroup prop() {
         final var lookupKey = new RecipeGroup.SecondaryKey(mixee.getRecipeGroupCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

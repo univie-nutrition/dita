@@ -77,7 +77,7 @@ public class DefinitionOfRecipePathway {
     )
     @Column(
             name = "R_TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -95,11 +95,11 @@ public class DefinitionOfRecipePathway {
     )
     @Column(
             name = "R_ING",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer ingredientWindowIsDisplayedQ;
+    private int ingredientWindowIsDisplayedQ;
 
     /**
      * Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>
@@ -141,11 +141,11 @@ public class DefinitionOfRecipePathway {
     )
     @Column(
             name = "E_IFUNCTION",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed;
+    private int functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed;
 
     /**
      * Display of the automatic note window:<br>
@@ -164,11 +164,11 @@ public class DefinitionOfRecipePathway {
     )
     @Column(
             name = "D_NOTES",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer displayOfTheAutomaticNoteWindow;
+    private int displayOfTheAutomaticNoteWindow;
 
     @ObjectSupport
     public String title() {

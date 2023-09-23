@@ -29,8 +29,9 @@ params.general_info.TranslationInCountryLanguage:
     textName:
       column: ARRAY_REF
       column-type: nvarchar(19)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Text name
@@ -39,6 +40,7 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Text in specific Country language
@@ -47,6 +49,7 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Text in English
@@ -55,6 +58,7 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Data entry Text in specific Country language
@@ -63,6 +67,7 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Data entry Text in English

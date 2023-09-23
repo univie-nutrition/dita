@@ -60,7 +60,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     )
     @Column(
             name = "R_GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -86,7 +86,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     )
     @Column(
             name = "METHOD",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -124,7 +124,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     )
     @Column(
             name = "COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 200
     )
     @Getter

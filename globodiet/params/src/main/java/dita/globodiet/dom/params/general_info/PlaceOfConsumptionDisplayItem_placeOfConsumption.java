@@ -46,6 +46,6 @@ public class PlaceOfConsumptionDisplayItem_placeOfConsumption {
     @MemberSupport
     public PlaceOfConsumption prop() {
         final var lookupKey = new PlaceOfConsumption.SecondaryKey(mixee.getPlaceOfConsumptionCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

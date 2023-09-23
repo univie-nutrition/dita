@@ -60,7 +60,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
     )
     @Column(
             name = "FACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -78,7 +78,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
     )
     @Column(
             name = "DESC_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter

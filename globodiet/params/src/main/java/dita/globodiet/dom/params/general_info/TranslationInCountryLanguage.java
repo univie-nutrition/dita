@@ -60,7 +60,7 @@ public class TranslationInCountryLanguage {
     )
     @Column(
             name = "ARRAY_REF",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 19
     )
     @Getter

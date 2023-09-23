@@ -291,6 +291,22 @@ public class OrmModel {
                 .map(dependantField->new Join(this, dependantField))
                 .collect(Can.toCan());
         }
+        public void withRequired(final boolean required) {
+            var copy = new Field(parentRef,
+                    ordinal,
+                    name,
+                    column,
+                    columnType,
+                    required,
+                    unique,
+                    plural,
+                    discriminator,
+                    foreignKeys,
+                    description);
+            parentEntity().fields().replaceAll(f->f.ordinal() == this.ordinal()
+                    ? copy
+                    : f);
+        }
     }
 
     @Deprecated

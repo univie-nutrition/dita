@@ -61,7 +61,7 @@ public class Interviewer {
     )
     @Column(
             name = "INTV_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter
@@ -97,7 +97,7 @@ public class Interviewer {
     )
     @Column(
             name = "INTV_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -115,7 +115,7 @@ public class Interviewer {
     )
     @Column(
             name = "COUNTRY",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -133,7 +133,7 @@ public class Interviewer {
     )
     @Column(
             name = "CENTER",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter

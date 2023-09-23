@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_descript;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -62,7 +61,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @Column(
             name = "GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -116,7 +115,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @Column(
             name = "FACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -134,7 +133,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @Column(
             name = "DESCR_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -188,11 +187,11 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @Column(
             name = "ORDER_FAC",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer facetDisplayOrder;
+    private int facetDisplayOrder;
 
     /**
      * Order to display the descriptors within a group/subgroup and a facet
@@ -205,11 +204,11 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @Column(
             name = "ORDER_DESC",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer descriptorDisplayOrder;
+    private int descriptorDisplayOrder;
 
     @ObjectSupport
     public String title() {

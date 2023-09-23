@@ -70,7 +70,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     )
     @Column(
             name = "CNTR_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -88,7 +88,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     )
     @Column(
             name = "CTRYCODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -106,7 +106,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     )
     @Column(
             name = "CNTR_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 50
     )
     @Getter

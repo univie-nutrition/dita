@@ -61,7 +61,7 @@ public class PlaceOfConsumptionDisplayItem {
     )
     @Column(
             name = "FCO_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -79,7 +79,7 @@ public class PlaceOfConsumptionDisplayItem {
     )
     @Column(
             name = "TEXT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

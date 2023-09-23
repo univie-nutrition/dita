@@ -30,32 +30,36 @@ params.quantif.Shape:
     shapeCode:
       column: SH_CODE
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Shape code (e.g. S001,S002,S003,...)
     shapeSurfaceInCm2:
       column: SH_SURFACE
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
     commentAttachedToTheShape:
       column: SH_COMMENT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
     orderToDisplayTheStandardUnit:
       column: SH_ORDER
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Order to display the standard unit

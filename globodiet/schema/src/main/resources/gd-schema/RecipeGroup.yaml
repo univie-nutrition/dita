@@ -30,24 +30,27 @@ params.classification.RecipeGroup:
     code:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Recipe Group code
     name:
       column: NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Name of the Recipe group
     shortName:
       column: NAMEG_SHORT
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Short Name of the Recipe group

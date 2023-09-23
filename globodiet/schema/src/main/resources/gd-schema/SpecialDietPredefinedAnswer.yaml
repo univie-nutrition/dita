@@ -29,16 +29,18 @@ params.general_info.SpecialDietPredefinedAnswer:
     specialDietCode:
       column: SPD_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Special diet code
     specialDietLabel:
       column: SPD_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Special diet label

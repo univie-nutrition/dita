@@ -46,6 +46,6 @@ public class DietarySupplement_facet {
     @MemberSupport
     public DietarySupplementFacet prop() {
         final var lookupKey = new DietarySupplementFacet.SecondaryKey(mixee.getFacetCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

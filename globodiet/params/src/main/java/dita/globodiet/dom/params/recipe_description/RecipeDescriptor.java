@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -70,7 +69,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RFACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -88,7 +87,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RDESCR_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -106,7 +105,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RDESCR_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -128,11 +127,11 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RDESCR_TYPE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer homemadeOrNot;
+    private int homemadeOrNot;
 
     /**
      * Only for facet known/unknown: 1=unknown 2=known
@@ -145,11 +144,11 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RDESCR_KNOWN",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer knownOrUnknown;
+    private int knownOrUnknown;
 
     /**
      * Descriptor with type='other' : 1=yes 0=no
@@ -162,11 +161,11 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RDESCR_OTHER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer yesOrNo;
+    private int yesOrNo;
 
     /**
      * 0=not single descriptor<br>
@@ -181,11 +180,11 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Column(
             name = "RDESCR_SINGLE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer singleOrNot;
+    private int singleOrNot;
 
     @ObjectSupport
     public String title() {

@@ -60,7 +60,7 @@ public class DietarySupplement {
     )
     @Column(
             name = "CODE_VITA",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -78,7 +78,7 @@ public class DietarySupplement {
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -132,7 +132,7 @@ public class DietarySupplement {
     )
     @Column(
             name = "DS_FACET",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter

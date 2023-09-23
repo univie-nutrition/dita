@@ -61,7 +61,7 @@ public class MacroNutrientLimit {
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 50
     )
     @Getter
@@ -79,11 +79,11 @@ public class MacroNutrientLimit {
     )
     @Column(
             name = "MIN",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double minimumValue;
+    private double minimumValue;
 
     /**
      * Maximum value
@@ -96,11 +96,11 @@ public class MacroNutrientLimit {
     )
     @Column(
             name = "MAX",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double maximumValue;
+    private double maximumValue;
 
     /**
      * Unit (g, kcal or blanc)

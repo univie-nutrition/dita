@@ -30,6 +30,7 @@ params.classification.FoodSubgroup:
      dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
+    
   icon: solid layer-group darkgreen
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
@@ -37,8 +38,9 @@ params.classification.FoodSubgroup:
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         groups.group
       description: |
@@ -46,8 +48,9 @@ params.classification.FoodSubgroup:
     foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Food sub-group code
@@ -56,30 +59,34 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(2)
       required: false
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Food sub-sub-group code
     name:
       column: NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Name of the food (sub-)(sub-)group
     fatOrSauceSweetenerSubgroupQ:
       column: SGRP_FSS
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
     fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ:
       column: SGRP_FLO
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=non fat/sauce subgroup 
@@ -87,8 +94,9 @@ params.classification.FoodSubgroup:
     fatDuringCookingSubgroupQ:
       column: SGRP_FDC
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=non fat during cooking subgroup 
@@ -96,8 +104,9 @@ params.classification.FoodSubgroup:
     shortName:
       column: NAME_SHORT
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Short Name of the food (sub-)(sub-)group

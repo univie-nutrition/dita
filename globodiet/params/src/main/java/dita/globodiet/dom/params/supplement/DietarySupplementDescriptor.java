@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.supplement;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -79,7 +78,7 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -97,7 +96,7 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSFACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -117,11 +116,11 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_HHM",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer householdMeasuresProposedQ;
+    private int householdMeasuresProposedQ;
 
     /**
      * Default Descriptor.<br>
@@ -140,11 +139,11 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_DEFAULT",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer defaultDescriptor;
+    private int defaultDescriptor;
 
     /**
      * Descriptor with type='other' : 1=yes 0=no
@@ -157,11 +156,11 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_OTHER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer otherQ;
+    private int otherQ;
 
     /**
      * 0=not single descriptor 1=single descriptor
@@ -174,11 +173,11 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_SINGLE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer singleDescriptorQ;
+    private int singleDescriptorQ;
 
     /**
      * Display order (1=first, 2=second…)
@@ -191,11 +190,11 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "DSDESCR_ORDER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer displayOrderFirstOrSecond;
+    private int displayOrderFirstOrSecond;
 
     /**
      * Not in name flag
@@ -208,11 +207,11 @@ public class DietarySupplementDescriptor {
     )
     @Column(
             name = "NOTINNAME",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer notInName;
+    private int notInName;
 
     @ObjectSupport
     public String title() {

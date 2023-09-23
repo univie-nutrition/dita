@@ -60,7 +60,7 @@ public class DayOfWeek {
     )
     @Column(
             name = "DAYOFWEEK",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -78,7 +78,7 @@ public class DayOfWeek {
     )
     @Column(
             name = "DAY",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter

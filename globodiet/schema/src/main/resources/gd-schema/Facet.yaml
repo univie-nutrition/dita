@@ -30,32 +30,36 @@ params.food_descript.Facet:
     code:
       column: FACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Facet code
     name:
       column: FACET_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet name
     text:
       column: FACET_TEXT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
     type:
       column: FACET_TYPE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=Standard facets with descriptors available in Descface table 
@@ -65,8 +69,9 @@ params.food_descript.Facet:
     typeCardinality:
       column: FACET_TYPE_S
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0 = facet with mono-selection of descriptor 
@@ -76,6 +81,7 @@ params.food_descript.Facet:
       column-type: nvarchar(2147483647)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table. 
@@ -83,8 +89,9 @@ params.food_descript.Facet:
     labelOnHowToAskTheFacetQuestion:
       column: FACET_QUEST
       column-type: nvarchar(300)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Label on how to ask the facet question

@@ -70,7 +70,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     )
     @Column(
             name = "CTRYCODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -88,7 +88,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     )
     @Column(
             name = "CTRY_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 50
     )
     @Getter

@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.recipe_description;
 
 import jakarta.inject.Named;
-import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
@@ -61,7 +60,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     )
     @Column(
             name = "R_IDNUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -85,7 +84,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     )
     @Column(
             name = "RFACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -103,11 +102,11 @@ public class ExceptionToFacetsPathwayForRecipe {
     )
     @Column(
             name = "ORDER_FAC",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer order;
+    private int order;
 
     @ObjectSupport
     public String title() {

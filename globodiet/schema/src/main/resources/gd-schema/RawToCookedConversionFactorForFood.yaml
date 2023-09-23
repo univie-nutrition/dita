@@ -29,8 +29,9 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
     foodCode:
       column: ID_NUM
       column-type: nvarchar(5)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         foods.foodnum
       description: |
@@ -38,8 +39,9 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
     rawToCookedFactor:
       column: RC_FACTOR
       column-type: float(53)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Raw to cooked factor
@@ -49,6 +51,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       required: false
       unique: true
       plural: true
+      discriminator:
       foreignKeys: |
         descface.facet_code
         descface.descr_code
@@ -57,8 +60,9 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
     priority:
       column: PRIORITY
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Priority order

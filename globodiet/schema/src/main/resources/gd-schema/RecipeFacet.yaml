@@ -30,32 +30,36 @@ params.recipe_description.RecipeFacet:
     code:
       column: RFACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Facet code for recipes
     name:
       column: RFACET_NAME
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet name
     textToShowOnTheScreenDescribingTheFacet:
       column: RFACET_TEXT
       column-type: nvarchar(100)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
     descriptorsAvailableForRecipeOrBrandQ:
       column: RFACET_TYPE
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0=Standard facets with descriptors available in R_Descface table
@@ -63,8 +67,9 @@ params.recipe_description.RecipeFacet:
     singleOrMultiSelectDescriptorQ:
       column: RFACET_TYPE_S
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0 = facet with mono-selection of descriptor 
@@ -72,8 +77,9 @@ params.recipe_description.RecipeFacet:
     standardOrMainFacetQ:
       column: RFACET_MAIN
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         0 = standard facet 
@@ -81,8 +87,9 @@ params.recipe_description.RecipeFacet:
     labelOnHowToAskTheFacetQuestion:
       column: RFACET_QUEST
       column-type: nvarchar(300)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Label on how to ask the facet question    

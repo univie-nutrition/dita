@@ -29,8 +29,9 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
     facetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys: |
         facets.facet_code
       description: |
@@ -38,7 +39,7 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
     descriptorCode:
       column: DESC_CODE
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
       discriminator: |
         facet_code

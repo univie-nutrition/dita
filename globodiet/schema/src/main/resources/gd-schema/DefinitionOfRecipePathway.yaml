@@ -29,8 +29,9 @@ params.setting.DefinitionOfRecipePathway:
     typeOfRecipe:
       column: R_TYPE
       column-type: nvarchar(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Type of recipe: 
@@ -45,8 +46,9 @@ params.setting.DefinitionOfRecipePathway:
     ingredientWindowIsDisplayedQ:
       column: R_ING
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         1 = The ingredient window is displayed 0 = The ingredient window is not displayed
@@ -55,6 +57,7 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: false
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1): 
@@ -64,8 +67,9 @@ params.setting.DefinitionOfRecipePathway:
     functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed:
       column: E_IFUNCTION
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1): 
@@ -75,8 +79,9 @@ params.setting.DefinitionOfRecipePathway:
     displayOfTheAutomaticNoteWindow:
       column: D_NOTES
       column-type: tinyint(3)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Display of the automatic note window: 

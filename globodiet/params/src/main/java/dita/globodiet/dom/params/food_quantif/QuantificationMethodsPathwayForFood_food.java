@@ -47,6 +47,6 @@ public class QuantificationMethodsPathwayForFood_food {
     @MemberSupport
     public FoodOrProductOrAlias prop() {
         final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodCode());
-        return foreignKeyLookup.nullable(lookupKey);
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

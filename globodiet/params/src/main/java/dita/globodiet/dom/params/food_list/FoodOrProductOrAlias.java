@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -71,7 +70,7 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     )
     @Column(
             name = "FOODNUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -143,7 +142,7 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     )
     @Column(
             name = "NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -211,7 +210,7 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     )
     @Column(
             name = "ORDER",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -229,11 +228,11 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     )
     @Column(
             name = "SUPPL",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer dietarySupplementQ;
+    private int dietarySupplementQ;
 
     @ObjectSupport
     public String title() {

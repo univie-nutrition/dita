@@ -23,8 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Double;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -71,7 +69,7 @@ public class Shape implements HasSecondaryKey<Shape> {
     )
     @Column(
             name = "SH_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -89,11 +87,11 @@ public class Shape implements HasSecondaryKey<Shape> {
     )
     @Column(
             name = "SH_SURFACE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Double shapeSurfaceInCm2;
+    private double shapeSurfaceInCm2;
 
     /**
      * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
@@ -106,7 +104,7 @@ public class Shape implements HasSecondaryKey<Shape> {
     )
     @Column(
             name = "SH_COMMENT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -124,11 +122,11 @@ public class Shape implements HasSecondaryKey<Shape> {
     )
     @Column(
             name = "SH_ORDER",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer orderToDisplayTheStandardUnit;
+    private int orderToDisplayTheStandardUnit;
 
     @ObjectSupport
     public String title() {

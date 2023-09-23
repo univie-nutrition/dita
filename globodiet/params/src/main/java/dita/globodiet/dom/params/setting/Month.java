@@ -60,7 +60,7 @@ public class Month {
     )
     @Column(
             name = "MONTH_NUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -78,7 +78,7 @@ public class Month {
     )
     @Column(
             name = "MONTH",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 20
     )
     @Getter

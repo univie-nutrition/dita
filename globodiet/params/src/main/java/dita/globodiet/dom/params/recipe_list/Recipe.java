@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -108,7 +107,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_IDNUM",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 5
     )
     @Getter
@@ -126,7 +125,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_GROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -144,7 +143,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_SUBGROUP",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -162,7 +161,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -196,7 +195,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 3
     )
     @Getter
@@ -214,7 +213,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_BRAND",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -232,7 +231,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "TYPE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -252,11 +251,11 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "R_SUB",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer hasSubRecipeQ;
+    private int hasSubRecipeQ;
 
     /**
      * has no description
@@ -269,7 +268,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Column(
             name = "STATUS",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter

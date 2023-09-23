@@ -23,7 +23,6 @@ import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import jakarta.inject.Named;
 import java.lang.Class;
-import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
@@ -71,7 +70,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Column(
             name = "FACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -89,7 +88,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Column(
             name = "FACET_NAME",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -107,7 +106,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Column(
             name = "FACET_TEXT",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 100
     )
     @Getter
@@ -131,11 +130,11 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Column(
             name = "FACET_TYPE",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer type;
+    private int type;
 
     /**
      * 0 = facet with mono-selection of descriptor<br>
@@ -150,11 +149,11 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Column(
             name = "FACET_TYPE_S",
-            allowsNull = "true"
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private Integer typeCardinality;
+    private int typeCardinality;
 
     /**
      * If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.<br>
@@ -187,7 +186,7 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Column(
             name = "FACET_QUEST",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 300
     )
     @Getter

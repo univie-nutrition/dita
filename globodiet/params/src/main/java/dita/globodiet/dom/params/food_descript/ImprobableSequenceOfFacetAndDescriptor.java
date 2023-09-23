@@ -132,7 +132,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @Column(
             name = "FACET_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -150,7 +150,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @Column(
             name = "DESCR_CODE",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 2
     )
     @Getter
@@ -168,7 +168,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @Column(
             name = "FACET_STR",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1000000000
     )
     @Getter

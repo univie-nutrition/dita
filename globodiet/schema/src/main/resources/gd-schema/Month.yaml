@@ -28,16 +28,18 @@ params.setting.Month:
     monthNumber:
       column: MONTH_NUM
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: true
+      discriminator:
       foreignKeys:
       description: |
         Month number
     monthName:
       column: MONTH
       column-type: nvarchar(20)
-      required: false
+      required: true
       unique: false
+      discriminator:
       foreignKeys:
       description: |
         Month name
