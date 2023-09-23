@@ -71,7 +71,7 @@ implements ForeignKeyLookupService {
     private static <T> Predicate<T> prefilter(final Class<T> entityClass){
         if(FoodOrProductOrAlias.class.equals(entityClass)) {
             // do not lookup SH entries (aliases)
-            return t->"SH".equalsIgnoreCase(((FoodOrProductOrAlias) t).getTypeOfItem());
+            return t->!"SH".equalsIgnoreCase(((FoodOrProductOrAlias) t).getTypeOfItem());
         }
         return _Predicates.alwaysTrue();
     }
@@ -95,12 +95,14 @@ implements ForeignKeyLookupService {
             final SecondaryKeyToId<T> lookup = new SecondaryKeyToId<>(new HashMap<>());
 
             var stopWatch = _Timing.now();
-
-            repositoryService.allMatches(entityClass, prefilter(entityClass)).stream()
-            .forEach(t->{
-                 var secondaryKey = ((HasSecondaryKey<?>)t).secondaryKey();
-                 lookup.map().put(secondaryKey, bookmarkService.bookmarkForElseFail(t));
-            });
+            {
+                repositoryService.allMatches(entityClass, prefilter(entityClass)).stream()
+                .forEach(t->{
+                     var secondaryKey = ((HasSecondaryKey<?>)t).secondaryKey();
+                     lookup.map().put(secondaryKey, bookmarkService.bookmarkForElseFail(t));
+                });
+            }
+            stopWatch.stop();
 
             System.err.printf("generating lookup cache for %s took %.3f s%n", entityClass.getSimpleName(), stopWatch.getSeconds());
 
