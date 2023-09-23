@@ -30,7 +30,7 @@ params.interview.Interviewer:
       column: INTV_CODE
       column-type: nvarchar(20)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -60,7 +60,7 @@ params.interview.Interviewer:
       unique: true
       discriminator:
       foreignKeys: |
-        country.ctrycode
+        COUNTRY.CTRYCODE
       description: |
         Country code
     centerCode:
@@ -70,7 +70,7 @@ params.interview.Interviewer:
       unique: true
       discriminator:
       foreignKeys: |
-        centers.cntr_code
+        CENTERS.CNTR_CODE
       description: |
         Center code
 

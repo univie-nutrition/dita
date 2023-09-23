@@ -21,7 +21,7 @@ params.quantif.Shape:
   namespace: params.quantif
   table: M_SHAPES
   secondaryKey: |
-    sh_code
+    SH_CODE
   title: null
   icon: null
   description: |
@@ -31,7 +31,7 @@ params.quantif.Shape:
       column: SH_CODE
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

@@ -33,7 +33,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
@@ -43,7 +43,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup code
     recipeCode:
@@ -53,7 +53,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe code
     fssFatGroupCode:
@@ -63,7 +63,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Fat group code for Fat or Sauce or Sweetener
     fssFatSubgroupCode:
@@ -73,7 +73,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Fat subgroup code for Fat or Sauce or Sweetener
     fssFatSubSubgroupCode:
@@ -83,7 +83,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Fat sub-subgroup code for Fat or Sauce or Sweetener
     fssFatCode:
@@ -93,7 +93,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Fat code for Fat or Sauce or Sweetener
     percentageOfFat:

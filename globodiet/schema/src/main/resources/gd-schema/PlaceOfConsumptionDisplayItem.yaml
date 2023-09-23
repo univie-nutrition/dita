@@ -33,7 +33,7 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       unique: true
       discriminator:
       foreignKeys: |
-        poc.poc_code
+        POC.POC_CODE
       description: |
         Place of Consumption code
     label:

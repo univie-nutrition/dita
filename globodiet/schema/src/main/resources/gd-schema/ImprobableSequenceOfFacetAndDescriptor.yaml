@@ -30,10 +30,10 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number
     foodGroupCode:
@@ -43,27 +43,27 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code 
     foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
     facetCode:
@@ -73,7 +73,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     descriptorCode:
@@ -82,9 +82,9 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       required: true
       unique: true
       discriminator: |
-        facet_code
+        FACET_CODE
       foreignKeys: |
-        descface.descr_code
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code
     facetString:

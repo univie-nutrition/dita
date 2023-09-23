@@ -114,7 +114,7 @@ params.interview.SubjectToBeInterviewed:
       unique: true
       discriminator:
       foreignKeys: |
-        country.ctrycode
+        COUNTRY.CTRYCODE
       description: |
         Country code
     centerCode:
@@ -124,7 +124,7 @@ params.interview.SubjectToBeInterviewed:
       unique: true
       discriminator:
       foreignKeys: |
-        centers.cntr_code
+        CENTERS.CNTR_CODE
       description: |
         Center code
     interviewerCountryCode:

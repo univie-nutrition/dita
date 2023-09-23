@@ -33,7 +33,7 @@ params.recipe_description.BrandForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group
     recipeSubgroupCode:
@@ -43,7 +43,7 @@ params.recipe_description.BrandForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup
     recipeName:

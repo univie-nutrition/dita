@@ -30,7 +30,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -111,7 +111,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ_SEQ
       column-type: int(10)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

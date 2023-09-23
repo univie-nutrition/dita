@@ -21,7 +21,7 @@ params.recipe_list.Recipe:
   namespace: params.recipe_list
   table: MIXEDREC
   secondaryKey: |
-    r_idnum
+    R_IDNUM
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |
@@ -50,7 +50,7 @@ params.recipe_list.Recipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -62,7 +62,7 @@ params.recipe_list.Recipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Group code of the recipe classification
     recipeSubgroupCode:
@@ -72,14 +72,14 @@ params.recipe_list.Recipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Subgroup code of the recipe classification
     name:
       column: R_NAME
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

@@ -33,17 +33,17 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe Subgroup code
     recipeFacetCode:
@@ -53,7 +53,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        r_facet.rfacet_code
+        R_FACET.RFACET_CODE
       description: |
         Recipe Facet code
     recipeDescriptorCode:
@@ -63,7 +63,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        r_descface.rdescr_code
+        R_DESCFACE.RDESCR_CODE
       description: |
         Recipe Descriptor code
     defaultFlagQ:

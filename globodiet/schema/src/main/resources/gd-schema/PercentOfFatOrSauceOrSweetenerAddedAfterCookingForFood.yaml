@@ -33,7 +33,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -43,7 +43,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -53,7 +53,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     foodCode:
@@ -63,7 +63,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food code
     fssFatGroupCode:
@@ -73,7 +73,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Fat group code for F/S/S
     fssFatSubgroupCode:
@@ -84,7 +84,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       discriminator: |
         X_GROUP
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Fat subgroup code for F/S/S
     fssFatSubSubgroupCode:
@@ -96,7 +96,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
         X_GROUP
         X_SUBG1
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Fat sub-subgroup code for F/S/S
     fssFatCode:
@@ -106,7 +106,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Fat code for F/S/S
     percentageOfFat:

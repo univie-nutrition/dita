@@ -31,7 +31,7 @@ params.quantif.ThicknessForShapeMethod:
       column: TH_CODE
       column-type: nvarchar(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -61,9 +61,9 @@ params.quantif.ThicknessForShapeMethod:
       plural: true
       discriminator:
       foreignKeys: |
-        subgroup.group
-        subgroup.subgroup1
-        subgroup.subgroup2
+        SUBGROUP.GROUP
+        SUBGROUP.SUBGROUP1
+        SUBGROUP.SUBGROUP2
       description: |
         For the food items, the food (sub)groups for which this thickness has to be proposed. 
         These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101) 
@@ -78,8 +78,8 @@ params.quantif.ThicknessForShapeMethod:
       plural: true
       discriminator:
       foreignKeys: |
-        rsubgr.group
-        rsubgr.subgroup
+        RSUBGR.GROUP
+        RSUBGR.SUBGROUP
       description: |
         For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
         These (sub)groups have to be separated with a comma (e.g. 01,02,0301)

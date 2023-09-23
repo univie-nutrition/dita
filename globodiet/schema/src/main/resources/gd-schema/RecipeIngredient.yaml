@@ -33,7 +33,7 @@ params.recipe_list.RecipeIngredient:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number the ingredient belongs to
     substitutable:
@@ -83,8 +83,8 @@ params.recipe_list.RecipeIngredient:
       unique: false
       discriminator:
       foreignKeys: |
-        groups.group
-        rgroups.group
+        GROUPS.GROUP
+        RGROUPS.GROUP
       description: |
         Ingredient food or recipe group
     foodOrRecipeSubgroupCode:
@@ -94,8 +94,8 @@ params.recipe_list.RecipeIngredient:
       unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
-        rsubgr.subgroup
+        SUBGROUP.SUBGROUP1
+        RSUBGR.SUBGROUP
       description: |
         Ingredient food or recipe subgroup
     foodSubSubgroupCode:
@@ -105,7 +105,7 @@ params.recipe_list.RecipeIngredient:
       unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Ingredient food sub-subgroup
     brandName:
@@ -125,8 +125,8 @@ params.recipe_list.RecipeIngredient:
       plural: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facets-Descriptors codes used to describe the ingredient; 
         multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
@@ -386,8 +386,8 @@ params.recipe_list.RecipeIngredient:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum
     unitOfSelectedQuantityForMethod:

@@ -33,7 +33,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -43,7 +43,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -53,7 +53,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     foodCode:
@@ -63,47 +63,47 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food code
     fatGroupCode:
       column: FAT_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Fat group code for fat
     fatSubgroupCode:
       column: FAT_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Fat subgroup code for fat
     fatSubSubgroupCode:
       column: FAT_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Fat sub-subgroup code for fat
     fatCode:
       column: FAT_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Fat code for fat
     cookingMethodFacetDescriptorLookupKey:
@@ -113,8 +113,8 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Cooking method Facet and Descriptor codes (e.g. 0305)
     percentageOfFatAbsorbedDuringCooking:

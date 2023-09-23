@@ -30,7 +30,7 @@ params.quantif.HouseholdMeasure:
       column: HHM_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

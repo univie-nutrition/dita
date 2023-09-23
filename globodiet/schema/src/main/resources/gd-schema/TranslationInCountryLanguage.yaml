@@ -30,7 +30,7 @@ params.general_info.TranslationInCountryLanguage:
       column: ARRAY_REF
       column-type: nvarchar(19)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

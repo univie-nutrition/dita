@@ -33,7 +33,7 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Group code of the FAT's group
     fatSubgroupCode:
@@ -42,9 +42,9 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       required: false
       unique: true
       discriminator: |
-        group
+        GROUP
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Subgroup code of the FAT
     fatSubSubgroupCode:
@@ -53,10 +53,10 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       required: false
       unique: true
       discriminator: |
-        group
-        subgroup1
+        GROUP
+        SUBGROUP1
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Sub-Subgroup code of the FAT
     percentageOfFatLeftInTheDish:

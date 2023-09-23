@@ -33,7 +33,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -43,7 +43,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food Subgroup code
     foodSubSubgroupCode:
@@ -53,7 +53,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food Sub-subgroup code
     facetCode:
@@ -63,7 +63,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     descriptorCode:
@@ -72,9 +72,9 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       required: true
       unique: true
       discriminator: |
-        facet_code
+        FACET_CODE
       foreignKeys: |
-        descface.descr_code
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code
     defaultFlag:

@@ -33,7 +33,7 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
     ediblePartCoefficient:
@@ -52,8 +52,8 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
     priority:

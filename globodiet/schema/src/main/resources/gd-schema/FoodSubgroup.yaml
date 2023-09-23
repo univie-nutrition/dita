@@ -21,9 +21,9 @@ params.classification.FoodSubgroup:
   namespace: params.classification
   table: SUBGROUP
   secondaryKey: |
-    group
-    subgroup1
-    subgroup2
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
   title: |
     String.format("%s (code=%s|%s|%s)", 
      name, 
@@ -42,7 +42,7 @@ params.classification.FoodSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:

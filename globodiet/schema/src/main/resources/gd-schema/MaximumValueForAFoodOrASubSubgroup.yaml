@@ -33,7 +33,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -43,7 +43,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -53,14 +53,14 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     foodCode:
       column: IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -81,8 +81,8 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
     priority:

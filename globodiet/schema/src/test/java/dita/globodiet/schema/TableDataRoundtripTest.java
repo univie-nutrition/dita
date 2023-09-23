@@ -113,6 +113,7 @@ class TableDataRoundtripTest {
                 } else if(!unique && field.unique()) {
                     System.err.printf("repeated %s.%s -> but schema says unique%n",
                             table.key(), col.name());
+                    field.withUnique(false);
                 }
 
 

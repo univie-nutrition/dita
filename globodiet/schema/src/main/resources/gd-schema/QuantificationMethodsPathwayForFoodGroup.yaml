@@ -33,7 +33,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -43,7 +43,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -53,7 +53,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
     physicalStateFacetDescriptorLookupKey:
@@ -63,8 +63,8 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)
     rawOrCookedAsConsumed:
@@ -97,8 +97,8 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
-        m_shapes.sh_code
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code

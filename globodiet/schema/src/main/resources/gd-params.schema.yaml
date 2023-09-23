@@ -21,7 +21,7 @@ params.classification.FoodGroup:
   namespace: params.classification
   table: GROUPS
   secondaryKey: |
-    group
+    GROUP
   title: String.format("%s (code=%s)", name, code)
   icon: solid layer-group olive
   description: |
@@ -31,7 +31,7 @@ params.classification.FoodGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -58,9 +58,9 @@ params.classification.FoodSubgroup:
   namespace: params.classification
   table: SUBGROUP
   secondaryKey: |
-    group
-    subgroup1
-    subgroup2
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
   title: |
     String.format("%s (code=%s|%s|%s)", 
      name, 
@@ -79,7 +79,7 @@ params.classification.FoodSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -151,7 +151,7 @@ params.classification.RecipeGroup:
   namespace: params.classification
   table: RGROUPS
   secondaryKey: |
-    group
+    GROUP
   title: String.format("%s (code=%s)", name, code)
   icon: solid layer-group olive
   description: |
@@ -161,7 +161,7 @@ params.classification.RecipeGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -188,8 +188,8 @@ params.classification.RecipeSubgroup:
   namespace: params.classification
   table: RSUBGR
   secondaryKey: |
-    group
-    subgroup
+    GROUP
+    SUBGROUP
   title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
   icon: solid layer-group deepgreen
   description: |
@@ -202,7 +202,7 @@ params.classification.RecipeSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     code:
@@ -248,8 +248,8 @@ params.food_coefficient.DensityFactorForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food identification number (FOODNUM)
         either Foods.foodnum OR Mixedrec.r_idnum
@@ -270,8 +270,8 @@ params.food_coefficient.DensityFactorForFood:
       plural: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string
         multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
@@ -330,7 +330,7 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
     ediblePartCoefficient:
@@ -349,8 +349,8 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
     priority:
@@ -378,7 +378,7 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Group code of the FAT's group
     fatSubgroupCode:
@@ -387,9 +387,9 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       required: false
       unique: true
       discriminator: |
-        group
+        GROUP
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Subgroup code of the FAT
     fatSubSubgroupCode:
@@ -398,10 +398,10 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
       required: false
       unique: true
       discriminator: |
-        group
-        subgroup1
+        GROUP
+        SUBGROUP1
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Sub-Subgroup code of the FAT
     percentageOfFatLeftInTheDish:
@@ -429,7 +429,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -439,7 +439,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -449,7 +449,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     foodCode:
@@ -459,7 +459,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food code
     fssFatGroupCode:
@@ -469,7 +469,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Fat group code for F/S/S
     fssFatSubgroupCode:
@@ -480,7 +480,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       discriminator: |
         X_GROUP
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Fat subgroup code for F/S/S
     fssFatSubSubgroupCode:
@@ -492,7 +492,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
         X_GROUP
         X_SUBG1
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Fat sub-subgroup code for F/S/S
     fssFatCode:
@@ -502,7 +502,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Fat code for F/S/S
     percentageOfFat:
@@ -530,7 +530,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -540,7 +540,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -550,7 +550,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     foodCode:
@@ -560,47 +560,47 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food code
     fatGroupCode:
       column: FAT_GROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Fat group code for fat
     fatSubgroupCode:
       column: FAT_SUBG1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Fat subgroup code for fat
     fatSubSubgroupCode:
       column: FAT_SUBG2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Fat sub-subgroup code for fat
     fatCode:
       column: FAT_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Fat code for fat
     cookingMethodFacetDescriptorLookupKey:
@@ -610,8 +610,8 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Cooking method Facet and Descriptor codes (e.g. 0305)
     percentageOfFatAbsorbedDuringCooking:
@@ -639,7 +639,7 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
     rawToCookedFactor:
@@ -659,8 +659,8 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       plural: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
     priority:
@@ -697,7 +697,7 @@ params.food_descript.Brand:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -708,7 +708,7 @@ params.food_descript.Brand:
       discriminator: |
         GROUP
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -720,7 +720,7 @@ params.food_descript.Brand:
         GROUP
         SUBGROUP1
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
 params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
@@ -739,7 +739,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -749,7 +749,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food Subgroup code
     foodSubSubgroupCode:
@@ -759,7 +759,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food Sub-subgroup code
     facetCode:
@@ -769,7 +769,7 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     descriptorCode:
@@ -778,9 +778,9 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       required: true
       unique: true
       discriminator: |
-        facet_code
+        FACET_CODE
       foreignKeys: |
-        descface.descr_code
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code
     defaultFlag:
@@ -835,7 +835,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         food ID number
     mandatoryInSequenceOfFacetsCode:
@@ -845,7 +845,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet codes that MUST appear in the sequence of facets corresponding to this food 
         (superseeding its group pathway).
@@ -874,7 +874,7 @@ params.food_descript.Facet:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -942,8 +942,8 @@ params.food_descript.FacetDescriptor:
   namespace: params.food_descript
   table: DESCFACE
   secondaryKey: |
-    facet_code
-    descr_code
+    FACET_CODE
+    DESCR_CODE
   title: String.format("%s (code=%s|%s)", name, facetCode, code)
   icon: tag darkgreen
   description: |
@@ -956,7 +956,7 @@ params.food_descript.FacetDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     code:
@@ -1019,10 +1019,10 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column: FOODNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number
     foodGroupCode:
@@ -1032,27 +1032,27 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code 
     foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
     facetCode:
@@ -1062,7 +1062,7 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     descriptorCode:
@@ -1071,9 +1071,9 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       required: true
       unique: true
       discriminator: |
-        facet_code
+        FACET_CODE
       foreignKeys: |
-        descface.descr_code
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code
     facetString:
@@ -1101,7 +1101,7 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet where the rule must be applied.
     facetDescriptorLookupKey:
@@ -1111,8 +1111,8 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet code + Descriptor code that must exist in the current food description 
         to allow the facet (FACET_CODE) to be asked. 
@@ -1125,7 +1125,7 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Group code
     foodSubgroupCode:
@@ -1135,17 +1135,17 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Subgroup code
     foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Sub-subgroup code
 params.food_list.ComposedRecipeIngredient:
@@ -1173,8 +1173,8 @@ params.food_list.ComposedRecipeIngredient:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food (ingredient) Identification Code
         either Foods.foodnum OR Mixedrec.r_idnum
@@ -1192,7 +1192,7 @@ params.food_list.FoodOrProductOrAlias:
   namespace: params.food_list
   table: FOODS
   secondaryKey: |
-    foodnum
+    FOODNUM
   title: String.format("%s (code=%s)", foodNativeName, code)
   icon: solid utensils darkgreen
   description: |
@@ -1214,7 +1214,7 @@ params.food_list.FoodOrProductOrAlias:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food Group code
     foodSubgroupCode:
@@ -1224,7 +1224,7 @@ params.food_list.FoodOrProductOrAlias:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food Subgroup code
     foodSubSubgroupCode:
@@ -1234,7 +1234,7 @@ params.food_list.FoodOrProductOrAlias:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food Sub(sub)group code
     foodNativeName:
@@ -1305,7 +1305,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -1315,7 +1315,7 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -1325,14 +1325,14 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     foodCode:
       column: IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1353,8 +1353,8 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
     priority:
@@ -1382,7 +1382,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       unique: true
       discriminator:
       foreignKeys: |
-        probque.pq_code
+        PROBQUE.PQ_CODE
       description: |
         Probing question code
     foodGroupCode:
@@ -1392,7 +1392,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -1402,7 +1402,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -1412,7 +1412,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
     foodCode:
@@ -1422,7 +1422,7 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
 params.food_quantif.QuantificationMethodsPathwayForFood:
@@ -1441,7 +1441,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
     quantificationMethodCode:
@@ -1464,8 +1464,8 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
-        m_shapes.sh_code
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
@@ -1485,7 +1485,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -1495,7 +1495,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -1505,7 +1505,7 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
     physicalStateFacetDescriptorLookupKey:
@@ -1515,8 +1515,8 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)
     rawOrCookedAsConsumed:
@@ -1549,8 +1549,8 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
-        m_shapes.sh_code
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
@@ -1588,7 +1588,7 @@ params.food_quantif.StandardPortionForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (=FOODMUM)
     rawOrCooked:
@@ -1658,7 +1658,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1739,7 +1739,7 @@ params.food_table.FoodOrRecipeOrAttachment:
       column: ITEM_SEQ_SEQ
       column-type: int(10)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1766,7 +1766,7 @@ params.food_table.NutrientListAndDefinition:
       column: NTR_CODE
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1929,7 +1929,7 @@ params.general_info.FoodConsumptionOccasion:
       column: FCM_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -1985,7 +1985,7 @@ params.general_info.PlaceOfConsumption:
       column: POC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2025,7 +2025,7 @@ params.general_info.PlaceOfConsumptionDisplayItem:
       unique: true
       discriminator:
       foreignKeys: |
-        poc.poc_code
+        POC.POC_CODE
       description: |
         Place of Consumption code
     label:
@@ -2050,7 +2050,7 @@ params.general_info.SpecialDayPredefinedAnswer:
       column: SPY_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2077,7 +2077,7 @@ params.general_info.SpecialDietPredefinedAnswer:
       column: SPD_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2104,7 +2104,7 @@ params.general_info.TranslationInCountryLanguage:
       column: ARRAY_REF
       column-type: nvarchar(19)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2159,7 +2159,7 @@ params.interview.CenterInvolved:
       column: CNTR_CODE
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2171,7 +2171,7 @@ params.interview.CenterInvolved:
       unique: true
       discriminator:
       foreignKeys: |
-        country.ctrycode
+        COUNTRY.CTRYCODE
       description: |
         Attached Country code
     centerName:
@@ -2197,7 +2197,7 @@ params.interview.CountryInvolved:
       column: CTRYCODE
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2224,7 +2224,7 @@ params.interview.Interviewer:
       column: INTV_CODE
       column-type: nvarchar(20)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2254,7 +2254,7 @@ params.interview.Interviewer:
       unique: true
       discriminator:
       foreignKeys: |
-        country.ctrycode
+        COUNTRY.CTRYCODE
       description: |
         Country code
     centerCode:
@@ -2264,7 +2264,7 @@ params.interview.Interviewer:
       unique: true
       discriminator:
       foreignKeys: |
-        centers.cntr_code
+        CENTERS.CNTR_CODE
       description: |
         Center code
 params.interview.SubjectToBeInterviewed:
@@ -2364,7 +2364,7 @@ params.interview.SubjectToBeInterviewed:
       unique: true
       discriminator:
       foreignKeys: |
-        country.ctrycode
+        COUNTRY.CTRYCODE
       description: |
         Country code
     centerCode:
@@ -2374,7 +2374,7 @@ params.interview.SubjectToBeInterviewed:
       unique: true
       discriminator:
       foreignKeys: |
-        centers.cntr_code
+        CENTERS.CNTR_CODE
       description: |
         Center code
     interviewerCountryCode:
@@ -2427,7 +2427,7 @@ params.probing.ProbingQuestion:
       column: PQ_CODE
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2454,7 +2454,7 @@ params.quantif.HouseholdMeasure:
       column: HHM_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2500,7 +2500,7 @@ params.quantif.PhotoForQuantity:
   namespace: params.quantif
   table: M_PHOTOS
   secondaryKey: |
-    ph_code
+    PH_CODE
   title: null
   icon: null
   description: |
@@ -2510,7 +2510,7 @@ params.quantif.PhotoForQuantity:
       column: PH_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2555,7 +2555,7 @@ params.quantif.Shape:
   namespace: params.quantif
   table: M_SHAPES
   secondaryKey: |
-    sh_code
+    SH_CODE
   title: null
   icon: null
   description: |
@@ -2565,7 +2565,7 @@ params.quantif.Shape:
       column: SH_CODE
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2622,8 +2622,8 @@ params.quantif.StandardUnitForFoodOrRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
     rawOrCooked:
@@ -2706,7 +2706,7 @@ params.quantif.ThicknessForShapeMethod:
       column: TH_CODE
       column-type: nvarchar(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -2736,9 +2736,9 @@ params.quantif.ThicknessForShapeMethod:
       plural: true
       discriminator:
       foreignKeys: |
-        subgroup.group
-        subgroup.subgroup1
-        subgroup.subgroup2
+        SUBGROUP.GROUP
+        SUBGROUP.SUBGROUP1
+        SUBGROUP.SUBGROUP2
       description: |
         For the food items, the food (sub)groups for which this thickness has to be proposed. 
         These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101) 
@@ -2753,8 +2753,8 @@ params.quantif.ThicknessForShapeMethod:
       plural: true
       discriminator:
       foreignKeys: |
-        rsubgr.group
-        rsubgr.subgroup
+        RSUBGR.GROUP
+        RSUBGR.SUBGROUP
       description: |
         For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
         These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
@@ -2776,7 +2776,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
@@ -2786,7 +2786,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup code
     recipeCode:
@@ -2796,7 +2796,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe code
     fssFatGroupCode:
@@ -2806,7 +2806,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Fat group code for Fat or Sauce or Sweetener
     fssFatSubgroupCode:
@@ -2816,7 +2816,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Fat subgroup code for Fat or Sauce or Sweetener
     fssFatSubSubgroupCode:
@@ -2826,7 +2826,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Fat sub-subgroup code for Fat or Sauce or Sweetener
     fssFatCode:
@@ -2836,7 +2836,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Fat code for Fat or Sauce or Sweetener
     percentageOfFat:
@@ -2864,7 +2864,7 @@ params.recipe_description.BrandForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group
     recipeSubgroupCode:
@@ -2874,7 +2874,7 @@ params.recipe_description.BrandForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup
     recipeName:
@@ -2901,17 +2901,17 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe Subgroup code
     recipeFacetCode:
@@ -2921,7 +2921,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        r_facet.rfacet_code
+        R_FACET.RFACET_CODE
       description: |
         Recipe Facet code
     recipeDescriptorCode:
@@ -2931,7 +2931,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        r_descface.rdescr_code
+        R_DESCFACE.RDESCR_CODE
       description: |
         Recipe Descriptor code
     defaultFlagQ:
@@ -2986,7 +2986,7 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number
     recipeFacetCode:
@@ -2996,7 +2996,7 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        r_facet.rfacet_code
+        R_FACET.RFACET_CODE
       description: |
         Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe 
         (superseeding its group pathway). 
@@ -3028,7 +3028,7 @@ params.recipe_description.RecipeDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        r_facet.rfacet_code
+        R_FACET.RFACET_CODE
       description: |
         Facet code for recipes
     code:
@@ -3102,7 +3102,7 @@ params.recipe_description.RecipeFacet:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3180,7 +3180,7 @@ params.recipe_description.RuleAppliedToFacets:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet where the rule must be applied.
     matchOnPreviouslySelectedFacetDescriptorBySubject:
@@ -3201,27 +3201,27 @@ params.recipe_description.RuleAppliedToFacets:
       column: RGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe Group code
     recipeSubgroupCode:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe Subgroup code
 params.recipe_list.Recipe:
   namespace: params.recipe_list
   table: MIXEDREC
   secondaryKey: |
-    r_idnum
+    R_IDNUM
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |
@@ -3250,7 +3250,7 @@ params.recipe_list.Recipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3262,7 +3262,7 @@ params.recipe_list.Recipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Group code of the recipe classification
     recipeSubgroupCode:
@@ -3272,14 +3272,14 @@ params.recipe_list.Recipe:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Subgroup code of the recipe classification
     name:
       column: R_NAME
       column-type: nvarchar(100)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -3353,7 +3353,7 @@ params.recipe_list.RecipeIngredient:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number the ingredient belongs to
     substitutable:
@@ -3403,8 +3403,8 @@ params.recipe_list.RecipeIngredient:
       unique: false
       discriminator:
       foreignKeys: |
-        groups.group
-        rgroups.group
+        GROUPS.GROUP
+        RGROUPS.GROUP
       description: |
         Ingredient food or recipe group
     foodOrRecipeSubgroupCode:
@@ -3414,8 +3414,8 @@ params.recipe_list.RecipeIngredient:
       unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
-        rsubgr.subgroup
+        SUBGROUP.SUBGROUP1
+        RSUBGR.SUBGROUP
       description: |
         Ingredient food or recipe subgroup
     foodSubSubgroupCode:
@@ -3425,7 +3425,7 @@ params.recipe_list.RecipeIngredient:
       unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Ingredient food sub-subgroup
     brandName:
@@ -3445,8 +3445,8 @@ params.recipe_list.RecipeIngredient:
       plural: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facets-Descriptors codes used to describe the ingredient; 
         multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
@@ -3706,8 +3706,8 @@ params.recipe_list.RecipeIngredient:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum
     unitOfSelectedQuantityForMethod:
@@ -3743,7 +3743,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number the ingredient belong to
     sequentialNumberWithinARecipeForIngredient:
@@ -3762,7 +3762,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Ingredient Food or Recipe ID number
     orderOfShapeSelection:
@@ -3781,7 +3781,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: false
       discriminator:
       foreignKeys: |
-        m_shapes.sh_code
+        M_SHAPES.SH_CODE
       description: |
         Shape code (e.g. S001)
     shapeSurfaceInCm2:
@@ -3800,7 +3800,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: false
       discriminator:
       foreignKeys: |
-        thickness.th_code
+        THICKNESS.TH_CODE
       description: |
         Shape: Thickness code (e.g. A or 58_1)
     thicknessInMm:
@@ -3819,7 +3819,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: false
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
+        M_PHOTOS.PH_CODE
       description: |
         Photo: Number of the Selected Photo (e.g. 1 or 4)
     photoQuantity:
@@ -3865,7 +3865,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
@@ -3875,17 +3875,17 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup code
     recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe code
     maximumValue:
@@ -3913,7 +3913,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       unique: true
       discriminator:
       foreignKeys: |
-        probque.pq_code
+        PROBQUE.PQ_CODE
       description: |
         Probing question code
     recipeGroupCode:
@@ -3923,7 +3923,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
@@ -3933,7 +3933,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup code
     recipeCode:
@@ -3943,7 +3943,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe identification number (R_ IDNUM)
 params.recipe_quantif.QuantificationMethodPathwayForRecipe:
@@ -3962,7 +3962,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe identification number (R_IDNUM)
     quantificationMethodCode:
@@ -3985,8 +3985,8 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
-        m_shapes.sh_code
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
@@ -4006,7 +4006,7 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group
     quantificationMethodCode:
@@ -4029,8 +4029,8 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       unique: true
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
-        m_shapes.sh_code
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
@@ -4056,7 +4056,7 @@ params.setting.DayOfWeek:
       column: DAYOFWEEK
       column-type: nvarchar(1)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4157,18 +4157,18 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     descriptorCode:
       column: DESC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator: |
-        facet_code
+        FACET_CODE
       foreignKeys: |
-        descface.descr_code
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code
 params.setting.GroupOrSubgroupThatCanBeSubstitutable:
@@ -4196,7 +4196,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -4206,7 +4206,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -4216,7 +4216,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     listOfFoodGroupsOrSubgroupsToApplyTheSubstitution:
@@ -4286,7 +4286,7 @@ params.setting.MacroNutrientLimit:
       column: SEX
       column-type: nvarchar(1)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4312,7 +4312,7 @@ params.setting.Month:
       column: MONTH_NUM
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4339,7 +4339,7 @@ params.setting.NoteStatus:
       column: S_CODE
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4377,7 +4377,7 @@ params.setting.SelectedParameter:
       column: PARAM_LAB
       column-type: nvarchar(40)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4404,7 +4404,7 @@ params.setting.SelectedParameterForDataEntry:
       column: PARAM_LAB
       column-type: nvarchar(40)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4431,7 +4431,7 @@ params.supplement.DietarySupplement:
       column: CODE_VITA
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4461,7 +4461,7 @@ params.supplement.DietarySupplement:
       unique: false
       discriminator:
       foreignKeys: |
-        ds_classif.ds_class
+        DS_CLASSIF.DS_CLASS
       description: |
         Dietary Supplement classification code (optional)
     facetCode:
@@ -4471,7 +4471,7 @@ params.supplement.DietarySupplement:
       unique: false
       discriminator:
       foreignKeys: |
-        ds_facet.dsfacet_code
+        DS_FACET.DSFACET_CODE
       description: |
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
 params.supplement.DietarySupplementClassification:
@@ -4524,7 +4524,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -4545,7 +4545,7 @@ params.supplement.DietarySupplementDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        ds_facet.dsfacet_code
+        DS_FACET.DSFACET_CODE
       description: |
         Facet code
     householdMeasuresProposedQ:
@@ -4620,7 +4620,7 @@ params.supplement.DietarySupplementFacet:
       column: DSFACET_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

@@ -33,8 +33,8 @@ params.food_coefficient.DensityFactorForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food identification number (FOODNUM)
         either Foods.foodnum OR Mixedrec.r_idnum
@@ -55,8 +55,8 @@ params.food_coefficient.DensityFactorForFood:
       plural: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet string
         multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)

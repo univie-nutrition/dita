@@ -115,7 +115,7 @@ public class OrmModel {
             yaml.ind().write("table: ", table).nl();
             yaml.ind().write("secondaryKey:").multilineStartIfNotEmtpy(secondaryKey).nl();
             secondaryKey.forEach(line->
-                yaml.ind().ind().write(line).nl());
+                yaml.ind().ind().writeUpper(line).nl());
             {   // title
                 var titleLines = TextUtils.readLines(title);
                 if(titleLines.isCardinalityMultiple()) {
@@ -142,10 +142,10 @@ public class OrmModel {
                 }
                 yaml.ind().ind().ind().write("discriminator:").multilineStartIfNotEmtpy(field.discriminator).nl();
                 field.discriminator.forEach(line->
-                    yaml.ind().ind().ind().ind().write(line).nl());
+                    yaml.ind().ind().ind().ind().writeUpper(line).nl());
                 yaml.ind().ind().ind().write("foreignKeys:").multilineStartIfNotEmtpy(field.foreignKeys).nl();
                 field.foreignKeys.forEach(line->
-                    yaml.ind().ind().ind().ind().write(line).nl());
+                    yaml.ind().ind().ind().ind().writeUpper(line).nl());
                 yaml.ind().ind().ind().write("description:").multilineStartIfNotEmtpy(field.description).nl();
                 field.description.forEach(line->
                     yaml.ind().ind().ind().ind().write(line).nl());
@@ -307,6 +307,22 @@ public class OrmModel {
                     ? copy
                     : f);
         }
+        public void withUnique(final boolean unique) {
+            var copy = new Field(parentRef,
+                    ordinal,
+                    name,
+                    column,
+                    columnType,
+                    required,
+                    unique,
+                    plural,
+                    discriminator,
+                    foreignKeys,
+                    description);
+            parentEntity().fields().replaceAll(f->f.ordinal() == this.ordinal()
+                    ? copy
+                    : f);
+        }
     }
 
     @Deprecated
@@ -447,6 +463,10 @@ public class OrmModel {
         }
         YamlWriter write(final String ...s) {
             for(val str:s) sb.append(str);
+            return this;
+        }
+        YamlWriter writeUpper(final String ...s) {
+            for(val str:s) sb.append(str.toUpperCase());
             return this;
         }
         YamlWriter ind() {

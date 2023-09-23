@@ -21,7 +21,7 @@ params.food_list.FoodOrProductOrAlias:
   namespace: params.food_list
   table: FOODS
   secondaryKey: |
-    foodnum
+    FOODNUM
   title: String.format("%s (code=%s)", foodNativeName, code)
   icon: solid utensils darkgreen
   description: |
@@ -43,7 +43,7 @@ params.food_list.FoodOrProductOrAlias:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food Group code
     foodSubgroupCode:
@@ -53,7 +53,7 @@ params.food_list.FoodOrProductOrAlias:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food Subgroup code
     foodSubSubgroupCode:
@@ -63,7 +63,7 @@ params.food_list.FoodOrProductOrAlias:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food Sub(sub)group code
     foodNativeName:

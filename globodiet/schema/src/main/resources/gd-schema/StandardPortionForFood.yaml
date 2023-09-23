@@ -42,7 +42,7 @@ params.food_quantif.StandardPortionForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (=FOODMUM)
     rawOrCooked:

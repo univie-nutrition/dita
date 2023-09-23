@@ -33,7 +33,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number the ingredient belong to
     sequentialNumberWithinARecipeForIngredient:
@@ -52,7 +52,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Ingredient Food or Recipe ID number
     orderOfShapeSelection:
@@ -71,7 +71,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: false
       discriminator:
       foreignKeys: |
-        m_shapes.sh_code
+        M_SHAPES.SH_CODE
       description: |
         Shape code (e.g. S001)
     shapeSurfaceInCm2:
@@ -90,7 +90,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: false
       discriminator:
       foreignKeys: |
-        thickness.th_code
+        THICKNESS.TH_CODE
       description: |
         Shape: Thickness code (e.g. A or 58_1)
     thicknessInMm:
@@ -109,7 +109,7 @@ params.recipe_list.RecipeIngredientQuantification:
       unique: false
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
+        M_PHOTOS.PH_CODE
       description: |
         Photo: Number of the Selected Photo (e.g. 1 or 4)
     photoQuantity:

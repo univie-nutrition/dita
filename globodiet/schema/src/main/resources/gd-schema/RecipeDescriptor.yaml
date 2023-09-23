@@ -35,7 +35,7 @@ params.recipe_description.RecipeDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        r_facet.rfacet_code
+        R_FACET.RFACET_CODE
       description: |
         Facet code for recipes
     code:

@@ -21,7 +21,7 @@ params.classification.FoodGroup:
   namespace: params.classification
   table: GROUPS
   secondaryKey: |
-    group
+    GROUP
   title: String.format("%s (code=%s)", name, code)
   icon: solid layer-group olive
   description: |
@@ -31,7 +31,7 @@ params.classification.FoodGroup:
       column: GROUP
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

@@ -33,7 +33,7 @@ params.recipe_description.RuleAppliedToFacets:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet where the rule must be applied.
     matchOnPreviouslySelectedFacetDescriptorBySubject:
@@ -54,20 +54,20 @@ params.recipe_description.RuleAppliedToFacets:
       column: RGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe Group code
     recipeSubgroupCode:
       column: RSUBGROUP
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe Subgroup code
 

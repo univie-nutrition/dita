@@ -33,7 +33,7 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet where the rule must be applied.
     facetDescriptorLookupKey:
@@ -43,8 +43,8 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        descface.facet_code
-        descface.descr_code
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
       description: |
         Facet code + Descriptor code that must exist in the current food description 
         to allow the facet (FACET_CODE) to be asked. 
@@ -57,7 +57,7 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Group code
     foodSubgroupCode:
@@ -67,17 +67,17 @@ params.food_descript.RuleAppliedToFacet:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Subgroup code
     foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Sub-subgroup code
 

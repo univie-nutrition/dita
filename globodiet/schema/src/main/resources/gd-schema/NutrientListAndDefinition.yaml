@@ -30,7 +30,7 @@ params.food_table.NutrientListAndDefinition:
       column: NTR_CODE
       column-type: int(10)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

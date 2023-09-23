@@ -33,7 +33,7 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number
     recipeFacetCode:
@@ -43,7 +43,7 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        r_facet.rfacet_code
+        R_FACET.RFACET_CODE
       description: |
         Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe 
         (superseeding its group pathway). 

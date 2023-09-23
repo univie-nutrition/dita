@@ -42,8 +42,8 @@ params.quantif.StandardUnitForFoodOrRecipe:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
     rawOrCooked:

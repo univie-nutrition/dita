@@ -30,7 +30,7 @@ params.supplement.DietarySupplementDescriptor:
       column: DSDESCR_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -51,7 +51,7 @@ params.supplement.DietarySupplementDescriptor:
       unique: true
       discriminator:
       foreignKeys: |
-        ds_facet.dsfacet_code
+        DS_FACET.DSFACET_CODE
       description: |
         Facet code
     householdMeasuresProposedQ:

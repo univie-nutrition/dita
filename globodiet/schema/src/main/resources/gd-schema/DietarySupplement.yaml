@@ -30,7 +30,7 @@ params.supplement.DietarySupplement:
       column: CODE_VITA
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -60,7 +60,7 @@ params.supplement.DietarySupplement:
       unique: false
       discriminator:
       foreignKeys: |
-        ds_classif.ds_class
+        DS_CLASSIF.DS_CLASS
       description: |
         Dietary Supplement classification code (optional)
     facetCode:
@@ -70,7 +70,7 @@ params.supplement.DietarySupplement:
       unique: false
       discriminator:
       foreignKeys: |
-        ds_facet.dsfacet_code
+        DS_FACET.DSFACET_CODE
       description: |
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
 

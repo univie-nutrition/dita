@@ -29,7 +29,7 @@ params.setting.Month:
       column: MONTH_NUM
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

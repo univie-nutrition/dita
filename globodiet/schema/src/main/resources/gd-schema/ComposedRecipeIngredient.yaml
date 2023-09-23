@@ -42,8 +42,8 @@ params.food_list.ComposedRecipeIngredient:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
-        mixedrec.r_idnum
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
       description: |
         Food (ingredient) Identification Code
         either Foods.foodnum OR Mixedrec.r_idnum

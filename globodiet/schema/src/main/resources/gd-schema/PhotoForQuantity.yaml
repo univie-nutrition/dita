@@ -21,7 +21,7 @@ params.quantif.PhotoForQuantity:
   namespace: params.quantif
   table: M_PHOTOS
   secondaryKey: |
-    ph_code
+    PH_CODE
   title: null
   icon: null
   description: |
@@ -31,7 +31,7 @@ params.quantif.PhotoForQuantity:
       column: PH_CODE
       column-type: nvarchar(4)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |

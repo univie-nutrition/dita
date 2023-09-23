@@ -33,7 +33,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         food ID number
     mandatoryInSequenceOfFacetsCode:
@@ -43,7 +43,7 @@ params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet codes that MUST appear in the sequence of facets corresponding to this food 
         (superseeding its group pathway).

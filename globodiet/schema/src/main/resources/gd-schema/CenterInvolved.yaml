@@ -31,7 +31,7 @@ params.interview.CenterInvolved:
       column: CNTR_CODE
       column-type: nvarchar(3)
       required: true
-      unique: true
+      unique: false
       discriminator:
       foreignKeys:
       description: |
@@ -43,7 +43,7 @@ params.interview.CenterInvolved:
       unique: true
       discriminator:
       foreignKeys: |
-        country.ctrycode
+        COUNTRY.CTRYCODE
       description: |
         Attached Country code
     centerName:

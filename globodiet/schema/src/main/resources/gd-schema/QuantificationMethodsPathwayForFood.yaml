@@ -33,7 +33,7 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        foods.foodnum
+        FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
     quantificationMethodCode:
@@ -56,8 +56,8 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       unique: true
       discriminator:
       foreignKeys: |
-        m_photos.ph_code
-        m_shapes.sh_code
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code

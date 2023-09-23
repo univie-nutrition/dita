@@ -42,7 +42,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       unique: true
       discriminator:
       foreignKeys: |
-        groups.group
+        GROUPS.GROUP
       description: |
         Food group code
     foodSubgroupCode:
@@ -52,7 +52,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup1
+        SUBGROUP.SUBGROUP1
       description: |
         Food subgroup code
     foodSubSubgroupCode:
@@ -62,7 +62,7 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       unique: true
       discriminator:
       foreignKeys: |
-        subgroup.subgroup2
+        SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
     listOfFoodGroupsOrSubgroupsToApplyTheSubstitution:

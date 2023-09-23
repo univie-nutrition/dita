@@ -33,18 +33,18 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       unique: true
       discriminator:
       foreignKeys: |
-        facets.facet_code
+        FACETS.FACET_CODE
       description: |
         Facet code
     descriptorCode:
       column: DESC_CODE
       column-type: nvarchar(2)
       required: true
-      unique: true
+      unique: false
       discriminator: |
-        facet_code
+        FACET_CODE
       foreignKeys: |
-        descface.descr_code
+        DESCFACE.DESCR_CODE
       description: |
         Descriptor code
 

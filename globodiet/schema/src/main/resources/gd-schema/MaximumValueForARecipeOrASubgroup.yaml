@@ -33,7 +33,7 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        rgroups.group
+        RGROUPS.GROUP
       description: |
         Recipe group code
     recipeSubgroupCode:
@@ -43,17 +43,17 @@ params.recipe_max.MaximumValueForARecipeOrASubgroup:
       unique: true
       discriminator:
       foreignKeys: |
-        rsubgr.subgroup
+        RSUBGR.SUBGROUP
       description: |
         Recipe subgroup code
     recipeCode:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: false
-      unique: true
+      unique: false
       discriminator:
       foreignKeys: |
-        mixedrec.r_idnum
+        MIXEDREC.R_IDNUM
       description: |
         Recipe code
     maximumValue:
