@@ -4221,7 +4221,8 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
@@ -4231,7 +4232,9 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
+        GROUP
+        SUBGROUP1
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
