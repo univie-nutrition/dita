@@ -206,7 +206,7 @@ class _GenAssociationMixin {
                 builder.addCode("""
                         return foreignKeyLookup.decodeLookupKeyList($1T.class, mixee.$2L())
                             .map(foreignKeyLookup::unique)
-                            .getSingletonOrFail();
+                            .getSingleton().orElse(null);
                         """, foreigner1.foreignEntity(),
                         localKeyGetter);
             } else {

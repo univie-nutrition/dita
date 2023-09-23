@@ -48,6 +48,6 @@ public class QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescript
     public FacetDescriptor prop() {
         return foreignKeyLookup.decodeLookupKeyList(FacetDescriptor.class, mixee.getPhysicalStateFacetDescriptorLookupKey())
             .map(foreignKeyLookup::unique)
-            .getSingletonOrFail();
+            .getSingleton().orElse(null);
     }
 }

@@ -48,6 +48,6 @@ public class MaximumValueForAFoodOrASubSubgroup_facetDescriptor {
     public FacetDescriptor prop() {
         return foreignKeyLookup.decodeLookupKeyList(FacetDescriptor.class, mixee.getFacetDescriptorLookupKey())
             .map(foreignKeyLookup::unique)
-            .getSingletonOrFail();
+            .getSingleton().orElse(null);
     }
 }
