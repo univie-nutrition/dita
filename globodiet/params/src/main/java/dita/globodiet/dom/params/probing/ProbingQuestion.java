@@ -97,7 +97,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=)", code, label);
+        return String.format("%s (code=%s)", label, code);
     }
 
     @Programmatic

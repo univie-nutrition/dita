@@ -22,7 +22,7 @@ params.probing.ProbingQuestion:
   table: PROBQUE
   secondaryKey: |
     PQ_CODE
-  title: String.format("%s (code=)", code, label)
+  title: String.format("%s (code=%s)", label, code)
   icon: solid circle-question
   description: |
     Probing question

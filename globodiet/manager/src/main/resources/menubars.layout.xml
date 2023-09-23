@@ -55,7 +55,7 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSpecialDayPredefinedAnswer"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllSpecialDietPredefinedAnswer"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllTranslationInCountryLanguage"/>
-            </mb:section>
+           </mb:section>
         </mb:menu>
         <mb:menu>
             <mb:named>Supplements</mb:named>
