@@ -52,10 +52,12 @@ public class StandardUnitForFoodOrRecipe_foodOrRecipe {
         final int switchOn = foreignKeyLookup.switchOn(mixee);
         switch(switchOn) {
         case 1: {
+            if(mixee.getFoodOrRecipeCode()==null) return null;
             final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodOrRecipeCode());
             return foreignKeyLookup.unique(lookupKey);
         }
         case 2: {
+            if(mixee.getFoodOrRecipeCode()==null) return null;
             final var lookupKey = new Recipe.SecondaryKey(mixee.getFoodOrRecipeCode());
             return foreignKeyLookup.unique(lookupKey);
         }}

@@ -45,6 +45,7 @@ public class DietarySupplement_classification {
 
     @MemberSupport
     public DietarySupplementClassification prop() {
+        if(mixee.getClassificationCode()==null) return null;
         final var lookupKey = new DietarySupplementClassification.SecondaryKey(mixee.getClassificationCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

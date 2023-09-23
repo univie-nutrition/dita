@@ -52,10 +52,12 @@ public class RecipeIngredient_foodOrRecipeSubgroup {
         final int switchOn = foreignKeyLookup.switchOn(mixee);
         switch(switchOn) {
         case 1: {
+            if(mixee.getFoodOrRecipeSubgroupCode()==null) return null;
             final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode(), null);
             return foreignKeyLookup.unique(lookupKey);
         }
         case 2: {
+            if(mixee.getFoodOrRecipeSubgroupCode()==null) return null;
             final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode());
             return foreignKeyLookup.unique(lookupKey);
         }}

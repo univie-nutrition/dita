@@ -46,6 +46,7 @@ public class ProbingQuestionPathwayForRecipes_probingQuestion {
 
     @MemberSupport
     public ProbingQuestion prop() {
+        if(mixee.getProbingQuestionCode()==null) return null;
         final var lookupKey = new ProbingQuestion.SecondaryKey(mixee.getProbingQuestionCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

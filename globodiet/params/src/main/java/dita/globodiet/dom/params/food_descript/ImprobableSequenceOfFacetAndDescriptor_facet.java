@@ -45,6 +45,7 @@ public class ImprobableSequenceOfFacetAndDescriptor_facet {
 
     @MemberSupport
     public Facet prop() {
+        if(mixee.getFacetCode()==null) return null;
         final var lookupKey = new Facet.SecondaryKey(mixee.getFacetCode());
         return foreignKeyLookup.unique(lookupKey);
     }

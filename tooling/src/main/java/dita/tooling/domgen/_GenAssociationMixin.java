@@ -111,10 +111,13 @@ class _GenAssociationMixin {
         val isPlural = field.plural();
         val localKeyGetter = field.getter();
 
-        //TODO debug
-        //System.err.printf("--resolve %s%n", foreignFields);
-
-        record Foreign(ClassName foreignEntity, String strictness, String foreignKeyGetter, int secondaryKeyCardinality, String argList) {
+        record Foreign(
+                ClassName foreignEntity,
+                String strictness,
+                String foreignKeyGetter,
+                int secondaryKeyCardinality,
+                String significantArgument,
+                String argList) {
         }
 
         final Can<Foreign> foreigners = foreignFields
@@ -129,9 +132,11 @@ class _GenAssociationMixin {
                             .map(OrmModel.Field::getter)
                             .map(getter->String.format("mixee.%s()", getter))
                             .collect(Collectors.toCollection(ArrayList::new));
+                    val argCount = argList.size();
+                    val significantArgument = argList.get(argCount-1);
 
                     // fill up with null args
-                    final int fillSize = foreignEntity.secondaryKey().size() - argList.size();
+                    final int fillSize = foreignEntity.secondaryKey().size() - argCount;
                     IntStream.range(0, fillSize)
                         .forEach(__->argList.add("null"));
 
@@ -141,6 +146,7 @@ class _GenAssociationMixin {
 
                     return new Foreign(foreignEntityClass, strictness,
                             foreignField.getter(), foreignEntity.secondaryKey().size(),
+                            significantArgument,
                             argList.stream().collect(Collectors.joining(", ")));
                 });
 
@@ -191,9 +197,13 @@ class _GenAssociationMixin {
             }
 
             builder.addCode("""
+                    if($4L==null) return null;
                     final var lookupKey = new $2T.SecondaryKey($3L);
                     return foreignKeyLookup.$1L(lookupKey);
-                    """, foreigner.strictness(), foreigner.foreignEntity(), foreigner.argList());
+                    """, foreigner.strictness(), foreigner.foreignEntity(), foreigner.argList(),
+                    foreigner.significantArgument()
+                    );
+
 
             break;
 
@@ -216,14 +226,16 @@ class _GenAssociationMixin {
                         final int switchOn = foreignKeyLookup.switchOn(mixee);
                         switch(switchOn) {
                         case 1: {
+                            if($7L==null) return null;
                             final var lookupKey = new $5T.SecondaryKey($3L);
                             return foreignKeyLookup.$1L(lookupKey);
                         }
                         case 2: {
+                            if($8L==null) return null;
                             final var lookupKey = new $6T.SecondaryKey($4L);
                             return foreignKeyLookup.$2L(lookupKey);
                         }}
-                        throw $7T.unexpectedCodeReach();
+                        throw $9T.unexpectedCodeReach();
                         """,
                         foreigner1.strictness(),
                         foreigner2.strictness(),
@@ -231,6 +243,8 @@ class _GenAssociationMixin {
                         foreigner2.argList(),
                         foreigner1.foreignEntity(),
                         foreigner2.foreignEntity(),
+                        foreigner1.significantArgument(),
+                        foreigner2.significantArgument(),
                         _Exceptions.class);
             }
             break;

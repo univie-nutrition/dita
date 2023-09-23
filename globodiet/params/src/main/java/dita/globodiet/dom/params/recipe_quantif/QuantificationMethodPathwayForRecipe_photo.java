@@ -52,10 +52,12 @@ public class QuantificationMethodPathwayForRecipe_photo {
         final int switchOn = foreignKeyLookup.switchOn(mixee);
         switch(switchOn) {
         case 1: {
+            if(mixee.getPhotoCode()==null) return null;
             final var lookupKey = new PhotoForQuantity.SecondaryKey(mixee.getPhotoCode());
             return foreignKeyLookup.nullable(lookupKey);
         }
         case 2: {
+            if(mixee.getPhotoCode()==null) return null;
             final var lookupKey = new Shape.SecondaryKey(mixee.getPhotoCode());
             return foreignKeyLookup.nullable(lookupKey);
         }}

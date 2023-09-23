@@ -46,6 +46,7 @@ public class RecipeIngredientQuantification_photo {
 
     @MemberSupport
     public PhotoForQuantity prop() {
+        if(mixee.getPhotoCode()==null) return null;
         final var lookupKey = new PhotoForQuantity.SecondaryKey(mixee.getPhotoCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

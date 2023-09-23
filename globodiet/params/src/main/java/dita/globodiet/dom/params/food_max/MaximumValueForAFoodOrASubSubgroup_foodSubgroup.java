@@ -46,6 +46,7 @@ public class MaximumValueForAFoodOrASubSubgroup_foodSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
+        if(mixee.getFoodSubgroupCode()==null) return null;
         final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }

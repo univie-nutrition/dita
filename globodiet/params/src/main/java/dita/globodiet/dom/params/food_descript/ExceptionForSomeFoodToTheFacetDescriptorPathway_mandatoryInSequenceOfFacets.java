@@ -45,6 +45,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequence
 
     @MemberSupport
     public Facet prop() {
+        if(mixee.getMandatoryInSequenceOfFacetsCode()==null) return null;
         final var lookupKey = new Facet.SecondaryKey(mixee.getMandatoryInSequenceOfFacetsCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

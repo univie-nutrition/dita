@@ -45,6 +45,7 @@ public class SubjectToBeInterviewed_center {
 
     @MemberSupport
     public CenterInvolved prop() {
+        if(mixee.getCenterCode()==null) return null;
         final var lookupKey = new CenterInvolved.SecondaryKey(mixee.getCenterCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

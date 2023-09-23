@@ -46,6 +46,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeGrou
 
     @MemberSupport
     public RecipeGroup prop() {
+        if(mixee.getRecipeGroupCode()==null) return null;
         final var lookupKey = new RecipeGroup.SecondaryKey(mixee.getRecipeGroupCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

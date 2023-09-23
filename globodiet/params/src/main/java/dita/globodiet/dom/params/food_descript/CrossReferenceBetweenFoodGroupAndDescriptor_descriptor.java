@@ -45,6 +45,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor_descriptor {
 
     @MemberSupport
     public FacetDescriptor prop() {
+        if(mixee.getDescriptorCode()==null) return null;
         final var lookupKey = new FacetDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
         return foreignKeyLookup.unique(lookupKey);
     }

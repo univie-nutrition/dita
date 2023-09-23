@@ -46,6 +46,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway_food {
 
     @MemberSupport
     public FoodOrProductOrAlias prop() {
+        if(mixee.getFoodCode()==null) return null;
         final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodCode());
         return foreignKeyLookup.unique(lookupKey);
     }

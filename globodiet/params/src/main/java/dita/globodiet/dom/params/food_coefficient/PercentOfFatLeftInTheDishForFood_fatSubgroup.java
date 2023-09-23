@@ -46,6 +46,7 @@ public class PercentOfFatLeftInTheDishForFood_fatSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
+        if(mixee.getFatSubgroupCode()==null) return null;
         final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFatGroupCode(), mixee.getFatSubgroupCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }

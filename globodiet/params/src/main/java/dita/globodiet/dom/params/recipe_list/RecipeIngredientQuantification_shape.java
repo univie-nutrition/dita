@@ -46,6 +46,7 @@ public class RecipeIngredientQuantification_shape {
 
     @MemberSupport
     public Shape prop() {
+        if(mixee.getShapeCode()==null) return null;
         final var lookupKey = new Shape.SecondaryKey(mixee.getShapeCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

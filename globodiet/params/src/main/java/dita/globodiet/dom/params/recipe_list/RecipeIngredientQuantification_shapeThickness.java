@@ -46,6 +46,7 @@ public class RecipeIngredientQuantification_shapeThickness {
 
     @MemberSupport
     public ThicknessForShapeMethod prop() {
+        if(mixee.getShapeThicknessCode()==null) return null;
         final var lookupKey = new ThicknessForShapeMethod.SecondaryKey(mixee.getShapeThicknessCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

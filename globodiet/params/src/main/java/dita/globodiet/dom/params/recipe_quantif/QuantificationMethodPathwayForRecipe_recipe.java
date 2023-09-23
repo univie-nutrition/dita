@@ -46,6 +46,7 @@ public class QuantificationMethodPathwayForRecipe_recipe {
 
     @MemberSupport
     public Recipe prop() {
+        if(mixee.getRecipeCode()==null) return null;
         final var lookupKey = new Recipe.SecondaryKey(mixee.getRecipeCode());
         return foreignKeyLookup.unique(lookupKey);
     }

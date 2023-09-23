@@ -46,6 +46,7 @@ public class RecipeIngredient_foodSubSubgroup {
 
     @MemberSupport
     public FoodSubgroup prop() {
+        if(mixee.getFoodSubSubgroupCode()==null) return null;
         final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode(), mixee.getFoodSubSubgroupCode());
         return foreignKeyLookup.nullable(lookupKey);
     }

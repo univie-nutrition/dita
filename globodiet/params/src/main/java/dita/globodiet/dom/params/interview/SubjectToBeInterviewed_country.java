@@ -45,6 +45,7 @@ public class SubjectToBeInterviewed_country {
 
     @MemberSupport
     public CountryInvolved prop() {
+        if(mixee.getCountryCode()==null) return null;
         final var lookupKey = new CountryInvolved.SecondaryKey(mixee.getCountryCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
