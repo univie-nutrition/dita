@@ -42,6 +42,7 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       required: false
       unique: true
       discriminator:
+        RGROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
       description: |
@@ -61,7 +62,8 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
+      discriminator: |
+        RFACET_CODE
       foreignKeys: |
         R_DESCFACE.RDESCR_CODE
       description: |
