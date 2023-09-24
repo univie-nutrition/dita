@@ -133,7 +133,7 @@ class _DataTableSet {
                                             ? ManagedObject.adaptSingular(
                                                     valueSpec,
                                                     valueFacet.destring(Format.JSON, valueStringified))
-                                            : colMetamodel.getDefault(entity));
+                                            : ManagedObject.empty(valueSpec));
 
                         // directly set entity property
                         colMetamodel.set(entity, value, InteractionInitiatedBy.PASS_THROUGH);
