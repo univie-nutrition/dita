@@ -1,0 +1,104 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+params.setting.GroupSubstitution:
+  namespace: params.setting
+  table: SUBSTIT
+  secondaryKey:
+  title: |
+    String.format("For %s (code=%s|%s|%s)->(f:%s|r:%s)", 
+     type.title(), 
+     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
+     dita.commons.format.FormatUtils.emptyToDash(applyToFoodGroupsLookupKey),
+     dita.commons.format.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
+  icon: null
+  description: |
+    Group/subgroup that can be substituted
+  fields:
+    type:
+      column: TYPE
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        0:Food
+        1:Recipe
+      description: |
+        0=Food classification
+        1=Recipe classification
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-Subgroup code
+    applyToFoodGroupsLookupKey:
+      column: F_CLASS
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      plural: true
+      elementType: params.classification.FoodGrouping
+      foreignKeys: |
+        SUBGROUP.GROUP
+        SUBGROUP.SUBGROUP1
+        SUBGROUP.SUBGROUP2
+      description: |
+        List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)
+    applyToRecipeGroupsLookupKey:
+      column: R_CLASS
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      plural: true
+      elementType: params.classification.RecipeGrouping
+      foreignKeys: |
+        RSUBGR.GROUP
+        RSUBGR.SUBGROUP
+      description: |
+        List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
+

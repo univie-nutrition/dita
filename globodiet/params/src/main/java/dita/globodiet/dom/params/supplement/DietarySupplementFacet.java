@@ -244,6 +244,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -265,6 +266,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -286,6 +288,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

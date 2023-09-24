@@ -262,6 +262,7 @@ public class DietarySupplementDescriptor {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -283,6 +284,7 @@ public class DietarySupplementDescriptor {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -304,6 +306,7 @@ public class DietarySupplementDescriptor {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

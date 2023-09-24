@@ -58,6 +58,7 @@ public class OrmModel {
             String name,
             String namespace,
             String table,
+            String superType,
             List<String> secondaryKey,
             String title,
             String icon,
@@ -77,6 +78,7 @@ public class OrmModel {
             val entity = new Entity(name,
                     namespace,
                     (String)map.get("table"),
+                    parseNullableStringTrimmed((String)map.get("superType")),
                     parseMultilineStringTrimmed((String)map.get("secondaryKey")),
                     (String)map.get("title"),
                     (String)map.get("icon"),
@@ -94,6 +96,21 @@ public class OrmModel {
         }
         public String key() {
             return String.format("%s.%s", namespace, name);
+        }
+        public boolean hasSuperType() {
+            return _Strings.isNotEmpty(superType);
+        }
+        /** fails if hasSuperType()==false */
+        public String superTypeSimpleName() {
+            _Assert.assertTrue(hasSuperType());
+            var cutter = TextUtils.cutter(superType); // expected non-null
+            return cutter.keepAfterLast(".").getValue();
+        }
+        /** fails if hasSuperType()==false */
+        public String superTypeNamespace() {
+            _Assert.assertTrue(hasSuperType());
+            var cutter = TextUtils.cutter(superType); // expected non-null
+            return cutter.keepBeforeLast(".").getValue();
         }
         public boolean hasSecondaryKey() {
             return secondaryKey.size()>0;
@@ -114,6 +131,9 @@ public class OrmModel {
             yaml.write(key(), ":").nl();
             yaml.ind().write("namespace: ", namespace).nl();
             yaml.ind().write("table: ", table).nl();
+            if(_Strings.isNotEmpty(superType)) {
+                yaml.ind().write("superType: ", superType).nl();
+            }
             yaml.ind().write("secondaryKey:").multilineStartIfNotEmtpy(secondaryKey).nl();
             secondaryKey.forEach(line->
                 yaml.ind().ind().writeUpper(line).nl());
@@ -140,6 +160,9 @@ public class OrmModel {
                 yaml.ind().ind().ind().write("unique: ", ""+field.unique()).nl();
                 if(field.plural()) {
                     yaml.ind().ind().ind().write("plural: ", "true").nl();
+                }
+                if(_Strings.isNotEmpty(field.elementType())) {
+                    yaml.ind().ind().ind().write("elementType: ", field.elementType()).nl();
                 }
                 if(field.isEnum()) {
                     yaml.ind().ind().ind().write("enum:").multilineStartIfNotEmtpy(field.enumeration).nl();
@@ -201,6 +224,7 @@ public class OrmModel {
             boolean required,
             boolean unique,
             boolean plural,
+            String elementType,
             List<String> enumeration,
             List<String> discriminator,
             List<String> foreignKeys,
@@ -216,6 +240,7 @@ public class OrmModel {
                     (Boolean)map.get("required"),
                     (Boolean)map.get("unique"),
                     (boolean)Optional.ofNullable((Boolean)map.get("plural")).orElse(false),
+                    (String)map.get("elementType"),
                     parseMultilineStringTrimmed((String)map.get("enum")),
                     parseMultilineStringTrimmed((String)map.get("discriminator")),
                     parseMultilineStringTrimmed((String)map.get("foreignKeys")),
@@ -230,6 +255,22 @@ public class OrmModel {
         public TypeName asJavaEnumType() {
             return ClassName.get("", _Strings.capitalize(name()));
         }
+        public boolean hasElementType() {
+            return _Strings.isNotEmpty(elementType);
+        }
+        /** fails if hasElementType()==false */
+        public String elementTypeSimpleName() {
+            _Assert.assertTrue(hasElementType());
+            var cutter = TextUtils.cutter(elementType); // expected non-null
+            return cutter.keepAfterLast(".").getValue();
+        }
+        /** fails if hasElementType()==false */
+        public String elementTypeNamespace() {
+            _Assert.assertTrue(hasElementType());
+            var cutter = TextUtils.cutter(elementType); // expected non-null
+            return cutter.keepBeforeLast(".").getValue();
+        }
+
         public boolean isEnum() {
             return enumeration.size()>0;
         }
@@ -328,6 +369,7 @@ public class OrmModel {
                     required,
                     unique,
                     plural,
+                    elementType,
                     enumeration,
                     discriminator,
                     foreignKeys,
@@ -345,6 +387,7 @@ public class OrmModel {
                     required,
                     unique,
                     plural,
+                    elementType,
                     enumeration,
                     discriminator,
                     foreignKeys,
@@ -503,9 +546,10 @@ public class OrmModel {
      * JUnit support.
      */
     public Can<Schema> examples() {
-        val entity = new Entity("FoodList", "dita", "FOODS", List.of(), "name", "fa-pencil", List.of("Food List and Aliases"),
+        val entity = new Entity("FoodList", "dita", "FOODS", "", List.of(), "name", "fa-pencil", List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
         val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false, false,
+                "",
                 List.of(), List.of(), List.of(), List.of("aa", "bb", "cc"));
         entity.fields().add(field);
         return Can.of(
@@ -550,6 +594,14 @@ public class OrmModel {
             .filter(_Strings::isNotEmpty)
             .map(String::trim)
             .collect(Collectors.toList());
+    }
+
+    private static String parseNullableStringTrimmed(final String input) {
+        return Optional.ofNullable(input).stream()
+            .map(String::trim)
+            .filter(_Strings::isNotEmpty)
+            .findFirst()
+            .orElse(null);
     }
 
     private boolean isMultilineStringBlank(final List<String> lines) {

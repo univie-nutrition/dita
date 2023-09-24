@@ -884,6 +884,7 @@ public class RecipeIngredient {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -905,6 +906,7 @@ public class RecipeIngredient {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -926,6 +928,7 @@ public class RecipeIngredient {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -947,6 +950,7 @@ public class RecipeIngredient {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -968,6 +972,7 @@ public class RecipeIngredient {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -989,6 +994,7 @@ public class RecipeIngredient {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

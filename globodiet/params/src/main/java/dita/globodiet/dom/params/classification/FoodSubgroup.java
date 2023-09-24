@@ -60,7 +60,7 @@ import org.apache.causeway.applib.annotation.Where;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
+public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup> {
     /**
      * Food group code
      */
@@ -274,6 +274,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -295,6 +296,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -316,6 +318,7 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

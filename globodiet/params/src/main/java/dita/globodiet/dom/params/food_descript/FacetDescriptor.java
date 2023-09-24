@@ -217,6 +217,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

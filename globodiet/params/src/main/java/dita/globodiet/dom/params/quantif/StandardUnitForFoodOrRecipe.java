@@ -271,6 +271,7 @@ public class StandardUnitForFoodOrRecipe {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -292,6 +293,7 @@ public class StandardUnitForFoodOrRecipe {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -313,6 +315,7 @@ public class StandardUnitForFoodOrRecipe {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

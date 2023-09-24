@@ -245,6 +245,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -266,6 +267,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -287,6 +289,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

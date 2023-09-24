@@ -201,6 +201,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -222,6 +223,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

@@ -252,6 +252,7 @@ public class Facet implements HasSecondaryKey<Facet> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -273,6 +274,7 @@ public class Facet implements HasSecondaryKey<Facet> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

@@ -154,6 +154,7 @@ public class QuantificationMethodPathwayForRecipe {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

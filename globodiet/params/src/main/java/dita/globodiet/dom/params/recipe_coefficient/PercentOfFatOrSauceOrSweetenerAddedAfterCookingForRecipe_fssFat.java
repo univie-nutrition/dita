@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.recipe_coefficient;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_list.Food;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -45,9 +45,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat {
     private final PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe mixee;
 
     @MemberSupport
-    public FoodOrProductOrAlias prop() {
+    public Food prop() {
         if(mixee.getFssFatCode()==null) return null;
-        final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFssFatCode());
+        final var lookupKey = new Food.SecondaryKey(mixee.getFssFatCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_list.Food;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import lombok.RequiredArgsConstructor;
@@ -52,7 +52,7 @@ public class RecipeIngredient_foodOrRecipe {
         switch(switchOn) {
         case 1: {
             if(mixee.getFoodOrRecipeCode()==null) return null;
-            final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFoodOrRecipeCode());
+            final var lookupKey = new Food.SecondaryKey(mixee.getFoodOrRecipeCode());
             return foreignKeyLookup.unique(lookupKey);
         }
         case 2: {

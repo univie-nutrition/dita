@@ -354,6 +354,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -375,6 +376,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

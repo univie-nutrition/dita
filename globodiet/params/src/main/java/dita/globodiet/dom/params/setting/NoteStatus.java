@@ -137,6 +137,7 @@ public class NoteStatus {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

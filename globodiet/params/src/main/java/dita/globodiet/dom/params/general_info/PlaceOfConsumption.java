@@ -154,6 +154,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

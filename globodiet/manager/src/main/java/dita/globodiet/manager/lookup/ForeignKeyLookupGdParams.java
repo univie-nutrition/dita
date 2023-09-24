@@ -43,20 +43,23 @@ import dita.commons.services.foreignkey.ForeignKeyLookupService;
 import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import dita.globodiet.dom.params.classification.FoodGroup;
+import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeGroup;
+import dita.globodiet.dom.params.classification.RecipeGrouping;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
-import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
+import dita.globodiet.dom.params.food_table.ItemDefinition;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
+import dita.globodiet.dom.params.setting.GroupSubstitution;
 import lombok.val;
 
 @Service
@@ -70,9 +73,9 @@ implements ForeignKeyLookupService {
     // -- PREFILTER
 
     private static <T> Predicate<T> prefilter(final Class<T> entityClass){
-        if(FoodOrProductOrAlias.class.equals(entityClass)) {
+        if(Food.class.equals(entityClass)) {
             // do not lookup SH entries (aliases)
-            return t->!"SH".equalsIgnoreCase(((FoodOrProductOrAlias) t).getTypeOfItem());
+            return t->((Food) t).getTypeOfItem() != Food.TypeOfItem.ALIAS;
         }
         return _Predicates.alwaysTrue();
     }
@@ -144,12 +147,17 @@ implements ForeignKeyLookupService {
                     : 1;
         }
         if(entity instanceof DensityFactorForFood x) {
-            return x.getDensityForFoodOrRecipe() == DensityFactorForFood.DensityForFoodOrRecipe.RECIPE
+            return x.getForFoodOrRecipe() == DensityFactorForFood.ForFoodOrRecipe.RECIPE
                     ? 2
                     : 1;
         }
-        if(entity instanceof FoodOrRecipeOrAttachment x) {
-            return x.getTypeOfRecord() == FoodOrRecipeOrAttachment.TypeOfRecord.RECIPE
+        if(entity instanceof ItemDefinition x) {
+            return x.getTypeOfRecord() == ItemDefinition.TypeOfRecord.RECIPE
+                    ? 2
+                    : 1;
+        }
+        if(entity instanceof GroupSubstitution x) {
+            return x.getType() == GroupSubstitution.Type.RECIPE
                     ? 2
                     : 1;
         }
@@ -190,13 +198,13 @@ implements ForeignKeyLookupService {
 
     @Override
     public <T> Can<ISecondaryKey<T>> decodeLookupKeyList(final Class<T> foreignType, final String stringList) {
-        if(FoodSubgroup.class.equals(foreignType)) {
+        if(FoodGrouping.class.isAssignableFrom(foreignType)) {
             var keys = Decoders.decodeFoodGroupLookupKeyList(stringList).stream()
                     .map(either->either.fold(
-                            (FoodGroup.SecondaryKey left)->FoodGroup.class.equals(foreignType)
+                            (FoodGroup.SecondaryKey left)->satisfiesRequired(foreignType, FoodGroup.class)
                                     ? left
                                     : null,
-                            (FoodSubgroup.SecondaryKey right)->FoodSubgroup.class.equals(foreignType)
+                            (FoodSubgroup.SecondaryKey right)->satisfiesRequired(foreignType, FoodSubgroup.class)
                                     ? right
                                     : null))
                     .filter(_NullSafe::isPresent)
@@ -205,13 +213,13 @@ implements ForeignKeyLookupService {
             return _Casts.uncheckedCast(keys);
 
         }
-        if(RecipeSubgroup.class.equals(foreignType)) {
+        if(RecipeGrouping.class.isAssignableFrom(foreignType)) {
             var keys = Decoders.decodeRecipeGroupLookupKeyList(stringList).stream()
                     .map(either->either.fold(
-                            (RecipeGroup.SecondaryKey left)->RecipeGroup.class.equals(foreignType)
+                            (RecipeGroup.SecondaryKey left)->satisfiesRequired(foreignType, RecipeGroup.class)
                                     ? left
                                     : null,
-                            (RecipeSubgroup.SecondaryKey right)->RecipeSubgroup.class.equals(foreignType)
+                            (RecipeSubgroup.SecondaryKey right)->satisfiesRequired(foreignType, RecipeSubgroup.class)
                                     ? right
                                     : null))
                     .filter(_NullSafe::isPresent)
@@ -222,10 +230,12 @@ implements ForeignKeyLookupService {
         if(FacetDescriptor.class.equals(foreignType)) {
             return _Casts.uncheckedCast(Decoders.decodeFacetDecriptorLookupKeyList(stringList));
         }
-
         throw _Exceptions.unrecoverable("decodeLookupKey(List) not implemented for foreign type %s",
                 foreignType.getName());
+    }
 
+    static <T> boolean satisfiesRequired(final Class<T> requiredType, final Class<?> actualType) {
+        return requiredType.isAssignableFrom(actualType);
     }
 
 }

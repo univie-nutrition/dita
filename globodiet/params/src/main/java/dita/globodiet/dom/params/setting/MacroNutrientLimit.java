@@ -196,6 +196,7 @@ public class MacroNutrientLimit {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

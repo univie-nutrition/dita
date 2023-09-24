@@ -392,6 +392,7 @@ public class SubjectToBeInterviewed {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -413,6 +414,7 @@ public class SubjectToBeInterviewed {
         @Getter
         private final Integer matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

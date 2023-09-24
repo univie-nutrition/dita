@@ -37,13 +37,13 @@ import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
-import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
 import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
-import dita.globodiet.dom.params.food_table.FoodOrRecipeOrAttachment;
+import dita.globodiet.dom.params.food_table.ItemDefinition;
 import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
 import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
 import dita.globodiet.dom.params.general_info.AnthropometricAverage;
@@ -80,7 +80,7 @@ import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForR
 import dita.globodiet.dom.params.setting.DayOfWeek;
 import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
-import dita.globodiet.dom.params.setting.GroupOrSubgroupThatCanBeSubstitutable;
+import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.MacroNutrientLimit;
 import dita.globodiet.dom.params.setting.Month;
 import dita.globodiet.dom.params.setting.NoteStatus;
@@ -244,8 +244,8 @@ public class EntitiesMenu {
     @ActionLayout(
             cssClassFa = "solid utensils darkgreen"
     )
-    public List<FoodOrProductOrAlias> listAllFoodOrProductOrAlias() {
-        return repositoryService.allInstances(FoodOrProductOrAlias.class);
+    public List<Food> listAllFood() {
+        return repositoryService.allInstances(Food.class);
     }
 
     @Action
@@ -285,8 +285,8 @@ public class EntitiesMenu {
     @ActionLayout(
             cssClassFa = "solid paperclip"
     )
-    public List<FoodOrRecipeOrAttachment> listAllFoodOrRecipeOrAttachment() {
-        return repositoryService.allInstances(FoodOrRecipeOrAttachment.class);
+    public List<ItemDefinition> listAllItemDefinition() {
+        return repositoryService.allInstances(ItemDefinition.class);
     }
 
     @Action
@@ -536,9 +536,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<GroupOrSubgroupThatCanBeSubstitutable> listAllGroupOrSubgroupThatCanBeSubstitutable(
-            ) {
-        return repositoryService.allInstances(GroupOrSubgroupThatCanBeSubstitutable.class);
+    public List<GroupSubstitution> listAllGroupSubstitution() {
+        return repositoryService.allInstances(GroupSubstitution.class);
     }
 
     @Action

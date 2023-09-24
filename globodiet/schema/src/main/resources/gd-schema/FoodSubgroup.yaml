@@ -20,6 +20,7 @@
 params.classification.FoodSubgroup:
   namespace: params.classification
   table: SUBGROUP
+  superType: params.classification.FoodGrouping
   secondaryKey: |
     GROUP
     SUBGROUP1
@@ -30,7 +31,6 @@ params.classification.FoodSubgroup:
      dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
-    
   icon: solid layer-group darkgreen
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups

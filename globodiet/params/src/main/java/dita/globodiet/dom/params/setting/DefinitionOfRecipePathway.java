@@ -260,6 +260,7 @@ public class DefinitionOfRecipePathway {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -281,6 +282,7 @@ public class DefinitionOfRecipePathway {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -307,6 +309,7 @@ public class DefinitionOfRecipePathway {
         @Getter
         private final Integer matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -333,6 +336,7 @@ public class DefinitionOfRecipePathway {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -359,6 +363,7 @@ public class DefinitionOfRecipePathway {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

@@ -85,7 +85,7 @@ params.food_coefficient.DensityFactorForFood:
       description: |
         1 = raw, 
         2 = cooked (as estimated) 
-    densityForFoodOrRecipe:
+    forFoodOrRecipe:
       column: D_TYPE
       column-type: tinyint(3)
       required: true

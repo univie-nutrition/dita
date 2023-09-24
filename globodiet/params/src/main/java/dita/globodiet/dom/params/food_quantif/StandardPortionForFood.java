@@ -236,6 +236,7 @@ public class StandardPortionForFood {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -257,6 +258,7 @@ public class StandardPortionForFood {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

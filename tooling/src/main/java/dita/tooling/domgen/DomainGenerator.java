@@ -113,13 +113,15 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
             @NonNull List<JavaModel> modules,
             @NonNull List<JavaModel> entities,
             @NonNull List<JavaModel> entityMixins,
+            @NonNull List<JavaModel> superTypes,
             @NonNull List<JavaModel> menus) {
 
         DomainModel(final OrmModel.Schema schema) {
-            this(schema, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            this(schema, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
         Stream<JavaModel> streamJavaModels() {
-            return Stream.of(modules, menus, entities, entityMixins).flatMap(List::stream);
+            return Stream.of(modules, menus, superTypes, entities, entityMixins)
+                    .flatMap(List::stream);
         }
     }
 
@@ -128,6 +130,13 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         val entityModels = config().schema().entities().values().stream().toList();
 
         val domainModel = new DomainModel(config().schema());
+
+        // superTypes
+        entityModels.stream()
+            .filter(entityModel->entityModel.hasSuperType())
+            .sorted((a, b)->a.superType().compareTo(b.superType()))
+            .map(superTypeHolder->_GenInterface.toJavaModel(superTypeHolder, config()))
+            .forEach(domainModel.superTypes()::add);
 
         // entities
         entityModels.stream()

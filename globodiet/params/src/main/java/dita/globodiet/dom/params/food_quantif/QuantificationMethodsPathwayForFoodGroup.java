@@ -252,6 +252,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -288,6 +289,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

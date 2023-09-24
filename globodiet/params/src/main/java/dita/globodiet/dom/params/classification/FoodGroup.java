@@ -58,7 +58,7 @@ import org.apache.causeway.applib.annotation.Where;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class FoodGroup implements HasSecondaryKey<FoodGroup> {
+public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     /**
      * Food group code
      */

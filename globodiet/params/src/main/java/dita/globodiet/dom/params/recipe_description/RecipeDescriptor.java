@@ -254,6 +254,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -280,6 +281,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -301,6 +303,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -322,6 +325,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

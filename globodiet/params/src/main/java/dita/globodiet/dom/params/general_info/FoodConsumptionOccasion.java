@@ -190,6 +190,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

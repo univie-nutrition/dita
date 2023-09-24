@@ -124,7 +124,9 @@ class _GenAssociationMixin {
                 .map((OrmModel.Field foreignField)->{
                     val foreignEntity = foreignField.parentEntity();
                     val foreignPackageName = config.fullPackageName(foreignEntity.namespace());
-                    val foreignEntityClass = ClassName.get(foreignPackageName, foreignEntity.name());
+                    val foreignEntityClass = field.hasElementType()
+                            ? ClassName.get(config.fullPackageName(field.elementTypeNamespace()), field.elementTypeSimpleName())
+                            : ClassName.get(foreignPackageName, foreignEntity.name());
 
                     var argList = Can.ofCollection(field.discriminatorFields())
                             .add(field)

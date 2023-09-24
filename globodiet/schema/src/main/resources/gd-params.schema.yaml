@@ -20,6 +20,7 @@
 params.classification.FoodGroup:
   namespace: params.classification
   table: GROUPS
+  superType: params.classification.FoodGrouping
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
@@ -51,6 +52,7 @@ params.classification.FoodGroup:
 params.classification.FoodSubgroup:
   namespace: params.classification
   table: SUBGROUP
+  superType: params.classification.FoodGrouping
   secondaryKey: |
     GROUP
     SUBGROUP1
@@ -138,6 +140,7 @@ params.classification.FoodSubgroup:
 params.classification.RecipeGroup:
   namespace: params.classification
   table: RGROUPS
+  superType: params.classification.RecipeGrouping
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
@@ -169,6 +172,7 @@ params.classification.RecipeGroup:
 params.classification.RecipeSubgroup:
   namespace: params.classification
   table: RSUBGR
+  superType: params.classification.RecipeGrouping
   secondaryKey: |
     GROUP
     SUBGROUP
@@ -275,7 +279,7 @@ params.food_coefficient.DensityFactorForFood:
       description: |
         1 = raw, 
         2 = cooked (as estimated) 
-    densityForFoodOrRecipe:
+    forFoodOrRecipe:
       column: D_TYPE
       column-type: tinyint(3)
       required: true
@@ -1111,7 +1115,7 @@ params.food_list.ComposedRecipeIngredient:
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list
-params.food_list.FoodOrProductOrAlias:
+params.food_list.Food:
   namespace: params.food_list
   table: FOODS
   secondaryKey: |
@@ -1119,7 +1123,7 @@ params.food_list.FoodOrProductOrAlias:
   title: String.format("%s (code=%s)", foodNativeName, code)
   icon: solid utensils darkgreen
   description: |
-    Food List and Shadow item list entry
+    Food, Product, On-the-Fly Recipe or Alias
   fields:
     code:
       column: FOODNUM
@@ -1172,12 +1176,17 @@ params.food_list.FoodOrProductOrAlias:
       column-type: nvarchar(2)
       required: false
       unique: false
+      enum: |
+        :Normal Food
+        GI:Generic Food
+        SH:Alias:Synonym
+        CR:On-the-fly Recipe:Recipe, built during the interview (on the fly)
       description: |
         Type of item: 
           (none) -> Normal Food Item
           GI -> Generic Food Item 
           SH -> Shadow Item 
-          CR -> Composed Recipe (a.huber: does not appear to be used anywhere)
+          CR -> Composed Recipe
                 Definition: its different ingredients can be identified and 
                 quantified separately after preparation 
                 (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad) 
@@ -1203,8 +1212,8 @@ params.food_list.FoodOrProductOrAlias:
       required: true
       unique: false
       enum: |
-        0:Food
-        1:Supplement
+        0:No:not a Dietary Supplement
+        1:Yes:is a Dietary Supplement
       description: |
         0=food 
         1=dietary supplement
@@ -1559,11 +1568,11 @@ params.food_quantif.StandardPortionForFood:
       unique: false
       description: |
         Order to display the standard portion
-params.food_table.FoodOrRecipeOrAttachment:
+params.food_table.ItemDefinition:
   namespace: params.food_table
   table: ITEMS_DEF
   secondaryKey:
-  title: null
+  title: String.format("Item %s (sequentialNumber=%d)", typeOfRecord.title(), sequentialNumber)
   icon: solid paperclip
   description: |
     Items list and definition
@@ -1586,7 +1595,11 @@ params.food_table.FoodOrRecipeOrAttachment:
         A2:Fat attached
         A3:Liquid attached
       description: |
-        Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
+        Type of record: 
+        F=food, 
+        R=recipe, 
+        A2=fat attached, 
+        A3=liquid attached
     foodOrRecipeGroupCode:
       column: GROUP
       column-type: nvarchar(2)
@@ -3865,14 +3878,22 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
         DESCFACE.DESCR_CODE
       description: |
         Descriptor code
-params.setting.GroupOrSubgroupThatCanBeSubstitutable:
+params.setting.GroupSubstitution:
   namespace: params.setting
   table: SUBSTIT
   secondaryKey:
-  title: null
+  title: |
+    String.format("For %s (code=%s|%s|%s)->(f:%s|r:%s)", 
+     type.title(), 
+     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
+     dita.commons.format.FormatUtils.emptyToDash(applyToFoodGroupsLookupKey),
+     dita.commons.format.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
+    
   icon: null
   description: |
-    Group/subgroup that can be substitutable
+    Group/subgroup that can be substituted
   fields:
     type:
       column: TYPE
@@ -3917,18 +3938,29 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
         SUBGROUP.SUBGROUP2
       description: |
         Food sub-Subgroup code
-    listOfFoodGroupsOrSubgroupsToApplyTheSubstitution:
+    applyToFoodGroupsLookupKey:
       column: F_CLASS
       column-type: nvarchar(100)
       required: false
       unique: false
+      plural: true
+      elementType: params.classification.FoodGrouping
+      foreignKeys: |
+        SUBGROUP.GROUP
+        SUBGROUP.SUBGROUP1
+        SUBGROUP.SUBGROUP2
       description: |
         List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)
-    listOfRecipeGroupsOrsubgroupsToApplyTheSubstitution:
+    applyToRecipeGroupsLookupKey:
       column: R_CLASS
       column-type: nvarchar(100)
       required: false
       unique: false
+      plural: true
+      elementType: params.classification.RecipeGrouping
+      foreignKeys: |
+        RSUBGR.GROUP
+        RSUBGR.SUBGROUP
       description: |
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
 params.setting.MacroNutrientLimit:

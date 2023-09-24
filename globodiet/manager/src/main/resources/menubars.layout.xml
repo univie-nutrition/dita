@@ -32,7 +32,7 @@
             </mb:section>
             <mb:section>
                 <mb:named>Food</mb:named>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFoodOrProductOrAlias"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="listAllFood"/>
                 <mb:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageFoodList"/>
             </mb:section>
         </mb:menu>

@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
+import dita.globodiet.dom.params.food_list.Food;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -45,9 +45,9 @@ public class PercentOfFatUseDuringCookingForFood_fat {
     private final PercentOfFatUseDuringCookingForFood mixee;
 
     @MemberSupport
-    public FoodOrProductOrAlias prop() {
+    public Food prop() {
         if(mixee.getFatCode()==null) return null;
-        final var lookupKey = new FoodOrProductOrAlias.SecondaryKey(mixee.getFatCode());
+        final var lookupKey = new Food.SecondaryKey(mixee.getFatCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

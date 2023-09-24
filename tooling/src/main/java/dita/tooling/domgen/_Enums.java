@@ -48,6 +48,7 @@ class _Enums {
                         .addAnnotation(_Annotations.getter())
                         .build())
                 .addField(FieldSpec.builder(ClassName.get(String.class), "title", Modifier.PRIVATE, Modifier.FINAL)
+                        .addAnnotation(_Annotations.getter())
                         .addAnnotation(_Annotations.accessorsFluent())
                         .build())
                 ;

@@ -160,6 +160,7 @@ public class QuantificationMethodsPathwayForFood {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

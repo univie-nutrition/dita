@@ -35,6 +35,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
+import dita.tooling.domgen.DomainGenerator.Config;
 import dita.tooling.domgen.DomainGenerator.JavaModel;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
@@ -54,12 +55,13 @@ class _GenEntity {
         return new JavaModel(
                 logicalNameSpace,
                 packageName,
-                classModel(logicalNameSpace, entityModel), config.licenseHeader());
+                classModel(logicalNameSpace, entityModel, config), config.licenseHeader());
     }
 
     // -- HELPER
 
-    private TypeSpec classModel(final String logicalNamespace, final OrmModel.Entity entityModel) {
+    private TypeSpec classModel(final String logicalNamespace, final OrmModel.Entity entityModel,
+            final Config config) {
 
         var typeModelBuilder = TypeSpec.classBuilder(entityModel.name())
                 .addJavadoc(entityModel.formatDescription("<br>\n"))
@@ -74,6 +76,14 @@ class _GenEntity {
                 .addMethod(asTitleMethod(entityModel, Modifier.PUBLIC))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
+
+        // super type
+
+        if(entityModel.hasSuperType()) {
+            val packageName = config.fullPackageName(entityModel.superTypeNamespace());
+            val superTypeName = ClassName.get(packageName, entityModel.superTypeSimpleName());
+            typeModelBuilder.addSuperinterface(superTypeName);
+        }
 
         // inner enums
 

@@ -172,6 +172,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

@@ -216,7 +216,7 @@ public class DensityFactorForFood {
             key = "enum-value-getter",
             value = "getMatchOn"
     )
-    private DensityForFoodOrRecipe densityForFoodOrRecipe;
+    private ForFoodOrRecipe forFoodOrRecipe;
 
     @ObjectSupport
     public String title() {
@@ -238,6 +238,7 @@ public class DensityFactorForFood {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -259,6 +260,7 @@ public class DensityFactorForFood {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
@@ -266,7 +268,7 @@ public class DensityFactorForFood {
     }
 
     @RequiredArgsConstructor
-    public enum DensityForFoodOrRecipe {
+    public enum ForFoodOrRecipe {
         /**
          * density for food/ingredient,
          */
@@ -280,6 +282,7 @@ public class DensityFactorForFood {
         @Getter
         private final int matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )

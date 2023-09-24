@@ -145,6 +145,7 @@ public class ComposedRecipeIngredient {
         @Getter
         private final String matchOn;
 
+        @Getter
         @Accessors(
                 fluent = true
         )
