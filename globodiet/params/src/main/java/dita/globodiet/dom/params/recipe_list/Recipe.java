@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -195,7 +196,17 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Getter
     @Setter
-    private String recipeType;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private RecipeType recipeType;
 
     /**
      * Brand name for commercial recipe
@@ -253,7 +264,17 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Getter
     @Setter
-    private int hasSubRecipeQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private HasSubRecipeQ hasSubRecipeQ;
 
     /**
      * has no description
@@ -286,6 +307,78 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum RecipeType {
+        /**
+         * no description
+         */
+        OPEN_KNOWN("1.1", "Open – Known"),
+
+        /**
+         * no description
+         */
+        OPEN_UNKNOWN("1.2", "Open – Unknown"),
+
+        /**
+         * no description
+         */
+        OPEN_WITH_BRAND("1.3", "Open with brand"),
+
+        /**
+         * no description
+         */
+        CLOSED("2.1", "Closed"),
+
+        /**
+         * no description
+         */
+        CLOSED_WITH_BRAND("2.2", "Closed with brand"),
+
+        /**
+         * no description
+         */
+        COMMERCIAL("3.0", "Commercial"),
+
+        /**
+         * no description
+         */
+        NEW_KNOWN("4.1", "New – Known"),
+
+        /**
+         * no description
+         */
+        NEW_UNKNOWN("4.2", "New – Unknown");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum HasSubRecipeQ {
+        /**
+         * recipe without sub-recipe
+         */
+        SUB_RECIPE_EXCLUDED(0, "sub-recipe excluded"),
+
+        /**
+         * recipe with sub-recipe
+         */
+        SUB_RECIPE_INCLUDED(1, "sub-recipe included");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

@@ -73,13 +73,23 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:raw
+        2:cooked: as Consumed
       description: |
-        1=raw, 2=cooked (as Consumed)
-    quantificationMethodCode:
+        1=raw, 
+        2=cooked (as Consumed)
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo
+        H:Household Measure 
+        U:Standard Unit
+        S:Standard Portion
+        A:Shape
       description: |
         Quantification method code:
         'P' for photo, 

@@ -26,9 +26,12 @@ import java.lang.String;
 import java.sql.Timestamp;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -189,7 +192,17 @@ public class SubjectToBeInterviewed {
     )
     @Getter
     @Setter
-    private String subjectSex;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private SubjectSex subjectSex;
 
     /**
      * Subject weight in kg
@@ -227,7 +240,17 @@ public class SubjectToBeInterviewed {
     )
     @Getter
     @Setter
-    private Integer doneQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DoneQ doneQ;
 
     /**
      * Country code
@@ -351,5 +374,47 @@ public class SubjectToBeInterviewed {
     @ObjectSupport
     public String title() {
         return String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode);
+    }
+
+    @RequiredArgsConstructor
+    public enum SubjectSex {
+        /**
+         * no description
+         */
+        MAN_2_WOMAN("1", "man, 2=woman)"),
+
+        /**
+         * no description
+         */
+        WOMAN("2", "woman)");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum DoneQ {
+        /**
+         * no description
+         */
+        INTERVIEW_TO_BE_DONE(0, "interview to be done"),
+
+        /**
+         * no description
+         */
+        INTERVIEW_DONE_0_INTERVIEW_TO_BE_DONE(1, "interview done, 0=interview to be done");
+
+        @Getter
+        private final Integer matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

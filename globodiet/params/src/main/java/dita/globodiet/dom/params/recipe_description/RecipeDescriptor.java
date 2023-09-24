@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -129,7 +130,17 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Getter
     @Setter
-    private int homemadeOrNot;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private HomemadeOrNot homemadeOrNot;
 
     /**
      * Only for facet known/unknown: 1=unknown 2=known
@@ -146,7 +157,17 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Getter
     @Setter
-    private int knownOrUnknown;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private KnownOrUnknown knownOrUnknown;
 
     /**
      * Descriptor with type='other' : 1=yes 0=no
@@ -163,7 +184,17 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Getter
     @Setter
-    private int yesOrNo;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private YesOrNo yesOrNo;
 
     /**
      * 0=not single descriptor
@@ -181,7 +212,17 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     )
     @Getter
     @Setter
-    private int singleOrNot;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private SingleOrNot singleOrNot;
 
     @ObjectSupport
     public String title() {
@@ -196,6 +237,95 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getRecipeFacetCode(), getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum HomemadeOrNot {
+        /**
+         * no description
+         */
+        NOT_HOMEMADE(0, "not homemade"),
+
+        /**
+         * no description
+         */
+        HOMEMADE(1, "Homemade");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum KnownOrUnknown {
+        /**
+         * Not a facet
+         */
+        DOES_NOT_APPLY(0, "does not apply"),
+
+        /**
+         * no description
+         */
+        FACET_UNKNOWN(1, "Facet unknown"),
+
+        /**
+         * no description
+         */
+        FACET_KNOWN(2, "Facet known");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum YesOrNo {
+        /**
+         * no description
+         */
+        NO(0, "no"),
+
+        /**
+         * no description
+         */
+        YES(1, "yes");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum SingleOrNot {
+        /**
+         * no description
+         */
+        NOT_SINGLE_DESCRIPTOR(0, "not single descriptor"),
+
+        /**
+         * no description
+         */
+        SINGLE_DESCRIPTOR(1, "single descriptor");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

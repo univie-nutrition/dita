@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -111,7 +112,17 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     )
     @Getter
     @Setter
-    private int otherPlaceQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private OtherPlaceQ otherPlaceQ;
 
     @ObjectSupport
     public String title() {
@@ -126,6 +137,27 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum OtherPlaceQ {
+        /**
+         * not a 'Other' place
+         */
+        SPECIFIC(0, "specific"),
+
+        /**
+         * 'Other' place
+         */
+        OTHER(1, "other");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

@@ -49,6 +49,9 @@ params.food_list.ComposedRecipeIngredient:
       column-type: nvarchar(1)
       required: false
       unique: true
+      enum: |
+        1:Food:ingredient from Food list 
+        2:Recipe:ingredient from Recipe list
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list

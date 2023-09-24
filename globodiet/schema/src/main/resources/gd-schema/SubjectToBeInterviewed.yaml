@@ -73,6 +73,9 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:man, 2=woman)
+        2:woman)
       description: |
         Subject sex (1=man, 2=woman)
     subjectWeightInKg:
@@ -87,6 +90,9 @@ params.interview.SubjectToBeInterviewed:
       column-type: tinyint(3)
       required: false
       unique: false
+      enum: |
+        0:interview to be done
+        1:interview done, 0=interview to be done
       description: |
         1=interview done, 0=interview to be done
     countryCode:

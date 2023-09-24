@@ -24,9 +24,12 @@ import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -85,7 +88,17 @@ public class FoodOrRecipeOrAttachment {
     )
     @Getter
     @Setter
-    private String typeOfRecord;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private TypeOfRecord typeOfRecord;
 
     /**
      * Food or recipe group
@@ -266,5 +279,36 @@ public class FoodOrRecipeOrAttachment {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum TypeOfRecord {
+        /**
+         * no description
+         */
+        FOOD("F", "Food"),
+
+        /**
+         * no description
+         */
+        RECIPE("R", "Recipe"),
+
+        /**
+         * no description
+         */
+        FAT_ATTACHED("A2", "Fat attached"),
+
+        /**
+         * no description
+         */
+        LIQUID_ATTACHED("A3", "Liquid attached");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

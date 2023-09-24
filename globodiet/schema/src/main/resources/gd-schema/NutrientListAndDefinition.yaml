@@ -47,11 +47,14 @@ params.food_table.NutrientListAndDefinition:
       unique: false
       description: |
         Nutrient unit (e.g. kcal, g, mg…)
-    whetherDisplayedInTheNutrientChecksScreen:
+    displayInTheNutrientChecksScreen:
       column: NTR_DISPLAY
       column-type: int(10)
       required: true
       unique: false
+      enum: |
+        0:No:not displayed in the 'nutrient checks' screen
+        1:Yes:displayed in the 'nutrient checks' screen
       description: |
         0=not displayed in the 'nutrient checks' screen 
         1=displayed in the 'nutrient checks' screen

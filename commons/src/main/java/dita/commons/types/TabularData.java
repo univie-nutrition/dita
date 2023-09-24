@@ -153,7 +153,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
                 @SuppressWarnings("unchecked")
                 val rowLiterals = (Collection<String>) tableColsAndRows.get("rows");
 
-                System.err.printf("table %s%n", tableKey);
+                System.err.printf("table %s (rows=%d)%n", tableKey, _NullSafe.size(rowLiterals));
                 //System.err.printf("  cols:%n");
 
                 val columns = Can.ofIterable(colLiterals)

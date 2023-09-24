@@ -35,11 +35,16 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
         RGROUPS.GROUP
       description: |
         Recipe group
-    quantificationMethodCode:
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        A:Shape
       description: |
         Quantification method code:
         'P' for photo, 

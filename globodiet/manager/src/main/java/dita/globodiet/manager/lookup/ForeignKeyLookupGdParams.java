@@ -139,44 +139,47 @@ implements ForeignKeyLookupService {
     @Override
     public int switchOn(final Object entity) {
         if(entity instanceof ComposedRecipeIngredient x) {
-            return "2".equals(x.getType())
+            return x.getType() == ComposedRecipeIngredient.Type.RECIPE
                     ? 2
                     : 1;
         }
         if(entity instanceof DensityFactorForFood x) {
-            return x.getDensityForFoodOrRecipe();
+            return x.getDensityForFoodOrRecipe() == DensityFactorForFood.DensityForFoodOrRecipe.RECIPE
+                    ? 2
+                    : 1;
         }
         if(entity instanceof FoodOrRecipeOrAttachment x) {
-            //Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
-            return "R".equals(x.getTypeOfRecord())
+            return x.getTypeOfRecord() == FoodOrRecipeOrAttachment.TypeOfRecord.RECIPE
                     ? 2
                     : 1;
         }
         if(entity instanceof RecipeIngredient x) {
-            return x.getTypeOfItem();
+            return x.getTypeOfItem() == RecipeIngredient.TypeOfItem.RECIPE
+                    ? 2
+                    : 1;
         }
         if(entity instanceof StandardUnitForFoodOrRecipe x) {
-            return "2".equals(x.getType())
+            return x.getType() == StandardUnitForFoodOrRecipe.Type.RECIPE
                     ? 1 //2
                     : 1;
         }
         if(entity instanceof QuantificationMethodsPathwayForFood x) {
-            return "P".equalsIgnoreCase(x.getPhotoCode())
+            return x.getQuantificationMethod() == QuantificationMethodsPathwayForFood.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }
         if(entity instanceof QuantificationMethodsPathwayForFoodGroup x) {
-            return "P".equalsIgnoreCase(x.getPhotoCode())
+            return x.getQuantificationMethod() == QuantificationMethodsPathwayForFoodGroup.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }
         if(entity instanceof QuantificationMethodPathwayForRecipe x) {
-            return "P".equalsIgnoreCase(x.getPhotoCode())
+            return x.getQuantificationMethod() == QuantificationMethodPathwayForRecipe.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }
         if(entity instanceof QuantificationMethodsPathwayForRecipeGroup x) {
-            return "P".equalsIgnoreCase(x.getPhotoCode())
+            return x.getQuantificationMethod() == QuantificationMethodsPathwayForRecipeGroup.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }

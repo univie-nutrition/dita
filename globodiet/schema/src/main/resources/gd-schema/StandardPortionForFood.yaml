@@ -47,15 +47,23 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:raw
+        2:cooked: as estimated
       description: |
-        1 = raw, 2 = cooked (as estimated)
+        1 = raw, 
+        2 = cooked (as estimated)
     withUnediblePartQ:
       column: EDIB
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:un-edible excluded:without un-edible part
+        2:un-edible included:with un-edible (as estimated)
       description: |
-        1 = without un-edible part, 2 = with un-edible (as estimated)
+        1 = without un-edible part, 
+        2 = with un-edible (as estimated)
     commentAttachedToTheStandardPortion:
       column: COMMENT
       column-type: nvarchar(100)

@@ -75,6 +75,14 @@ class _GenEntity {
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
 
+        // inner enums
+
+        entityModel.fields().stream()
+                .filter(OrmModel.Field::isEnum)
+                .forEach(field->
+                    typeModelBuilder.addType(
+                            _Enums.enumForColumn(field.asJavaType(), field.enumConstants())));
+
         if(entityModel.hasSecondaryKey()) {
 
             typeModelBuilder.addSuperinterface(ParameterizedTypeName.get(
@@ -166,8 +174,13 @@ class _GenEntity {
             final List<OrmModel.Field> fields,
             final Modifier ... modifiers) {
         return fields.stream()
-                .map(field->
-                    FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
+                .map(field->{
+                    var fieldBuilder = FieldSpec.builder(
+                            field.isEnum()
+                                ? field.asJavaEnumType()
+                                : field.asJavaType(),
+                            field.name(),
+                            modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .addAnnotation(!field.required()
                             ? _Annotations.property(Optionality.OPTIONAL)
@@ -181,8 +194,16 @@ class _GenEntity {
                             : Where.NOWHERE))
                     .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                     .addAnnotation(_Annotations.getter())
-                    .addAnnotation(_Annotations.setter())
-                    .build())
+                    .addAnnotation(_Annotations.setter());
+
+                    if(field.isEnum()) {
+                        fieldBuilder
+                            .addAnnotation(_Annotations.datanucleusCheckEnumConstraint(true))
+                            .addAnnotation(_Annotations.datanucleusEnumValueGetter("getMatchOn"));
+                    }
+
+                    return fieldBuilder.build();
+                })
                 .collect(Collectors.toList());
     }
 

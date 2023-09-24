@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -88,7 +91,17 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     )
     @Getter
     @Setter
-    private String quantificationMethodCode;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private QuantificationMethod quantificationMethod;
 
     /**
      * Photo code (if method='P' and 'A');
@@ -132,5 +145,36 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum QuantificationMethod {
+        /**
+         * no description
+         */
+        PHOTO("P", "Photo"),
+
+        /**
+         * no description
+         */
+        HOUSEHOLD_MEASURE("H", "Household Measure"),
+
+        /**
+         * no description
+         */
+        STANDARD_UNIT("U", "Standard Unit"),
+
+        /**
+         * no description
+         */
+        SHAPE("A", "Shape");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

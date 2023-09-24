@@ -62,6 +62,9 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:default
+        0:other
       description: |
         Default Descriptor. 
         When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty): 
@@ -72,6 +75,9 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:no
+        1:yes
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleDescriptorQ:
@@ -79,15 +85,18 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:not single descriptor
+        1:single descriptor
       description: |
         0=not single descriptor 1=single descriptor
-    displayOrderFirstOrSecond:
+    displayOrder:
       column: DSDESCR_ORDER
       column-type: tinyint(3)
       required: true
       unique: true
       description: |
-        Display order (1=first, 2=second…)
+        Display order (1=first, 2=second, …)
     notInName:
       column: NOTINNAME
       column-type: tinyint(3)

@@ -105,8 +105,6 @@ class _DataTableSet {
             //System.err.printf("  rows:%n");
             val dataElements = tableEntry.rows()
                 .map(row->{
-                    //System.err.printf("  - %s%n", rowLiteral);
-
                     // create a new entity instance from each row
 
                     val entityPojo = factoryService.detachedEntity(entityClass);
@@ -119,13 +117,18 @@ class _DataTableSet {
                         val valueSpec = colMetamodel.getElementType();
                         // assuming value
                         val valueFacet = valueSpec.valueFacetElseFail();
+                        val cls = valueSpec.getCorrespondingClass();
+                        final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
+                        val enumResolved = _EnumResolver.get(cls, "getMatchOn")
+                                .<Object>map(r->r.resolve(valueStringified));
 
                         // parse value
-                        final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
-                        val value = valueStringified!=null
+                        val value = enumResolved.isPresent()
+                                || valueStringified!=null
                                 ? ManagedObject.adaptSingular(
                                         valueSpec,
-                                        valueFacet.destring(Format.JSON, valueStringified))
+                                        enumResolved
+                                            .orElseGet(()->valueFacet.destring(Format.JSON, valueStringified)))
                                 : colMetamodel.getDefault(entity);
 
                         // directly set entity property

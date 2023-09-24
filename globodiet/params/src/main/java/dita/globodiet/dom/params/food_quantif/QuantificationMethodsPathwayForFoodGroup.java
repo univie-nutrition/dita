@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -127,14 +130,15 @@ public class QuantificationMethodsPathwayForFoodGroup {
     private String physicalStateFacetDescriptorLookupKey;
 
     /**
-     * 1=raw, 2=cooked (as Consumed)
+     * 1=raw,
+     * 2=cooked (as Consumed)
      */
     @Property(
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=raw, 2=cooked (as Consumed)<br>----<br>required=false, unique=false",
+            describedAs = "1=raw,<br>2=cooked (as Consumed)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -144,7 +148,17 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Getter
     @Setter
-    private String rawOrCookedAsConsumed;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private RawOrCookedAsConsumed rawOrCookedAsConsumed;
 
     /**
      * Quantification method code:
@@ -167,7 +181,17 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @Getter
     @Setter
-    private String quantificationMethodCode;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private QuantificationMethod quantificationMethod;
 
     /**
      * Photo code (if method='P' and 'A');
@@ -211,5 +235,62 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum RawOrCookedAsConsumed {
+        /**
+         * no description
+         */
+        RAW("1", "raw"),
+
+        /**
+         *  as Consumed
+         */
+        COOKED("2", "cooked");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum QuantificationMethod {
+        /**
+         * no description
+         */
+        PHOTO("P", "Photo"),
+
+        /**
+         * no description
+         */
+        HOUSEHOLD_MEASURE("H", "Household Measure"),
+
+        /**
+         * no description
+         */
+        STANDARD_UNIT("U", "Standard Unit"),
+
+        /**
+         * no description
+         */
+        STANDARD_PORTION("S", "Standard Portion"),
+
+        /**
+         * no description
+         */
+        SHAPE("A", "Shape");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

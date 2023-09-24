@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -139,7 +142,17 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private int defaultDescriptor;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DefaultDescriptor defaultDescriptor;
 
     /**
      * Descriptor with type='other' : 1=yes 0=no
@@ -156,7 +169,17 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private int otherQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private OtherQ otherQ;
 
     /**
      * 0=not single descriptor 1=single descriptor
@@ -173,15 +196,25 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private int singleDescriptorQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private SingleDescriptorQ singleDescriptorQ;
 
     /**
-     * Display order (1=first, 2=second…)
+     * Display order (1=first, 2=second, …)
      */
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Display order (1=first, 2=second…)<br>----<br>required=true, unique=true",
+            describedAs = "Display order (1=first, 2=second, …)<br>----<br>required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -190,7 +223,7 @@ public class DietarySupplementDescriptor {
     )
     @Getter
     @Setter
-    private int displayOrderFirstOrSecond;
+    private int displayOrder;
 
     /**
      * Not in name flag
@@ -212,5 +245,68 @@ public class DietarySupplementDescriptor {
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s)", name, code);
+    }
+
+    @RequiredArgsConstructor
+    public enum DefaultDescriptor {
+        /**
+         * no description
+         */
+        DEFAULT(1, "default"),
+
+        /**
+         * no description
+         */
+        OTHER(0, "other");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum OtherQ {
+        /**
+         * no description
+         */
+        NO(0, "no"),
+
+        /**
+         * no description
+         */
+        YES(1, "yes");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum SingleDescriptorQ {
+        /**
+         * no description
+         */
+        NOT_SINGLE_DESCRIPTOR(0, "not single descriptor"),
+
+        /**
+         * no description
+         */
+        SINGLE_DESCRIPTOR(1, "single descriptor");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

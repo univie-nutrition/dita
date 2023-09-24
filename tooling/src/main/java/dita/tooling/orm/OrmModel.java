@@ -27,6 +27,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.TypeName;
 
 import org.apache.causeway.commons.collections.Can;
@@ -76,7 +77,7 @@ public class OrmModel {
             val entity = new Entity(name,
                     namespace,
                     (String)map.get("table"),
-                    parseMultilineString((String)map.get("secondaryKey")),
+                    parseMultilineStringTrimmed((String)map.get("secondaryKey")),
                     (String)map.get("title"),
                     (String)map.get("icon"),
                     parseMultilineString((String)map.get("description")),
@@ -143,7 +144,7 @@ public class OrmModel {
                 if(field.isEnum()) {
                     yaml.ind().ind().ind().write("enum:").multilineStartIfNotEmtpy(field.enumeration).nl();
                     field.enumeration.forEach(line->
-                        yaml.ind().ind().ind().ind().writeUpper(line).nl());
+                        yaml.ind().ind().ind().ind().write(line).nl());
                 }
                 if(field.hasDiscriminator()) {
                     yaml.ind().ind().ind().write("discriminator:").multilineStartIfNotEmtpy(field.discriminator).nl();
@@ -215,9 +216,9 @@ public class OrmModel {
                     (Boolean)map.get("required"),
                     (Boolean)map.get("unique"),
                     (boolean)Optional.ofNullable((Boolean)map.get("plural")).orElse(false),
-                    parseMultilineString((String)map.get("enum")),
-                    parseMultilineString((String)map.get("discriminator")),
-                    parseMultilineString((String)map.get("foreignKeys")),
+                    parseMultilineStringTrimmed((String)map.get("enum")),
+                    parseMultilineStringTrimmed((String)map.get("discriminator")),
+                    parseMultilineStringTrimmed((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
         }
         public Entity parentEntity() {
@@ -226,12 +227,15 @@ public class OrmModel {
         public TypeName asJavaType() {
             return _TypeMapping.dbToJava(columnType(), !required);
         }
+        public TypeName asJavaEnumType() {
+            return ClassName.get("", _Strings.capitalize(name()));
+        }
         public boolean isEnum() {
             return enumeration.size()>0;
         }
-        public List<EnumValue> enumValues() {
+        public List<EnumConstant> enumConstants() {
             return _NullSafe.stream(enumeration)
-                    .map(IndexedFunction.zeroBased((index, ev)->EnumValue.parse(this, index, ev)))
+                    .map(IndexedFunction.zeroBased((index, ev)->EnumConstant.parse(this, index, ev)))
                     .collect(Collectors.toList());
         }
         public boolean hasDiscriminator() {
@@ -351,13 +355,13 @@ public class OrmModel {
         }
     }
 
-    public record EnumValue(
+    public record EnumConstant(
             SneakyRef<Field> parentRef,
             int ordinal,
             String name,
             String matchOn,
             String description) {
-        static EnumValue parse(final Field field, final int ordinal, final String enumDeclarationLine) {
+        static EnumConstant parse(final Field field, final int ordinal, final String enumDeclarationLine) {
             // syntax: <matcher>:<enum-value-name>:<description>
             // 1:NOT_FOUND:Item was not found
             var cutter = TextUtils.cutter(enumDeclarationLine);
@@ -367,14 +371,17 @@ public class OrmModel {
             var hasDescription = cutter.contains(":");
             var name = cutter.keepBefore(":").getValue();
             cutter = cutter.keepAfter(":");
-            String description = hasDescription ? cutter.getValue() : "no description";
-            return new EnumValue(SneakyRef.of(field), ordinal, name, matchOn, description);
+            String description = hasDescription ? cutter.getValue() : null;
+            return new EnumConstant(SneakyRef.of(field), ordinal, name, matchOn, description);
         }
         public Field parentField() {
             return parentRef.value();
         }
         public String asJavaName() {
-            return name;
+            var preprocessed = name.replaceAll("[^a-zA-Z0-9_]", " ").trim();
+            //debug
+            //System.err.printf("preprocessed: '%s'->'%s'%n", name, preprocessed);
+            return _Strings.condenseWhitespaces(preprocessed, "_").toUpperCase();
         }
     }
 
@@ -535,6 +542,13 @@ public class OrmModel {
     private static List<String> parseMultilineString(final String input) {
         return _Strings.splitThenStream(input, "\n")
             .filter(_Strings::isNotEmpty)
+            .collect(Collectors.toList());
+    }
+
+    private static List<String> parseMultilineStringTrimmed(final String input) {
+        return _Strings.splitThenStream(input, "\n")
+            .filter(_Strings::isNotEmpty)
+            .map(String::trim)
             .collect(Collectors.toList());
     }
 

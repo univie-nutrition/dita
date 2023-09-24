@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -95,12 +96,13 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     private String quantificationStringThatDefinesTheQuantitiesOfEachPhotos;
 
     /**
-     * 1 = raw, 2 = cooked (as estimated)
+     * 1 = raw,
+     * 2 = cooked (as estimated)
      */
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw, 2 = cooked (as estimated)<br>----<br>required=true, unique=false",
+            describedAs = "1 = raw,<br>2 = cooked (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -110,15 +112,26 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Getter
     @Setter
-    private String rawOrCooked;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private RawOrCooked rawOrCooked;
 
     /**
-     * 1 = without un-edible part, 2 = with un-edible (as estimated)
+     * 1 = without un-edible part,
+     * 2 = with un-edible (as estimated)
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)<br>----<br>required=true, unique=false",
+            describedAs = "1 = without un-edible part,<br>2 = with un-edible (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -128,7 +141,17 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     )
     @Getter
     @Setter
-    private String withUnediblePartQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private WithUnediblePartQ withUnediblePartQ;
 
     /**
      * G = in grams, V = in ml (volume)
@@ -161,6 +184,48 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum RawOrCooked {
+        /**
+         * no description
+         */
+        RAW("1", "raw"),
+
+        /**
+         * as estimated
+         */
+        COOKED("2", "cooked");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum WithUnediblePartQ {
+        /**
+         * without un-edible part
+         */
+        UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
+
+        /**
+         * with un-edible (as estimated)
+         */
+        UN_EDIBLE_INCLUDED("2", "un-edible included");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

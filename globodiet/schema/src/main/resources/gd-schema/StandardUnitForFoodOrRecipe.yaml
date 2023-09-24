@@ -42,12 +42,15 @@ params.quantif.StandardUnitForFoodOrRecipe:
         FOODS.FOODNUM
         MIXEDREC.R_IDNUM
       description: |
-        Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
+        Food or Recipe identification number (code)
     rawOrCooked:
       column: RAW_COOKED
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:raw
+        2:cooked:cooked as estimated
       description: |
         1 = raw, 
         2 = cooked (as estimated)
@@ -56,13 +59,20 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:un-edible excluded:without un-edible part
+        2:un-edible included:with un-edible (as estimated)
       description: |
-        1 = without un-edible part, 2 = with un-edible (as estimated)
+        1 = without un-edible part, 
+        2 = with un-edible (as estimated)
     type:
       column: TYPE
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:Food
+        2:Recipe
       description: |
         1 = STDU for food, 
         2 = STDU for recipe

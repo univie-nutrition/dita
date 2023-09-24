@@ -46,6 +46,9 @@ params.general_info.PlaceOfConsumption:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:specific:not a 'Other' place
+        1:other:'Other' place
       description: |
         0=not a 'Other' place 
         1='Other' place

@@ -24,9 +24,12 @@ import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -124,14 +127,15 @@ public class MacroNutrientLimit {
     private String unit;
 
     /**
-     * 1=man, 2=woman
+     * 1=man,
+     * 2=woman
      */
     @Property(
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=man, 2=woman<br>----<br>required=false, unique=true",
+            describedAs = "1=man,<br>2=woman<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -141,7 +145,17 @@ public class MacroNutrientLimit {
     )
     @Getter
     @Setter
-    private String sex;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Sex sex;
 
     /**
      * PAL value
@@ -165,5 +179,26 @@ public class MacroNutrientLimit {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum Sex {
+        /**
+         * no description
+         */
+        MAN("1", "man"),
+
+        /**
+         * no description
+         */
+        WOMAN("2", "woman");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

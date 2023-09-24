@@ -101,6 +101,9 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat/sauce/sweetener subgroup
+        1:yes:fat/sauce/sweetener subgroup
       description: |
         0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
     fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ:
@@ -108,6 +111,9 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat/sauce subgroup
+        1:yes:fat/sauce subgroup that can be left over in the dish
       description: |
         0=non fat/sauce subgroup 
         1= fat/sauce subgroup that can be left over in the dish
@@ -116,6 +122,9 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat during cooking subgroup
+        1:yes:fat during cooking subgroup
       description: |
         0=non fat during cooking subgroup 
         1= fat during cooking subgroup
@@ -249,6 +258,9 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: true
+      enum: |
+        1:un-edible excluded:without un-edible part,
+        2:un-edible included:with un-edible (as estimated)
       description: |
         1 = without un-edible part,
         2 = with un-edible (as estimated)
@@ -257,6 +269,9 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:raw
+        2:cooked: as estimated
       description: |
         1 = raw, 
         2 = cooked (as estimated) 
@@ -265,6 +280,9 @@ params.food_coefficient.DensityFactorForFood:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:Food:density for food/ingredient,
+        2:Recipe:density for recipe
       description: |
         1 = density for food/ingredient,
         2 = density for recipe
@@ -817,6 +835,11 @@ params.food_descript.Facet:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Standard facets with descriptors available in Descface table
+        1:Facets with descriptors available in Brandnam table
+        2:Facets with descriptors available in Foods table - facet 15 type of fat
+        3:Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
       description: |
         0=Standard facets with descriptors available in Descface table 
         1=Facets with descriptors available in Brandnam table 
@@ -827,6 +850,9 @@ params.food_descript.Facet:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:facet with mono-selection of descriptor
+        1:facets with multi-selection of descriptors
       description: |
         0 = facet with mono-selection of descriptor 
         1 = facets with multi-selection of descriptors
@@ -884,6 +910,11 @@ params.food_descript.FacetDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Other:descriptor without consequences in the algorithms (also from other facets)
+        1:Raw:
+        2:Question:Descriptors to ask the question 'fat used during cooking'
+        3:undocumented:found in austrian data for 'frittiert' - invalid enum constant?
       description: |
         0=Other descriptor without consequences in the algorithms (also from other facets)
         1=Raw descriptor 
@@ -1074,6 +1105,9 @@ params.food_list.ComposedRecipeIngredient:
       column-type: nvarchar(1)
       required: false
       unique: true
+      enum: |
+        1:Food:ingredient from Food list
+        2:Recipe:ingredient from Recipe list
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list
@@ -1168,6 +1202,9 @@ params.food_list.FoodOrProductOrAlias:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:food 1=food & dietary supplement
+        1:food & dietary supplement
       description: |
         0=food 1=food & dietary supplement
 params.food_max.MaximumValueForAFoodOrGroup:
@@ -1319,17 +1356,24 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
         FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
-    quantificationMethodCode:
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        S:Standard Portion
+        A:Shape
       description: |
         Quantification method code: 
         'P' for photo, 
         'H' for HHM, 
         'U' for stdu, 
-        'S' for standard portion
+        'S' for standard portion,
+        'A' for shape
     photoCode:
       column: METH_CODE
       column-type: nvarchar(4)
@@ -1397,13 +1441,23 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:raw
+        2:cooked: as Consumed
       description: |
-        1=raw, 2=cooked (as Consumed)
-    quantificationMethodCode:
+        1=raw, 
+        2=cooked (as Consumed)
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        S:Standard Portion
+        A:Shape
       description: |
         Quantification method code:
         'P' for photo, 
@@ -1459,15 +1513,23 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:raw
+        2:cooked: as estimated
       description: |
-        1 = raw, 2 = cooked (as estimated)
+        1 = raw, 
+        2 = cooked (as estimated)
     withUnediblePartQ:
       column: EDIB
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:un-edible excluded:without un-edible part
+        2:un-edible included:with un-edible (as estimated)
       description: |
-        1 = without un-edible part, 2 = with un-edible (as estimated)
+        1 = without un-edible part, 
+        2 = with un-edible (as estimated)
     commentAttachedToTheStandardPortion:
       column: COMMENT
       column-type: nvarchar(100)
@@ -1517,6 +1579,11 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(2)
       required: true
       unique: false
+      enum: |
+        F:Food
+        R:Recipe
+        A2:Fat attached
+        A3:Liquid attached
       description: |
         Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
     foodOrRecipeGroupCode:
@@ -1628,11 +1695,14 @@ params.food_table.NutrientListAndDefinition:
       unique: false
       description: |
         Nutrient unit (e.g. kcal, g, mg…)
-    whetherDisplayedInTheNutrientChecksScreen:
+    displayInTheNutrientChecksScreen:
       column: NTR_DISPLAY
       column-type: int(10)
       required: true
       unique: false
+      enum: |
+        0:No:not displayed in the 'nutrient checks' screen
+        1:Yes:displayed in the 'nutrient checks' screen
       description: |
         0=not displayed in the 'nutrient checks' screen 
         1=displayed in the 'nutrient checks' screen
@@ -1774,6 +1844,9 @@ params.general_info.FoodConsumptionOccasion:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:secondary:non main FCO
+        1:primary:main FCO (to be displayed in nutrient check screen)
       description: |
         0=non main FCO
         1=main FCO (to be displayed in nutrient check screen)
@@ -1834,6 +1907,9 @@ params.general_info.PlaceOfConsumption:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:specific:not a 'Other' place
+        1:other:'Other' place
       description: |
         0=not a 'Other' place 
         1='Other' place
@@ -2088,6 +2164,9 @@ params.interview.SubjectToBeInterviewed:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:man, 2=woman)
+        2:woman)
       description: |
         Subject sex (1=man, 2=woman)
     subjectWeightInKg:
@@ -2102,6 +2181,9 @@ params.interview.SubjectToBeInterviewed:
       column-type: tinyint(3)
       required: false
       unique: false
+      enum: |
+        0:interview to be done
+        1:interview done, 0=interview to be done
       description: |
         1=interview done, 0=interview to be done
     countryCode:
@@ -2248,15 +2330,23 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:raw
+        2:cooked:as estimated
       description: |
-        1 = raw, 2 = cooked (as estimated)
+        1 = raw, 
+        2 = cooked (as estimated)
     withUnediblePartQ:
       column: EDIB
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:un-edible excluded:without un-edible part
+        2:un-edible included:with un-edible (as estimated)
       description: |
-        1 = without un-edible part, 2 = with un-edible (as estimated)
+        1 = without un-edible part, 
+        2 = with un-edible (as estimated)
     unit:
       column: PH_UNIT
       column-type: nvarchar(1)
@@ -2327,12 +2417,15 @@ params.quantif.StandardUnitForFoodOrRecipe:
         FOODS.FOODNUM
         MIXEDREC.R_IDNUM
       description: |
-        Food or Recipe identification number (=FOODMUM for food or =R_IDNUM for recipe); either Foods.foodnum OR Mixedrec.r_idnum
+        Food or Recipe identification number (code)
     rawOrCooked:
       column: RAW_COOKED
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:raw
+        2:cooked:cooked as estimated
       description: |
         1 = raw, 
         2 = cooked (as estimated)
@@ -2341,13 +2434,20 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:un-edible excluded:without un-edible part
+        2:un-edible included:with un-edible (as estimated)
       description: |
-        1 = without un-edible part, 2 = with un-edible (as estimated)
+        1 = without un-edible part, 
+        2 = with un-edible (as estimated)
     type:
       column: TYPE
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:Food
+        2:Recipe
       description: |
         1 = STDU for food, 
         2 = STDU for recipe
@@ -2713,6 +2813,9 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:not homemade
+        1:Homemade
       description: |
         Only for facet recipe production: 
         0=not homemade descriptor 
@@ -2722,6 +2825,10 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:does not apply:Not a facet
+        1:Facet unknown
+        2:Facet known
       description: |
         Only for facet known/unknown: 1=unknown 2=known
     yesOrNo:
@@ -2729,6 +2836,9 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:no
+        1:yes
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleOrNot:
@@ -2736,6 +2846,9 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:not single descriptor
+        1:single descriptor
       description: |
         0=not single descriptor
         1=single descriptor          
@@ -2775,6 +2888,9 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Standard:Standard facets with descriptors available in R_Descface table
+        1:Brand:Facets with descriptors available in RBrand table
       description: |
         0=Standard facets with descriptors available in R_Descface table
         1=Facets with descriptors available in RBrand table
@@ -2783,14 +2899,20 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:single:facet with single-selection of descriptor
+        1:multi:facets with multi-selection of descriptors
       description: |
-        0 = facet with mono-selection of descriptor 
+        0 = facet with single-selection of descriptor 
         1 = facets with multi-selection of descriptors
     standardOrMainFacetQ:
       column: RFACET_MAIN
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Standard
+        1:Main: facet (with non modified descriptor)
       description: |
         0 = standard facet 
         1 = Main facet (with non modified descriptor)
@@ -2919,6 +3041,15 @@ params.recipe_list.Recipe:
       column-type: nvarchar(3)
       required: true
       unique: false
+      enum: |
+        1.1:Open – Known
+        1.2:Open – Unknown
+        1.3:Open with brand
+        2.1:Closed
+        2.2:Closed with brand
+        3.0:Commercial
+        4.1:New – Known
+        4.2:New – Unknown
       description: |
         Type of recipe: 
         1.1=Open – Known 
@@ -2948,6 +3079,9 @@ params.recipe_list.Recipe:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:sub-recipe excluded:recipe without sub-recipe
+        1:sub-recipe included:recipe with sub-recipe
       description: |
         0=recipe without sub-recipe 
         1=recipe with sub-recipe
@@ -2980,6 +3114,12 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: true
       unique: false
+      enum: |
+        1:ingredient fixed
+        2:ingredient substitutable
+        3:fat during cooking
+        A2:type of fat used
+        A3:type of milk/liquid used
       description: |
         1 = ingredient fixed
         2 = ingredient substitutable
@@ -3065,6 +3205,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:ingredient described and quantified
+        2:otherwise
       description: |
         1 = ingredient described and quantified 
         2 = otherwise
@@ -3087,6 +3230,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:Raw
+        2:Cooked or Not applicable
       description: |
         Quantity Estimated Raw or Cooked 
         1 = Raw 
@@ -3096,6 +3242,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:Raw
+        2:Cooked or Not applicable
       description: |
         Quantity Consumed Raw or Cooked 
         1 = Raw 
@@ -3112,6 +3261,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:un-edible excluded
+        2:un-edible included
       description: |
         Quantity as estimated: 1=without un-edible part & 2=with un-edible part
     conversionFactorForEdiblePart:
@@ -3252,6 +3404,9 @@ params.recipe_list.RecipeIngredient:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:Food
+        2:Recipe
       description: |
         1 = food 
         2 = recipe
@@ -3491,11 +3646,16 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
         MIXEDREC.R_IDNUM
       description: |
         Recipe identification number (R_IDNUM)
-    quantificationMethodCode:
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        A:Shape
       description: |
         Quantification method code:
         'P' for photo, 
@@ -3531,11 +3691,16 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
         RGROUPS.GROUP
       description: |
         Recipe group
-    quantificationMethodCode:
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        A:Shape
       description: |
         Quantification method code:
         'P' for photo, 
@@ -3597,6 +3762,15 @@ params.setting.DefinitionOfRecipePathway:
       column-type: nvarchar(3)
       required: true
       unique: true
+      enum: |
+        1.1:Open–Known
+        1.2:Open–Unknown
+        1.3:Open with brand
+        2.1:Closed
+        2.2:Closed with brand
+        3.0:Commercial
+        4.1:New–Known
+        4.2:New–Unknown
       description: |
         Type of recipe: 
         1.1=Open – Known 
@@ -3612,13 +3786,21 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:hidden:The ingredient window is not displayed
+        1:displayed:The ingredient window is displayed
       description: |
-        1 = The ingredient window is displayed 0 = The ingredient window is not displayed
+        0 = The ingredient window is not displayed
+        1 = The ingredient window is displayed 
     functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed:
       column: N_IFUNCTION
       column-type: tinyint(3)
       required: false
       unique: false
+      enum: |
+        1:S:Substitute
+        2:SAD:Substitute, Add & Delete
+        3:SADQ:Substitute, Add, Delete & Quantify
       description: |
         Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1): 
         1 = S - Substitute 
@@ -3629,6 +3811,10 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:S:Substitute
+        2:SAD:Substitute, Add & Delete
+        3:SADQ:Substitute, Add, Delete & Quantify
       description: |
         Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1): 
         1 = S - Substitute 
@@ -3639,6 +3825,10 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:hidden:No display of note window
+        1:displayed:Display of note window
+        2:displayed only for add/delete:Display of note window only for Add & Delete functions
       description: |
         Display of the automatic note window: 
         0 = No display of note window 
@@ -3687,8 +3877,12 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:Food
+        1:Recipe
       description: |
-        0=Food classification 1=Recipe classification
+        0=Food classification
+        1=Recipe classification
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
@@ -3777,8 +3971,12 @@ params.setting.MacroNutrientLimit:
       column-type: nvarchar(1)
       required: false
       unique: true
+      enum: |
+        1:man
+        2:woman
       description: |
-        1=man, 2=woman
+        1=man, 
+        2=woman
     palValue:
       column: VAL
       column-type: float(53)
@@ -3831,11 +4029,14 @@ params.setting.NoteStatus:
       unique: true
       description: |
         Status label
-    allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow:
+    displayNoteInTheViewNoteWindow:
       column: S_HIDE
       column-type: smallint(5)
       required: true
       unique: false
+      enum: |
+        0:Yes:don't hide hide
+        1:No:hide: e.g. 1=hide for status “action done”
       description: |
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 
@@ -4010,6 +4211,9 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:default
+        0:other
       description: |
         Default Descriptor. 
         When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty): 
@@ -4020,6 +4224,9 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:no
+        1:yes
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleDescriptorQ:
@@ -4027,15 +4234,18 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:not single descriptor
+        1:single descriptor
       description: |
         0=not single descriptor 1=single descriptor
-    displayOrderFirstOrSecond:
+    displayOrder:
       column: DSDESCR_ORDER
       column-type: tinyint(3)
       required: true
       unique: true
       description: |
-        Display order (1=first, 2=second…)
+        Display order (1=first, 2=second, …)
     notInName:
       column: NOTINNAME
       column-type: tinyint(3)
@@ -4072,6 +4282,9 @@ params.supplement.DietarySupplementFacet:
       column-type: tinyint(3)
       required: true
       unique: true
+      enum: |
+        0:no
+        1:yes
       description: |
         To identify the mandatory facet used for quantification: 1=yes, 0=no.
         Only 1 facet (physical state) is used for quantification.
@@ -4080,6 +4293,9 @@ params.supplement.DietarySupplementFacet:
       column-type: tinyint(3)
       required: true
       unique: true
+      enum: |
+        0:mono
+        1:multi
       description: |
         Facet with Mono or Multi selection of descriptors 
         0=mono, 
@@ -4089,6 +4305,9 @@ params.supplement.DietarySupplementFacet:
       column-type: tinyint(3)
       required: true
       unique: true
+      enum: |
+        0:no
+        1:yes
       description: |
         For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
     orderToAsk:

@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -85,12 +88,13 @@ public class StandardPortionForFood {
     private String foodCode;
 
     /**
-     * 1 = raw, 2 = cooked (as estimated)
+     * 1 = raw,
+     * 2 = cooked (as estimated)
      */
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw, 2 = cooked (as estimated)<br>----<br>required=true, unique=false",
+            describedAs = "1 = raw,<br>2 = cooked (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -100,15 +104,26 @@ public class StandardPortionForFood {
     )
     @Getter
     @Setter
-    private String rawOrCooked;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private RawOrCooked rawOrCooked;
 
     /**
-     * 1 = without un-edible part, 2 = with un-edible (as estimated)
+     * 1 = without un-edible part,
+     * 2 = with un-edible (as estimated)
      */
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part, 2 = with un-edible (as estimated)<br>----<br>required=true, unique=false",
+            describedAs = "1 = without un-edible part,<br>2 = with un-edible (as estimated)<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -118,7 +133,17 @@ public class StandardPortionForFood {
     )
     @Getter
     @Setter
-    private String withUnediblePartQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private WithUnediblePartQ withUnediblePartQ;
 
     /**
      * Comment attached to the standard portion
@@ -194,5 +219,47 @@ public class StandardPortionForFood {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum RawOrCooked {
+        /**
+         * no description
+         */
+        RAW("1", "raw"),
+
+        /**
+         *  as estimated
+         */
+        COOKED("2", "cooked");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum WithUnediblePartQ {
+        /**
+         * without un-edible part
+         */
+        UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
+
+        /**
+         * with un-edible (as estimated)
+         */
+        UN_EDIBLE_INCLUDED("2", "un-edible included");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

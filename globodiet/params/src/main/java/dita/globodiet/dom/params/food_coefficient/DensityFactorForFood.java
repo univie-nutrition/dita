@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -144,7 +147,17 @@ public class DensityFactorForFood {
     )
     @Getter
     @Setter
-    private String withUnediblePartQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private WithUnediblePartQ withUnediblePartQ;
 
     /**
      * 1 = raw,
@@ -165,7 +178,17 @@ public class DensityFactorForFood {
     )
     @Getter
     @Setter
-    private String rawOrCooked;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private RawOrCooked rawOrCooked;
 
     /**
      * 1 = density for food/ingredient,
@@ -183,10 +206,83 @@ public class DensityFactorForFood {
     )
     @Getter
     @Setter
-    private int densityForFoodOrRecipe;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DensityForFoodOrRecipe densityForFoodOrRecipe;
 
     @ObjectSupport
     public String title() {
         return String.format("%f", densityCoefficient);
+    }
+
+    @RequiredArgsConstructor
+    public enum WithUnediblePartQ {
+        /**
+         * without un-edible part,
+         */
+        UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
+
+        /**
+         * with un-edible (as estimated)
+         */
+        UN_EDIBLE_INCLUDED("2", "un-edible included");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum RawOrCooked {
+        /**
+         * no description
+         */
+        RAW("1", "raw"),
+
+        /**
+         *  as estimated
+         */
+        COOKED("2", "cooked");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum DensityForFoodOrRecipe {
+        /**
+         * density for food/ingredient,
+         */
+        FOOD(1, "Food"),
+
+        /**
+         * density for recipe
+         */
+        RECIPE(2, "Recipe");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

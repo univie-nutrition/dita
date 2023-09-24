@@ -255,4 +255,26 @@ class _Annotations {
         return annotBuilder.build();
     }
 
+    /**
+     * <pre>{@code @Extension(vendorName="datanucleus", key="enum-value-getter", value="getValue")}</pre>
+     */
+    AnnotationSpec datanucleusEnumValueGetter(final String enumValueGetter) {
+        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Extension"))
+            .addMember("vendorName", "$1S", "datanucleus")
+            .addMember("key", "$1S", "enum-value-getter")
+            .addMember("value", "$1S", enumValueGetter)
+            .build();
+    }
+
+    /**
+     * <pre>{@code @Extension(vendorName="datanucleus", key="enum-check-constraint", value="true")}</pre>
+     */
+    AnnotationSpec datanucleusCheckEnumConstraint(final boolean checkEnumConstraint) {
+        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Extension"))
+            .addMember("vendorName", "$1S", "datanucleus")
+            .addMember("key", "$1S", "enum-check-constraint")
+            .addMember("value", "$1S", checkEnumConstraint)
+            .build();
+    }
+
 }

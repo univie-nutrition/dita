@@ -24,9 +24,12 @@ import java.lang.Integer;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -75,15 +78,26 @@ public class DefinitionOfRecipePathway {
     )
     @Getter
     @Setter
-    private String typeOfRecipe;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private TypeOfRecipe typeOfRecipe;
 
     /**
-     * 1 = The ingredient window is displayed 0 = The ingredient window is not displayed
+     * 0 = The ingredient window is not displayed
+     * 1 = The ingredient window is displayed
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "1 = The ingredient window is displayed 0 = The ingredient window is not displayed<br>----<br>required=true, unique=false",
+            describedAs = "0 = The ingredient window is not displayed<br>1 = The ingredient window is displayed<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -92,7 +106,17 @@ public class DefinitionOfRecipePathway {
     )
     @Getter
     @Setter
-    private int ingredientWindowIsDisplayedQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private IngredientWindowIsDisplayedQ ingredientWindowIsDisplayedQ;
 
     /**
      * Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):
@@ -114,7 +138,17 @@ public class DefinitionOfRecipePathway {
     )
     @Getter
     @Setter
-    private Integer functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private FunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed;
 
     /**
      * Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):
@@ -134,7 +168,17 @@ public class DefinitionOfRecipePathway {
     )
     @Getter
     @Setter
-    private int functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private FunctionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed;
 
     /**
      * Display of the automatic note window:
@@ -154,10 +198,170 @@ public class DefinitionOfRecipePathway {
     )
     @Getter
     @Setter
-    private int displayOfTheAutomaticNoteWindow;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DisplayOfTheAutomaticNoteWindow displayOfTheAutomaticNoteWindow;
 
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum TypeOfRecipe {
+        /**
+         * no description
+         */
+        OPEN_KNOWN("1.1", "Open–Known"),
+
+        /**
+         * no description
+         */
+        OPEN_UNKNOWN("1.2", "Open–Unknown"),
+
+        /**
+         * no description
+         */
+        OPEN_WITH_BRAND("1.3", "Open with brand"),
+
+        /**
+         * no description
+         */
+        CLOSED("2.1", "Closed"),
+
+        /**
+         * no description
+         */
+        CLOSED_WITH_BRAND("2.2", "Closed with brand"),
+
+        /**
+         * no description
+         */
+        COMMERCIAL("3.0", "Commercial"),
+
+        /**
+         * no description
+         */
+        NEW_KNOWN("4.1", "New–Known"),
+
+        /**
+         * no description
+         */
+        NEW_UNKNOWN("4.2", "New–Unknown");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum IngredientWindowIsDisplayedQ {
+        /**
+         * The ingredient window is not displayed
+         */
+        HIDDEN(0, "hidden"),
+
+        /**
+         * The ingredient window is displayed
+         */
+        DISPLAYED(1, "displayed");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum FunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed {
+        /**
+         * Substitute
+         */
+        S(1, "S"),
+
+        /**
+         * Substitute, Add & Delete
+         */
+        SAD(2, "SAD"),
+
+        /**
+         * Substitute, Add, Delete & Quantify
+         */
+        SADQ(3, "SADQ");
+
+        @Getter
+        private final Integer matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum FunctionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed {
+        /**
+         * Substitute
+         */
+        S(1, "S"),
+
+        /**
+         * Substitute, Add & Delete
+         */
+        SAD(2, "SAD"),
+
+        /**
+         * Substitute, Add, Delete & Quantify
+         */
+        SADQ(3, "SADQ");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum DisplayOfTheAutomaticNoteWindow {
+        /**
+         * No display of note window
+         */
+        HIDDEN(0, "hidden"),
+
+        /**
+         * Display of note window
+         */
+        DISPLAYED(1, "displayed"),
+
+        /**
+         * Display of note window only for Add & Delete functions
+         */
+        DISPLAYED_ONLY_FOR_ADD_DELETE(2, "displayed only for add/delete");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

@@ -19,6 +19,7 @@
 package dita.globodiet.schema;
 
 import java.io.File;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
@@ -29,6 +30,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.io.TextUtils;
 
 import dita.commons.types.TabularData;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
@@ -41,7 +43,7 @@ class TableDataRoundtripTest {
 
     // disabled until we have fake data for testing, that can be published
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
-    //@Test
+    @Test
     void transformerRoundtrip() {
 
         final String gdParamDataLowLevelYaml = DataSource.ofResource(
@@ -74,7 +76,7 @@ class TableDataRoundtripTest {
 
     // disabled until we have fake data for testing, that can be published
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
-    @Test
+    //@Test
     void nullableAutodetect() {
 
         final String gdParamDataLowLevelYaml = DataSource.ofResource(
@@ -89,7 +91,7 @@ class TableDataRoundtripTest {
                 .valueAsNonNullElseFail());
 
         dbLow.dataTables().stream()
-        .filter(table->table.rows().size()>0)
+        //.filter(table->table.rows().size()>0)
         .forEach(table->{
             table.columns().forEach(IndexedConsumer.zeroBased((colIndex, col)->{
                 var entity = schema.lookupEntityByTableName(table.key()).orElseThrow();
@@ -103,6 +105,7 @@ class TableDataRoundtripTest {
                 var hasDuplicates = columnValues.distinct().size()<columnValues.size();
                 var unique = !hasDuplicates;
 
+                if(false) {
                 if(required && !field.required()) {
                     System.err.printf("required %s.%s -> but schema says nullable%n",
                             table.key(), col.name());
@@ -121,7 +124,51 @@ class TableDataRoundtripTest {
                             table.key(), col.name());
                     //field.withUnique(false);
                 }
+                }
 
+//                field.description().forEach(line->{
+//
+//                    enumMatch(line, "0=", "0").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "0 =", "0").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "1=", "1").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "1 =", "1").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "2=", "2").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "2 =", "2").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "3=", "3").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "3 =", "3").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "4=", "4").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                    enumMatch(line, "5 =", "5").ifPresent(e->{
+//                        System.err.printf("enum %s.%s -> %s%n", table.key(), col.name(), e);
+//                        field.enumeration().add(e);
+//                    });
+//                });
 
             }));
         });
@@ -130,6 +177,15 @@ class TableDataRoundtripTest {
 
         System.out.println("done.");
     }
+
+    static Optional<String> enumMatch(final String line, final String matchOn, final String enumValue) {
+        if(line.contains(matchOn)) {
+            return Optional.of(enumValue + ":" + TextUtils.cutter(line).keepAfter(matchOn).getValue().trim());
+        }
+        return Optional.empty();
+    }
+
+
 
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
     //@Test

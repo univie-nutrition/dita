@@ -24,9 +24,12 @@ import java.lang.Double;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -89,7 +92,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String substitutable;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Substitutable substitutable;
 
     /**
      * Food type (GI or blank)
@@ -263,7 +276,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String describedAndQuantifiedQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DescribedAndQuantifiedQ describedAndQuantifiedQ;
 
     /**
      * Final quantity in g (with coefficient applied)
@@ -317,7 +340,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String quantityEstimatedRawOrCooked;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private QuantityEstimatedRawOrCooked quantityEstimatedRawOrCooked;
 
     /**
      * Quantity Consumed Raw or Cooked
@@ -337,7 +370,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String quantityConsumedRawOrCooked;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private QuantityConsumedRawOrCooked quantityConsumedRawOrCooked;
 
     /**
      * Conversion factor raw->cooked
@@ -372,7 +415,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private String withUnediblePartQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private WithUnediblePartQ withUnediblePartQ;
 
     /**
      * Conversion factor for edible part
@@ -727,7 +780,17 @@ public class RecipeIngredient {
     )
     @Getter
     @Setter
-    private int typeOfItem;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private TypeOfItem typeOfItem;
 
     /**
      * Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum
@@ -789,5 +852,146 @@ public class RecipeIngredient {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum Substitutable {
+        /**
+         * no description
+         */
+        INGREDIENT_FIXED("1", "ingredient fixed"),
+
+        /**
+         * no description
+         */
+        INGREDIENT_SUBSTITUTABLE("2", "ingredient substitutable"),
+
+        /**
+         * no description
+         */
+        FAT_DURING_COOKING("3", "fat during cooking"),
+
+        /**
+         * no description
+         */
+        TYPE_OF_FAT_USED("A2", "type of fat used"),
+
+        /**
+         * no description
+         */
+        TYPE_OF_MILK_LIQUID_USED("A3", "type of milk/liquid used");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum DescribedAndQuantifiedQ {
+        /**
+         * no description
+         */
+        INGREDIENT_DESCRIBED_AND_QUANTIFIED("1", "ingredient described and quantified"),
+
+        /**
+         * no description
+         */
+        OTHERWISE("2", "otherwise");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum QuantityEstimatedRawOrCooked {
+        /**
+         * no description
+         */
+        RAW("1", "Raw"),
+
+        /**
+         * no description
+         */
+        COOKED_OR_NOT_APPLICABLE("2", "Cooked or Not applicable");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum QuantityConsumedRawOrCooked {
+        /**
+         * no description
+         */
+        RAW("1", "Raw"),
+
+        /**
+         * no description
+         */
+        COOKED_OR_NOT_APPLICABLE("2", "Cooked or Not applicable");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum WithUnediblePartQ {
+        /**
+         * no description
+         */
+        UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
+
+        /**
+         * no description
+         */
+        UN_EDIBLE_INCLUDED("2", "un-edible included");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum TypeOfItem {
+        /**
+         * no description
+         */
+        FOOD(1, "Food"),
+
+        /**
+         * no description
+         */
+        RECIPE(2, "Recipe");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

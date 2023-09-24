@@ -68,6 +68,9 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: true
+      enum: |
+        1:un-edible excluded:without un-edible part,
+        2:un-edible included:with un-edible (as estimated)
       description: |
         1 = without un-edible part,
         2 = with un-edible (as estimated)
@@ -76,6 +79,9 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: false
+      enum: |
+        1:raw
+        2:cooked: as estimated
       description: |
         1 = raw, 
         2 = cooked (as estimated) 
@@ -84,6 +90,9 @@ params.food_coefficient.DensityFactorForFood:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:Food:density for food/ingredient,
+        2:Recipe:density for recipe
       description: |
         1 = density for food/ingredient,
         2 = density for recipe

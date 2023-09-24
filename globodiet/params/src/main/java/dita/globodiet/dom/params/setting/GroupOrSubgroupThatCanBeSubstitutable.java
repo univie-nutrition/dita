@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -51,12 +54,13 @@ import org.apache.causeway.applib.annotation.Where;
 )
 public class GroupOrSubgroupThatCanBeSubstitutable {
     /**
-     * 0=Food classification 1=Recipe classification
+     * 0=Food classification
+     * 1=Recipe classification
      */
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "0=Food classification 1=Recipe classification<br>----<br>required=true, unique=false",
+            describedAs = "0=Food classification<br>1=Recipe classification<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -66,7 +70,17 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     )
     @Getter
     @Setter
-    private String type;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Type type;
 
     /**
      * Food group code
@@ -169,5 +183,26 @@ public class GroupOrSubgroupThatCanBeSubstitutable {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum Type {
+        /**
+         * no description
+         */
+        FOOD("0", "Food"),
+
+        /**
+         * no description
+         */
+        RECIPE("1", "Recipe");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

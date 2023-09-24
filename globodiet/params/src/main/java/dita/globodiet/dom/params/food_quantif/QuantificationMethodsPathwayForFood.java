@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -73,12 +76,13 @@ public class QuantificationMethodsPathwayForFood {
      * 'P' for photo,
      * 'H' for HHM,
      * 'U' for stdu,
-     * 'S' for standard portion
+     * 'S' for standard portion,
+     * 'A' for shape
      */
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Quantification method code:<br>'P' for photo,<br>'H' for HHM,<br>'U' for stdu,<br>'S' for standard portion<br>----<br>required=true, unique=false",
+            describedAs = "Quantification method code:<br>'P' for photo,<br>'H' for HHM,<br>'U' for stdu,<br>'S' for standard portion,<br>'A' for shape<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -88,7 +92,17 @@ public class QuantificationMethodsPathwayForFood {
     )
     @Getter
     @Setter
-    private String quantificationMethodCode;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private QuantificationMethod quantificationMethod;
 
     /**
      * Photo code (if method='P' and 'A');
@@ -114,5 +128,41 @@ public class QuantificationMethodsPathwayForFood {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum QuantificationMethod {
+        /**
+         * no description
+         */
+        PHOTO("P", "Photo"),
+
+        /**
+         * no description
+         */
+        HOUSEHOLD_MEASURE("H", "Household Measure"),
+
+        /**
+         * no description
+         */
+        STANDARD_UNIT("U", "Standard Unit"),
+
+        /**
+         * no description
+         */
+        STANDARD_PORTION("S", "Standard Portion"),
+
+        /**
+         * no description
+         */
+        SHAPE("A", "Shape");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

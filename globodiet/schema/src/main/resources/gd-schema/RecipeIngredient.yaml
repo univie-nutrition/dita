@@ -40,6 +40,12 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: true
       unique: false
+      enum: |
+        1:ingredient fixed
+        2:ingredient substitutable
+        3:fat during cooking
+        A2:type of fat used
+        A3:type of milk/liquid used
       description: |
         1 = ingredient fixed
         2 = ingredient substitutable
@@ -125,6 +131,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:ingredient described and quantified
+        2:otherwise
       description: |
         1 = ingredient described and quantified 
         2 = otherwise
@@ -147,6 +156,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:Raw
+        2:Cooked or Not applicable
       description: |
         Quantity Estimated Raw or Cooked 
         1 = Raw 
@@ -156,6 +168,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:Raw
+        2:Cooked or Not applicable
       description: |
         Quantity Consumed Raw or Cooked 
         1 = Raw 
@@ -172,6 +187,9 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:un-edible excluded
+        2:un-edible included
       description: |
         Quantity as estimated: 1=without un-edible part & 2=with un-edible part
     conversionFactorForEdiblePart:
@@ -312,6 +330,9 @@ params.recipe_list.RecipeIngredient:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        1:Food
+        2:Recipe
       description: |
         1 = food 
         2 = recipe

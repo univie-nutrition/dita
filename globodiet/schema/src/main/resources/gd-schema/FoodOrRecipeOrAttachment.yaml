@@ -38,6 +38,11 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(2)
       required: true
       unique: false
+      enum: |
+        F:Food
+        R:Recipe
+        A2:Fat attached
+        A3:Liquid attached
       description: |
         Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
     foodOrRecipeGroupCode:

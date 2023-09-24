@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -147,7 +148,17 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     )
     @Getter
     @Setter
-    private int displayInNutrientCheckScreenQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DisplayInNutrientCheckScreenQ displayInNutrientCheckScreenQ;
 
     @ObjectSupport
     public String title() {
@@ -162,6 +173,27 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum DisplayInNutrientCheckScreenQ {
+        /**
+         * non main FCO
+         */
+        SECONDARY(0, "secondary"),
+
+        /**
+         * main FCO (to be displayed in nutrient check screen)
+         */
+        PRIMARY(1, "primary");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

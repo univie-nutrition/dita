@@ -35,17 +35,24 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
         FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
-    quantificationMethodCode:
+    quantificationMethod:
       column: METHOD
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        P:Photo 
+        H:Household Measure 
+        U:Standard Unit 
+        S:Standard Portion
+        A:Shape
       description: |
         Quantification method code: 
         'P' for photo, 
         'H' for HHM, 
         'U' for stdu, 
-        'S' for standard portion
+        'S' for standard portion,
+        'A' for shape
     photoCode:
       column: METH_CODE
       column-type: nvarchar(4)

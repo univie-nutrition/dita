@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -110,7 +111,17 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Getter
     @Setter
-    private int mandatoryFacetUsedForQuantificationQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private MandatoryFacetUsedForQuantificationQ mandatoryFacetUsedForQuantificationQ;
 
     /**
      * Facet with Mono or Multi selection of descriptors
@@ -129,7 +140,17 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Getter
     @Setter
-    private int singleOrMultiSelectionOfDescriptorsQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private SingleOrMultiSelectionOfDescriptorsQ singleOrMultiSelectionOfDescriptorsQ;
 
     /**
      * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
@@ -146,7 +167,17 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     )
     @Getter
     @Setter
-    private int attributedToAllSupplementsQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private AttributedToAllSupplementsQ attributedToAllSupplementsQ;
 
     /**
      * Order to ask the facet (first, second...)
@@ -196,6 +227,69 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum MandatoryFacetUsedForQuantificationQ {
+        /**
+         * no description
+         */
+        NO(0, "no"),
+
+        /**
+         * no description
+         */
+        YES(1, "yes");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum SingleOrMultiSelectionOfDescriptorsQ {
+        /**
+         * no description
+         */
+        MONO(0, "mono"),
+
+        /**
+         * no description
+         */
+        MULTI(1, "multi");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum AttributedToAllSupplementsQ {
+        /**
+         * no description
+         */
+        NO(0, "no"),
+
+        /**
+         * no description
+         */
+        YES(1, "yes");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

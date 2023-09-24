@@ -108,6 +108,9 @@ params.food_list.FoodOrProductOrAlias:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:food 1=food & dietary supplement
+        1:food & dietary supplement
       description: |
         0=food 1=food & dietary supplement
 

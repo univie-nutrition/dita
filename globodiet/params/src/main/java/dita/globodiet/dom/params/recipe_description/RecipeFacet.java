@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -128,16 +129,26 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Getter
     @Setter
-    private int descriptorsAvailableForRecipeOrBrandQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DescriptorsAvailableForRecipeOrBrandQ descriptorsAvailableForRecipeOrBrandQ;
 
     /**
-     * 0 = facet with mono-selection of descriptor
+     * 0 = facet with single-selection of descriptor
      * 1 = facets with multi-selection of descriptors
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0 = facet with mono-selection of descriptor<br>1 = facets with multi-selection of descriptors<br>----<br>required=true, unique=false",
+            describedAs = "0 = facet with single-selection of descriptor<br>1 = facets with multi-selection of descriptors<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -146,7 +157,17 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Getter
     @Setter
-    private int singleOrMultiSelectDescriptorQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private SingleOrMultiSelectDescriptorQ singleOrMultiSelectDescriptorQ;
 
     /**
      * 0 = standard facet
@@ -164,7 +185,17 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     )
     @Getter
     @Setter
-    private int standardOrMainFacetQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private StandardOrMainFacetQ standardOrMainFacetQ;
 
     /**
      * Label on how to ask the facet question
@@ -197,6 +228,69 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum DescriptorsAvailableForRecipeOrBrandQ {
+        /**
+         * Standard facets with descriptors available in R_Descface table
+         */
+        STANDARD(0, "Standard"),
+
+        /**
+         * Facets with descriptors available in RBrand table
+         */
+        BRAND(1, "Brand");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum SingleOrMultiSelectDescriptorQ {
+        /**
+         * facet with single-selection of descriptor
+         */
+        SINGLE(0, "single"),
+
+        /**
+         * facets with multi-selection of descriptors
+         */
+        MULTI(1, "multi");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum StandardOrMainFacetQ {
+        /**
+         * no description
+         */
+        STANDARD(0, "Standard"),
+
+        /**
+         *  facet (with non modified descriptor)
+         */
+        MAIN(1, "Main");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

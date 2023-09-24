@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -130,7 +131,17 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     )
     @Getter
     @Setter
-    private int type;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Type type;
 
     /**
      * TODO missing description
@@ -179,6 +190,37 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getFacetCode(), getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum Type {
+        /**
+         * descriptor without consequences in the algorithms (also from other facets)
+         */
+        OTHER(0, "Other"),
+
+        /**
+         * no description
+         */
+        RAW(1, "Raw"),
+
+        /**
+         * Descriptors to ask the question 'fat used during cooking'
+         */
+        QUESTION(2, "Question"),
+
+        /**
+         * found in austrian data for 'frittiert' - invalid enum constant?
+         */
+        UNDOCUMENTED(3, "undocumented");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

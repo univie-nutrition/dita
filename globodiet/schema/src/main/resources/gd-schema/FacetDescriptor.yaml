@@ -56,6 +56,11 @@ params.food_descript.FacetDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Other:descriptor without consequences in the algorithms (also from other facets)
+        1:Raw:
+        2:Question:Descriptors to ask the question 'fat used during cooking'
+        3:undocumented:found in austrian data for 'frittiert' - invalid enum constant?
       description: |
         0=Other descriptor without consequences in the algorithms (also from other facets)
         1=Raw descriptor 

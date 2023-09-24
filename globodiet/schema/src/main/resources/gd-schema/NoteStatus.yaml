@@ -40,11 +40,14 @@ params.setting.NoteStatus:
       unique: true
       description: |
         Status label
-    allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow:
+    displayNoteInTheViewNoteWindow:
       column: S_HIDE
       column-type: smallint(5)
       required: true
       unique: false
+      enum: |
+        0:Yes:don't hide hide
+        1:No:hide: e.g. 1=hide for status “action done”
       description: |
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 

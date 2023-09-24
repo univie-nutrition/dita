@@ -70,6 +70,9 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat/sauce/sweetener subgroup
+        1:yes:fat/sauce/sweetener subgroup
       description: |
         0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
     fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ:
@@ -77,6 +80,9 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat/sauce subgroup
+        1:yes:fat/sauce subgroup that can be left over in the dish
       description: |
         0=non fat/sauce subgroup 
         1= fat/sauce subgroup that can be left over in the dish
@@ -85,6 +91,9 @@ params.classification.FoodSubgroup:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat during cooking subgroup
+        1:yes:fat during cooking subgroup
       description: |
         0=non fat during cooking subgroup 
         1= fat during cooking subgroup

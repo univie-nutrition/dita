@@ -59,8 +59,12 @@ params.setting.MacroNutrientLimit:
       column-type: nvarchar(1)
       required: false
       unique: true
+      enum: |
+        1:man
+        2:woman
       description: |
-        1=man, 2=woman
+        1=man, 
+        2=woman
     palValue:
       column: VAL
       column-type: float(53)

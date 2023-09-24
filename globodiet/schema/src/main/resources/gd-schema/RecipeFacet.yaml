@@ -53,6 +53,9 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Standard:Standard facets with descriptors available in R_Descface table
+        1:Brand:Facets with descriptors available in RBrand table
       description: |
         0=Standard facets with descriptors available in R_Descface table
         1=Facets with descriptors available in RBrand table
@@ -61,14 +64,20 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:single:facet with single-selection of descriptor
+        1:multi:facets with multi-selection of descriptors
       description: |
-        0 = facet with mono-selection of descriptor 
+        0 = facet with single-selection of descriptor 
         1 = facets with multi-selection of descriptors
     standardOrMainFacetQ:
       column: RFACET_MAIN
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Standard
+        1:Main: facet (with non modified descriptor)
       description: |
         0 = standard facet 
         1 = Main facet (with non modified descriptor)

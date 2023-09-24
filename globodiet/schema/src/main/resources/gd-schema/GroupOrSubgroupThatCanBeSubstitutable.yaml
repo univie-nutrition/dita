@@ -31,8 +31,12 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:Food
+        1:Recipe
       description: |
-        0=Food classification 1=Recipe classification
+        0=Food classification
+        1=Recipe classification
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)

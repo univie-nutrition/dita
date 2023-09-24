@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -150,7 +151,17 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Getter
     @Setter
-    private String fatOrSauceSweetenerSubgroupQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ;
 
     /**
      * 0=non fat/sauce subgroup
@@ -169,7 +180,17 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Getter
     @Setter
-    private String fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ;
 
     /**
      * 0=non fat during cooking subgroup
@@ -188,7 +209,17 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     )
     @Getter
     @Setter
-    private String fatDuringCookingSubgroupQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ;
 
     /**
      * Short Name of the food (sub-)(sub-)group
@@ -226,6 +257,69 @@ public class FoodSubgroup implements HasSecondaryKey<FoodSubgroup> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum FatOrSauceSweetenerSubgroupQ {
+        /**
+         * non fat/sauce/sweetener subgroup
+         */
+        NO("0", "no"),
+
+        /**
+         * fat/sauce/sweetener subgroup
+         */
+        YES("1", "yes");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ {
+        /**
+         * non fat/sauce subgroup
+         */
+        NO("0", "no"),
+
+        /**
+         * fat/sauce subgroup that can be left over in the dish
+         */
+        YES("1", "yes");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum FatDuringCookingSubgroupQ {
+        /**
+         * non fat during cooking subgroup
+         */
+        NO("0", "no"),
+
+        /**
+         * fat during cooking subgroup
+         */
+        YES("1", "yes");
+
+        @Getter
+        private final String matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

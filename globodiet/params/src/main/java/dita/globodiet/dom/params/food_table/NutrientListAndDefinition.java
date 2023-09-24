@@ -23,9 +23,12 @@ import jakarta.inject.Named;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -119,7 +122,17 @@ public class NutrientListAndDefinition {
     )
     @Getter
     @Setter
-    private int whetherDisplayedInTheNutrientChecksScreen;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private DisplayInTheNutrientChecksScreen displayInTheNutrientChecksScreen;
 
     /**
      * Comment on nutrient
@@ -144,5 +157,26 @@ public class NutrientListAndDefinition {
     @ObjectSupport
     public String title() {
         return this.toString();
+    }
+
+    @RequiredArgsConstructor
+    public enum DisplayInTheNutrientChecksScreen {
+        /**
+         * not displayed in the 'nutrient checks' screen
+         */
+        NO(0, "No"),
+
+        /**
+         * displayed in the 'nutrient checks' screen
+         */
+        YES(1, "Yes");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 }

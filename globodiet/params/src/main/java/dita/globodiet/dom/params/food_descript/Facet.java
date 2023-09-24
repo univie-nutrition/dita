@@ -27,6 +27,7 @@ import java.lang.Override;
 import java.lang.String;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -132,7 +133,17 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Getter
     @Setter
-    private int type;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Type type;
 
     /**
      * 0 = facet with mono-selection of descriptor
@@ -150,7 +161,17 @@ public class Facet implements HasSecondaryKey<Facet> {
     )
     @Getter
     @Setter
-    private int typeCardinality;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private TypeCardinality typeCardinality;
 
     /**
      * If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.
@@ -204,6 +225,58 @@ public class Facet implements HasSecondaryKey<Facet> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    @RequiredArgsConstructor
+    public enum Type {
+        /**
+         * no description
+         */
+        STANDARD_FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_DESCFACE_TABLE(0, "Standard facets with descriptors available in Descface table"),
+
+        /**
+         * no description
+         */
+        FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_BRANDNAM_TABLE(1, "Facets with descriptors available in Brandnam table"),
+
+        /**
+         * no description
+         */
+        FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_FOODS_TABLE_FACET_15_TYPE_OF_FAT(2, "Facets with descriptors available in Foods table - facet 15 type of fat"),
+
+        /**
+         * no description
+         */
+        FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_FOODS_TABLE_FACET_16_TYPE_OF_MILK_LIQUID_USED(3, "Facets with descriptors available in Foods table - facet 16 type of milk/liquid used");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum TypeCardinality {
+        /**
+         * no description
+         */
+        FACET_WITH_MONO_SELECTION_OF_DESCRIPTOR(0, "facet with mono-selection of descriptor"),
+
+        /**
+         * no description
+         */
+        FACETS_WITH_MULTI_SELECTION_OF_DESCRIPTORS(1, "facets with multi-selection of descriptors");
+
+        @Getter
+        private final int matchOn;
+
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
     }
 
     /**

@@ -56,6 +56,9 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:not homemade
+        1:Homemade
       description: |
         Only for facet recipe production: 
         0=not homemade descriptor 
@@ -65,6 +68,10 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:does not apply:Not a facet
+        1:Facet unknown
+        2:Facet known
       description: |
         Only for facet known/unknown: 1=unknown 2=known
     yesOrNo:
@@ -72,6 +79,9 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:no
+        1:yes
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleOrNot:
@@ -79,6 +89,9 @@ params.recipe_description.RecipeDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:not single descriptor
+        1:single descriptor
       description: |
         0=not single descriptor
         1=single descriptor          
