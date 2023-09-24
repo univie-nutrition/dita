@@ -224,14 +224,15 @@ public class SubjectToBeInterviewed {
     private Double subjectWeightInKg;
 
     /**
-     * 1=interview done, 0=interview to be done
+     * 0=interview to be done,
+     * 1=interview done
      */
     @Property(
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
             sequence = "9",
-            describedAs = "1=interview done, 0=interview to be done<br>----<br>required=false, unique=false",
+            describedAs = "0=interview to be done,<br>1=interview done<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -381,12 +382,12 @@ public class SubjectToBeInterviewed {
         /**
          * no description
          */
-        MAN_2_WOMAN("1", "man, 2=woman)"),
+        MALE("1", "male"),
 
         /**
          * no description
          */
-        WOMAN("2", "woman)");
+        FEMALE("2", "female");
 
         @Getter
         private final String matchOn;
@@ -402,12 +403,12 @@ public class SubjectToBeInterviewed {
         /**
          * no description
          */
-        INTERVIEW_TO_BE_DONE(0, "interview to be done"),
+        PENDING(0, "pending"),
 
         /**
          * no description
          */
-        INTERVIEW_DONE_0_INTERVIEW_TO_BE_DONE(1, "interview done, 0=interview to be done");
+        DONE(1, "done");
 
         @Getter
         private final Integer matchOn;

@@ -54,10 +54,10 @@ params.food_descript.Facet:
       required: true
       unique: false
       enum: |
-        0:Standard facets with descriptors available in Descface table
-        1:Facets with descriptors available in Brandnam table
-        2:Facets with descriptors available in Foods table - facet 15 type of fat
-        3:Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+        0:Standard: facets with descriptors available in Descface table
+        1:Brand:Facets with descriptors available in Brandnam table
+        2:Fat:Facets with descriptors available in Foods table - facet 15 type of fat
+        3:Liquid:Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
       description: |
         0=Standard facets with descriptors available in Descface table 
         1=Facets with descriptors available in Brandnam table 
@@ -69,10 +69,10 @@ params.food_descript.Facet:
       required: true
       unique: false
       enum: |
-        0:facet with mono-selection of descriptor
-        1:facets with multi-selection of descriptors
+        0:single:facet with single-selection of descriptor
+        1:multi:facets with multi-selection of descriptors
       description: |
-        0 = facet with mono-selection of descriptor 
+        0 = facet with single-selection of descriptor 
         1 = facets with multi-selection of descriptors
     group:
       column: FACET_GRP

@@ -146,13 +146,13 @@ public class Facet implements HasSecondaryKey<Facet> {
     private Type type;
 
     /**
-     * 0 = facet with mono-selection of descriptor
+     * 0 = facet with single-selection of descriptor
      * 1 = facets with multi-selection of descriptors
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0 = facet with mono-selection of descriptor<br>1 = facets with multi-selection of descriptors<br>----<br>required=true, unique=false",
+            describedAs = "0 = facet with single-selection of descriptor<br>1 = facets with multi-selection of descriptors<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -230,24 +230,24 @@ public class Facet implements HasSecondaryKey<Facet> {
     @RequiredArgsConstructor
     public enum Type {
         /**
-         * no description
+         *  facets with descriptors available in Descface table
          */
-        STANDARD_FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_DESCFACE_TABLE(0, "Standard facets with descriptors available in Descface table"),
+        STANDARD(0, "Standard"),
 
         /**
-         * no description
+         * Facets with descriptors available in Brandnam table
          */
-        FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_BRANDNAM_TABLE(1, "Facets with descriptors available in Brandnam table"),
+        BRAND(1, "Brand"),
 
         /**
-         * no description
+         * Facets with descriptors available in Foods table - facet 15 type of fat
          */
-        FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_FOODS_TABLE_FACET_15_TYPE_OF_FAT(2, "Facets with descriptors available in Foods table - facet 15 type of fat"),
+        FAT(2, "Fat"),
 
         /**
-         * no description
+         * Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
          */
-        FACETS_WITH_DESCRIPTORS_AVAILABLE_IN_FOODS_TABLE_FACET_16_TYPE_OF_MILK_LIQUID_USED(3, "Facets with descriptors available in Foods table - facet 16 type of milk/liquid used");
+        LIQUID(3, "Liquid");
 
         @Getter
         private final int matchOn;
@@ -261,14 +261,14 @@ public class Facet implements HasSecondaryKey<Facet> {
     @RequiredArgsConstructor
     public enum TypeCardinality {
         /**
-         * no description
+         * facet with single-selection of descriptor
          */
-        FACET_WITH_MONO_SELECTION_OF_DESCRIPTOR(0, "facet with mono-selection of descriptor"),
+        SINGLE(0, "single"),
 
         /**
-         * no description
+         * facets with multi-selection of descriptors
          */
-        FACETS_WITH_MULTI_SELECTION_OF_DESCRIPTORS(1, "facets with multi-selection of descriptors");
+        MULTI(1, "multi");
 
         @Getter
         private final int matchOn;

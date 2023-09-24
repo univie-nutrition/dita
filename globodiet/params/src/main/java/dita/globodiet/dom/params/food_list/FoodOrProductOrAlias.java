@@ -212,12 +212,13 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
     private String groupOrdinal;
 
     /**
-     * 0=food 1=food & dietary supplement
+     * 0=food
+     * 1=dietary supplement
      */
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=food 1=food & dietary supplement<br>----<br>required=true, unique=false",
+            describedAs = "0=food<br>1=dietary supplement<br>----<br>required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -258,12 +259,12 @@ public class FoodOrProductOrAlias implements HasSecondaryKey<FoodOrProductOrAlia
         /**
          * no description
          */
-        FOOD_1_FOOD_DIETARY_SUPPLEMENT(0, "food 1=food & dietary supplement"),
+        FOOD(0, "Food"),
 
         /**
          * no description
          */
-        FOOD_DIETARY_SUPPLEMENT(1, "food & dietary supplement");
+        SUPPLEMENT(1, "Supplement");
 
         @Getter
         private final int matchOn;

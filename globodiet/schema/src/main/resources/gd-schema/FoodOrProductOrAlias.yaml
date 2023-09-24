@@ -109,8 +109,9 @@ params.food_list.FoodOrProductOrAlias:
       required: true
       unique: false
       enum: |
-        0:food 1=food & dietary supplement
-        1:food & dietary supplement
+        0:Food
+        1:Supplement
       description: |
-        0=food 1=food & dietary supplement
+        0=food 
+        1=dietary supplement
 
