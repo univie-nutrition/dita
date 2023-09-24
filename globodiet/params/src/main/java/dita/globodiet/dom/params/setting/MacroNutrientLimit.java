@@ -107,14 +107,14 @@ public class MacroNutrientLimit {
     private double maximumValue;
 
     /**
-     * Unit (g, kcal or blanc)
+     * Unit (g, kcal or blank)
      */
     @Property(
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Unit (g, kcal or blanc)<br>----<br>required=false, unique=false",
+            describedAs = "Unit (g, kcal or blank)<br>----<br>required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -124,18 +124,28 @@ public class MacroNutrientLimit {
     )
     @Getter
     @Setter
-    private String unit;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Unit unit;
 
     /**
-     * 1=man,
-     * 2=woman
+     * 1=Man,
+     * 2=Woman
      */
     @Property(
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=man,<br>2=woman<br>----<br>required=false, unique=true",
+            describedAs = "1=Man,<br>2=Woman<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -182,16 +192,38 @@ public class MacroNutrientLimit {
     }
 
     @RequiredArgsConstructor
-    public enum Sex {
+    public enum Unit {
         /**
          * no description
          */
-        MAN("1", "man"),
+        GRAMS("g", "Grams"),
 
         /**
          * no description
          */
-        WOMAN("2", "woman");
+        KCAL("Kcal", "Kcal");
+
+        @Getter
+        private final String matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum Sex {
+        /**
+         * no description
+         */
+        MALE("1", "male"),
+
+        /**
+         * no description
+         */
+        FEMALE("2", "female");
 
         @Getter
         private final String matchOn;

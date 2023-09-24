@@ -48,12 +48,12 @@ record _EnumResolver(
         for (Enum<?> obj : cls.getEnumConstants()) {
             var matchOn = enumValueGetter.invoke(obj); //nullable
             if(matchOn==null) {
-                // fall through
+                // fall through e.g. Integer==null
             } else if(matchOn instanceof String s
                     && s.isBlank()) {
                 matchOn = null;
             } else {
-                matchOn = ""+matchOn;
+                matchOn = ""+matchOn; // e.g. int
             }
             if(Objects.equals(_Strings.emptyToNull(stringified), matchOn)) return obj;
         }

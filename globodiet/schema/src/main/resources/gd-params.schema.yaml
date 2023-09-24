@@ -3998,19 +3998,22 @@ params.setting.MacroNutrientLimit:
       column-type: nvarchar(50)
       required: false
       unique: false
+      enum: |
+        g:Grams
+        Kcal:Kcal
       description: |
-        Unit (g, kcal or blanc)
+        Unit (g, kcal or blank)
     sex:
       column: SEX
       column-type: nvarchar(1)
       required: false
       unique: true
       enum: |
-        1:man
-        2:woman
+        1:male
+        2:female
       description: |
-        1=man, 
-        2=woman
+        1=Man, 
+        2=Woman
     palValue:
       column: VAL
       column-type: float(53)

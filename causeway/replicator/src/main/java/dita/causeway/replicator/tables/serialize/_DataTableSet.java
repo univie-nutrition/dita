@@ -119,17 +119,21 @@ class _DataTableSet {
                         val valueFacet = valueSpec.valueFacetElseFail();
                         val cls = valueSpec.getCorrespondingClass();
                         final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
-                        val enumResolved = _EnumResolver.get(cls, "getMatchOn")
-                                .<Object>map(r->r.resolve(valueStringified));
 
                         // parse value
-                        val value = enumResolved.isPresent()
-                                || valueStringified!=null
-                                ? ManagedObject.adaptSingular(
-                                        valueSpec,
-                                        enumResolved
-                                            .orElseGet(()->valueFacet.destring(Format.JSON, valueStringified)))
-                                : colMetamodel.getDefault(entity);
+                        ManagedObject value = _EnumResolver.get(cls, "getMatchOn")
+                                .map(r->{
+                                    var enumObj = r.resolve(valueStringified);
+                                    return enumObj!=null
+                                            ? ManagedObject.adaptSingular(valueSpec, enumObj)
+                                            : ManagedObject.empty(valueSpec);
+                                })
+                                .orElseGet(()->
+                                    valueStringified!=null
+                                            ? ManagedObject.adaptSingular(
+                                                    valueSpec,
+                                                    valueFacet.destring(Format.JSON, valueStringified))
+                                            : colMetamodel.getDefault(entity));
 
                         // directly set entity property
                         colMetamodel.set(entity, value, InteractionInitiatedBy.PASS_THROUGH);
