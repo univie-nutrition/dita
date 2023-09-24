@@ -31,7 +31,6 @@ params.food_max.MaximumValueForAFoodOrGroup:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -64,8 +63,6 @@ params.food_max.MaximumValueForAFoodOrGroup:
       column-type: nvarchar(5)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Food code
     maximumValue:
@@ -73,8 +70,6 @@ params.food_max.MaximumValueForAFoodOrGroup:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Maximum value
     facetDescriptorLookupKey:
@@ -82,7 +77,6 @@ params.food_max.MaximumValueForAFoodOrGroup:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
         DESCFACE.DESCR_CODE
@@ -93,8 +87,6 @@ params.food_max.MaximumValueForAFoodOrGroup:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Priority order
 

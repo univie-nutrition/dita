@@ -32,8 +32,6 @@ params.general_info.FoodConsumptionOccasion:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Food Consumption Occasion code
     textDisplayedOnScreen:
@@ -41,8 +39,6 @@ params.general_info.FoodConsumptionOccasion:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         FCO long label (text displayed on screen)
     mode:
@@ -50,8 +46,6 @@ params.general_info.FoodConsumptionOccasion:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         FCO type: if =1 the FCO can be selected several times (e.g. During morning)
     shortLabelToIdentifyEasily:
@@ -59,8 +53,6 @@ params.general_info.FoodConsumptionOccasion:
       column-type: nvarchar(50)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         FCO short label to identify easily the FCO
     displayInNutrientCheckScreenQ:
@@ -68,13 +60,7 @@ params.general_info.FoodConsumptionOccasion:
       column-type: tinyint(3)
       required: true
       unique: false
-      enum: |
-        0=Secondary:to be displayed in nutrient check screen
-        1=Primary
-      discriminator:
-      foreignKeys:
       description: |
         0=non main FCO
         1=main FCO (to be displayed in nutrient check screen)
-        
 

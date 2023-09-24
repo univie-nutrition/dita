@@ -31,8 +31,6 @@ params.food_descript.Brand:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Name of brand
     foodGroupCode:
@@ -40,7 +38,6 @@ params.food_descript.Brand:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |

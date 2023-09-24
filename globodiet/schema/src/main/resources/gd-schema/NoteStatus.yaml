@@ -31,8 +31,6 @@ params.setting.NoteStatus:
       column-type: nvarchar(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Status code
     statusLabel:
@@ -40,8 +38,6 @@ params.setting.NoteStatus:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Status label
     allowThePossibilityToDisplayOrNotTheNoteInTheViewNoteWindow:
@@ -49,8 +45,6 @@ params.setting.NoteStatus:
       column-type: smallint(5)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 

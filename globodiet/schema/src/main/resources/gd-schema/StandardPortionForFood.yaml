@@ -31,8 +31,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Standard portion quantity
     foodCode:
@@ -40,7 +38,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
@@ -50,8 +47,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = raw, 2 = cooked (as estimated)
     withUnediblePartQ:
@@ -59,8 +54,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = without un-edible part, 2 = with un-edible (as estimated)
     commentAttachedToTheStandardPortion:
@@ -68,8 +61,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Comment attached to the standard portion
     standardPortionCode:
@@ -77,8 +68,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(4)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Standard portion code for the same food (0001, 0002, 0003)
     unit:
@@ -86,8 +75,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         G = in grams, V = in ml (volume)
     orderToDisplayTheStandardPortion:
@@ -95,8 +82,6 @@ params.food_quantif.StandardPortionForFood:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Order to display the standard portion
 

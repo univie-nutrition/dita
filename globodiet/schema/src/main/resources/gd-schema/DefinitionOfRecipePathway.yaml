@@ -31,8 +31,6 @@ params.setting.DefinitionOfRecipePathway:
       column-type: nvarchar(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Type of recipe: 
         1.1=Open – Known 
@@ -48,8 +46,6 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = The ingredient window is displayed 0 = The ingredient window is not displayed
     functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed:
@@ -57,8 +53,6 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1): 
         1 = S - Substitute 
@@ -69,8 +63,6 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1): 
         1 = S - Substitute 
@@ -81,8 +73,6 @@ params.setting.DefinitionOfRecipePathway:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Display of the automatic note window: 
         0 = No display of note window 

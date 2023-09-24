@@ -31,7 +31,6 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(3)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         PROBQUE.PQ_CODE
       description: |
@@ -41,7 +40,6 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -74,7 +72,6 @@ params.food_probing.ProbingQuestionPathwayForFoods:
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
       description: |

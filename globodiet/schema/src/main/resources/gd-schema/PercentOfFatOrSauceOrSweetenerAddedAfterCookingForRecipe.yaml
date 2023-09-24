@@ -31,7 +31,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
@@ -41,7 +40,7 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
         RECI_GROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -52,7 +51,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |
@@ -62,7 +60,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -95,7 +92,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
@@ -105,8 +101,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Percentage of fat
 

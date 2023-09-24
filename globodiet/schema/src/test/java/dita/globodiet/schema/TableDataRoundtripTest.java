@@ -74,7 +74,7 @@ class TableDataRoundtripTest {
 
     // disabled until we have fake data for testing, that can be published
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
-    //@Test
+    @Test
     void nullableAutodetect() {
 
         final String gdParamDataLowLevelYaml = DataSource.ofResource(
@@ -106,20 +106,20 @@ class TableDataRoundtripTest {
                 if(required && !field.required()) {
                     System.err.printf("required %s.%s -> but schema says nullable%n",
                             table.key(), col.name());
-                    field.withRequired(true);
+                    //field.withRequired(true);
                 } else if(!required && field.required()) {
                     System.err.printf("nullable %s.%s -> but schema says required%n",
                             table.key(), col.name());
-                    field.withRequired(false);
+                    //field.withRequired(false);
                 }
                 if(unique && !field.unique()) {
                     System.err.printf("unique %s.%s -> but schema says repeatable%n",
                             table.key(), col.name());
-                    field.withUnique(true);
+                    //field.withUnique(true);
                 } else if(!unique && field.unique()) {
                     System.err.printf("repeated %s.%s -> but schema says unique%n",
                             table.key(), col.name());
-                    field.withUnique(false);
+                    //field.withUnique(false);
                 }
 
 
@@ -159,7 +159,7 @@ class TableDataRoundtripTest {
             .stream()
             .sorted((a, b)->a.name().compareTo(b.name()))
             .forEach(t->{
-                if(t.title().isBlank())
+                if(_Strings.isNullOrEmpty(t.title()))
                 System.err.printf("- [ ] %s (%s)%n", t.name(), t.table());
             });
     }

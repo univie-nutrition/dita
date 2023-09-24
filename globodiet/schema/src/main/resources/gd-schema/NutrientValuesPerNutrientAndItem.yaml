@@ -31,8 +31,6 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Item Sequential number
     nutrientCode:
@@ -40,8 +38,6 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Nutrient code
     nutrientValueForTheAttachedItemAndNutrient:
@@ -49,8 +45,6 @@ params.food_table.NutrientValuesPerNutrientAndItem:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Nutrient value for the attached item & nutrient
 

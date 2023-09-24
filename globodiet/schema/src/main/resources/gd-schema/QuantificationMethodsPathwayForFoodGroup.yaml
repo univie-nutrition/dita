@@ -31,7 +31,6 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -64,7 +63,6 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(4)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
         DESCFACE.DESCR_CODE
@@ -75,8 +73,6 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(1)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1=raw, 2=cooked (as Consumed)
     quantificationMethodCode:
@@ -84,8 +80,6 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantification method code:
         'P' for photo, 
@@ -98,7 +92,6 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(4)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
@@ -110,8 +103,6 @@ params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
       column-type: nvarchar(200)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Comment
 

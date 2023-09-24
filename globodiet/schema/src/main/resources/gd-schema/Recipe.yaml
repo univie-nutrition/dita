@@ -51,8 +51,6 @@ params.recipe_list.Recipe:
       column-type: nvarchar(5)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Recipe ID number
     recipeGroupCode:
@@ -60,7 +58,6 @@ params.recipe_list.Recipe:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
@@ -81,8 +78,6 @@ params.recipe_list.Recipe:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Recipe name
     recipeType:
@@ -90,8 +85,6 @@ params.recipe_list.Recipe:
       column-type: nvarchar(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Type of recipe: 
         1.1=Open – Known 
@@ -107,8 +100,6 @@ params.recipe_list.Recipe:
       column-type: nvarchar(100)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Brand name for commercial recipe
     shadowQ:
@@ -116,8 +107,6 @@ params.recipe_list.Recipe:
       column-type: nvarchar(2)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         SH=Shadow
     hasSubRecipeQ:
@@ -125,8 +114,6 @@ params.recipe_list.Recipe:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=recipe without sub-recipe 
         1=recipe with sub-recipe
@@ -135,7 +122,5 @@ params.recipe_list.Recipe:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description:
 

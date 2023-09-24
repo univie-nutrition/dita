@@ -32,8 +32,6 @@ params.recipe_description.RecipeFacet:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Facet code for recipes
     name:
@@ -41,8 +39,6 @@ params.recipe_description.RecipeFacet:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Facet name
     textToShowOnTheScreenDescribingTheFacet:
@@ -50,8 +46,6 @@ params.recipe_description.RecipeFacet:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
     descriptorsAvailableForRecipeOrBrandQ:
@@ -59,8 +53,6 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=Standard facets with descriptors available in R_Descface table
         1=Facets with descriptors available in RBrand table
@@ -69,8 +61,6 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0 = facet with mono-selection of descriptor 
         1 = facets with multi-selection of descriptors
@@ -79,8 +69,6 @@ params.recipe_description.RecipeFacet:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0 = standard facet 
         1 = Main facet (with non modified descriptor)
@@ -89,8 +77,6 @@ params.recipe_description.RecipeFacet:
       column-type: nvarchar(300)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Label on how to ask the facet question    
 

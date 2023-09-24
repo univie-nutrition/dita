@@ -33,7 +33,6 @@ params.food_descript.FacetDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
       description: |
@@ -43,8 +42,6 @@ params.food_descript.FacetDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Descriptor code
     name:
@@ -52,8 +49,6 @@ params.food_descript.FacetDescriptor:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Descriptor name
     type:
@@ -61,8 +56,6 @@ params.food_descript.FacetDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=Other descriptor without consequences in the algorithms (also from other facets)
         1=Raw descriptor 
@@ -72,8 +65,6 @@ params.food_descript.FacetDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         TODO missing description
     other:
@@ -81,8 +72,6 @@ params.food_descript.FacetDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         TODO missing description
 

@@ -31,8 +31,6 @@ params.food_list.ComposedRecipeIngredient:
       column-type: nvarchar(5)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Recipe identification number (FOODNUM in the FOODS.DBF file)
     foodOrRecipeCode:
@@ -40,7 +38,6 @@ params.food_list.ComposedRecipeIngredient:
       column-type: nvarchar(5)
       required: false
       unique: true
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
         MIXEDREC.R_IDNUM
@@ -52,8 +49,6 @@ params.food_list.ComposedRecipeIngredient:
       column-type: nvarchar(1)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list

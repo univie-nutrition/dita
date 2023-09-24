@@ -31,8 +31,6 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(19)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Text name
     textInSpecificCountryLanguage:
@@ -40,8 +38,6 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Text in specific Country language
     textInEnglish:
@@ -49,8 +45,6 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Text in English
     dataEntryTextInSpecificCountryLanguage:
@@ -58,8 +52,6 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Data entry Text in specific Country language
     dataEntryTextInEnglish:
@@ -67,8 +59,6 @@ params.general_info.TranslationInCountryLanguage:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Data entry Text in English
 

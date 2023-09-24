@@ -31,7 +31,6 @@ params.recipe_description.BrandForRecipe:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
@@ -41,7 +40,7 @@ params.recipe_description.BrandForRecipe:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
+      discriminator: |
         RGROUP
       foreignKeys: |
         RSUBGR.SUBGROUP
@@ -52,7 +51,5 @@ params.recipe_description.BrandForRecipe:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description:
 

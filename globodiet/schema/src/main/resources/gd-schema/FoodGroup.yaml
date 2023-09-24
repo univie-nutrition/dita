@@ -32,8 +32,6 @@ params.classification.FoodGroup:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Food group code
     name:
@@ -41,8 +39,6 @@ params.classification.FoodGroup:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Food group name
     shortName:
@@ -50,8 +46,6 @@ params.classification.FoodGroup:
       column-type: nvarchar(20)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Food group short name
 

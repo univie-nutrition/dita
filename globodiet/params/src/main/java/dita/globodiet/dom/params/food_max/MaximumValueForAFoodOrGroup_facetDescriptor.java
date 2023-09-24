@@ -38,11 +38,11 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class MaximumValueForAFoodOrASubSubgroup_facetDescriptor {
+public class MaximumValueForAFoodOrGroup_facetDescriptor {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final MaximumValueForAFoodOrASubSubgroup mixee;
+    private final MaximumValueForAFoodOrGroup mixee;
 
     @MemberSupport
     public FacetDescriptor prop() {

@@ -32,8 +32,6 @@ params.probing.ProbingQuestion:
       column-type: nvarchar(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Probing question code
     label:
@@ -41,8 +39,6 @@ params.probing.ProbingQuestion:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Probing question label
 

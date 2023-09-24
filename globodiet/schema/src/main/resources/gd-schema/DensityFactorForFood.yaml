@@ -31,7 +31,6 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
         MIXEDREC.R_IDNUM
@@ -43,8 +42,6 @@ params.food_coefficient.DensityFactorForFood:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Density coefficient
     facetDescriptorsLookupKey:
@@ -53,7 +50,6 @@ params.food_coefficient.DensityFactorForFood:
       required: false
       unique: false
       plural: true
-      discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
         DESCFACE.DESCR_CODE
@@ -65,8 +61,6 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Priority order
     withUnediblePartQ:
@@ -74,8 +68,6 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         1 = without un-edible part,
         2 = with un-edible (as estimated)
@@ -84,8 +76,6 @@ params.food_coefficient.DensityFactorForFood:
       column-type: nvarchar(1)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = raw, 
         2 = cooked (as estimated) 
@@ -94,8 +84,6 @@ params.food_coefficient.DensityFactorForFood:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = density for food/ingredient,
         2 = density for recipe

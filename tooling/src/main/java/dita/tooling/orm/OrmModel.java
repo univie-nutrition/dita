@@ -140,12 +140,21 @@ public class OrmModel {
                 if(field.plural()) {
                     yaml.ind().ind().ind().write("plural: ", "true").nl();
                 }
-                yaml.ind().ind().ind().write("discriminator:").multilineStartIfNotEmtpy(field.discriminator).nl();
-                field.discriminator.forEach(line->
-                    yaml.ind().ind().ind().ind().writeUpper(line).nl());
-                yaml.ind().ind().ind().write("foreignKeys:").multilineStartIfNotEmtpy(field.foreignKeys).nl();
-                field.foreignKeys.forEach(line->
-                    yaml.ind().ind().ind().ind().writeUpper(line).nl());
+                if(field.isEnum()) {
+                    yaml.ind().ind().ind().write("enum:").multilineStartIfNotEmtpy(field.enumeration).nl();
+                    field.enumeration.forEach(line->
+                        yaml.ind().ind().ind().ind().writeUpper(line).nl());
+                }
+                if(field.hasDiscriminator()) {
+                    yaml.ind().ind().ind().write("discriminator:").multilineStartIfNotEmtpy(field.discriminator).nl();
+                    field.discriminator.forEach(line->
+                        yaml.ind().ind().ind().ind().writeUpper(line).nl());
+                }
+                if(field.hasForeignKeys()) {
+                    yaml.ind().ind().ind().write("foreignKeys:").multilineStartIfNotEmtpy(field.foreignKeys).nl();
+                    field.foreignKeys.forEach(line->
+                        yaml.ind().ind().ind().ind().writeUpper(line).nl());
+                }
                 yaml.ind().ind().ind().write("description:").multilineStartIfNotEmtpy(field.description).nl();
                 field.description.forEach(line->
                     yaml.ind().ind().ind().ind().write(line).nl());
@@ -191,6 +200,7 @@ public class OrmModel {
             boolean required,
             boolean unique,
             boolean plural,
+            List<String> enumeration,
             List<String> discriminator,
             List<String> foreignKeys,
             List<String> description) {
@@ -205,6 +215,7 @@ public class OrmModel {
                     (Boolean)map.get("required"),
                     (Boolean)map.get("unique"),
                     (boolean)Optional.ofNullable((Boolean)map.get("plural")).orElse(false),
+                    parseMultilineString((String)map.get("enum")),
                     parseMultilineString((String)map.get("discriminator")),
                     parseMultilineString((String)map.get("foreignKeys")),
                     parseMultilineString((String)map.get("description")));
@@ -214,6 +225,14 @@ public class OrmModel {
         }
         public TypeName asJavaType() {
             return _TypeMapping.dbToJava(columnType(), !required);
+        }
+        public boolean isEnum() {
+            return enumeration.size()>0;
+        }
+        public List<EnumValue> enumValues() {
+            return _NullSafe.stream(enumeration)
+                    .map(IndexedFunction.zeroBased((index, ev)->EnumValue.parse(this, index, ev)))
+                    .collect(Collectors.toList());
         }
         public boolean hasDiscriminator() {
             return discriminator.size()>0;
@@ -270,7 +289,6 @@ public class OrmModel {
                 .map(String::trim)
                 .collect(Can.toCan());
             descriptionLines = descriptionLines.addAll(more);
-//"----", String.format("required=%b, unique=%b", required(), unique())
             return descriptionLines.stream()
                     .collect(Collectors.joining(continuation));
         }
@@ -306,6 +324,7 @@ public class OrmModel {
                     required,
                     unique,
                     plural,
+                    enumeration,
                     discriminator,
                     foreignKeys,
                     description);
@@ -322,12 +341,40 @@ public class OrmModel {
                     required,
                     unique,
                     plural,
+                    enumeration,
                     discriminator,
                     foreignKeys,
                     description);
             parentEntity().fields().replaceAll(f->f.ordinal() == this.ordinal()
                     ? copy
                     : f);
+        }
+    }
+
+    public record EnumValue(
+            SneakyRef<Field> parentRef,
+            int ordinal,
+            String name,
+            String matchOn,
+            String description) {
+        static EnumValue parse(final Field field, final int ordinal, final String enumDeclarationLine) {
+            // syntax: <matcher>:<enum-value-name>:<description>
+            // 1:NOT_FOUND:Item was not found
+            var cutter = TextUtils.cutter(enumDeclarationLine);
+            _Assert.assertTrue(cutter.contains(":"));
+            var matchOn = cutter.keepBefore(":").getValue();
+            cutter = cutter.keepAfter(":");
+            var hasDescription = cutter.contains(":");
+            var name = cutter.keepBefore(":").getValue();
+            cutter = cutter.keepAfter(":");
+            String description = hasDescription ? cutter.getValue() : "no description";
+            return new EnumValue(SneakyRef.of(field), ordinal, name, matchOn, description);
+        }
+        public Field parentField() {
+            return parentRef.value();
+        }
+        public String asJavaName() {
+            return name;
         }
     }
 
@@ -452,7 +499,7 @@ public class OrmModel {
         val entity = new Entity("FoodList", "dita", "FOODS", List.of(), "name", "fa-pencil", List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
         val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false, false,
-                List.of(), List.of(), List.of("aa", "bb", "cc"));
+                List.of(), List.of(), List.of(), List.of("aa", "bb", "cc"));
         entity.fields().add(field);
         return Can.of(
                 Schema.of(List.of(entity)));

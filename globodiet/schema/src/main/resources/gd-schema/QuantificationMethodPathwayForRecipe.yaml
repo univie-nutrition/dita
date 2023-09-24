@@ -31,7 +31,6 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |
@@ -41,8 +40,6 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantification method code:
         'P' for photo, 
@@ -54,7 +51,6 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       column-type: nvarchar(4)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE

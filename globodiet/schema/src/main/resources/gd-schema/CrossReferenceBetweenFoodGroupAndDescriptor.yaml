@@ -31,7 +31,6 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -64,7 +63,6 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
       description: |
@@ -85,8 +83,6 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(1)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Default flag (if set to 'D' it is the default descriptor)
     notInNameFlag:
@@ -94,8 +90,6 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: nvarchar(1)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Not in name flag
     facetDisplayOrder:
@@ -103,8 +97,6 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Order to display the facets within a group/subgroup
     descriptorDisplayOrder:
@@ -112,8 +104,6 @@ params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Order to display the descriptors within a group/subgroup and a facet
 

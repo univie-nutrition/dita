@@ -31,7 +31,6 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
       description: |
@@ -41,7 +40,6 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(4)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
         DESCFACE.DESCR_CODE
@@ -55,7 +53,6 @@ params.food_descript.RuleAppliedToFacet:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |

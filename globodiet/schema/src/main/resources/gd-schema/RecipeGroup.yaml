@@ -32,8 +32,6 @@ params.classification.RecipeGroup:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Recipe Group code
     name:
@@ -41,8 +39,6 @@ params.classification.RecipeGroup:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Name of the Recipe group
     shortName:
@@ -50,8 +46,6 @@ params.classification.RecipeGroup:
       column-type: nvarchar(20)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Short Name of the Recipe group
 

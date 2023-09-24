@@ -31,7 +31,6 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(3)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         PROBQUE.PQ_CODE
       description: |
@@ -41,7 +40,6 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
@@ -62,7 +60,6 @@ params.recipe_probing.ProbingQuestionPathwayForRecipes:
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |

@@ -31,8 +31,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Descriptor code
     name:
@@ -40,8 +38,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Descriptor name
     facetCode:
@@ -49,7 +45,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         DS_FACET.DSFACET_CODE
       description: |
@@ -59,8 +54,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Only for the facet with Dsfacet_type=1, 
         for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0
@@ -69,8 +62,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Default Descriptor. 
         When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty): 
@@ -81,8 +72,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Descriptor with type='other' : 1=yes 0=no
     singleDescriptorQ:
@@ -90,8 +79,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=not single descriptor 1=single descriptor
     displayOrderFirstOrSecond:
@@ -99,8 +86,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Display order (1=first, 2=second…)
     notInName:
@@ -108,8 +93,6 @@ params.supplement.DietarySupplementDescriptor:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Not in name flag
 

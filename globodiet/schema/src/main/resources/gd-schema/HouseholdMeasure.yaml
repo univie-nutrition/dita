@@ -31,8 +31,6 @@ params.quantif.HouseholdMeasure:
       column-type: nvarchar(4)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         HouseholdMeasure code
     volumeInCm3:
@@ -40,8 +38,6 @@ params.quantif.HouseholdMeasure:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         HouseholdMeasure volume in cm3.
     fractions:
@@ -49,8 +45,6 @@ params.quantif.HouseholdMeasure:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas. 
         The value of each expression will be evaluated as factor of the total volume
@@ -59,8 +53,6 @@ params.quantif.HouseholdMeasure:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Comment attached to the HouseholdMeasure
     displayOrder:
@@ -68,8 +60,6 @@ params.quantif.HouseholdMeasure:
       column-type: float(53)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Order to display the HouseholdMeasure
 

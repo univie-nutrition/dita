@@ -31,7 +31,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: nvarchar(5)
       required: false
       unique: true
-      discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |
@@ -41,8 +40,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Sequential Number within a Mixed Recipe for Ingredient
     ingredientFoodOrRecipeCode:
@@ -50,7 +47,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: nvarchar(5)
       required: false
       unique: true
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
@@ -60,8 +56,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Order of shape selection (e.g. 1)
     shapeCode:
@@ -69,7 +63,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         M_SHAPES.SH_CODE
       description: |
@@ -79,8 +72,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Shape surface in cm2 (e.g. 200cm2). 2 decimals
     shapeThicknessCode:
@@ -88,7 +79,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: nvarchar(10)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         THICKNESS.TH_CODE
       description: |
@@ -98,8 +88,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
     photoCode:
@@ -107,7 +95,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: nvarchar(4)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
       description: |
@@ -117,8 +104,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Photo quantity
     shapeAndPhotoFractionOrUnit:
@@ -126,8 +111,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
     sequentialNumberForIngredientsWithinASubRecipe:
@@ -135,8 +118,6 @@ params.recipe_list.RecipeIngredientQuantification:
       column-type: float(53)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Sequential Number for Ingredients within a Sub-Recipe
 

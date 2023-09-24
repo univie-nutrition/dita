@@ -33,7 +33,6 @@ params.classification.RecipeSubgroup:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
@@ -43,8 +42,6 @@ params.classification.RecipeSubgroup:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Recipe sub-group code
     name:
@@ -52,8 +49,6 @@ params.classification.RecipeSubgroup:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Name of the recipe (sub-)group
     shortName:
@@ -61,8 +56,6 @@ params.classification.RecipeSubgroup:
       column-type: nvarchar(20)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Short Name of the recipe (sub-)group
 

@@ -31,7 +31,6 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(5)
       required: false
       unique: true
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
@@ -41,7 +40,6 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -74,7 +72,6 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
       description: |
@@ -95,8 +92,6 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       column-type: nvarchar(2147483647)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Facet string
 

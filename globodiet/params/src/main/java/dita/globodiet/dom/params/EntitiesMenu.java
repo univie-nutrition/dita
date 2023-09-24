@@ -38,7 +38,7 @@ import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescr
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.FoodOrProductOrAlias;
-import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrASubSubgroup;
+import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
 import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
@@ -73,7 +73,7 @@ import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
+import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
@@ -250,8 +250,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<MaximumValueForAFoodOrASubSubgroup> listAllMaximumValueForAFoodOrASubSubgroup() {
-        return repositoryService.allInstances(MaximumValueForAFoodOrASubSubgroup.class);
+    public List<MaximumValueForAFoodOrGroup> listAllMaximumValueForAFoodOrGroup() {
+        return repositoryService.allInstances(MaximumValueForAFoodOrGroup.class);
     }
 
     @Action
@@ -489,8 +489,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public List<MaximumValueForARecipeOrASubgroup> listAllMaximumValueForARecipeOrASubgroup() {
-        return repositoryService.allInstances(MaximumValueForARecipeOrASubgroup.class);
+    public List<MaximumValueForARecipeOrGroup> listAllMaximumValueForARecipeOrGroup() {
+        return repositoryService.allInstances(MaximumValueForARecipeOrGroup.class);
     }
 
     @Action

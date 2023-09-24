@@ -31,7 +31,6 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
@@ -41,8 +40,6 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantification method code:
         'P' for photo, 
@@ -54,7 +51,6 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column-type: nvarchar(4)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
@@ -66,8 +62,6 @@ params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
       column-type: nvarchar(200)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Comment
 

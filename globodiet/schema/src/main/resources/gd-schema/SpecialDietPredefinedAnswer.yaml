@@ -31,8 +31,6 @@ params.general_info.SpecialDietPredefinedAnswer:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Special diet code
     specialDietLabel:
@@ -40,8 +38,6 @@ params.general_info.SpecialDietPredefinedAnswer:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Special diet label
 

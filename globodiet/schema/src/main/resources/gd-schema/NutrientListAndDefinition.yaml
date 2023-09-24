@@ -31,8 +31,6 @@ params.food_table.NutrientListAndDefinition:
       column-type: int(10)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Nutrient code
     nutrientName:
@@ -40,8 +38,6 @@ params.food_table.NutrientListAndDefinition:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Nutrient Name
     nutrientUnit:
@@ -49,8 +45,6 @@ params.food_table.NutrientListAndDefinition:
       column-type: nvarchar(20)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Nutrient unit (e.g. kcal, g, mg…)
     whetherDisplayedInTheNutrientChecksScreen:
@@ -58,8 +52,6 @@ params.food_table.NutrientListAndDefinition:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=not displayed in the 'nutrient checks' screen 
         1=displayed in the 'nutrient checks' screen
@@ -68,8 +60,6 @@ params.food_table.NutrientListAndDefinition:
       column-type: nvarchar(2147483647)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Comment on nutrient
 

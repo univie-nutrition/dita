@@ -30,8 +30,6 @@ params.setting.Month:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Month number
     monthName:
@@ -39,8 +37,6 @@ params.setting.Month:
       column-type: nvarchar(20)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Month name
 

@@ -31,7 +31,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |
@@ -41,8 +40,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = ingredient fixed
         2 = ingredient substitutable
@@ -54,8 +51,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Food type (GI or blank)
     descriptionText:
@@ -63,8 +58,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2147483647)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Description text (facet/descriptor text)
     name:
@@ -72,8 +65,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Ingredient name
     foodOrRecipeGroupCode:
@@ -81,7 +72,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
         RGROUPS.GROUP
@@ -116,8 +106,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(100)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Ingredient brand (if any)
     facetDescriptorsLookupKey:
@@ -126,7 +114,6 @@ params.recipe_list.RecipeIngredient:
       required: false
       unique: false
       plural: true
-      discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
         DESCFACE.DESCR_CODE
@@ -138,8 +125,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = ingredient described and quantified 
         2 = otherwise
@@ -148,8 +133,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Final quantity in g (with coefficient applied)
     estimatedQuantityBeforeCoefficientApplied:
@@ -157,8 +140,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Estimated quantity (before coefficient applied)
     quantityEstimatedRawOrCooked:
@@ -166,8 +147,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantity Estimated Raw or Cooked 
         1 = Raw 
@@ -177,8 +156,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantity Consumed Raw or Cooked 
         1 = Raw 
@@ -188,8 +165,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Conversion factor raw->cooked
     withUnediblePartQ:
@@ -197,8 +172,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantity as estimated: 1=without un-edible part & 2=with un-edible part
     conversionFactorForEdiblePart:
@@ -206,8 +179,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Conversion factor for edible part
     quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU:
@@ -215,8 +186,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantity in gram/volume attached to the selected Photo, HHM, STDU
     proportionOfPhotoHHMSTDU:
@@ -224,8 +193,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Proportion of Photo, HHM, STDU
     typeOfQuantificationMethod:
@@ -233,8 +200,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Type of quantification method
     quantificationMethodCode:
@@ -242,8 +207,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(4)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantification method code
     densityCoefficientOnlyForHHM:
@@ -251,8 +214,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Density Coefficient only for HHM
     sequentialNumberForIngredientsWithinARecipe:
@@ -260,8 +221,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Sequential Number for Ingredients within a Mixed Recipe 
     fatLeftOverPercentage:
@@ -269,8 +228,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Fat Left-Over Percentage
     fatLeftOverQ:
@@ -278,8 +235,6 @@ params.recipe_list.RecipeIngredient:
       column-type: bit(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Fat Left-Over Code (F=False, T=True)
     hhmFraction:
@@ -287,8 +242,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         HHM Fraction
     consumedQuantityInPound:
@@ -296,8 +249,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Consumed quantity in pound
     consumedQuantityInOunce:
@@ -305,8 +256,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Consumed quantity in ounce
     consumedQuantityInQuart:
@@ -314,8 +263,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Consumed quantity in quart
     consumedQuantityInPint:
@@ -323,8 +270,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Consumed quantity in pint
     consumedQuantityInFlounce:
@@ -332,8 +277,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Consumed quantity in flounce
     sequentialNumberForIngredientsWithinASubRecipe:
@@ -341,8 +284,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Sequential Number for Ingredients within a Sub-Recipe 
     rawQuantityWithoutInedible:
@@ -350,8 +291,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Raw quantity without inedible (sans dechet)
     percentageOrProportionAsEstimatedForRecipeIngredients:
@@ -359,8 +298,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Percentage/Proportion as Estimated for Recipe Ingredients
     percentageOrProportionAsConsumedForRecipeIngredients:
@@ -368,8 +305,6 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Percentage/Proportion as Consumed for Recipe Ingredients
     typeOfItem:
@@ -377,8 +312,6 @@ params.recipe_list.RecipeIngredient:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = food 
         2 = recipe
@@ -387,7 +320,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
         MIXEDREC.R_IDNUM
@@ -398,8 +330,6 @@ params.recipe_list.RecipeIngredient:
       column-type: nvarchar(1)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum) 
     percentageRaw:
@@ -407,7 +337,5 @@ params.recipe_list.RecipeIngredient:
       column-type: float(53)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description:
 

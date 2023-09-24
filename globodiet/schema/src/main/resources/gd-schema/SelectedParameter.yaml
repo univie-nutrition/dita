@@ -31,8 +31,6 @@ params.setting.SelectedParameter:
       column-type: nvarchar(40)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Parameter code
     parameterValue:
@@ -40,8 +38,6 @@ params.setting.SelectedParameter:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Parameter value
 

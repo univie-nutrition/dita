@@ -32,8 +32,6 @@ params.general_info.PlaceOfConsumption:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Place of consumption code
     name:
@@ -41,8 +39,6 @@ params.general_info.PlaceOfConsumption:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Place of consumption name
     otherPlaceQ:
@@ -50,8 +46,6 @@ params.general_info.PlaceOfConsumption:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=not a 'Other' place 
         1='Other' place

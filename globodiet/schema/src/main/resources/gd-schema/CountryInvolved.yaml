@@ -32,8 +32,6 @@ params.interview.CountryInvolved:
       column-type: nvarchar(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Country code
     countryName:
@@ -41,8 +39,6 @@ params.interview.CountryInvolved:
       column-type: nvarchar(50)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Country name
 

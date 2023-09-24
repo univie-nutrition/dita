@@ -32,8 +32,6 @@ params.food_descript.Facet:
       column-type: nvarchar(2)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Facet code
     name:
@@ -41,8 +39,6 @@ params.food_descript.Facet:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Facet name
     text:
@@ -50,8 +46,6 @@ params.food_descript.Facet:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Facet text (text to show on the screen describing the facet)
     type:
@@ -59,8 +53,6 @@ params.food_descript.Facet:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=Standard facets with descriptors available in Descface table 
         1=Facets with descriptors available in Brandnam table 
@@ -71,8 +63,6 @@ params.food_descript.Facet:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0 = facet with mono-selection of descriptor 
         1 = facets with multi-selection of descriptors
@@ -81,8 +71,6 @@ params.food_descript.Facet:
       column-type: nvarchar(2147483647)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table. 
         Comma is used as delimiter (e.g. 10,050701,050702)
@@ -91,8 +79,6 @@ params.food_descript.Facet:
       column-type: nvarchar(300)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Label on how to ask the facet question
 

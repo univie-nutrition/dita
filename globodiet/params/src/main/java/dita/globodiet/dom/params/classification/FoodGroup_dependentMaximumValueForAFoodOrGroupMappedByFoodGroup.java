@@ -20,8 +20,8 @@
 package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.foreignkey.DependantLookupService;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrASubgroup_recipeSubgroup;
+import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
+import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_foodGroup;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -30,18 +30,18 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 @Collection
 @RequiredArgsConstructor
-public class RecipeSubgroup_dependentMaximumValueForARecipeOrASubgroupMappedByRecipeSubgroup {
+public class FoodGroup_dependentMaximumValueForAFoodOrGroupMappedByFoodGroup {
     @Inject
     DependantLookupService dependantLookup;
 
-    private final RecipeSubgroup mixee;
+    private final FoodGroup mixee;
 
     @MemberSupport
-    public List<MaximumValueForARecipeOrASubgroup> coll() {
+    public List<MaximumValueForAFoodOrGroup> coll() {
         return dependantLookup.findDependants(
-            MaximumValueForARecipeOrASubgroup.class,
-            MaximumValueForARecipeOrASubgroup_recipeSubgroup.class,
-            MaximumValueForARecipeOrASubgroup_recipeSubgroup::prop,
+            MaximumValueForAFoodOrGroup.class,
+            MaximumValueForAFoodOrGroup_foodGroup.class,
+            MaximumValueForAFoodOrGroup_foodGroup::prop,
             mixee);
     }
 }

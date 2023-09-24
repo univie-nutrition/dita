@@ -31,8 +31,6 @@ params.general_info.AnthropometricAverage:
       column-type: nvarchar(15)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Anthropometry variable (Height or Weight)
     sex:
@@ -40,8 +38,6 @@ params.general_info.AnthropometricAverage:
       column-type: tinyint(3)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Sex (1 for men, 2 for women, blank for both)
     ageMinimumRange:
@@ -49,8 +45,6 @@ params.general_info.AnthropometricAverage:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Age minimum range
     ageMaximumRange:
@@ -58,8 +52,6 @@ params.general_info.AnthropometricAverage:
       column-type: tinyint(3)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Age maximum range
     minimumValueOfHeightOrWeight:
@@ -67,8 +59,6 @@ params.general_info.AnthropometricAverage:
       column-type: smallint(5)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Minimum value of height or weight
     maximumValueOfHeightOrWeight:
@@ -76,8 +66,6 @@ params.general_info.AnthropometricAverage:
       column-type: smallint(5)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Maximum value of height or weight
     defaultValueOfHeightOrWeight:
@@ -85,8 +73,6 @@ params.general_info.AnthropometricAverage:
       column-type: smallint(5)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Default value of height or weight
 

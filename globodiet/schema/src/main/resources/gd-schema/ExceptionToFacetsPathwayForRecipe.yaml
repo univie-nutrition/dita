@@ -31,7 +31,6 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |
@@ -41,7 +40,6 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         R_FACET.RFACET_CODE
       description: |
@@ -54,7 +52,5 @@ params.recipe_description.ExceptionToFacetsPathwayForRecipe:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description:
 

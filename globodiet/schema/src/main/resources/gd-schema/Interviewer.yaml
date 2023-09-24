@@ -31,8 +31,6 @@ params.interview.Interviewer:
       column-type: nvarchar(20)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Interviewer code
     interviewerFamilyName:
@@ -40,8 +38,6 @@ params.interview.Interviewer:
       column-type: nvarchar(100)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Interviewer family name
     interviewerName:
@@ -49,8 +45,6 @@ params.interview.Interviewer:
       column-type: nvarchar(100)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Interviewer name
     countryCode:
@@ -58,7 +52,6 @@ params.interview.Interviewer:
       column-type: nvarchar(3)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         COUNTRY.CTRYCODE
       description: |
@@ -68,7 +61,6 @@ params.interview.Interviewer:
       column-type: nvarchar(3)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         CENTERS.CNTR_CODE
       description: |

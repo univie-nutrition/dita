@@ -31,8 +31,6 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         0=Food classification 1=Recipe classification
     foodGroupCode:
@@ -40,7 +38,6 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
       description: |
@@ -73,8 +70,6 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)
     listOfRecipeGroupsOrsubgroupsToApplyTheSubstitution:
@@ -82,8 +77,6 @@ params.setting.GroupOrSubgroupThatCanBeSubstitutable:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
 

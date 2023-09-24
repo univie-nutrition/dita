@@ -31,7 +31,6 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column-type: nvarchar(5)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
@@ -41,8 +40,6 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Edible part coefficient
     facetDescriptorLookupKey:
@@ -50,7 +47,6 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         DESCFACE.FACET_CODE
         DESCFACE.DESCR_CODE
@@ -61,8 +57,6 @@ params.food_coefficient.EdiblePartCoefficientForFood:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Priority order
 

@@ -32,8 +32,6 @@ params.interview.CenterInvolved:
       column-type: nvarchar(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Center code
     attachedCountryCode:
@@ -41,7 +39,6 @@ params.interview.CenterInvolved:
       column-type: nvarchar(3)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         COUNTRY.CTRYCODE
       description: |
@@ -51,8 +48,6 @@ params.interview.CenterInvolved:
       column-type: nvarchar(50)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Center name
 

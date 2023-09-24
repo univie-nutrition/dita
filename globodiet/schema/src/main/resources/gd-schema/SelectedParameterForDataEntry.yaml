@@ -31,8 +31,6 @@ params.setting.SelectedParameterForDataEntry:
       column-type: nvarchar(40)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Parameter code for data entry
     parameterValue:
@@ -40,8 +38,6 @@ params.setting.SelectedParameterForDataEntry:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Parameter value for data entry
 

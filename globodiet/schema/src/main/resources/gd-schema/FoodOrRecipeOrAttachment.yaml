@@ -31,8 +31,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: int(10)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Sequential number
     typeOfRecord:
@@ -40,8 +38,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Type of record: F=Food, R=recipe, A2=fat attached, A3=liquid attached
     foodOrRecipeGroupCode:
@@ -49,7 +45,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         GROUPS.GROUP
         RGROUPS.GROUP
@@ -84,7 +79,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(5)
       required: false
       unique: false
-      discriminator:
       foreignKeys: |
         FOODS.FOODNUM
         MIXEDREC.R_IDNUM
@@ -95,8 +89,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(100)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Facet string
     brandName:
@@ -104,8 +96,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(100)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Brand name
     priority:
@@ -113,8 +103,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: int(10)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Priority order
     attachedRecords:
@@ -122,8 +110,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: int(10)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Attached records: only for the Type=A2 & A3
     comment:
@@ -131,8 +117,6 @@ params.food_table.FoodOrRecipeOrAttachment:
       column-type: nvarchar(2147483647)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Comment
 

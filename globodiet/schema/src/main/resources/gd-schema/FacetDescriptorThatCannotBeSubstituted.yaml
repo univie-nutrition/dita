@@ -31,7 +31,6 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FACETS.FACET_CODE
       description: |

@@ -31,8 +31,6 @@ params.setting.MacroNutrientLimit:
       column-type: nvarchar(50)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Name of nutrient
     minimumValue:
@@ -40,8 +38,6 @@ params.setting.MacroNutrientLimit:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Minimum value
     maximumValue:
@@ -49,8 +45,6 @@ params.setting.MacroNutrientLimit:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Maximum value
     unit:
@@ -58,8 +52,6 @@ params.setting.MacroNutrientLimit:
       column-type: nvarchar(50)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Unit (g, kcal or blanc)
     sex:
@@ -67,8 +59,6 @@ params.setting.MacroNutrientLimit:
       column-type: nvarchar(1)
       required: false
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         1=man, 2=woman
     palValue:
@@ -76,8 +66,6 @@ params.setting.MacroNutrientLimit:
       column-type: float(53)
       required: false
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         PAL value
 

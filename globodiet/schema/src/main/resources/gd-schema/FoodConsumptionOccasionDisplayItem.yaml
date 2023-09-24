@@ -34,7 +34,6 @@ params.general_info.FoodConsumptionOccasionDisplayItem:
       column-type: nvarchar(2)
       required: true
       unique: false
-      discriminator:
       foreignKeys: |
         FCO.FCM_CODE
       description: |
@@ -44,8 +43,6 @@ params.general_info.FoodConsumptionOccasionDisplayItem:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Text representing Food.
 

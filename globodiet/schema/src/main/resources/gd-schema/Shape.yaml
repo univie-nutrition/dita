@@ -32,8 +32,6 @@ params.quantif.Shape:
       column-type: nvarchar(5)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Shape code (e.g. S001,S002,S003,...)
     shapeSurfaceInCm2:
@@ -41,8 +39,6 @@ params.quantif.Shape:
       column-type: float(53)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
     commentAttachedToTheShape:
@@ -50,8 +46,6 @@ params.quantif.Shape:
       column-type: nvarchar(100)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
     orderToDisplayTheStandardUnit:
@@ -59,8 +53,6 @@ params.quantif.Shape:
       column-type: tinyint(3)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Order to display the standard unit
 

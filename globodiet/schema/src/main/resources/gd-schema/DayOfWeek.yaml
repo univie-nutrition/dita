@@ -31,8 +31,6 @@ params.setting.DayOfWeek:
       column-type: nvarchar(1)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Day number
     dayName:
@@ -40,8 +38,6 @@ params.setting.DayOfWeek:
       column-type: nvarchar(20)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Day name
 

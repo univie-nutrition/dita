@@ -32,8 +32,6 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(4)
       required: true
       unique: true
-      discriminator:
-      foreignKeys:
       description: |
         Photo series code (P001,P002,P003,...)
     quantificationStringThatDefinesTheQuantitiesOfEachPhotos:
@@ -41,8 +39,6 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(2147483647)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
     rawOrCooked:
@@ -50,8 +46,6 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = raw, 2 = cooked (as estimated)
     withUnediblePartQ:
@@ -59,8 +53,6 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         1 = without un-edible part, 2 = with un-edible (as estimated)
     unit:
@@ -68,8 +60,6 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(1)
       required: true
       unique: false
-      discriminator:
-      foreignKeys:
       description: |
         G = in grams, V = in ml (volume)
 
