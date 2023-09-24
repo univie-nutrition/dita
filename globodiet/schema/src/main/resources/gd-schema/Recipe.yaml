@@ -111,13 +111,16 @@ params.recipe_list.Recipe:
       unique: true
       description: |
         Brand name for commercial recipe
-    shadowQ:
+    aliasQ:
       column: TYPE
       column-type: nvarchar(2)
       required: false
       unique: true
+      enum: |
+        :regular:is regular entry
+        :alias:is alias entry
       description: |
-        SH=Shadow
+        whether is an alias (SH=shadow)
     hasSubRecipeQ:
       column: R_SUB
       column-type: tinyint(3)

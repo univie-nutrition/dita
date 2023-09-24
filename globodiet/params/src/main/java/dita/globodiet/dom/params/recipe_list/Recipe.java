@@ -229,14 +229,14 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     private String brandNameForCommercialRecipe;
 
     /**
-     * SH=Shadow
+     * whether is an alias (SH=shadow)
      */
     @Property(
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "SH=Shadow<br>----<br>required=false, unique=true",
+            describedAs = "whether is an alias (SH=shadow)<br>----<br>required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -246,7 +246,17 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @Getter
     @Setter
-    private String shadowQ;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private AliasQ aliasQ;
 
     /**
      * 0=recipe without sub-recipe
@@ -350,6 +360,28 @@ public class Recipe implements HasSecondaryKey<Recipe> {
          * no description
          */
         NEW_UNKNOWN("4.2", "New – Unknown");
+
+        @Getter
+        private final String matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum AliasQ {
+        /**
+         * is regular entry
+         */
+        REGULAR("", "regular"),
+
+        /**
+         * is alias entry
+         */
+        ALIAS("", "alias");
 
         @Getter
         private final String matchOn;
