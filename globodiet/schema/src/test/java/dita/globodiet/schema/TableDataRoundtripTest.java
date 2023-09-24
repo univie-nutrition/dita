@@ -132,7 +132,7 @@ class TableDataRoundtripTest {
     }
 
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
-    @Test
+    //@Test
     void genSortedChecklist() {
 
         var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
@@ -143,6 +143,23 @@ class TableDataRoundtripTest {
             .stream()
             .sorted((a, b)->a.name().compareTo(b.name()))
             .forEach(t->{
+                System.err.printf("- [ ] %s (%s)%n", t.name(), t.table());
+            });
+    }
+
+    @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
+    @Test
+    void havingTitles() {
+
+        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+                .tryReadAsStringUtf8()
+                .valueAsNonNullElseFail());
+
+        schema.entities().values()
+            .stream()
+            .sorted((a, b)->a.name().compareTo(b.name()))
+            .forEach(t->{
+                if(t.title().isBlank())
                 System.err.printf("- [ ] %s (%s)%n", t.name(), t.table());
             });
     }

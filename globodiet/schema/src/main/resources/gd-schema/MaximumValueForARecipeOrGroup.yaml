@@ -17,57 +17,46 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_max.MaximumValueForAFoodOrASubSubgroup:
-  namespace: params.food_max
-  table: MAXVAL
+params.recipe_max.MaximumValueForAFoodOrGroup:
+  namespace: params.recipe_max
+  table: MAXRVAL
   secondaryKey:
   title: null
   icon: null
   description: |
-    Maximum value for a food or a (sub-)(sub-)group
+    Maximum value for a recipe or a (sub-)group
   fields:
-    foodGroupCode:
-      column: GROUP
+    recipeGroupCode:
+      column: R_GROUP
       column-type: nvarchar(2)
       required: false
       unique: false
       discriminator:
       foreignKeys: |
-        GROUPS.GROUP
+        RGROUPS.GROUP
       description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
+        Recipe group code
+    recipeSubgroupCode:
+      column: R_SUBGROUP
       column-type: nvarchar(2)
       required: false
       unique: false
       discriminator: |
-        GROUP
+        R_GROUP
       foreignKeys: |
-        SUBGROUP.SUBGROUP1
+        RSUBGR.SUBGROUP
       description: |
-        Food subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food sub-Subgroup code
-    foodCode:
-      column: IDNUM
+        Recipe subgroup code
+    recipeCode:
+      column: R_IDNUM
       column-type: nvarchar(5)
       required: false
       unique: true
       discriminator:
-      foreignKeys:
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
       description: |
-        Food code
+        Recipe code
     maximumValue:
       column: MAXIMA
       column-type: float(53)
@@ -77,24 +66,4 @@ params.food_max.MaximumValueForAFoodOrASubSubgroup:
       foreignKeys:
       description: |
         Maximum value
-    facetDescriptorLookupKey:
-      column: FACETS_STR
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      discriminator:
-      foreignKeys: |
-        DESCFACE.FACET_CODE
-        DESCFACE.DESCR_CODE
-      description: |
-        Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    priority:
-      column: PRIORITY
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      discriminator:
-      foreignKeys:
-      description: |
-        Priority order
 
