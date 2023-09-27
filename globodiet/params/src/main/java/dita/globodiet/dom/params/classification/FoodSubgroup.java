@@ -348,7 +348,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * @param foodSubgroupCode Food sub-group code
      * @param foodSubSubgroupCode Food sub-sub-group code
      */
-    public final record SecondaryKey(String foodGroupCode, String foodSubgroupCode,
+    public final record SecondaryKey(
+            String foodGroupCode,
+            String foodSubgroupCode,
             String foodSubSubgroupCode) implements ISecondaryKey<FoodSubgroup> {
         @Override
         public Class<FoodSubgroup> correspondingClass() {

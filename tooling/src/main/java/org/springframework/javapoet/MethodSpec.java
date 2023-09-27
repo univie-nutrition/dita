@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -147,7 +146,7 @@ public final class MethodSpec {
   }
 
   static CodeBlock makeJavadocWithParameters(final CodeBlock javadoc,
-      final Iterable<ParameterSpec> parameters) {
+      final List<ParameterSpec> parameters) {
     CodeBlock.Builder builder = javadoc.toBuilder();
     boolean emitTagNewline = true;
     for (ParameterSpec parameterSpec : parameters) {
@@ -161,17 +160,37 @@ public final class MethodSpec {
     return builder.build();
   }
 
-  static void emitParameters(final CodeWriter codeWriter, final Iterable<ParameterSpec> parameters,
+  static void emitParameters(final CodeWriter codeWriter, final List<ParameterSpec> parameters,
       final boolean varargs) throws IOException {
     codeWriter.emit(CodeBlock.of("($Z"));
 
-    boolean firstParameter = true;
-    for (Iterator<ParameterSpec> i = parameters.iterator(); i.hasNext(); ) {
-      ParameterSpec parameter = i.next();
-      if (!firstParameter)
-        codeWriter.emit(",").emitWrappingSpace();
-      parameter.emit(codeWriter, !i.hasNext() && varargs);
-      firstParameter = false;
+    if(parameters.size() == 1) {
+        // single line style
+        parameters.get(0).emit(codeWriter, varargs);
+    } else {
+
+        final int lastIndex = parameters.size()-1;
+        int paramIndex = 0;
+
+        for (ParameterSpec parameter: parameters) {
+
+            boolean isFirst = paramIndex == 0;
+            boolean isLast = paramIndex == lastIndex;
+            boolean isMiddle = !isFirst && !isLast;
+            if (isFirst) {
+                codeWriter.emit("\n");
+                codeWriter.indent().indent();
+                parameter.emit(codeWriter, false);
+                codeWriter.emit(",\n");
+            } else if (isMiddle) {
+                parameter.emit(codeWriter, false);
+                codeWriter.emit(",\n");
+            } else {
+                parameter.emit(codeWriter, varargs);
+                codeWriter.unindent().unindent();
+            }
+            paramIndex++;
+        }
     }
 
     codeWriter.emit(")");

@@ -158,7 +158,8 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      * @param recipeGroupCode Recipe group code
      * @param code Recipe sub-group code
      */
-    public final record SecondaryKey(String recipeGroupCode,
+    public final record SecondaryKey(
+            String recipeGroupCode,
             String code) implements ISecondaryKey<RecipeSubgroup> {
         @Override
         public Class<RecipeSubgroup> correspondingClass() {
