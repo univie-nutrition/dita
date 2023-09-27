@@ -1131,7 +1131,7 @@ params.food_list.Food:
       required: true
       unique: false
       description: |
-        Food/C.R. Identification Code
+        Identification Code for Food, Product, On-the-Fly Recipe or Alias
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
@@ -1170,7 +1170,7 @@ params.food_list.Food:
       required: true
       unique: false
       description: |
-        Food/C.R. Name (Country name)
+        Native (localized) name of this Food, Product, On-the-Fly Recipe or Alias 
     typeOfItem:
       column: TYPE
       column-type: nvarchar(2)
@@ -1186,7 +1186,7 @@ params.food_list.Food:
           (none) -> Normal Food Item
           GI -> Generic Food Item 
           SH -> Shadow Item 
-          CR -> Composed Recipe
+          CR -> On-the-Fly Recipe (Composed Recipe)
                 Definition: its different ingredients can be identified and 
                 quantified separately after preparation 
                 (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad) 
@@ -2996,10 +2996,9 @@ params.recipe_list.Recipe:
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |
-    Mixed recipes: Names, identification number and class.
-    Definition: Recipes where, after preparation, 
-    the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes. 
-    The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes), 
+    Mixed (a priory) Recipe
+    After preparation, the different ingredients cannot be identified 
+    and quantified separately, as those are derived from cook books (for homemade and similar recipes), 
     internet or are based on information received from the industry (for commercial recipes). 
     They are entered as standard recipes with the RECIPE MANAGER and handled at the country level 
     prior to the commencement of the interviews. 

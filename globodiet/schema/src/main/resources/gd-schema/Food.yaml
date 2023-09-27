@@ -33,7 +33,7 @@ params.food_list.Food:
       required: true
       unique: false
       description: |
-        Food/C.R. Identification Code
+        Identification Code for Food, Product, On-the-Fly Recipe or Alias
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
@@ -72,7 +72,7 @@ params.food_list.Food:
       required: true
       unique: false
       description: |
-        Food/C.R. Name (Country name)
+        Native (localized) name of this Food, Product, On-the-Fly Recipe or Alias 
     typeOfItem:
       column: TYPE
       column-type: nvarchar(2)
@@ -88,7 +88,7 @@ params.food_list.Food:
           (none) -> Normal Food Item
           GI -> Generic Food Item 
           SH -> Shadow Item 
-          CR -> Composed Recipe
+          CR -> On-the-Fly Recipe (Composed Recipe)
                 Definition: its different ingredients can be identified and 
                 quantified separately after preparation 
                 (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad) 

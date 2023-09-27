@@ -45,10 +45,9 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Mixed recipes: Names, identification number and class.
- * Definition: Recipes where, after preparation,
- * the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.
- * The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),
+ * Mixed (a priory) Recipe
+ * After preparation, the different ingredients cannot be identified
+ * and quantified separately, as those are derived from cook books (for homemade and similar recipes),
  * internet or are based on information received from the industry (for commercial recipes).
  * They are entered as standard recipes with the RECIPE MANAGER and handled at the country level
  * prior to the commencement of the interviews.
@@ -69,10 +68,9 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.recipe_list.Recipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Mixed recipes: Names, identification number and class.\n"
-                        + "Definition: Recipes where, after preparation,\n"
-                        + "the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.\n"
-                        + "The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),\n"
+        describedAs = "Mixed (a priory) Recipe\n"
+                        + "After preparation, the different ingredients cannot be identified\n"
+                        + "and quantified separately, as those are derived from cook books (for homemade and similar recipes),\n"
                         + "internet or are based on information received from the industry (for commercial recipes).\n"
                         + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level\n"
                         + "prior to the commencement of the interviews.\n"

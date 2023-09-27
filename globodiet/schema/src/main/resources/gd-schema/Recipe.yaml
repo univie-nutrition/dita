@@ -25,10 +25,9 @@ params.recipe_list.Recipe:
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |
-    Mixed recipes: Names, identification number and class.
-    Definition: Recipes where, after preparation, 
-    the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes. 
-    The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes), 
+    Mixed (a priory) Recipe
+    After preparation, the different ingredients cannot be identified 
+    and quantified separately, as those are derived from cook books (for homemade and similar recipes), 
     internet or are based on information received from the industry (for commercial recipes). 
     They are entered as standard recipes with the RECIPE MANAGER and handled at the country level 
     prior to the commencement of the interviews. 
