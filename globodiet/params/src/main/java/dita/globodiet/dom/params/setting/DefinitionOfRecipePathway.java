@@ -68,7 +68,17 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Type of recipe:<br>1.1=Open – Known<br>1.2=Open – Unknown<br>1.3=Open with brand<br>2.1=Closed<br>2.2=Closed with brand<br>3.0=Commercial<br>4.1=New – Known<br>4.2=New – Unknown<br>----<br>required=true, unique=true",
+            describedAs = "Type of recipe:\n"
+                            + "1.1=Open – Known\n"
+                            + "1.2=Open – Unknown\n"
+                            + "1.3=Open with brand\n"
+                            + "2.1=Closed\n"
+                            + "2.2=Closed with brand\n"
+                            + "3.0=Commercial\n"
+                            + "4.1=New – Known\n"
+                            + "4.2=New – Unknown\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,7 +107,10 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "0 = The ingredient window is not displayed<br>1 = The ingredient window is displayed<br>----<br>required=true, unique=false",
+            describedAs = "0 = The ingredient window is not displayed\n"
+                            + "1 = The ingredient window is displayed\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -129,7 +142,12 @@ public class DefinitionOfRecipePathway {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):<br>1 = S - Substitute<br>2 = SAD - Substitute, Add & Delete<br>3 = SADQ - Substitute, Add, Delete & Quantify<br>----<br>required=false, unique=false",
+            describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
+                            + "1 = S - Substitute\n"
+                            + "2 = SAD - Substitute, Add & Delete\n"
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -159,7 +177,12 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):<br>1 = S - Substitute<br>2 = SAD - Substitute, Add & Delete<br>3 = SADQ - Substitute, Add, Delete & Quantify<br>----<br>required=true, unique=false",
+            describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
+                            + "1 = S - Substitute\n"
+                            + "2 = SAD - Substitute, Add & Delete\n"
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -189,7 +212,12 @@ public class DefinitionOfRecipePathway {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Display of the automatic note window:<br>0 = No display of note window<br>1 = Display of note window<br>2 = Display of note window only for Add & Delete functions<br>----<br>required=true, unique=false",
+            describedAs = "Display of the automatic note window:\n"
+                            + "0 = No display of note window\n"
+                            + "1 = Display of note window\n"
+                            + "2 = Display of note window only for Add & Delete functions\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

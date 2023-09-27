@@ -37,7 +37,9 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 )
 @PropertyLayout(
         sequence = "6.1",
-        describedAs = "Food or Recipe code<br>----<br>required=false, unique=false",
+        describedAs = "Food or Recipe code\n"
+                        + "----\n"
+                        + "required=false, unique=false",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

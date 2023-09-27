@@ -33,7 +33,9 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "10.1",
-        describedAs = "Country code<br>----<br>required=false, unique=true",
+        describedAs = "Country code\n"
+                        + "----\n"
+                        + "required=false, unique=true",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

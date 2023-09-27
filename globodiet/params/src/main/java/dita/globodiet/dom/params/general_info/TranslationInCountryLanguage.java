@@ -56,7 +56,9 @@ public class TranslationInCountryLanguage {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Text name<br>----<br>required=true, unique=true",
+            describedAs = "Text name\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -76,7 +78,9 @@ public class TranslationInCountryLanguage {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Text in specific Country language<br>----<br>required=false, unique=false",
+            describedAs = "Text in specific Country language\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -96,7 +100,9 @@ public class TranslationInCountryLanguage {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Text in English<br>----<br>required=false, unique=false",
+            describedAs = "Text in English\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -116,7 +122,9 @@ public class TranslationInCountryLanguage {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Data entry Text in specific Country language<br>----<br>required=false, unique=false",
+            describedAs = "Data entry Text in specific Country language\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -136,7 +144,9 @@ public class TranslationInCountryLanguage {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Data entry Text in English<br>----<br>required=false, unique=false",
+            describedAs = "Data entry Text in English\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -55,7 +55,9 @@ public class SelectedParameterForDataEntry {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Parameter code for data entry<br>----<br>required=true, unique=true",
+            describedAs = "Parameter code for data entry\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +75,9 @@ public class SelectedParameterForDataEntry {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Parameter value for data entry<br>----<br>required=true, unique=false",
+            describedAs = "Parameter value for data entry\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

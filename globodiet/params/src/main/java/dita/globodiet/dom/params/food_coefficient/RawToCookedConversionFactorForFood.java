@@ -56,7 +56,9 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)<br>----<br>required=true, unique=false",
+            describedAs = "Food identification number (FOODNUM)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -74,7 +76,9 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Raw to cooked factor<br>----<br>required=true, unique=false",
+            describedAs = "Raw to cooked factor\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -93,7 +97,9 @@ public class RawToCookedConversionFactorForFood {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)<br>----<br>required=false, unique=false",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -111,7 +117,9 @@ public class RawToCookedConversionFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Priority order<br>----<br>required=true, unique=false",
+            describedAs = "Priority order\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

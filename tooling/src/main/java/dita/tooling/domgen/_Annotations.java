@@ -250,9 +250,20 @@ class _Annotations {
             .ifPresent(name->annotBuilder.addMember("name", "$1S", name));
         annotBuilder.addMember("allowsNull", "$1S", "" + allowsNull);
         if(maxLength>0) {
-            annotBuilder.addMember("length", "$1L", maxLength);
+            annotBuilder.addMember("length", "$1L", Math.min(maxLength, 1024*4)); // upper bound = 4k
         }
         return annotBuilder.build();
+    }
+
+    /**
+     * <pre>{@code @Extension(vendorName="datanucleus", key="datastore", value="store2")}</pre>
+     */
+    AnnotationSpec datanucleusDatastore(final String datastore) {
+        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Extension"))
+            .addMember("vendorName", "$1S", "datanucleus")
+            .addMember("key", "$1S", "datastore")
+            .addMember("value", "$1S", datastore)
+            .build();
     }
 
     /**

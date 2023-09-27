@@ -33,7 +33,9 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "3.1",
-        describedAs = "Recipe Facet code<br>----<br>required=true, unique=false",
+        describedAs = "Recipe Facet code\n"
+                        + "----\n"
+                        + "required=true, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

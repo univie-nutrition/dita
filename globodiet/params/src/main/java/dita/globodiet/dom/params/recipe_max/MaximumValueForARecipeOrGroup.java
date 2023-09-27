@@ -58,7 +58,9 @@ public class MaximumValueForARecipeOrGroup {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group code<br>----<br>required=false, unique=false",
+            describedAs = "Recipe group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -78,7 +80,9 @@ public class MaximumValueForARecipeOrGroup {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Recipe subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -98,7 +102,9 @@ public class MaximumValueForARecipeOrGroup {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe code<br>----<br>required=false, unique=true",
+            describedAs = "Recipe code\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -116,7 +122,9 @@ public class MaximumValueForARecipeOrGroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Maximum value<br>----<br>required=true, unique=false",
+            describedAs = "Maximum value\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

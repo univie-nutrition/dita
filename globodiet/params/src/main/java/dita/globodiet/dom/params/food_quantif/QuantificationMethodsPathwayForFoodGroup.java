@@ -59,7 +59,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code<br>----<br>required=true, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -77,7 +79,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code<br>----<br>required=true, unique=false",
+            describedAs = "Food subgroup code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,7 +101,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food sub-subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -117,7 +123,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)<br>----<br>required=false, unique=false",
+            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -138,7 +146,10 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=raw,<br>2=cooked (as Consumed)<br>----<br>required=false, unique=false",
+            describedAs = "1=raw,\n"
+                            + "2=cooked (as Consumed)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -171,7 +182,14 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Quantification method code:<br>'P' for photo,<br>'H' for HHM,<br>'U' for stdu,<br>'S' for standard portion,<br>'A' for shape<br>----<br>required=true, unique=false",
+            describedAs = "Quantification method code:\n"
+                            + "'P' for photo,\n"
+                            + "'H' for HHM,\n"
+                            + "'U' for stdu,\n"
+                            + "'S' for standard portion,\n"
+                            + "'A' for shape\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -202,7 +220,10 @@ public class QuantificationMethodsPathwayForFoodGroup {
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Photo code (if method='P' and 'A');<br>either M_photos.ph_code or M_shapes.sh_code<br>----<br>required=false, unique=false",
+            describedAs = "Photo code (if method='P' and 'A');\n"
+                            + "either M_photos.ph_code or M_shapes.sh_code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -220,7 +241,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Comment<br>----<br>required=true, unique=false",
+            describedAs = "Comment\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

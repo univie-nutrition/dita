@@ -33,7 +33,12 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "2.1",
-        describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe<br>(superseeding its group pathway).<br>The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file<br>(Assuming always a subset)<br>----<br>required=true, unique=false",
+        describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe\n"
+                        + "(superseeding its group pathway).\n"
+                        + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file\n"
+                        + "(Assuming always a subset)\n"
+                        + "----\n"
+                        + "required=true, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

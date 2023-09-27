@@ -83,10 +83,10 @@ class _GenAssociationMixin {
                 .addAnnotation(
                         isPlural
                         ? _Annotations.collectionLayout(
-                                field.formatDescription("<br>"),
+                                field.formatDescription("\n"),
                                 Where.NOWHERE)
                         : _Annotations.propertyLayout(
-                                field.sequence() + ".1", field.formatDescription("<br>", "----",
+                                field.sequence() + ".1", field.formatDescription("\n", "----",
                                         String.format("required=%b, unique=%b", field.required(), field.unique())),
                                 useEitherPattern
                                     ? Where.NOWHERE

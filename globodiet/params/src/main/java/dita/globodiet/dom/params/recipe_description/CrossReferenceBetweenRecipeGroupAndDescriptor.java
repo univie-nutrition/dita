@@ -57,7 +57,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group code<br>----<br>required=true, unique=false",
+            describedAs = "Recipe group code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -77,7 +79,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe Subgroup code<br>----<br>required=false, unique=true",
+            describedAs = "Recipe Subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -95,7 +99,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe Facet code<br>----<br>required=true, unique=false",
+            describedAs = "Recipe Facet code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -113,7 +119,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe Descriptor code<br>----<br>required=true, unique=false",
+            describedAs = "Recipe Descriptor code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -133,7 +141,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Default flag (if set to 'D', it is the default descriptor else blank)<br>----<br>required=false, unique=false",
+            describedAs = "Default flag (if set to 'D', it is the default descriptor else blank)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -153,7 +163,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Not in name flag (if set to 'N', the descriptor is not in the name else blank)<br>----<br>required=false, unique=false",
+            describedAs = "Not in name flag (if set to 'N', the descriptor is not in the name else blank)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -171,7 +183,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Order to display the facets within a group/subgroup<br>----<br>required=true, unique=false",
+            describedAs = "Order to display the facets within a group/subgroup\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -188,7 +202,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Order to display the descriptors within a group/subgroup and a facet<br>----<br>required=true, unique=false",
+            describedAs = "Order to display the descriptors within a group/subgroup and a facet\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

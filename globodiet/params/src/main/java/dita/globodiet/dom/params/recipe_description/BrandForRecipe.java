@@ -57,7 +57,9 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group<br>----<br>required=true, unique=false",
+            describedAs = "Recipe group\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -77,7 +79,9 @@ public class BrandForRecipe {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe subgroup<br>----<br>required=false, unique=false",
+            describedAs = "Recipe subgroup\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -95,7 +99,9 @@ public class BrandForRecipe {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "has no description<br>----<br>required=true, unique=false",
+            describedAs = "has no description\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -58,7 +58,9 @@ public class SelectedParameter {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Parameter code<br>----<br>required=false, unique=true",
+            describedAs = "Parameter code\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -78,7 +80,9 @@ public class SelectedParameter {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Parameter value<br>----<br>required=false, unique=false",
+            describedAs = "Parameter value\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

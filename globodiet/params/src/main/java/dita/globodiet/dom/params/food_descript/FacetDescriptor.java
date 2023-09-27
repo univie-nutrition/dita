@@ -66,7 +66,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code<br>----<br>required=true, unique=false",
+            describedAs = "Facet code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -84,7 +86,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor code<br>----<br>required=true, unique=false",
+            describedAs = "Descriptor code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -102,7 +106,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Descriptor name<br>----<br>required=true, unique=false",
+            describedAs = "Descriptor name\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -122,7 +128,11 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)<br>1=Raw descriptor<br>2=Descriptors to ask the question 'fat used during cooking'<br>----<br>required=true, unique=false",
+            describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
+                            + "1=Raw descriptor\n"
+                            + "2=Descriptors to ask the question 'fat used during cooking'\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -149,7 +159,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "TODO missing description<br>----<br>required=true, unique=false",
+            describedAs = "TODO missing description\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -166,7 +178,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "TODO missing description<br>----<br>required=true, unique=false",
+            describedAs = "TODO missing description\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

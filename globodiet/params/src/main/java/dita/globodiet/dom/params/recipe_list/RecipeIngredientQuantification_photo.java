@@ -34,7 +34,9 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "9.1",
-        describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)<br>----<br>required=false, unique=false",
+        describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)\n"
+                        + "----\n"
+                        + "required=false, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

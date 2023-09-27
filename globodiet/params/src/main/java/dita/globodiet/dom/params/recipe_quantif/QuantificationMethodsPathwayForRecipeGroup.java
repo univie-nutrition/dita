@@ -59,7 +59,9 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group<br>----<br>required=true, unique=false",
+            describedAs = "Recipe group\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -81,7 +83,13 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Quantification method code:<br>'P' for photo,<br>'H' for HHM,<br>'U' for stdu,<br>'A' for shape<br>----<br>required=true, unique=false",
+            describedAs = "Quantification method code:\n"
+                            + "'P' for photo,\n"
+                            + "'H' for HHM,\n"
+                            + "'U' for stdu,\n"
+                            + "'A' for shape\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -112,7 +120,10 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Photo code (if method='P' and 'A');<br>either M_photos.ph_code or M_shapes.sh_code<br>----<br>required=false, unique=false",
+            describedAs = "Photo code (if method='P' and 'A');\n"
+                            + "either M_photos.ph_code or M_shapes.sh_code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -130,7 +141,9 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Comment<br>----<br>required=true, unique=false",
+            describedAs = "Comment\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -61,7 +61,9 @@ public class ComposedRecipeIngredient {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)<br>----<br>required=false, unique=true",
+            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -82,7 +84,10 @@ public class ComposedRecipeIngredient {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food (ingredient) Identification Code<br>either Foods.foodnum OR Mixedrec.r_idnum<br>----<br>required=false, unique=true",
+            describedAs = "Food (ingredient) Identification Code\n"
+                            + "either Foods.foodnum OR Mixedrec.r_idnum\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -103,7 +108,10 @@ public class ComposedRecipeIngredient {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "If type=1 ingredient from Food list,<br>If type=2 ingredient from Recipe list<br>----<br>required=false, unique=true",
+            describedAs = "If type=1 ingredient from Food list,\n"
+                            + "If type=2 ingredient from Recipe list\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -59,7 +59,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe group code<br>----<br>required=false, unique=false",
+            describedAs = "Recipe group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -79,7 +81,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Recipe subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Recipe subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -99,7 +103,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Recipe code<br>----<br>required=false, unique=false",
+            describedAs = "Recipe code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -119,7 +125,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Fat group code for Fat or Sauce or Sweetener<br>----<br>required=false, unique=false",
+            describedAs = "Fat group code for Fat or Sauce or Sweetener\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -139,7 +147,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Fat subgroup code for Fat or Sauce or Sweetener<br>----<br>required=false, unique=false",
+            describedAs = "Fat subgroup code for Fat or Sauce or Sweetener\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -159,7 +169,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener<br>----<br>required=false, unique=false",
+            describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -179,7 +191,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Fat code for Fat or Sauce or Sweetener<br>----<br>required=false, unique=false",
+            describedAs = "Fat code for Fat or Sauce or Sweetener\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -197,7 +211,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Percentage of fat<br>----<br>required=true, unique=false",
+            describedAs = "Percentage of fat\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

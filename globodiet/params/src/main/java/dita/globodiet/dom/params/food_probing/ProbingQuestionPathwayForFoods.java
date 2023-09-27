@@ -59,7 +59,9 @@ public class ProbingQuestionPathwayForFoods {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Probing question code<br>----<br>required=false, unique=false",
+            describedAs = "Probing question code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -79,7 +81,9 @@ public class ProbingQuestionPathwayForFoods {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code<br>----<br>required=false, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -99,7 +103,9 @@ public class ProbingQuestionPathwayForFoods {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -119,7 +125,9 @@ public class ProbingQuestionPathwayForFoods {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food sub-subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -139,7 +147,9 @@ public class ProbingQuestionPathwayForFoods {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food identification number (FOODNUM)<br>----<br>required=false, unique=false",
+            describedAs = "Food identification number (FOODNUM)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

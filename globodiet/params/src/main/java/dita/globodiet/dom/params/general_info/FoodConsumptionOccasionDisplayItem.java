@@ -34,17 +34,17 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * List of foods often eaten at each food consumption occasion.<br>
- * During the quick list step, this list will appear as a reminder<br>
- * or a help to the interviewer when a food consumption occasion (FCO) is proposed<br>
+ * List of foods often eaten at each food consumption occasion.
+ * During the quick list step, this list will appear as a reminder
+ * or a help to the interviewer when a food consumption occasion (FCO) is proposed
  * (before choosing a FCO and after filling in a FCO quick list).
  */
 @Named("dita.globodiet.params.general_info.FoodConsumptionOccasionDisplayItem")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "List of foods often eaten at each food consumption occasion.<br>\n"
-                        + "During the quick list step, this list will appear as a reminder<br>\n"
-                        + "or a help to the interviewer when a food consumption occasion (FCO) is proposed<br>\n"
+        describedAs = "List of foods often eaten at each food consumption occasion.\n"
+                        + "During the quick list step, this list will appear as a reminder\n"
+                        + "or a help to the interviewer when a food consumption occasion (FCO) is proposed\n"
                         + "(before choosing a FCO and after filling in a FCO quick list).",
         cssClassFa = "regular message"
 )
@@ -62,7 +62,9 @@ public class FoodConsumptionOccasionDisplayItem {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food Consumption Occasion code<br>----<br>required=true, unique=false",
+            describedAs = "Food Consumption Occasion code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -80,7 +82,9 @@ public class FoodConsumptionOccasionDisplayItem {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Text representing Food.<br>----<br>required=true, unique=false",
+            describedAs = "Text representing Food.\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

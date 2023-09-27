@@ -58,7 +58,9 @@ public class MaximumValueForAFoodOrGroup {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code<br>----<br>required=false, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -78,7 +80,9 @@ public class MaximumValueForAFoodOrGroup {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -98,7 +102,9 @@ public class MaximumValueForAFoodOrGroup {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-Subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food sub-Subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -118,7 +124,9 @@ public class MaximumValueForAFoodOrGroup {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food code<br>----<br>required=false, unique=true",
+            describedAs = "Food code\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -136,7 +144,9 @@ public class MaximumValueForAFoodOrGroup {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Maximum value<br>----<br>required=true, unique=false",
+            describedAs = "Maximum value\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -155,7 +165,9 @@ public class MaximumValueForAFoodOrGroup {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)<br>----<br>required=false, unique=false",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -173,7 +185,9 @@ public class MaximumValueForAFoodOrGroup {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Priority order<br>----<br>required=true, unique=false",
+            describedAs = "Priority order\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

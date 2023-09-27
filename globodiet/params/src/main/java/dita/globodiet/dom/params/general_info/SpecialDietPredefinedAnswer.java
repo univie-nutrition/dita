@@ -55,7 +55,9 @@ public class SpecialDietPredefinedAnswer {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Special diet code<br>----<br>required=true, unique=true",
+            describedAs = "Special diet code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +75,9 @@ public class SpecialDietPredefinedAnswer {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Special diet label<br>----<br>required=true, unique=true",
+            describedAs = "Special diet label\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

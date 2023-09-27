@@ -56,7 +56,9 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "food ID number<br>----<br>required=true, unique=false",
+            describedAs = "food ID number\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -79,7 +81,12 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food<br>(superseeding its group pathway).<br>The list of descriptors will be the ones defined for the subgroup in GROUPFAC file<br>(Assuming always a subset)<br>----<br>required=false, unique=false",
+            describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food\n"
+                            + "(superseeding its group pathway).\n"
+                            + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file\n"
+                            + "(Assuming always a subset)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,7 +104,9 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)<br>----<br>required=true, unique=false",
+            describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -57,7 +57,9 @@ public class Brand {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Name of brand<br>----<br>required=true, unique=false",
+            describedAs = "Name of brand\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -75,7 +77,9 @@ public class Brand {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code<br>----<br>required=true, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -95,7 +99,9 @@ public class Brand {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -115,7 +121,9 @@ public class Brand {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food sub-subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

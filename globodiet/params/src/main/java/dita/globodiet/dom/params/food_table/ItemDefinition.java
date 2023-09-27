@@ -61,7 +61,9 @@ public class ItemDefinition {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Sequential number<br>----<br>required=true, unique=true",
+            describedAs = "Sequential number\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -82,7 +84,13 @@ public class ItemDefinition {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Type of record:<br>F=food,<br>R=recipe,<br>A2=fat attached,<br>A3=liquid attached<br>----<br>required=true, unique=false",
+            describedAs = "Type of record:\n"
+                            + "F=food,\n"
+                            + "R=recipe,\n"
+                            + "A2=fat attached,\n"
+                            + "A3=liquid attached\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -112,7 +120,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food or recipe group<br>----<br>required=false, unique=false",
+            describedAs = "Food or recipe group\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -132,7 +142,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food or recipe sub-group<br>----<br>required=false, unique=false",
+            describedAs = "Food or recipe sub-group\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -152,7 +164,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food sub-sub-group<br>----<br>required=false, unique=false",
+            describedAs = "Food sub-sub-group\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -172,7 +186,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Food or Recipe code<br>----<br>required=false, unique=false",
+            describedAs = "Food or Recipe code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -192,7 +208,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Facet string<br>----<br>required=false, unique=false",
+            describedAs = "Facet string\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -212,7 +230,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Brand name<br>----<br>required=false, unique=true",
+            describedAs = "Brand name\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -230,7 +250,9 @@ public class ItemDefinition {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Priority order<br>----<br>required=true, unique=false",
+            describedAs = "Priority order\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -249,7 +271,9 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Attached records: only for the Type=A2 & A3<br>----<br>required=false, unique=true",
+            describedAs = "Attached records: only for the Type=A2 & A3\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -268,13 +292,15 @@ public class ItemDefinition {
     )
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Comment<br>----<br>required=false, unique=true",
+            describedAs = "Comment\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",
             allowsNull = "true",
-            length = 1000000000
+            length = 4096
     )
     @Getter
     @Setter

@@ -172,7 +172,7 @@ class _DataTableSet {
 
     // -- WRITING TO DB
 
-    public _DataTableSet insertToDatabasse(
+    public _DataTableSet insertToDatabase(
             final RepositoryService repositoryService,
             final InsertMode insertMode) {
         // delete all existing entities

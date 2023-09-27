@@ -67,7 +67,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code<br>----<br>required=true, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -85,7 +87,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food sub-group code<br>----<br>required=true, unique=false",
+            describedAs = "Food sub-group code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -105,7 +109,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food sub-sub-group code<br>----<br>required=false, unique=false",
+            describedAs = "Food sub-sub-group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,7 +129,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Name of the food (sub-)(sub-)group<br>----<br>required=true, unique=true",
+            describedAs = "Name of the food (sub-)(sub-)group\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -141,7 +149,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup<br>----<br>required=true, unique=false",
+            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -170,7 +180,10 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "0=non fat/sauce subgroup<br>1= fat/sauce subgroup that can be left over in the dish<br>----<br>required=true, unique=false",
+            describedAs = "0=non fat/sauce subgroup\n"
+                            + "1= fat/sauce subgroup that can be left over in the dish\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -199,7 +212,10 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "0=non fat during cooking subgroup<br>1= fat during cooking subgroup<br>----<br>required=true, unique=false",
+            describedAs = "0=non fat during cooking subgroup\n"
+                            + "1= fat during cooking subgroup\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -227,7 +243,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Short Name of the food (sub-)(sub-)group<br>----<br>required=true, unique=true",
+            describedAs = "Short Name of the food (sub-)(sub-)group\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -55,7 +55,9 @@ public class FacetDescriptorThatCannotBeSubstituted {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Facet code<br>----<br>required=true, unique=false",
+            describedAs = "Facet code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -73,7 +75,9 @@ public class FacetDescriptorThatCannotBeSubstituted {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Descriptor code<br>----<br>required=true, unique=true",
+            describedAs = "Descriptor code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(

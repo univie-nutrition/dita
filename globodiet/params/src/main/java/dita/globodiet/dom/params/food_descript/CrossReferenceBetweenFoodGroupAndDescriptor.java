@@ -57,7 +57,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food group code<br>----<br>required=true, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -77,7 +79,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food Subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food Subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,7 +101,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food Sub-subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food Sub-subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -115,7 +121,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Facet code<br>----<br>required=true, unique=false",
+            describedAs = "Facet code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -133,7 +141,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Descriptor code<br>----<br>required=true, unique=false",
+            describedAs = "Descriptor code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -153,7 +163,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Default flag (if set to 'D' it is the default descriptor)<br>----<br>required=false, unique=false",
+            describedAs = "Default flag (if set to 'D' it is the default descriptor)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -173,7 +185,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Not in name flag<br>----<br>required=false, unique=false",
+            describedAs = "Not in name flag\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -191,7 +205,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Order to display the facets within a group/subgroup<br>----<br>required=true, unique=false",
+            describedAs = "Order to display the facets within a group/subgroup\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -208,7 +224,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Order to display the descriptors within a group/subgroup and a facet<br>----<br>required=true, unique=false",
+            describedAs = "Order to display the descriptors within a group/subgroup and a facet\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

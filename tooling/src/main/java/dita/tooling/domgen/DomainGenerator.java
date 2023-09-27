@@ -28,6 +28,7 @@ import java.util.stream.Stream;
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.JavaFile;
 import org.springframework.javapoet.TypeSpec;
+import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
 import org.apache.causeway.commons.collections.Can;
@@ -57,6 +58,11 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         private final @NonNull String entitiesModulePackageName = "";
         @Builder.Default
         private final @NonNull String entitiesModuleClassSimpleName = "EntitiesModule";
+        /**
+         * Data Federation Support
+         * @see <a href="https://www.datanucleus.org/products/accessplatform_6_0/jdo/persistence.html#data_federationv">Data Federation</a>
+         */
+        private final @Nullable String datastore;
 
         public String fullLogicalName(final String realativeName) {
             return Can.of(

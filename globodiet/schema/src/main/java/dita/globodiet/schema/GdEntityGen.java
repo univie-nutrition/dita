@@ -66,6 +66,7 @@ public class GdEntityGen {
             .packageNamePrefix("dita.globodiet.dom")
             .licenseHeader(LicenseHeader.ASF_V2)
             .schema(schema)
+            //.datastore("store2") // DN Data Federation
             .entitiesModulePackageName("params")
             .entitiesModuleClassSimpleName("DitaModuleGdParams")
             .build();

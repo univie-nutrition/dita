@@ -55,7 +55,9 @@ public class Month {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Month number<br>----<br>required=true, unique=true",
+            describedAs = "Month number\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +75,9 @@ public class Month {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Month name<br>----<br>required=true, unique=true",
+            describedAs = "Month name\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

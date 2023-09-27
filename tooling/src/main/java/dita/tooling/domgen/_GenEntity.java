@@ -64,11 +64,11 @@ class _GenEntity {
             final Config config) {
 
         var typeModelBuilder = TypeSpec.classBuilder(entityModel.name())
-                .addJavadoc(entityModel.formatDescription("<br>\n"))
+                .addJavadoc(entityModel.formatDescription("\n"))
                 .addAnnotation(_Annotations.named(logicalNamespace + "." + entityModel.name()))
                 .addAnnotation(_Annotations.domainObject())
                 .addAnnotation(_Annotations.domainObjectLayout(
-                        entityModel.formatDescription("<br>\n"),
+                        entityModel.formatDescription("\n"),
                         entityModel.icon()))
                 .addAnnotation(_Annotations.persistenceCapable(entityModel.table()))
                 .addAnnotation(_Annotations.datastoreIdentity())
@@ -76,6 +76,11 @@ class _GenEntity {
                 .addMethod(asTitleMethod(entityModel, Modifier.PUBLIC))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
+
+        // data federation support
+        if(_Strings.isNotEmpty(config.datastore())) {
+            typeModelBuilder.addAnnotation(_Annotations.datanucleusDatastore(config.datastore()));
+        }
 
         // super type
 
@@ -118,12 +123,6 @@ class _GenEntity {
                                     ClassName.get("", entityModel.name())))
                             .addCode("return $1L.class;", entityModel.name())
                             .build())
-                    /*
-                    @Override
-                    public Unresolvable unresolvable() {
-                        return new Unresolvable(String.format("UNRESOLVABLE %s", this));
-                    }
-                     */
                     .addMethod(MethodSpec.methodBuilder("unresolvable")
                             .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                             .addAnnotation(_Annotations.override())
@@ -197,7 +196,7 @@ class _GenEntity {
                             : _Annotations.property())
                     .addAnnotation(_Annotations.propertyLayout(
                             field.sequence(),
-                            field.formatDescription("<br>", "----",
+                            field.formatDescription("\n", "----",
                                     String.format("required=%b, unique=%b", field.required(), field.unique())),
                             field.hasForeignKeys()
                             ? Where.ALL_TABLES
@@ -223,7 +222,7 @@ class _GenEntity {
         return fields.stream()
                 .map(field->
                     FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
-                    .addJavadoc(field.formatDescription("<br>"))
+                    .addJavadoc(field.formatDescription("\n"))
                     .build())
                 .collect(Collectors.toList());
     }

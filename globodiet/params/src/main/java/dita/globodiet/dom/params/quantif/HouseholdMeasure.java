@@ -55,7 +55,9 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "HouseholdMeasure code<br>----<br>required=true, unique=true",
+            describedAs = "HouseholdMeasure code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -73,7 +75,9 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "HouseholdMeasure volume in cm3.<br>----<br>required=true, unique=false",
+            describedAs = "HouseholdMeasure volume in cm3.\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,7 +95,10 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.<br>The value of each expression will be evaluated as factor of the total volume<br>----<br>required=true, unique=false",
+            describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
+                            + "The value of each expression will be evaluated as factor of the total volume\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -109,7 +116,9 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Comment attached to the HouseholdMeasure<br>----<br>required=true, unique=true",
+            describedAs = "Comment attached to the HouseholdMeasure\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -127,7 +136,9 @@ public class HouseholdMeasure {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Order to display the HouseholdMeasure<br>----<br>required=true, unique=true",
+            describedAs = "Order to display the HouseholdMeasure\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

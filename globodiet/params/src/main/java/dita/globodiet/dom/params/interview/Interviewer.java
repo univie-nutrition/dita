@@ -57,7 +57,9 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Interviewer code<br>----<br>required=true, unique=true",
+            describedAs = "Interviewer code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -77,7 +79,9 @@ public class Interviewer {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Interviewer family name<br>----<br>required=false, unique=true",
+            describedAs = "Interviewer family name\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -95,7 +99,9 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Interviewer name<br>----<br>required=true, unique=true",
+            describedAs = "Interviewer name\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -113,7 +119,9 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Country code<br>----<br>required=true, unique=false",
+            describedAs = "Country code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -131,7 +139,9 @@ public class Interviewer {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Center code<br>----<br>required=true, unique=false",
+            describedAs = "Center code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

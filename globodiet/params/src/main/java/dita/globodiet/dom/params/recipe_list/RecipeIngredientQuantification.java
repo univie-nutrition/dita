@@ -59,7 +59,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number the ingredient belong to<br>----<br>required=false, unique=true",
+            describedAs = "Recipe ID number the ingredient belong to\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -79,7 +81,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Sequential Number within a Mixed Recipe for Ingredient<br>----<br>required=false, unique=true",
+            describedAs = "Sequential Number within a Mixed Recipe for Ingredient\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -98,7 +102,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Ingredient Food or Recipe ID number<br>----<br>required=false, unique=true",
+            describedAs = "Ingredient Food or Recipe ID number\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -118,7 +124,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Order of shape selection (e.g. 1)<br>----<br>required=false, unique=false",
+            describedAs = "Order of shape selection (e.g. 1)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -137,7 +145,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Shape code (e.g. S001)<br>----<br>required=false, unique=false",
+            describedAs = "Shape code (e.g. S001)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -157,7 +167,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals<br>----<br>required=false, unique=false",
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -176,7 +188,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Shape: Thickness code (e.g. A or 58_1)<br>----<br>required=false, unique=false",
+            describedAs = "Shape: Thickness code (e.g. A or 58_1)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -196,7 +210,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "8",
-            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals<br>----<br>required=false, unique=false",
+            describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -215,7 +231,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)<br>----<br>required=false, unique=false",
+            describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -235,7 +253,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "10",
-            describedAs = "Photo quantity<br>----<br>required=false, unique=false",
+            describedAs = "Photo quantity\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -254,7 +274,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "11",
-            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)<br>----<br>required=false, unique=false",
+            describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -274,7 +296,9 @@ public class RecipeIngredientQuantification {
     )
     @PropertyLayout(
             sequence = "12",
-            describedAs = "Sequential Number for Ingredients within a Sub-Recipe<br>----<br>required=false, unique=true",
+            describedAs = "Sequential Number for Ingredients within a Sub-Recipe\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

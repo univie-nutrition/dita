@@ -65,7 +65,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Probing question code<br>----<br>required=true, unique=true",
+            describedAs = "Probing question code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -83,7 +85,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Probing question label<br>----<br>required=true, unique=true",
+            describedAs = "Probing question label\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(

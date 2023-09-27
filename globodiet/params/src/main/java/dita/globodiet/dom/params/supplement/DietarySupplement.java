@@ -56,7 +56,9 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Vitamin/supplement code<br>----<br>required=true, unique=true",
+            describedAs = "Vitamin/supplement code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -74,7 +76,9 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Vitamin/supplement name<br>----<br>required=true, unique=true",
+            describedAs = "Vitamin/supplement name\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -94,7 +98,9 @@ public class DietarySupplement {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Blank or 'GI' for generic vitamin/supplement<br>----<br>required=false, unique=false",
+            describedAs = "Blank or 'GI' for generic vitamin/supplement\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,7 +120,9 @@ public class DietarySupplement {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Dietary Supplement classification code (optional)<br>----<br>required=false, unique=true",
+            describedAs = "Dietary Supplement classification code (optional)\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -132,7 +140,9 @@ public class DietarySupplement {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)<br>----<br>required=true, unique=false",
+            describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(

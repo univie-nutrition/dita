@@ -60,7 +60,10 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)<br>either Foods.foodnum OR Mixedrec.r_idnum<br>----<br>required=true, unique=false",
+            describedAs = "Food identification number (FOODNUM)\n"
+                            + "either Foods.foodnum OR Mixedrec.r_idnum\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -78,7 +81,9 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Density coefficient<br>----<br>required=true, unique=false",
+            describedAs = "Density coefficient\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -98,7 +103,10 @@ public class DensityFactorForFood {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Facet string<br>multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)<br>----<br>required=false, unique=false",
+            describedAs = "Facet string\n"
+                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -116,7 +124,9 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Priority order<br>----<br>required=true, unique=false",
+            describedAs = "Priority order\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -137,7 +147,10 @@ public class DensityFactorForFood {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1 = without un-edible part,<br>2 = with un-edible (as estimated)<br>----<br>required=false, unique=true",
+            describedAs = "1 = without un-edible part,\n"
+                            + "2 = with un-edible (as estimated)\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -168,7 +181,10 @@ public class DensityFactorForFood {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "1 = raw,<br>2 = cooked (as estimated)<br>----<br>required=false, unique=false",
+            describedAs = "1 = raw,\n"
+                            + "2 = cooked (as estimated)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -197,7 +213,10 @@ public class DensityFactorForFood {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "1 = density for food/ingredient,<br>2 = density for recipe<br>----<br>required=true, unique=false",
+            describedAs = "1 = density for food/ingredient,\n"
+                            + "2 = density for recipe\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

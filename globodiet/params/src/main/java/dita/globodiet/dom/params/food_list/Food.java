@@ -67,7 +67,9 @@ public class Food implements HasSecondaryKey<Food> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food/C.R. Identification Code<br>----<br>required=true, unique=false",
+            describedAs = "Food/C.R. Identification Code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -87,7 +89,9 @@ public class Food implements HasSecondaryKey<Food> {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food Group code<br>----<br>required=false, unique=false",
+            describedAs = "Food Group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -107,7 +111,9 @@ public class Food implements HasSecondaryKey<Food> {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food Subgroup code<br>----<br>required=false, unique=false",
+            describedAs = "Food Subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -127,7 +133,9 @@ public class Food implements HasSecondaryKey<Food> {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food Sub(sub)group code<br>----<br>required=false, unique=false",
+            describedAs = "Food Sub(sub)group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -145,7 +153,9 @@ public class Food implements HasSecondaryKey<Food> {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Food/C.R. Name (Country name)<br>----<br>required=true, unique=false",
+            describedAs = "Food/C.R. Name (Country name)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -180,7 +190,24 @@ public class Food implements HasSecondaryKey<Food> {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Type of item:<br>(none) -> Normal Food Item<br>GI -> Generic Food Item<br>SH -> Shadow Item<br>CR -> Composed Recipe<br>Definition: its different ingredients can be identified and<br>quantified separately after preparation<br>(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)<br>or just before mixing (e.g. coffee with milk).<br>Composed recipes are built during the interview: there is no a priori list of composed recipes.<br>They are made from items listed below/linked to a quick list item.<br>Example: Salad<br>- Lettuce<br>- Tomato<br>- Cucumber<br>- Salad dressing (can be a recipe in some projects where all sauces are in recipes)<br>----<br>required=false, unique=false",
+            describedAs = "Type of item:\n"
+                            + "(none) -> Normal Food Item\n"
+                            + "GI -> Generic Food Item\n"
+                            + "SH -> Shadow Item\n"
+                            + "CR -> Composed Recipe\n"
+                            + "Definition: its different ingredients can be identified and\n"
+                            + "quantified separately after preparation\n"
+                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
+                            + "or just before mixing (e.g. coffee with milk).\n"
+                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
+                            + "They are made from items listed below/linked to a quick list item.\n"
+                            + "Example: Salad\n"
+                            + "- Lettuce\n"
+                            + "- Tomato\n"
+                            + "- Cucumber\n"
+                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -209,7 +236,10 @@ public class Food implements HasSecondaryKey<Food> {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Auxiliary field to force an internal order within each subgroup<br>(if GI then 1 otherwise 2, this forces the GI at the top)<br>----<br>required=true, unique=false",
+            describedAs = "Auxiliary field to force an internal order within each subgroup\n"
+                            + "(if GI then 1 otherwise 2, this forces the GI at the top)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -228,7 +258,10 @@ public class Food implements HasSecondaryKey<Food> {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=food<br>1=dietary supplement<br>----<br>required=true, unique=false",
+            describedAs = "0=food\n"
+                            + "1=dietary supplement\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

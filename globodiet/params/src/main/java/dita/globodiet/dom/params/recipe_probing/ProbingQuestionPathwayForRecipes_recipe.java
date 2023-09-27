@@ -34,7 +34,9 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "4.1",
-        describedAs = "Recipe identification number (R_ IDNUM)<br>----<br>required=false, unique=false",
+        describedAs = "Recipe identification number (R_ IDNUM)\n"
+                        + "----\n"
+                        + "required=false, unique=false",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

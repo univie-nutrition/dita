@@ -45,49 +45,49 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Mixed recipes: Names, identification number and class.<br>
- * Definition: Recipes where, after preparation,<br>
- * the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.<br>
- * The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),<br>
- * internet or are based on information received from the industry (for commercial recipes).<br>
- * They are entered as standard recipes with the RECIPE MANAGER and handled at the country level<br>
- * prior to the commencement of the interviews.<br>
- * The mixed recipe database may contain three types of recipes:<br>
- * 1) ‘open recipes’,<br>
- * 2) ‘closed recipes’ and<br>
- * 3) ‘strictly commercial with brand recipes’.<br>
- * For each mixed recipe, information on the expected variation of ingredients<br>
- * within the study population needs to be collected, too.<br>
- * If the variation is found to be great, the recipe should be treated as an open recipe.<br>
- * It is also possible to enter several standard variations of a recipe depending on regions.<br>
- * If no variations are expected, a recipe should be treated as a closed recipe<br>
- * or as a strictly commercial recipe.<br>
- * Furthermore, it has to be decided if each ingredient is fixed or substitutable.<br>
- * When entering the recipe ingredients with RECIPE MANAGER,<br>
+ * Mixed recipes: Names, identification number and class.
+ * Definition: Recipes where, after preparation,
+ * the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.
+ * The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),
+ * internet or are based on information received from the industry (for commercial recipes).
+ * They are entered as standard recipes with the RECIPE MANAGER and handled at the country level
+ * prior to the commencement of the interviews.
+ * The mixed recipe database may contain three types of recipes:
+ * 1) ‘open recipes’,
+ * 2) ‘closed recipes’ and
+ * 3) ‘strictly commercial with brand recipes’.
+ * For each mixed recipe, information on the expected variation of ingredients
+ * within the study population needs to be collected, too.
+ * If the variation is found to be great, the recipe should be treated as an open recipe.
+ * It is also possible to enter several standard variations of a recipe depending on regions.
+ * If no variations are expected, a recipe should be treated as a closed recipe
+ * or as a strictly commercial recipe.
+ * Furthermore, it has to be decided if each ingredient is fixed or substitutable.
+ * When entering the recipe ingredients with RECIPE MANAGER,
  * the ingredients are described and quantified like in the food pathway.
  */
 @Named("dita.globodiet.params.recipe_list.Recipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Mixed recipes: Names, identification number and class.<br>\n"
-                        + "Definition: Recipes where, after preparation,<br>\n"
-                        + "the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.<br>\n"
-                        + "The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),<br>\n"
-                        + "internet or are based on information received from the industry (for commercial recipes).<br>\n"
-                        + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level<br>\n"
-                        + "prior to the commencement of the interviews.<br>\n"
-                        + "The mixed recipe database may contain three types of recipes:<br>\n"
-                        + "1) ‘open recipes’,<br>\n"
-                        + "2) ‘closed recipes’ and<br>\n"
-                        + "3) ‘strictly commercial with brand recipes’.<br>\n"
-                        + "For each mixed recipe, information on the expected variation of ingredients<br>\n"
-                        + "within the study population needs to be collected, too.<br>\n"
-                        + "If the variation is found to be great, the recipe should be treated as an open recipe.<br>\n"
-                        + "It is also possible to enter several standard variations of a recipe depending on regions.<br>\n"
-                        + "If no variations are expected, a recipe should be treated as a closed recipe<br>\n"
-                        + "or as a strictly commercial recipe.<br>\n"
-                        + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.<br>\n"
-                        + "When entering the recipe ingredients with RECIPE MANAGER,<br>\n"
+        describedAs = "Mixed recipes: Names, identification number and class.\n"
+                        + "Definition: Recipes where, after preparation,\n"
+                        + "the different ingredients cannot be identified and quantified separately are termed ‘mixed’ recipes.\n"
+                        + "The ingredients of mixed recipes are derived from cook books (for homemade and similar recipes),\n"
+                        + "internet or are based on information received from the industry (for commercial recipes).\n"
+                        + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level\n"
+                        + "prior to the commencement of the interviews.\n"
+                        + "The mixed recipe database may contain three types of recipes:\n"
+                        + "1) ‘open recipes’,\n"
+                        + "2) ‘closed recipes’ and\n"
+                        + "3) ‘strictly commercial with brand recipes’.\n"
+                        + "For each mixed recipe, information on the expected variation of ingredients\n"
+                        + "within the study population needs to be collected, too.\n"
+                        + "If the variation is found to be great, the recipe should be treated as an open recipe.\n"
+                        + "It is also possible to enter several standard variations of a recipe depending on regions.\n"
+                        + "If no variations are expected, a recipe should be treated as a closed recipe\n"
+                        + "or as a strictly commercial recipe.\n"
+                        + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
+                        + "When entering the recipe ingredients with RECIPE MANAGER,\n"
                         + "the ingredients are described and quantified like in the food pathway."
 )
 @PersistenceCapable(
@@ -104,7 +104,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Recipe ID number<br>----<br>required=true, unique=true",
+            describedAs = "Recipe ID number\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -122,7 +124,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Group code of the recipe classification<br>----<br>required=true, unique=false",
+            describedAs = "Group code of the recipe classification\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -142,7 +146,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Subgroup code of the recipe classification<br>----<br>required=false, unique=false",
+            describedAs = "Subgroup code of the recipe classification\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -160,7 +166,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Recipe name<br>----<br>required=true, unique=true",
+            describedAs = "Recipe name\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -186,7 +194,17 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Type of recipe:<br>1.1=Open – Known<br>1.2=Open – Unknown<br>1.3=Open with brand<br>2.1=Closed<br>2.2=Closed with brand<br>3.0=Commercial<br>4.1=New – Known<br>4.2=New – Unknown<br>----<br>required=true, unique=false",
+            describedAs = "Type of recipe:\n"
+                            + "1.1=Open – Known\n"
+                            + "1.2=Open – Unknown\n"
+                            + "1.3=Open with brand\n"
+                            + "2.1=Closed\n"
+                            + "2.2=Closed with brand\n"
+                            + "3.0=Commercial\n"
+                            + "4.1=New – Known\n"
+                            + "4.2=New – Unknown\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -216,7 +234,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Brand name for commercial recipe<br>----<br>required=false, unique=true",
+            describedAs = "Brand name for commercial recipe\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -236,7 +256,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     )
     @PropertyLayout(
             sequence = "7",
-            describedAs = "whether is an alias (SH=shadow)<br>----<br>required=false, unique=true",
+            describedAs = "whether is an alias (SH=shadow)\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -265,7 +287,10 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "0=recipe without sub-recipe<br>1=recipe with sub-recipe<br>----<br>required=true, unique=false",
+            describedAs = "0=recipe without sub-recipe\n"
+                            + "1=recipe with sub-recipe\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -292,7 +317,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "has no description<br>----<br>required=true, unique=false",
+            describedAs = "has no description\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

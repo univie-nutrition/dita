@@ -42,7 +42,10 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.apache.causeway.core.config.beans.CausewayBeanTypeRegistry;
+import org.apache.causeway.core.metamodel.context.MetaModelContext;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
+import org.apache.causeway.persistence.jdo.datanucleus.metamodel.facets.entity.JdoEntityFacet;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
@@ -60,6 +63,7 @@ public class BlobStore implements MetamodelListener {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject InteractionService iaService;
+    @Inject MetaModelContext mmc;
 
     @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
     @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
@@ -129,6 +133,8 @@ public class BlobStore implements MetamodelListener {
 
     @Override
     public void onMetamodelLoaded() {
+        //initFederatedDataStore();
+
         readState()
             .getValue()
             .ifPresent(state->{
@@ -137,6 +143,41 @@ public class BlobStore implements MetamodelListener {
                         iaService.runAnonymous(()->this.checkoutAsCurrent(version));
                     });
             });
+    }
+
+    /**
+     * This is yet an experimental feature, not fully supported by the framework
+     */
+    private void initFederatedDataStore() {
+        //TODO[FEDARATION]
+        //XXX sanity check
+        Can<JdoEntityFacet> jdoEntityFacets = mmc.getServiceRegistry().lookupServiceElseFail(CausewayBeanTypeRegistry.class)
+            .getEntityTypes().keySet().stream()
+            .map(entityType->mmc.getSpecificationLoader().specForTypeElseFail(entityType)
+                    .entityFacetElseFail())
+            .map(JdoEntityFacet.class::cast)
+            .collect(Can.toCan());
+
+        iaService.runAnonymous(()->{
+            jdoEntityFacets.forEach(jdoEntityFacet->{
+                var entityType = ((ObjectSpecification)jdoEntityFacet.getFacetHolder()).getCorrespondingClass();
+
+                //trigger table creation
+                //var pm = jdoEntityFacet.getPersistenceManager();
+                //pm.newQuery(entityType).executeList();
+
+//                try(var con = (Connection)pm.getDataStoreConnection().getNativeConnection()){
+//                    System.err.printf("%s->%s%n", entityType, con.getClass());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
+//                .forEach(x->{
+//                    System.err.printf("a: %s%n", x);
+//                });
+                //System.err.printf("OK %s%n", entityType);
+            });
+        });
     }
 
     /**

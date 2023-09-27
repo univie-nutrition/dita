@@ -66,7 +66,9 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food Consumption Occasion code<br>----<br>required=true, unique=true",
+            describedAs = "Food Consumption Occasion code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -84,7 +86,9 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "FCO long label (text displayed on screen)<br>----<br>required=true, unique=true",
+            describedAs = "FCO long label (text displayed on screen)\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -102,7 +106,9 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)<br>----<br>required=true, unique=false",
+            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,7 +126,9 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "FCO short label to identify easily the FCO<br>----<br>required=true, unique=true",
+            describedAs = "FCO short label to identify easily the FCO\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -139,7 +147,10 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "0=non main FCO<br>1=main FCO (to be displayed in nutrient check screen)<br>----<br>required=true, unique=false",
+            describedAs = "0=non main FCO\n"
+                            + "1=main FCO (to be displayed in nutrient check screen)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

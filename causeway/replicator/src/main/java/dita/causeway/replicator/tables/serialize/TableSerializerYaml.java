@@ -75,7 +75,7 @@ public class TableSerializerYaml {
 
         val yaml = dataTables(filter)
                 .populateFromTabularData(tabularData, format())
-                .insertToDatabasse(repositoryService, insertMode)
+                .insertToDatabase(repositoryService, insertMode)
                 .toTabularData(format())
                 .toYaml(TabularData.Format.defaults());
         return yaml;

@@ -58,7 +58,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Food identification number<br>----<br>required=false, unique=true",
+            describedAs = "Food identification number\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -78,7 +80,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food group code<br>----<br>required=false, unique=false",
+            describedAs = "Food group code\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -98,7 +102,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Food subgroup code<br>----<br>required=false, unique=true",
+            describedAs = "Food subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -118,7 +124,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Food sub-subgroup code<br>----<br>required=false, unique=true",
+            describedAs = "Food sub-subgroup code\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -136,7 +144,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Facet code<br>----<br>required=true, unique=false",
+            describedAs = "Facet code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -154,7 +164,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Descriptor code<br>----<br>required=true, unique=false",
+            describedAs = "Descriptor code\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -172,13 +184,15 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Facet string<br>----<br>required=true, unique=false",
+            describedAs = "Facet string\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_STR",
             allowsNull = "false",
-            length = 1000000000
+            length = 4096
     )
     @Getter
     @Setter

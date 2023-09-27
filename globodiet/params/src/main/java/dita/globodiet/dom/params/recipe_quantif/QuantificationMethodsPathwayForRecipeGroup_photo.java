@@ -37,7 +37,10 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 )
 @PropertyLayout(
         sequence = "3.1",
-        describedAs = "Photo code (if method='P' and 'A');<br>either M_photos.ph_code or M_shapes.sh_code<br>----<br>required=false, unique=false",
+        describedAs = "Photo code (if method='P' and 'A');\n"
+                        + "either M_photos.ph_code or M_shapes.sh_code\n"
+                        + "----\n"
+                        + "required=false, unique=false",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

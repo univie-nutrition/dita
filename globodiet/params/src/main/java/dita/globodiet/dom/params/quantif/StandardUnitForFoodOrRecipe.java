@@ -59,7 +59,9 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Standard unit quantity<br>----<br>required=true, unique=false",
+            describedAs = "Standard unit quantity\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -76,7 +78,9 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Food or Recipe identification number (code)<br>----<br>required=true, unique=false",
+            describedAs = "Food or Recipe identification number (code)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,7 +101,10 @@ public class StandardUnitForFoodOrRecipe {
     )
     @PropertyLayout(
             sequence = "3",
-            describedAs = "1 = raw,<br>2 = cooked (as estimated)<br>----<br>required=false, unique=false",
+            describedAs = "1 = raw,\n"
+                            + "2 = cooked (as estimated)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -128,7 +135,10 @@ public class StandardUnitForFoodOrRecipe {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "1 = without un-edible part,<br>2 = with un-edible (as estimated)<br>----<br>required=false, unique=false",
+            describedAs = "1 = without un-edible part,\n"
+                            + "2 = with un-edible (as estimated)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -157,7 +167,10 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1 = STDU for food,<br>2 = STDU for recipe<br>----<br>required=true, unique=false",
+            describedAs = "1 = STDU for food,\n"
+                            + "2 = STDU for recipe\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -185,7 +198,9 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "6",
-            describedAs = "Comment attached to the standard unit<br>----<br>required=true, unique=false",
+            describedAs = "Comment attached to the standard unit\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -203,7 +218,9 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "7",
-            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)<br>----<br>required=true, unique=false",
+            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -222,7 +239,10 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "8",
-            describedAs = "G = in grams,<br>V = in ml (volume)<br>----<br>required=true, unique=false",
+            describedAs = "G = in grams,\n"
+                            + "V = in ml (volume)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -240,7 +260,9 @@ public class StandardUnitForFoodOrRecipe {
     @Property
     @PropertyLayout(
             sequence = "9",
-            describedAs = "Order to display the standard unit<br>----<br>required=true, unique=false",
+            describedAs = "Order to display the standard unit\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

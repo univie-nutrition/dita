@@ -60,7 +60,9 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Name of nutrient<br>----<br>required=true, unique=false",
+            describedAs = "Name of nutrient\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -78,7 +80,9 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Minimum value<br>----<br>required=true, unique=false",
+            describedAs = "Minimum value\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -95,7 +99,9 @@ public class MacroNutrientLimit {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Maximum value<br>----<br>required=true, unique=false",
+            describedAs = "Maximum value\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,7 +120,9 @@ public class MacroNutrientLimit {
     )
     @PropertyLayout(
             sequence = "4",
-            describedAs = "Unit (g, kcal or blank)<br>----<br>required=false, unique=false",
+            describedAs = "Unit (g, kcal or blank)\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -145,7 +153,10 @@ public class MacroNutrientLimit {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "1=Man,<br>2=Woman<br>----<br>required=false, unique=true",
+            describedAs = "1=Man,\n"
+                            + "2=Woman\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -175,7 +186,9 @@ public class MacroNutrientLimit {
     )
     @PropertyLayout(
             sequence = "6",
-            describedAs = "PAL value<br>----<br>required=false, unique=false",
+            describedAs = "PAL value\n"
+                            + "----\n"
+                            + "required=false, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(

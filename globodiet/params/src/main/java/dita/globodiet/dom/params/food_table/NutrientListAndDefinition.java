@@ -59,7 +59,9 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Nutrient code<br>----<br>required=true, unique=true",
+            describedAs = "Nutrient code\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -76,7 +78,9 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "2",
-            describedAs = "Nutrient Name<br>----<br>required=true, unique=true",
+            describedAs = "Nutrient Name\n"
+                            + "----\n"
+                            + "required=true, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -94,7 +98,9 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "3",
-            describedAs = "Nutrient unit (e.g. kcal, g, mg…)<br>----<br>required=true, unique=false",
+            describedAs = "Nutrient unit (e.g. kcal, g, mg…)\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -113,7 +119,10 @@ public class NutrientListAndDefinition {
     @Property
     @PropertyLayout(
             sequence = "4",
-            describedAs = "0=not displayed in the 'nutrient checks' screen<br>1=displayed in the 'nutrient checks' screen<br>----<br>required=true, unique=false",
+            describedAs = "0=not displayed in the 'nutrient checks' screen\n"
+                            + "1=displayed in the 'nutrient checks' screen\n"
+                            + "----\n"
+                            + "required=true, unique=false",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -142,13 +151,15 @@ public class NutrientListAndDefinition {
     )
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Comment on nutrient<br>----<br>required=false, unique=true",
+            describedAs = "Comment on nutrient\n"
+                            + "----\n"
+                            + "required=false, unique=true",
             hidden = Where.NOWHERE
     )
     @Column(
             name = "COMMENT",
             allowsNull = "true",
-            length = 1000000000
+            length = 4096
     )
     @Getter
     @Setter

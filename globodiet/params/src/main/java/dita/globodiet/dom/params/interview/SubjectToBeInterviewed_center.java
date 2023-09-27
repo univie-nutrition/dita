@@ -33,7 +33,9 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         sequence = "11.1",
-        describedAs = "Center code<br>----<br>required=false, unique=true",
+        describedAs = "Center code\n"
+                        + "----\n"
+                        + "required=false, unique=true",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
