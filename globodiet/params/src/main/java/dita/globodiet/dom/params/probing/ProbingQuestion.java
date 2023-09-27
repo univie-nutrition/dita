@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -116,16 +115,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
 
     /**
      * SecondaryKey for @{link ProbingQuestion}
+     * @param code Probing question code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<ProbingQuestion> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Probing question code
-         */
-        private String code;
-
+    public final record SecondaryKey(String code) implements ISecondaryKey<ProbingQuestion> {
         @Override
         public Class<ProbingQuestion> correspondingClass() {
             return ProbingQuestion.class;

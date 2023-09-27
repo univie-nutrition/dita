@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -244,16 +243,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
 
     /**
      * SecondaryKey for @{link PhotoForQuantity}
+     * @param code Photo series code (P001,P002,P003,...)
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<PhotoForQuantity> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Photo series code (P001,P002,P003,...)
-         */
-        private String code;
-
+    public final record SecondaryKey(String code) implements ISecondaryKey<PhotoForQuantity> {
         @Override
         public Class<PhotoForQuantity> correspondingClass() {
             return PhotoForQuantity.class;

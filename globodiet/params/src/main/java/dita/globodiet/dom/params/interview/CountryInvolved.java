@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -116,16 +115,9 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
 
     /**
      * SecondaryKey for @{link CountryInvolved}
+     * @param countryCode Country code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<CountryInvolved> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Country code
-         */
-        private String countryCode;
-
+    public final record SecondaryKey(String countryCode) implements ISecondaryKey<CountryInvolved> {
         @Override
         public Class<CountryInvolved> correspondingClass() {
             return CountryInvolved.class;

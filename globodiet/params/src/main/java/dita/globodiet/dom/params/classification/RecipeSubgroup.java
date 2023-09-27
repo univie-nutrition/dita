@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -156,21 +155,10 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
 
     /**
      * SecondaryKey for @{link RecipeSubgroup}
+     * @param recipeGroupCode Recipe group code@param code Recipe sub-group code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<RecipeSubgroup> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Recipe group code
-         */
-        private String recipeGroupCode;
-
-        /**
-         * Recipe sub-group code
-         */
-        private String code;
-
+    public final record SecondaryKey(String recipeGroupCode,
+            String code) implements ISecondaryKey<RecipeSubgroup> {
         @Override
         public Class<RecipeSubgroup> correspondingClass() {
             return RecipeSubgroup.class;

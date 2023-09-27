@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -345,26 +344,10 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
 
     /**
      * SecondaryKey for @{link FoodSubgroup}
+     * @param foodGroupCode Food group code@param foodSubgroupCode Food sub-group code@param foodSubSubgroupCode Food sub-sub-group code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<FoodSubgroup> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Food group code
-         */
-        private String foodGroupCode;
-
-        /**
-         * Food sub-group code
-         */
-        private String foodSubgroupCode;
-
-        /**
-         * Food sub-sub-group code
-         */
-        private String foodSubSubgroupCode;
-
+    public final record SecondaryKey(String foodGroupCode, String foodSubgroupCode,
+            String foodSubSubgroupCode) implements ISecondaryKey<FoodSubgroup> {
         @Override
         public Class<FoodSubgroup> correspondingClass() {
             return FoodSubgroup.class;

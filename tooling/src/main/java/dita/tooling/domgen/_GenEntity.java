@@ -26,6 +26,7 @@ import javax.lang.model.element.Modifier;
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.FieldSpec;
 import org.springframework.javapoet.MethodSpec;
+import org.springframework.javapoet.ParameterSpec;
 import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
@@ -106,15 +107,13 @@ class _GenEntity {
 
             // inner secondary key class
 
-            val secondaryKeyClass = TypeSpec.classBuilder("SecondaryKey")
+            val secondaryKeyClass = TypeSpec.recordBuilder("SecondaryKey")
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                     .addSuperinterface(ParameterizedTypeName.get(
                             ClassName.get(ISecondaryKey.class),
                             ClassName.get("", entityModel.name())))
                     .addJavadoc("SecondaryKey for @{link $1L}", entityModel.name())
-                    .addAnnotation(_Annotations.lombokValue())
-                    .addField(_Fields.serialVersionUID(1L))
-                    .addFields(asSecondaryKeyFields(entityModel.secondaryKeyFields(), Modifier.PRIVATE))
+                    .addRecordComponents(asSecondaryKeyParams(entityModel.secondaryKeyFields()))
                     .addMethod(MethodSpec.methodBuilder("correspondingClass")
                             .addModifiers(Modifier.PUBLIC)
                             .addAnnotation(_Annotations.override())
@@ -216,12 +215,12 @@ class _GenEntity {
                 .collect(Collectors.toList());
     }
 
-    private Iterable<FieldSpec> asSecondaryKeyFields(
+    private Iterable<ParameterSpec> asSecondaryKeyParams(
             final List<OrmModel.Field> fields,
             final Modifier ... modifiers) {
         return fields.stream()
                 .map(field->
-                    FieldSpec.builder(field.asJavaType(), field.name(), modifiers)
+                    ParameterSpec.builder(field.asJavaType(), field.name(), modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .build())
                 .collect(Collectors.toList());

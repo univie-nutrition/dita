@@ -25,7 +25,7 @@ params.recipe_list.Recipe:
   title: String.format("%s (code=%s)", name, code)
   icon: null
   description: |
-    Mixed (a priory) Recipe
+    Mixed (a priory) Recipe (not an on-the-fly one):
     After preparation, the different ingredients cannot be identified 
     and quantified separately, as those are derived from cook books (for homemade and similar recipes), 
     internet or are based on information received from the industry (for commercial recipes). 

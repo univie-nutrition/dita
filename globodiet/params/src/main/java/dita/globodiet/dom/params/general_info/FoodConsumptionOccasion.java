@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -210,16 +209,10 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
 
     /**
      * SecondaryKey for @{link FoodConsumptionOccasion}
+     * @param code Food Consumption Occasion code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<FoodConsumptionOccasion> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Food Consumption Occasion code
-         */
-        private String code;
-
+    public final record SecondaryKey(
+            String code) implements ISecondaryKey<FoodConsumptionOccasion> {
         @Override
         public Class<FoodConsumptionOccasion> correspondingClass() {
             return FoodConsumptionOccasion.class;

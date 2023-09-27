@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -45,12 +44,12 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Food, Product, On-the-Fly Recipe or Alias
+ * Food, Product, On-the-fly Recipe or Alias
  */
 @Named("dita.globodiet.params.food_list.Food")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Food, Product, On-the-Fly Recipe or Alias",
+        describedAs = "Food, Product, On-the-fly Recipe or Alias",
         cssClassFa = "solid utensils darkgreen"
 )
 @PersistenceCapable(
@@ -62,12 +61,12 @@ import org.apache.causeway.applib.annotation.Where;
 )
 public class Food implements HasSecondaryKey<Food> {
     /**
-     * Identification Code for Food, Product, On-the-Fly Recipe or Alias
+     * Identification Code for Food, Product, On-the-fly Recipe or Alias
      */
     @Property
     @PropertyLayout(
             sequence = "1",
-            describedAs = "Identification Code for Food, Product, On-the-Fly Recipe or Alias\n"
+            describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias\n"
                             + "----\n"
                             + "required=true, unique=false",
             hidden = Where.NOWHERE
@@ -148,12 +147,12 @@ public class Food implements HasSecondaryKey<Food> {
     private String foodSubSubgroupCode;
 
     /**
-     * Native (localized) name of this Food, Product, On-the-Fly Recipe or Alias
+     * Native (localized) name of this Food, Product, On-the-fly Recipe or Alias
      */
     @Property
     @PropertyLayout(
             sequence = "5",
-            describedAs = "Native (localized) name of this Food, Product, On-the-Fly Recipe or Alias\n"
+            describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias\n"
                             + "----\n"
                             + "required=true, unique=false",
             hidden = Where.NOWHERE
@@ -172,7 +171,7 @@ public class Food implements HasSecondaryKey<Food> {
      * (none) -> Normal Food Item
      * GI -> Generic Food Item
      * SH -> Shadow Item
-     * CR -> On-the-Fly Recipe (Composed Recipe)
+     * CR -> Composed Recipe (On-the-fly Recipe)
      * Definition: its different ingredients can be identified and
      * quantified separately after preparation
      * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)
@@ -194,7 +193,7 @@ public class Food implements HasSecondaryKey<Food> {
                             + "(none) -> Normal Food Item\n"
                             + "GI -> Generic Food Item\n"
                             + "SH -> Shadow Item\n"
-                            + "CR -> On-the-Fly Recipe (Composed Recipe)\n"
+                            + "CR -> Composed Recipe (On-the-fly Recipe)\n"
                             + "Definition: its different ingredients can be identified and\n"
                             + "quantified separately after preparation\n"
                             + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
@@ -353,16 +352,9 @@ public class Food implements HasSecondaryKey<Food> {
 
     /**
      * SecondaryKey for @{link Food}
+     * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<Food> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Identification Code for Food, Product, On-the-Fly Recipe or Alias
-         */
-        private String code;
-
+    public final record SecondaryKey(String code) implements ISecondaryKey<Food> {
         @Override
         public Class<Food> correspondingClass() {
             return Food.class;

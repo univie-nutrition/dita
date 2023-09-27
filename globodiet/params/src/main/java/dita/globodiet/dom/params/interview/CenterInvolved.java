@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -136,16 +135,9 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
 
     /**
      * SecondaryKey for @{link CenterInvolved}
+     * @param centerCode Center code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<CenterInvolved> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Center code
-         */
-        private String centerCode;
-
+    public final record SecondaryKey(String centerCode) implements ISecondaryKey<CenterInvolved> {
         @Override
         public Class<CenterInvolved> correspondingClass() {
             return CenterInvolved.class;

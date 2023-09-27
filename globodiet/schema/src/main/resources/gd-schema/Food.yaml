@@ -25,7 +25,7 @@ params.food_list.Food:
   title: String.format("%s (code=%s)", foodNativeName, code)
   icon: solid utensils darkgreen
   description: |
-    Food, Product, On-the-Fly Recipe or Alias
+    Food, Product, On-the-fly Recipe or Alias
   fields:
     code:
       column: FOODNUM
@@ -33,7 +33,7 @@ params.food_list.Food:
       required: true
       unique: false
       description: |
-        Identification Code for Food, Product, On-the-Fly Recipe or Alias
+        Identification Code for Food, Product, On-the-fly Recipe or Alias
     foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
@@ -72,7 +72,7 @@ params.food_list.Food:
       required: true
       unique: false
       description: |
-        Native (localized) name of this Food, Product, On-the-Fly Recipe or Alias 
+        Native (localized) name of this Food, Product, On-the-fly Recipe or Alias 
     typeOfItem:
       column: TYPE
       column-type: nvarchar(2)
@@ -88,7 +88,7 @@ params.food_list.Food:
           (none) -> Normal Food Item
           GI -> Generic Food Item 
           SH -> Shadow Item 
-          CR -> On-the-Fly Recipe (Composed Recipe)
+          CR -> Composed Recipe (On-the-fly Recipe)
                 Definition: its different ingredients can be identified and 
                 quantified separately after preparation 
                 (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad) 

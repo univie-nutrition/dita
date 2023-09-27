@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -142,16 +141,10 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
 
     /**
      * SecondaryKey for @{link DietarySupplementClassification}
+     * @param code Dietary Supplement classification code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<DietarySupplementClassification> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Dietary Supplement classification code
-         */
-        private String code;
-
+    public final record SecondaryKey(
+            String code) implements ISecondaryKey<DietarySupplementClassification> {
         @Override
         public Class<DietarySupplementClassification> correspondingClass() {
             return DietarySupplementClassification.class;

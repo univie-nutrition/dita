@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -153,16 +152,9 @@ public class Shape implements HasSecondaryKey<Shape> {
 
     /**
      * SecondaryKey for @{link Shape}
+     * @param shapeCode Shape code (e.g. S001,S002,S003,...)
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<Shape> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Shape code (e.g. S001,S002,S003,...)
-         */
-        private String shapeCode;
-
+    public final record SecondaryKey(String shapeCode) implements ISecondaryKey<Shape> {
         @Override
         public Class<Shape> correspondingClass() {
             return Shape.class;

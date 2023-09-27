@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -45,7 +44,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
- * Mixed (a priory) Recipe
+ * Mixed (a priory) Recipe (not an on-the-fly one):
  * After preparation, the different ingredients cannot be identified
  * and quantified separately, as those are derived from cook books (for homemade and similar recipes),
  * internet or are based on information received from the industry (for commercial recipes).
@@ -68,7 +67,7 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.recipe_list.Recipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Mixed (a priory) Recipe\n"
+        describedAs = "Mixed (a priory) Recipe (not an on-the-fly one):\n"
                         + "After preparation, the different ingredients cannot be identified\n"
                         + "and quantified separately, as those are derived from cook books (for homemade and similar recipes),\n"
                         + "internet or are based on information received from the industry (for commercial recipes).\n"
@@ -442,16 +441,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
 
     /**
      * SecondaryKey for @{link Recipe}
+     * @param code Recipe ID number
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<Recipe> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Recipe ID number
-         */
-        private String code;
-
+    public final record SecondaryKey(String code) implements ISecondaryKey<Recipe> {
         @Override
         public Class<Recipe> correspondingClass() {
             return Recipe.class;

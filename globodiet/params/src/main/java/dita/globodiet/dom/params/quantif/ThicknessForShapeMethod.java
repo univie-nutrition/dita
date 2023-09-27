@@ -31,7 +31,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -191,16 +190,10 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
 
     /**
      * SecondaryKey for @{link ThicknessForShapeMethod}
+     * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<ThicknessForShapeMethod> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Thickness code (e.g. A,B,C,58_1,58_2...)
-         */
-        private String code;
-
+    public final record SecondaryKey(
+            String code) implements ISecondaryKey<ThicknessForShapeMethod> {
         @Override
         public Class<ThicknessForShapeMethod> correspondingClass() {
             return ThicknessForShapeMethod.class;

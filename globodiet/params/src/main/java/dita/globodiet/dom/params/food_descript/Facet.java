@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -302,16 +301,9 @@ public class Facet implements HasSecondaryKey<Facet> {
 
     /**
      * SecondaryKey for @{link Facet}
+     * @param code Facet code
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<Facet> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Facet code
-         */
-        private String code;
-
+    public final record SecondaryKey(String code) implements ISecondaryKey<Facet> {
         @Override
         public Class<Facet> correspondingClass() {
             return Facet.class;

@@ -32,7 +32,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.Value;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -315,16 +314,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
 
     /**
      * SecondaryKey for @{link RecipeFacet}
+     * @param code Facet code for recipes
      */
-    @Value
-    public static final class SecondaryKey implements ISecondaryKey<RecipeFacet> {
-        private static final long serialVersionUID = 1;
-
-        /**
-         * Facet code for recipes
-         */
-        private String code;
-
+    public final record SecondaryKey(String code) implements ISecondaryKey<RecipeFacet> {
         @Override
         public Class<RecipeFacet> correspondingClass() {
             return RecipeFacet.class;
