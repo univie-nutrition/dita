@@ -239,7 +239,8 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
 
     /**
      * SecondaryKey for @{link FacetDescriptor}
-     * @param facetCode Facet code@param code Descriptor code
+     * @param facetCode Facet code
+     * @param code Descriptor code
      */
     public final record SecondaryKey(String facetCode,
             String code) implements ISecondaryKey<FacetDescriptor> {

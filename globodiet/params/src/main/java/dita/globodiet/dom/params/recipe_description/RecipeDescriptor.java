@@ -350,7 +350,8 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
 
     /**
      * SecondaryKey for @{link RecipeDescriptor}
-     * @param recipeFacetCode Facet code for recipes@param code Descriptor code for recipes
+     * @param recipeFacetCode Facet code for recipes
+     * @param code Descriptor code for recipes
      */
     public final record SecondaryKey(String recipeFacetCode,
             String code) implements ISecondaryKey<RecipeDescriptor> {
