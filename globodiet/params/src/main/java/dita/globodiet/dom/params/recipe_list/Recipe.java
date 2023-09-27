@@ -38,6 +38,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -437,6 +439,90 @@ public class Recipe implements HasSecondaryKey<Recipe> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link Recipe}
+     * @param code Recipe ID number
+     * @param recipeGroupCode Group code of the recipe classification
+     * @param recipeSubgroupCode Subgroup code of the recipe classification
+     * @param name Recipe name
+     * @param recipeType Type of recipe:
+     * 1.1=Open – Known
+     * 1.2=Open – Unknown
+     * 1.3=Open with brand
+     * 2.1=Closed
+     * 2.2=Closed with brand
+     * 3.0=Commercial
+     * 4.1=New – Known
+     * 4.2=New – Unknown
+     * @param brandNameForCommercialRecipe Brand name for commercial recipe
+     * @param aliasQ whether is an alias (SH=shadow)
+     * @param hasSubRecipeQ 0=recipe without sub-recipe
+     * 1=recipe with sub-recipe
+     * @param status has no description
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Recipe ID number"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Group code of the recipe classification"
+            )
+            String recipeGroupCode,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Subgroup code of the recipe classification"
+            )
+            String recipeSubgroupCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Recipe name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Type of recipe:\n"
+                                    + "1.1=Open – Known\n"
+                                    + "1.2=Open – Unknown\n"
+                                    + "1.3=Open with brand\n"
+                                    + "2.1=Closed\n"
+                                    + "2.2=Closed with brand\n"
+                                    + "3.0=Commercial\n"
+                                    + "4.1=New – Known\n"
+                                    + "4.2=New – Unknown"
+            )
+            RecipeType recipeType,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Brand name for commercial recipe"
+            )
+            String brandNameForCommercialRecipe,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "whether is an alias (SH=shadow)"
+            )
+            AliasQ aliasQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=recipe without sub-recipe\n"
+                                    + "1=recipe with sub-recipe"
+            )
+            HasSubRecipeQ hasSubRecipeQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "has no description"
+            )
+            String status) {
     }
 
     /**

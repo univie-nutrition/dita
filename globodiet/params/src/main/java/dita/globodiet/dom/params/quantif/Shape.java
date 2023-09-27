@@ -36,6 +36,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -148,6 +150,36 @@ public class Shape implements HasSecondaryKey<Shape> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getShapeCode())));
+    }
+
+    /**
+     * Parameter model for @{link Shape}
+     * @param shapeCode Shape code (e.g. S001,S002,S003,...)
+     * @param shapeSurfaceInCm2 Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
+     * @param commentAttachedToTheShape Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
+     * @param orderToDisplayTheStandardUnit Order to display the standard unit
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Shape code (e.g. S001,S002,S003,...)"
+            )
+            String shapeCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
+            )
+            double shapeSurfaceInCm2,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
+            )
+            String commentAttachedToTheShape,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Order to display the standard unit"
+            )
+            int orderToDisplayTheStandardUnit) {
     }
 
     /**

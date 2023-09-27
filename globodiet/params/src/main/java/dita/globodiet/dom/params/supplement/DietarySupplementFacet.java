@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -309,6 +311,60 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link DietarySupplementFacet}
+     * @param code Facet code for Dietary Supplement
+     * @param name Facet name for Dietary Supplement
+     * @param mandatoryFacetUsedForQuantificationQ To identify the mandatory facet used for quantification: 1=yes, 0=no.
+     * Only 1 facet (physical state) is used for quantification.
+     * @param singleOrMultiSelectionOfDescriptorsQ Facet with Mono or Multi selection of descriptors
+     * 0=mono,
+     * 1=multi
+     * @param attributedToAllSupplementsQ For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
+     * @param orderToAsk Order to ask the facet (first, second...)
+     * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet code for Dietary Supplement"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet name for Dietary Supplement"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
+                                    + "Only 1 facet (physical state) is used for quantification."
+            )
+            MandatoryFacetUsedForQuantificationQ mandatoryFacetUsedForQuantificationQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet with Mono or Multi selection of descriptors\n"
+                                    + "0=mono,\n"
+                                    + "1=multi"
+            )
+            SingleOrMultiSelectionOfDescriptorsQ singleOrMultiSelectionOfDescriptorsQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
+            )
+            AttributedToAllSupplementsQ attributedToAllSupplementsQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Order to ask the facet (first, second...)"
+            )
+            int orderToAsk,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Label on how to ask the facet question"
+            )
+            String labelOnHowToAskTheFacetQuestion) {
     }
 
     /**

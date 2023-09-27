@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -165,6 +167,32 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link PlaceOfConsumption}
+     * @param code Place of consumption code
+     * @param name Place of consumption name
+     * @param otherPlaceQ 0=not a 'Other' place
+     * 1='Other' place
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Place of consumption code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Place of consumption name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=not a 'Other' place\n"
+                                    + "1='Other' place"
+            )
+            OtherPlaceQ otherPlaceQ) {
     }
 
     /**

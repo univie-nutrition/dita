@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -205,6 +207,44 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link FoodConsumptionOccasion}
+     * @param code Food Consumption Occasion code
+     * @param textDisplayedOnScreen FCO long label (text displayed on screen)
+     * @param mode FCO type: if =1 the FCO can be selected several times (e.g. During morning)
+     * @param shortLabelToIdentifyEasily FCO short label to identify easily the FCO
+     * @param displayInNutrientCheckScreenQ 0=non main FCO
+     * 1=main FCO (to be displayed in nutrient check screen)
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Food Consumption Occasion code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "FCO long label (text displayed on screen)"
+            )
+            String textDisplayedOnScreen,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
+            )
+            String mode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "FCO short label to identify easily the FCO"
+            )
+            String shortLabelToIdentifyEasily,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=non main FCO\n"
+                                    + "1=main FCO (to be displayed in nutrient check screen)"
+            )
+            DisplayInNutrientCheckScreenQ displayInNutrientCheckScreenQ) {
     }
 
     /**

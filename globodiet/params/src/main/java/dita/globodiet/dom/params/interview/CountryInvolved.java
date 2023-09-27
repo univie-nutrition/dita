@@ -36,6 +36,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -111,6 +113,24 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCountryCode())));
+    }
+
+    /**
+     * Parameter model for @{link CountryInvolved}
+     * @param countryCode Country code
+     * @param countryName Country name
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Country code"
+            )
+            String countryCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Country name"
+            )
+            String countryName) {
     }
 
     /**

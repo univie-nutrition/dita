@@ -105,9 +105,19 @@ class _GenEntity {
                     ClassName.get(HasSecondaryKey.class),
                     ClassName.get("", entityModel.name())));
 
-            // inner secondary key class
+            // inner params record
 
-            val secondaryKeyClass = TypeSpec.recordBuilder("SecondaryKey")
+            val paramsRecord = TypeSpec.recordBuilder("Params")
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    .addJavadoc("Parameter model for @{link $1L}", entityModel.name())
+                    .addRecordComponents(asParameterModelParams(entityModel.fields()))
+                    .build();
+
+            typeModelBuilder.addType(paramsRecord);
+
+            // inner secondary key record
+
+            val secondaryKeyRecord = TypeSpec.recordBuilder("SecondaryKey")
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                     .addSuperinterface(ParameterizedTypeName.get(
                             ClassName.get(ISecondaryKey.class),
@@ -131,8 +141,8 @@ class _GenEntity {
                             .build())
                     .build();
 
-            typeModelBuilder.addType(secondaryKeyClass);
-            typeModelBuilder.addMethod(asSecondaryKeyMethod(secondaryKeyClass, entityModel.secondaryKeyFields(), Modifier.PUBLIC));
+            typeModelBuilder.addType(secondaryKeyRecord);
+            typeModelBuilder.addMethod(asSecondaryKeyMethod(secondaryKeyRecord, entityModel.secondaryKeyFields(), Modifier.PUBLIC));
 
             // inner unresolvable class
 
@@ -212,6 +222,27 @@ class _GenEntity {
 
                     return fieldBuilder.build();
                 })
+                .collect(Collectors.toList());
+    }
+
+    private Iterable<ParameterSpec> asParameterModelParams(
+            final List<OrmModel.Field> fields,
+            final Modifier ... modifiers) {
+        return fields.stream()
+                .map(field->
+                    ParameterSpec.builder(
+                            field.isEnum()
+                                ? field.asJavaEnumType()
+                                : field.hasForeignKeys()
+                                    ? field.asJavaType() // TODO
+                                    : field.asJavaType(),
+                            field.name(), modifiers)
+                    .addJavadoc(field.formatDescription("\n"))
+                    .addAnnotation(field.required()
+                            ? _Annotations.parameter()
+                            : _Annotations.parameter(Optionality.OPTIONAL))
+                    .addAnnotation(_Annotations.parameterLayout(field.formatDescription("\n")))
+                    .build())
                 .collect(Collectors.toList());
     }
 

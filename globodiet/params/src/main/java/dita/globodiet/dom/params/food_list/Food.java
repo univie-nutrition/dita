@@ -38,6 +38,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -248,7 +250,17 @@ public class Food implements HasSecondaryKey<Food> {
     )
     @Getter
     @Setter
-    private String groupOrdinal;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private GroupOrdinal groupOrdinal;
 
     /**
      * 0=food
@@ -329,6 +341,28 @@ public class Food implements HasSecondaryKey<Food> {
     }
 
     @RequiredArgsConstructor
+    public enum GroupOrdinal {
+        /**
+         * first order, use for GI
+         */
+        FIRST("1", "first"),
+
+        /**
+         * second order, use for non GI
+         */
+        SECOND("2", "second");
+
+        @Getter
+        private final String matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
     public enum DietarySupplementQ {
         /**
          * not a Dietary Supplement
@@ -348,6 +382,102 @@ public class Food implements HasSecondaryKey<Food> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link Food}
+     * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
+     * @param foodGroupCode Food Group code
+     * @param foodSubgroupCode Food Subgroup code
+     * @param foodSubSubgroupCode Food Sub(sub)group code
+     * @param foodNativeName Native (localized) name of this Food, Product, On-the-fly Recipe or Alias
+     * @param typeOfItem Type of item:
+     * (none) -> Normal Food Item
+     * GI -> Generic Food Item
+     * SH -> Shadow Item
+     * CR -> Composed Recipe (On-the-fly Recipe)
+     * Definition: its different ingredients can be identified and
+     * quantified separately after preparation
+     * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)
+     * or just before mixing (e.g. coffee with milk).
+     * Composed recipes are built during the interview: there is no a priori list of composed recipes.
+     * They are made from items listed below/linked to a quick list item.
+     * Example: Salad
+     * - Lettuce
+     * - Tomato
+     * - Cucumber
+     * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
+     * @param groupOrdinal Auxiliary field to force an internal order within each subgroup
+     * (if GI then 1 otherwise 2, this forces the GI at the top)
+     * @param dietarySupplementQ 0=food
+     * 1=dietary supplement
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias"
+            )
+            String code,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Food Group code"
+            )
+            String foodGroupCode,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Food Subgroup code"
+            )
+            String foodSubgroupCode,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Food Sub(sub)group code"
+            )
+            String foodSubSubgroupCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias"
+            )
+            String foodNativeName,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Type of item:\n"
+                                    + "(none) -> Normal Food Item\n"
+                                    + "GI -> Generic Food Item\n"
+                                    + "SH -> Shadow Item\n"
+                                    + "CR -> Composed Recipe (On-the-fly Recipe)\n"
+                                    + "Definition: its different ingredients can be identified and\n"
+                                    + "quantified separately after preparation\n"
+                                    + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
+                                    + "or just before mixing (e.g. coffee with milk).\n"
+                                    + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
+                                    + "They are made from items listed below/linked to a quick list item.\n"
+                                    + "Example: Salad\n"
+                                    + "- Lettuce\n"
+                                    + "- Tomato\n"
+                                    + "- Cucumber\n"
+                                    + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
+            )
+            TypeOfItem typeOfItem,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Auxiliary field to force an internal order within each subgroup\n"
+                                    + "(if GI then 1 otherwise 2, this forces the GI at the top)"
+            )
+            GroupOrdinal groupOrdinal,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=food\n"
+                                    + "1=dietary supplement"
+            )
+            DietarySupplementQ dietarySupplementQ) {
     }
 
     /**

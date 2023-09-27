@@ -36,6 +36,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -131,6 +133,30 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCenterCode())));
+    }
+
+    /**
+     * Parameter model for @{link CenterInvolved}
+     * @param centerCode Center code
+     * @param attachedCountryCode Attached Country code
+     * @param centerName Center name
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Center code"
+            )
+            String centerCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Attached Country code"
+            )
+            String attachedCountryCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Center name"
+            )
+            String centerName) {
     }
 
     /**

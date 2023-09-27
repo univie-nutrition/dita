@@ -36,6 +36,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -131,6 +133,30 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    /**
+     * Parameter model for @{link FoodGroup}
+     * @param code Food group code
+     * @param name Food group name
+     * @param shortName Food group short name
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Food group code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Food group name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Food group short name"
+            )
+            String shortName) {
     }
 
     /**

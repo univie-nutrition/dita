@@ -37,6 +37,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -137,6 +139,36 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    /**
+     * Parameter model for @{link DietarySupplementClassification}
+     * @param code Dietary Supplement classification code
+     * @param name Name of the food (sub-)(sub-)group
+     * @param attachedToCode Dietary Supplement classification code attached to (for subgroup)
+     */
+    public final record Params(
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Dietary Supplement classification code"
+            )
+            String code,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Name of the food (sub-)(sub-)group"
+            )
+            String name,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Dietary Supplement classification code attached to (for subgroup)"
+            )
+            String attachedToCode) {
     }
 
     /**

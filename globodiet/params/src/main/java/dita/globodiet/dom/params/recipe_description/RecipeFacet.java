@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -310,6 +312,60 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link RecipeFacet}
+     * @param code Facet code for recipes
+     * @param name Facet name
+     * @param textToShowOnTheScreenDescribingTheFacet Facet text (text to show on the screen describing the facet)
+     * @param descriptorsAvailableForRecipeOrBrandQ 0=Standard facets with descriptors available in R_Descface table
+     * 1=Facets with descriptors available in RBrand table
+     * @param singleOrMultiSelectDescriptorQ 0 = facet with single-selection of descriptor
+     * 1 = facets with multi-selection of descriptors
+     * @param standardOrMainFacetQ 0 = standard facet
+     * 1 = Main facet (with non modified descriptor)
+     * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet code for recipes"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet text (text to show on the screen describing the facet)"
+            )
+            String textToShowOnTheScreenDescribingTheFacet,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
+                                    + "1=Facets with descriptors available in RBrand table"
+            )
+            DescriptorsAvailableForRecipeOrBrandQ descriptorsAvailableForRecipeOrBrandQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0 = facet with single-selection of descriptor\n"
+                                    + "1 = facets with multi-selection of descriptors"
+            )
+            SingleOrMultiSelectDescriptorQ singleOrMultiSelectDescriptorQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0 = standard facet\n"
+                                    + "1 = Main facet (with non modified descriptor)"
+            )
+            StandardOrMainFacetQ standardOrMainFacetQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Label on how to ask the facet question"
+            )
+            String labelOnHowToAskTheFacetQuestion) {
     }
 
     /**

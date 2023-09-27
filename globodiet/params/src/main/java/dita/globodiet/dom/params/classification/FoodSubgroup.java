@@ -38,6 +38,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -340,6 +342,66 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link FoodSubgroup}
+     * @param foodGroupCode Food group code
+     * @param foodSubgroupCode Food sub-group code
+     * @param foodSubSubgroupCode Food sub-sub-group code
+     * @param name Name of the food (sub-)(sub-)group
+     * @param fatOrSauceSweetenerSubgroupQ 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
+     * @param fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ 0=non fat/sauce subgroup
+     * 1= fat/sauce subgroup that can be left over in the dish
+     * @param fatDuringCookingSubgroupQ 0=non fat during cooking subgroup
+     * 1= fat during cooking subgroup
+     * @param shortName Short Name of the food (sub-)(sub-)group
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Food group code"
+            )
+            String foodGroupCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Food sub-group code"
+            )
+            String foodSubgroupCode,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Food sub-sub-group code"
+            )
+            String foodSubSubgroupCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Name of the food (sub-)(sub-)group"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
+            )
+            FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=non fat/sauce subgroup\n"
+                                    + "1= fat/sauce subgroup that can be left over in the dish"
+            )
+            FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=non fat during cooking subgroup\n"
+                                    + "1= fat during cooking subgroup"
+            )
+            FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Short Name of the food (sub-)(sub-)group"
+            )
+            String shortName) {
     }
 
     /**

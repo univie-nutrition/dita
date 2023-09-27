@@ -37,6 +37,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -186,6 +188,58 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    /**
+     * Parameter model for @{link ThicknessForShapeMethod}
+     * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
+     * @param thickness has no description
+     * @param comment Comment attached to the thickness (e.g. small, medium, large…)
+     * @param foodSubgroupsLookupKey For the food items, the food (sub)groups for which this thickness has to be proposed.
+     * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)
+     * When this field is empty, that means that this thickness has always to be proposed
+     * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1
+     * and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
+     * @param recipeSubgroupsLookupKey For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
+     * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
+     * When this field is empty, that means that this thickness has always to be proposed
+     * whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "has no description"
+            )
+            double thickness,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
+            )
+            String comment,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
+                                    + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
+                                    + "When this field is empty, that means that this thickness has always to be proposed\n"
+                                    + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
+                                    + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
+            )
+            String foodSubgroupsLookupKey,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
+                                    + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
+                                    + "When this field is empty, that means that this thickness has always to be proposed\n"
+                                    + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)"
+            )
+            String recipeSubgroupsLookupKey) {
     }
 
     /**

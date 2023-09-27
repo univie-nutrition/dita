@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -346,6 +348,60 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link RecipeDescriptor}
+     * @param recipeFacetCode Facet code for recipes
+     * @param code Descriptor code for recipes
+     * @param name Descriptor name
+     * @param homemadeOrNot Only for facet recipe production:
+     * 0=not homemade descriptor
+     * 1=Homemade descriptor
+     * @param knownOrUnknown Only for facet known/unknown: 1=unknown 2=known
+     * @param yesOrNo Descriptor with type='other' : 1=yes 0=no
+     * @param singleOrNot 0=not single descriptor
+     * 1=single descriptor
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet code for recipes"
+            )
+            String recipeFacetCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Descriptor code for recipes"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Descriptor name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Only for facet recipe production:\n"
+                                    + "0=not homemade descriptor\n"
+                                    + "1=Homemade descriptor"
+            )
+            HomemadeOrNot homemadeOrNot,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Only for facet known/unknown: 1=unknown 2=known"
+            )
+            KnownOrUnknown knownOrUnknown,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Descriptor with type='other' : 1=yes 0=no"
+            )
+            YesOrNo yesOrNo,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=not single descriptor\n"
+                                    + "1=single descriptor"
+            )
+            SingleOrNot singleOrNot) {
     }
 
     /**

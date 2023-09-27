@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -235,6 +237,52 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link FacetDescriptor}
+     * @param facetCode Facet code
+     * @param code Descriptor code
+     * @param name Descriptor name
+     * @param type 0=Other descriptor without consequences in the algorithms (also from other facets)
+     * 1=Raw descriptor
+     * 2=Descriptors to ask the question 'fat used during cooking'
+     * @param single TODO missing description
+     * @param other TODO missing description
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet code"
+            )
+            String facetCode,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Descriptor code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Descriptor name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
+                                    + "1=Raw descriptor\n"
+                                    + "2=Descriptors to ask the question 'fat used during cooking'"
+            )
+            Type type,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "TODO missing description"
+            )
+            int single,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "TODO missing description"
+            )
+            int other) {
     }
 
     /**

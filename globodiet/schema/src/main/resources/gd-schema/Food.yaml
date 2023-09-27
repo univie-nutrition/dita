@@ -105,6 +105,9 @@ params.food_list.Food:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        1:first:first order, use for GI
+        2:second:second order, use for non GI
       description: |
         Auxiliary field to force an internal order within each subgroup 
         (if GI then 1 otherwise 2, this forces the GI at the top)

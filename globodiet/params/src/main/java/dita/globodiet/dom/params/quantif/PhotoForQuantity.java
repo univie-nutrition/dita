@@ -37,6 +37,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -239,6 +241,46 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link PhotoForQuantity}
+     * @param code Photo series code (P001,P002,P003,...)
+     * @param quantificationStringThatDefinesTheQuantitiesOfEachPhotos Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
+     * @param rawOrCooked 1 = raw,
+     * 2 = cooked (as estimated)
+     * @param withUnediblePartQ 1 = without un-edible part,
+     * 2 = with un-edible (as estimated)
+     * @param unit G = in grams, V = in ml (volume)
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Photo series code (P001,P002,P003,...)"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
+            )
+            String quantificationStringThatDefinesTheQuantitiesOfEachPhotos,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "1 = raw,\n"
+                                    + "2 = cooked (as estimated)"
+            )
+            RawOrCooked rawOrCooked,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "1 = without un-edible part,\n"
+                                    + "2 = with un-edible (as estimated)"
+            )
+            WithUnediblePartQ withUnediblePartQ,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "G = in grams, V = in ml (volume)"
+            )
+            String unit) {
     }
 
     /**

@@ -40,6 +40,8 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -191,6 +193,20 @@ class _Annotations {
         return AnnotationSpec.builder(CollectionLayout.class)
                 .addMember("describedAs", "$1S", describedAs)
                 .addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name())
+                .build();
+    }
+    AnnotationSpec parameter() {
+        return AnnotationSpec.builder(Parameter.class)
+                .build();
+    }
+    AnnotationSpec parameter(final Optionality optionality) {
+        return AnnotationSpec.builder(Parameter.class)
+                .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
+                .build();
+    }
+    AnnotationSpec parameterLayout(final String describedAs) {
+        return AnnotationSpec.builder(ParameterLayout.class)
+                .addMember("describedAs", "$1S", describedAs)
                 .build();
     }
     /**

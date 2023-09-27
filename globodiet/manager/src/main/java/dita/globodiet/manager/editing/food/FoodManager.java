@@ -32,7 +32,7 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
-import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.globodiet.dom.params.EntitiesMenu;
@@ -65,10 +65,7 @@ implements HasCurrentlyCheckedOutVersion {
 
     @Action
     @ActionLayout(fieldSetName="foodList", position = Position.PANEL)
-    public FoodManager addFood(
-
-            @Parameter
-            final String name) {
+    public FoodManager addFood(@ParameterTuple final Food.Params p) {
         //TODO this is just a stub
         return this;
     }

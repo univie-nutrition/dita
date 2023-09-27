@@ -38,6 +38,8 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -297,6 +299,66 @@ public class Facet implements HasSecondaryKey<Facet> {
                 fluent = true
         )
         private final String title;
+    }
+
+    /**
+     * Parameter model for @{link Facet}
+     * @param code Facet code
+     * @param name Facet name
+     * @param text Facet text (text to show on the screen describing the facet)
+     * @param type 0=Standard facets with descriptors available in Descface table
+     * 1=Facets with descriptors available in Brandnam table
+     * 2=Facets with descriptors available in Foods table - facet 15 type of fat
+     * 3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+     * @param typeCardinality 0 = facet with single-selection of descriptor
+     * 1 = facets with multi-selection of descriptors
+     * @param group If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.
+     * Comma is used as delimiter (e.g. 10,050701,050702)
+     * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet name"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Facet text (text to show on the screen describing the facet)"
+            )
+            String text,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0=Standard facets with descriptors available in Descface table\n"
+                                    + "1=Facets with descriptors available in Brandnam table\n"
+                                    + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
+                                    + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
+            )
+            Type type,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "0 = facet with single-selection of descriptor\n"
+                                    + "1 = facets with multi-selection of descriptors"
+            )
+            TypeCardinality typeCardinality,
+            @Parameter(
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
+                                    + "Comma is used as delimiter (e.g. 10,050701,050702)"
+            )
+            String group,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Label on how to ask the facet question"
+            )
+            String labelOnHowToAskTheFacetQuestion) {
     }
 
     /**

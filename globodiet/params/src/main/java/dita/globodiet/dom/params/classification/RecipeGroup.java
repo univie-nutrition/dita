@@ -36,6 +36,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -131,6 +133,30 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    /**
+     * Parameter model for @{link RecipeGroup}
+     * @param code Recipe Group code
+     * @param name Name of the Recipe group
+     * @param shortName Short Name of the Recipe group
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Recipe Group code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Name of the Recipe group"
+            )
+            String name,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Short Name of the Recipe group"
+            )
+            String shortName) {
     }
 
     /**

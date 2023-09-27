@@ -36,6 +36,8 @@ import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -111,6 +113,24 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     @Programmatic
     public Unresolvable unresolvable() {
         return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
+    }
+
+    /**
+     * Parameter model for @{link ProbingQuestion}
+     * @param code Probing question code
+     * @param label Probing question label
+     */
+    public final record Params(
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Probing question code"
+            )
+            String code,
+            @Parameter
+            @ParameterLayout(
+                    describedAs = "Probing question label"
+            )
+            String label) {
     }
 
     /**

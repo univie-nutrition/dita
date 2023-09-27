@@ -168,25 +168,23 @@ public final class MethodSpec {
         // single line style
         parameters.get(0).emit(codeWriter, varargs);
     } else {
-
         final int lastIndex = parameters.size()-1;
         int paramIndex = 0;
 
         for (ParameterSpec parameter: parameters) {
-
             boolean isFirst = paramIndex == 0;
             boolean isLast = paramIndex == lastIndex;
             boolean isMiddle = !isFirst && !isLast;
             if (isFirst) {
                 codeWriter.emit("\n");
                 codeWriter.indent().indent();
-                parameter.emit(codeWriter, false);
+                emitParameter(parameter, codeWriter, false);
                 codeWriter.emit(",\n");
             } else if (isMiddle) {
-                parameter.emit(codeWriter, false);
+                emitParameter(parameter, codeWriter, false);
                 codeWriter.emit(",\n");
             } else {
-                parameter.emit(codeWriter, varargs);
+                emitParameter(parameter, codeWriter, varargs);
                 codeWriter.unindent().unindent();
             }
             paramIndex++;
@@ -195,6 +193,17 @@ public final class MethodSpec {
 
     codeWriter.emit(")");
   }
+
+  static void emitParameter(final ParameterSpec param, final CodeWriter codeWriter, final boolean varargs) throws IOException {
+      codeWriter.emitAnnotations(param.annotations, false);
+      codeWriter.emitModifiers(param.modifiers);
+      if (varargs) {
+        TypeName.asArray(param.type).emit(codeWriter, true);
+      } else {
+          param.type.emit(codeWriter);
+      }
+      codeWriter.emit(" $L", param.name);
+    }
 
   public boolean hasModifier(final Modifier modifier) {
     return modifiers.contains(modifier);
