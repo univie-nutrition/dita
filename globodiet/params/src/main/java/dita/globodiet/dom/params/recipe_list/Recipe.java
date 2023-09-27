@@ -21,6 +21,8 @@ package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
+import dita.globodiet.dom.params.classification.RecipeGroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Named;
 import java.lang.Class;
 import java.lang.Override;
@@ -34,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -463,29 +466,38 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * @param status has no description
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Recipe ID number"
             )
             String code,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Group code of the recipe classification"
             )
-            String recipeGroupCode,
+            RecipeGroup recipeGroupCode,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
                     describedAs = "Subgroup code of the recipe classification"
             )
-            String recipeSubgroupCode,
-            @Parameter
+            RecipeSubgroup recipeSubgroupCode,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Recipe name"
             )
             String name,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Type of recipe:\n"
                                     + "1.1=Open – Known\n"
@@ -499,6 +511,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             )
             RecipeType recipeType,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -506,19 +519,24 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             )
             String brandNameForCommercialRecipe,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
                     describedAs = "whether is an alias (SH=shadow)"
             )
             AliasQ aliasQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=recipe without sub-recipe\n"
                                     + "1=recipe with sub-recipe"
             )
             HasSubRecipeQ hasSubRecipeQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "has no description"
             )

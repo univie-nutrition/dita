@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -364,39 +365,53 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * 1=single descriptor
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Facet code for recipes"
             )
-            String recipeFacetCode,
-            @Parameter
+            RecipeFacet recipeFacetCode,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Descriptor code for recipes"
             )
             String code,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Descriptor name"
             )
             String name,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Only for facet recipe production:\n"
                                     + "0=not homemade descriptor\n"
                                     + "1=Homemade descriptor"
             )
             HomemadeOrNot homemadeOrNot,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Only for facet known/unknown: 1=unknown 2=known"
             )
             KnownOrUnknown knownOrUnknown,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Descriptor with type='other' : 1=yes 0=no"
             )
             YesOrNo yesOrNo,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=not single descriptor\n"
                                     + "1=single descriptor"

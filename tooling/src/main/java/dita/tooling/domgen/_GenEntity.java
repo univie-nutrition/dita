@@ -30,6 +30,7 @@ import org.springframework.javapoet.ParameterSpec;
 import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -110,7 +111,7 @@ class _GenEntity {
             val paramsRecord = TypeSpec.recordBuilder("Params")
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                     .addJavadoc("Parameter model for @{link $1L}", entityModel.name())
-                    .addRecordComponents(asParameterModelParams(entityModel.fields()))
+                    .addRecordComponents(asParameterModelParams(config, entityModel.fields()))
                     .build();
 
             typeModelBuilder.addType(paramsRecord);
@@ -226,6 +227,7 @@ class _GenEntity {
     }
 
     private Iterable<ParameterSpec> asParameterModelParams(
+            final Config config,
             final List<OrmModel.Field> fields,
             final Modifier ... modifiers) {
         return fields.stream()
@@ -234,13 +236,13 @@ class _GenEntity {
                             field.isEnum()
                                 ? field.asJavaEnumType()
                                 : field.hasForeignKeys()
-                                    ? field.asJavaType() // TODO
+                                    ? _Foreign.foreignClassName(field, field.foreignFields(config.schema()).getFirstElseFail(), config)
                                     : field.asJavaType(),
                             field.name(), modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .addAnnotation(field.required()
-                            ? _Annotations.parameter()
-                            : _Annotations.parameter(Optionality.OPTIONAL))
+                            ? _Annotations.parameter(DependentDefaultsPolicy.PRESERVE_CHANGES)
+                            : _Annotations.parameter(DependentDefaultsPolicy.PRESERVE_CHANGES, Optionality.OPTIONAL))
                     .addAnnotation(_Annotations.parameterLayout(field.formatDescription("\n")))
                     .build())
                 .collect(Collectors.toList());

@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -251,34 +252,46 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      * @param other TODO missing description
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Facet code"
             )
-            String facetCode,
-            @Parameter
+            Facet facetCode,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Descriptor code"
             )
             String code,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Descriptor name"
             )
             String name,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
                                     + "1=Raw descriptor\n"
                                     + "2=Descriptors to ask the question 'fat used during cooking'"
             )
             Type type,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "TODO missing description"
             )
             int single,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "TODO missing description"
             )

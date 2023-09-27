@@ -18,6 +18,7 @@
  */
 package dita.globodiet.manager.editing.food;
 
+import java.util.Collections;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -36,6 +37,8 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.globodiet.dom.params.EntitiesMenu;
+import dita.globodiet.dom.params.classification.FoodGroup;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
@@ -68,6 +71,15 @@ implements HasCurrentlyCheckedOutVersion {
     public FoodManager addFood(@ParameterTuple final Food.Params p) {
         //TODO this is just a stub
         return this;
+    }
+    @MemberSupport public List<FoodGroup> choices1AddFood() {
+        return Collections.emptyList();
+    }
+    @MemberSupport public List<FoodSubgroup> choices2AddFood() {
+        return Collections.emptyList();
+    }
+    @MemberSupport public List<FoodSubgroup> choices3AddFood() {
+        return Collections.emptyList();
     }
     @MemberSupport public String disableAddFood() {
         return guardAgainstCannotEditVersion(blobStore)

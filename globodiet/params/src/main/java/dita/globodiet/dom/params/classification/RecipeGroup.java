@@ -33,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -142,17 +143,23 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
      * @param shortName Short Name of the Recipe group
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Recipe Group code"
             )
             String code,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Name of the Recipe group"
             )
             String name,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Short Name of the Recipe group"
             )

@@ -21,6 +21,8 @@ package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Named;
 import java.lang.Class;
 import java.lang.Override;
@@ -33,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -206,22 +209,30 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      * whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
             )
             String code,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "has no description"
             )
             double thickness,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
             )
             String comment,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
                                     + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
@@ -229,8 +240,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
                                     + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
                                     + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
             )
-            String foodSubgroupsLookupKey,
+            FoodSubgroup foodSubgroupsLookupKey,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -239,7 +251,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
                                     + "When this field is empty, that means that this thickness has always to be proposed\n"
                                     + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)"
             )
-            String recipeSubgroupsLookupKey) {
+            RecipeSubgroup recipeSubgroupsLookupKey) {
     }
 
     /**

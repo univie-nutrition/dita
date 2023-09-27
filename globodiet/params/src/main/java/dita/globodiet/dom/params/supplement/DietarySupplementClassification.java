@@ -33,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -149,6 +150,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
      */
     public final record Params(
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -156,6 +158,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
             )
             String code,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -163,6 +166,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
             )
             String name,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(

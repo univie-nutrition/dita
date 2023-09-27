@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -358,46 +359,61 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * @param shortName Short Name of the food (sub-)(sub-)group
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Food group code"
             )
-            String foodGroupCode,
-            @Parameter
+            FoodGroup foodGroupCode,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Food sub-group code"
             )
             String foodSubgroupCode,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
                     describedAs = "Food sub-sub-group code"
             )
             String foodSubSubgroupCode,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Name of the food (sub-)(sub-)group"
             )
             String name,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
             )
             FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=non fat/sauce subgroup\n"
                                     + "1= fat/sauce subgroup that can be left over in the dish"
             )
             FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=non fat during cooking subgroup\n"
                                     + "1= fat during cooking subgroup"
             )
             FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Short Name of the food (sub-)(sub-)group"
             )

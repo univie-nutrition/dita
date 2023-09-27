@@ -122,12 +122,7 @@ class _GenAssociationMixin {
 
         final Can<Foreign> foreigners = foreignFields
                 .map((OrmModel.Field foreignField)->{
-                    val foreignEntity = foreignField.parentEntity();
-                    val foreignPackageName = config.fullPackageName(foreignEntity.namespace());
-                    val foreignEntityClass = field.hasElementType()
-                            ? ClassName.get(config.fullPackageName(field.elementTypeNamespace()), field.elementTypeSimpleName())
-                            : ClassName.get(foreignPackageName, foreignEntity.name());
-
+                    val foreignEntityClass = _Foreign.foreignClassName(field, foreignField, config);
                     var argList = Can.ofCollection(field.discriminatorFields())
                             .add(field)
                             .stream()
@@ -136,9 +131,10 @@ class _GenAssociationMixin {
                             .collect(Collectors.toCollection(ArrayList::new));
                     val argCount = argList.size();
                     val significantArgument = argList.get(argCount-1);
+                    final int foreignSecondaryKeyArgCount = foreignField.parentEntity().secondaryKey().size();
 
                     // fill up with null args
-                    final int fillSize = foreignEntity.secondaryKey().size() - argCount;
+                    final int fillSize = foreignSecondaryKeyArgCount - argCount;
                     IntStream.range(0, fillSize)
                         .forEach(__->argList.add("null"));
 
@@ -147,7 +143,7 @@ class _GenAssociationMixin {
                             : "nullable";
 
                     return new Foreign(foreignEntityClass, strictness,
-                            foreignField.getter(), foreignEntity.secondaryKey().size(),
+                            foreignField.getter(), foreignSecondaryKeyArgCount,
                             significantArgument,
                             argList.stream().collect(Collectors.joining(", ")));
                 });

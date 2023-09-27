@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -327,40 +328,54 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Facet code for Dietary Supplement"
             )
             String code,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Facet name for Dietary Supplement"
             )
             String name,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
                                     + "Only 1 facet (physical state) is used for quantification."
             )
             MandatoryFacetUsedForQuantificationQ mandatoryFacetUsedForQuantificationQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Facet with Mono or Multi selection of descriptors\n"
                                     + "0=mono,\n"
                                     + "1=multi"
             )
             SingleOrMultiSelectionOfDescriptorsQ singleOrMultiSelectionOfDescriptorsQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
             )
             AttributedToAllSupplementsQ attributedToAllSupplementsQ,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Order to ask the facet (first, second...)"
             )
             int orderToAsk,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Label on how to ask the facet question"
             )

@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
@@ -195,12 +196,14 @@ class _Annotations {
                 .addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name())
                 .build();
     }
-    AnnotationSpec parameter() {
+    AnnotationSpec parameter(final DependentDefaultsPolicy dependentDefaultsPolicy) {
         return AnnotationSpec.builder(Parameter.class)
+                .addMember("dependentDefaultsPolicy", "$1T.$2L", DependentDefaultsPolicy.class, dependentDefaultsPolicy.name())
                 .build();
     }
-    AnnotationSpec parameter(final Optionality optionality) {
+    AnnotationSpec parameter(final DependentDefaultsPolicy dependentDefaultsPolicy, final Optionality optionality) {
         return AnnotationSpec.builder(Parameter.class)
+                .addMember("dependentDefaultsPolicy", "$1T.$2L", DependentDefaultsPolicy.class, dependentDefaultsPolicy.name())
                 .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
                 .build();
     }

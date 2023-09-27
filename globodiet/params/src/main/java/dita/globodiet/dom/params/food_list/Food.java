@@ -21,6 +21,8 @@ package dita.globodiet.dom.params.food_list;
 
 import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
+import dita.globodiet.dom.params.classification.FoodGroup;
+import dita.globodiet.dom.params.classification.FoodSubgroup;
 import jakarta.inject.Named;
 import java.lang.Class;
 import java.lang.Override;
@@ -34,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -413,38 +416,46 @@ public class Food implements HasSecondaryKey<Food> {
      * 1=dietary supplement
      */
     public final record Params(
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias"
             )
             String code,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
                     describedAs = "Food Group code"
             )
-            String foodGroupCode,
+            FoodGroup foodGroupCode,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
                     describedAs = "Food Subgroup code"
             )
-            String foodSubgroupCode,
+            FoodSubgroup foodSubgroupCode,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
                     describedAs = "Food Sub(sub)group code"
             )
-            String foodSubSubgroupCode,
-            @Parameter
+            FoodSubgroup foodSubSubgroupCode,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias"
             )
             String foodNativeName,
             @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -466,13 +477,17 @@ public class Food implements HasSecondaryKey<Food> {
                                     + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
             )
             TypeOfItem typeOfItem,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "Auxiliary field to force an internal order within each subgroup\n"
                                     + "(if GI then 1 otherwise 2, this forces the GI at the top)"
             )
             GroupOrdinal groupOrdinal,
-            @Parameter
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+            )
             @ParameterLayout(
                     describedAs = "0=food\n"
                                     + "1=dietary supplement"
