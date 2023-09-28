@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.lookup;
+package dita.globodiet.manager.services.lookup;
 
 import java.util.stream.Stream;
 

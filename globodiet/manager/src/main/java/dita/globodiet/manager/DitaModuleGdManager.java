@@ -32,11 +32,11 @@ import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeService
 import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
 import org.apache.causeway.extensions.docgen.help.applib.HelpNode.HelpTopic;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.CausewayEntityDiagramPage;
+import org.apache.causeway.extensions.exceldownload.wkt.ui.CausewayModuleExtExcelDownloadWicketUi;
 import org.apache.causeway.extensions.secman.encryption.spring.CausewayModuleExtSecmanEncryptionSpring;
 import org.apache.causeway.extensions.secman.integration.CausewayModuleExtSecmanIntegration;
 import org.apache.causeway.extensions.secman.integration.authenticator.AuthenticatorSecmanAutoConfiguration;
 import org.apache.causeway.extensions.secman.jdo.CausewayModuleExtSecmanPersistenceJdo;
-import org.apache.causeway.extensions.viewer.wicket.exceldownload.ui.CausewayModuleExtExcelDownloadWicketUi;
 import org.apache.causeway.persistence.jdo.datanucleus.CausewayModulePersistenceJdoDatanucleus;
 import org.apache.causeway.valuetypes.asciidoc.metamodel.semantics.AsciiDocValueSemantics;
 import org.apache.causeway.valuetypes.asciidoc.ui.wkt.CausewayModuleValAsciidocUiWkt;
@@ -51,10 +51,12 @@ import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyC
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
+import dita.globodiet.manager.editing.food.FoodManager_add;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
-import dita.globodiet.manager.lookup.DependantLookupGdParams;
-import dita.globodiet.manager.lookup.ForeignKeyLookupGdParams;
+import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
+import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
+import dita.globodiet.manager.services.search.SearchServiceGdParams;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -103,11 +105,13 @@ import lombok.val;
     // Services
     DependantLookupGdParams.class,
     ForeignKeyLookupGdParams.class,
+    SearchServiceGdParams.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
     ParameterDataVersion_updateName.class,
     ParameterDataVersion_updateDescription.class,
+    FoodManager_add.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.lookup;
+package dita.globodiet.manager.services.lookup;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,9 +39,9 @@ import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.functions._Predicates;
 
-import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.commons.services.foreignkey.HasSecondaryKey;
-import dita.commons.services.foreignkey.ISecondaryKey;
+import dita.commons.services.lookup.ForeignKeyLookupService;
+import dita.commons.services.lookup.HasSecondaryKey;
+import dita.commons.services.lookup.ISecondaryKey;
 import dita.globodiet.dom.params.classification.FoodGroup;
 import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.classification.FoodSubgroup;

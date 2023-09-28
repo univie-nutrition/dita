@@ -16,13 +16,26 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.services.foreignkey;
+package dita.commons.services.lookup;
 
-import org.apache.causeway.applib.annotation.Programmatic;
+import java.util.List;
+import java.util.function.Function;
 
-public interface HasSecondaryKey<T> {
+public interface DependantLookupService {
 
-    @Programmatic
-    ISecondaryKey<T> secondaryKey();
+    /**
+     * @param <D> dependent type
+     * @param <M> mixin type
+     * @param <L> local type
+     * @param dependantType - type to lookup/enumerate
+     * @param dependantAssociationMixinClass mixin that contributes an association, that potentially matches
+     * @param dependantAssociationMixinGetter
+     * @param localEntity
+     */
+    <D, M, L> List<D> findDependants(
+            Class<D> dependantType,
+            Class<M> dependantAssociationMixinClass,
+            Function<M, L> dependantAssociationMixinGetter,
+            L localEntity);
 
 }

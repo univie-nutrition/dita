@@ -16,14 +16,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.services.foreignkey;
+package dita.commons.services.lookup;
 
-import java.io.Serializable;
+import org.apache.causeway.applib.annotation.Programmatic;
 
-public interface ISecondaryKey<T> extends Serializable {
+public interface HasSecondaryKey<T> {
 
-    Class<T> correspondingClass();
-
-    T unresolvable();
+    @Programmatic
+    ISecondaryKey<T> secondaryKey();
 
 }

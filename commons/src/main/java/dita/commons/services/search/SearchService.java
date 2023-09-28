@@ -16,16 +16,20 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.services.foreignkey;
+package dita.commons.services.search;
 
-import org.apache.causeway.commons.collections.Can;
+import java.util.List;
+import java.util.function.Function;
 
-public interface ForeignKeyLookupService {
+import org.springframework.lang.Nullable;
 
-    <T> Can<ISecondaryKey<T>> decodeLookupKeyList(Class<T> type, String stringList);
-    int switchOn(Object entity);
+import lombok.NonNull;
 
-    <T> T unique(ISecondaryKey<T> lookupKey);
-    <T> T nullable(ISecondaryKey<T> lookupKey);
+public interface SearchService {
+
+    <T> List<T> search(
+            @NonNull Class<T> entityType,
+            @NonNull Function<T, String> searchOn,
+            @Nullable String searchString);
 
 }

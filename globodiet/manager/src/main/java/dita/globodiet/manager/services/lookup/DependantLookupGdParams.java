@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.lookup;
+package dita.globodiet.manager.services.lookup;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
-import dita.commons.services.foreignkey.DependantLookupService;
+import dita.commons.services.lookup.DependantLookupService;
 
 @Service
 public class DependantLookupGdParams

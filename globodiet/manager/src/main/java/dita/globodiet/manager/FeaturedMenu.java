@@ -28,8 +28,9 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
 
+import dita.commons.services.search.SearchService;
+import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.manager.editing.brand.BrandManager;
-import dita.globodiet.manager.editing.food.FoodManager;
 
 @Named(DitaModuleGdManager.NAMESPACE + ".FeaturedMenu")
 @DomainService(
@@ -38,6 +39,7 @@ import dita.globodiet.manager.editing.food.FoodManager;
 public class FeaturedMenu {
 
     @Inject FactoryService factoryService;
+    @Inject SearchService searchService;
 
     @Action
     @ActionLayout(cssClassFa = FontawesomeConstants.ICON_BRANDS)
@@ -45,10 +47,11 @@ public class FeaturedMenu {
         return factoryService.viewModel(new BrandManager());
     }
 
+    //TODO autogen
     @Action
     @ActionLayout(cssClassFa = FontawesomeConstants.ICON_FOOD)
-    public FoodManager manageFoodList() {
-        return factoryService.viewModel(new FoodManager());
+    public Food.Manager manageFood() {
+        return factoryService.viewModel(new Food.Manager(searchService, ""));
     }
 
 }

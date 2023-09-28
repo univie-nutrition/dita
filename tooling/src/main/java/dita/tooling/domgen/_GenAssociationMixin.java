@@ -36,7 +36,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import dita.commons.services.foreignkey.ForeignKeyLookupService;
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;

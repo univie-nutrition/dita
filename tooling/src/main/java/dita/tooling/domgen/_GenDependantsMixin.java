@@ -27,7 +27,7 @@ import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.commons.collections.Can;
 
-import dita.commons.services.foreignkey.DependantLookupService;
+import dita.commons.services.lookup.DependantLookupService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;

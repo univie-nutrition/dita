@@ -24,19 +24,23 @@ import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 
 import org.springframework.javapoet.ClassName;
+import org.springframework.javapoet.CodeBlock;
 import org.springframework.javapoet.FieldSpec;
 import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.ParameterSpec;
 import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
+import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
+import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import dita.commons.services.foreignkey.HasSecondaryKey;
-import dita.commons.services.foreignkey.ISecondaryKey;
+import dita.commons.services.lookup.HasSecondaryKey;
+import dita.commons.services.lookup.ISecondaryKey;
+import dita.commons.services.search.SearchService;
 import dita.tooling.domgen.DomainGenerator.Config;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
@@ -86,6 +90,35 @@ class _GenEntity {
                 .forEach(field->
                     typeModelBuilder.addType(
                             _Enums.enumForColumn(field.asJavaType(), field.enumConstants())));
+
+        // inner manager view model
+
+        val managerViewmodel = TypeSpec.classBuilder("Manager")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .addJavadoc("Manager Viewmodel for @{link $1L}", entityModel.name())
+                .addSuperinterface(ClassName.get(ViewModel.class))
+                .addAnnotation(_Annotations.named(config.fullLogicalName(entityModel.namespace())
+                        + "." + entityModel.name() + ".Manager"))
+                .addAnnotation(_Annotations.domainObjectLayout(
+                        entityModel.formatDescription("\n"),
+                        entityModel.icon()))
+                .addAnnotation(_Annotations.allArgsConstructor())
+                .addField(FieldSpec.builder(SearchService.class, "searchService", Modifier.PUBLIC, Modifier.FINAL)
+                        .build())
+                .addField(FieldSpec.builder(String.class, "search", Modifier.PRIVATE)
+                        .addAnnotation(_Annotations.property(Optionality.OPTIONAL, Editing.ENABLED))
+                        .addAnnotation(_Annotations.getter())
+                        .addAnnotation(_Annotations.setter())
+                        .build())
+                .addMethod(_Methods.objectSupport("title",
+                        CodeBlock.of("""
+                                return "Manage $1L";""", _Strings.asNaturalName.apply(entityModel.name())),
+                        Modifier.PUBLIC))
+                .addMethod(_Methods.managerSearch(entityModel.name()))
+                .addMethod(_Methods.viewModelMemento(CodeBlock.of("return getSearch();")))
+                .build();
+
+        typeModelBuilder.addType(managerViewmodel);
 
         if(entityModel.hasSecondaryKey()) {
 
@@ -160,7 +193,6 @@ class _GenEntity {
             typeModelBuilder.addType(unresolvableClass);
             typeModelBuilder.addMethod(asUnresolvableMethod(unresolvableClass, entityModel.secondaryKeyFields(), Modifier.PUBLIC));
 
-
         }
         return new QualifiedType(
                 config.fullPackageName(entityModel.namespace()),
@@ -170,14 +202,10 @@ class _GenEntity {
     // -- HELPER
 
     private MethodSpec asTitleMethod(final Entity entityModel, final Modifier ... modifiers) {
-        final String code = _Strings.nonEmpty(entityModel.title())
-                .orElse("this.toString()");
-        return MethodSpec.methodBuilder("title")
-                .addModifiers(modifiers)
-                .addAnnotation(_Annotations.objectSupport())
-                .returns(ClassName.get("java.lang", "String"))
-                .addCode("return " + code + ";")
-                .build();
+        return _Methods.objectSupport("title",
+                CodeBlock.of("return $1L;", _Strings.nonEmpty(entityModel.title())
+                        .orElse("this.toString()")),
+                modifiers);
     }
 
     private Iterable<FieldSpec> asFields(

@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
+import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -66,6 +67,10 @@ class _Annotations {
 
     // -- LOMBOK
 
+    AnnotationSpec allArgsConstructor() {
+        return AnnotationSpec.builder(ClassName.get("lombok", "AllArgsConstructor"))
+                .build();
+    }
     AnnotationSpec requiredArgsConstructor() {
         return AnnotationSpec.builder(ClassName.get("lombok", "RequiredArgsConstructor"))
                 .build();
@@ -176,9 +181,15 @@ class _Annotations {
         return AnnotationSpec.builder(Property.class)
                 .build();
     }
-    AnnotationSpec property(final Optionality optional) {
+    AnnotationSpec property(final Optionality optionality) {
         return AnnotationSpec.builder(Property.class)
-                .addMember("optionality", "$1T.$2L", Optionality.class, optional.name())
+                .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
+                .build();
+    }
+    public static AnnotationSpec property(final Optionality optionality, final Editing editing) {
+        return AnnotationSpec.builder(Property.class)
+                .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
+                .addMember("editing", "$1T.$2L", Editing.class, editing.name())
                 .build();
     }
     AnnotationSpec property(final Snapshot snapshot) {
