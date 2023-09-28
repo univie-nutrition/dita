@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
@@ -162,28 +163,32 @@ public class Shape implements HasSecondaryKey<Shape> {
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Shape code (e.g. S001,S002,S003,...)"
             )
             String shapeCode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
             )
             double shapeSurfaceInCm2,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
             )
             String commentAttachedToTheShape,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Order to display the standard unit"

@@ -360,14 +360,16 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Food group code"
             )
             FoodGroup foodGroupCode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Food sub-group code"
@@ -382,21 +384,24 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             )
             String foodSubSubgroupCode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Name of the food (sub-)(sub-)group"
             )
             String name,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
             )
             FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0=non fat/sauce subgroup\n"
@@ -404,7 +409,8 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             )
             FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0=non fat during cooking subgroup\n"
@@ -412,7 +418,8 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             )
             FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Short Name of the food (sub-)(sub-)group"

@@ -38,6 +38,7 @@ import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
@@ -330,28 +331,32 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Facet code for recipes"
             )
             String code,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Facet name"
             )
             String name,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Facet text (text to show on the screen describing the facet)"
             )
             String textToShowOnTheScreenDescribingTheFacet,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
@@ -359,7 +364,8 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             )
             DescriptorsAvailableForRecipeOrBrandQ descriptorsAvailableForRecipeOrBrandQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0 = facet with single-selection of descriptor\n"
@@ -367,7 +373,8 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             )
             SingleOrMultiSelectDescriptorQ singleOrMultiSelectDescriptorQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0 = standard facet\n"
@@ -375,7 +382,8 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             )
             StandardOrMainFacetQ standardOrMainFacetQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Label on how to ask the facet question"

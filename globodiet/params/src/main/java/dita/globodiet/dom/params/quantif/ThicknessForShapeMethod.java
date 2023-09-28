@@ -210,28 +210,32 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
             )
             String code,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "has no description"
             )
             double thickness,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
             )
             String comment,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"

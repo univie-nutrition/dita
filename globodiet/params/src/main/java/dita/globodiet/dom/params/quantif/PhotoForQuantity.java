@@ -38,6 +38,7 @@ import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
@@ -256,21 +257,24 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Photo series code (P001,P002,P003,...)"
             )
             String code,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
             )
             String quantificationStringThatDefinesTheQuantitiesOfEachPhotos,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "1 = raw,\n"
@@ -278,7 +282,8 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
             )
             RawOrCooked rawOrCooked,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "1 = without un-edible part,\n"
@@ -286,7 +291,8 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
             )
             WithUnediblePartQ withUnediblePartQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "G = in grams, V = in ml (volume)"

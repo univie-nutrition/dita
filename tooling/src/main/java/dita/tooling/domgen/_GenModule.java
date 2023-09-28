@@ -30,7 +30,8 @@ import org.springframework.javapoet.TypeSpec;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.JavaFileModel;
+import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -38,12 +39,11 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _GenModule {
 
-    JavaModel toJavaModel(
+    public QualifiedType qualifiedType(
             final @NonNull DomainGenerator.Config config,
-            final @NonNull List<JavaModel> entities,
-            final @NonNull List<JavaModel> mixins) {
+            final @NonNull List<JavaFileModel> entities,
+            final @NonNull List<JavaFileModel> mixins) {
 
-        val logicalNameSpace = ""; // not used in this context
         val packageName = config.fullPackageName(config.entitiesModulePackageName());
 
         final ListMultimap<String, ClassName> importsByCategory = _Multimaps
@@ -53,29 +53,24 @@ class _GenModule {
                 ClassName.get(packageName, "EntitiesMenu")));
 
         importsByCategory.put("Entities", entities.stream()
-                .map(JavaModel::className)
+                .map(JavaFileModel::className)
                 .toList());
 
         importsByCategory.put("Mixins", mixins.stream()
-                .map(JavaModel::className)
+                .map(JavaFileModel::className)
                 .toList());
 
-        return new JavaModel(
-                logicalNameSpace,
-                packageName,
-                classModel(ClassName.get(packageName, config.entitiesModuleClassSimpleName()), importsByCategory),
-                config.licenseHeader());
-    }
+        final ClassName nameOfClassToGenerate =
+                ClassName.get(packageName, config.entitiesModuleClassSimpleName());
 
-    // -- HELPER
-
-    private TypeSpec classModel(final ClassName nameOfClassToGenerate, final ListMultimap<String, ClassName> importsByCategory) {
         val typeModelBuilder = TypeSpec.classBuilder(nameOfClassToGenerate)
                 .addAnnotation(_Annotations.configuration())
                 .addAnnotation(_Annotations.imports(importsByCategory))
                 .addModifiers(Modifier.PUBLIC)
                 ;
-        return typeModelBuilder.build();
+        return new QualifiedType(
+                packageName,
+                typeModelBuilder.build());
     }
 
 }

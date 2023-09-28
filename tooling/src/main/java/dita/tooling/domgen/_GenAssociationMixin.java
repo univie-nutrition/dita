@@ -37,7 +37,7 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.services.foreignkey.ForeignKeyLookupService;
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -46,27 +46,15 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _GenAssociationMixin {
 
-    JavaModel toJavaModel(
+    QualifiedType qualifiedType(
             final DomainGenerator.Config config,
             final OrmModel.Field fieldWithForeignKeys,
             final Can<OrmModel.Field> foreignFields) {
 
         val entityModel = fieldWithForeignKeys.parentEntity();
-        val packageName = config.fullPackageName(entityModel.namespace());
-        return new JavaModel(
-                "",
-                packageName,
-                classModel(config, packageName, fieldWithForeignKeys,
-                        foreignFields), config.licenseHeader());
-    }
+        val packageName = config.fullPackageName(entityModel.namespace()); // shared with entity and mixin
 
-    private TypeSpec classModel(
-            final DomainGenerator.Config config,
-            final String packageName, // shared with entity and mixin
-            final OrmModel.Field field,
-            final Can<OrmModel.Field> foreignFields) {
-
-        val isPlural = field.plural();
+        val isPlural = fieldWithForeignKeys.plural();
         val distinctForeignEntities = foreignFields.stream()
                 .map(OrmModel.Field::parentEntity)
                 .distinct()
@@ -74,8 +62,7 @@ class _GenAssociationMixin {
         val useEitherPattern = foreignFields.size()==2
                 && distinctForeignEntities.isCardinalityMultiple();
 
-        val entityModel = field.parentEntity();
-        val typeModelBuilder = TypeSpec.classBuilder(_Mixins.propertyMixinClassName(field))
+        val typeModelBuilder = TypeSpec.classBuilder(_Mixins.propertyMixinClassName(fieldWithForeignKeys))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(isPlural
                         ? _Annotations.collection()
@@ -83,11 +70,14 @@ class _GenAssociationMixin {
                 .addAnnotation(
                         isPlural
                         ? _Annotations.collectionLayout(
-                                field.formatDescription("\n"),
+                                fieldWithForeignKeys.formatDescription("\n"),
                                 Where.NOWHERE)
                         : _Annotations.propertyLayout(
-                                field.sequence() + ".1", field.formatDescription("\n", "----",
-                                        String.format("required=%b, unique=%b", field.required(), field.unique())),
+                                fieldWithForeignKeys.sequence() + ".1", fieldWithForeignKeys.formatDescription("\n",
+                                        "----",
+                                        String.format("required=%b, unique=%b",
+                                                fieldWithForeignKeys.required(),
+                                                fieldWithForeignKeys.unique())),
                                 useEitherPattern
                                     ? Where.NOWHERE
                                     : Where.REFERENCES_PARENT))
@@ -96,11 +86,15 @@ class _GenAssociationMixin {
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
                 ;
 
-        mixedInAssociation(config, field, foreignFields, Modifier.PUBLIC)
+        mixedInAssociation(config, fieldWithForeignKeys, foreignFields, Modifier.PUBLIC)
             .ifPresent(typeModelBuilder::addMethod);
 
-        return typeModelBuilder.build();
+        return new QualifiedType(
+                packageName,
+                typeModelBuilder.build());
     }
+
+    // -- HELPER
 
     private Optional<MethodSpec> mixedInAssociation(
             final DomainGenerator.Config config,

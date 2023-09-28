@@ -18,8 +18,8 @@
  */
 package dita.globodiet.manager.editing.food;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -72,14 +72,17 @@ implements HasCurrentlyCheckedOutVersion {
         //TODO this is just a stub
         return this;
     }
-    @MemberSupport public List<FoodGroup> choices1AddFood() {
-        return Collections.emptyList();
+    @MemberSupport public List<FoodGroup> choices1AddFood(final Food.Params p) {
+        return repositoryService.allInstances(FoodGroup.class);
     }
-    @MemberSupport public List<FoodSubgroup> choices2AddFood() {
-        return Collections.emptyList();
+    @MemberSupport public List<FoodSubgroup> choices2AddFood(final Food.Params p) {
+        return repositoryService.allMatches(FoodSubgroup.class,
+                fg->fg.getFoodSubSubgroupCode()==null
+                    && Objects.equals(fg.getFoodGroupCode(), p.foodGroupCode().getCode()));
     }
-    @MemberSupport public List<FoodSubgroup> choices3AddFood() {
-        return Collections.emptyList();
+    @MemberSupport public List<FoodSubgroup> choices3AddFood(final Food.Params p) {
+        return repositoryService.allMatches(FoodSubgroup.class,
+                fg->fg.getFoodSubSubgroupCode()!=null);
     }
     @MemberSupport public String disableAddFood() {
         return guardAgainstCannotEditVersion(blobStore)

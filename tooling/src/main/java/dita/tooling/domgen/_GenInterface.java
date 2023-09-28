@@ -23,7 +23,7 @@ import javax.lang.model.element.Modifier;
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.TypeSpec;
 
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel.Entity;
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -31,20 +31,17 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _GenInterface {
 
-    JavaModel toJavaModel(
-            final Entity superTypeHolder,
-            final DomainGenerator.Config config) {
+    public QualifiedType qualifiedType(
+            final DomainGenerator.Config config,
+            final Entity superTypeHolder) {
 
-        val logicalNameSpace = config.fullLogicalName(superTypeHolder.superTypeNamespace());
         val packageName = config.fullPackageName(superTypeHolder.superTypeNamespace());
         val superTypeName = ClassName.get(packageName, superTypeHolder.superTypeSimpleName());
 
-        return new JavaModel(
-                logicalNameSpace,
+        return new QualifiedType(
                 packageName,
                 TypeSpec.interfaceBuilder(superTypeName)
-                    .addModifiers(Modifier.PUBLIC).build(),
-                config.licenseHeader());
+                .addModifiers(Modifier.PUBLIC).build());
     }
 
 }

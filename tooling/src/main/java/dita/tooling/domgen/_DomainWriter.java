@@ -37,7 +37,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.TextUtils;
 
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.JavaFileModel;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -46,7 +46,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _DomainWriter {
 
-    public void writeToDirectory(final @Nullable Stream<JavaModel> modelStream, final @NonNull File destDir) {
+    public void writeToDirectory(final @Nullable Stream<JavaFileModel> modelStream, final @NonNull File destDir) {
 
         if(modelStream==null) {
             return;
@@ -55,16 +55,16 @@ class _DomainWriter {
         FileUtils.existingDirectoryElseFail(destDir);
 
         modelStream
-        .forEach(javaModel->{
+        .forEach(javaFileModel->{
 
-                final String className = javaModel.className().canonicalName();
-                val javaFile = javaModel.buildJavaFile();
+                final String className = javaFileModel.className().canonicalName();
+                val javaFile = javaFileModel.buildJavaFile();
 
                 //System.out.printf("------%s----%n", className);
                 //System.out.printf("%s%n", javaFile.toString());
 
                 try {
-                    writeToPath(javaFile, destDir.toPath(), javaModel.licenseHeader());
+                    writeToPath(javaFile, destDir.toPath(), javaFileModel.licenseHeader());
                 } catch (IOException e) {
                     throw _Exceptions.unrecoverable(e, "failed to write java file %s", className);
                 }

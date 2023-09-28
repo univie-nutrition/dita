@@ -38,7 +38,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import dita.commons.services.foreignkey.HasSecondaryKey;
 import dita.commons.services.foreignkey.ISecondaryKey;
 import dita.tooling.domgen.DomainGenerator.Config;
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
 import dita.tooling.orm.OrmModel.Field;
@@ -48,26 +48,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _GenEntity {
 
-    JavaModel toJavaModel(
-            final OrmModel.Entity entityModel,
-            final DomainGenerator.Config config) {
-
-        val logicalNameSpace = config.fullLogicalName(entityModel.namespace());
-        val packageName = config.fullPackageName(entityModel.namespace());
-        return new JavaModel(
-                logicalNameSpace,
-                packageName,
-                classModel(logicalNameSpace, entityModel, config), config.licenseHeader());
-    }
-
-    // -- HELPER
-
-    private TypeSpec classModel(final String logicalNamespace, final OrmModel.Entity entityModel,
-            final Config config) {
+    public QualifiedType qualifiedType(
+            final Config config,
+            final OrmModel.Entity entityModel) {
 
         var typeModelBuilder = TypeSpec.classBuilder(entityModel.name())
                 .addJavadoc(entityModel.formatDescription("\n"))
-                .addAnnotation(_Annotations.named(logicalNamespace + "." + entityModel.name()))
+                .addAnnotation(_Annotations.named(config.fullLogicalName(entityModel.namespace()) + "." + entityModel.name()))
                 .addAnnotation(_Annotations.domainObject())
                 .addAnnotation(_Annotations.domainObjectLayout(
                         entityModel.formatDescription("\n"),
@@ -175,8 +162,12 @@ class _GenEntity {
 
 
         }
-        return typeModelBuilder.build();
+        return new QualifiedType(
+                config.fullPackageName(entityModel.namespace()),
+                typeModelBuilder.build());
     }
+
+    // -- HELPER
 
     private MethodSpec asTitleMethod(final Entity entityModel, final Modifier ... modifiers) {
         final String code = _Strings.nonEmpty(entityModel.title())
@@ -240,9 +231,13 @@ class _GenEntity {
                                     : field.asJavaType(),
                             field.name(), modifiers)
                     .addJavadoc(field.formatDescription("\n"))
-                    .addAnnotation(field.required()
-                            ? _Annotations.parameter(DependentDefaultsPolicy.PRESERVE_CHANGES)
-                            : _Annotations.parameter(DependentDefaultsPolicy.PRESERVE_CHANGES, Optionality.OPTIONAL))
+                    .addAnnotation(_Annotations.parameter(
+                                    field.hasDiscriminator()
+                                        ? DependentDefaultsPolicy.UPDATE_DEPENDENT
+                                        : DependentDefaultsPolicy.PRESERVE_CHANGES,
+                                    field.required()
+                                        ? Optionality.MANDATORY
+                                        : Optionality.OPTIONAL))
                     .addAnnotation(_Annotations.parameterLayout(field.formatDescription("\n")))
                     .build())
                 .collect(Collectors.toList());

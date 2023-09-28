@@ -28,7 +28,7 @@ import org.springframework.javapoet.TypeSpec;
 import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.services.foreignkey.DependantLookupService;
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -37,7 +37,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _GenDependantsMixin {
 
-    JavaModel toJavaModel(
+    QualifiedType qualifiedType(
             final DomainGenerator.Config config,
             final OrmModel.Field fieldWithForeignKeys,
             // all sharing the same foreignEntity, as guaranteed by the caller
@@ -46,20 +46,6 @@ class _GenDependantsMixin {
 
         val localEntity = foreignFields.getFirstElseFail().parentEntity(); // entity this mixin contributes to
         val packageName = config.fullPackageName(localEntity.namespace());
-        return new JavaModel(
-                "",
-                packageName,
-                classModel(config, packageName, localEntity, fieldWithForeignKeys,
-                        foreignFields, propertyMixinClassName), config.licenseHeader());
-    }
-
-    private TypeSpec classModel(
-            final DomainGenerator.Config config,
-            final String packageName, // shared with entity and mixin
-            final OrmModel.Entity localEntity, // entity this mixin contributes to
-            final OrmModel.Field fieldWithForeignKeys,
-            final Can<OrmModel.Field> foreignFields,
-            final ClassName propertyMixinClassName) {
 
         val typeModelBuilder = TypeSpec.classBuilder(_Mixins.collectionMixinClassName(localEntity, fieldWithForeignKeys))
                 .addModifiers(Modifier.PUBLIC)
@@ -67,11 +53,16 @@ class _GenDependantsMixin {
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(DependantLookupService.class, "dependantLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, localEntity.name()), Modifier.FINAL, Modifier.PRIVATE))
-                .addMethod(mixedInCollection(config, localEntity, fieldWithForeignKeys, foreignFields, propertyMixinClassName, Modifier.PUBLIC))
+                .addMethod(mixedInCollection(config, localEntity, fieldWithForeignKeys, foreignFields, propertyMixinClassName,
+                        Modifier.PUBLIC))
                 ;
 
-        return typeModelBuilder.build();
+        return new QualifiedType(
+                packageName,
+                typeModelBuilder.build());
     }
+
+    // -- HELPER
 
     private MethodSpec mixedInCollection(
             final DomainGenerator.Config config,

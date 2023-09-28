@@ -31,7 +31,7 @@ import org.springframework.javapoet.TypeSpec;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
-import dita.tooling.domgen.DomainGenerator.JavaModel;
+import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -39,41 +39,30 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _GenMenu {
 
-    JavaModel toJavaModel(
+    public QualifiedType qualifiedType(
             final DomainGenerator.Config config,
             final Collection<OrmModel.Entity> entityModels) {
 
-        val logicalNamespace = config.fullLogicalName(config.entitiesModulePackageName());
-        val packageName = config.fullPackageName(config.entitiesModulePackageName());
+        val typeModelBuilder = TypeSpec.classBuilder("EntitiesMenu")
+                .addAnnotation(_Annotations.named(
+                        config.fullLogicalName(config.entitiesModulePackageName()) + "." + "EntitiesMenu"))
+                .addAnnotation(_Annotations.domainService(NatureOfService.VIEW))
+                .addModifiers(Modifier.PUBLIC)
+                .addField(_Fields.inject(RepositoryService.class, "repositoryService", Modifier.PRIVATE))
+                .addMethods(asMethods(entityModels, config, Modifier.PUBLIC))
+                ;
 
 //TODO gen XML as well
 //        val imports = entityModels.stream()
 //        .map(entityModel->config.javaPoetClassName(entityModel))
 //        .toList();
 
-        return new JavaModel(
-                logicalNamespace,
-                packageName,
-                classModel(ClassName.get(packageName, "EntitiesMenu"), logicalNamespace, entityModels, config),
-                config.licenseHeader());
+        return new QualifiedType(
+                config.fullPackageName(config.entitiesModulePackageName()),
+                typeModelBuilder.build());
     }
 
     // -- HELPER
-
-    private TypeSpec classModel(
-            final ClassName nameOfClassToGenerate,
-            final String logicalNamespace,
-            final Collection<OrmModel.Entity> entityModels,
-            final DomainGenerator.Config config) {
-        val typeModelBuilder = TypeSpec.classBuilder(nameOfClassToGenerate)
-                .addAnnotation(_Annotations.named(logicalNamespace + "." + nameOfClassToGenerate.simpleName()))
-                .addAnnotation(_Annotations.domainService(NatureOfService.VIEW))
-                .addModifiers(Modifier.PUBLIC)
-                .addField(_Fields.inject(RepositoryService.class, "repositoryService", Modifier.PRIVATE))
-                .addMethods(asMethods(entityModels, config, Modifier.PUBLIC))
-                ;
-        return typeModelBuilder.build();
-    }
 
     private Iterable<MethodSpec> asMethods(
             final Collection<OrmModel.Entity> entityModels,

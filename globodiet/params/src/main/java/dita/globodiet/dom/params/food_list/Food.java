@@ -417,7 +417,8 @@ public class Food implements HasSecondaryKey<Food> {
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias"
@@ -432,7 +433,7 @@ public class Food implements HasSecondaryKey<Food> {
             )
             FoodGroup foodGroupCode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -440,7 +441,7 @@ public class Food implements HasSecondaryKey<Food> {
             )
             FoodSubgroup foodSubgroupCode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -448,7 +449,8 @@ public class Food implements HasSecondaryKey<Food> {
             )
             FoodSubgroup foodSubSubgroupCode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias"
@@ -478,7 +480,8 @@ public class Food implements HasSecondaryKey<Food> {
             )
             TypeOfItem typeOfItem,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Auxiliary field to force an internal order within each subgroup\n"
@@ -486,7 +489,8 @@ public class Food implements HasSecondaryKey<Food> {
             )
             GroupOrdinal groupOrdinal,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "0=food\n"
