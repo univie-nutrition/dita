@@ -65,6 +65,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe group code\n"
                             + "----\n"
@@ -87,6 +88,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Recipe subgroup code\n"
                             + "----\n"
@@ -109,6 +111,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Recipe code\n"
                             + "----\n"
@@ -131,6 +134,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Fat group code for Fat or Sauce or Sweetener\n"
                             + "----\n"
@@ -153,6 +157,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Fat subgroup code for Fat or Sauce or Sweetener\n"
                             + "----\n"
@@ -175,6 +180,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener\n"
                             + "----\n"
@@ -197,6 +203,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "7",
             describedAs = "Fat code for Fat or Sauce or Sweetener\n"
                             + "----\n"
@@ -217,6 +224,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Percentage of fat\n"
                             + "----\n"
@@ -251,6 +259,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

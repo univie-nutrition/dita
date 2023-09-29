@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "4.1",
         describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)\n"
                         + "----\n"

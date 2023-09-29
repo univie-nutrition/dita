@@ -72,6 +72,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Center code\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Attached Country code\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Center name\n"
                             + "----\n"
@@ -157,6 +160,9 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

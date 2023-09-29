@@ -66,6 +66,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe ID number the ingredient belongs to\n"
                             + "----\n"
@@ -90,6 +91,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "1 = ingredient fixed\n"
                             + "2 = ingredient substitutable\n"
@@ -126,6 +128,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Food type (GI or blank)\n"
                             + "----\n"
@@ -148,6 +151,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Description text (facet/descriptor text)\n"
                             + "----\n"
@@ -168,6 +172,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Ingredient name\n"
                             + "----\n"
@@ -188,6 +193,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "Ingredient food or recipe group\n"
                             + "----\n"
@@ -208,6 +214,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "7",
             describedAs = "Ingredient food or recipe subgroup\n"
                             + "----\n"
@@ -230,6 +237,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "8",
             describedAs = "Ingredient food sub-subgroup\n"
                             + "----\n"
@@ -252,6 +260,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "9",
             describedAs = "Ingredient brand (if any)\n"
                             + "----\n"
@@ -275,6 +284,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "10",
             describedAs = "Facets-Descriptors codes used to describe the ingredient;\n"
                             + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
@@ -297,6 +307,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "11",
             describedAs = "1 = ingredient described and quantified\n"
                             + "2 = otherwise\n"
@@ -328,6 +339,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "12",
             describedAs = "Final quantity in g (with coefficient applied)\n"
                             + "----\n"
@@ -347,6 +359,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "13",
             describedAs = "Estimated quantity (before coefficient applied)\n"
                             + "----\n"
@@ -368,6 +381,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "14",
             describedAs = "Quantity Estimated Raw or Cooked\n"
                             + "1 = Raw\n"
@@ -402,6 +416,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "15",
             describedAs = "Quantity Consumed Raw or Cooked\n"
                             + "1 = Raw\n"
@@ -434,6 +449,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "16",
             describedAs = "Conversion factor raw->cooked\n"
                             + "----\n"
@@ -453,6 +469,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "17",
             describedAs = "Quantity as estimated: 1=without un-edible part & 2=with un-edible part\n"
                             + "----\n"
@@ -483,6 +500,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "18",
             describedAs = "Conversion factor for edible part\n"
                             + "----\n"
@@ -502,6 +520,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "19",
             describedAs = "Quantity in gram/volume attached to the selected Photo, HHM, STDU\n"
                             + "----\n"
@@ -521,6 +540,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "20",
             describedAs = "Proportion of Photo, HHM, STDU\n"
                             + "----\n"
@@ -543,6 +563,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "21",
             describedAs = "Type of quantification method\n"
                             + "----\n"
@@ -565,6 +586,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "22",
             describedAs = "Quantification method code\n"
                             + "----\n"
@@ -585,6 +607,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "23",
             describedAs = "Density Coefficient only for HHM\n"
                             + "----\n"
@@ -604,6 +627,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "24",
             describedAs = "Sequential Number for Ingredients within a Mixed Recipe\n"
                             + "----\n"
@@ -623,6 +647,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "25",
             describedAs = "Fat Left-Over Percentage\n"
                             + "----\n"
@@ -642,6 +667,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "26",
             describedAs = "Fat Left-Over Code (F=False, T=True)\n"
                             + "----\n"
@@ -663,6 +689,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "27",
             describedAs = "HHM Fraction\n"
                             + "----\n"
@@ -683,6 +710,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "28",
             describedAs = "Consumed quantity in pound\n"
                             + "----\n"
@@ -702,6 +730,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "29",
             describedAs = "Consumed quantity in ounce\n"
                             + "----\n"
@@ -721,6 +750,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "30",
             describedAs = "Consumed quantity in quart\n"
                             + "----\n"
@@ -740,6 +770,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "31",
             describedAs = "Consumed quantity in pint\n"
                             + "----\n"
@@ -759,6 +790,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "32",
             describedAs = "Consumed quantity in flounce\n"
                             + "----\n"
@@ -778,6 +810,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "33",
             describedAs = "Sequential Number for Ingredients within a Sub-Recipe\n"
                             + "----\n"
@@ -797,6 +830,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "34",
             describedAs = "Raw quantity without inedible (sans dechet)\n"
                             + "----\n"
@@ -818,6 +852,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "35",
             describedAs = "Percentage/Proportion as Estimated for Recipe Ingredients\n"
                             + "----\n"
@@ -839,6 +874,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "36",
             describedAs = "Percentage/Proportion as Consumed for Recipe Ingredients\n"
                             + "----\n"
@@ -859,6 +895,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "37",
             describedAs = "1 = food\n"
                             + "2 = recipe\n"
@@ -889,6 +926,7 @@ public class RecipeIngredient {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "38",
             describedAs = "Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum\n"
                             + "----\n"
@@ -911,6 +949,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "39",
             describedAs = "Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)\n"
                             + "----\n"
@@ -933,6 +972,7 @@ public class RecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "40",
             describedAs = "has no description\n"
                             + "----\n"
@@ -1113,6 +1153,9 @@ public class RecipeIngredient {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

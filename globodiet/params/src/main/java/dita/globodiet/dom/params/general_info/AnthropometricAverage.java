@@ -63,6 +63,7 @@ public class AnthropometricAverage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Anthropometry variable (Height or Weight)\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class AnthropometricAverage {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Sex (1 for men, 2 for women, blank for both)\n"
                             + "----\n"
@@ -104,6 +106,7 @@ public class AnthropometricAverage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Age minimum range\n"
                             + "----\n"
@@ -123,6 +126,7 @@ public class AnthropometricAverage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Age maximum range\n"
                             + "----\n"
@@ -142,6 +146,7 @@ public class AnthropometricAverage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Minimum value of height or weight\n"
                             + "----\n"
@@ -161,6 +166,7 @@ public class AnthropometricAverage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Maximum value of height or weight\n"
                             + "----\n"
@@ -180,6 +186,7 @@ public class AnthropometricAverage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Default value of height or weight\n"
                             + "----\n"
@@ -213,6 +220,9 @@ public class AnthropometricAverage {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

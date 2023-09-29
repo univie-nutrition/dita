@@ -62,6 +62,7 @@ public class SpecialDietPredefinedAnswer {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Special diet code\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class SpecialDietPredefinedAnswer {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Special diet label\n"
                             + "----\n"
@@ -116,6 +118,9 @@ public class SpecialDietPredefinedAnswer {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

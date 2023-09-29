@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "4.1",
         describedAs = "Dietary Supplement classification code (optional)\n"
                         + "----\n"

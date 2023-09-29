@@ -64,6 +64,7 @@ public class MaximumValueForAFoodOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -86,6 +87,7 @@ public class MaximumValueForAFoodOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -108,6 +110,7 @@ public class MaximumValueForAFoodOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food sub-Subgroup code\n"
                             + "----\n"
@@ -130,6 +133,7 @@ public class MaximumValueForAFoodOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Food code\n"
                             + "----\n"
@@ -150,6 +154,7 @@ public class MaximumValueForAFoodOrGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Maximum value\n"
                             + "----\n"
@@ -171,6 +176,7 @@ public class MaximumValueForAFoodOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
                             + "----\n"
@@ -191,6 +197,7 @@ public class MaximumValueForAFoodOrGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Priority order\n"
                             + "----\n"
@@ -225,6 +232,9 @@ public class MaximumValueForAFoodOrGroup {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

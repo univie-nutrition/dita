@@ -65,6 +65,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe group\n"
                             + "----\n"
@@ -89,6 +90,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Quantification method code:\n"
                             + "'P' for photo,\n"
@@ -126,6 +128,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Photo code (if method='P' and 'A');\n"
                             + "either M_photos.ph_code or M_shapes.sh_code\n"
@@ -147,6 +150,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Comment\n"
                             + "----\n"
@@ -213,6 +217,9 @@ public class QuantificationMethodsPathwayForRecipeGroup {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

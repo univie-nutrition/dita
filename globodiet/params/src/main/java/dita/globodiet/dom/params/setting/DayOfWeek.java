@@ -62,6 +62,7 @@ public class DayOfWeek {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Day number\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class DayOfWeek {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Day name\n"
                             + "----\n"
@@ -116,6 +118,9 @@ public class DayOfWeek {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

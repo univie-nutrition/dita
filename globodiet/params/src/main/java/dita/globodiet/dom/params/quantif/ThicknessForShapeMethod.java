@@ -73,6 +73,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)\n"
                             + "----\n"
@@ -93,6 +94,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "has no description\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Comment attached to the thickness (e.g. small, medium, large…)\n"
                             + "----\n"
@@ -136,6 +139,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
                             + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
@@ -165,6 +169,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
                             + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
@@ -212,6 +217,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

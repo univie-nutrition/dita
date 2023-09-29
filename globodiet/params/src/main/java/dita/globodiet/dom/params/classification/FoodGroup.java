@@ -72,6 +72,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Food group name\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Food group short name\n"
                             + "----\n"
@@ -157,6 +160,9 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

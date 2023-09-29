@@ -63,6 +63,7 @@ public class PercentOfFatLeftInTheDishForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Group code of the FAT's group\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class PercentOfFatLeftInTheDishForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Subgroup code of the FAT\n"
                             + "----\n"
@@ -107,6 +109,7 @@ public class PercentOfFatLeftInTheDishForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Sub-Subgroup code of the FAT\n"
                             + "----\n"
@@ -127,6 +130,7 @@ public class PercentOfFatLeftInTheDishForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Percentage of fat left in the dish\n"
                             + "----\n"
@@ -161,6 +165,9 @@ public class PercentOfFatLeftInTheDishForFood {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

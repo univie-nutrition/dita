@@ -73,6 +73,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Place of consumption code\n"
                             + "----\n"
@@ -93,6 +94,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Place of consumption name\n"
                             + "----\n"
@@ -114,6 +116,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "0=not a 'Other' place\n"
                             + "1='Other' place\n"
@@ -191,6 +194,9 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

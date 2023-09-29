@@ -62,6 +62,7 @@ public class RuleAppliedToFacet {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Facet where the rule must be applied.\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class RuleAppliedToFacet {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
                             + "to allow the facet (FACET_CODE) to be asked.\n"
@@ -110,6 +112,7 @@ public class RuleAppliedToFacet {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Group code\n"
                             + "----\n"
@@ -132,6 +135,7 @@ public class RuleAppliedToFacet {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Subgroup code\n"
                             + "----\n"
@@ -154,6 +158,7 @@ public class RuleAppliedToFacet {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Sub-subgroup code\n"
                             + "----\n"
@@ -188,6 +193,9 @@ public class RuleAppliedToFacet {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

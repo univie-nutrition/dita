@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "2.1",
         describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe\n"
                         + "(superseeding its group pathway).\n"

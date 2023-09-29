@@ -62,6 +62,7 @@ public class NutrientValuesPerNutrientAndItem {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Item Sequential number\n"
                             + "----\n"
@@ -81,6 +82,7 @@ public class NutrientValuesPerNutrientAndItem {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Nutrient code\n"
                             + "----\n"
@@ -100,6 +102,7 @@ public class NutrientValuesPerNutrientAndItem {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Nutrient value for the attached item & nutrient\n"
                             + "----\n"
@@ -133,6 +136,9 @@ public class NutrientValuesPerNutrientAndItem {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

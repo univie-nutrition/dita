@@ -69,6 +69,7 @@ public class FoodConsumptionOccasionDisplayItem {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food Consumption Occasion code\n"
                             + "----\n"
@@ -89,6 +90,7 @@ public class FoodConsumptionOccasionDisplayItem {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Text representing Food.\n"
                             + "----\n"
@@ -127,6 +129,9 @@ public class FoodConsumptionOccasionDisplayItem {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

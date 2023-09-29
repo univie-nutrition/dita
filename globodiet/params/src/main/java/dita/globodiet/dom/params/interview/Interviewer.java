@@ -63,6 +63,7 @@ public class Interviewer {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Interviewer code\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class Interviewer {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Interviewer family name\n"
                             + "----\n"
@@ -105,6 +107,7 @@ public class Interviewer {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Interviewer name\n"
                             + "----\n"
@@ -125,6 +128,7 @@ public class Interviewer {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Country code\n"
                             + "----\n"
@@ -145,6 +149,7 @@ public class Interviewer {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Center code\n"
                             + "----\n"
@@ -180,6 +185,9 @@ public class Interviewer {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

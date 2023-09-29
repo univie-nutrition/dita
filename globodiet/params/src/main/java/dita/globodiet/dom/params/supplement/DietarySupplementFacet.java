@@ -72,6 +72,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Facet code for Dietary Supplement\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Facet name for Dietary Supplement\n"
                             + "----\n"
@@ -113,6 +115,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
                             + "Only 1 facet (physical state) is used for quantification.\n"
@@ -145,6 +148,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Facet with Mono or Multi selection of descriptors\n"
                             + "0=mono,\n"
@@ -176,6 +180,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.\n"
                             + "----\n"
@@ -205,6 +210,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Order to ask the facet (first, second...)\n"
                             + "----\n"
@@ -224,6 +230,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Label on how to ask the facet question\n"
                             + "----\n"
@@ -334,6 +341,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

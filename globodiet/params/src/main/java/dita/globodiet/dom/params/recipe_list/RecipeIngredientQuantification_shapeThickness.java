@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "7.1",
         describedAs = "Shape: Thickness code (e.g. A or 58_1)\n"
                         + "----\n"

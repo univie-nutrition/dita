@@ -73,6 +73,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Dietary Supplement classification code\n"
                             + "----\n"
@@ -95,6 +96,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Name of the food (sub-)(sub-)group\n"
                             + "----\n"
@@ -117,6 +119,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Dietary Supplement classification code attached to (for subgroup)\n"
                             + "----\n"
@@ -161,6 +164,9 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

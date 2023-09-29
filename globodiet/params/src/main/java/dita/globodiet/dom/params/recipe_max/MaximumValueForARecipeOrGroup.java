@@ -64,6 +64,7 @@ public class MaximumValueForARecipeOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe group code\n"
                             + "----\n"
@@ -86,6 +87,7 @@ public class MaximumValueForARecipeOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Recipe subgroup code\n"
                             + "----\n"
@@ -108,6 +110,7 @@ public class MaximumValueForARecipeOrGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Recipe code\n"
                             + "----\n"
@@ -128,6 +131,7 @@ public class MaximumValueForARecipeOrGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Maximum value\n"
                             + "----\n"
@@ -161,6 +165,9 @@ public class MaximumValueForARecipeOrGroup {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

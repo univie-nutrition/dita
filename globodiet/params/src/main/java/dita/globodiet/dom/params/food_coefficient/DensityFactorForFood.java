@@ -66,6 +66,7 @@ public class DensityFactorForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food identification number (FOODNUM)\n"
                             + "either Foods.foodnum OR Mixedrec.r_idnum\n"
@@ -87,6 +88,7 @@ public class DensityFactorForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Density coefficient\n"
                             + "----\n"
@@ -109,6 +111,7 @@ public class DensityFactorForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Facet string\n"
                             + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
@@ -130,6 +133,7 @@ public class DensityFactorForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Priority order\n"
                             + "----\n"
@@ -153,6 +157,7 @@ public class DensityFactorForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = without un-edible part,\n"
                             + "2 = with un-edible (as estimated)\n"
@@ -187,6 +192,7 @@ public class DensityFactorForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "1 = raw,\n"
                             + "2 = cooked (as estimated)\n"
@@ -219,6 +225,7 @@ public class DensityFactorForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "1 = density for food/ingredient,\n"
                             + "2 = density for recipe\n"
@@ -329,6 +336,9 @@ public class DensityFactorForFood {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

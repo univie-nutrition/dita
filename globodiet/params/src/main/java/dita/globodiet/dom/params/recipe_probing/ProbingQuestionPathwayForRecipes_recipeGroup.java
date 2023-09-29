@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "2.1",
         describedAs = "Recipe group code\n"
                         + "----\n"

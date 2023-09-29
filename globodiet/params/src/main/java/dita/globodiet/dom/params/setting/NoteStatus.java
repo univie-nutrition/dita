@@ -65,6 +65,7 @@ public class NoteStatus {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Status code\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class NoteStatus {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Status label\n"
                             + "----\n"
@@ -107,6 +109,7 @@ public class NoteStatus {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Allow the possibility to display or not the note in the view note window:\n"
                             + "0=No hide,\n"
@@ -174,6 +177,9 @@ public class NoteStatus {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

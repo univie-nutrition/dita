@@ -65,6 +65,7 @@ public class NutrientListAndDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Nutrient code\n"
                             + "----\n"
@@ -84,6 +85,7 @@ public class NutrientListAndDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Nutrient Name\n"
                             + "----\n"
@@ -104,6 +106,7 @@ public class NutrientListAndDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Nutrient unit (e.g. kcal, g, mg…)\n"
                             + "----\n"
@@ -125,6 +128,7 @@ public class NutrientListAndDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "0=not displayed in the 'nutrient checks' screen\n"
                             + "1=displayed in the 'nutrient checks' screen\n"
@@ -157,6 +161,7 @@ public class NutrientListAndDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Comment on nutrient\n"
                             + "----\n"
@@ -213,6 +218,9 @@ public class NutrientListAndDefinition {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

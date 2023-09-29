@@ -71,6 +71,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Interview number\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Subject birth date\n"
                             + "----\n"
@@ -113,6 +115,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Subject code\n"
                             + "----\n"
@@ -135,6 +138,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Subject first name\n"
                             + "----\n"
@@ -157,6 +161,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Subject height in cm\n"
                             + "----\n"
@@ -178,6 +183,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Subject name\n"
                             + "----\n"
@@ -200,6 +206,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Subject sex (1=man, 2=woman)\n"
                             + "----\n"
@@ -232,6 +239,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Subject weight in kg\n"
                             + "----\n"
@@ -254,6 +262,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "9",
             describedAs = "0=interview to be done,\n"
                             + "1=interview done\n"
@@ -286,6 +295,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "10",
             describedAs = "Country code\n"
                             + "----\n"
@@ -308,6 +318,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "11",
             describedAs = "Center code\n"
                             + "----\n"
@@ -330,6 +341,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "12",
             describedAs = "Interviewer Country code\n"
                             + "----\n"
@@ -352,6 +364,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "13",
             describedAs = "Interviewer Center code\n"
                             + "----\n"
@@ -374,6 +387,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "14",
             describedAs = "Interviewer code\n"
                             + "----\n"
@@ -396,6 +410,7 @@ public class SubjectToBeInterviewed {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "15",
             describedAs = "Recall Date (mm/dd/yy)\n"
                             + "----\n"
@@ -474,6 +489,9 @@ public class SubjectToBeInterviewed {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

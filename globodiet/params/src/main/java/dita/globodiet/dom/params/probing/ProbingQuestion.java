@@ -72,6 +72,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Probing question code\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Probing question label\n"
                             + "----\n"
@@ -137,6 +139,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

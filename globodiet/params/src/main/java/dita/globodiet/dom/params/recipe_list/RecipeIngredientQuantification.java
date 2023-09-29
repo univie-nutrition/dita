@@ -65,6 +65,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe ID number the ingredient belong to\n"
                             + "----\n"
@@ -87,6 +88,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Sequential Number within a Mixed Recipe for Ingredient\n"
                             + "----\n"
@@ -108,6 +110,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Ingredient Food or Recipe ID number\n"
                             + "----\n"
@@ -130,6 +133,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Order of shape selection (e.g. 1)\n"
                             + "----\n"
@@ -151,6 +155,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Shape code (e.g. S001)\n"
                             + "----\n"
@@ -173,6 +178,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals\n"
                             + "----\n"
@@ -194,6 +200,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "7",
             describedAs = "Shape: Thickness code (e.g. A or 58_1)\n"
                             + "----\n"
@@ -216,6 +223,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals\n"
                             + "----\n"
@@ -237,6 +245,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "9",
             describedAs = "Photo: Number of the Selected Photo (e.g. 1 or 4)\n"
                             + "----\n"
@@ -259,6 +268,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "10",
             describedAs = "Photo quantity\n"
                             + "----\n"
@@ -280,6 +290,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "11",
             describedAs = "Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)\n"
                             + "----\n"
@@ -302,6 +313,7 @@ public class RecipeIngredientQuantification {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "12",
             describedAs = "Sequential Number for Ingredients within a Sub-Recipe\n"
                             + "----\n"
@@ -335,6 +347,9 @@ public class RecipeIngredientQuantification {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

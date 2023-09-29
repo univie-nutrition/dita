@@ -43,6 +43,7 @@ import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
 import dita.tooling.domgen.DomainGenerator.Config;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
+import dita.tooling.domgen._Annotations.PropertyLayoutRecord;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
 import dita.tooling.orm.OrmModel.Field;
@@ -107,6 +108,9 @@ class _GenEntity {
                         .build())
                 .addField(FieldSpec.builder(String.class, "search", Modifier.PRIVATE)
                         .addAnnotation(_Annotations.property(Optionality.OPTIONAL, Editing.ENABLED))
+                        .addAnnotation(_Annotations.propertyLayout(PropertyLayoutRecord.builder()
+                                .fieldSetId("searchBar")
+                                .build()))
                         .addAnnotation(_Annotations.getter())
                         .addAnnotation(_Annotations.setter())
                         .build())
@@ -223,13 +227,20 @@ class _GenEntity {
                     .addAnnotation(!field.required()
                             ? _Annotations.property(Optionality.OPTIONAL)
                             : _Annotations.property())
-                    .addAnnotation(_Annotations.propertyLayout(
-                            field.sequence(),
-                            field.formatDescription("\n", "----",
-                                    String.format("required=%b, unique=%b", field.required(), field.unique())),
-                            field.hasForeignKeys()
-                            ? Where.ALL_TABLES
-                            : Where.NOWHERE))
+                    .addAnnotation(_Annotations.propertyLayout(PropertyLayoutRecord.builder()
+                            .fieldSetId(field.isMemberOfSecondaryKey()
+                                    ? "identity"
+                                    : field.hasForeignKeys()
+                                        ? "foreign"
+                                        : "details")
+                            .sequence(field.sequence())
+                            .describedAs(
+                                field.formatDescription("\n", "----",
+                                        String.format("required=%b, unique=%b", field.required(), field.unique())))
+                            .hiddenWhere(field.hasForeignKeys()
+                                ? Where.ALL_TABLES
+                                : Where.NOWHERE)
+                            .build()))
                     .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                     .addAnnotation(_Annotations.getter())
                     .addAnnotation(_Annotations.setter());

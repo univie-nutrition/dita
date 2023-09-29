@@ -35,6 +35,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "2.1",
         describedAs = "Food (ingredient) Identification Code\n"
                         + "either Foods.foodnum OR Mixedrec.r_idnum\n"

@@ -72,6 +72,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Photo series code (P001,P002,P003,...)\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)\n"
                             + "----\n"
@@ -113,6 +115,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
                             + "2 = cooked (as estimated)\n"
@@ -145,6 +148,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
                             + "2 = with un-edible (as estimated)\n"
@@ -176,6 +180,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "G = in grams, V = in ml (volume)\n"
                             + "----\n"
@@ -264,6 +269,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "5.1",
         describedAs = "Descriptor code\n"
                         + "----\n"

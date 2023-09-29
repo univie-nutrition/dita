@@ -65,6 +65,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Standard portion quantity\n"
                             + "----\n"
@@ -84,6 +85,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food identification number (=FOODMUM)\n"
                             + "----\n"
@@ -105,6 +107,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
                             + "2 = cooked (as estimated)\n"
@@ -137,6 +140,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
                             + "2 = with un-edible (as estimated)\n"
@@ -168,6 +172,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Comment attached to the standard portion\n"
                             + "----\n"
@@ -188,6 +193,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Standard portion code for the same food (0001, 0002, 0003)\n"
                             + "----\n"
@@ -208,6 +214,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "G = in grams, V = in ml (volume)\n"
                             + "----\n"
@@ -228,6 +235,7 @@ public class StandardPortionForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Order to display the standard portion\n"
                             + "----\n"
@@ -305,6 +313,9 @@ public class StandardPortionForFood {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

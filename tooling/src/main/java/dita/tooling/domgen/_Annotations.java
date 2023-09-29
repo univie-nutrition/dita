@@ -18,6 +18,7 @@
  */
 package dita.tooling.domgen;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
@@ -52,6 +53,7 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
+import lombok.Builder;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -223,15 +225,25 @@ class _Annotations {
                 .addMember("describedAs", "$1S", describedAs)
                 .build();
     }
-    /**
-     * @param describedAs - property description
-     */
-    AnnotationSpec propertyLayout(final String sequence, final String describedAs, final Where hiddenWhere) {
-        return AnnotationSpec.builder(PropertyLayout.class)
-                .addMember("sequence", "$1S", sequence)
-                .addMember("describedAs", "$1S", describedAs)
-                .addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name())
-                .build();
+
+    @Builder
+    static record PropertyLayoutRecord(
+        String fieldSetId,
+        String sequence,
+        String describedAs,
+        Where hiddenWhere) {
+    }
+    AnnotationSpec propertyLayout(final PropertyLayoutRecord argsAsRecord) {
+        val builder = AnnotationSpec.builder(PropertyLayout.class);
+        _Strings.nonEmpty(argsAsRecord.fieldSetId())
+            .ifPresent(fieldSetId->builder.addMember("fieldSetId", "$1S", fieldSetId));
+        _Strings.nonEmpty(argsAsRecord.sequence())
+            .ifPresent(sequence->builder.addMember("sequence", "$1S", sequence));
+        _Strings.nonEmpty(argsAsRecord.describedAs())
+            .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
+        Optional.ofNullable(argsAsRecord.hiddenWhere())
+            .ifPresent(hiddenWhere->builder.addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name()));
+        return builder.build();
     }
 
     AnnotationSpec memberSupport() {

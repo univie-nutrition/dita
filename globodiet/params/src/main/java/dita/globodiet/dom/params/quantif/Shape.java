@@ -71,6 +71,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Shape code (e.g. S001,S002,S003,...)\n"
                             + "----\n"
@@ -91,6 +92,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible\n"
                             + "----\n"
@@ -110,6 +112,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)\n"
                             + "----\n"
@@ -130,6 +133,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Order to display the standard unit\n"
                             + "----\n"
@@ -173,6 +177,9 @@ public class Shape implements HasSecondaryKey<Shape> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

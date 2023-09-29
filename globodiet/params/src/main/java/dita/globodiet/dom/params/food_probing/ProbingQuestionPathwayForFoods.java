@@ -65,6 +65,7 @@ public class ProbingQuestionPathwayForFoods {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Probing question code\n"
                             + "----\n"
@@ -87,6 +88,7 @@ public class ProbingQuestionPathwayForFoods {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -109,6 +111,7 @@ public class ProbingQuestionPathwayForFoods {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -131,6 +134,7 @@ public class ProbingQuestionPathwayForFoods {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food sub-subgroup code\n"
                             + "----\n"
@@ -153,6 +157,7 @@ public class ProbingQuestionPathwayForFoods {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Food identification number (FOODNUM)\n"
                             + "----\n"
@@ -188,6 +193,9 @@ public class ProbingQuestionPathwayForFoods {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -62,6 +62,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Facet code\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Descriptor code\n"
                             + "----\n"
@@ -116,6 +118,9 @@ public class FacetDescriptorThatCannotBeSubstituted {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

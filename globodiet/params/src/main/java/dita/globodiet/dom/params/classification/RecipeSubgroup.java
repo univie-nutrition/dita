@@ -72,6 +72,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Recipe group code\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "2",
             describedAs = "Recipe sub-group code\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Name of the recipe (sub-)group\n"
                             + "----\n"
@@ -132,6 +135,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Short Name of the recipe (sub-)group\n"
                             + "----\n"
@@ -177,6 +181,9 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

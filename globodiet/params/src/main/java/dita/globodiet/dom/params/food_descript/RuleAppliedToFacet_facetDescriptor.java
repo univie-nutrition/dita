@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "2.1",
         describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
                         + "to allow the facet (FACET_CODE) to be asked.\n"

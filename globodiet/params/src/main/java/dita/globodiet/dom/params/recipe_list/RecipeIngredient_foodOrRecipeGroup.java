@@ -36,6 +36,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "6.1",
         describedAs = "Ingredient food or recipe group\n"
                         + "----\n"

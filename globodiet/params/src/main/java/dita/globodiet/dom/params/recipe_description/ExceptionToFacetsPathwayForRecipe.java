@@ -62,6 +62,7 @@ public class ExceptionToFacetsPathwayForRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe ID number\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class ExceptionToFacetsPathwayForRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe\n"
                             + "(superseeding its group pathway).\n"
@@ -108,6 +110,7 @@ public class ExceptionToFacetsPathwayForRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "has no description\n"
                             + "----\n"
@@ -141,6 +144,9 @@ public class ExceptionToFacetsPathwayForRecipe {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

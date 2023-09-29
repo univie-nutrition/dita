@@ -63,6 +63,7 @@ public class BrandForRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe group\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class BrandForRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Recipe subgroup\n"
                             + "----\n"
@@ -105,6 +107,7 @@ public class BrandForRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "has no description\n"
                             + "----\n"
@@ -140,6 +143,9 @@ public class BrandForRecipe {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

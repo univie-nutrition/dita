@@ -74,6 +74,7 @@ public class DefinitionOfRecipePathway {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Type of recipe:\n"
                             + "1.1=Open – Known\n"
@@ -113,6 +114,7 @@ public class DefinitionOfRecipePathway {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "0 = The ingredient window is not displayed\n"
                             + "1 = The ingredient window is displayed\n"
@@ -148,6 +150,7 @@ public class DefinitionOfRecipePathway {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
                             + "1 = S - Substitute\n"
@@ -183,6 +186,7 @@ public class DefinitionOfRecipePathway {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
                             + "1 = S - Substitute\n"
@@ -218,6 +222,7 @@ public class DefinitionOfRecipePathway {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Display of the automatic note window:\n"
                             + "0 = No display of note window\n"
@@ -419,6 +424,9 @@ public class DefinitionOfRecipePathway {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

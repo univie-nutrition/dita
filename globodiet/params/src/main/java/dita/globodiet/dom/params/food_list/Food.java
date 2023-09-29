@@ -75,6 +75,7 @@ public class Food implements HasSecondaryKey<Food> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias\n"
                             + "----\n"
@@ -97,6 +98,7 @@ public class Food implements HasSecondaryKey<Food> {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food Group code\n"
                             + "----\n"
@@ -119,6 +121,7 @@ public class Food implements HasSecondaryKey<Food> {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food Subgroup code\n"
                             + "----\n"
@@ -141,6 +144,7 @@ public class Food implements HasSecondaryKey<Food> {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food Sub(sub)group code\n"
                             + "----\n"
@@ -161,6 +165,7 @@ public class Food implements HasSecondaryKey<Food> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias\n"
                             + "----\n"
@@ -198,6 +203,7 @@ public class Food implements HasSecondaryKey<Food> {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Type of item:\n"
                             + "(none) -> Normal Food Item\n"
@@ -244,6 +250,7 @@ public class Food implements HasSecondaryKey<Food> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Auxiliary field to force an internal order within each subgroup\n"
                             + "(if GI then 1 otherwise 2, this forces the GI at the top)\n"
@@ -276,6 +283,7 @@ public class Food implements HasSecondaryKey<Food> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "0=food\n"
                             + "1=dietary supplement\n"
@@ -407,6 +415,9 @@ public class Food implements HasSecondaryKey<Food> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

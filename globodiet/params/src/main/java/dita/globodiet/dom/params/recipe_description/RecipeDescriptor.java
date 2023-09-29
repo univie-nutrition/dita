@@ -72,6 +72,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Facet code for recipes\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "2",
             describedAs = "Descriptor code for recipes\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Descriptor name\n"
                             + "----\n"
@@ -134,6 +137,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Only for facet recipe production:\n"
                             + "0=not homemade descriptor\n"
@@ -165,6 +169,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Only for facet known/unknown: 1=unknown 2=known\n"
                             + "----\n"
@@ -194,6 +199,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Descriptor with type='other' : 1=yes 0=no\n"
                             + "----\n"
@@ -224,6 +230,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "0=not single descriptor\n"
                             + "1=single descriptor\n"
@@ -371,6 +378,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -67,6 +67,7 @@ public class ItemDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Sequential number\n"
                             + "----\n"
@@ -90,6 +91,7 @@ public class ItemDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Type of record:\n"
                             + "F=food,\n"
@@ -126,6 +128,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food or recipe group\n"
                             + "----\n"
@@ -148,6 +151,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food or recipe sub-group\n"
                             + "----\n"
@@ -170,6 +174,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Food sub-sub-group\n"
                             + "----\n"
@@ -192,6 +197,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "Food or Recipe code\n"
                             + "----\n"
@@ -214,6 +220,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Facet string\n"
                             + "----\n"
@@ -236,6 +243,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Brand name\n"
                             + "----\n"
@@ -256,6 +264,7 @@ public class ItemDefinition {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "9",
             describedAs = "Priority order\n"
                             + "----\n"
@@ -277,6 +286,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "10",
             describedAs = "Attached records: only for the Type=A2 & A3\n"
                             + "----\n"
@@ -298,6 +308,7 @@ public class ItemDefinition {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "11",
             describedAs = "Comment\n"
                             + "----\n"
@@ -365,6 +376,9 @@ public class ItemDefinition {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -64,6 +64,7 @@ public class SelectedParameter {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Parameter code\n"
                             + "----\n"
@@ -86,6 +87,7 @@ public class SelectedParameter {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Parameter value\n"
                             + "----\n"
@@ -120,6 +122,9 @@ public class SelectedParameter {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -54,6 +54,7 @@ import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.food.FoodManager_add;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
+import dita.globodiet.manager.services.layout.GridLayoutService;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
@@ -106,6 +107,7 @@ import lombok.val;
     DependantLookupGdParams.class,
     ForeignKeyLookupGdParams.class,
     SearchServiceGdParams.class,
+    GridLayoutService.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,

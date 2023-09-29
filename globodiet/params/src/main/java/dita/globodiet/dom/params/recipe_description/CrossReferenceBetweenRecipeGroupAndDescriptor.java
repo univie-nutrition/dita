@@ -63,6 +63,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Recipe group code\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Recipe Subgroup code\n"
                             + "----\n"
@@ -105,6 +107,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Recipe Facet code\n"
                             + "----\n"
@@ -125,6 +128,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Recipe Descriptor code\n"
                             + "----\n"
@@ -147,6 +151,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Default flag (if set to 'D', it is the default descriptor else blank)\n"
                             + "----\n"
@@ -169,6 +174,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Not in name flag (if set to 'N', the descriptor is not in the name else blank)\n"
                             + "----\n"
@@ -189,6 +195,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Order to display the facets within a group/subgroup\n"
                             + "----\n"
@@ -208,6 +215,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Order to display the descriptors within a group/subgroup and a facet\n"
                             + "----\n"
@@ -242,6 +250,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -66,6 +66,7 @@ public class GroupSubstitution {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "0=Food classification\n"
                             + "1=Recipe classification\n"
@@ -97,6 +98,7 @@ public class GroupSubstitution {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -119,6 +121,7 @@ public class GroupSubstitution {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -141,6 +144,7 @@ public class GroupSubstitution {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food sub-Subgroup code\n"
                             + "----\n"
@@ -163,6 +167,7 @@ public class GroupSubstitution {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)\n"
                             + "----\n"
@@ -185,6 +190,7 @@ public class GroupSubstitution {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)\n"
                             + "----\n"
@@ -248,6 +254,9 @@ public class GroupSubstitution {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -65,6 +65,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -107,6 +109,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food sub-subgroup code\n"
                             + "----\n"
@@ -129,6 +132,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)\n"
                             + "----\n"
@@ -152,6 +156,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "1=raw,\n"
                             + "2=cooked (as Consumed)\n"
@@ -188,6 +193,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Quantification method code:\n"
                             + "'P' for photo,\n"
@@ -226,6 +232,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "7",
             describedAs = "Photo code (if method='P' and 'A');\n"
                             + "either M_photos.ph_code or M_shapes.sh_code\n"
@@ -247,6 +254,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Comment\n"
                             + "----\n"
@@ -340,6 +348,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

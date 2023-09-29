@@ -65,6 +65,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -87,6 +88,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -109,6 +111,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food sub-Subgroup code\n"
                             + "----\n"
@@ -131,6 +134,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food code\n"
                             + "----\n"
@@ -153,6 +157,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Fat group code for fat\n"
                             + "----\n"
@@ -175,6 +180,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "Fat subgroup code for fat\n"
                             + "----\n"
@@ -197,6 +203,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "7",
             describedAs = "Fat sub-subgroup code for fat\n"
                             + "----\n"
@@ -219,6 +226,7 @@ public class PercentOfFatUseDuringCookingForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "8",
             describedAs = "Fat code for fat\n"
                             + "----\n"
@@ -239,6 +247,7 @@ public class PercentOfFatUseDuringCookingForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "9",
             describedAs = "Cooking method Facet and Descriptor codes (e.g. 0305)\n"
                             + "----\n"
@@ -259,6 +268,7 @@ public class PercentOfFatUseDuringCookingForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "10",
             describedAs = "Percentage of fat absorbed during cooking\n"
                             + "----\n"
@@ -293,6 +303,9 @@ public class PercentOfFatUseDuringCookingForFood {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

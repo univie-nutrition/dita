@@ -67,6 +67,7 @@ public class ComposedRecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)\n"
                             + "----\n"
@@ -90,6 +91,7 @@ public class ComposedRecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food (ingredient) Identification Code\n"
                             + "either Foods.foodnum OR Mixedrec.r_idnum\n"
@@ -114,6 +116,7 @@ public class ComposedRecipeIngredient {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "If type=1 ingredient from Food list,\n"
                             + "If type=2 ingredient from Recipe list\n"
@@ -181,6 +184,9 @@ public class ComposedRecipeIngredient {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

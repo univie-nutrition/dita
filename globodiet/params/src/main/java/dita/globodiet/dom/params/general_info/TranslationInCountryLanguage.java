@@ -62,6 +62,7 @@ public class TranslationInCountryLanguage {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Text name\n"
                             + "----\n"
@@ -84,6 +85,7 @@ public class TranslationInCountryLanguage {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Text in specific Country language\n"
                             + "----\n"
@@ -106,6 +108,7 @@ public class TranslationInCountryLanguage {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Text in English\n"
                             + "----\n"
@@ -128,6 +131,7 @@ public class TranslationInCountryLanguage {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Data entry Text in specific Country language\n"
                             + "----\n"
@@ -150,6 +154,7 @@ public class TranslationInCountryLanguage {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Data entry Text in English\n"
                             + "----\n"
@@ -184,6 +189,9 @@ public class TranslationInCountryLanguage {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

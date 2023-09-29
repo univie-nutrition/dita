@@ -36,6 +36,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "3.1",
         describedAs = "Photo code (if method='P' and 'A');\n"
                         + "either M_photos.ph_code or M_shapes.sh_code\n"

@@ -72,6 +72,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Facet code for recipes\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Facet name\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Facet text (text to show on the screen describing the facet)\n"
                             + "----\n"
@@ -133,6 +136,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
                             + "1=Facets with descriptors available in RBrand table\n"
@@ -164,6 +168,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "0 = facet with single-selection of descriptor\n"
                             + "1 = facets with multi-selection of descriptors\n"
@@ -195,6 +200,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "0 = standard facet\n"
                             + "1 = Main facet (with non modified descriptor)\n"
@@ -225,6 +231,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Label on how to ask the facet question\n"
                             + "----\n"
@@ -335,6 +342,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -65,6 +65,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Standard unit quantity\n"
                             + "----\n"
@@ -84,6 +85,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food or Recipe identification number (code)\n"
                             + "----\n"
@@ -107,6 +109,7 @@ public class StandardUnitForFoodOrRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
                             + "2 = cooked (as estimated)\n"
@@ -141,6 +144,7 @@ public class StandardUnitForFoodOrRecipe {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
                             + "2 = with un-edible (as estimated)\n"
@@ -173,6 +177,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = STDU for food,\n"
                             + "2 = STDU for recipe\n"
@@ -204,6 +209,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Comment attached to the standard unit\n"
                             + "----\n"
@@ -224,6 +230,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)\n"
                             + "----\n"
@@ -245,6 +252,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "G = in grams,\n"
                             + "V = in ml (volume)\n"
@@ -266,6 +274,7 @@ public class StandardUnitForFoodOrRecipe {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "9",
             describedAs = "Order to display the standard unit\n"
                             + "----\n"
@@ -365,6 +374,9 @@ public class StandardUnitForFoodOrRecipe {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -12,6 +12,10 @@
     </bs:row>
     <bs:row>
         <bs:col span="12">
+            <cpt:fieldSet id="searchBar" name="">
+            </cpt:fieldSet>
+        </bs:col>
+        <bs:col span="12">
             <bs:row>
                 <bs:col span="6">
                     <cpt:fieldSet id="details" unreferencedProperties="true">

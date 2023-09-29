@@ -65,6 +65,7 @@ public class QuantificationMethodsPathwayForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food identification number (FOODNUM)\n"
                             + "----\n"
@@ -90,6 +91,7 @@ public class QuantificationMethodsPathwayForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Quantification method code:\n"
                             + "'P' for photo,\n"
@@ -128,6 +130,7 @@ public class QuantificationMethodsPathwayForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Photo code (if method='P' and 'A');\n"
                             + "either M_photos.ph_code or M_shapes.sh_code\n"
@@ -200,6 +203,9 @@ public class QuantificationMethodsPathwayForFood {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -63,6 +63,7 @@ public class Brand {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Name of brand\n"
                             + "----\n"
@@ -83,6 +84,7 @@ public class Brand {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -105,6 +107,7 @@ public class Brand {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -127,6 +130,7 @@ public class Brand {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food sub-subgroup code\n"
                             + "----\n"
@@ -162,6 +166,9 @@ public class Brand {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

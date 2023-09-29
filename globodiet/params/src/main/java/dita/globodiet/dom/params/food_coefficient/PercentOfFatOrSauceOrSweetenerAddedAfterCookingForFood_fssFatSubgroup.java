@@ -33,6 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
+        fieldSetId = "details",
         sequence = "6.1",
         describedAs = "Fat subgroup code for F/S/S\n"
                         + "----\n"

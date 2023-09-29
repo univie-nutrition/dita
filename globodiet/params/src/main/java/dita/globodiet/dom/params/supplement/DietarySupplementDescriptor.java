@@ -65,6 +65,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Descriptor code\n"
                             + "----\n"
@@ -85,6 +86,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Descriptor name\n"
                             + "----\n"
@@ -105,6 +107,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Facet code\n"
                             + "----\n"
@@ -126,6 +129,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Only for the facet with Dsfacet_type=1,\n"
                             + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0\n"
@@ -149,6 +153,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Default Descriptor.\n"
                             + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
@@ -181,6 +186,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Descriptor with type='other' : 1=yes 0=no\n"
                             + "----\n"
@@ -210,6 +216,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "0=not single descriptor 1=single descriptor\n"
                             + "----\n"
@@ -239,6 +246,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "8",
             describedAs = "Display order (1=first, 2=second, …)\n"
                             + "----\n"
@@ -258,6 +266,7 @@ public class DietarySupplementDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "9",
             describedAs = "Not in name flag\n"
                             + "----\n"
@@ -357,6 +366,9 @@ public class DietarySupplementDescriptor {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

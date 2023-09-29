@@ -62,6 +62,7 @@ public class DietarySupplement {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Vitamin/supplement code\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class DietarySupplement {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Vitamin/supplement name\n"
                             + "----\n"
@@ -104,6 +106,7 @@ public class DietarySupplement {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Blank or 'GI' for generic vitamin/supplement\n"
                             + "----\n"
@@ -126,6 +129,7 @@ public class DietarySupplement {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Dietary Supplement classification code (optional)\n"
                             + "----\n"
@@ -146,6 +150,7 @@ public class DietarySupplement {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)\n"
                             + "----\n"
@@ -180,6 +185,9 @@ public class DietarySupplement {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

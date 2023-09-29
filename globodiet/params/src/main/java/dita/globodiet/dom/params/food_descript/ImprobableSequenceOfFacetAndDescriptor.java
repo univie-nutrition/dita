@@ -64,6 +64,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food identification number\n"
                             + "----\n"
@@ -86,6 +87,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food group code\n"
                             + "----\n"
@@ -108,6 +110,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Food subgroup code\n"
                             + "----\n"
@@ -130,6 +133,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Food sub-subgroup code\n"
                             + "----\n"
@@ -150,6 +154,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "5",
             describedAs = "Facet code\n"
                             + "----\n"
@@ -170,6 +175,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "6",
             describedAs = "Descriptor code\n"
                             + "----\n"
@@ -190,6 +196,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "7",
             describedAs = "Facet string\n"
                             + "----\n"
@@ -224,6 +231,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

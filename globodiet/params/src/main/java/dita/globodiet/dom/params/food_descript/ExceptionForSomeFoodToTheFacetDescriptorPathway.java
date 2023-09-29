@@ -62,6 +62,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "food ID number\n"
                             + "----\n"
@@ -87,6 +88,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food\n"
                             + "(superseeding its group pathway).\n"
@@ -110,6 +112,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Order to display the facets for the attached food (same order as order_fac from Groupfac table)\n"
                             + "----\n"
@@ -143,6 +146,9 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

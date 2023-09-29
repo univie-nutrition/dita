@@ -62,6 +62,7 @@ public class RuleAppliedToFacets {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Facet where the rule must be applied.\n"
                             + "----\n"
@@ -87,6 +88,7 @@ public class RuleAppliedToFacets {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Rule: Facet (facet_code) will be displayed only if descriptor in facdesc\n"
                             + "is previously selected by the subject according or not to a food classification (group/subgroup1/subgroup2).\n"
@@ -114,6 +116,7 @@ public class RuleAppliedToFacets {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Recipe Group code\n"
                             + "----\n"
@@ -136,6 +139,7 @@ public class RuleAppliedToFacets {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "4",
             describedAs = "Recipe Subgroup code\n"
                             + "----\n"
@@ -170,6 +174,9 @@ public class RuleAppliedToFacets {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

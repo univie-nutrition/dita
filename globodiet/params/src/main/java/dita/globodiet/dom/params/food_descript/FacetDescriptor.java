@@ -73,6 +73,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Facet code\n"
                             + "----\n"
@@ -93,6 +94,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "2",
             describedAs = "Descriptor code\n"
                             + "----\n"
@@ -113,6 +115,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Descriptor name\n"
                             + "----\n"
@@ -135,6 +138,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
                             + "1=Raw descriptor\n"
@@ -166,6 +170,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "TODO missing description\n"
                             + "----\n"
@@ -185,6 +190,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "TODO missing description\n"
                             + "----\n"
@@ -261,6 +267,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

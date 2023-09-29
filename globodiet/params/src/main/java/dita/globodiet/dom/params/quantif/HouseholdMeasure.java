@@ -62,6 +62,7 @@ public class HouseholdMeasure {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "HouseholdMeasure code\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class HouseholdMeasure {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "HouseholdMeasure volume in cm3.\n"
                             + "----\n"
@@ -102,6 +104,7 @@ public class HouseholdMeasure {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
                             + "The value of each expression will be evaluated as factor of the total volume\n"
@@ -123,6 +126,7 @@ public class HouseholdMeasure {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Comment attached to the HouseholdMeasure\n"
                             + "----\n"
@@ -143,6 +147,7 @@ public class HouseholdMeasure {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Order to display the HouseholdMeasure\n"
                             + "----\n"
@@ -176,6 +181,9 @@ public class HouseholdMeasure {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

@@ -62,6 +62,7 @@ public class EdiblePartCoefficientForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food identification number (FOODNUM)\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class EdiblePartCoefficientForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Edible part coefficient\n"
                             + "----\n"
@@ -103,6 +105,7 @@ public class EdiblePartCoefficientForFood {
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
+            fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
                             + "----\n"
@@ -123,6 +126,7 @@ public class EdiblePartCoefficientForFood {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "4",
             describedAs = "Priority order\n"
                             + "----\n"
@@ -157,6 +161,9 @@ public class EdiblePartCoefficientForFood {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

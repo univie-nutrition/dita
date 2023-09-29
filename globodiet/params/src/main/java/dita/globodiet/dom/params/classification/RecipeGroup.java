@@ -72,6 +72,7 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Recipe Group code\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Name of the Recipe group\n"
                             + "----\n"
@@ -112,6 +114,7 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "3",
             describedAs = "Short Name of the Recipe group\n"
                             + "----\n"
@@ -157,6 +160,9 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

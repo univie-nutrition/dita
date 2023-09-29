@@ -270,7 +270,10 @@ public class OrmModel {
             var cutter = TextUtils.cutter(elementType); // expected non-null
             return cutter.keepBeforeLast(".").getValue();
         }
-
+        public boolean isMemberOfSecondaryKey() {
+            return parentEntity().secondaryKeyFields()
+                    .contains(this);
+        }
         public boolean isEnum() {
             return enumeration.size()>0;
         }

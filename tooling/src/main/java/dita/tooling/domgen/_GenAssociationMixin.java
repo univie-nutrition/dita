@@ -38,6 +38,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
+import dita.tooling.domgen._Annotations.PropertyLayoutRecord;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -72,15 +73,18 @@ class _GenAssociationMixin {
                         ? _Annotations.collectionLayout(
                                 fieldWithForeignKeys.formatDescription("\n"),
                                 Where.NOWHERE)
-                        : _Annotations.propertyLayout(
-                                fieldWithForeignKeys.sequence() + ".1", fieldWithForeignKeys.formatDescription("\n",
+                        : _Annotations.propertyLayout(PropertyLayoutRecord.builder()
+                                .fieldSetId("details")
+                                .sequence(fieldWithForeignKeys.sequence() + ".1")
+                                .describedAs(fieldWithForeignKeys.formatDescription("\n",
                                         "----",
                                         String.format("required=%b, unique=%b",
                                                 fieldWithForeignKeys.required(),
-                                                fieldWithForeignKeys.unique())),
-                                useEitherPattern
+                                                fieldWithForeignKeys.unique())))
+                                .hiddenWhere(useEitherPattern
                                     ? Where.NOWHERE
-                                    : Where.REFERENCES_PARENT))
+                                    : Where.REFERENCES_PARENT)
+                                .build()))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))

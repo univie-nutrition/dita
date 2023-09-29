@@ -62,6 +62,7 @@ public class SelectedParameterForDataEntry {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "1",
             describedAs = "Parameter code for data entry\n"
                             + "----\n"
@@ -82,6 +83,7 @@ public class SelectedParameterForDataEntry {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Parameter value for data entry\n"
                             + "----\n"
@@ -116,6 +118,9 @@ public class SelectedParameterForDataEntry {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter

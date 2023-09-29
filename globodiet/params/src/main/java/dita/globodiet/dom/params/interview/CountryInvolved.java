@@ -72,6 +72,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Country code\n"
                             + "----\n"
@@ -92,6 +93,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
      */
     @Property
     @PropertyLayout(
+            fieldSetId = "details",
             sequence = "2",
             describedAs = "Country name\n"
                             + "----\n"
@@ -137,6 +139,9 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
         @Property(
                 optionality = Optionality.OPTIONAL,
                 editing = Editing.ENABLED
+        )
+        @PropertyLayout(
+                fieldSetId = "searchBar"
         )
         @Getter
         @Setter
