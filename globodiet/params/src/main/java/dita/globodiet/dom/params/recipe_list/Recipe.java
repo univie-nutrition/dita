@@ -505,8 +505,8 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * Parameter model for @{link Recipe}
      * @param code Recipe ID number
-     * @param recipeGroupCode Group code of the recipe classification
-     * @param recipeSubgroupCode Subgroup code of the recipe classification
+     * @param recipeGroup Group code of the recipe classification
+     * @param recipeSubgroup Subgroup code of the recipe classification
      * @param name Recipe name
      * @param recipeType Type of recipe:
      * 1.1=Open – Known
@@ -539,7 +539,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             @ParameterLayout(
                     describedAs = "Group code of the recipe classification"
             )
-            RecipeGroup recipeGroupCode,
+            RecipeGroup recipeGroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
                     optionality = Optionality.OPTIONAL
@@ -547,7 +547,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             @ParameterLayout(
                     describedAs = "Subgroup code of the recipe classification"
             )
-            RecipeSubgroup recipeSubgroupCode,
+            RecipeSubgroup recipeSubgroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

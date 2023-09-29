@@ -173,8 +173,8 @@ implements HasCurrentlyCheckedOutVersion {
     private static String toServiceActionXmlLayoutEntry(final OrmModel.Entity entity) {
         return String.format(
                 """
-                        <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>
-                """, "listAll" + entity.name());
+                        <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>""",
+                "listAll" + entity.name());
     }
 
 }

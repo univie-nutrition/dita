@@ -388,7 +388,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
 
     /**
      * Parameter model for @{link FoodSubgroup}
-     * @param foodGroupCode Food group code
+     * @param foodGroup Food group code
      * @param foodSubgroupCode Food sub-group code
      * @param foodSubSubgroupCode Food sub-sub-group code
      * @param name Name of the food (sub-)(sub-)group
@@ -407,7 +407,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             @ParameterLayout(
                     describedAs = "Food group code"
             )
-            FoodGroup foodGroupCode,
+            FoodGroup foodGroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

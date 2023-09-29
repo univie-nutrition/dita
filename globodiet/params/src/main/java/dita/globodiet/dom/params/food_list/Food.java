@@ -431,9 +431,9 @@ public class Food implements HasSecondaryKey<Food> {
     /**
      * Parameter model for @{link Food}
      * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
-     * @param foodGroupCode Food Group code
-     * @param foodSubgroupCode Food Subgroup code
-     * @param foodSubSubgroupCode Food Sub(sub)group code
+     * @param foodGroup Food Group code
+     * @param foodSubgroup Food Subgroup code
+     * @param foodSubSubgroup Food Sub(sub)group code
      * @param foodNativeName Native (localized) name of this Food, Product, On-the-fly Recipe or Alias
      * @param typeOfItem Type of item:
      * (none) -> Normal Food Item
@@ -472,7 +472,7 @@ public class Food implements HasSecondaryKey<Food> {
             @ParameterLayout(
                     describedAs = "Food Group code"
             )
-            FoodGroup foodGroupCode,
+            FoodGroup foodGroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
                     optionality = Optionality.OPTIONAL
@@ -480,7 +480,7 @@ public class Food implements HasSecondaryKey<Food> {
             @ParameterLayout(
                     describedAs = "Food Subgroup code"
             )
-            FoodSubgroup foodSubgroupCode,
+            FoodSubgroup foodSubgroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
                     optionality = Optionality.OPTIONAL
@@ -488,7 +488,7 @@ public class Food implements HasSecondaryKey<Food> {
             @ParameterLayout(
                     describedAs = "Food Sub(sub)group code"
             )
-            FoodSubgroup foodSubSubgroupCode,
+            FoodSubgroup foodSubSubgroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

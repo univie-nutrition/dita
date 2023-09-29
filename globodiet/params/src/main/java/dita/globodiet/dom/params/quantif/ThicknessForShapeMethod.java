@@ -238,12 +238,12 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      * @param thickness has no description
      * @param comment Comment attached to the thickness (e.g. small, medium, large…)
-     * @param foodSubgroupsLookupKey For the food items, the food (sub)groups for which this thickness has to be proposed.
+     * @param foodSubgroups For the food items, the food (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)
      * When this field is empty, that means that this thickness has always to be proposed
      * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1
      * and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
-     * @param recipeSubgroupsLookupKey For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
+     * @param recipeSubgroups For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
      * When this field is empty, that means that this thickness has always to be proposed
      * whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
@@ -284,7 +284,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
                                     + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
                                     + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
             )
-            FoodSubgroup foodSubgroupsLookupKey,
+            FoodSubgroup foodSubgroups,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
@@ -295,7 +295,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
                                     + "When this field is empty, that means that this thickness has always to be proposed\n"
                                     + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)"
             )
-            RecipeSubgroup recipeSubgroupsLookupKey) {
+            RecipeSubgroup recipeSubgroups) {
     }
 
     /**

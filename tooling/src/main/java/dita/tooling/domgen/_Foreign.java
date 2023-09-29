@@ -18,7 +18,11 @@
  */
 package dita.tooling.domgen;
 
+import java.util.List;
+
 import org.springframework.javapoet.ClassName;
+
+import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.tooling.domgen.DomainGenerator.Config;
 import dita.tooling.orm.OrmModel;
@@ -35,6 +39,18 @@ class _Foreign {
                 ? ClassName.get(config.fullPackageName(field.elementTypeNamespace()), field.elementTypeSimpleName())
                 : ClassName.get(foreignPackageName, foreignEntity.name());
         return foreignEntityClass;
+    }
+
+    private final static List<String> knownPropertyNameSuffixes = List.of(
+            "Code",
+            "LookupKey");
+    String resolvedFieldName(final OrmModel.Field field) {
+        val mixedInPropertyName = knownPropertyNameSuffixes.stream()
+                .filter(field.name()::endsWith)
+                .findFirst()
+                .map(suffix->_Strings.substring(field.name(), 0, -suffix.length()))
+                .orElseGet(()->field.name() + "Obj");
+        return mixedInPropertyName;
     }
 
 }

@@ -394,7 +394,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
 
     /**
      * Parameter model for @{link RecipeDescriptor}
-     * @param recipeFacetCode Facet code for recipes
+     * @param recipeFacet Facet code for recipes
      * @param code Descriptor code for recipes
      * @param name Descriptor name
      * @param homemadeOrNot Only for facet recipe production:
@@ -413,7 +413,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
             @ParameterLayout(
                     describedAs = "Facet code for recipes"
             )
-            RecipeFacet recipeFacetCode,
+            RecipeFacet recipeFacet,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

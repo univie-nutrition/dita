@@ -18,8 +18,6 @@
  */
 package dita.tooling.domgen;
 
-import java.util.List;
-
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.tooling.orm.OrmModel;
@@ -29,22 +27,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Mixins {
 
-    private final static List<String> knownPropertyNameSuffixes = List.of(
-                "Code",
-                "LookupKey");
-
     String propertyMixinClassName(final OrmModel.Field field) {
         val entityModel = field.parentEntity();
-        return entityModel.name() + "_" + normalizedPropertyName(field);
-    }
-
-    String normalizedPropertyName(final OrmModel.Field field) {
-        val mixedInPropertyName = knownPropertyNameSuffixes.stream()
-                .filter(field.name()::endsWith)
-                .findFirst()
-                .map(suffix->_Strings.substring(field.name(), 0, -suffix.length()))
-                .orElseGet(()->field.name() + "Obj");
-        return mixedInPropertyName;
+        return entityModel.name() + "_" + _Foreign.resolvedFieldName(field);
     }
 
     String collectionMixinClassName(
@@ -55,7 +40,7 @@ class _Mixins {
                 + "_dependent"
                 + _Strings.capitalize(dependantEntity.name())
                 + "MappedBy"
-                + _Strings.capitalize(normalizedPropertyName(dependantField));
+                + _Strings.capitalize(_Foreign.resolvedFieldName(dependantField));
     }
 
 }

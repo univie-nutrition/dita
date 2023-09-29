@@ -20,7 +20,7 @@ import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import lombok.RequiredArgsConstructor;
 
 @Action
-@ActionLayout(fieldSetName="foodList", position = Position.PANEL)
+@ActionLayout(fieldSetId="listOfFood", position = Position.PANEL)
 @RequiredArgsConstructor
 public class FoodManager_add {
 
@@ -39,15 +39,15 @@ public class FoodManager_add {
     @MemberSupport public List<FoodSubgroup> choices2Act(final Food.Params p) {
         return repositoryService.allMatches(FoodSubgroup.class,
                 fg->fg.getFoodSubSubgroupCode()==null
-                    && Objects.equals(fg.getFoodGroupCode(), p.foodGroupCode().getCode()));
+                    && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode()));
     }
     @MemberSupport public List<FoodSubgroup> choices3Act(final Food.Params p) {
         return repositoryService.allMatches(FoodSubgroup.class,
                 fg->fg.getFoodSubSubgroupCode()!=null
-                    && Objects.equals(fg.getFoodGroupCode(), p.foodGroupCode().getCode())
-                    && Objects.equals(fg.getFoodSubgroupCode(), p.foodSubgroupCode().getFoodSubgroupCode()));
+                    && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode())
+                    && Objects.equals(fg.getFoodSubgroupCode(), p.foodSubgroup().getFoodSubgroupCode()));
     }
-    @MemberSupport public String disableAddFood() {
+    @MemberSupport public String disableAct() {
         //TODO refactor into util
         return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
                 .orElse(null);

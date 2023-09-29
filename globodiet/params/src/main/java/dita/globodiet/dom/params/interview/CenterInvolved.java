@@ -181,7 +181,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     /**
      * Parameter model for @{link CenterInvolved}
      * @param centerCode Center code
-     * @param attachedCountryCode Attached Country code
+     * @param attachedCountry Attached Country code
      * @param centerName Center name
      */
     public final record Params(
@@ -200,7 +200,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
             @ParameterLayout(
                     describedAs = "Attached Country code"
             )
-            CountryInvolved attachedCountryCode,
+            CountryInvolved attachedCountry,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

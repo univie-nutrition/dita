@@ -257,7 +257,10 @@ class _GenEntity {
                                 : field.hasForeignKeys()
                                     ? _Foreign.foreignClassName(field, field.foreignFields(config.schema()).getFirstElseFail(), config)
                                     : field.asJavaType(),
-                            field.name(), modifiers)
+                            field.hasForeignKeys()
+                                    ? _Foreign.resolvedFieldName(field)
+                                    : field.name(),
+                            modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .addAnnotation(_Annotations.parameter(
                                     field.hasDiscriminator()

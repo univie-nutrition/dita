@@ -200,7 +200,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
 
     /**
      * Parameter model for @{link RecipeSubgroup}
-     * @param recipeGroupCode Recipe group code
+     * @param recipeGroup Recipe group code
      * @param code Recipe sub-group code
      * @param name Name of the recipe (sub-)group
      * @param shortName Short Name of the recipe (sub-)group
@@ -213,7 +213,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
             @ParameterLayout(
                     describedAs = "Recipe group code"
             )
-            RecipeGroup recipeGroupCode,
+            RecipeGroup recipeGroup,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

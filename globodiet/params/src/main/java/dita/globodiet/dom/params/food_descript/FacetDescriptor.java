@@ -284,7 +284,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
 
     /**
      * Parameter model for @{link FacetDescriptor}
-     * @param facetCode Facet code
+     * @param facet Facet code
      * @param code Descriptor code
      * @param name Descriptor name
      * @param type 0=Other descriptor without consequences in the algorithms (also from other facets)
@@ -301,7 +301,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
             @ParameterLayout(
                     describedAs = "Facet code"
             )
-            Facet facetCode,
+            Facet facet,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
