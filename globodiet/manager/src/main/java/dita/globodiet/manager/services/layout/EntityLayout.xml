@@ -66,9 +66,7 @@
                 </bs:col>
             </bs:row>
         </bs:col>
-        <bs:col span="8">
-            <bs:tabGroup  unreferencedCollections="true">
-            </bs:tabGroup>
+        <bs:col span="8"  unreferencedCollections="true">
         </bs:col>
     </bs:row>
 </bs:grid>
