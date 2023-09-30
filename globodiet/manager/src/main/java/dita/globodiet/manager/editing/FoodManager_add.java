@@ -1,4 +1,4 @@
-package dita.globodiet.manager.editing.food;
+package dita.globodiet.manager.editing;
 
 import java.util.List;
 import java.util.Objects;

@@ -26,12 +26,12 @@
         <mb:menu>
             <mb:named>Edit</mb:named>
             <mb:section>
-                <mb:named>Brands</mb:named>
-                <mb:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageBrands"/>
+                <mb:named>Brand</mb:named>
+                <mb:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageBrand"/>
             </mb:section>
             <mb:section>
                 <mb:named>Food</mb:named>
-                <mb:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageFoodList"/>
+                <mb:serviceAction objectType="dita.globodiet.manager.FeaturedMenu" id="manageFood"/>
             </mb:section>
         </mb:menu>
         <mb:menu>

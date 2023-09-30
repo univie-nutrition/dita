@@ -20,7 +20,11 @@
 params.food_descript.Brand:
   namespace: params.food_descript
   table: BRANDNAM
-  secondaryKey:
+  secondaryKey: |
+    NAME
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
   title: String.format("%s", nameOfBrand)
   icon: brands shopify deeppink
   description: |
