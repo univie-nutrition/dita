@@ -54,6 +54,7 @@ import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.food.FoodManager_add;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
+import dita.globodiet.manager.metadata.Persistable_schema;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
@@ -114,6 +115,7 @@ import lombok.val;
     ParameterDataVersion_updateName.class,
     ParameterDataVersion_updateDescription.class,
     FoodManager_add.class,
+    Persistable_schema.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

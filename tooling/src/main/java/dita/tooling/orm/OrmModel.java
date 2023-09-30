@@ -442,7 +442,9 @@ public class OrmModel {
             return foreignField.parentEntity();
         }
     }
-
+    /**
+     * Entity metadata by {@code <namespace>.<name>}.
+     */
     public record Schema(Map<String, Entity> entities) {
         public static Schema of(final Iterable<Entity> entities) {
             val schema = new Schema(new TreeMap<String, OrmModel.Entity>());
