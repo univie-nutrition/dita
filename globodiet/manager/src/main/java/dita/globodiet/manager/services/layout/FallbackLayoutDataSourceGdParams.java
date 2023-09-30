@@ -33,7 +33,7 @@ import org.apache.causeway.core.metamodel.services.grid.bootstrap.GridSystemServ
 @Priority(PriorityPrecedence.EARLY)
 @Qualifier("Dita")
 //@Log4j2
-public class GridLayoutService implements FallbackLayoutDataSource {
+public class FallbackLayoutDataSourceGdParams implements FallbackLayoutDataSource {
 
     @Override
     public Try<String> tryLoadAsStringUtf8(final Class<?> domainClass) {
