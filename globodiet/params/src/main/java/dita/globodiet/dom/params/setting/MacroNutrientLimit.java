@@ -64,7 +64,9 @@ public class MacroNutrientLimit {
     /**
      * Name of nutrient
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -85,7 +87,9 @@ public class MacroNutrientLimit {
     /**
      * Minimum value
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -105,7 +109,9 @@ public class MacroNutrientLimit {
     /**
      * Maximum value
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -126,7 +132,8 @@ public class MacroNutrientLimit {
      * Unit (g, kcal or blank)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -160,7 +167,8 @@ public class MacroNutrientLimit {
      * 2=Woman
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -194,7 +202,8 @@ public class MacroNutrientLimit {
      * PAL value
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

@@ -173,7 +173,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * Recipe name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -202,7 +204,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * 4.1=New – Known
      * 4.2=New – Unknown
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -242,7 +246,8 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * Brand name for commercial recipe
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -265,7 +270,8 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * whether is an alias (SH=shadow)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -298,7 +304,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * 0=recipe without sub-recipe
      * 1=recipe with sub-recipe
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
@@ -329,7 +337,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * has no description
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",

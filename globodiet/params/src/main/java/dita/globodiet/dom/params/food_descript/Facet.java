@@ -92,7 +92,9 @@ public class Facet implements HasSecondaryKey<Facet> {
     /**
      * Facet name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -113,7 +115,9 @@ public class Facet implements HasSecondaryKey<Facet> {
     /**
      * Facet text (text to show on the screen describing the facet)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -137,7 +141,9 @@ public class Facet implements HasSecondaryKey<Facet> {
      * 2=Facets with descriptors available in Foods table - facet 15 type of fat
      * 3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -171,7 +177,9 @@ public class Facet implements HasSecondaryKey<Facet> {
      * 0 = facet with single-selection of descriptor
      * 1 = facets with multi-selection of descriptors
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -204,7 +212,8 @@ public class Facet implements HasSecondaryKey<Facet> {
      * Comma is used as delimiter (e.g. 10,050701,050702)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -227,7 +236,9 @@ public class Facet implements HasSecondaryKey<Facet> {
     /**
      * Label on how to ask the facet question
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

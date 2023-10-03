@@ -63,7 +63,9 @@ public class NoteStatus {
     /**
      * Status code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -84,7 +86,9 @@ public class NoteStatus {
     /**
      * Status label
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -107,7 +111,9 @@ public class NoteStatus {
      * 0=No hide,
      * 1=Yes hide (e.g. 1=hide for status “action done”)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

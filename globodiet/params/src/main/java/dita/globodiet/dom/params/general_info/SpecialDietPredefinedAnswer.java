@@ -60,7 +60,9 @@ public class SpecialDietPredefinedAnswer {
     /**
      * Special diet code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -81,7 +83,9 @@ public class SpecialDietPredefinedAnswer {
     /**
      * Special diet label
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

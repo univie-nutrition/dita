@@ -65,7 +65,9 @@ public class ItemDefinition {
     /**
      * Sequential number
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -89,7 +91,9 @@ public class ItemDefinition {
      * A2=fat attached,
      * A3=liquid attached
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -217,7 +221,8 @@ public class ItemDefinition {
      * Facet string
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -240,7 +245,8 @@ public class ItemDefinition {
      * Brand name
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -262,7 +268,9 @@ public class ItemDefinition {
     /**
      * Priority order
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
@@ -283,7 +291,8 @@ public class ItemDefinition {
      * Attached records: only for the Type=A2 & A3
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -305,7 +314,8 @@ public class ItemDefinition {
      * Comment
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

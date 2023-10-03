@@ -61,7 +61,9 @@ public class Interviewer {
     /**
      * Interviewer code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -83,7 +85,8 @@ public class Interviewer {
      * Interviewer family name
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -105,7 +108,9 @@ public class Interviewer {
     /**
      * Interviewer name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

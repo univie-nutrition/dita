@@ -60,7 +60,9 @@ public class DietarySupplement {
     /**
      * Vitamin/supplement code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -81,7 +83,9 @@ public class DietarySupplement {
     /**
      * Vitamin/supplement name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -103,7 +107,8 @@ public class DietarySupplement {
      * Blank or 'GI' for generic vitamin/supplement
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

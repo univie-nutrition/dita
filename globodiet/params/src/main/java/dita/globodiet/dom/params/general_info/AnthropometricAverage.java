@@ -61,7 +61,9 @@ public class AnthropometricAverage {
     /**
      * Anthropometry variable (Height or Weight)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -83,7 +85,8 @@ public class AnthropometricAverage {
      * Sex (1 for men, 2 for women, blank for both)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -104,7 +107,9 @@ public class AnthropometricAverage {
     /**
      * Age minimum range
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -124,7 +129,9 @@ public class AnthropometricAverage {
     /**
      * Age maximum range
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -144,7 +151,9 @@ public class AnthropometricAverage {
     /**
      * Minimum value of height or weight
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -164,7 +173,9 @@ public class AnthropometricAverage {
     /**
      * Maximum value of height or weight
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -184,7 +195,9 @@ public class AnthropometricAverage {
     /**
      * Default value of height or weight
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

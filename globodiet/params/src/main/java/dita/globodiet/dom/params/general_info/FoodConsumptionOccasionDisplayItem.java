@@ -88,7 +88,9 @@ public class FoodConsumptionOccasionDisplayItem {
     /**
      * Text representing Food.
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

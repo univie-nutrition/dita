@@ -91,7 +91,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     /**
      * Facet name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -112,7 +114,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     /**
      * Facet text (text to show on the screen describing the facet)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -134,7 +138,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * 0=Standard facets with descriptors available in R_Descface table
      * 1=Facets with descriptors available in RBrand table
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -166,7 +172,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * 0 = facet with single-selection of descriptor
      * 1 = facets with multi-selection of descriptors
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -198,7 +206,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * 0 = standard facet
      * 1 = Main facet (with non modified descriptor)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -229,7 +239,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     /**
      * Label on how to ask the facet question
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

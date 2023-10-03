@@ -93,7 +93,8 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
      * Name of the food (sub-)(sub-)group
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -116,7 +117,8 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
      * Dietary Supplement classification code attached to (for subgroup)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

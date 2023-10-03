@@ -64,7 +64,8 @@ public class ComposedRecipeIngredient {
      * Recipe identification number (FOODNUM in the FOODS.DBF file)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -113,7 +114,8 @@ public class ComposedRecipeIngredient {
      * If type=2 ingredient from Recipe list
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

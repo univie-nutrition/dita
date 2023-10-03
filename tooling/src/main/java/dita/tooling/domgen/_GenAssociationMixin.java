@@ -38,7 +38,6 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
-import dita.tooling.domgen._Annotations.PropertyLayoutRecord;
 import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -67,13 +66,13 @@ class _GenAssociationMixin {
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(isPlural
                         ? _Annotations.collection()
-                        : _Annotations.property(Snapshot.EXCLUDED))
+                        : _Annotations.property(attr->attr.snapshot(Snapshot.EXCLUDED)))
                 .addAnnotation(
                         isPlural
                         ? _Annotations.collectionLayout(
                                 fieldWithForeignKeys.formatDescription("\n"),
                                 Where.NOWHERE)
-                        : _Annotations.propertyLayout(PropertyLayoutRecord.builder()
+                        : _Annotations.propertyLayout(attr->attr
                                 .fieldSetId("details")
                                 .sequence(fieldWithForeignKeys.sequence() + ".1")
                                 .describedAs(fieldWithForeignKeys.formatDescription("\n",
@@ -83,8 +82,7 @@ class _GenAssociationMixin {
                                                 fieldWithForeignKeys.unique())))
                                 .hiddenWhere(useEitherPattern
                                     ? Where.NOWHERE
-                                    : Where.REFERENCES_PARENT)
-                                .build()))
+                                    : Where.REFERENCES_PARENT)))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))

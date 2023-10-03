@@ -91,7 +91,9 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     /**
      * Food group name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -112,7 +114,9 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     /**
      * Food group short name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

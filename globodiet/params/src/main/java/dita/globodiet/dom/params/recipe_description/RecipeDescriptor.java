@@ -112,7 +112,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     /**
      * Descriptor name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -135,7 +137,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * 0=not homemade descriptor
      * 1=Homemade descriptor
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -167,7 +171,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     /**
      * Only for facet known/unknown: 1=unknown 2=known
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -197,7 +203,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     /**
      * Descriptor with type='other' : 1=yes 0=no
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -228,7 +236,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * 0=not single descriptor
      * 1=single descriptor
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

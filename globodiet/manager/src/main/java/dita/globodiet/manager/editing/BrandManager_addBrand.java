@@ -42,7 +42,7 @@ import lombok.val;
 @Action
 @ActionLayout(fieldSetId="listOfBrand", position = Position.PANEL)
 @RequiredArgsConstructor
-public class BrandManager_add {
+public class BrandManager_addBrand {
 
     @Inject BlobStore blobStore;
     @Inject RepositoryService repositoryService;

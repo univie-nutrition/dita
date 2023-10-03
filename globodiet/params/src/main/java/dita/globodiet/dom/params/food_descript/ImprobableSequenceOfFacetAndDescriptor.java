@@ -194,7 +194,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     /**
      * Facet string
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

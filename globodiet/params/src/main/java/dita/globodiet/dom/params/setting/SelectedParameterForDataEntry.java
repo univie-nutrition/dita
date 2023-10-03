@@ -60,7 +60,9 @@ public class SelectedParameterForDataEntry {
     /**
      * Parameter code for data entry
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -81,7 +83,9 @@ public class SelectedParameterForDataEntry {
     /**
      * Parameter value for data entry
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

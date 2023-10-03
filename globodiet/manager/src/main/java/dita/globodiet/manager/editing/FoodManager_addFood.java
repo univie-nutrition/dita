@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Action
 @ActionLayout(fieldSetId="listOfFood", position = Position.PANEL)
 @RequiredArgsConstructor
-public class FoodManager_add {
+public class FoodManager_addFood {
 
     @Inject BlobStore blobStore;
     @Inject RepositoryService repositoryService;

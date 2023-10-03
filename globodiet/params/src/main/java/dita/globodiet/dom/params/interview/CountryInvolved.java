@@ -91,7 +91,9 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     /**
      * Country name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

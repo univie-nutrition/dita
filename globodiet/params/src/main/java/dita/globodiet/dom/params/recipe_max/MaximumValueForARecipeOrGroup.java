@@ -129,7 +129,9 @@ public class MaximumValueForARecipeOrGroup {
     /**
      * Maximum value
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",

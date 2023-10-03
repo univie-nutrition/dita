@@ -90,7 +90,9 @@ public class Shape implements HasSecondaryKey<Shape> {
     /**
      * Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -110,7 +112,9 @@ public class Shape implements HasSecondaryKey<Shape> {
     /**
      * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -131,7 +135,9 @@ public class Shape implements HasSecondaryKey<Shape> {
     /**
      * Order to display the standard unit
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",

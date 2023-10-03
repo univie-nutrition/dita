@@ -89,7 +89,9 @@ public class QuantificationMethodsPathwayForFood {
      * 'S' for standard portion,
      * 'A' for shape
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

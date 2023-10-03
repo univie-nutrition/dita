@@ -72,7 +72,9 @@ public class DefinitionOfRecipePathway {
      * 4.1=New – Known
      * 4.2=New – Unknown
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -112,7 +114,9 @@ public class DefinitionOfRecipePathway {
      * 0 = The ingredient window is not displayed
      * 1 = The ingredient window is displayed
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -147,7 +151,8 @@ public class DefinitionOfRecipePathway {
      * 3 = SADQ - Substitute, Add, Delete & Quantify
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -184,7 +189,9 @@ public class DefinitionOfRecipePathway {
      * 2 = SAD - Substitute, Add & Delete
      * 3 = SADQ - Substitute, Add, Delete & Quantify
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -220,7 +227,9 @@ public class DefinitionOfRecipePathway {
      * 1 = Display of note window
      * 2 = Display of note window only for Add & Delete functions
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",

@@ -266,7 +266,9 @@ public class PercentOfFatUseDuringCookingForFood {
     /**
      * Percentage of fat absorbed during cooking
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "10",

@@ -88,7 +88,9 @@ public class QuantificationMethodPathwayForRecipe {
      * 'U' for stdu,
      * 'A' Shape
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

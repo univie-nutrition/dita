@@ -81,7 +81,9 @@ public class EdiblePartCoefficientForFood {
     /**
      * Edible part coefficient
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -124,7 +126,9 @@ public class EdiblePartCoefficientForFood {
     /**
      * Priority order
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",

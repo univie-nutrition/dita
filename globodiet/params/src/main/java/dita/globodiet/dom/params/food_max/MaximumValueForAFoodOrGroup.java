@@ -130,7 +130,8 @@ public class MaximumValueForAFoodOrGroup {
      * Food code
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -152,7 +153,9 @@ public class MaximumValueForAFoodOrGroup {
     /**
      * Maximum value
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -195,7 +198,9 @@ public class MaximumValueForAFoodOrGroup {
     /**
      * Priority order
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

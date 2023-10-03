@@ -81,7 +81,9 @@ public class RawToCookedConversionFactorForFood {
     /**
      * Raw to cooked factor
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -124,7 +126,9 @@ public class RawToCookedConversionFactorForFood {
     /**
      * Priority order
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",

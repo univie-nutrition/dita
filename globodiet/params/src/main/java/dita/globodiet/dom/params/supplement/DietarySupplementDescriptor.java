@@ -63,7 +63,9 @@ public class DietarySupplementDescriptor {
     /**
      * Descriptor code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -84,7 +86,9 @@ public class DietarySupplementDescriptor {
     /**
      * Descriptor name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -127,7 +131,9 @@ public class DietarySupplementDescriptor {
      * Only for the facet with Dsfacet_type=1,
      * for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -151,7 +157,9 @@ public class DietarySupplementDescriptor {
      * 1=default,
      * 0=other
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -184,7 +192,9 @@ public class DietarySupplementDescriptor {
     /**
      * Descriptor with type='other' : 1=yes 0=no
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -214,7 +224,9 @@ public class DietarySupplementDescriptor {
     /**
      * 0=not single descriptor 1=single descriptor
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
@@ -244,7 +256,9 @@ public class DietarySupplementDescriptor {
     /**
      * Display order (1=first, 2=second, …)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
@@ -264,7 +278,9 @@ public class DietarySupplementDescriptor {
     /**
      * Not in name flag
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",

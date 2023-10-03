@@ -63,7 +63,9 @@ public class StandardUnitForFoodOrRecipe {
     /**
      * Standard unit quantity
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -106,7 +108,8 @@ public class StandardUnitForFoodOrRecipe {
      * 2 = cooked (as estimated)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -141,7 +144,8 @@ public class StandardUnitForFoodOrRecipe {
      * 2 = with un-edible (as estimated)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -175,7 +179,9 @@ public class StandardUnitForFoodOrRecipe {
      * 1 = STDU for food,
      * 2 = STDU for recipe
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -207,7 +213,9 @@ public class StandardUnitForFoodOrRecipe {
     /**
      * Comment attached to the standard unit
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -228,7 +236,9 @@ public class StandardUnitForFoodOrRecipe {
     /**
      * Standard unit code for the same food/recipe (0001, 0002, 0003)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
@@ -250,7 +260,9 @@ public class StandardUnitForFoodOrRecipe {
      * G = in grams,
      * V = in ml (volume)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
@@ -272,7 +284,9 @@ public class StandardUnitForFoodOrRecipe {
     /**
      * Order to display the standard unit
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",

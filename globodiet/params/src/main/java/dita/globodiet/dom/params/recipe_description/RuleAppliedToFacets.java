@@ -86,7 +86,9 @@ public class RuleAppliedToFacets {
      * - When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).
      * - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

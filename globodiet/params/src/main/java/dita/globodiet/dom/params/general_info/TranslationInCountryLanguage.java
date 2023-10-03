@@ -60,7 +60,9 @@ public class TranslationInCountryLanguage {
     /**
      * Text name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -82,7 +84,8 @@ public class TranslationInCountryLanguage {
      * Text in specific Country language
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -105,7 +108,8 @@ public class TranslationInCountryLanguage {
      * Text in English
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -128,7 +132,8 @@ public class TranslationInCountryLanguage {
      * Data entry Text in specific Country language
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -151,7 +156,8 @@ public class TranslationInCountryLanguage {
      * Data entry Text in English
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

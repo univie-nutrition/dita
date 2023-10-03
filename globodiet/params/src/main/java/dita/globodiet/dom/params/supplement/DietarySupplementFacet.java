@@ -91,7 +91,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     /**
      * Facet name for Dietary Supplement
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -113,7 +115,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * To identify the mandatory facet used for quantification: 1=yes, 0=no.
      * Only 1 facet (physical state) is used for quantification.
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -146,7 +150,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * 0=mono,
      * 1=multi
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -178,7 +184,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     /**
      * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -208,7 +216,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     /**
      * Order to ask the facet (first, second...)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -228,7 +238,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     /**
      * Label on how to ask the facet question
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

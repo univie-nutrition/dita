@@ -136,7 +136,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     /**
      * Name of the food (sub-)(sub-)group
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -157,7 +159,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     /**
      * 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -189,7 +193,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * 0=non fat/sauce subgroup
      * 1= fat/sauce subgroup that can be left over in the dish
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -222,7 +228,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * 0=non fat during cooking subgroup
      * 1= fat during cooking subgroup
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
@@ -254,7 +262,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     /**
      * Short Name of the food (sub-)(sub-)group
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",

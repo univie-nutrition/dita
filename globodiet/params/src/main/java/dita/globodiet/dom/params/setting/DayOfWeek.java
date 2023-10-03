@@ -60,7 +60,9 @@ public class DayOfWeek {
     /**
      * Day number
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -81,7 +83,9 @@ public class DayOfWeek {
     /**
      * Day name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

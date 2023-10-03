@@ -92,7 +92,9 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     /**
      * Place of consumption name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -114,7 +116,9 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
      * 0=not a 'Other' place
      * 1='Other' place
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

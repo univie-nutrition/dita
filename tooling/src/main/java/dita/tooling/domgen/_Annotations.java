@@ -19,6 +19,7 @@
 package dita.tooling.domgen;
 
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
@@ -179,26 +180,25 @@ class _Annotations {
             .ifPresent(__->builder.addMember("cssClassFa", "$1S", cssClassFa));
         return builder.build();
     }
-    AnnotationSpec property() {
-        return AnnotationSpec.builder(Property.class)
-                .build();
+
+    @Builder
+    static record PropertySpec(
+        Optionality optionality,
+        Editing editing,
+        Snapshot snapshot) {
     }
-    AnnotationSpec property(final Optionality optionality) {
-        return AnnotationSpec.builder(Property.class)
-                .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
-                .build();
+    AnnotationSpec property(final UnaryOperator<PropertySpec.PropertySpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(Property.class);
+        val attr = attrProvider.apply(PropertySpec.builder()).build();
+        Optional.ofNullable(attr.optionality())
+            .ifPresent(optionality->builder.addMember("optionality", "$1T.$2L", Optionality.class, optionality.name()));
+        Optional.ofNullable(attr.editing())
+            .ifPresent(editing->builder.addMember("editing", "$1T.$2L", Editing.class, editing.name()));
+        Optional.ofNullable(attr.snapshot())
+            .ifPresent(snapshot->builder.addMember("snapshot", "$1T.$2L", Snapshot.class, snapshot.name()));
+        return builder.build();
     }
-    public static AnnotationSpec property(final Optionality optionality, final Editing editing) {
-        return AnnotationSpec.builder(Property.class)
-                .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
-                .addMember("editing", "$1T.$2L", Editing.class, editing.name())
-                .build();
-    }
-    AnnotationSpec property(final Snapshot snapshot) {
-        return AnnotationSpec.builder(Property.class)
-                .addMember("snapshot", "$1T.$2L", Snapshot.class, snapshot.name())
-                .build();
-    }
+
     AnnotationSpec collection() {
         return AnnotationSpec.builder(Collection.class)
                 .build();
@@ -227,21 +227,22 @@ class _Annotations {
     }
 
     @Builder
-    static record PropertyLayoutRecord(
+    static record PropertyLayoutSpec(
         String fieldSetId,
         String sequence,
         String describedAs,
         Where hiddenWhere) {
     }
-    AnnotationSpec propertyLayout(final PropertyLayoutRecord argsAsRecord) {
+    AnnotationSpec propertyLayout(final UnaryOperator<PropertyLayoutSpec.PropertyLayoutSpecBuilder> attrProvider) {
         val builder = AnnotationSpec.builder(PropertyLayout.class);
-        _Strings.nonEmpty(argsAsRecord.fieldSetId())
+        val attr = attrProvider.apply(PropertyLayoutSpec.builder()).build();
+        _Strings.nonEmpty(attr.fieldSetId())
             .ifPresent(fieldSetId->builder.addMember("fieldSetId", "$1S", fieldSetId));
-        _Strings.nonEmpty(argsAsRecord.sequence())
+        _Strings.nonEmpty(attr.sequence())
             .ifPresent(sequence->builder.addMember("sequence", "$1S", sequence));
-        _Strings.nonEmpty(argsAsRecord.describedAs())
+        _Strings.nonEmpty(attr.describedAs())
             .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
-        Optional.ofNullable(argsAsRecord.hiddenWhere())
+        Optional.ofNullable(attr.hiddenWhere())
             .ifPresent(hiddenWhere->builder.addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name()));
         return builder.build();
     }

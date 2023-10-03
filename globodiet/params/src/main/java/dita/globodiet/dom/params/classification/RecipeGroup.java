@@ -91,7 +91,9 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
     /**
      * Name of the Recipe group
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -112,7 +114,9 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
     /**
      * Short Name of the Recipe group
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

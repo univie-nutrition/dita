@@ -110,7 +110,9 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     /**
      * Order to display the facets for the attached food (same order as order_fac from Groupfac table)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

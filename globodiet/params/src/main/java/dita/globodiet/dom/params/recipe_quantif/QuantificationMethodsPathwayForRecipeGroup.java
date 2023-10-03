@@ -88,7 +88,9 @@ public class QuantificationMethodsPathwayForRecipeGroup {
      * 'U' for stdu,
      * 'A' for shape
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -148,7 +150,9 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     /**
      * Comment
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",

@@ -128,7 +128,9 @@ public class PercentOfFatLeftInTheDishForFood {
     /**
      * Percentage of fat left in the dish
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",

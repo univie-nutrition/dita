@@ -92,7 +92,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     /**
      * has no description
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -112,7 +114,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     /**
      * Comment attached to the thickness (e.g. small, medium, large…)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

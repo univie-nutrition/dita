@@ -60,7 +60,9 @@ public class HouseholdMeasure {
     /**
      * HouseholdMeasure code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -81,7 +83,9 @@ public class HouseholdMeasure {
     /**
      * HouseholdMeasure volume in cm3.
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -102,7 +106,9 @@ public class HouseholdMeasure {
      * HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.
      * The value of each expression will be evaluated as factor of the total volume
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -124,7 +130,9 @@ public class HouseholdMeasure {
     /**
      * Comment attached to the HouseholdMeasure
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -145,7 +153,9 @@ public class HouseholdMeasure {
     /**
      * Order to display the HouseholdMeasure
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",

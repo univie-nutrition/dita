@@ -112,7 +112,9 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     /**
      * Center name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

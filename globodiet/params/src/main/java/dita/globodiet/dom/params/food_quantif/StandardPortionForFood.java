@@ -63,7 +63,9 @@ public class StandardPortionForFood {
     /**
      * Standard portion quantity
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -105,7 +107,9 @@ public class StandardPortionForFood {
      * 1 = raw,
      * 2 = cooked (as estimated)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -138,7 +142,9 @@ public class StandardPortionForFood {
      * 1 = without un-edible part,
      * 2 = with un-edible (as estimated)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -170,7 +176,9 @@ public class StandardPortionForFood {
     /**
      * Comment attached to the standard portion
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -191,7 +199,9 @@ public class StandardPortionForFood {
     /**
      * Standard portion code for the same food (0001, 0002, 0003)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -212,7 +222,9 @@ public class StandardPortionForFood {
     /**
      * G = in grams, V = in ml (volume)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
@@ -233,7 +245,9 @@ public class StandardPortionForFood {
     /**
      * Order to display the standard portion
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",

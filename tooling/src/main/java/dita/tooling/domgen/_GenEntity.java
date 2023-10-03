@@ -43,7 +43,6 @@ import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
 import dita.tooling.domgen.DomainGenerator.Config;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
-import dita.tooling.domgen._Annotations.PropertyLayoutRecord;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
 import dita.tooling.orm.OrmModel.Field;
@@ -107,10 +106,9 @@ class _GenEntity {
                 .addField(FieldSpec.builder(SearchService.class, "searchService", Modifier.PUBLIC, Modifier.FINAL)
                         .build())
                 .addField(FieldSpec.builder(String.class, "search", Modifier.PRIVATE)
-                        .addAnnotation(_Annotations.property(Optionality.OPTIONAL, Editing.ENABLED))
-                        .addAnnotation(_Annotations.propertyLayout(PropertyLayoutRecord.builder()
-                                .fieldSetId("searchBar")
-                                .build()))
+                        .addAnnotation(_Annotations.property(attr->attr.optionality(Optionality.OPTIONAL).editing(Editing.ENABLED)))
+                        .addAnnotation(_Annotations.propertyLayout(attr->attr
+                                .fieldSetId("searchBar")))
                         .addAnnotation(_Annotations.getter())
                         .addAnnotation(_Annotations.setter())
                         .build())
@@ -224,10 +222,14 @@ class _GenEntity {
                             field.name(),
                             modifiers)
                     .addJavadoc(field.formatDescription("\n"))
-                    .addAnnotation(!field.required()
-                            ? _Annotations.property(Optionality.OPTIONAL)
-                            : _Annotations.property())
-                    .addAnnotation(_Annotations.propertyLayout(PropertyLayoutRecord.builder()
+                    .addAnnotation(_Annotations.property(attr->{
+                        if(!field.required()) attr.optionality(Optionality.OPTIONAL);
+                        val isEditingVetoed = field.hasForeignKeys()
+                                || field.isMemberOfSecondaryKey();
+                        if(!isEditingVetoed) attr.editing(Editing.ENABLED);
+                        return attr;
+                    }))
+                    .addAnnotation(_Annotations.propertyLayout(attr->attr
                             .fieldSetId(field.isMemberOfSecondaryKey()
                                     ? "identity"
                                     : field.hasForeignKeys()
@@ -239,8 +241,7 @@ class _GenEntity {
                                         String.format("required=%b, unique=%b", field.required(), field.unique())))
                             .hiddenWhere(field.hasForeignKeys()
                                 ? Where.ALL_TABLES
-                                : Where.NOWHERE)
-                            .build()))
+                                : Where.NOWHERE)))
                     .addAnnotation(_Annotations.column(field.column(), !field.required(), field.maxLength()))
                     .addAnnotation(_Annotations.getter())
                     .addAnnotation(_Annotations.setter());

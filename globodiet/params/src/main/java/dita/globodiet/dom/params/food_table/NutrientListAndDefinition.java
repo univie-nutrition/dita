@@ -63,7 +63,9 @@ public class NutrientListAndDefinition {
     /**
      * Nutrient code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -83,7 +85,9 @@ public class NutrientListAndDefinition {
     /**
      * Nutrient Name
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -104,7 +108,9 @@ public class NutrientListAndDefinition {
     /**
      * Nutrient unit (e.g. kcal, g, mg…)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -126,7 +132,9 @@ public class NutrientListAndDefinition {
      * 0=not displayed in the 'nutrient checks' screen
      * 1=displayed in the 'nutrient checks' screen
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -158,7 +166,8 @@ public class NutrientListAndDefinition {
      * Comment on nutrient
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",

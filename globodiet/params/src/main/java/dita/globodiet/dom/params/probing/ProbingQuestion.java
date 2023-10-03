@@ -91,7 +91,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     /**
      * Probing question label
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",

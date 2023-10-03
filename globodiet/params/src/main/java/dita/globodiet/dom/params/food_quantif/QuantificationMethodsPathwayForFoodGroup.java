@@ -153,7 +153,8 @@ public class QuantificationMethodsPathwayForFoodGroup {
      * 2=cooked (as Consumed)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -191,7 +192,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
      * 'S' for standard portion,
      * 'A' for shape
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
@@ -252,7 +255,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     /**
      * Comment
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",

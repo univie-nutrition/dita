@@ -64,7 +64,9 @@ public class GroupSubstitution {
      * 0=Food classification
      * 1=Recipe classification
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",

@@ -245,7 +245,9 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     /**
      * Percentage of fat
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",

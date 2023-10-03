@@ -163,7 +163,9 @@ public class Food implements HasSecondaryKey<Food> {
     /**
      * Native (localized) name of this Food, Product, On-the-fly Recipe or Alias
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
@@ -200,7 +202,8 @@ public class Food implements HasSecondaryKey<Food> {
      * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -248,7 +251,9 @@ public class Food implements HasSecondaryKey<Food> {
      * Auxiliary field to force an internal order within each subgroup
      * (if GI then 1 otherwise 2, this forces the GI at the top)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
@@ -281,7 +286,9 @@ public class Food implements HasSecondaryKey<Food> {
      * 0=food
      * 1=dietary supplement
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",

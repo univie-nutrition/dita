@@ -91,7 +91,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     /**
      * Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -113,7 +115,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      * 1 = raw,
      * 2 = cooked (as estimated)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
@@ -146,7 +150,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      * 1 = without un-edible part,
      * 2 = with un-edible (as estimated)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -178,7 +184,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     /**
      * G = in grams, V = in ml (volume)
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",

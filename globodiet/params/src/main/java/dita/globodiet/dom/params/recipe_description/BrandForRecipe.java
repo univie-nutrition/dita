@@ -105,7 +105,9 @@ public class BrandForRecipe {
     /**
      * has no description
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

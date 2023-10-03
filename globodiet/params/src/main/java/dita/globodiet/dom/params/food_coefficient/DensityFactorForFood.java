@@ -86,7 +86,9 @@ public class DensityFactorForFood {
     /**
      * Density coefficient
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -131,7 +133,9 @@ public class DensityFactorForFood {
     /**
      * Priority order
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
@@ -154,7 +158,8 @@ public class DensityFactorForFood {
      * 2 = with un-edible (as estimated)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -189,7 +194,8 @@ public class DensityFactorForFood {
      * 2 = cooked (as estimated)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -223,7 +229,9 @@ public class DensityFactorForFood {
      * 1 = density for food/ingredient,
      * 2 = density for recipe
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",

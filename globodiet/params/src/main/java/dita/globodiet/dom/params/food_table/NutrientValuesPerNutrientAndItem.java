@@ -60,7 +60,9 @@ public class NutrientValuesPerNutrientAndItem {
     /**
      * Item Sequential number
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
@@ -80,7 +82,9 @@ public class NutrientValuesPerNutrientAndItem {
     /**
      * Nutrient code
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
@@ -100,7 +104,9 @@ public class NutrientValuesPerNutrientAndItem {
     /**
      * Nutrient value for the attached item & nutrient
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",

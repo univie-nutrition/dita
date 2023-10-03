@@ -171,7 +171,8 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
      * Default flag (if set to 'D' it is the default descriptor)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -194,7 +195,8 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
      * Not in name flag
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -216,7 +218,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Order to display the facets within a group/subgroup
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
@@ -236,7 +240,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Order to display the descriptors within a group/subgroup and a facet
      */
-    @Property
+    @Property(
+            editing = Editing.ENABLED
+    )
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",

@@ -85,7 +85,8 @@ public class RecipeIngredientQuantification {
      * Sequential Number within a Mixed Recipe for Ingredient
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -130,7 +131,8 @@ public class RecipeIngredientQuantification {
      * Order of shape selection (e.g. 1)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -175,7 +177,8 @@ public class RecipeIngredientQuantification {
      * Shape surface in cm2 (e.g. 200cm2). 2 decimals
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -220,7 +223,8 @@ public class RecipeIngredientQuantification {
      * Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -265,7 +269,8 @@ public class RecipeIngredientQuantification {
      * Photo quantity
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -287,7 +292,8 @@ public class RecipeIngredientQuantification {
      * Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
@@ -310,7 +316,8 @@ public class RecipeIngredientQuantification {
      * Sequential Number for Ingredients within a Sub-Recipe
      */
     @Property(
-            optionality = Optionality.OPTIONAL
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
             fieldSetId = "details",
