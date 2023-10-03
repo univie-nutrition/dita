@@ -20,6 +20,7 @@ package dita.tooling.domgen;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.lang.model.element.Modifier;
 
@@ -29,8 +30,9 @@ import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.NatureOfService;
-import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.applib.services.factory.FactoryService;
 
+import dita.commons.services.search.SearchService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
@@ -48,14 +50,11 @@ class _GenMenu {
                         config.fullLogicalName(config.entitiesModulePackageName()) + "." + "EntitiesMenu"))
                 .addAnnotation(_Annotations.domainService(NatureOfService.VIEW))
                 .addModifiers(Modifier.PUBLIC)
-                .addField(_Fields.inject(RepositoryService.class, "repositoryService", Modifier.PRIVATE))
+                //.addField(_Fields.inject(RepositoryService.class, "repositoryService", Modifier.PRIVATE))
+                .addField(_Fields.inject(FactoryService.class, "factoryService", Modifier.PRIVATE))
+                .addField(_Fields.inject(SearchService.class, "searchService", Modifier.PRIVATE))
                 .addMethods(asMethods(entityModels, config, Modifier.PUBLIC))
                 ;
-
-//TODO gen XML as well
-//        val imports = entityModels.stream()
-//        .map(entityModel->config.javaPoetClassName(entityModel))
-//        .toList();
 
         return new QualifiedType(
                 config.fullPackageName(config.entitiesModulePackageName()),
@@ -69,11 +68,22 @@ class _GenMenu {
             final DomainGenerator.Config config,
             final Modifier ... modifiers) {
         return entityModels.stream()
-                .map(entityModel->asMenuEntry(entityModel, config, modifiers))
+                .flatMap(entityModel->Stream.of(
+                        //asListAllMethod(entityModel, config, modifiers),
+                        asManageMethod(entityModel, config, modifiers)))
                 .collect(Collectors.toList());
     }
 
-    private MethodSpec asMenuEntry(
+    /*
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid layer-group olive"
+    )
+    public List<FoodGroup> listAllFoodGroup() {
+        return repositoryService.allInstances(FoodGroup.class);
+    }
+    */
+    private MethodSpec asListAllMethod(
             final OrmModel.Entity entityModel,
             final DomainGenerator.Config config,
             final Modifier ... modifiers) {
@@ -88,6 +98,29 @@ class _GenMenu {
                     .addAnnotation(_Annotations.action())
                     .addAnnotation(_Annotations.actionLayout(entityModel.icon()))
                     .addCode("return repositoryService.allInstances($1L.class);", entityModel.name())
+                    .build();
+    }
+
+    /*
+    @Action
+    @ActionLayout(cssClassFa = FontawesomeConstants.ICON_BRANDS)
+    public Manager manageBrand() {
+        return factoryService.viewModel(new Brand.Manager(searchService, ""));
+    }
+     */
+    private MethodSpec asManageMethod(
+            final OrmModel.Entity entityModel,
+            final DomainGenerator.Config config,
+            final Modifier ... modifiers) {
+        val managerName = entityModel.name() + ".Manager";
+        return MethodSpec.methodBuilder("manage" + entityModel.name())
+                    .addModifiers(modifiers)
+                    .returns(ClassName.get("", managerName))
+                    .addAnnotation(_Annotations.action())
+                    .addAnnotation(_Annotations.actionLayout(entityModel.icon()))
+                    .addCode("""
+                            return factoryService.viewModel(new $1T.Manager(searchService, ""));""",
+                            config.javaPoetClassName(entityModel))
                     .build();
     }
 

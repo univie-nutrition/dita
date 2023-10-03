@@ -131,6 +131,9 @@ implements HasCurrentlyCheckedOutVersion {
                 .filter(e->e.namespace().equals("params.interview")).collect(Can.toCan());
         val supplementMenu =  gdParamsSchema.entities().values().stream()
                 .filter(e->e.namespace().equals("params.supplement")).collect(Can.toCan());
+        val allManagersMenu =  gdParamsSchema.entities().values().stream()
+                .sorted((a, b)->a.name().compareTo(b.name()))
+                .collect(Can.toCan());
 
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Menu Entries"));
@@ -140,25 +143,32 @@ implements HasCurrentlyCheckedOutVersion {
             <mb:menu>
                 <mb:named>Supplements</mb:named>
                 <mb:section>
-            %s
+                    %s
                 </mb:section>
             </mb:menu>
             <mb:menu>
                 <mb:named>Interviews</mb:named>
                 <mb:section>
-            %s
+                    %s
                 </mb:section>
             </mb:menu>
             <mb:menu>
                 <mb:named>Having no Relations</mb:named>
                 <mb:section>
-            %s
+                    %s
+                </mb:section>
+            </mb:menu>
+            <mb:menu>
+                <mb:named>All Managers</mb:named>
+                <mb:section>
+                    %s
                 </mb:section>
             </mb:menu>
             """,
             toServiceActionXmlLayoutEntries(supplementMenu),
             toServiceActionXmlLayoutEntries(interviewMenu),
-            toServiceActionXmlLayoutEntries(entitiesWithoutRelations)
+            toServiceActionXmlLayoutEntries(entitiesWithoutRelations),
+            toServiceActionXmlLayoutEntries(allManagersMenu)
             ));
             sourceBlock.setTitle("menu-layout.xml");
         });
@@ -168,13 +178,13 @@ implements HasCurrentlyCheckedOutVersion {
     private static String toServiceActionXmlLayoutEntries(final Can<OrmModel.Entity> entities) {
         return entities.stream()
                 .map(Dashboard::toServiceActionXmlLayoutEntry)
-                .collect(Collectors.joining());
+                .collect(Collectors.joining("\n        "));
     }
     private static String toServiceActionXmlLayoutEntry(final OrmModel.Entity entity) {
         return String.format(
                 """
-                        <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>""",
-                "listAll" + entity.name());
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>""",
+                "manage" + entity.name());
     }
 
 }
