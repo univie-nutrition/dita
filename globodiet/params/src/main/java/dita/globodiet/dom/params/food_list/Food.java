@@ -192,7 +192,6 @@ public class Food implements HasSecondaryKey<Food> {
      * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
      */
     @Property(
-            optionality = Optionality.OPTIONAL,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

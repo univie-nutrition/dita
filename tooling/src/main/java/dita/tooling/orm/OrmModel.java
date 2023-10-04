@@ -282,6 +282,13 @@ public class OrmModel {
                     .map(IndexedFunction.zeroBased((index, ev)->EnumConstant.parse(this, index, ev)))
                     .collect(Collectors.toList());
         }
+        public boolean requiredInTheUi() {
+            // when enum and the enum also represents null,
+            // then Optionality.MANDATORY is enforced (regardless of any required=false)
+            return required()
+                    || (isEnum()
+                            && enumConstants().stream().anyMatch(EnumConstant::isRepresentingNull));
+        }
         public boolean hasDiscriminator() {
             return discriminator.size()>0;
         }
@@ -405,6 +412,9 @@ public class OrmModel {
             SneakyRef<Field> parentRef,
             int ordinal,
             String name,
+            /**
+             * non-null: empty string also matches on null in the DB
+             */
             String matchOn,
             String description) {
         static EnumConstant parse(final Field field, final int ordinal, final String enumDeclarationLine) {
@@ -428,6 +438,9 @@ public class OrmModel {
             //debug
             //System.err.printf("preprocessed: '%s'->'%s'%n", name, preprocessed);
             return _Strings.condenseWhitespaces(preprocessed, "_").toUpperCase();
+        }
+        public boolean isRepresentingNull() {
+            return _Strings.isNullOrEmpty(matchOn);
         }
     }
 

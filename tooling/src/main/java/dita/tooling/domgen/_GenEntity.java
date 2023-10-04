@@ -106,7 +106,9 @@ class _GenEntity {
                 .addField(FieldSpec.builder(SearchService.class, "searchService", Modifier.PUBLIC, Modifier.FINAL)
                         .build())
                 .addField(FieldSpec.builder(String.class, "search", Modifier.PRIVATE)
-                        .addAnnotation(_Annotations.property(attr->attr.optionality(Optionality.OPTIONAL).editing(Editing.ENABLED)))
+                        .addAnnotation(_Annotations.property(attr->attr
+                                .optionality(Optionality.OPTIONAL)
+                                .editing(Editing.ENABLED)))
                         .addAnnotation(_Annotations.propertyLayout(attr->attr
                                 .fieldSetId("searchBar")))
                         .addAnnotation(_Annotations.getter())
@@ -223,7 +225,7 @@ class _GenEntity {
                             modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .addAnnotation(_Annotations.property(attr->{
-                        if(!field.required()) attr.optionality(Optionality.OPTIONAL);
+                        if(!field.requiredInTheUi()) attr.optionality(Optionality.OPTIONAL);
                         val isEditingVetoed = field.hasForeignKeys()
                                 || field.isMemberOfSecondaryKey();
                         if(!isEditingVetoed) attr.editing(Editing.ENABLED);

@@ -258,7 +258,6 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * whether is an alias (SH=shadow)
      */
     @Property(
-            optionality = Optionality.OPTIONAL,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
