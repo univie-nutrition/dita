@@ -66,9 +66,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food identification number\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Food identification number",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,9 +87,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -112,9 +108,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -135,9 +129,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Food sub-subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Food sub-subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -156,9 +148,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Facet code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -177,9 +167,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "Descriptor code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Descriptor code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -200,9 +188,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Facet string\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet string",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -67,9 +67,7 @@ public class Interviewer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Interviewer code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Interviewer code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,9 +89,7 @@ public class Interviewer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Interviewer family name\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Interviewer family name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,9 +110,7 @@ public class Interviewer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Interviewer name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Interviewer name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -135,9 +129,7 @@ public class Interviewer {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Country code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Country code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -156,9 +148,7 @@ public class Interviewer {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Center code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Center code",
             hidden = Where.ALL_TABLES
     )
     @Column(

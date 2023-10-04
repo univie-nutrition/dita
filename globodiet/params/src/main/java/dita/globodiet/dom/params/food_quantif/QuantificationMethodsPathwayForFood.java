@@ -67,9 +67,7 @@ public class QuantificationMethodsPathwayForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food identification number (FOODNUM)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -100,9 +98,7 @@ public class QuantificationMethodsPathwayForFood {
                             + "'H' for HHM,\n"
                             + "'U' for stdu,\n"
                             + "'S' for standard portion,\n"
-                            + "'A' for shape\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "'A' for shape",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -135,9 +131,7 @@ public class QuantificationMethodsPathwayForFood {
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Photo code (if method='P' and 'A');\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "either M_photos.ph_code or M_shapes.sh_code",
             hidden = Where.ALL_TABLES
     )
     @Column(

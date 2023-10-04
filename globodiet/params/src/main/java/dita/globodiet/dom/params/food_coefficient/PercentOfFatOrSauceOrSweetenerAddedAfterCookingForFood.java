@@ -67,9 +67,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -90,9 +88,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -113,9 +109,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food sub-Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -136,9 +130,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Food code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -159,9 +151,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Fat group code for F/S/S\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Fat group code for F/S/S",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -182,9 +172,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "Fat subgroup code for F/S/S\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Fat subgroup code for F/S/S",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -205,9 +193,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "7",
-            describedAs = "Fat sub-subgroup code for F/S/S\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Fat sub-subgroup code for F/S/S",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -228,9 +214,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "8",
-            describedAs = "Fat code for F/S/S\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Fat code for F/S/S",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -251,9 +235,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Percentage of fat\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Percentage of fat",
             hidden = Where.NOWHERE
     )
     @Column(

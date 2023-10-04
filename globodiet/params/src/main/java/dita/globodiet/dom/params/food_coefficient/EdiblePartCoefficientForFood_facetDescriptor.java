@@ -35,9 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "3.1",
-        describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
-                        + "----\n"
-                        + "required=false, unique=false",
+        describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

@@ -65,9 +65,7 @@ public class BrandForRecipe {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Recipe group\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Recipe group",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,9 +86,7 @@ public class BrandForRecipe {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Recipe subgroup\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Recipe subgroup",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -111,9 +107,7 @@ public class BrandForRecipe {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "has no description\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "has no description",
             hidden = Where.NOWHERE
     )
     @Column(

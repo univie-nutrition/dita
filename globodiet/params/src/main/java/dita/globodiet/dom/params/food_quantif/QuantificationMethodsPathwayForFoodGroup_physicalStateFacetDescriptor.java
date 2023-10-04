@@ -35,9 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "4.1",
-        describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)\n"
-                        + "----\n"
-                        + "required=false, unique=false",
+        describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

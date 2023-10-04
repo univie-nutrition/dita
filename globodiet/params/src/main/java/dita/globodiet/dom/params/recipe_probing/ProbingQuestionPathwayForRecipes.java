@@ -67,9 +67,7 @@ public class ProbingQuestionPathwayForRecipes {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Probing question code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Probing question code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -90,9 +88,7 @@ public class ProbingQuestionPathwayForRecipes {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Recipe group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Recipe group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -113,9 +109,7 @@ public class ProbingQuestionPathwayForRecipes {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Recipe subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Recipe subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -136,9 +130,7 @@ public class ProbingQuestionPathwayForRecipes {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Recipe identification number (R_ IDNUM)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Recipe identification number (R_ IDNUM)",
             hidden = Where.ALL_TABLES
     )
     @Column(

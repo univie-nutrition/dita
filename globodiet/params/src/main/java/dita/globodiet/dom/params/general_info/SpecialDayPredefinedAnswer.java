@@ -66,9 +66,7 @@ public class SpecialDayPredefinedAnswer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Special day code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Special day code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,9 +87,7 @@ public class SpecialDayPredefinedAnswer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Special day label\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Special day label",
             hidden = Where.NOWHERE
     )
     @Column(

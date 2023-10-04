@@ -35,9 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "2.1",
-        describedAs = "Recipe group code\n"
-                        + "----\n"
-                        + "required=false, unique=false",
+        describedAs = "Recipe group code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

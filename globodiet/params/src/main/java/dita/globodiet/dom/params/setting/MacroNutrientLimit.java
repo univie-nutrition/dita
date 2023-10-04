@@ -70,9 +70,7 @@ public class MacroNutrientLimit {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Name of nutrient\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Name of nutrient",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -93,9 +91,7 @@ public class MacroNutrientLimit {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Minimum value\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Minimum value",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -115,9 +111,7 @@ public class MacroNutrientLimit {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Maximum value\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Maximum value",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -138,9 +132,7 @@ public class MacroNutrientLimit {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Unit (g, kcal or blank)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Unit (g, kcal or blank)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -174,9 +166,7 @@ public class MacroNutrientLimit {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1=Man,\n"
-                            + "2=Woman\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+                            + "2=Woman",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -208,9 +198,7 @@ public class MacroNutrientLimit {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "PAL value\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "PAL value",
             hidden = Where.NOWHERE
     )
     @Column(

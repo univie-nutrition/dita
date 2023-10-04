@@ -35,9 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "1.1",
-        describedAs = "Group code of the FAT's group\n"
-                        + "----\n"
-                        + "required=true, unique=false",
+        describedAs = "Group code of the FAT's group",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

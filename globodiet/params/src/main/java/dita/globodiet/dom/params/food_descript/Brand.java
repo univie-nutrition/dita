@@ -76,9 +76,7 @@ public class Brand implements HasSecondaryKey<Brand> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Name of brand\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Name of brand",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,9 +95,7 @@ public class Brand implements HasSecondaryKey<Brand> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -120,9 +116,7 @@ public class Brand implements HasSecondaryKey<Brand> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "3",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -143,9 +137,7 @@ public class Brand implements HasSecondaryKey<Brand> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "4",
-            describedAs = "Food sub-subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(

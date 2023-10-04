@@ -66,9 +66,7 @@ public class SelectedParameterForDataEntry {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Parameter code for data entry\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Parameter code for data entry",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,9 +87,7 @@ public class SelectedParameterForDataEntry {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Parameter value for data entry\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Parameter value for data entry",
             hidden = Where.NOWHERE
     )
     @Column(

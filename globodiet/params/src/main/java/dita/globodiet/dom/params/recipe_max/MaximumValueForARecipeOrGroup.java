@@ -66,9 +66,7 @@ public class MaximumValueForARecipeOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Recipe group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Recipe group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,9 +87,7 @@ public class MaximumValueForARecipeOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Recipe subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Recipe subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -112,9 +108,7 @@ public class MaximumValueForARecipeOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Recipe code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Recipe code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -135,9 +129,7 @@ public class MaximumValueForARecipeOrGroup {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Maximum value\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Maximum value",
             hidden = Where.NOWHERE
     )
     @Column(

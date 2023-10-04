@@ -66,9 +66,7 @@ public class HouseholdMeasure {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "HouseholdMeasure code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "HouseholdMeasure code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,9 +87,7 @@ public class HouseholdMeasure {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "HouseholdMeasure volume in cm3.\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "HouseholdMeasure volume in cm3.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -113,9 +109,7 @@ public class HouseholdMeasure {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
-                            + "The value of each expression will be evaluated as factor of the total volume\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "The value of each expression will be evaluated as factor of the total volume",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -136,9 +130,7 @@ public class HouseholdMeasure {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Comment attached to the HouseholdMeasure\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Comment attached to the HouseholdMeasure",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -159,9 +151,7 @@ public class HouseholdMeasure {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Order to display the HouseholdMeasure\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Order to display the HouseholdMeasure",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -74,9 +74,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Facet code for recipes\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Facet code for recipes",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,9 +95,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Facet name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Facet name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,9 +116,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Facet text (text to show on the screen describing the facet)\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Facet text (text to show on the screen describing the facet)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -145,9 +139,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
-                            + "1=Facets with descriptors available in RBrand table\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=Facets with descriptors available in RBrand table",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -179,9 +171,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0 = facet with single-selection of descriptor\n"
-                            + "1 = facets with multi-selection of descriptors\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1 = facets with multi-selection of descriptors",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -213,9 +203,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0 = standard facet\n"
-                            + "1 = Main facet (with non modified descriptor)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1 = Main facet (with non modified descriptor)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -245,9 +233,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Label on how to ask the facet question\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Label on how to ask the facet question",
             hidden = Where.NOWHERE
     )
     @Column(

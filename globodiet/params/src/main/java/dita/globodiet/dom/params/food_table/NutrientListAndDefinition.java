@@ -69,9 +69,7 @@ public class NutrientListAndDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Nutrient code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Nutrient code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,9 +89,7 @@ public class NutrientListAndDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Nutrient Name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Nutrient Name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,9 +110,7 @@ public class NutrientListAndDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Nutrient unit (e.g. kcal, g, mg…)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Nutrient unit (e.g. kcal, g, mg…)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -139,9 +133,7 @@ public class NutrientListAndDefinition {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=not displayed in the 'nutrient checks' screen\n"
-                            + "1=displayed in the 'nutrient checks' screen\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=displayed in the 'nutrient checks' screen",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -172,9 +164,7 @@ public class NutrientListAndDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Comment on nutrient\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Comment on nutrient",
             hidden = Where.NOWHERE
     )
     @Column(

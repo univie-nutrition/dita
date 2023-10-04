@@ -64,9 +64,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Recipe ID number\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Recipe ID number",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -91,9 +89,7 @@ public class ExceptionToFacetsPathwayForRecipe {
             describedAs = "Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe\n"
                             + "(superseeding its group pathway).\n"
                             + "The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file\n"
-                            + "(Assuming always a subset)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "(Assuming always a subset)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -114,9 +110,7 @@ public class ExceptionToFacetsPathwayForRecipe {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "has no description\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "has no description",
             hidden = Where.NOWHERE
     )
     @Column(

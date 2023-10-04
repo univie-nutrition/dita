@@ -75,9 +75,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -98,9 +96,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "has no description\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "has no description",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,9 +116,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -149,9 +143,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
                             + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                             + "When this field is empty, that means that this thickness has always to be proposed\n"
                             + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
-                            + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -178,9 +170,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
             describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
                             + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
                             + "When this field is empty, that means that this thickness has always to be proposed\n"
-                            + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)",
             hidden = Where.ALL_TABLES
     )
     @Column(

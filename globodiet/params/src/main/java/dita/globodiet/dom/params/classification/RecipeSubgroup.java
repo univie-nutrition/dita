@@ -74,9 +74,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Recipe group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Recipe group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -95,9 +93,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Recipe sub-group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Recipe sub-group code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -118,9 +114,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Name of the recipe (sub-)group\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Name of the recipe (sub-)group",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -141,9 +135,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Short Name of the recipe (sub-)group\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Short Name of the recipe (sub-)group",
             hidden = Where.NOWHERE
     )
     @Column(

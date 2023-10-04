@@ -65,9 +65,7 @@ public class PercentOfFatLeftInTheDishForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Group code of the FAT's group\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Group code of the FAT's group",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,9 +86,7 @@ public class PercentOfFatLeftInTheDishForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Subgroup code of the FAT\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subgroup code of the FAT",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -111,9 +107,7 @@ public class PercentOfFatLeftInTheDishForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Sub-Subgroup code of the FAT\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Sub-Subgroup code of the FAT",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -134,9 +128,7 @@ public class PercentOfFatLeftInTheDishForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Percentage of fat left in the dish\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Percentage of fat left in the dish",
             hidden = Where.NOWHERE
     )
     @Column(

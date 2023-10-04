@@ -112,9 +112,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Recipe ID number\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Recipe ID number",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -133,9 +131,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Group code of the recipe classification\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Group code of the recipe classification",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -156,9 +152,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Subgroup code of the recipe classification\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subgroup code of the recipe classification",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -179,9 +173,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Recipe name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Recipe name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -218,9 +210,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
                             + "2.2=Closed with brand\n"
                             + "3.0=Commercial\n"
                             + "4.1=New – Known\n"
-                            + "4.2=New – Unknown\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "4.2=New – Unknown",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -252,9 +242,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Brand name for commercial recipe\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Brand name for commercial recipe",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -276,9 +264,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "whether is an alias (SH=shadow)\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "whether is an alias (SH=shadow)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -311,9 +297,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             fieldSetId = "details",
             sequence = "8",
             describedAs = "0=recipe without sub-recipe\n"
-                            + "1=recipe with sub-recipe\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=recipe with sub-recipe",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -343,9 +327,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "has no description\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "has no description",
             hidden = Where.NOWHERE
     )
     @Column(

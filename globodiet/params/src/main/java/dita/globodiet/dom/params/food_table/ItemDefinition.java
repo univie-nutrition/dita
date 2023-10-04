@@ -71,9 +71,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Sequential number\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Sequential number",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -101,9 +99,7 @@ public class ItemDefinition {
                             + "F=food,\n"
                             + "R=recipe,\n"
                             + "A2=fat attached,\n"
-                            + "A3=liquid attached\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "A3=liquid attached",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -134,9 +130,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food or recipe group\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food or recipe group",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -157,9 +151,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Food or recipe sub-group\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food or recipe sub-group",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -180,9 +172,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Food sub-sub-group\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-sub-group",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -203,9 +193,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "Food or Recipe code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food or Recipe code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -227,9 +215,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Facet string\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Facet string",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -251,9 +237,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Brand name\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Brand name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -274,9 +258,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Priority order\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Priority order",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -297,9 +279,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "10",
-            describedAs = "Attached records: only for the Type=A2 & A3\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Attached records: only for the Type=A2 & A3",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -320,9 +300,7 @@ public class ItemDefinition {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "11",
-            describedAs = "Comment\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Comment",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -74,9 +74,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Country code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Country code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,9 +95,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Country name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Country name",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -64,9 +64,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Facet code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -85,9 +83,7 @@ public class FacetDescriptorThatCannotBeSubstituted {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Descriptor code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Descriptor code",
             hidden = Where.ALL_TABLES
     )
     @Column(

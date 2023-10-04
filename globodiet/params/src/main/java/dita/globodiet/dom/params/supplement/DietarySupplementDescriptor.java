@@ -69,9 +69,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Descriptor code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Descriptor code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -92,9 +90,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Descriptor name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Descriptor name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -113,9 +109,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Facet code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -138,9 +132,7 @@ public class DietarySupplementDescriptor {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Only for the facet with Dsfacet_type=1,\n"
-                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -166,9 +158,7 @@ public class DietarySupplementDescriptor {
             describedAs = "Default Descriptor.\n"
                             + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
                             + "1=default,\n"
-                            + "0=other\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "0=other",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -198,9 +188,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Descriptor with type='other' : 1=yes 0=no",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -230,9 +218,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "0=not single descriptor 1=single descriptor\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "0=not single descriptor 1=single descriptor",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -262,9 +248,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Display order (1=first, 2=second, …)\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Display order (1=first, 2=second, …)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -284,9 +268,7 @@ public class DietarySupplementDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Not in name flag\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Not in name flag",
             hidden = Where.NOWHERE
     )
     @Column(

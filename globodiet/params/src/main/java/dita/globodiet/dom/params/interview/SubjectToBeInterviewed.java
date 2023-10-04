@@ -74,9 +74,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Interview number\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Interview number",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,9 +95,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Subject birth date\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subject birth date",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,9 +116,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Subject code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Subject code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -144,9 +138,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Subject first name\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subject first name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -168,9 +160,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Subject height in cm\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subject height in cm",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -191,9 +181,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Subject name\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subject name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -215,9 +203,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Subject sex (1=man, 2=woman)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subject sex (1=man, 2=woman)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -249,9 +235,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Subject weight in kg\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subject weight in kg",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -274,9 +258,7 @@ public class SubjectToBeInterviewed {
             fieldSetId = "details",
             sequence = "9",
             describedAs = "0=interview to be done,\n"
-                            + "1=interview done\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "1=interview done",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -306,9 +288,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "10",
-            describedAs = "Country code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Country code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -329,9 +309,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "11",
-            describedAs = "Center code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Center code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -353,9 +331,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "12",
-            describedAs = "Interviewer Country code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Interviewer Country code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -377,9 +353,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "13",
-            describedAs = "Interviewer Center code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Interviewer Center code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -401,9 +375,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "14",
-            describedAs = "Interviewer code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Interviewer code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -425,9 +397,7 @@ public class SubjectToBeInterviewed {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "15",
-            describedAs = "Recall Date (mm/dd/yy)\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Recall Date (mm/dd/yy)",
             hidden = Where.NOWHERE
     )
     @Column(

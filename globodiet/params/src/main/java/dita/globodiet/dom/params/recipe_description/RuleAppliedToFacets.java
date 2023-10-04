@@ -64,9 +64,7 @@ public class RuleAppliedToFacets {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Facet where the rule must be applied.\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet where the rule must be applied.",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -97,9 +95,7 @@ public class RuleAppliedToFacets {
                             + "- When a group/subgroup1/subgroup2 is specified, the rule is applied only for these 3 levels of classification (e.g. 070101 only for foods from beef classification).\n"
                             + "- When a group/subgroup1 is specified, the rule is applied for all the foods attached to these 2 or 3 levels of classification (e.g. 0701 so for foods classified under 070100, 070101, 070102, 070103, 070104, 070105 & 070106).\n"
                             + "- When a group is specified, the rule is applied for all the foods attached to these 1, 2 or 3 levels of classification (e.g. 06 so for foods classified under 0601, 0602, 0603, 0604, 0605,  0606 and also for 060300, 060301 & 060302).\n"
-                            + "- When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+                            + "- When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,9 +116,7 @@ public class RuleAppliedToFacets {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Recipe Group code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Recipe Group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -143,9 +137,7 @@ public class RuleAppliedToFacets {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Recipe Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Recipe Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(

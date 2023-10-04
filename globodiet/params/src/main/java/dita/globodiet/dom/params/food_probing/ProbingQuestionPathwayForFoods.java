@@ -67,9 +67,7 @@ public class ProbingQuestionPathwayForFoods {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Probing question code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Probing question code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -90,9 +88,7 @@ public class ProbingQuestionPathwayForFoods {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -113,9 +109,7 @@ public class ProbingQuestionPathwayForFoods {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -136,9 +130,7 @@ public class ProbingQuestionPathwayForFoods {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Food sub-subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -159,9 +151,7 @@ public class ProbingQuestionPathwayForFoods {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Food identification number (FOODNUM)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food identification number (FOODNUM)",
             hidden = Where.ALL_TABLES
     )
     @Column(

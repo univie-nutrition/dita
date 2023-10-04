@@ -66,9 +66,7 @@ public class TranslationInCountryLanguage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Text name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Text name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -90,9 +88,7 @@ public class TranslationInCountryLanguage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Text in specific Country language\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Text in specific Country language",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -114,9 +110,7 @@ public class TranslationInCountryLanguage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Text in English\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Text in English",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -138,9 +132,7 @@ public class TranslationInCountryLanguage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Data entry Text in specific Country language\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Data entry Text in specific Country language",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -162,9 +154,7 @@ public class TranslationInCountryLanguage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Data entry Text in English\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Data entry Text in English",
             hidden = Where.NOWHERE
     )
     @Column(

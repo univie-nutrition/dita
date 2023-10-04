@@ -67,9 +67,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Recipe group\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Recipe group",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -98,9 +96,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
                             + "'P' for photo,\n"
                             + "'H' for HHM,\n"
                             + "'U' for stdu,\n"
-                            + "'A' for shape\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "'A' for shape",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -133,9 +129,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Photo code (if method='P' and 'A');\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "either M_photos.ph_code or M_shapes.sh_code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -156,9 +150,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Comment\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Comment",
             hidden = Where.NOWHERE
     )
     @Column(

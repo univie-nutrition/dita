@@ -67,9 +67,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,9 +86,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -111,9 +107,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food sub-subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -134,9 +128,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -160,9 +152,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1=raw,\n"
-                            + "2=cooked (as Consumed)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "2=cooked (as Consumed)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -203,9 +193,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
                             + "'H' for HHM,\n"
                             + "'U' for stdu,\n"
                             + "'S' for standard portion,\n"
-                            + "'A' for shape\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "'A' for shape",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -238,9 +226,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
             fieldSetId = "foreign",
             sequence = "7",
             describedAs = "Photo code (if method='P' and 'A');\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "either M_photos.ph_code or M_shapes.sh_code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -261,9 +247,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Comment\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Comment",
             hidden = Where.NOWHERE
     )
     @Column(

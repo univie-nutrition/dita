@@ -34,9 +34,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "1.1",
-        describedAs = "Facet where the rule must be applied.\n"
-                        + "----\n"
-                        + "required=true, unique=false",
+        describedAs = "Facet where the rule must be applied.",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

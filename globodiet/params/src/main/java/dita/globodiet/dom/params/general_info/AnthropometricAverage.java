@@ -67,9 +67,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Anthropometry variable (Height or Weight)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Anthropometry variable (Height or Weight)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -91,9 +89,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Sex (1 for men, 2 for women, blank for both)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Sex (1 for men, 2 for women, blank for both)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -113,9 +109,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Age minimum range\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Age minimum range",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -135,9 +129,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Age maximum range\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Age maximum range",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -157,9 +149,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Minimum value of height or weight\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Minimum value of height or weight",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -179,9 +169,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Maximum value of height or weight\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Maximum value of height or weight",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -201,9 +189,7 @@ public class AnthropometricAverage {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Default value of height or weight\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Default value of height or weight",
             hidden = Where.NOWHERE
     )
     @Column(

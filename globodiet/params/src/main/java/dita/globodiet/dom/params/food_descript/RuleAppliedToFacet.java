@@ -64,9 +64,7 @@ public class RuleAppliedToFacet {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Facet where the rule must be applied.\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet where the rule must be applied.",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -91,9 +89,7 @@ public class RuleAppliedToFacet {
             describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
                             + "to allow the facet (FACET_CODE) to be asked.\n"
                             + "Additionally a group/subgroup code can be defined to force the food being described\n"
-                            + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -114,9 +110,7 @@ public class RuleAppliedToFacet {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -137,9 +131,7 @@ public class RuleAppliedToFacet {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -160,9 +152,7 @@ public class RuleAppliedToFacet {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Sub-subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Sub-subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(

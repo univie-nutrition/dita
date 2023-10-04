@@ -75,9 +75,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -96,9 +94,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Food sub-group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food sub-group code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -119,9 +115,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "3",
-            describedAs = "Food sub-sub-group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-sub-group code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -142,9 +136,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Name of the food (sub-)(sub-)group\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Name of the food (sub-)(sub-)group",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -165,9 +157,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -200,9 +190,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0=non fat/sauce subgroup\n"
-                            + "1= fat/sauce subgroup that can be left over in the dish\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1= fat/sauce subgroup that can be left over in the dish",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -235,9 +223,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             fieldSetId = "details",
             sequence = "7",
             describedAs = "0=non fat during cooking subgroup\n"
-                            + "1= fat during cooking subgroup\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1= fat during cooking subgroup",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -268,9 +254,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Short Name of the food (sub-)(sub-)group\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Short Name of the food (sub-)(sub-)group",
             hidden = Where.NOWHERE
     )
     @Column(

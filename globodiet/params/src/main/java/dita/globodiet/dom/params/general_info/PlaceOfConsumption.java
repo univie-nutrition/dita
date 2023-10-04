@@ -75,9 +75,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Place of consumption code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Place of consumption code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -98,9 +96,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Place of consumption name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Place of consumption name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,9 +119,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "0=not a 'Other' place\n"
-                            + "1='Other' place\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1='Other' place",
             hidden = Where.NOWHERE
     )
     @Column(

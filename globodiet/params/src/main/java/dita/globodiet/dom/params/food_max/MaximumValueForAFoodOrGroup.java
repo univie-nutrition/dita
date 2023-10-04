@@ -66,9 +66,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -89,9 +87,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -112,9 +108,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food sub-Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -136,9 +130,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Food code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Food code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -159,9 +151,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Maximum value\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Maximum value",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -181,9 +171,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -204,9 +192,7 @@ public class MaximumValueForAFoodOrGroup {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Priority order\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Priority order",
             hidden = Where.NOWHERE
     )
     @Column(

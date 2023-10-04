@@ -74,9 +74,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Food group code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,9 +95,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Food group name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Food group name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,9 +116,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Food group short name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Food group short name",
             hidden = Where.NOWHERE
     )
     @Column(

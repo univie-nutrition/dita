@@ -66,9 +66,7 @@ public class Month {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Month number\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Month number",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,9 +87,7 @@ public class Month {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Month name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Month name",
             hidden = Where.NOWHERE
     )
     @Column(

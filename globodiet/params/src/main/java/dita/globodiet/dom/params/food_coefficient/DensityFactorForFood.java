@@ -69,9 +69,7 @@ public class DensityFactorForFood {
             fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food identification number (FOODNUM)\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "either Foods.foodnum OR Mixedrec.r_idnum",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -92,9 +90,7 @@ public class DensityFactorForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Density coefficient\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Density coefficient",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -116,9 +112,7 @@ public class DensityFactorForFood {
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Facet string\n"
-                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -139,9 +133,7 @@ public class DensityFactorForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Priority order\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Priority order",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -165,9 +157,7 @@ public class DensityFactorForFood {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+                            + "2 = with un-edible (as estimated)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -201,9 +191,7 @@ public class DensityFactorForFood {
             fieldSetId = "details",
             sequence = "6",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "2 = cooked (as estimated)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -236,9 +224,7 @@ public class DensityFactorForFood {
             fieldSetId = "details",
             sequence = "7",
             describedAs = "1 = density for food/ingredient,\n"
-                            + "2 = density for recipe\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "2 = density for recipe",
             hidden = Where.NOWHERE
     )
     @Column(

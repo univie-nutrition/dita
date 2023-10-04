@@ -74,9 +74,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Facet code for recipes\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet code for recipes",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -95,9 +93,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Descriptor code for recipes\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Descriptor code for recipes",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -118,9 +114,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptor name\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Descriptor name",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -145,9 +139,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
             sequence = "4",
             describedAs = "Only for facet recipe production:\n"
                             + "0=not homemade descriptor\n"
-                            + "1=Homemade descriptor\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=Homemade descriptor",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -177,9 +169,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Only for facet known/unknown: 1=unknown 2=known\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Only for facet known/unknown: 1=unknown 2=known",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -209,9 +199,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Descriptor with type='other' : 1=yes 0=no",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -243,9 +231,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
             fieldSetId = "details",
             sequence = "7",
             describedAs = "0=not single descriptor\n"
-                            + "1=single descriptor\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=single descriptor",
             hidden = Where.NOWHERE
     )
     @Column(

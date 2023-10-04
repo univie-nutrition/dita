@@ -75,9 +75,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Food Consumption Occasion code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Food Consumption Occasion code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -98,9 +96,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "FCO long label (text displayed on screen)\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "FCO long label (text displayed on screen)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -121,9 +117,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -144,9 +138,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "FCO short label to identify easily the FCO\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "FCO short label to identify easily the FCO",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -169,9 +161,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0=non main FCO\n"
-                            + "1=main FCO (to be displayed in nutrient check screen)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=main FCO (to be displayed in nutrient check screen)",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -66,9 +66,7 @@ public class SpecialDietPredefinedAnswer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Special diet code\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Special diet code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,9 +87,7 @@ public class SpecialDietPredefinedAnswer {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Special diet label\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Special diet label",
             hidden = Where.NOWHERE
     )
     @Column(

@@ -75,9 +75,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Dietary Supplement classification code\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Dietary Supplement classification code",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -99,9 +97,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Name of the food (sub-)(sub-)group\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Name of the food (sub-)(sub-)group",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -123,9 +119,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Dietary Supplement classification code attached to (for subgroup)\n"
-                            + "----\n"
-                            + "required=false, unique=true",
+            describedAs = "Dietary Supplement classification code attached to (for subgroup)",
             hidden = Where.NOWHERE
     )
     @Column(

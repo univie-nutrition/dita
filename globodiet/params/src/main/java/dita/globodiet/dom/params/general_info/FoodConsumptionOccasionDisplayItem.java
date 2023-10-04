@@ -71,9 +71,7 @@ public class FoodConsumptionOccasionDisplayItem {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food Consumption Occasion code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food Consumption Occasion code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -94,9 +92,7 @@ public class FoodConsumptionOccasionDisplayItem {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Text representing Food.\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Text representing Food.",
             hidden = Where.NOWHERE
     )
     @Column(

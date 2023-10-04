@@ -237,8 +237,7 @@ class _GenEntity {
                                         : "details")
                             .sequence(field.sequence())
                             .describedAs(
-                                field.formatDescription("\n", "----",
-                                        String.format("required=%b, unique=%b", field.required(), field.unique())))
+                                field.formatDescription("\n"))
                             .hiddenWhere(field.hasForeignKeys()
                                 ? Where.ALL_TABLES
                                 : Where.NOWHERE)))

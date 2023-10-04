@@ -71,9 +71,7 @@ public class GroupSubstitution {
             fieldSetId = "details",
             sequence = "1",
             describedAs = "0=Food classification\n"
-                            + "1=Recipe classification\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=Recipe classification",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -102,9 +100,7 @@ public class GroupSubstitution {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -125,9 +121,7 @@ public class GroupSubstitution {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -148,9 +142,7 @@ public class GroupSubstitution {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Food sub-Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food sub-Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -171,9 +163,7 @@ public class GroupSubstitution {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "List of food groups/subgroups to apply the substitution (e.g. “01”, “13,1602,0507,0508”)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -194,9 +184,7 @@ public class GroupSubstitution {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)",
             hidden = Where.ALL_TABLES
     )
     @Column(

@@ -69,9 +69,7 @@ public class StandardPortionForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Standard portion quantity\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Standard portion quantity",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -89,9 +87,7 @@ public class StandardPortionForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food identification number (=FOODMUM)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food identification number (=FOODMUM)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -114,9 +110,7 @@ public class StandardPortionForFood {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "2 = cooked (as estimated)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -149,9 +143,7 @@ public class StandardPortionForFood {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "2 = with un-edible (as estimated)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -182,9 +174,7 @@ public class StandardPortionForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Comment attached to the standard portion\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Comment attached to the standard portion",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -205,9 +195,7 @@ public class StandardPortionForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Standard portion code for the same food (0001, 0002, 0003)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Standard portion code for the same food (0001, 0002, 0003)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -228,9 +216,7 @@ public class StandardPortionForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "G = in grams, V = in ml (volume)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "G = in grams, V = in ml (volume)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -251,9 +237,7 @@ public class StandardPortionForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Order to display the standard portion\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Order to display the standard portion",
             hidden = Where.NOWHERE
     )
     @Column(

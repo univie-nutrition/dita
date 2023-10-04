@@ -86,9 +86,7 @@ public class DefinitionOfRecipePathway {
                             + "2.2=Closed with brand\n"
                             + "3.0=Commercial\n"
                             + "4.1=New – Known\n"
-                            + "4.2=New – Unknown\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+                            + "4.2=New – Unknown",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -121,9 +119,7 @@ public class DefinitionOfRecipePathway {
             fieldSetId = "details",
             sequence = "2",
             describedAs = "0 = The ingredient window is not displayed\n"
-                            + "1 = The ingredient window is displayed\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1 = The ingredient window is displayed",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -160,9 +156,7 @@ public class DefinitionOfRecipePathway {
             describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
                             + "1 = S - Substitute\n"
                             + "2 = SAD - Substitute, Add & Delete\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -198,9 +192,7 @@ public class DefinitionOfRecipePathway {
             describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
                             + "1 = S - Substitute\n"
                             + "2 = SAD - Substitute, Add & Delete\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -236,9 +228,7 @@ public class DefinitionOfRecipePathway {
             describedAs = "Display of the automatic note window:\n"
                             + "0 = No display of note window\n"
                             + "1 = Display of note window\n"
-                            + "2 = Display of note window only for Add & Delete functions\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "2 = Display of note window only for Add & Delete functions",
             hidden = Where.NOWHERE
     )
     @Column(

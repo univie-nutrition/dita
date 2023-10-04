@@ -65,9 +65,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food group code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -88,9 +86,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -111,9 +107,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food Sub-subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food Sub-subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -132,9 +126,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Facet code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Facet code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -153,9 +145,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Descriptor code\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Descriptor code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -177,9 +167,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Default flag (if set to 'D' it is the default descriptor)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Default flag (if set to 'D' it is the default descriptor)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -201,9 +189,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Not in name flag\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Not in name flag",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -224,9 +210,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Order to display the facets within a group/subgroup\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Order to display the facets within a group/subgroup",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -246,9 +230,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Order to display the descriptors within a group/subgroup and a facet\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Order to display the descriptors within a group/subgroup and a facet",
             hidden = Where.NOWHERE
     )
     @Column(

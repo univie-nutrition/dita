@@ -37,9 +37,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "38.1",
-        describedAs = "Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum\n"
-                        + "----\n"
-                        + "required=true, unique=false",
+        describedAs = "Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

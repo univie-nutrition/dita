@@ -37,9 +37,7 @@ import org.apache.causeway.applib.annotation.Where;
         describedAs = "Facet codes that MUST appear in the sequence of facets corresponding to this food\n"
                         + "(superseeding its group pathway).\n"
                         + "The list of descriptors will be the ones defined for the subgroup in GROUPFAC file\n"
-                        + "(Assuming always a subset)\n"
-                        + "----\n"
-                        + "required=false, unique=false",
+                        + "(Assuming always a subset)",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

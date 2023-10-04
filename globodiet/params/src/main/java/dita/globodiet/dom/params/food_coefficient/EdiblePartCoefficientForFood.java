@@ -64,9 +64,7 @@ public class EdiblePartCoefficientForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Food identification number (FOODNUM)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Food identification number (FOODNUM)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -87,9 +85,7 @@ public class EdiblePartCoefficientForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Edible part coefficient\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Edible part coefficient",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -109,9 +105,7 @@ public class EdiblePartCoefficientForFood {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -132,9 +126,7 @@ public class EdiblePartCoefficientForFood {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Priority order\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Priority order",
             hidden = Where.NOWHERE
     )
     @Column(

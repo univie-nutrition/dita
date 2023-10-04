@@ -74,9 +74,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Photo series code (P001,P002,P003,...)\n"
-                            + "----\n"
-                            + "required=true, unique=true",
+            describedAs = "Photo series code (P001,P002,P003,...)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -97,9 +95,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -122,9 +118,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "2 = cooked (as estimated)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -157,9 +151,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "2 = with un-edible (as estimated)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -190,9 +182,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "G = in grams, V = in ml (volume)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "G = in grams, V = in ml (volume)",
             hidden = Where.NOWHERE
     )
     @Column(

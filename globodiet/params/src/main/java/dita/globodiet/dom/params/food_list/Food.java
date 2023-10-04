@@ -77,9 +77,7 @@ public class Food implements HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -100,9 +98,7 @@ public class Food implements HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Food Group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food Group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -123,9 +119,7 @@ public class Food implements HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Food Subgroup code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food Subgroup code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -146,9 +140,7 @@ public class Food implements HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Food Sub(sub)group code\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+            describedAs = "Food Sub(sub)group code",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -169,9 +161,7 @@ public class Food implements HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+            describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -223,9 +213,7 @@ public class Food implements HasSecondaryKey<Food> {
                             + "- Lettuce\n"
                             + "- Tomato\n"
                             + "- Cucumber\n"
-                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)\n"
-                            + "----\n"
-                            + "required=false, unique=false",
+                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -258,9 +246,7 @@ public class Food implements HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "7",
             describedAs = "Auxiliary field to force an internal order within each subgroup\n"
-                            + "(if GI then 1 otherwise 2, this forces the GI at the top)\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "(if GI then 1 otherwise 2, this forces the GI at the top)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -293,9 +279,7 @@ public class Food implements HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "8",
             describedAs = "0=food\n"
-                            + "1=dietary supplement\n"
-                            + "----\n"
-                            + "required=true, unique=false",
+                            + "1=dietary supplement",
             hidden = Where.NOWHERE
     )
     @Column(

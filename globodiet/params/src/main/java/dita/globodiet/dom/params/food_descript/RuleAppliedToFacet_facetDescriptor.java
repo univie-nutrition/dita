@@ -37,9 +37,7 @@ import org.apache.causeway.applib.annotation.Where;
         describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
                         + "to allow the facet (FACET_CODE) to be asked.\n"
                         + "Additionally a group/subgroup code can be defined to force the food being described\n"
-                        + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).\n"
-                        + "----\n"
-                        + "required=true, unique=false",
+                        + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

@@ -75,11 +75,7 @@ class _GenAssociationMixin {
                         : _Annotations.propertyLayout(attr->attr
                                 .fieldSetId("details")
                                 .sequence(fieldWithForeignKeys.sequence() + ".1")
-                                .describedAs(fieldWithForeignKeys.formatDescription("\n",
-                                        "----",
-                                        String.format("required=%b, unique=%b",
-                                                fieldWithForeignKeys.required(),
-                                                fieldWithForeignKeys.unique())))
+                                .describedAs(fieldWithForeignKeys.formatDescription("\n"))
                                 .hiddenWhere(useEitherPattern
                                     ? Where.NOWHERE
                                     : Where.REFERENCES_PARENT)))
