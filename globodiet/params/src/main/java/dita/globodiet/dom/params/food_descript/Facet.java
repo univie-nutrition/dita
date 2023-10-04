@@ -252,11 +252,6 @@ public class Facet implements HasSecondaryKey<Facet> {
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum Type {
         /**
@@ -441,7 +436,9 @@ public class Facet implements HasSecondaryKey<Facet> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -452,6 +449,7 @@ public class Facet implements HasSecondaryKey<Facet> {
             describedAs = "Unresolvable Facet",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.food_descript.Facet.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends Facet implements ViewModel {
         @Getter(

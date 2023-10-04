@@ -136,11 +136,6 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
         return new SecondaryKey(getCenterCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCenterCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link CenterInvolved}
      */
@@ -225,7 +220,9 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -236,6 +233,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
             describedAs = "Unresolvable CenterInvolved",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.interview.CenterInvolved.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends CenterInvolved implements ViewModel {
         @Getter(

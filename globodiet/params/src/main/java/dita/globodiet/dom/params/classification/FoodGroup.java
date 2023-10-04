@@ -138,11 +138,6 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link FoodGroup}
      */
@@ -227,7 +222,9 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -238,6 +235,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
             describedAs = "Unresolvable FoodGroup",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.classification.FoodGroup.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends FoodGroup implements ViewModel {
         @Getter(

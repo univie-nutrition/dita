@@ -309,11 +309,6 @@ public class Food implements HasSecondaryKey<Food> {
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum TypeOfItem {
         /**
@@ -553,7 +548,9 @@ public class Food implements HasSecondaryKey<Food> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -564,6 +561,7 @@ public class Food implements HasSecondaryKey<Food> {
             describedAs = "Unresolvable Food",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.food_list.Food.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends Food implements ViewModel {
         @Getter(

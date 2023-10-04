@@ -159,11 +159,6 @@ public class Brand implements HasSecondaryKey<Brand> {
         return new SecondaryKey(getNameOfBrand(), getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getNameOfBrand(), getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link Brand}
      */
@@ -264,7 +259,9 @@ public class Brand implements HasSecondaryKey<Brand> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -275,6 +272,7 @@ public class Brand implements HasSecondaryKey<Brand> {
             describedAs = "Unresolvable Brand",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.food_descript.Brand.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends Brand implements ViewModel {
         @Getter(

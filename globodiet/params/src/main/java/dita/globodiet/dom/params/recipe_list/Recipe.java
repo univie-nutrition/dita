@@ -348,11 +348,6 @@ public class Recipe implements HasSecondaryKey<Recipe> {
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum RecipeType {
         /**
@@ -622,7 +617,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -633,6 +630,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             describedAs = "Unresolvable Recipe",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.recipe_list.Recipe.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends Recipe implements ViewModel {
         @Getter(

@@ -254,11 +254,6 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum MandatoryFacetUsedForQuantificationQ {
         /**
@@ -450,7 +445,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -461,6 +458,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
             describedAs = "Unresolvable DietarySupplementFacet",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.supplement.DietarySupplementFacet.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends DietarySupplementFacet implements ViewModel {
         @Getter(

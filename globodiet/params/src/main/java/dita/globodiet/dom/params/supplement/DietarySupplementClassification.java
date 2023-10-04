@@ -141,11 +141,6 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link DietarySupplementClassification}
      */
@@ -231,7 +226,9 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -242,6 +239,7 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
             describedAs = "Unresolvable DietarySupplementClassification",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.supplement.DietarySupplementClassification.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends DietarySupplementClassification implements ViewModel {
         @Getter(

@@ -211,11 +211,6 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
         return new SecondaryKey(getFacetCode(), getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getFacetCode(), getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum Type {
         /**
@@ -366,7 +361,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -377,6 +374,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
             describedAs = "Unresolvable FacetDescriptor",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.food_descript.FacetDescriptor.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends FacetDescriptor implements ViewModel {
         @Getter(

@@ -255,11 +255,6 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum DescriptorsAvailableForRecipeOrBrandQ {
         /**
@@ -451,7 +446,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -462,6 +459,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
             describedAs = "Unresolvable RecipeFacet",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.recipe_description.RecipeFacet.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends RecipeFacet implements ViewModel {
         @Getter(

@@ -281,11 +281,6 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
         return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode())));
-    }
-
     @RequiredArgsConstructor
     public enum FatOrSauceSweetenerSubgroupQ {
         /**
@@ -490,7 +485,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -501,6 +498,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
             describedAs = "Unresolvable FoodSubgroup",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.classification.FoodSubgroup.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends FoodSubgroup implements ViewModel {
         @Getter(

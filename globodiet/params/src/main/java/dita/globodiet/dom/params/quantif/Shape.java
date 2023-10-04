@@ -156,11 +156,6 @@ public class Shape implements HasSecondaryKey<Shape> {
         return new SecondaryKey(getShapeCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getShapeCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link Shape}
      */
@@ -253,7 +248,9 @@ public class Shape implements HasSecondaryKey<Shape> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -264,6 +261,7 @@ public class Shape implements HasSecondaryKey<Shape> {
             describedAs = "Unresolvable Shape",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.quantif.Shape.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends Shape implements ViewModel {
         @Getter(

@@ -162,7 +162,9 @@ class _GenEntity {
                             .addAnnotation(_Annotations.override())
                             .returns(ClassName.get("", "Unresolvable"))
                             .addCode("""
-                                    return new Unresolvable(String.format("UNRESOLVABLE %s", this));""")
+                                    return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                                        correspondingClass().getSimpleName(),
+                                        this.toString().substring(12)));""")
                             .build())
                     .build();
 
@@ -174,12 +176,14 @@ class _GenEntity {
             val unresolvableClass = TypeSpec.classBuilder("Unresolvable")
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                     .superclass(ClassName.get("", entityModel.name()))
+                    .addJavadoc("Placeholder @{link ViewModel} for @{link $1L} "
+                            + "in case of an unresolvable secondary key.", entityModel.name())
                     .addSuperinterface(ClassName.get(org.apache.causeway.applib.ViewModel.class))
                     .addAnnotation(_Annotations.domainObjectLayout(
                             String.format("Unresolvable %s", entityModel.name()),
                             "skull red"))
-                    .addJavadoc("Placeholder @{link ViewModel} for @{link $1L} "
-                            + "in case of an unresolvable secondary key.", entityModel.name())
+                    .addAnnotation(_Annotations.named(config.fullLogicalName(entityModel.namespace())
+                            + "." + entityModel.name() + ".Unresolvable"))
                     .addAnnotation(_Annotations.requiredArgsConstructor())
                     .addField(FieldSpec.builder(ClassName.get(String.class), "viewModelMemento", Modifier.PRIVATE, Modifier.FINAL)
                             .addAnnotation(_Annotations.getterWithOverride())
@@ -195,7 +199,7 @@ class _GenEntity {
                     .build();
 
             typeModelBuilder.addType(unresolvableClass);
-            typeModelBuilder.addMethod(asUnresolvableMethod(unresolvableClass, entityModel.secondaryKeyFields(), Modifier.PUBLIC));
+//            typeModelBuilder.addMethod(asUnresolvableMethod(unresolvableClass, entityModel.secondaryKeyFields(), Modifier.PUBLIC));
 
         }
         return new QualifiedType(
@@ -296,26 +300,6 @@ class _GenEntity {
                     .addJavadoc(field.formatDescription("\n"))
                     .build())
                 .collect(Collectors.toList());
-    }
-
-    /*
-        @Override
-        public Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
-        }
-     */
-    private MethodSpec asUnresolvableMethod(
-            final TypeSpec unresolvableClass,
-            final List<OrmModel.Field> fields,
-            final Modifier ... modifiers) {
-        return MethodSpec.methodBuilder("unresolvable")
-                .addModifiers(modifiers)
-                .addAnnotation(_Annotations.programmatic())
-                .returns(ClassName.get("", "Unresolvable"))
-                .addCode("""
-                        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey($1L)));""",
-                        asArgList(fields))
-                .build();
     }
 
     private MethodSpec asSecondaryKeyMethod(

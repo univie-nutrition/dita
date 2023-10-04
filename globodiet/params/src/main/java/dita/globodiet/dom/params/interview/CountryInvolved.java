@@ -117,11 +117,6 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
         return new SecondaryKey(getCountryCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCountryCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link CountryInvolved}
      */
@@ -197,7 +192,9 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -208,6 +205,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
             describedAs = "Unresolvable CountryInvolved",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.interview.CountryInvolved.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends CountryInvolved implements ViewModel {
         @Getter(

@@ -192,11 +192,6 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link ThicknessForShapeMethod}
      */
@@ -313,7 +308,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -324,6 +321,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
             describedAs = "Unresolvable ThicknessForShapeMethod",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.quantif.ThicknessForShapeMethod.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends ThicknessForShapeMethod implements ViewModel {
         @Getter(

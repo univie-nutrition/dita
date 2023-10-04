@@ -192,11 +192,6 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     @RequiredArgsConstructor
     public enum DisplayInNutrientCheckScreenQ {
         /**
@@ -324,7 +319,9 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -335,6 +332,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
             describedAs = "Unresolvable FoodConsumptionOccasion",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.general_info.FoodConsumptionOccasion.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends FoodConsumptionOccasion implements ViewModel {
         @Getter(

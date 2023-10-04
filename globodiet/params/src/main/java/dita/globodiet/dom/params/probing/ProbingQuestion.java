@@ -117,11 +117,6 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
         return new SecondaryKey(getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link ProbingQuestion}
      */
@@ -197,7 +192,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -208,6 +205,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
             describedAs = "Unresolvable ProbingQuestion",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.probing.ProbingQuestion.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends ProbingQuestion implements ViewModel {
         @Getter(

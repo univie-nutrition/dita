@@ -157,11 +157,6 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
         return new SecondaryKey(getRecipeGroupCode(), getCode());
     }
 
-    @Programmatic
-    public Unresolvable unresolvable() {
-        return new Unresolvable(String.format("UNRESOLVABLE %s", new SecondaryKey(getRecipeGroupCode(), getCode())));
-    }
-
     /**
      * Manager Viewmodel for @{link RecipeSubgroup}
      */
@@ -258,7 +253,9 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
 
         @Override
         public final Unresolvable unresolvable() {
-            return new Unresolvable(String.format("UNRESOLVABLE %s", this));
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
         }
     }
 
@@ -269,6 +266,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
             describedAs = "Unresolvable RecipeSubgroup",
             cssClassFa = "skull red"
     )
+    @Named("dita.globodiet.params.classification.RecipeSubgroup.Unresolvable")
     @RequiredArgsConstructor
     public static final class Unresolvable extends RecipeSubgroup implements ViewModel {
         @Getter(
