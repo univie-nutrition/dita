@@ -60,7 +60,9 @@ public class RawToCookedConversionFactorForFood {
     /**
      * Food identification number (FOODNUM)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -80,6 +82,7 @@ public class RawToCookedConversionFactorForFood {
      * Raw to cooked factor
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -121,6 +124,7 @@ public class RawToCookedConversionFactorForFood {
      * Priority order
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

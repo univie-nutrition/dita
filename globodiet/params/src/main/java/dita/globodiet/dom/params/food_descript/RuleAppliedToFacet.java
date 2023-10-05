@@ -60,7 +60,9 @@ public class RuleAppliedToFacet {
     /**
      * Facet where the rule must be applied.
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -82,7 +84,9 @@ public class RuleAppliedToFacet {
      * Additionally a group/subgroup code can be defined to force the food being described
      * to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",

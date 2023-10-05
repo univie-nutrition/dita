@@ -69,7 +69,9 @@ public class Shape implements HasSecondaryKey<Shape> {
     /**
      * Shape code (e.g. S001,S002,S003,...)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -89,6 +91,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      * Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -109,6 +112,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -130,6 +134,7 @@ public class Shape implements HasSecondaryKey<Shape> {
      * Order to display the standard unit
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

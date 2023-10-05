@@ -60,7 +60,9 @@ public class FacetDescriptorThatCannotBeSubstituted {
     /**
      * Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -79,7 +81,9 @@ public class FacetDescriptorThatCannotBeSubstituted {
     /**
      * Descriptor code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",

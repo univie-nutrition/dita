@@ -63,7 +63,9 @@ public class QuantificationMethodPathwayForRecipe {
     /**
      * Recipe identification number (R_IDNUM)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -87,6 +89,7 @@ public class QuantificationMethodPathwayForRecipe {
      * 'A' Shape
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

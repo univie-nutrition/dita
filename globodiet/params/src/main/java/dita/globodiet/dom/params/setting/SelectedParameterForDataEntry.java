@@ -61,6 +61,7 @@ public class SelectedParameterForDataEntry {
      * Parameter code for data entry
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -82,6 +83,7 @@ public class SelectedParameterForDataEntry {
      * Parameter value for data entry
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

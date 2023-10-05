@@ -229,7 +229,9 @@ class _GenEntity {
                             modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .addAnnotation(_Annotations.property(attr->{
-                        if(!field.requiredInTheUi()) attr.optionality(Optionality.OPTIONAL);
+                        attr.optionality(field.requiredInTheUi()
+                                ? Optionality.MANDATORY
+                                : Optionality.OPTIONAL);
                         val isEditingVetoed = field.hasForeignKeys()
                                 || field.isMemberOfSecondaryKey();
                         if(!isEditingVetoed) attr.editing(Editing.ENABLED);
@@ -259,7 +261,7 @@ class _GenEntity {
 
                     return fieldBuilder.build();
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Iterable<ParameterSpec> asParameterModelParams(
@@ -283,12 +285,12 @@ class _GenEntity {
                                     field.hasDiscriminator()
                                         ? DependentDefaultsPolicy.UPDATE_DEPENDENT
                                         : DependentDefaultsPolicy.PRESERVE_CHANGES,
-                                    field.required()
+                                    field.requiredInTheUi()
                                         ? Optionality.MANDATORY
                                         : Optionality.OPTIONAL))
                     .addAnnotation(_Annotations.parameterLayout(field.formatDescription("\n")))
                     .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Iterable<ParameterSpec> asSecondaryKeyParams(
@@ -299,7 +301,7 @@ class _GenEntity {
                     ParameterSpec.builder(field.asJavaType(), field.name(), modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .build())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private MethodSpec asSecondaryKeyMethod(

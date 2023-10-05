@@ -71,7 +71,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     /**
      * Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,7 +92,9 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
     /**
      * Descriptor code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
@@ -110,6 +114,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      * Descriptor name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -133,6 +138,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      * 2=Descriptors to ask the question 'fat used during cooking'
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -165,6 +171,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      * TODO missing description
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -185,6 +192,7 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
      * TODO missing description
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

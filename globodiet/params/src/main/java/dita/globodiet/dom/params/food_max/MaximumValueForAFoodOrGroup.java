@@ -146,6 +146,7 @@ public class MaximumValueForAFoodOrGroup {
      * Maximum value
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -187,6 +188,7 @@ public class MaximumValueForAFoodOrGroup {
      * Priority order
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -61,6 +61,7 @@ public class Month {
      * Month number
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -82,6 +83,7 @@ public class Month {
      * Month name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

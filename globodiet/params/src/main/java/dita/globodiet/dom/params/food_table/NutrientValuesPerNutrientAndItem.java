@@ -61,6 +61,7 @@ public class NutrientValuesPerNutrientAndItem {
      * Item Sequential number
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -81,6 +82,7 @@ public class NutrientValuesPerNutrientAndItem {
      * Nutrient code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -101,6 +103,7 @@ public class NutrientValuesPerNutrientAndItem {
      * Nutrient value for the attached item & nutrient
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -124,6 +124,7 @@ public class MaximumValueForARecipeOrGroup {
      * Maximum value
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

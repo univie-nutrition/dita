@@ -229,7 +229,9 @@ public class PercentOfFatUseDuringCookingForFood {
     /**
      * Cooking method Facet and Descriptor codes (e.g. 0305)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "9",
@@ -249,6 +251,7 @@ public class PercentOfFatUseDuringCookingForFood {
      * Percentage of fat absorbed during cooking
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

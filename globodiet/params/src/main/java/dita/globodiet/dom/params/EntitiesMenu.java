@@ -305,7 +305,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "ruler"
+    )
     public AnthropometricAverage.Manager manageAnthropometricAverage() {
         return factoryService.viewModel(new AnthropometricAverage.Manager(searchService, ""));
     }

@@ -70,7 +70,9 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
     /**
      * Recipe Group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
      * Name of the Recipe group
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -111,6 +114,7 @@ public class RecipeGroup implements RecipeGrouping, HasSecondaryKey<RecipeGroup>
      * Short Name of the Recipe group
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

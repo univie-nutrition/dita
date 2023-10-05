@@ -70,7 +70,9 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
     /**
      * Photo series code (P001,P002,P003,...)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      * Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -112,6 +115,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      * 2 = cooked (as estimated)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -145,6 +149,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      * 2 = with un-edible (as estimated)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -177,6 +182,7 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
      * G = in grams, V = in ml (volume)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

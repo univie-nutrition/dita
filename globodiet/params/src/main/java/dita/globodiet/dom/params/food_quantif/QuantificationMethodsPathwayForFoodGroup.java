@@ -63,7 +63,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -82,7 +84,9 @@ public class QuantificationMethodsPathwayForFoodGroup {
     /**
      * Food subgroup code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
@@ -183,6 +187,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
      * 'A' for shape
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -242,6 +247,7 @@ public class QuantificationMethodsPathwayForFoodGroup {
      * Comment
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

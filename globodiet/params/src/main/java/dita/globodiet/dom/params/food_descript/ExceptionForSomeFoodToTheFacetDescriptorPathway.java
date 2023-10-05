@@ -60,7 +60,9 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
     /**
      * food ID number
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -107,6 +109,7 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
      * Order to display the facets for the attached food (same order as order_fac from Groupfac table)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

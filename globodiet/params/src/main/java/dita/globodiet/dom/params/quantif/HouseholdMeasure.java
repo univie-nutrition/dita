@@ -61,6 +61,7 @@ public class HouseholdMeasure {
      * HouseholdMeasure code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -82,6 +83,7 @@ public class HouseholdMeasure {
      * HouseholdMeasure volume in cm3.
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -103,6 +105,7 @@ public class HouseholdMeasure {
      * The value of each expression will be evaluated as factor of the total volume
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -125,6 +128,7 @@ public class HouseholdMeasure {
      * Comment attached to the HouseholdMeasure
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -146,6 +150,7 @@ public class HouseholdMeasure {
      * Order to display the HouseholdMeasure
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

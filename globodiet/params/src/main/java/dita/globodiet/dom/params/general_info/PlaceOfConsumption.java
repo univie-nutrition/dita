@@ -71,7 +71,9 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
     /**
      * Place of consumption code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -91,6 +93,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
      * Place of consumption name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -113,6 +116,7 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
      * 1='Other' place
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

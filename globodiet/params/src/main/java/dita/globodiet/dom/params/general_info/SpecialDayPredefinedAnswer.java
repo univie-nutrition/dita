@@ -61,6 +61,7 @@ public class SpecialDayPredefinedAnswer {
      * Special day code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -82,6 +83,7 @@ public class SpecialDayPredefinedAnswer {
      * Special day label
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

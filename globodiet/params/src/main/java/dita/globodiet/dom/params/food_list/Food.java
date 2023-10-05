@@ -73,7 +73,9 @@ public class Food implements HasSecondaryKey<Food> {
     /**
      * Identification Code for Food, Product, On-the-fly Recipe or Alias
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -156,6 +158,7 @@ public class Food implements HasSecondaryKey<Food> {
      * Native (localized) name of this Food, Product, On-the-fly Recipe or Alias
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -192,6 +195,7 @@ public class Food implements HasSecondaryKey<Food> {
      * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -239,6 +243,7 @@ public class Food implements HasSecondaryKey<Food> {
      * (if GI then 1 otherwise 2, this forces the GI at the top)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -272,6 +277,7 @@ public class Food implements HasSecondaryKey<Food> {
      * 1=dietary supplement
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -495,7 +501,7 @@ public class Food implements HasSecondaryKey<Food> {
             String foodNativeName,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "Type of item:\n"

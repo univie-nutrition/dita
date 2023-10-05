@@ -71,7 +71,9 @@ public class Facet implements HasSecondaryKey<Facet> {
     /**
      * Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -91,6 +93,7 @@ public class Facet implements HasSecondaryKey<Facet> {
      * Facet name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -112,6 +115,7 @@ public class Facet implements HasSecondaryKey<Facet> {
      * Facet text (text to show on the screen describing the facet)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -136,6 +140,7 @@ public class Facet implements HasSecondaryKey<Facet> {
      * 3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -170,6 +175,7 @@ public class Facet implements HasSecondaryKey<Facet> {
      * 1 = facets with multi-selection of descriptors
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -225,6 +231,7 @@ public class Facet implements HasSecondaryKey<Facet> {
      * Label on how to ask the facet question
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

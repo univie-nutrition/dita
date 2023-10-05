@@ -61,7 +61,9 @@ public class BrandForRecipe {
     /**
      * Recipe group
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -102,6 +104,7 @@ public class BrandForRecipe {
      * has no description
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

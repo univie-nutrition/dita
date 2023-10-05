@@ -209,6 +209,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
      * Percentage of fat
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

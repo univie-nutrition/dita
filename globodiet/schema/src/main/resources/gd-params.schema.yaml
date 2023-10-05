@@ -1769,7 +1769,7 @@ params.general_info.AnthropometricAverage:
   table: ANTHROP
   secondaryKey:
   title: null
-  icon: null
+  icon: ruler
   description: |
     Average for anthropometric values (height, weight)
   fields:

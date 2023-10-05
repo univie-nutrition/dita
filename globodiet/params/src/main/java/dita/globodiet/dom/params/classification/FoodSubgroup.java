@@ -71,7 +71,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,7 +92,9 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
     /**
      * Food sub-group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
@@ -131,6 +135,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * Name of the food (sub-)(sub-)group
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -152,6 +157,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -184,6 +190,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * 1= fat/sauce subgroup that can be left over in the dish
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -217,6 +224,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * 1= fat during cooking subgroup
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -249,6 +257,7 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
      * Short Name of the food (sub-)(sub-)group
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

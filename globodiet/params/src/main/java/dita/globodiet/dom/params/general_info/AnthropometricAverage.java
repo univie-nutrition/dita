@@ -48,7 +48,8 @@ import org.apache.causeway.applib.annotation.Where;
 @Named("dita.globodiet.params.general_info.AnthropometricAverage")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Average for anthropometric values (height, weight)"
+        describedAs = "Average for anthropometric values (height, weight)",
+        cssClassFa = "ruler"
 )
 @PersistenceCapable(
         table = "ANTHROP"
@@ -62,6 +63,7 @@ public class AnthropometricAverage {
      * Anthropometry variable (Height or Weight)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -104,6 +106,7 @@ public class AnthropometricAverage {
      * Age minimum range
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -124,6 +127,7 @@ public class AnthropometricAverage {
      * Age maximum range
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -144,6 +148,7 @@ public class AnthropometricAverage {
      * Minimum value of height or weight
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -164,6 +169,7 @@ public class AnthropometricAverage {
      * Maximum value of height or weight
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -184,6 +190,7 @@ public class AnthropometricAverage {
      * Default value of height or weight
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -210,7 +217,8 @@ public class AnthropometricAverage {
      */
     @Named("dita.globodiet.params.general_info.AnthropometricAverage.Manager")
     @DomainObjectLayout(
-            describedAs = "Average for anthropometric values (height, weight)"
+            describedAs = "Average for anthropometric values (height, weight)",
+            cssClassFa = "ruler"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

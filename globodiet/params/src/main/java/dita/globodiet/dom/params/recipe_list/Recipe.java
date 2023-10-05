@@ -108,7 +108,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * Recipe ID number
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -127,7 +129,9 @@ public class Recipe implements HasSecondaryKey<Recipe> {
     /**
      * Group code of the recipe classification
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
@@ -168,6 +172,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * Recipe name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -197,6 +202,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * 4.2=New – Unknown
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -258,6 +264,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * whether is an alias (SH=shadow)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -290,6 +297,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * 1=recipe with sub-recipe
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -321,6 +329,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
      * has no description
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -580,7 +589,7 @@ public class Recipe implements HasSecondaryKey<Recipe> {
             String brandNameForCommercialRecipe,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
+                    optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
                     describedAs = "whether is an alias (SH=shadow)"

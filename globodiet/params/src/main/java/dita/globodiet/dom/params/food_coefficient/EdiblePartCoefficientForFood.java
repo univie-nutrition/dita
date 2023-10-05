@@ -60,7 +60,9 @@ public class EdiblePartCoefficientForFood {
     /**
      * Food identification number (FOODNUM)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -80,6 +82,7 @@ public class EdiblePartCoefficientForFood {
      * Edible part coefficient
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -121,6 +124,7 @@ public class EdiblePartCoefficientForFood {
      * Priority order
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

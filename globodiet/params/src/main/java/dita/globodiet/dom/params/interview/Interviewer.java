@@ -62,6 +62,7 @@ public class Interviewer {
      * Interviewer code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -105,6 +106,7 @@ public class Interviewer {
      * Interviewer name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -125,7 +127,9 @@ public class Interviewer {
     /**
      * Country code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
@@ -144,7 +148,9 @@ public class Interviewer {
     /**
      * Center code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",

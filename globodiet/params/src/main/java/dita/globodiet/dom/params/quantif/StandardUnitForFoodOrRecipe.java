@@ -64,6 +64,7 @@ public class StandardUnitForFoodOrRecipe {
      * Standard unit quantity
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -83,7 +84,9 @@ public class StandardUnitForFoodOrRecipe {
     /**
      * Food or Recipe identification number (code)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
@@ -172,6 +175,7 @@ public class StandardUnitForFoodOrRecipe {
      * 2 = STDU for recipe
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -204,6 +208,7 @@ public class StandardUnitForFoodOrRecipe {
      * Comment attached to the standard unit
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -225,6 +230,7 @@ public class StandardUnitForFoodOrRecipe {
      * Standard unit code for the same food/recipe (0001, 0002, 0003)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -247,6 +253,7 @@ public class StandardUnitForFoodOrRecipe {
      * V = in ml (volume)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -269,6 +276,7 @@ public class StandardUnitForFoodOrRecipe {
      * Order to display the standard unit
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

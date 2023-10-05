@@ -63,7 +63,9 @@ public class QuantificationMethodsPathwayForFood {
     /**
      * Food identification number (FOODNUM)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -88,6 +90,7 @@ public class QuantificationMethodsPathwayForFood {
      * 'A' for shape
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -70,7 +70,9 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
     /**
      * Recipe group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -89,7 +91,9 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
     /**
      * Recipe sub-group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
@@ -109,6 +113,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      * Name of the recipe (sub-)group
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -130,6 +135,7 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
      * Short Name of the recipe (sub-)group
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

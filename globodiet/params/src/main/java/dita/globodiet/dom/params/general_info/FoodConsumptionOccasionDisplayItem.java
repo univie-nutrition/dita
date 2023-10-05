@@ -67,7 +67,9 @@ public class FoodConsumptionOccasionDisplayItem {
     /**
      * Food Consumption Occasion code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -87,6 +89,7 @@ public class FoodConsumptionOccasionDisplayItem {
      * Text representing Food.
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

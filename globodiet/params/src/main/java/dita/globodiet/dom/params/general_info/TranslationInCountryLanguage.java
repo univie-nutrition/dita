@@ -61,6 +61,7 @@ public class TranslationInCountryLanguage {
      * Text name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

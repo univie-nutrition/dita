@@ -70,7 +70,9 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
     /**
      * Country code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
      * Country name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -70,7 +70,9 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
     /**
      * Probing question code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
      * Probing question label
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -61,7 +61,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     /**
      * Recipe group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -101,7 +103,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     /**
      * Recipe Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
@@ -120,7 +124,9 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
     /**
      * Recipe Descriptor code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
@@ -184,6 +190,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      * Order to display the facets within a group/subgroup
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -204,6 +211,7 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
      * Order to display the descriptors within a group/subgroup and a facet
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

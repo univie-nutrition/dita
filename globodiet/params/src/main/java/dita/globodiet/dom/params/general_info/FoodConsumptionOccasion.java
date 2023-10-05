@@ -71,7 +71,9 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
     /**
      * Food Consumption Occasion code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -91,6 +93,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
      * FCO long label (text displayed on screen)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -112,6 +115,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
      * FCO type: if =1 the FCO can be selected several times (e.g. During morning)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -133,6 +137,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
      * FCO short label to identify easily the FCO
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -155,6 +160,7 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
      * 1=main FCO (to be displayed in nutrient check screen)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

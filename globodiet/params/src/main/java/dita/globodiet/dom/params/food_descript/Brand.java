@@ -72,7 +72,9 @@ public class Brand implements HasSecondaryKey<Brand> {
     /**
      * Name of brand
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -91,7 +93,9 @@ public class Brand implements HasSecondaryKey<Brand> {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",

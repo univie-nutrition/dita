@@ -63,7 +63,9 @@ public class QuantificationMethodsPathwayForRecipeGroup {
     /**
      * Recipe group
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -87,6 +89,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
      * 'A' for shape
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -145,6 +148,7 @@ public class QuantificationMethodsPathwayForRecipeGroup {
      * Comment
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

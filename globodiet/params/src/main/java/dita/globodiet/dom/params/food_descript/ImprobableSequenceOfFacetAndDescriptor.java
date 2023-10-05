@@ -144,7 +144,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     /**
      * Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
@@ -163,7 +165,9 @@ public class ImprobableSequenceOfFacetAndDescriptor {
     /**
      * Descriptor code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
@@ -183,6 +187,7 @@ public class ImprobableSequenceOfFacetAndDescriptor {
      * Facet string
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

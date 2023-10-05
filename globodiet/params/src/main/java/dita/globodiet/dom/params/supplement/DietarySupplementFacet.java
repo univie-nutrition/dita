@@ -70,7 +70,9 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
     /**
      * Facet code for Dietary Supplement
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * Facet name for Dietary Supplement
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -112,6 +115,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * Only 1 facet (physical state) is used for quantification.
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -145,6 +149,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * 1=multi
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -177,6 +182,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -207,6 +213,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * Order to ask the facet (first, second...)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -227,6 +234,7 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
      * Label on how to ask the facet question
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

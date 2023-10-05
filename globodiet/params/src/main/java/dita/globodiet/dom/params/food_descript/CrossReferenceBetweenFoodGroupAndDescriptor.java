@@ -61,7 +61,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -122,7 +124,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
@@ -141,7 +145,9 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
     /**
      * Descriptor code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
@@ -205,6 +211,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
      * Order to display the facets within a group/subgroup
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -225,6 +232,7 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
      * Order to display the descriptors within a group/subgroup and a facet
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

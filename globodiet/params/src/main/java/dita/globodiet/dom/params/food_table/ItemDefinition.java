@@ -66,6 +66,7 @@ public class ItemDefinition {
      * Sequential number
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -90,6 +91,7 @@ public class ItemDefinition {
      * A3=liquid attached
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -253,6 +255,7 @@ public class ItemDefinition {
      * Priority order
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

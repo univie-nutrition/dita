@@ -70,7 +70,9 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
     /**
      * Facet code for recipes
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * Facet name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -111,6 +114,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * Facet text (text to show on the screen describing the facet)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -133,6 +137,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * 1=Facets with descriptors available in RBrand table
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -165,6 +170,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * 1 = facets with multi-selection of descriptors
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -197,6 +203,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * 1 = Main facet (with non modified descriptor)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -228,6 +235,7 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
      * Label on how to ask the facet question
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

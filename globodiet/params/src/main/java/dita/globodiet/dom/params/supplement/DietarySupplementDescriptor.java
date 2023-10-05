@@ -64,6 +64,7 @@ public class DietarySupplementDescriptor {
      * Descriptor code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -85,6 +86,7 @@ public class DietarySupplementDescriptor {
      * Descriptor name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -105,7 +107,9 @@ public class DietarySupplementDescriptor {
     /**
      * Facet code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
@@ -126,6 +130,7 @@ public class DietarySupplementDescriptor {
      * for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -150,6 +155,7 @@ public class DietarySupplementDescriptor {
      * 0=other
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -183,6 +189,7 @@ public class DietarySupplementDescriptor {
      * Descriptor with type='other' : 1=yes 0=no
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -213,6 +220,7 @@ public class DietarySupplementDescriptor {
      * 0=not single descriptor 1=single descriptor
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -243,6 +251,7 @@ public class DietarySupplementDescriptor {
      * Display order (1=first, 2=second, …)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -263,6 +272,7 @@ public class DietarySupplementDescriptor {
      * Not in name flag
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -64,6 +64,7 @@ public class NoteStatus {
      * Status code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -85,6 +86,7 @@ public class NoteStatus {
      * Status label
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -108,6 +110,7 @@ public class NoteStatus {
      * 1=Yes hide (e.g. 1=hide for status “action done”)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

@@ -71,7 +71,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
     /**
      * Thickness code (e.g. A,B,C,58_1,58_2...)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -91,6 +93,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      * has no description
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -111,6 +114,7 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      * Comment attached to the thickness (e.g. small, medium, large…)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -135,7 +139,9 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
      * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1
      * and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",

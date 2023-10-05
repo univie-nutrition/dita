@@ -64,7 +64,9 @@ public class DensityFactorForFood {
      * Food identification number (FOODNUM)
      * either Foods.foodnum OR Mixedrec.r_idnum
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -85,6 +87,7 @@ public class DensityFactorForFood {
      * Density coefficient
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -128,6 +131,7 @@ public class DensityFactorForFood {
      * Priority order
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -218,6 +222,7 @@ public class DensityFactorForFood {
      * 2 = density for recipe
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

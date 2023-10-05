@@ -64,7 +64,9 @@ public class RecipeIngredient {
     /**
      * Recipe ID number the ingredient belongs to
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -88,6 +90,7 @@ public class RecipeIngredient {
      * A3 = type of milk/liquid used
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -167,6 +170,7 @@ public class RecipeIngredient {
      * Ingredient name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -187,7 +191,9 @@ public class RecipeIngredient {
     /**
      * Ingredient food or recipe group
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
@@ -206,7 +212,9 @@ public class RecipeIngredient {
     /**
      * Ingredient food or recipe subgroup
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "7",
@@ -293,6 +301,7 @@ public class RecipeIngredient {
      * 2 = otherwise
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -325,6 +334,7 @@ public class RecipeIngredient {
      * Final quantity in g (with coefficient applied)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -345,6 +355,7 @@ public class RecipeIngredient {
      * Estimated quantity (before coefficient applied)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -367,6 +378,7 @@ public class RecipeIngredient {
      * 2 = Cooked or Not applicable
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -402,6 +414,7 @@ public class RecipeIngredient {
      * 2 = Cooked or Not applicable
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -435,6 +448,7 @@ public class RecipeIngredient {
      * Conversion factor raw->cooked
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -455,6 +469,7 @@ public class RecipeIngredient {
      * Quantity as estimated: 1=without un-edible part & 2=with un-edible part
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -486,6 +501,7 @@ public class RecipeIngredient {
      * Conversion factor for edible part
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -506,6 +522,7 @@ public class RecipeIngredient {
      * Quantity in gram/volume attached to the selected Photo, HHM, STDU
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -526,6 +543,7 @@ public class RecipeIngredient {
      * Proportion of Photo, HHM, STDU
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -591,6 +609,7 @@ public class RecipeIngredient {
      * Density Coefficient only for HHM
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -611,6 +630,7 @@ public class RecipeIngredient {
      * Sequential Number for Ingredients within a Mixed Recipe
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -631,6 +651,7 @@ public class RecipeIngredient {
      * Fat Left-Over Percentage
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -651,6 +672,7 @@ public class RecipeIngredient {
      * Fat Left-Over Code (F=False, T=True)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -693,6 +715,7 @@ public class RecipeIngredient {
      * Consumed quantity in pound
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -713,6 +736,7 @@ public class RecipeIngredient {
      * Consumed quantity in ounce
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -733,6 +757,7 @@ public class RecipeIngredient {
      * Consumed quantity in quart
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -753,6 +778,7 @@ public class RecipeIngredient {
      * Consumed quantity in pint
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -773,6 +799,7 @@ public class RecipeIngredient {
      * Consumed quantity in flounce
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -793,6 +820,7 @@ public class RecipeIngredient {
      * Sequential Number for Ingredients within a Sub-Recipe
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -813,6 +841,7 @@ public class RecipeIngredient {
      * Raw quantity without inedible (sans dechet)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -876,6 +905,7 @@ public class RecipeIngredient {
      * 2 = recipe
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -906,7 +936,9 @@ public class RecipeIngredient {
     /**
      * Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "38",

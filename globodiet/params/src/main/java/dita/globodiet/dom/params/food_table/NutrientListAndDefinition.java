@@ -64,6 +64,7 @@ public class NutrientListAndDefinition {
      * Nutrient code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -84,6 +85,7 @@ public class NutrientListAndDefinition {
      * Nutrient Name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -105,6 +107,7 @@ public class NutrientListAndDefinition {
      * Nutrient unit (e.g. kcal, g, mg…)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -127,6 +130,7 @@ public class NutrientListAndDefinition {
      * 1=displayed in the 'nutrient checks' screen
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

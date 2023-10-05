@@ -65,6 +65,7 @@ public class MacroNutrientLimit {
      * Name of nutrient
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -86,6 +87,7 @@ public class MacroNutrientLimit {
      * Minimum value
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -106,6 +108,7 @@ public class MacroNutrientLimit {
      * Maximum value
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

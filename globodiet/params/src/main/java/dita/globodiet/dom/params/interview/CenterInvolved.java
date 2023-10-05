@@ -70,7 +70,9 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     /**
      * Center code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -89,7 +91,9 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
     /**
      * Attached Country code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
@@ -109,6 +113,7 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
      * Center name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

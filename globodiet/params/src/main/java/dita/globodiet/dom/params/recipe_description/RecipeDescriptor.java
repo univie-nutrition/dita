@@ -70,7 +70,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     /**
      * Facet code for recipes
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -89,7 +91,9 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
     /**
      * Descriptor code for recipes
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
@@ -109,6 +113,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * Descriptor name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -132,6 +137,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * 1=Homemade descriptor
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -164,6 +170,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * Only for facet known/unknown: 1=unknown 2=known
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -194,6 +201,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * Descriptor with type='other' : 1=yes 0=no
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -225,6 +233,7 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
      * 1=single descriptor
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

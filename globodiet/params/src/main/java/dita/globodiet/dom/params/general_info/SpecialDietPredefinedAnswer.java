@@ -61,6 +61,7 @@ public class SpecialDietPredefinedAnswer {
      * Special diet code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -82,6 +83,7 @@ public class SpecialDietPredefinedAnswer {
      * Special diet label
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

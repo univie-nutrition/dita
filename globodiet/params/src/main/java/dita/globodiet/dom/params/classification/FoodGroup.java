@@ -70,7 +70,9 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
@@ -90,6 +92,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
      * Food group name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -111,6 +114,7 @@ public class FoodGroup implements FoodGrouping, HasSecondaryKey<FoodGroup> {
      * Food group short name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

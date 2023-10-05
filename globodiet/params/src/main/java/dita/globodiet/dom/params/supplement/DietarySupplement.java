@@ -61,6 +61,7 @@ public class DietarySupplement {
      * Vitamin/supplement code
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -82,6 +83,7 @@ public class DietarySupplement {
      * Vitamin/supplement name
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -145,7 +147,9 @@ public class DietarySupplement {
     /**
      * Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",

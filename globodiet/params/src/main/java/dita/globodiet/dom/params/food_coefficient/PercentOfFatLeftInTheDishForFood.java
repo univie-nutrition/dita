@@ -61,7 +61,9 @@ public class PercentOfFatLeftInTheDishForFood {
     /**
      * Group code of the FAT's group
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -123,6 +125,7 @@ public class PercentOfFatLeftInTheDishForFood {
      * Percentage of fat left in the dish
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

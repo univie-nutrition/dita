@@ -73,6 +73,7 @@ public class DefinitionOfRecipePathway {
      * 4.2=New – Unknown
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -113,6 +114,7 @@ public class DefinitionOfRecipePathway {
      * 1 = The ingredient window is displayed
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -184,6 +186,7 @@ public class DefinitionOfRecipePathway {
      * 3 = SADQ - Substitute, Add, Delete & Quantify
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -220,6 +223,7 @@ public class DefinitionOfRecipePathway {
      * 2 = Display of note window only for Add & Delete functions
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

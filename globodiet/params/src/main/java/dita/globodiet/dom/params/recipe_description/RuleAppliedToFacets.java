@@ -60,7 +60,9 @@ public class RuleAppliedToFacets {
     /**
      * Facet where the rule must be applied.
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -85,6 +87,7 @@ public class RuleAppliedToFacets {
      * - When the group/subgroup1/subgroup2 is not specified (null values), the rule is applied to all foods, whatever its classification.
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

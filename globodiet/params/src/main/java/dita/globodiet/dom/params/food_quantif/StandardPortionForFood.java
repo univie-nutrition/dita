@@ -64,6 +64,7 @@ public class StandardPortionForFood {
      * Standard portion quantity
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -83,7 +84,9 @@ public class StandardPortionForFood {
     /**
      * Food identification number (=FOODMUM)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
@@ -104,6 +107,7 @@ public class StandardPortionForFood {
      * 2 = cooked (as estimated)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -137,6 +141,7 @@ public class StandardPortionForFood {
      * 2 = with un-edible (as estimated)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -169,6 +174,7 @@ public class StandardPortionForFood {
      * Comment attached to the standard portion
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -190,6 +196,7 @@ public class StandardPortionForFood {
      * Standard portion code for the same food (0001, 0002, 0003)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -211,6 +218,7 @@ public class StandardPortionForFood {
      * G = in grams, V = in ml (volume)
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -232,6 +240,7 @@ public class StandardPortionForFood {
      * Order to display the standard portion
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

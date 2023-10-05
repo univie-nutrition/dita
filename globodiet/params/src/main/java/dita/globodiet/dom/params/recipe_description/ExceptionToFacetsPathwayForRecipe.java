@@ -60,7 +60,9 @@ public class ExceptionToFacetsPathwayForRecipe {
     /**
      * Recipe ID number
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
@@ -82,7 +84,9 @@ public class ExceptionToFacetsPathwayForRecipe {
      * The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file
      * (Assuming always a subset)
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
@@ -105,6 +109,7 @@ public class ExceptionToFacetsPathwayForRecipe {
      * has no description
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(

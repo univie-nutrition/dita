@@ -65,6 +65,7 @@ public class GroupSubstitution {
      * 1=Recipe classification
      */
     @Property(
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -96,7 +97,9 @@ public class GroupSubstitution {
     /**
      * Food group code
      */
-    @Property
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
