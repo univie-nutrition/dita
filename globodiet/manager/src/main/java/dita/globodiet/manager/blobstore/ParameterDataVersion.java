@@ -48,6 +48,7 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 import lombok.Getter;
@@ -63,6 +64,7 @@ import lombok.val;
 @NoArgsConstructor
 public class ParameterDataVersion {
 
+    @Inject ForeignKeyLookupService lookupService;
     @Inject BlobStore blobStore;
     @Inject FactoryService factoryService;
 
@@ -141,6 +143,7 @@ public class ParameterDataVersion {
             cssClassFa = FontawesomeConstants.FA_CLOUD_ARROW_DOWN_SOLID,
             cssClass = "btn-primary")
     public String checkout() {
+        lookupService.clearAllCaches();
         blobStore.checkout(this);
         return String.format("Version '%s' checked out.", name);
     }

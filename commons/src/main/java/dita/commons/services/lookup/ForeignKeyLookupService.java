@@ -28,4 +28,6 @@ public interface ForeignKeyLookupService {
     <T> T unique(ISecondaryKey<T> lookupKey);
     <T> T nullable(ISecondaryKey<T> lookupKey);
 
+    void clearCache(Class<?> ...types);
+    void clearAllCaches();
 }

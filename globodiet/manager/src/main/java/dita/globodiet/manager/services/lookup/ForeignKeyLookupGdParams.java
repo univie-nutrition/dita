@@ -82,6 +82,17 @@ implements ForeignKeyLookupService {
 
     // -- CACHING
 
+    @Override
+    public void clearCache(final Class<?>... types) {
+        Can.ofArray(types)
+            .forEach(lookupCache.map()::remove);
+    }
+
+    @Override
+    public void clearAllCaches() {
+        lookupCache.map().clear();
+    }
+
     private static record LookupCache(Map<Class<?>, SecondaryKeyToId<?>> map){
         @SuppressWarnings("unchecked")
         public <T> SecondaryKeyToId<T> computeIfAbsent(
