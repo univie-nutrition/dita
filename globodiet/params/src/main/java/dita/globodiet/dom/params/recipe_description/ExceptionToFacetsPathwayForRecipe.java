@@ -131,6 +131,13 @@ public class ExceptionToFacetsPathwayForRecipe {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "ExceptionToFacetsPathwayForRecipe(" + "recipeCode=" + getRecipeCode() + ","
+         +"recipeFacetCode=" + getRecipeFacetCode() + ","
+         +"order=" + getOrder() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link ExceptionToFacetsPathwayForRecipe}
      */

@@ -106,6 +106,12 @@ public class DayOfWeek {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "DayOfWeek(" + "dayNumber=" + getDayNumber() + ","
+         +"dayName=" + getDayName() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link DayOfWeek}
      */

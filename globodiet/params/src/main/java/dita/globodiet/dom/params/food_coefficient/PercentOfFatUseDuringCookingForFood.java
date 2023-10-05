@@ -273,6 +273,20 @@ public class PercentOfFatUseDuringCookingForFood {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "PercentOfFatUseDuringCookingForFood(" + "foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"foodCode=" + getFoodCode() + ","
+         +"fatGroupCode=" + getFatGroupCode() + ","
+         +"fatSubgroupCode=" + getFatSubgroupCode() + ","
+         +"fatSubSubgroupCode=" + getFatSubSubgroupCode() + ","
+         +"fatCode=" + getFatCode() + ","
+         +"cookingMethodFacetDescriptorLookupKey=" + getCookingMethodFacetDescriptorLookupKey() + ","
+         +"percentageOfFatAbsorbedDuringCooking=" + getPercentageOfFatAbsorbedDuringCooking() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link PercentOfFatUseDuringCookingForFood}
      */

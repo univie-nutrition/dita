@@ -258,6 +258,15 @@ public class DefinitionOfRecipePathway {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "DefinitionOfRecipePathway(" + "typeOfRecipe=" + getTypeOfRecipe() + ","
+         +"ingredientWindowIsDisplayedQ=" + getIngredientWindowIsDisplayedQ() + ","
+         +"functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed=" + getFunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed() + ","
+         +"functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed=" + getFunctionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed() + ","
+         +"displayOfTheAutomaticNoteWindow=" + getDisplayOfTheAutomaticNoteWindow() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum TypeOfRecipe {
         /**

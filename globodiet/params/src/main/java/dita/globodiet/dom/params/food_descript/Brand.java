@@ -158,6 +158,14 @@ public class Brand implements HasSecondaryKey<Brand> {
         return String.format("%s", nameOfBrand);
     }
 
+    @Override
+    public String toString() {
+        return "Brand(" + "nameOfBrand=" + getNameOfBrand() + ","
+         +"foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getNameOfBrand(), getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode());

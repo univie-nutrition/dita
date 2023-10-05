@@ -258,6 +258,17 @@ public class RecipeFacet implements HasSecondaryKey<RecipeFacet> {
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "RecipeFacet(" + "code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"textToShowOnTheScreenDescribingTheFacet=" + getTextToShowOnTheScreenDescribingTheFacet() + ","
+         +"descriptorsAvailableForRecipeOrBrandQ=" + getDescriptorsAvailableForRecipeOrBrandQ() + ","
+         +"singleOrMultiSelectDescriptorQ=" + getSingleOrMultiSelectDescriptorQ() + ","
+         +"standardOrMainFacetQ=" + getStandardOrMainFacetQ() + ","
+         +"labelOnHowToAskTheFacetQuestion=" + getLabelOnHowToAskTheFacetQuestion() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

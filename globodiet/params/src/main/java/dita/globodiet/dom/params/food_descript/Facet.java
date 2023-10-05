@@ -254,6 +254,17 @@ public class Facet implements HasSecondaryKey<Facet> {
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "Facet(" + "code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"text=" + getText() + ","
+         +"type=" + getType() + ","
+         +"typeCardinality=" + getTypeCardinality() + ","
+         +"group=" + getGroup() + ","
+         +"labelOnHowToAskTheFacetQuestion=" + getLabelOnHowToAskTheFacetQuestion() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

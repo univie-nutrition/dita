@@ -158,6 +158,14 @@ public class RecipeSubgroup implements RecipeGrouping, HasSecondaryKey<RecipeSub
         return String.format("%s (code=%s|%s)", name, recipeGroupCode, code);
     }
 
+    @Override
+    public String toString() {
+        return "RecipeSubgroup(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"shortName=" + getShortName() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getRecipeGroupCode(), getCode());

@@ -149,6 +149,13 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "PlaceOfConsumption(" + "code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"otherPlaceQ=" + getOtherPlaceQ() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

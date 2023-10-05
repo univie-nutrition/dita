@@ -168,6 +168,15 @@ public class ProbingQuestionPathwayForFoods {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "ProbingQuestionPathwayForFoods(" + "probingQuestionCode=" + getProbingQuestionCode() + ","
+         +"foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"foodCode=" + getFoodCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link ProbingQuestionPathwayForFoods}
      */

@@ -125,6 +125,13 @@ public class NutrientValuesPerNutrientAndItem {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "NutrientValuesPerNutrientAndItem(" + "itemSequentialNumber=" + getItemSequentialNumber() + ","
+         +"nutrientCode=" + getNutrientCode() + ","
+         +"nutrientValueForTheAttachedItemAndNutrient=" + getNutrientValueForTheAttachedItemAndNutrient() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link NutrientValuesPerNutrientAndItem}
      */

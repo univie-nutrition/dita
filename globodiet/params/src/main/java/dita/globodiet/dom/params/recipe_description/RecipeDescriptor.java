@@ -266,6 +266,17 @@ public class RecipeDescriptor implements HasSecondaryKey<RecipeDescriptor> {
         return String.format("%s (code=%s|%s)", name, recipeFacetCode, code);
     }
 
+    @Override
+    public String toString() {
+        return "RecipeDescriptor(" + "recipeFacetCode=" + getRecipeFacetCode() + ","
+         +"code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"homemadeOrNot=" + getHomemadeOrNot() + ","
+         +"knownOrUnknown=" + getKnownOrUnknown() + ","
+         +"yesOrNo=" + getYesOrNo() + ","
+         +"singleOrNot=" + getSingleOrNot() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getRecipeFacetCode(), getCode());

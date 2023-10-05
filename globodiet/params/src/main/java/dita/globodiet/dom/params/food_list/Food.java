@@ -310,6 +310,18 @@ public class Food implements HasSecondaryKey<Food> {
         return String.format("%s (code=%s)", foodNativeName, code);
     }
 
+    @Override
+    public String toString() {
+        return "Food(" + "code=" + getCode() + ","
+         +"foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"foodNativeName=" + getFoodNativeName() + ","
+         +"typeOfItem=" + getTypeOfItem() + ","
+         +"groupOrdinal=" + getGroupOrdinal() + ","
+         +"dietarySupplementQ=" + getDietarySupplementQ() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

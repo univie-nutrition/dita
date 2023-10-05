@@ -298,6 +298,19 @@ public class StandardUnitForFoodOrRecipe {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "StandardUnitForFoodOrRecipe(" + "standardUnitQuantity=" + getStandardUnitQuantity() + ","
+         +"foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
+         +"rawOrCooked=" + getRawOrCooked() + ","
+         +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
+         +"type=" + getType() + ","
+         +"commentAttachedToTheStandardUnit=" + getCommentAttachedToTheStandardUnit() + ","
+         +"standardUnitCode=" + getStandardUnitCode() + ","
+         +"unit=" + getUnit() + ","
+         +"orderToDisplayTheStandardUnit=" + getOrderToDisplayTheStandardUnit() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum RawOrCooked {
         /**

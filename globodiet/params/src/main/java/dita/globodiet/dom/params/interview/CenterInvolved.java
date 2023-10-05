@@ -136,6 +136,13 @@ public class CenterInvolved implements HasSecondaryKey<CenterInvolved> {
         return String.format("%s", centerName);
     }
 
+    @Override
+    public String toString() {
+        return "CenterInvolved(" + "centerCode=" + getCenterCode() + ","
+         +"attachedCountryCode=" + getAttachedCountryCode() + ","
+         +"centerName=" + getCenterName() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCenterCode());

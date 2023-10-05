@@ -233,6 +233,18 @@ public class CrossReferenceBetweenRecipeGroupAndDescriptor {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "CrossReferenceBetweenRecipeGroupAndDescriptor(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
+         +"recipeFacetCode=" + getRecipeFacetCode() + ","
+         +"recipeDescriptorCode=" + getRecipeDescriptorCode() + ","
+         +"defaultFlagQ=" + getDefaultFlagQ() + ","
+         +"notInNameQ=" + getNotInNameQ() + ","
+         +"facetDisplayOrder=" + getFacetDisplayOrder() + ","
+         +"descriptorDisplayOrder=" + getDescriptorDisplayOrder() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link CrossReferenceBetweenRecipeGroupAndDescriptor}
      */

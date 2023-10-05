@@ -147,6 +147,14 @@ public class ProbingQuestionPathwayForRecipes {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "ProbingQuestionPathwayForRecipes(" + "probingQuestionCode=" + getProbingQuestionCode() + ","
+         +"recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
+         +"recipeCode=" + getRecipeCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link ProbingQuestionPathwayForRecipes}
      */

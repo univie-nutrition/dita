@@ -106,6 +106,12 @@ public class SelectedParameterForDataEntry {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "SelectedParameterForDataEntry(" + "parameterCode=" + getParameterCode() + ","
+         +"parameterValue=" + getParameterValue() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link SelectedParameterForDataEntry}
      */

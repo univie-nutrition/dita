@@ -115,6 +115,12 @@ public class CountryInvolved implements HasSecondaryKey<CountryInvolved> {
         return String.format("%s", countryName);
     }
 
+    @Override
+    public String toString() {
+        return "CountryInvolved(" + "countryCode=" + getCountryCode() + ","
+         +"countryName=" + getCountryName() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCountryCode());

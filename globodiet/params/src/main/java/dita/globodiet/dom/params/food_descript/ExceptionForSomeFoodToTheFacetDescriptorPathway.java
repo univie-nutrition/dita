@@ -131,6 +131,13 @@ public class ExceptionForSomeFoodToTheFacetDescriptorPathway {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "ExceptionForSomeFoodToTheFacetDescriptorPathway(" + "foodCode=" + getFoodCode() + ","
+         +"mandatoryInSequenceOfFacetsCode=" + getMandatoryInSequenceOfFacetsCode() + ","
+         +"displayOrder=" + getDisplayOrder() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link ExceptionForSomeFoodToTheFacetDescriptorPathway}
      */

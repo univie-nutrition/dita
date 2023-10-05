@@ -173,6 +173,15 @@ public class RuleAppliedToFacet {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "RuleAppliedToFacet(" + "facetCode=" + getFacetCode() + ","
+         +"facetDescriptorLookupKey=" + getFacetDescriptorLookupKey() + ","
+         +"foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link RuleAppliedToFacet}
      */

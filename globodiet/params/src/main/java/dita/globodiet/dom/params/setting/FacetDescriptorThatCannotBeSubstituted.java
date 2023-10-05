@@ -104,6 +104,12 @@ public class FacetDescriptorThatCannotBeSubstituted {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "FacetDescriptorThatCannotBeSubstituted(" + "facetCode=" + getFacetCode() + ","
+         +"descriptorCode=" + getDescriptorCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link FacetDescriptorThatCannotBeSubstituted}
      */

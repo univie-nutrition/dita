@@ -1002,6 +1002,50 @@ public class RecipeIngredient {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "RecipeIngredient(" + "recipeCode=" + getRecipeCode() + ","
+         +"substitutable=" + getSubstitutable() + ","
+         +"foodType=" + getFoodType() + ","
+         +"descriptionText=" + getDescriptionText() + ","
+         +"name=" + getName() + ","
+         +"foodOrRecipeGroupCode=" + getFoodOrRecipeGroupCode() + ","
+         +"foodOrRecipeSubgroupCode=" + getFoodOrRecipeSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"brandName=" + getBrandName() + ","
+         +"facetDescriptorsLookupKey=" + getFacetDescriptorsLookupKey() + ","
+         +"describedAndQuantifiedQ=" + getDescribedAndQuantifiedQ() + ","
+         +"finalQuantityInG=" + getFinalQuantityInG() + ","
+         +"estimatedQuantityBeforeCoefficientApplied=" + getEstimatedQuantityBeforeCoefficientApplied() + ","
+         +"quantityEstimatedRawOrCooked=" + getQuantityEstimatedRawOrCooked() + ","
+         +"quantityConsumedRawOrCooked=" + getQuantityConsumedRawOrCooked() + ","
+         +"conversionFactorRawToCooked=" + getConversionFactorRawToCooked() + ","
+         +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
+         +"conversionFactorForEdiblePart=" + getConversionFactorForEdiblePart() + ","
+         +"quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU=" + getQuantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU() + ","
+         +"proportionOfPhotoHHMSTDU=" + getProportionOfPhotoHHMSTDU() + ","
+         +"typeOfQuantificationMethod=" + getTypeOfQuantificationMethod() + ","
+         +"quantificationMethodCode=" + getQuantificationMethodCode() + ","
+         +"densityCoefficientOnlyForHHM=" + getDensityCoefficientOnlyForHHM() + ","
+         +"sequentialNumberForIngredientsWithinARecipe=" + getSequentialNumberForIngredientsWithinARecipe() + ","
+         +"fatLeftOverPercentage=" + getFatLeftOverPercentage() + ","
+         +"fatLeftOverQ=" + isFatLeftOverQ() + ","
+         +"hhmFraction=" + getHhmFraction() + ","
+         +"consumedQuantityInPound=" + getConsumedQuantityInPound() + ","
+         +"consumedQuantityInOunce=" + getConsumedQuantityInOunce() + ","
+         +"consumedQuantityInQuart=" + getConsumedQuantityInQuart() + ","
+         +"consumedQuantityInPint=" + getConsumedQuantityInPint() + ","
+         +"consumedQuantityInFlounce=" + getConsumedQuantityInFlounce() + ","
+         +"sequentialNumberForIngredientsWithinASubRecipe=" + getSequentialNumberForIngredientsWithinASubRecipe() + ","
+         +"rawQuantityWithoutInedible=" + getRawQuantityWithoutInedible() + ","
+         +"percentageOrProportionAsEstimatedForRecipeIngredients=" + getPercentageOrProportionAsEstimatedForRecipeIngredients() + ","
+         +"percentageOrProportionAsConsumedForRecipeIngredients=" + getPercentageOrProportionAsConsumedForRecipeIngredients() + ","
+         +"typeOfItem=" + getTypeOfItem() + ","
+         +"foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
+         +"unitOfSelectedQuantityForMethod=" + getUnitOfSelectedQuantityForMethod() + ","
+         +"percentageRaw=" + getPercentageRaw() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum Substitutable {
         /**

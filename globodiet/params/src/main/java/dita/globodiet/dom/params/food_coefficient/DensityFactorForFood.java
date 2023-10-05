@@ -255,6 +255,17 @@ public class DensityFactorForFood {
         return String.format("%f", densityCoefficient);
     }
 
+    @Override
+    public String toString() {
+        return "DensityFactorForFood(" + "foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
+         +"densityCoefficient=" + getDensityCoefficient() + ","
+         +"facetDescriptorsLookupKey=" + getFacetDescriptorsLookupKey() + ","
+         +"priority=" + getPriority() + ","
+         +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
+         +"rawOrCooked=" + getRawOrCooked() + ","
+         +"forFoodOrRecipe=" + getForFoodOrRecipe() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum WithUnediblePartQ {
         /**

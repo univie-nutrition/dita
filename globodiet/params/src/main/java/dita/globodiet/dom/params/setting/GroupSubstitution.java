@@ -211,6 +211,16 @@ public class GroupSubstitution {
         ;
     }
 
+    @Override
+    public String toString() {
+        return "GroupSubstitution(" + "type=" + getType() + ","
+         +"foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"applyToFoodGroupsLookupKey=" + getApplyToFoodGroupsLookupKey() + ","
+         +"applyToRecipeGroupsLookupKey=" + getApplyToRecipeGroupsLookupKey() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum Type {
         /**

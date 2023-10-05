@@ -106,6 +106,12 @@ public class SpecialDietPredefinedAnswer {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "SpecialDietPredefinedAnswer(" + "specialDietCode=" + getSpecialDietCode() + ","
+         +"specialDietLabel=" + getSpecialDietLabel() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link SpecialDietPredefinedAnswer}
      */

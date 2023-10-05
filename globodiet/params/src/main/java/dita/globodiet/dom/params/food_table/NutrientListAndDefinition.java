@@ -185,6 +185,15 @@ public class NutrientListAndDefinition {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "NutrientListAndDefinition(" + "nutrientCode=" + getNutrientCode() + ","
+         +"nutrientName=" + getNutrientName() + ","
+         +"nutrientUnit=" + getNutrientUnit() + ","
+         +"displayInTheNutrientChecksScreen=" + getDisplayInTheNutrientChecksScreen() + ","
+         +"commentOnNutrient=" + getCommentOnNutrient() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum DisplayInTheNutrientChecksScreen {
         /**

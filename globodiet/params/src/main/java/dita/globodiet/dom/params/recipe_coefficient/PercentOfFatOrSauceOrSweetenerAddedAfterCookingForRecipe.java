@@ -231,6 +231,18 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
+         +"recipeCode=" + getRecipeCode() + ","
+         +"fssFatGroupCode=" + getFssFatGroupCode() + ","
+         +"fssFatSubgroupCode=" + getFssFatSubgroupCode() + ","
+         +"fssFatSubSubgroupCode=" + getFssFatSubSubgroupCode() + ","
+         +"fssFatCode=" + getFssFatCode() + ","
+         +"percentageOfFat=" + getPercentageOfFat() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe}
      */

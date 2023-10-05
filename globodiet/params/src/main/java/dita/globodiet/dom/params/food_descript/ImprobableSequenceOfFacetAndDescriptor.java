@@ -210,6 +210,17 @@ public class ImprobableSequenceOfFacetAndDescriptor {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "ImprobableSequenceOfFacetAndDescriptor(" + "foodCode=" + getFoodCode() + ","
+         +"foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"facetCode=" + getFacetCode() + ","
+         +"descriptorCode=" + getDescriptorCode() + ","
+         +"facetString=" + getFacetString() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link ImprobableSequenceOfFacetAndDescriptor}
      */

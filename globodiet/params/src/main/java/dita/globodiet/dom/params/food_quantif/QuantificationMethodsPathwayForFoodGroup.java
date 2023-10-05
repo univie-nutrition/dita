@@ -270,6 +270,18 @@ public class QuantificationMethodsPathwayForFoodGroup {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "QuantificationMethodsPathwayForFoodGroup(" + "foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"physicalStateFacetDescriptorLookupKey=" + getPhysicalStateFacetDescriptorLookupKey() + ","
+         +"rawOrCookedAsConsumed=" + getRawOrCookedAsConsumed() + ","
+         +"quantificationMethod=" + getQuantificationMethod() + ","
+         +"photoCode=" + getPhotoCode() + ","
+         +"comment=" + getComment() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum RawOrCookedAsConsumed {
         /**

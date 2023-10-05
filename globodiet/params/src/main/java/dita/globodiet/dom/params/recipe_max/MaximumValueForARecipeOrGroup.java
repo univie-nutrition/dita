@@ -146,6 +146,14 @@ public class MaximumValueForARecipeOrGroup {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "MaximumValueForARecipeOrGroup(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
+         +"recipeCode=" + getRecipeCode() + ","
+         +"maximumValue=" + getMaximumValue() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link MaximumValueForARecipeOrGroup}
      */

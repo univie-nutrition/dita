@@ -205,6 +205,15 @@ public class PhotoForQuantity implements HasSecondaryKey<PhotoForQuantity> {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "PhotoForQuantity(" + "code=" + getCode() + ","
+         +"quantificationStringThatDefinesTheQuantitiesOfEachPhotos=" + getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos() + ","
+         +"rawOrCooked=" + getRawOrCooked() + ","
+         +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
+         +"unit=" + getUnit() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

@@ -157,6 +157,14 @@ public class RuleAppliedToFacets {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "RuleAppliedToFacets(" + "facetWhereTheRuleMustBeApplied=" + getFacetWhereTheRuleMustBeApplied() + ","
+         +"matchOnPreviouslySelectedFacetDescriptorBySubject=" + getMatchOnPreviouslySelectedFacetDescriptorBySubject() + ","
+         +"recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link RuleAppliedToFacets}
      */

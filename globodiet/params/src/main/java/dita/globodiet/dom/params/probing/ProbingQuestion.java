@@ -115,6 +115,12 @@ public class ProbingQuestion implements HasSecondaryKey<ProbingQuestion> {
         return String.format("%s (code=%s)", label, code);
     }
 
+    @Override
+    public String toString() {
+        return "ProbingQuestion(" + "code=" + getCode() + ","
+         +"label=" + getLabel() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

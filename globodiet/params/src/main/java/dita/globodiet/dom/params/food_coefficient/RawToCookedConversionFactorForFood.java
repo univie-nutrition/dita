@@ -147,6 +147,14 @@ public class RawToCookedConversionFactorForFood {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "RawToCookedConversionFactorForFood(" + "foodCode=" + getFoodCode() + ","
+         +"rawToCookedFactor=" + getRawToCookedFactor() + ","
+         +"facetDescriptorsLookupKey=" + getFacetDescriptorsLookupKey() + ","
+         +"priority=" + getPriority() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link RawToCookedConversionFactorForFood}
      */

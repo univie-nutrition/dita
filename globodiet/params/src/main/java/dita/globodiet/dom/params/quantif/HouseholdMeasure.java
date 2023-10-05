@@ -172,6 +172,15 @@ public class HouseholdMeasure {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "HouseholdMeasure(" + "code=" + getCode() + ","
+         +"volumeInCm3=" + getVolumeInCm3() + ","
+         +"fractions=" + getFractions() + ","
+         +"comment=" + getComment() + ","
+         +"displayOrder=" + getDisplayOrder() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link HouseholdMeasure}
      */

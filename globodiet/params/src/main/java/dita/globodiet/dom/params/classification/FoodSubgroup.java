@@ -285,6 +285,18 @@ public class FoodSubgroup implements FoodGrouping, HasSecondaryKey<FoodSubgroup>
         ;
     }
 
+    @Override
+    public String toString() {
+        return "FoodSubgroup(" + "foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"name=" + getName() + ","
+         +"fatOrSauceSweetenerSubgroupQ=" + getFatOrSauceSweetenerSubgroupQ() + ","
+         +"fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ=" + getFatOrSauceSubgroupThatCanBeLeftOverInTheDishQ() + ","
+         +"fatDuringCookingSubgroupQ=" + getFatDuringCookingSubgroupQ() + ","
+         +"shortName=" + getShortName() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode());

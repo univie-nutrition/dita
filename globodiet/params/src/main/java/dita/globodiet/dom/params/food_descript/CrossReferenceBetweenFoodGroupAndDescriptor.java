@@ -254,6 +254,19 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "CrossReferenceBetweenFoodGroupAndDescriptor(" + "foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"facetCode=" + getFacetCode() + ","
+         +"descriptorCode=" + getDescriptorCode() + ","
+         +"defaultFlag=" + getDefaultFlag() + ","
+         +"notInNameFlag=" + getNotInNameFlag() + ","
+         +"facetDisplayOrder=" + getFacetDisplayOrder() + ","
+         +"descriptorDisplayOrder=" + getDescriptorDisplayOrder() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link CrossReferenceBetweenFoodGroupAndDescriptor}
      */

@@ -172,6 +172,15 @@ public class TranslationInCountryLanguage {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "TranslationInCountryLanguage(" + "textName=" + getTextName() + ","
+         +"textInSpecificCountryLanguage=" + getTextInSpecificCountryLanguage() + ","
+         +"textInEnglish=" + getTextInEnglish() + ","
+         +"dataEntryTextInSpecificCountryLanguage=" + getDataEntryTextInSpecificCountryLanguage() + ","
+         +"dataEntryTextInEnglish=" + getDataEntryTextInEnglish() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link TranslationInCountryLanguage}
      */

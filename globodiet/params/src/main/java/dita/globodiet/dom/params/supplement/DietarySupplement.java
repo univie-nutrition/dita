@@ -170,6 +170,15 @@ public class DietarySupplement {
         return String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode);
     }
 
+    @Override
+    public String toString() {
+        return "DietarySupplement(" + "vitaminOrSupplementCode=" + getVitaminOrSupplementCode() + ","
+         +"vitaminOrSupplementName=" + getVitaminOrSupplementName() + ","
+         +"blankOrGIForGenericVitaminOrSupplement=" + getBlankOrGIForGenericVitaminOrSupplement() + ","
+         +"classificationCode=" + getClassificationCode() + ","
+         +"facetCode=" + getFacetCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link DietarySupplement}
      */

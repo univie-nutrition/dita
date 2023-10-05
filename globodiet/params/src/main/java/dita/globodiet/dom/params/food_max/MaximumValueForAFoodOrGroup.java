@@ -211,6 +211,17 @@ public class MaximumValueForAFoodOrGroup {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "MaximumValueForAFoodOrGroup(" + "foodGroupCode=" + getFoodGroupCode() + ","
+         +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"foodCode=" + getFoodCode() + ","
+         +"maximumValue=" + getMaximumValue() + ","
+         +"facetDescriptorLookupKey=" + getFacetDescriptorLookupKey() + ","
+         +"priority=" + getPriority() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link MaximumValueForAFoodOrGroup}
      */

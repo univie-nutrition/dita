@@ -413,6 +413,25 @@ public class SubjectToBeInterviewed {
         return String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode);
     }
 
+    @Override
+    public String toString() {
+        return "SubjectToBeInterviewed(" + "interviewNumber=" + getInterviewNumber() + ","
+         +"subjectBirthDate=" + getSubjectBirthDate() + ","
+         +"subjectCode=" + getSubjectCode() + ","
+         +"subjectFirstName=" + getSubjectFirstName() + ","
+         +"subjectHeightInCm=" + getSubjectHeightInCm() + ","
+         +"subjectName=" + getSubjectName() + ","
+         +"subjectSex=" + getSubjectSex() + ","
+         +"subjectWeightInKg=" + getSubjectWeightInKg() + ","
+         +"doneQ=" + getDoneQ() + ","
+         +"countryCode=" + getCountryCode() + ","
+         +"centerCode=" + getCenterCode() + ","
+         +"interviewerCountryCode=" + getInterviewerCountryCode() + ","
+         +"interviewerCenterCode=" + getInterviewerCenterCode() + ","
+         +"interviewerCode=" + getInterviewerCode() + ","
+         +"recallDate=" + getRecallDate() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum SubjectSex {
         /**

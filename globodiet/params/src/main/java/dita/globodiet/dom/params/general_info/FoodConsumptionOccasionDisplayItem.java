@@ -112,6 +112,12 @@ public class FoodConsumptionOccasionDisplayItem {
         return String.format("%s", text);
     }
 
+    @Override
+    public String toString() {
+        return "FoodConsumptionOccasionDisplayItem(" + "foodConsumptionOccasionCode=" + getFoodConsumptionOccasionCode() + ","
+         +"text=" + getText() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link FoodConsumptionOccasionDisplayItem}
      */

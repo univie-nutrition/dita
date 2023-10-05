@@ -149,6 +149,13 @@ public class QuantificationMethodPathwayForRecipe {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "QuantificationMethodPathwayForRecipe(" + "recipeCode=" + getRecipeCode() + ","
+         +"quantificationMethod=" + getQuantificationMethod() + ","
+         +"photoCode=" + getPhotoCode() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum QuantificationMethod {
         /**

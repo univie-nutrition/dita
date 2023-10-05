@@ -262,6 +262,18 @@ public class StandardPortionForFood {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "StandardPortionForFood(" + "standardPortionQuantity=" + getStandardPortionQuantity() + ","
+         +"foodCode=" + getFoodCode() + ","
+         +"rawOrCooked=" + getRawOrCooked() + ","
+         +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
+         +"commentAttachedToTheStandardPortion=" + getCommentAttachedToTheStandardPortion() + ","
+         +"standardPortionCode=" + getStandardPortionCode() + ","
+         +"unit=" + getUnit() + ","
+         +"orderToDisplayTheStandardPortion=" + getOrderToDisplayTheStandardPortion() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum RawOrCooked {
         /**

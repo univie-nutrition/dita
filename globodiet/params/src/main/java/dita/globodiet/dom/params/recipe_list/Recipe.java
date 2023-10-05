@@ -352,6 +352,19 @@ public class Recipe implements HasSecondaryKey<Recipe> {
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "Recipe(" + "code=" + getCode() + ","
+         +"recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
+         +"name=" + getName() + ","
+         +"recipeType=" + getRecipeType() + ","
+         +"brandNameForCommercialRecipe=" + getBrandNameForCommercialRecipe() + ","
+         +"aliasQ=" + getAliasQ() + ","
+         +"hasSubRecipeQ=" + getHasSubRecipeQ() + ","
+         +"status=" + getStatus() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

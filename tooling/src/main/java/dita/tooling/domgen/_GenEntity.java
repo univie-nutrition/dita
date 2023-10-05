@@ -67,6 +67,7 @@ class _GenEntity {
                 .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)
                 .addMethod(asTitleMethod(entityModel, Modifier.PUBLIC))
+                .addMethod(asToStringMethod(entityModel))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
 
@@ -189,7 +190,6 @@ class _GenEntity {
                             .addAnnotation(_Annotations.getterWithOverride())
                             .addAnnotation(_Annotations.accessorsFluent())
                             .build())
-
                     .addMethod(MethodSpec.methodBuilder("title")
                             .addModifiers(Modifier.PUBLIC)
                             .addAnnotation(_Annotations.override())
@@ -214,6 +214,15 @@ class _GenEntity {
                 CodeBlock.of("return $1L;", _Strings.nonEmpty(entityModel.title())
                         .orElse("this.toString()")),
                 modifiers);
+    }
+
+    private MethodSpec asToStringMethod(final Entity entityModel) {
+        val propertiesAsStrings = entityModel.fields().stream()
+            .map(field->String.format("\"%s=\" + %s()", field.name(), field.getter()))
+            .collect(Collectors.joining(" + \",\"\n +"));
+        return _Methods.toString(
+                CodeBlock.of("""
+                        return "$1L(" + $2L + ")";""", entityModel.name(), propertiesAsStrings));
     }
 
     private Iterable<FieldSpec> asFields(

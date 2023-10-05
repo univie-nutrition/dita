@@ -217,6 +217,16 @@ public class MacroNutrientLimit {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "MacroNutrientLimit(" + "nameOfNutrient=" + getNameOfNutrient() + ","
+         +"minimumValue=" + getMinimumValue() + ","
+         +"maximumValue=" + getMaximumValue() + ","
+         +"unit=" + getUnit() + ","
+         +"sex=" + getSex() + ","
+         +"palValue=" + getPalValue() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum Unit {
         /**

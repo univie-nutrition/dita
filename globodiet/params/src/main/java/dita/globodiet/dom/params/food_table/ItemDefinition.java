@@ -320,6 +320,21 @@ public class ItemDefinition {
         return String.format("Item %s (sequentialNumber=%d)", typeOfRecord.title(), sequentialNumber);
     }
 
+    @Override
+    public String toString() {
+        return "ItemDefinition(" + "sequentialNumber=" + getSequentialNumber() + ","
+         +"typeOfRecord=" + getTypeOfRecord() + ","
+         +"foodOrRecipeGroupCode=" + getFoodOrRecipeGroupCode() + ","
+         +"foodOrRecipeSubgroupCode=" + getFoodOrRecipeSubgroupCode() + ","
+         +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
+         +"foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
+         +"facetString=" + getFacetString() + ","
+         +"brandName=" + getBrandName() + ","
+         +"priority=" + getPriority() + ","
+         +"attachedRecords=" + getAttachedRecords() + ","
+         +"comment=" + getComment() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum TypeOfRecord {
         /**

@@ -127,6 +127,13 @@ public class BrandForRecipe {
         return String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode);
     }
 
+    @Override
+    public String toString() {
+        return "BrandForRecipe(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
+         +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
+         +"recipeName=" + getRecipeName() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link BrandForRecipe}
      */

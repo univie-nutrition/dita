@@ -30,6 +30,15 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Methods {
 
+    MethodSpec toString(final CodeBlock code) {
+        return MethodSpec.methodBuilder("toString")
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(_Annotations.override())
+                .returns(ClassName.get("java.lang", "String"))
+                .addCode(code)
+                .build();
+    }
+
     MethodSpec objectSupport(final String methodName, final CodeBlock code, final Modifier ... modifiers) {
         return MethodSpec.methodBuilder(methodName)
                 .addModifiers(modifiers)

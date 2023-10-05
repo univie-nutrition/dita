@@ -214,6 +214,16 @@ public class FacetDescriptor implements HasSecondaryKey<FacetDescriptor> {
         return String.format("%s (code=%s|%s)", name, facetCode, code);
     }
 
+    @Override
+    public String toString() {
+        return "FacetDescriptor(" + "facetCode=" + getFacetCode() + ","
+         +"code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"type=" + getType() + ","
+         +"single=" + getSingle() + ","
+         +"other=" + getOther() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getFacetCode(), getCode());

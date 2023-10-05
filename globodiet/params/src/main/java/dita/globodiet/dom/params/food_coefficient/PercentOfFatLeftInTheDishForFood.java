@@ -147,6 +147,14 @@ public class PercentOfFatLeftInTheDishForFood {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "PercentOfFatLeftInTheDishForFood(" + "fatGroupCode=" + getFatGroupCode() + ","
+         +"fatSubgroupCode=" + getFatSubgroupCode() + ","
+         +"fatSubSubgroupCode=" + getFatSubSubgroupCode() + ","
+         +"percentageOfFatLeftInTheDish=" + getPercentageOfFatLeftInTheDish() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link PercentOfFatLeftInTheDishForFood}
      */

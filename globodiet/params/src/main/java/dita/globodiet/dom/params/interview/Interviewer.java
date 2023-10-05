@@ -171,6 +171,15 @@ public class Interviewer {
         return String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode);
     }
 
+    @Override
+    public String toString() {
+        return "Interviewer(" + "interviewerCode=" + getInterviewerCode() + ","
+         +"interviewerFamilyName=" + getInterviewerFamilyName() + ","
+         +"interviewerName=" + getInterviewerName() + ","
+         +"countryCode=" + getCountryCode() + ","
+         +"centerCode=" + getCenterCode() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link Interviewer}
      */

@@ -193,6 +193,15 @@ public class ThicknessForShapeMethod implements HasSecondaryKey<ThicknessForShap
         return String.format("%f (code=%s)", thickness);
     }
 
+    @Override
+    public String toString() {
+        return "ThicknessForShapeMethod(" + "code=" + getCode() + ","
+         +"thickness=" + getThickness() + ","
+         +"comment=" + getComment() + ","
+         +"foodSubgroupsLookupKey=" + getFoodSubgroupsLookupKey() + ","
+         +"recipeSubgroupsLookupKey=" + getRecipeSubgroupsLookupKey() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

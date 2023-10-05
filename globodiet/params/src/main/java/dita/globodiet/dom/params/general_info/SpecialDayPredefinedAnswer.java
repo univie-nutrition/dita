@@ -106,6 +106,12 @@ public class SpecialDayPredefinedAnswer {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "SpecialDayPredefinedAnswer(" + "specialDayCode=" + getSpecialDayCode() + ","
+         +"specialDayLabel=" + getSpecialDayLabel() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link SpecialDayPredefinedAnswer}
      */

@@ -212,6 +212,17 @@ public class AnthropometricAverage {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "AnthropometricAverage(" + "anthropometryVariable=" + getAnthropometryVariable() + ","
+         +"sex=" + getSex() + ","
+         +"ageMinimumRange=" + getAgeMinimumRange() + ","
+         +"ageMaximumRange=" + getAgeMaximumRange() + ","
+         +"minimumValueOfHeightOrWeight=" + getMinimumValueOfHeightOrWeight() + ","
+         +"maximumValueOfHeightOrWeight=" + getMaximumValueOfHeightOrWeight() + ","
+         +"defaultValueOfHeightOrWeight=" + getDefaultValueOfHeightOrWeight() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link AnthropometricAverage}
      */

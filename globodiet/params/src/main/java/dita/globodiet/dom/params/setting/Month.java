@@ -106,6 +106,12 @@ public class Month {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Month(" + "monthNumber=" + getMonthNumber() + ","
+         +"monthName=" + getMonthName() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link Month}
      */

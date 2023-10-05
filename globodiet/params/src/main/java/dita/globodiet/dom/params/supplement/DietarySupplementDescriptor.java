@@ -294,6 +294,19 @@ public class DietarySupplementDescriptor {
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "DietarySupplementDescriptor(" + "code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"facetCode=" + getFacetCode() + ","
+         +"householdMeasuresProposedQ=" + getHouseholdMeasuresProposedQ() + ","
+         +"defaultDescriptor=" + getDefaultDescriptor() + ","
+         +"otherQ=" + getOtherQ() + ","
+         +"singleDescriptorQ=" + getSingleDescriptorQ() + ","
+         +"displayOrder=" + getDisplayOrder() + ","
+         +"notInName=" + getNotInName() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum DefaultDescriptor {
         /**

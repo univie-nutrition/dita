@@ -147,6 +147,14 @@ public class EdiblePartCoefficientForFood {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "EdiblePartCoefficientForFood(" + "foodCode=" + getFoodCode() + ","
+         +"ediblePartCoefficient=" + getEdiblePartCoefficient() + ","
+         +"facetDescriptorLookupKey=" + getFacetDescriptorLookupKey() + ","
+         +"priority=" + getPriority() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link EdiblePartCoefficientForFood}
      */

@@ -136,6 +136,13 @@ public class DietarySupplementClassification implements HasSecondaryKey<DietaryS
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "DietarySupplementClassification(" + "code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"attachedToCode=" + getAttachedToCode() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

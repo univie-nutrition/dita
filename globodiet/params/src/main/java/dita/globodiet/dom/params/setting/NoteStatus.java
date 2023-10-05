@@ -144,6 +144,13 @@ public class NoteStatus {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "NoteStatus(" + "statusCode=" + getStatusCode() + ","
+         +"statusLabel=" + getStatusLabel() + ","
+         +"displayNoteInTheViewNoteWindow=" + getDisplayNoteInTheViewNoteWindow() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum DisplayNoteInTheViewNoteWindow {
         /**

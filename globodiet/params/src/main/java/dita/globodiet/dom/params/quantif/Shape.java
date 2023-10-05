@@ -156,6 +156,14 @@ public class Shape implements HasSecondaryKey<Shape> {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "Shape(" + "shapeCode=" + getShapeCode() + ","
+         +"shapeSurfaceInCm2=" + getShapeSurfaceInCm2() + ","
+         +"commentAttachedToTheShape=" + getCommentAttachedToTheShape() + ","
+         +"orderToDisplayTheStandardUnit=" + getOrderToDisplayTheStandardUnit() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getShapeCode());

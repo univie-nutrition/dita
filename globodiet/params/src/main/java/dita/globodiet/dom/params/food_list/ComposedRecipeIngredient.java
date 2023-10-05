@@ -144,6 +144,13 @@ public class ComposedRecipeIngredient {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "ComposedRecipeIngredient(" + "recipeCode=" + getRecipeCode() + ","
+         +"foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
+         +"type=" + getType() + ")";
+    }
+
     @RequiredArgsConstructor
     public enum Type {
         /**

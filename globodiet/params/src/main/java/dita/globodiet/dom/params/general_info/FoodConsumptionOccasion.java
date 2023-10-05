@@ -193,6 +193,15 @@ public class FoodConsumptionOccasion implements HasSecondaryKey<FoodConsumptionO
         return String.format("%s (code=%s)", textDisplayedOnScreen, code);
     }
 
+    @Override
+    public String toString() {
+        return "FoodConsumptionOccasion(" + "code=" + getCode() + ","
+         +"textDisplayedOnScreen=" + getTextDisplayedOnScreen() + ","
+         +"mode=" + getMode() + ","
+         +"shortLabelToIdentifyEasily=" + getShortLabelToIdentifyEasily() + ","
+         +"displayInNutrientCheckScreenQ=" + getDisplayInNutrientCheckScreenQ() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

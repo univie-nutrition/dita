@@ -316,6 +316,22 @@ public class RecipeIngredientQuantification {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "RecipeIngredientQuantification(" + "recipeCode=" + getRecipeCode() + ","
+         +"sequentialNumberWithinARecipeForIngredient=" + getSequentialNumberWithinARecipeForIngredient() + ","
+         +"ingredientFoodOrRecipeCode=" + getIngredientFoodOrRecipeCode() + ","
+         +"orderOfShapeSelection=" + getOrderOfShapeSelection() + ","
+         +"shapeCode=" + getShapeCode() + ","
+         +"shapeSurfaceInCm2=" + getShapeSurfaceInCm2() + ","
+         +"shapeThicknessCode=" + getShapeThicknessCode() + ","
+         +"thicknessInMm=" + getThicknessInMm() + ","
+         +"photoCode=" + getPhotoCode() + ","
+         +"photoQuantity=" + getPhotoQuantity() + ","
+         +"shapeAndPhotoFractionOrUnit=" + getShapeAndPhotoFractionOrUnit() + ","
+         +"sequentialNumberForIngredientsWithinASubRecipe=" + getSequentialNumberForIngredientsWithinASubRecipe() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link RecipeIngredientQuantification}
      */

@@ -257,6 +257,17 @@ public class DietarySupplementFacet implements HasSecondaryKey<DietarySupplement
         return String.format("%s (code=%s)", name, code);
     }
 
+    @Override
+    public String toString() {
+        return "DietarySupplementFacet(" + "code=" + getCode() + ","
+         +"name=" + getName() + ","
+         +"mandatoryFacetUsedForQuantificationQ=" + getMandatoryFacetUsedForQuantificationQ() + ","
+         +"singleOrMultiSelectionOfDescriptorsQ=" + getSingleOrMultiSelectionOfDescriptorsQ() + ","
+         +"attributedToAllSupplementsQ=" + getAttributedToAllSupplementsQ() + ","
+         +"orderToAsk=" + getOrderToAsk() + ","
+         +"labelOnHowToAskTheFacetQuestion=" + getLabelOnHowToAskTheFacetQuestion() + ")";
+    }
+
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getCode());

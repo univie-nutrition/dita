@@ -106,6 +106,12 @@ public class SelectedParameter {
         return this.toString();
     }
 
+    @Override
+    public String toString() {
+        return "SelectedParameter(" + "parameterCode=" + getParameterCode() + ","
+         +"parameterValue=" + getParameterValue() + ")";
+    }
+
     /**
      * Manager Viewmodel for @{link SelectedParameter}
      */
