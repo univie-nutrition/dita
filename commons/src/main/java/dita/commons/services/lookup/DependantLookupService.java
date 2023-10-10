@@ -20,6 +20,9 @@ package dita.commons.services.lookup;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.apache.causeway.commons.collections.Can;
 
 public interface DependantLookupService {
 
@@ -37,5 +40,15 @@ public interface DependantLookupService {
             Class<M> dependantAssociationMixinClass,
             Function<M, L> dependantAssociationMixinGetter,
             L localEntity);
+
+
+    Can<Object> findAllDependants(Object localEntity);
+
+    default String findAllDependantsAsMultilineString(final Object localEntity) {
+        return findAllDependants(localEntity)
+        .stream()
+        .map(Object::toString)
+        .collect(Collectors.joining("\n"));
+    }
 
 }

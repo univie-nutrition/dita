@@ -95,8 +95,8 @@ class _GenMenu {
                                     config.javaPoetClassName(entityModel)
                             //)
                             ))
-                    .addAnnotation(_Annotations.action())
-                    .addAnnotation(_Annotations.actionLayout(entityModel.icon()))
+                    .addAnnotation(_Annotations.action(attr->attr))
+                    .addAnnotation(_Annotations.actionLayout(attr->attr.cssClassFa(entityModel.icon())))
                     .addCode("return repositoryService.allInstances($1L.class);", entityModel.name())
                     .build();
     }
@@ -116,8 +116,8 @@ class _GenMenu {
         return MethodSpec.methodBuilder("manage" + entityModel.name())
                     .addModifiers(modifiers)
                     .returns(ClassName.get("", managerName))
-                    .addAnnotation(_Annotations.action())
-                    .addAnnotation(_Annotations.actionLayout(entityModel.icon()))
+                    .addAnnotation(_Annotations.action(attr->attr))
+                    .addAnnotation(_Annotations.actionLayout(attr->attr.cssClassFa(entityModel.icon())))
                     .addCode("""
                             return factoryService.viewModel(new $1T.Manager(searchService, ""));""",
                             config.javaPoetClassName(entityModel))

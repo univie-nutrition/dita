@@ -33,6 +33,7 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
+import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
@@ -42,6 +43,7 @@ import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
+import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
@@ -49,6 +51,7 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -145,7 +148,7 @@ class _Annotations {
                 .build();
     }
 
-    // -- CAUSEWAY
+    // -- CAUSEWAY - DOMAIN OBJECT
 
     AnnotationSpec domainObject() {
         return AnnotationSpec.builder(DomainObject.class)
@@ -170,16 +173,45 @@ class _Annotations {
             .ifPresent(__->builder.addMember("cssClassFa", "$1S", cssClassFa));
         return builder.build();
     }
-    AnnotationSpec action() {
-        return AnnotationSpec.builder(Action.class)
-                .build();
+
+    // -- CAUSEWAY - ACTION
+
+    @Builder
+    static record ActionSpec(
+        SemanticsOf semantics) {
     }
-    AnnotationSpec actionLayout(final String cssClassFa) {
-        val builder = AnnotationSpec.builder(ActionLayout.class);
-        _Strings.nonEmpty(cssClassFa)
-            .ifPresent(__->builder.addMember("cssClassFa", "$1S", cssClassFa));
+    AnnotationSpec action(final UnaryOperator<ActionSpec.ActionSpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(Action.class);
+        val attr = attrProvider.apply(ActionSpec.builder()).build();
+        Optional.ofNullable(attr.semantics())
+            .ifPresent(semantics->builder.addMember("semantics", "$1T.$2L", SemanticsOf.class, semantics.name()));
         return builder.build();
     }
+    @Builder
+    static record ActionLayoutSpec(
+        String cssClassFa,
+        String fieldSetId,
+        String sequence,
+        String describedAs,
+        Position position) {
+    }
+    AnnotationSpec actionLayout(final UnaryOperator<ActionLayoutSpec.ActionLayoutSpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(ActionLayout.class);
+        val attr = attrProvider.apply(ActionLayoutSpec.builder()).build();
+        _Strings.nonEmpty(attr.cssClassFa())
+            .ifPresent(cssClassFa->builder.addMember("cssClassFa", "$1S", cssClassFa));
+        _Strings.nonEmpty(attr.fieldSetId())
+            .ifPresent(fieldSetId->builder.addMember("fieldSetId", "$1S", fieldSetId));
+        _Strings.nonEmpty(attr.sequence())
+            .ifPresent(sequence->builder.addMember("sequence", "$1S", sequence));
+        _Strings.nonEmpty(attr.describedAs())
+            .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
+        Optional.ofNullable(attr.position())
+            .ifPresent(position->builder.addMember("position", "$1T.$2L", Position.class, position.name()));
+        return builder.build();
+    }
+
+    // -- CAUSEWAY - PROPERTY
 
     @Builder
     static record PropertySpec(
@@ -199,38 +231,12 @@ class _Annotations {
         return builder.build();
     }
 
-    AnnotationSpec collection() {
-        return AnnotationSpec.builder(Collection.class)
-                .build();
-    }
-    AnnotationSpec collectionLayout(final String describedAs, final Where hiddenWhere) {
-        return AnnotationSpec.builder(CollectionLayout.class)
-                .addMember("describedAs", "$1S", describedAs)
-                .addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name())
-                .build();
-    }
-    AnnotationSpec parameter(final DependentDefaultsPolicy dependentDefaultsPolicy) {
-        return AnnotationSpec.builder(Parameter.class)
-                .addMember("dependentDefaultsPolicy", "$1T.$2L", DependentDefaultsPolicy.class, dependentDefaultsPolicy.name())
-                .build();
-    }
-    AnnotationSpec parameter(final DependentDefaultsPolicy dependentDefaultsPolicy, final Optionality optionality) {
-        return AnnotationSpec.builder(Parameter.class)
-                .addMember("dependentDefaultsPolicy", "$1T.$2L", DependentDefaultsPolicy.class, dependentDefaultsPolicy.name())
-                .addMember("optionality", "$1T.$2L", Optionality.class, optionality.name())
-                .build();
-    }
-    AnnotationSpec parameterLayout(final String describedAs) {
-        return AnnotationSpec.builder(ParameterLayout.class)
-                .addMember("describedAs", "$1S", describedAs)
-                .build();
-    }
-
     @Builder
     static record PropertyLayoutSpec(
         String fieldSetId,
         String sequence,
         String describedAs,
+        Navigable navigable,
         Where hiddenWhere) {
     }
     AnnotationSpec propertyLayout(final UnaryOperator<PropertyLayoutSpec.PropertyLayoutSpecBuilder> attrProvider) {
@@ -242,10 +248,74 @@ class _Annotations {
             .ifPresent(sequence->builder.addMember("sequence", "$1S", sequence));
         _Strings.nonEmpty(attr.describedAs())
             .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
+        Optional.ofNullable(attr.navigable())
+            .ifPresent(navigable->builder.addMember("navigable", "$1T.$2L", Navigable.class, navigable.name()));
         Optional.ofNullable(attr.hiddenWhere())
             .ifPresent(hiddenWhere->builder.addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name()));
         return builder.build();
     }
+
+    // -- CAUSEWAY - COLLECTION
+
+    @Builder
+    static record CollectionSpec(
+            Class<?> typeOf) {
+    }
+    AnnotationSpec collection(final UnaryOperator<CollectionSpec.CollectionSpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(Collection.class);
+        val attr = attrProvider.apply(CollectionSpec.builder()).build();
+        Optional.ofNullable(attr.typeOf())
+            .ifPresent(typeOf->builder.addMember("typeOf", "$1T.class", ClassName.get(typeOf)));
+        return builder.build();
+    }
+    @Builder
+    static record CollectionLayoutSpec(
+            String describedAs,
+            Where hiddenWhere) {
+    }
+    AnnotationSpec collectionLayout(final UnaryOperator<CollectionLayoutSpec.CollectionLayoutSpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(CollectionLayout.class);
+        val attr = attrProvider.apply(CollectionLayoutSpec.builder()).build();
+        _Strings.nonEmpty(attr.describedAs())
+            .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
+        Optional.ofNullable(attr.hiddenWhere())
+            .ifPresent(hiddenWhere->builder.addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name()));
+        return builder.build();
+    }
+
+    // -- CAUSEWAY - PARAM
+
+    @Builder
+    static record ParameterSpec(
+            DependentDefaultsPolicy dependentDefaultsPolicy,
+            Optionality optionality) {
+    }
+    AnnotationSpec parameter(final UnaryOperator<ParameterSpec.ParameterSpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(Parameter.class);
+        val attr = attrProvider.apply(ParameterSpec.builder()).build();
+        Optional.ofNullable(attr.dependentDefaultsPolicy())
+            .ifPresent(dependentDefaultsPolicy->builder.addMember(
+                    "dependentDefaultsPolicy", "$1T.$2L",
+                    DependentDefaultsPolicy.class, dependentDefaultsPolicy.name()));
+        Optional.ofNullable(attr.optionality())
+            .ifPresent(optionality->builder.addMember(
+                    "optionality", "$1T.$2L",
+                    Optionality.class, optionality.name()));
+        return builder.build();
+    }
+    @Builder
+    static record ParameterLayoutSpec(
+        String describedAs) {
+    }
+    AnnotationSpec parameterLayout(final UnaryOperator<ParameterLayoutSpec.ParameterLayoutSpecBuilder> attrProvider) {
+        val builder = AnnotationSpec.builder(ParameterLayout.class);
+        val attr = attrProvider.apply(ParameterLayoutSpec.builder()).build();
+        _Strings.nonEmpty(attr.describedAs())
+            .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
+        return builder.build();
+    }
+
+    // -- CAUSEWAY - SUPPORT
 
     AnnotationSpec memberSupport() {
         return AnnotationSpec.builder(MemberSupport.class)
@@ -263,6 +333,11 @@ class _Annotations {
     }
 
     // -- JDO
+
+    AnnotationSpec notPersistent() {
+        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "NotPersistent"))
+                .build();
+    }
 
     AnnotationSpec persistenceCapable() {
         return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "PersistenceCapable"))

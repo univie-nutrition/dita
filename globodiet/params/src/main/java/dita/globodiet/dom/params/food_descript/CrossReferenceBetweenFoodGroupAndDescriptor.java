@@ -20,12 +20,14 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.search.SearchService;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,10 +37,12 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
@@ -58,6 +62,9 @@ import org.apache.causeway.applib.annotation.Where;
         column = "id"
 )
 public class CrossReferenceBetweenFoodGroupAndDescriptor {
+    @Inject
+    SearchService searchService;
+
     /**
      * Food group code
      */
@@ -265,6 +272,18 @@ public class CrossReferenceBetweenFoodGroupAndDescriptor {
          +"notInNameFlag=" + getNotInNameFlag() + ","
          +"facetDisplayOrder=" + getFacetDisplayOrder() + ","
          +"descriptorDisplayOrder=" + getDescriptorDisplayOrder() + ")";
+    }
+
+    @Property(
+            snapshot = Snapshot.EXCLUDED
+    )
+    @PropertyLayout(
+            navigable = Navigable.PARENT,
+            hidden = Where.EVERYWHERE
+    )
+    @NotPersistent
+    public CrossReferenceBetweenFoodGroupAndDescriptor.Manager getNavigableParent() {
+        return new CrossReferenceBetweenFoodGroupAndDescriptor.Manager(searchService, "");
     }
 
     /**

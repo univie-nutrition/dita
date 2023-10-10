@@ -157,6 +157,12 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         // entity mixins
         entityModels.stream()
             .forEach(entityModel->{
+
+                // delete mixin
+                domainModel.entityMixins().add(
+                    JavaFileModel.create(config(),
+                            _GenDeleteMixin.qualifiedType(config(), entityModel)));
+
                 entityModel.fields().stream()
                 .filter(field->field.hasForeignKeys())
                 .forEach(field->{

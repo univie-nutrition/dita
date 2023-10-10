@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.services.lookup.DependantLookupService;
 
@@ -62,6 +63,12 @@ implements DependantLookupService {
         }
         return (a == b)
                 || (a != null && a.equals(b));
+    }
+
+    @Override
+    public Can<Object> findAllDependants(final Object localEntity) {
+        //TODO[DITA-8] findAllDependants
+        return Can.empty();
     }
 
 }

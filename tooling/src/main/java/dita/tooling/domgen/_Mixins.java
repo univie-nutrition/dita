@@ -27,9 +27,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class _Mixins {
 
+    String customMixinClassName(final OrmModel.Entity entityModel, final String memberName) {
+        return entityModel.name() + "_" + memberName;
+    }
+
     String propertyMixinClassName(final OrmModel.Field field) {
-        val entityModel = field.parentEntity();
-        return entityModel.name() + "_" + _Foreign.resolvedFieldName(field);
+        return customMixinClassName(field.parentEntity(),
+                _Foreign.resolvedFieldName(field));
     }
 
     String collectionMixinClassName(

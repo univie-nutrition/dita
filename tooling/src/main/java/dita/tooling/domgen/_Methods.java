@@ -25,6 +25,10 @@ import org.springframework.javapoet.CodeBlock;
 import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.ParameterizedTypeName;
 
+import org.apache.causeway.applib.annotation.Navigable;
+import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.Where;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -60,12 +64,28 @@ class _Methods {
     MethodSpec managerSearch(final String entityName) {
         return MethodSpec.methodBuilder("getListOf" + entityName)
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                .addAnnotation(_Annotations.collection())
+                .addAnnotation(_Annotations.collection(attr->attr))
                 .returns(ParameterizedTypeName.get(
                         ClassName.get(java.util.List.class),
                         ClassName.get("", entityName)))
                 .addCode("""
                         return searchService.search($1L.class, $1L::title, search);""",
+                        entityName)
+                .build();
+    }
+
+    MethodSpec navigableParent(final String entityName) {
+        return MethodSpec.methodBuilder("getNavigableParent")
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(_Annotations.property(attr->attr
+                        .snapshot(Snapshot.EXCLUDED)))
+                .addAnnotation(_Annotations.propertyLayout(attr->attr
+                        .hiddenWhere(Where.EVERYWHERE)
+                        .navigable(Navigable.PARENT)))
+                .addAnnotation(_Annotations.notPersistent())
+                .returns(ClassName.get("", entityName + ".Manager"))
+                .addCode("""
+                        return new $1L.Manager(searchService, "");""",
                         entityName)
                 .build();
     }

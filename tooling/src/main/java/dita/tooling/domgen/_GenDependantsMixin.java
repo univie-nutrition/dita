@@ -49,7 +49,7 @@ class _GenDependantsMixin {
 
         val typeModelBuilder = TypeSpec.classBuilder(_Mixins.collectionMixinClassName(localEntity, fieldWithForeignKeys))
                 .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(_Annotations.collection())
+                .addAnnotation(_Annotations.collection(attr->attr))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(DependantLookupService.class, "dependantLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, localEntity.name()), Modifier.FINAL, Modifier.PRIVATE))

@@ -22,6 +22,7 @@ package dita.globodiet.dom.params.general_info;
 import dita.commons.services.lookup.HasSecondaryKey;
 import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.lang.Class;
 import java.lang.Override;
@@ -30,6 +31,7 @@ import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Extension;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +44,7 @@ import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
@@ -49,6 +52,7 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 
 /**
@@ -68,6 +72,9 @@ import org.apache.causeway.applib.annotation.Where;
         column = "id"
 )
 public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
+    @Inject
+    SearchService searchService;
+
     /**
      * Place of consumption code
      */
@@ -154,6 +161,18 @@ public class PlaceOfConsumption implements HasSecondaryKey<PlaceOfConsumption> {
         return "PlaceOfConsumption(" + "code=" + getCode() + ","
          +"name=" + getName() + ","
          +"otherPlaceQ=" + getOtherPlaceQ() + ")";
+    }
+
+    @Property(
+            snapshot = Snapshot.EXCLUDED
+    )
+    @PropertyLayout(
+            navigable = Navigable.PARENT,
+            hidden = Where.EVERYWHERE
+    )
+    @NotPersistent
+    public PlaceOfConsumption.Manager getNavigableParent() {
+        return new PlaceOfConsumption.Manager(searchService, "");
     }
 
     @Programmatic

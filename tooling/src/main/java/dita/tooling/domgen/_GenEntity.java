@@ -66,8 +66,10 @@ class _GenEntity {
                 .addAnnotation(_Annotations.persistenceCapable(entityModel.table()))
                 .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)
+                .addField(_Fields.inject(SearchService.class, "searchService"))
                 .addMethod(asTitleMethod(entityModel, Modifier.PUBLIC))
                 .addMethod(asToStringMethod(entityModel))
+                .addMethod(_Methods.navigableParent(entityModel.name()))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
 
@@ -290,14 +292,17 @@ class _GenEntity {
                                     : field.name(),
                             modifiers)
                     .addJavadoc(field.formatDescription("\n"))
-                    .addAnnotation(_Annotations.parameter(
-                                    field.hasDiscriminator()
-                                        ? DependentDefaultsPolicy.UPDATE_DEPENDENT
-                                        : DependentDefaultsPolicy.PRESERVE_CHANGES,
-                                    field.requiredInTheUi()
-                                        ? Optionality.MANDATORY
-                                        : Optionality.OPTIONAL))
-                    .addAnnotation(_Annotations.parameterLayout(field.formatDescription("\n")))
+                    .addAnnotation(_Annotations.parameter(attr->attr
+                            .dependentDefaultsPolicy(
+                                field.hasDiscriminator()
+                                    ? DependentDefaultsPolicy.UPDATE_DEPENDENT
+                                    : DependentDefaultsPolicy.PRESERVE_CHANGES)
+                            .optionality(
+                                field.requiredInTheUi()
+                                    ? Optionality.MANDATORY
+                                    : Optionality.OPTIONAL)))
+                    .addAnnotation(_Annotations.parameterLayout(attr->attr
+                            .describedAs(field.formatDescription("\n"))))
                     .build())
                 .toList();
     }

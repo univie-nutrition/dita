@@ -65,13 +65,13 @@ class _GenAssociationMixin {
         val typeModelBuilder = TypeSpec.classBuilder(_Mixins.propertyMixinClassName(fieldWithForeignKeys))
                 .addModifiers(Modifier.PUBLIC)
                 .addAnnotation(isPlural
-                        ? _Annotations.collection()
+                        ? _Annotations.collection(attr->attr)
                         : _Annotations.property(attr->attr.snapshot(Snapshot.EXCLUDED)))
                 .addAnnotation(
                         isPlural
-                        ? _Annotations.collectionLayout(
-                                fieldWithForeignKeys.formatDescription("\n"),
-                                Where.NOWHERE)
+                        ? _Annotations.collectionLayout(attr->attr
+                                .describedAs(fieldWithForeignKeys.formatDescription("\n"))
+                                .hiddenWhere(Where.NOWHERE))
                         : _Annotations.propertyLayout(attr->attr
                                 .fieldSetId("details")
                                 .sequence(fieldWithForeignKeys.sequence() + ".1")
