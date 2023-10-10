@@ -53,14 +53,37 @@ import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_ingredientFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipe;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FoodDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(Food_dependentDensityFactorForFoodMappedByFoodOrRecipe.class,
+        Food_dependentEdiblePartCoefficientForFoodMappedByFood.class,
+        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFood.class,
+        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFat.class,
+        Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFood.class,
+        Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFat.class,
+        Food_dependentRawToCookedConversionFactorForFoodMappedByFood.class,
+        Food_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByFood.class,
+        Food_dependentImprobableSequenceOfFacetAndDescriptorMappedByFood.class,
+        Food_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
+        Food_dependentProbingQuestionPathwayForFoodsMappedByFood.class,
+        Food_dependentQuantificationMethodsPathwayForFoodMappedByFood.class,
+        Food_dependentStandardPortionForFoodMappedByFood.class,
+        Food_dependentItemDefinitionMappedByFoodOrRecipe.class,
+        Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
+        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat.class,
+        Food_dependentRecipeIngredientMappedByFoodOrRecipe.class,
+        Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class Food_dependentDensityFactorForFoodMappedByFoodOrRecipe {

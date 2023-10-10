@@ -39,14 +39,31 @@ import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_recipe;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RecipeDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(Recipe_dependentDensityFactorForFoodMappedByFoodOrRecipe.class,
+        Recipe_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
+        Recipe_dependentItemDefinitionMappedByFoodOrRecipe.class,
+        Recipe_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
+        Recipe_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe.class,
+        Recipe_dependentExceptionToFacetsPathwayForRecipeMappedByRecipe.class,
+        Recipe_dependentRecipeIngredientMappedByRecipe.class,
+        Recipe_dependentRecipeIngredientMappedByFoodOrRecipe.class,
+        Recipe_dependentRecipeIngredientQuantificationMappedByRecipe.class,
+        Recipe_dependentMaximumValueForARecipeOrGroupMappedByRecipe.class,
+        Recipe_dependentProbingQuestionPathwayForRecipesMappedByRecipe.class,
+        Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class Recipe_dependentDensityFactorForFoodMappedByFoodOrRecipe {

@@ -31,14 +31,24 @@ import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRe
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_photo;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ShapeDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(Shape_dependentQuantificationMethodsPathwayForFoodMappedByPhoto.class,
+        Shape_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhoto.class,
+        Shape_dependentRecipeIngredientQuantificationMappedByShape.class,
+        Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhoto.class,
+        Shape_dependentQuantificationMethodsPathwayForRecipeGroupMappedByPhoto.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class Shape_dependentQuantificationMethodsPathwayForFoodMappedByPhoto {

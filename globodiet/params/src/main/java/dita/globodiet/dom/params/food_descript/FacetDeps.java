@@ -25,14 +25,26 @@ import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_facetWhe
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted_facet;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FacetDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(Facet_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFacet.class,
+        Facet_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByMandatoryInSequenceOfFacets.class,
+        Facet_dependentFacetDescriptorMappedByFacet.class,
+        Facet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
+        Facet_dependentRuleAppliedToFacetMappedByFacet.class,
+        Facet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj.class,
+        Facet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class Facet_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFacet {

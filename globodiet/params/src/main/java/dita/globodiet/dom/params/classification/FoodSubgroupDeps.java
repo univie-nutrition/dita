@@ -73,14 +73,55 @@ import dita.globodiet.dom.params.setting.GroupSubstitution_applyToFoodGroups;
 import dita.globodiet.dom.params.setting.GroupSubstitution_foodSubSubgroup;
 import dita.globodiet.dom.params.setting.GroupSubstitution_foodSubgroup;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FoodSubgroupDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(FoodSubgroup_dependentPercentOfFatLeftInTheDishForFoodMappedByFatSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatLeftInTheDishForFoodMappedByFatSubSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatSubSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatSubSubgroup.class,
+        FoodSubgroup_dependentBrandMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentBrandMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentRuleAppliedToFacetMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentRuleAppliedToFacetMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentFoodMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentFoodMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentMaximumValueForAFoodOrGroupMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentMaximumValueForAFoodOrGroupMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentProbingQuestionPathwayForFoodsMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentProbingQuestionPathwayForFoodsMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentQuantificationMethodsPathwayForFoodGroupMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentQuantificationMethodsPathwayForFoodGroupMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentItemDefinitionMappedByFoodOrRecipeSubgroup.class,
+        FoodSubgroup_dependentItemDefinitionMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentThicknessForShapeMethodMappedByFoodSubgroups.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubSubgroup.class,
+        FoodSubgroup_dependentRecipeIngredientMappedByFoodOrRecipeSubgroup.class,
+        FoodSubgroup_dependentRecipeIngredientMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentGroupSubstitutionMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentGroupSubstitutionMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentGroupSubstitutionMappedByApplyToFoodGroups.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class FoodSubgroup_dependentPercentOfFatLeftInTheDishForFoodMappedByFatSubgroup {

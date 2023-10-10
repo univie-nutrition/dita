@@ -31,14 +31,24 @@ import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRe
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_photo;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PhotoForQuantityDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodMappedByPhoto.class,
+        PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhoto.class,
+        PhotoForQuantity_dependentRecipeIngredientQuantificationMappedByPhoto.class,
+        PhotoForQuantity_dependentQuantificationMethodPathwayForRecipeMappedByPhoto.class,
+        PhotoForQuantity_dependentQuantificationMethodsPathwayForRecipeGroupMappedByPhoto.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodMappedByPhoto {

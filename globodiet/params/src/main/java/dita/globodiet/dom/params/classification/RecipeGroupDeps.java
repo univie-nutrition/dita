@@ -41,14 +41,30 @@ import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RecipeGroupDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(RecipeGroup_dependentRecipeSubgroupMappedByRecipeGroup.class,
+        RecipeGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup.class,
+        RecipeGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeGroup.class,
+        RecipeGroup_dependentBrandForRecipeMappedByRecipeGroup.class,
+        RecipeGroup_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeGroup.class,
+        RecipeGroup_dependentRuleAppliedToFacetsMappedByRecipeGroup.class,
+        RecipeGroup_dependentRecipeMappedByRecipeGroup.class,
+        RecipeGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroup.class,
+        RecipeGroup_dependentMaximumValueForARecipeOrGroupMappedByRecipeGroup.class,
+        RecipeGroup_dependentProbingQuestionPathwayForRecipesMappedByRecipeGroup.class,
+        RecipeGroup_dependentQuantificationMethodsPathwayForRecipeGroupMappedByRecipeGroupObj.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class RecipeGroup_dependentRecipeSubgroupMappedByRecipeGroup {

@@ -23,14 +23,20 @@ import dita.commons.services.lookup.DependantLookupService;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_shapeThickness;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ThicknessForShapeMethodDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(ThicknessForShapeMethod_dependentRecipeIngredientQuantificationMappedByShapeThickness.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class ThicknessForShapeMethod_dependentRecipeIngredientQuantificationMappedByShapeThickness {

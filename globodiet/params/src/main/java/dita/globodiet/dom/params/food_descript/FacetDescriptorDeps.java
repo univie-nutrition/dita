@@ -37,14 +37,30 @@ import dita.globodiet.dom.params.recipe_list.RecipeIngredient_facetDescriptors;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted_descriptor;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FacetDescriptorDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors.class,
+        FacetDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
+        FacetDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
+        FacetDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
+        FacetDescriptor_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByDescriptor.class,
+        FacetDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
+        FacetDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor.class,
+        FacetDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor.class,
+        FacetDescriptor_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
+        FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptors.class,
+        FacetDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors {

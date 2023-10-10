@@ -25,14 +25,21 @@ import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_pro
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
 import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_probingQuestion;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ProbingQuestionDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(ProbingQuestion_dependentProbingQuestionPathwayForFoodsMappedByProbingQuestion.class,
+        ProbingQuestion_dependentProbingQuestionPathwayForRecipesMappedByProbingQuestion.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class ProbingQuestion_dependentProbingQuestionPathwayForFoodsMappedByProbingQuestion {

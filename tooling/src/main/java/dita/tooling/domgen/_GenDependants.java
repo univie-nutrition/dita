@@ -18,6 +18,8 @@
  */
 package dita.tooling.domgen;
 
+import java.util.stream.Collectors;
+
 import javax.lang.model.element.Modifier;
 
 import org.springframework.context.annotation.Configuration;
@@ -60,7 +62,7 @@ class _GenDependants {
             ClassName propertyMixinClassName = mixinSpec.propertyMixinClassName();
             val localEntity = mixinSpec.localEntity();
 
-            val innerMixin = TypeSpec.classBuilder(_Mixins.collectionMixinClassName(localEntity, fieldWithForeignKeys))
+            val innerMixin = TypeSpec.classBuilder(mixinSpec.mixinClassName())
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addAnnotation(_Annotations.collection(attr->attr))
                 .addAnnotation(RequiredArgsConstructor.class)
@@ -73,7 +75,21 @@ class _GenDependants {
             typeModelBuilder.addType(innerMixin.build());
         });
 
-        //TODO[DITA-8] register with Spring?
+        // static method that provides all mixin classes we generated above
+        typeModelBuilder.addMethod(MethodSpec.methodBuilder("mixinClasses")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .returns(ParameterizedTypeName.get(
+                        ClassName.get(Can.class),
+                        ParameterizedTypeName.get(
+                                ClassName.get(Class.class),
+                                ClassName.get("", "?"))))
+                .addCode("""
+                        return Can.of($1L);""",
+                        mixinSpecs.stream()
+                            .map(DependantMixinSpec::mixinClassName)
+                            .map(name->name + ".class")
+                            .collect(Collectors.joining(",\n")))
+                .build());
 
         return new QualifiedType(
                 packageName,
@@ -90,6 +106,9 @@ class _GenDependants {
          */
         Entity localEntity() {
             return foreignFields.getFirstElseFail().parentEntity();
+        }
+        String mixinClassName() {
+            return _Mixins.collectionMixinClassName(localEntity(), fieldWithForeignKeys);
         }
     }
 

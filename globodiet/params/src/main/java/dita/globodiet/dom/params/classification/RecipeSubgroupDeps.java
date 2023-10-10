@@ -43,14 +43,30 @@ import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.GroupSubstitution_applyToRecipeGroups;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RecipeSubgroupDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(RecipeSubgroup_dependentItemDefinitionMappedByFoodOrRecipeSubgroup.class,
+        RecipeSubgroup_dependentThicknessForShapeMethodMappedByRecipeSubgroups.class,
+        RecipeSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentBrandForRecipeMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentRuleAppliedToFacetsMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentRecipeMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentRecipeIngredientMappedByFoodOrRecipeSubgroup.class,
+        RecipeSubgroup_dependentMaximumValueForARecipeOrGroupMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentProbingQuestionPathwayForRecipesMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentGroupSubstitutionMappedByApplyToRecipeGroups.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class RecipeSubgroup_dependentItemDefinitionMappedByFoodOrRecipeSubgroup {

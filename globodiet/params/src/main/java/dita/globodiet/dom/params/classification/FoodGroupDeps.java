@@ -53,14 +53,37 @@ import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipeGroup;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.GroupSubstitution_foodGroup;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FoodGroupDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(FoodGroup_dependentFoodSubgroupMappedByFoodGroup.class,
+        FoodGroup_dependentPercentOfFatLeftInTheDishForFoodMappedByFatGroup.class,
+        FoodGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFoodGroup.class,
+        FoodGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatGroup.class,
+        FoodGroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodGroup.class,
+        FoodGroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatGroup.class,
+        FoodGroup_dependentBrandMappedByFoodGroup.class,
+        FoodGroup_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFoodGroup.class,
+        FoodGroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodGroup.class,
+        FoodGroup_dependentRuleAppliedToFacetMappedByFoodGroup.class,
+        FoodGroup_dependentFoodMappedByFoodGroup.class,
+        FoodGroup_dependentMaximumValueForAFoodOrGroupMappedByFoodGroup.class,
+        FoodGroup_dependentProbingQuestionPathwayForFoodsMappedByFoodGroup.class,
+        FoodGroup_dependentQuantificationMethodsPathwayForFoodGroupMappedByFoodGroup.class,
+        FoodGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup.class,
+        FoodGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatGroup.class,
+        FoodGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroup.class,
+        FoodGroup_dependentGroupSubstitutionMappedByFoodGroup.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class FoodGroup_dependentFoodSubgroupMappedByFoodGroup {

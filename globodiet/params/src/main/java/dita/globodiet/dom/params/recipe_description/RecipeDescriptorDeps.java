@@ -21,14 +21,20 @@ package dita.globodiet.dom.params.recipe_description;
 
 import dita.commons.services.lookup.DependantLookupService;
 import jakarta.inject.Inject;
+import java.lang.Class;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RecipeDescriptorDeps {
+    public static Can<Class<?>> mixinClasses() {
+        return Can.of(RecipeDescriptor_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeDescriptor.class);
+    }
+
     @Collection
     @RequiredArgsConstructor
     public static class RecipeDescriptor_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeDescriptor {
