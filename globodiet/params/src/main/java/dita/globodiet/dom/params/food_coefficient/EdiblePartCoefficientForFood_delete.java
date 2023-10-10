@@ -26,7 +26,9 @@ import java.lang.String;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
+import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 
 @Action(
@@ -49,7 +51,8 @@ public class EdiblePartCoefficientForFood_delete {
     private final EdiblePartCoefficientForFood mixee;
 
     @MemberSupport
-    public EdiblePartCoefficientForFood.Manager act(String dependants) {
+    public EdiblePartCoefficientForFood.Manager act(
+            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         return new EdiblePartCoefficientForFood.Manager(searchService, "");
     }
 

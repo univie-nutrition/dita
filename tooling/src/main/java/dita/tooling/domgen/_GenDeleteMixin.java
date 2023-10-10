@@ -26,6 +26,7 @@ import org.springframework.javapoet.ParameterSpec;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
+import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 
 import dita.commons.services.lookup.DependantLookupService;
@@ -62,6 +63,9 @@ class _GenDeleteMixin {
                         .addAnnotation(_Annotations.memberSupport())
                         .returns(ClassName.get("", entityModel.name() + ".Manager"))
                         .addParameter(ParameterSpec.builder(ClassName.get(String.class), "dependants")
+                                .addAnnotation(_Annotations.parameterLayout(args->args
+                                        .multiLine(12)
+                                        .labelPosition(LabelPosition.TOP)))
                                 .build())
                         .addCode("""
                                 return new $1L.Manager(searchService, "");""",

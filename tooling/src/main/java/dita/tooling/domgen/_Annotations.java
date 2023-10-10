@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.Navigable;
@@ -305,13 +306,20 @@ class _Annotations {
     }
     @Builder
     static record ParameterLayoutSpec(
-        String describedAs) {
+        String describedAs,
+        LabelPosition labelPosition,
+        int multiLine) {
     }
     AnnotationSpec parameterLayout(final UnaryOperator<ParameterLayoutSpec.ParameterLayoutSpecBuilder> attrProvider) {
         val builder = AnnotationSpec.builder(ParameterLayout.class);
         val attr = attrProvider.apply(ParameterLayoutSpec.builder()).build();
         _Strings.nonEmpty(attr.describedAs())
             .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
+        Optional.ofNullable(attr.labelPosition())
+            .ifPresent(labelPosition->builder.addMember("labelPosition", "$1T.$2L", LabelPosition.class, labelPosition.name()));
+        if(attr.multiLine()>0) {
+            builder.addMember("multiLine", "$1L", attr.multiLine());
+        }
         return builder.build();
     }
 

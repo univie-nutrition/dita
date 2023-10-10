@@ -31,8 +31,11 @@ import org.springframework.stereotype.Service;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Casts;
+import org.apache.causeway.commons.internal.base._NullSafe;
 
 import dita.commons.services.lookup.DependantLookupService;
+import lombok.SneakyThrows;
 
 @Service
 public class DependantLookupGdParams
@@ -66,9 +69,29 @@ implements DependantLookupService {
     }
 
     @Override
-    public Can<Object> findAllDependants(final Object localEntity) {
-        //TODO[DITA-8] findAllDependants
-        return Can.empty();
+    public Can<?> findAllDependants(final Object entity) {
+        return dependantMixinClassesOf(entity.getClass()).stream()
+            .flatMap(mixinClass->
+                _NullSafe.stream(invokeDependantMixin(mixinClass, entity)))
+            .collect(Can.toCan());
+    }
+
+    // -- HELPER
+
+    @SneakyThrows
+    private static Can<Class<?>> dependantMixinClassesOf(final Class<?> entityType) {
+        Class<?> entityDepsClass = Class.forName(entityType.getName() + "Deps");
+        Can<Class<?>> result = _Casts.uncheckedCast(entityDepsClass.getMethod("mixinClasses")
+                .invoke(null));
+        return result;
+    }
+
+    @SneakyThrows
+    private List<?> invokeDependantMixin(final Class<?> mixinClass, final Object mixee) {
+        var mixin = factoryService.mixin(mixinClass, mixee);
+        List<?> result = _Casts.uncheckedCast(mixinClass.getMethod("coll")
+            .invoke(mixin));
+        return result;
     }
 
 }
