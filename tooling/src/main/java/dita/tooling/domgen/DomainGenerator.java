@@ -122,14 +122,16 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
             @NonNull List<JavaFileModel> modules,
             @NonNull List<JavaFileModel> entities,
             @NonNull List<JavaFileModel> entityMixins,
+            @NonNull List<JavaFileModel> submodules,
             @NonNull List<JavaFileModel> superTypes,
             @NonNull List<JavaFileModel> menus) {
 
         DomainModel(final OrmModel.Schema schema) {
-            this(schema, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            this(schema, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                    new ArrayList<>(), new ArrayList<>());
         }
         Stream<JavaFileModel> streamJavaModels() {
-            return Stream.of(modules, menus, superTypes, entities, entityMixins)
+            return Stream.of(modules, menus, superTypes, entities, submodules, entityMixins)
                     .flatMap(List::stream);
         }
     }
@@ -155,6 +157,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
             .forEach(domainModel.entities()::add);
 
         // entity mixins
+        var dependantMixnSpecsByEntity = _Multimaps.<OrmModel.Entity, _GenDependants.DependantMixinSpec>newListMultimap();
         entityModels.stream()
             .forEach(entityModel->{
 
@@ -191,17 +194,23 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                         }
                     };
 
-                    /*
-                     * refactoring hint: could collect these all first then group by type they contribute to,
-                     * then consolidate into single class with nested mixins
-                     */
+                    // consolidate into multi valued map grouped by entity type
                     foreignFieldGroups.forEach(foreignFieldGgroup->{
-                        domainModel.entityMixins().add(
-                            JavaFileModel.create(config(),
-                                    _GenDependantsMixin.qualifiedType(config(), field, foreignFieldGgroup, associationMixin)));
+                        var depMixin = new _GenDependants.DependantMixinSpec(field, foreignFieldGgroup, associationMixin);
+                        dependantMixnSpecsByEntity.putElement(depMixin.localEntity(), depMixin);
                     });
 
                 });
+            });
+
+        // submodules
+        entityModels.stream()
+            .forEach(entityModel->{
+                var mixinSpecs = Can.ofCollection(
+                        dependantMixnSpecsByEntity.getOrElseEmpty(entityModel));
+                domainModel.submodules().add(
+                    JavaFileModel.create(config(),
+                            _GenDependants.qualifiedType(config(), entityModel, mixinSpecs)));
             });
 
         // assert, that we have no mixin created twice
@@ -216,7 +225,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         // module
         domainModel.modules().add(
                 JavaFileModel.create(config(),
-                        _GenModule.qualifiedType(config(), domainModel.entities(), domainModel.entityMixins())));
+                        _GenModule.qualifiedType(config(), domainModel)));
 
         // menu entries
         domainModel.menus().add(

@@ -30,6 +30,7 @@ import org.springframework.javapoet.TypeSpec;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
+import dita.tooling.domgen.DomainGenerator.DomainModel;
 import dita.tooling.domgen.DomainGenerator.JavaFileModel;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import lombok.NonNull;
@@ -41,8 +42,7 @@ class _GenModule {
 
     public QualifiedType qualifiedType(
             final @NonNull DomainGenerator.Config config,
-            final @NonNull List<JavaFileModel> entities,
-            final @NonNull List<JavaFileModel> mixins) {
+            final @NonNull DomainModel domainModel) {
 
         val packageName = config.fullPackageName(config.entitiesModulePackageName());
 
@@ -52,11 +52,15 @@ class _GenModule {
         importsByCategory.put("Menu Entries", List.of(
                 ClassName.get(packageName, "EntitiesMenu")));
 
-        importsByCategory.put("Entities", entities.stream()
+        importsByCategory.put("Entities", domainModel.entities().stream()
                 .map(JavaFileModel::className)
                 .toList());
 
-        importsByCategory.put("Mixins", mixins.stream()
+        importsByCategory.put("Submodules", domainModel.submodules().stream()
+                .map(JavaFileModel::className)
+                .toList());
+
+        importsByCategory.put("Mixins", domainModel.entityMixins().stream()
                 .map(JavaFileModel::className)
                 .toList());
 
