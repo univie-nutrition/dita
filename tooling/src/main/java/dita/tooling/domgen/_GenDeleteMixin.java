@@ -28,8 +28,10 @@ import org.springframework.javapoet.TypeSpec;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.SemanticsOf;
+import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.commons.services.lookup.DependantLookupService;
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.commons.services.search.SearchService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
@@ -56,6 +58,8 @@ class _GenDeleteMixin {
                         .position(Position.PANEL)))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(DependantLookupService.class, "dependantService"))
+                .addField(_Fields.inject(ForeignKeyLookupService.class, "foreignKeyLookup"))
+                .addField(_Fields.inject(RepositoryService.class, "repositoryService"))
                 .addField(_Fields.inject(SearchService.class, "searchService"))
                 .addField(_Fields.mixee(ClassName.get(packageName, entityModel.name()), Modifier.FINAL, Modifier.PRIVATE))
                 .addMethod(MethodSpec.methodBuilder("act")
@@ -68,6 +72,8 @@ class _GenDeleteMixin {
                                         .labelPosition(LabelPosition.TOP)))
                                 .build())
                         .addCode("""
+                                repositoryService.remove(mixee);
+                                foreignKeyLookup.clearCache(mixee.getClass());
                                 return new $1L.Manager(searchService, "");""",
                                 entityModel.name())
                         .build())

@@ -45,10 +45,13 @@ public interface DependantLookupService {
     Can<?> findAllDependants(Object entity);
 
     default String findAllDependantsAsMultilineString(final Object entity) {
-        return findAllDependants(entity)
-        .stream()
-        .map(Object::toString)
-        .collect(Collectors.joining("\n"));
+        var result = findAllDependants(entity)
+            .stream()
+            .map(Object::toString)
+            .collect(Collectors.joining("\n"));
+        return result.isEmpty()
+                ? "no dependants found"
+                : result;
     }
 
 }

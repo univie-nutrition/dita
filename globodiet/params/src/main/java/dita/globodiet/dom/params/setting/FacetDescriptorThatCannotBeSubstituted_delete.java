@@ -20,6 +20,7 @@
 package dita.globodiet.dom.params.setting;
 
 import dita.commons.services.lookup.DependantLookupService;
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.commons.services.search.SearchService;
 import jakarta.inject.Inject;
 import java.lang.String;
@@ -30,6 +31,7 @@ import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
+import org.apache.causeway.applib.services.repository.RepositoryService;
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
@@ -46,6 +48,12 @@ public class FacetDescriptorThatCannotBeSubstituted_delete {
     DependantLookupService dependantService;
 
     @Inject
+    ForeignKeyLookupService foreignKeyLookup;
+
+    @Inject
+    RepositoryService repositoryService;
+
+    @Inject
     SearchService searchService;
 
     private final FacetDescriptorThatCannotBeSubstituted mixee;
@@ -53,6 +61,8 @@ public class FacetDescriptorThatCannotBeSubstituted_delete {
     @MemberSupport
     public FacetDescriptorThatCannotBeSubstituted.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+        repositoryService.remove(mixee);
+        foreignKeyLookup.clearCache(mixee.getClass());
         return new FacetDescriptorThatCannotBeSubstituted.Manager(searchService, "");
     }
 
