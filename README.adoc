@@ -1,6 +1,6 @@
 = Dita
 
-Scientific Nutrition and Dietary Intake Assessment (Umbrella Project, as stared in 2023)
+Scientific Nutrition and Dietary Intake Assessment (Umbrella Project, started in 2023)
 
 Dita is a research initiative that aims at development of specifications 
 and data transfer objects that can be used to collect, store, and analyze dietary intake data. 
