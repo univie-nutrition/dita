@@ -3,7 +3,7 @@
 Scientific Nutrition and Dietary Intake Assessment (Umbrella Project, started in 2023)
 
 Dita is a research initiative that aims at development of specifications 
-and data transfer objects that can be used to collect, store, and analyze dietary intake data. 
+and data transfer objects that can be used to collect, store and analyze dietary intake data. 
 
 In particular, the project aims to provide various building blocks
 for application developers to make tools that manage configuration and allow access to the collected data.
@@ -20,7 +20,6 @@ Rough overview of aspects of interest (work in progress):
 
 * Java (17+) - Programming Language
 * Spring Boot - Orchestration
-* JDO - Persistence
 * Apache Causeway - Application Framework
 
 == Modules
@@ -30,5 +29,5 @@ Rough overview of aspects of interest (work in progress):
 * to be continued ..
 
 == License
-Dita is Open Source software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
+Dita is _Open Source_ software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
   
