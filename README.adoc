@@ -1,18 +1,44 @@
 = Dita
 
-Scientific Nutrition and Dietary Intake Assessment (Umbrella)
+Scientific Nutrition and Dietary Intake Assessment (Umbrella Project, as stared in 2023)
 
-Provides specifications for 
+Dita is a research initiative that aims at development of specifications 
+and data transfer objects that can be used to collect, store, and analyze dietary intake data. 
 
-* 24h Recall Interview Data
-* Food Description Models (eg. FoodEx - EFSA)
-* Nutrition related Entities (eg. Nutrition Lookup Table and various Mapping Relations)
-* Data Validation
-* File Formats and Interfaces for Data Exchange (eg. XML)
+In particular, the project aims to provide various building blocks
+for application developers to make tools that manage configuration and allow access to the collected data.
 
-== Globodiet
+Rough overview of aspects of interest (work in progress): 
 
-=== Parameter Data Management
+* Food Description Models (such as FoodEx/EFSA and Globodiet; using _Facet Catalogs_)
+* Configuration Data Model for an interview application (such as Globodiet)
+* Interview Data Specification (XML) with accompanied Data Transfer Objects (DTOs)
+* Data Validation (Rule Checkers)
+* File Formats and Interfaces for Data Exchange (XML, YAML, JSON, EXCEL, etc.)
+
+Technology stack of choice:
+
+* Java (17+) - Programming Language
+* Spring Boot - Orchestration
+* JDO - Persistence
+* Apache Causeway - Application Framework
+
+== License
+Dita is Open Source software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
+
+== Module: Globodiet
+
+We provide a metamodel for the 70+ tables of the _Globodiet Parameter Database_ from which 
+Java source code can be (auto-)generated,
+that has all the corresponding entities to be managed by the _Parameter Data Management (UI)_ application.
+
+[source]
+.Globodiet Parameter (Meta-) Model  
+----
+globodiet/schema/src/main/resources/gd-schema
+---- 
+
+=== Parameter Data Management (UI)
 
 Application to manage the _Globodiet Parameter Model_ is provided under
 
