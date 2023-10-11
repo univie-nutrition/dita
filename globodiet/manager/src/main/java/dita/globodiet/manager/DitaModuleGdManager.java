@@ -59,6 +59,7 @@ import dita.globodiet.manager.metadata.Persistable_schema;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
+import dita.globodiet.manager.services.rule.ResolvableDependenciesRuleChecker;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
@@ -105,11 +106,12 @@ import lombok.val;
     // Homepage
     Dashboard.class,
 
-    // Services
+    // Services/Components
     DependantLookupGdParams.class,
     ForeignKeyLookupGdParams.class,
     SearchServiceGdParams.class,
     FallbackLayoutDataSourceGdParams.class,
+    ResolvableDependenciesRuleChecker.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,

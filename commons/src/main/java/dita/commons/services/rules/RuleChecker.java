@@ -31,8 +31,26 @@ public interface RuleChecker {
     }
 
     static record RuleViolation(
-            Criticality criticality,
-            String message) {
+            @NonNull Criticality criticality,
+            @NonNull String message) {
+        public static RuleViolation informal(final String msg) {
+            return new RuleViolation(Criticality.INFORMAL, msg);
+        }
+        public static RuleViolation warning(final String msg) {
+            return new RuleViolation(Criticality.WARNING, msg);
+        }
+        public static RuleViolation severe(final String msg) {
+            return new RuleViolation(Criticality.SEVERE, msg);
+        }
+        public static RuleViolation informal(final String format, final Object...args) {
+            return informal(String.format(format, args));
+        }
+        public static RuleViolation warning(final String format, final Object...args) {
+            return warning(String.format(format, args));
+        }
+        public static RuleViolation severe(final String format, final Object...args) {
+            return severe(String.format(format, args));
+        }
     }
 
     Can<RuleViolation> check(@NonNull Class<?> entityType);
