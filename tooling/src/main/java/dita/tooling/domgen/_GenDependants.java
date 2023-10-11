@@ -18,8 +18,6 @@
  */
 package dita.tooling.domgen;
 
-import java.util.stream.Collectors;
-
 import javax.lang.model.element.Modifier;
 
 import org.springframework.context.annotation.Configuration;
@@ -76,20 +74,8 @@ class _GenDependants {
         });
 
         // static method that provides all mixin classes we generated above
-        typeModelBuilder.addMethod(MethodSpec.methodBuilder("mixinClasses")
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .returns(ParameterizedTypeName.get(
-                        ClassName.get(Can.class),
-                        ParameterizedTypeName.get(
-                                ClassName.get(Class.class),
-                                ClassName.get("", "?"))))
-                .addCode("""
-                        return Can.of($1L);""",
-                        mixinSpecs.stream()
-                            .map(DependantMixinSpec::mixinClassName)
-                            .map(name->name + ".class")
-                            .collect(Collectors.joining(",\n")))
-                .build());
+        typeModelBuilder.addMethod(_Methods.classList("mixinClasses",
+                mixinSpecs.map(DependantMixinSpec::mixinClassName), Modifier.PUBLIC, Modifier.STATIC));
 
         return new QualifiedType(
                 packageName,

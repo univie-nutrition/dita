@@ -27,6 +27,7 @@ import javax.lang.model.element.Modifier;
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.TypeSpec;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
@@ -71,6 +72,13 @@ class _GenModule {
                 .addAnnotation(_Annotations.configuration())
                 .addAnnotation(_Annotations.imports(importsByCategory))
                 .addModifiers(Modifier.PUBLIC)
+                // static method that provides all entity classes we listed above
+                .addMethod(_Methods.classList("entityClasses",
+                        domainModel.entities().stream()
+                        .map(JavaFileModel::className)
+                        .map(ClassName::simpleName)
+                        .collect(Can.toCan()),
+                        Modifier.PUBLIC, Modifier.STATIC))
                 ;
         return new QualifiedType(
                 packageName,

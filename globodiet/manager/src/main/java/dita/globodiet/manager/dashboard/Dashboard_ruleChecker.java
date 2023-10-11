@@ -18,13 +18,20 @@
  */
 package dita.globodiet.manager.dashboard;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 
+import dita.commons.services.rules.RuleChecker;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -33,13 +40,34 @@ import lombok.val;
 @RequiredArgsConstructor
 public class Dashboard_ruleChecker {
 
+    @Autowired(required = false) List<RuleChecker> checkers;
+
     final Dashboard dashboard;
 
     @MemberSupport
-    public AsciiDoc act() {
+    public AsciiDoc act(
+            @Parameter
+            final List<RuleChecker> checkers) {
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Rule Checker Report"));
         return adoc.buildAsValue();
+    }
+
+    @MemberSupport
+    public List<RuleChecker> defaultCheckers() {
+        return checkers;
+    }
+
+    @MemberSupport
+    public List<RuleChecker> choicesCheckers() {
+        return checkers;
+    }
+
+    @MemberSupport
+    public String disableAct() {
+        return _NullSafe.isEmpty(checkers)
+                ? "No Rule Checkers available."
+                : null;
     }
 
 }

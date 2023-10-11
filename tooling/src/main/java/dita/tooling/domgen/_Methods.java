@@ -18,6 +18,8 @@
  */
 package dita.tooling.domgen;
 
+import java.util.stream.Collectors;
+
 import javax.lang.model.element.Modifier;
 
 import org.springframework.javapoet.ClassName;
@@ -28,6 +30,7 @@ import org.springframework.javapoet.ParameterizedTypeName;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.commons.collections.Can;
 
 import lombok.experimental.UtilityClass;
 
@@ -36,58 +39,74 @@ class _Methods {
 
     MethodSpec toString(final CodeBlock code) {
         return MethodSpec.methodBuilder("toString")
-                .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(_Annotations.override())
-                .returns(ClassName.get("java.lang", "String"))
-                .addCode(code)
-                .build();
+            .addModifiers(Modifier.PUBLIC)
+            .addAnnotation(_Annotations.override())
+            .returns(ClassName.get("java.lang", "String"))
+            .addCode(code)
+            .build();
     }
 
     MethodSpec objectSupport(final String methodName, final CodeBlock code, final Modifier ... modifiers) {
         return MethodSpec.methodBuilder(methodName)
-                .addModifiers(modifiers)
-                .addAnnotation(_Annotations.objectSupport())
-                .returns(ClassName.get("java.lang", "String"))
-                .addCode(code)
-                .build();
+            .addModifiers(modifiers)
+            .addAnnotation(_Annotations.objectSupport())
+            .returns(ClassName.get("java.lang", "String"))
+            .addCode(code)
+            .build();
     }
 
     MethodSpec viewModelMemento(final CodeBlock code) {
         return MethodSpec.methodBuilder("viewModelMemento")
-                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                .addAnnotation(_Annotations.override())
-                .returns(ClassName.get("java.lang", "String"))
-                .addCode(code)
-                .build();
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addAnnotation(_Annotations.override())
+            .returns(ClassName.get("java.lang", "String"))
+            .addCode(code)
+            .build();
     }
 
     MethodSpec managerSearch(final String entityName) {
         return MethodSpec.methodBuilder("getListOf" + entityName)
-                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                .addAnnotation(_Annotations.collection(attr->attr))
-                .returns(ParameterizedTypeName.get(
-                        ClassName.get(java.util.List.class),
-                        ClassName.get("", entityName)))
-                .addCode("""
-                        return searchService.search($1L.class, $1L::title, search);""",
-                        entityName)
-                .build();
+            .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+            .addAnnotation(_Annotations.collection(attr->attr))
+            .returns(ParameterizedTypeName.get(
+                    ClassName.get(java.util.List.class),
+                    ClassName.get("", entityName)))
+            .addCode("""
+                    return searchService.search($1L.class, $1L::title, search);""",
+                    entityName)
+            .build();
     }
 
     MethodSpec navigableParent(final String entityName) {
         return MethodSpec.methodBuilder("getNavigableParent")
-                .addModifiers(Modifier.PUBLIC)
-                .addAnnotation(_Annotations.property(attr->attr
-                        .snapshot(Snapshot.EXCLUDED)))
-                .addAnnotation(_Annotations.propertyLayout(attr->attr
-                        .hiddenWhere(Where.EVERYWHERE)
-                        .navigable(Navigable.PARENT)))
-                .addAnnotation(_Annotations.notPersistent())
-                .returns(ClassName.get("", entityName + ".Manager"))
-                .addCode("""
-                        return new $1L.Manager(searchService, "");""",
-                        entityName)
-                .build();
+            .addModifiers(Modifier.PUBLIC)
+            .addAnnotation(_Annotations.property(attr->attr
+                    .snapshot(Snapshot.EXCLUDED)))
+            .addAnnotation(_Annotations.propertyLayout(attr->attr
+                    .hiddenWhere(Where.EVERYWHERE)
+                    .navigable(Navigable.PARENT)))
+            .addAnnotation(_Annotations.notPersistent())
+            .returns(ClassName.get("", entityName + ".Manager"))
+            .addCode("""
+                    return new $1L.Manager(searchService, "");""",
+                    entityName)
+            .build();
+    }
+
+    MethodSpec classList(final String methodName, final Can<String> classNames, final Modifier ... modifiers) {
+        return MethodSpec.methodBuilder(methodName)
+            .addModifiers(modifiers)
+            .returns(ParameterizedTypeName.get(
+                    ClassName.get(Can.class),
+                    ParameterizedTypeName.get(
+                            ClassName.get(Class.class),
+                            ClassName.get("", "?"))))
+            .addCode("""
+                    return Can.of($1L);""",
+                    classNames.stream()
+                        .map(name->name + ".class")
+                        .collect(Collectors.joining(",\n")))
+            .build();
     }
 
 }

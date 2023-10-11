@@ -18,9 +18,10 @@
  */
 package dita.tooling.domgen;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -29,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.javapoet.AnnotationSpec;
 import org.springframework.javapoet.ClassName;
+import org.springframework.javapoet.CodeBlock;
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -128,24 +130,26 @@ class _Annotations {
     }
     AnnotationSpec imports(final ListMultimap<String, ClassName> importsByCategory) {
 
-        val sb = new StringBuilder();
+        var importEntries = new ArrayList<CodeBlock>();
 
-        importsByCategory.entrySet()
+        importsByCategory.entrySet().stream()
         .forEach(entry->{
 
             // category comment
-            sb.append("\n").append(String.format("// %s\n", entry.getKey()));
+            importEntries.add(CodeBlock.of("\n// $1L", entry.getKey()));
 
-            final String importsLiteral = entry.getValue().stream()
-                    .map(_import->String.format("%s.class,", _import.canonicalName()))
-                    .collect(Collectors.joining("\n"));
-
-            sb.append(importsLiteral).append("\n");
-
+            entry.getValue().stream()
+                .sorted((a, b)->a.simpleName().compareTo(b.simpleName()))
+                .map(classToImport->CodeBlock.of("$1T.class", classToImport))
+                .forEach(importEntries::add);
         });
 
         return AnnotationSpec.builder(Import.class)
-                .addMember("value", "{\n$1L\n}", sb.toString())
+                .addMember("value", CodeBlock.join(List.of(
+                        CodeBlock.of("{"),
+                        CodeBlock.join(importEntries, ",\n"),
+                        CodeBlock.of("}")),
+                        "\n"))
                 .build();
     }
 
