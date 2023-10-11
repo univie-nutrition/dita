@@ -16,61 +16,19 @@ Rough overview of aspects of interest (work in progress):
 * Data Validation (Rule Checkers)
 * File Formats and Interfaces for Data Exchange (XML, YAML, JSON, EXCEL, etc.)
 
-Technology stack of choice:
+== Technology Stack
 
 * Java (17+) - Programming Language
 * Spring Boot - Orchestration
 * JDO - Persistence
 * Apache Causeway - Application Framework
 
+== Modules
+
+* xref:foodex/validator/README.adoc[Foodex Validator]
+* xref:globodiet/README.adoc[Globodiet]
+* to be continued ..
+
 == License
 Dita is Open Source software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
-
-== Module: Globodiet
-
-We provide a metamodel for the 70+ tables of the _Globodiet Parameter Database_ from which 
-Java source code can be (auto-)generated,
-that has all the corresponding entities to be managed by the _Parameter Data Management (UI)_ application.
-
-[source]
-.Globodiet Parameter (Meta-) Model  
-----
-globodiet/schema/src/main/resources/gd-schema
----- 
-
-=== Parameter Data Management (UI)
-
-Application to manage the _Globodiet Parameter Model_ is provided under
-
-[source]
-----
-globodiet/manager/
-----
-
-This builds and saves your _Docker_ image to `target/jib-image.tar`
-
-[source]
-----
-cd globodiet/manager
-mvn compile jib:buildTar
-----
- 
-which you can load into docker with:
-
-[source]
-----
-docker load --input target/jib-image.tar
-----
-
-For the application to run, 
-it needs a blob store for the various versions of the 
-Parameter Model, which is realized on the local file system of the host:
-
-[source]
-.Environment Variable
-----
-dita.blobstore.root=<path-to-blob-store>
-----
-
- 
   
