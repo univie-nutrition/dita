@@ -77,6 +77,7 @@ class _GenModule {
                         domainModel.entities().stream()
                         .map(JavaFileModel::className)
                         .map(ClassName::simpleName)
+                        .sorted()
                         .collect(Can.toCan()),
                         Modifier.PUBLIC, Modifier.STATIC))
                 ;

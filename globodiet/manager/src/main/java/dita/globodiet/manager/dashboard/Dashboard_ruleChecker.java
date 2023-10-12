@@ -19,9 +19,9 @@
 package dita.globodiet.manager.dashboard;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.asciidoctor.ast.StructuralNode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -80,15 +80,22 @@ public class Dashboard_ruleChecker {
 
         switch (groupBy) {
         case CHECKER: {
-
             checkersSorted.forEach(checker->{
                 adoc.append(doc->{
 
-                    var checkerSection = AsciiDocFactory.section(doc, nameOf(checker));
+                    var checkerSection = AsciiDocFactory.section(doc, "Checker: " + checker.title());
+                    AsciiDocFactory.block(checkerSection, checker.description());
 
                     streamEntityClasses().forEach(entityClass->{
                         var violations = checker.check(entityClass);
-                        violations.forEach(violation->formatAsAsciiDoc(checkerSection, violation));
+                        if(violations.isEmpty()) return;
+
+                        val sourceBlock = AsciiDocFactory.sourceBlock(checkerSection, "yaml",
+                                violations.stream()
+                                .map(RuleViolation::formatAsYaml)
+                                .collect(Collectors.joining("\n")));
+                        sourceBlock.setTitle("Entity: " + entityClass.getSimpleName());
+
                     });
 
                 });
@@ -97,18 +104,25 @@ public class Dashboard_ruleChecker {
         }
         case ENTITY: {
             streamEntityClasses().forEach(entityClass->{
-
                 adoc.append(doc->{
 
-                    var entitySection = AsciiDocFactory.section(doc, entityClass.getSimpleName());
+                    var entitySection = AsciiDocFactory.section(doc, "Entity: " + entityClass.getSimpleName());
 
                     checkersSorted.forEach(checker->{
                         var violations = checker.check(entityClass);
-                        violations.forEach(violation->formatAsAsciiDoc(entitySection, violation));
+                        if(violations.isEmpty()) return;
+
+                        val sourceBlock = AsciiDocFactory.sourceBlock(entitySection, "yaml",
+                                violations.stream()
+                                .map(RuleViolation::formatAsYaml)
+                                .collect(Collectors.joining("\n")));
+                        sourceBlock.setTitle(String.format("Checker: %s (%s)",
+                                checker.title(),
+                                checker.description()));
+
                     });
 
                 });
-
             });
             break;
         }
@@ -143,23 +157,7 @@ public class Dashboard_ruleChecker {
 
     private Can<RuleChecker> checkersSorted() {
         return Can.ofCollection(checkers)
-                .sorted((a, b)->nameOf(a).compareTo(nameOf(b)));
-    }
-
-    private static String nameOf(final RuleChecker checker) {
-        return checker.getClass().getSimpleName();
-    }
-
-    private static StructuralNode formatAsAsciiDoc(
-            final StructuralNode parent,
-            final RuleViolation ruleViolation) {
-        var admonitionNode = switch (ruleViolation.criticality()) {
-        case INFORMAL: yield AsciiDocFactory.note(parent);
-        case WARNING: yield AsciiDocFactory.warning(parent);
-        case SEVERE: yield AsciiDocFactory.caution(parent);
-        };
-        AsciiDocFactory.block(admonitionNode, ruleViolation.message());
-        return admonitionNode;
+                .sorted((a, b)->a.title().compareTo(b.title()));
     }
 
     private static Stream<Class<?>> streamEntityClasses() {

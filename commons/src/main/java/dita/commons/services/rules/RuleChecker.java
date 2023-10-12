@@ -51,8 +51,14 @@ public interface RuleChecker {
         public static RuleViolation severe(final String format, final Object...args) {
             return severe(String.format(format, args));
         }
+        public String formatAsYaml() {
+            return message();
+        }
     }
 
     Can<RuleViolation> check(@NonNull Class<?> entityType);
+
+    String title();
+    String description();
 
 }
