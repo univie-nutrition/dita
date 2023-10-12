@@ -60,7 +60,6 @@ implements RuleChecker {
         return "Checks that all dependencies (foreign keys) can be resolved.";
     }
 
-
     @Override
     public Can<RuleViolation> check(@NonNull final Class<?> entityType) {
 

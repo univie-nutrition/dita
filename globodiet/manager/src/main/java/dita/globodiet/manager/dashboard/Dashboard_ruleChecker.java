@@ -62,7 +62,7 @@ public class Dashboard_ruleChecker {
             @Parameter
             @ParameterLayout(
                     describedAs = "Select which Rule Checkers to run")
-            final Can<RuleChecker> checkers,
+            final Can<String> checkers,
 
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES)
@@ -73,10 +73,19 @@ public class Dashboard_ruleChecker {
                             individual Entity""")
             final GroupBy groupBy) {
 
-        val adoc = new AsciiDocBuilder();
-        adoc.append(doc->doc.setTitle("Rule Checker Report"));
+        val checkersSorted = checkersSorted(checkers);
 
-        val checkersSorted = checkersSorted();
+        val adoc = new AsciiDocBuilder();
+        adoc.append(doc->{
+            doc.setTitle("Rule Checker Report");
+            AsciiDocFactory.block(doc, "Selected Checkers:");
+            val list = AsciiDocFactory.list(doc);
+            checkersSorted.forEach(checker->{
+                AsciiDocFactory.listItem(list, String.format("%s: %s",
+                        checker.title(),
+                        checker.description()));
+            });
+        });
 
         switch (groupBy) {
         case CHECKER: {
@@ -133,12 +142,12 @@ public class Dashboard_ruleChecker {
     }
 
     @MemberSupport
-    public Can<RuleChecker> defaultCheckers() {
-        return checkersSorted();
+    public Can<String> defaultCheckers() {
+        return choicesCheckers();
     }
     @MemberSupport
-    public Can<RuleChecker> choicesCheckers() {
-        return checkersSorted();
+    public Can<String> choicesCheckers() {
+        return checkersSorted().map(RuleChecker::title);
     }
 
     @MemberSupport
@@ -156,8 +165,18 @@ public class Dashboard_ruleChecker {
     // -- HELPER
 
     private Can<RuleChecker> checkersSorted() {
-        return Can.ofCollection(checkers)
-                .sorted((a, b)->a.title().compareTo(b.title()));
+        return checkersSorted(checkers);
+    }
+
+    private Can<RuleChecker> checkersSorted(final Can<String> checkerNames) {
+        return checkersSorted(checkers)
+                .filter(checker->checkerNames.contains(checker.title()));
+    }
+
+    private static Can<RuleChecker> checkersSorted(final Iterable<RuleChecker> unsorted) {
+        return _NullSafe.stream(unsorted)
+                .sorted((a, b)->a.title().compareTo(b.title()))
+                .collect(Can.toCan());
     }
 
     private static Stream<Class<?>> streamEntityClasses() {
