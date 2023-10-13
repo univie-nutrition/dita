@@ -31,7 +31,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
-import dita.causeway.replicator.tables.model.DataTableProvider;
+import dita.causeway.replicator.tables.model.DataTableService;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.NameTransformer;
 import lombok.val;
@@ -40,7 +40,7 @@ import lombok.val;
 public class TableSerializerYaml {
 
     @Inject RepositoryService repositoryService;
-    @Inject DataTableProvider dataTableProvider;
+    @Inject DataTableService dataTableService;
 
     public Clob clob(
             final String name,
@@ -85,7 +85,7 @@ public class TableSerializerYaml {
 
     private _DataTableSet dataTables(final Predicate<ObjectSpecification> filter){
         val dataTables = new _DataTableSet(
-                dataTableProvider.streamDataTables()
+                dataTableService.streamDataTables()
                     .filter(dataTable->filter.test(dataTable.getElementType()))
                     .collect(Can.toCan()));
         return dataTables;

@@ -21,13 +21,13 @@ package dita.causeway.replicator;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import dita.causeway.replicator.tables.model.DataTableProvider;
+import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 
 @Configuration
 @Import({
     // -- Services
-    DataTableProvider.class,
+    DataTableService.class,
     TableSerializerYaml.class,
 })
 public class DitaModuleDatabaseReplicator {

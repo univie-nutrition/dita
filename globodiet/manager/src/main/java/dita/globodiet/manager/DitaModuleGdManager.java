@@ -32,11 +32,11 @@ import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeService
 import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
 import org.apache.causeway.extensions.docgen.help.applib.HelpNode.HelpTopic;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.CausewayEntityDiagramPage;
-import org.apache.causeway.extensions.exceldownload.wkt.ui.CausewayModuleExtExcelDownloadWicketUi;
 import org.apache.causeway.extensions.secman.encryption.spring.CausewayModuleExtSecmanEncryptionSpring;
 import org.apache.causeway.extensions.secman.integration.CausewayModuleExtSecmanIntegration;
 import org.apache.causeway.extensions.secman.integration.authenticator.AuthenticatorSecmanAutoConfiguration;
 import org.apache.causeway.extensions.secman.jdo.CausewayModuleExtSecmanPersistenceJdo;
+import org.apache.causeway.extensions.tabular.excel.CausewayModuleExtTabularExcel;
 import org.apache.causeway.persistence.jdo.datanucleus.CausewayModulePersistenceJdoDatanucleus;
 import org.apache.causeway.valuetypes.asciidoc.metamodel.semantics.AsciiDocValueSemantics;
 import org.apache.causeway.valuetypes.asciidoc.ui.wkt.CausewayModuleValAsciidocUiWkt;
@@ -93,7 +93,7 @@ import lombok.val;
 
     AsciiDocValueSemantics.class,
     CausewayModuleValAsciidocUiWkt.class,
-    CausewayModuleExtExcelDownloadWicketUi.class, // allows for collection download as excel
+    CausewayModuleExtTabularExcel.class, // allows for collection download as excel
 
     // Help Pages
     DitaEntityDiagramPage.class,

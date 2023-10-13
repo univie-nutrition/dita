@@ -18,26 +18,13 @@
  */
 package dita.causeway.replicator.tables.model;
 
-import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
-import org.apache.causeway.core.metamodel.object.ManagedObject;
+import org.springframework.stereotype.Service;
 
-import lombok.Getter;
-import lombok.NonNull;
+import org.apache.causeway.tabular.applib.DataTableProvider;
 
-public class DataRow {
+import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 
-    @Getter private final ManagedObject rowElement;
-    @Getter private final DataTable parentTable;
-
-    public DataRow(
-            final @NonNull DataTable parentTable,
-            final @NonNull ManagedObject rowElement) {
-        this.parentTable = parentTable;
-        this.rowElement = rowElement;
-    }
-
-    public ManagedObject getCellElement(final @NonNull DataColumn column) {
-        return column.getPropertyMetaModel().get(getRowElement(), InteractionInitiatedBy.PASS_THROUGH);
-    }
+@Service(DitaModuleDatabaseReplicator.NAMESPACE + "DataTableService")
+public class DataTableService extends DataTableProvider {
 
 }

@@ -18,6 +18,7 @@
  */
 package dita.causeway.replicator.tables.serialize;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
@@ -34,9 +35,9 @@ import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Format;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.object.ManagedObjects;
+import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
+import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
-import dita.causeway.replicator.tables.model.DataColumn;
-import dita.causeway.replicator.tables.model.DataTable;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Column;
@@ -52,7 +53,8 @@ class _DataTableSet {
 
     // -- CONSTRUCTION
 
-    @Getter private final @NonNull Can<DataTable> dataTables;
+    @Getter
+    private final @NonNull Can<DataTable> dataTables;
     private final @NonNull Map<String, DataTable> dataTableByLogicalName;
 
     public _DataTableSet(
@@ -113,7 +115,7 @@ class _DataTableSet {
                     int colIndex = 0;
 
                     for(val col : dataTable.getDataColumns()){
-                        val colMetamodel = col.getPropertyMetaModel();
+                        val colMetamodel = col.getMetamodel();
                         val valueSpec = colMetamodel.getElementType();
                         // assuming value
                         val valueFacet = valueSpec.valueFacetElseFail();
@@ -136,7 +138,9 @@ class _DataTableSet {
                                             : ManagedObject.empty(valueSpec));
 
                         // directly set entity property
-                        colMetamodel.set(entity, value, InteractionInitiatedBy.PASS_THROUGH);
+                        colMetamodel.getSpecialization()
+                        .left()
+                        .ifPresent(prop->prop.set(entity, value, InteractionInitiatedBy.PASS_THROUGH));
 
                         colIndex++;
                     }
@@ -156,13 +160,14 @@ class _DataTableSet {
                     dataTable.getElementType().getLogicalTypeName(),
                     dataTable.getDataColumns()
                         .map(col->new TabularData.Column(
-                            col.getPropertyMetaModel().getId(),
+                            col.getMetamodel().getId(),
                             col.getColumnDescription())),
                     dataTable.getDataRows().map(dataRow->new TabularData.Row(
 
                             dataTable.getDataColumns()
                             .stream()
-                            .map(dataRow::getCellElement)
+                            .map(column->dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH))
+                            .map(cells->cells.getSingleton().orElse(null)) // assuming not multivalued
                             .map(cellValue->stringify(cellValue, formatOptions))
                             .collect(Collectors.toList())
 
@@ -184,7 +189,7 @@ class _DataTableSet {
         }
         // insert new entities
         dataTables.forEach(dataTable->{
-            dataTable.getDataElements().forEach(entity->{
+            dataTable.streamDataElements().forEach(entity->{
                 repositoryService.persist(entity);
             });
         });
@@ -207,26 +212,26 @@ class _DataTableSet {
                         _Strings.asLowerCase.apply(a),
                         _Strings.asLowerCase.apply(b)));
         // sort for canonical comparison
-        val colFromMetamodelSorted = dataTable.getDataColumns().sorted(DataColumn::compareTo);
+        val colFromMetamodelSorted = dataTable.getDataColumns().sorted(orderByColumnIdIgnoringCase());
 
         colNamesSorted.zip(colFromMetamodelSorted, (String colName, DataColumn col)->{
             // verify read in data matches meta-model
-            _Assert.assertEquals(colName, col.getPropertyMetaModel().getId(), ()->
+            _Assert.assertEquals(colName, col.getMetamodel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
                             colNames,
                             dataTable.getLogicalName()));
         });
         colFromMetamodelSorted.zip(colNamesSorted, (DataColumn col, String colName)->{
              // verify read in data matches meta-model
-            _Assert.assertEquals(colName, col.getPropertyMetaModel().getId(), ()->
+            _Assert.assertEquals(colName, col.getMetamodel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
                             colNames,
                             dataTable.getLogicalName()));
         });
         final int[] colIndexMapping = new int[colNames.size()];
         dataTable.getDataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
-            col.getPropertyMetaModel().getId();
-            colIndexMapping[index] = colNames.indexOf(col.getPropertyMetaModel().getId());
+            col.getMetamodel().getId();
+            colIndexMapping[index] = colNames.indexOf(col.getMetamodel().getId());
         }));
         return colIndexMapping;
     }
@@ -248,6 +253,15 @@ class _DataTableSet {
         val stringifiedValue = formatOptions.encodeCellValue(
                         valueFacet.enstring(Format.JSON, cellValue.getPojo()));
         return stringifiedValue;
+    }
+
+    /**
+     * Alphabetical column order using column's underlying (member) id.
+     */
+    public static Comparator<DataColumn> orderByColumnIdIgnoringCase() {
+        return (o1, o2) -> _Strings.compareNullsFirst(
+                _Strings.asLowerCase.apply(o1.getColumnId()),
+                _Strings.asLowerCase.apply(o2.getColumnId()));
     }
 
 }
