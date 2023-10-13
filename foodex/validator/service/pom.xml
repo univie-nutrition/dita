@@ -51,6 +51,7 @@
 		</dependency>
 		
 		<dependency>
+			<!-- jitpack build -->
 		    <groupId>com.github.OpenNutritionScience</groupId>
 		    <artifactId>openefsa-catalogue-browser</artifactId>
 			<version>1.2.5.1-rc.9</version> <!-- was used for austrian nutrition report 2017 -->
