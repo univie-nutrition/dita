@@ -244,10 +244,15 @@ class _DataTableSet {
             return formatOptions.nullSymbol();
         }
 
-        val valueSpec = cellValue.getSpecification();
+        var valueSpec = cellValue.getSpecification();
+
+        if(cellValue.getPojo() instanceof Enum enumeration) {
+            // stringify Enum as uppercase name
+            return String.format("%s", enumeration.name());
+        }
 
         // assuming value
-        val valueFacet = valueSpec.valueFacetElseFail();
+        var valueFacet = valueSpec.valueFacetElseFail();
 
         @SuppressWarnings("unchecked")
         val stringifiedValue = formatOptions.encodeCellValue(

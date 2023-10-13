@@ -29,6 +29,7 @@ import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
+import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableService;
@@ -45,8 +46,19 @@ public class TableSerializerYaml {
     public Clob clob(
             final String name,
             final NameTransformer nameTransformer,
+            final Can<DataTable> dataTables) {
+        val yaml = new _DataTableSet(dataTables)
+                .toTabularData(format())
+                .transform(nameTransformer)
+                .toYaml(format());
+        return Clob.of(name, CommonMimeType.YAML, yaml);
+    }
+
+    public Clob clob(
+            final String name,
+            final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter) {
-        val yaml = dataTables(filter)
+        val yaml = dataTableSet(filter)
                 .populateFromDatabase(repositoryService)
                 .toTabularData(format())
                 .transform(nameTransformer)
@@ -73,7 +85,7 @@ public class TableSerializerYaml {
         val tabularData = TabularData.populateFromYaml(clob.asString(), format())
                 .transform(nameTransformer);
 
-        val yaml = dataTables(filter)
+        val yaml = dataTableSet(filter)
                 .populateFromTabularData(tabularData, format())
                 .insertToDatabase(repositoryService, insertMode)
                 .toTabularData(format())
@@ -83,7 +95,7 @@ public class TableSerializerYaml {
 
     // -- HELPER
 
-    private _DataTableSet dataTables(final Predicate<ObjectSpecification> filter){
+    private _DataTableSet dataTableSet(final Predicate<ObjectSpecification> filter){
         val dataTables = new _DataTableSet(
                 dataTableService.streamDataTables()
                     .filter(dataTable->filter.test(dataTable.getElementType()))
