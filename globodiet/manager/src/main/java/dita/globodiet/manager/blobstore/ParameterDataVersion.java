@@ -148,6 +148,7 @@ public class ParameterDataVersion {
         return String.format("Version '%s' checked out.", name);
     }
     @MemberSupport public String disableCheckout() {
+        if(true) return disableVersionManagement();
         return guardAgainstDeleted()
                 .or(()->guardAgainstThisVersionAlreadyCheckedOut("This version is already checked out."))
                 .orElse(null);
@@ -179,6 +180,7 @@ public class ParameterDataVersion {
         return String.format("Version '%s' cloned as '%s'.", name, clonedVersionName);
     }
     @MemberSupport public String disableClone() {
+        if(true) return disableVersionManagement();
         return guardAgainstDeleted()
                 .orElse(null);
     }
@@ -211,6 +213,7 @@ public class ParameterDataVersion {
                 + "A BAK file was generated and made available for download.", name);
     }
     @MemberSupport public String disableCommitAndGenerateBAK() {
+        if(true) return disableVersionManagement();
         return guardAgainstDeleted() // just in case
                 .orElse("TODO: will be implemented");
     }
@@ -247,6 +250,7 @@ public class ParameterDataVersion {
                 + "However, it can be restored by an administrator.", name);
     }
     @MemberSupport public String disableDelete() {
+        if(true) return disableVersionManagement();
         return guardAgainstDeleted() // just in case
                 .or(()->guardAgainstSticky("This version is marked STICKY by an administrator, hence cannot be deleted."))
                 .orElse(null);
@@ -292,6 +296,11 @@ public class ParameterDataVersion {
                 .orElse(false)
             ? Optional.of(message)
             : Optional.empty();
+    }
+
+    @Deprecated // WIP
+    private static String disableVersionManagement() {
+        return "TODO: Version Management is not full implemented yet.";
     }
 
 }
