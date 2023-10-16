@@ -27,7 +27,9 @@ import java.util.function.Predicate;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +51,7 @@ import org.apache.causeway.persistence.jdo.datanucleus.metamodel.facets.entity.J
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
+import dita.commons.spring.SpringUtils;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Data;
@@ -64,6 +67,8 @@ public class BlobStore implements MetamodelListener {
     @Inject TableSerializerYaml tableSerializer;
     @Inject InteractionService iaService;
     @Inject MetaModelContext mmc;
+
+    @Autowired Environment env;
 
     @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
     @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
@@ -126,7 +131,7 @@ public class BlobStore implements MetamodelListener {
      * There can be only ONE version checked out, which is then shared among all users for editing or viewing.
      */
     public void checkout(final @Nullable ParameterDataVersion version) {
-        checkoutAsCurrent(version);
+        checkoutAsCurrent(version, InsertMode.DELETE_ALL_THEN_ADD);
         // persist so we can recover state on next startup via 'onMetamodelLoaded'
         writeState();
     }
@@ -135,14 +140,19 @@ public class BlobStore implements MetamodelListener {
     public void onMetamodelLoaded() {
         //initFederatedDataStore();
 
+        var insertMode = SpringUtils.isProfileH2Active(env)
+                ? InsertMode.ADD
+                : InsertMode.DO_NOTHING;
+
         readState()
-            .getValue()
-            .ifPresent(state->{
-                lookupVersion(state.getLastCheckedOutVersionId())
-                    .ifPresent(version->{
-                        iaService.runAnonymous(()->this.checkoutAsCurrent(version));
-                    });
-            });
+        .getValue()
+        .ifPresent(state->{
+            lookupVersion(state.getLastCheckedOutVersionId())
+                .ifPresent(version->{
+                    iaService.runAnonymous(()->this.checkoutAsCurrent(version, insertMode));
+                });
+        });
+
     }
 
     /**
@@ -233,8 +243,8 @@ public class BlobStore implements MetamodelListener {
 
     // -- HELPER
 
-    private void checkoutAsCurrent(final @Nullable ParameterDataVersion version) {
-        tableSerializer.load(getTableData(version), table2entity, paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD);
+    private void checkoutAsCurrent(final @Nullable ParameterDataVersion version, final InsertMode insertMode) {
+        tableSerializer.load(getTableData(version), table2entity, paramsTableFilter(), insertMode);
         this.currentlyCheckedOutVersion = version;
     }
 

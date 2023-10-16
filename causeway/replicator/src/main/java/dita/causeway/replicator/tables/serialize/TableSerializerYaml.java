@@ -67,8 +67,10 @@ public class TableSerializerYaml {
     }
 
     public enum InsertMode {
+        DO_NOTHING,
         ADD,
         DELETE_ALL_THEN_ADD;
+        public boolean isDoNothing() { return this == DO_NOTHING;}
         public boolean isAdd() { return this == ADD;}
         public boolean isDeleteAllThenAdd() { return this == DELETE_ALL_THEN_ADD;}
     }
@@ -81,6 +83,8 @@ public class TableSerializerYaml {
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
             final InsertMode insertMode) {
+
+        if(insertMode.isDoNothing()) return "Ignored";
 
         val tabularData = TabularData.populateFromYaml(clob.asString(), format())
                 .transform(nameTransformer);
