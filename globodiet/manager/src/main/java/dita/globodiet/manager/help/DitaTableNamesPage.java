@@ -44,7 +44,7 @@ public class DitaTableNamesPage implements HelpPage {
 
     @Override
     public String getTitle() {
-        return "Dita Globodiet Parameters Table Names";
+        return "Table Names (Parameter DB)";
     }
 
     @Override
@@ -52,11 +52,9 @@ public class DitaTableNamesPage implements HelpPage {
 
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->{
-            doc.setTitle(getTitle());
+            doc.setTitle("Table Names (UI vs Database)");
 
             var table = table(doc);
-
-            table.setTitle("Table Names (UI vs Database)");
             table.setAttribute("cols", "3m,2m", true);
 
             headCell(table, 0, 0, "UI");

@@ -42,7 +42,7 @@ public class DitaEntityDiagramPage extends DitaEntityDiagramPageAbstract {
 
     @Override
     public String getTitle() {
-        return "Dita Entity Diagram";
+        return "Entity Diagram";
     }
 
     @Override
