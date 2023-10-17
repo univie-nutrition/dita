@@ -70,10 +70,11 @@ public class DitaTableNamesPage implements HelpPage {
             });
         });
 
-        // debug table
-//        adoc.append(doc->{
+//        // debug table
+//        return new AsciiDocBuilder().append(doc->{
 //            AsciiDocFactory.sourceBlock(doc, "txt", adoc.buildAsString());
-//        });
+//        })
+//        .buildAsValue();
 
         return adoc.buildAsValue();
     }
