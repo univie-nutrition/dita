@@ -55,6 +55,7 @@ import dita.globodiet.manager.editing.BrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodManager_addFood;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
+import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.Persistable_schema;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
@@ -96,6 +97,7 @@ import lombok.val;
     CausewayModuleExtTabularExcel.class, // allows for collection download as excel
 
     // Help Pages
+    DitaTableNamesPage.class,
     DitaEntityDiagramPage.class,
     DitaEntityDiagramPage2.class,
     CausewayEntityDiagramPage.class,
@@ -159,6 +161,7 @@ public class DitaModuleGdManager {
         @Primary
         public HelpTopic rootHelpTopicForDita(
                 final CausewayEntityDiagramPage causewayEntityDiagramPage,
+                final DitaTableNamesPage ditaTableNamesPage,
                 final DitaEntityDiagramPage ditaEntityDiagramPage,
                 final DitaEntityDiagramPage2 ditaEntityDiagramPage2) {
 
@@ -169,7 +172,8 @@ public class DitaModuleGdManager {
             root.subTopic("Causeway")
                 .addPage(causewayEntityDiagramPage);
 
-            root.subTopic("Dita")
+            root.subTopic("Dita - Globodiet Manager")
+                .addPage(ditaTableNamesPage)
                 .addPage(ditaEntityDiagramPage)
                 .addPage(ditaEntityDiagramPage2);
 

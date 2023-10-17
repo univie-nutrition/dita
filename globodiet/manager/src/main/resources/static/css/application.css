@@ -53,3 +53,10 @@ header nav.navbar {
 header .navbar-header .navbar-brand {
 	padding-bottom: 0px;
 }
+
+/* ascii-doc */
+table.grid-all>*>tr>*,
+table.frame-all{
+	border-width:1px;
+	border-color:var(--bs-border-color);
+}
