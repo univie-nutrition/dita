@@ -49,10 +49,10 @@ implements SearchService {
                 .map(String::toLowerCase)
                 .orElse(null);
 
-            return lowerCased == null
-                    ? repositoryService.allInstances(entityType)
-                    : repositoryService.allMatches(entityType,
-                            t->searchOn.apply(t).toLowerCase().contains(lowerCased));
+        return lowerCased == null
+                ? repositoryService.allInstances(entityType)
+                : repositoryService.allMatches(entityType,
+                        t->searchOn.apply(t).toLowerCase().contains(lowerCased));
     }
 
 }
