@@ -16,27 +16,29 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.services.lookup;
+package dita.commons.services.idgen;
 
-import org.apache.causeway.commons.collections.Can;
+import java.util.Optional;
 
-public interface ForeignKeyLookupService {
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-    <T> Can<ISecondaryKey<T>> decodeLookupKeyList(Class<T> type, String stringList);
-    int switchOn(Object entity);
+import lombok.NonNull;
 
-    <T> T unique(ISecondaryKey<T> lookupKey);
-    <T> T nullable(ISecondaryKey<T> lookupKey);
-
-    void clearCache(Class<?> ...types);
-    void clearAllCaches();
+public interface IdGeneratorService {
 
     /**
-     * Whether given {@code id} object is already in use as an entity identifier
-     * for given {@code entityType}.
+     * Optionally returns the next 'free' id for given {@code entityType},
+     * based on whether supported.
      */
-    default boolean isUsed(final ISecondaryKey<?> lookupKey) {
-        return nullable(lookupKey)!=null;
+    <T> Optional<T> next(
+            @NonNull Class<T> idType,
+            @NonNull Class<?> entityType);
+
+
+    default <T> T nextElseFail(@NonNull final Class<T> idType, @NonNull final Class<?> entityType) {
+        return next(idType, entityType)
+                .orElseThrow(()->_Exceptions.unrecoverable(
+                        "Id generation not implemented for entity type %s", entityType));
     }
 
 }

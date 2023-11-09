@@ -53,10 +53,12 @@ import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.BrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodManager_addFood;
+import dita.globodiet.manager.editing.Food_clone;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.Persistable_schema;
+import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
@@ -114,6 +116,7 @@ import lombok.val;
     SearchServiceGdParams.class,
     FallbackLayoutDataSourceGdParams.class,
     ResolvableDependenciesRuleChecker.class,
+    IdGeneratorGdParams.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
@@ -123,6 +126,8 @@ import lombok.val;
     // Manager Mixins
     BrandManager_addBrand.class,
     FoodManager_addFood.class,
+    // Other
+    Food_clone.class,
 
     // -- MODULES
     DitaModuleGdParams.class,
