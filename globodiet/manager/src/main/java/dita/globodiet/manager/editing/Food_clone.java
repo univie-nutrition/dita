@@ -40,6 +40,7 @@ import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.Food.DietarySupplementQ;
 import dita.globodiet.dom.params.food_list.Food.GroupOrdinal;
 import dita.globodiet.dom.params.food_list.Food.TypeOfItem;
+import dita.globodiet.dom.params.food_list.FoodDeps;
 import dita.globodiet.dom.params.food_list.Food_foodGroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubSubgroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
@@ -84,6 +85,159 @@ public class Food_clone {
         clone.setDietarySupplementQ(p.dietarySupplementQ());
 
         repositoryService.persist(clone);
+        foreignKeyLookupService.clearCache(clone.getClass());
+
+//      for(var foodDependantMixinClass : FoodDeps.mixinClasses()) {
+//      var foodDependantMixin = factoryService.mixin(foodDependantMixinClass, mixee);
+//      var entityObjectsToBeCloned = (List<Object>) foodDependantMixinClass.getMethod("coll").invoke(foodDependantMixin);
+//      }
+
+
+        factoryService.mixin(FoodDeps.Food_dependentDensityFactorForFoodMappedByFoodOrRecipe.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentEdiblePartCoefficientForFoodMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFat.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFat.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentRawToCookedConversionFactorForFoodMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentImprobableSequenceOfFacetAndDescriptorMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentProbingQuestionPathwayForFoodsMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentQuantificationMethodsPathwayForFoodMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentStandardPortionForFoodMappedByFood.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentItemDefinitionMappedByFoodOrRecipe.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFssFatCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentRecipeIngredientMappedByFoodOrRecipe.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+        factoryService.mixin(FoodDeps.Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class, mixee)
+        .coll()
+        .forEach(origin->{
+            var clonedDependant = origin.copy();
+            clonedDependant.setIngredientFoodOrRecipeCode(clone.getCode());
+            repositoryService.persist(clonedDependant);
+            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+        });
+
         return clone;
     }
 
