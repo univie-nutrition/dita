@@ -36,6 +36,7 @@ import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.lookup.HasSecondaryKey;
@@ -66,9 +67,14 @@ class _GenEntity {
                 .addAnnotation(_Annotations.persistenceCapable(entityModel.table()))
                 .addAnnotation(_Annotations.datastoreIdentity())
                 .addModifiers(Modifier.PUBLIC)
+                .addSuperinterface(ParameterizedTypeName.get(
+                        ClassName.get(dita.commons.services.lookup.Cloneable.class),
+                        ClassName.get("", entityModel.name())))
+                .addField(_Fields.inject(RepositoryService.class, "repositoryService"))
                 .addField(_Fields.inject(SearchService.class, "searchService"))
                 .addMethod(asTitleMethod(entityModel, Modifier.PUBLIC))
                 .addMethod(asToStringMethod(entityModel))
+                .addMethod(asCopyMethod(entityModel))
                 .addMethod(_Methods.navigableParent(entityModel.name()))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
@@ -225,6 +231,24 @@ class _GenEntity {
         return _Methods.toString(
                 CodeBlock.of("""
                         return "$1L(" + $2L + ")";""", entityModel.name(), propertiesAsStrings));
+    }
+
+    private MethodSpec asCopyMethod(final Entity entityModel) {
+        val propertiesAsAssignments = entityModel.fields().stream()
+                .map(field->String.format("copy.%s(%s());", field.setter(), field.getter()))
+                .collect(Collectors.joining("\n"));
+        return MethodSpec.methodBuilder("copy")
+                .addModifiers(Modifier.PUBLIC)
+                .addAnnotation(_Annotations.programmatic())
+                .addAnnotation(_Annotations.override())
+                .returns(ClassName.get("", entityModel.name()))
+                .addCode(CodeBlock.of("""
+                        var copy = repositoryService.detachedEntity(new $1L());
+                        $2L
+                        return copy;""",
+                        entityModel.name(),
+                        propertiesAsAssignments))
+                .build();
     }
 
     private Iterable<FieldSpec> asFields(

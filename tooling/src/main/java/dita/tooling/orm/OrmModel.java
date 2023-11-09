@@ -313,6 +313,10 @@ public class OrmModel {
             return (isBooleanPrimitive() ? "is" : "get")
                     + _Strings.capitalize(name());
         }
+        public String setter() {
+            return "set"
+                    + _Strings.capitalize(name());
+        }
         public int maxLength() {
 
             if(_TypeMapping.isMaxLengthSuppressedFor(columnType())) {
