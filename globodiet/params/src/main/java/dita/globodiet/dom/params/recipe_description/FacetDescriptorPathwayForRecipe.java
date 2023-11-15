@@ -56,7 +56,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for individual recipe.\n"
-                        + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}."
+                        + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.",
+        cssClassFa = "solid person-walking-arrow-right mediumblue"
 )
 @PersistenceCapable(
         table = "R_RCPFAEX"
@@ -179,7 +180,8 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     @Named("dita.globodiet.params.recipe_description.FacetDescriptorPathwayForRecipe.Manager")
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for individual recipe.\n"
-                            + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}."
+                            + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.",
+            cssClassFa = "solid person-walking-arrow-right mediumblue"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

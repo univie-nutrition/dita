@@ -209,14 +209,16 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right darkgreen"
+    )
     public FacetDescriptorPathwayForFood.Manager manageFacetDescriptorPathwayForFood() {
         return factoryService.viewModel(new FacetDescriptorPathwayForFood.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid right-left"
+            cssClassFa = "solid person-walking-arrow-right olive"
     )
     public FacetDescriptorPathwayForFoodGroup.Manager manageFacetDescriptorPathwayForFoodGroup() {
         return factoryService.viewModel(new FacetDescriptorPathwayForFoodGroup.Manager(searchService, ""));
@@ -257,20 +259,24 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid right-left"
+            cssClassFa = "solid person-walking-arrow-right darkgreen"
     )
     public ProbingQuestionPathwayForFood.Manager manageProbingQuestionPathwayForFood() {
         return factoryService.viewModel(new ProbingQuestionPathwayForFood.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right darkgreen"
+    )
     public QuantificationMethodPathwayForFood.Manager manageQuantificationMethodPathwayForFood() {
         return factoryService.viewModel(new QuantificationMethodPathwayForFood.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right olive"
+    )
     public QuantificationMethodPathwayForFoodGroup.Manager manageQuantificationMethodPathwayForFoodGroup(
             ) {
         return factoryService.viewModel(new QuantificationMethodPathwayForFoodGroup.Manager(searchService, ""));
@@ -440,14 +446,16 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right mediumblue"
+    )
     public FacetDescriptorPathwayForRecipe.Manager manageFacetDescriptorPathwayForRecipe() {
         return factoryService.viewModel(new FacetDescriptorPathwayForRecipe.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid right-left"
+            cssClassFa = "solid person-walking-arrow-right steelblue"
     )
     public FacetDescriptorPathwayForRecipeGroup.Manager manageFacetDescriptorPathwayForRecipeGroup(
             ) {
@@ -498,21 +506,25 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid right-left"
+            cssClassFa = "solid person-walking-arrow-right mediumblue"
     )
     public ProbingQuestionPathwayForRecipe.Manager manageProbingQuestionPathwayForRecipe() {
         return factoryService.viewModel(new ProbingQuestionPathwayForRecipe.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right mediumblue"
+    )
     public QuantificationMethodPathwayForRecipe.Manager manageQuantificationMethodPathwayForRecipe(
             ) {
         return factoryService.viewModel(new QuantificationMethodPathwayForRecipe.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right steelblue"
+    )
     public QuantificationMethodPathwayForRecipeGroup.Manager manageQuantificationMethodPathwayForRecipeGroup(
             ) {
         return factoryService.viewModel(new QuantificationMethodPathwayForRecipeGroup.Manager(searchService, ""));
@@ -556,7 +568,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right mediumblue"
+    )
     public RecipeTypePathway.Manager manageRecipeTypePathway() {
         return factoryService.viewModel(new RecipeTypePathway.Manager(searchService, ""));
     }

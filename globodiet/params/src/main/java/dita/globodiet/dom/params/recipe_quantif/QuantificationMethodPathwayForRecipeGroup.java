@@ -59,7 +59,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Quantification methods pathway for recipe group/subgroup.\n"
-                        + "Optionally can be superseded by @{table QM_RECIP}."
+                        + "Optionally can be superseded by @{table QM_RECIP}.",
+        cssClassFa = "solid person-walking-arrow-right steelblue"
 )
 @PersistenceCapable(
         table = "QM_RCLAS"
@@ -255,7 +256,8 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
     @Named("dita.globodiet.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup.Manager")
     @DomainObjectLayout(
             describedAs = "Quantification methods pathway for recipe group/subgroup.\n"
-                            + "Optionally can be superseded by @{table QM_RECIP}."
+                            + "Optionally can be superseded by @{table QM_RECIP}.",
+            cssClassFa = "solid person-walking-arrow-right steelblue"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

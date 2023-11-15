@@ -22,7 +22,7 @@ params.setting.RecipeTypePathway:
   table: RCP_PATH
   secondaryKey:
   title: null
-  icon: null
+  icon: solid person-walking-arrow-right mediumblue
   description: |
     Definition of recipe pathway (available for each recipe type).
   fields:
