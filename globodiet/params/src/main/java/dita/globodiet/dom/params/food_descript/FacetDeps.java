@@ -36,49 +36,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FacetDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(Facet_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFacet.class,
-        Facet_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByMandatoryInSequenceOfFacets.class,
-        Facet_dependentFacetDescriptorMappedByFacet.class,
+        return Can.of(Facet_dependentFacetDescriptorMappedByFacet.class,
+        Facet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
+        Facet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
         Facet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
         Facet_dependentRuleAppliedToFacetMappedByFacet.class,
         Facet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj.class,
         Facet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Facet_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFacet {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Facet mixee;
-
-        @MemberSupport
-        public List<CrossReferenceBetweenFoodGroupAndDescriptor> coll() {
-            return dependantLookup.findDependants(
-                CrossReferenceBetweenFoodGroupAndDescriptor.class,
-                CrossReferenceBetweenFoodGroupAndDescriptor_facet.class,
-                CrossReferenceBetweenFoodGroupAndDescriptor_facet::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Facet_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByMandatoryInSequenceOfFacets {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Facet mixee;
-
-        @MemberSupport
-        public List<ExceptionForSomeFoodToTheFacetDescriptorPathway> coll() {
-            return dependantLookup.findDependants(
-                ExceptionForSomeFoodToTheFacetDescriptorPathway.class,
-                ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequenceOfFacets.class,
-                ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequenceOfFacets::prop,
-                mixee);
-        }
     }
 
     @Collection
@@ -95,6 +59,42 @@ public class FacetDeps {
                 FacetDescriptor.class,
                 FacetDescriptor_facet.class,
                 FacetDescriptor_facet::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Facet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Facet mixee;
+
+        @MemberSupport
+        public List<FacetDescriptorPathwayForFood> coll() {
+            return dependantLookup.findDependants(
+                FacetDescriptorPathwayForFood.class,
+                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets.class,
+                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Facet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Facet mixee;
+
+        @MemberSupport
+        public List<FacetDescriptorPathwayForFoodGroup> coll() {
+            return dependantLookup.findDependants(
+                FacetDescriptorPathwayForFoodGroup.class,
+                FacetDescriptorPathwayForFoodGroup_facet.class,
+                FacetDescriptorPathwayForFoodGroup_facet::prop,
                 mixee);
         }
     }

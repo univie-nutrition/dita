@@ -20,10 +20,10 @@
 package dita.globodiet.dom.params.probing;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_probingQuestion;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_probingQuestion;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_probingQuestion;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_probingQuestion;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -36,42 +36,42 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProbingQuestionDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(ProbingQuestion_dependentProbingQuestionPathwayForFoodsMappedByProbingQuestion.class,
-        ProbingQuestion_dependentProbingQuestionPathwayForRecipesMappedByProbingQuestion.class);
+        return Can.of(ProbingQuestion_dependentProbingQuestionPathwayForFoodMappedByProbingQuestion.class,
+        ProbingQuestion_dependentProbingQuestionPathwayForRecipeMappedByProbingQuestion.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class ProbingQuestion_dependentProbingQuestionPathwayForFoodsMappedByProbingQuestion {
+    public static class ProbingQuestion_dependentProbingQuestionPathwayForFoodMappedByProbingQuestion {
         @Inject
         DependantLookupService dependantLookup;
 
         private final ProbingQuestion mixee;
 
         @MemberSupport
-        public List<ProbingQuestionPathwayForFoods> coll() {
+        public List<ProbingQuestionPathwayForFood> coll() {
             return dependantLookup.findDependants(
-                ProbingQuestionPathwayForFoods.class,
-                ProbingQuestionPathwayForFoods_probingQuestion.class,
-                ProbingQuestionPathwayForFoods_probingQuestion::prop,
+                ProbingQuestionPathwayForFood.class,
+                ProbingQuestionPathwayForFood_probingQuestion.class,
+                ProbingQuestionPathwayForFood_probingQuestion::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class ProbingQuestion_dependentProbingQuestionPathwayForRecipesMappedByProbingQuestion {
+    public static class ProbingQuestion_dependentProbingQuestionPathwayForRecipeMappedByProbingQuestion {
         @Inject
         DependantLookupService dependantLookup;
 
         private final ProbingQuestion mixee;
 
         @MemberSupport
-        public List<ProbingQuestionPathwayForRecipes> coll() {
+        public List<ProbingQuestionPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
-                ProbingQuestionPathwayForRecipes.class,
-                ProbingQuestionPathwayForRecipes_probingQuestion.class,
-                ProbingQuestionPathwayForRecipes_probingQuestion::prop,
+                ProbingQuestionPathwayForRecipe.class,
+                ProbingQuestionPathwayForRecipe_probingQuestion.class,
+                ProbingQuestionPathwayForRecipe_probingQuestion::prop,
                 mixee);
         }
     }

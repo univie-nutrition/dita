@@ -18,7 +18,7 @@ Rough overview of aspects of interest (work in progress):
 
 == Technology Stack
 
-* Java (17+) - Programming Language
+* Java (21+) - Programming Language
 * Spring Boot - Orchestration
 * Apache Causeway - Application Framework
 

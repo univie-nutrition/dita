@@ -31,18 +31,18 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetener
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_descript.Brand;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
 import dita.globodiet.dom.params.food_descript.Facet;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_table.ItemDefinition;
 import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
@@ -66,8 +66,8 @@ import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
@@ -75,9 +75,9 @@ import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
 import dita.globodiet.dom.params.setting.DayOfWeek;
 import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
@@ -194,22 +194,6 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid right-left"
-    )
-    public CrossReferenceBetweenFoodGroupAndDescriptor.Manager manageCrossReferenceBetweenFoodGroupAndDescriptor(
-            ) {
-        return factoryService.viewModel(new CrossReferenceBetweenFoodGroupAndDescriptor.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
-    public ExceptionForSomeFoodToTheFacetDescriptorPathway.Manager manageExceptionForSomeFoodToTheFacetDescriptorPathway(
-            ) {
-        return factoryService.viewModel(new ExceptionForSomeFoodToTheFacetDescriptorPathway.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
             cssClassFa = "tags olive"
     )
     public Facet.Manager manageFacet() {
@@ -222,6 +206,20 @@ public class EntitiesMenu {
     )
     public FacetDescriptor.Manager manageFacetDescriptor() {
         return factoryService.viewModel(new FacetDescriptor.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public FacetDescriptorPathwayForFood.Manager manageFacetDescriptorPathwayForFood() {
+        return factoryService.viewModel(new FacetDescriptorPathwayForFood.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid right-left"
+    )
+    public FacetDescriptorPathwayForFoodGroup.Manager manageFacetDescriptorPathwayForFoodGroup() {
+        return factoryService.viewModel(new FacetDescriptorPathwayForFoodGroup.Manager(searchService, ""));
     }
 
     @Action
@@ -261,21 +259,21 @@ public class EntitiesMenu {
     @ActionLayout(
             cssClassFa = "solid right-left"
     )
-    public ProbingQuestionPathwayForFoods.Manager manageProbingQuestionPathwayForFoods() {
-        return factoryService.viewModel(new ProbingQuestionPathwayForFoods.Manager(searchService, ""));
+    public ProbingQuestionPathwayForFood.Manager manageProbingQuestionPathwayForFood() {
+        return factoryService.viewModel(new ProbingQuestionPathwayForFood.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout
-    public QuantificationMethodsPathwayForFood.Manager manageQuantificationMethodsPathwayForFood() {
-        return factoryService.viewModel(new QuantificationMethodsPathwayForFood.Manager(searchService, ""));
+    public QuantificationMethodPathwayForFood.Manager manageQuantificationMethodPathwayForFood() {
+        return factoryService.viewModel(new QuantificationMethodPathwayForFood.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout
-    public QuantificationMethodsPathwayForFoodGroup.Manager manageQuantificationMethodsPathwayForFoodGroup(
+    public QuantificationMethodPathwayForFoodGroup.Manager manageQuantificationMethodPathwayForFoodGroup(
             ) {
-        return factoryService.viewModel(new QuantificationMethodsPathwayForFoodGroup.Manager(searchService, ""));
+        return factoryService.viewModel(new QuantificationMethodPathwayForFoodGroup.Manager(searchService, ""));
     }
 
     @Action
@@ -442,18 +440,18 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout(
-            cssClassFa = "solid right-left"
-    )
-    public CrossReferenceBetweenRecipeGroupAndDescriptor.Manager manageCrossReferenceBetweenRecipeGroupAndDescriptor(
-            ) {
-        return factoryService.viewModel(new CrossReferenceBetweenRecipeGroupAndDescriptor.Manager(searchService, ""));
+    @ActionLayout
+    public FacetDescriptorPathwayForRecipe.Manager manageFacetDescriptorPathwayForRecipe() {
+        return factoryService.viewModel(new FacetDescriptorPathwayForRecipe.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
-    public ExceptionToFacetsPathwayForRecipe.Manager manageExceptionToFacetsPathwayForRecipe() {
-        return factoryService.viewModel(new ExceptionToFacetsPathwayForRecipe.Manager(searchService, ""));
+    @ActionLayout(
+            cssClassFa = "solid right-left"
+    )
+    public FacetDescriptorPathwayForRecipeGroup.Manager manageFacetDescriptorPathwayForRecipeGroup(
+            ) {
+        return factoryService.viewModel(new FacetDescriptorPathwayForRecipeGroup.Manager(searchService, ""));
     }
 
     @Action
@@ -502,8 +500,8 @@ public class EntitiesMenu {
     @ActionLayout(
             cssClassFa = "solid right-left"
     )
-    public ProbingQuestionPathwayForRecipes.Manager manageProbingQuestionPathwayForRecipes() {
-        return factoryService.viewModel(new ProbingQuestionPathwayForRecipes.Manager(searchService, ""));
+    public ProbingQuestionPathwayForRecipe.Manager manageProbingQuestionPathwayForRecipe() {
+        return factoryService.viewModel(new ProbingQuestionPathwayForRecipe.Manager(searchService, ""));
     }
 
     @Action
@@ -515,9 +513,9 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public QuantificationMethodsPathwayForRecipeGroup.Manager manageQuantificationMethodsPathwayForRecipeGroup(
+    public QuantificationMethodPathwayForRecipeGroup.Manager manageQuantificationMethodPathwayForRecipeGroup(
             ) {
-        return factoryService.viewModel(new QuantificationMethodsPathwayForRecipeGroup.Manager(searchService, ""));
+        return factoryService.viewModel(new QuantificationMethodPathwayForRecipeGroup.Manager(searchService, ""));
     }
 
     @Action

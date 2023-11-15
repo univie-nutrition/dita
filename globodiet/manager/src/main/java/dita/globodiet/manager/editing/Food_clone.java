@@ -65,6 +65,7 @@ public class Food_clone {
 
     protected final Food mixee;
 
+    @MemberSupport
     public Food act(@ParameterTuple final Food.Params p) {
         var clone = factoryService.detachedEntity(new Food());
 
@@ -149,7 +150,7 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByFood.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();
@@ -173,7 +174,7 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentProbingQuestionPathwayForFoodsMappedByFood.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentProbingQuestionPathwayForFoodMappedByFood.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();
@@ -181,7 +182,7 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentQuantificationMethodsPathwayForFoodMappedByFood.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentQuantificationMethodPathwayForFoodMappedByFood.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();

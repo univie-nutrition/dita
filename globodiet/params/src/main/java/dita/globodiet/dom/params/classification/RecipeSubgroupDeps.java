@@ -28,8 +28,8 @@ import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweeten
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor_recipeSubgroup;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_list.Recipe;
@@ -38,8 +38,8 @@ import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipeSubgro
 import dita.globodiet.dom.params.recipe_list.Recipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_recipeSubgroup;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.GroupSubstitution_applyToRecipeGroups;
 import jakarta.inject.Inject;
@@ -58,12 +58,12 @@ public class RecipeSubgroupDeps {
         RecipeSubgroup_dependentThicknessForShapeMethodMappedByRecipeSubgroups.class,
         RecipeSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentBrandForRecipeMappedByRecipeSubgroup.class,
-        RecipeSubgroup_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRuleAppliedToFacetsMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeIngredientMappedByFoodOrRecipeSubgroup.class,
         RecipeSubgroup_dependentMaximumValueForARecipeOrGroupMappedByRecipeSubgroup.class,
-        RecipeSubgroup_dependentProbingQuestionPathwayForRecipesMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentProbingQuestionPathwayForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentGroupSubstitutionMappedByApplyToRecipeGroups.class);
     }
 
@@ -141,18 +141,18 @@ public class RecipeSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeSubgroup_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeSubgroup {
+    public static class RecipeSubgroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeSubgroup mixee;
 
         @MemberSupport
-        public List<CrossReferenceBetweenRecipeGroupAndDescriptor> coll() {
+        public List<FacetDescriptorPathwayForRecipeGroup> coll() {
             return dependantLookup.findDependants(
-                CrossReferenceBetweenRecipeGroupAndDescriptor.class,
-                CrossReferenceBetweenRecipeGroupAndDescriptor_recipeSubgroup.class,
-                CrossReferenceBetweenRecipeGroupAndDescriptor_recipeSubgroup::prop,
+                FacetDescriptorPathwayForRecipeGroup.class,
+                FacetDescriptorPathwayForRecipeGroup_recipeSubgroup.class,
+                FacetDescriptorPathwayForRecipeGroup_recipeSubgroup::prop,
                 mixee);
         }
     }
@@ -231,18 +231,18 @@ public class RecipeSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeSubgroup_dependentProbingQuestionPathwayForRecipesMappedByRecipeSubgroup {
+    public static class RecipeSubgroup_dependentProbingQuestionPathwayForRecipeMappedByRecipeSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeSubgroup mixee;
 
         @MemberSupport
-        public List<ProbingQuestionPathwayForRecipes> coll() {
+        public List<ProbingQuestionPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
-                ProbingQuestionPathwayForRecipes.class,
-                ProbingQuestionPathwayForRecipes_recipeSubgroup.class,
-                ProbingQuestionPathwayForRecipes_recipeSubgroup::prop,
+                ProbingQuestionPathwayForRecipe.class,
+                ProbingQuestionPathwayForRecipe_recipeSubgroup.class,
+                ProbingQuestionPathwayForRecipe_recipeSubgroup::prop,
                 mixee);
         }
     }

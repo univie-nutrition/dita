@@ -32,43 +32,43 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RecipeFacetDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(RecipeFacet_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeFacet.class,
-        RecipeFacet_dependentExceptionToFacetsPathwayForRecipeMappedByRecipeFacet.class,
+        return Can.of(RecipeFacet_dependentFacetDescriptorPathwayForRecipeMappedByRecipeFacet.class,
+        RecipeFacet_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeFacet.class,
         RecipeFacet_dependentRecipeDescriptorMappedByRecipeFacet.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeFacet_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeFacet {
+    public static class RecipeFacet_dependentFacetDescriptorPathwayForRecipeMappedByRecipeFacet {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeFacet mixee;
 
         @MemberSupport
-        public List<CrossReferenceBetweenRecipeGroupAndDescriptor> coll() {
+        public List<FacetDescriptorPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
-                CrossReferenceBetweenRecipeGroupAndDescriptor.class,
-                CrossReferenceBetweenRecipeGroupAndDescriptor_recipeFacet.class,
-                CrossReferenceBetweenRecipeGroupAndDescriptor_recipeFacet::prop,
+                FacetDescriptorPathwayForRecipe.class,
+                FacetDescriptorPathwayForRecipe_recipeFacet.class,
+                FacetDescriptorPathwayForRecipe_recipeFacet::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeFacet_dependentExceptionToFacetsPathwayForRecipeMappedByRecipeFacet {
+    public static class RecipeFacet_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeFacet {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeFacet mixee;
 
         @MemberSupport
-        public List<ExceptionToFacetsPathwayForRecipe> coll() {
+        public List<FacetDescriptorPathwayForRecipeGroup> coll() {
             return dependantLookup.findDependants(
-                ExceptionToFacetsPathwayForRecipe.class,
-                ExceptionToFacetsPathwayForRecipe_recipeFacet.class,
-                ExceptionToFacetsPathwayForRecipe_recipeFacet::prop,
+                FacetDescriptorPathwayForRecipeGroup.class,
+                FacetDescriptorPathwayForRecipeGroup_recipeFacet.class,
+                FacetDescriptorPathwayForRecipeGroup_recipeFacet::prop,
                 mixee);
         }
     }

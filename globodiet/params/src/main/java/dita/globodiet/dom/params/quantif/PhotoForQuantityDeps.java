@@ -20,16 +20,16 @@
 package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_photo;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood_photo;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_photo;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_photo;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_photo;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup_photo;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_photo;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_photo;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -42,45 +42,45 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PhotoForQuantityDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodMappedByPhoto.class,
-        PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhoto.class,
+        return Can.of(PhotoForQuantity_dependentQuantificationMethodPathwayForFoodMappedByPhoto.class,
+        PhotoForQuantity_dependentQuantificationMethodPathwayForFoodGroupMappedByPhoto.class,
         PhotoForQuantity_dependentRecipeIngredientQuantificationMappedByPhoto.class,
         PhotoForQuantity_dependentQuantificationMethodPathwayForRecipeMappedByPhoto.class,
-        PhotoForQuantity_dependentQuantificationMethodsPathwayForRecipeGroupMappedByPhoto.class);
+        PhotoForQuantity_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhoto.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodMappedByPhoto {
+    public static class PhotoForQuantity_dependentQuantificationMethodPathwayForFoodMappedByPhoto {
         @Inject
         DependantLookupService dependantLookup;
 
         private final PhotoForQuantity mixee;
 
         @MemberSupport
-        public List<QuantificationMethodsPathwayForFood> coll() {
+        public List<QuantificationMethodPathwayForFood> coll() {
             return dependantLookup.findDependants(
-                QuantificationMethodsPathwayForFood.class,
-                QuantificationMethodsPathwayForFood_photo.class,
-                QuantificationMethodsPathwayForFood_photo::prop,
+                QuantificationMethodPathwayForFood.class,
+                QuantificationMethodPathwayForFood_photo.class,
+                QuantificationMethodPathwayForFood_photo::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class PhotoForQuantity_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhoto {
+    public static class PhotoForQuantity_dependentQuantificationMethodPathwayForFoodGroupMappedByPhoto {
         @Inject
         DependantLookupService dependantLookup;
 
         private final PhotoForQuantity mixee;
 
         @MemberSupport
-        public List<QuantificationMethodsPathwayForFoodGroup> coll() {
+        public List<QuantificationMethodPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
-                QuantificationMethodsPathwayForFoodGroup.class,
-                QuantificationMethodsPathwayForFoodGroup_photo.class,
-                QuantificationMethodsPathwayForFoodGroup_photo::prop,
+                QuantificationMethodPathwayForFoodGroup.class,
+                QuantificationMethodPathwayForFoodGroup_photo.class,
+                QuantificationMethodPathwayForFoodGroup_photo::prop,
                 mixee);
         }
     }
@@ -123,18 +123,18 @@ public class PhotoForQuantityDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class PhotoForQuantity_dependentQuantificationMethodsPathwayForRecipeGroupMappedByPhoto {
+    public static class PhotoForQuantity_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhoto {
         @Inject
         DependantLookupService dependantLookup;
 
         private final PhotoForQuantity mixee;
 
         @MemberSupport
-        public List<QuantificationMethodsPathwayForRecipeGroup> coll() {
+        public List<QuantificationMethodPathwayForRecipeGroup> coll() {
             return dependantLookup.findDependants(
-                QuantificationMethodsPathwayForRecipeGroup.class,
-                QuantificationMethodsPathwayForRecipeGroup_photo.class,
-                QuantificationMethodsPathwayForRecipeGroup_photo::prop,
+                QuantificationMethodPathwayForRecipeGroup.class,
+                QuantificationMethodPathwayForRecipeGroup_photo.class,
+                QuantificationMethodPathwayForRecipeGroup_photo::prop,
                 mixee);
         }
     }

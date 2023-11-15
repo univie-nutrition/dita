@@ -32,23 +32,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RecipeDescriptorDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(RecipeDescriptor_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeDescriptor.class);
+        return Can.of(RecipeDescriptor_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeDescriptor.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeDescriptor_dependentCrossReferenceBetweenRecipeGroupAndDescriptorMappedByRecipeDescriptor {
+    public static class RecipeDescriptor_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeDescriptor mixee;
 
         @MemberSupport
-        public List<CrossReferenceBetweenRecipeGroupAndDescriptor> coll() {
+        public List<FacetDescriptorPathwayForRecipeGroup> coll() {
             return dependantLookup.findDependants(
-                CrossReferenceBetweenRecipeGroupAndDescriptor.class,
-                CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor.class,
-                CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor::prop,
+                FacetDescriptorPathwayForRecipeGroup.class,
+                FacetDescriptorPathwayForRecipeGroup_recipeDescriptor.class,
+                FacetDescriptorPathwayForRecipeGroup_recipeDescriptor::prop,
                 mixee);
         }
     }

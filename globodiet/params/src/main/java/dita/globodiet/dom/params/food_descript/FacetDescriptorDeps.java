@@ -30,8 +30,8 @@ import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorFor
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_facetDescriptors;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_facetDescriptor;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_facetDescriptors;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
@@ -52,11 +52,11 @@ public class FacetDescriptorDeps {
         FacetDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
         FacetDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
         FacetDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
-        FacetDescriptor_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByDescriptor.class,
+        FacetDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
         FacetDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
         FacetDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor.class,
         FacetDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor.class,
-        FacetDescriptor_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
+        FacetDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
         FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptors.class,
         FacetDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor.class);
     }
@@ -135,18 +135,18 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByDescriptor {
+    public static class FacetDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FacetDescriptor mixee;
 
         @MemberSupport
-        public List<CrossReferenceBetweenFoodGroupAndDescriptor> coll() {
+        public List<FacetDescriptorPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
-                CrossReferenceBetweenFoodGroupAndDescriptor.class,
-                CrossReferenceBetweenFoodGroupAndDescriptor_descriptor.class,
-                CrossReferenceBetweenFoodGroupAndDescriptor_descriptor::prop,
+                FacetDescriptorPathwayForFoodGroup.class,
+                FacetDescriptorPathwayForFoodGroup_descriptor.class,
+                FacetDescriptorPathwayForFoodGroup_descriptor::prop,
                 mixee);
         }
     }
@@ -207,18 +207,18 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentQuantificationMethodsPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor {
+    public static class FacetDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FacetDescriptor mixee;
 
         @MemberSupport
-        public List<QuantificationMethodsPathwayForFoodGroup> coll() {
+        public List<QuantificationMethodPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
-                QuantificationMethodsPathwayForFoodGroup.class,
-                QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor.class,
-                QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor::prop,
+                QuantificationMethodPathwayForFoodGroup.class,
+                QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor.class,
+                QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor::prop,
                 mixee);
         }
     }

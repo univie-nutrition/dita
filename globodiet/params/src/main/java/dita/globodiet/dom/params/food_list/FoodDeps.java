@@ -32,14 +32,14 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_food;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_food;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway_food;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_food;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_food;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_food;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood_food;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_food;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_food;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood_food;
 import dita.globodiet.dom.params.food_table.ItemDefinition;
@@ -71,11 +71,11 @@ public class FoodDeps {
         Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFood.class,
         Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFat.class,
         Food_dependentRawToCookedConversionFactorForFoodMappedByFood.class,
-        Food_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByFood.class,
+        Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class,
         Food_dependentImprobableSequenceOfFacetAndDescriptorMappedByFood.class,
         Food_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
-        Food_dependentProbingQuestionPathwayForFoodsMappedByFood.class,
-        Food_dependentQuantificationMethodsPathwayForFoodMappedByFood.class,
+        Food_dependentProbingQuestionPathwayForFoodMappedByFood.class,
+        Food_dependentQuantificationMethodPathwayForFoodMappedByFood.class,
         Food_dependentStandardPortionForFoodMappedByFood.class,
         Food_dependentItemDefinitionMappedByFoodOrRecipe.class,
         Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
@@ -212,18 +212,18 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentExceptionForSomeFoodToTheFacetDescriptorPathwayMappedByFood {
+    public static class Food_dependentFacetDescriptorPathwayForFoodMappedByFood {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Food mixee;
 
         @MemberSupport
-        public List<ExceptionForSomeFoodToTheFacetDescriptorPathway> coll() {
+        public List<FacetDescriptorPathwayForFood> coll() {
             return dependantLookup.findDependants(
-                ExceptionForSomeFoodToTheFacetDescriptorPathway.class,
-                ExceptionForSomeFoodToTheFacetDescriptorPathway_food.class,
-                ExceptionForSomeFoodToTheFacetDescriptorPathway_food::prop,
+                FacetDescriptorPathwayForFood.class,
+                FacetDescriptorPathwayForFood_food.class,
+                FacetDescriptorPathwayForFood_food::prop,
                 mixee);
         }
     }
@@ -266,36 +266,36 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentProbingQuestionPathwayForFoodsMappedByFood {
+    public static class Food_dependentProbingQuestionPathwayForFoodMappedByFood {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Food mixee;
 
         @MemberSupport
-        public List<ProbingQuestionPathwayForFoods> coll() {
+        public List<ProbingQuestionPathwayForFood> coll() {
             return dependantLookup.findDependants(
-                ProbingQuestionPathwayForFoods.class,
-                ProbingQuestionPathwayForFoods_food.class,
-                ProbingQuestionPathwayForFoods_food::prop,
+                ProbingQuestionPathwayForFood.class,
+                ProbingQuestionPathwayForFood_food.class,
+                ProbingQuestionPathwayForFood_food::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentQuantificationMethodsPathwayForFoodMappedByFood {
+    public static class Food_dependentQuantificationMethodPathwayForFoodMappedByFood {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Food mixee;
 
         @MemberSupport
-        public List<QuantificationMethodsPathwayForFood> coll() {
+        public List<QuantificationMethodPathwayForFood> coll() {
             return dependantLookup.findDependants(
-                QuantificationMethodsPathwayForFood.class,
-                QuantificationMethodsPathwayForFood_food.class,
-                QuantificationMethodsPathwayForFood_food::prop,
+                QuantificationMethodPathwayForFood.class,
+                QuantificationMethodPathwayForFood_food.class,
+                QuantificationMethodPathwayForFood_food::prop,
                 mixee);
         }
     }

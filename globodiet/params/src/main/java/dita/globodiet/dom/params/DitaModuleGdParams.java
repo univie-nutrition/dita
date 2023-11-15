@@ -83,23 +83,23 @@ import dita.globodiet.dom.params.food_descript.Brand_delete;
 import dita.globodiet.dom.params.food_descript.Brand_foodGroup;
 import dita.globodiet.dom.params.food_descript.Brand_foodSubSubgroup;
 import dita.globodiet.dom.params.food_descript.Brand_foodSubgroup;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptorDeps;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_delete;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_descriptor;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_facet;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_foodGroup;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_foodSubSubgroup;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_foodSubgroup;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathwayDeps;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway_delete;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway_food;
-import dita.globodiet.dom.params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequenceOfFacets;
 import dita.globodiet.dom.params.food_descript.Facet;
 import dita.globodiet.dom.params.food_descript.FacetDeps;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorDeps;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodDeps;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroupDeps;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_delete;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_descriptor;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_facet;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_foodGroup;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_foodSubSubgroup;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_foodSubgroup;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_delete;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_food;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor_delete;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor_facet;
 import dita.globodiet.dom.params.food_descript.Facet_delete;
@@ -137,27 +137,27 @@ import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_facetDescr
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_foodGroup;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_foodSubgroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoodsDeps;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_delete;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_food;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_foodGroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_foodSubSubgroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_foodSubgroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_probingQuestion;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodDeps;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroupDeps;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_delete;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_foodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_foodSubSubgroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_foodSubgroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_photo;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood_delete;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood_food;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood_photo;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoodDeps;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_delete;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_food;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_foodGroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_foodSubSubgroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_foodSubgroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_probingQuestion;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodDeps;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroupDeps;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_delete;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodSubSubgroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodSubgroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_photo;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_delete;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_food;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_photo;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFoodDeps;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood_delete;
@@ -250,18 +250,18 @@ import dita.globodiet.dom.params.recipe_description.BrandForRecipeDeps;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe_delete;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe_recipeGroup;
 import dita.globodiet.dom.params.recipe_description.BrandForRecipe_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptorDeps;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor_delete;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor_recipeFacet;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor_recipeGroup;
-import dita.globodiet.dom.params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipeDeps;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe_delete;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe_recipe;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe_recipeFacet;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeDeps;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroupDeps;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup_delete;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup_recipeDescriptor;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup_recipeFacet;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup_recipeGroup;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup_recipeSubgroup;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_delete;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_recipe;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_recipeFacet;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptorDeps;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor_delete;
@@ -303,23 +303,23 @@ import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_delete
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_recipe;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_recipeGroup;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipesDeps;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_delete;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_probingQuestion;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_recipe;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_recipeGroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_recipeSubgroup;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipeDeps;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_delete;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_probingQuestion;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_recipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_recipeGroup;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeDeps;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroupDeps;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup_delete;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup_photo;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup_recipeGroupObj;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_delete;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_photo;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_recipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroupDeps;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_delete;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_photo;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj;
 import dita.globodiet.dom.params.setting.DayOfWeek;
 import dita.globodiet.dom.params.setting.DayOfWeekDeps;
 import dita.globodiet.dom.params.setting.DayOfWeek_delete;
@@ -387,8 +387,6 @@ import org.springframework.context.annotation.Import;
         CenterInvolved.class,
         ComposedRecipeIngredient.class,
         CountryInvolved.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor.class,
         DayOfWeek.class,
         DefinitionOfRecipePathway.class,
         DensityFactorForFood.class,
@@ -397,10 +395,12 @@ import org.springframework.context.annotation.Import;
         DietarySupplementDescriptor.class,
         DietarySupplementFacet.class,
         EdiblePartCoefficientForFood.class,
-        ExceptionForSomeFoodToTheFacetDescriptorPathway.class,
-        ExceptionToFacetsPathwayForRecipe.class,
         Facet.class,
         FacetDescriptor.class,
+        FacetDescriptorPathwayForFood.class,
+        FacetDescriptorPathwayForFoodGroup.class,
+        FacetDescriptorPathwayForRecipe.class,
+        FacetDescriptorPathwayForRecipeGroup.class,
         FacetDescriptorThatCannotBeSubstituted.class,
         Food.class,
         FoodConsumptionOccasion.class,
@@ -426,12 +426,12 @@ import org.springframework.context.annotation.Import;
         PhotoForQuantity.class,
         PlaceOfConsumption.class,
         ProbingQuestion.class,
-        ProbingQuestionPathwayForFoods.class,
-        ProbingQuestionPathwayForRecipes.class,
+        ProbingQuestionPathwayForFood.class,
+        ProbingQuestionPathwayForRecipe.class,
+        QuantificationMethodPathwayForFood.class,
+        QuantificationMethodPathwayForFoodGroup.class,
         QuantificationMethodPathwayForRecipe.class,
-        QuantificationMethodsPathwayForFood.class,
-        QuantificationMethodsPathwayForFoodGroup.class,
-        QuantificationMethodsPathwayForRecipeGroup.class,
+        QuantificationMethodPathwayForRecipeGroup.class,
         RawToCookedConversionFactorForFood.class,
         Recipe.class,
         RecipeDescriptor.class,
@@ -460,8 +460,6 @@ import org.springframework.context.annotation.Import;
         CenterInvolvedDeps.class,
         ComposedRecipeIngredientDeps.class,
         CountryInvolvedDeps.class,
-        CrossReferenceBetweenFoodGroupAndDescriptorDeps.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptorDeps.class,
         DayOfWeekDeps.class,
         DefinitionOfRecipePathwayDeps.class,
         DensityFactorForFoodDeps.class,
@@ -470,10 +468,12 @@ import org.springframework.context.annotation.Import;
         DietarySupplementDescriptorDeps.class,
         DietarySupplementFacetDeps.class,
         EdiblePartCoefficientForFoodDeps.class,
-        ExceptionForSomeFoodToTheFacetDescriptorPathwayDeps.class,
-        ExceptionToFacetsPathwayForRecipeDeps.class,
         FacetDeps.class,
         FacetDescriptorDeps.class,
+        FacetDescriptorPathwayForFoodDeps.class,
+        FacetDescriptorPathwayForFoodGroupDeps.class,
+        FacetDescriptorPathwayForRecipeDeps.class,
+        FacetDescriptorPathwayForRecipeGroupDeps.class,
         FacetDescriptorThatCannotBeSubstitutedDeps.class,
         FoodConsumptionOccasionDeps.class,
         FoodConsumptionOccasionDisplayItemDeps.class,
@@ -499,12 +499,12 @@ import org.springframework.context.annotation.Import;
         PhotoForQuantityDeps.class,
         PlaceOfConsumptionDeps.class,
         ProbingQuestionDeps.class,
-        ProbingQuestionPathwayForFoodsDeps.class,
-        ProbingQuestionPathwayForRecipesDeps.class,
+        ProbingQuestionPathwayForFoodDeps.class,
+        ProbingQuestionPathwayForRecipeDeps.class,
+        QuantificationMethodPathwayForFoodDeps.class,
+        QuantificationMethodPathwayForFoodGroupDeps.class,
         QuantificationMethodPathwayForRecipeDeps.class,
-        QuantificationMethodsPathwayForFoodDeps.class,
-        QuantificationMethodsPathwayForFoodGroupDeps.class,
-        QuantificationMethodsPathwayForRecipeGroupDeps.class,
+        QuantificationMethodPathwayForRecipeGroupDeps.class,
         RawToCookedConversionFactorForFoodDeps.class,
         RecipeDeps.class,
         RecipeDescriptorDeps.class,
@@ -540,17 +540,6 @@ import org.springframework.context.annotation.Import;
         ComposedRecipeIngredient_delete.class,
         ComposedRecipeIngredient_foodOrRecipe.class,
         CountryInvolved_delete.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor_delete.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor_descriptor.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor_facet.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor_foodGroup.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor_foodSubSubgroup.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor_foodSubgroup.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor_delete.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor_recipeDescriptor.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor_recipeFacet.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor_recipeGroup.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor_recipeSubgroup.class,
         DayOfWeek_delete.class,
         DefinitionOfRecipePathway_delete.class,
         DensityFactorForFood_delete.class,
@@ -566,12 +555,23 @@ import org.springframework.context.annotation.Import;
         EdiblePartCoefficientForFood_delete.class,
         EdiblePartCoefficientForFood_facetDescriptor.class,
         EdiblePartCoefficientForFood_food.class,
-        ExceptionForSomeFoodToTheFacetDescriptorPathway_delete.class,
-        ExceptionForSomeFoodToTheFacetDescriptorPathway_food.class,
-        ExceptionForSomeFoodToTheFacetDescriptorPathway_mandatoryInSequenceOfFacets.class,
-        ExceptionToFacetsPathwayForRecipe_delete.class,
-        ExceptionToFacetsPathwayForRecipe_recipe.class,
-        ExceptionToFacetsPathwayForRecipe_recipeFacet.class,
+        FacetDescriptorPathwayForFoodGroup_delete.class,
+        FacetDescriptorPathwayForFoodGroup_descriptor.class,
+        FacetDescriptorPathwayForFoodGroup_facet.class,
+        FacetDescriptorPathwayForFoodGroup_foodGroup.class,
+        FacetDescriptorPathwayForFoodGroup_foodSubSubgroup.class,
+        FacetDescriptorPathwayForFoodGroup_foodSubgroup.class,
+        FacetDescriptorPathwayForFood_delete.class,
+        FacetDescriptorPathwayForFood_food.class,
+        FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets.class,
+        FacetDescriptorPathwayForRecipeGroup_delete.class,
+        FacetDescriptorPathwayForRecipeGroup_recipeDescriptor.class,
+        FacetDescriptorPathwayForRecipeGroup_recipeFacet.class,
+        FacetDescriptorPathwayForRecipeGroup_recipeGroup.class,
+        FacetDescriptorPathwayForRecipeGroup_recipeSubgroup.class,
+        FacetDescriptorPathwayForRecipe_delete.class,
+        FacetDescriptorPathwayForRecipe_recipe.class,
+        FacetDescriptorPathwayForRecipe_recipeFacet.class,
         FacetDescriptorThatCannotBeSubstituted_delete.class,
         FacetDescriptorThatCannotBeSubstituted_descriptor.class,
         FacetDescriptorThatCannotBeSubstituted_facet.class,
@@ -657,33 +657,33 @@ import org.springframework.context.annotation.Import;
         PercentOfFatUseDuringCookingForFood_foodSubgroup.class,
         PhotoForQuantity_delete.class,
         PlaceOfConsumption_delete.class,
-        ProbingQuestionPathwayForFoods_delete.class,
-        ProbingQuestionPathwayForFoods_food.class,
-        ProbingQuestionPathwayForFoods_foodGroup.class,
-        ProbingQuestionPathwayForFoods_foodSubSubgroup.class,
-        ProbingQuestionPathwayForFoods_foodSubgroup.class,
-        ProbingQuestionPathwayForFoods_probingQuestion.class,
-        ProbingQuestionPathwayForRecipes_delete.class,
-        ProbingQuestionPathwayForRecipes_probingQuestion.class,
-        ProbingQuestionPathwayForRecipes_recipe.class,
-        ProbingQuestionPathwayForRecipes_recipeGroup.class,
-        ProbingQuestionPathwayForRecipes_recipeSubgroup.class,
+        ProbingQuestionPathwayForFood_delete.class,
+        ProbingQuestionPathwayForFood_food.class,
+        ProbingQuestionPathwayForFood_foodGroup.class,
+        ProbingQuestionPathwayForFood_foodSubSubgroup.class,
+        ProbingQuestionPathwayForFood_foodSubgroup.class,
+        ProbingQuestionPathwayForFood_probingQuestion.class,
+        ProbingQuestionPathwayForRecipe_delete.class,
+        ProbingQuestionPathwayForRecipe_probingQuestion.class,
+        ProbingQuestionPathwayForRecipe_recipe.class,
+        ProbingQuestionPathwayForRecipe_recipeGroup.class,
+        ProbingQuestionPathwayForRecipe_recipeSubgroup.class,
         ProbingQuestion_delete.class,
+        QuantificationMethodPathwayForFoodGroup_delete.class,
+        QuantificationMethodPathwayForFoodGroup_foodGroup.class,
+        QuantificationMethodPathwayForFoodGroup_foodSubSubgroup.class,
+        QuantificationMethodPathwayForFoodGroup_foodSubgroup.class,
+        QuantificationMethodPathwayForFoodGroup_photo.class,
+        QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor.class,
+        QuantificationMethodPathwayForFood_delete.class,
+        QuantificationMethodPathwayForFood_food.class,
+        QuantificationMethodPathwayForFood_photo.class,
+        QuantificationMethodPathwayForRecipeGroup_delete.class,
+        QuantificationMethodPathwayForRecipeGroup_photo.class,
+        QuantificationMethodPathwayForRecipeGroup_recipeGroupObj.class,
         QuantificationMethodPathwayForRecipe_delete.class,
         QuantificationMethodPathwayForRecipe_photo.class,
         QuantificationMethodPathwayForRecipe_recipe.class,
-        QuantificationMethodsPathwayForFoodGroup_delete.class,
-        QuantificationMethodsPathwayForFoodGroup_foodGroup.class,
-        QuantificationMethodsPathwayForFoodGroup_foodSubSubgroup.class,
-        QuantificationMethodsPathwayForFoodGroup_foodSubgroup.class,
-        QuantificationMethodsPathwayForFoodGroup_photo.class,
-        QuantificationMethodsPathwayForFoodGroup_physicalStateFacetDescriptor.class,
-        QuantificationMethodsPathwayForFood_delete.class,
-        QuantificationMethodsPathwayForFood_food.class,
-        QuantificationMethodsPathwayForFood_photo.class,
-        QuantificationMethodsPathwayForRecipeGroup_delete.class,
-        QuantificationMethodsPathwayForRecipeGroup_photo.class,
-        QuantificationMethodsPathwayForRecipeGroup_recipeGroupObj.class,
         RawToCookedConversionFactorForFood_delete.class,
         RawToCookedConversionFactorForFood_facetDescriptors.class,
         RawToCookedConversionFactorForFood_food.class,
@@ -744,8 +744,6 @@ public class DitaModuleGdParams {
         CenterInvolved.class,
         ComposedRecipeIngredient.class,
         CountryInvolved.class,
-        CrossReferenceBetweenFoodGroupAndDescriptor.class,
-        CrossReferenceBetweenRecipeGroupAndDescriptor.class,
         DayOfWeek.class,
         DefinitionOfRecipePathway.class,
         DensityFactorForFood.class,
@@ -754,10 +752,12 @@ public class DitaModuleGdParams {
         DietarySupplementDescriptor.class,
         DietarySupplementFacet.class,
         EdiblePartCoefficientForFood.class,
-        ExceptionForSomeFoodToTheFacetDescriptorPathway.class,
-        ExceptionToFacetsPathwayForRecipe.class,
         Facet.class,
         FacetDescriptor.class,
+        FacetDescriptorPathwayForFood.class,
+        FacetDescriptorPathwayForFoodGroup.class,
+        FacetDescriptorPathwayForRecipe.class,
+        FacetDescriptorPathwayForRecipeGroup.class,
         FacetDescriptorThatCannotBeSubstituted.class,
         Food.class,
         FoodConsumptionOccasion.class,
@@ -783,12 +783,12 @@ public class DitaModuleGdParams {
         PhotoForQuantity.class,
         PlaceOfConsumption.class,
         ProbingQuestion.class,
-        ProbingQuestionPathwayForFoods.class,
-        ProbingQuestionPathwayForRecipes.class,
+        ProbingQuestionPathwayForFood.class,
+        ProbingQuestionPathwayForRecipe.class,
+        QuantificationMethodPathwayForFood.class,
+        QuantificationMethodPathwayForFoodGroup.class,
         QuantificationMethodPathwayForRecipe.class,
-        QuantificationMethodsPathwayForFood.class,
-        QuantificationMethodsPathwayForFoodGroup.class,
-        QuantificationMethodsPathwayForRecipeGroup.class,
+        QuantificationMethodPathwayForRecipeGroup.class,
         RawToCookedConversionFactorForFood.class,
         Recipe.class,
         RecipeDescriptor.class,

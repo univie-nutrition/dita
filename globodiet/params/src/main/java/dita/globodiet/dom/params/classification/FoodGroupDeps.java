@@ -30,8 +30,8 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_foodGroup;
 import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.dom.params.food_descript.Brand_foodGroup;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor;
-import dita.globodiet.dom.params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor_foodGroup;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_foodGroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodGroup;
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
@@ -40,10 +40,10 @@ import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.Food_foodGroup;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
 import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_foodGroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFoods_foodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup_foodGroup;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_foodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodGroup;
 import dita.globodiet.dom.params.food_table.ItemDefinition;
 import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipeGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
@@ -71,13 +71,13 @@ public class FoodGroupDeps {
         FoodGroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodGroup.class,
         FoodGroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatGroup.class,
         FoodGroup_dependentBrandMappedByFoodGroup.class,
-        FoodGroup_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFoodGroup.class,
+        FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup.class,
         FoodGroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodGroup.class,
         FoodGroup_dependentRuleAppliedToFacetMappedByFoodGroup.class,
         FoodGroup_dependentFoodMappedByFoodGroup.class,
         FoodGroup_dependentMaximumValueForAFoodOrGroupMappedByFoodGroup.class,
-        FoodGroup_dependentProbingQuestionPathwayForFoodsMappedByFoodGroup.class,
-        FoodGroup_dependentQuantificationMethodsPathwayForFoodGroupMappedByFoodGroup.class,
+        FoodGroup_dependentProbingQuestionPathwayForFoodMappedByFoodGroup.class,
+        FoodGroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodGroup.class,
         FoodGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup.class,
         FoodGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatGroup.class,
         FoodGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroup.class,
@@ -212,18 +212,18 @@ public class FoodGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodGroup_dependentCrossReferenceBetweenFoodGroupAndDescriptorMappedByFoodGroup {
+    public static class FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodGroup mixee;
 
         @MemberSupport
-        public List<CrossReferenceBetweenFoodGroupAndDescriptor> coll() {
+        public List<FacetDescriptorPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
-                CrossReferenceBetweenFoodGroupAndDescriptor.class,
-                CrossReferenceBetweenFoodGroupAndDescriptor_foodGroup.class,
-                CrossReferenceBetweenFoodGroupAndDescriptor_foodGroup::prop,
+                FacetDescriptorPathwayForFoodGroup.class,
+                FacetDescriptorPathwayForFoodGroup_foodGroup.class,
+                FacetDescriptorPathwayForFoodGroup_foodGroup::prop,
                 mixee);
         }
     }
@@ -302,36 +302,36 @@ public class FoodGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodGroup_dependentProbingQuestionPathwayForFoodsMappedByFoodGroup {
+    public static class FoodGroup_dependentProbingQuestionPathwayForFoodMappedByFoodGroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodGroup mixee;
 
         @MemberSupport
-        public List<ProbingQuestionPathwayForFoods> coll() {
+        public List<ProbingQuestionPathwayForFood> coll() {
             return dependantLookup.findDependants(
-                ProbingQuestionPathwayForFoods.class,
-                ProbingQuestionPathwayForFoods_foodGroup.class,
-                ProbingQuestionPathwayForFoods_foodGroup::prop,
+                ProbingQuestionPathwayForFood.class,
+                ProbingQuestionPathwayForFood_foodGroup.class,
+                ProbingQuestionPathwayForFood_foodGroup::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodGroup_dependentQuantificationMethodsPathwayForFoodGroupMappedByFoodGroup {
+    public static class FoodGroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodGroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodGroup mixee;
 
         @MemberSupport
-        public List<QuantificationMethodsPathwayForFoodGroup> coll() {
+        public List<QuantificationMethodPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
-                QuantificationMethodsPathwayForFoodGroup.class,
-                QuantificationMethodsPathwayForFoodGroup_foodGroup.class,
-                QuantificationMethodsPathwayForFoodGroup_foodGroup::prop,
+                QuantificationMethodPathwayForFoodGroup.class,
+                QuantificationMethodPathwayForFoodGroup_foodGroup.class,
+                QuantificationMethodPathwayForFoodGroup_foodGroup::prop,
                 mixee);
         }
     }

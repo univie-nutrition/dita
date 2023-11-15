@@ -52,13 +52,13 @@ import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_descript.FacetDescriptor;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodsPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_table.ItemDefinition;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import lombok.val;
 
@@ -182,13 +182,13 @@ implements ForeignKeyLookupService {
                     ? 1 //2
                     : 1;
         }
-        if(entity instanceof QuantificationMethodsPathwayForFood x) {
-            return x.getQuantificationMethod() == QuantificationMethodsPathwayForFood.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForFood x) {
+            return x.getQuantificationMethod() == QuantificationMethodPathwayForFood.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }
-        if(entity instanceof QuantificationMethodsPathwayForFoodGroup x) {
-            return x.getQuantificationMethod() == QuantificationMethodsPathwayForFoodGroup.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForFoodGroup x) {
+            return x.getQuantificationMethod() == QuantificationMethodPathwayForFoodGroup.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }
@@ -197,8 +197,8 @@ implements ForeignKeyLookupService {
                     ? 1
                     : 2;
         }
-        if(entity instanceof QuantificationMethodsPathwayForRecipeGroup x) {
-            return x.getQuantificationMethod() == QuantificationMethodsPathwayForRecipeGroup.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForRecipeGroup x) {
+            return x.getQuantificationMethod() == QuantificationMethodPathwayForRecipeGroup.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
         }

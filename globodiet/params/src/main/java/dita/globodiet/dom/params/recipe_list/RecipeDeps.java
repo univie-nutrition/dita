@@ -30,12 +30,12 @@ import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_description.ExceptionToFacetsPathwayForRecipe_recipe;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_recipe;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup;
 import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_recipe;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipes_recipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_recipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_recipe;
 import jakarta.inject.Inject;
@@ -55,12 +55,12 @@ public class RecipeDeps {
         Recipe_dependentItemDefinitionMappedByFoodOrRecipe.class,
         Recipe_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
         Recipe_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe.class,
-        Recipe_dependentExceptionToFacetsPathwayForRecipeMappedByRecipe.class,
+        Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe.class,
         Recipe_dependentRecipeIngredientMappedByRecipe.class,
         Recipe_dependentRecipeIngredientMappedByFoodOrRecipe.class,
         Recipe_dependentRecipeIngredientQuantificationMappedByRecipe.class,
         Recipe_dependentMaximumValueForARecipeOrGroupMappedByRecipe.class,
-        Recipe_dependentProbingQuestionPathwayForRecipesMappedByRecipe.class,
+        Recipe_dependentProbingQuestionPathwayForRecipeMappedByRecipe.class,
         Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe.class);
     }
 
@@ -156,18 +156,18 @@ public class RecipeDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Recipe_dependentExceptionToFacetsPathwayForRecipeMappedByRecipe {
+    public static class Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Recipe mixee;
 
         @MemberSupport
-        public List<ExceptionToFacetsPathwayForRecipe> coll() {
+        public List<FacetDescriptorPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
-                ExceptionToFacetsPathwayForRecipe.class,
-                ExceptionToFacetsPathwayForRecipe_recipe.class,
-                ExceptionToFacetsPathwayForRecipe_recipe::prop,
+                FacetDescriptorPathwayForRecipe.class,
+                FacetDescriptorPathwayForRecipe_recipe.class,
+                FacetDescriptorPathwayForRecipe_recipe::prop,
                 mixee);
         }
     }
@@ -246,18 +246,18 @@ public class RecipeDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Recipe_dependentProbingQuestionPathwayForRecipesMappedByRecipe {
+    public static class Recipe_dependentProbingQuestionPathwayForRecipeMappedByRecipe {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Recipe mixee;
 
         @MemberSupport
-        public List<ProbingQuestionPathwayForRecipes> coll() {
+        public List<ProbingQuestionPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
-                ProbingQuestionPathwayForRecipes.class,
-                ProbingQuestionPathwayForRecipes_recipe.class,
-                ProbingQuestionPathwayForRecipes_recipe::prop,
+                ProbingQuestionPathwayForRecipe.class,
+                ProbingQuestionPathwayForRecipe_recipe.class,
+                ProbingQuestionPathwayForRecipe_recipe::prop,
                 mixee);
         }
     }

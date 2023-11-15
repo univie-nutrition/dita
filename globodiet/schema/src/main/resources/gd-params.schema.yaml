@@ -681,132 +681,6 @@ params.food_descript.Brand:
         SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
-params.food_descript.CrossReferenceBetweenFoodGroupAndDescriptor:
-  namespace: params.food_descript
-  table: GROUPFAC
-  secondaryKey:
-  title: null
-  icon: solid right-left
-  description: |
-    Cross reference between Food (sub)group and Facet/Descriptor (default pathway)
-  fields:
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Food Subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food Sub-subgroup code
-    facetCode:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        FACETS.FACET_CODE
-      description: |
-        Facet code
-    descriptorCode:
-      column: DESCR_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      discriminator: |
-        FACET_CODE
-      foreignKeys: |
-        DESCFACE.DESCR_CODE
-      description: |
-        Descriptor code
-    defaultFlag:
-      column: DEFAULT
-      column-type: nvarchar(1)
-      required: false
-      unique: false
-      description: |
-        Default flag (if set to 'D' it is the default descriptor)
-    notInNameFlag:
-      column: NOTINNAME
-      column-type: nvarchar(1)
-      required: false
-      unique: false
-      description: |
-        Not in name flag
-    facetDisplayOrder:
-      column: ORDER_FAC
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Order to display the facets within a group/subgroup
-    descriptorDisplayOrder:
-      column: ORDER_DESC
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Order to display the descriptors within a group/subgroup and a facet
-params.food_descript.ExceptionForSomeFoodToTheFacetDescriptorPathway:
-  namespace: params.food_descript
-  table: FOODFAEX
-  secondaryKey:
-  title: null
-  icon: null
-  description: |
-    Exception for some food to the Facets/Descriptors pathway
-  fields:
-    foodCode:
-      column: FOODNUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        FOODS.FOODNUM
-      description: |
-        food ID number
-    mandatoryInSequenceOfFacetsCode:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      foreignKeys: |
-        FACETS.FACET_CODE
-      description: |
-        Facet codes that MUST appear in the sequence of facets corresponding to this food 
-        (superseeding its group pathway).
-        The list of descriptors will be the ones defined for the subgroup in GROUPFAC file 
-        (Assuming always a subset)
-    displayOrder:
-      column: ORDER_FAC
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Order to display the facets for the attached food (same order as order_fac from Groupfac table)
 params.food_descript.Facet:
   namespace: params.food_descript
   table: FACETS
@@ -941,6 +815,133 @@ params.food_descript.FacetDescriptor:
       unique: false
       description: |
         TODO missing description
+params.food_descript.FacetDescriptorPathwayForFood:
+  namespace: params.food_descript
+  table: FOODFAEX
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Facet/descriptor pathway for individual food.
+    Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.
+  fields:
+    foodCode:
+      column: FOODNUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        FOODS.FOODNUM
+      description: |
+        food ID number
+    mandatoryInSequenceOfFacetsCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        FACETS.FACET_CODE
+      description: |
+        Food Facet codes that will appear in the sequence of facets corresponding to this Food 
+        (supersedes this Food's group pathway). 
+        The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.
+    displayOrder:
+      column: ORDER_FAC
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Order to display the facets for the attached food (same order as ORDER_FAC in @{table GROUPFAC})
+params.food_descript.FacetDescriptorPathwayForFoodGroup:
+  namespace: params.food_descript
+  table: GROUPFAC
+  secondaryKey:
+  title: null
+  icon: solid right-left
+  description: |
+    Facet/descriptor pathway for food group/subgroup.
+    Optionally can be superseded by @{table FOODFAEX}.
+  fields:
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food Subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food Sub-subgroup code
+    facetCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        FACETS.FACET_CODE
+      description: |
+        Facet code
+    descriptorCode:
+      column: DESCR_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      discriminator: |
+        FACET_CODE
+      foreignKeys: |
+        DESCFACE.DESCR_CODE
+      description: |
+        Descriptor code
+    defaultFlag:
+      column: DEFAULT
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      description: |
+        Default flag (if set to 'D' it is the default descriptor)
+    notInNameFlag:
+      column: NOTINNAME
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      description: |
+        Not in name flag
+    facetDisplayOrder:
+      column: ORDER_FAC
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Order to display the facets within a group/subgroup
+    descriptorDisplayOrder:
+      column: ORDER_DESC
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Order to display the descriptors within a group/subgroup and a facet
 params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
   namespace: params.food_descript
   table: DESC_IMP
@@ -1296,14 +1297,14 @@ params.food_max.MaximumValueForAFoodOrGroup:
       unique: false
       description: |
         Priority order
-params.food_probing.ProbingQuestionPathwayForFoods:
+params.food_probing.ProbingQuestionPathwayForFood:
   namespace: params.food_probing
   table: PQPATH
   secondaryKey:
   title: null
   icon: solid right-left
   description: |
-    Probing questions pathway for foods
+    Probing question pathway for food.
   fields:
     probingQuestionCode:
       column: PQ_CODE
@@ -1355,14 +1356,15 @@ params.food_probing.ProbingQuestionPathwayForFoods:
         FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
-params.food_quantif.QuantificationMethodsPathwayForFood:
+params.food_quantif.QuantificationMethodPathwayForFood:
   namespace: params.food_quantif
   table: QM_FOODS
   secondaryKey:
   title: null
   icon: null
   description: |
-    Quantification methods pathway for individual foods
+    Quantification method pathway for individual food. 
+    Supersedes this food's group quantification method pathway from @{table QM_GROUP}.
   fields:
     foodCode:
       column: ID_NUM
@@ -1402,14 +1404,15 @@ params.food_quantif.QuantificationMethodsPathwayForFood:
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
-params.food_quantif.QuantificationMethodsPathwayForFoodGroup:
+params.food_quantif.QuantificationMethodPathwayForFoodGroup:
   namespace: params.food_quantif
   table: QM_GROUP
   secondaryKey:
   title: null
   icon: null
   description: |
-    Quantification methods pathway for food groups/subgroups
+    Quantification method pathway for food group/subgroup.
+    Optionally can be superseded by @{table QM_FOODS}.
   fields:
     foodGroupCode:
       column: GROUP
@@ -2683,14 +2686,51 @@ params.recipe_description.BrandForRecipe:
       required: true
       unique: false
       description:
-params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
+params.recipe_description.FacetDescriptorPathwayForRecipe:
+  namespace: params.recipe_description
+  table: R_RCPFAEX
+  secondaryKey:
+  title: null
+  icon: null
+  description: |
+    Facet/descriptor pathway for individual recipe.
+    Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
+  fields:
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe ID number
+    recipeFacetCode:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        R_FACET.RFACET_CODE
+      description: |
+        Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe 
+        (supersedes this Recipe's group pathway). 
+        The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.
+    order:
+      column: ORDER_FAC
+      column-type: int(10)
+      required: true
+      unique: false
+      description:
+params.recipe_description.FacetDescriptorPathwayForRecipeGroup:
   namespace: params.recipe_description
   table: R_GROUPFAC
   secondaryKey:
   title: null
   icon: solid right-left
   description: |
-    Cross reference between Recipe (sub)group and Facet/Descriptor (default pathway)
+    Facet/descriptor pathway for recipe group/subgroup.
+    Optionally can be superseded by @{table R_RCPFAEX}.
   fields:
     recipeGroupCode:
       column: RGROUP
@@ -2760,42 +2800,6 @@ params.recipe_description.CrossReferenceBetweenRecipeGroupAndDescriptor:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
-params.recipe_description.ExceptionToFacetsPathwayForRecipe:
-  namespace: params.recipe_description
-  table: R_RCPFAEX
-  secondaryKey:
-  title: null
-  icon: null
-  description: |
-    Exceptions for some Recipes to the Facets/Descriptors pathway
-  fields:
-    recipeCode:
-      column: R_IDNUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
-      description: |
-        Recipe ID number
-    recipeFacetCode:
-      column: RFACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        R_FACET.RFACET_CODE
-      description: |
-        Recipe Facet codes that MUST appear in the sequence of facets corresponding to this recipe 
-        (superseeding its group pathway). 
-        The list of descriptors will be the ones defined for the subgroup in R_GROUPFAC file 
-        (Assuming always a subset)
-    order:
-      column: ORDER_FAC
-      column-type: int(10)
-      required: true
-      unique: false
-      description:
 params.recipe_description.RecipeDescriptor:
   namespace: params.recipe_description
   table: R_DESCFACE
@@ -3605,14 +3609,14 @@ params.recipe_max.MaximumValueForARecipeOrGroup:
       unique: false
       description: |
         Maximum value
-params.recipe_probing.ProbingQuestionPathwayForRecipes:
+params.recipe_probing.ProbingQuestionPathwayForRecipe:
   namespace: params.recipe_probing
   table: RPQPATH
   secondaryKey:
   title: null
   icon: solid right-left
   description: |
-    Probing question pathway for recipes
+    Probing question pathway for recipe.
   fields:
     probingQuestionCode:
       column: PQ_CODE
@@ -3659,7 +3663,8 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
   title: null
   icon: null
   description: |
-    Quantification methods pathway for recipes
+    Quantification method pathway for individual recipe. 
+    Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
   fields:
     recipeCode:
       column: ID_NUM
@@ -3697,14 +3702,15 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
       description: |
         Photo code (if method='P' and 'A'); 
         either M_photos.ph_code or M_shapes.sh_code
-params.recipe_quantif.QuantificationMethodsPathwayForRecipeGroup:
+params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup:
   namespace: params.recipe_quantif
   table: QM_RCLAS
   secondaryKey:
   title: null
   icon: null
   description: |
-    Quantification methods pathway for recipe group/subgroups
+    Quantification methods pathway for recipe group/subgroup.
+    Optionally can be superseded by @{table QM_RECIP}.
   fields:
     recipeGroup:
       column: R_GROUP
