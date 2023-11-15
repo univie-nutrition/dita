@@ -47,11 +47,16 @@ public class Dashboard_menuLayoutGenerator {
         val gdParamsSchema = dashboard.gdParamsSchema;
         val entitiesWithoutRelations =  gdParamsSchema.findEntitiesWithoutRelations();
         val interviewMenu =  gdParamsSchema.entities().values().stream()
-                .filter(e->e.namespace().equals("params.interview")).collect(Can.toCan());
+                .filter(e->e.namespace().equals("params.interview"))
+                .collect(Can.toCan());
         val supplementMenu =  gdParamsSchema.entities().values().stream()
-                .filter(e->e.namespace().equals("params.supplement")).collect(Can.toCan());
+                .filter(e->e.namespace().equals("params.supplement"))
+                .collect(Can.toCan());
+        //TODO needs 2 named sections: Food and Recipe
         val pathwayMenu =  gdParamsSchema.entities().values().stream()
-                .filter(e->e.namespace().equals("params.supplement")).collect(Can.toCan());
+                .filter(e->e.name().contains("Pathway"))
+                .sorted((a, b)->a.name().compareTo(b.name()))
+                .collect(Can.toCan());
         val allManagersMenu =  gdParamsSchema.entities().values().stream()
                 .sorted((a, b)->a.name().compareTo(b.name()))
                 .collect(Can.toCan());

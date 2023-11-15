@@ -79,12 +79,12 @@ import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
 import dita.globodiet.dom.params.setting.DayOfWeek;
-import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.MacroNutrientLimit;
 import dita.globodiet.dom.params.setting.Month;
 import dita.globodiet.dom.params.setting.NoteStatus;
+import dita.globodiet.dom.params.setting.RecipeTypePathway;
 import dita.globodiet.dom.params.setting.SelectedParameter;
 import dita.globodiet.dom.params.setting.SelectedParameterForDataEntry;
 import dita.globodiet.dom.params.supplement.DietarySupplement;
@@ -526,12 +526,6 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public DefinitionOfRecipePathway.Manager manageDefinitionOfRecipePathway() {
-        return factoryService.viewModel(new DefinitionOfRecipePathway.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
     public FacetDescriptorThatCannotBeSubstituted.Manager manageFacetDescriptorThatCannotBeSubstituted(
             ) {
         return factoryService.viewModel(new FacetDescriptorThatCannotBeSubstituted.Manager(searchService, ""));
@@ -559,6 +553,12 @@ public class EntitiesMenu {
     @ActionLayout
     public NoteStatus.Manager manageNoteStatus() {
         return factoryService.viewModel(new NoteStatus.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public RecipeTypePathway.Manager manageRecipeTypePathway() {
+        return factoryService.viewModel(new RecipeTypePathway.Manager(searchService, ""));
     }
 
     @Action

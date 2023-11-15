@@ -53,12 +53,12 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Definition of recipe pathway (available for each recipe type)
+ * Definition of recipe pathway (available for each recipe type).
  */
-@Named("dita.globodiet.params.setting.DefinitionOfRecipePathway")
+@Named("dita.globodiet.params.setting.RecipeTypePathway")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Definition of recipe pathway (available for each recipe type)"
+        describedAs = "Definition of recipe pathway (available for each recipe type)."
 )
 @PersistenceCapable(
         table = "RCP_PATH"
@@ -67,7 +67,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class DefinitionOfRecipePathway implements Cloneable<DefinitionOfRecipePathway> {
+public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
     @Inject
     RepositoryService repositoryService;
 
@@ -273,7 +273,7 @@ public class DefinitionOfRecipePathway implements Cloneable<DefinitionOfRecipePa
 
     @Override
     public String toString() {
-        return "DefinitionOfRecipePathway(" + "typeOfRecipe=" + getTypeOfRecipe() + ","
+        return "RecipeTypePathway(" + "typeOfRecipe=" + getTypeOfRecipe() + ","
          +"ingredientWindowIsDisplayedQ=" + getIngredientWindowIsDisplayedQ() + ","
          +"functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed=" + getFunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed() + ","
          +"functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed=" + getFunctionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed() + ","
@@ -282,8 +282,8 @@ public class DefinitionOfRecipePathway implements Cloneable<DefinitionOfRecipePa
 
     @Programmatic
     @Override
-    public DefinitionOfRecipePathway copy() {
-        var copy = repositoryService.detachedEntity(new DefinitionOfRecipePathway());
+    public RecipeTypePathway copy() {
+        var copy = repositoryService.detachedEntity(new RecipeTypePathway());
         copy.setTypeOfRecipe(getTypeOfRecipe());
         copy.setIngredientWindowIsDisplayedQ(getIngredientWindowIsDisplayedQ());
         copy.setFunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed(getFunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed());
@@ -300,8 +300,8 @@ public class DefinitionOfRecipePathway implements Cloneable<DefinitionOfRecipePa
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public DefinitionOfRecipePathway.Manager getNavigableParent() {
-        return new DefinitionOfRecipePathway.Manager(searchService, "");
+    public RecipeTypePathway.Manager getNavigableParent() {
+        return new RecipeTypePathway.Manager(searchService, "");
     }
 
     @RequiredArgsConstructor
@@ -460,11 +460,11 @@ public class DefinitionOfRecipePathway implements Cloneable<DefinitionOfRecipePa
     }
 
     /**
-     * Manager Viewmodel for @{link DefinitionOfRecipePathway}
+     * Manager Viewmodel for @{link RecipeTypePathway}
      */
-    @Named("dita.globodiet.params.setting.DefinitionOfRecipePathway.Manager")
+    @Named("dita.globodiet.params.setting.RecipeTypePathway.Manager")
     @DomainObjectLayout(
-            describedAs = "Definition of recipe pathway (available for each recipe type)"
+            describedAs = "Definition of recipe pathway (available for each recipe type)."
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -483,12 +483,12 @@ public class DefinitionOfRecipePathway implements Cloneable<DefinitionOfRecipePa
 
         @ObjectSupport
         public String title() {
-            return "Manage Definition Of Recipe Pathway";
+            return "Manage Recipe Type Pathway";
         }
 
         @Collection
-        public final List<DefinitionOfRecipePathway> getListOfDefinitionOfRecipePathway() {
-            return searchService.search(DefinitionOfRecipePathway.class, DefinitionOfRecipePathway::title, search);
+        public final List<RecipeTypePathway> getListOfRecipeTypePathway() {
+            return searchService.search(RecipeTypePathway.class, RecipeTypePathway::title, search);
         }
 
         @Override

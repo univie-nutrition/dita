@@ -24,7 +24,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DefinitionOfRecipePathwayDeps {
+public class RecipeTypePathwayDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of();
     }

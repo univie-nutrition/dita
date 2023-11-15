@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this DefinitionOfRecipePathway",
+        describedAs = "Delete this RecipeTypePathway",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class DefinitionOfRecipePathway_delete {
+public class RecipeTypePathway_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class DefinitionOfRecipePathway_delete {
     @Inject
     SearchService searchService;
 
-    private final DefinitionOfRecipePathway mixee;
+    private final RecipeTypePathway mixee;
 
     @MemberSupport
-    public DefinitionOfRecipePathway.Manager act(
+    public RecipeTypePathway.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new DefinitionOfRecipePathway.Manager(searchService, "");
+        return new RecipeTypePathway.Manager(searchService, "");
     }
 
     @MemberSupport

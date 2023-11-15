@@ -323,9 +323,6 @@ import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRe
 import dita.globodiet.dom.params.setting.DayOfWeek;
 import dita.globodiet.dom.params.setting.DayOfWeekDeps;
 import dita.globodiet.dom.params.setting.DayOfWeek_delete;
-import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway;
-import dita.globodiet.dom.params.setting.DefinitionOfRecipePathwayDeps;
-import dita.globodiet.dom.params.setting.DefinitionOfRecipePathway_delete;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstitutedDeps;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted_delete;
@@ -348,6 +345,9 @@ import dita.globodiet.dom.params.setting.Month_delete;
 import dita.globodiet.dom.params.setting.NoteStatus;
 import dita.globodiet.dom.params.setting.NoteStatusDeps;
 import dita.globodiet.dom.params.setting.NoteStatus_delete;
+import dita.globodiet.dom.params.setting.RecipeTypePathway;
+import dita.globodiet.dom.params.setting.RecipeTypePathwayDeps;
+import dita.globodiet.dom.params.setting.RecipeTypePathway_delete;
 import dita.globodiet.dom.params.setting.SelectedParameter;
 import dita.globodiet.dom.params.setting.SelectedParameterDeps;
 import dita.globodiet.dom.params.setting.SelectedParameterForDataEntry;
@@ -388,7 +388,6 @@ import org.springframework.context.annotation.Import;
         ComposedRecipeIngredient.class,
         CountryInvolved.class,
         DayOfWeek.class,
-        DefinitionOfRecipePathway.class,
         DensityFactorForFood.class,
         DietarySupplement.class,
         DietarySupplementClassification.class,
@@ -440,6 +439,7 @@ import org.springframework.context.annotation.Import;
         RecipeIngredient.class,
         RecipeIngredientQuantification.class,
         RecipeSubgroup.class,
+        RecipeTypePathway.class,
         RuleAppliedToFacet.class,
         RuleAppliedToFacets.class,
         SelectedParameter.class,
@@ -461,7 +461,6 @@ import org.springframework.context.annotation.Import;
         ComposedRecipeIngredientDeps.class,
         CountryInvolvedDeps.class,
         DayOfWeekDeps.class,
-        DefinitionOfRecipePathwayDeps.class,
         DensityFactorForFoodDeps.class,
         DietarySupplementClassificationDeps.class,
         DietarySupplementDeps.class,
@@ -513,6 +512,7 @@ import org.springframework.context.annotation.Import;
         RecipeIngredientDeps.class,
         RecipeIngredientQuantificationDeps.class,
         RecipeSubgroupDeps.class,
+        RecipeTypePathwayDeps.class,
         RuleAppliedToFacetDeps.class,
         RuleAppliedToFacetsDeps.class,
         SelectedParameterDeps.class,
@@ -541,7 +541,6 @@ import org.springframework.context.annotation.Import;
         ComposedRecipeIngredient_foodOrRecipe.class,
         CountryInvolved_delete.class,
         DayOfWeek_delete.class,
-        DefinitionOfRecipePathway_delete.class,
         DensityFactorForFood_delete.class,
         DensityFactorForFood_facetDescriptors.class,
         DensityFactorForFood_foodOrRecipe.class,
@@ -706,6 +705,7 @@ import org.springframework.context.annotation.Import;
         RecipeIngredient_recipe.class,
         RecipeSubgroup_delete.class,
         RecipeSubgroup_recipeGroup.class,
+        RecipeTypePathway_delete.class,
         Recipe_delete.class,
         Recipe_recipeGroup.class,
         Recipe_recipeSubgroup.class,
@@ -745,7 +745,6 @@ public class DitaModuleGdParams {
         ComposedRecipeIngredient.class,
         CountryInvolved.class,
         DayOfWeek.class,
-        DefinitionOfRecipePathway.class,
         DensityFactorForFood.class,
         DietarySupplement.class,
         DietarySupplementClassification.class,
@@ -797,6 +796,7 @@ public class DitaModuleGdParams {
         RecipeIngredient.class,
         RecipeIngredientQuantification.class,
         RecipeSubgroup.class,
+        RecipeTypePathway.class,
         RuleAppliedToFacet.class,
         RuleAppliedToFacets.class,
         SelectedParameter.class,

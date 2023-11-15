@@ -17,14 +17,14 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.DefinitionOfRecipePathway:
+params.setting.RecipeTypePathway:
   namespace: params.setting
   table: RCP_PATH
   secondaryKey:
   title: null
   icon: null
   description: |
-    Definition of recipe pathway (available for each recipe type)
+    Definition of recipe pathway (available for each recipe type).
   fields:
     typeOfRecipe:
       column: R_TYPE
