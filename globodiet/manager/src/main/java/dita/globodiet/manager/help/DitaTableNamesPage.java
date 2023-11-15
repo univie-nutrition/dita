@@ -52,21 +52,25 @@ public class DitaTableNamesPage implements HelpPage {
 
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->{
-            doc.setTitle("Table Names (UI vs Database)");
+            doc.setTitle("Tables (UI vs Database)");
 
             var table = table(doc);
-            table.setAttribute("cols", "3m,2m", true);
+            table.setAttribute("cols", "3m,2m,1m,4m", true);
 
-            headCell(table, 0, 0, "UI");
-            headCell(table, 0, 1, "Database");
+            headCell(table, 0, 0, "Namespace");
+            headCell(table, 0, 1, "UI");
+            headCell(table, 0, 2, "Database");
+            headCell(table, 0, 3, "Description");
 
             gdParamsSchema.entities().values()
             .stream()
             .sorted((a, b)->a.name().compareTo(b.name()))
             .forEach(t->{
                 var row = row(table);
+                cell(table, row, t.namespace());
                 cell(table, row, t.name());
                 cell(table, row, t.table());
+                cell(table, row, t.formatDescription("\n"));
             });
         });
         return adoc.buildAsValue();

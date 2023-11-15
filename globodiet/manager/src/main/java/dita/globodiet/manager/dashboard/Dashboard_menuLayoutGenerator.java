@@ -50,6 +50,8 @@ public class Dashboard_menuLayoutGenerator {
                 .filter(e->e.namespace().equals("params.interview")).collect(Can.toCan());
         val supplementMenu =  gdParamsSchema.entities().values().stream()
                 .filter(e->e.namespace().equals("params.supplement")).collect(Can.toCan());
+        val pathwayMenu =  gdParamsSchema.entities().values().stream()
+                .filter(e->e.namespace().equals("params.supplement")).collect(Can.toCan());
         val allManagersMenu =  gdParamsSchema.entities().values().stream()
                 .sorted((a, b)->a.name().compareTo(b.name()))
                 .collect(Can.toCan());
@@ -60,13 +62,19 @@ public class Dashboard_menuLayoutGenerator {
             val sourceBlock = AsciiDocFactory.sourceBlock(doc, "xml", String.format(
             """
             <mb:menu>
-                <mb:named>Supplements</mb:named>
+                <mb:named>Interviews</mb:named>
                 <mb:section>
                     %s
                 </mb:section>
             </mb:menu>
             <mb:menu>
-                <mb:named>Interviews</mb:named>
+                <mb:named>Pathways</mb:named>
+                <mb:section>
+                    %s
+                </mb:section>
+            </mb:menu>
+            <mb:menu>
+                <mb:named>Supplements</mb:named>
                 <mb:section>
                     %s
                 </mb:section>
@@ -84,8 +92,9 @@ public class Dashboard_menuLayoutGenerator {
                 </mb:section>
             </mb:menu>
             """,
-            toServiceActionXmlLayoutEntries(supplementMenu),
             toServiceActionXmlLayoutEntries(interviewMenu),
+            toServiceActionXmlLayoutEntries(pathwayMenu),
+            toServiceActionXmlLayoutEntries(supplementMenu),
             toServiceActionXmlLayoutEntries(entitiesWithoutRelations),
             toServiceActionXmlLayoutEntries(allManagersMenu)
             ));
