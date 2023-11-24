@@ -56,7 +56,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Brandname list for mixed recipes",
         cssClassFa = "solid stroopwafel .recipe-color,\n"
-                        + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                        + "brands shopify .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "R_BRAND"
@@ -177,7 +177,7 @@ public class RecipeBrand implements Cloneable<RecipeBrand> {
     @DomainObjectLayout(
             describedAs = "Brandname list for mixed recipes",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                            + "brands shopify .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

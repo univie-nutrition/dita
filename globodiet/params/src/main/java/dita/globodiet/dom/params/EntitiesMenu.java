@@ -212,7 +212,7 @@ public class EntitiesMenu {
     @Action
     @ActionLayout(
             cssClassFa = "solid utensils .food-color,\n"
-                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                            + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     public FoodBrand.Manager manageFoodBrand() {
         return factoryService.viewModel(new FoodBrand.Manager(searchService, ""));
@@ -476,7 +476,7 @@ public class EntitiesMenu {
     @Action
     @ActionLayout(
             cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                            + "brands shopify .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     public RecipeBrand.Manager manageRecipeBrand() {
         return factoryService.viewModel(new RecipeBrand.Manager(searchService, ""));

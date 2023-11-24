@@ -788,7 +788,7 @@ params.food_descript.FoodBrand:
   title: String.format("%s", nameOfBrand)
   icon: |
     solid utensils .food-color,
-    brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
   description: |
     Brand names are used in the food description phase
@@ -2819,7 +2819,7 @@ params.recipe_description.RecipeBrand:
   title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
   icon: |
     solid stroopwafel .recipe-color,
-    brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    brands shopify .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
   description: |
     Brandname list for mixed recipes

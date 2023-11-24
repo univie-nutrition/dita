@@ -66,7 +66,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Brand names are used in the food description phase",
         cssClassFa = "solid utensils .food-color,\n"
-                        + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                        + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "BRANDNAM"
@@ -214,7 +214,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     @DomainObjectLayout(
             describedAs = "Brand names are used in the food description phase",
             cssClassFa = "solid utensils .food-color,\n"
-                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                            + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

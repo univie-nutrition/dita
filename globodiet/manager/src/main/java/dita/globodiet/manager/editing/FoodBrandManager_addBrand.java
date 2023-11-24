@@ -40,7 +40,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 @Action
-@ActionLayout(fieldSetId="listOfBrand", position = Position.PANEL)
+@ActionLayout(fieldSetId="listOfFoodBrand", position = Position.PANEL)
 @RequiredArgsConstructor
 public class FoodBrandManager_addBrand {
 
