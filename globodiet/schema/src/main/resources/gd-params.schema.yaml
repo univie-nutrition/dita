@@ -643,58 +643,6 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       unique: false
       description: |
         Priority order
-params.food_descript.Brand:
-  namespace: params.food_descript
-  table: BRANDNAM
-  secondaryKey: |
-    NAME
-    GROUP
-    SUBGROUP1
-    SUBGROUP2
-  title: String.format("%s", nameOfBrand)
-  icon: brands shopify .brand-color
-  description: |
-    Brand names are used in the food description phase
-  fields:
-    nameOfBrand:
-      column: NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: false
-      description: |
-        Name of brand
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Food subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food sub-subgroup code
 params.food_descript.FacetDescriptorPathwayForFood:
   namespace: params.food_descript
   table: FOODFAEX
@@ -829,6 +777,61 @@ params.food_descript.FacetDescriptorPathwayForFoodGroup:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
+params.food_descript.FoodBrand:
+  namespace: params.food_descript
+  table: BRANDNAM
+  secondaryKey: |
+    NAME
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
+  title: String.format("%s", nameOfBrand)
+  icon: |
+    solid utensils .food-color,
+    brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  description: |
+    Brand names are used in the food description phase
+  fields:
+    nameOfBrand:
+      column: NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: false
+      description: |
+        Name of brand
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-subgroup code
 params.food_descript.FoodDescriptor:
   namespace: params.food_descript
   table: DESCFACE
@@ -2688,41 +2691,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: false
       description: |
         Percentage of fat
-params.recipe_description.BrandForRecipe:
-  namespace: params.recipe_description
-  table: R_BRAND
-  secondaryKey:
-  title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
-  icon: brands shopify .brand-color
-  description: |
-    Brandname list for mixed recipes
-  fields:
-    recipeGroupCode:
-      column: RGROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        RGROUPS.GROUP
-      description: |
-        Recipe group
-    recipeSubgroupCode:
-      column: RSUBGROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        RGROUP
-      foreignKeys: |
-        RSUBGR.SUBGROUP
-      description: |
-        Recipe subgroup
-    recipeName:
-      column: RNAME
-      column-type: nvarchar(100)
-      required: true
-      unique: false
-      description:
 params.recipe_description.FacetDescriptorPathwayForRecipe:
   namespace: params.recipe_description
   table: R_RCPFAEX
@@ -2844,6 +2812,44 @@ params.recipe_description.FacetDescriptorPathwayForRecipeGroup:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
+params.recipe_description.RecipeBrand:
+  namespace: params.recipe_description
+  table: R_BRAND
+  secondaryKey:
+  title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
+  icon: |
+    solid stroopwafel .recipe-color,
+    brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  description: |
+    Brandname list for mixed recipes
+  fields:
+    recipeGroupCode:
+      column: RGROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        RGROUPS.GROUP
+      description: |
+        Recipe group
+    recipeSubgroupCode:
+      column: RSUBGROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        RGROUP
+      foreignKeys: |
+        RSUBGR.SUBGROUP
+      description: |
+        Recipe subgroup
+    recipeName:
+      column: RNAME
+      column-type: nvarchar(100)
+      required: true
+      unique: false
+      description:
 params.recipe_description.RecipeDescriptor:
   namespace: params.recipe_description
   table: R_DESCFACE

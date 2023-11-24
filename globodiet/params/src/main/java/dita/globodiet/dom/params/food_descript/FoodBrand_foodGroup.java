@@ -39,11 +39,11 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class Brand_foodGroup {
+public class FoodBrand_foodGroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final Brand mixee;
+    private final FoodBrand mixee;
 
     @MemberSupport
     public FoodGroup prop() {

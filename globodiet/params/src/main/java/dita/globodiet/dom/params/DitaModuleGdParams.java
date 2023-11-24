@@ -77,12 +77,6 @@ import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorFor
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_delete;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_facetDescriptors;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_food;
-import dita.globodiet.dom.params.food_descript.Brand;
-import dita.globodiet.dom.params.food_descript.BrandDeps;
-import dita.globodiet.dom.params.food_descript.Brand_delete;
-import dita.globodiet.dom.params.food_descript.Brand_foodGroup;
-import dita.globodiet.dom.params.food_descript.Brand_foodSubSubgroup;
-import dita.globodiet.dom.params.food_descript.Brand_foodSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodDeps;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
@@ -96,6 +90,12 @@ import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGrou
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_delete;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_food;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
+import dita.globodiet.dom.params.food_descript.FoodBrand;
+import dita.globodiet.dom.params.food_descript.FoodBrandDeps;
+import dita.globodiet.dom.params.food_descript.FoodBrand_delete;
+import dita.globodiet.dom.params.food_descript.FoodBrand_foodGroup;
+import dita.globodiet.dom.params.food_descript.FoodBrand_foodSubSubgroup;
+import dita.globodiet.dom.params.food_descript.FoodBrand_foodSubgroup;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodDescriptorDeps;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor_delete;
@@ -245,11 +245,6 @@ import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweeten
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
-import dita.globodiet.dom.params.recipe_description.BrandForRecipeDeps;
-import dita.globodiet.dom.params.recipe_description.BrandForRecipe_delete;
-import dita.globodiet.dom.params.recipe_description.BrandForRecipe_recipeGroup;
-import dita.globodiet.dom.params.recipe_description.BrandForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeDeps;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
@@ -262,6 +257,11 @@ import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRec
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_delete;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_recipe;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_recipeFacet;
+import dita.globodiet.dom.params.recipe_description.RecipeBrand;
+import dita.globodiet.dom.params.recipe_description.RecipeBrandDeps;
+import dita.globodiet.dom.params.recipe_description.RecipeBrand_delete;
+import dita.globodiet.dom.params.recipe_description.RecipeBrand_recipeGroup;
+import dita.globodiet.dom.params.recipe_description.RecipeBrand_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptorDeps;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor_delete;
@@ -382,8 +382,6 @@ import org.springframework.context.annotation.Import;
 
         // Entities,
         AnthropometricAverage.class,
-        Brand.class,
-        BrandForRecipe.class,
         CenterInvolved.class,
         ComposedRecipeIngredient.class,
         CountryInvolved.class,
@@ -400,6 +398,7 @@ import org.springframework.context.annotation.Import;
         FacetDescriptorPathwayForRecipeGroup.class,
         FacetDescriptorThatCannotBeSubstituted.class,
         Food.class,
+        FoodBrand.class,
         FoodConsumptionOccasion.class,
         FoodConsumptionOccasionDisplayItem.class,
         FoodDescriptor.class,
@@ -433,6 +432,7 @@ import org.springframework.context.annotation.Import;
         QuantificationMethodPathwayForRecipeGroup.class,
         RawToCookedConversionFactorForFood.class,
         Recipe.class,
+        RecipeBrand.class,
         RecipeDescriptor.class,
         RecipeFacet.class,
         RecipeGroup.class,
@@ -455,8 +455,6 @@ import org.springframework.context.annotation.Import;
 
         // Submodules,
         AnthropometricAverageDeps.class,
-        BrandDeps.class,
-        BrandForRecipeDeps.class,
         CenterInvolvedDeps.class,
         ComposedRecipeIngredientDeps.class,
         CountryInvolvedDeps.class,
@@ -472,6 +470,7 @@ import org.springframework.context.annotation.Import;
         FacetDescriptorPathwayForRecipeDeps.class,
         FacetDescriptorPathwayForRecipeGroupDeps.class,
         FacetDescriptorThatCannotBeSubstitutedDeps.class,
+        FoodBrandDeps.class,
         FoodConsumptionOccasionDeps.class,
         FoodConsumptionOccasionDisplayItemDeps.class,
         FoodDeps.class,
@@ -505,6 +504,7 @@ import org.springframework.context.annotation.Import;
         QuantificationMethodPathwayForRecipeDeps.class,
         QuantificationMethodPathwayForRecipeGroupDeps.class,
         RawToCookedConversionFactorForFoodDeps.class,
+        RecipeBrandDeps.class,
         RecipeDeps.class,
         RecipeDescriptorDeps.class,
         RecipeFacetDeps.class,
@@ -528,13 +528,6 @@ import org.springframework.context.annotation.Import;
 
         // Mixins,
         AnthropometricAverage_delete.class,
-        BrandForRecipe_delete.class,
-        BrandForRecipe_recipeGroup.class,
-        BrandForRecipe_recipeSubgroup.class,
-        Brand_delete.class,
-        Brand_foodGroup.class,
-        Brand_foodSubSubgroup.class,
-        Brand_foodSubgroup.class,
         CenterInvolved_attachedCountry.class,
         CenterInvolved_delete.class,
         ComposedRecipeIngredient_delete.class,
@@ -574,6 +567,10 @@ import org.springframework.context.annotation.Import;
         FacetDescriptorThatCannotBeSubstituted_delete.class,
         FacetDescriptorThatCannotBeSubstituted_descriptor.class,
         FacetDescriptorThatCannotBeSubstituted_facet.class,
+        FoodBrand_delete.class,
+        FoodBrand_foodGroup.class,
+        FoodBrand_foodSubSubgroup.class,
+        FoodBrand_foodSubgroup.class,
         FoodConsumptionOccasionDisplayItem_delete.class,
         FoodConsumptionOccasionDisplayItem_foodConsumptionOccasion.class,
         FoodConsumptionOccasion_delete.class,
@@ -686,6 +683,9 @@ import org.springframework.context.annotation.Import;
         RawToCookedConversionFactorForFood_delete.class,
         RawToCookedConversionFactorForFood_facetDescriptors.class,
         RawToCookedConversionFactorForFood_food.class,
+        RecipeBrand_delete.class,
+        RecipeBrand_recipeGroup.class,
+        RecipeBrand_recipeSubgroup.class,
         RecipeDescriptor_delete.class,
         RecipeDescriptor_recipeFacet.class,
         RecipeFacet_delete.class,
@@ -739,8 +739,6 @@ import org.springframework.context.annotation.Import;
 public class DitaModuleGdParams {
     public static Can<Class<?>> entityClasses() {
         return Can.of(AnthropometricAverage.class,
-        Brand.class,
-        BrandForRecipe.class,
         CenterInvolved.class,
         ComposedRecipeIngredient.class,
         CountryInvolved.class,
@@ -757,6 +755,7 @@ public class DitaModuleGdParams {
         FacetDescriptorPathwayForRecipeGroup.class,
         FacetDescriptorThatCannotBeSubstituted.class,
         Food.class,
+        FoodBrand.class,
         FoodConsumptionOccasion.class,
         FoodConsumptionOccasionDisplayItem.class,
         FoodDescriptor.class,
@@ -790,6 +789,7 @@ public class DitaModuleGdParams {
         QuantificationMethodPathwayForRecipeGroup.class,
         RawToCookedConversionFactorForFood.class,
         Recipe.class,
+        RecipeBrand.class,
         RecipeDescriptor.class,
         RecipeFacet.class,
         RecipeGroup.class,

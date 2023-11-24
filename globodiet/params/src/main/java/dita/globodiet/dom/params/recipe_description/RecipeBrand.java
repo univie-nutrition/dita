@@ -51,11 +51,12 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 /**
  * Brandname list for mixed recipes
  */
-@Named("dita.globodiet.params.recipe_description.BrandForRecipe")
+@Named("dita.globodiet.params.recipe_description.RecipeBrand")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Brandname list for mixed recipes",
-        cssClassFa = "brands shopify .brand-color"
+        cssClassFa = "solid stroopwafel .recipe-color,\n"
+                        + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "R_BRAND"
@@ -64,7 +65,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class BrandForRecipe implements Cloneable<BrandForRecipe> {
+public class RecipeBrand implements Cloneable<RecipeBrand> {
     @Inject
     RepositoryService repositoryService;
 
@@ -142,15 +143,15 @@ public class BrandForRecipe implements Cloneable<BrandForRecipe> {
 
     @Override
     public String toString() {
-        return "BrandForRecipe(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
+        return "RecipeBrand(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
          +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
          +"recipeName=" + getRecipeName() + ")";
     }
 
     @Programmatic
     @Override
-    public BrandForRecipe copy() {
-        var copy = repositoryService.detachedEntity(new BrandForRecipe());
+    public RecipeBrand copy() {
+        var copy = repositoryService.detachedEntity(new RecipeBrand());
         copy.setRecipeGroupCode(getRecipeGroupCode());
         copy.setRecipeSubgroupCode(getRecipeSubgroupCode());
         copy.setRecipeName(getRecipeName());
@@ -165,17 +166,18 @@ public class BrandForRecipe implements Cloneable<BrandForRecipe> {
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public BrandForRecipe.Manager getNavigableParent() {
-        return new BrandForRecipe.Manager(searchService, "");
+    public RecipeBrand.Manager getNavigableParent() {
+        return new RecipeBrand.Manager(searchService, "");
     }
 
     /**
-     * Manager Viewmodel for @{link BrandForRecipe}
+     * Manager Viewmodel for @{link RecipeBrand}
      */
-    @Named("dita.globodiet.params.recipe_description.BrandForRecipe.Manager")
+    @Named("dita.globodiet.params.recipe_description.RecipeBrand.Manager")
     @DomainObjectLayout(
             describedAs = "Brandname list for mixed recipes",
-            cssClassFa = "brands shopify .brand-color"
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -194,12 +196,12 @@ public class BrandForRecipe implements Cloneable<BrandForRecipe> {
 
         @ObjectSupport
         public String title() {
-            return "Manage Brand For Recipe";
+            return "Manage Recipe Brand";
         }
 
         @Collection
-        public final List<BrandForRecipe> getListOfBrandForRecipe() {
-            return searchService.search(BrandForRecipe.class, BrandForRecipe::title, search);
+        public final List<RecipeBrand> getListOfRecipeBrand() {
+            return searchService.search(RecipeBrand.class, RecipeBrand::title, search);
         }
 
         @Override

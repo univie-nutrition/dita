@@ -34,21 +34,21 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "3.1",
-        describedAs = "Food subgroup code",
+        sequence = "4.1",
+        describedAs = "Food sub-subgroup code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class Brand_foodSubgroup {
+public class FoodBrand_foodSubSubgroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final Brand mixee;
+    private final FoodBrand mixee;
 
     @MemberSupport
     public FoodSubgroup prop() {
-        if(mixee.getFoodSubgroupCode()==null) return null;
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), null);
+        if(mixee.getFoodSubSubgroupCode()==null) return null;
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), mixee.getFoodSubSubgroupCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

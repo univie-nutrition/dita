@@ -30,9 +30,9 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
-import dita.globodiet.dom.params.food_descript.Brand;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
@@ -65,9 +65,9 @@ import dita.globodiet.dom.params.quantif.Shape;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
-import dita.globodiet.dom.params.recipe_description.BrandForRecipe;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_description.RecipeBrand;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
@@ -192,14 +192,6 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "brands shopify .brand-color"
-    )
-    public Brand.Manager manageBrand() {
-        return factoryService.viewModel(new Brand.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
             cssClassFa = "solid person-walking-arrow-right .food-color,\n"
                             + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
                             + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
@@ -215,6 +207,15 @@ public class EntitiesMenu {
     )
     public FacetDescriptorPathwayForFoodGroup.Manager manageFacetDescriptorPathwayForFoodGroup() {
         return factoryService.viewModel(new FacetDescriptorPathwayForFoodGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public FoodBrand.Manager manageFoodBrand() {
+        return factoryService.viewModel(new FoodBrand.Manager(searchService, ""));
     }
 
     @Action
@@ -454,14 +455,6 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "brands shopify .brand-color"
-    )
-    public BrandForRecipe.Manager manageBrandForRecipe() {
-        return factoryService.viewModel(new BrandForRecipe.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
                             + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
                             + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
@@ -478,6 +471,15 @@ public class EntitiesMenu {
     public FacetDescriptorPathwayForRecipeGroup.Manager manageFacetDescriptorPathwayForRecipeGroup(
             ) {
         return factoryService.viewModel(new FacetDescriptorPathwayForRecipeGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public RecipeBrand.Manager manageRecipeBrand() {
+        return factoryService.viewModel(new RecipeBrand.Manager(searchService, ""));
     }
 
     @Action

@@ -17,39 +17,58 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_description.BrandForRecipe:
-  namespace: params.recipe_description
-  table: R_BRAND
-  secondaryKey:
-  title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
-  icon: brands shopify .brand-color
+params.food_descript.FoodBrand:
+  namespace: params.food_descript
+  table: BRANDNAM
+  secondaryKey: |
+    NAME
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
+  title: String.format("%s", nameOfBrand)
+  icon: |
+    solid utensils .food-color,
+    brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
-    Brandname list for mixed recipes
+    Brand names are used in the food description phase
   fields:
-    recipeGroupCode:
-      column: RGROUP
+    nameOfBrand:
+      column: NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: false
+      description: |
+        Name of brand
+    foodGroupCode:
+      column: GROUP
       column-type: nvarchar(2)
       required: true
       unique: false
       foreignKeys: |
-        RGROUPS.GROUP
+        GROUPS.GROUP
       description: |
-        Recipe group
-    recipeSubgroupCode:
-      column: RSUBGROUP
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
       column-type: nvarchar(2)
       required: false
       unique: false
       discriminator: |
-        RGROUP
+        GROUP
       foreignKeys: |
-        RSUBGR.SUBGROUP
+        SUBGROUP.SUBGROUP1
       description: |
-        Recipe subgroup
-    recipeName:
-      column: RNAME
-      column-type: nvarchar(100)
-      required: true
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
       unique: false
-      description:
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-subgroup code
 

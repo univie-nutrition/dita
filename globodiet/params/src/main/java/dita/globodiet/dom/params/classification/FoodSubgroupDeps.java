@@ -33,12 +33,12 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_fatSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_foodSubSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_foodSubgroup;
-import dita.globodiet.dom.params.food_descript.Brand;
-import dita.globodiet.dom.params.food_descript.Brand_foodSubSubgroup;
-import dita.globodiet.dom.params.food_descript.Brand_foodSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup_foodSubgroup;
+import dita.globodiet.dom.params.food_descript.FoodBrand;
+import dita.globodiet.dom.params.food_descript.FoodBrand_foodSubSubgroup;
+import dita.globodiet.dom.params.food_descript.FoodBrand_foodSubgroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodSubSubgroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodSubgroup;
@@ -94,10 +94,10 @@ public class FoodSubgroupDeps {
         FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatSubgroup.class,
         FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatSubSubgroup.class,
-        FoodSubgroup_dependentBrandMappedByFoodSubgroup.class,
-        FoodSubgroup_dependentBrandMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup.class,
         FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentFoodBrandMappedByFoodSubgroup.class,
+        FoodSubgroup_dependentFoodBrandMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodSubgroup.class,
         FoodSubgroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentRuleAppliedToFacetMappedByFoodSubgroup.class,
@@ -304,42 +304,6 @@ public class FoodSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentBrandMappedByFoodSubgroup {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodSubgroup mixee;
-
-        @MemberSupport
-        public List<Brand> coll() {
-            return dependantLookup.findDependants(
-                Brand.class,
-                Brand_foodSubgroup.class,
-                Brand_foodSubgroup::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentBrandMappedByFoodSubSubgroup {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodSubgroup mixee;
-
-        @MemberSupport
-        public List<Brand> coll() {
-            return dependantLookup.findDependants(
-                Brand.class,
-                Brand_foodSubSubgroup.class,
-                Brand_foodSubSubgroup::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
     public static class FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup {
         @Inject
         DependantLookupService dependantLookup;
@@ -370,6 +334,42 @@ public class FoodSubgroupDeps {
                 FacetDescriptorPathwayForFoodGroup.class,
                 FacetDescriptorPathwayForFoodGroup_foodSubSubgroup.class,
                 FacetDescriptorPathwayForFoodGroup_foodSubSubgroup::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class FoodSubgroup_dependentFoodBrandMappedByFoodSubgroup {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodSubgroup mixee;
+
+        @MemberSupport
+        public List<FoodBrand> coll() {
+            return dependantLookup.findDependants(
+                FoodBrand.class,
+                FoodBrand_foodSubgroup.class,
+                FoodBrand_foodSubgroup::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class FoodSubgroup_dependentFoodBrandMappedByFoodSubSubgroup {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodSubgroup mixee;
+
+        @MemberSupport
+        public List<FoodBrand> coll() {
+            return dependantLookup.findDependants(
+                FoodBrand.class,
+                FoodBrand_foodSubSubgroup.class,
+                FoodBrand_foodSubSubgroup::prop,
                 mixee);
         }
     }

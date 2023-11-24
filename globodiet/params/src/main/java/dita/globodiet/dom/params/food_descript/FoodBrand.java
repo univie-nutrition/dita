@@ -61,11 +61,12 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 /**
  * Brand names are used in the food description phase
  */
-@Named("dita.globodiet.params.food_descript.Brand")
+@Named("dita.globodiet.params.food_descript.FoodBrand")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Brand names are used in the food description phase",
-        cssClassFa = "brands shopify .brand-color"
+        cssClassFa = "solid utensils .food-color,\n"
+                        + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "BRANDNAM"
@@ -74,7 +75,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
+public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBrand> {
     @Inject
     RepositoryService repositoryService;
 
@@ -172,7 +173,7 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
 
     @Override
     public String toString() {
-        return "Brand(" + "nameOfBrand=" + getNameOfBrand() + ","
+        return "FoodBrand(" + "nameOfBrand=" + getNameOfBrand() + ","
          +"foodGroupCode=" + getFoodGroupCode() + ","
          +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
          +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ")";
@@ -180,8 +181,8 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
 
     @Programmatic
     @Override
-    public Brand copy() {
-        var copy = repositoryService.detachedEntity(new Brand());
+    public FoodBrand copy() {
+        var copy = repositoryService.detachedEntity(new FoodBrand());
         copy.setNameOfBrand(getNameOfBrand());
         copy.setFoodGroupCode(getFoodGroupCode());
         copy.setFoodSubgroupCode(getFoodSubgroupCode());
@@ -197,8 +198,8 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public Brand.Manager getNavigableParent() {
-        return new Brand.Manager(searchService, "");
+    public FoodBrand.Manager getNavigableParent() {
+        return new FoodBrand.Manager(searchService, "");
     }
 
     @Programmatic
@@ -207,12 +208,13 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
     }
 
     /**
-     * Manager Viewmodel for @{link Brand}
+     * Manager Viewmodel for @{link FoodBrand}
      */
-    @Named("dita.globodiet.params.food_descript.Brand.Manager")
+    @Named("dita.globodiet.params.food_descript.FoodBrand.Manager")
     @DomainObjectLayout(
             describedAs = "Brand names are used in the food description phase",
-            cssClassFa = "brands shopify .brand-color"
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "brands shopify .brand-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -231,12 +233,12 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
 
         @ObjectSupport
         public String title() {
-            return "Manage Brand";
+            return "Manage Food Brand";
         }
 
         @Collection
-        public final List<Brand> getListOfBrand() {
-            return searchService.search(Brand.class, Brand::title, search);
+        public final List<FoodBrand> getListOfFoodBrand() {
+            return searchService.search(FoodBrand.class, FoodBrand::title, search);
         }
 
         @Override
@@ -246,7 +248,7 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
     }
 
     /**
-     * Parameter model for @{link Brand}
+     * Parameter model for @{link FoodBrand}
      * @param nameOfBrand Name of brand
      * @param foodGroup Food group code
      * @param foodSubgroup Food subgroup code
@@ -288,7 +290,7 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
     }
 
     /**
-     * SecondaryKey for @{link Brand}
+     * SecondaryKey for @{link FoodBrand}
      * @param nameOfBrand Name of brand
      * @param foodGroupCode Food group code
      * @param foodSubgroupCode Food subgroup code
@@ -298,10 +300,10 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
             String nameOfBrand,
             String foodGroupCode,
             String foodSubgroupCode,
-            String foodSubSubgroupCode) implements ISecondaryKey<Brand> {
+            String foodSubSubgroupCode) implements ISecondaryKey<FoodBrand> {
         @Override
-        public Class<Brand> correspondingClass() {
-            return Brand.class;
+        public Class<FoodBrand> correspondingClass() {
+            return FoodBrand.class;
         }
 
         @Override
@@ -313,15 +315,15 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link Brand} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link FoodBrand} in case of an unresolvable secondary key.
      */
     @DomainObjectLayout(
-            describedAs = "Unresolvable Brand",
+            describedAs = "Unresolvable FoodBrand",
             cssClassFa = "skull red"
     )
-    @Named("dita.globodiet.params.food_descript.Brand.Unresolvable")
+    @Named("dita.globodiet.params.food_descript.FoodBrand.Unresolvable")
     @RequiredArgsConstructor
-    public static final class Unresolvable extends Brand implements ViewModel {
+    public static final class Unresolvable extends FoodBrand implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

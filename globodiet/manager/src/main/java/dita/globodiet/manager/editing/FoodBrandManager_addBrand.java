@@ -33,7 +33,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.globodiet.dom.params.classification.FoodGroup;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.food_descript.Brand;
+import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import lombok.RequiredArgsConstructor;
@@ -42,17 +42,17 @@ import lombok.val;
 @Action
 @ActionLayout(fieldSetId="listOfBrand", position = Position.PANEL)
 @RequiredArgsConstructor
-public class BrandManager_addBrand {
+public class FoodBrandManager_addBrand {
 
     @Inject BlobStore blobStore;
     @Inject RepositoryService repositoryService;
 
-    protected final Brand.Manager mixee;
+    protected final FoodBrand.Manager mixee;
 
     @MemberSupport
-    public Brand.Manager act(@ParameterTuple final Brand.Params p) {
+    public FoodBrand.Manager act(@ParameterTuple final FoodBrand.Params p) {
 
-        val brandName = repositoryService.detachedEntity(new Brand());
+        val brandName = repositoryService.detachedEntity(new FoodBrand());
         brandName.setNameOfBrand(p.nameOfBrand());
         brandName.setFoodGroupCode(Optional.ofNullable(p.foodGroup())
                 .map(x->x.getCode())
@@ -68,15 +68,15 @@ public class BrandManager_addBrand {
         return mixee;
     }
 
-    @MemberSupport public List<FoodGroup> choices1Act(final Brand.Params p) {
+    @MemberSupport public List<FoodGroup> choices1Act(final FoodBrand.Params p) {
         return repositoryService.allInstances(FoodGroup.class);
     }
-    @MemberSupport public List<FoodSubgroup> choices2Act(final Brand.Params p) {
+    @MemberSupport public List<FoodSubgroup> choices2Act(final FoodBrand.Params p) {
         return repositoryService.allMatches(FoodSubgroup.class,
                 fg->fg.getFoodSubSubgroupCode()==null
                     && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode()));
     }
-    @MemberSupport public List<FoodSubgroup> choices3Act(final Brand.Params p) {
+    @MemberSupport public List<FoodSubgroup> choices3Act(final FoodBrand.Params p) {
         return repositoryService.allMatches(FoodSubgroup.class,
                 fg->fg.getFoodSubSubgroupCode()!=null
                     && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode())
