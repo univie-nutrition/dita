@@ -23,7 +23,7 @@ params.food_list.Food:
   secondaryKey: |
     FOODNUM
   title: String.format("%s (code=%s)", foodNativeName, code)
-  icon: solid utensils darkgreen
+  icon: solid utensils .food-color
   description: |
     Food, Product, On-the-fly Recipe or Alias
   fields:

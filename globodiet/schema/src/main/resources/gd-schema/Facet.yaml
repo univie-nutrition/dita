@@ -23,7 +23,7 @@ params.food_descript.Facet:
   secondaryKey: |
     FACET_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: tags olive
+  icon: tags .food-color
   description: |
     Facet describing food (not recipe)
   fields:

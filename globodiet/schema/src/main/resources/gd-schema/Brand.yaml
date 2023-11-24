@@ -26,7 +26,7 @@ params.food_descript.Brand:
     SUBGROUP1
     SUBGROUP2
   title: String.format("%s", nameOfBrand)
-  icon: brands shopify deeppink
+  icon: brands shopify .brand-color
   description: |
     Brand names are used in the food description phase
   fields:

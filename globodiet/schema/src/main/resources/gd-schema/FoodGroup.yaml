@@ -24,7 +24,7 @@ params.classification.FoodGroup:
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
-  icon: solid layer-group olive
+  icon: solid layer-group .food-color
   description: |
     Food group
   fields:

@@ -22,7 +22,7 @@ params.recipe_description.BrandForRecipe:
   table: R_BRAND
   secondaryKey:
   title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
-  icon: brands shopify deeppink
+  icon: brands shopify .brand-color
   description: |
     Brandname list for mixed recipes
   fields:

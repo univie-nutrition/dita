@@ -24,7 +24,7 @@ params.classification.FoodGroup:
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
-  icon: solid layer-group olive
+  icon: solid layer-group .food-color
   description: |
     Food group
   fields:
@@ -64,7 +64,10 @@ params.classification.FoodSubgroup:
      dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
     
-  icon: solid layer-group darkgreen
+  icon: |
+    solid layer-group .food-color,
+    solid circle-chevron-down .food-color .fa-overlay .fa-overlay-right-bottom-65
+    
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:
@@ -144,7 +147,7 @@ params.classification.RecipeGroup:
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
-  icon: solid layer-group olive
+  icon: solid layer-group .recipe-color
   description: |
     Recipe group 
   fields:
@@ -177,7 +180,10 @@ params.classification.RecipeSubgroup:
     GROUP
     SUBGROUP
   title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
-  icon: solid layer-group deepgreen
+  icon: |
+    solid layer-group .recipe-color,
+    solid circle-chevron-down .recipe-color .fa-overlay .fa-overlay-right-bottom-65
+    
   description: |
     Recipe subgroup
   fields:
@@ -638,7 +644,7 @@ params.food_descript.Brand:
     SUBGROUP1
     SUBGROUP2
   title: String.format("%s", nameOfBrand)
-  icon: brands shopify deeppink
+  icon: brands shopify .brand-color
   description: |
     Brand names are used in the food description phase
   fields:
@@ -687,7 +693,7 @@ params.food_descript.Facet:
   secondaryKey: |
     FACET_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: tags olive
+  icon: tags .food-color
   description: |
     Facet describing food (not recipe)
   fields:
@@ -760,7 +766,7 @@ params.food_descript.FacetDescriptor:
     FACET_CODE
     DESCR_CODE
   title: String.format("%s (code=%s|%s)", name, facetCode, code)
-  icon: tag darkgreen
+  icon: tag .food-color
   description: |
     Descriptor for food facets (not recipe facets)
   fields:
@@ -820,7 +826,7 @@ params.food_descript.FacetDescriptorPathwayForFood:
   table: FOODFAEX
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right darkgreen
+  icon: solid person-walking-arrow-right .food-color
   description: |
     Facet/descriptor pathway for individual food.
     Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.
@@ -857,7 +863,7 @@ params.food_descript.FacetDescriptorPathwayForFoodGroup:
   table: GROUPFAC
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right olive
+  icon: solid person-walking-arrow-right .food-color
   description: |
     Facet/descriptor pathway for food group/subgroup.
     Optionally can be superseded by @{table FOODFAEX}.
@@ -1126,7 +1132,7 @@ params.food_list.Food:
   secondaryKey: |
     FOODNUM
   title: String.format("%s (code=%s)", foodNativeName, code)
-  icon: solid utensils darkgreen
+  icon: solid utensils .food-color
   description: |
     Food, Product, On-the-fly Recipe or Alias
   fields:
@@ -1361,7 +1367,7 @@ params.food_quantif.QuantificationMethodPathwayForFood:
   table: QM_FOODS
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right darkgreen
+  icon: solid person-walking-arrow-right .food-color
   description: |
     Quantification method pathway for individual food. 
     Supersedes this food's group quantification method pathway from @{table QM_GROUP}.
@@ -1409,7 +1415,7 @@ params.food_quantif.QuantificationMethodPathwayForFoodGroup:
   table: QM_GROUP
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right olive
+  icon: solid person-walking-arrow-right .food-color
   description: |
     Quantification method pathway for food group/subgroup.
     Optionally can be superseded by @{table QM_FOODS}.
@@ -2033,7 +2039,7 @@ params.interview.CenterInvolved:
   secondaryKey: |
     CNTR_CODE
   title: String.format("%s", centerName)
-  icon: building
+  icon: building .default-color
   description: |
     Center involved
   fields:
@@ -2656,7 +2662,7 @@ params.recipe_description.BrandForRecipe:
   table: R_BRAND
   secondaryKey:
   title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
-  icon: brands shopify deeppink
+  icon: brands shopify .brand-color
   description: |
     Brandname list for mixed recipes
   fields:
@@ -2691,7 +2697,7 @@ params.recipe_description.FacetDescriptorPathwayForRecipe:
   table: R_RCPFAEX
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right mediumblue
+  icon: solid person-walking-arrow-right .recipe-color
   description: |
     Facet/descriptor pathway for individual recipe.
     Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
@@ -2727,7 +2733,7 @@ params.recipe_description.FacetDescriptorPathwayForRecipeGroup:
   table: R_GROUPFAC
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right steelblue
+  icon: solid person-walking-arrow-right .recipe-color
   description: |
     Facet/descriptor pathway for recipe group/subgroup.
     Optionally can be superseded by @{table R_RCPFAEX}.
@@ -3614,7 +3620,7 @@ params.recipe_probing.ProbingQuestionPathwayForRecipe:
   table: RPQPATH
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right mediumblue
+  icon: solid person-walking-arrow-right .recipe-color
   description: |
     Probing question pathway for recipe.
   fields:
@@ -3661,7 +3667,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
   table: QM_RECIP
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right mediumblue
+  icon: solid person-walking-arrow-right .recipe-color
   description: |
     Quantification method pathway for individual recipe. 
     Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
@@ -3707,7 +3713,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup:
   table: QM_RCLAS
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right steelblue
+  icon: solid person-walking-arrow-right .recipe-color
   description: |
     Quantification methods pathway for recipe group/subgroup.
     Optionally can be superseded by @{table QM_RECIP}.
@@ -4012,7 +4018,7 @@ params.setting.RecipeTypePathway:
   table: RCP_PATH
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right mediumblue
+  icon: solid person-walking-arrow-right .recipe-color
   description: |
     Definition of recipe pathway (available for each recipe type).
   fields:

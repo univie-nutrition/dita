@@ -63,7 +63,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Center involved",
-        cssClassFa = "building"
+        cssClassFa = "building .default-color"
 )
 @PersistenceCapable(
         table = "CENTERS"
@@ -188,7 +188,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     @Named("dita.globodiet.params.interview.CenterInvolved.Manager")
     @DomainObjectLayout(
             describedAs = "Center involved",
-            cssClassFa = "building"
+            cssClassFa = "building .default-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

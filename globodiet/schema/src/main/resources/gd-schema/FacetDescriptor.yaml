@@ -24,7 +24,7 @@ params.food_descript.FacetDescriptor:
     FACET_CODE
     DESCR_CODE
   title: String.format("%s (code=%s|%s)", name, facetCode, code)
-  icon: tag darkgreen
+  icon: tag .food-color
   description: |
     Descriptor for food facets (not recipe facets)
   fields:

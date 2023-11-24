@@ -64,7 +64,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Facet describing food (not recipe)",
-        cssClassFa = "tags olive"
+        cssClassFa = "tags .food-color"
 )
 @PersistenceCapable(
         table = "FACETS"
@@ -368,7 +368,7 @@ public class Facet implements Cloneable<Facet>, HasSecondaryKey<Facet> {
     @Named("dita.globodiet.params.food_descript.Facet.Manager")
     @DomainObjectLayout(
             describedAs = "Facet describing food (not recipe)",
-            cssClassFa = "tags olive"
+            cssClassFa = "tags .food-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

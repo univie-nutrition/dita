@@ -22,7 +22,7 @@ params.food_descript.FacetDescriptorPathwayForFoodGroup:
   table: GROUPFAC
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right olive
+  icon: solid person-walking-arrow-right .food-color
   description: |
     Facet/descriptor pathway for food group/subgroup.
     Optionally can be superseded by @{table FOODFAEX}.

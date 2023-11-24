@@ -59,7 +59,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Definition of recipe pathway (available for each recipe type).",
-        cssClassFa = "solid person-walking-arrow-right mediumblue"
+        cssClassFa = "solid person-walking-arrow-right .recipe-color"
 )
 @PersistenceCapable(
         table = "RCP_PATH"
@@ -466,7 +466,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
     @Named("dita.globodiet.params.setting.RecipeTypePathway.Manager")
     @DomainObjectLayout(
             describedAs = "Definition of recipe pathway (available for each recipe type).",
-            cssClassFa = "solid person-walking-arrow-right mediumblue"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

@@ -23,7 +23,7 @@ params.interview.CenterInvolved:
   secondaryKey: |
     CNTR_CODE
   title: String.format("%s", centerName)
-  icon: building
+  icon: building .default-color
   description: |
     Center involved
   fields:

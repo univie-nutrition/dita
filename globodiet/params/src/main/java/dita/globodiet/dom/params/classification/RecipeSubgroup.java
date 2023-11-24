@@ -63,7 +63,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Recipe subgroup",
-        cssClassFa = "solid layer-group deepgreen"
+        cssClassFa = "solid layer-group .recipe-color,\n"
+                        + "solid circle-chevron-down .recipe-color .fa-overlay .fa-overlay-right-bottom-65\n"
 )
 @PersistenceCapable(
         table = "RSUBGR"
@@ -212,7 +213,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
     @Named("dita.globodiet.params.classification.RecipeSubgroup.Manager")
     @DomainObjectLayout(
             describedAs = "Recipe subgroup",
-            cssClassFa = "solid layer-group deepgreen"
+            cssClassFa = "solid layer-group .recipe-color,\n"
+                            + "solid circle-chevron-down .recipe-color .fa-overlay .fa-overlay-right-bottom-65\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

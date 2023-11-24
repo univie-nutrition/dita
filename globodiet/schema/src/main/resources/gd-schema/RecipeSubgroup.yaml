@@ -25,7 +25,9 @@ params.classification.RecipeSubgroup:
     GROUP
     SUBGROUP
   title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
-  icon: solid layer-group deepgreen
+  icon: |
+    solid layer-group .recipe-color,
+    solid circle-chevron-down .recipe-color .fa-overlay .fa-overlay-right-bottom-65
   description: |
     Recipe subgroup
   fields:

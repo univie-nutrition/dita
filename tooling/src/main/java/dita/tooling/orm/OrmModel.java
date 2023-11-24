@@ -147,7 +147,16 @@ public class OrmModel {
                     yaml.ind().write("title: ", title).nl();
                 }
             }
-            yaml.ind().write("icon: ", icon).nl();
+            {   // icon
+                var iconLines = TextUtils.readLines(icon);
+                if(iconLines.isCardinalityMultiple()) {
+                    yaml.ind().write("icon:").multilineStartIfNotEmtpy(iconLines.toList()).nl();
+                    iconLines.forEach(line->
+                        yaml.ind().ind().write(line).nl());
+                } else {
+                    yaml.ind().write("icon: ", icon).nl();
+                }
+            }
             yaml.ind().write("description:").multilineStartIfNotEmtpy(description).nl();
             description.forEach(line->
                 yaml.ind().ind().write(line).nl());

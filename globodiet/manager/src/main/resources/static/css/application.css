@@ -1,32 +1,34 @@
 /* domain object styling */
 
-.fa-deeppink,
-.fa-do-brand {
-	color: DeepPink;
+.default-color {
+  color: DimGray;  
 }
-.fa-darkgreen,
-.fa-do-food {
-	color: darkgreen;
+.brand-color {
+  color: DeepPink;
 }
-.fa-olive {
-	color: olive;
+.food-color {
+  color: forestgreen;
 }
-.fa-red {
-	color: red;
+.recipe-color {
+  color: darkkhaki;
 }
-.fa-orange {
-    color: orange;
-}
-.fa-mediumblue {
-    color: mediumblue;
-}
-.fa-steelblue {
-    color: steelblue;
+.version-color {
+  color: BlueViolet;
 }
 
-.fa-blueviolet,
-.fa-do-version {
-	color: blueviolet;
+/* fa overlay */
+
+.fa-overlay {
+  font-size: 0.6em;
+  background-image: radial-gradient(circle at center, white 28%, transparent 32%);
+}
+.fa-overlay-right-bottom-65 {
+  left: 0.65em;
+  top: 0.65em;
+}
+.fa-overlay-right-bottom-85 {
+  left: 0.85em;
+  top: 0.85em;
 }
 
 /* theme colors */

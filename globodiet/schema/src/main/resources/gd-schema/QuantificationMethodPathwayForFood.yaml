@@ -22,7 +22,7 @@ params.food_quantif.QuantificationMethodPathwayForFood:
   table: QM_FOODS
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right darkgreen
+  icon: solid person-walking-arrow-right .food-color
   description: |
     Quantification method pathway for individual food. 
     Supersedes this food's group quantification method pathway from @{table QM_GROUP}.

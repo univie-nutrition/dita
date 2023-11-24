@@ -55,7 +55,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Brandname list for mixed recipes",
-        cssClassFa = "brands shopify deeppink"
+        cssClassFa = "brands shopify .brand-color"
 )
 @PersistenceCapable(
         table = "R_BRAND"
@@ -175,7 +175,7 @@ public class BrandForRecipe implements Cloneable<BrandForRecipe> {
     @Named("dita.globodiet.params.recipe_description.BrandForRecipe.Manager")
     @DomainObjectLayout(
             describedAs = "Brandname list for mixed recipes",
-            cssClassFa = "brands shopify deeppink"
+            cssClassFa = "brands shopify .brand-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

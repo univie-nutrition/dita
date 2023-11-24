@@ -66,7 +66,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Food, Product, On-the-fly Recipe or Alias",
-        cssClassFa = "solid utensils darkgreen"
+        cssClassFa = "solid utensils .food-color"
 )
 @PersistenceCapable(
         table = "FOODS"
@@ -448,7 +448,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
     @Named("dita.globodiet.params.food_list.Food.Manager")
     @DomainObjectLayout(
             describedAs = "Food, Product, On-the-fly Recipe or Alias",
-            cssClassFa = "solid utensils darkgreen"
+            cssClassFa = "solid utensils .food-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

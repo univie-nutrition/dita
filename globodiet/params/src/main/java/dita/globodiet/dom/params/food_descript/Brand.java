@@ -65,7 +65,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Brand names are used in the food description phase",
-        cssClassFa = "brands shopify deeppink"
+        cssClassFa = "brands shopify .brand-color"
 )
 @PersistenceCapable(
         table = "BRANDNAM"
@@ -212,7 +212,7 @@ public class Brand implements Cloneable<Brand>, HasSecondaryKey<Brand> {
     @Named("dita.globodiet.params.food_descript.Brand.Manager")
     @DomainObjectLayout(
             describedAs = "Brand names are used in the food description phase",
-            cssClassFa = "brands shopify deeppink"
+            cssClassFa = "brands shopify .brand-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

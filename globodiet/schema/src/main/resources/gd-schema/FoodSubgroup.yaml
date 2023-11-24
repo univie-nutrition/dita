@@ -31,7 +31,9 @@ params.classification.FoodSubgroup:
      dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
-  icon: solid layer-group darkgreen
+  icon: |
+    solid layer-group .food-color,
+    solid circle-chevron-down .food-color .fa-overlay .fa-overlay-right-bottom-65
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:

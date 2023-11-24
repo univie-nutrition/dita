@@ -57,7 +57,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for recipe group/subgroup.\n"
                         + "Optionally can be superseded by @{table R_RCPFAEX}.",
-        cssClassFa = "solid person-walking-arrow-right steelblue"
+        cssClassFa = "solid person-walking-arrow-right .recipe-color"
 )
 @PersistenceCapable(
         table = "R_GROUPFAC"
@@ -294,7 +294,7 @@ public class FacetDescriptorPathwayForRecipeGroup implements Cloneable<FacetDesc
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for recipe group/subgroup.\n"
                             + "Optionally can be superseded by @{table R_RCPFAEX}.",
-            cssClassFa = "solid person-walking-arrow-right steelblue"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

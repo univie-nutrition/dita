@@ -29,7 +29,7 @@
 		<maven.compiler.arg>-parameters</maven.compiler.arg>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		
-		<spring-boot.version>3.2.0-RC2</spring-boot.version>
+		<spring-boot.version>3.2.0</spring-boot.version>
 <!--		<causeway.version>3.0.0-M1.20230509-0607-5f90bb6a</causeway.version>-->
 		<causeway.version>3.0.0-SNAPSHOT</causeway.version>
 		
@@ -120,26 +120,7 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
-        <repository>
-            <!-- Spring Milestones, until release of Spring Boot 3.2 -->
-            <id>Spring Milestones</id>
-            <url>https://repo.spring.io/milestone/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
     </repositories>
-    <!-- remove the entire tag, after Spring Boot 3.2 release! -->  
-    <pluginRepositories>
-        <pluginRepository>
-            <!-- Spring Milestones, until release of Spring Boot 3.2 -->
-            <id>Spring Milestones</id>
-            <url>https://repo.spring.io/milestone/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
 	<dependencyManagement>
 		<dependencies>

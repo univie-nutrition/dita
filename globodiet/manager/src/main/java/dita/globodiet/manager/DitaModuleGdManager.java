@@ -58,6 +58,7 @@ import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.Persistable_schema;
+import dita.globodiet.manager.services.iconfa.IconFaServiceGdParams;
 import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
@@ -117,6 +118,7 @@ import lombok.val;
     FallbackLayoutDataSourceGdParams.class,
     ResolvableDependenciesRuleChecker.class,
     IdGeneratorGdParams.class,
+    IconFaServiceGdParams.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
