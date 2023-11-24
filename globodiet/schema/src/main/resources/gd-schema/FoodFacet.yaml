@@ -17,13 +17,15 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.Facet:
+params.food_descript.FoodFacet:
   namespace: params.food_descript
   table: FACETS
   secondaryKey: |
     FACET_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: tags .food-color
+  icon: |
+    solid utensils .food-color,
+    solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
     Facet describing food (not recipe)
   fields:

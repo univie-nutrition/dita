@@ -83,10 +83,6 @@ import dita.globodiet.dom.params.food_descript.Brand_delete;
 import dita.globodiet.dom.params.food_descript.Brand_foodGroup;
 import dita.globodiet.dom.params.food_descript.Brand_foodSubSubgroup;
 import dita.globodiet.dom.params.food_descript.Brand_foodSubgroup;
-import dita.globodiet.dom.params.food_descript.Facet;
-import dita.globodiet.dom.params.food_descript.FacetDeps;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
-import dita.globodiet.dom.params.food_descript.FacetDescriptorDeps;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodDeps;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
@@ -100,9 +96,13 @@ import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGrou
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_delete;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_food;
 import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor_delete;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor_facet;
-import dita.globodiet.dom.params.food_descript.Facet_delete;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodDescriptorDeps;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor_delete;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor_facet;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
+import dita.globodiet.dom.params.food_descript.FoodFacetDeps;
+import dita.globodiet.dom.params.food_descript.FoodFacet_delete;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptorDeps;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_delete;
@@ -394,8 +394,6 @@ import org.springframework.context.annotation.Import;
         DietarySupplementDescriptor.class,
         DietarySupplementFacet.class,
         EdiblePartCoefficientForFood.class,
-        Facet.class,
-        FacetDescriptor.class,
         FacetDescriptorPathwayForFood.class,
         FacetDescriptorPathwayForFoodGroup.class,
         FacetDescriptorPathwayForRecipe.class,
@@ -404,6 +402,8 @@ import org.springframework.context.annotation.Import;
         Food.class,
         FoodConsumptionOccasion.class,
         FoodConsumptionOccasionDisplayItem.class,
+        FoodDescriptor.class,
+        FoodFacet.class,
         FoodGroup.class,
         FoodSubgroup.class,
         GroupSubstitution.class,
@@ -467,8 +467,6 @@ import org.springframework.context.annotation.Import;
         DietarySupplementDescriptorDeps.class,
         DietarySupplementFacetDeps.class,
         EdiblePartCoefficientForFoodDeps.class,
-        FacetDeps.class,
-        FacetDescriptorDeps.class,
         FacetDescriptorPathwayForFoodDeps.class,
         FacetDescriptorPathwayForFoodGroupDeps.class,
         FacetDescriptorPathwayForRecipeDeps.class,
@@ -477,6 +475,8 @@ import org.springframework.context.annotation.Import;
         FoodConsumptionOccasionDeps.class,
         FoodConsumptionOccasionDisplayItemDeps.class,
         FoodDeps.class,
+        FoodDescriptorDeps.class,
+        FoodFacetDeps.class,
         FoodGroupDeps.class,
         FoodSubgroupDeps.class,
         GroupSubstitutionDeps.class,
@@ -574,12 +574,12 @@ import org.springframework.context.annotation.Import;
         FacetDescriptorThatCannotBeSubstituted_delete.class,
         FacetDescriptorThatCannotBeSubstituted_descriptor.class,
         FacetDescriptorThatCannotBeSubstituted_facet.class,
-        FacetDescriptor_delete.class,
-        FacetDescriptor_facet.class,
-        Facet_delete.class,
         FoodConsumptionOccasionDisplayItem_delete.class,
         FoodConsumptionOccasionDisplayItem_foodConsumptionOccasion.class,
         FoodConsumptionOccasion_delete.class,
+        FoodDescriptor_delete.class,
+        FoodDescriptor_facet.class,
+        FoodFacet_delete.class,
         FoodGroup_delete.class,
         FoodSubgroup_delete.class,
         FoodSubgroup_foodGroup.class,
@@ -751,8 +751,6 @@ public class DitaModuleGdParams {
         DietarySupplementDescriptor.class,
         DietarySupplementFacet.class,
         EdiblePartCoefficientForFood.class,
-        Facet.class,
-        FacetDescriptor.class,
         FacetDescriptorPathwayForFood.class,
         FacetDescriptorPathwayForFoodGroup.class,
         FacetDescriptorPathwayForRecipe.class,
@@ -761,6 +759,8 @@ public class DitaModuleGdParams {
         Food.class,
         FoodConsumptionOccasion.class,
         FoodConsumptionOccasionDisplayItem.class,
+        FoodDescriptor.class,
+        FoodFacet.class,
         FoodGroup.class,
         FoodSubgroup.class,
         GroupSubstitution.class,

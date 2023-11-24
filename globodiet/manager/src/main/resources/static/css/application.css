@@ -9,25 +9,48 @@
 .food-color {
   color: forestgreen;
 }
+.food-color-em {
+  color: olive;
+}
 .recipe-color {
   color: darkkhaki;
+}
+.recipe-color-em {
+  color: olive;
 }
 .version-color {
   color: BlueViolet;
 }
 
-/* fa overlay */
+/* fa overlay generic */
 
-.fa-overlay {
+.ov-size-60 {
   font-size: 0.6em;
   background-image: radial-gradient(circle at center, white 28%, transparent 32%);
 }
-.fa-overlay-right-bottom-65 {
+.ov-size-80 {
+  font-size: 0.8em;
+  background-image: radial-gradient(circle at center, white 42%, transparent 50%);
+}
+.ov-left-50 {
+  left: -0.5em;
+}
+.ov-right-55 {
+  left: 0.55em;
+}
+.ov-right-65 {
   left: 0.65em;
+}
+.ov-right-85 {
+  left: 0.85em;
+}
+.ov-bottom-55 {
+  top: 0.55em;
+}
+.ov-bottom-65 {
   top: 0.65em;
 }
-.fa-overlay-right-bottom-85 {
-  left: 0.85em;
+.ov-bottom-85 {
   top: 0.85em;
 }
 

@@ -63,7 +63,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.recipe_description.RecipeDescriptor")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Descriptor per facet"
+        describedAs = "Descriptor per facet",
+        cssClassFa = "solid stroopwafel .recipe-color,\n"
+                        + "solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "R_DESCFACE"
@@ -418,7 +420,9 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      */
     @Named("dita.globodiet.params.recipe_description.RecipeDescriptor.Manager")
     @DomainObjectLayout(
-            describedAs = "Descriptor per facet"
+            describedAs = "Descriptor per facet",
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

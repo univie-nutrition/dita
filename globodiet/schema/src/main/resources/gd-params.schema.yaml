@@ -24,7 +24,10 @@ params.classification.FoodGroup:
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
-  icon: solid layer-group .food-color
+  icon: |
+    solid utensils .food-color,
+    solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Food group
   fields:
@@ -65,8 +68,9 @@ params.classification.FoodSubgroup:
      dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
     
   icon: |
-    solid layer-group .food-color,
-    solid circle-chevron-down .food-color .fa-overlay .fa-overlay-right-bottom-65
+    solid utensils .food-color,
+    solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,
+    solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
@@ -147,7 +151,10 @@ params.classification.RecipeGroup:
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
-  icon: solid layer-group .recipe-color
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Recipe group 
   fields:
@@ -181,8 +188,9 @@ params.classification.RecipeSubgroup:
     SUBGROUP
   title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
   icon: |
-    solid layer-group .recipe-color,
-    solid circle-chevron-down .recipe-color .fa-overlay .fa-overlay-right-bottom-65
+    solid stroopwafel .recipe-color,
+    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,
+    solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
   description: |
     Recipe subgroup
@@ -687,140 +695,6 @@ params.food_descript.Brand:
         SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
-params.food_descript.Facet:
-  namespace: params.food_descript
-  table: FACETS
-  secondaryKey: |
-    FACET_CODE
-  title: String.format("%s (code=%s)", name, code)
-  icon: tags .food-color
-  description: |
-    Facet describing food (not recipe)
-  fields:
-    code:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: true
-      description: |
-        Facet code
-    name:
-      column: FACET_NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Facet name
-    text:
-      column: FACET_TEXT
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Facet text (text to show on the screen describing the facet)
-    type:
-      column: FACET_TYPE
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      enum: |
-        0:Standard: facets with descriptors available in Descface table
-        1:Brand:Facets with descriptors available in Brandnam table
-        2:Fat:Facets with descriptors available in Foods table - facet 15 type of fat
-        3:Liquid:Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
-      description: |
-        0=Standard facets with descriptors available in Descface table 
-        1=Facets with descriptors available in Brandnam table 
-        2=Facets with descriptors available in Foods table - facet 15 type of fat 
-        3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
-    typeCardinality:
-      column: FACET_TYPE_S
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      enum: |
-        0:single:facet with single-selection of descriptor
-        1:multi:facets with multi-selection of descriptors
-      description: |
-        0 = facet with single-selection of descriptor 
-        1 = facets with multi-selection of descriptors
-    group:
-      column: FACET_GRP
-      column-type: nvarchar(2147483647)
-      required: false
-      unique: true
-      description: |
-        If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table. 
-        Comma is used as delimiter (e.g. 10,050701,050702)
-    labelOnHowToAskTheFacetQuestion:
-      column: FACET_QUEST
-      column-type: nvarchar(300)
-      required: true
-      unique: true
-      description: |
-        Label on how to ask the facet question
-params.food_descript.FacetDescriptor:
-  namespace: params.food_descript
-  table: DESCFACE
-  secondaryKey: |
-    FACET_CODE
-    DESCR_CODE
-  title: String.format("%s (code=%s|%s)", name, facetCode, code)
-  icon: tag .food-color
-  description: |
-    Descriptor for food facets (not recipe facets)
-  fields:
-    facetCode:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        FACETS.FACET_CODE
-      description: |
-        Facet code
-    code:
-      column: DESCR_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      description: |
-        Descriptor code
-    name:
-      column: DESCR_NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: false
-      description: |
-        Descriptor name
-    type:
-      column: DESC_COOK
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      enum: |
-        0:Other:descriptor without consequences in the algorithms (also from other facets)
-        1:Raw:
-        2:Question:Descriptors to ask the question 'fat used during cooking'
-        3:undocumented:found in austrian data for 'frittiert' - invalid enum constant?
-      description: |
-        0=Other descriptor without consequences in the algorithms (also from other facets)
-        1=Raw descriptor 
-        2=Descriptors to ask the question 'fat used during cooking' 
-    single:
-      column: DESC_SINGLE
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      description: |
-        TODO missing description
-    other:
-      column: DESC_OTHER
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      description: |
-        TODO missing description
 params.food_descript.FacetDescriptorPathwayForFood:
   namespace: params.food_descript
   table: FOODFAEX
@@ -948,6 +822,146 @@ params.food_descript.FacetDescriptorPathwayForFoodGroup:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
+params.food_descript.FoodDescriptor:
+  namespace: params.food_descript
+  table: DESCFACE
+  secondaryKey: |
+    FACET_CODE
+    DESCR_CODE
+  title: String.format("%s (code=%s|%s)", name, facetCode, code)
+  icon: |
+    solid utensils .food-color,
+    solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  description: |
+    Descriptor for food facets (not recipe facets)
+  fields:
+    facetCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        FACETS.FACET_CODE
+      description: |
+        Facet code
+    code:
+      column: DESCR_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      description: |
+        Descriptor code
+    name:
+      column: DESCR_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: false
+      description: |
+        Descriptor name
+    type:
+      column: DESC_COOK
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        0:Other:descriptor without consequences in the algorithms (also from other facets)
+        1:Raw:
+        2:Question:Descriptors to ask the question 'fat used during cooking'
+        3:undocumented:found in austrian data for 'frittiert' - invalid enum constant?
+      description: |
+        0=Other descriptor without consequences in the algorithms (also from other facets)
+        1=Raw descriptor 
+        2=Descriptors to ask the question 'fat used during cooking' 
+    single:
+      column: DESC_SINGLE
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      description: |
+        TODO missing description
+    other:
+      column: DESC_OTHER
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      description: |
+        TODO missing description
+params.food_descript.FoodFacet:
+  namespace: params.food_descript
+  table: FACETS
+  secondaryKey: |
+    FACET_CODE
+  title: String.format("%s (code=%s)", name, code)
+  icon: |
+    solid utensils .food-color,
+    solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  description: |
+    Facet describing food (not recipe)
+  fields:
+    code:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: true
+      description: |
+        Facet code
+    name:
+      column: FACET_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Facet name
+    text:
+      column: FACET_TEXT
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Facet text (text to show on the screen describing the facet)
+    type:
+      column: FACET_TYPE
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        0:Standard: facets with descriptors available in Descface table
+        1:Brand:Facets with descriptors available in Brandnam table
+        2:Fat:Facets with descriptors available in Foods table - facet 15 type of fat
+        3:Liquid:Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+      description: |
+        0=Standard facets with descriptors available in Descface table 
+        1=Facets with descriptors available in Brandnam table 
+        2=Facets with descriptors available in Foods table - facet 15 type of fat 
+        3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+    typeCardinality:
+      column: FACET_TYPE_S
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        0:single:facet with single-selection of descriptor
+        1:multi:facets with multi-selection of descriptors
+      description: |
+        0 = facet with single-selection of descriptor 
+        1 = facets with multi-selection of descriptors
+    group:
+      column: FACET_GRP
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: true
+      description: |
+        If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table. 
+        Comma is used as delimiter (e.g. 10,050701,050702)
+    labelOnHowToAskTheFacetQuestion:
+      column: FACET_QUEST
+      column-type: nvarchar(300)
+      required: true
+      unique: true
+      description: |
+        Label on how to ask the facet question
 params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
   namespace: params.food_descript
   table: DESC_IMP
@@ -2813,7 +2827,10 @@ params.recipe_description.RecipeDescriptor:
     RFACET_CODE
     RDESCR_CODE
   title: String.format("%s (code=%s|%s)", name, recipeFacetCode, code)
-  icon: null
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Descriptor per facet
   fields:
@@ -2890,7 +2907,10 @@ params.recipe_description.RecipeFacet:
   secondaryKey: |
     RFACET_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Facet for Recipe 
   fields:

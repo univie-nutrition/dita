@@ -46,28 +46,28 @@ import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FacetDescriptorDeps {
+public class FoodDescriptorDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors.class,
-        FacetDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
-        FacetDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
-        FacetDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
-        FacetDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
-        FacetDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
-        FacetDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor.class,
-        FacetDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor.class,
-        FacetDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
-        FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptors.class,
-        FacetDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor.class);
+        return Can.of(FoodDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors.class,
+        FoodDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
+        FoodDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
+        FoodDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
+        FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
+        FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
+        FoodDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor.class,
+        FoodDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor.class,
+        FoodDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
+        FoodDescriptor_dependentRecipeIngredientMappedByFacetDescriptors.class,
+        FoodDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors {
+    public static class FoodDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<DensityFactorForFood> coll() {
@@ -81,11 +81,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor {
+    public static class FoodDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<EdiblePartCoefficientForFood> coll() {
@@ -99,11 +99,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor {
+    public static class FoodDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<PercentOfFatUseDuringCookingForFood> coll() {
@@ -117,11 +117,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors {
+    public static class FoodDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<RawToCookedConversionFactorForFood> coll() {
@@ -135,11 +135,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor {
+    public static class FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<FacetDescriptorPathwayForFoodGroup> coll() {
@@ -153,11 +153,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor {
+    public static class FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<ImprobableSequenceOfFacetAndDescriptor> coll() {
@@ -171,11 +171,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor {
+    public static class FoodDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<RuleAppliedToFacet> coll() {
@@ -189,11 +189,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor {
+    public static class FoodDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<MaximumValueForAFoodOrGroup> coll() {
@@ -207,11 +207,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor {
+    public static class FoodDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<QuantificationMethodPathwayForFoodGroup> coll() {
@@ -225,11 +225,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentRecipeIngredientMappedByFacetDescriptors {
+    public static class FoodDescriptor_dependentRecipeIngredientMappedByFacetDescriptors {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<RecipeIngredient> coll() {
@@ -243,11 +243,11 @@ public class FacetDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FacetDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor {
+    public static class FoodDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final FacetDescriptor mixee;
+        private final FoodDescriptor mixee;
 
         @MemberSupport
         public List<FacetDescriptorThatCannotBeSubstituted> coll() {

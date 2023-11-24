@@ -64,8 +64,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
-        cssClassFa = "solid layer-group .food-color,\n"
-                        + "solid circle-chevron-down .food-color .fa-overlay .fa-overlay-right-bottom-65\n"
+        cssClassFa = "solid utensils .food-color,\n"
+                        + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                        + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "SUBGROUP"
@@ -414,8 +415,9 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @Named("dita.globodiet.params.classification.FoodSubgroup.Manager")
     @DomainObjectLayout(
             describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
-            cssClassFa = "solid layer-group .food-color,\n"
-                            + "solid circle-chevron-down .food-color .fa-overlay .fa-overlay-right-bottom-65\n"
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                            + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

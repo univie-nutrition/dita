@@ -63,7 +63,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Recipe group",
-        cssClassFa = "solid layer-group .recipe-color"
+        cssClassFa = "solid stroopwafel .recipe-color,\n"
+                        + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "RGROUPS"
@@ -189,7 +190,8 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     @Named("dita.globodiet.params.classification.RecipeGroup.Manager")
     @DomainObjectLayout(
             describedAs = "Recipe group",
-            cssClassFa = "solid layer-group .recipe-color"
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

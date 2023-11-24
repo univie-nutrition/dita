@@ -24,7 +24,9 @@ params.classification.RecipeGroup:
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
-  icon: solid layer-group .recipe-color
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
     Recipe group 
   fields:

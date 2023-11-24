@@ -48,8 +48,8 @@ public class RuleAppliedToFacet_facetDescriptor {
     private final RuleAppliedToFacet mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
-        return foreignKeyLookup.decodeLookupKeyList(FacetDescriptor.class, mixee.getFacetDescriptorLookupKey())
+    public FoodDescriptor prop() {
+        return foreignKeyLookup.decodeLookupKeyList(FoodDescriptor.class, mixee.getFacetDescriptorLookupKey())
             .map(foreignKeyLookup::unique)
             .getSingleton().orElse(null);
     }

@@ -45,9 +45,9 @@ public class ImprobableSequenceOfFacetAndDescriptor_descriptor {
     private final ImprobableSequenceOfFacetAndDescriptor mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
+    public FoodDescriptor prop() {
         if(mixee.getDescriptorCode()==null) return null;
-        final var lookupKey = new FacetDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
+        final var lookupKey = new FoodDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

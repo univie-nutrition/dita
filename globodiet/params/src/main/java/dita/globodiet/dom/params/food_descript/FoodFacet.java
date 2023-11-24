@@ -58,22 +58,23 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Descriptor for food facets (not recipe facets)
+ * Facet describing food (not recipe)
  */
-@Named("dita.globodiet.params.food_descript.FacetDescriptor")
+@Named("dita.globodiet.params.food_descript.FoodFacet")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Descriptor for food facets (not recipe facets)",
-        cssClassFa = "tag .food-color"
+        describedAs = "Facet describing food (not recipe)",
+        cssClassFa = "solid utensils .food-color,\n"
+                        + "solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
-        table = "DESCFACE"
+        table = "FACETS"
 )
 @DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondaryKey<FacetDescriptor> {
+public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFacet> {
     @Inject
     RepositoryService repositoryService;
 
@@ -90,7 +91,7 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
             fieldSetId = "identity",
             sequence = "1",
             describedAs = "Facet code",
-            hidden = Where.ALL_TABLES
+            hidden = Where.NOWHERE
     )
     @Column(
             name = "FACET_CODE",
@@ -99,31 +100,10 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     )
     @Getter
     @Setter
-    private String facetCode;
-
-    /**
-     * Descriptor code
-     */
-    @Property(
-            optionality = Optionality.MANDATORY
-    )
-    @PropertyLayout(
-            fieldSetId = "identity",
-            sequence = "2",
-            describedAs = "Descriptor code",
-            hidden = Where.NOWHERE
-    )
-    @Column(
-            name = "DESCR_CODE",
-            allowsNull = "false",
-            length = 2
-    )
-    @Getter
-    @Setter
     private String code;
 
     /**
-     * Descriptor name
+     * Facet name
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -131,12 +111,12 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     )
     @PropertyLayout(
             fieldSetId = "details",
-            sequence = "3",
-            describedAs = "Descriptor name",
+            sequence = "2",
+            describedAs = "Facet name",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "DESCR_NAME",
+            name = "FACET_NAME",
             allowsNull = "false",
             length = 100
     )
@@ -145,9 +125,32 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     private String name;
 
     /**
-     * 0=Other descriptor without consequences in the algorithms (also from other facets)
-     * 1=Raw descriptor
-     * 2=Descriptors to ask the question 'fat used during cooking'
+     * Facet text (text to show on the screen describing the facet)
+     */
+    @Property(
+            optionality = Optionality.MANDATORY,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "3",
+            describedAs = "Facet text (text to show on the screen describing the facet)",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "FACET_TEXT",
+            allowsNull = "false",
+            length = 100
+    )
+    @Getter
+    @Setter
+    private String text;
+
+    /**
+     * 0=Standard facets with descriptors available in Descface table
+     * 1=Facets with descriptors available in Brandnam table
+     * 2=Facets with descriptors available in Foods table - facet 15 type of fat
+     * 3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -156,13 +159,14 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
-                            + "1=Raw descriptor\n"
-                            + "2=Descriptors to ask the question 'fat used during cooking'",
+            describedAs = "0=Standard facets with descriptors available in Descface table\n"
+                            + "1=Facets with descriptors available in Brandnam table\n"
+                            + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
+                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "DESC_COOK",
+            name = "FACET_TYPE",
             allowsNull = "false"
     )
     @Getter
@@ -180,7 +184,8 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     private Type type;
 
     /**
-     * TODO missing description
+     * 0 = facet with single-selection of descriptor
+     * 1 = facets with multi-selection of descriptors
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -189,19 +194,54 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "TODO missing description",
+            describedAs = "0 = facet with single-selection of descriptor\n"
+                            + "1 = facets with multi-selection of descriptors",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "DESC_SINGLE",
+            name = "FACET_TYPE_S",
             allowsNull = "false"
     )
     @Getter
     @Setter
-    private int single;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private TypeCardinality typeCardinality;
 
     /**
-     * TODO missing description
+     * If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.
+     * Comma is used as delimiter (e.g. 10,050701,050702)
+     */
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "6",
+            describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
+                            + "Comma is used as delimiter (e.g. 10,050701,050702)",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "FACET_GRP",
+            allowsNull = "true",
+            length = 4096
+    )
+    @Getter
+    @Setter
+    private String group;
+
+    /**
+     * Label on how to ask the facet question
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -209,43 +249,46 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     )
     @PropertyLayout(
             fieldSetId = "details",
-            sequence = "6",
-            describedAs = "TODO missing description",
+            sequence = "7",
+            describedAs = "Label on how to ask the facet question",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "DESC_OTHER",
-            allowsNull = "false"
+            name = "FACET_QUEST",
+            allowsNull = "false",
+            length = 300
     )
     @Getter
     @Setter
-    private int other;
+    private String labelOnHowToAskTheFacetQuestion;
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s|%s)", name, facetCode, code);
+        return String.format("%s (code=%s)", name, code);
     }
 
     @Override
     public String toString() {
-        return "FacetDescriptor(" + "facetCode=" + getFacetCode() + ","
-         +"code=" + getCode() + ","
+        return "FoodFacet(" + "code=" + getCode() + ","
          +"name=" + getName() + ","
+         +"text=" + getText() + ","
          +"type=" + getType() + ","
-         +"single=" + getSingle() + ","
-         +"other=" + getOther() + ")";
+         +"typeCardinality=" + getTypeCardinality() + ","
+         +"group=" + getGroup() + ","
+         +"labelOnHowToAskTheFacetQuestion=" + getLabelOnHowToAskTheFacetQuestion() + ")";
     }
 
     @Programmatic
     @Override
-    public FacetDescriptor copy() {
-        var copy = repositoryService.detachedEntity(new FacetDescriptor());
-        copy.setFacetCode(getFacetCode());
+    public FoodFacet copy() {
+        var copy = repositoryService.detachedEntity(new FoodFacet());
         copy.setCode(getCode());
         copy.setName(getName());
+        copy.setText(getText());
         copy.setType(getType());
-        copy.setSingle(getSingle());
-        copy.setOther(getOther());
+        copy.setTypeCardinality(getTypeCardinality());
+        copy.setGroup(getGroup());
+        copy.setLabelOnHowToAskTheFacetQuestion(getLabelOnHowToAskTheFacetQuestion());
         return copy;
     }
 
@@ -257,36 +300,58 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public FacetDescriptor.Manager getNavigableParent() {
-        return new FacetDescriptor.Manager(searchService, "");
+    public FoodFacet.Manager getNavigableParent() {
+        return new FoodFacet.Manager(searchService, "");
     }
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getFacetCode(), getCode());
+        return new SecondaryKey(getCode());
     }
 
     @RequiredArgsConstructor
     public enum Type {
         /**
-         * descriptor without consequences in the algorithms (also from other facets)
+         *  facets with descriptors available in Descface table
          */
-        OTHER(0, "Other"),
+        STANDARD(0, "Standard"),
 
         /**
-         * no description
+         * Facets with descriptors available in Brandnam table
          */
-        RAW(1, "Raw"),
+        BRAND(1, "Brand"),
 
         /**
-         * Descriptors to ask the question 'fat used during cooking'
+         * Facets with descriptors available in Foods table - facet 15 type of fat
          */
-        QUESTION(2, "Question"),
+        FAT(2, "Fat"),
 
         /**
-         * found in austrian data for 'frittiert' - invalid enum constant?
+         * Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
          */
-        UNDOCUMENTED(3, "undocumented");
+        LIQUID(3, "Liquid");
+
+        @Getter
+        private final int matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum TypeCardinality {
+        /**
+         * facet with single-selection of descriptor
+         */
+        SINGLE(0, "single"),
+
+        /**
+         * facets with multi-selection of descriptors
+         */
+        MULTI(1, "multi");
 
         @Getter
         private final int matchOn;
@@ -299,12 +364,13 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     }
 
     /**
-     * Manager Viewmodel for @{link FacetDescriptor}
+     * Manager Viewmodel for @{link FoodFacet}
      */
-    @Named("dita.globodiet.params.food_descript.FacetDescriptor.Manager")
+    @Named("dita.globodiet.params.food_descript.FoodFacet.Manager")
     @DomainObjectLayout(
-            describedAs = "Descriptor for food facets (not recipe facets)",
-            cssClassFa = "tag .food-color"
+            describedAs = "Facet describing food (not recipe)",
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -323,12 +389,12 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
 
         @ObjectSupport
         public String title() {
-            return "Manage Facet Descriptor";
+            return "Manage Food Facet";
         }
 
         @Collection
-        public final List<FacetDescriptor> getListOfFacetDescriptor() {
-            return searchService.search(FacetDescriptor.class, FacetDescriptor::title, search);
+        public final List<FoodFacet> getListOfFoodFacet() {
+            return searchService.search(FoodFacet.class, FoodFacet::title, search);
         }
 
         @Override
@@ -338,15 +404,19 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     }
 
     /**
-     * Parameter model for @{link FacetDescriptor}
-     * @param facet Facet code
-     * @param code Descriptor code
-     * @param name Descriptor name
-     * @param type 0=Other descriptor without consequences in the algorithms (also from other facets)
-     * 1=Raw descriptor
-     * 2=Descriptors to ask the question 'fat used during cooking'
-     * @param single TODO missing description
-     * @param other TODO missing description
+     * Parameter model for @{link FoodFacet}
+     * @param code Facet code
+     * @param name Facet name
+     * @param text Facet text (text to show on the screen describing the facet)
+     * @param type 0=Standard facets with descriptors available in Descface table
+     * 1=Facets with descriptors available in Brandnam table
+     * 2=Facets with descriptors available in Foods table - facet 15 type of fat
+     * 3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
+     * @param typeCardinality 0 = facet with single-selection of descriptor
+     * 1 = facets with multi-selection of descriptors
+     * @param group If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.
+     * Comma is used as delimiter (e.g. 10,050701,050702)
+     * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
      */
     public final record Params(
             @Parameter(
@@ -356,21 +426,13 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
             @ParameterLayout(
                     describedAs = "Facet code"
             )
-            Facet facet,
-            @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor code"
-            )
             String code,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Descriptor name"
+                    describedAs = "Facet name"
             )
             String name,
             @Parameter(
@@ -378,9 +440,18 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
-                                    + "1=Raw descriptor\n"
-                                    + "2=Descriptors to ask the question 'fat used during cooking'"
+                    describedAs = "Facet text (text to show on the screen describing the facet)"
+            )
+            String text,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "0=Standard facets with descriptors available in Descface table\n"
+                                    + "1=Facets with descriptors available in Brandnam table\n"
+                                    + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
+                                    + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
             )
             Type type,
             @Parameter(
@@ -388,30 +459,37 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "TODO missing description"
+                    describedAs = "0 = facet with single-selection of descriptor\n"
+                                    + "1 = facets with multi-selection of descriptors"
             )
-            int single,
+            TypeCardinality typeCardinality,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
+                                    + "Comma is used as delimiter (e.g. 10,050701,050702)"
+            )
+            String group,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "TODO missing description"
+                    describedAs = "Label on how to ask the facet question"
             )
-            int other) {
+            String labelOnHowToAskTheFacetQuestion) {
     }
 
     /**
-     * SecondaryKey for @{link FacetDescriptor}
-     * @param facetCode Facet code
-     * @param code Descriptor code
+     * SecondaryKey for @{link FoodFacet}
+     * @param code Facet code
      */
-    public final record SecondaryKey(
-            String facetCode,
-            String code) implements ISecondaryKey<FacetDescriptor> {
+    public final record SecondaryKey(String code) implements ISecondaryKey<FoodFacet> {
         @Override
-        public Class<FacetDescriptor> correspondingClass() {
-            return FacetDescriptor.class;
+        public Class<FoodFacet> correspondingClass() {
+            return FoodFacet.class;
         }
 
         @Override
@@ -423,15 +501,15 @@ public class FacetDescriptor implements Cloneable<FacetDescriptor>, HasSecondary
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link FacetDescriptor} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link FoodFacet} in case of an unresolvable secondary key.
      */
     @DomainObjectLayout(
-            describedAs = "Unresolvable FacetDescriptor",
+            describedAs = "Unresolvable FoodFacet",
             cssClassFa = "skull red"
     )
-    @Named("dita.globodiet.params.food_descript.FacetDescriptor.Unresolvable")
+    @Named("dita.globodiet.params.food_descript.FoodFacet.Unresolvable")
     @RequiredArgsConstructor
-    public static final class Unresolvable extends FacetDescriptor implements ViewModel {
+    public static final class Unresolvable extends FoodFacet implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

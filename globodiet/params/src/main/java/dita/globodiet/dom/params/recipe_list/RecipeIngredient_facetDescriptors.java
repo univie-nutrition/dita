@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
@@ -43,8 +43,8 @@ public class RecipeIngredient_facetDescriptors {
     private final RecipeIngredient mixee;
 
     @MemberSupport
-    public Can<FacetDescriptor> coll() {
-        return foreignKeyLookup.decodeLookupKeyList(FacetDescriptor.class, mixee.getFacetDescriptorsLookupKey())
+    public Can<FoodDescriptor> coll() {
+        return foreignKeyLookup.decodeLookupKeyList(FoodDescriptor.class, mixee.getFacetDescriptorsLookupKey())
             .map(foreignKeyLookup::unique);
     }
 }

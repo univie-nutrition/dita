@@ -17,14 +17,16 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.FacetDescriptor:
+params.food_descript.FoodDescriptor:
   namespace: params.food_descript
   table: DESCFACE
   secondaryKey: |
     FACET_CODE
     DESCR_CODE
   title: String.format("%s (code=%s|%s)", name, facetCode, code)
-  icon: tag .food-color
+  icon: |
+    solid utensils .food-color,
+    solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
     Descriptor for food facets (not recipe facets)
   fields:

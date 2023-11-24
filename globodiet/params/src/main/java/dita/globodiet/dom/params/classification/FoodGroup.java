@@ -63,7 +63,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Food group",
-        cssClassFa = "solid layer-group .food-color"
+        cssClassFa = "solid utensils .food-color,\n"
+                        + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "GROUPS"
@@ -189,7 +190,8 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
     @Named("dita.globodiet.params.classification.FoodGroup.Manager")
     @DomainObjectLayout(
             describedAs = "Food group",
-            cssClassFa = "solid layer-group .food-color"
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

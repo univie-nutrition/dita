@@ -34,42 +34,24 @@ import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class FacetDeps {
+public class FoodFacetDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(Facet_dependentFacetDescriptorMappedByFacet.class,
-        Facet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
-        Facet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
-        Facet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
-        Facet_dependentRuleAppliedToFacetMappedByFacet.class,
-        Facet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj.class,
-        Facet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
+        return Can.of(FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
+        FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
+        FoodFacet_dependentFoodDescriptorMappedByFacet.class,
+        FoodFacet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
+        FoodFacet_dependentRuleAppliedToFacetMappedByFacet.class,
+        FoodFacet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj.class,
+        FoodFacet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class Facet_dependentFacetDescriptorMappedByFacet {
+    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final Facet mixee;
-
-        @MemberSupport
-        public List<FacetDescriptor> coll() {
-            return dependantLookup.findDependants(
-                FacetDescriptor.class,
-                FacetDescriptor_facet.class,
-                FacetDescriptor_facet::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Facet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Facet mixee;
+        private final FoodFacet mixee;
 
         @MemberSupport
         public List<FacetDescriptorPathwayForFood> coll() {
@@ -83,11 +65,11 @@ public class FacetDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Facet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet {
+    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final Facet mixee;
+        private final FoodFacet mixee;
 
         @MemberSupport
         public List<FacetDescriptorPathwayForFoodGroup> coll() {
@@ -101,11 +83,29 @@ public class FacetDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Facet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet {
+    public static class FoodFacet_dependentFoodDescriptorMappedByFacet {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final Facet mixee;
+        private final FoodFacet mixee;
+
+        @MemberSupport
+        public List<FoodDescriptor> coll() {
+            return dependantLookup.findDependants(
+                FoodDescriptor.class,
+                FoodDescriptor_facet.class,
+                FoodDescriptor_facet::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class FoodFacet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodFacet mixee;
 
         @MemberSupport
         public List<ImprobableSequenceOfFacetAndDescriptor> coll() {
@@ -119,11 +119,11 @@ public class FacetDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Facet_dependentRuleAppliedToFacetMappedByFacet {
+    public static class FoodFacet_dependentRuleAppliedToFacetMappedByFacet {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final Facet mixee;
+        private final FoodFacet mixee;
 
         @MemberSupport
         public List<RuleAppliedToFacet> coll() {
@@ -137,11 +137,11 @@ public class FacetDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Facet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj {
+    public static class FoodFacet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final Facet mixee;
+        private final FoodFacet mixee;
 
         @MemberSupport
         public List<RuleAppliedToFacets> coll() {
@@ -155,11 +155,11 @@ public class FacetDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Facet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet {
+    public static class FoodFacet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final Facet mixee;
+        private final FoodFacet mixee;
 
         @MemberSupport
         public List<FacetDescriptorThatCannotBeSubstituted> coll() {

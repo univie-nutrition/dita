@@ -23,7 +23,9 @@ params.recipe_description.RecipeFacet:
   secondaryKey: |
     RFACET_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
     Facet for Recipe 
   fields:

@@ -63,7 +63,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.recipe_description.RecipeFacet")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Facet for Recipe"
+        describedAs = "Facet for Recipe",
+        cssClassFa = "solid stroopwafel .recipe-color,\n"
+                        + "solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "R_FACET"
@@ -383,7 +385,9 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
      */
     @Named("dita.globodiet.params.recipe_description.RecipeFacet.Manager")
     @DomainObjectLayout(
-            describedAs = "Facet for Recipe"
+            describedAs = "Facet for Recipe",
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

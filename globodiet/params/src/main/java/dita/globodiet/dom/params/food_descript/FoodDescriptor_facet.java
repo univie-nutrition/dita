@@ -38,16 +38,16 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class FacetDescriptor_facet {
+public class FoodDescriptor_facet {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final FacetDescriptor mixee;
+    private final FoodDescriptor mixee;
 
     @MemberSupport
-    public Facet prop() {
+    public FoodFacet prop() {
         if(mixee.getFacetCode()==null) return null;
-        final var lookupKey = new Facet.SecondaryKey(mixee.getFacetCode());
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

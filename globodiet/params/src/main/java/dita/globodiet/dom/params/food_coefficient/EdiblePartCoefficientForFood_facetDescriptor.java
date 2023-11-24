@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -46,8 +46,8 @@ public class EdiblePartCoefficientForFood_facetDescriptor {
     private final EdiblePartCoefficientForFood mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
-        return foreignKeyLookup.decodeLookupKeyList(FacetDescriptor.class, mixee.getFacetDescriptorLookupKey())
+    public FoodDescriptor prop() {
+        return foreignKeyLookup.decodeLookupKeyList(FoodDescriptor.class, mixee.getFacetDescriptorLookupKey())
             .map(foreignKeyLookup::unique)
             .getSingleton().orElse(null);
     }

@@ -23,7 +23,7 @@ params.recipe_list.Recipe:
   secondaryKey: |
     R_IDNUM
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: solid stroopwafel .recipe-color
   description: |
     Mixed (a priory) Recipe (not an on-the-fly one):
     After preparation, the different ingredients cannot be identified 

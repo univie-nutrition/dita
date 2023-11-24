@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.setting;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -46,9 +46,9 @@ public class FacetDescriptorThatCannotBeSubstituted_descriptor {
     private final FacetDescriptorThatCannotBeSubstituted mixee;
 
     @MemberSupport
-    public FacetDescriptor prop() {
+    public FoodDescriptor prop() {
         if(mixee.getDescriptorCode()==null) return null;
-        final var lookupKey = new FacetDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
+        final var lookupKey = new FoodDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

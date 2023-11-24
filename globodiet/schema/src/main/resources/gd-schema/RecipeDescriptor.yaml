@@ -24,7 +24,9 @@ params.recipe_description.RecipeDescriptor:
     RFACET_CODE
     RDESCR_CODE
   title: String.format("%s (code=%s|%s)", name, recipeFacetCode, code)
-  icon: null
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
     Descriptor per facet
   fields:

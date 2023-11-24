@@ -47,9 +47,9 @@ public class FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets {
     private final FacetDescriptorPathwayForFood mixee;
 
     @MemberSupport
-    public Facet prop() {
+    public FoodFacet prop() {
         if(mixee.getMandatoryInSequenceOfFacetsCode()==null) return null;
-        final var lookupKey = new Facet.SecondaryKey(mixee.getMandatoryInSequenceOfFacetsCode());
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getMandatoryInSequenceOfFacetsCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

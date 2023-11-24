@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this Facet",
+        describedAs = "Delete this FoodFacet",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class Facet_delete {
+public class FoodFacet_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class Facet_delete {
     @Inject
     SearchService searchService;
 
-    private final Facet mixee;
+    private final FoodFacet mixee;
 
     @MemberSupport
-    public Facet.Manager act(
+    public FoodFacet.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new Facet.Manager(searchService, "");
+        return new FoodFacet.Manager(searchService, "");
     }
 
     @MemberSupport

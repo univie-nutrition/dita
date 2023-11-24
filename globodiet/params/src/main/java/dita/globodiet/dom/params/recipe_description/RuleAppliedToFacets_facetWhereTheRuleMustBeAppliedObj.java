@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.recipe_description;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.Facet;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -46,9 +46,9 @@ public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
     private final RuleAppliedToFacets mixee;
 
     @MemberSupport
-    public Facet prop() {
+    public FoodFacet prop() {
         if(mixee.getFacetWhereTheRuleMustBeApplied()==null) return null;
-        final var lookupKey = new Facet.SecondaryKey(mixee.getFacetWhereTheRuleMustBeApplied());
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetWhereTheRuleMustBeApplied());
         return foreignKeyLookup.unique(lookupKey);
     }
 }
