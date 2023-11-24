@@ -57,7 +57,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.supplement.DietarySupplementDescriptor")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Dietary supplement descriptor"
+        describedAs = "Dietary supplement descriptor",
+        cssClassFa = "solid tablets .supplement-color,\n"
+                        + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "DS_DESCFACE"
@@ -419,7 +421,9 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
      */
     @Named("dita.globodiet.params.supplement.DietarySupplementDescriptor.Manager")
     @DomainObjectLayout(
-            describedAs = "Dietary supplement descriptor"
+            describedAs = "Dietary supplement descriptor",
+            cssClassFa = "solid tablets .supplement-color,\n"
+                            + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

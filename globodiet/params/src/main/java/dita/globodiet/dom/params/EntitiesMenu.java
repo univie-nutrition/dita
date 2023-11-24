@@ -618,25 +618,36 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid tablets .supplement-color"
+    )
     public DietarySupplement.Manager manageDietarySupplement() {
         return factoryService.viewModel(new DietarySupplement.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid tablets .supplement-color,\n"
+                            + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
     public DietarySupplementClassification.Manager manageDietarySupplementClassification() {
         return factoryService.viewModel(new DietarySupplementClassification.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid tablets .supplement-color,\n"
+                            + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
     public DietarySupplementDescriptor.Manager manageDietarySupplementDescriptor() {
         return factoryService.viewModel(new DietarySupplementDescriptor.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid tablets .supplement-color,\n"
+                            + "solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
     public DietarySupplementFacet.Manager manageDietarySupplementFacet() {
         return factoryService.viewModel(new DietarySupplementFacet.Manager(searchService, ""));
     }

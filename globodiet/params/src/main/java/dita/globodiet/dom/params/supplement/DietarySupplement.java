@@ -54,7 +54,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.supplement.DietarySupplement")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Dietary supplement"
+        describedAs = "Dietary supplement",
+        cssClassFa = "solid tablets .supplement-color"
 )
 @PersistenceCapable(
         table = "SUPPLEMENTS"
@@ -221,7 +222,8 @@ public class DietarySupplement implements Cloneable<DietarySupplement> {
      */
     @Named("dita.globodiet.params.supplement.DietarySupplement.Manager")
     @DomainObjectLayout(
-            describedAs = "Dietary supplement"
+            describedAs = "Dietary supplement",
+            cssClassFa = "solid tablets .supplement-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

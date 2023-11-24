@@ -62,7 +62,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.supplement.DietarySupplementClassification")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Dietary supplement classification"
+        describedAs = "Dietary supplement classification",
+        cssClassFa = "solid tablets .supplement-color,\n"
+                        + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "DS_CLASSIF"
@@ -187,7 +189,9 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
      */
     @Named("dita.globodiet.params.supplement.DietarySupplementClassification.Manager")
     @DomainObjectLayout(
-            describedAs = "Dietary supplement classification"
+            describedAs = "Dietary supplement classification",
+            cssClassFa = "solid tablets .supplement-color,\n"
+                            + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

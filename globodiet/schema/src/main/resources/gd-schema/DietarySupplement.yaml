@@ -22,7 +22,7 @@ params.supplement.DietarySupplement:
   table: SUPPLEMENTS
   secondaryKey:
   title: String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode)
-  icon: null
+  icon: solid tablets .supplement-color
   description: |
     Dietary supplement
   fields:

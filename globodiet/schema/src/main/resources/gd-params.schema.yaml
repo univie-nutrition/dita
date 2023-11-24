@@ -4204,7 +4204,7 @@ params.supplement.DietarySupplement:
   table: SUPPLEMENTS
   secondaryKey:
   title: String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode)
-  icon: null
+  icon: solid tablets .supplement-color
   description: |
     Dietary supplement
   fields:
@@ -4253,7 +4253,10 @@ params.supplement.DietarySupplementClassification:
   secondaryKey: |
     DS_CLASS
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: |
+    solid tablets .supplement-color,
+    solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Dietary supplement classification
   fields:
@@ -4283,7 +4286,10 @@ params.supplement.DietarySupplementDescriptor:
   table: DS_DESCFACE
   secondaryKey:
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: |
+    solid tablets .supplement-color,
+    solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Dietary supplement descriptor
   fields:
@@ -4371,7 +4377,10 @@ params.supplement.DietarySupplementFacet:
   secondaryKey: |
     DSFACET_CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: |
+    solid tablets .supplement-color,
+    solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   description: |
     Dietary supplement facet
   fields:
