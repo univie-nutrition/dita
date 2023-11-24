@@ -49,12 +49,14 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Maximum value for a food or a (sub-)(sub-)group
+ * Maximum quantity consumed that could be entered in the interview application for a given food
+ * (or group) before the control message warns the interviewer of an implausible value.
  */
 @Named("dita.globodiet.params.food_max.MaximumValueForAFoodOrGroup")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Maximum value for a food or a (sub-)(sub-)group"
+        describedAs = "Maximum quantity consumed that could be entered in the interview application for a given food\n"
+                        + "(or group) before the control message warns the interviewer of an implausible value."
 )
 @PersistenceCapable(
         table = "MAXVAL"
@@ -266,7 +268,8 @@ public class MaximumValueForAFoodOrGroup implements Cloneable<MaximumValueForAFo
      */
     @Named("dita.globodiet.params.food_max.MaximumValueForAFoodOrGroup.Manager")
     @DomainObjectLayout(
-            describedAs = "Maximum value for a food or a (sub-)(sub-)group"
+            describedAs = "Maximum quantity consumed that could be entered in the interview application for a given food\n"
+                            + "(or group) before the control message warns the interviewer of an implausible value."
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

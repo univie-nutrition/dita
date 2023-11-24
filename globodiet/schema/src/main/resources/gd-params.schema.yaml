@@ -1282,7 +1282,8 @@ params.food_max.MaximumValueForAFoodOrGroup:
   icon: null
   iconService: false
   description: |
-    Maximum value for a food or a (sub-)(sub-)group
+    Maximum quantity consumed that could be entered in the interview application for a given food 
+    (or group) before the control message warns the interviewer of an implausible value.
   fields:
     foodGroupCode:
       column: GROUP
@@ -3682,7 +3683,8 @@ params.recipe_max.MaximumValueForARecipeOrGroup:
   icon: null
   iconService: false
   description: |
-    Maximum value for a recipe or a (sub-)group
+    Maximum quantity consumed that could be entered in the interview application for a given recipe 
+    (or group) before the control message warns the interviewer of an implausible value.
   fields:
     recipeGroupCode:
       column: R_GROUP
