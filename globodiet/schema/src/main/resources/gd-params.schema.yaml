@@ -3716,7 +3716,8 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
   title: null
   icon: |
     solid person-walking-arrow-right .recipe-color,
-    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
   description: |
     Quantification method pathway for individual recipe. 
@@ -3765,8 +3766,7 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup:
   title: null
   icon: |
     solid person-walking-arrow-right .recipe-color,
-    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
-    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
     
   description: |
     Quantification methods pathway for recipe group/subgroup.

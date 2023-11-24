@@ -542,7 +542,8 @@ public class EntitiesMenu {
     @Action
     @ActionLayout(
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     public QuantificationMethodPathwayForRecipe.Manager manageQuantificationMethodPathwayForRecipe(
             ) {
@@ -552,8 +553,7 @@ public class EntitiesMenu {
     @Action
     @ActionLayout(
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     public QuantificationMethodPathwayForRecipeGroup.Manager manageQuantificationMethodPathwayForRecipeGroup(
             ) {
