@@ -42,130 +42,13 @@ implements IconFaService {
 
     private FontAwesomeLayers icon(final FoodSubgroup foodSubgroup) {
         if(foodSubgroup.getFoodSubSubgroupCode()==null) {
-            return FontAwesomeLayers.singleIcon("fa-solid fa-layer-group fa-lg food-color");
+            return FontAwesomeLayers.fromQuickNotation("solid utensils .food-color,"
+                    + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,"
+                    + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85");
         }
-        return FontAwesomeLayers.stackBuilder()
-            .containerCssClasses("fa-lg")
-            .containerCssStyle("width:1.25em")
-            .addIconEntry("fa-solid fa-layer-group fa-stack-1x food-color")
-            .addIconEntry("fa-solid fa-circle-chevron-down fa-stack-1x food-color overlay", "left:0.85em;top:0.85em")
-            .build();
+        return FontAwesomeLayers.fromQuickNotation("solid utensils .food-color,"
+                + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,"
+                + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-45,"
+                + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-85");
     }
-
-// variant with 1 or 2 overlays
-//    private FontAwesomeLayers icon(final FoodSubgroup foodSubgroup) {
-//        var stackBuilder =  FontAwesomeLayers.stackBuilder()
-//                .containerCssClasses("fa-lg")
-//                .containerCssStyle("width:1.25em")
-//                .addIconEntry("fa-solid fa-layer-group fa-stack-1x food-color");
-//        if(foodSubgroup.getFoodSubSubgroupCode()==null) {
-//            stackBuilder
-//                .addIconEntry("fa-solid fa-circle-chevron-down fa-stack-1x food-color overlay", "left:0.85em;top:0.85em");
-//        } else {
-//            stackBuilder
-//                .addIconEntry("fa-solid fa-circle-chevron-down fa-stack-1x food-color overlay", "left:0.25em;top:0.85em")
-//                .addIconEntry("fa-solid fa-circle-chevron-down fa-stack-1x food-color overlay", "left:1em;top:0.85em");
-//        }
-//        return stackBuilder
-//                .build();
-//    }
-
-/* icon experiments
-<h2>Grouping Symbols</h2>
-<p>
-
-<span>
-<i class="fa fa-solid fa-shapes food-color"></i>
-food group
-</span>
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa-solid fa-shapes fa-stack-1x food-color"></i>
-   <i class="fa-circle-chevron-down fa-stack-1x food-color overlay" style="left:0.85em;top:0.85em;"></i>
-</span>
-food sub group
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa-solid fa-shapes fa-stack-1x food-color"></i>
-   <i class="fa-circle-chevron-down fa-stack-1x food-color overlay" style="left:0.3em;top:0.85em;"></i>
-   <i class="fa-circle-chevron-down fa-stack-1x food-color overlay" style="left:1em;top:0.85em;"></i>
-</span>
-food sub sub group
-
-</p><p>
-
-<span>
-<i class="fa fa-solid fa-shapes recipe-color"></i>
-recipe group
-</span>
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-shapes fa-stack-1x recipe-color"></i>
-   <i class="fa fa-circle-chevron-down fa-stack-1x recipe-color overlay" style="left:0.85em;top:0.85em;"></i>
-</span>
-recipe sub group
-
-</p>
-
-<h2>Pathway Symbols</h2>
-
-<p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-person-walking-arrow-right fa-stack-1x food-color"></i>
-   <i class="fa fa-solid fa-tag fa-stack-1x food-color overlay" style="left:0.5em;top:0.85em;"></i>
-</span>
-facet descriptor pathway for food group
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-person-walking-arrow-right fa-stack-1x food-color"></i>
-   <i class="fa fa-solid fa-tag fa-stack-1x food-color overlay" style="left:0.5em;top:0.85em;"></i>
-   <i class="fa fa-solid fa-exclamation fa-stack-1x food-color overlay" style="left:0.35em;top:-0.85em;"></i>
-</span>
-facet descriptor pathway for food
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-person-walking-arrow-right fa-stack-1x food-color"></i>
-   <i class="fa fa-solid fa-scale-balanced fa-stack-1x food-color overlay" style="left:0.5em;top:0.85em;"></i>
-</span>
-quantification method pathway for food group
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-person-walking-arrow-right fa-stack-1x food-color"></i>
-   <i class="fa fa-solid fa-scale-balanced fa-stack-1x food-color overlay" style="left:0.5em;top:0.85em;"></i>
-   <i class="fa fa-solid fa-exclamation fa-stack-1x food-color overlay" style="left:0.35em;top:-0.85em;"></i>
-</span>
-quantification method pathway for food
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-person-walking-arrow-right fa-stack-1x food-color"></i>
-   <i class="fa fa-regular fa-question fa-stack-1x food-color overlay" style="left:0.5em;top:0.85em;"></i>
-</span>
-probing question pathway for food
-
-</p><p>
-
-<span class="fa-stack">
-   <i class="fa fa-solid fa-person-walking-arrow-right fa-stack-1x recipe-color"></i>
-   <i class="fa fa-regular fa-question fa-stack-1x recipe-color overlay" style="left:0.5em;top:0.85em;"></i>
-</span>
-probing question pathway for recipe
-
-</p>
-*/
-
 }

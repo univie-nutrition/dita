@@ -24,17 +24,26 @@
         </mb:menu>
     
         <mb:menu>
-            <mb:named>Featured Managers</mb:named>
-            <mb:section>
-                <mb:named>Brand</mb:named>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodBrand"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeBrand"/>
-            </mb:section>
+            <mb:named>Food and Recipes</mb:named>
             <mb:section>
                 <mb:named>Food</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFood"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodBrand"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodFacet"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodDescriptor"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodGroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodSubgroup"/>
+            </mb:section>
+            <mb:section>
+                <mb:named>Recipe</mb:named>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipe"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeBrand"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeDescriptor"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeFacet"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeGroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeSubgroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeIngredient"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeIngredientQuantification"/>
             </mb:section>
         </mb:menu>
         <mb:menu>
@@ -71,8 +80,8 @@
             <mb:section>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplement"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementClassification"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementFacet"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementDescriptor"/>
             </mb:section>
         </mb:menu>
         <mb:menu>

@@ -12,6 +12,9 @@
 .food-color-em {
   color: olive;
 }
+.food-color-em2 {
+  color: IndianRed;
+}
 .recipe-color {
   color: darkkhaki;
 }
@@ -49,6 +52,9 @@
 }
 .ov-right-85 {
   left: 0.85em;
+}
+.ov-bottom-45 {
+  top: 0.45em;
 }
 .ov-bottom-55 {
   top: 0.55em;

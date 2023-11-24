@@ -30,6 +30,7 @@ import org.springframework.javapoet.ParameterizedTypeName;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.experimental.UtilityClass;
@@ -52,6 +53,15 @@ class _Methods {
             .addAnnotation(_Annotations.objectSupport())
             .returns(ClassName.get("java.lang", "String"))
             .addCode(code)
+            .build();
+    }
+
+    MethodSpec iconFaLayers(final Modifier ... modifiers) {
+        return MethodSpec.methodBuilder("iconFaLayers")
+            .addModifiers(modifiers)
+            .addAnnotation(_Annotations.objectSupport())
+            .returns(ClassName.get(FontAwesomeLayers.class))
+            .addCode("return iconFaService.iconFaLayers(this);")
             .build();
     }
 

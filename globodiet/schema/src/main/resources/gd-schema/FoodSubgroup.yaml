@@ -35,6 +35,7 @@ params.classification.FoodSubgroup:
     solid utensils .food-color,
     solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,
     solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+  iconService: true  
   description: |
     Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:

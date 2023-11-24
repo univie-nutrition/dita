@@ -62,6 +62,7 @@ public class OrmModel {
             List<String> secondaryKey,
             String title,
             String icon,
+            boolean iconService,
             List<String> description,
             List<Field> fields) {
         @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -82,6 +83,7 @@ public class OrmModel {
                     parseMultilineStringTrimmed((String)map.get("secondaryKey")),
                     (String)map.get("title"),
                     (String)map.get("icon"),
+                    parseNullableBoolean((Boolean)map.get("iconService")),
                     parseMultilineString((String)map.get("description")),
                     new ArrayList<>());
             fieldsAsMap.entrySet().stream()
@@ -157,6 +159,7 @@ public class OrmModel {
                     yaml.ind().write("icon: ", icon).nl();
                 }
             }
+            yaml.ind().write("iconService: ", ""+iconService).nl();
             yaml.ind().write("description:").multilineStartIfNotEmtpy(description).nl();
             description.forEach(line->
                 yaml.ind().ind().write(line).nl());
@@ -577,7 +580,9 @@ public class OrmModel {
      * JUnit support.
      */
     public Can<Schema> examples() {
-        val entity = new Entity("FoodList", "dita", "FOODS", "", List.of(), "name", "fa-pencil", List.of("Food List and Aliases"),
+        val entity = new Entity("FoodList", "dita", "FOODS", "", List.of(), "name", "fa-pencil",
+                false,
+                List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
         val field = new Field(SneakyRef.of(entity), /*ordinal*/0, "name", "NAME", "nvarchar(100)", true, false, false,
                 "",
@@ -612,6 +617,10 @@ public class OrmModel {
             sb.append('\n');
             return this;
         }
+    }
+
+    private static boolean parseNullableBoolean(final Boolean bool) {
+        return Boolean.TRUE.equals(bool);
     }
 
     private static List<String> parseMultilineString(final String input) {

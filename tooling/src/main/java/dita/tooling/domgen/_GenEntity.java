@@ -39,6 +39,7 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.internal.base._Strings;
 
+import dita.commons.services.iconfa.IconFaService;
 import dita.commons.services.lookup.HasSecondaryKey;
 import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
@@ -78,6 +79,12 @@ class _GenEntity {
                 .addMethod(_Methods.navigableParent(entityModel.name()))
                 .addFields(asFields(entityModel.fields(), Modifier.PRIVATE))
                 ;
+
+        if(entityModel.iconService()) {
+            typeModelBuilder
+                .addField(_Fields.inject(IconFaService.class, "iconFaService"))
+                .addMethod(_Methods.iconFaLayers(Modifier.PUBLIC));
+        }
 
         // data federation support
         if(_Strings.isNotEmpty(config.datastore())) {
