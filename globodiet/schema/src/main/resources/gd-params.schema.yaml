@@ -700,7 +700,11 @@ params.food_descript.FacetDescriptorPathwayForFood:
   table: FOODFAEX
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .food-color
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
   description: |
     Facet/descriptor pathway for individual food.
     Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.
@@ -737,7 +741,10 @@ params.food_descript.FacetDescriptorPathwayForFoodGroup:
   table: GROUPFAC
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .food-color
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
   description: |
     Facet/descriptor pathway for food group/subgroup.
     Optionally can be superseded by @{table FOODFAEX}.
@@ -1322,7 +1329,10 @@ params.food_probing.ProbingQuestionPathwayForFood:
   table: PQPATH
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right darkgreen
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
   description: |
     Probing question pathway for food.
   fields:
@@ -1381,7 +1391,11 @@ params.food_quantif.QuantificationMethodPathwayForFood:
   table: QM_FOODS
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .food-color
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
   description: |
     Quantification method pathway for individual food. 
     Supersedes this food's group quantification method pathway from @{table QM_GROUP}.
@@ -1429,7 +1443,10 @@ params.food_quantif.QuantificationMethodPathwayForFoodGroup:
   table: QM_GROUP
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .food-color
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    
   description: |
     Quantification method pathway for food group/subgroup.
     Optionally can be superseded by @{table QM_FOODS}.
@@ -2711,7 +2728,11 @@ params.recipe_description.FacetDescriptorPathwayForRecipe:
   table: R_RCPFAEX
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
   description: |
     Facet/descriptor pathway for individual recipe.
     Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
@@ -2747,7 +2768,10 @@ params.recipe_description.FacetDescriptorPathwayForRecipeGroup:
   table: R_GROUPFAC
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
   description: |
     Facet/descriptor pathway for recipe group/subgroup.
     Optionally can be superseded by @{table R_RCPFAEX}.
@@ -3031,7 +3055,7 @@ params.recipe_list.Recipe:
   secondaryKey: |
     R_IDNUM
   title: String.format("%s (code=%s)", name, code)
-  icon: null
+  icon: solid stroopwafel .recipe-color
   description: |
     Mixed (a priory) Recipe (not an on-the-fly one):
     After preparation, the different ingredients cannot be identified 
@@ -3640,7 +3664,10 @@ params.recipe_probing.ProbingQuestionPathwayForRecipe:
   table: RPQPATH
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
   description: |
     Probing question pathway for recipe.
   fields:
@@ -3687,7 +3714,10 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipe:
   table: QM_RECIP
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
   description: |
     Quantification method pathway for individual recipe. 
     Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
@@ -3733,7 +3763,11 @@ params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup:
   table: QM_RCLAS
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
   description: |
     Quantification methods pathway for recipe group/subgroup.
     Optionally can be superseded by @{table QM_RECIP}.

@@ -101,7 +101,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
                         + "or as a strictly commercial recipe.\n"
                         + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
                         + "When entering the recipe ingredients with RECIPE MANAGER,\n"
-                        + "the ingredients are described and quantified like in the food pathway."
+                        + "the ingredients are described and quantified like in the food pathway.",
+        cssClassFa = "solid stroopwafel .recipe-color"
 )
 @PersistenceCapable(
         table = "MIXEDREC"
@@ -529,7 +530,8 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
                             + "or as a strictly commercial recipe.\n"
                             + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
                             + "When entering the recipe ingredients with RECIPE MANAGER,\n"
-                            + "the ingredients are described and quantified like in the food pathway."
+                            + "the ingredients are described and quantified like in the food pathway.",
+            cssClassFa = "solid stroopwafel .recipe-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

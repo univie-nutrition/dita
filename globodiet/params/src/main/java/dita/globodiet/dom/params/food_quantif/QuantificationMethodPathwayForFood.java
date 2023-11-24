@@ -60,7 +60,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Quantification method pathway for individual food.\n"
                         + "Supersedes this food's group quantification method pathway from @{table QM_GROUP}.",
-        cssClassFa = "solid person-walking-arrow-right .food-color"
+        cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                        + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                        + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "QM_FOODS"
@@ -240,7 +242,9 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
     @DomainObjectLayout(
             describedAs = "Quantification method pathway for individual food.\n"
                             + "Supersedes this food's group quantification method pathway from @{table QM_GROUP}.",
-            cssClassFa = "solid person-walking-arrow-right .food-color"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

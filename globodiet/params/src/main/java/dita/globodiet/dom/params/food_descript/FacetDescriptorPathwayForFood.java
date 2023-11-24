@@ -57,7 +57,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for individual food.\n"
                         + "Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.",
-        cssClassFa = "solid person-walking-arrow-right .food-color"
+        cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                        + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                        + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "FOODFAEX"
@@ -181,7 +183,9 @@ public class FacetDescriptorPathwayForFood implements Cloneable<FacetDescriptorP
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for individual food.\n"
                             + "Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.",
-            cssClassFa = "solid person-walking-arrow-right .food-color"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

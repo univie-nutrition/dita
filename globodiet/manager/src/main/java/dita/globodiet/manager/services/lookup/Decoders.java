@@ -31,7 +31,7 @@ import dita.globodiet.dom.params.classification.FoodGroup;
 import dita.globodiet.dom.params.classification.FoodSubgroup;
 import dita.globodiet.dom.params.classification.RecipeGroup;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.UtilityClass;
@@ -44,10 +44,10 @@ class Decoders {
     /**
      * Facet string multiple (descface.facet_code + descface.descr_code)comma separated (e.g. 0401,0203,051)
      */
-    FacetDescriptor.SecondaryKey decodeFacetDecriptorLookupKey(final @NonNull String input) {
+    FoodDescriptor.SecondaryKey decodeFacetDecriptorLookupKey(final @NonNull String input) {
         _Assert.assertEquals(4, input.length(),
                 ()->String.format("invalid 4 digit facet descriptor lookup key: %s", input));
-        return new FacetDescriptor.SecondaryKey(input.substring(0, 2), input.substring(2));
+        return new FoodDescriptor.SecondaryKey(input.substring(0, 2), input.substring(2));
     }
 
     /**
@@ -89,7 +89,7 @@ class Decoders {
     /**
      * comma separated (e.g. 0300,0301)
      */
-    Can<FacetDescriptor.SecondaryKey> decodeFacetDecriptorLookupKeyList(final @Nullable String input) {
+    Can<FoodDescriptor.SecondaryKey> decodeFacetDecriptorLookupKeyList(final @Nullable String input) {
         return decodeStringList(input)
                 .map(Decoders::decodeFacetDecriptorLookupKey)
                 .collect(Can.toCan());

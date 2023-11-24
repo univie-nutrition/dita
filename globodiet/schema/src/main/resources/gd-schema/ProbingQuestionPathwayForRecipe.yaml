@@ -22,7 +22,9 @@ params.recipe_probing.ProbingQuestionPathwayForRecipe:
   table: RPQPATH
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
   description: |
     Probing question pathway for recipe.
   fields:

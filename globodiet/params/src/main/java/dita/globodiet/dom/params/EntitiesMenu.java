@@ -200,7 +200,9 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     public FacetDescriptorPathwayForFood.Manager manageFacetDescriptorPathwayForFood() {
         return factoryService.viewModel(new FacetDescriptorPathwayForFood.Manager(searchService, ""));
@@ -208,7 +210,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     public FacetDescriptorPathwayForFoodGroup.Manager manageFacetDescriptorPathwayForFoodGroup() {
         return factoryService.viewModel(new FacetDescriptorPathwayForFoodGroup.Manager(searchService, ""));
@@ -267,7 +270,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right darkgreen"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     public ProbingQuestionPathwayForFood.Manager manageProbingQuestionPathwayForFood() {
         return factoryService.viewModel(new ProbingQuestionPathwayForFood.Manager(searchService, ""));
@@ -275,7 +279,9 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     public QuantificationMethodPathwayForFood.Manager manageQuantificationMethodPathwayForFood() {
         return factoryService.viewModel(new QuantificationMethodPathwayForFood.Manager(searchService, ""));
@@ -283,7 +289,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color"
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
     )
     public QuantificationMethodPathwayForFoodGroup.Manager manageQuantificationMethodPathwayForFoodGroup(
             ) {
@@ -455,7 +462,9 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     public FacetDescriptorPathwayForRecipe.Manager manageFacetDescriptorPathwayForRecipe() {
         return factoryService.viewModel(new FacetDescriptorPathwayForRecipe.Manager(searchService, ""));
@@ -463,7 +472,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     public FacetDescriptorPathwayForRecipeGroup.Manager manageFacetDescriptorPathwayForRecipeGroup(
             ) {
@@ -495,7 +505,9 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid stroopwafel .recipe-color"
+    )
     public Recipe.Manager manageRecipe() {
         return factoryService.viewModel(new Recipe.Manager(searchService, ""));
     }
@@ -520,7 +532,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     public ProbingQuestionPathwayForRecipe.Manager manageProbingQuestionPathwayForRecipe() {
         return factoryService.viewModel(new ProbingQuestionPathwayForRecipe.Manager(searchService, ""));
@@ -528,7 +541,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     public QuantificationMethodPathwayForRecipe.Manager manageQuantificationMethodPathwayForRecipe(
             ) {
@@ -537,7 +551,9 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     public QuantificationMethodPathwayForRecipeGroup.Manager manageQuantificationMethodPathwayForRecipeGroup(
             ) {

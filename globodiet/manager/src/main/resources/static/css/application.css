@@ -35,6 +35,9 @@
 .ov-left-50 {
   left: -0.5em;
 }
+.ov-right-50 {
+  left: 0.5em;
+}
 .ov-right-55 {
   left: 0.55em;
 }

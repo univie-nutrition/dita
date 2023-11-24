@@ -55,7 +55,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Probing question pathway for recipe.",
-        cssClassFa = "solid person-walking-arrow-right .recipe-color"
+        cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                        + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "RPQPATH"
@@ -197,7 +198,8 @@ public class ProbingQuestionPathwayForRecipe implements Cloneable<ProbingQuestio
     @Named("dita.globodiet.params.recipe_probing.ProbingQuestionPathwayForRecipe.Manager")
     @DomainObjectLayout(
             describedAs = "Probing question pathway for recipe.",
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

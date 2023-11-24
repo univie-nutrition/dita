@@ -49,7 +49,7 @@ import dita.globodiet.dom.params.classification.RecipeGroup;
 import dita.globodiet.dom.params.classification.RecipeGrouping;
 import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
-import dita.globodiet.dom.params.food_descript.FacetDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
@@ -238,7 +238,7 @@ implements ForeignKeyLookupService {
                     .collect(Can.toCan());
             return _Casts.uncheckedCast(keys);
         }
-        if(FacetDescriptor.class.equals(foreignType)) {
+        if(FoodDescriptor.class.equals(foreignType)) {
             return _Casts.uncheckedCast(Decoders.decodeFacetDecriptorLookupKeyList(stringList));
         }
         throw _Exceptions.unrecoverable("decodeLookupKey(List) not implemented for foreign type %s",

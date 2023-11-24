@@ -22,7 +22,9 @@ params.food_probing.ProbingQuestionPathwayForFood:
   table: PQPATH
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right darkgreen
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
   description: |
     Probing question pathway for food.
   fields:

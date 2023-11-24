@@ -22,7 +22,10 @@ params.recipe_description.FacetDescriptorPathwayForRecipe:
   table: R_RCPFAEX
   secondaryKey:
   title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
   description: |
     Facet/descriptor pathway for individual recipe.
     Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
