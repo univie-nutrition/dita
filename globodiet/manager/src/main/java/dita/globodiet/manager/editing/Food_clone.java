@@ -198,7 +198,7 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentItemDefinitionMappedByFoodOrRecipe.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();

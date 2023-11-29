@@ -57,9 +57,9 @@ import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_food
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodSubgroup;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipeSubgroup;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodSubSubgroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipeSubgroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
@@ -110,8 +110,8 @@ public class FoodSubgroupDeps {
         FoodSubgroup_dependentProbingQuestionPathwayForFoodMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubgroup.class,
         FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubSubgroup.class,
-        FoodSubgroup_dependentItemDefinitionMappedByFoodOrRecipeSubgroup.class,
-        FoodSubgroup_dependentItemDefinitionMappedByFoodSubSubgroup.class,
+        FoodSubgroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeSubgroup.class,
+        FoodSubgroup_dependentNutrientForFoodOrGroupMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentThicknessForShapeMethodMappedByFoodSubgroups.class,
         FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubgroup.class,
         FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubSubgroup.class,
@@ -592,36 +592,36 @@ public class FoodSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentItemDefinitionMappedByFoodOrRecipeSubgroup {
+    public static class FoodSubgroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodSubgroup mixee;
 
         @MemberSupport
-        public List<ItemDefinition> coll() {
+        public List<NutrientForFoodOrGroup> coll() {
             return dependantLookup.findDependants(
-                ItemDefinition.class,
-                ItemDefinition_foodOrRecipeSubgroup.class,
-                ItemDefinition_foodOrRecipeSubgroup::prop,
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipeSubgroup.class,
+                NutrientForFoodOrGroup_foodOrRecipeSubgroup::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentItemDefinitionMappedByFoodSubSubgroup {
+    public static class FoodSubgroup_dependentNutrientForFoodOrGroupMappedByFoodSubSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodSubgroup mixee;
 
         @MemberSupport
-        public List<ItemDefinition> coll() {
+        public List<NutrientForFoodOrGroup> coll() {
             return dependantLookup.findDependants(
-                ItemDefinition.class,
-                ItemDefinition_foodSubSubgroup.class,
-                ItemDefinition_foodSubSubgroup::prop,
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodSubSubgroup.class,
+                NutrientForFoodOrGroup_foodSubSubgroup::prop,
                 mixee);
         }
     }

@@ -39,12 +39,11 @@
             </mb:section>
         </mb:menu>
         <mb:menu>
-            <mb:named>Interviews</mb:named>
+            <mb:named>Nutrients</mb:named>
             <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCenterInvolved"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCountryInvolved"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageInterviewer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSubjectToBeInterviewed"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrient"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientForFoodOrGroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientValue"/>
             </mb:section>
         </mb:menu>
         <mb:menu>
@@ -74,6 +73,15 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementClassification"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementFacet"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementDescriptor"/>
+            </mb:section>
+        </mb:menu>
+        <mb:menu>
+            <mb:named>Interviews</mb:named>
+            <mb:section>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCenterInvolved"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCountryInvolved"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageInterviewer"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSubjectToBeInterviewed"/>
             </mb:section>
         </mb:menu>
         <mb:menu>
@@ -127,14 +135,14 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageHouseholdMeasure"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageImprobableSequenceOfFacetAndDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageInterviewer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageItemDefinition"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMacroNutrientLimit"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForAFoodOrGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForARecipeOrGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMonth"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNoteStatus"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientListAndDefinition"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientValuesPerNutrientAndItem"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrient"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientForFoodOrGroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientValue"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatLeftInTheDishForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe"/>

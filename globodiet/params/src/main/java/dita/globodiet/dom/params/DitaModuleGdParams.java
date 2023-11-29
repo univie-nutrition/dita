@@ -162,19 +162,21 @@ import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFoodDeps;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood_delete;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood_food;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.ItemDefinitionDeps;
-import dita.globodiet.dom.params.food_table.ItemDefinition_delete;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipe;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipeGroup;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipeSubgroup;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodSubSubgroup;
-import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
-import dita.globodiet.dom.params.food_table.NutrientListAndDefinitionDeps;
-import dita.globodiet.dom.params.food_table.NutrientListAndDefinition_delete;
-import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
-import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItemDeps;
-import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem_delete;
+import dita.globodiet.dom.params.food_table.Nutrient;
+import dita.globodiet.dom.params.food_table.NutrientDeps;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroupDeps;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_delete;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipe;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipeGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipeSubgroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodSubSubgroup;
+import dita.globodiet.dom.params.food_table.NutrientValue;
+import dita.globodiet.dom.params.food_table.NutrientValueDeps;
+import dita.globodiet.dom.params.food_table.NutrientValue_delete;
+import dita.globodiet.dom.params.food_table.NutrientValue_nutrient;
+import dita.globodiet.dom.params.food_table.NutrientValue_nutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.Nutrient_delete;
 import dita.globodiet.dom.params.general_info.AnthropometricAverage;
 import dita.globodiet.dom.params.general_info.AnthropometricAverageDeps;
 import dita.globodiet.dom.params.general_info.AnthropometricAverage_delete;
@@ -409,14 +411,14 @@ import org.springframework.context.annotation.Import;
         HouseholdMeasure.class,
         ImprobableSequenceOfFacetAndDescriptor.class,
         Interviewer.class,
-        ItemDefinition.class,
         MacroNutrientLimit.class,
         MaximumValueForAFoodOrGroup.class,
         MaximumValueForARecipeOrGroup.class,
         Month.class,
         NoteStatus.class,
-        NutrientListAndDefinition.class,
-        NutrientValuesPerNutrientAndItem.class,
+        Nutrient.class,
+        NutrientForFoodOrGroup.class,
+        NutrientValue.class,
         PercentOfFatLeftInTheDishForFood.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
@@ -482,14 +484,14 @@ import org.springframework.context.annotation.Import;
         HouseholdMeasureDeps.class,
         ImprobableSequenceOfFacetAndDescriptorDeps.class,
         InterviewerDeps.class,
-        ItemDefinitionDeps.class,
         MacroNutrientLimitDeps.class,
         MaximumValueForAFoodOrGroupDeps.class,
         MaximumValueForARecipeOrGroupDeps.class,
         MonthDeps.class,
         NoteStatusDeps.class,
-        NutrientListAndDefinitionDeps.class,
-        NutrientValuesPerNutrientAndItemDeps.class,
+        NutrientDeps.class,
+        NutrientForFoodOrGroupDeps.class,
+        NutrientValueDeps.class,
         PercentOfFatLeftInTheDishForFoodDeps.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodDeps.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeDeps.class,
@@ -601,11 +603,6 @@ import org.springframework.context.annotation.Import;
         Interviewer_center.class,
         Interviewer_country.class,
         Interviewer_delete.class,
-        ItemDefinition_delete.class,
-        ItemDefinition_foodOrRecipe.class,
-        ItemDefinition_foodOrRecipeGroup.class,
-        ItemDefinition_foodOrRecipeSubgroup.class,
-        ItemDefinition_foodSubSubgroup.class,
         MacroNutrientLimit_delete.class,
         MaximumValueForAFoodOrGroup_delete.class,
         MaximumValueForAFoodOrGroup_facetDescriptor.class,
@@ -618,8 +615,15 @@ import org.springframework.context.annotation.Import;
         MaximumValueForARecipeOrGroup_recipeSubgroup.class,
         Month_delete.class,
         NoteStatus_delete.class,
-        NutrientListAndDefinition_delete.class,
-        NutrientValuesPerNutrientAndItem_delete.class,
+        NutrientForFoodOrGroup_delete.class,
+        NutrientForFoodOrGroup_foodOrRecipe.class,
+        NutrientForFoodOrGroup_foodOrRecipeGroup.class,
+        NutrientForFoodOrGroup_foodOrRecipeSubgroup.class,
+        NutrientForFoodOrGroup_foodSubSubgroup.class,
+        NutrientValue_delete.class,
+        NutrientValue_nutrient.class,
+        NutrientValue_nutrientForFoodOrGroup.class,
+        Nutrient_delete.class,
         PercentOfFatLeftInTheDishForFood_delete.class,
         PercentOfFatLeftInTheDishForFood_fatGroup.class,
         PercentOfFatLeftInTheDishForFood_fatSubSubgroup.class,
@@ -766,14 +770,14 @@ public class DitaModuleGdParams {
         HouseholdMeasure.class,
         ImprobableSequenceOfFacetAndDescriptor.class,
         Interviewer.class,
-        ItemDefinition.class,
         MacroNutrientLimit.class,
         MaximumValueForAFoodOrGroup.class,
         MaximumValueForARecipeOrGroup.class,
         Month.class,
         NoteStatus.class,
-        NutrientListAndDefinition.class,
-        NutrientValuesPerNutrientAndItem.class,
+        Nutrient.class,
+        NutrientForFoodOrGroup.class,
+        NutrientValue.class,
         PercentOfFatLeftInTheDishForFood.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,

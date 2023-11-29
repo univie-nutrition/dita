@@ -20,48 +20,33 @@
 package dita.globodiet.dom.params.food_table;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
-import java.lang.Object;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 @Property(
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "4.1",
-        describedAs = "Food or recipe sub-group",
-        hidden = Where.NOWHERE
+        sequence = "2.1",
+        describedAs = "Nutrient code",
+        hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class ItemDefinition_foodOrRecipeSubgroup {
+public class NutrientValue_nutrient {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final ItemDefinition mixee;
+    private final NutrientValue mixee;
 
     @MemberSupport
-    public Object prop() {
-        final int switchOn = foreignKeyLookup.switchOn(mixee);
-        switch(switchOn) {
-        case 1: {
-            if(mixee.getFoodOrRecipeSubgroupCode()==null) return null;
-            final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode(), null);
-            return foreignKeyLookup.nullable(lookupKey);
-        }
-        case 2: {
-            if(mixee.getFoodOrRecipeSubgroupCode()==null) return null;
-            final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getFoodOrRecipeGroupCode(), mixee.getFoodOrRecipeSubgroupCode());
-            return foreignKeyLookup.nullable(lookupKey);
-        }}
-        throw _Exceptions.unexpectedCodeReach();
+    public Nutrient prop() {
+        final var lookupKey = new Nutrient.SecondaryKey(mixee.getNutrientCode());
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

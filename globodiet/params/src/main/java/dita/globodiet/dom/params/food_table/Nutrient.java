@@ -20,9 +20,12 @@
 package dita.globodiet.dom.params.food_table;
 
 import dita.commons.services.lookup.Cloneable;
+import dita.commons.services.lookup.HasSecondaryKey;
+import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
@@ -38,12 +41,15 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -52,12 +58,13 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Nutrient list and definition
+ * Nutrient definition (energy, proteins, carbohydrates, etc.).
  */
-@Named("dita.globodiet.params.food_table.NutrientListAndDefinition")
+@Named("dita.globodiet.params.food_table.Nutrient")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Nutrient list and definition"
+        describedAs = "Nutrient definition (energy, proteins, carbohydrates, etc.).",
+        cssClassFa = "solid flask .nutrient-color"
 )
 @PersistenceCapable(
         table = "NUTRIENT"
@@ -66,7 +73,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefinition> {
+public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> {
     @Inject
     RepositoryService repositoryService;
 
@@ -77,11 +84,10 @@ public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefin
      * Nutrient code
      */
     @Property(
-            optionality = Optionality.MANDATORY,
-            editing = Editing.ENABLED
+            optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "details",
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Nutrient code",
             hidden = Where.NOWHERE
@@ -195,12 +201,12 @@ public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefin
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (unit=%s, code=%d)", nutrientName, nutrientUnit, nutrientCode);
     }
 
     @Override
     public String toString() {
-        return "NutrientListAndDefinition(" + "nutrientCode=" + getNutrientCode() + ","
+        return "Nutrient(" + "nutrientCode=" + getNutrientCode() + ","
          +"nutrientName=" + getNutrientName() + ","
          +"nutrientUnit=" + getNutrientUnit() + ","
          +"displayInTheNutrientChecksScreen=" + getDisplayInTheNutrientChecksScreen() + ","
@@ -209,8 +215,8 @@ public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefin
 
     @Programmatic
     @Override
-    public NutrientListAndDefinition copy() {
-        var copy = repositoryService.detachedEntity(new NutrientListAndDefinition());
+    public Nutrient copy() {
+        var copy = repositoryService.detachedEntity(new Nutrient());
         copy.setNutrientCode(getNutrientCode());
         copy.setNutrientName(getNutrientName());
         copy.setNutrientUnit(getNutrientUnit());
@@ -227,8 +233,13 @@ public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefin
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public NutrientListAndDefinition.Manager getNavigableParent() {
-        return new NutrientListAndDefinition.Manager(searchService, "");
+    public Nutrient.Manager getNavigableParent() {
+        return new Nutrient.Manager(searchService, "");
+    }
+
+    @Programmatic
+    public SecondaryKey secondaryKey() {
+        return new SecondaryKey(getNutrientCode());
     }
 
     @RequiredArgsConstructor
@@ -254,11 +265,12 @@ public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefin
     }
 
     /**
-     * Manager Viewmodel for @{link NutrientListAndDefinition}
+     * Manager Viewmodel for @{link Nutrient}
      */
-    @Named("dita.globodiet.params.food_table.NutrientListAndDefinition.Manager")
+    @Named("dita.globodiet.params.food_table.Nutrient.Manager")
     @DomainObjectLayout(
-            describedAs = "Nutrient list and definition"
+            describedAs = "Nutrient definition (energy, proteins, carbohydrates, etc.).",
+            cssClassFa = "solid flask .nutrient-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -277,17 +289,112 @@ public class NutrientListAndDefinition implements Cloneable<NutrientListAndDefin
 
         @ObjectSupport
         public String title() {
-            return "Manage Nutrient List And Definition";
+            return "Manage Nutrient";
         }
 
         @Collection
-        public final List<NutrientListAndDefinition> getListOfNutrientListAndDefinition() {
-            return searchService.search(NutrientListAndDefinition.class, NutrientListAndDefinition::title, search);
+        public final List<Nutrient> getListOfNutrient() {
+            return searchService.search(Nutrient.class, Nutrient::title, search);
         }
 
         @Override
         public final String viewModelMemento() {
             return getSearch();
+        }
+    }
+
+    /**
+     * Parameter model for @{link Nutrient}
+     * @param nutrientCode Nutrient code
+     * @param nutrientName Nutrient Name
+     * @param nutrientUnit Nutrient unit (e.g. kcal, g, mg…)
+     * @param displayInTheNutrientChecksScreen 0=not displayed in the 'nutrient checks' screen
+     * 1=displayed in the 'nutrient checks' screen
+     * @param commentOnNutrient Comment on nutrient
+     */
+    public final record Params(
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Nutrient code"
+            )
+            int nutrientCode,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Nutrient Name"
+            )
+            String nutrientName,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
+            )
+            String nutrientUnit,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "0=not displayed in the 'nutrient checks' screen\n"
+                                    + "1=displayed in the 'nutrient checks' screen"
+            )
+            DisplayInTheNutrientChecksScreen displayInTheNutrientChecksScreen,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Comment on nutrient"
+            )
+            String commentOnNutrient) {
+    }
+
+    /**
+     * SecondaryKey for @{link Nutrient}
+     * @param nutrientCode Nutrient code
+     */
+    public final record SecondaryKey(int nutrientCode) implements ISecondaryKey<Nutrient> {
+        @Override
+        public Class<Nutrient> correspondingClass() {
+            return Nutrient.class;
+        }
+
+        @Override
+        public final Unresolvable unresolvable() {
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
+        }
+    }
+
+    /**
+     * Placeholder @{link ViewModel} for @{link Nutrient} in case of an unresolvable secondary key.
+     */
+    @DomainObjectLayout(
+            describedAs = "Unresolvable Nutrient",
+            cssClassFa = "skull red"
+    )
+    @Named("dita.globodiet.params.food_table.Nutrient.Unresolvable")
+    @RequiredArgsConstructor
+    public static final class Unresolvable extends Nutrient implements ViewModel {
+        @Getter(
+                onMethod_ = {@Override}
+        )
+        @Accessors(
+                fluent = true
+        )
+        private final String viewModelMemento;
+
+        @Override
+        public String title() {
+            return viewModelMemento;
         }
     }
 }

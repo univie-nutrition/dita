@@ -47,7 +47,6 @@ public class RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj {
 
     @MemberSupport
     public FoodFacet prop() {
-        if(mixee.getFacetWhereTheRuleMustBeApplied()==null) return null;
         final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetWhereTheRuleMustBeApplied());
         return foreignKeyLookup.unique(lookupKey);
     }

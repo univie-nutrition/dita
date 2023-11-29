@@ -42,8 +42,8 @@ import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_food;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood_food;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipe;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
@@ -77,7 +77,7 @@ public class FoodDeps {
         Food_dependentProbingQuestionPathwayForFoodMappedByFood.class,
         Food_dependentQuantificationMethodPathwayForFoodMappedByFood.class,
         Food_dependentStandardPortionForFoodMappedByFood.class,
-        Food_dependentItemDefinitionMappedByFoodOrRecipe.class,
+        Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class,
         Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
         Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat.class,
         Food_dependentRecipeIngredientMappedByFoodOrRecipe.class,
@@ -320,18 +320,18 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentItemDefinitionMappedByFoodOrRecipe {
+    public static class Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Food mixee;
 
         @MemberSupport
-        public List<ItemDefinition> coll() {
+        public List<NutrientForFoodOrGroup> coll() {
             return dependantLookup.findDependants(
-                ItemDefinition.class,
-                ItemDefinition_foodOrRecipe.class,
-                ItemDefinition_foodOrRecipe::prop,
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipe.class,
+                NutrientForFoodOrGroup_foodOrRecipe::prop,
                 mixee);
         }
     }

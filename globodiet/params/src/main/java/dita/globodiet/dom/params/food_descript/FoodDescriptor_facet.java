@@ -46,7 +46,6 @@ public class FoodDescriptor_facet {
 
     @MemberSupport
     public FoodFacet prop() {
-        if(mixee.getFacetCode()==null) return null;
         final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetCode());
         return foreignKeyLookup.unique(lookupKey);
     }

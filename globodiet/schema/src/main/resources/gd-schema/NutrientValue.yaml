@@ -17,34 +17,42 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_table.NutrientValuesPerNutrientAndItem:
+params.food_table.NutrientValue:
   namespace: params.food_table
   table: NTR_VALUE
   secondaryKey:
-  title: null
-  icon: null
+  title: String.format("%s (nutrientCode=%d)", value, nutrientCode)
+  icon: |
+    solid flask .nutrient-color,
+    solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
-    Nutrient values per nutrient and item
+    Nutrient value for nutrient-for-food-or-group. 
+    The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF}, 
+    which is cross-referencing food(-groups) with this table.   
   fields:
-    itemSequentialNumber:
+    nutrientForFoodOrGroupCode:
       column: SEQ
       column-type: int(10)
       required: true
       unique: false
+      foreignKeys: |
+        ITEMS_DEF.ITEM_SEQ
       description: |
-        Item Sequential number
+        Unique code for nutrient-for-food-or-group.
     nutrientCode:
       column: NTR_CODE
       column-type: int(10)
       required: true
       unique: false
+      foreignKeys: |
+        NUTRIENT.NTR_CODE
       description: |
         Nutrient code
-    nutrientValueForTheAttachedItemAndNutrient:
+    value:
       column: VAL
       column-type: float(53)
       required: true
       unique: false
       description: |
-        Nutrient value for the attached item & nutrient
+        Nutrient value for the corresponding nutrient and food (or group).
 

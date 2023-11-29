@@ -1643,23 +1643,77 @@ params.food_quantif.StandardPortionForFood:
       unique: false
       description: |
         Order to display the standard portion
-params.food_table.ItemDefinition:
+params.food_table.Nutrient:
   namespace: params.food_table
-  table: ITEMS_DEF
-  secondaryKey:
-  title: String.format("Item %s (sequentialNumber=%d)", typeOfRecord.title(), sequentialNumber)
-  icon: solid paperclip
+  table: NUTRIENT
+  secondaryKey: |
+    NTR_CODE
+  title: String.format("%s (unit=%s, code=%d)", nutrientName, nutrientUnit, nutrientCode)
+  icon: solid flask .nutrient-color
   iconService: false
   description: |
-    Items list and definition
+    Nutrient definition (energy, proteins, carbohydrates, etc.).
   fields:
-    sequentialNumber:
+    nutrientCode:
+      column: NTR_CODE
+      column-type: int(10)
+      required: true
+      unique: true
+      description: |
+        Nutrient code
+    nutrientName:
+      column: NTR_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Nutrient Name
+    nutrientUnit:
+      column: NTR_UNIT
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      description: |
+        Nutrient unit (e.g. kcal, g, mg…)
+    displayInTheNutrientChecksScreen:
+      column: NTR_DISPLAY
+      column-type: int(10)
+      required: true
+      unique: false
+      enum: |
+        0:No:not displayed in the 'nutrient checks' screen
+        1:Yes:displayed in the 'nutrient checks' screen
+      description: |
+        0=not displayed in the 'nutrient checks' screen 
+        1=displayed in the 'nutrient checks' screen
+    commentOnNutrient:
+      column: COMMENT
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: true
+      description: |
+        Comment on nutrient
+params.food_table.NutrientForFoodOrGroup:
+  namespace: params.food_table
+  table: ITEMS_DEF
+  secondaryKey: |
+    ITEM_SEQ
+  title: String.format("code=%d, type=%s", code, typeOfRecord.title())
+  icon: |
+    solid flask .nutrient-color,
+    solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  iconService: false
+  description: |
+    Cross reference between food (or food group) and nutrient values (usually multiple). 
+  fields:
+    code:
       column: ITEM_SEQ
       column-type: int(10)
       required: true
       unique: true
       description: |
-        Sequential number
+        Unique code, that relates @{table NTR_VALUE}.
     typeOfRecord:
       column: TYPE
       column-type: nvarchar(2)
@@ -1755,86 +1809,46 @@ params.food_table.ItemDefinition:
       unique: true
       description: |
         Comment
-params.food_table.NutrientListAndDefinition:
-  namespace: params.food_table
-  table: NUTRIENT
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Nutrient list and definition
-  fields:
-    nutrientCode:
-      column: NTR_CODE
-      column-type: int(10)
-      required: true
-      unique: true
-      description: |
-        Nutrient code
-    nutrientName:
-      column: NTR_NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Nutrient Name
-    nutrientUnit:
-      column: NTR_UNIT
-      column-type: nvarchar(20)
-      required: true
-      unique: false
-      description: |
-        Nutrient unit (e.g. kcal, g, mg…)
-    displayInTheNutrientChecksScreen:
-      column: NTR_DISPLAY
-      column-type: int(10)
-      required: true
-      unique: false
-      enum: |
-        0:No:not displayed in the 'nutrient checks' screen
-        1:Yes:displayed in the 'nutrient checks' screen
-      description: |
-        0=not displayed in the 'nutrient checks' screen 
-        1=displayed in the 'nutrient checks' screen
-    commentOnNutrient:
-      column: COMMENT
-      column-type: nvarchar(2147483647)
-      required: false
-      unique: true
-      description: |
-        Comment on nutrient
-params.food_table.NutrientValuesPerNutrientAndItem:
+params.food_table.NutrientValue:
   namespace: params.food_table
   table: NTR_VALUE
   secondaryKey:
-  title: null
-  icon: null
+  title: String.format("%s (nutrientCode=%d)", value, nutrientCode)
+  icon: |
+    solid flask .nutrient-color,
+    solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   iconService: false
   description: |
-    Nutrient values per nutrient and item
+    Nutrient value for nutrient-for-food-or-group. 
+    The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF}, 
+    which is cross-referencing food(-groups) with this table.   
   fields:
-    itemSequentialNumber:
+    nutrientForFoodOrGroupCode:
       column: SEQ
       column-type: int(10)
       required: true
       unique: false
+      foreignKeys: |
+        ITEMS_DEF.ITEM_SEQ
       description: |
-        Item Sequential number
+        Unique code for nutrient-for-food-or-group.
     nutrientCode:
       column: NTR_CODE
       column-type: int(10)
       required: true
       unique: false
+      foreignKeys: |
+        NUTRIENT.NTR_CODE
       description: |
         Nutrient code
-    nutrientValueForTheAttachedItemAndNutrient:
+    value:
       column: VAL
       column-type: float(53)
       required: true
       unique: false
       description: |
-        Nutrient value for the attached item & nutrient
+        Nutrient value for the corresponding nutrient and food (or group).
 params.general_info.AnthropometricAverage:
   namespace: params.general_info
   table: ANTHROP

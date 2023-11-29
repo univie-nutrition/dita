@@ -20,8 +20,8 @@
 package dita.globodiet.dom.params.classification;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipeGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipeGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeGroup;
 import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
@@ -53,7 +53,7 @@ import org.springframework.context.annotation.Configuration;
 public class RecipeGroupDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of(RecipeGroup_dependentRecipeSubgroupMappedByRecipeGroup.class,
-        RecipeGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup.class,
+        RecipeGroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeGroup.class,
         RecipeGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeGroup.class,
         RecipeGroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeGroup.class,
         RecipeGroup_dependentRecipeBrandMappedByRecipeGroup.class,
@@ -85,18 +85,18 @@ public class RecipeGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup {
+    public static class RecipeGroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeGroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeGroup mixee;
 
         @MemberSupport
-        public List<ItemDefinition> coll() {
+        public List<NutrientForFoodOrGroup> coll() {
             return dependantLookup.findDependants(
-                ItemDefinition.class,
-                ItemDefinition_foodOrRecipeGroup.class,
-                ItemDefinition_foodOrRecipeGroup::prop,
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipeGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipeGroup::prop,
                 mixee);
         }
     }

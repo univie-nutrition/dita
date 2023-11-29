@@ -46,7 +46,6 @@ public class FacetDescriptorPathwayForRecipeGroup_recipeDescriptor {
 
     @MemberSupport
     public RecipeDescriptor prop() {
-        if(mixee.getRecipeDescriptorCode()==null) return null;
         final var lookupKey = new RecipeDescriptor.SecondaryKey(mixee.getRecipeFacetCode(), mixee.getRecipeDescriptorCode());
         return foreignKeyLookup.unique(lookupKey);
     }

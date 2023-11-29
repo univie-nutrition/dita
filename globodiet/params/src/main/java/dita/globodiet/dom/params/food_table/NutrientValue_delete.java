@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this ItemDefinition",
+        describedAs = "Delete this NutrientValue",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class ItemDefinition_delete {
+public class NutrientValue_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class ItemDefinition_delete {
     @Inject
     SearchService searchService;
 
-    private final ItemDefinition mixee;
+    private final NutrientValue mixee;
 
     @MemberSupport
-    public ItemDefinition.Manager act(
+    public NutrientValue.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new ItemDefinition.Manager(searchService, "");
+        return new NutrientValue.Manager(searchService, "");
     }
 
     @MemberSupport

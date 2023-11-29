@@ -17,22 +17,25 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_table.ItemDefinition:
+params.food_table.NutrientForFoodOrGroup:
   namespace: params.food_table
   table: ITEMS_DEF
-  secondaryKey:
-  title: String.format("Item %s (sequentialNumber=%d)", typeOfRecord.title(), sequentialNumber)
-  icon: solid paperclip
+  secondaryKey: |
+    ITEM_SEQ
+  title: String.format("code=%d, type=%s", code, typeOfRecord.title())
+  icon: |
+    solid flask .nutrient-color,
+    solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
   description: |
-    Items list and definition
+    Cross reference between food (or food group) and nutrient values (usually multiple). 
   fields:
-    sequentialNumber:
+    code:
       column: ITEM_SEQ
       column-type: int(10)
       required: true
       unique: true
       description: |
-        Sequential number
+        Unique code, that relates @{table NTR_VALUE}.
     typeOfRecord:
       column: TYPE
       column-type: nvarchar(2)

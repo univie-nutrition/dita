@@ -47,7 +47,6 @@ public class GroupSubstitution_foodGroup {
 
     @MemberSupport
     public FoodGroup prop() {
-        if(mixee.getFoodGroupCode()==null) return null;
         final var lookupKey = new FoodGroup.SecondaryKey(mixee.getFoodGroupCode());
         return foreignKeyLookup.unique(lookupKey);
     }

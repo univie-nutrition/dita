@@ -109,6 +109,7 @@ class _GenAssociationMixin {
                 String foreignKeyGetter,
                 int secondaryKeyCardinality,
                 String significantArgument,
+                boolean isSignificantArgumentReguired,
                 String argList) {
         }
 
@@ -123,6 +124,7 @@ class _GenAssociationMixin {
                             .collect(Collectors.toCollection(ArrayList::new));
                     val argCount = argList.size();
                     val significantArgument = argList.get(argCount-1);
+
                     final int foreignSecondaryKeyArgCount = foreignField.parentEntity().secondaryKey().size();
 
                     // fill up with null args
@@ -137,6 +139,7 @@ class _GenAssociationMixin {
                     return new Foreign(foreignEntityClass, strictness,
                             foreignField.getter(), foreignSecondaryKeyArgCount,
                             significantArgument,
+                            field.required(),
                             argList.stream().collect(Collectors.joining(", ")));
                 });
 
@@ -186,15 +189,21 @@ class _GenAssociationMixin {
                 throw _Exceptions.unrecoverable("%s needs to implement a SecondaryKey", foreigner.foreignEntity());
             }
 
-            builder.addCode("""
-                    if($4L==null) return null;
-                    final var lookupKey = new $2T.SecondaryKey($3L);
-                    return foreignKeyLookup.$1L(lookupKey);
-                    """, foreigner.strictness(), foreigner.foreignEntity(), foreigner.argList(),
-                    foreigner.significantArgument()
-                    );
-
-
+            if(foreigner.isSignificantArgumentReguired()) {
+                builder.addCode("""
+                        final var lookupKey = new $2T.SecondaryKey($3L);
+                        return foreignKeyLookup.$1L(lookupKey);
+                        """, foreigner.strictness(), foreigner.foreignEntity(), foreigner.argList()
+                        );
+            } else {
+                builder.addCode("""
+                        if($4L==null) return null;
+                        final var lookupKey = new $2T.SecondaryKey($3L);
+                        return foreignKeyLookup.$1L(lookupKey);
+                        """, foreigner.strictness(), foreigner.foreignEntity(), foreigner.argList(),
+                        foreigner.significantArgument()
+                        );
+            }
             break;
 
         }

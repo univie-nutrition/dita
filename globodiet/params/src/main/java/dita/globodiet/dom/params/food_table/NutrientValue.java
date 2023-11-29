@@ -49,12 +49,18 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Nutrient values per nutrient and item
+ * Nutrient value for nutrient-for-food-or-group.
+ * The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},
+ * which is cross-referencing food(-groups) with this table.
  */
-@Named("dita.globodiet.params.food_table.NutrientValuesPerNutrientAndItem")
+@Named("dita.globodiet.params.food_table.NutrientValue")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Nutrient values per nutrient and item"
+        describedAs = "Nutrient value for nutrient-for-food-or-group.\n"
+                        + "The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},\n"
+                        + "which is cross-referencing food(-groups) with this table.",
+        cssClassFa = "solid flask .nutrient-color,\n"
+                        + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "NTR_VALUE"
@@ -63,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValuesPerNutrientAndItem> {
+public class NutrientValue implements Cloneable<NutrientValue> {
     @Inject
     RepositoryService repositoryService;
 
@@ -71,17 +77,16 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
     SearchService searchService;
 
     /**
-     * Item Sequential number
+     * Unique code for nutrient-for-food-or-group.
      */
     @Property(
-            optionality = Optionality.MANDATORY,
-            editing = Editing.ENABLED
+            optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "details",
+            fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Item Sequential number",
-            hidden = Where.NOWHERE
+            describedAs = "Unique code for nutrient-for-food-or-group.",
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "SEQ",
@@ -89,20 +94,19 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
     )
     @Getter
     @Setter
-    private int itemSequentialNumber;
+    private int nutrientForFoodOrGroupCode;
 
     /**
      * Nutrient code
      */
     @Property(
-            optionality = Optionality.MANDATORY,
-            editing = Editing.ENABLED
+            optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "details",
+            fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Nutrient code",
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES
     )
     @Column(
             name = "NTR_CODE",
@@ -113,7 +117,7 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
     private int nutrientCode;
 
     /**
-     * Nutrient value for the attached item & nutrient
+     * Nutrient value for the corresponding nutrient and food (or group).
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -122,7 +126,7 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Nutrient value for the attached item & nutrient",
+            describedAs = "Nutrient value for the corresponding nutrient and food (or group).",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -131,27 +135,27 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
     )
     @Getter
     @Setter
-    private double nutrientValueForTheAttachedItemAndNutrient;
+    private double value;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (nutrientCode=%d)", value, nutrientCode);
     }
 
     @Override
     public String toString() {
-        return "NutrientValuesPerNutrientAndItem(" + "itemSequentialNumber=" + getItemSequentialNumber() + ","
+        return "NutrientValue(" + "nutrientForFoodOrGroupCode=" + getNutrientForFoodOrGroupCode() + ","
          +"nutrientCode=" + getNutrientCode() + ","
-         +"nutrientValueForTheAttachedItemAndNutrient=" + getNutrientValueForTheAttachedItemAndNutrient() + ")";
+         +"value=" + getValue() + ")";
     }
 
     @Programmatic
     @Override
-    public NutrientValuesPerNutrientAndItem copy() {
-        var copy = repositoryService.detachedEntity(new NutrientValuesPerNutrientAndItem());
-        copy.setItemSequentialNumber(getItemSequentialNumber());
+    public NutrientValue copy() {
+        var copy = repositoryService.detachedEntity(new NutrientValue());
+        copy.setNutrientForFoodOrGroupCode(getNutrientForFoodOrGroupCode());
         copy.setNutrientCode(getNutrientCode());
-        copy.setNutrientValueForTheAttachedItemAndNutrient(getNutrientValueForTheAttachedItemAndNutrient());
+        copy.setValue(getValue());
         return copy;
     }
 
@@ -163,16 +167,20 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public NutrientValuesPerNutrientAndItem.Manager getNavigableParent() {
-        return new NutrientValuesPerNutrientAndItem.Manager(searchService, "");
+    public NutrientValue.Manager getNavigableParent() {
+        return new NutrientValue.Manager(searchService, "");
     }
 
     /**
-     * Manager Viewmodel for @{link NutrientValuesPerNutrientAndItem}
+     * Manager Viewmodel for @{link NutrientValue}
      */
-    @Named("dita.globodiet.params.food_table.NutrientValuesPerNutrientAndItem.Manager")
+    @Named("dita.globodiet.params.food_table.NutrientValue.Manager")
     @DomainObjectLayout(
-            describedAs = "Nutrient values per nutrient and item"
+            describedAs = "Nutrient value for nutrient-for-food-or-group.\n"
+                            + "The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},\n"
+                            + "which is cross-referencing food(-groups) with this table.",
+            cssClassFa = "solid flask .nutrient-color,\n"
+                            + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -191,13 +199,12 @@ public class NutrientValuesPerNutrientAndItem implements Cloneable<NutrientValue
 
         @ObjectSupport
         public String title() {
-            return "Manage Nutrient Values Per Nutrient And Item";
+            return "Manage Nutrient Value";
         }
 
         @Collection
-        public final List<NutrientValuesPerNutrientAndItem> getListOfNutrientValuesPerNutrientAndItem(
-                ) {
-            return searchService.search(NutrientValuesPerNutrientAndItem.class, NutrientValuesPerNutrientAndItem::title, search);
+        public final List<NutrientValue> getListOfNutrientValue() {
+            return searchService.search(NutrientValue.class, NutrientValue::title, search);
         }
 
         @Override

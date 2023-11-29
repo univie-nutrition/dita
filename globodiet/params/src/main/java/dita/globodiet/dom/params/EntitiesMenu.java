@@ -44,9 +44,9 @@ import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.NutrientListAndDefinition;
-import dita.globodiet.dom.params.food_table.NutrientValuesPerNutrientAndItem;
+import dita.globodiet.dom.params.food_table.Nutrient;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientValue;
 import dita.globodiet.dom.params.general_info.AnthropometricAverage;
 import dita.globodiet.dom.params.general_info.FoodConsumptionOccasion;
 import dita.globodiet.dom.params.general_info.FoodConsumptionOccasionDisplayItem;
@@ -306,22 +306,28 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid paperclip"
+            cssClassFa = "solid flask .nutrient-color"
     )
-    public ItemDefinition.Manager manageItemDefinition() {
-        return factoryService.viewModel(new ItemDefinition.Manager(searchService, ""));
+    public Nutrient.Manager manageNutrient() {
+        return factoryService.viewModel(new Nutrient.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
-    public NutrientListAndDefinition.Manager manageNutrientListAndDefinition() {
-        return factoryService.viewModel(new NutrientListAndDefinition.Manager(searchService, ""));
+    @ActionLayout(
+            cssClassFa = "solid flask .nutrient-color,\n"
+                            + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public NutrientForFoodOrGroup.Manager manageNutrientForFoodOrGroup() {
+        return factoryService.viewModel(new NutrientForFoodOrGroup.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
-    public NutrientValuesPerNutrientAndItem.Manager manageNutrientValuesPerNutrientAndItem() {
-        return factoryService.viewModel(new NutrientValuesPerNutrientAndItem.Manager(searchService, ""));
+    @ActionLayout(
+            cssClassFa = "solid flask .nutrient-color,\n"
+                            + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public NutrientValue.Manager manageNutrientValue() {
+        return factoryService.viewModel(new NutrientValue.Manager(searchService, ""));
     }
 
     @Action

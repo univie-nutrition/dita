@@ -17,14 +17,15 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_table.NutrientListAndDefinition:
+params.food_table.Nutrient:
   namespace: params.food_table
   table: NUTRIENT
-  secondaryKey:
-  title: null
-  icon: null
+  secondaryKey: |
+    NTR_CODE
+  title: String.format("%s (unit=%s, code=%d)", nutrientName, nutrientUnit, nutrientCode)
+  icon: solid flask .nutrient-color
   description: |
-    Nutrient list and definition
+    Nutrient definition (energy, proteins, carbohydrates, etc.).
   fields:
     nutrientCode:
       column: NTR_CODE

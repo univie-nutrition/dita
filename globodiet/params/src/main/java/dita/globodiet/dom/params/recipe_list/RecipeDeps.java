@@ -24,8 +24,8 @@ import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_foodOrRecipe;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient_foodOrRecipe;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipe;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
@@ -52,7 +52,7 @@ public class RecipeDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of(Recipe_dependentDensityFactorForFoodMappedByFoodOrRecipe.class,
         Recipe_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
-        Recipe_dependentItemDefinitionMappedByFoodOrRecipe.class,
+        Recipe_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class,
         Recipe_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
         Recipe_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe.class,
         Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe.class,
@@ -102,18 +102,18 @@ public class RecipeDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Recipe_dependentItemDefinitionMappedByFoodOrRecipe {
+    public static class Recipe_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Recipe mixee;
 
         @MemberSupport
-        public List<ItemDefinition> coll() {
+        public List<NutrientForFoodOrGroup> coll() {
             return dependantLookup.findDependants(
-                ItemDefinition.class,
-                ItemDefinition_foodOrRecipe.class,
-                ItemDefinition_foodOrRecipe::prop,
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipe.class,
+                NutrientForFoodOrGroup_foodOrRecipe::prop,
                 mixee);
         }
     }

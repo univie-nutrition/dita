@@ -24,7 +24,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ItemDefinitionDeps {
+public class NutrientValueDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of();
     }

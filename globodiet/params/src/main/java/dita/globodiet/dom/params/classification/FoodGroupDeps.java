@@ -44,8 +44,8 @@ import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
 import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_foodGroup;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_foodGroup;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
-import dita.globodiet.dom.params.food_table.ItemDefinition_foodOrRecipeGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipeGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatGroup;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
@@ -78,7 +78,7 @@ public class FoodGroupDeps {
         FoodGroup_dependentMaximumValueForAFoodOrGroupMappedByFoodGroup.class,
         FoodGroup_dependentProbingQuestionPathwayForFoodMappedByFoodGroup.class,
         FoodGroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodGroup.class,
-        FoodGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup.class,
+        FoodGroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeGroup.class,
         FoodGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatGroup.class,
         FoodGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroup.class,
         FoodGroup_dependentGroupSubstitutionMappedByFoodGroup.class);
@@ -338,18 +338,18 @@ public class FoodGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodGroup_dependentItemDefinitionMappedByFoodOrRecipeGroup {
+    public static class FoodGroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeGroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodGroup mixee;
 
         @MemberSupport
-        public List<ItemDefinition> coll() {
+        public List<NutrientForFoodOrGroup> coll() {
             return dependantLookup.findDependants(
-                ItemDefinition.class,
-                ItemDefinition_foodOrRecipeGroup.class,
-                ItemDefinition_foodOrRecipeGroup::prop,
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipeGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipeGroup::prop,
                 mixee);
         }
     }

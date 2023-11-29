@@ -46,7 +46,6 @@ public class FoodConsumptionOccasionDisplayItem_foodConsumptionOccasion {
 
     @MemberSupport
     public FoodConsumptionOccasion prop() {
-        if(mixee.getFoodConsumptionOccasionCode()==null) return null;
         final var lookupKey = new FoodConsumptionOccasion.SecondaryKey(mixee.getFoodConsumptionOccasionCode());
         return foreignKeyLookup.unique(lookupKey);
     }

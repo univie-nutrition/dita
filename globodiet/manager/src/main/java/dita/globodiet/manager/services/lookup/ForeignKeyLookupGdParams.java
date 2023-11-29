@@ -54,7 +54,7 @@ import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
 import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_table.ItemDefinition;
+import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
@@ -162,8 +162,8 @@ implements ForeignKeyLookupService {
                     ? 2
                     : 1;
         }
-        if(entity instanceof ItemDefinition x) {
-            return x.getTypeOfRecord() == ItemDefinition.TypeOfRecord.RECIPE
+        if(entity instanceof NutrientForFoodOrGroup x) {
+            return x.getTypeOfRecord() == NutrientForFoodOrGroup.TypeOfRecord.RECIPE
                     ? 2
                     : 1;
         }
