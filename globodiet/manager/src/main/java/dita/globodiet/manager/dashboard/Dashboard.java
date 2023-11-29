@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.info.BuildProperties;
 
 import org.apache.causeway.applib.annotation.DomainObject;
+import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.HomePage;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -42,6 +43,7 @@ import dita.tooling.orm.OrmModel;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".Dashboard")
+@DomainObjectLayout(cssClassFa = "solid gauge .dashboard-color")
 @HomePage
 public class Dashboard
 implements HasCurrentlyCheckedOutVersion {
