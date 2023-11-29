@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -59,8 +60,6 @@ import lombok.val;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".ParameterDataVersion")
-//@DomainObjectLayout(
-//        cssClassFa = FontawesomeConstants.ICON_VERSION)
 @NoArgsConstructor
 public class ParameterDataVersion {
 
@@ -85,10 +84,10 @@ public class ParameterDataVersion {
     }
 
     @ObjectSupport
-    public String iconName() {
+    public FontAwesomeLayers iconFaLayers() {
         return isCommitted()
-                ? "solid"
-                : "regular";
+                ? FontAwesomeLayers.fromQuickNotation("file-shield .version-color-dark")
+                : FontAwesomeLayers.fromQuickNotation("file-pen .version-color-light");
     }
 
     @Property(optionality = Optionality.MANDATORY)

@@ -24,8 +24,11 @@
 .supplement-color {
   color: MediumSlateBlue;
 }
-.version-color {
+.version-color-light {
   color: BlueViolet;
+}
+.version-color-dark {
+  color: Indigo;
 }
 
 /* fa overlay generic */
