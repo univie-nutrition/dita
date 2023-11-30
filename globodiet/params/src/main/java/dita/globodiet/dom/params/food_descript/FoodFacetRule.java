@@ -49,12 +49,12 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Rule applied to facet
+ * Rule applied to food facet.
  */
-@Named("dita.globodiet.params.food_descript.RuleAppliedToFacet")
+@Named("dita.globodiet.params.food_descript.FoodFacetRule")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Rule applied to facet"
+        describedAs = "Rule applied to food facet."
 )
 @PersistenceCapable(
         table = "FACETRUL"
@@ -63,7 +63,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class RuleAppliedToFacet implements Cloneable<RuleAppliedToFacet> {
+public class FoodFacetRule implements Cloneable<FoodFacetRule> {
     @Inject
     RepositoryService repositoryService;
 
@@ -188,7 +188,7 @@ public class RuleAppliedToFacet implements Cloneable<RuleAppliedToFacet> {
 
     @Override
     public String toString() {
-        return "RuleAppliedToFacet(" + "facetCode=" + getFacetCode() + ","
+        return "FoodFacetRule(" + "facetCode=" + getFacetCode() + ","
          +"facetDescriptorLookupKey=" + getFacetDescriptorLookupKey() + ","
          +"foodGroupCode=" + getFoodGroupCode() + ","
          +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
@@ -197,8 +197,8 @@ public class RuleAppliedToFacet implements Cloneable<RuleAppliedToFacet> {
 
     @Programmatic
     @Override
-    public RuleAppliedToFacet copy() {
-        var copy = repositoryService.detachedEntity(new RuleAppliedToFacet());
+    public FoodFacetRule copy() {
+        var copy = repositoryService.detachedEntity(new FoodFacetRule());
         copy.setFacetCode(getFacetCode());
         copy.setFacetDescriptorLookupKey(getFacetDescriptorLookupKey());
         copy.setFoodGroupCode(getFoodGroupCode());
@@ -215,16 +215,16 @@ public class RuleAppliedToFacet implements Cloneable<RuleAppliedToFacet> {
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public RuleAppliedToFacet.Manager getNavigableParent() {
-        return new RuleAppliedToFacet.Manager(searchService, "");
+    public FoodFacetRule.Manager getNavigableParent() {
+        return new FoodFacetRule.Manager(searchService, "");
     }
 
     /**
-     * Manager Viewmodel for @{link RuleAppliedToFacet}
+     * Manager Viewmodel for @{link FoodFacetRule}
      */
-    @Named("dita.globodiet.params.food_descript.RuleAppliedToFacet.Manager")
+    @Named("dita.globodiet.params.food_descript.FoodFacetRule.Manager")
     @DomainObjectLayout(
-            describedAs = "Rule applied to facet"
+            describedAs = "Rule applied to food facet."
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -243,12 +243,12 @@ public class RuleAppliedToFacet implements Cloneable<RuleAppliedToFacet> {
 
         @ObjectSupport
         public String title() {
-            return "Manage Rule Applied To Facet";
+            return "Manage Food Facet Rule";
         }
 
         @Collection
-        public final List<RuleAppliedToFacet> getListOfRuleAppliedToFacet() {
-            return searchService.search(RuleAppliedToFacet.class, RuleAppliedToFacet::title, search);
+        public final List<FoodFacetRule> getListOfFoodFacetRule() {
+            return searchService.search(FoodFacetRule.class, FoodFacetRule::title, search);
         }
 
         @Override

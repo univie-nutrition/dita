@@ -127,8 +127,9 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodConsumptionOccasion"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodConsumptionOccasionDisplayItem"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodBrand"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodFacet"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodDescriptor"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodFacet"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodFacetRule"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodSubgroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageGroupSubstitution"/>
@@ -161,13 +162,12 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeBrand"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeFacet"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeFacetRule"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeIngredient"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeIngredientQuantification"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeSubgroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeTypePathway"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRuleAppliedToFacet"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRuleAppliedToFacets"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSelectedParameter"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSelectedParameterForDataEntry"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageShape"/>

@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.recipe_description;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,21 +34,20 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "4.1",
-        describedAs = "Recipe Subgroup code",
+        sequence = "1.1",
+        describedAs = "Facet where the rule must be applied.",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class RuleAppliedToFacets_recipeSubgroup {
+public class RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final RuleAppliedToFacets mixee;
+    private final RecipeFacetRule mixee;
 
     @MemberSupport
-    public RecipeSubgroup prop() {
-        if(mixee.getRecipeSubgroupCode()==null) return null;
-        final var lookupKey = new RecipeSubgroup.SecondaryKey(mixee.getRecipeGroupCode(), mixee.getRecipeSubgroupCode());
-        return foreignKeyLookup.nullable(lookupKey);
+    public FoodFacet prop() {
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetWhereTheRuleMustBeApplied());
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

@@ -29,8 +29,8 @@ import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorFor
 import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
@@ -67,7 +67,7 @@ import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweeten
 import dita.globodiet.dom.params.recipe_description.RecipeBrand;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeGroup;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
@@ -181,15 +181,15 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public ImprobableSequenceOfFacetAndDescriptor.Manager manageImprobableSequenceOfFacetAndDescriptor(
-            ) {
-        return factoryService.viewModel(new ImprobableSequenceOfFacetAndDescriptor.Manager(searchService, ""));
+    public FoodFacetRule.Manager manageFoodFacetRule() {
+        return factoryService.viewModel(new FoodFacetRule.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout
-    public RuleAppliedToFacet.Manager manageRuleAppliedToFacet() {
-        return factoryService.viewModel(new RuleAppliedToFacet.Manager(searchService, ""));
+    public ImprobableSequenceOfFacetAndDescriptor.Manager manageImprobableSequenceOfFacetAndDescriptor(
+            ) {
+        return factoryService.viewModel(new ImprobableSequenceOfFacetAndDescriptor.Manager(searchService, ""));
     }
 
     @Action
@@ -489,8 +489,8 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
-    public RuleAppliedToFacets.Manager manageRuleAppliedToFacets() {
-        return factoryService.viewModel(new RuleAppliedToFacets.Manager(searchService, ""));
+    public RecipeFacetRule.Manager manageRecipeFacetRule() {
+        return factoryService.viewModel(new RecipeFacetRule.Manager(searchService, ""));
     }
 
     @Action

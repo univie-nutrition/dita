@@ -17,14 +17,14 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.RuleAppliedToFacet:
+params.food_descript.FoodFacetRule:
   namespace: params.food_descript
   table: FACETRUL
   secondaryKey:
   title: null
   icon: null
   description: |
-    Rule applied to facet 
+    Rule applied to food facet. 
   fields:
     facetCode:
       column: FACET_CODE

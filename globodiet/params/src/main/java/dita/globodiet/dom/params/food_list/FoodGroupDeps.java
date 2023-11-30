@@ -30,10 +30,10 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_foodGroup;
 import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_descript.FoodBrand_foodGroup;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_foodGroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodGroup;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodGroup;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup_foodOrRecipeGroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
@@ -68,8 +68,8 @@ public class FoodGroupDeps {
         FoodGroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodGroup.class,
         FoodGroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatGroup.class,
         FoodGroup_dependentFoodBrandMappedByFoodGroup.class,
+        FoodGroup_dependentFoodFacetRuleMappedByFoodGroup.class,
         FoodGroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodGroup.class,
-        FoodGroup_dependentRuleAppliedToFacetMappedByFoodGroup.class,
         FoodGroup_dependentFoodMappedByFoodGroup.class,
         FoodGroup_dependentFoodSubgroupMappedByFoodGroup.class,
         FoodGroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeGroup.class,
@@ -192,6 +192,24 @@ public class FoodGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
+    public static class FoodGroup_dependentFoodFacetRuleMappedByFoodGroup {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodGroup mixee;
+
+        @MemberSupport
+        public List<FoodFacetRule> coll() {
+            return dependantLookup.findDependants(
+                FoodFacetRule.class,
+                FoodFacetRule_foodGroup.class,
+                FoodFacetRule_foodGroup::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
     public static class FoodGroup_dependentImprobableSequenceOfFacetAndDescriptorMappedByFoodGroup {
         @Inject
         DependantLookupService dependantLookup;
@@ -204,24 +222,6 @@ public class FoodGroupDeps {
                 ImprobableSequenceOfFacetAndDescriptor.class,
                 ImprobableSequenceOfFacetAndDescriptor_foodGroup.class,
                 ImprobableSequenceOfFacetAndDescriptor_foodGroup::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class FoodGroup_dependentRuleAppliedToFacetMappedByFoodGroup {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodGroup mixee;
-
-        @MemberSupport
-        public List<RuleAppliedToFacet> coll() {
-            return dependantLookup.findDependants(
-                RuleAppliedToFacet.class,
-                RuleAppliedToFacet_foodGroup.class,
-                RuleAppliedToFacet_foodGroup::prop,
                 mixee);
         }
     }

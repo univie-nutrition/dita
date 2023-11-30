@@ -17,14 +17,14 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_description.RuleAppliedToFacets:
+params.recipe_description.RecipeFacetRule:
   namespace: params.recipe_description
   table: R_FACETRUL
   secondaryKey:
   title: null
   icon: null
   description: |
-    Rule applied to facets 
+    Rule applied to recipe facet. 
   fields:
     facetWhereTheRuleMustBeApplied:
       column: RFACET_CODE

@@ -49,12 +49,12 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Rule applied to facets
+ * Rule applied to recipe facet.
  */
-@Named("dita.globodiet.params.recipe_description.RuleAppliedToFacets")
+@Named("dita.globodiet.params.recipe_description.RecipeFacetRule")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Rule applied to facets"
+        describedAs = "Rule applied to recipe facet."
 )
 @PersistenceCapable(
         table = "R_FACETRUL"
@@ -63,7 +63,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class RuleAppliedToFacets implements Cloneable<RuleAppliedToFacets> {
+public class RecipeFacetRule implements Cloneable<RecipeFacetRule> {
     @Inject
     RepositoryService repositoryService;
 
@@ -172,7 +172,7 @@ public class RuleAppliedToFacets implements Cloneable<RuleAppliedToFacets> {
 
     @Override
     public String toString() {
-        return "RuleAppliedToFacets(" + "facetWhereTheRuleMustBeApplied=" + getFacetWhereTheRuleMustBeApplied() + ","
+        return "RecipeFacetRule(" + "facetWhereTheRuleMustBeApplied=" + getFacetWhereTheRuleMustBeApplied() + ","
          +"matchOnPreviouslySelectedFacetDescriptorBySubject=" + getMatchOnPreviouslySelectedFacetDescriptorBySubject() + ","
          +"recipeGroupCode=" + getRecipeGroupCode() + ","
          +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ")";
@@ -180,8 +180,8 @@ public class RuleAppliedToFacets implements Cloneable<RuleAppliedToFacets> {
 
     @Programmatic
     @Override
-    public RuleAppliedToFacets copy() {
-        var copy = repositoryService.detachedEntity(new RuleAppliedToFacets());
+    public RecipeFacetRule copy() {
+        var copy = repositoryService.detachedEntity(new RecipeFacetRule());
         copy.setFacetWhereTheRuleMustBeApplied(getFacetWhereTheRuleMustBeApplied());
         copy.setMatchOnPreviouslySelectedFacetDescriptorBySubject(getMatchOnPreviouslySelectedFacetDescriptorBySubject());
         copy.setRecipeGroupCode(getRecipeGroupCode());
@@ -197,16 +197,16 @@ public class RuleAppliedToFacets implements Cloneable<RuleAppliedToFacets> {
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public RuleAppliedToFacets.Manager getNavigableParent() {
-        return new RuleAppliedToFacets.Manager(searchService, "");
+    public RecipeFacetRule.Manager getNavigableParent() {
+        return new RecipeFacetRule.Manager(searchService, "");
     }
 
     /**
-     * Manager Viewmodel for @{link RuleAppliedToFacets}
+     * Manager Viewmodel for @{link RecipeFacetRule}
      */
-    @Named("dita.globodiet.params.recipe_description.RuleAppliedToFacets.Manager")
+    @Named("dita.globodiet.params.recipe_description.RecipeFacetRule.Manager")
     @DomainObjectLayout(
-            describedAs = "Rule applied to facets"
+            describedAs = "Rule applied to recipe facet."
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -225,12 +225,12 @@ public class RuleAppliedToFacets implements Cloneable<RuleAppliedToFacets> {
 
         @ObjectSupport
         public String title() {
-            return "Manage Rule Applied To Facets";
+            return "Manage Recipe Facet Rule";
         }
 
         @Collection
-        public final List<RuleAppliedToFacets> getListOfRuleAppliedToFacets() {
-            return searchService.search(RuleAppliedToFacets.class, RuleAppliedToFacets::title, search);
+        public final List<RecipeFacetRule> getListOfRecipeFacetRule() {
+            return searchService.search(RecipeFacetRule.class, RecipeFacetRule::title, search);
         }
 
         @Override

@@ -54,8 +54,8 @@ public class FoodDescriptorDeps {
         FoodDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
         FoodDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
         FoodDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
+        FoodDescriptor_dependentFoodFacetRuleMappedByFacetDescriptor.class,
         FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
-        FoodDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor.class,
         FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
         FoodDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
         FoodDescriptor_dependentMaximumValueForFoodOrGroupMappedByFacetDescriptor.class,
@@ -137,6 +137,24 @@ public class FoodDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
+    public static class FoodDescriptor_dependentFoodFacetRuleMappedByFacetDescriptor {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodDescriptor mixee;
+
+        @MemberSupport
+        public List<FoodFacetRule> coll() {
+            return dependantLookup.findDependants(
+                FoodFacetRule.class,
+                FoodFacetRule_facetDescriptor.class,
+                FoodFacetRule_facetDescriptor::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
     public static class FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
@@ -149,24 +167,6 @@ public class FoodDescriptorDeps {
                 ImprobableSequenceOfFacetAndDescriptor.class,
                 ImprobableSequenceOfFacetAndDescriptor_descriptor.class,
                 ImprobableSequenceOfFacetAndDescriptor_descriptor::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class FoodDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodDescriptor mixee;
-
-        @MemberSupport
-        public List<RuleAppliedToFacet> coll() {
-            return dependantLookup.findDependants(
-                RuleAppliedToFacet.class,
-                RuleAppliedToFacet_facetDescriptor.class,
-                RuleAppliedToFacet_facetDescriptor::prop,
                 mixee);
         }
     }

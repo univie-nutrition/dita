@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,21 +33,24 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "4.1",
-        describedAs = "Subgroup code",
+        sequence = "2.1",
+        describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
+                        + "to allow the facet (FACET_CODE) to be asked.\n"
+                        + "Additionally a group/subgroup code can be defined to force the food being described\n"
+                        + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class RuleAppliedToFacet_foodSubgroup {
+public class FoodFacetRule_facetDescriptor {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final RuleAppliedToFacet mixee;
+    private final FoodFacetRule mixee;
 
     @MemberSupport
-    public FoodSubgroup prop() {
-        if(mixee.getFoodSubgroupCode()==null) return null;
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFoodGroupCode(), mixee.getFoodSubgroupCode(), null);
-        return foreignKeyLookup.nullable(lookupKey);
+    public FoodDescriptor prop() {
+        return foreignKeyLookup.decodeLookupKeyList(FoodDescriptor.class, mixee.getFacetDescriptorLookupKey())
+            .map(foreignKeyLookup::unique)
+            .getSingleton().orElse(null);
     }
 }

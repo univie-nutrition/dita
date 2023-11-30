@@ -75,6 +75,14 @@ import dita.globodiet.dom.params.food_descript.FoodDescriptor_delete;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor_facet;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_descript.FoodFacetDeps;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule;
+import dita.globodiet.dom.params.food_descript.FoodFacetRuleDeps;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_delete;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_facet;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_facetDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_foodGroup;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_foodSubSubgroup;
+import dita.globodiet.dom.params.food_descript.FoodFacetRule_foodSubgroup;
 import dita.globodiet.dom.params.food_descript.FoodFacet_delete;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptorDeps;
@@ -85,14 +93,6 @@ import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescr
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodGroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodSubSubgroup;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_foodSubgroup;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacetDeps;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_delete;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_facet;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_facetDescriptor;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodGroup;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodSubSubgroup;
-import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet_foodSubgroup;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredientDeps;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient_delete;
@@ -275,13 +275,13 @@ import dita.globodiet.dom.params.recipe_description.RecipeDescriptor_delete;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor_recipeFacet;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet;
 import dita.globodiet.dom.params.recipe_description.RecipeFacetDeps;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRuleDeps;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_delete;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_recipeGroup;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet_delete;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacetsDeps;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_delete;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_recipeGroup;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.RecipeDeps;
 import dita.globodiet.dom.params.recipe_list.RecipeGroup;
@@ -405,6 +405,7 @@ import org.springframework.context.annotation.Import;
         FoodConsumptionOccasionDisplayItem.class,
         FoodDescriptor.class,
         FoodFacet.class,
+        FoodFacetRule.class,
         FoodGroup.class,
         FoodSubgroup.class,
         GroupSubstitution.class,
@@ -437,13 +438,12 @@ import org.springframework.context.annotation.Import;
         RecipeBrand.class,
         RecipeDescriptor.class,
         RecipeFacet.class,
+        RecipeFacetRule.class,
         RecipeGroup.class,
         RecipeIngredient.class,
         RecipeIngredientQuantification.class,
         RecipeSubgroup.class,
         RecipeTypePathway.class,
-        RuleAppliedToFacet.class,
-        RuleAppliedToFacets.class,
         SelectedParameter.class,
         SelectedParameterForDataEntry.class,
         Shape.class,
@@ -478,6 +478,7 @@ import org.springframework.context.annotation.Import;
         FoodDeps.class,
         FoodDescriptorDeps.class,
         FoodFacetDeps.class,
+        FoodFacetRuleDeps.class,
         FoodGroupDeps.class,
         FoodSubgroupDeps.class,
         GroupSubstitutionDeps.class,
@@ -510,13 +511,12 @@ import org.springframework.context.annotation.Import;
         RecipeDeps.class,
         RecipeDescriptorDeps.class,
         RecipeFacetDeps.class,
+        RecipeFacetRuleDeps.class,
         RecipeGroupDeps.class,
         RecipeIngredientDeps.class,
         RecipeIngredientQuantificationDeps.class,
         RecipeSubgroupDeps.class,
         RecipeTypePathwayDeps.class,
-        RuleAppliedToFacetDeps.class,
-        RuleAppliedToFacetsDeps.class,
         SelectedParameterDeps.class,
         SelectedParameterForDataEntryDeps.class,
         ShapeDeps.class,
@@ -578,6 +578,12 @@ import org.springframework.context.annotation.Import;
         FoodConsumptionOccasion_delete.class,
         FoodDescriptor_delete.class,
         FoodDescriptor_facet.class,
+        FoodFacetRule_delete.class,
+        FoodFacetRule_facet.class,
+        FoodFacetRule_facetDescriptor.class,
+        FoodFacetRule_foodGroup.class,
+        FoodFacetRule_foodSubSubgroup.class,
+        FoodFacetRule_foodSubgroup.class,
         FoodFacet_delete.class,
         FoodGroup_delete.class,
         FoodSubgroup_delete.class,
@@ -692,6 +698,10 @@ import org.springframework.context.annotation.Import;
         RecipeBrand_recipeSubgroup.class,
         RecipeDescriptor_delete.class,
         RecipeDescriptor_recipeFacet.class,
+        RecipeFacetRule_delete.class,
+        RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj.class,
+        RecipeFacetRule_recipeGroup.class,
+        RecipeFacetRule_recipeSubgroup.class,
         RecipeFacet_delete.class,
         RecipeGroup_delete.class,
         RecipeIngredientQuantification_delete.class,
@@ -713,16 +723,6 @@ import org.springframework.context.annotation.Import;
         Recipe_delete.class,
         Recipe_recipeGroup.class,
         Recipe_recipeSubgroup.class,
-        RuleAppliedToFacet_delete.class,
-        RuleAppliedToFacet_facet.class,
-        RuleAppliedToFacet_facetDescriptor.class,
-        RuleAppliedToFacet_foodGroup.class,
-        RuleAppliedToFacet_foodSubSubgroup.class,
-        RuleAppliedToFacet_foodSubgroup.class,
-        RuleAppliedToFacets_delete.class,
-        RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj.class,
-        RuleAppliedToFacets_recipeGroup.class,
-        RuleAppliedToFacets_recipeSubgroup.class,
         SelectedParameterForDataEntry_delete.class,
         SelectedParameter_delete.class,
         Shape_delete.class,
@@ -764,6 +764,7 @@ public class DitaModuleGdParams {
         FoodConsumptionOccasionDisplayItem.class,
         FoodDescriptor.class,
         FoodFacet.class,
+        FoodFacetRule.class,
         FoodGroup.class,
         FoodSubgroup.class,
         GroupSubstitution.class,
@@ -796,13 +797,12 @@ public class DitaModuleGdParams {
         RecipeBrand.class,
         RecipeDescriptor.class,
         RecipeFacet.class,
+        RecipeFacetRule.class,
         RecipeGroup.class,
         RecipeIngredient.class,
         RecipeIngredientQuantification.class,
         RecipeSubgroup.class,
         RecipeTypePathway.class,
-        RuleAppliedToFacet.class,
-        RuleAppliedToFacets.class,
         SelectedParameter.class,
         SelectedParameterForDataEntry.class,
         Shape.class,

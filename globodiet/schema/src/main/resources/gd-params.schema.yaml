@@ -639,6 +639,70 @@ params.food_descript.FoodFacet:
       unique: true
       description: |
         Label on how to ask the facet question
+params.food_descript.FoodFacetRule:
+  namespace: params.food_descript
+  table: FACETRUL
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Rule applied to food facet. 
+  fields:
+    facetCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        FACETS.FACET_CODE
+      description: |
+        Facet where the rule must be applied.
+    facetDescriptorLookupKey:
+      column: FACDESC
+      column-type: nvarchar(4)
+      required: true
+      unique: false
+      foreignKeys: |
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
+      description: |
+        Facet code + Descriptor code that must exist in the current food description 
+        to allow the facet (FACET_CODE) to be asked. 
+        Additionally a group/subgroup code can be defined to force the food being described 
+        to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Sub-subgroup code
 params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
   namespace: params.food_descript
   table: DESC_IMP
@@ -717,70 +781,6 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
       unique: false
       description: |
         Facet string
-params.food_descript.RuleAppliedToFacet:
-  namespace: params.food_descript
-  table: FACETRUL
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Rule applied to facet 
-  fields:
-    facetCode:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        FACETS.FACET_CODE
-      description: |
-        Facet where the rule must be applied.
-    facetDescriptorLookupKey:
-      column: FACDESC
-      column-type: nvarchar(4)
-      required: true
-      unique: false
-      foreignKeys: |
-        DESCFACE.FACET_CODE
-        DESCFACE.DESCR_CODE
-      description: |
-        Facet code + Descriptor code that must exist in the current food description 
-        to allow the facet (FACET_CODE) to be asked. 
-        Additionally a group/subgroup code can be defined to force the food being described 
-        to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: true
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Sub-subgroup code
 params.food_list.ComposedRecipeIngredient:
   namespace: params.food_list
   table: CRING
@@ -3117,7 +3117,7 @@ params.recipe_description.RecipeFacet:
       unique: true
       description: |
         Label on how to ask the facet question    
-params.recipe_description.RuleAppliedToFacets:
+params.recipe_description.RecipeFacetRule:
   namespace: params.recipe_description
   table: R_FACETRUL
   secondaryKey:
@@ -3125,7 +3125,7 @@ params.recipe_description.RuleAppliedToFacets:
   icon: null
   iconService: false
   description: |
-    Rule applied to facets 
+    Rule applied to recipe facet. 
   fields:
     facetWhereTheRuleMustBeApplied:
       column: RFACET_CODE

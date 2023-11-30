@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodGroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,21 +33,20 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "3.1",
-        describedAs = "Group code",
+        sequence = "1.1",
+        describedAs = "Facet where the rule must be applied.",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class RuleAppliedToFacet_foodGroup {
+public class FoodFacetRule_facet {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final RuleAppliedToFacet mixee;
+    private final FoodFacetRule mixee;
 
     @MemberSupport
-    public FoodGroup prop() {
-        if(mixee.getFoodGroupCode()==null) return null;
-        final var lookupKey = new FoodGroup.SecondaryKey(mixee.getFoodGroupCode());
-        return foreignKeyLookup.nullable(lookupKey);
+    public FoodFacet prop() {
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetCode());
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

@@ -34,8 +34,8 @@ import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweeten
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeGroup;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand_recipeGroup;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_recipeGroup;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_recipeGroup;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -55,7 +55,7 @@ public class RecipeGroupDeps {
         RecipeGroup_dependentMaximumValueForRecipeOrGroupMappedByRecipeGroup.class,
         RecipeGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeGroup.class,
         RecipeGroup_dependentRecipeBrandMappedByRecipeGroup.class,
-        RecipeGroup_dependentRuleAppliedToFacetsMappedByRecipeGroup.class,
+        RecipeGroup_dependentRecipeFacetRuleMappedByRecipeGroup.class,
         RecipeGroup_dependentRecipeMappedByRecipeGroup.class,
         RecipeGroup_dependentRecipeIngredientMappedByFoodOrRecipeGroup.class,
         RecipeGroup_dependentRecipeSubgroupMappedByRecipeGroup.class);
@@ -189,18 +189,18 @@ public class RecipeGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeGroup_dependentRuleAppliedToFacetsMappedByRecipeGroup {
+    public static class RecipeGroup_dependentRecipeFacetRuleMappedByRecipeGroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeGroup mixee;
 
         @MemberSupport
-        public List<RuleAppliedToFacets> coll() {
+        public List<RecipeFacetRule> coll() {
             return dependantLookup.findDependants(
-                RuleAppliedToFacets.class,
-                RuleAppliedToFacets_recipeGroup.class,
-                RuleAppliedToFacets_recipeGroup::prop,
+                RecipeFacetRule.class,
+                RecipeFacetRule_recipeGroup.class,
+                RecipeFacetRule_recipeGroup::prop,
                 mixee);
         }
     }

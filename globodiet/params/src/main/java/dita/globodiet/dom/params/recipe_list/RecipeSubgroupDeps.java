@@ -34,8 +34,8 @@ import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweeten
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand_recipeSubgroup;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_recipeSubgroup;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_recipeSubgroup;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.GroupSubstitution_applyToRecipeGroups;
 import jakarta.inject.Inject;
@@ -57,7 +57,7 @@ public class RecipeSubgroupDeps {
         RecipeSubgroup_dependentThicknessForShapeMethodMappedByRecipeSubgroups.class,
         RecipeSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeBrandMappedByRecipeSubgroup.class,
-        RecipeSubgroup_dependentRuleAppliedToFacetsMappedByRecipeSubgroup.class,
+        RecipeSubgroup_dependentRecipeFacetRuleMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeIngredientMappedByFoodOrRecipeSubgroup.class,
         RecipeSubgroup_dependentGroupSubstitutionMappedByApplyToRecipeGroups.class);
@@ -191,18 +191,18 @@ public class RecipeSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeSubgroup_dependentRuleAppliedToFacetsMappedByRecipeSubgroup {
+    public static class RecipeSubgroup_dependentRecipeFacetRuleMappedByRecipeSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeSubgroup mixee;
 
         @MemberSupport
-        public List<RuleAppliedToFacets> coll() {
+        public List<RecipeFacetRule> coll() {
             return dependantLookup.findDependants(
-                RuleAppliedToFacets.class,
-                RuleAppliedToFacets_recipeSubgroup.class,
-                RuleAppliedToFacets_recipeSubgroup::prop,
+                RecipeFacetRule.class,
+                RecipeFacetRule_recipeSubgroup.class,
+                RecipeFacetRule_recipeSubgroup::prop,
                 mixee);
         }
     }

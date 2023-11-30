@@ -24,8 +24,8 @@ import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_facet;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
-import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule;
+import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted_facet;
 import jakarta.inject.Inject;
@@ -41,11 +41,11 @@ import org.springframework.context.annotation.Configuration;
 public class FoodFacetDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of(FoodFacet_dependentFoodDescriptorMappedByFacet.class,
+        FoodFacet_dependentFoodFacetRuleMappedByFacet.class,
         FoodFacet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
-        FoodFacet_dependentRuleAppliedToFacetMappedByFacet.class,
         FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
         FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
-        FoodFacet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj.class,
+        FoodFacet_dependentRecipeFacetRuleMappedByFacetWhereTheRuleMustBeAppliedObj.class,
         FoodFacet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
     }
 
@@ -69,6 +69,24 @@ public class FoodFacetDeps {
 
     @Collection
     @RequiredArgsConstructor
+    public static class FoodFacet_dependentFoodFacetRuleMappedByFacet {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodFacet mixee;
+
+        @MemberSupport
+        public List<FoodFacetRule> coll() {
+            return dependantLookup.findDependants(
+                FoodFacetRule.class,
+                FoodFacetRule_facet.class,
+                FoodFacetRule_facet::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
     public static class FoodFacet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet {
         @Inject
         DependantLookupService dependantLookup;
@@ -81,24 +99,6 @@ public class FoodFacetDeps {
                 ImprobableSequenceOfFacetAndDescriptor.class,
                 ImprobableSequenceOfFacetAndDescriptor_facet.class,
                 ImprobableSequenceOfFacetAndDescriptor_facet::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class FoodFacet_dependentRuleAppliedToFacetMappedByFacet {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodFacet mixee;
-
-        @MemberSupport
-        public List<RuleAppliedToFacet> coll() {
-            return dependantLookup.findDependants(
-                RuleAppliedToFacet.class,
-                RuleAppliedToFacet_facet.class,
-                RuleAppliedToFacet_facet::prop,
                 mixee);
         }
     }
@@ -141,18 +141,18 @@ public class FoodFacetDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodFacet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj {
+    public static class FoodFacet_dependentRecipeFacetRuleMappedByFacetWhereTheRuleMustBeAppliedObj {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodFacet mixee;
 
         @MemberSupport
-        public List<RuleAppliedToFacets> coll() {
+        public List<RecipeFacetRule> coll() {
             return dependantLookup.findDependants(
-                RuleAppliedToFacets.class,
-                RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj.class,
-                RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj::prop,
+                RecipeFacetRule.class,
+                RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj.class,
+                RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj::prop,
                 mixee);
         }
     }

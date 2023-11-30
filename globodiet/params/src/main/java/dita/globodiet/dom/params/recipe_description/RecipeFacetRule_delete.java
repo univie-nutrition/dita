@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this RuleAppliedToFacets",
+        describedAs = "Delete this RecipeFacetRule",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class RuleAppliedToFacets_delete {
+public class RecipeFacetRule_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class RuleAppliedToFacets_delete {
     @Inject
     SearchService searchService;
 
-    private final RuleAppliedToFacets mixee;
+    private final RecipeFacetRule mixee;
 
     @MemberSupport
-    public RuleAppliedToFacets.Manager act(
+    public RecipeFacetRule.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new RuleAppliedToFacets.Manager(searchService, "");
+        return new RecipeFacetRule.Manager(searchService, "");
     }
 
     @MemberSupport
