@@ -18,7 +18,7 @@
  */
 package dita.globodiet.manager.help;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -29,6 +29,7 @@ import org.asciidoctor.ast.Table;
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.core.metamodel.context.MetaModelContext;
 import org.apache.causeway.core.metamodel.facets.members.iconfa.FaFacet;
 import org.apache.causeway.core.metamodel.facets.members.iconfa.FaLayersProvider;
@@ -108,8 +109,11 @@ public class DitaTableNamesPage implements HelpPage {
     // -- HELPER
 
     private String htmlPassThroughIconFor(final String logicalName) {
-        return faIcon(logicalName)
+        var innerHtml = faIcons(logicalName)
+                .stream()
                 .map(FontAwesomeLayers::toHtml)
+                .collect(Collectors.joining("&nbsp;"));
+        return _Strings.nonEmpty(innerHtml)
                 .map(faHtml->String.format("""
                         ++++
                         %s
@@ -118,12 +122,29 @@ public class DitaTableNamesPage implements HelpPage {
                 .orElse("");
     }
 
-    private Optional<FontAwesomeLayers> faIcon(final String logicalName) {
+    private List<FontAwesomeLayers> faIcons(final String logicalName) {
+        if(logicalName.endsWith("FoodSubgroup")) {
+            return foodSubGroupIcons();
+        }
         return mmc.getSpecificationLoader().specForLogicalTypeName(logicalName)
                 .map(spec->spec.getFacet(FaFacet.class))
                 .filter(FaLayersProvider.class::isInstance)
                 .map(FaLayersProvider.class::cast)
-                .map(FaLayersProvider::getLayers);
+                .map(FaLayersProvider::getLayers)
+                .stream()
+                .toList();
+    }
+
+    //XXX duplicated code from IconFaServiceGdParams
+    private List<FontAwesomeLayers> foodSubGroupIcons() {
+        return List.of(
+                FontAwesomeLayers.fromQuickNotation("solid utensils .food-color,"
+                    + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,"
+                    + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85"),
+                FontAwesomeLayers.fromQuickNotation("solid utensils .food-color,"
+                    + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,"
+                    + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-45,"
+                    + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-85"));
     }
 
 }
