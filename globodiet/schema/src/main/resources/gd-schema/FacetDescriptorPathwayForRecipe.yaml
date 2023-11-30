@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_description.FacetDescriptorPathwayForRecipe:
-  namespace: params.recipe_description
+params.pathway.FacetDescriptorPathwayForRecipe:
+  namespace: params.pathway
   table: R_RCPFAEX
   secondaryKey:
   title: null

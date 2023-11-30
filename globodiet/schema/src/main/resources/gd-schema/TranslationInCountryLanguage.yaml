@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.TranslationInCountryLanguage:
-  namespace: params.general_info
+params.setting.TranslationInCountryLanguage:
+  namespace: params.setting
   table: EPICTEXT
   secondaryKey:
   title: null

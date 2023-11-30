@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_quantif.QuantificationMethodPathwayForRecipe:
-  namespace: params.recipe_quantif
+params.pathway.QuantificationMethodPathwayForRecipe:
+  namespace: params.pathway
   table: QM_RECIP
   secondaryKey:
   title: null

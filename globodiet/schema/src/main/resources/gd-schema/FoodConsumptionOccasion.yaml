@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.FoodConsumptionOccasion:
-  namespace: params.general_info
+params.setting.FoodConsumptionOccasion:
+  namespace: params.setting
   table: FCO
   secondaryKey: |
     FCM_CODE

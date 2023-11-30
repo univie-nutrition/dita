@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_table.Nutrient:
-  namespace: params.food_table
+params.nutrient.Nutrient:
+  namespace: params.nutrient
   table: NUTRIENT
   secondaryKey: |
     NTR_CODE

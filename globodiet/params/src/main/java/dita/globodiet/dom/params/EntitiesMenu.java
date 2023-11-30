@@ -20,18 +20,12 @@
 package dita.globodiet.dom.params;
 
 import dita.commons.services.search.SearchService;
-import dita.globodiet.dom.params.classification.FoodGroup;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.classification.RecipeGroup;
-import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
-import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
-import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
@@ -39,54 +33,60 @@ import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescr
 import dita.globodiet.dom.params.food_descript.RuleAppliedToFacet;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
-import dita.globodiet.dom.params.food_table.Nutrient;
-import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
-import dita.globodiet.dom.params.food_table.NutrientValue;
-import dita.globodiet.dom.params.general_info.AnthropometricAverage;
-import dita.globodiet.dom.params.general_info.FoodConsumptionOccasion;
-import dita.globodiet.dom.params.general_info.FoodConsumptionOccasionDisplayItem;
-import dita.globodiet.dom.params.general_info.PlaceOfConsumption;
-import dita.globodiet.dom.params.general_info.SpecialDayPredefinedAnswer;
-import dita.globodiet.dom.params.general_info.SpecialDietPredefinedAnswer;
-import dita.globodiet.dom.params.general_info.TranslationInCountryLanguage;
+import dita.globodiet.dom.params.food_list.FoodGroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.dom.params.interview.CenterInvolved;
 import dita.globodiet.dom.params.interview.CountryInvolved;
 import dita.globodiet.dom.params.interview.Interviewer;
 import dita.globodiet.dom.params.interview.SubjectToBeInterviewed;
-import dita.globodiet.dom.params.probing.ProbingQuestion;
+import dita.globodiet.dom.params.nutrient.Nutrient;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.nutrient.NutrientValue;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.dom.params.pathway.ProbingQuestion;
+import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.dom.params.pathway.RecipeTypePathway;
 import dita.globodiet.dom.params.quantif.HouseholdMeasure;
+import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup;
+import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup;
 import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.quantif.Shape;
+import dita.globodiet.dom.params.quantif.StandardPortionForFood;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
-import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipeGroup;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.dom.params.recipe_description.RecipeFacet;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.dom.params.recipe_list.RecipeGroup;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.dom.params.setting.AnthropometricAverage;
 import dita.globodiet.dom.params.setting.DayOfWeek;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
+import dita.globodiet.dom.params.setting.FoodConsumptionOccasion;
+import dita.globodiet.dom.params.setting.FoodConsumptionOccasionDisplayItem;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
 import dita.globodiet.dom.params.setting.MacroNutrientLimit;
 import dita.globodiet.dom.params.setting.Month;
 import dita.globodiet.dom.params.setting.NoteStatus;
-import dita.globodiet.dom.params.setting.RecipeTypePathway;
+import dita.globodiet.dom.params.setting.PlaceOfConsumption;
 import dita.globodiet.dom.params.setting.SelectedParameter;
 import dita.globodiet.dom.params.setting.SelectedParameterForDataEntry;
+import dita.globodiet.dom.params.setting.SpecialDayPredefinedAnswer;
+import dita.globodiet.dom.params.setting.SpecialDietPredefinedAnswer;
+import dita.globodiet.dom.params.setting.TranslationInCountryLanguage;
 import dita.globodiet.dom.params.supplement.DietarySupplement;
 import dita.globodiet.dom.params.supplement.DietarySupplementClassification;
 import dita.globodiet.dom.params.supplement.DietarySupplementDescriptor;
@@ -108,44 +108,6 @@ public class EntitiesMenu {
 
     @Inject
     private SearchService searchService;
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid utensils .food-color,\n"
-                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
-    )
-    public FoodGroup.Manager manageFoodGroup() {
-        return factoryService.viewModel(new FoodGroup.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid utensils .food-color,\n"
-                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
-                            + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
-    )
-    public FoodSubgroup.Manager manageFoodSubgroup() {
-        return factoryService.viewModel(new FoodSubgroup.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
-    )
-    public RecipeGroup.Manager manageRecipeGroup() {
-        return factoryService.viewModel(new RecipeGroup.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
-                            + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
-    )
-    public RecipeSubgroup.Manager manageRecipeSubgroup() {
-        return factoryService.viewModel(new RecipeSubgroup.Manager(searchService, ""));
-    }
 
     @Action
     @ActionLayout
@@ -188,25 +150,6 @@ public class EntitiesMenu {
     @ActionLayout
     public RawToCookedConversionFactorForFood.Manager manageRawToCookedConversionFactorForFood() {
         return factoryService.viewModel(new RawToCookedConversionFactorForFood.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
-    )
-    public FacetDescriptorPathwayForFood.Manager manageFacetDescriptorPathwayForFood() {
-        return factoryService.viewModel(new FacetDescriptorPathwayForFood.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
-    )
-    public FacetDescriptorPathwayForFoodGroup.Manager manageFacetDescriptorPathwayForFoodGroup() {
-        return factoryService.viewModel(new FacetDescriptorPathwayForFoodGroup.Manager(searchService, ""));
     }
 
     @Action
@@ -264,120 +207,22 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
-    public MaximumValueForAFoodOrGroup.Manager manageMaximumValueForAFoodOrGroup() {
-        return factoryService.viewModel(new MaximumValueForAFoodOrGroup.Manager(searchService, ""));
+    @ActionLayout(
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public FoodGroup.Manager manageFoodGroup() {
+        return factoryService.viewModel(new FoodGroup.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+            cssClassFa = "solid utensils .food-color,\n"
+                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                            + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
-    public ProbingQuestionPathwayForFood.Manager manageProbingQuestionPathwayForFood() {
-        return factoryService.viewModel(new ProbingQuestionPathwayForFood.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
-    )
-    public QuantificationMethodPathwayForFood.Manager manageQuantificationMethodPathwayForFood() {
-        return factoryService.viewModel(new QuantificationMethodPathwayForFood.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-    )
-    public QuantificationMethodPathwayForFoodGroup.Manager manageQuantificationMethodPathwayForFoodGroup(
-            ) {
-        return factoryService.viewModel(new QuantificationMethodPathwayForFoodGroup.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
-    public StandardPortionForFood.Manager manageStandardPortionForFood() {
-        return factoryService.viewModel(new StandardPortionForFood.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid flask .nutrient-color"
-    )
-    public Nutrient.Manager manageNutrient() {
-        return factoryService.viewModel(new Nutrient.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid flask .nutrient-color,\n"
-                            + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
-    )
-    public NutrientForFoodOrGroup.Manager manageNutrientForFoodOrGroup() {
-        return factoryService.viewModel(new NutrientForFoodOrGroup.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid flask .nutrient-color,\n"
-                            + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
-    )
-    public NutrientValue.Manager manageNutrientValue() {
-        return factoryService.viewModel(new NutrientValue.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "ruler"
-    )
-    public AnthropometricAverage.Manager manageAnthropometricAverage() {
-        return factoryService.viewModel(new AnthropometricAverage.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid user-clock"
-    )
-    public FoodConsumptionOccasion.Manager manageFoodConsumptionOccasion() {
-        return factoryService.viewModel(new FoodConsumptionOccasion.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "regular message"
-    )
-    public FoodConsumptionOccasionDisplayItem.Manager manageFoodConsumptionOccasionDisplayItem() {
-        return factoryService.viewModel(new FoodConsumptionOccasionDisplayItem.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid building-user"
-    )
-    public PlaceOfConsumption.Manager managePlaceOfConsumption() {
-        return factoryService.viewModel(new PlaceOfConsumption.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
-    public SpecialDayPredefinedAnswer.Manager manageSpecialDayPredefinedAnswer() {
-        return factoryService.viewModel(new SpecialDayPredefinedAnswer.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
-    public SpecialDietPredefinedAnswer.Manager manageSpecialDietPredefinedAnswer() {
-        return factoryService.viewModel(new SpecialDietPredefinedAnswer.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
-    public TranslationInCountryLanguage.Manager manageTranslationInCountryLanguage() {
-        return factoryService.viewModel(new TranslationInCountryLanguage.Manager(searchService, ""));
+    public FoodSubgroup.Manager manageFoodSubgroup() {
+        return factoryService.viewModel(new FoodSubgroup.Manager(searchService, ""));
     }
 
     @Action
@@ -414,10 +259,142 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
+            cssClassFa = "solid flask .nutrient-color"
+    )
+    public Nutrient.Manager manageNutrient() {
+        return factoryService.viewModel(new Nutrient.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid flask .nutrient-color,\n"
+                            + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public NutrientForFoodOrGroup.Manager manageNutrientForFoodOrGroup() {
+        return factoryService.viewModel(new NutrientForFoodOrGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid flask .nutrient-color,\n"
+                            + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public NutrientValue.Manager manageNutrientValue() {
+        return factoryService.viewModel(new NutrientValue.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+    )
+    public FacetDescriptorPathwayForFood.Manager manageFacetDescriptorPathwayForFood() {
+        return factoryService.viewModel(new FacetDescriptorPathwayForFood.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
+    public FacetDescriptorPathwayForFoodGroup.Manager manageFacetDescriptorPathwayForFoodGroup() {
+        return factoryService.viewModel(new FacetDescriptorPathwayForFoodGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+    )
+    public FacetDescriptorPathwayForRecipe.Manager manageFacetDescriptorPathwayForRecipe() {
+        return factoryService.viewModel(new FacetDescriptorPathwayForRecipe.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
+    public FacetDescriptorPathwayForRecipeGroup.Manager manageFacetDescriptorPathwayForRecipeGroup(
+            ) {
+        return factoryService.viewModel(new FacetDescriptorPathwayForRecipeGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
             cssClassFa = "solid circle-question"
     )
     public ProbingQuestion.Manager manageProbingQuestion() {
         return factoryService.viewModel(new ProbingQuestion.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
+    public ProbingQuestionPathwayForFood.Manager manageProbingQuestionPathwayForFood() {
+        return factoryService.viewModel(new ProbingQuestionPathwayForFood.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
+    public ProbingQuestionPathwayForRecipe.Manager manageProbingQuestionPathwayForRecipe() {
+        return factoryService.viewModel(new ProbingQuestionPathwayForRecipe.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+    )
+    public QuantificationMethodPathwayForFood.Manager manageQuantificationMethodPathwayForFood() {
+        return factoryService.viewModel(new QuantificationMethodPathwayForFood.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .food-color,\n"
+                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+    )
+    public QuantificationMethodPathwayForFoodGroup.Manager manageQuantificationMethodPathwayForFoodGroup(
+            ) {
+        return factoryService.viewModel(new QuantificationMethodPathwayForFoodGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+    )
+    public QuantificationMethodPathwayForRecipe.Manager manageQuantificationMethodPathwayForRecipe(
+            ) {
+        return factoryService.viewModel(new QuantificationMethodPathwayForRecipe.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
+                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
+    public QuantificationMethodPathwayForRecipeGroup.Manager manageQuantificationMethodPathwayForRecipeGroup(
+            ) {
+        return factoryService.viewModel(new QuantificationMethodPathwayForRecipeGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+    )
+    public RecipeTypePathway.Manager manageRecipeTypePathway() {
+        return factoryService.viewModel(new RecipeTypePathway.Manager(searchService, ""));
     }
 
     @Action
@@ -428,14 +405,38 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout
+    public MaximumValueForFoodOrGroup.Manager manageMaximumValueForFoodOrGroup() {
+        return factoryService.viewModel(new MaximumValueForFoodOrGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public MaximumValueForRecipeOrGroup.Manager manageMaximumValueForRecipeOrGroup() {
+        return factoryService.viewModel(new MaximumValueForRecipeOrGroup.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
     public PhotoForQuantity.Manager managePhotoForQuantity() {
         return factoryService.viewModel(new PhotoForQuantity.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout
+    public RecipeIngredientQuantification.Manager manageRecipeIngredientQuantification() {
+        return factoryService.viewModel(new RecipeIngredientQuantification.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
     public Shape.Manager manageShape() {
         return factoryService.viewModel(new Shape.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public StandardPortionForFood.Manager manageStandardPortionForFood() {
+        return factoryService.viewModel(new StandardPortionForFood.Manager(searchService, ""));
     }
 
     @Action
@@ -457,26 +458,6 @@ public class EntitiesMenu {
     public PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.Manager managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe(
             ) {
         return factoryService.viewModel(new PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
-    )
-    public FacetDescriptorPathwayForRecipe.Manager manageFacetDescriptorPathwayForRecipe() {
-        return factoryService.viewModel(new FacetDescriptorPathwayForRecipe.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
-    )
-    public FacetDescriptorPathwayForRecipeGroup.Manager manageFacetDescriptorPathwayForRecipeGroup(
-            ) {
-        return factoryService.viewModel(new FacetDescriptorPathwayForRecipeGroup.Manager(searchService, ""));
     }
 
     @Action
@@ -521,51 +502,36 @@ public class EntitiesMenu {
     }
 
     @Action
+    @ActionLayout(
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+    )
+    public RecipeGroup.Manager manageRecipeGroup() {
+        return factoryService.viewModel(new RecipeGroup.Manager(searchService, ""));
+    }
+
+    @Action
     @ActionLayout
     public RecipeIngredient.Manager manageRecipeIngredient() {
         return factoryService.viewModel(new RecipeIngredient.Manager(searchService, ""));
     }
 
     @Action
-    @ActionLayout
-    public RecipeIngredientQuantification.Manager manageRecipeIngredientQuantification() {
-        return factoryService.viewModel(new RecipeIngredientQuantification.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout
-    public MaximumValueForARecipeOrGroup.Manager manageMaximumValueForARecipeOrGroup() {
-        return factoryService.viewModel(new MaximumValueForARecipeOrGroup.Manager(searchService, ""));
+    @ActionLayout(
+            cssClassFa = "solid stroopwafel .recipe-color,\n"
+                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                            + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+    )
+    public RecipeSubgroup.Manager manageRecipeSubgroup() {
+        return factoryService.viewModel(new RecipeSubgroup.Manager(searchService, ""));
     }
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+            cssClassFa = "ruler"
     )
-    public ProbingQuestionPathwayForRecipe.Manager manageProbingQuestionPathwayForRecipe() {
-        return factoryService.viewModel(new ProbingQuestionPathwayForRecipe.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
-    )
-    public QuantificationMethodPathwayForRecipe.Manager manageQuantificationMethodPathwayForRecipe(
-            ) {
-        return factoryService.viewModel(new QuantificationMethodPathwayForRecipe.Manager(searchService, ""));
-    }
-
-    @Action
-    @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
-    )
-    public QuantificationMethodPathwayForRecipeGroup.Manager manageQuantificationMethodPathwayForRecipeGroup(
-            ) {
-        return factoryService.viewModel(new QuantificationMethodPathwayForRecipeGroup.Manager(searchService, ""));
+    public AnthropometricAverage.Manager manageAnthropometricAverage() {
+        return factoryService.viewModel(new AnthropometricAverage.Manager(searchService, ""));
     }
 
     @Action
@@ -579,6 +545,22 @@ public class EntitiesMenu {
     public FacetDescriptorThatCannotBeSubstituted.Manager manageFacetDescriptorThatCannotBeSubstituted(
             ) {
         return factoryService.viewModel(new FacetDescriptorThatCannotBeSubstituted.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid user-clock"
+    )
+    public FoodConsumptionOccasion.Manager manageFoodConsumptionOccasion() {
+        return factoryService.viewModel(new FoodConsumptionOccasion.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "regular message"
+    )
+    public FoodConsumptionOccasionDisplayItem.Manager manageFoodConsumptionOccasionDisplayItem() {
+        return factoryService.viewModel(new FoodConsumptionOccasionDisplayItem.Manager(searchService, ""));
     }
 
     @Action
@@ -607,10 +589,10 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid person-walking-arrow-right .recipe-color"
+            cssClassFa = "solid building-user"
     )
-    public RecipeTypePathway.Manager manageRecipeTypePathway() {
-        return factoryService.viewModel(new RecipeTypePathway.Manager(searchService, ""));
+    public PlaceOfConsumption.Manager managePlaceOfConsumption() {
+        return factoryService.viewModel(new PlaceOfConsumption.Manager(searchService, ""));
     }
 
     @Action
@@ -623,6 +605,24 @@ public class EntitiesMenu {
     @ActionLayout
     public SelectedParameterForDataEntry.Manager manageSelectedParameterForDataEntry() {
         return factoryService.viewModel(new SelectedParameterForDataEntry.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public SpecialDayPredefinedAnswer.Manager manageSpecialDayPredefinedAnswer() {
+        return factoryService.viewModel(new SpecialDayPredefinedAnswer.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public SpecialDietPredefinedAnswer.Manager manageSpecialDietPredefinedAnswer() {
+        return factoryService.viewModel(new SpecialDietPredefinedAnswer.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout
+    public TranslationInCountryLanguage.Manager manageTranslationInCountryLanguage() {
+        return factoryService.viewModel(new TranslationInCountryLanguage.Manager(searchService, ""));
     }
 
     @Action

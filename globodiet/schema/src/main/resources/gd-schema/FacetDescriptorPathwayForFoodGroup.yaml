@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.FacetDescriptorPathwayForFoodGroup:
-  namespace: params.food_descript
+params.pathway.FacetDescriptorPathwayForFoodGroup:
+  namespace: params.pathway
   table: GROUPFAC
   secondaryKey:
   title: null

@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.PlaceOfConsumption:
-  namespace: params.general_info
+params.setting.PlaceOfConsumption:
+  namespace: params.setting
   table: POC
   secondaryKey: |
     POC_CODE

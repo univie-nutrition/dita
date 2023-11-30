@@ -20,6 +20,10 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.lookup.DependantLookupService;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_facet;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets;
 import dita.globodiet.dom.params.recipe_description.RuleAppliedToFacets_facetWhereTheRuleMustBeAppliedObj;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
@@ -36,49 +40,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FoodFacetDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
-        FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
-        FoodFacet_dependentFoodDescriptorMappedByFacet.class,
+        return Can.of(FoodFacet_dependentFoodDescriptorMappedByFacet.class,
         FoodFacet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
         FoodFacet_dependentRuleAppliedToFacetMappedByFacet.class,
+        FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
+        FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
         FoodFacet_dependentRuleAppliedToFacetsMappedByFacetWhereTheRuleMustBeAppliedObj.class,
         FoodFacet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodFacet mixee;
-
-        @MemberSupport
-        public List<FacetDescriptorPathwayForFood> coll() {
-            return dependantLookup.findDependants(
-                FacetDescriptorPathwayForFood.class,
-                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets.class,
-                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodFacet mixee;
-
-        @MemberSupport
-        public List<FacetDescriptorPathwayForFoodGroup> coll() {
-            return dependantLookup.findDependants(
-                FacetDescriptorPathwayForFoodGroup.class,
-                FacetDescriptorPathwayForFoodGroup_facet.class,
-                FacetDescriptorPathwayForFoodGroup_facet::prop,
-                mixee);
-        }
     }
 
     @Collection
@@ -131,6 +99,42 @@ public class FoodFacetDeps {
                 RuleAppliedToFacet.class,
                 RuleAppliedToFacet_facet.class,
                 RuleAppliedToFacet_facet::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodFacet mixee;
+
+        @MemberSupport
+        public List<FacetDescriptorPathwayForFood> coll() {
+            return dependantLookup.findDependants(
+                FacetDescriptorPathwayForFood.class,
+                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets.class,
+                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodFacet mixee;
+
+        @MemberSupport
+        public List<FacetDescriptorPathwayForFoodGroup> coll() {
+            return dependantLookup.findDependants(
+                FacetDescriptorPathwayForFoodGroup.class,
+                FacetDescriptorPathwayForFoodGroup_facet.class,
+                FacetDescriptorPathwayForFoodGroup_facet::prop,
                 mixee);
         }
     }

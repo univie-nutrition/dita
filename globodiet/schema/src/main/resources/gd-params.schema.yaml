@@ -17,218 +17,6 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.classification.FoodGroup:
-  namespace: params.classification
-  table: GROUPS
-  superType: params.classification.FoodGrouping
-  secondaryKey: |
-    GROUP
-  title: String.format("%s (code=%s)", name, code)
-  icon: |
-    solid utensils .food-color,
-    solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
-    
-  iconService: false
-  description: |
-    Food group
-  fields:
-    code:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: true
-      description: |
-        Food group code
-    name:
-      column: NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Food group name
-    shortName:
-      column: NAME_SHORT
-      column-type: nvarchar(20)
-      required: true
-      unique: true
-      description: |
-        Food group short name
-params.classification.FoodSubgroup:
-  namespace: params.classification
-  table: SUBGROUP
-  superType: params.classification.FoodGrouping
-  secondaryKey: |
-    GROUP
-    SUBGROUP1
-    SUBGROUP2
-  title: |
-    String.format("%s (code=%s|%s|%s)", 
-     name, 
-     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
-    
-  icon: |
-    solid utensils .food-color,
-    solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,
-    solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
-    
-  iconService: true
-  description: |
-    Food groups further narrowed down by subgroups and optional sub-subgroups
-  fields:
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      description: |
-        Food sub-group code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      description: |
-        Food sub-sub-group code
-    name:
-      column: NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Name of the food (sub-)(sub-)group
-    fatOrSauceSweetenerSubgroupQ:
-      column: SGRP_FSS
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        0:no:non fat/sauce/sweetener subgroup
-        1:yes:fat/sauce/sweetener subgroup
-      description: |
-        0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
-    fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ:
-      column: SGRP_FLO
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        0:no:non fat/sauce subgroup
-        1:yes:fat/sauce subgroup that can be left over in the dish
-      description: |
-        0=non fat/sauce subgroup 
-        1= fat/sauce subgroup that can be left over in the dish
-    fatDuringCookingSubgroupQ:
-      column: SGRP_FDC
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        0:no:non fat during cooking subgroup
-        1:yes:fat during cooking subgroup
-      description: |
-        0=non fat during cooking subgroup 
-        1= fat during cooking subgroup
-    shortName:
-      column: NAME_SHORT
-      column-type: nvarchar(20)
-      required: true
-      unique: true
-      description: |
-        Short Name of the food (sub-)(sub-)group
-params.classification.RecipeGroup:
-  namespace: params.classification
-  table: RGROUPS
-  superType: params.classification.RecipeGrouping
-  secondaryKey: |
-    GROUP
-  title: String.format("%s (code=%s)", name, code)
-  icon: |
-    solid stroopwafel .recipe-color,
-    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
-    
-  iconService: false
-  description: |
-    Recipe group 
-  fields:
-    code:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: true
-      description: |
-        Recipe Group code
-    name:
-      column: NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Name of the Recipe group
-    shortName:
-      column: NAMEG_SHORT
-      column-type: nvarchar(20)
-      required: true
-      unique: true
-      description: |
-        Short Name of the Recipe group
-params.classification.RecipeSubgroup:
-  namespace: params.classification
-  table: RSUBGR
-  superType: params.classification.RecipeGrouping
-  secondaryKey: |
-    GROUP
-    SUBGROUP
-  title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
-  icon: |
-    solid stroopwafel .recipe-color,
-    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,
-    solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Recipe subgroup
-  fields:
-    recipeGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        RGROUPS.GROUP
-      description: |
-        Recipe group code
-    code:
-      column: SUBGROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      description: |
-        Recipe sub-group code
-    name:
-      column: NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Name of the recipe (sub-)group
-    shortName:
-      column: NAMES_SHORT
-      column-type: nvarchar(20)
-      required: true
-      unique: true
-      description: |
-        Short Name of the recipe (sub-)group
 params.food_coefficient.DensityFactorForFood:
   namespace: params.food_coefficient
   table: DENSITY
@@ -653,142 +441,6 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
       unique: false
       description: |
         Priority order
-params.food_descript.FacetDescriptorPathwayForFood:
-  namespace: params.food_descript
-  table: FOODFAEX
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .food-color,
-    solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
-    solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Facet/descriptor pathway for individual food.
-    Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.
-  fields:
-    foodCode:
-      column: FOODNUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        FOODS.FOODNUM
-      description: |
-        food ID number
-    mandatoryInSequenceOfFacetsCode:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      foreignKeys: |
-        FACETS.FACET_CODE
-      description: |
-        Food Facet codes that will appear in the sequence of facets corresponding to this Food 
-        (supersedes this Food's group pathway). 
-        The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.
-    displayOrder:
-      column: ORDER_FAC
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Order to display the facets for the attached food (same order as ORDER_FAC in @{table GROUPFAC})
-params.food_descript.FacetDescriptorPathwayForFoodGroup:
-  namespace: params.food_descript
-  table: GROUPFAC
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .food-color,
-    solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Facet/descriptor pathway for food group/subgroup.
-    Optionally can be superseded by @{table FOODFAEX}.
-  fields:
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Food Subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food Sub-subgroup code
-    facetCode:
-      column: FACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        FACETS.FACET_CODE
-      description: |
-        Facet code
-    descriptorCode:
-      column: DESCR_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      discriminator: |
-        FACET_CODE
-      foreignKeys: |
-        DESCFACE.DESCR_CODE
-      description: |
-        Descriptor code
-    defaultFlag:
-      column: DEFAULT
-      column-type: nvarchar(1)
-      required: false
-      unique: false
-      description: |
-        Default flag (if set to 'D' it is the default descriptor)
-    notInNameFlag:
-      column: NOTINNAME
-      column-type: nvarchar(1)
-      required: false
-      unique: false
-      description: |
-        Not in name flag
-    facetDisplayOrder:
-      column: ORDER_FAC
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Order to display the facets within a group/subgroup
-    descriptorDisplayOrder:
-      column: ORDER_DESC
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Order to display the descriptors within a group/subgroup and a facet
 params.food_descript.FoodBrand:
   namespace: params.food_descript
   table: BRANDNAM
@@ -1274,848 +926,135 @@ params.food_list.Food:
       description: |
         0=food 
         1=dietary supplement
-params.food_max.MaximumValueForAFoodOrGroup:
-  namespace: params.food_max
-  table: MAXVAL
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Maximum quantity consumed that could be entered in the interview application for a given food 
-    (or group) before the control message warns the interviewer of an implausible value.
-  fields:
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Food subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food sub-Subgroup code
-    foodCode:
-      column: IDNUM
-      column-type: nvarchar(5)
-      required: false
-      unique: true
-      description: |
-        Food code
-    maximumValue:
-      column: MAXIMA
-      column-type: float(53)
-      required: true
-      unique: false
-      description: |
-        Maximum value
-    facetDescriptorLookupKey:
-      column: FACETS_STR
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      foreignKeys: |
-        DESCFACE.FACET_CODE
-        DESCFACE.DESCR_CODE
-      description: |
-        Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
-    priority:
-      column: PRIORITY
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      description: |
-        Priority order
-params.food_probing.ProbingQuestionPathwayForFood:
-  namespace: params.food_probing
-  table: PQPATH
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .food-color,
-    solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Probing question pathway for food.
-  fields:
-    probingQuestionCode:
-      column: PQ_CODE
-      column-type: nvarchar(3)
-      required: false
-      unique: false
-      foreignKeys: |
-        PROBQUE.PQ_CODE
-      description: |
-        Probing question code
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Food subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food sub-subgroup code
-    foodCode:
-      column: ID_NUM
-      column-type: nvarchar(5)
-      required: false
-      unique: false
-      foreignKeys: |
-        FOODS.FOODNUM
-      description: |
-        Food identification number (FOODNUM)
-params.food_quantif.QuantificationMethodPathwayForFood:
-  namespace: params.food_quantif
-  table: QM_FOODS
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .food-color,
-    solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
-    solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Quantification method pathway for individual food. 
-    Supersedes this food's group quantification method pathway from @{table QM_GROUP}.
-  fields:
-    foodCode:
-      column: ID_NUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        FOODS.FOODNUM
-      description: |
-        Food identification number (FOODNUM)
-    quantificationMethod:
-      column: METHOD
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        P:Photo
-        H:Household Measure
-        U:Standard Unit
-        S:Standard Portion
-        A:Shape
-      description: |
-        Quantification method code: 
-        'P' for photo, 
-        'H' for HHM, 
-        'U' for stdu, 
-        'S' for standard portion,
-        'A' for shape
-    photoCode:
-      column: METH_CODE
-      column-type: nvarchar(4)
-      required: false
-      unique: false
-      foreignKeys: |
-        M_PHOTOS.PH_CODE
-        M_SHAPES.SH_CODE
-      description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
-params.food_quantif.QuantificationMethodPathwayForFoodGroup:
-  namespace: params.food_quantif
-  table: QM_GROUP
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .food-color,
-    solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
-    
-  iconService: false
-  description: |
-    Quantification method pathway for food group/subgroup.
-    Optionally can be superseded by @{table QM_FOODS}.
-  fields:
-    foodGroupCode:
-      column: GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        GROUPS.GROUP
-      description: |
-        Food group code
-    foodSubgroupCode:
-      column: SUBGROUP1
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-      description: |
-        Food subgroup code
-    foodSubSubgroupCode:
-      column: SUBGROUP2
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
-      description: |
-        Food sub-subgroup code
-    physicalStateFacetDescriptorLookupKey:
-      column: PHYS_STATE
-      column-type: nvarchar(4)
-      required: false
-      unique: false
-      foreignKeys: |
-        DESCFACE.FACET_CODE
-        DESCFACE.DESCR_CODE
-      description: |
-        Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)
-    rawOrCookedAsConsumed:
-      column: RAW_COOKED
-      column-type: nvarchar(1)
-      required: false
-      unique: false
-      enum: |
-        1:raw
-        2:cooked: as Consumed
-      description: |
-        1=raw, 
-        2=cooked (as Consumed)
-    quantificationMethod:
-      column: METHOD
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        P:Photo
-        H:Household Measure
-        U:Standard Unit
-        S:Standard Portion
-        A:Shape
-      description: |
-        Quantification method code:
-        'P' for photo, 
-        'H' for HHM, 
-        'U' for stdu, 
-        'S' for standard portion, 
-        'A' for shape
-    photoCode:
-      column: METH_CODE
-      column-type: nvarchar(4)
-      required: false
-      unique: false
-      foreignKeys: |
-        M_PHOTOS.PH_CODE
-        M_SHAPES.SH_CODE
-      description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
-    comment:
-      column: COMMENT
-      column-type: nvarchar(200)
-      required: true
-      unique: false
-      description: |
-        Comment
-params.food_quantif.StandardPortionForFood:
-  namespace: params.food_quantif
-  table: M_STDPOR
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    standard portions for foods
-  fields:
-    standardPortionQuantity:
-      column: STDP_QUANT
-      column-type: float(53)
-      required: true
-      unique: false
-      description: |
-        Standard portion quantity
-    foodCode:
-      column: ID_NUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        FOODS.FOODNUM
-      description: |
-        Food identification number (=FOODMUM)
-    rawOrCooked:
-      column: RAW_COOKED
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        1:raw
-        2:cooked: as estimated
-      description: |
-        1 = raw, 
-        2 = cooked (as estimated)
-    withUnediblePartQ:
-      column: EDIB
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        1:un-edible excluded:without un-edible part
-        2:un-edible included:with un-edible (as estimated)
-      description: |
-        1 = without un-edible part, 
-        2 = with un-edible (as estimated)
-    commentAttachedToTheStandardPortion:
-      column: COMMENT
-      column-type: nvarchar(100)
-      required: true
-      unique: false
-      description: |
-        Comment attached to the standard portion
-    standardPortionCode:
-      column: PORT_CODE
-      column-type: nvarchar(4)
-      required: true
-      unique: false
-      description: |
-        Standard portion code for the same food (0001, 0002, 0003)
-    unit:
-      column: STDP_UNIT
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      description: |
-        G = in grams, V = in ml (volume)
-    orderToDisplayTheStandardPortion:
-      column: D_ORDER
-      column-type: float(53)
-      required: true
-      unique: false
-      description: |
-        Order to display the standard portion
-params.food_table.Nutrient:
-  namespace: params.food_table
-  table: NUTRIENT
+params.food_list.FoodGroup:
+  namespace: params.food_list
+  table: GROUPS
+  superType: params.classification.FoodGrouping
   secondaryKey: |
-    NTR_CODE
-  title: String.format("%s (unit=%s, code=%d)", nutrientName, nutrientUnit, nutrientCode)
-  icon: solid flask .nutrient-color
+    GROUP
+  title: String.format("%s (code=%s)", name, code)
+  icon: |
+    solid utensils .food-color,
+    solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
   iconService: false
   description: |
-    Nutrient definition (energy, proteins, carbohydrates, etc.).
+    Food group
   fields:
-    nutrientCode:
-      column: NTR_CODE
-      column-type: int(10)
+    code:
+      column: GROUP
+      column-type: nvarchar(2)
       required: true
       unique: true
       description: |
-        Nutrient code
-    nutrientName:
-      column: NTR_NAME
+        Food group code
+    name:
+      column: NAME
       column-type: nvarchar(100)
       required: true
       unique: true
       description: |
-        Nutrient Name
-    nutrientUnit:
-      column: NTR_UNIT
+        Food group name
+    shortName:
+      column: NAME_SHORT
       column-type: nvarchar(20)
       required: true
-      unique: false
-      description: |
-        Nutrient unit (e.g. kcal, g, mg…)
-    displayInTheNutrientChecksScreen:
-      column: NTR_DISPLAY
-      column-type: int(10)
-      required: true
-      unique: false
-      enum: |
-        0:No:not displayed in the 'nutrient checks' screen
-        1:Yes:displayed in the 'nutrient checks' screen
-      description: |
-        0=not displayed in the 'nutrient checks' screen 
-        1=displayed in the 'nutrient checks' screen
-    commentOnNutrient:
-      column: COMMENT
-      column-type: nvarchar(2147483647)
-      required: false
       unique: true
       description: |
-        Comment on nutrient
-params.food_table.NutrientForFoodOrGroup:
-  namespace: params.food_table
-  table: ITEMS_DEF
+        Food group short name
+params.food_list.FoodSubgroup:
+  namespace: params.food_list
+  table: SUBGROUP
+  superType: params.classification.FoodGrouping
   secondaryKey: |
-    ITEM_SEQ
-  title: String.format("code=%d, type=%s", code, typeOfRecord.title())
-  icon: |
-    solid flask .nutrient-color,
-    solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
+  title: |
+    String.format("%s (code=%s|%s|%s)", 
+     name, 
+     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
     
-  iconService: false
+  icon: |
+    solid utensils .food-color,
+    solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,
+    solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
+  iconService: true
   description: |
-    Cross reference between food (or food group) and nutrient values (usually multiple). 
+    Food groups further narrowed down by subgroups and optional sub-subgroups
   fields:
-    code:
-      column: ITEM_SEQ
-      column-type: int(10)
-      required: true
-      unique: true
-      description: |
-        Unique code, that relates @{table NTR_VALUE}.
-    typeOfRecord:
-      column: TYPE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      enum: |
-        F:Food
-        R:Recipe
-        A2:Fat attached
-        A3:Liquid attached
-      description: |
-        Type of record: 
-        F=food, 
-        R=recipe, 
-        A2=fat attached, 
-        A3=liquid attached
-    foodOrRecipeGroupCode:
+    foodGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
       foreignKeys: |
         GROUPS.GROUP
-        RGROUPS.GROUP
       description: |
-        Food or recipe group
-    foodOrRecipeSubgroupCode:
+        Food group code
+    foodSubgroupCode:
       column: SUBGROUP1
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        SUBGROUP.SUBGROUP1
-        RSUBGR.SUBGROUP
       description: |
-        Food or recipe sub-group
+        Food sub-group code
     foodSubSubgroupCode:
       column: SUBGROUP2
       column-type: nvarchar(2)
       required: false
       unique: false
-      discriminator: |
-        GROUP
-        SUBGROUP1
-      foreignKeys: |
-        SUBGROUP.SUBGROUP2
       description: |
-        Food sub-sub-group
-    foodOrRecipeCode:
-      column: ID_NUM
-      column-type: nvarchar(5)
-      required: false
-      unique: false
-      foreignKeys: |
-        FOODS.FOODNUM
-        MIXEDREC.R_IDNUM
-      description: |
-        Food or Recipe code
-    facetString:
-      column: FACET_STR
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      description: |
-        Facet string
-    brandName:
-      column: BRANDNAME
-      column-type: nvarchar(100)
-      required: false
-      unique: true
-      description: |
-        Brand name
-    priority:
-      column: PRIORITY
-      column-type: int(10)
-      required: true
-      unique: false
-      description: |
-        Priority order
-    attachedRecords:
-      column: ITEM_SEQ_SEQ
-      column-type: int(10)
-      required: false
-      unique: true
-      description: |
-        Attached records: only for the Type=A2 & A3
-    comment:
-      column: COMMENT
-      column-type: nvarchar(2147483647)
-      required: false
-      unique: true
-      description: |
-        Comment
-params.food_table.NutrientValue:
-  namespace: params.food_table
-  table: NTR_VALUE
-  secondaryKey:
-  title: String.format("%s (nutrientCode=%d)", value, nutrientCode)
-  icon: |
-    solid flask .nutrient-color,
-    solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
-    
-  iconService: false
-  description: |
-    Nutrient value for nutrient-for-food-or-group. 
-    The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF}, 
-    which is cross-referencing food(-groups) with this table.   
-  fields:
-    nutrientForFoodOrGroupCode:
-      column: SEQ
-      column-type: int(10)
-      required: true
-      unique: false
-      foreignKeys: |
-        ITEMS_DEF.ITEM_SEQ
-      description: |
-        Unique code for nutrient-for-food-or-group.
-    nutrientCode:
-      column: NTR_CODE
-      column-type: int(10)
-      required: true
-      unique: false
-      foreignKeys: |
-        NUTRIENT.NTR_CODE
-      description: |
-        Nutrient code
-    value:
-      column: VAL
-      column-type: float(53)
-      required: true
-      unique: false
-      description: |
-        Nutrient value for the corresponding nutrient and food (or group).
-params.general_info.AnthropometricAverage:
-  namespace: params.general_info
-  table: ANTHROP
-  secondaryKey:
-  title: null
-  icon: ruler
-  iconService: false
-  description: |
-    Average for anthropometric values (height, weight)
-  fields:
-    anthropometryVariable:
-      column: ANT_VAR
-      column-type: nvarchar(15)
-      required: true
-      unique: false
-      description: |
-        Anthropometry variable (Height or Weight)
-    sex:
-      column: SEX
-      column-type: tinyint(3)
-      required: false
-      unique: false
-      description: |
-        Sex (1 for men, 2 for women, blank for both)
-    ageMinimumRange:
-      column: AGE_MIN
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      description: |
-        Age minimum range
-    ageMaximumRange:
-      column: AGE_MAX
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      description: |
-        Age maximum range
-    minimumValueOfHeightOrWeight:
-      column: ANT_MIN
-      column-type: smallint(5)
-      required: true
-      unique: false
-      description: |
-        Minimum value of height or weight
-    maximumValueOfHeightOrWeight:
-      column: ANT_MAX
-      column-type: smallint(5)
-      required: true
-      unique: false
-      description: |
-        Maximum value of height or weight
-    defaultValueOfHeightOrWeight:
-      column: ANT_DEF
-      column-type: smallint(5)
-      required: true
-      unique: false
-      description: |
-        Default value of height or weight
-params.general_info.FoodConsumptionOccasion:
-  namespace: params.general_info
-  table: FCO
-  secondaryKey: |
-    FCM_CODE
-  title: String.format("%s (code=%s)", textDisplayedOnScreen, code)
-  icon: solid user-clock
-  iconService: false
-  description: |
-    Food Consumption Occasion
-  fields:
-    code:
-      column: FCM_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: true
-      description: |
-        Food Consumption Occasion code
-    textDisplayedOnScreen:
-      column: FCM_NAME
+        Food sub-sub-group code
+    name:
+      column: NAME
       column-type: nvarchar(100)
       required: true
       unique: true
       description: |
-        FCO long label (text displayed on screen)
-    mode:
-      column: FCM_MODE
+        Name of the food (sub-)(sub-)group
+    fatOrSauceSweetenerSubgroupQ:
+      column: SGRP_FSS
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        0:no:non fat/sauce/sweetener subgroup
+        1:yes:fat/sauce/sweetener subgroup
       description: |
-        FCO type: if =1 the FCO can be selected several times (e.g. During morning)
-    shortLabelToIdentifyEasily:
-      column: FCM_SNAME
-      column-type: nvarchar(50)
-      required: true
-      unique: true
-      description: |
-        FCO short label to identify easily the FCO
-    displayInNutrientCheckScreenQ:
-      column: FCM_PRINCIPAL
-      column-type: tinyint(3)
+        0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup
+    fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ:
+      column: SGRP_FLO
+      column-type: nvarchar(1)
       required: true
       unique: false
       enum: |
-        0:secondary:non main FCO
-        1:primary:main FCO (to be displayed in nutrient check screen)
+        0:no:non fat/sauce subgroup
+        1:yes:fat/sauce subgroup that can be left over in the dish
       description: |
-        0=non main FCO
-        1=main FCO (to be displayed in nutrient check screen)
-params.general_info.FoodConsumptionOccasionDisplayItem:
-  namespace: params.general_info
-  table: CHKLIST
-  secondaryKey:
-  title: String.format("%s", text)
-  icon: regular message
-  iconService: false
-  description: |
-    List of foods often eaten at each food consumption occasion. 
-    During the quick list step, this list will appear as a reminder 
-    or a help to the interviewer when a food consumption occasion (FCO) is proposed 
-    (before choosing a FCO and after filling in a FCO quick list).
-  fields:
-    foodConsumptionOccasionCode:
-      column: FCO_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        FCO.FCM_CODE
-      description: |
-        Food Consumption Occasion code
-    text:
-      column: TEXT
-      column-type: nvarchar(100)
-      required: true
-      unique: false
-      description: |
-        Text representing Food.
-params.general_info.PlaceOfConsumption:
-  namespace: params.general_info
-  table: POC
-  secondaryKey: |
-    POC_CODE
-  title: String.format("%s (code=%s)", name, code)
-  icon: solid building-user
-  iconService: false
-  description: |
-    Place of Consumption
-  fields:
-    code:
-      column: POC_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: true
-      description: |
-        Place of consumption code
-    name:
-      column: POC_NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Place of consumption name
-    otherPlaceQ:
-      column: POC_OTHER
-      column-type: tinyint(3)
+        0=non fat/sauce subgroup 
+        1= fat/sauce subgroup that can be left over in the dish
+    fatDuringCookingSubgroupQ:
+      column: SGRP_FDC
+      column-type: nvarchar(1)
       required: true
       unique: false
       enum: |
-        0:specific:not a 'Other' place
-        1:other:'Other' place
+        0:no:non fat during cooking subgroup
+        1:yes:fat during cooking subgroup
       description: |
-        0=not a 'Other' place 
-        1='Other' place
-params.general_info.SpecialDayPredefinedAnswer:
-  namespace: params.general_info
-  table: SPECDAY
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Special day predefined answer
-  fields:
-    specialDayCode:
-      column: SPY_CODE
-      column-type: nvarchar(2)
+        0=non fat during cooking subgroup 
+        1= fat during cooking subgroup
+    shortName:
+      column: NAME_SHORT
+      column-type: nvarchar(20)
       required: true
       unique: true
       description: |
-        Special day code
-    specialDayLabel:
-      column: SPY_NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Special day label
-params.general_info.SpecialDietPredefinedAnswer:
-  namespace: params.general_info
-  table: SPECDIET
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Special diet predefined answer
-  fields:
-    specialDietCode:
-      column: SPD_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: true
-      description: |
-        Special diet code
-    specialDietLabel:
-      column: SPD_NAME
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Special diet label
-params.general_info.TranslationInCountryLanguage:
-  namespace: params.general_info
-  table: EPICTEXT
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Translation in country language
-  fields:
-    textName:
-      column: ARRAY_REF
-      column-type: nvarchar(19)
-      required: true
-      unique: true
-      description: |
-        Text name
-    textInSpecificCountryLanguage:
-      column: TEXT
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      description: |
-        Text in specific Country language
-    textInEnglish:
-      column: TEXT_ENG
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      description: |
-        Text in English
-    dataEntryTextInSpecificCountryLanguage:
-      column: DE_TEXT
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      description: |
-        Data entry Text in specific Country language
-    dataEntryTextInEnglish:
-      column: DE_TEXT_ENG
-      column-type: nvarchar(100)
-      required: false
-      unique: false
-      description: |
-        Data entry Text in English
+        Short Name of the food (sub-)(sub-)group
 params.interview.CenterInvolved:
   namespace: params.interview
   table: CENTERS
@@ -2350,8 +1289,473 @@ params.interview.SubjectToBeInterviewed:
       unique: true
       description: |
         Recall Date (mm/dd/yy)
-params.probing.ProbingQuestion:
-  namespace: params.probing
+params.nutrient.Nutrient:
+  namespace: params.nutrient
+  table: NUTRIENT
+  secondaryKey: |
+    NTR_CODE
+  title: String.format("%s (unit=%s, code=%d)", nutrientName, nutrientUnit, nutrientCode)
+  icon: solid flask .nutrient-color
+  iconService: false
+  description: |
+    Nutrient definition (energy, proteins, carbohydrates, etc.).
+  fields:
+    nutrientCode:
+      column: NTR_CODE
+      column-type: int(10)
+      required: true
+      unique: true
+      description: |
+        Nutrient code
+    nutrientName:
+      column: NTR_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Nutrient Name
+    nutrientUnit:
+      column: NTR_UNIT
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      description: |
+        Nutrient unit (e.g. kcal, g, mg…)
+    displayInTheNutrientChecksScreen:
+      column: NTR_DISPLAY
+      column-type: int(10)
+      required: true
+      unique: false
+      enum: |
+        0:No:not displayed in the 'nutrient checks' screen
+        1:Yes:displayed in the 'nutrient checks' screen
+      description: |
+        0=not displayed in the 'nutrient checks' screen 
+        1=displayed in the 'nutrient checks' screen
+    commentOnNutrient:
+      column: COMMENT
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: true
+      description: |
+        Comment on nutrient
+params.nutrient.NutrientForFoodOrGroup:
+  namespace: params.nutrient
+  table: ITEMS_DEF
+  secondaryKey: |
+    ITEM_SEQ
+  title: String.format("code=%d, type=%s", code, typeOfRecord.title())
+  icon: |
+    solid flask .nutrient-color,
+    solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  iconService: false
+  description: |
+    Cross reference between food (or food group) and nutrient values (usually multiple). 
+  fields:
+    code:
+      column: ITEM_SEQ
+      column-type: int(10)
+      required: true
+      unique: true
+      description: |
+        Unique code, that relates @{table NTR_VALUE}.
+    typeOfRecord:
+      column: TYPE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      enum: |
+        F:Food
+        R:Recipe
+        A2:Fat attached
+        A3:Liquid attached
+      description: |
+        Type of record: 
+        F=food, 
+        R=recipe, 
+        A2=fat attached, 
+        A3=liquid attached
+    foodOrRecipeGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+        RGROUPS.GROUP
+      description: |
+        Food or recipe group
+    foodOrRecipeSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+        RSUBGR.SUBGROUP
+      description: |
+        Food or recipe sub-group
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-sub-group
+    foodOrRecipeCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys: |
+        FOODS.FOODNUM
+        MIXEDREC.R_IDNUM
+      description: |
+        Food or Recipe code
+    facetString:
+      column: FACET_STR
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      description: |
+        Facet string
+    brandName:
+      column: BRANDNAME
+      column-type: nvarchar(100)
+      required: false
+      unique: true
+      description: |
+        Brand name
+    priority:
+      column: PRIORITY
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Priority order
+    attachedRecords:
+      column: ITEM_SEQ_SEQ
+      column-type: int(10)
+      required: false
+      unique: true
+      description: |
+        Attached records: only for the Type=A2 & A3
+    comment:
+      column: COMMENT
+      column-type: nvarchar(2147483647)
+      required: false
+      unique: true
+      description: |
+        Comment
+params.nutrient.NutrientValue:
+  namespace: params.nutrient
+  table: NTR_VALUE
+  secondaryKey:
+  title: String.format("%s (nutrientCode=%d)", value, nutrientCode)
+  icon: |
+    solid flask .nutrient-color,
+    solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  iconService: false
+  description: |
+    Nutrient value for nutrient-for-food-or-group. 
+    The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF}, 
+    which is cross-referencing food(-groups) with this table.   
+  fields:
+    nutrientForFoodOrGroupCode:
+      column: SEQ
+      column-type: int(10)
+      required: true
+      unique: false
+      foreignKeys: |
+        ITEMS_DEF.ITEM_SEQ
+      description: |
+        Unique code for nutrient-for-food-or-group.
+    nutrientCode:
+      column: NTR_CODE
+      column-type: int(10)
+      required: true
+      unique: false
+      foreignKeys: |
+        NUTRIENT.NTR_CODE
+      description: |
+        Nutrient code
+    value:
+      column: VAL
+      column-type: float(53)
+      required: true
+      unique: false
+      description: |
+        Nutrient value for the corresponding nutrient and food (or group).
+params.pathway.FacetDescriptorPathwayForFood:
+  namespace: params.pathway
+  table: FOODFAEX
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Facet/descriptor pathway for individual food.
+    Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.
+  fields:
+    foodCode:
+      column: FOODNUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        FOODS.FOODNUM
+      description: |
+        food ID number
+    mandatoryInSequenceOfFacetsCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        FACETS.FACET_CODE
+      description: |
+        Food Facet codes that will appear in the sequence of facets corresponding to this Food 
+        (supersedes this Food's group pathway). 
+        The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.
+    displayOrder:
+      column: ORDER_FAC
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Order to display the facets for the attached food (same order as ORDER_FAC in @{table GROUPFAC})
+params.pathway.FacetDescriptorPathwayForFoodGroup:
+  namespace: params.pathway
+  table: GROUPFAC
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Facet/descriptor pathway for food group/subgroup.
+    Optionally can be superseded by @{table FOODFAEX}.
+  fields:
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food Subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food Sub-subgroup code
+    facetCode:
+      column: FACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        FACETS.FACET_CODE
+      description: |
+        Facet code
+    descriptorCode:
+      column: DESCR_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      discriminator: |
+        FACET_CODE
+      foreignKeys: |
+        DESCFACE.DESCR_CODE
+      description: |
+        Descriptor code
+    defaultFlag:
+      column: DEFAULT
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      description: |
+        Default flag (if set to 'D' it is the default descriptor)
+    notInNameFlag:
+      column: NOTINNAME
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      description: |
+        Not in name flag
+    facetDisplayOrder:
+      column: ORDER_FAC
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Order to display the facets within a group/subgroup
+    descriptorDisplayOrder:
+      column: ORDER_DESC
+      column-type: int(10)
+      required: true
+      unique: false
+      description: |
+        Order to display the descriptors within a group/subgroup and a facet
+params.pathway.FacetDescriptorPathwayForRecipe:
+  namespace: params.pathway
+  table: R_RCPFAEX
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Facet/descriptor pathway for individual recipe.
+    Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
+  fields:
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe ID number
+    recipeFacetCode:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        R_FACET.RFACET_CODE
+      description: |
+        Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe 
+        (supersedes this Recipe's group pathway). 
+        The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.
+    order:
+      column: ORDER_FAC
+      column-type: int(10)
+      required: true
+      unique: false
+      description:
+params.pathway.FacetDescriptorPathwayForRecipeGroup:
+  namespace: params.pathway
+  table: R_GROUPFAC
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Facet/descriptor pathway for recipe group/subgroup.
+    Optionally can be superseded by @{table R_RCPFAEX}.
+  fields:
+    recipeGroupCode:
+      column: RGROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        RGROUPS.GROUP
+      description: |
+        Recipe group code
+    recipeSubgroupCode:
+      column: RSUBGROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: true
+      discriminator: |
+        RGROUP
+      foreignKeys: |
+        RSUBGR.SUBGROUP
+      description: |
+        Recipe Subgroup code
+    recipeFacetCode:
+      column: RFACET_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        R_FACET.RFACET_CODE
+      description: |
+        Recipe Facet code
+    recipeDescriptorCode:
+      column: RDESCR_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      discriminator: |
+        RFACET_CODE
+      foreignKeys: |
+        R_DESCFACE.RDESCR_CODE
+      description: |
+        Recipe Descriptor code
+    defaultFlagQ:
+      column: RDEFAULT
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      description: |
+        Default flag (if set to 'D', it is the default descriptor else blank)
+    notInNameQ:
+      column: RNOTINNAME
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      description: |
+        Not in name flag (if set to 'N', the descriptor is not in the name else blank)
+    facetDisplayOrder:
+      column: ORDER_FAC
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      description: |
+        Order to display the facets within a group/subgroup
+    descriptorDisplayOrder:
+      column: ORDER_DESC
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      description: |
+        Order to display the descriptors within a group/subgroup and a facet
+params.pathway.ProbingQuestion:
+  namespace: params.pathway
   table: PROBQUE
   secondaryKey: |
     PQ_CODE
@@ -2375,6 +1779,471 @@ params.probing.ProbingQuestion:
       unique: true
       description: |
         Probing question label
+params.pathway.ProbingQuestionPathwayForFood:
+  namespace: params.pathway
+  table: PQPATH
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Probing question pathway for food.
+  fields:
+    probingQuestionCode:
+      column: PQ_CODE
+      column-type: nvarchar(3)
+      required: false
+      unique: false
+      foreignKeys: |
+        PROBQUE.PQ_CODE
+      description: |
+        Probing question code
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-subgroup code
+    foodCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys: |
+        FOODS.FOODNUM
+      description: |
+        Food identification number (FOODNUM)
+params.pathway.ProbingQuestionPathwayForRecipe:
+  namespace: params.pathway
+  table: RPQPATH
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Probing question pathway for recipe.
+  fields:
+    probingQuestionCode:
+      column: PQ_CODE
+      column-type: nvarchar(3)
+      required: false
+      unique: false
+      foreignKeys: |
+        PROBQUE.PQ_CODE
+      description: |
+        Probing question code
+    recipeGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        RGROUPS.GROUP
+      description: |
+        Recipe group code
+    recipeSubgroupCode:
+      column: SUBGROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        RSUBGR.SUBGROUP
+      description: |
+        Recipe subgroup code
+    recipeCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe identification number (R_ IDNUM)
+params.pathway.QuantificationMethodPathwayForFood:
+  namespace: params.pathway
+  table: QM_FOODS
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Quantification method pathway for individual food. 
+    Supersedes this food's group quantification method pathway from @{table QM_GROUP}.
+  fields:
+    foodCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        FOODS.FOODNUM
+      description: |
+        Food identification number (FOODNUM)
+    quantificationMethod:
+      column: METHOD
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        S:Standard Portion
+        A:Shape
+      description: |
+        Quantification method code: 
+        'P' for photo, 
+        'H' for HHM, 
+        'U' for stdu, 
+        'S' for standard portion,
+        'A' for shape
+    photoCode:
+      column: METH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
+      description: |
+        Photo code (if method='P' and 'A'); 
+        either M_photos.ph_code or M_shapes.sh_code
+params.pathway.QuantificationMethodPathwayForFoodGroup:
+  namespace: params.pathway
+  table: QM_GROUP
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .food-color,
+    solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    
+  iconService: false
+  description: |
+    Quantification method pathway for food group/subgroup.
+    Optionally can be superseded by @{table QM_FOODS}.
+  fields:
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-subgroup code
+    physicalStateFacetDescriptorLookupKey:
+      column: PHYS_STATE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
+      description: |
+        Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)
+    rawOrCookedAsConsumed:
+      column: RAW_COOKED
+      column-type: nvarchar(1)
+      required: false
+      unique: false
+      enum: |
+        1:raw
+        2:cooked: as Consumed
+      description: |
+        1=raw, 
+        2=cooked (as Consumed)
+    quantificationMethod:
+      column: METHOD
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        S:Standard Portion
+        A:Shape
+      description: |
+        Quantification method code:
+        'P' for photo, 
+        'H' for HHM, 
+        'U' for stdu, 
+        'S' for standard portion, 
+        'A' for shape
+    photoCode:
+      column: METH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
+      description: |
+        Photo code (if method='P' and 'A'); 
+        either M_photos.ph_code or M_shapes.sh_code
+    comment:
+      column: COMMENT
+      column-type: nvarchar(200)
+      required: true
+      unique: false
+      description: |
+        Comment
+params.pathway.QuantificationMethodPathwayForRecipe:
+  namespace: params.pathway
+  table: QM_RECIP
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
+    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Quantification method pathway for individual recipe. 
+    Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
+  fields:
+    recipeCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe identification number (R_IDNUM)
+    quantificationMethod:
+      column: METHOD
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        A:Shape
+      description: |
+        Quantification method code:
+        'P' for photo, 
+        'H' for HHM, 
+        'U' for stdu, 
+        'A' Shape
+    photoCode:
+      column: METH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
+      description: |
+        Photo code (if method='P' and 'A'); 
+        either M_photos.ph_code or M_shapes.sh_code
+params.pathway.QuantificationMethodPathwayForRecipeGroup:
+  namespace: params.pathway
+  table: QM_RCLAS
+  secondaryKey:
+  title: null
+  icon: |
+    solid person-walking-arrow-right .recipe-color,
+    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    
+  iconService: false
+  description: |
+    Quantification methods pathway for recipe group/subgroup.
+    Optionally can be superseded by @{table QM_RECIP}.
+  fields:
+    recipeGroup:
+      column: R_GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        RGROUPS.GROUP
+      description: |
+        Recipe group
+    quantificationMethod:
+      column: METHOD
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        P:Photo
+        H:Household Measure
+        U:Standard Unit
+        A:Shape
+      description: |
+        Quantification method code:
+        'P' for photo, 
+        'H' for HHM, 
+        'U' for stdu,
+        'A' for shape
+    photoCode:
+      column: METH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        M_PHOTOS.PH_CODE
+        M_SHAPES.SH_CODE
+      description: |
+        Photo code (if method='P' and 'A'); 
+        either M_photos.ph_code or M_shapes.sh_code
+    comment:
+      column: COMMENT
+      column-type: nvarchar(200)
+      required: true
+      unique: false
+      description: |
+        Comment
+params.pathway.RecipeTypePathway:
+  namespace: params.pathway
+  table: RCP_PATH
+  secondaryKey:
+  title: null
+  icon: solid person-walking-arrow-right .recipe-color
+  iconService: false
+  description: |
+    Definition of recipe pathway (available for each recipe type).
+  fields:
+    typeOfRecipe:
+      column: R_TYPE
+      column-type: nvarchar(3)
+      required: true
+      unique: true
+      enum: |
+        1.1:Open–Known
+        1.2:Open–Unknown
+        1.3:Open with brand
+        2.1:Closed
+        2.2:Closed with brand
+        3.0:Commercial
+        4.1:New–Known
+        4.2:New–Unknown
+      description: |
+        Type of recipe: 
+        1.1=Open – Known 
+        1.2=Open – Unknown 
+        1.3=Open with brand 
+        2.1=Closed 
+        2.2=Closed with brand 
+        3.0=Commercial 
+        4.1=New – Known 
+        4.2=New – Unknown
+    ingredientWindowIsDisplayedQ:
+      column: R_ING
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        0:hidden:The ingredient window is not displayed
+        1:displayed:The ingredient window is displayed
+      description: |
+        0 = The ingredient window is not displayed
+        1 = The ingredient window is displayed 
+    functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed:
+      column: N_IFUNCTION
+      column-type: tinyint(3)
+      required: false
+      unique: false
+      enum: |
+        1:S:Substitute
+        2:SAD:Substitute, Add & Delete
+        3:SADQ:Substitute, Add, Delete & Quantify
+      description: |
+        Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1): 
+        1 = S - Substitute 
+        2 = SAD - Substitute, Add & Delete 
+        3 = SADQ - Substitute, Add, Delete & Quantify
+    functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed:
+      column: E_IFUNCTION
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        1:S:Substitute
+        2:SAD:Substitute, Add & Delete
+        3:SADQ:Substitute, Add, Delete & Quantify
+      description: |
+        Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1): 
+        1 = S - Substitute 
+        2 = SAD - Substitute, Add & Delete 
+        3 = SADQ - Substitute, Add, Delete & Quantify
+    displayOfTheAutomaticNoteWindow:
+      column: D_NOTES
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        0:hidden:No display of note window
+        1:displayed:Display of note window
+        2:displayed only for add/delete:Display of note window only for Add & Delete functions
+      description: |
+        Display of the automatic note window: 
+        0 = No display of note window 
+        1 = Display of note window 
+        2 = Display of note window only for Add & Delete functions
 params.quantif.HouseholdMeasure:
   namespace: params.quantif
   table: M_HHM
@@ -2421,6 +2290,127 @@ params.quantif.HouseholdMeasure:
       unique: true
       description: |
         Order to display the HouseholdMeasure
+params.quantif.MaximumValueForFoodOrGroup:
+  namespace: params.quantif
+  table: MAXVAL
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Maximum quantity consumed that could be entered in the interview application for a given food 
+    (or group) before the control message warns the interviewer of an implausible value.
+  fields:
+    foodGroupCode:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        GROUPS.GROUP
+      description: |
+        Food group code
+    foodSubgroupCode:
+      column: SUBGROUP1
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+      foreignKeys: |
+        SUBGROUP.SUBGROUP1
+      description: |
+        Food subgroup code
+    foodSubSubgroupCode:
+      column: SUBGROUP2
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        GROUP
+        SUBGROUP1
+      foreignKeys: |
+        SUBGROUP.SUBGROUP2
+      description: |
+        Food sub-Subgroup code
+    foodCode:
+      column: IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      description: |
+        Food code
+    maximumValue:
+      column: MAXIMA
+      column-type: float(53)
+      required: true
+      unique: false
+      description: |
+        Maximum value
+    facetDescriptorLookupKey:
+      column: FACETS_STR
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      foreignKeys: |
+        DESCFACE.FACET_CODE
+        DESCFACE.DESCR_CODE
+      description: |
+        Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)
+    priority:
+      column: PRIORITY
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      description: |
+        Priority order
+params.quantif.MaximumValueForRecipeOrGroup:
+  namespace: params.quantif
+  table: MAXRVAL
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Maximum quantity consumed that could be entered in the interview application for a given recipe 
+    (or group) before the control message warns the interviewer of an implausible value.
+  fields:
+    recipeGroupCode:
+      column: R_GROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      foreignKeys: |
+        RGROUPS.GROUP
+      description: |
+        Recipe group code
+    recipeSubgroupCode:
+      column: R_SUBGROUP
+      column-type: nvarchar(2)
+      required: false
+      unique: false
+      discriminator: |
+        R_GROUP
+      foreignKeys: |
+        RSUBGR.SUBGROUP
+      description: |
+        Recipe subgroup code
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe code
+    maximumValue:
+      column: MAXIMA
+      column-type: float(53)
+      required: true
+      unique: false
+      description: |
+        Maximum value
 params.quantif.PhotoForQuantity:
   namespace: params.quantif
   table: M_PHOTOS
@@ -2475,6 +2465,110 @@ params.quantif.PhotoForQuantity:
       unique: false
       description: |
         G = in grams, V = in ml (volume)
+params.quantif.RecipeIngredientQuantification:
+  namespace: params.quantif
+  table: MIXEDING_QT
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Mixed recipes: Ingredients quantification for shape and photo methods
+  fields:
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe ID number the ingredient belong to
+    sequentialNumberWithinARecipeForIngredient:
+      column: ING_NUM
+      column-type: float(53)
+      required: false
+      unique: true
+      description: |
+        Sequential Number within a Mixed Recipe for Ingredient
+    ingredientFoodOrRecipeCode:
+      column: FOODNUM
+      column-type: nvarchar(5)
+      required: false
+      unique: true
+      foreignKeys: |
+        FOODS.FOODNUM
+      description: |
+        Ingredient Food or Recipe ID number
+    orderOfShapeSelection:
+      column: ORDER
+      column-type: float(53)
+      required: false
+      unique: false
+      description: |
+        Order of shape selection (e.g. 1)
+    shapeCode:
+      column: SH_CODE
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      foreignKeys: |
+        M_SHAPES.SH_CODE
+      description: |
+        Shape code (e.g. S001)
+    shapeSurfaceInCm2:
+      column: SH_SURFACE
+      column-type: float(53)
+      required: false
+      unique: false
+      description: |
+        Shape surface in cm2 (e.g. 200cm2). 2 decimals
+    shapeThicknessCode:
+      column: TH_CODE
+      column-type: nvarchar(10)
+      required: false
+      unique: false
+      foreignKeys: |
+        THICKNESS.TH_CODE
+      description: |
+        Shape: Thickness code (e.g. A or 58_1)
+    thicknessInMm:
+      column: TH_THICK
+      column-type: float(53)
+      required: false
+      unique: false
+      description: |
+        Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
+    photoCode:
+      column: PH_CODE
+      column-type: nvarchar(4)
+      required: false
+      unique: false
+      foreignKeys: |
+        M_PHOTOS.PH_CODE
+      description: |
+        Photo: Number of the Selected Photo (e.g. 1 or 4)
+    photoQuantity:
+      column: PH_QTY
+      column-type: float(53)
+      required: false
+      unique: false
+      description: |
+        Photo quantity
+    shapeAndPhotoFractionOrUnit:
+      column: FRACT
+      column-type: nvarchar(5)
+      required: false
+      unique: false
+      description: |
+        Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
+    sequentialNumberForIngredientsWithinASubRecipe:
+      column: S_ING_NUM
+      column-type: float(53)
+      required: false
+      unique: true
+      description: |
+        Sequential Number for Ingredients within a Sub-Recipe
 params.quantif.Shape:
   namespace: params.quantif
   table: M_SHAPES
@@ -2514,6 +2608,82 @@ params.quantif.Shape:
       unique: true
       description: |
         Order to display the standard unit
+params.quantif.StandardPortionForFood:
+  namespace: params.quantif
+  table: M_STDPOR
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    standard portions for foods
+  fields:
+    standardPortionQuantity:
+      column: STDP_QUANT
+      column-type: float(53)
+      required: true
+      unique: false
+      description: |
+        Standard portion quantity
+    foodCode:
+      column: ID_NUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        FOODS.FOODNUM
+      description: |
+        Food identification number (=FOODMUM)
+    rawOrCooked:
+      column: RAW_COOKED
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        1:raw
+        2:cooked: as estimated
+      description: |
+        1 = raw, 
+        2 = cooked (as estimated)
+    withUnediblePartQ:
+      column: EDIB
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      enum: |
+        1:un-edible excluded:without un-edible part
+        2:un-edible included:with un-edible (as estimated)
+      description: |
+        1 = without un-edible part, 
+        2 = with un-edible (as estimated)
+    commentAttachedToTheStandardPortion:
+      column: COMMENT
+      column-type: nvarchar(100)
+      required: true
+      unique: false
+      description: |
+        Comment attached to the standard portion
+    standardPortionCode:
+      column: PORT_CODE
+      column-type: nvarchar(4)
+      required: true
+      unique: false
+      description: |
+        Standard portion code for the same food (0001, 0002, 0003)
+    unit:
+      column: STDP_UNIT
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      description: |
+        G = in grams, V = in ml (volume)
+    orderToDisplayTheStandardPortion:
+      column: D_ORDER
+      column-type: float(53)
+      required: true
+      unique: false
+      description: |
+        Order to display the standard portion
 params.quantif.StandardUnitForFoodOrRecipe:
   namespace: params.quantif
   table: M_STDUTS
@@ -2751,129 +2921,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
       unique: false
       description: |
         Percentage of fat
-params.recipe_description.FacetDescriptorPathwayForRecipe:
-  namespace: params.recipe_description
-  table: R_RCPFAEX
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .recipe-color,
-    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
-    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Facet/descriptor pathway for individual recipe.
-    Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
-  fields:
-    recipeCode:
-      column: R_IDNUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
-      description: |
-        Recipe ID number
-    recipeFacetCode:
-      column: RFACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        R_FACET.RFACET_CODE
-      description: |
-        Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe 
-        (supersedes this Recipe's group pathway). 
-        The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.
-    order:
-      column: ORDER_FAC
-      column-type: int(10)
-      required: true
-      unique: false
-      description:
-params.recipe_description.FacetDescriptorPathwayForRecipeGroup:
-  namespace: params.recipe_description
-  table: R_GROUPFAC
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .recipe-color,
-    solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Facet/descriptor pathway for recipe group/subgroup.
-    Optionally can be superseded by @{table R_RCPFAEX}.
-  fields:
-    recipeGroupCode:
-      column: RGROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        RGROUPS.GROUP
-      description: |
-        Recipe group code
-    recipeSubgroupCode:
-      column: RSUBGROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: true
-      discriminator: |
-        RGROUP
-      foreignKeys: |
-        RSUBGR.SUBGROUP
-      description: |
-        Recipe Subgroup code
-    recipeFacetCode:
-      column: RFACET_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        R_FACET.RFACET_CODE
-      description: |
-        Recipe Facet code
-    recipeDescriptorCode:
-      column: RDESCR_CODE
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      discriminator: |
-        RFACET_CODE
-      foreignKeys: |
-        R_DESCFACE.RDESCR_CODE
-      description: |
-        Recipe Descriptor code
-    defaultFlagQ:
-      column: RDEFAULT
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      description: |
-        Default flag (if set to 'D', it is the default descriptor else blank)
-    notInNameQ:
-      column: RNOTINNAME
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      description: |
-        Not in name flag (if set to 'N', the descriptor is not in the name else blank)
-    facetDisplayOrder:
-      column: ORDER_FAC
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      description: |
-        Order to display the facets within a group/subgroup
-    descriptorDisplayOrder:
-      column: ORDER_DESC
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      description: |
-        Order to display the descriptors within a group/subgroup and a facet
 params.recipe_description.RecipeBrand:
   namespace: params.recipe_description
   table: R_BRAND
@@ -3242,6 +3289,42 @@ params.recipe_list.Recipe:
       required: true
       unique: false
       description:
+params.recipe_list.RecipeGroup:
+  namespace: params.recipe_list
+  table: RGROUPS
+  superType: params.classification.RecipeGrouping
+  secondaryKey: |
+    GROUP
+  title: String.format("%s (code=%s)", name, code)
+  icon: |
+    solid stroopwafel .recipe-color,
+    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
+    
+  iconService: false
+  description: |
+    Recipe group 
+  fields:
+    code:
+      column: GROUP
+      column-type: nvarchar(2)
+      required: true
+      unique: true
+      description: |
+        Recipe Group code
+    name:
+      column: NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Name of the Recipe group
+    shortName:
+      column: NAMEG_SHORT
+      column-type: nvarchar(20)
+      required: true
+      unique: true
+      description: |
+        Short Name of the Recipe group
 params.recipe_list.RecipeIngredient:
   namespace: params.recipe_list
   table: MIXEDING
@@ -3585,316 +3668,112 @@ params.recipe_list.RecipeIngredient:
       required: false
       unique: true
       description:
-params.recipe_list.RecipeIngredientQuantification:
+params.recipe_list.RecipeSubgroup:
   namespace: params.recipe_list
-  table: MIXEDING_QT
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Mixed recipes: Ingredients quantification for shape and photo methods
-  fields:
-    recipeCode:
-      column: R_IDNUM
-      column-type: nvarchar(5)
-      required: false
-      unique: true
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
-      description: |
-        Recipe ID number the ingredient belong to
-    sequentialNumberWithinARecipeForIngredient:
-      column: ING_NUM
-      column-type: float(53)
-      required: false
-      unique: true
-      description: |
-        Sequential Number within a Mixed Recipe for Ingredient
-    ingredientFoodOrRecipeCode:
-      column: FOODNUM
-      column-type: nvarchar(5)
-      required: false
-      unique: true
-      foreignKeys: |
-        FOODS.FOODNUM
-      description: |
-        Ingredient Food or Recipe ID number
-    orderOfShapeSelection:
-      column: ORDER
-      column-type: float(53)
-      required: false
-      unique: false
-      description: |
-        Order of shape selection (e.g. 1)
-    shapeCode:
-      column: SH_CODE
-      column-type: nvarchar(5)
-      required: false
-      unique: false
-      foreignKeys: |
-        M_SHAPES.SH_CODE
-      description: |
-        Shape code (e.g. S001)
-    shapeSurfaceInCm2:
-      column: SH_SURFACE
-      column-type: float(53)
-      required: false
-      unique: false
-      description: |
-        Shape surface in cm2 (e.g. 200cm2). 2 decimals
-    shapeThicknessCode:
-      column: TH_CODE
-      column-type: nvarchar(10)
-      required: false
-      unique: false
-      foreignKeys: |
-        THICKNESS.TH_CODE
-      description: |
-        Shape: Thickness code (e.g. A or 58_1)
-    thicknessInMm:
-      column: TH_THICK
-      column-type: float(53)
-      required: false
-      unique: false
-      description: |
-        Thickness in mm (e.g. 40mm, 0.05 mm). 5 decimals
-    photoCode:
-      column: PH_CODE
-      column-type: nvarchar(4)
-      required: false
-      unique: false
-      foreignKeys: |
-        M_PHOTOS.PH_CODE
-      description: |
-        Photo: Number of the Selected Photo (e.g. 1 or 4)
-    photoQuantity:
-      column: PH_QTY
-      column-type: float(53)
-      required: false
-      unique: false
-      description: |
-        Photo quantity
-    shapeAndPhotoFractionOrUnit:
-      column: FRACT
-      column-type: nvarchar(5)
-      required: false
-      unique: false
-      description: |
-        Shape & Photo: Fraction or unit (e.g. 3/5 or 1 or 2)
-    sequentialNumberForIngredientsWithinASubRecipe:
-      column: S_ING_NUM
-      column-type: float(53)
-      required: false
-      unique: true
-      description: |
-        Sequential Number for Ingredients within a Sub-Recipe
-params.recipe_max.MaximumValueForARecipeOrGroup:
-  namespace: params.recipe_max
-  table: MAXRVAL
-  secondaryKey:
-  title: null
-  icon: null
-  iconService: false
-  description: |
-    Maximum quantity consumed that could be entered in the interview application for a given recipe 
-    (or group) before the control message warns the interviewer of an implausible value.
-  fields:
-    recipeGroupCode:
-      column: R_GROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      foreignKeys: |
-        RGROUPS.GROUP
-      description: |
-        Recipe group code
-    recipeSubgroupCode:
-      column: R_SUBGROUP
-      column-type: nvarchar(2)
-      required: false
-      unique: false
-      discriminator: |
-        R_GROUP
-      foreignKeys: |
-        RSUBGR.SUBGROUP
-      description: |
-        Recipe subgroup code
-    recipeCode:
-      column: R_IDNUM
-      column-type: nvarchar(5)
-      required: false
-      unique: true
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
-      description: |
-        Recipe code
-    maximumValue:
-      column: MAXIMA
-      column-type: float(53)
-      required: true
-      unique: false
-      description: |
-        Maximum value
-params.recipe_probing.ProbingQuestionPathwayForRecipe:
-  namespace: params.recipe_probing
-  table: RPQPATH
-  secondaryKey:
-  title: null
+  table: RSUBGR
+  superType: params.classification.RecipeGrouping
+  secondaryKey: |
+    GROUP
+    SUBGROUP
+  title: String.format("%s (code=%s|%s)", name, recipeGroupCode, code)
   icon: |
-    solid person-walking-arrow-right .recipe-color,
-    solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
+    solid stroopwafel .recipe-color,
+    solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,
+    solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
   iconService: false
   description: |
-    Probing question pathway for recipe.
+    Recipe subgroup
   fields:
-    probingQuestionCode:
-      column: PQ_CODE
-      column-type: nvarchar(3)
-      required: false
-      unique: false
-      foreignKeys: |
-        PROBQUE.PQ_CODE
-      description: |
-        Probing question code
     recipeGroupCode:
       column: GROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
       foreignKeys: |
         RGROUPS.GROUP
       description: |
         Recipe group code
-    recipeSubgroupCode:
+    code:
       column: SUBGROUP
       column-type: nvarchar(2)
-      required: false
+      required: true
       unique: false
-      discriminator: |
-        GROUP
-      foreignKeys: |
-        RSUBGR.SUBGROUP
       description: |
-        Recipe subgroup code
-    recipeCode:
-      column: ID_NUM
-      column-type: nvarchar(5)
-      required: false
-      unique: false
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
+        Recipe sub-group code
+    name:
+      column: NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
       description: |
-        Recipe identification number (R_ IDNUM)
-params.recipe_quantif.QuantificationMethodPathwayForRecipe:
-  namespace: params.recipe_quantif
-  table: QM_RECIP
+        Name of the recipe (sub-)group
+    shortName:
+      column: NAMES_SHORT
+      column-type: nvarchar(20)
+      required: true
+      unique: true
+      description: |
+        Short Name of the recipe (sub-)group
+params.setting.AnthropometricAverage:
+  namespace: params.setting
+  table: ANTHROP
   secondaryKey:
   title: null
-  icon: |
-    solid person-walking-arrow-right .recipe-color,
-    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
-    solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
-    
+  icon: ruler
   iconService: false
   description: |
-    Quantification method pathway for individual recipe. 
-    Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
+    Average for anthropometric values (height, weight)
   fields:
-    recipeCode:
-      column: ID_NUM
-      column-type: nvarchar(5)
+    anthropometryVariable:
+      column: ANT_VAR
+      column-type: nvarchar(15)
       required: true
       unique: false
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
       description: |
-        Recipe identification number (R_IDNUM)
-    quantificationMethod:
-      column: METHOD
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        P:Photo
-        H:Household Measure
-        U:Standard Unit
-        A:Shape
-      description: |
-        Quantification method code:
-        'P' for photo, 
-        'H' for HHM, 
-        'U' for stdu, 
-        'A' Shape
-    photoCode:
-      column: METH_CODE
-      column-type: nvarchar(4)
+        Anthropometry variable (Height or Weight)
+    sex:
+      column: SEX
+      column-type: tinyint(3)
       required: false
       unique: false
-      foreignKeys: |
-        M_PHOTOS.PH_CODE
-        M_SHAPES.SH_CODE
       description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
-params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup:
-  namespace: params.recipe_quantif
-  table: QM_RCLAS
-  secondaryKey:
-  title: null
-  icon: |
-    solid person-walking-arrow-right .recipe-color,
-    solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
-    
-  iconService: false
-  description: |
-    Quantification methods pathway for recipe group/subgroup.
-    Optionally can be superseded by @{table QM_RECIP}.
-  fields:
-    recipeGroup:
-      column: R_GROUP
-      column-type: nvarchar(2)
-      required: true
-      unique: false
-      foreignKeys: |
-        RGROUPS.GROUP
-      description: |
-        Recipe group
-    quantificationMethod:
-      column: METHOD
-      column-type: nvarchar(1)
-      required: true
-      unique: false
-      enum: |
-        P:Photo
-        H:Household Measure
-        U:Standard Unit
-        A:Shape
-      description: |
-        Quantification method code:
-        'P' for photo, 
-        'H' for HHM, 
-        'U' for stdu,
-        'A' for shape
-    photoCode:
-      column: METH_CODE
-      column-type: nvarchar(4)
-      required: false
-      unique: false
-      foreignKeys: |
-        M_PHOTOS.PH_CODE
-        M_SHAPES.SH_CODE
-      description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
-    comment:
-      column: COMMENT
-      column-type: nvarchar(200)
+        Sex (1 for men, 2 for women, blank for both)
+    ageMinimumRange:
+      column: AGE_MIN
+      column-type: tinyint(3)
       required: true
       unique: false
       description: |
-        Comment
+        Age minimum range
+    ageMaximumRange:
+      column: AGE_MAX
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      description: |
+        Age maximum range
+    minimumValueOfHeightOrWeight:
+      column: ANT_MIN
+      column-type: smallint(5)
+      required: true
+      unique: false
+      description: |
+        Minimum value of height or weight
+    maximumValueOfHeightOrWeight:
+      column: ANT_MAX
+      column-type: smallint(5)
+      required: true
+      unique: false
+      description: |
+        Maximum value of height or weight
+    defaultValueOfHeightOrWeight:
+      column: ANT_DEF
+      column-type: smallint(5)
+      required: true
+      unique: false
+      description: |
+        Default value of height or weight
 params.setting.DayOfWeek:
   namespace: params.setting
   table: DAYOWEEK
@@ -3949,6 +3828,85 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
         DESCFACE.DESCR_CODE
       description: |
         Descriptor code
+params.setting.FoodConsumptionOccasion:
+  namespace: params.setting
+  table: FCO
+  secondaryKey: |
+    FCM_CODE
+  title: String.format("%s (code=%s)", textDisplayedOnScreen, code)
+  icon: solid user-clock
+  iconService: false
+  description: |
+    Food Consumption Occasion
+  fields:
+    code:
+      column: FCM_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: true
+      description: |
+        Food Consumption Occasion code
+    textDisplayedOnScreen:
+      column: FCM_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        FCO long label (text displayed on screen)
+    mode:
+      column: FCM_MODE
+      column-type: nvarchar(1)
+      required: true
+      unique: false
+      description: |
+        FCO type: if =1 the FCO can be selected several times (e.g. During morning)
+    shortLabelToIdentifyEasily:
+      column: FCM_SNAME
+      column-type: nvarchar(50)
+      required: true
+      unique: true
+      description: |
+        FCO short label to identify easily the FCO
+    displayInNutrientCheckScreenQ:
+      column: FCM_PRINCIPAL
+      column-type: tinyint(3)
+      required: true
+      unique: false
+      enum: |
+        0:secondary:non main FCO
+        1:primary:main FCO (to be displayed in nutrient check screen)
+      description: |
+        0=non main FCO
+        1=main FCO (to be displayed in nutrient check screen)
+params.setting.FoodConsumptionOccasionDisplayItem:
+  namespace: params.setting
+  table: CHKLIST
+  secondaryKey:
+  title: String.format("%s", text)
+  icon: regular message
+  iconService: false
+  description: |
+    List of foods often eaten at each food consumption occasion. 
+    During the quick list step, this list will appear as a reminder 
+    or a help to the interviewer when a food consumption occasion (FCO) is proposed 
+    (before choosing a FCO and after filling in a FCO quick list).
+  fields:
+    foodConsumptionOccasionCode:
+      column: FCO_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: false
+      foreignKeys: |
+        FCO.FCM_CODE
+      description: |
+        Food Consumption Occasion code
+    text:
+      column: TEXT
+      column-type: nvarchar(100)
+      required: true
+      unique: false
+      description: |
+        Text representing Food.
 params.setting.GroupSubstitution:
   namespace: params.setting
   table: SUBSTIT
@@ -4153,93 +4111,42 @@ params.setting.NoteStatus:
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 
         1=Yes hide (e.g. 1=hide for status “action done”)
-params.setting.RecipeTypePathway:
+params.setting.PlaceOfConsumption:
   namespace: params.setting
-  table: RCP_PATH
-  secondaryKey:
-  title: null
-  icon: solid person-walking-arrow-right .recipe-color
+  table: POC
+  secondaryKey: |
+    POC_CODE
+  title: String.format("%s (code=%s)", name, code)
+  icon: solid building-user
   iconService: false
   description: |
-    Definition of recipe pathway (available for each recipe type).
+    Place of Consumption
   fields:
-    typeOfRecipe:
-      column: R_TYPE
-      column-type: nvarchar(3)
+    code:
+      column: POC_CODE
+      column-type: nvarchar(2)
       required: true
       unique: true
-      enum: |
-        1.1:Open–Known
-        1.2:Open–Unknown
-        1.3:Open with brand
-        2.1:Closed
-        2.2:Closed with brand
-        3.0:Commercial
-        4.1:New–Known
-        4.2:New–Unknown
       description: |
-        Type of recipe: 
-        1.1=Open – Known 
-        1.2=Open – Unknown 
-        1.3=Open with brand 
-        2.1=Closed 
-        2.2=Closed with brand 
-        3.0=Commercial 
-        4.1=New – Known 
-        4.2=New – Unknown
-    ingredientWindowIsDisplayedQ:
-      column: R_ING
+        Place of consumption code
+    name:
+      column: POC_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Place of consumption name
+    otherPlaceQ:
+      column: POC_OTHER
       column-type: tinyint(3)
       required: true
       unique: false
       enum: |
-        0:hidden:The ingredient window is not displayed
-        1:displayed:The ingredient window is displayed
+        0:specific:not a 'Other' place
+        1:other:'Other' place
       description: |
-        0 = The ingredient window is not displayed
-        1 = The ingredient window is displayed 
-    functionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed:
-      column: N_IFUNCTION
-      column-type: tinyint(3)
-      required: false
-      unique: false
-      enum: |
-        1:S:Substitute
-        2:SAD:Substitute, Add & Delete
-        3:SADQ:Substitute, Add, Delete & Quantify
-      description: |
-        Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1): 
-        1 = S - Substitute 
-        2 = SAD - Substitute, Add & Delete 
-        3 = SADQ - Substitute, Add, Delete & Quantify
-    functionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed:
-      column: E_IFUNCTION
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      enum: |
-        1:S:Substitute
-        2:SAD:Substitute, Add & Delete
-        3:SADQ:Substitute, Add, Delete & Quantify
-      description: |
-        Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1): 
-        1 = S - Substitute 
-        2 = SAD - Substitute, Add & Delete 
-        3 = SADQ - Substitute, Add, Delete & Quantify
-    displayOfTheAutomaticNoteWindow:
-      column: D_NOTES
-      column-type: tinyint(3)
-      required: true
-      unique: false
-      enum: |
-        0:hidden:No display of note window
-        1:displayed:Display of note window
-        2:displayed only for add/delete:Display of note window only for Add & Delete functions
-      description: |
-        Display of the automatic note window: 
-        0 = No display of note window 
-        1 = Display of note window 
-        2 = Display of note window only for Add & Delete functions
+        0=not a 'Other' place 
+        1='Other' place
 params.setting.SelectedParameter:
   namespace: params.setting
   table: PARAM
@@ -4288,6 +4195,99 @@ params.setting.SelectedParameterForDataEntry:
       unique: false
       description: |
         Parameter value for data entry
+params.setting.SpecialDayPredefinedAnswer:
+  namespace: params.setting
+  table: SPECDAY
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Special day predefined answer
+  fields:
+    specialDayCode:
+      column: SPY_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: true
+      description: |
+        Special day code
+    specialDayLabel:
+      column: SPY_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Special day label
+params.setting.SpecialDietPredefinedAnswer:
+  namespace: params.setting
+  table: SPECDIET
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Special diet predefined answer
+  fields:
+    specialDietCode:
+      column: SPD_CODE
+      column-type: nvarchar(2)
+      required: true
+      unique: true
+      description: |
+        Special diet code
+    specialDietLabel:
+      column: SPD_NAME
+      column-type: nvarchar(100)
+      required: true
+      unique: true
+      description: |
+        Special diet label
+params.setting.TranslationInCountryLanguage:
+  namespace: params.setting
+  table: EPICTEXT
+  secondaryKey:
+  title: null
+  icon: null
+  iconService: false
+  description: |
+    Translation in country language
+  fields:
+    textName:
+      column: ARRAY_REF
+      column-type: nvarchar(19)
+      required: true
+      unique: true
+      description: |
+        Text name
+    textInSpecificCountryLanguage:
+      column: TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      description: |
+        Text in specific Country language
+    textInEnglish:
+      column: TEXT_ENG
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      description: |
+        Text in English
+    dataEntryTextInSpecificCountryLanguage:
+      column: DE_TEXT
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      description: |
+        Data entry Text in specific Country language
+    dataEntryTextInEnglish:
+      column: DE_TEXT_ENG
+      column-type: nvarchar(100)
+      required: false
+      unique: false
+      description: |
+        Data entry Text in English
 params.supplement.DietarySupplement:
   namespace: params.supplement
   table: SUPPLEMENTS

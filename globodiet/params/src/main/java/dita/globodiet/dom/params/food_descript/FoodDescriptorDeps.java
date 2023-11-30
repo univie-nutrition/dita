@@ -28,10 +28,12 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_cookingMethodFacetDescriptor;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_facetDescriptors;
-import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup;
-import dita.globodiet.dom.params.food_max.MaximumValueForAFoodOrGroup_facetDescriptor;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_descriptor;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor;
+import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup;
+import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup_facetDescriptor;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_facetDescriptors;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
@@ -52,11 +54,11 @@ public class FoodDescriptorDeps {
         FoodDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
         FoodDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
         FoodDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
-        FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
         FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
         FoodDescriptor_dependentRuleAppliedToFacetMappedByFacetDescriptor.class,
-        FoodDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor.class,
+        FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
         FoodDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
+        FoodDescriptor_dependentMaximumValueForFoodOrGroupMappedByFacetDescriptor.class,
         FoodDescriptor_dependentRecipeIngredientMappedByFacetDescriptors.class,
         FoodDescriptor_dependentFacetDescriptorThatCannotBeSubstitutedMappedByDescriptor.class);
     }
@@ -135,24 +137,6 @@ public class FoodDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final FoodDescriptor mixee;
-
-        @MemberSupport
-        public List<FacetDescriptorPathwayForFoodGroup> coll() {
-            return dependantLookup.findDependants(
-                FacetDescriptorPathwayForFoodGroup.class,
-                FacetDescriptorPathwayForFoodGroup_descriptor.class,
-                FacetDescriptorPathwayForFoodGroup_descriptor::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
     public static class FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
@@ -189,18 +173,18 @@ public class FoodDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodDescriptor_dependentMaximumValueForAFoodOrGroupMappedByFacetDescriptor {
+    public static class FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodDescriptor mixee;
 
         @MemberSupport
-        public List<MaximumValueForAFoodOrGroup> coll() {
+        public List<FacetDescriptorPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
-                MaximumValueForAFoodOrGroup.class,
-                MaximumValueForAFoodOrGroup_facetDescriptor.class,
-                MaximumValueForAFoodOrGroup_facetDescriptor::prop,
+                FacetDescriptorPathwayForFoodGroup.class,
+                FacetDescriptorPathwayForFoodGroup_descriptor.class,
+                FacetDescriptorPathwayForFoodGroup_descriptor::prop,
                 mixee);
         }
     }
@@ -219,6 +203,24 @@ public class FoodDescriptorDeps {
                 QuantificationMethodPathwayForFoodGroup.class,
                 QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor.class,
                 QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class FoodDescriptor_dependentMaximumValueForFoodOrGroupMappedByFacetDescriptor {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final FoodDescriptor mixee;
+
+        @MemberSupport
+        public List<MaximumValueForFoodOrGroup> coll() {
+            return dependantLookup.findDependants(
+                MaximumValueForFoodOrGroup.class,
+                MaximumValueForFoodOrGroup_facetDescriptor.class,
+                MaximumValueForFoodOrGroup_facetDescriptor::prop,
                 mixee);
         }
     }

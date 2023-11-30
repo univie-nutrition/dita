@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.AnthropometricAverage:
-  namespace: params.general_info
+params.setting.AnthropometricAverage:
+  namespace: params.setting
   table: ANTHROP
   secondaryKey:
   title: null

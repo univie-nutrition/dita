@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_probing.ProbingQuestionPathwayForFood:
-  namespace: params.food_probing
+params.pathway.ProbingQuestionPathwayForFood:
+  namespace: params.pathway
   table: PQPATH
   secondaryKey:
   title: null

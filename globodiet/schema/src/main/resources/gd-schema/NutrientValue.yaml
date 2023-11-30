@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_table.NutrientValue:
-  namespace: params.food_table
+params.nutrient.NutrientValue:
+  namespace: params.nutrient
   table: NTR_VALUE
   secondaryKey:
   title: String.format("%s (nutrientCode=%d)", value, nutrientCode)

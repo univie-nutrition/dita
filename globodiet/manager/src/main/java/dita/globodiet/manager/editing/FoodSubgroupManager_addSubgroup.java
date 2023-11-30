@@ -33,8 +33,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodGroup;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.food_list.FoodGroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.manager.blobstore.BlobStore;
 import lombok.RequiredArgsConstructor;
 import lombok.val;

@@ -27,11 +27,11 @@ import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import dita.globodiet.dom.params.classification.FoodGroup;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.classification.RecipeGroup;
-import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
+import dita.globodiet.dom.params.food_list.FoodGroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.dom.params.recipe_list.RecipeGroup;
+import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
 import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.UtilityClass;

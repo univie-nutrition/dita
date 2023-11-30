@@ -20,7 +20,6 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;

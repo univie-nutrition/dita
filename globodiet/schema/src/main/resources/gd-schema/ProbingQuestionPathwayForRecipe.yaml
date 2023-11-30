@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_probing.ProbingQuestionPathwayForRecipe:
-  namespace: params.recipe_probing
+params.pathway.ProbingQuestionPathwayForRecipe:
+  namespace: params.pathway
   table: RPQPATH
   secondaryKey:
   title: null

@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.SpecialDietPredefinedAnswer:
-  namespace: params.general_info
+params.setting.SpecialDietPredefinedAnswer:
+  namespace: params.setting
   table: SPECDIET
   secondaryKey:
   title: null

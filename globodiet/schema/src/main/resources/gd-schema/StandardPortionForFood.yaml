@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_quantif.StandardPortionForFood:
-  namespace: params.food_quantif
+params.quantif.StandardPortionForFood:
+  namespace: params.quantif
   table: M_STDPOR
   secondaryKey:
   title: null

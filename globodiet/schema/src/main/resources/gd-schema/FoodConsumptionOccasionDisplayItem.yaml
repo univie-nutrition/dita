@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.general_info.FoodConsumptionOccasionDisplayItem:
-  namespace: params.general_info
+params.setting.FoodConsumptionOccasionDisplayItem:
+  namespace: params.setting
   table: CHKLIST
   secondaryKey:
   title: String.format("%s", text)

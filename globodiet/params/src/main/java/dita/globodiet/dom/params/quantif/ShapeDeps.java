@@ -20,16 +20,14 @@
 package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFoodGroup_photo;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_photo;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_shape;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipeGroup_photo;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_photo;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -44,9 +42,9 @@ public class ShapeDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of(Shape_dependentQuantificationMethodPathwayForFoodMappedByPhoto.class,
         Shape_dependentQuantificationMethodPathwayForFoodGroupMappedByPhoto.class,
-        Shape_dependentRecipeIngredientQuantificationMappedByShape.class,
         Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhoto.class,
-        Shape_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhoto.class);
+        Shape_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhoto.class,
+        Shape_dependentRecipeIngredientQuantificationMappedByShape.class);
     }
 
     @Collection
@@ -87,24 +85,6 @@ public class ShapeDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Shape_dependentRecipeIngredientQuantificationMappedByShape {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Shape mixee;
-
-        @MemberSupport
-        public List<RecipeIngredientQuantification> coll() {
-            return dependantLookup.findDependants(
-                RecipeIngredientQuantification.class,
-                RecipeIngredientQuantification_shape.class,
-                RecipeIngredientQuantification_shape::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
     public static class Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhoto {
         @Inject
         DependantLookupService dependantLookup;
@@ -135,6 +115,24 @@ public class ShapeDeps {
                 QuantificationMethodPathwayForRecipeGroup.class,
                 QuantificationMethodPathwayForRecipeGroup_photo.class,
                 QuantificationMethodPathwayForRecipeGroup_photo::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Shape_dependentRecipeIngredientQuantificationMappedByShape {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Shape mixee;
+
+        @MemberSupport
+        public List<RecipeIngredientQuantification> coll() {
+            return dependantLookup.findDependants(
+                RecipeIngredientQuantification.class,
+                RecipeIngredientQuantification_shape.class,
+                RecipeIngredientQuantification_shape::prop,
                 mixee);
         }
     }

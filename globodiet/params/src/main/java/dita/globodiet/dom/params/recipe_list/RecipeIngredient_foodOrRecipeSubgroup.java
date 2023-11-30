@@ -20,8 +20,7 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
-import dita.globodiet.dom.params.classification.RecipeSubgroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import lombok.RequiredArgsConstructor;

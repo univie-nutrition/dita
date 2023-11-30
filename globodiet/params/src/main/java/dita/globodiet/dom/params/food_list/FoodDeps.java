@@ -32,25 +32,25 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_food;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_food;
-import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood;
-import dita.globodiet.dom.params.food_descript.FacetDescriptorPathwayForFood_food;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor;
 import dita.globodiet.dom.params.food_descript.ImprobableSequenceOfFacetAndDescriptor_food;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood;
-import dita.globodiet.dom.params.food_probing.ProbingQuestionPathwayForFood_food;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood;
-import dita.globodiet.dom.params.food_quantif.QuantificationMethodPathwayForFood_food;
-import dita.globodiet.dom.params.food_quantif.StandardPortionForFood;
-import dita.globodiet.dom.params.food_quantif.StandardPortionForFood_food;
-import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
-import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipe;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup_foodOrRecipe;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_food;
+import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForFood;
+import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForFood_food;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_food;
+import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification;
+import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification_ingredientFoodOrRecipe;
+import dita.globodiet.dom.params.quantif.StandardPortionForFood;
+import dita.globodiet.dom.params.quantif.StandardPortionForFood_food;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_ingredientFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipe;
 import jakarta.inject.Inject;
 import java.lang.Class;
@@ -71,17 +71,17 @@ public class FoodDeps {
         Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFood.class,
         Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFat.class,
         Food_dependentRawToCookedConversionFactorForFoodMappedByFood.class,
-        Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class,
         Food_dependentImprobableSequenceOfFacetAndDescriptorMappedByFood.class,
         Food_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
+        Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class,
+        Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class,
         Food_dependentProbingQuestionPathwayForFoodMappedByFood.class,
         Food_dependentQuantificationMethodPathwayForFoodMappedByFood.class,
+        Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class,
         Food_dependentStandardPortionForFoodMappedByFood.class,
-        Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class,
         Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
         Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat.class,
-        Food_dependentRecipeIngredientMappedByFoodOrRecipe.class,
-        Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class);
+        Food_dependentRecipeIngredientMappedByFoodOrRecipe.class);
     }
 
     @Collection
@@ -212,24 +212,6 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentFacetDescriptorPathwayForFoodMappedByFood {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Food mixee;
-
-        @MemberSupport
-        public List<FacetDescriptorPathwayForFood> coll() {
-            return dependantLookup.findDependants(
-                FacetDescriptorPathwayForFood.class,
-                FacetDescriptorPathwayForFood_food.class,
-                FacetDescriptorPathwayForFood_food::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
     public static class Food_dependentImprobableSequenceOfFacetAndDescriptorMappedByFood {
         @Inject
         DependantLookupService dependantLookup;
@@ -260,6 +242,42 @@ public class FoodDeps {
                 ComposedRecipeIngredient.class,
                 ComposedRecipeIngredient_foodOrRecipe.class,
                 ComposedRecipeIngredient_foodOrRecipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Food mixee;
+
+        @MemberSupport
+        public List<NutrientForFoodOrGroup> coll() {
+            return dependantLookup.findDependants(
+                NutrientForFoodOrGroup.class,
+                NutrientForFoodOrGroup_foodOrRecipe.class,
+                NutrientForFoodOrGroup_foodOrRecipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Food_dependentFacetDescriptorPathwayForFoodMappedByFood {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Food mixee;
+
+        @MemberSupport
+        public List<FacetDescriptorPathwayForFood> coll() {
+            return dependantLookup.findDependants(
+                FacetDescriptorPathwayForFood.class,
+                FacetDescriptorPathwayForFood_food.class,
+                FacetDescriptorPathwayForFood_food::prop,
                 mixee);
         }
     }
@@ -302,6 +320,24 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
+    public static class Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Food mixee;
+
+        @MemberSupport
+        public List<RecipeIngredientQuantification> coll() {
+            return dependantLookup.findDependants(
+                RecipeIngredientQuantification.class,
+                RecipeIngredientQuantification_ingredientFoodOrRecipe.class,
+                RecipeIngredientQuantification_ingredientFoodOrRecipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
     public static class Food_dependentStandardPortionForFoodMappedByFood {
         @Inject
         DependantLookupService dependantLookup;
@@ -314,24 +350,6 @@ public class FoodDeps {
                 StandardPortionForFood.class,
                 StandardPortionForFood_food.class,
                 StandardPortionForFood_food::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Food_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Food mixee;
-
-        @MemberSupport
-        public List<NutrientForFoodOrGroup> coll() {
-            return dependantLookup.findDependants(
-                NutrientForFoodOrGroup.class,
-                NutrientForFoodOrGroup_foodOrRecipe.class,
-                NutrientForFoodOrGroup_foodOrRecipe::prop,
                 mixee);
         }
     }
@@ -386,24 +404,6 @@ public class FoodDeps {
                 RecipeIngredient.class,
                 RecipeIngredient_foodOrRecipe.class,
                 RecipeIngredient_foodOrRecipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Food mixee;
-
-        @MemberSupport
-        public List<RecipeIngredientQuantification> coll() {
-            return dependantLookup.findDependants(
-                RecipeIngredientQuantification.class,
-                RecipeIngredientQuantification_ingredientFoodOrRecipe.class,
-                RecipeIngredientQuantification_ingredientFoodOrRecipe::prop,
                 mixee);
         }
     }

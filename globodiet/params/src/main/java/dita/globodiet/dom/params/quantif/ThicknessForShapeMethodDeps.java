@@ -20,8 +20,6 @@
 package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredientQuantification_shapeThickness;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;

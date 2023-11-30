@@ -24,20 +24,22 @@ import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_foodOrRecipe;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient_foodOrRecipe;
-import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup;
-import dita.globodiet.dom.params.food_table.NutrientForFoodOrGroup_foodOrRecipe;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup_foodOrRecipe;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_recipe;
+import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe_recipe;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_recipe;
+import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup;
+import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipe;
+import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification;
+import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification_recipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe;
-import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_description.FacetDescriptorPathwayForRecipe_recipe;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup;
-import dita.globodiet.dom.params.recipe_max.MaximumValueForARecipeOrGroup_recipe;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_probing.ProbingQuestionPathwayForRecipe_recipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.recipe_quantif.QuantificationMethodPathwayForRecipe_recipe;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -53,15 +55,15 @@ public class RecipeDeps {
         return Can.of(Recipe_dependentDensityFactorForFoodMappedByFoodOrRecipe.class,
         Recipe_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
         Recipe_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class,
+        Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe.class,
+        Recipe_dependentProbingQuestionPathwayForRecipeMappedByRecipe.class,
+        Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe.class,
+        Recipe_dependentMaximumValueForRecipeOrGroupMappedByRecipe.class,
+        Recipe_dependentRecipeIngredientQuantificationMappedByRecipe.class,
         Recipe_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
         Recipe_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe.class,
-        Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe.class,
         Recipe_dependentRecipeIngredientMappedByRecipe.class,
-        Recipe_dependentRecipeIngredientMappedByFoodOrRecipe.class,
-        Recipe_dependentRecipeIngredientQuantificationMappedByRecipe.class,
-        Recipe_dependentMaximumValueForARecipeOrGroupMappedByRecipe.class,
-        Recipe_dependentProbingQuestionPathwayForRecipeMappedByRecipe.class,
-        Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe.class);
+        Recipe_dependentRecipeIngredientMappedByFoodOrRecipe.class);
     }
 
     @Collection
@@ -120,42 +122,6 @@ public class RecipeDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Recipe_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Recipe mixee;
-
-        @MemberSupport
-        public List<StandardUnitForFoodOrRecipe> coll() {
-            return dependantLookup.findDependants(
-                StandardUnitForFoodOrRecipe.class,
-                StandardUnitForFoodOrRecipe_foodOrRecipe.class,
-                StandardUnitForFoodOrRecipe_foodOrRecipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Recipe_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Recipe mixee;
-
-        @MemberSupport
-        public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> coll() {
-            return dependantLookup.findDependants(
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
     public static class Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe {
         @Inject
         DependantLookupService dependantLookup;
@@ -168,78 +134,6 @@ public class RecipeDeps {
                 FacetDescriptorPathwayForRecipe.class,
                 FacetDescriptorPathwayForRecipe_recipe.class,
                 FacetDescriptorPathwayForRecipe_recipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Recipe_dependentRecipeIngredientMappedByRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Recipe mixee;
-
-        @MemberSupport
-        public List<RecipeIngredient> coll() {
-            return dependantLookup.findDependants(
-                RecipeIngredient.class,
-                RecipeIngredient_recipe.class,
-                RecipeIngredient_recipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Recipe_dependentRecipeIngredientMappedByFoodOrRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Recipe mixee;
-
-        @MemberSupport
-        public List<RecipeIngredient> coll() {
-            return dependantLookup.findDependants(
-                RecipeIngredient.class,
-                RecipeIngredient_foodOrRecipe.class,
-                RecipeIngredient_foodOrRecipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Recipe_dependentRecipeIngredientQuantificationMappedByRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Recipe mixee;
-
-        @MemberSupport
-        public List<RecipeIngredientQuantification> coll() {
-            return dependantLookup.findDependants(
-                RecipeIngredientQuantification.class,
-                RecipeIngredientQuantification_recipe.class,
-                RecipeIngredientQuantification_recipe::prop,
-                mixee);
-        }
-    }
-
-    @Collection
-    @RequiredArgsConstructor
-    public static class Recipe_dependentMaximumValueForARecipeOrGroupMappedByRecipe {
-        @Inject
-        DependantLookupService dependantLookup;
-
-        private final Recipe mixee;
-
-        @MemberSupport
-        public List<MaximumValueForARecipeOrGroup> coll() {
-            return dependantLookup.findDependants(
-                MaximumValueForARecipeOrGroup.class,
-                MaximumValueForARecipeOrGroup_recipe.class,
-                MaximumValueForARecipeOrGroup_recipe::prop,
                 mixee);
         }
     }
@@ -276,6 +170,114 @@ public class RecipeDeps {
                 QuantificationMethodPathwayForRecipe.class,
                 QuantificationMethodPathwayForRecipe_recipe.class,
                 QuantificationMethodPathwayForRecipe_recipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Recipe_dependentMaximumValueForRecipeOrGroupMappedByRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Recipe mixee;
+
+        @MemberSupport
+        public List<MaximumValueForRecipeOrGroup> coll() {
+            return dependantLookup.findDependants(
+                MaximumValueForRecipeOrGroup.class,
+                MaximumValueForRecipeOrGroup_recipe.class,
+                MaximumValueForRecipeOrGroup_recipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Recipe_dependentRecipeIngredientQuantificationMappedByRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Recipe mixee;
+
+        @MemberSupport
+        public List<RecipeIngredientQuantification> coll() {
+            return dependantLookup.findDependants(
+                RecipeIngredientQuantification.class,
+                RecipeIngredientQuantification_recipe.class,
+                RecipeIngredientQuantification_recipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Recipe_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Recipe mixee;
+
+        @MemberSupport
+        public List<StandardUnitForFoodOrRecipe> coll() {
+            return dependantLookup.findDependants(
+                StandardUnitForFoodOrRecipe.class,
+                StandardUnitForFoodOrRecipe_foodOrRecipe.class,
+                StandardUnitForFoodOrRecipe_foodOrRecipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Recipe_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Recipe mixee;
+
+        @MemberSupport
+        public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> coll() {
+            return dependantLookup.findDependants(
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Recipe_dependentRecipeIngredientMappedByRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Recipe mixee;
+
+        @MemberSupport
+        public List<RecipeIngredient> coll() {
+            return dependantLookup.findDependants(
+                RecipeIngredient.class,
+                RecipeIngredient_recipe.class,
+                RecipeIngredient_recipe::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @RequiredArgsConstructor
+    public static class Recipe_dependentRecipeIngredientMappedByFoodOrRecipe {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Recipe mixee;
+
+        @MemberSupport
+        public List<RecipeIngredient> coll() {
+            return dependantLookup.findDependants(
+                RecipeIngredient.class,
+                RecipeIngredient_foodOrRecipe.class,
+                RecipeIngredient_foodOrRecipe::prop,
                 mixee);
         }
     }

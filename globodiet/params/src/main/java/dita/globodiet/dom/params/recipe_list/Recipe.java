@@ -23,8 +23,6 @@ import dita.commons.services.lookup.Cloneable;
 import dita.commons.services.lookup.HasSecondaryKey;
 import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
-import dita.globodiet.dom.params.classification.RecipeGroup;
-import dita.globodiet.dom.params.classification.RecipeSubgroup;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.lang.Class;

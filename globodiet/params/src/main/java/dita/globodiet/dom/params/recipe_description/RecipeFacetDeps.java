@@ -20,6 +20,10 @@
 package dita.globodiet.dom.params.recipe_description;
 
 import dita.commons.services.lookup.DependantLookupService;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup_recipeFacet;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_recipeFacet;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;

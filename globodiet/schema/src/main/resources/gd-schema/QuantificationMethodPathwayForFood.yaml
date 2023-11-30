@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_quantif.QuantificationMethodPathwayForFood:
-  namespace: params.food_quantif
+params.pathway.QuantificationMethodPathwayForFood:
+  namespace: params.pathway
   table: QM_FOODS
   secondaryKey:
   title: null

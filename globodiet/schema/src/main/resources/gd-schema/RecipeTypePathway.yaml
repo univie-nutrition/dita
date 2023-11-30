@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.RecipeTypePathway:
-  namespace: params.setting
+params.pathway.RecipeTypePathway:
+  namespace: params.pathway
   table: RCP_PATH
   secondaryKey:
   title: null

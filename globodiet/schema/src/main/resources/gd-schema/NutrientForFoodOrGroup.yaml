@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_table.NutrientForFoodOrGroup:
-  namespace: params.food_table
+params.nutrient.NutrientForFoodOrGroup:
+  namespace: params.nutrient
   table: ITEMS_DEF
   secondaryKey: |
     ITEM_SEQ

@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.classification.RecipeGroup:
-  namespace: params.classification
+params.recipe_list.RecipeGroup:
+  namespace: params.recipe_list
   table: RGROUPS
   superType: params.classification.RecipeGrouping
   secondaryKey: |

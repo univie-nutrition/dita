@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_list.RecipeIngredientQuantification:
-  namespace: params.recipe_list
+params.quantif.RecipeIngredientQuantification:
+  namespace: params.quantif
   table: MIXEDING_QT
   secondaryKey:
   title: null

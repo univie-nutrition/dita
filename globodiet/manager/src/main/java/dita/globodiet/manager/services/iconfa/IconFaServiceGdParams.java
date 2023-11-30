@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 
 import dita.commons.services.iconfa.IconFaService;
-import dita.globodiet.dom.params.classification.FoodSubgroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 
 @Service
 public class IconFaServiceGdParams

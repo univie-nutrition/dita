@@ -136,8 +136,8 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageImprobableSequenceOfFacetAndDescriptor"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageInterviewer"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMacroNutrientLimit"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForAFoodOrGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForARecipeOrGroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForFoodOrGroup"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForRecipeOrGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMonth"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNoteStatus"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrient"/>

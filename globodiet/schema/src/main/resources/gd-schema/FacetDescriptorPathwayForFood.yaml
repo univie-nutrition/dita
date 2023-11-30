@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.FacetDescriptorPathwayForFood:
-  namespace: params.food_descript
+params.pathway.FacetDescriptorPathwayForFood:
+  namespace: params.pathway
   table: FOODFAEX
   secondaryKey:
   title: null
