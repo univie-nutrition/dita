@@ -53,7 +53,10 @@ import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.FoodBrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodManager_addFood;
+import dita.globodiet.manager.editing.Food_addFoodFacetSelectionForFacetDescriptorPathway;
 import dita.globodiet.manager.editing.Food_clone;
+import dita.globodiet.manager.editing.Food_effectiveFoodDescriptors;
+import dita.globodiet.manager.editing.Food_effectiveGroupingUsedForFacetDescriptorPathway;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
@@ -133,7 +136,10 @@ import lombok.val;
     FoodBrandManager_addBrand.class,
     FoodManager_addFood.class,
     // Other
+    Food_addFoodFacetSelectionForFacetDescriptorPathway.class,
     Food_clone.class,
+    Food_effectiveFoodDescriptors.class,
+    Food_effectiveGroupingUsedForFacetDescriptorPathway.class,
 
     // -- MODULES
     DitaModuleGdParams.class,
