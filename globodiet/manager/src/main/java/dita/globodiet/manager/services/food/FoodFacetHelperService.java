@@ -29,6 +29,7 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.base._Strings;
 
+import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodGroupDeps.FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup;
@@ -68,6 +69,30 @@ public class FoodFacetHelperService {
                 });
 
         return facetDescriptorPathwayForFoodGroup;
+    }
+
+    public FoodGrouping effectiveGroupingUsedForFacetDescriptorPathway(final @NonNull Food food) {
+        var foodClassification = foodHelperService.foodClassification(food);
+        final FoodGrouping foodGrouping = foodClassification
+                .fold(
+                    foodGroup->(FoodGrouping)foodGroup,
+                    foodSubOrSubSubgroup->{
+                        var hasSubSubgroup = _Strings.isEmpty(foodSubOrSubSubgroup.getFoodSubSubgroupCode());
+                        var lookupResult = hasSubSubgroup
+                            ? lookupFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup)
+                            : lookupFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
+
+                        // if lookup was too specific, relax one level
+                        if(lookupResult.isEmpty()
+                                && hasSubSubgroup) {
+                            lookupResult = lookupFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
+                        }
+                        // again, if lookup was too specific, fallback to top-level = FoodGroup
+                        return lookupResult.isEmpty()
+                            ? (FoodGrouping)foodHelperService.foodGroup(foodClassification.rightIfAny())
+                            : foodSubOrSubSubgroup;
+                    });
+            return foodGrouping;
     }
 
     public List<FacetDescriptorPathwayForFoodGroup> effectiveFacetDescriptorPathwayForFoodClassificationHonoringDisplayOrder(

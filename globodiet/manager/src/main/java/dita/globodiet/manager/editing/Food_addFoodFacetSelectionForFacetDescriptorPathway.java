@@ -29,7 +29,6 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.internal.collections._Sets;
 
@@ -53,7 +52,6 @@ import lombok.RequiredArgsConstructor;
 public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
 
     @Inject private RepositoryService repositoryService;
-    @Inject private FactoryService factoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject private FoodHelperService foodHelperService;
     @Inject private FoodFacetHelperService foodFacetHelperService;

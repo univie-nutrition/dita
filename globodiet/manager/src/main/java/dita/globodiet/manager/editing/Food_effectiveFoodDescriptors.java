@@ -27,6 +27,7 @@ import jakarta.inject.Inject;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.factory.FactoryService;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
@@ -36,7 +37,6 @@ import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescripto
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
-import dita.globodiet.manager.services.food.FoodHelperService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -46,6 +46,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Collection
 @CollectionLayout(
+        hidden = Where.ALL_TABLES,
         describedAs = "Food Descriptors in effect associated with this individual food.\n\n"
                 + "With FacetDescriptorPathwayForFoodGroup (table GROUPFAC) a set of facet/descriptors is defined "
                 + "for a specific food classification.\n\n"
@@ -59,7 +60,6 @@ public class Food_effectiveFoodDescriptors {
 
     @Inject private FactoryService factoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
-    @Inject private FoodHelperService foodHelperService;
     @Inject private FoodFacetHelperService foodFacetHelperService;
 
     protected final Food mixee;
