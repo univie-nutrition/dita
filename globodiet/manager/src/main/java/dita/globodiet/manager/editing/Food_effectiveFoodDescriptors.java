@@ -18,6 +18,7 @@
  */
 package dita.globodiet.manager.editing;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
 import dita.globodiet.dom.params.food_list.FoodGroup;
@@ -51,14 +53,18 @@ import lombok.RequiredArgsConstructor;
 /**
  * With {@link FacetDescriptorPathwayForFoodGroup} a set of facet/descriptors is defined
  * for a specific food classification.
- * Optionally, for an individual food, a subset of facets can be selected.
+ * Optionally, for an individual food, only a subset of those facets can be selected.
  */
 @Collection
 @CollectionLayout(
-        describedAs = "Food Descriptors in effect associated with this individual food.\n"
-                + "With {@table GROUPFAC} a set of facet/descriptors is defined"
-                + "for a specific food classification.\n"
-                + "Optionally, for an individual food, a subset of facets can be selected.")
+        describedAs = "Food Descriptors in effect associated with this individual food.\n\n"
+                + "With FacetDescriptorPathwayForFoodGroup (table GROUPFAC) a set of facet/descriptors is defined "
+                + "for a specific food classification.\n\n"
+                + "Optionally, for an individual food, only a subset of those facets can be selected "
+                + "using FacetDescriptorPathwayForFood (table FOODFAEX).\n\n"
+                + "Entries are ordered by facet-display-order and then descriptor-display-order. "
+                + "(However, column facet-display-order is duplicated in FacetDescriptorPathwayForFood (table FOODFAEX),"
+                + "where its yet unclear whether that is inferred from or actually overrides the one defined at group level.)")
 @RequiredArgsConstructor
 public class Food_effectiveFoodDescriptors {
 
@@ -70,19 +76,10 @@ public class Food_effectiveFoodDescriptors {
 
     protected final Food mixee;
 
-    //TODO perhaps sort by display order
     @MemberSupport
     public List<FoodDescriptor> coll() {
 
-        // find the most specialized food classification
-        var foodSubOrSubSubgroup = foodSubOrSubSubgroup();
-        final List<FacetDescriptorPathwayForFoodGroup> facetDescriptorPathwayForFoodGroup = foodSubOrSubSubgroup==null
-            ? lookupFacetDescriptorPathwayForFoodGroup(foodGroup())
-            : _Strings.isEmpty(foodSubOrSubSubgroup.getFoodSubSubgroupCode())
-                    ? lookupFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup)
-                    : lookupFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
-
-        var foodDescriptorsAsDefinedByFoodClassification = facetDescriptorPathwayForFoodGroup.stream()
+        var foodDescriptorsAsDefinedByFoodClassification = orderedFacetDescriptorPathwayForFoodGroup().stream()
             .map(this::foodDescriptor)
             .toList();
 
@@ -94,10 +91,36 @@ public class Food_effectiveFoodDescriptors {
                 .collect(Collectors.toSet());
             return foodDescriptorsAsDefinedByFoodClassification.stream()
                     .filter(foodDescriptor->facetCodeSubset.contains(foodDescriptor.getFacetCode()))
+                    //TODO facetDescriptorPathwayForFood have their own ordering
+                    //is this inferred from or an override of the group level?
                     .toList();
         }
 
         return foodDescriptorsAsDefinedByFoodClassification;
+    }
+
+    // -- SHARED UTILITY
+
+    List<FacetDescriptorPathwayForFoodGroup> orderedFacetDescriptorPathwayForFoodGroup() {
+        // find the most specialized food classification
+        var foodSubOrSubSubgroup = foodSubOrSubSubgroup();
+        final List<FacetDescriptorPathwayForFoodGroup> facetDescriptorPathwayForFoodGroup = foodSubOrSubSubgroup==null
+            ? lookupFacetDescriptorPathwayForFoodGroup(foodGroup())
+            : _Strings.isEmpty(foodSubOrSubSubgroup.getFoodSubSubgroupCode())
+                    ? lookupFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup)
+                    : lookupFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
+
+        return facetDescriptorPathwayForFoodGroup.stream()
+            .sorted(displayOrder())
+            .toList();
+    }
+
+    Set<FoodFacet.SecondaryKey> foodFacetCodesAsDefinedByFoodClassification(
+            final List<FacetDescriptorPathwayForFoodGroup> pathwayForFoodGroup) {
+        return pathwayForFoodGroup.stream()
+                .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
+                .map(FoodFacet.SecondaryKey::new)
+                .collect(Collectors.toSet());
     }
 
     // -- HELPER
@@ -142,6 +165,11 @@ public class Food_effectiveFoodDescriptors {
     private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodSubSubgroup(final FoodSubgroup foodSubgroup) {
         var mixin = factoryService.mixin(FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubSubgroup.class, foodSubgroup);
         return mixin.coll();
+    }
+
+    private Comparator<FacetDescriptorPathwayForFoodGroup> displayOrder() {
+        return Comparator.comparing(FacetDescriptorPathwayForFoodGroup::getFacetDisplayOrder)
+                .thenComparing(FacetDescriptorPathwayForFoodGroup::getDescriptorDisplayOrder);
     }
 
 }
