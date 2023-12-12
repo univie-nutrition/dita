@@ -33,13 +33,13 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.internal.collections._Sets;
 
-import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
-import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.manager.services.food.FoodFacetHelperService;
+import dita.globodiet.manager.services.food.FoodHelperService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -52,11 +52,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
 
-    @Inject BlobStore blobStore;
-    @Inject RepositoryService repositoryService;
-    @Inject FactoryService factoryService;
-    @Inject IdGeneratorService idGeneratorService;
-    @Inject ForeignKeyLookupService foreignKeyLookupService;
+    @Inject private RepositoryService repositoryService;
+    @Inject private FactoryService factoryService;
+    @Inject private ForeignKeyLookupService foreignKeyLookupService;
+    @Inject private FoodHelperService foodHelperService;
+    @Inject private FoodFacetHelperService foodFacetHelperService;
 
     protected final Food mixee;
 
@@ -68,20 +68,21 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
         entity.setFoodCode(mixee.getCode());
         entity.setDisplayOrder(-1); // TODO needs post processing
         entity.setMandatoryInSequenceOfFacetsCode(foodFacet.getCode());
-
         repositoryService.persist(entity);
-        foreignKeyLookupService.clearAllCaches();
+        foreignKeyLookupService.clearCache(FacetDescriptorPathwayForFood.class);
+        postProcessDisplayOrder();
         return mixee;
     }
 
     @MemberSupport
     public List<FoodFacet> choicesFoodFacet() {
-        var effectiveFoodDescriptorsMixin  = factoryService.mixin(Food_effectiveFoodDescriptors.class, mixee);
-        var facetsAvailableForPathway = effectiveFoodDescriptorsMixin
-            .foodFacetCodesAsDefinedByFoodClassification(
-                    effectiveFoodDescriptorsMixin.orderedFacetDescriptorPathwayForFoodGroup());
+        var facetsAvailableForPathway = foodFacetCodesAsDefinedByFoodClassification(
+                foodFacetHelperService
+                    .effectiveFacetDescriptorPathwayForFoodClassificationHonoringDisplayOrder(mixee));
 
-        return _Sets.minus(facetsAvailableForPathway, facetsCurrentlySelectedForPathway())
+        return _Sets.minus(
+                facetsAvailableForPathway,
+                foodHelperService.selectedFacetDescriptorPathwayForFoodAsFoodFacetSecondaryKeySet(mixee))
             .stream()
             .map(foreignKeyLookupService::unique)
             .toList();
@@ -89,12 +90,16 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
 
     // -- HELPER
 
-    private Set<FoodFacet.SecondaryKey> facetsCurrentlySelectedForPathway() {
-        var mixin  = factoryService.mixin(Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class, mixee);
-        return mixin.coll().stream()
-            .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
-            .map(FoodFacet.SecondaryKey::new)
-            .collect(Collectors.toSet());
+    private Set<FoodFacet.SecondaryKey> foodFacetCodesAsDefinedByFoodClassification(
+            final List<FacetDescriptorPathwayForFoodGroup> pathwayForFoodGroup) {
+        return pathwayForFoodGroup.stream()
+                .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
+                .map(FoodFacet.SecondaryKey::new)
+                .collect(Collectors.toSet());
+    }
+
+    private void postProcessDisplayOrder() {
+        // TODO implements, also do this when deleting relation
     }
 
 }

@@ -18,36 +18,25 @@
  */
 package dita.globodiet.manager.editing;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
-import org.springframework.lang.Nullable;
-
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.apache.causeway.commons.internal.base._Strings;
 
-import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
-import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodGroupDeps.FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubSubgroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.services.food.FoodFacetHelperService;
+import dita.globodiet.manager.services.food.FoodHelperService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -68,18 +57,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Food_effectiveFoodDescriptors {
 
-    @Inject BlobStore blobStore;
-    @Inject RepositoryService repositoryService;
-    @Inject FactoryService factoryService;
-    @Inject IdGeneratorService idGeneratorService;
-    @Inject ForeignKeyLookupService foreignKeyLookupService;
+    @Inject private FactoryService factoryService;
+    @Inject private ForeignKeyLookupService foreignKeyLookupService;
+    @Inject private FoodHelperService foodHelperService;
+    @Inject private FoodFacetHelperService foodFacetHelperService;
 
     protected final Food mixee;
 
     @MemberSupport
     public List<FoodDescriptor> coll() {
 
-        var foodDescriptorsAsDefinedByFoodClassification = orderedFacetDescriptorPathwayForFoodGroup().stream()
+        var foodDescriptorsAsDefinedByFoodClassification = foodFacetHelperService
+            .effectiveFacetDescriptorPathwayForFoodClassificationHonoringDisplayOrder(mixee)
+            .stream()
             .map(this::foodDescriptor)
             .toList();
 
@@ -99,43 +89,7 @@ public class Food_effectiveFoodDescriptors {
         return foodDescriptorsAsDefinedByFoodClassification;
     }
 
-    // -- SHARED UTILITY
-
-    List<FacetDescriptorPathwayForFoodGroup> orderedFacetDescriptorPathwayForFoodGroup() {
-        // find the most specialized food classification
-        var foodSubOrSubSubgroup = foodSubOrSubSubgroup();
-        final List<FacetDescriptorPathwayForFoodGroup> facetDescriptorPathwayForFoodGroup = foodSubOrSubSubgroup==null
-            ? lookupFacetDescriptorPathwayForFoodGroup(foodGroup())
-            : _Strings.isEmpty(foodSubOrSubSubgroup.getFoodSubSubgroupCode())
-                    ? lookupFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup)
-                    : lookupFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
-
-        return facetDescriptorPathwayForFoodGroup.stream()
-            .sorted(displayOrder())
-            .toList();
-    }
-
-    Set<FoodFacet.SecondaryKey> foodFacetCodesAsDefinedByFoodClassification(
-            final List<FacetDescriptorPathwayForFoodGroup> pathwayForFoodGroup) {
-        return pathwayForFoodGroup.stream()
-                .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
-                .map(FoodFacet.SecondaryKey::new)
-                .collect(Collectors.toSet());
-    }
-
     // -- HELPER
-
-    private FoodGroup foodGroup() {
-        return foreignKeyLookupService.unique(new FoodGroup.SecondaryKey(mixee.getFoodGroupCode()));
-    }
-
-    @Nullable
-    private FoodSubgroup foodSubOrSubSubgroup() {
-        return foreignKeyLookupService.nullable(new FoodSubgroup.SecondaryKey(
-                mixee.getFoodGroupCode(),
-                mixee.getFoodSubgroupCode(),
-                mixee.getFoodSubSubgroupCode()));
-    }
 
     private String foodFacetCode(final FacetDescriptorPathwayForFood foodPathway) {
         return foodPathway.getMandatoryInSequenceOfFacetsCode();
@@ -150,26 +104,6 @@ public class Food_effectiveFoodDescriptors {
     private List<FacetDescriptorPathwayForFood> lookupFacetDescriptorPathwayForFood() {
         var mixin = factoryService.mixin(Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class, mixee);
         return mixin.coll();
-    }
-
-    private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodGroup(final FoodGroup foodGroup) {
-        var mixin = factoryService.mixin(FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup.class, foodGroup);
-        return mixin.coll();
-    }
-
-    private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodSubgroup(final FoodSubgroup foodSubgroup) {
-        var mixin = factoryService.mixin(FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup.class, foodSubgroup);
-        return mixin.coll();
-    }
-
-    private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodSubSubgroup(final FoodSubgroup foodSubgroup) {
-        var mixin = factoryService.mixin(FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubSubgroup.class, foodSubgroup);
-        return mixin.coll();
-    }
-
-    private Comparator<FacetDescriptorPathwayForFoodGroup> displayOrder() {
-        return Comparator.comparing(FacetDescriptorPathwayForFoodGroup::getFacetDisplayOrder)
-                .thenComparing(FacetDescriptorPathwayForFoodGroup::getDescriptorDisplayOrder);
     }
 
 }
