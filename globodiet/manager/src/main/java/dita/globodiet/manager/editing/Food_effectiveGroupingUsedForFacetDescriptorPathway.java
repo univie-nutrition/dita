@@ -38,8 +38,8 @@ import lombok.RequiredArgsConstructor;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "99.0",
-        describedAs = "Indicates the FoodGroup or FoodSub(Sub)group used, "
-                + "to calculate the 'Effective Food Descriptors'.",
+        describedAs = "Indicates the FoodGroup or FoodSub(Sub)group, "
+                + "that is used to calculate the 'Effective Food Descriptors' list.",
         hidden = Where.ALL_TABLES
 )
 @RequiredArgsConstructor
