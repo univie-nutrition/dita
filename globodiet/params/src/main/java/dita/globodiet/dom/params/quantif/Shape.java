@@ -307,7 +307,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable Shape",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.quantif.Shape.Unresolvable")
     @RequiredArgsConstructor

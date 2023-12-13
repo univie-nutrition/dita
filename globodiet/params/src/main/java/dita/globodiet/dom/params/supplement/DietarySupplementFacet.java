@@ -517,7 +517,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable DietarySupplementFacet",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.supplement.DietarySupplementFacet.Unresolvable")
     @RequiredArgsConstructor

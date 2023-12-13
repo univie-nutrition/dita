@@ -245,7 +245,7 @@ public class CountryInvolved implements Cloneable<CountryInvolved>, HasSecondary
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable CountryInvolved",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.interview.CountryInvolved.Unresolvable")
     @RequiredArgsConstructor

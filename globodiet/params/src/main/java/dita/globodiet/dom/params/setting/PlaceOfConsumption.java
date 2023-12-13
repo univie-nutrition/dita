@@ -314,7 +314,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable PlaceOfConsumption",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.setting.PlaceOfConsumption.Unresolvable")
     @RequiredArgsConstructor

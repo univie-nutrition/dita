@@ -415,7 +415,7 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable PhotoForQuantity",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.quantif.PhotoForQuantity.Unresolvable")
     @RequiredArgsConstructor

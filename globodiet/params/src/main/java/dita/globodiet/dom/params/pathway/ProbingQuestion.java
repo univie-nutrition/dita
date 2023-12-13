@@ -245,7 +245,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable ProbingQuestion",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.pathway.ProbingQuestion.Unresolvable")
     @RequiredArgsConstructor

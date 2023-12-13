@@ -379,7 +379,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable Nutrient",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.nutrient.Nutrient.Unresolvable")
     @RequiredArgsConstructor

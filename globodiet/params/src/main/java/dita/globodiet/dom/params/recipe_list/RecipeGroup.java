@@ -281,7 +281,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable RecipeGroup",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.recipe_list.RecipeGroup.Unresolvable")
     @RequiredArgsConstructor

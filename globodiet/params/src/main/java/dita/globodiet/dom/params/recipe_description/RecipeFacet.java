@@ -518,7 +518,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable RecipeFacet",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.recipe_description.RecipeFacet.Unresolvable")
     @RequiredArgsConstructor

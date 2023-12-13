@@ -381,7 +381,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodConsumptionOccasion",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.setting.FoodConsumptionOccasion.Unresolvable")
     @RequiredArgsConstructor

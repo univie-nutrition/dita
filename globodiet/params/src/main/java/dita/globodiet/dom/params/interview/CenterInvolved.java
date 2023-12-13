@@ -277,7 +277,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable CenterInvolved",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.interview.CenterInvolved.Unresolvable")
     @RequiredArgsConstructor

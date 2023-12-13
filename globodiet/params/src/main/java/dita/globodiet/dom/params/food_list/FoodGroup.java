@@ -281,7 +281,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodGroup",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.food_list.FoodGroup.Unresolvable")
     @RequiredArgsConstructor

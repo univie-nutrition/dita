@@ -27,6 +27,9 @@
 .recipe-color-em {
   color: olive;
 }
+.unresolvable-color {
+  color: red;
+}
 .supplement-color {
   color: MediumSlateBlue;
 }

@@ -505,7 +505,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodFacet",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.food_descript.FoodFacet.Unresolvable")
     @RequiredArgsConstructor

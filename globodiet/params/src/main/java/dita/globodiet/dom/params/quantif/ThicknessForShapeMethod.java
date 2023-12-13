@@ -370,7 +370,7 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable ThicknessForShapeMethod",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.quantif.ThicknessForShapeMethod.Unresolvable")
     @RequiredArgsConstructor

@@ -556,7 +556,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable RecipeDescriptor",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.recipe_description.RecipeDescriptor.Unresolvable")
     @RequiredArgsConstructor

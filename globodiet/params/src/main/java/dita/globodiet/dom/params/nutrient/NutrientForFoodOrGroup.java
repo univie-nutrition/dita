@@ -600,7 +600,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable NutrientForFoodOrGroup",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.nutrient.NutrientForFoodOrGroup.Unresolvable")
     @RequiredArgsConstructor

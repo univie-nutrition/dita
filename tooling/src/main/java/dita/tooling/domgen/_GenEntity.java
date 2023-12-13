@@ -197,7 +197,7 @@ class _GenEntity {
                     .addSuperinterface(ClassName.get(org.apache.causeway.applib.ViewModel.class))
                     .addAnnotation(_Annotations.domainObjectLayout(
                             String.format("Unresolvable %s", entityModel.name()),
-                            "skull red"))
+                            "skull .unresolvable-color"))
                     .addAnnotation(_Annotations.named(config.fullLogicalName(entityModel.namespace())
                             + "." + entityModel.name() + ".Unresolvable"))
                     .addAnnotation(_Annotations.requiredArgsConstructor())

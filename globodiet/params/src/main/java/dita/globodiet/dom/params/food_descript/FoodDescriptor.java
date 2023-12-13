@@ -429,7 +429,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
      */
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodDescriptor",
-            cssClassFa = "skull red"
+            cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.food_descript.FoodDescriptor.Unresolvable")
     @RequiredArgsConstructor
