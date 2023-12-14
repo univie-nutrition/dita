@@ -20,7 +20,12 @@
 params.pathway.FacetDescriptorPathwayForFoodGroup:
   namespace: params.pathway
   table: GROUPFAC
-  secondaryKey:
+  secondaryKey: |
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
+    FACET_CODE
+    DESCR_CODE
   title: null
   icon: |
     solid person-walking-arrow-right .food-color,

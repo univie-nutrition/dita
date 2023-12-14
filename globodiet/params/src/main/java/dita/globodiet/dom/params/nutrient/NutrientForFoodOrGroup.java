@@ -38,6 +38,7 @@ import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -77,6 +78,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
+)
+@Unique(
+        name = "SEC_KEY_UNQ_NutrientForFoodOrGroup",
+        members = {"code"}
 )
 public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>, HasSecondaryKey<NutrientForFoodOrGroup> {
     @Inject

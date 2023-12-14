@@ -34,6 +34,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -74,6 +75,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
+)
+@Unique(
+        name = "SEC_KEY_UNQ_RecipeSubgroup",
+        members = {"recipeGroupCode", "code"}
 )
 public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping, HasSecondaryKey<RecipeSubgroup> {
     @Inject

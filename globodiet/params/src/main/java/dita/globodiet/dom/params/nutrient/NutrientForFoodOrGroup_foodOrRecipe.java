@@ -54,7 +54,7 @@ public class NutrientForFoodOrGroup_foodOrRecipe {
         switch(switchOn) {
         case 1: {
             if(mixee.getFoodOrRecipeCode()==null) return null;
-            final var lookupKey = new Food.SecondaryKey(mixee.getFoodOrRecipeCode());
+            final var lookupKey = new Food.SecondaryKey(mixee.getFoodOrRecipeCode(), null);
             return foreignKeyLookup.nullable(lookupKey);
         }
         case 2: {

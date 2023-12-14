@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -57,6 +58,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
@@ -383,6 +385,25 @@ class _Annotations {
             annotBuilder.addMember("length", "$1L", Math.min(maxLength, 1024*4)); // upper bound = 4k
         }
         return annotBuilder.build();
+    }
+
+    /**
+     * <pre>{@code @Unique(name="MY_COMPOSITE_IDX", members={"field1", "field2"})}</pre>
+     */
+    AnnotationSpec unique(final String name, final Can<String> members) {
+        return AnnotationSpec.builder(ClassName.get("javax.jdo.annotations", "Unique"))
+            .addMember("name", "$1S", name)
+            .addMember("members", "{$1L}", members
+                    .stream()
+                    .map(fieldName->String.format("\"%s\"", fieldName)) // double quote
+                    .collect(Collectors.joining(", ")))
+            .build();
+    }
+    /**
+     * <pre>{@code @Unique(name="MY_COMPOSITE_IDX", members={"field1", "field2"})}</pre>
+     */
+    AnnotationSpec unique(final String name, final String ...members) {
+        return unique(name, Can.ofArray(members));
     }
 
     /**

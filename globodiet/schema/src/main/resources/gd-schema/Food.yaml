@@ -22,6 +22,9 @@ params.food_list.Food:
   table: FOODS
   secondaryKey: |
     FOODNUM
+    TYPE
+  # unfortunately aliases are violating the unique constraint based on {FOODNUM, TYPE}   
+  suppressUniqueConstraint: true
   title: String.format("%s (code=%s)", foodNativeName, code)
   icon: solid utensils .food-color
   description: |

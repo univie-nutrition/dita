@@ -23,7 +23,6 @@ params.food_coefficient.DensityFactorForFood:
   secondaryKey:
   title: String.format("%f", densityCoefficient)
   icon: null
-  iconService: false
   description: |
     Density factor for food
   fields:
@@ -103,7 +102,6 @@ params.food_coefficient.EdiblePartCoefficientForFood:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Edible part coefficients for foods
   fields:
@@ -146,7 +144,6 @@ params.food_coefficient.PercentOfFatLeftInTheDishForFood:
   secondaryKey:
   title: null
   icon: solid percent
-  iconService: false
   description: |
     % of fat left in the dish for food
   fields:
@@ -195,7 +192,6 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
   secondaryKey:
   title: null
   icon: solid percent
-  iconService: false
   description: |
     % of fat/sauce/sweetener added after cooking attached to a food
   fields:
@@ -294,7 +290,6 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
   secondaryKey:
   title: null
   icon: solid percent
-  iconService: false
   description: |
     % of fat use during cooking attached to a food
   fields:
@@ -403,7 +398,6 @@ params.food_coefficient.RawToCookedConversionFactorForFood:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Raw to cooked conversion factors for foods
   fields:
@@ -454,7 +448,6 @@ params.food_descript.FoodBrand:
     solid utensils .food-color,
     brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Brand names are used in the food description phase
   fields:
@@ -508,7 +501,6 @@ params.food_descript.FoodDescriptor:
     solid utensils .food-color,
     solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Descriptor for food facets (not recipe facets)
   fields:
@@ -573,7 +565,6 @@ params.food_descript.FoodFacet:
     solid utensils .food-color,
     solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Facet describing food (not recipe)
   fields:
@@ -645,7 +636,6 @@ params.food_descript.FoodFacetRule:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Rule applied to food facet. 
   fields:
@@ -709,7 +699,6 @@ params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Improbable sequence of facets/descriptors
   fields:
@@ -787,7 +776,6 @@ params.food_list.ComposedRecipeIngredient:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Composed Recipe Ingredient
   fields:
@@ -825,9 +813,10 @@ params.food_list.Food:
   table: FOODS
   secondaryKey: |
     FOODNUM
+    TYPE
   title: String.format("%s (code=%s)", foodNativeName, code)
+  suppressUniqueConstraint: true
   icon: solid utensils .food-color
-  iconService: false
   description: |
     Food, Product, On-the-fly Recipe or Alias
   fields:
@@ -937,7 +926,6 @@ params.food_list.FoodGroup:
     solid utensils .food-color,
     solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Food group
   fields:
@@ -1062,7 +1050,6 @@ params.interview.CenterInvolved:
     CNTR_CODE
   title: String.format("%s", centerName)
   icon: building .default-color
-  iconService: false
   description: |
     Center involved
   fields:
@@ -1096,7 +1083,6 @@ params.interview.CountryInvolved:
     CTRYCODE
   title: String.format("%s", countryName)
   icon: earth-europe
-  iconService: false
   description: |
     Country involved
   fields:
@@ -1120,7 +1106,6 @@ params.interview.Interviewer:
   secondaryKey:
   title: String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode)
   icon: solid user
-  iconService: false
   description: |
     Interviewer
   fields:
@@ -1169,7 +1154,6 @@ params.interview.SubjectToBeInterviewed:
   secondaryKey:
   title: String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode)
   icon: solid person-circle-question
-  iconService: false
   description: |
     Subjects to be interviewed
   fields:
@@ -1296,7 +1280,6 @@ params.nutrient.Nutrient:
     NTR_CODE
   title: String.format("%s (unit=%s, code=%d)", nutrientName, nutrientUnit, nutrientCode)
   icon: solid flask .nutrient-color
-  iconService: false
   description: |
     Nutrient definition (energy, proteins, carbohydrates, etc.).
   fields:
@@ -1349,7 +1332,6 @@ params.nutrient.NutrientForFoodOrGroup:
     solid flask .nutrient-color,
     solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Cross reference between food (or food group) and nutrient values (usually multiple). 
   fields:
@@ -1464,7 +1446,6 @@ params.nutrient.NutrientValue:
     solid flask .nutrient-color,
     solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Nutrient value for nutrient-for-food-or-group. 
     The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF}, 
@@ -1505,7 +1486,6 @@ params.pathway.FacetDescriptorPathwayForFood:
     solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
     solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Facet/descriptor pathway for individual food.
     Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.
@@ -1540,13 +1520,17 @@ params.pathway.FacetDescriptorPathwayForFood:
 params.pathway.FacetDescriptorPathwayForFoodGroup:
   namespace: params.pathway
   table: GROUPFAC
-  secondaryKey:
+  secondaryKey: |
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
+    FACET_CODE
+    DESCR_CODE
   title: null
   icon: |
     solid person-walking-arrow-right .food-color,
     solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Facet/descriptor pathway for food group/subgroup.
     Optionally can be superseded by @{table FOODFAEX}.
@@ -1641,7 +1625,6 @@ params.pathway.FacetDescriptorPathwayForRecipe:
     solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
     solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Facet/descriptor pathway for individual recipe.
     Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.
@@ -1681,7 +1664,6 @@ params.pathway.FacetDescriptorPathwayForRecipeGroup:
     solid person-walking-arrow-right .recipe-color,
     solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Facet/descriptor pathway for recipe group/subgroup.
     Optionally can be superseded by @{table R_RCPFAEX}.
@@ -1761,7 +1743,6 @@ params.pathway.ProbingQuestion:
     PQ_CODE
   title: String.format("%s (code=%s)", label, code)
   icon: solid circle-question
-  iconService: false
   description: |
     Probing question
   fields:
@@ -1788,7 +1769,6 @@ params.pathway.ProbingQuestionPathwayForFood:
     solid person-walking-arrow-right .food-color,
     solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Probing question pathway for food.
   fields:
@@ -1851,7 +1831,6 @@ params.pathway.ProbingQuestionPathwayForRecipe:
     solid person-walking-arrow-right .recipe-color,
     solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Probing question pathway for recipe.
   fields:
@@ -1903,7 +1882,6 @@ params.pathway.QuantificationMethodPathwayForFood:
     solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
     solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Quantification method pathway for individual food. 
     Supersedes this food's group quantification method pathway from @{table QM_GROUP}.
@@ -1955,7 +1933,6 @@ params.pathway.QuantificationMethodPathwayForFoodGroup:
     solid person-walking-arrow-right .food-color,
     solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,
     
-  iconService: false
   description: |
     Quantification method pathway for food group/subgroup.
     Optionally can be superseded by @{table QM_FOODS}.
@@ -2059,7 +2036,6 @@ params.pathway.QuantificationMethodPathwayForRecipe:
     solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,
     solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Quantification method pathway for individual recipe. 
     Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
@@ -2109,7 +2085,6 @@ params.pathway.QuantificationMethodPathwayForRecipeGroup:
     solid person-walking-arrow-right .recipe-color,
     solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Quantification methods pathway for recipe group/subgroup.
     Optionally can be superseded by @{table QM_RECIP}.
@@ -2163,7 +2138,6 @@ params.pathway.RecipeTypePathway:
   secondaryKey:
   title: null
   icon: solid person-walking-arrow-right .recipe-color
-  iconService: false
   description: |
     Definition of recipe pathway (available for each recipe type).
   fields:
@@ -2250,7 +2224,6 @@ params.quantif.HouseholdMeasure:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Household Measure
   fields:
@@ -2296,7 +2269,6 @@ params.quantif.MaximumValueForFoodOrGroup:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Maximum quantity consumed that could be entered in the interview application for a given food 
     (or group) before the control message warns the interviewer of an implausible value.
@@ -2370,7 +2342,6 @@ params.quantif.MaximumValueForRecipeOrGroup:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Maximum quantity consumed that could be entered in the interview application for a given recipe 
     (or group) before the control message warns the interviewer of an implausible value.
@@ -2418,7 +2389,6 @@ params.quantif.PhotoForQuantity:
     PH_CODE
   title: null
   icon: null
-  iconService: false
   description: |
     Photo and its quantities
   fields:
@@ -2471,7 +2441,6 @@ params.quantif.RecipeIngredientQuantification:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Mixed recipes: Ingredients quantification for shape and photo methods
   fields:
@@ -2576,7 +2545,6 @@ params.quantif.Shape:
     SH_CODE
   title: null
   icon: null
-  iconService: false
   description: |
     Shape
   fields:
@@ -2614,7 +2582,6 @@ params.quantif.StandardPortionForFood:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     standard portions for foods
   fields:
@@ -2690,7 +2657,6 @@ params.quantif.StandardUnitForFoodOrRecipe:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     standard units for foods and recipes
   fields:
@@ -2780,7 +2746,6 @@ params.quantif.ThicknessForShapeMethod:
     TH_CODE
   title: String.format("%f (code=%s)", thickness)
   icon: null
-  iconService: false
   description: |
     Thickness for shape method
   fields:
@@ -2840,7 +2805,6 @@ params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForReci
   secondaryKey:
   title: null
   icon: solid percent
-  iconService: false
   description: |
     % of fat/sauce/sweeteners added after cooking attached to a recipe
   fields:
@@ -2930,7 +2894,6 @@ params.recipe_description.RecipeBrand:
     solid stroopwafel .recipe-color,
     brands shopify .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Brandname list for mixed recipes
   fields:
@@ -2971,7 +2934,6 @@ params.recipe_description.RecipeDescriptor:
     solid stroopwafel .recipe-color,
     solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Descriptor per facet
   fields:
@@ -3052,7 +3014,6 @@ params.recipe_description.RecipeFacet:
     solid stroopwafel .recipe-color,
     solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Facet for Recipe 
   fields:
@@ -3123,7 +3084,6 @@ params.recipe_description.RecipeFacetRule:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Rule applied to recipe facet. 
   fields:
@@ -3175,7 +3135,6 @@ params.recipe_list.Recipe:
     R_IDNUM
   title: String.format("%s (code=%s)", name, code)
   icon: solid stroopwafel .recipe-color
-  iconService: false
   description: |
     Mixed (a priory) Recipe (not an on-the-fly one):
     After preparation, the different ingredients cannot be identified 
@@ -3300,7 +3259,6 @@ params.recipe_list.RecipeGroup:
     solid stroopwafel .recipe-color,
     solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Recipe group 
   fields:
@@ -3331,7 +3289,6 @@ params.recipe_list.RecipeIngredient:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Mixed recipes: Ingredients description/quantification
   fields:
@@ -3681,7 +3638,6 @@ params.recipe_list.RecipeSubgroup:
     solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,
     solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85
     
-  iconService: false
   description: |
     Recipe subgroup
   fields:
@@ -3721,7 +3677,6 @@ params.setting.AnthropometricAverage:
   secondaryKey:
   title: null
   icon: ruler
-  iconService: false
   description: |
     Average for anthropometric values (height, weight)
   fields:
@@ -3780,7 +3735,6 @@ params.setting.DayOfWeek:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Day of week constant
   fields:
@@ -3804,7 +3758,6 @@ params.setting.FacetDescriptorThatCannotBeSubstituted:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Facet/descriptor that cannot be substituted
   fields:
@@ -3835,7 +3788,6 @@ params.setting.FoodConsumptionOccasion:
     FCM_CODE
   title: String.format("%s (code=%s)", textDisplayedOnScreen, code)
   icon: solid user-clock
-  iconService: false
   description: |
     Food Consumption Occasion
   fields:
@@ -3884,7 +3836,6 @@ params.setting.FoodConsumptionOccasionDisplayItem:
   secondaryKey:
   title: String.format("%s", text)
   icon: regular message
-  iconService: false
   description: |
     List of foods often eaten at each food consumption occasion. 
     During the quick list step, this list will appear as a reminder 
@@ -3921,7 +3872,6 @@ params.setting.GroupSubstitution:
      dita.commons.format.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
     
   icon: null
-  iconService: false
   description: |
     Group/subgroup that can be substituted
   fields:
@@ -3999,7 +3949,6 @@ params.setting.MacroNutrientLimit:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Minimum and maximum value for macro-nutrient
   fields:
@@ -4058,7 +4007,6 @@ params.setting.Month:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description:
   fields:
     monthNumber:
@@ -4081,7 +4029,6 @@ params.setting.NoteStatus:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Note status
   fields:
@@ -4118,7 +4065,6 @@ params.setting.PlaceOfConsumption:
     POC_CODE
   title: String.format("%s (code=%s)", name, code)
   icon: solid building-user
-  iconService: false
   description: |
     Place of Consumption
   fields:
@@ -4153,7 +4099,6 @@ params.setting.SelectedParameter:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Selected parameters
   fields:
@@ -4177,7 +4122,6 @@ params.setting.SelectedParameterForDataEntry:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Selected parameters for data entry
   fields:
@@ -4201,7 +4145,6 @@ params.setting.SpecialDayPredefinedAnswer:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Special day predefined answer
   fields:
@@ -4225,7 +4168,6 @@ params.setting.SpecialDietPredefinedAnswer:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Special diet predefined answer
   fields:
@@ -4249,7 +4191,6 @@ params.setting.TranslationInCountryLanguage:
   secondaryKey:
   title: null
   icon: null
-  iconService: false
   description: |
     Translation in country language
   fields:
@@ -4294,7 +4235,6 @@ params.supplement.DietarySupplement:
   secondaryKey:
   title: String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode)
   icon: solid tablets .supplement-color
-  iconService: false
   description: |
     Dietary supplement
   fields:
@@ -4347,7 +4287,6 @@ params.supplement.DietarySupplementClassification:
     solid tablets .supplement-color,
     solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Dietary supplement classification
   fields:
@@ -4381,7 +4320,6 @@ params.supplement.DietarySupplementDescriptor:
     solid tablets .supplement-color,
     solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Dietary supplement descriptor
   fields:
@@ -4473,7 +4411,6 @@ params.supplement.DietarySupplementFacet:
     solid tablets .supplement-color,
     solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55
     
-  iconService: false
   description: |
     Dietary supplement facet
   fields:

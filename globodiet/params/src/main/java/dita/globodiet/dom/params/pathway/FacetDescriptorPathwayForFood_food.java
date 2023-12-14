@@ -47,7 +47,7 @@ public class FacetDescriptorPathwayForFood_food {
 
     @MemberSupport
     public Food prop() {
-        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode());
+        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode(), null);
         return foreignKeyLookup.unique(lookupKey);
     }
 }

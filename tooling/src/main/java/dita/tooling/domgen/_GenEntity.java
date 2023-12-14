@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.iconfa.IconFaService;
@@ -141,6 +142,12 @@ class _GenEntity {
         typeModelBuilder.addType(managerViewmodel);
 
         if(entityModel.hasSecondaryKey()) {
+
+            if(!entityModel.suppressUniqueConstraint()) {
+                typeModelBuilder.addAnnotation(_Annotations.unique(
+                        String.format("SEC_KEY_UNQ_%s", entityModel.name()),
+                        Can.ofCollection(entityModel.secondaryKeyFields()).map(Field::name)));
+            }
 
             typeModelBuilder.addSuperinterface(ParameterizedTypeName.get(
                     ClassName.get(HasSecondaryKey.class),
@@ -363,7 +370,9 @@ class _GenEntity {
 
     private String asArgList(final List<Field> fields) {
         return fields.stream()
-                .map(field->field.getter() + "()")
+                .map(field->field.isEnum()
+                        ? String.format("%s().matchOn", field.getter())
+                        : String.format("%s()", field.getter()))
                 .collect(Collectors.joining(", "));
     }
 

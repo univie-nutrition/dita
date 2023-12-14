@@ -48,7 +48,7 @@ public class ProbingQuestionPathwayForFood_food {
     @MemberSupport
     public Food prop() {
         if(mixee.getFoodCode()==null) return null;
-        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode());
+        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

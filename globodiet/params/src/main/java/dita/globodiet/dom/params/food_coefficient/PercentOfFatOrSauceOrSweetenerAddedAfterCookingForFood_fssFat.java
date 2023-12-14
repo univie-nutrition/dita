@@ -48,7 +48,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFat {
     @MemberSupport
     public Food prop() {
         if(mixee.getFssFatCode()==null) return null;
-        final var lookupKey = new Food.SecondaryKey(mixee.getFssFatCode());
+        final var lookupKey = new Food.SecondaryKey(mixee.getFssFatCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

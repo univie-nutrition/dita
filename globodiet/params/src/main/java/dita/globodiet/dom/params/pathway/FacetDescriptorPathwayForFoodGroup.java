@@ -20,9 +20,16 @@
 package dita.globodiet.dom.params.pathway;
 
 import dita.commons.services.lookup.Cloneable;
+import dita.commons.services.lookup.HasSecondaryKey;
+import dita.commons.services.lookup.ISecondaryKey;
 import dita.commons.services.search.SearchService;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
+import dita.globodiet.dom.params.food_list.FoodGroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
@@ -30,17 +37,23 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -67,7 +80,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescriptorPathwayForFoodGroup> {
+@Unique(
+        name = "SEC_KEY_UNQ_FacetDescriptorPathwayForFoodGroup",
+        members = {"foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode", "facetCode", "descriptorCode"}
+)
+public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescriptorPathwayForFoodGroup>, HasSecondaryKey<FacetDescriptorPathwayForFoodGroup> {
     @Inject
     RepositoryService repositoryService;
 
@@ -81,7 +98,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "foreign",
+            fieldSetId = "identity",
             sequence = "1",
             describedAs = "Food group code",
             hidden = Where.ALL_TABLES
@@ -102,7 +119,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
-            fieldSetId = "foreign",
+            fieldSetId = "identity",
             sequence = "2",
             describedAs = "Food Subgroup code",
             hidden = Where.ALL_TABLES
@@ -123,7 +140,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             optionality = Optionality.OPTIONAL
     )
     @PropertyLayout(
-            fieldSetId = "foreign",
+            fieldSetId = "identity",
             sequence = "3",
             describedAs = "Food Sub-subgroup code",
             hidden = Where.ALL_TABLES
@@ -144,7 +161,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "foreign",
+            fieldSetId = "identity",
             sequence = "4",
             describedAs = "Facet code",
             hidden = Where.ALL_TABLES
@@ -165,7 +182,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "foreign",
+            fieldSetId = "identity",
             sequence = "5",
             describedAs = "Descriptor code",
             hidden = Where.ALL_TABLES
@@ -311,6 +328,11 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
         return new FacetDescriptorPathwayForFoodGroup.Manager(searchService, "");
     }
 
+    @Programmatic
+    public SecondaryKey secondaryKey() {
+        return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode(), getFacetCode(), getDescriptorCode());
+    }
+
     /**
      * Manager Viewmodel for @{link FacetDescriptorPathwayForFoodGroup}
      */
@@ -350,6 +372,144 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
         @Override
         public final String viewModelMemento() {
             return getSearch();
+        }
+    }
+
+    /**
+     * Parameter model for @{link FacetDescriptorPathwayForFoodGroup}
+     * @param foodGroup Food group code
+     * @param foodSubgroup Food Subgroup code
+     * @param foodSubSubgroup Food Sub-subgroup code
+     * @param facet Facet code
+     * @param descriptor Descriptor code
+     * @param defaultFlag Default flag (if set to 'D' it is the default descriptor)
+     * @param notInNameFlag Not in name flag
+     * @param facetDisplayOrder Order to display the facets within a group/subgroup
+     * @param descriptorDisplayOrder Order to display the descriptors within a group/subgroup and a facet
+     */
+    public final record Params(
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Food group code"
+            )
+            FoodGroup foodGroup,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Food Subgroup code"
+            )
+            FoodSubgroup foodSubgroup,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Food Sub-subgroup code"
+            )
+            FoodSubgroup foodSubSubgroup,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Facet code"
+            )
+            FoodFacet facet,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Descriptor code"
+            )
+            FoodDescriptor descriptor,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Default flag (if set to 'D' it is the default descriptor)"
+            )
+            String defaultFlag,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Not in name flag"
+            )
+            String notInNameFlag,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Order to display the facets within a group/subgroup"
+            )
+            int facetDisplayOrder,
+            @Parameter(
+                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Order to display the descriptors within a group/subgroup and a facet"
+            )
+            int descriptorDisplayOrder) {
+    }
+
+    /**
+     * SecondaryKey for @{link FacetDescriptorPathwayForFoodGroup}
+     * @param foodGroupCode Food group code
+     * @param foodSubgroupCode Food Subgroup code
+     * @param foodSubSubgroupCode Food Sub-subgroup code
+     * @param facetCode Facet code
+     * @param descriptorCode Descriptor code
+     */
+    public final record SecondaryKey(
+            String foodGroupCode,
+            String foodSubgroupCode,
+            String foodSubSubgroupCode,
+            String facetCode,
+            String descriptorCode) implements ISecondaryKey<FacetDescriptorPathwayForFoodGroup> {
+        @Override
+        public Class<FacetDescriptorPathwayForFoodGroup> correspondingClass() {
+            return FacetDescriptorPathwayForFoodGroup.class;
+        }
+
+        @Override
+        public final Unresolvable unresolvable() {
+            return new Unresolvable(String.format("UNRESOLVABLE %s%s",
+                correspondingClass().getSimpleName(),
+                this.toString().substring(12)));
+        }
+    }
+
+    /**
+     * Placeholder @{link ViewModel} for @{link FacetDescriptorPathwayForFoodGroup} in case of an unresolvable secondary key.
+     */
+    @DomainObjectLayout(
+            describedAs = "Unresolvable FacetDescriptorPathwayForFoodGroup",
+            cssClassFa = "skull .unresolvable-color"
+    )
+    @Named("dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup.Unresolvable")
+    @RequiredArgsConstructor
+    public static final class Unresolvable extends FacetDescriptorPathwayForFoodGroup implements ViewModel {
+        @Getter(
+                onMethod_ = {@Override}
+        )
+        @Accessors(
+                fluent = true
+        )
+        private final String viewModelMemento;
+
+        @Override
+        public String title() {
+            return viewModelMemento;
         }
     }
 }

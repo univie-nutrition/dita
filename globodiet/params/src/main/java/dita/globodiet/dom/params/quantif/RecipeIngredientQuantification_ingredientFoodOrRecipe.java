@@ -48,7 +48,7 @@ public class RecipeIngredientQuantification_ingredientFoodOrRecipe {
     @MemberSupport
     public Food prop() {
         if(mixee.getIngredientFoodOrRecipeCode()==null) return null;
-        final var lookupKey = new Food.SecondaryKey(mixee.getIngredientFoodOrRecipeCode());
+        final var lookupKey = new Food.SecondaryKey(mixee.getIngredientFoodOrRecipeCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

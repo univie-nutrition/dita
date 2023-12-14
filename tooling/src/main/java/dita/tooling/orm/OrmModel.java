@@ -60,6 +60,8 @@ public class OrmModel {
             String table,
             String superType,
             List<String> secondaryKey,
+            /** Whether to suppress the generation of the <code>@Unique</code> annotation on this entity.*/
+            boolean suppressUniqueConstraint,
             String title,
             String icon,
             boolean iconService,
@@ -81,6 +83,7 @@ public class OrmModel {
                     (String)map.get("table"),
                     parseNullableStringTrimmed((String)map.get("superType")),
                     parseMultilineStringTrimmed((String)map.get("secondaryKey")),
+                    parseNullableBoolean((Boolean)map.get("suppressUniqueConstraint")),
                     (String)map.get("title"),
                     (String)map.get("icon"),
                     parseNullableBoolean((Boolean)map.get("iconService")),
@@ -149,6 +152,9 @@ public class OrmModel {
                     yaml.ind().write("title: ", title).nl();
                 }
             }
+            if(suppressUniqueConstraint) {
+                yaml.ind().write("suppressUniqueConstraint: ", "true").nl();
+            }
             {   // icon
                 var iconLines = TextUtils.readLines(icon);
                 if(iconLines.isCardinalityMultiple()) {
@@ -159,7 +165,9 @@ public class OrmModel {
                     yaml.ind().write("icon: ", icon).nl();
                 }
             }
-            yaml.ind().write("iconService: ", ""+iconService).nl();
+            if(iconService) {
+                yaml.ind().write("iconService: ", "true").nl();
+            }
             yaml.ind().write("description:").multilineStartIfNotEmtpy(description).nl();
             description.forEach(line->
                 yaml.ind().ind().write(line).nl());
@@ -580,7 +588,7 @@ public class OrmModel {
      * JUnit support.
      */
     public Can<Schema> examples() {
-        val entity = new Entity("FoodList", "dita", "FOODS", "", List.of(), "name", "fa-pencil",
+        val entity = new Entity("FoodList", "dita", "FOODS", "", List.of(), false, "name", "fa-pencil",
                 false,
                 List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());
