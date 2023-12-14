@@ -97,7 +97,7 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
     }
 
     private void postProcessDisplayOrder() {
-        // TODO implements, also do this when deleting relation
+        // TODO also do this when deleting relation
     }
 
 }

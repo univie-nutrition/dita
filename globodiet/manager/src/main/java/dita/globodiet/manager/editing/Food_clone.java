@@ -88,12 +88,6 @@ public class Food_clone {
         repositoryService.persist(clone);
         foreignKeyLookupService.clearCache(clone.getClass());
 
-//      for(var foodDependantMixinClass : FoodDeps.mixinClasses()) {
-//      var foodDependantMixin = factoryService.mixin(foodDependantMixinClass, mixee);
-//      var entityObjectsToBeCloned = (List<Object>) foodDependantMixinClass.getMethod("coll").invoke(foodDependantMixin);
-//      }
-
-
         factoryService.mixin(FoodDeps.Food_dependentDensityFactorForFoodMappedByFoodOrRecipe.class, mixee)
         .coll()
         .forEach(origin->{
@@ -203,6 +197,7 @@ public class Food_clone {
         .forEach(origin->{
             var clonedDependant = origin.copy();
             clonedDependant.setFoodOrRecipeCode(clone.getCode());
+            //FIXME needs a unique code
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
@@ -292,7 +287,7 @@ public class Food_clone {
      * Guard against proposed food.code() already in use.
      */
     @MemberSupport public String validateAct(final Food.Params p) {
-        var secKey = new Food.SecondaryKey(p.code());
+        var secKey = new Food.SecondaryKey(p.code(), /*normal food = null*/null);
         var alreadyExisting = foreignKeyLookupService.nullable(secKey);
         return alreadyExisting!=null
                 ? String.format("Code '%s' is already used as an identifier for another Food (%s).", p.code(), alreadyExisting)
@@ -309,6 +304,10 @@ public class Food_clone {
     // -- ENABLING
 
     @MemberSupport public String disableAct() {
+        //FIXME
+        if(true) return "FIXME: dependent NutrientForFoodOrGroupMappedByFoodOrRecipe needs unique code; "
+                + "which also means we need to clone cascading dependants as well";
+
         //TODO refactor into util
         return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
                 .orElse(null);
