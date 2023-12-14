@@ -34,6 +34,7 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.FoodGroup;
@@ -53,6 +54,7 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
 
     @Inject private RepositoryService repositoryService;
     @Inject private FactoryService factoryService;
+    @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
     protected final FacetDescriptorPathwayForFoodGroup.Manager mixee;
 
@@ -77,6 +79,7 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
         e.setNotInNameFlag(p.notInNameFlag());
 
         repositoryService.persist(e);
+        foreignKeyLookupService.clearCache(FacetDescriptorPathwayForFoodGroup.class);
         return mixee;
     }
 

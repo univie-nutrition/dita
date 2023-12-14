@@ -26,7 +26,13 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
     SUBGROUP2
     FACET_CODE
     DESCR_CODE
-  title: null
+  title: |
+    String.format("Pathway (group=%s|%s|%s, descriptor=%s|%s)",
+        foodGroupCode, 
+        dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
+        dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
+        facetCode, 
+        descriptorCode)
   icon: |
     solid person-walking-arrow-right .food-color,
     solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85

@@ -27,11 +27,11 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.search.SearchService;
 import lombok.NonNull;
-import lombok.val;
 
 @Service
 public class SearchServiceGdParams
@@ -45,14 +45,29 @@ implements SearchService {
             final @NonNull Function<T, String> searchOn,
             final @Nullable String searchString) {
 
-        val lowerCased = _Strings.nonEmpty(searchString)
-                .map(String::toLowerCase)
-                .orElse(null);
+        var searchTokens = searchTokens(searchString);
 
-        return lowerCased == null
+        return searchTokens.isEmpty()
                 ? repositoryService.allInstances(entityType)
                 : repositoryService.allMatches(entityType,
-                        t->searchOn.apply(t).toLowerCase().contains(lowerCased));
+                        t->allMatch(searchTokens, searchOn.apply(t)));
+    }
+
+    // -- HELPER
+
+    private static Can<String> searchTokens(final @Nullable String searchString) {
+        return Can.ofStream(_Strings.splitThenStream(searchString, " "))
+                .map(String::toLowerCase)
+                .filter(_Strings::isNotEmpty);
+    }
+
+    private static boolean allMatch(
+            final @NonNull Can<String> searchTokens,
+            final @Nullable String candidateString) {
+        if(_Strings.isEmpty(candidateString)) return false;
+        var candidateStringLower = candidateString.toLowerCase();
+        return searchTokens.stream()
+                .allMatch(candidateStringLower::contains);
     }
 
 }
