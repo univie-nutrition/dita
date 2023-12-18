@@ -48,7 +48,7 @@ public class ImprobableSequenceOfFacetAndDescriptor_food {
     @MemberSupport
     public Food prop() {
         if(mixee.getFoodCode()==null) return null;
-        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode(), null);
+        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

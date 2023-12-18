@@ -48,7 +48,7 @@ public class PercentOfFatUseDuringCookingForFood_fat {
     @MemberSupport
     public Food prop() {
         if(mixee.getFatCode()==null) return null;
-        final var lookupKey = new Food.SecondaryKey(mixee.getFatCode(), null);
+        final var lookupKey = new Food.SecondaryKey(mixee.getFatCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

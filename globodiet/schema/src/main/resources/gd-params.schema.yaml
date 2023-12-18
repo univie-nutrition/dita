@@ -813,7 +813,6 @@ params.food_list.Food:
   table: FOODS
   secondaryKey: |
     FOODNUM
-    TYPE
   title: String.format("%s (code=%s)", foodNativeName, code)
   suppressUniqueConstraint: true
   icon: solid utensils .food-color

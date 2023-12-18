@@ -47,7 +47,7 @@ public class StandardPortionForFood_food {
 
     @MemberSupport
     public Food prop() {
-        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode(), null);
+        final var lookupKey = new Food.SecondaryKey(mixee.getFoodCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

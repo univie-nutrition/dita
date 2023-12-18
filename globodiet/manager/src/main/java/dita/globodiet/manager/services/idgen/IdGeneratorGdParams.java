@@ -27,10 +27,12 @@ import org.datanucleus.store.rdbms.query.ForwardQueryResult;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.persistence.jdo.applib.services.JdoSupportService;
 
 import dita.commons.services.idgen.IdGeneratorService;
 import dita.globodiet.dom.params.food_list.Food;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.manager.util.FoodUtils;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -48,6 +50,11 @@ implements IdGeneratorService {
             _Assert.assertEquals(String.class, idType);
             int foodMax = FoodUtils.foodCodeToInt(foodMax());
             return Optional.of((T)FoodUtils.foodCodeFromInt(foodMax + 1));
+        }
+        if(NutrientForFoodOrGroup.class.equals(entityType)) {
+            _Assert.assertEquals(int.class, idType);
+            final int next = nutrientForFoodOrGroupMax() + 1;
+            return _Casts.uncheckedCast(Optional.of(next));
         }
         return Optional.empty();
     }
@@ -67,6 +74,23 @@ implements IdGeneratorService {
                     .filter(ListIterator::hasNext)
                     .map(ListIterator::next)
                     .map(String.class::cast)
+                    .orElse(null);
+        }
+    }
+
+    @SneakyThrows
+    private int nutrientForFoodOrGroupMax() {
+        var pm = jdoSupport.getPersistenceManager();
+
+        try(var query = pm.newQuery(
+                "javax.jdo.query.SQL",
+                "SELECT max(ITEM_SEQ) FROM dita_gd_params.ITEMS_DEF")){
+            return Optional.ofNullable(query.execute())
+                    .map(ForwardQueryResult.class::cast)
+                    .map(ForwardQueryResult::listIterator)
+                    .filter(ListIterator::hasNext)
+                    .map(ListIterator::next)
+                    .map(Integer.class::cast)
                     .orElse(null);
         }
     }

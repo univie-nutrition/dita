@@ -205,10 +205,11 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
      * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
      */
     @Property(
-            optionality = Optionality.MANDATORY
+            optionality = Optionality.MANDATORY,
+            editing = Editing.ENABLED
     )
     @PropertyLayout(
-            fieldSetId = "identity",
+            fieldSetId = "details",
             sequence = "6",
             describedAs = "Type of item:\n"
                             + "(none) -> Normal Food Item\n"
@@ -360,7 +361,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getCode(), getTypeOfItem().matchOn);
+        return new SecondaryKey(getCode());
     }
 
     @RequiredArgsConstructor
@@ -593,26 +594,8 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
     /**
      * SecondaryKey for @{link Food}
      * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
-     * @param typeOfItem Type of item:
-     * (none) -> Normal Food Item
-     * GI -> Generic Food Item
-     * SH -> Shadow Item
-     * CR -> Composed Recipe (On-the-fly Recipe)
-     * Definition: its different ingredients can be identified and
-     * quantified separately after preparation
-     * (e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)
-     * or just before mixing (e.g. coffee with milk).
-     * Composed recipes are built during the interview: there is no a priori list of composed recipes.
-     * They are made from items listed below/linked to a quick list item.
-     * Example: Salad
-     * - Lettuce
-     * - Tomato
-     * - Cucumber
-     * - Salad dressing (can be a recipe in some projects where all sauces are in recipes)
      */
-    public final record SecondaryKey(
-            String code,
-            String typeOfItem) implements ISecondaryKey<Food> {
+    public final record SecondaryKey(String code) implements ISecondaryKey<Food> {
         @Override
         public Class<Food> correspondingClass() {
             return Food.class;

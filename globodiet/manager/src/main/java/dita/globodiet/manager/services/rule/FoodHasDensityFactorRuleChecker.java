@@ -68,7 +68,7 @@ implements RuleChecker {
                 .collect(Collectors.toSet());
 
         var foodKeysAccountedFor = densityInstances.stream()
-                .map(df->new Food.SecondaryKey(df.getFoodOrRecipeCode(), TypeOfItem.NORMAL_FOOD.getMatchOn()))
+                .map(df->new Food.SecondaryKey(df.getFoodOrRecipeCode()))
                 .collect(Collectors.toSet());
 
         var foodKeysNotAccountedFor = _Sets.minus(foodKeys, foodKeysAccountedFor);

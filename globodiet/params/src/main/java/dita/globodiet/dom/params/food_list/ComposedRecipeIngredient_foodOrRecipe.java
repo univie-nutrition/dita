@@ -54,7 +54,7 @@ public class ComposedRecipeIngredient_foodOrRecipe {
         switch(switchOn) {
         case 1: {
             if(mixee.getFoodOrRecipeCode()==null) return null;
-            final var lookupKey = new Food.SecondaryKey(mixee.getFoodOrRecipeCode(), null);
+            final var lookupKey = new Food.SecondaryKey(mixee.getFoodOrRecipeCode());
             return foreignKeyLookup.nullable(lookupKey);
         }
         case 2: {

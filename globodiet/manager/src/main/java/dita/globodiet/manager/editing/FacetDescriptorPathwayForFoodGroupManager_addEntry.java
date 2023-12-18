@@ -59,7 +59,7 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
     protected final FacetDescriptorPathwayForFoodGroup.Manager mixee;
 
     @MemberSupport
-    public FacetDescriptorPathwayForFoodGroup.Manager act(
+    public FacetDescriptorPathwayForFoodGroup act(
             @ParameterTuple final FacetDescriptorPathwayForFoodGroup.Params p) {
         var e = factoryService.detachedEntity(new FacetDescriptorPathwayForFoodGroup());
 
@@ -80,7 +80,7 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
 
         repositoryService.persist(e);
         foreignKeyLookupService.clearCache(FacetDescriptorPathwayForFoodGroup.class);
-        return mixee;
+        return e;
     }
 
     // -- DEFAULTS

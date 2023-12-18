@@ -44,6 +44,7 @@ import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.dom.params.food_list.Food_foodGroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubSubgroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
+import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import dita.globodiet.manager.util.FoodUtils;
@@ -197,7 +198,16 @@ public class Food_clone {
         .forEach(origin->{
             var clonedDependant = origin.copy();
             clonedDependant.setFoodOrRecipeCode(clone.getCode());
-            //FIXME needs a unique code
+            clonedDependant.setCode(
+                    idGeneratorService.nextElseFail(int.class, NutrientForFoodOrGroup.class));
+            //FIXME needs cloning of at least 4 of
+            /*
+            - Energy                               236           .           .
+            - Protein                                4           .           .
+            - Fat                                    3           .           .
+            - Carbohydrate                          24           .           .
+            - Alcohol                                0           .           .
+             */
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
@@ -287,7 +297,7 @@ public class Food_clone {
      * Guard against proposed food.code() already in use.
      */
     @MemberSupport public String validateAct(final Food.Params p) {
-        var secKey = new Food.SecondaryKey(p.code(), /*normal food = null*/null);
+        var secKey = new Food.SecondaryKey(p.code());
         var alreadyExisting = foreignKeyLookupService.nullable(secKey);
         return alreadyExisting!=null
                 ? String.format("Code '%s' is already used as an identifier for another Food (%s).", p.code(), alreadyExisting)
@@ -305,8 +315,8 @@ public class Food_clone {
 
     @MemberSupport public String disableAct() {
         //FIXME
-        if(true) return "FIXME: dependent NutrientForFoodOrGroupMappedByFoodOrRecipe needs unique code; "
-                + "which also means we need to clone cascading dependants as well";
+//        if(true) return "FIXME: dependent NutrientForFoodOrGroupMappedByFoodOrRecipe needs unique code; "
+//                + "which also means we need to clone cascading dependants as well";
 
         //TODO refactor into util
         return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
