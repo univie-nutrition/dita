@@ -130,6 +130,12 @@ public record FoodParamsForClone(
                 dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
         @ParameterLayout(
+                describedAs = "Nutrient value for fat in g.")
+        double fat,
+        @Parameter(
+                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                optionality = Optionality.MANDATORY)
+        @ParameterLayout(
                 describedAs = "Nutrient value for carbohydrates in g.")
         double carbohydrate,
         @Parameter(
@@ -138,12 +144,6 @@ public record FoodParamsForClone(
         @ParameterLayout(
                 describedAs = "Nutrient value for protein in g.")
         double protein,
-        @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY)
-        @ParameterLayout(
-                describedAs = "Nutrient value for fat in g.")
-        double fat,
         @Parameter(
                 dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
