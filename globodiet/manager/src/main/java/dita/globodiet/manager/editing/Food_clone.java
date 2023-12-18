@@ -45,6 +45,7 @@ import dita.globodiet.dom.params.food_list.Food_foodGroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubSubgroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.dom.params.nutrient.NutrientValue;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import dita.globodiet.manager.util.FoodUtils;
@@ -67,7 +68,7 @@ public class Food_clone {
     protected final Food mixee;
 
     @MemberSupport
-    public Food act(@ParameterTuple final Food.Params p) {
+    public Food act(@ParameterTuple final FoodParamsForClone p) {
         var clone = factoryService.detachedEntity(new Food());
 
         clone.setCode(p.code());
@@ -200,16 +201,26 @@ public class Food_clone {
             clonedDependant.setFoodOrRecipeCode(clone.getCode());
             clonedDependant.setCode(
                     idGeneratorService.nextElseFail(int.class, NutrientForFoodOrGroup.class));
-            //FIXME needs cloning of at least 4 of
-            /*
-            - Energy                               236           .           .
-            - Protein                                4           .           .
-            - Fat                                    3           .           .
-            - Carbohydrate                          24           .           .
-            - Alcohol                                0           .           .
-             */
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
+            for(int nutrientCode=1;nutrientCode<=5;++nutrientCode) {
+                final double value = switch(nutrientCode) {
+                case 1 -> p.energy();
+                case 2 -> p.protein();
+                case 3 -> p.carbohydrate();
+                case 4 -> p.fat();
+                case 5 -> p.alcohol();
+                default -> 0.;
+                };
+                if(value>0) {
+                    var nutrientValue = factoryService.detachedEntity(new NutrientValue());
+                    nutrientValue.setNutrientForFoodOrGroupCode(clonedDependant.getCode());
+                    nutrientValue.setNutrientCode(nutrientCode);
+                    nutrientValue.setValue(value);
+                    repositoryService.persist(nutrientValue);
+                }
+            }
+            foreignKeyLookupService.clearCache(NutrientValue.class);
         });
         factoryService.mixin(FoodDeps.Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class, mixee)
         .coll()
@@ -249,42 +260,58 @@ public class Food_clone {
 
     // -- DEFAULTS
 
-    @MemberSupport public String defaultCode(final Food.Params p) {
+    @MemberSupport public String defaultCode(final FoodParamsForClone p) {
         return idGeneratorService.nextElseFail(String.class, Food.class);
     }
-    @MemberSupport public FoodGroup defaultFoodGroup(final Food.Params p) {
+    @MemberSupport public FoodGroup defaultFoodGroup(final FoodParamsForClone p) {
         return factoryService.mixin(Food_foodGroup.class, mixee).prop();
     }
-    @MemberSupport public FoodSubgroup defaultFoodSubgroup(final Food.Params p) {
+    @MemberSupport public FoodSubgroup defaultFoodSubgroup(final FoodParamsForClone p) {
         return factoryService.mixin(Food_foodSubgroup.class, mixee).prop();
     }
-    @MemberSupport public FoodSubgroup defaultFoodSubSubgroup(final Food.Params p) {
+    @MemberSupport public FoodSubgroup defaultFoodSubSubgroup(final FoodParamsForClone p) {
         return factoryService.mixin(Food_foodSubSubgroup.class, mixee).prop();
     }
-    @MemberSupport public String defaultFoodNativeName(final Food.Params p) {
+    @MemberSupport public String defaultFoodNativeName(final FoodParamsForClone p) {
         return mixee.getFoodNativeName() + " (Clone)";
     }
-    @MemberSupport public TypeOfItem defaultTypeOfItem(final Food.Params p) {
+    @MemberSupport public TypeOfItem defaultTypeOfItem(final FoodParamsForClone p) {
         return mixee.getTypeOfItem();
     }
-    @MemberSupport public GroupOrdinal defaultGroupOrdinal(final Food.Params p) {
+    @MemberSupport public GroupOrdinal defaultGroupOrdinal(final FoodParamsForClone p) {
         return mixee.getGroupOrdinal();
     }
-    @MemberSupport public DietarySupplementQ defaultDietarySupplementQ(final Food.Params p) {
+    @MemberSupport public DietarySupplementQ defaultDietarySupplementQ(final FoodParamsForClone p) {
         return mixee.getDietarySupplementQ();
+    }
+
+    @MemberSupport public double defaultEnergy(final FoodParamsForClone p) {
+        return 0.;
+    }
+    @MemberSupport public double defaultCarbohydrate(final FoodParamsForClone p) {
+        return 0.;
+    }
+    @MemberSupport public double defaultProtein(final FoodParamsForClone p) {
+        return 0.;
+    }
+    @MemberSupport public double defaultFat(final FoodParamsForClone p) {
+        return 0.;
+    }
+    @MemberSupport public double defaultAlcohol(final FoodParamsForClone p) {
+        return 0.;
     }
 
     // -- CHOICES
 
-    @MemberSupport public List<FoodGroup> choicesFoodGroup(final Food.Params p) {
+    @MemberSupport public List<FoodGroup> choicesFoodGroup(final FoodParamsForClone p) {
         return repositoryService.allInstances(FoodGroup.class);
     }
-    @MemberSupport public List<FoodSubgroup> choicesFoodSubgroup(final Food.Params p) {
+    @MemberSupport public List<FoodSubgroup> choicesFoodSubgroup(final FoodParamsForClone p) {
         return repositoryService.allMatches(FoodSubgroup.class,
                 fg->fg.getFoodSubSubgroupCode()==null
                     && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode()));
     }
-    @MemberSupport public List<FoodSubgroup> choicesFoodSubSubgroup(final Food.Params p) {
+    @MemberSupport public List<FoodSubgroup> choicesFoodSubSubgroup(final FoodParamsForClone p) {
         return repositoryService.allMatches(FoodSubgroup.class,
                 fg->fg.getFoodSubSubgroupCode()!=null
                     && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode())
@@ -296,7 +323,7 @@ public class Food_clone {
     /**
      * Guard against proposed food.code() already in use.
      */
-    @MemberSupport public String validateAct(final Food.Params p) {
+    @MemberSupport public String validateAct(final FoodParamsForClone p) {
         var secKey = new Food.SecondaryKey(p.code());
         var alreadyExisting = foreignKeyLookupService.nullable(secKey);
         return alreadyExisting!=null
@@ -307,7 +334,7 @@ public class Food_clone {
     /**
      * Guard against ill formatted food code.
      */
-    @MemberSupport public String validateCode(final Food.Params p) {
+    @MemberSupport public String validateCode(final FoodParamsForClone p) {
         return FoodUtils.validateFoodCode(p.code());
     }
 
