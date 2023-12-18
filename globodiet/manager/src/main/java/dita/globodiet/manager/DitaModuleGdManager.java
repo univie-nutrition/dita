@@ -68,6 +68,8 @@ import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
+import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodDisplayOrderRuleChecker;
+import dita.globodiet.manager.services.rule.FoodHasDensityFactorRuleChecker;
 import dita.globodiet.manager.services.rule.ResolvableDependenciesRuleChecker;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
 import dita.globodiet.schema.GdEntityGen;
@@ -121,11 +123,15 @@ import lombok.val;
     ForeignKeyLookupGdParams.class,
     SearchServiceGdParams.class,
     FallbackLayoutDataSourceGdParams.class,
-    ResolvableDependenciesRuleChecker.class,
     IdGeneratorGdParams.class,
     IconFaServiceGdParams.class,
     FoodHelperService.class,
     FoodFacetHelperService.class,
+
+    // Rulecheckers
+    FacetDescriptorPathwayForFoodDisplayOrderRuleChecker.class,
+    FoodHasDensityFactorRuleChecker.class,
+    ResolvableDependenciesRuleChecker.class,
 
     // Mixins
     HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
