@@ -20,6 +20,8 @@ package dita.commons.services.idgen;
 
 import java.util.Optional;
 
+import org.springframework.lang.Nullable;
+
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.NonNull;
@@ -32,11 +34,20 @@ public interface IdGeneratorService {
      */
     <T> Optional<T> next(
             @NonNull Class<T> idType,
-            @NonNull Class<?> entityType);
+            @NonNull Class<?> entityType,
+            @Nullable final Object options);
 
+    default <T> T nextElseFail(
+            @NonNull final Class<T> idType,
+            @NonNull final Class<?> entityType) {
+        return nextElseFail(idType, entityType, null);
+    }
 
-    default <T> T nextElseFail(@NonNull final Class<T> idType, @NonNull final Class<?> entityType) {
-        return next(idType, entityType)
+    default <T> T nextElseFail(
+            @NonNull final Class<T> idType,
+            @NonNull final Class<?> entityType,
+            @Nullable final Object options) {
+        return next(idType, entityType, options)
                 .orElseThrow(()->_Exceptions.unrecoverable(
                         "Id generation not implemented for entity type %s", entityType));
     }

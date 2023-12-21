@@ -18,19 +18,26 @@
  */
 package dita.globodiet.manager.services.idgen;
 
+import java.util.HashSet;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import jakarta.inject.Inject;
 
 import org.datanucleus.store.rdbms.query.ForwardQueryResult;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.persistence.jdo.applib.services.JdoSupportService;
 
 import dita.commons.services.idgen.IdGeneratorService;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.manager.util.FoodUtils;
@@ -42,10 +49,14 @@ public class IdGeneratorGdParams
 implements IdGeneratorService {
 
     @Inject JdoSupportService jdoSupport;
+    @Inject RepositoryService repositoryService;
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> Optional<T> next(@NonNull final Class<T> idType, @NonNull final Class<?> entityType) {
+    public <T> Optional<T> next(
+            @NonNull final Class<T> idType,
+            @NonNull final Class<?> entityType,
+            @Nullable final Object options) {
         if(Food.class.equals(entityType)) {
             _Assert.assertEquals(String.class, idType);
             int foodMax = FoodUtils.foodCodeToInt(foodMax());
@@ -55,6 +66,14 @@ implements IdGeneratorService {
             _Assert.assertEquals(int.class, idType);
             final int next = nutrientForFoodOrGroupMax() + 1;
             return _Casts.uncheckedCast(Optional.of(next));
+        }
+        if(FoodDescriptor.class.equals(entityType)) {
+            _Assert.assertEquals(String.class, idType);
+            var p = (FoodDescriptor.Params)options;
+            if(p.facet()==null) {
+                return Optional.empty();
+            }
+            return _Casts.uncheckedCast(Optional.of(foodDescriptorNext(p.facet().getCode())));
         }
         return Optional.empty();
     }
@@ -93,6 +112,21 @@ implements IdGeneratorService {
                     .map(Integer.class::cast)
                     .orElse(null);
         }
+    }
+
+    @SneakyThrows
+    private String foodDescriptorNext(final String foodCode) {
+        final Set<String> codesInUse =
+            repositoryService.allMatches(FoodDescriptor.class, fd->foodCode.equals(fd.getFacetCode()))
+                .stream()
+                .map(fd->fd.getCode())
+                .collect(Collectors.toCollection(HashSet::new));
+
+        return IntStream.range(1,256)
+            .mapToObj(i->String.format("%02X", i).toUpperCase())
+            .filter(code->!codesInUse.contains(code))
+            .findFirst()
+            .orElse("??");
     }
 
 }

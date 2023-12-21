@@ -341,10 +341,6 @@ public class Food_clone {
     // -- ENABLING
 
     @MemberSupport public String disableAct() {
-        //FIXME
-//        if(true) return "FIXME: dependent NutrientForFoodOrGroupMappedByFoodOrRecipe needs unique code; "
-//                + "which also means we need to clone cascading dependants as well";
-
         //TODO refactor into util
         return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
                 .orElse(null);

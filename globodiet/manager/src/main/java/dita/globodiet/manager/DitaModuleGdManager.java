@@ -52,6 +52,7 @@ import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.FoodBrandManager_addBrand;
+import dita.globodiet.manager.editing.FoodDescriptorManager_addDescriptor;
 import dita.globodiet.manager.editing.FoodManager_addFood;
 import dita.globodiet.manager.editing.Food_addFoodFacetSelectionForFacetDescriptorPathway;
 import dita.globodiet.manager.editing.Food_clone;
@@ -140,6 +141,7 @@ import lombok.val;
     Persistable_schema.class,
     // Manager Mixins
     FoodBrandManager_addBrand.class,
+    FoodDescriptorManager_addDescriptor.class,
     FoodManager_addFood.class,
     // Other
     Food_addFoodFacetSelectionForFacetDescriptorPathway.class,
