@@ -91,6 +91,9 @@ public class Dashboard_replicateYaml {
                 }
             });
 
+        //TODO finally issue an SQL statement
+        // BACKUP DATABASE GloboDiet TO DISK = '/var/opt/mssql/backup/dita/GloboDiet2024.bak'
+
         return adoc.buildAsValue();
     }
 
