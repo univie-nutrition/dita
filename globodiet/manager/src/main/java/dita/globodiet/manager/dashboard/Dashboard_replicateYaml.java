@@ -18,6 +18,8 @@
  */
 package dita.globodiet.manager.dashboard;
 
+import java.io.File;
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.jdo.JDOHelper;
@@ -72,20 +74,23 @@ public class Dashboard_replicateYaml {
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Table Replicate Result"));
 
-        var pmf = createPersistenceManagerFactory(adoc);
-        var pm = pmf.getPersistenceManager();
-        try {
-            adoc.append(doc->{
-              val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
-                      format==ExportFormat.ENTITY
-                          ? TabularData.NameTransformer.IDENTITY
-                          : table2entity, pm));
-              sourceBlock.setTitle("Replication Result");
-          });
-        } finally {
-            pm.close();
-            pmf.close();
-        }
+        createPersistenceManagerFactory(adoc)
+            .ifPresent(pmf->{
+                var pm = pmf.getPersistenceManager();
+                try {
+                    adoc.append(doc->{
+                      val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
+                              format==ExportFormat.ENTITY
+                                  ? TabularData.NameTransformer.IDENTITY
+                                  : table2entity, pm));
+                      sourceBlock.setTitle("Replication Result");
+                  });
+                } finally {
+                    pm.close();
+                    pmf.close();
+                }
+            });
+
         return adoc.buildAsValue();
     }
 
@@ -96,31 +101,47 @@ public class Dashboard_replicateYaml {
                 BlobStore.paramsTableFilter(), pm);
     }
 
-    private PersistenceManagerFactory createPersistenceManagerFactory(final AsciiDocBuilder adoc) {
-        var propertiesSpring = new Properties();
-        DataSource.ofResource(getClass(), "/config/application-SQLSERVER.properties")
-            .tryReadAndAccept(propertiesSpring::load);
+    private Optional<PersistenceManagerFactory> createPersistenceManagerFactory(final AsciiDocBuilder adoc) {
+        var conf = new Properties();
 
-        var properties = new Properties();
-        properties.setProperty("javax.jdo.PersistenceManagerFactoryClass", "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");
-        properties.setProperty("javax.jdo.option.ConnectionURL", configValue(propertiesSpring, "spring.datasource.url"));
-        properties.setProperty("javax.jdo.option.ConnectionUserName", configValue(propertiesSpring, "spring.datasource.username"));
-        properties.setProperty("datanucleus.query.jdoql.allowAll", "true");
+        var additionalConfigDir = new File("/opt/config");
+        if(additionalConfigDir.exists()) {
+            DataSource.ofFile(new File(additionalConfigDir, "application-SQLSERVER.properties"))
+                .tryReadAndAccept(conf::load);
+        } else {
+            DataSource.ofResource(getClass(), "/config/application-SQLSERVER.properties")
+                .tryReadAndAccept(conf::load);
+        }
+
+        // sanity check
+        if(configValue(conf, "spring.datasource.url")==null) {
+            adoc.append(doc->{
+                var sourceBlock = AsciiDocFactory.sourceBlock(doc, "txt", "missing application-SQLSERVER.properties");
+                sourceBlock.setTitle("Replication Setup");
+            });
+            return Optional.empty();
+        }
+
+        var dn = new Properties();
+        dn.setProperty("javax.jdo.PersistenceManagerFactoryClass", "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");
+        dn.setProperty("javax.jdo.option.ConnectionURL", configValue(conf, "spring.datasource.url"));
+        dn.setProperty("javax.jdo.option.ConnectionUserName", configValue(conf, "spring.datasource.username"));
+        dn.setProperty("datanucleus.query.jdoql.allowAll", "true");
 
         // output settings, suppress password
         adoc.append(doc->{
             var sb = new StringBuilder();
-            properties.forEach((k, v)->{
+            dn.forEach((k, v)->{
                 sb.append(String.format("%s: %s\n", k, v));
             });
             var sourceBlock = AsciiDocFactory.sourceBlock(doc, "txt", sb.toString());
             sourceBlock.setTitle("Replication Setup");
         });
 
-        properties.setProperty("javax.jdo.option.ConnectionPassword", configValue(propertiesSpring, "spring.datasource.password"));
+        dn.setProperty("javax.jdo.option.ConnectionPassword", configValue(conf, "spring.datasource.password"));
 
-        final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(properties);
-        return pmf;
+        final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(dn);
+        return Optional.of(pmf);
     }
 
     private String configValue(final Properties properties, final String key) {

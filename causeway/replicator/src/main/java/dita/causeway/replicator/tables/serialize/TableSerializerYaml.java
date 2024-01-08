@@ -102,7 +102,8 @@ public class TableSerializerYaml {
     }
 
     /**
-     * Populates the (primary) data-store from tabular data as given by the {@code clob}.
+     * Populates the (secondary) data-store as represented by {@code pm}
+     * from tabular data as given by the {@code clob}.
      * <p>
      * Returns the serialized version of the load result as yaml.
      */
