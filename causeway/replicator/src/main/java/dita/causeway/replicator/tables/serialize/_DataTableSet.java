@@ -24,6 +24,9 @@ import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
@@ -98,7 +101,7 @@ class _DataTableSet {
 
             final Can<String> colNames = tableEntry.columns().map(Column::name);
 
-            System.err.printf("table %s | %s%n", entityLogicalTypeName, colNames);
+            System.err.printf("read table %s | %s%n", entityLogicalTypeName, colNames);
             //System.err.printf("  cols:%n");
 
             final int[] colIndexMapping =
@@ -192,6 +195,57 @@ class _DataTableSet {
             dataTable.streamDataElements().forEach(entity->{
                 repositoryService.persist(entity);
             });
+        });
+        return this;
+    }
+
+    public _DataTableSet replicateToDatabase(
+            final PersistenceManager pm) {
+
+        // delete all existing entities
+        dataTables.forEach(dataTable->{
+            pm.currentTransaction().begin();
+            val entityClass = dataTable.getElementType().getCorrespondingClass();
+            Query<?> query = pm.newQuery(String.format("DELETE FROM %s", entityClass.getName()));
+
+            //log
+            System.err.printf("DELETE FROM %s%n", entityClass.getName());
+
+            query.execute();
+            pm.currentTransaction().commit();
+        });
+
+        // insert new entities
+        dataTables.forEach(dataTable->{
+
+            var elementCount = dataTable.getElementCount();
+            //log
+            System.err.printf("copy %d from %s%n", elementCount, dataTable.getTableFriendlyName());
+
+            pm.currentTransaction().begin();
+
+            dataTable.streamDataElements()
+                .map(ManagedObject::getPojo)
+                .forEach(IndexedConsumer.offset(1, (index, pojo)->{
+
+                    pm.makePersistent(pojo);
+
+                    // report progress to console
+                    int percent = 100*index/elementCount;
+                    if(elementCount>100
+                            && (index%100) == 0) {
+                        System.err.printf("\t%d%%%n", percent);
+                    }
+                }));
+
+            pm.currentTransaction().commit();
+
+//            pm.currentTransaction().begin();
+//            pm.makePersistentAll(
+//                 dataTable.streamDataElements()
+//                     .map(ManagedObject::getPojo)
+//                     .toList());
+//            pm.currentTransaction().commit();
         });
         return this;
     }

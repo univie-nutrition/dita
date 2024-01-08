@@ -56,6 +56,8 @@ record _EnumResolver(
                 matchOn = ""+matchOn; // e.g. int
             }
             if(Objects.equals(_Strings.emptyToNull(stringified), matchOn)) return obj;
+            // in support of parsing yaml data files
+            if(Objects.equals(_Strings.emptyToNull(stringified), obj.name())) return obj;
         }
         if(stringified==null) return null; // if does not match on null explicitly, then return null as the resolved object
         throw _Exceptions.noSuchElement("enum %s does not match on '%s'", cls, stringified);

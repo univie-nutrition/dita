@@ -38,6 +38,7 @@ import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -54,6 +55,8 @@ public class Dashboard_loadYaml {
     @MemberSupport
     public AsciiDoc act(
             @Parameter
+            final ExportFormat format,
+            @Parameter
             @ParameterLayout(named = "tableData")
             final Clob tableData) {
 
@@ -62,7 +65,9 @@ public class Dashboard_loadYaml {
         adoc.append(doc->{
             val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml",
                     tableSerializer.load(tableData,
-                            table2entity,
+                            format==ExportFormat.ENTITY
+                                ? TabularData.NameTransformer.IDENTITY
+                                : table2entity,
                             BlobStore.paramsTableFilter(), InsertMode.DELETE_ALL_THEN_ADD));
             sourceBlock.setTitle("Serialized Table Data (yaml)");
         });

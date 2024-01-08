@@ -20,6 +20,8 @@ package dita.causeway.replicator.tables.serialize;
 
 import java.util.function.Predicate;
 
+import javax.jdo.PersistenceManager;
+
 import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -76,7 +78,9 @@ public class TableSerializerYaml {
     }
 
     /**
-     * Returns the serialized version of the load result.
+     * Populates the (primary) data-store from tabular data as given by the {@code clob}.
+     * <p>
+     * Returns the serialized version of the load result as yaml.
      */
     public String load(
             final Clob clob,
@@ -94,6 +98,35 @@ public class TableSerializerYaml {
                 .insertToDatabase(repositoryService, insertMode)
                 .toTabularData(format())
                 .toYaml(TabularData.Format.defaults());
+        return yaml;
+    }
+
+    /**
+     * Populates the (primary) data-store from tabular data as given by the {@code clob}.
+     * <p>
+     * Returns the serialized version of the load result as yaml.
+     */
+    public String replicate(
+            final Clob clob,
+            final NameTransformer nameTransformer,
+            final Predicate<ObjectSpecification> filter,
+            final PersistenceManager pm) {
+
+        System.err.printf("replicate %s%n", "gen tabularData");
+
+        val tabularData = TabularData.populateFromYaml(clob.asString(), format())
+                .transform(nameTransformer);
+
+        System.err.printf("replicate %s%n", "start");
+
+        val yaml = dataTableSet(filter)
+                .populateFromTabularData(tabularData, format())
+                .replicateToDatabase(pm)
+                .toTabularData(format())
+                .toYaml(TabularData.Format.defaults());
+
+        System.err.printf("replicate %s%n", "done");
+
         return yaml;
     }
 
