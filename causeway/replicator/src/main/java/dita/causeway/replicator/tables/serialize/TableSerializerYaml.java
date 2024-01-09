@@ -120,15 +120,15 @@ public class TableSerializerYaml {
 
         System.err.printf("replicate %s%n", "start");
 
-        val yaml = dataTableSet(filter)
+
+        val sb = new StringBuilder();
+        val dataTableSet = dataTableSet(filter)
                 .populateFromTabularData(tabularData, format())
-                .replicateToDatabase(pm)
-                .toTabularData(format())
-                .toYaml(TabularData.Format.defaults());
+                .replicateToDatabase(pm, sb);
 
         System.err.printf("replicate %s%n", "done");
 
-        return yaml;
+        return sb.toString();
     }
 
     // -- HELPER

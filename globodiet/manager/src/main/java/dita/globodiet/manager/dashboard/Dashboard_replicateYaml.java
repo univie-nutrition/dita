@@ -28,6 +28,8 @@ import javax.jdo.PersistenceManagerFactory;
 
 import jakarta.inject.Inject;
 
+import org.datanucleus.api.jdo.metadata.api.ClassMetadataImpl;
+import org.datanucleus.metadata.AbstractClassMetaData;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -37,17 +39,21 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.commons.internal.reflection._Reflect;
 import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
+import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.NameTransformer;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.val;
 
 @Action//(restrictTo = RestrictTo.PROTOTYPING)
@@ -60,6 +66,7 @@ public class Dashboard_replicateYaml {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
+    @Inject DataTableService dataTableService;
 
     final Dashboard dashboard;
 
@@ -144,11 +151,36 @@ public class Dashboard_replicateYaml {
         dn.setProperty("javax.jdo.option.ConnectionPassword", configValue(conf, "spring.datasource.password"));
 
         final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(dn);
-        return Optional.of(pmf);
+        return postProcessDnMetaModel(pmf);
     }
 
     private String configValue(final Properties properties, final String key) {
         return properties.getProperty(key);
+    }
+
+    private Optional<PersistenceManagerFactory> postProcessDnMetaModel(final PersistenceManagerFactory pmf) {
+        try {
+            dataTableService.streamEntities()
+            .filter(BlobStore.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
+            .map(ObjectSpecification::getCorrespondingClass)
+            .map(Class::getName)
+            .forEach(entityClassName->toEntityWithNonDurableId(pmf, entityClassName));
+        } catch (Exception e) {
+            e.printStackTrace(); //XXX could report issues into adoc result
+            return Optional.empty();
+        }
+        return Optional.of(pmf);
+    }
+
+    @SneakyThrows
+    private void toEntityWithNonDurableId(final PersistenceManagerFactory pmf, final String entityClassName) {
+        var metaData = pmf.getMetadata(entityClassName);
+        // equivalent to metaData1.setIdentityType(IdentityType.NONDURABLE);
+        _Reflect.setFieldOn(AbstractClassMetaData.class.getDeclaredField("identityType"),
+                ((ClassMetadataImpl)metaData).getInternal(),
+                org.datanucleus.metadata.IdentityType.NONDURABLE);
+        // debug
+        //System.err.printf("metaData1%n%s%n", metaData1);
     }
 
 }

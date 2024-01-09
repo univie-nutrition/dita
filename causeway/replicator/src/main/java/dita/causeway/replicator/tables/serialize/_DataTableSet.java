@@ -200,7 +200,7 @@ class _DataTableSet {
     }
 
     public _DataTableSet replicateToDatabase(
-            final PersistenceManager pm) {
+            final PersistenceManager pm, final StringBuilder log) {
 
         // delete all existing entities
         dataTables.forEach(dataTable->{
@@ -209,7 +209,7 @@ class _DataTableSet {
             Query<?> query = pm.newQuery(String.format("DELETE FROM %s", entityClass.getName()));
 
             //log
-            System.err.printf("DELETE FROM %s%n", entityClass.getName());
+            logAppend(log, String.format("DELETE FROM %s", entityClass.getName()));
 
             query.execute();
             pm.currentTransaction().commit();
@@ -220,7 +220,8 @@ class _DataTableSet {
 
             var elementCount = dataTable.getElementCount();
             //log
-            System.err.printf("copy %d from %s%n", elementCount, dataTable.getTableFriendlyName());
+            logAppend(log, String.format("copy %d from %s (%s)",
+                    elementCount, dataTable.getTableFriendlyName(), dataTable.getLogicalName()));
 
             pm.currentTransaction().begin();
 
@@ -321,6 +322,11 @@ class _DataTableSet {
         return (o1, o2) -> _Strings.compareNullsFirst(
                 _Strings.asLowerCase.apply(o1.getColumnId()),
                 _Strings.asLowerCase.apply(o2.getColumnId()));
+    }
+
+    private void logAppend(final StringBuilder log, final String msg) {
+        log.append(msg).append('\n');
+        System.err.println(msg);
     }
 
 }
