@@ -30,6 +30,7 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.commons.services.idgen.IdGeneratorService;
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.manager.blobstore.BlobStore;
@@ -44,6 +45,7 @@ public class FoodDescriptorManager_addDescriptor {
     @Inject IdGeneratorService idGeneratorService;
     @Inject BlobStore blobStore;
     @Inject RepositoryService repositoryService;
+    @Inject ForeignKeyLookupService foreignKeyLookupService;
 
     protected final FoodDescriptor.Manager mixee;
 
@@ -57,6 +59,7 @@ public class FoodDescriptorManager_addDescriptor {
         foodDescriptor.setOther(p.other());
         foodDescriptor.setSingle(p.single());
         repositoryService.persist(foodDescriptor);
+        foreignKeyLookupService.clearCache(FoodDescriptor.class);
         return foodDescriptor;
     }
 

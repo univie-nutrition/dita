@@ -31,6 +31,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
+import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
@@ -46,6 +47,7 @@ public class FoodBrandManager_addBrand {
 
     @Inject BlobStore blobStore;
     @Inject RepositoryService repositoryService;
+    @Inject ForeignKeyLookupService foreignKeyLookupService;
 
     protected final FoodBrand.Manager mixee;
 
@@ -65,6 +67,7 @@ public class FoodBrandManager_addBrand {
                 .orElse(null));
 
         repositoryService.persist(brandName);
+        foreignKeyLookupService.clearCache(FoodBrand.class);
         return mixee;
     }
 

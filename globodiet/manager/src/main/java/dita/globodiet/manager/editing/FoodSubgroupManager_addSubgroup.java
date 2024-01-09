@@ -69,6 +69,7 @@ public class FoodSubgroupManager_addSubgroup {
         grp.setName(p.name());
         grp.setShortName(p.shortName());
         repositoryService.persist(grp);
+        foreignKeyLookupService.clearCache(FoodSubgroup.class);
         return grp;
     }
 
