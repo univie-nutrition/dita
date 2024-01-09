@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.collections._Lists;
 
 import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.food_list.Food;
@@ -104,20 +105,26 @@ public class FoodFacetHelperService {
 
     public List<FacetDescriptorPathwayForFoodGroup> effectiveFacetDescriptorPathwayForFoodClassificationHonoringDisplayOrder(
             final @NonNull Food food) {
+        var effectiveGrouping = effectiveGroupingUsedForFacetDescriptorPathway(food);
+        final Either<FoodGroup, FoodSubgroup> foodClassification = effectiveGrouping instanceof FoodSubgroup
+                    ? Either.right((FoodSubgroup)effectiveGrouping)
+                    : Either.left((FoodGroup)effectiveGrouping);
         return effectiveFacetDescriptorPathwayForFoodClassificationHonoringDisplayOrder(
-                foodHelperService.foodClassification(food));
+                foodClassification);
     }
 
     // -- HELPER
 
     private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodGroup(final FoodGroup foodGroup) {
         var mixin = factoryService.mixin(FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup.class, foodGroup);
-        return mixin.coll();
+        //exclude those, that have a subgroup (or sub-subgroup)
+        return _Lists.filter(mixin.coll(), groupPathway->groupPathway.getFoodSubgroupCode()==null);
     }
 
     private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodSubgroup(final FoodSubgroup foodSubgroup) {
         var mixin = factoryService.mixin(FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup.class, foodSubgroup);
-        return mixin.coll();
+        //exclude those, that have a sub-subgroup
+        return _Lists.filter(mixin.coll(), groupPathway->groupPathway.getFoodSubSubgroupCode()==null);
     }
 
     private List<FacetDescriptorPathwayForFoodGroup> lookupFacetDescriptorPathwayForFoodSubSubgroup(final FoodSubgroup foodSubgroup) {
