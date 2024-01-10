@@ -151,9 +151,10 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     private String name;
 
     /**
-     * 0=Other descriptor without consequences in the algorithms (also from other facets)
-     * 1=Raw descriptor
-     * 2=Descriptors to ask the question 'fat used during cooking'
+     * 0=default without consequences in the algorithms regarding cooking
+     * 1=raw (not cooked)
+     * 2=asks the question 'fat used during cooking?'
+     * 3=found in austrian data for 'frittiert' - invalid enum constant?
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -162,9 +163,10 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
-                            + "1=Raw descriptor\n"
-                            + "2=Descriptors to ask the question 'fat used during cooking'",
+            describedAs = "0=default without consequences in the algorithms regarding cooking\n"
+                            + "1=raw (not cooked)\n"
+                            + "2=asks the question 'fat used during cooking?'\n"
+                            + "3=found in austrian data for 'frittiert' - invalid enum constant?",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -183,10 +185,11 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             key = "enum-value-getter",
             value = "getMatchOn"
     )
-    private Type type;
+    private Cooking cooking;
 
     /**
-     * TODO missing description
+     * 0=Multiple choice (allowed)
+     * 1=Single (exclusive) choice
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -195,7 +198,8 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "TODO missing description",
+            describedAs = "0=Multiple choice (allowed)\n"
+                            + "1=Single (exclusive) choice",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -204,10 +208,21 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     )
     @Getter
     @Setter
-    private int single;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Choice choice;
 
     /**
-     * TODO missing description
+     * 0=Regular choice
+     * 1=Choice with additional text as provided by the interviewer (other: [...])
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -216,7 +231,8 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "TODO missing description",
+            describedAs = "0=Regular choice\n"
+                            + "1=Choice with additional text as provided by the interviewer (other: [...])",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -225,7 +241,17 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     )
     @Getter
     @Setter
-    private int other;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private OtherQ otherQ;
 
     @ObjectSupport
     public String title() {
@@ -237,9 +263,9 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
         return "FoodDescriptor(" + "facetCode=" + getFacetCode() + ","
          +"code=" + getCode() + ","
          +"name=" + getName() + ","
-         +"type=" + getType() + ","
-         +"single=" + getSingle() + ","
-         +"other=" + getOther() + ")";
+         +"cooking=" + getCooking() + ","
+         +"choice=" + getChoice() + ","
+         +"otherQ=" + getOtherQ() + ")";
     }
 
     @Programmatic
@@ -249,9 +275,9 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
         copy.setFacetCode(getFacetCode());
         copy.setCode(getCode());
         copy.setName(getName());
-        copy.setType(getType());
-        copy.setSingle(getSingle());
-        copy.setOther(getOther());
+        copy.setCooking(getCooking());
+        copy.setChoice(getChoice());
+        copy.setOtherQ(getOtherQ());
         return copy;
     }
 
@@ -273,26 +299,70 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     }
 
     @RequiredArgsConstructor
-    public enum Type {
+    public enum Cooking {
         /**
-         * descriptor without consequences in the algorithms (also from other facets)
+         * without consequences in the algorithms regarding cooking
          */
-        OTHER(0, "Other"),
+        DEFAULT(0, "Default"),
 
         /**
-         * no description
+         * not cooked
          */
         RAW(1, "Raw"),
 
         /**
-         * Descriptors to ask the question 'fat used during cooking'
+         * Asks the question 'fat used during cooking?'
          */
-        QUESTION(2, "Question"),
+        FATUSEDQ(2, "FatUsedQ"),
 
         /**
          * found in austrian data for 'frittiert' - invalid enum constant?
          */
-        UNDOCUMENTED(3, "undocumented");
+        DEEPFRIED(3, "Deepfried");
+
+        @Getter
+        private final int matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum Choice {
+        /**
+         * Multiple choice (allowed)
+         */
+        MULTI(0, "Multi"),
+
+        /**
+         * Single (exclusive) choice
+         */
+        SINGLE(1, "Single");
+
+        @Getter
+        private final int matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum OtherQ {
+        /**
+         * Regular choice
+         */
+        REGULAR(0, "Regular"),
+
+        /**
+         * Choice with additional text as provided by the interviewer (other: [...])
+         */
+        OTHER(1, "Other");
 
         @Getter
         private final int matchOn;
@@ -349,11 +419,14 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
      * @param facet Facet code
      * @param code Descriptor code
      * @param name Descriptor name
-     * @param type 0=Other descriptor without consequences in the algorithms (also from other facets)
-     * 1=Raw descriptor
-     * 2=Descriptors to ask the question 'fat used during cooking'
-     * @param single TODO missing description
-     * @param other TODO missing description
+     * @param cooking 0=default without consequences in the algorithms regarding cooking
+     * 1=raw (not cooked)
+     * 2=asks the question 'fat used during cooking?'
+     * 3=found in austrian data for 'frittiert' - invalid enum constant?
+     * @param choice 0=Multiple choice (allowed)
+     * 1=Single (exclusive) choice
+     * @param otherQ 0=Regular choice
+     * 1=Choice with additional text as provided by the interviewer (other: [...])
      */
     public final record Params(
             @Parameter(
@@ -385,27 +458,30 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "0=Other descriptor without consequences in the algorithms (also from other facets)\n"
-                                    + "1=Raw descriptor\n"
-                                    + "2=Descriptors to ask the question 'fat used during cooking'"
+                    describedAs = "0=default without consequences in the algorithms regarding cooking\n"
+                                    + "1=raw (not cooked)\n"
+                                    + "2=asks the question 'fat used during cooking?'\n"
+                                    + "3=found in austrian data for 'frittiert' - invalid enum constant?"
             )
-            Type type,
+            Cooking cooking,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "TODO missing description"
+                    describedAs = "0=Multiple choice (allowed)\n"
+                                    + "1=Single (exclusive) choice"
             )
-            int single,
+            Choice choice,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "TODO missing description"
+                    describedAs = "0=Regular choice\n"
+                                    + "1=Choice with additional text as provided by the interviewer (other: [...])"
             )
-            int other) {
+            OtherQ otherQ) {
     }
 
     /**

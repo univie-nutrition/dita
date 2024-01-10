@@ -527,34 +527,43 @@ params.food_descript.FoodDescriptor:
       unique: false
       description: |
         Descriptor name
-    type:
+    cooking:
       column: DESC_COOK
       column-type: tinyint(3)
       required: true
       unique: false
       enum: |
-        0:Other:descriptor without consequences in the algorithms (also from other facets)
-        1:Raw:
-        2:Question:Descriptors to ask the question 'fat used during cooking'
-        3:undocumented:found in austrian data for 'frittiert' - invalid enum constant?
+        0:Default:without consequences in the algorithms regarding cooking
+        1:Raw:not cooked
+        2:FatUsedQ:Asks the question 'fat used during cooking?'
+        3:Deepfried:found in austrian data for 'frittiert' - invalid enum constant?
       description: |
-        0=Other descriptor without consequences in the algorithms (also from other facets)
-        1=Raw descriptor 
-        2=Descriptors to ask the question 'fat used during cooking' 
-    single:
+        0=default without consequences in the algorithms regarding cooking
+        1=raw (not cooked) 
+        2=asks the question 'fat used during cooking?'
+        3=found in austrian data for 'frittiert' - invalid enum constant? 
+    choice:
       column: DESC_SINGLE
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Multi:Multiple choice (allowed)
+        1:Single:Single (exclusive) choice
       description: |
-        TODO missing description
-    other:
+        0=Multiple choice (allowed)
+        1=Single (exclusive) choice
+    otherQ:
       column: DESC_OTHER
       column-type: tinyint(3)
       required: true
       unique: false
+      enum: |
+        0:Regular:Regular choice
+        1:Other:Choice with additional text as provided by the interviewer (other: [...])
       description: |
-        TODO missing description
+        0=Regular choice
+        1=Choice with additional text as provided by the interviewer (other: [...])
 params.food_descript.FoodFacet:
   namespace: params.food_descript
   table: FACETS

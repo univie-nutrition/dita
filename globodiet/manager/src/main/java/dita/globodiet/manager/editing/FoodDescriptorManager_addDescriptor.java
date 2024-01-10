@@ -55,9 +55,9 @@ public class FoodDescriptorManager_addDescriptor {
         foodDescriptor.setFacetCode(p.facet().getCode());
         foodDescriptor.setCode(p.code());
         foodDescriptor.setName(p.name());
-        foodDescriptor.setType(p.type());
-        foodDescriptor.setOther(p.other());
-        foodDescriptor.setSingle(p.single());
+        foodDescriptor.setCooking(p.cooking());
+        foodDescriptor.setOtherQ(p.otherQ());
+        foodDescriptor.setChoice(p.choice());
         repositoryService.persist(foodDescriptor);
         foreignKeyLookupService.clearCache(FoodDescriptor.class);
         return foodDescriptor;
