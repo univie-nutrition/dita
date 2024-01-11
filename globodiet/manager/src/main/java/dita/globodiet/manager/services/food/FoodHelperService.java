@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
+import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
@@ -78,6 +79,30 @@ public class FoodHelperService {
 
     public FoodGroup foodGroup(final @NonNull FoodSubgroup foodSubgroup) {
         return foreignKeyLookupService.unique(foodGroupAsSecondaryKey(foodSubgroup));
+    }
+
+    /**
+     * Looks up the Subgroup when given a SubSubgroup.
+     * If already a Subgroup (not a SubSubgroup), then acts as identity operation.
+     */
+    public FoodSubgroup foodSubSubgroupToSubgroup(final @NonNull FoodSubgroup foodSubgroupOrSubSubgroup) {
+        if(isSubSubgroup(foodSubgroupOrSubSubgroup)) {
+            // convert secondary key
+            var ssKey = foodSubgroupOrSubSubgroup.secondaryKey();
+            var foodSubgroupKey = new FoodSubgroup.SecondaryKey(
+                    ssKey.foodGroupCode(),
+                    ssKey.foodSubgroupCode(),
+                    null);
+            return foreignKeyLookupService.unique(foodSubgroupKey);
+        }
+        return foodSubgroupOrSubSubgroup;
+    }
+
+    /**
+     * Whether given group is a SubSubgroup (not a Subgroup).
+     */
+    public boolean isSubSubgroup(final FoodSubgroup foodSubOrSubSubgroup) {
+        return _Strings.isNotEmpty(foodSubOrSubSubgroup.getFoodSubSubgroupCode());
     }
 
     public FoodSubgroup.SecondaryKey foodSubgroupAsSecondaryKey(final @NonNull Food food) {
