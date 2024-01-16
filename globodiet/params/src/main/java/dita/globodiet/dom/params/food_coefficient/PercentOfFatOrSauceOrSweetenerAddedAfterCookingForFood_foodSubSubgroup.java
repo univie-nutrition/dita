@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "3.1",
-        describedAs = "Food sub-Subgroup code",
+        describedAs = "Food sub-subgroup code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

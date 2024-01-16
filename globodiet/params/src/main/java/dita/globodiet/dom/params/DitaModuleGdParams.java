@@ -42,10 +42,10 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetener
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodGroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubgroup;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFat;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatGroup;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fss;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssGroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFoodDeps;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_cookingMethodFacetDescriptor;
@@ -257,10 +257,10 @@ import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_recipeSubgroups
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeDeps;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_delete;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatGroup;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubSubgroup;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubgroup;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fss;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssGroup;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubSubgroup;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup;
@@ -639,15 +639,15 @@ import org.springframework.context.annotation.Import;
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodGroup.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubSubgroup.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubgroup.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFat.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatGroup.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fss.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssGroup.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubSubgroup.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubgroup.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_delete.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatGroup.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubSubgroup.class,
-        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubgroup.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fss.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssGroup.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubSubgroup.class,
+        PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipe.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeGroup.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup.class,

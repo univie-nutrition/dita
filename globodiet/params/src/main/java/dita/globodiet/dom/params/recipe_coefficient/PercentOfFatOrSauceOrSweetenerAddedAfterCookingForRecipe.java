@@ -49,12 +49,12 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * % of fat/sauce/sweeteners added after cooking attached to a recipe
+ * % of fat/sauce/sweetener (FSS) added after cooking (regarding recipes)
  */
 @Named("dita.globodiet.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "% of fat/sauce/sweeteners added after cooking attached to a recipe",
+        describedAs = "% of fat/sauce/sweetener (FSS) added after cooking (regarding recipes)",
         cssClassFa = "solid percent"
 )
 @PersistenceCapable(
@@ -135,7 +135,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     private String recipeCode;
 
     /**
-     * Fat group code for Fat or Sauce or Sweetener
+     * Group code for fat sauce or sweetener (FSS)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -143,7 +143,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "4",
-            describedAs = "Fat group code for Fat or Sauce or Sweetener",
+            describedAs = "Group code for fat sauce or sweetener (FSS)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -153,10 +153,10 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     )
     @Getter
     @Setter
-    private String fssFatGroupCode;
+    private String fssGroupCode;
 
     /**
-     * Fat subgroup code for Fat or Sauce or Sweetener
+     * Subgroup code for fat sauce or sweetener (FSS)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -164,7 +164,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Fat subgroup code for Fat or Sauce or Sweetener",
+            describedAs = "Subgroup code for fat sauce or sweetener (FSS)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -174,10 +174,10 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     )
     @Getter
     @Setter
-    private String fssFatSubgroupCode;
+    private String fssSubgroupCode;
 
     /**
-     * Fat sub-subgroup code for Fat or Sauce or Sweetener
+     * Sub-subgroup code for fat sauce or sweetener (FSS)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -185,7 +185,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "Fat sub-subgroup code for Fat or Sauce or Sweetener",
+            describedAs = "Sub-subgroup code for fat sauce or sweetener (FSS)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -195,10 +195,10 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     )
     @Getter
     @Setter
-    private String fssFatSubSubgroupCode;
+    private String fssSubSubgroupCode;
 
     /**
-     * Fat code for Fat or Sauce or Sweetener
+     * Code for fat sauce or sweetener (FSS)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -206,7 +206,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "7",
-            describedAs = "Fat code for Fat or Sauce or Sweetener",
+            describedAs = "Code for fat sauce or sweetener (FSS)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -216,10 +216,10 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     )
     @Getter
     @Setter
-    private String fssFatCode;
+    private String fssCode;
 
     /**
-     * Percentage of fat
+     * Percentage of fat sauce or sweetener (FSS) that had been added
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -228,7 +228,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Percentage of fat",
+            describedAs = "Percentage of fat sauce or sweetener (FSS) that had been added",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -249,10 +249,10 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
         return "PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
          +"recipeSubgroupCode=" + getRecipeSubgroupCode() + ","
          +"recipeCode=" + getRecipeCode() + ","
-         +"fssFatGroupCode=" + getFssFatGroupCode() + ","
-         +"fssFatSubgroupCode=" + getFssFatSubgroupCode() + ","
-         +"fssFatSubSubgroupCode=" + getFssFatSubSubgroupCode() + ","
-         +"fssFatCode=" + getFssFatCode() + ","
+         +"fssGroupCode=" + getFssGroupCode() + ","
+         +"fssSubgroupCode=" + getFssSubgroupCode() + ","
+         +"fssSubSubgroupCode=" + getFssSubSubgroupCode() + ","
+         +"fssCode=" + getFssCode() + ","
          +"percentageOfFat=" + getPercentageOfFat() + ")";
     }
 
@@ -263,10 +263,10 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
         copy.setRecipeGroupCode(getRecipeGroupCode());
         copy.setRecipeSubgroupCode(getRecipeSubgroupCode());
         copy.setRecipeCode(getRecipeCode());
-        copy.setFssFatGroupCode(getFssFatGroupCode());
-        copy.setFssFatSubgroupCode(getFssFatSubgroupCode());
-        copy.setFssFatSubSubgroupCode(getFssFatSubSubgroupCode());
-        copy.setFssFatCode(getFssFatCode());
+        copy.setFssGroupCode(getFssGroupCode());
+        copy.setFssSubgroupCode(getFssSubgroupCode());
+        copy.setFssSubSubgroupCode(getFssSubSubgroupCode());
+        copy.setFssCode(getFssCode());
         copy.setPercentageOfFat(getPercentageOfFat());
         return copy;
     }
@@ -288,7 +288,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
      */
     @Named("dita.globodiet.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.Manager")
     @DomainObjectLayout(
-            describedAs = "% of fat/sauce/sweeteners added after cooking attached to a recipe",
+            describedAs = "% of fat/sauce/sweetener (FSS) added after cooking (regarding recipes)",
             cssClassFa = "solid percent"
     )
     @AllArgsConstructor

@@ -72,7 +72,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     SearchService searchService;
 
     /**
-     * Group code of the FAT's group
+     * Group code of the fat
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -80,7 +80,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Group code of the FAT's group",
+            describedAs = "Group code of the fat",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -93,7 +93,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     private String fatGroupCode;
 
     /**
-     * Subgroup code of the FAT
+     * Subgroup code of the fat
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -101,7 +101,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Subgroup code of the FAT",
+            describedAs = "Subgroup code of the fat",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -114,7 +114,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     private String fatSubgroupCode;
 
     /**
-     * Sub-Subgroup code of the FAT
+     * Sub-Subgroup code of the fat
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -122,7 +122,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Sub-Subgroup code of the FAT",
+            describedAs = "Sub-Subgroup code of the fat",
             hidden = Where.ALL_TABLES
     )
     @Column(

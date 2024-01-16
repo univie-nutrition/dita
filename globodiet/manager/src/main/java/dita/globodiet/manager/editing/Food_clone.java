@@ -114,7 +114,7 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFat.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFss.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();
@@ -230,11 +230,11 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFss.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();
-            clonedDependant.setFssFatCode(clone.getCode());
+            clonedDependant.setFssCode(clone.getCode());
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });

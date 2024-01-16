@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.dom.params.food_list.FoodGroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,21 +34,21 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "6.1",
-        describedAs = "Fat subgroup code for F/S/S",
+        sequence = "5.1",
+        describedAs = "Group code for fat sauce or sweetener (FSS)",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup {
+public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssGroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood mixee;
 
     @MemberSupport
-    public FoodSubgroup prop() {
-        if(mixee.getFssFatSubgroupCode()==null) return null;
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFssFatGroupCode(), mixee.getFssFatSubgroupCode(), null);
+    public FoodGroup prop() {
+        if(mixee.getFssGroupCode()==null) return null;
+        final var lookupKey = new FoodGroup.SecondaryKey(mixee.getFssGroupCode());
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

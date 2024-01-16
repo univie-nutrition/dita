@@ -156,7 +156,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     private String foodCode;
 
     /**
-     * Fat group code for fat
+     * Group code for fat (not used)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -164,7 +164,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "5",
-            describedAs = "Fat group code for fat",
+            describedAs = "Group code for fat (not used)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -177,7 +177,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     private String fatGroupCode;
 
     /**
-     * Fat subgroup code for fat
+     * Subgroup code for fat (not used)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -185,7 +185,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "6",
-            describedAs = "Fat subgroup code for fat",
+            describedAs = "Subgroup code for fat (not used)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -198,7 +198,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     private String fatSubgroupCode;
 
     /**
-     * Fat sub-subgroup code for fat
+     * Sub-subgroup code for fat (not used)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -206,7 +206,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "7",
-            describedAs = "Fat sub-subgroup code for fat",
+            describedAs = "Sub-subgroup code for fat (not used)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -219,7 +219,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     private String fatSubSubgroupCode;
 
     /**
-     * Fat code for fat
+     * Code for fat (not used)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -227,7 +227,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "8",
-            describedAs = "Fat code for fat",
+            describedAs = "Code for fat (not used)",
             hidden = Where.ALL_TABLES
     )
     @Column(

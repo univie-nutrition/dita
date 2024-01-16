@@ -75,7 +75,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       foreignKeys: |
         GROUPS.GROUP
       description: |
-        Fat group code for fat
+        Group code for fat (not used)
     fatSubgroupCode:
       column: FAT_SUBG1
       column-type: nvarchar(2)
@@ -86,7 +86,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
-        Fat subgroup code for fat
+        Subgroup code for fat (not used)
     fatSubSubgroupCode:
       column: FAT_SUBG2
       column-type: nvarchar(2)
@@ -98,7 +98,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
-        Fat sub-subgroup code for fat
+        Sub-subgroup code for fat (not used)
     fatCode:
       column: FAT_IDNUM
       column-type: nvarchar(5)
@@ -107,7 +107,7 @@ params.food_coefficient.PercentOfFatUseDuringCookingForFood:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
-        Fat code for fat
+        Code for fat (not used)
     cookingMethodFacetDescriptorLookupKey:
       column: COOK_METH
       column-type: nvarchar(4)

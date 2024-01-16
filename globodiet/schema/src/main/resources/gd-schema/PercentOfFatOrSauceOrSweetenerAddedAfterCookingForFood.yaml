@@ -24,7 +24,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
   title: null
   icon: solid percent
   description: |
-    % of fat/sauce/sweetener added after cooking attached to a food
+    % of fat/sauce/sweetener (FSS) added after cooking (regarding food)
   fields:
     foodGroupCode:
       column: FOOD_GROUP
@@ -57,7 +57,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
-        Food sub-Subgroup code
+        Food sub-subgroup code
     foodCode:
       column: FOOD_IDNUM
       column-type: nvarchar(5)
@@ -67,7 +67,7 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
         FOODS.FOODNUM
       description: |
         Food code
-    fssFatGroupCode:
+    fssGroupCode:
       column: X_GROUP
       column-type: nvarchar(2)
       required: false
@@ -75,8 +75,8 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       foreignKeys: |
         GROUPS.GROUP
       description: |
-        Fat group code for F/S/S
-    fssFatSubgroupCode:
+        Group code for fat sauce or sweetener (FSS)
+    fssSubgroupCode:
       column: X_SUBG1
       column-type: nvarchar(2)
       required: false
@@ -86,8 +86,8 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       foreignKeys: |
         SUBGROUP.SUBGROUP1
       description: |
-        Fat subgroup code for F/S/S
-    fssFatSubSubgroupCode:
+        Subgroup code for fat sauce or sweetener (FSS)
+    fssSubSubgroupCode:
       column: X_SUBG2
       column-type: nvarchar(2)
       required: false
@@ -98,8 +98,8 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       foreignKeys: |
         SUBGROUP.SUBGROUP2
       description: |
-        Fat sub-subgroup code for F/S/S
-    fssFatCode:
+        Sub-subgroup code for fat sauce or sweetener (FSS)
+    fssCode:
       column: X_IDNUM
       column-type: nvarchar(5)
       required: false
@@ -107,12 +107,12 @@ params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
-        Fat code for F/S/S
-    percentageOfFat:
+        Code for fat sauce or sweetener (FSS)
+    percentageAdded:
       column: PCT_ADDED
       column-type: float(53)
       required: true
       unique: false
       description: |
-        Percentage of fat
+        Percentage of fat sauce or sweetener (FSS) that had been added
 

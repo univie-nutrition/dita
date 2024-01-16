@@ -35,11 +35,11 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "5.1",
-        describedAs = "Fat subgroup code for Fat or Sauce or Sweetener",
+        describedAs = "Subgroup code for fat sauce or sweetener (FSS)",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubgroup {
+public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -47,8 +47,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubg
 
     @MemberSupport
     public FoodSubgroup prop() {
-        if(mixee.getFssFatSubgroupCode()==null) return null;
-        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFssFatGroupCode(), mixee.getFssFatSubgroupCode(), null);
+        if(mixee.getFssSubgroupCode()==null) return null;
+        final var lookupKey = new FoodSubgroup.SecondaryKey(mixee.getFssGroupCode(), mixee.getFssSubgroupCode(), null);
         return foreignKeyLookup.nullable(lookupKey);
     }
 }

@@ -26,8 +26,8 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFo
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_foodSubgroup;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubSubgroup;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_fatSubSubgroup;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_fatSubgroup;
@@ -60,8 +60,8 @@ import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup_foodSubgroup
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
 import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubSubgroup;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubgroup;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubSubgroup;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipeSubgroup;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodSubSubgroup;
@@ -85,8 +85,8 @@ public class FoodSubgroupDeps {
         FoodSubgroup_dependentPercentOfFatLeftInTheDishForFoodMappedByFatSubSubgroup.class,
         FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFoodSubgroup.class,
         FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFoodSubSubgroup.class,
-        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatSubgroup.class,
-        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatSubSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssSubSubgroup.class,
         FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodSubgroup.class,
         FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentPercentOfFatUseDuringCookingForFoodMappedByFatSubgroup.class,
@@ -110,8 +110,8 @@ public class FoodSubgroupDeps {
         FoodSubgroup_dependentMaximumValueForFoodOrGroupMappedByFoodSubgroup.class,
         FoodSubgroup_dependentMaximumValueForFoodOrGroupMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentThicknessForShapeMethodMappedByFoodSubgroups.class,
-        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubgroup.class,
-        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssSubgroup.class,
+        FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssSubSubgroup.class,
         FoodSubgroup_dependentRecipeIngredientMappedByFoodOrRecipeSubgroup.class,
         FoodSubgroup_dependentRecipeIngredientMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentGroupSubstitutionMappedByFoodSubgroup.class,
@@ -193,7 +193,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatSubgroup {
+    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -203,15 +203,15 @@ public class FoodSubgroupDeps {
         public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> coll() {
             return dependantLookup.findDependants(
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubgroup::prop,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubgroup.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubgroup::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFatSubSubgroup {
+    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssSubSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -221,8 +221,8 @@ public class FoodSubgroupDeps {
         public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> coll() {
             return dependantLookup.findDependants(
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFatSubSubgroup::prop,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubSubgroup.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssSubSubgroup::prop,
                 mixee);
         }
     }
@@ -643,7 +643,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubgroup {
+    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -653,15 +653,15 @@ public class FoodSubgroupDeps {
         public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> coll() {
             return dependantLookup.findDependants(
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubgroup.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubgroup::prop,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFatSubSubgroup {
+    public static class FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssSubSubgroup {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -671,8 +671,8 @@ public class FoodSubgroupDeps {
         public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> coll() {
             return dependantLookup.findDependants(
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubSubgroup.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFatSubSubgroup::prop,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubSubgroup.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubSubgroup::prop,
                 mixee);
         }
     }

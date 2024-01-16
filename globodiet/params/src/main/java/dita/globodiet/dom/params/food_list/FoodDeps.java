@@ -26,7 +26,7 @@ import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood_food;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_food;
-import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFat;
+import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fss;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_fat;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood_food;
@@ -49,7 +49,7 @@ import dita.globodiet.dom.params.quantif.StandardPortionForFood_food;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
-import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat;
+import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fss;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient_foodOrRecipe;
 import jakarta.inject.Inject;
@@ -67,7 +67,7 @@ public class FoodDeps {
         return Can.of(Food_dependentDensityFactorForFoodMappedByFoodOrRecipe.class,
         Food_dependentEdiblePartCoefficientForFoodMappedByFood.class,
         Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFood.class,
-        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFat.class,
+        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFss.class,
         Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFood.class,
         Food_dependentPercentOfFatUseDuringCookingForFoodMappedByFat.class,
         Food_dependentRawToCookedConversionFactorForFoodMappedByFood.class,
@@ -80,7 +80,7 @@ public class FoodDeps {
         Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class,
         Food_dependentStandardPortionForFoodMappedByFood.class,
         Food_dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe.class,
-        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat.class,
+        Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFss.class,
         Food_dependentRecipeIngredientMappedByFoodOrRecipe.class);
     }
 
@@ -140,7 +140,7 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFssFat {
+    public static class Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFss {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -150,8 +150,8 @@ public class FoodDeps {
         public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> coll() {
             return dependantLookup.findDependants(
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFat.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fssFat::prop,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fss.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood_fss::prop,
                 mixee);
         }
     }
@@ -374,7 +374,7 @@ public class FoodDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssFat {
+    public static class Food_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFss {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -384,8 +384,8 @@ public class FoodDeps {
         public List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> coll() {
             return dependantLookup.findDependants(
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat.class,
-                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssFat::prop,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fss.class,
+                PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fss::prop,
                 mixee);
         }
     }
