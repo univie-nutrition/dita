@@ -19,6 +19,7 @@
 package dita.globodiet.schema;
 
 import java.io.File;
+import java.util.function.UnaryOperator;
 
 import org.apache.causeway.commons.io.FileUtils;
 
@@ -26,7 +27,6 @@ import dita.tooling.domgen.DomainGenerator;
 import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
 import lombok.SneakyThrows;
-import lombok.val;
 
 public class GdEntityGen {
 
@@ -38,43 +38,70 @@ public class GdEntityGen {
             System.exit(1);
         }
 
-        final File destDir = new File(args[0]);
-        FileUtils.existingDirectoryElseFail(destDir);
+        var javaGenerator = JavaGenerator.create(args[0]);
+        javaGenerator.purgeDestinationFiles();
 
-        final File projRoot = new File("").getAbsoluteFile();
-        final File resourceRoot = new File(projRoot, "src/main/resources");
-        FileUtils.existingDirectoryElseFail(resourceRoot);
+        var schemaAssembler = SchemaAssembler.assemble("gd-schema");
+        schemaAssembler.writeAssembly("gd-params.schema.yaml");
 
-        FileUtils.searchFiles(destDir, dir->true, file->true, FileUtils::deleteFile);
-
-        var schema = OrmModel.Schema.fromYamlFolder(
-                new File(resourceRoot, "gd-schema"));
-
-        schema.writeToFileAsYaml(
-                new File(resourceRoot, "gd-params.schema.yaml"),
-                LicenseHeader.ASF_V2);
-
-//        val yaml = DataSource.ofResource(GdEntityGen.class, "/gd-params.schema~.yaml")
-//            .tryReadAsStringUtf8()
-//            .valueAsNonNullElseFail();
-//
-//        val schema = OrmModel.Schema.fromYaml(yaml);
-//        schema.splitIntoFiles(new File(resourceRoot, "gd-schema"), LicenseHeader.ASF_V2);
-
-        val config = DomainGenerator.Config.builder()
-            .logicalNamespacePrefix("dita.globodiet")
-            .packageNamePrefix("dita.globodiet.dom")
-            .licenseHeader(LicenseHeader.ASF_V2)
-            .schema(schema)
-            //.datastore("store2") // DN Data Federation
-            .entitiesModulePackageName("params")
-            .entitiesModuleClassSimpleName("DitaModuleGdParams")
-            .build();
-
-        new DomainGenerator(config)
-            .writeToDirectory(destDir);
+        javaGenerator.generateDestinationFiles(cfg->cfg
+                .logicalNamespacePrefix("dita.globodiet")
+                .packageNamePrefix("dita.globodiet.dom")
+                .licenseHeader(LicenseHeader.ASF_V2)
+                .schema(schemaAssembler.schema())
+                //.datastore("store2") // DN Data Federation
+                .entitiesModulePackageName("params")
+                .entitiesModuleClassSimpleName("DitaModuleGdParams"));
 
         System.out.println("done.");
 
     }
+
+    // -- HELPER
+
+    private record JavaGenerator(File destDir) {
+
+        static JavaGenerator create(final String destDirName) {
+            final File destDir = new File(destDirName);
+            FileUtils.existingDirectoryElseFail(destDir);
+            return new JavaGenerator(destDir);
+        }
+
+        void generateDestinationFiles(final UnaryOperator<DomainGenerator.Config.ConfigBuilder> customizer) {
+            generateDestinationFiles(customizer.apply(DomainGenerator.Config.builder()).build());
+        }
+
+        void generateDestinationFiles(final DomainGenerator.Config config) {
+            new DomainGenerator(config)
+                .writeToDirectory(destDir);
+        }
+
+        @SneakyThrows
+        void purgeDestinationFiles() {
+            FileUtils.searchFiles(destDir, dir->true, file->true, FileUtils::deleteFile);
+        }
+
+    }
+
+    private record SchemaAssembler(File resourceRoot, OrmModel.Schema schema) {
+
+        static SchemaAssembler assemble(final String schemaFilesYamlFolder) {
+            final File projRoot = new File("").getAbsoluteFile();
+            final File resourceRoot = new File(projRoot, "src/main/resources");
+            FileUtils.existingDirectoryElseFail(resourceRoot);
+
+            var schema = OrmModel.Schema.fromYamlFolder(
+                    new File(resourceRoot, schemaFilesYamlFolder));
+
+            return new SchemaAssembler(resourceRoot, schema);
+        }
+
+        void writeAssembly(final String relativeDestinationSchemaFileName) {
+            schema.writeToFileAsYaml(
+                    new File(resourceRoot, relativeDestinationSchemaFileName),
+                    LicenseHeader.ASF_V2);
+        }
+
+    }
+
 }
