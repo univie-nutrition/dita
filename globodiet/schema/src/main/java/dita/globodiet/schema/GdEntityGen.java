@@ -19,14 +19,36 @@
 package dita.globodiet.schema;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
-import org.apache.causeway.commons.io.FileUtils;
+import com.structurizr.Workspace;
+import com.structurizr.model.Component;
+import com.structurizr.model.Container;
+import com.structurizr.model.Model;
+import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.Tags;
+import com.structurizr.util.WorkspaceUtils;
+import com.structurizr.view.AutomaticLayout.RankDirection;
+import com.structurizr.view.Shape;
+import com.structurizr.view.Styles;
+import com.structurizr.view.SystemContextView;
+import com.structurizr.view.ViewSet;
 
+import org.apache.causeway.commons.io.FileUtils;
+import org.apache.causeway.commons.io.TextUtils;
+
+import dita.commons.types.ResourceFolder;
 import dita.tooling.domgen.DomainGenerator;
 import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
+import dita.tooling.orm.OrmModel.Schema;
 import lombok.SneakyThrows;
+import lombok.val;
 
 public class GdEntityGen {
 
@@ -38,12 +60,20 @@ public class GdEntityGen {
             System.exit(1);
         }
 
-        var javaGenerator = JavaGenerator.create(args[0]);
-        javaGenerator.purgeDestinationFiles();
+        var javaGenerator = new JavaGenerator(ResourceFolder.ofFileName(args[0]));
 
-        var schemaAssembler = SchemaAssembler.assemble("gd-schema");
-        schemaAssembler.writeAssembly("gd-params.schema.yaml");
+        var resourceRoot = ResourceFolder.resourceRoot();
+        var schemaAssembler = SchemaAssembler.assemble(resourceRoot.relativeFile("gd-schema"));
+        schemaAssembler.writeAssembly(
+                LicenseHeader.ASF_V2,
+                resourceRoot.relativeFile("gd-params.schema.yaml"));
 
+        //TODO gen structurizr DSL
+        new StructurizrGenerator(schemaAssembler.schema())
+                .writeDiagramDsl(resourceRoot.relativeFile("gd-params.structurizr.json"));
+
+        /*
+        javaGenerator.destDir().purgeFiles();
         javaGenerator.generateDestinationFiles(cfg->cfg
                 .logicalNamespacePrefix("dita.globodiet")
                 .packageNamePrefix("dita.globodiet.dom")
@@ -52,6 +82,7 @@ public class GdEntityGen {
                 //.datastore("store2") // DN Data Federation
                 .entitiesModulePackageName("params")
                 .entitiesModuleClassSimpleName("DitaModuleGdParams"));
+                */
 
         System.out.println("done.");
 
@@ -59,47 +90,112 @@ public class GdEntityGen {
 
     // -- HELPER
 
-    private record JavaGenerator(File destDir) {
-
-        static JavaGenerator create(final String destDirName) {
-            final File destDir = new File(destDirName);
-            FileUtils.existingDirectoryElseFail(destDir);
-            return new JavaGenerator(destDir);
-        }
-
+    private record JavaGenerator(ResourceFolder destDir) {
         void generateDestinationFiles(final UnaryOperator<DomainGenerator.Config.ConfigBuilder> customizer) {
             generateDestinationFiles(customizer.apply(DomainGenerator.Config.builder()).build());
         }
-
         void generateDestinationFiles(final DomainGenerator.Config config) {
             new DomainGenerator(config)
-                .writeToDirectory(destDir);
+                .writeToDirectory(destDir.root());
         }
+    }
 
+    private record SchemaAssembler(OrmModel.Schema schema) {
+        static SchemaAssembler assemble(final File yamlFolder) {
+            FileUtils.existingDirectoryElseFail(yamlFolder);
+            var schema = OrmModel.Schema.fromYamlFolder(yamlFolder);
+            return new SchemaAssembler(schema);
+        }
+        void writeAssembly(final LicenseHeader licenseHeader, final File destinationSchemaFile) {
+            schema.writeToFileAsYaml(
+                    destinationSchemaFile,
+                    licenseHeader);
+        }
+    }
+
+    private record StructurizrGenerator(OrmModel.Schema schema) {
+        void writeDiagramDsl(final File destinationDslFile) {
+            val json = TextUtils.readLines(toJson());
+            TextUtils.writeLinesToFile(json, destinationDslFile, StandardCharsets.UTF_8);
+        }
         @SneakyThrows
-        void purgeDestinationFiles() {
-            FileUtils.searchFiles(destDir, dir->true, file->true, FileUtils::deleteFile);
+        private String toJson() {
+         // all software architecture models belong to a workspace
+            Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
+            Model model = workspace.getModel();
+            ViewSet views = workspace.getViews();
+
+            SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
+
+            var containerByEntity = new HashMap<String, Container>();
+
+            new EntityBuilder<Component>(schema(), entity->{
+                Container container =
+                        containerByEntity.computeIfAbsent(entity.namespace(), id->softwareSystem.addContainer(id));
+
+                var comp = container.addComponent(entity.name());
+                //comp.setGroup(entity.namespace());
+                return comp;
+            }).addRelations(msg->{
+                msg.from.uses(msg.to, msg.by.name());
+            });
+
+            // create a model to describe a user using a software system
+            //Person user = model.addPerson("User", "A user of my software system.");
+            //user.uses(softwareSystem, "Uses");
+
+            // create a system context diagram showing people and software systems
+
+            SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+            contextView.addAllSoftwareSystems();
+            contextView.addAllPeople();
+
+            var cv  = views.createContainerView(softwareSystem, "a0", "a1");
+            cv.addAllElements();
+            cv.enableAutomaticLayout(RankDirection.TopBottom);
+
+            containerByEntity.forEach((namespace, container)->{
+                var compView  = views.createComponentView(container, namespace, "desc");
+                compView.addAllComponents();
+                compView.enableAutomaticLayout(RankDirection.LeftRight);
+            });
+
+            // add some styling to the diagram elements
+            Styles styles = views.getConfiguration().getStyles();
+            styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
+            styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
+
+            return WorkspaceUtils.toJson(workspace, true);
         }
 
     }
 
-    private record SchemaAssembler(File resourceRoot, OrmModel.Schema schema) {
+    private static record ForeignFieldRelationMessage<T>(T from, T to, OrmModel.Field by) {
 
-        static SchemaAssembler assemble(final String schemaFilesYamlFolder) {
-            final File projRoot = new File("").getAbsoluteFile();
-            final File resourceRoot = new File(projRoot, "src/main/resources");
-            FileUtils.existingDirectoryElseFail(resourceRoot);
+    }
 
-            var schema = OrmModel.Schema.fromYamlFolder(
-                    new File(resourceRoot, schemaFilesYamlFolder));
+    private static class EntityBuilder<T> {
+        private final OrmModel.Schema schema;
+        private final Map<OrmModel.Entity, T> tByEntity = new HashMap<>();
 
-            return new SchemaAssembler(resourceRoot, schema);
+        EntityBuilder(final Schema schema, final Function<OrmModel.Entity, T> factory) {
+            this.schema = schema;
+            for(val entity : schema.entities().values()) {
+                var component = factory.apply(entity);
+                tByEntity.put(entity, component);
+            }
         }
-
-        void writeAssembly(final String relativeDestinationSchemaFileName) {
-            schema.writeToFileAsYaml(
-                    new File(resourceRoot, relativeDestinationSchemaFileName),
-                    LicenseHeader.ASF_V2);
+        void addRelations(final Consumer<ForeignFieldRelationMessage<T>> subscriber) {
+            for(val entity : schema.entities().values()) {
+                var from = tByEntity.get(entity);
+                entity.fields().forEach(field->{
+                    field.foreignFields()
+                        .forEach(foreignField->{
+                            var to = tByEntity.get(foreignField.parentEntity());
+                            subscriber.accept(new ForeignFieldRelationMessage<>(from, to, field));
+                        });
+                });
+            }
         }
 
     }

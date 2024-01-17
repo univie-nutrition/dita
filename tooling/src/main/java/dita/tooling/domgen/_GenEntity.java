@@ -323,7 +323,7 @@ class _GenEntity {
                             field.isEnum()
                                 ? field.asJavaEnumType()
                                 : field.hasForeignKeys()
-                                    ? _Foreign.foreignClassName(field, field.foreignFields(config.schema()).getFirstElseFail(), config)
+                                    ? _Foreign.foreignClassName(field, field.foreignFields().getFirstElseFail(), config)
                                     : field.asJavaType(),
                             field.hasForeignKeys()
                                     ? _Foreign.resolvedFieldName(field)

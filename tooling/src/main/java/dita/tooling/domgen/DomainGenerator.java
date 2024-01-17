@@ -169,7 +169,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
                 entityModel.fields().stream()
                 .filter(field->field.hasForeignKeys())
                 .forEach(field->{
-                    val foreignFields = field.foreignFields(domainModel.schema());
+                    val foreignFields = field.foreignFields();
 
                     final JavaFileModel associationMixinModel;
 

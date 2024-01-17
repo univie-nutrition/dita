@@ -1,0 +1,2053 @@
+{
+  "id" : 0,
+  "name" : "Getting Started",
+  "description" : "This is a model of my software system.",
+  "configuration" : { },
+  "model" : {
+    "softwareSystems" : [ {
+      "id" : "1",
+      "tags" : "Element,Software System",
+      "name" : "Software System",
+      "description" : "My software system.",
+      "location" : "Unspecified",
+      "containers" : [ {
+        "id" : "42",
+        "tags" : "Element,Container",
+        "name" : "params.quantif",
+        "components" : [ {
+          "id" : "45",
+          "tags" : "Element,Component",
+          "name" : "MaximumValueForRecipeOrGroup",
+          "relationships" : [ {
+            "id" : "188",
+            "tags" : "Relationship",
+            "sourceId" : "45",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "189",
+            "tags" : "Relationship",
+            "sourceId" : "45",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          }, {
+            "id" : "190",
+            "tags" : "Relationship",
+            "sourceId" : "45",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "49",
+          "tags" : "Element,Component",
+          "name" : "StandardPortionForFood",
+          "relationships" : [ {
+            "id" : "196",
+            "tags" : "Relationship",
+            "sourceId" : "49",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "44",
+          "tags" : "Element,Component",
+          "name" : "MaximumValueForFoodOrGroup",
+          "relationships" : [ {
+            "id" : "184",
+            "tags" : "Relationship",
+            "sourceId" : "44",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "185",
+            "tags" : "Relationship",
+            "sourceId" : "44",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "186",
+            "tags" : "Relationship",
+            "sourceId" : "44",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "187",
+            "tags" : "Relationship",
+            "sourceId" : "44",
+            "destinationId" : "11",
+            "description" : "facetDescriptorLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "47",
+          "tags" : "Element,Component",
+          "name" : "RecipeIngredientQuantification",
+          "relationships" : [ {
+            "id" : "191",
+            "tags" : "Relationship",
+            "sourceId" : "47",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          }, {
+            "id" : "192",
+            "tags" : "Relationship",
+            "sourceId" : "47",
+            "destinationId" : "17",
+            "description" : "ingredientFoodOrRecipeCode"
+          }, {
+            "id" : "193",
+            "tags" : "Relationship",
+            "sourceId" : "47",
+            "destinationId" : "48",
+            "description" : "shapeCode"
+          }, {
+            "id" : "194",
+            "tags" : "Relationship",
+            "sourceId" : "47",
+            "destinationId" : "51",
+            "description" : "shapeThicknessCode"
+          }, {
+            "id" : "195",
+            "tags" : "Relationship",
+            "sourceId" : "47",
+            "destinationId" : "46",
+            "description" : "photoCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "48",
+          "tags" : "Element,Component",
+          "name" : "Shape",
+          "documentation" : { }
+        }, {
+          "id" : "43",
+          "tags" : "Element,Component",
+          "name" : "HouseholdMeasure",
+          "documentation" : { }
+        }, {
+          "id" : "46",
+          "tags" : "Element,Component",
+          "name" : "PhotoForQuantity",
+          "documentation" : { }
+        }, {
+          "id" : "51",
+          "tags" : "Element,Component",
+          "name" : "ThicknessForShapeMethod",
+          "relationships" : [ {
+            "id" : "199",
+            "tags" : "Relationship",
+            "sourceId" : "51",
+            "destinationId" : "19",
+            "description" : "foodSubgroupsLookupKey"
+          }, {
+            "id" : "200",
+            "tags" : "Relationship",
+            "sourceId" : "51",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupsLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "50",
+          "tags" : "Element,Component",
+          "name" : "StandardUnitForFoodOrRecipe",
+          "relationships" : [ {
+            "id" : "197",
+            "tags" : "Relationship",
+            "sourceId" : "50",
+            "destinationId" : "17",
+            "description" : "foodOrRecipeCode"
+          }, {
+            "id" : "198",
+            "tags" : "Relationship",
+            "sourceId" : "50",
+            "destinationId" : "60",
+            "description" : "foodOrRecipeCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "25",
+        "tags" : "Element,Container",
+        "name" : "params.nutrient",
+        "components" : [ {
+          "id" : "28",
+          "tags" : "Element,Component",
+          "name" : "NutrientValue",
+          "relationships" : [ {
+            "id" : "145",
+            "tags" : "Relationship",
+            "sourceId" : "28",
+            "destinationId" : "27",
+            "description" : "nutrientForFoodOrGroupCode"
+          }, {
+            "id" : "146",
+            "tags" : "Relationship",
+            "sourceId" : "28",
+            "destinationId" : "26",
+            "description" : "nutrientCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "26",
+          "tags" : "Element,Component",
+          "name" : "Nutrient",
+          "documentation" : { }
+        }, {
+          "id" : "27",
+          "tags" : "Element,Component",
+          "name" : "NutrientForFoodOrGroup",
+          "relationships" : [ {
+            "id" : "138",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "18",
+            "description" : "foodOrRecipeGroupCode"
+          }, {
+            "id" : "139",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "61",
+            "description" : "foodOrRecipeGroupCode"
+          }, {
+            "id" : "140",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "19",
+            "description" : "foodOrRecipeSubgroupCode"
+          }, {
+            "id" : "141",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "63",
+            "description" : "foodOrRecipeSubgroupCode"
+          }, {
+            "id" : "142",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "143",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "17",
+            "description" : "foodOrRecipeCode"
+          }, {
+            "id" : "144",
+            "tags" : "Relationship",
+            "sourceId" : "27",
+            "destinationId" : "60",
+            "description" : "foodOrRecipeCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "29",
+        "tags" : "Element,Container",
+        "name" : "params.pathway",
+        "components" : [ {
+          "id" : "39",
+          "tags" : "Element,Component",
+          "name" : "QuantificationMethodPathwayForRecipe",
+          "relationships" : [ {
+            "id" : "178",
+            "tags" : "Relationship",
+            "sourceId" : "39",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          }, {
+            "id" : "179",
+            "tags" : "Relationship",
+            "sourceId" : "39",
+            "destinationId" : "46",
+            "description" : "photoCode"
+          }, {
+            "id" : "180",
+            "tags" : "Relationship",
+            "sourceId" : "39",
+            "destinationId" : "48",
+            "description" : "photoCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "33",
+          "tags" : "Element,Component",
+          "name" : "FacetDescriptorPathwayForRecipeGroup",
+          "relationships" : [ {
+            "id" : "156",
+            "tags" : "Relationship",
+            "sourceId" : "33",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "157",
+            "tags" : "Relationship",
+            "sourceId" : "33",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          }, {
+            "id" : "158",
+            "tags" : "Relationship",
+            "sourceId" : "33",
+            "destinationId" : "57",
+            "description" : "recipeFacetCode"
+          }, {
+            "id" : "159",
+            "tags" : "Relationship",
+            "sourceId" : "33",
+            "destinationId" : "56",
+            "description" : "recipeDescriptorCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "34",
+          "tags" : "Element,Component",
+          "name" : "ProbingQuestion",
+          "documentation" : { }
+        }, {
+          "id" : "37",
+          "tags" : "Element,Component",
+          "name" : "QuantificationMethodPathwayForFood",
+          "relationships" : [ {
+            "id" : "169",
+            "tags" : "Relationship",
+            "sourceId" : "37",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "170",
+            "tags" : "Relationship",
+            "sourceId" : "37",
+            "destinationId" : "46",
+            "description" : "photoCode"
+          }, {
+            "id" : "171",
+            "tags" : "Relationship",
+            "sourceId" : "37",
+            "destinationId" : "48",
+            "description" : "photoCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "36",
+          "tags" : "Element,Component",
+          "name" : "ProbingQuestionPathwayForRecipe",
+          "relationships" : [ {
+            "id" : "165",
+            "tags" : "Relationship",
+            "sourceId" : "36",
+            "destinationId" : "34",
+            "description" : "probingQuestionCode"
+          }, {
+            "id" : "166",
+            "tags" : "Relationship",
+            "sourceId" : "36",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "167",
+            "tags" : "Relationship",
+            "sourceId" : "36",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          }, {
+            "id" : "168",
+            "tags" : "Relationship",
+            "sourceId" : "36",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "32",
+          "tags" : "Element,Component",
+          "name" : "FacetDescriptorPathwayForRecipe",
+          "relationships" : [ {
+            "id" : "154",
+            "tags" : "Relationship",
+            "sourceId" : "32",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          }, {
+            "id" : "155",
+            "tags" : "Relationship",
+            "sourceId" : "32",
+            "destinationId" : "57",
+            "description" : "recipeFacetCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "35",
+          "tags" : "Element,Component",
+          "name" : "ProbingQuestionPathwayForFood",
+          "relationships" : [ {
+            "id" : "160",
+            "tags" : "Relationship",
+            "sourceId" : "35",
+            "destinationId" : "34",
+            "description" : "probingQuestionCode"
+          }, {
+            "id" : "161",
+            "tags" : "Relationship",
+            "sourceId" : "35",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "162",
+            "tags" : "Relationship",
+            "sourceId" : "35",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "163",
+            "tags" : "Relationship",
+            "sourceId" : "35",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "164",
+            "tags" : "Relationship",
+            "sourceId" : "35",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "40",
+          "tags" : "Element,Component",
+          "name" : "QuantificationMethodPathwayForRecipeGroup",
+          "relationships" : [ {
+            "id" : "181",
+            "tags" : "Relationship",
+            "sourceId" : "40",
+            "destinationId" : "61",
+            "description" : "recipeGroup"
+          }, {
+            "id" : "182",
+            "tags" : "Relationship",
+            "sourceId" : "40",
+            "destinationId" : "46",
+            "description" : "photoCode"
+          }, {
+            "id" : "183",
+            "tags" : "Relationship",
+            "sourceId" : "40",
+            "destinationId" : "48",
+            "description" : "photoCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "38",
+          "tags" : "Element,Component",
+          "name" : "QuantificationMethodPathwayForFoodGroup",
+          "relationships" : [ {
+            "id" : "172",
+            "tags" : "Relationship",
+            "sourceId" : "38",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "173",
+            "tags" : "Relationship",
+            "sourceId" : "38",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "174",
+            "tags" : "Relationship",
+            "sourceId" : "38",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "175",
+            "tags" : "Relationship",
+            "sourceId" : "38",
+            "destinationId" : "11",
+            "description" : "physicalStateFacetDescriptorLookupKey"
+          }, {
+            "id" : "176",
+            "tags" : "Relationship",
+            "sourceId" : "38",
+            "destinationId" : "46",
+            "description" : "photoCode"
+          }, {
+            "id" : "177",
+            "tags" : "Relationship",
+            "sourceId" : "38",
+            "destinationId" : "48",
+            "description" : "photoCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "31",
+          "tags" : "Element,Component",
+          "name" : "FacetDescriptorPathwayForFoodGroup",
+          "relationships" : [ {
+            "id" : "149",
+            "tags" : "Relationship",
+            "sourceId" : "31",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "150",
+            "tags" : "Relationship",
+            "sourceId" : "31",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "151",
+            "tags" : "Relationship",
+            "sourceId" : "31",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "152",
+            "tags" : "Relationship",
+            "sourceId" : "31",
+            "destinationId" : "12",
+            "description" : "facetCode"
+          }, {
+            "id" : "153",
+            "tags" : "Relationship",
+            "sourceId" : "31",
+            "destinationId" : "11",
+            "description" : "descriptorCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "41",
+          "tags" : "Element,Component",
+          "name" : "RecipeTypePathway",
+          "documentation" : { }
+        }, {
+          "id" : "30",
+          "tags" : "Element,Component",
+          "name" : "FacetDescriptorPathwayForFood",
+          "relationships" : [ {
+            "id" : "147",
+            "tags" : "Relationship",
+            "sourceId" : "30",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "148",
+            "tags" : "Relationship",
+            "sourceId" : "30",
+            "destinationId" : "12",
+            "description" : "mandatoryInSequenceOfFacetsCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "54",
+        "tags" : "Element,Container",
+        "name" : "params.recipe_description",
+        "components" : [ {
+          "id" : "56",
+          "tags" : "Element,Component",
+          "name" : "RecipeDescriptor",
+          "relationships" : [ {
+            "id" : "210",
+            "tags" : "Relationship",
+            "sourceId" : "56",
+            "destinationId" : "57",
+            "description" : "recipeFacetCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "58",
+          "tags" : "Element,Component",
+          "name" : "RecipeFacetRule",
+          "relationships" : [ {
+            "id" : "211",
+            "tags" : "Relationship",
+            "sourceId" : "58",
+            "destinationId" : "12",
+            "description" : "facetWhereTheRuleMustBeApplied"
+          }, {
+            "id" : "212",
+            "tags" : "Relationship",
+            "sourceId" : "58",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "213",
+            "tags" : "Relationship",
+            "sourceId" : "58",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "55",
+          "tags" : "Element,Component",
+          "name" : "RecipeBrand",
+          "relationships" : [ {
+            "id" : "208",
+            "tags" : "Relationship",
+            "sourceId" : "55",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "209",
+            "tags" : "Relationship",
+            "sourceId" : "55",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "57",
+          "tags" : "Element,Component",
+          "name" : "RecipeFacet",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "15",
+        "tags" : "Element,Container",
+        "name" : "params.food_list",
+        "components" : [ {
+          "id" : "19",
+          "tags" : "Element,Component",
+          "name" : "FoodSubgroup",
+          "relationships" : [ {
+            "id" : "132",
+            "tags" : "Relationship",
+            "sourceId" : "19",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "18",
+          "tags" : "Element,Component",
+          "name" : "FoodGroup",
+          "documentation" : { }
+        }, {
+          "id" : "16",
+          "tags" : "Element,Component",
+          "name" : "ComposedRecipeIngredient",
+          "relationships" : [ {
+            "id" : "127",
+            "tags" : "Relationship",
+            "sourceId" : "16",
+            "destinationId" : "17",
+            "description" : "foodOrRecipeCode"
+          }, {
+            "id" : "128",
+            "tags" : "Relationship",
+            "sourceId" : "16",
+            "destinationId" : "60",
+            "description" : "foodOrRecipeCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "17",
+          "tags" : "Element,Component",
+          "name" : "Food",
+          "relationships" : [ {
+            "id" : "129",
+            "tags" : "Relationship",
+            "sourceId" : "17",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "130",
+            "tags" : "Relationship",
+            "sourceId" : "17",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "131",
+            "tags" : "Relationship",
+            "sourceId" : "17",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "80",
+        "tags" : "Element,Container",
+        "name" : "params.supplement",
+        "components" : [ {
+          "id" : "81",
+          "tags" : "Element,Component",
+          "name" : "DietarySupplement",
+          "relationships" : [ {
+            "id" : "234",
+            "tags" : "Relationship",
+            "sourceId" : "81",
+            "destinationId" : "82",
+            "description" : "classificationCode"
+          }, {
+            "id" : "235",
+            "tags" : "Relationship",
+            "sourceId" : "81",
+            "destinationId" : "84",
+            "description" : "facetCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "84",
+          "tags" : "Element,Component",
+          "name" : "DietarySupplementFacet",
+          "documentation" : { }
+        }, {
+          "id" : "82",
+          "tags" : "Element,Component",
+          "name" : "DietarySupplementClassification",
+          "documentation" : { }
+        }, {
+          "id" : "83",
+          "tags" : "Element,Component",
+          "name" : "DietarySupplementDescriptor",
+          "relationships" : [ {
+            "id" : "236",
+            "tags" : "Relationship",
+            "sourceId" : "83",
+            "destinationId" : "84",
+            "description" : "facetCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "52",
+        "tags" : "Element,Container",
+        "name" : "params.recipe_coefficient",
+        "components" : [ {
+          "id" : "53",
+          "tags" : "Element,Component",
+          "name" : "PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe",
+          "relationships" : [ {
+            "id" : "201",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "202",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          }, {
+            "id" : "203",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          }, {
+            "id" : "204",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "18",
+            "description" : "fssGroupCode"
+          }, {
+            "id" : "205",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "19",
+            "description" : "fssSubgroupCode"
+          }, {
+            "id" : "206",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "19",
+            "description" : "fssSubSubgroupCode"
+          }, {
+            "id" : "207",
+            "tags" : "Relationship",
+            "sourceId" : "53",
+            "destinationId" : "17",
+            "description" : "fssCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "64",
+        "tags" : "Element,Container",
+        "name" : "params.setting",
+        "components" : [ {
+          "id" : "67",
+          "tags" : "Element,Component",
+          "name" : "FacetDescriptorThatCannotBeSubstituted",
+          "relationships" : [ {
+            "id" : "226",
+            "tags" : "Relationship",
+            "sourceId" : "67",
+            "destinationId" : "12",
+            "description" : "facetCode"
+          }, {
+            "id" : "227",
+            "tags" : "Relationship",
+            "sourceId" : "67",
+            "destinationId" : "11",
+            "description" : "descriptorCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "70",
+          "tags" : "Element,Component",
+          "name" : "GroupSubstitution",
+          "relationships" : [ {
+            "id" : "229",
+            "tags" : "Relationship",
+            "sourceId" : "70",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "230",
+            "tags" : "Relationship",
+            "sourceId" : "70",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "231",
+            "tags" : "Relationship",
+            "sourceId" : "70",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "232",
+            "tags" : "Relationship",
+            "sourceId" : "70",
+            "destinationId" : "19",
+            "description" : "applyToFoodGroupsLookupKey"
+          }, {
+            "id" : "233",
+            "tags" : "Relationship",
+            "sourceId" : "70",
+            "destinationId" : "63",
+            "description" : "applyToRecipeGroupsLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "71",
+          "tags" : "Element,Component",
+          "name" : "MacroNutrientLimit",
+          "documentation" : { }
+        }, {
+          "id" : "74",
+          "tags" : "Element,Component",
+          "name" : "PlaceOfConsumption",
+          "documentation" : { }
+        }, {
+          "id" : "79",
+          "tags" : "Element,Component",
+          "name" : "TranslationInCountryLanguage",
+          "documentation" : { }
+        }, {
+          "id" : "66",
+          "tags" : "Element,Component",
+          "name" : "DayOfWeek",
+          "documentation" : { }
+        }, {
+          "id" : "68",
+          "tags" : "Element,Component",
+          "name" : "FoodConsumptionOccasion",
+          "documentation" : { }
+        }, {
+          "id" : "75",
+          "tags" : "Element,Component",
+          "name" : "SelectedParameter",
+          "documentation" : { }
+        }, {
+          "id" : "76",
+          "tags" : "Element,Component",
+          "name" : "SelectedParameterForDataEntry",
+          "documentation" : { }
+        }, {
+          "id" : "77",
+          "tags" : "Element,Component",
+          "name" : "SpecialDayPredefinedAnswer",
+          "documentation" : { }
+        }, {
+          "id" : "69",
+          "tags" : "Element,Component",
+          "name" : "FoodConsumptionOccasionDisplayItem",
+          "relationships" : [ {
+            "id" : "228",
+            "tags" : "Relationship",
+            "sourceId" : "69",
+            "destinationId" : "68",
+            "description" : "foodConsumptionOccasionCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "78",
+          "tags" : "Element,Component",
+          "name" : "SpecialDietPredefinedAnswer",
+          "documentation" : { }
+        }, {
+          "id" : "65",
+          "tags" : "Element,Component",
+          "name" : "AnthropometricAverage",
+          "documentation" : { }
+        }, {
+          "id" : "72",
+          "tags" : "Element,Component",
+          "name" : "Month",
+          "documentation" : { }
+        }, {
+          "id" : "73",
+          "tags" : "Element,Component",
+          "name" : "NoteStatus",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "2",
+        "tags" : "Element,Container",
+        "name" : "params.food_coefficient",
+        "components" : [ {
+          "id" : "3",
+          "tags" : "Element,Component",
+          "name" : "DensityFactorForFood",
+          "relationships" : [ {
+            "id" : "85",
+            "tags" : "Relationship",
+            "sourceId" : "3",
+            "destinationId" : "17",
+            "description" : "foodOrRecipeCode"
+          }, {
+            "id" : "86",
+            "tags" : "Relationship",
+            "sourceId" : "3",
+            "destinationId" : "60",
+            "description" : "foodOrRecipeCode"
+          }, {
+            "id" : "87",
+            "tags" : "Relationship",
+            "sourceId" : "3",
+            "destinationId" : "11",
+            "description" : "facetDescriptorsLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "8",
+          "tags" : "Element,Component",
+          "name" : "RawToCookedConversionFactorForFood",
+          "relationships" : [ {
+            "id" : "110",
+            "tags" : "Relationship",
+            "sourceId" : "8",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "111",
+            "tags" : "Relationship",
+            "sourceId" : "8",
+            "destinationId" : "11",
+            "description" : "facetDescriptorsLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "4",
+          "tags" : "Element,Component",
+          "name" : "EdiblePartCoefficientForFood",
+          "relationships" : [ {
+            "id" : "88",
+            "tags" : "Relationship",
+            "sourceId" : "4",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "89",
+            "tags" : "Relationship",
+            "sourceId" : "4",
+            "destinationId" : "11",
+            "description" : "facetDescriptorLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "6",
+          "tags" : "Element,Component",
+          "name" : "PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood",
+          "relationships" : [ {
+            "id" : "93",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "94",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "95",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "96",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "97",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "18",
+            "description" : "fssGroupCode"
+          }, {
+            "id" : "98",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "19",
+            "description" : "fssSubgroupCode"
+          }, {
+            "id" : "99",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "19",
+            "description" : "fssSubSubgroupCode"
+          }, {
+            "id" : "100",
+            "tags" : "Relationship",
+            "sourceId" : "6",
+            "destinationId" : "17",
+            "description" : "fssCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "7",
+          "tags" : "Element,Component",
+          "name" : "PercentOfFatUseDuringCookingForFood",
+          "relationships" : [ {
+            "id" : "101",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "102",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "103",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "104",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "105",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "18",
+            "description" : "fatGroupCode"
+          }, {
+            "id" : "106",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "19",
+            "description" : "fatSubgroupCode"
+          }, {
+            "id" : "107",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "19",
+            "description" : "fatSubSubgroupCode"
+          }, {
+            "id" : "108",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "17",
+            "description" : "fatCode"
+          }, {
+            "id" : "109",
+            "tags" : "Relationship",
+            "sourceId" : "7",
+            "destinationId" : "11",
+            "description" : "cookingMethodFacetDescriptorLookupKey"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "5",
+          "tags" : "Element,Component",
+          "name" : "PercentOfFatLeftInTheDishForFood",
+          "relationships" : [ {
+            "id" : "90",
+            "tags" : "Relationship",
+            "sourceId" : "5",
+            "destinationId" : "18",
+            "description" : "fatGroupCode"
+          }, {
+            "id" : "91",
+            "tags" : "Relationship",
+            "sourceId" : "5",
+            "destinationId" : "19",
+            "description" : "fatSubgroupCode"
+          }, {
+            "id" : "92",
+            "tags" : "Relationship",
+            "sourceId" : "5",
+            "destinationId" : "19",
+            "description" : "fatSubSubgroupCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "59",
+        "tags" : "Element,Container",
+        "name" : "params.recipe_list",
+        "components" : [ {
+          "id" : "60",
+          "tags" : "Element,Component",
+          "name" : "Recipe",
+          "relationships" : [ {
+            "id" : "214",
+            "tags" : "Relationship",
+            "sourceId" : "60",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          }, {
+            "id" : "215",
+            "tags" : "Relationship",
+            "sourceId" : "60",
+            "destinationId" : "63",
+            "description" : "recipeSubgroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "61",
+          "tags" : "Element,Component",
+          "name" : "RecipeGroup",
+          "documentation" : { }
+        }, {
+          "id" : "63",
+          "tags" : "Element,Component",
+          "name" : "RecipeSubgroup",
+          "relationships" : [ {
+            "id" : "225",
+            "tags" : "Relationship",
+            "sourceId" : "63",
+            "destinationId" : "61",
+            "description" : "recipeGroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "62",
+          "tags" : "Element,Component",
+          "name" : "RecipeIngredient",
+          "relationships" : [ {
+            "id" : "216",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "60",
+            "description" : "recipeCode"
+          }, {
+            "id" : "217",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "18",
+            "description" : "foodOrRecipeGroupCode"
+          }, {
+            "id" : "218",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "61",
+            "description" : "foodOrRecipeGroupCode"
+          }, {
+            "id" : "219",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "19",
+            "description" : "foodOrRecipeSubgroupCode"
+          }, {
+            "id" : "220",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "63",
+            "description" : "foodOrRecipeSubgroupCode"
+          }, {
+            "id" : "221",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "222",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "11",
+            "description" : "facetDescriptorsLookupKey"
+          }, {
+            "id" : "223",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "17",
+            "description" : "foodOrRecipeCode"
+          }, {
+            "id" : "224",
+            "tags" : "Relationship",
+            "sourceId" : "62",
+            "destinationId" : "60",
+            "description" : "foodOrRecipeCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "9",
+        "tags" : "Element,Container",
+        "name" : "params.food_descript",
+        "components" : [ {
+          "id" : "14",
+          "tags" : "Element,Component",
+          "name" : "ImprobableSequenceOfFacetAndDescriptor",
+          "relationships" : [ {
+            "id" : "121",
+            "tags" : "Relationship",
+            "sourceId" : "14",
+            "destinationId" : "17",
+            "description" : "foodCode"
+          }, {
+            "id" : "122",
+            "tags" : "Relationship",
+            "sourceId" : "14",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "123",
+            "tags" : "Relationship",
+            "sourceId" : "14",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "124",
+            "tags" : "Relationship",
+            "sourceId" : "14",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          }, {
+            "id" : "125",
+            "tags" : "Relationship",
+            "sourceId" : "14",
+            "destinationId" : "12",
+            "description" : "facetCode"
+          }, {
+            "id" : "126",
+            "tags" : "Relationship",
+            "sourceId" : "14",
+            "destinationId" : "11",
+            "description" : "descriptorCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "13",
+          "tags" : "Element,Component",
+          "name" : "FoodFacetRule",
+          "relationships" : [ {
+            "id" : "116",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "12",
+            "description" : "facetCode"
+          }, {
+            "id" : "117",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "11",
+            "description" : "facetDescriptorLookupKey"
+          }, {
+            "id" : "118",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "119",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "120",
+            "tags" : "Relationship",
+            "sourceId" : "13",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "11",
+          "tags" : "Element,Component",
+          "name" : "FoodDescriptor",
+          "relationships" : [ {
+            "id" : "115",
+            "tags" : "Relationship",
+            "sourceId" : "11",
+            "destinationId" : "12",
+            "description" : "facetCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "10",
+          "tags" : "Element,Component",
+          "name" : "FoodBrand",
+          "relationships" : [ {
+            "id" : "112",
+            "tags" : "Relationship",
+            "sourceId" : "10",
+            "destinationId" : "18",
+            "description" : "foodGroupCode"
+          }, {
+            "id" : "113",
+            "tags" : "Relationship",
+            "sourceId" : "10",
+            "destinationId" : "19",
+            "description" : "foodSubgroupCode"
+          }, {
+            "id" : "114",
+            "tags" : "Relationship",
+            "sourceId" : "10",
+            "destinationId" : "19",
+            "description" : "foodSubSubgroupCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "12",
+          "tags" : "Element,Component",
+          "name" : "FoodFacet",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "20",
+        "tags" : "Element,Container",
+        "name" : "params.interview",
+        "components" : [ {
+          "id" : "24",
+          "tags" : "Element,Component",
+          "name" : "SubjectToBeInterviewed",
+          "relationships" : [ {
+            "id" : "136",
+            "tags" : "Relationship",
+            "sourceId" : "24",
+            "destinationId" : "22",
+            "description" : "countryCode"
+          }, {
+            "id" : "137",
+            "tags" : "Relationship",
+            "sourceId" : "24",
+            "destinationId" : "21",
+            "description" : "centerCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "22",
+          "tags" : "Element,Component",
+          "name" : "CountryInvolved",
+          "documentation" : { }
+        }, {
+          "id" : "21",
+          "tags" : "Element,Component",
+          "name" : "CenterInvolved",
+          "relationships" : [ {
+            "id" : "133",
+            "tags" : "Relationship",
+            "sourceId" : "21",
+            "destinationId" : "22",
+            "description" : "attachedCountryCode"
+          } ],
+          "documentation" : { }
+        }, {
+          "id" : "23",
+          "tags" : "Element,Component",
+          "name" : "Interviewer",
+          "relationships" : [ {
+            "id" : "134",
+            "tags" : "Relationship",
+            "sourceId" : "23",
+            "destinationId" : "22",
+            "description" : "countryCode"
+          }, {
+            "id" : "135",
+            "tags" : "Relationship",
+            "sourceId" : "23",
+            "destinationId" : "21",
+            "description" : "centerCode"
+          } ],
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      } ],
+      "documentation" : { }
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "systemContextViews" : [ {
+      "key" : "SystemContext",
+      "order" : 1,
+      "description" : "An example of a System Context diagram.",
+      "softwareSystemId" : "1",
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      } ]
+    } ],
+    "containerViews" : [ {
+      "key" : "a0",
+      "order" : 2,
+      "description" : "a1",
+      "softwareSystemId" : "1",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "59",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "80",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "52",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "42",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "64",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "54",
+        "x" : 0,
+        "y" : 0
+      } ]
+    } ],
+    "componentViews" : [ {
+      "key" : "params.nutrient",
+      "order" : 5,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "25",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "145"
+      }, {
+        "id" : "146"
+      } ]
+    }, {
+      "key" : "params.quantif",
+      "order" : 7,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "42",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "44",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "45",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "46",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "47",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "48",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "49",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "50",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "51",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "43",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "195"
+      }, {
+        "id" : "194"
+      }, {
+        "id" : "193"
+      } ]
+    }, {
+      "key" : "params.food_list",
+      "order" : 12,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "15",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "129"
+      }, {
+        "id" : "130"
+      }, {
+        "id" : "131"
+      }, {
+        "id" : "132"
+      }, {
+        "id" : "127"
+      } ]
+    }, {
+      "key" : "params.setting",
+      "order" : 4,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "64",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "66",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "77",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "67",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "78",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "79",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "68",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "69",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "70",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "71",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "72",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "73",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "74",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "75",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "76",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "65",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "228"
+      } ]
+    }, {
+      "key" : "params.food_descript",
+      "order" : 8,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "9",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "13",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "115"
+      }, {
+        "id" : "117"
+      }, {
+        "id" : "125"
+      }, {
+        "id" : "126"
+      }, {
+        "id" : "116"
+      } ]
+    }, {
+      "key" : "params.food_coefficient",
+      "order" : 3,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "2",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      } ]
+    }, {
+      "key" : "params.recipe_list",
+      "order" : 9,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "59",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "60",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "61",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "62",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "63",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "216"
+      }, {
+        "id" : "215"
+      }, {
+        "id" : "214"
+      }, {
+        "id" : "220"
+      }, {
+        "id" : "224"
+      }, {
+        "id" : "225"
+      }, {
+        "id" : "218"
+      } ]
+    }, {
+      "key" : "params.interview",
+      "order" : 10,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "20",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "134"
+      }, {
+        "id" : "135"
+      }, {
+        "id" : "133"
+      }, {
+        "id" : "136"
+      }, {
+        "id" : "137"
+      } ]
+    }, {
+      "key" : "params.recipe_coefficient",
+      "order" : 13,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "52",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "53",
+        "x" : 0,
+        "y" : 0
+      } ]
+    }, {
+      "key" : "params.pathway",
+      "order" : 14,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "29",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "33",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "34",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "36",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "37",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "38",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "39",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "40",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "41",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "30",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "31",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "32",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "160"
+      }, {
+        "id" : "165"
+      } ]
+    }, {
+      "key" : "params.supplement",
+      "order" : 6,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "80",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "81",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "82",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "83",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "84",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "234"
+      }, {
+        "id" : "235"
+      }, {
+        "id" : "236"
+      } ]
+    }, {
+      "key" : "params.recipe_description",
+      "order" : 11,
+      "description" : "desc",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false,
+        "applied" : false
+      },
+      "containerId" : "54",
+      "externalContainerBoundariesVisible" : false,
+      "elements" : [ {
+        "id" : "55",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "56",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "57",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "58",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "210"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : {
+        "elements" : [ {
+          "tag" : "Software System",
+          "background" : "#1168bd",
+          "color" : "#ffffff"
+        }, {
+          "tag" : "Person",
+          "background" : "#08427b",
+          "color" : "#ffffff",
+          "shape" : "Person"
+        } ]
+      },
+      "terminology" : { }
+    }
+  }
+}

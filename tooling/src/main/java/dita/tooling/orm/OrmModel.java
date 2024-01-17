@@ -42,6 +42,7 @@ import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import dita.commons.types.ObjectRef;
 import dita.commons.types.SneakyRef;
 import dita.tooling.domgen.LicenseHeader;
 import lombok.SneakyThrows;
@@ -55,6 +56,7 @@ import lombok.experimental.UtilityClass;
 public class OrmModel {
 
     public record Entity(
+            ObjectRef<Schema> parentRef,
             String name,
             String namespace,
             String table,
@@ -78,7 +80,9 @@ public class OrmModel {
                             ? entry.getKey().substring(namespace.length() + 1)
                             : entry.getKey()
                     );
-            val entity = new Entity(name,
+            val entity = new Entity(
+                    ObjectRef.empty(),
+                    name,
                     namespace,
                     (String)map.get("table"),
                     parseNullableStringTrimmed((String)map.get("superType")),
@@ -98,6 +102,9 @@ public class OrmModel {
 //                        ()->String.format("invalid secondary key member %s#%s: must not have any foreign-keys",
 //                                entity.name(), f.name())));
             return entity;
+        }
+        public Schema parentSchema() {
+            return parentRef.getValue();
         }
         public String key() {
             return String.format("%s.%s", namespace, name);
@@ -374,25 +381,11 @@ public class OrmModel {
         public String sequence() {
             return "" + (ordinal + 1);
         }
-        public Can<Field> foreignFields(final Schema schema) {
+        public Can<Field> foreignFields() {
+            final Schema schema = parentEntity().parentSchema();
             return foreignKeys().stream()
                     .map(schema::lookupForeignKeyFieldElseFail)
                     .collect(Can.toCan());
-        }
-        @Deprecated
-        public Can<Join> incomingJoins(final Schema schema) {
-            val tableDotColumn = parentEntity().table()  + "." + column();
-            // incoming relations
-            return schema.entities().values().stream()
-                .filter(dependant->!dependant.equals(parentEntity()))
-                .flatMap(dependant->dependant.fields().stream())
-                .filter(dependantField->{
-                    if(!dependantField.hasForeignKeys()) return false;
-                    return dependantField.foreignKeys().stream()
-                            .anyMatch(tableDotColumn::equalsIgnoreCase);
-                })
-                .map(dependantField->new Join(this, dependantField))
-                .collect(Can.toCan());
         }
         public void withRequired(final boolean required) {
             var copy = new Field(parentRef,
@@ -502,7 +495,12 @@ public class OrmModel {
                 .map(Entity::parse)
                 .forEach(entity->entities.put(entity.key(), entity));
             });
-            return new Schema(entities);
+            var schema = new Schema(entities);
+            return schema;
+        }
+        public Schema(final Map<String, Entity> entities){
+            this.entities = entities;
+            entities.values().forEach(e->e.parentRef.setValue(this));
         }
         public String toYaml() {
             val sb = new StringBuilder();
@@ -588,7 +586,9 @@ public class OrmModel {
      * JUnit support.
      */
     public Can<Schema> examples() {
-        val entity = new Entity("FoodList", "dita", "FOODS", "", List.of(), false, "name", "fa-pencil",
+        val entity = new Entity(
+                ObjectRef.empty(),
+                "FoodList", "dita", "FOODS", "", List.of(), false, "name", "fa-pencil",
                 false,
                 List.of("Food List and Aliases"),
                 new ArrayList<OrmModel.Field>());

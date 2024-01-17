@@ -240,6 +240,12 @@
 			    <version>${causeway.version}</version>
 			</dependency>
 			
+			<dependency>
+                <groupId>org.apache.causeway.tooling</groupId>
+                <artifactId>causeway-tooling-c4modeling</artifactId>
+                <version>${causeway.version}</version>
+            </dependency>
+			
 			<!-- SPRING -->
 			
 			<dependency>
