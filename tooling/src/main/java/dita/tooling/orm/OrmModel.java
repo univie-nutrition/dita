@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 import org.springframework.javapoet.ClassName;
 import org.springframework.javapoet.TypeName;
 
+import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -276,6 +277,9 @@ public class OrmModel {
         public Entity parentEntity() {
             return parentRef.value();
         }
+        public String fqColumnName() {
+            return parentEntity().table().toUpperCase() + "." + column().toUpperCase();
+        }
         public TypeName asJavaType() {
             return _TypeMapping.dbToJava(columnType(), !required);
         }
@@ -461,17 +465,6 @@ public class OrmModel {
         }
     }
 
-    @Deprecated
-    public record Join(
-            Field localField,
-            Field foreignField) {
-        public Entity localEntity() {
-            return localField.parentEntity();
-        }
-        public Entity foreignEntity() {
-            return foreignField.parentEntity();
-        }
-    }
     /**
      * Entity metadata by {@code <namespace>.<name>}.
      */
@@ -557,6 +550,9 @@ public class OrmModel {
                 val yaml = TextUtils.readLines(entity.toYaml());
                 TextUtils.writeLinesToFile(lic.addAll(yaml), destFile, StandardCharsets.UTF_8);
             });
+        }
+        public ObjectGraph asObjectGraph() {
+            return new _ObjectGraphFactory(this).create();
         }
         // -- HELPER
         private Optional<OrmModel.Field> lookupForeignKeyField(final String tableDotColumn) {

@@ -19,34 +19,18 @@
 package dita.globodiet.schema;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.Set;
 import java.util.function.UnaryOperator;
 
-import com.structurizr.Workspace;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
-import com.structurizr.model.Tags;
-import com.structurizr.util.WorkspaceUtils;
-import com.structurizr.view.AutomaticLayout.RankDirection;
-import com.structurizr.view.Shape;
-import com.structurizr.view.Styles;
-import com.structurizr.view.SystemContextView;
-import com.structurizr.view.ViewSet;
-
+import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
+import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.FileUtils;
-import org.apache.causeway.commons.io.TextUtils;
 
 import dita.commons.types.ResourceFolder;
 import dita.tooling.domgen.DomainGenerator;
 import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
-import dita.tooling.orm.OrmModel.Schema;
+import dita.tooling.structgen.ObjectGraphRendererStructurizr;
 import lombok.SneakyThrows;
 import lombok.val;
 
@@ -60,19 +44,19 @@ public class GdEntityGen {
             System.exit(1);
         }
 
-        var javaGenerator = new JavaGenerator(ResourceFolder.ofFileName(args[0]));
-
         var resourceRoot = ResourceFolder.resourceRoot();
         var schemaAssembler = SchemaAssembler.assemble(resourceRoot.relativeFile("gd-schema"));
         schemaAssembler.writeAssembly(
                 LicenseHeader.ASF_V2,
                 resourceRoot.relativeFile("gd-params.schema.yaml"));
 
-        //TODO gen structurizr DSL
-        new StructurizrGenerator(schemaAssembler.schema())
-                .writeDiagramDsl(resourceRoot.relativeFile("gd-params.structurizr.json"));
+        schemaAssembler.schema()
+            .asObjectGraph()
+            .transform(new ObjectGraphTransformer())
+            .asDiagramDslSource(new ObjectGraphRendererStructurizr())
+            .pipe(DataSink.ofFile(resourceRoot.relativeFile("gd-params.structurizr.dsl")));
 
-        /*
+        var javaGenerator = new JavaGenerator(ResourceFolder.ofFileName(args[0]));
         javaGenerator.destDir().purgeFiles();
         javaGenerator.generateDestinationFiles(cfg->cfg
                 .logicalNamespacePrefix("dita.globodiet")
@@ -82,10 +66,8 @@ public class GdEntityGen {
                 //.datastore("store2") // DN Data Federation
                 .entitiesModulePackageName("params")
                 .entitiesModuleClassSimpleName("DitaModuleGdParams"));
-                */
 
         System.out.println("done.");
-
     }
 
     // -- HELPER
@@ -113,91 +95,30 @@ public class GdEntityGen {
         }
     }
 
-    private record StructurizrGenerator(OrmModel.Schema schema) {
-        void writeDiagramDsl(final File destinationDslFile) {
-            val json = TextUtils.readLines(toJson());
-            TextUtils.writeLinesToFile(json, destinationDslFile, StandardCharsets.UTF_8);
+    private record ObjectGraphTransformer() implements ObjectGraph.Transformer {
+
+        @Override
+        public ObjectGraph transform(final ObjectGraph g) {
+
+            val transformed = new ObjectGraph();
+
+            g.objects().stream()
+                .map(obj->obj.withId(obj.id())) // copy
+                .forEach(transformed.objects()::add);
+
+            val objectById = transformed.objectById();
+            val excludedLabels = Set.of(
+                    "foodGroupCode",
+                    "foodSubgroupCode",
+                    "foodSubSubgroupCode");
+
+            g.relations().stream()
+                .filter(rel->!excludedLabels.contains(rel.label()))
+                .map(rel->rel.withFrom(objectById.get(rel.fromId())).withTo(objectById.get(rel.toId()))) // copy
+                .forEach(transformed.relations()::add);
+
+            return transformed;
         }
-        @SneakyThrows
-        private String toJson() {
-         // all software architecture models belong to a workspace
-            Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
-            Model model = workspace.getModel();
-            ViewSet views = workspace.getViews();
-
-            SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
-
-            var containerByEntity = new HashMap<String, Container>();
-
-            new EntityBuilder<Component>(schema(), entity->{
-                Container container =
-                        containerByEntity.computeIfAbsent(entity.namespace(), id->softwareSystem.addContainer(id));
-
-                var comp = container.addComponent(entity.name());
-                //comp.setGroup(entity.namespace());
-                return comp;
-            }).addRelations(msg->{
-                msg.from.uses(msg.to, msg.by.name());
-            });
-
-            // create a model to describe a user using a software system
-            //Person user = model.addPerson("User", "A user of my software system.");
-            //user.uses(softwareSystem, "Uses");
-
-            // create a system context diagram showing people and software systems
-
-            SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
-            contextView.addAllSoftwareSystems();
-            contextView.addAllPeople();
-
-            var cv  = views.createContainerView(softwareSystem, "a0", "a1");
-            cv.addAllElements();
-            cv.enableAutomaticLayout(RankDirection.TopBottom);
-
-            containerByEntity.forEach((namespace, container)->{
-                var compView  = views.createComponentView(container, namespace, "desc");
-                compView.addAllComponents();
-                compView.enableAutomaticLayout(RankDirection.LeftRight);
-            });
-
-            // add some styling to the diagram elements
-            Styles styles = views.getConfiguration().getStyles();
-            styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
-            styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
-
-            return WorkspaceUtils.toJson(workspace, true);
-        }
-
-    }
-
-    private static record ForeignFieldRelationMessage<T>(T from, T to, OrmModel.Field by) {
-
-    }
-
-    private static class EntityBuilder<T> {
-        private final OrmModel.Schema schema;
-        private final Map<OrmModel.Entity, T> tByEntity = new HashMap<>();
-
-        EntityBuilder(final Schema schema, final Function<OrmModel.Entity, T> factory) {
-            this.schema = schema;
-            for(val entity : schema.entities().values()) {
-                var component = factory.apply(entity);
-                tByEntity.put(entity, component);
-            }
-        }
-        void addRelations(final Consumer<ForeignFieldRelationMessage<T>> subscriber) {
-            for(val entity : schema.entities().values()) {
-                var from = tByEntity.get(entity);
-                entity.fields().forEach(field->{
-                    field.foreignFields()
-                        .forEach(foreignField->{
-                            var to = tByEntity.get(foreignField.parentEntity());
-                            subscriber.accept(new ForeignFieldRelationMessage<>(from, to, field));
-                        });
-                });
-            }
-        }
-
     }
 
 }
