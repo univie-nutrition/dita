@@ -187,7 +187,7 @@ workspace {
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipeCode" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.PhotoForQuantity "photoCode" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.Shape "photoCode" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsrecipe_list.RecipeGroup "recipeGroup" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsrecipe_list.RecipeGroup "recipeGroupCode" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.PhotoForQuantity "photoCode" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Shape "photoCode" 
         DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup -> DitaGDParams.virtual.FCK "foodGroupCode" 

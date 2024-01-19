@@ -204,7 +204,7 @@ import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGro
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroupDeps;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_delete;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_photo;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_recipeGroupObj;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_recipeGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_delete;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_photo;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_recipe;
@@ -686,7 +686,7 @@ import org.springframework.context.annotation.Import;
         QuantificationMethodPathwayForFood_photo.class,
         QuantificationMethodPathwayForRecipeGroup_delete.class,
         QuantificationMethodPathwayForRecipeGroup_photo.class,
-        QuantificationMethodPathwayForRecipeGroup_recipeGroupObj.class,
+        QuantificationMethodPathwayForRecipeGroup_recipeGroup.class,
         QuantificationMethodPathwayForRecipe_delete.class,
         QuantificationMethodPathwayForRecipe_photo.class,
         QuantificationMethodPathwayForRecipe_recipe.class,

@@ -20,12 +20,16 @@ package dita.globodiet.manager.help;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.apache.causeway.applib.id.LogicalType;
 import org.apache.causeway.applib.services.metamodel.BeanSort;
 import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
-import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph.RelationType;
+import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph.Transformers;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
 
 import dita.tooling.orm.OrmModel;
@@ -53,66 +57,124 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
     @Override
     final protected ObjectGraph createObjectGraph() {
         return super.createObjectGraph()
+        .transform(packageNameNormalizer())
         // add foreign key relations from schema
         .transform(g->{
+            var schemaGraph = gdParamsSchema.asObjectGraph()
+                    .transform(new VirtualObjectAdder());
+            var idRemapping = new HashMap<String, ObjectGraph.Object>();
 
-            val objectByEntity = new HashMap<OrmModel.Entity, ObjectGraph.Object>();
-            val relationsToRender = new ArrayList<ObjectGraph.Relation>(g.relations());
+            var gObjects = new ArrayList<>(g.objects());
 
-            gdParamsSchema.entities().values()
-                .forEach(entity->{
-                    g.objects().stream()
-                        .filter(obj->obj.packageName().endsWith(entity.namespace())
-                                && obj.name().equals(entity.name()))
-                        .findAny()
-                        .ifPresent(obj->objectByEntity.put(entity, obj));
-                });
-
-            gdParamsSchema.entities().values()
-                .forEach(entity->{
-
-                    final ObjectGraph.Object from = objectByEntity.get(entity);
-
-                    entity.fields().forEach(field->{
-                        field.foreignFields()
-                            .forEach(foreignField->{
-
-                                final ObjectGraph.Object to = objectByEntity.get(foreignField.parentEntity());
-
-                                relationsToRender.add(new ObjectGraph.Relation(
-                                        RelationType.MERGED_ASSOCIATIONS, from, to, field.name(), "", ""));
+            for(var s: schemaGraph.objects()) {
+                gObjects.stream()
+                    .filter(x->x.fqName().equals(s.fqName()))
+                    .findFirst()
+                    .ifPresentOrElse(
+                            x->idRemapping.put(s.id(), x),
+                            ()->{
+                                // virtual objects in schema
+                                g.objects().add(s); // potential concurrent modification, hence defensive copy above
+                                idRemapping.put(s.id(), s);
                             });
-                    });
+            }
+
+            schemaGraph
+                .relations()
+                .forEach(rel->{
+                    g.relations().add(rel.copy(idRemapping));
                 });
 
-
-            val transformed = new ObjectGraph();
-            transformed.objects().addAll(g.objects());
-            transformed.relations().addAll(relationsToRender);
-            return transformed;
+            return g;
 
         })
-        // rename packages (strip 'dita.globodiet.params')
-        .transform(g->{
-            val stripLen = "dita.globodiet.params.".length();
+        .transform(unrelatedObjectRemover())
+        .transform(virtualRelationRemover())
+        .transform(ObjectGraph.Transformers.relationMerger());
+    }
+
+    /**
+     * rename packages (strip 'dita.globodiet.params')
+     */
+    private static ObjectGraph.Transformer packageNameNormalizer() {
+        val stripLen = "dita.globodiet.".length();
+        return Transformers.objectModifier(obj->
+            obj.withPackageName(obj.packageName().substring(stripLen)));
+    }
+
+    /**
+     * Removes unrelated objects (those that have no relations).
+     */
+    private static ObjectGraph.Transformer unrelatedObjectRemover() {
+        return g->{
+            var relatedObjects = new HashSet<ObjectGraph.Object>();
+            g.relations().forEach(rel->{
+                relatedObjects.add(rel.from());
+                relatedObjects.add(rel.to());
+            });
+            g.objects()
+                .removeIf(obj->!relatedObjects.contains(obj));
+            return g;
+        };
+    }
+
+    private static ObjectGraph.Transformer virtualRelationRemover() {
+        return g->{
+            g.relations()
+                .removeIf(rel->rel.to().packageName().equals("virtual"));
+            return g;
+        };
+    }
+
+    private record VirtualObjectAdder() implements ObjectGraph.Transformer {
+
+        @Override
+        public ObjectGraph transform(final ObjectGraph g) {
 
             val transformed = new ObjectGraph();
 
             g.objects().stream()
-                .map(obj->obj.withPackageName(obj.packageName().substring(stripLen)))
+                .map(obj->obj.withId(obj.id())) // copy
                 .forEach(transformed.objects()::add);
 
+            var fck = new ObjectGraph.Object("fck", "virtual", "FCK", Optional.empty(), Optional.of("Food Classifier Key"), List.of());
+            transformed.objects().add(fck);
+
             val objectById = transformed.objectById();
+            val fckLabels = Set.of(
+                    "foodGroupCode",
+                    "foodSubgroupCode",
+                    "foodSubSubgroupCode",
+                    "fatGroupCode",
+                    "fatSubgroupCode",
+                    "fatSubSubgroupCode",
+                    "fssGroupCode",
+                    "fssSubgroupCode",
+                    "fssSubSubgroupCode",
+
+                    "recipeGroupCode",
+                    "recipeSubgroupCode",
+                    // hybrids
+                    "foodOrRecipeGroupCode",
+                    "foodOrRecipeSubgroupCode",
+                    "foodOrRecipeSubSubgroupCode"
+                    );
 
             g.relations().stream()
-                .map(rel->rel.withFrom(objectById.get(rel.fromId())).withTo(objectById.get(rel.toId())))
+                .map(rel->{
+                    var from = objectById.get(rel.fromId());
+                    var to = fckLabels.contains(rel.description())
+                            ? fck
+                            : objectById.get(rel.toId());
+                    return rel
+                        .withFrom(from)
+                        .withTo(to); // copy
+                })
                 .forEach(transformed.relations()::add);
 
             return transformed;
-        })
-        .transform(ObjectGraph.Transformers.relationMerger());
+        }
     }
-
 
 
 //    @Override

@@ -29,7 +29,7 @@ params.pathway.QuantificationMethodPathwayForRecipeGroup:
     Quantification methods pathway for recipe group/subgroup.
     Optionally can be superseded by @{table QM_RECIP}.
   fields:
-    recipeGroup:
+    recipeGroupCode:
       column: R_GROUP
       column-type: nvarchar(2)
       required: true

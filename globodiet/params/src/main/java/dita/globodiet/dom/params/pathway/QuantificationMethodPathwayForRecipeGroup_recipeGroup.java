@@ -39,7 +39,7 @@ import org.apache.causeway.applib.annotation.Where;
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class QuantificationMethodPathwayForRecipeGroup_recipeGroupObj {
+public class QuantificationMethodPathwayForRecipeGroup_recipeGroup {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
@@ -47,7 +47,7 @@ public class QuantificationMethodPathwayForRecipeGroup_recipeGroupObj {
 
     @MemberSupport
     public RecipeGroup prop() {
-        final var lookupKey = new RecipeGroup.SecondaryKey(mixee.getRecipeGroup());
+        final var lookupKey = new RecipeGroup.SecondaryKey(mixee.getRecipeGroupCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

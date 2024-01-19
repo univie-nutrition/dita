@@ -57,7 +57,7 @@ record _ObjectGraphFactory(OrmModel.Schema schema) implements ObjectGraph.Factor
     }
 
     private static ObjectGraph.Object object(final OrmModel.Entity entity) {
-        final String id = entity.namespace() + "." + entity.name();
+        final String id = entity.key();
         boolean isAbstract = false;
         val obj = new ObjectGraph.Object(id,
                 entity.namespace(),

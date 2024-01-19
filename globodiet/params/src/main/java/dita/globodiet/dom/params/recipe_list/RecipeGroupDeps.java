@@ -27,7 +27,7 @@ import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup_re
 import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe_recipeGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_recipeGroupObj;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_recipeGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipeGroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
@@ -51,7 +51,7 @@ public class RecipeGroupDeps {
         return Can.of(RecipeGroup_dependentNutrientForFoodOrGroupMappedByFoodOrRecipeGroup.class,
         RecipeGroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeGroup.class,
         RecipeGroup_dependentProbingQuestionPathwayForRecipeMappedByRecipeGroup.class,
-        RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroupObj.class,
+        RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroup.class,
         RecipeGroup_dependentMaximumValueForRecipeOrGroupMappedByRecipeGroup.class,
         RecipeGroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeGroup.class,
         RecipeGroup_dependentRecipeBrandMappedByRecipeGroup.class,
@@ -117,7 +117,7 @@ public class RecipeGroupDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroupObj {
+    public static class RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroup {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -127,8 +127,8 @@ public class RecipeGroupDeps {
         public List<QuantificationMethodPathwayForRecipeGroup> coll() {
             return dependantLookup.findDependants(
                 QuantificationMethodPathwayForRecipeGroup.class,
-                QuantificationMethodPathwayForRecipeGroup_recipeGroupObj.class,
-                QuantificationMethodPathwayForRecipeGroup_recipeGroupObj::prop,
+                QuantificationMethodPathwayForRecipeGroup_recipeGroup.class,
+                QuantificationMethodPathwayForRecipeGroup_recipeGroup::prop,
                 mixee);
         }
     }

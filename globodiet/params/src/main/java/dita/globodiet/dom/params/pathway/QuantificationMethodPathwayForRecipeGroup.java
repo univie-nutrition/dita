@@ -96,7 +96,7 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
     )
     @Getter
     @Setter
-    private String recipeGroup;
+    private String recipeGroupCode;
 
     /**
      * Quantification method code:
@@ -190,7 +190,7 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
 
     @Override
     public String toString() {
-        return "QuantificationMethodPathwayForRecipeGroup(" + "recipeGroup=" + getRecipeGroup() + ","
+        return "QuantificationMethodPathwayForRecipeGroup(" + "recipeGroupCode=" + getRecipeGroupCode() + ","
          +"quantificationMethod=" + getQuantificationMethod() + ","
          +"photoCode=" + getPhotoCode() + ","
          +"comment=" + getComment() + ")";
@@ -200,7 +200,7 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
     @Override
     public QuantificationMethodPathwayForRecipeGroup copy() {
         var copy = repositoryService.detachedEntity(new QuantificationMethodPathwayForRecipeGroup());
-        copy.setRecipeGroup(getRecipeGroup());
+        copy.setRecipeGroupCode(getRecipeGroupCode());
         copy.setQuantificationMethod(getQuantificationMethod());
         copy.setPhotoCode(getPhotoCode());
         copy.setComment(getComment());
