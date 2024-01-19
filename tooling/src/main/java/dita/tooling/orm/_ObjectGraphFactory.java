@@ -65,6 +65,8 @@ record _ObjectGraphFactory(OrmModel.Schema schema) implements ObjectGraph.Factor
                 isAbstract
                     ? Optional.of("abstract")
                     : Optional.empty(),
+                Optional.ofNullable(
+                        entity.formatDescription("\n")),
                 new ArrayList<>());
         return obj;
     }
@@ -72,11 +74,11 @@ record _ObjectGraphFactory(OrmModel.Schema schema) implements ObjectGraph.Factor
     private static ObjectGraph.Relation relation(
             final ObjectGraph.Object from,
             final ObjectGraph.Object to,
-            final String label) {
+            final String description) {
         val relation = new ObjectGraph.Relation(
                 ObjectGraph.RelationType.ONE_TO_ONE,
                 from, to,
-                label, "");
+                description, "", "");
         return relation;
     }
 

@@ -80,7 +80,7 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
                                 final ObjectGraph.Object to = objectByEntity.get(foreignField.parentEntity());
 
                                 relationsToRender.add(new ObjectGraph.Relation(
-                                        RelationType.MERGED_ASSOCIATIONS, from, to, field.name(), ""));
+                                        RelationType.MERGED_ASSOCIATIONS, from, to, field.name(), "", ""));
                             });
                     });
                 });

@@ -57,8 +57,8 @@ public class ObjectGraphRendererStructurizr implements ObjectGraph.Renderer {
                     containerByName.computeIfAbsent(obj.packageName(), name->softwareSystem.addContainer(name));
 
             String name = obj.name();
-            String description = null;
-            String technology = null;
+            String description = obj.description().orElse(null);
+            String technology = "Entity";
 
             var comp = container.addComponent(name, description, technology);
             componentById.put(obj.id(), comp);
@@ -68,7 +68,7 @@ public class ObjectGraphRendererStructurizr implements ObjectGraph.Renderer {
         for(var rel : objGraph.relations()) {
             var from = componentById.get(rel.fromId());
             var to   = componentById.get(rel.toId());
-            from.uses(to, rel.label());
+            from.uses(to, rel.description());
         }
 
         // views
@@ -86,7 +86,17 @@ public class ObjectGraphRendererStructurizr implements ObjectGraph.Renderer {
 
         containerByName.forEach((name, container)->{
             var compView  = views.createComponentView(container, normalizeIdentifier(name), "no desc");
-            compView.addDefaultElements();
+
+            for (Component component : compView.getContainer().getComponents()) {
+                compView.add(component);
+                for (Container cnt : compView.getSoftwareSystem().getContainers()) {
+                    if (cnt.hasEfferentRelationshipWith(component) || component.hasEfferentRelationshipWith(cnt)) {
+                        compView.add(cnt);
+                    }
+                }
+                compView.addNearestNeighbours(component);
+            }
+
             compView.enableAutomaticLayout(RankDirection.TopBottom);
         });
 

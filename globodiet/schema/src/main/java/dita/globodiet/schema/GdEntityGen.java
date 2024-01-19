@@ -19,6 +19,8 @@
 package dita.globodiet.schema;
 
 import java.io.File;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 
@@ -106,15 +108,31 @@ public class GdEntityGen {
                 .map(obj->obj.withId(obj.id())) // copy
                 .forEach(transformed.objects()::add);
 
+            var fck = new ObjectGraph.Object("fck", "virtual", "FCK", Optional.empty(), Optional.of("Food Classifier Key"), List.of());
+            transformed.objects().add(fck);
+
             val objectById = transformed.objectById();
-            val excludedLabels = Set.of(
+            val fckLabels = Set.of(
                     "foodGroupCode",
                     "foodSubgroupCode",
-                    "foodSubSubgroupCode");
+                    "foodSubSubgroupCode",
+                    "fatGroupCode",
+                    "fatSubgroupCode",
+                    "fatSubSubgroupCode",
+                    "fssGroupCode",
+                    "fssSubgroupCode",
+                    "fssSubSubgroupCode");
 
             g.relations().stream()
-                .filter(rel->!excludedLabels.contains(rel.label()))
-                .map(rel->rel.withFrom(objectById.get(rel.fromId())).withTo(objectById.get(rel.toId()))) // copy
+                .map(rel->{
+                    var from = objectById.get(rel.fromId());
+                    var to = fckLabels.contains(rel.description())
+                            ? fck
+                            : objectById.get(rel.toId());
+                    return rel
+                        .withFrom(from)
+                        .withTo(to); // copy
+                })
                 .forEach(transformed.relations()::add);
 
             return transformed;
