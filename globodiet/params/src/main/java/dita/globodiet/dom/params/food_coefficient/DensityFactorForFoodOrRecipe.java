@@ -54,10 +54,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 /**
  * Density factor for food
  */
-@Named("dita.globodiet.params.food_coefficient.DensityFactorForFood")
+@Named("dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Density factor for food"
+        describedAs = "Density factor for food",
+        cssClassFa = "solid compress"
 )
 @PersistenceCapable(
         table = "DENSITY"
@@ -66,7 +67,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
-public class DensityFactorForFood implements Cloneable<DensityFactorForFood> {
+public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForFoodOrRecipe> {
     @Inject
     RepositoryService repositoryService;
 
@@ -265,12 +266,12 @@ public class DensityFactorForFood implements Cloneable<DensityFactorForFood> {
 
     @ObjectSupport
     public String title() {
-        return String.format("%f", densityCoefficient);
+        return String.format("%f (for %s)", densityCoefficient, forFoodOrRecipe);
     }
 
     @Override
     public String toString() {
-        return "DensityFactorForFood(" + "foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
+        return "DensityFactorForFoodOrRecipe(" + "foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
          +"densityCoefficient=" + getDensityCoefficient() + ","
          +"facetDescriptorsLookupKey=" + getFacetDescriptorsLookupKey() + ","
          +"priority=" + getPriority() + ","
@@ -281,8 +282,8 @@ public class DensityFactorForFood implements Cloneable<DensityFactorForFood> {
 
     @Programmatic
     @Override
-    public DensityFactorForFood copy() {
-        var copy = repositoryService.detachedEntity(new DensityFactorForFood());
+    public DensityFactorForFoodOrRecipe copy() {
+        var copy = repositoryService.detachedEntity(new DensityFactorForFoodOrRecipe());
         copy.setFoodOrRecipeCode(getFoodOrRecipeCode());
         copy.setDensityCoefficient(getDensityCoefficient());
         copy.setFacetDescriptorsLookupKey(getFacetDescriptorsLookupKey());
@@ -301,8 +302,8 @@ public class DensityFactorForFood implements Cloneable<DensityFactorForFood> {
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public DensityFactorForFood.Manager getNavigableParent() {
-        return new DensityFactorForFood.Manager(searchService, "");
+    public DensityFactorForFoodOrRecipe.Manager getNavigableParent() {
+        return new DensityFactorForFoodOrRecipe.Manager(searchService, "");
     }
 
     @RequiredArgsConstructor
@@ -372,11 +373,12 @@ public class DensityFactorForFood implements Cloneable<DensityFactorForFood> {
     }
 
     /**
-     * Manager Viewmodel for @{link DensityFactorForFood}
+     * Manager Viewmodel for @{link DensityFactorForFoodOrRecipe}
      */
-    @Named("dita.globodiet.params.food_coefficient.DensityFactorForFood.Manager")
+    @Named("dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe.Manager")
     @DomainObjectLayout(
-            describedAs = "Density factor for food"
+            describedAs = "Density factor for food",
+            cssClassFa = "solid compress"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -395,12 +397,12 @@ public class DensityFactorForFood implements Cloneable<DensityFactorForFood> {
 
         @ObjectSupport
         public String title() {
-            return "Manage Density Factor For Food";
+            return "Manage Density Factor For Food Or Recipe";
         }
 
         @Collection
-        public final List<DensityFactorForFood> getListOfDensityFactorForFood() {
-            return searchService.search(DensityFactorForFood.class, DensityFactorForFood::title, search);
+        public final List<DensityFactorForFoodOrRecipe> getListOfDensityFactorForFoodOrRecipe() {
+            return searchService.search(DensityFactorForFoodOrRecipe.class, DensityFactorForFoodOrRecipe::title, search);
         }
 
         @Override

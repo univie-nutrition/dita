@@ -20,8 +20,8 @@
 package dita.globodiet.dom.params.recipe_list;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_foodOrRecipe;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe_foodOrRecipe;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient_foodOrRecipe;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
@@ -52,7 +52,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RecipeDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(Recipe_dependentDensityFactorForFoodMappedByFoodOrRecipe.class,
+        return Can.of(Recipe_dependentDensityFactorForFoodOrRecipeMappedByFoodOrRecipe.class,
         Recipe_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class,
         Recipe_dependentNutrientForFoodOrGroupMappedByFoodOrRecipe.class,
         Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe.class,
@@ -68,18 +68,18 @@ public class RecipeDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class Recipe_dependentDensityFactorForFoodMappedByFoodOrRecipe {
+    public static class Recipe_dependentDensityFactorForFoodOrRecipeMappedByFoodOrRecipe {
         @Inject
         DependantLookupService dependantLookup;
 
         private final Recipe mixee;
 
         @MemberSupport
-        public List<DensityFactorForFood> coll() {
+        public List<DensityFactorForFoodOrRecipe> coll() {
             return dependantLookup.findDependants(
-                DensityFactorForFood.class,
-                DensityFactorForFood_foodOrRecipe.class,
-                DensityFactorForFood_foodOrRecipe::prop,
+                DensityFactorForFoodOrRecipe.class,
+                DensityFactorForFoodOrRecipe_foodOrRecipe.class,
+                DensityFactorForFoodOrRecipe_foodOrRecipe::prop,
                 mixee);
         }
     }

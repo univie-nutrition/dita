@@ -36,11 +36,11 @@ import org.apache.causeway.commons.collections.Can;
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
-public class DensityFactorForFood_facetDescriptors {
+public class DensityFactorForFoodOrRecipe_facetDescriptors {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final DensityFactorForFood mixee;
+    private final DensityFactorForFoodOrRecipe mixee;
 
     @MemberSupport
     public Can<FoodDescriptor> coll() {

@@ -43,11 +43,11 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
-public class DensityFactorForFood_foodOrRecipe {
+public class DensityFactorForFoodOrRecipe_foodOrRecipe {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final DensityFactorForFood mixee;
+    private final DensityFactorForFoodOrRecipe mixee;
 
     @MemberSupport
     public Object prop() {

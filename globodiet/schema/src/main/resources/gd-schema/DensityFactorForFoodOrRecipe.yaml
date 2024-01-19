@@ -17,12 +17,12 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_coefficient.DensityFactorForFood:
+params.food_coefficient.DensityFactorForFoodOrRecipe:
   namespace: params.food_coefficient
   table: DENSITY
   secondaryKey:
-  title: String.format("%f", densityCoefficient)
-  icon: null
+  title: String.format("%f (for %s)", densityCoefficient, forFoodOrRecipe)
+  icon: solid compress
   description: |
     Density factor for food
   fields:

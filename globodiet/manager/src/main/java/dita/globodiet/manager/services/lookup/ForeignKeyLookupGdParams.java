@@ -44,7 +44,7 @@ import dita.commons.services.lookup.HasSecondaryKey;
 import dita.commons.services.lookup.ISecondaryKey;
 import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.classification.RecipeGrouping;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
 import dita.globodiet.dom.params.food_list.Food;
@@ -157,8 +157,8 @@ implements ForeignKeyLookupService {
                     ? 2
                     : 1;
         }
-        if(entity instanceof DensityFactorForFood x) {
-            return x.getForFoodOrRecipe() == DensityFactorForFood.ForFoodOrRecipe.RECIPE
+        if(entity instanceof DensityFactorForFoodOrRecipe x) {
+            return x.getForFoodOrRecipe() == DensityFactorForFoodOrRecipe.ForFoodOrRecipe.RECIPE
                     ? 2
                     : 1;
         }

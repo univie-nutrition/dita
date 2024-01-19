@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this DensityFactorForFood",
+        describedAs = "Delete this DensityFactorForFoodOrRecipe",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class DensityFactorForFood_delete {
+public class DensityFactorForFoodOrRecipe_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class DensityFactorForFood_delete {
     @Inject
     SearchService searchService;
 
-    private final DensityFactorForFood mixee;
+    private final DensityFactorForFoodOrRecipe mixee;
 
     @MemberSupport
-    public DensityFactorForFood.Manager act(
+    public DensityFactorForFoodOrRecipe.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new DensityFactorForFood.Manager(searchService, "");
+        return new DensityFactorForFoodOrRecipe.Manager(searchService, "");
     }
 
     @MemberSupport

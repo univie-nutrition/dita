@@ -90,7 +90,7 @@ public class Food_clone {
         repositoryService.persist(clone);
         foreignKeyLookupService.clearCache(clone.getClass());
 
-        factoryService.mixin(FoodDeps.Food_dependentDensityFactorForFoodMappedByFoodOrRecipe.class, mixee)
+        factoryService.mixin(FoodDeps.Food_dependentDensityFactorForFoodOrRecipeMappedByFoodOrRecipe.class, mixee)
         .coll()
         .forEach(origin->{
             var clonedDependant = origin.copy();

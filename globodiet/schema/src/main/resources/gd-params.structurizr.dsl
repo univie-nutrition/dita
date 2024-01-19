@@ -12,7 +12,7 @@ workspace {
                 FoodSubgroup = component "FoodSubgroup" "Food groups further narrowed down by subgroups and optional sub-subgroups" "Entity" 
             }
             paramsfood_coefficient = container "params.food_coefficient" {
-                DensityFactorForFood = component "DensityFactorForFood" "Density factor for food" "Entity" 
+                DensityFactorForFoodOrRecipe = component "DensityFactorForFoodOrRecipe" "Density factor for food" "Entity" 
                 EdiblePartCoefficientForFood = component "EdiblePartCoefficientForFood" "Edible part coefficients for foods" "Entity" 
                 PercentOfFatLeftInTheDishForFood = component "PercentOfFatLeftInTheDishForFood" "% of fat left in the dish for food" "Entity" 
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood = component "PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood" "% of fat/sauce/sweetener (FSS) added after cooking (regarding food)" "Entity" 
@@ -243,9 +243,9 @@ workspace {
         DitaGDParams.paramssupplement.DietarySupplement -> DitaGDParams.paramssupplement.DietarySupplementClassification "classificationCode" 
         DitaGDParams.paramssupplement.DietarySupplement -> DitaGDParams.paramssupplement.DietarySupplementFacet "facetCode" 
         DitaGDParams.paramssupplement.DietarySupplementDescriptor -> DitaGDParams.paramssupplement.DietarySupplementFacet "facetCode" 
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFood -> DitaGDParams.paramsfood_list.Food "foodOrRecipeCode" 
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFood -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipeCode" 
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptorsLookupKey" 
+        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_list.Food "foodOrRecipeCode" 
+        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipeCode" 
+        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptorsLookupKey" 
         DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_list.Food "foodCode" 
         DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptorLookupKey" 
         DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood -> DitaGDParams.virtual.FCK "fatGroupCode" 
@@ -283,7 +283,7 @@ workspace {
         component DitaGDParams.paramsfood_coefficient "params0food_coefficient" "no desc" {
             include DitaGDParams.paramsfood_descript.FoodDescriptor 
             include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFood 
+            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
             include DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood 
             include DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood 
             include DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
@@ -301,7 +301,7 @@ workspace {
             include DitaGDParams.paramsfood_descript.FoodFacetRule 
             include DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
             include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFood 
+            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
             include DitaGDParams.paramspathway.FacetDescriptorPathwayForFood 
             include DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup 
             include DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup 
@@ -323,7 +323,7 @@ workspace {
             include DitaGDParams.paramsfood_list.FoodGroup 
             include DitaGDParams.paramsfood_list.FoodSubgroup 
             include DitaGDParams.paramsnutrient.NutrientForFoodOrGroup 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFood 
+            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
             include DitaGDParams.paramspathway.FacetDescriptorPathwayForFood 
             include DitaGDParams.paramspathway.ProbingQuestionPathwayForFood 
             include DitaGDParams.paramspathway.QuantificationMethodPathwayForFood 
@@ -446,7 +446,7 @@ workspace {
             include DitaGDParams.paramsfood_list.FoodGroup 
             include DitaGDParams.paramsfood_list.FoodSubgroup 
             include DitaGDParams.paramsnutrient.NutrientForFoodOrGroup 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFood 
+            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
             include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe 
             include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup 
             include DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe 

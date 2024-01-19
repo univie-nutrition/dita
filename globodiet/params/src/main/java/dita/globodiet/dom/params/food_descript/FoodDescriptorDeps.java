@@ -20,8 +20,8 @@
 package dita.globodiet.dom.params.food_descript;
 
 import dita.commons.services.lookup.DependantLookupService;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood_facetDescriptors;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe_facetDescriptors;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood_facetDescriptor;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingForFood;
@@ -50,7 +50,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FoodDescriptorDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(FoodDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors.class,
+        return Can.of(FoodDescriptor_dependentDensityFactorForFoodOrRecipeMappedByFacetDescriptors.class,
         FoodDescriptor_dependentEdiblePartCoefficientForFoodMappedByFacetDescriptor.class,
         FoodDescriptor_dependentPercentOfFatUseDuringCookingForFoodMappedByCookingMethodFacetDescriptor.class,
         FoodDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
@@ -65,18 +65,18 @@ public class FoodDescriptorDeps {
 
     @Collection
     @RequiredArgsConstructor
-    public static class FoodDescriptor_dependentDensityFactorForFoodMappedByFacetDescriptors {
+    public static class FoodDescriptor_dependentDensityFactorForFoodOrRecipeMappedByFacetDescriptors {
         @Inject
         DependantLookupService dependantLookup;
 
         private final FoodDescriptor mixee;
 
         @MemberSupport
-        public List<DensityFactorForFood> coll() {
+        public List<DensityFactorForFoodOrRecipe> coll() {
             return dependantLookup.findDependants(
-                DensityFactorForFood.class,
-                DensityFactorForFood_facetDescriptors.class,
-                DensityFactorForFood_facetDescriptors::coll,
+                DensityFactorForFoodOrRecipe.class,
+                DensityFactorForFoodOrRecipe_facetDescriptors.class,
+                DensityFactorForFoodOrRecipe_facetDescriptors::coll,
                 mixee);
         }
     }

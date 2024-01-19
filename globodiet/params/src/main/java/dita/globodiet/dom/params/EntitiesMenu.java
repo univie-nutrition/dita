@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params;
 
 import dita.commons.services.search.SearchService;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
 import dita.globodiet.dom.params.food_coefficient.EdiblePartCoefficientForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatLeftInTheDishForFood;
 import dita.globodiet.dom.params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood;
@@ -110,9 +110,11 @@ public class EntitiesMenu {
     private SearchService searchService;
 
     @Action
-    @ActionLayout
-    public DensityFactorForFood.Manager manageDensityFactorForFood() {
-        return factoryService.viewModel(new DensityFactorForFood.Manager(searchService, ""));
+    @ActionLayout(
+            cssClassFa = "solid compress"
+    )
+    public DensityFactorForFoodOrRecipe.Manager manageDensityFactorForFoodOrRecipe() {
+        return factoryService.viewModel(new DensityFactorForFoodOrRecipe.Manager(searchService, ""));
     }
 
     @Action

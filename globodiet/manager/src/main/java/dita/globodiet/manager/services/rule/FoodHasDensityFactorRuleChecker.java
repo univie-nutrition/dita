@@ -31,8 +31,8 @@ import org.apache.causeway.commons.internal.collections._Sets;
 
 import dita.commons.services.lookup.DependantLookupService;
 import dita.commons.services.rules.RuleChecker;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFood.ForFoodOrRecipe;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
+import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe.ForFoodOrRecipe;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.Food.TypeOfItem;
 import lombok.NonNull;
@@ -60,7 +60,7 @@ implements RuleChecker {
 
         var foodInstances = repositoryService.allMatches(Food.class,
                 food->food.getTypeOfItem()!=TypeOfItem.ALIAS);
-        var densityInstances = repositoryService.allMatches(DensityFactorForFood.class,
+        var densityInstances = repositoryService.allMatches(DensityFactorForFoodOrRecipe.class,
                 df->df.getForFoodOrRecipe()==ForFoodOrRecipe.FOOD);
 
         var foodKeys = foodInstances.stream()
