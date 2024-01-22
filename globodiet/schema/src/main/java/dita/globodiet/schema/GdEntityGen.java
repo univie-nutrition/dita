@@ -19,9 +19,6 @@
 package dita.globodiet.schema;
 
 import java.io.File;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.function.UnaryOperator;
 
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
@@ -29,12 +26,12 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.FileUtils;
 
 import dita.commons.types.ResourceFolder;
+import dita.commons.util.ObjectGraphTransformers;
 import dita.tooling.domgen.DomainGenerator;
 import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.structgen.ObjectGraphRendererStructurizr;
 import lombok.SneakyThrows;
-import lombok.val;
 
 public class GdEntityGen {
 
@@ -54,7 +51,14 @@ public class GdEntityGen {
 
         schemaAssembler.schema()
             .asObjectGraph()
-            .transform(new ObjectGraphTransformer())
+            .transform(ObjectGraphTransformers.virtualObjectAdder())
+            .transform(ObjectGraphTransformers.relationNameNormalizer())
+
+            //.transform(ObjectGraphTransformers.packageNameNormalizer())
+
+            .transform(ObjectGraphTransformers.unrelatedObjectRemover())
+            //.transform(ObjectGraphTransformers.virtualRelationRemover())
+            .transform(ObjectGraph.Transformers.relationMerger())
             .asDiagramDslSource(new ObjectGraphRendererStructurizr())
             .pipe(DataSink.ofFile(resourceRoot.relativeFile("gd-params.structurizr.dsl")));
 
@@ -94,48 +98,6 @@ public class GdEntityGen {
             schema.writeToFileAsYaml(
                     destinationSchemaFile,
                     licenseHeader);
-        }
-    }
-
-    private record ObjectGraphTransformer() implements ObjectGraph.Transformer {
-
-        @Override
-        public ObjectGraph transform(final ObjectGraph g) {
-
-            val transformed = new ObjectGraph();
-
-            g.objects().stream()
-                .map(obj->obj.withId(obj.id())) // copy
-                .forEach(transformed.objects()::add);
-
-            var fck = new ObjectGraph.Object("fck", "virtual", "FCK", Optional.empty(), Optional.of("Food Classifier Key"), List.of());
-            transformed.objects().add(fck);
-
-            val objectById = transformed.objectById();
-            val fckLabels = Set.of(
-                    "foodGroupCode",
-                    "foodSubgroupCode",
-                    "foodSubSubgroupCode",
-                    "fatGroupCode",
-                    "fatSubgroupCode",
-                    "fatSubSubgroupCode",
-                    "fssGroupCode",
-                    "fssSubgroupCode",
-                    "fssSubSubgroupCode");
-
-            g.relations().stream()
-                .map(rel->{
-                    var from = objectById.get(rel.fromId());
-                    var to = fckLabels.contains(rel.description())
-                            ? fck
-                            : objectById.get(rel.toId());
-                    return rel
-                        .withFrom(from)
-                        .withTo(to); // copy
-                })
-                .forEach(transformed.relations()::add);
-
-            return transformed;
         }
     }
 
