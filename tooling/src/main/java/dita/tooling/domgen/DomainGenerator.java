@@ -36,6 +36,7 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
+import dita.commons.types.ResourceFolder;
 import dita.tooling.orm.OrmModel;
 import lombok.Builder;
 import lombok.NonNull;
@@ -47,6 +48,7 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
 
     @Value @Builder @Accessors(fluent=true)
     public static class Config {
+        private final ResourceFolder destinationFolder;
         @Builder.Default
         private final @NonNull String logicalNamespacePrefix = "";
         @Builder.Default

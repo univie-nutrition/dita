@@ -47,6 +47,10 @@ public record ResourceFolder(File root) {
         return new File(root, relativeFileName);
     }
 
+    public File relativeFile(final String relativeFileNameTemplate, final String arg) {
+        return new File(root, String.format(relativeFileNameTemplate, arg));
+    }
+
     @SneakyThrows
     public void purgeFiles() {
         FileUtils.searchFiles(root, dir->true, file->true, FileUtils::deleteFile);

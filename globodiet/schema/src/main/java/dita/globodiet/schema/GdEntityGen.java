@@ -19,9 +19,13 @@
 package dita.globodiet.schema;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.UnaryOperator;
 
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.FileUtils;
 
@@ -38,66 +42,84 @@ public class GdEntityGen {
     @SneakyThrows
     public static void main(final String[] args) {
 
-        if(args.length==0) {
-            System.err.println("please provide the destination directory as input parameter - exiting");
-            System.exit(1);
-        }
-
         var resourceRoot = ResourceFolder.resourceRoot();
-        var schemaAssembler = SchemaAssembler.assemble(resourceRoot.relativeFile("gd-schema"));
-        schemaAssembler.writeAssembly(
-                LicenseHeader.ASF_V2,
-                resourceRoot.relativeFile("gd-params.schema.yaml"));
+        var optionsModel = OptionsModel.parse(args);
 
-        schemaAssembler.schema()
-            .asObjectGraph()
-            .transform(ObjectGraphTransformers.virtualObjectAdder())
-            .transform(ObjectGraphTransformers.relationNameNormalizer())
+        optionsModel.resourceFolderByName()
+        .forEach((name, javaDestinationFolder) -> {
 
-            //.transform(ObjectGraphTransformers.packageNameNormalizer())
+            var schemaAssembler = SchemaAssembler.assemble(resourceRoot.relativeFile(name));
+            schemaAssembler.writeAssembly(
+                    resourceRoot.relativeFile("gd-%s.schema.yaml", name));
+            schemaAssembler.writeDiagram(
+                    resourceRoot.relativeFile("gd-%s.structurizr.dsl", name));
 
-            .transform(ObjectGraphTransformers.unrelatedObjectRemover())
-            //.transform(ObjectGraphTransformers.virtualRelationRemover())
-            .transform(ObjectGraph.Transformers.relationMerger())
-            .asDiagramDslSource(new ObjectGraphRendererStructurizr())
-            .pipe(DataSink.ofFile(resourceRoot.relativeFile("gd-params.structurizr.dsl")));
-
-        var javaGenerator = new JavaGenerator(ResourceFolder.ofFileName(args[0]));
-        javaGenerator.destDir().purgeFiles();
-        javaGenerator.generateDestinationFiles(cfg->cfg
-                .logicalNamespacePrefix("dita.globodiet")
-                .packageNamePrefix("dita.globodiet.dom")
-                .licenseHeader(LicenseHeader.ASF_V2)
-                .schema(schemaAssembler.schema())
-                //.datastore("store2") // DN Data Federation
-                .entitiesModulePackageName("params")
-                .entitiesModuleClassSimpleName("DitaModuleGdParams"));
+            schemaAssembler.writeJavaFiles(cfg->cfg
+                    .destinationFolder(javaDestinationFolder)
+                    .logicalNamespacePrefix("dita.globodiet")
+                    .packageNamePrefix("dita.globodiet.dom")
+                    .entitiesModulePackageName(name)
+                    .entitiesModuleClassSimpleName("DitaModuleGd" + _Strings.capitalize(name)));
+        });
 
         System.out.println("done.");
     }
 
     // -- HELPER
 
-    private record JavaGenerator(ResourceFolder destDir) {
-        void generateDestinationFiles(final UnaryOperator<DomainGenerator.Config.ConfigBuilder> customizer) {
-            generateDestinationFiles(customizer.apply(DomainGenerator.Config.builder()).build());
-        }
-        void generateDestinationFiles(final DomainGenerator.Config config) {
-            new DomainGenerator(config)
-                .writeToDirectory(destDir.root());
+    private record OptionsModel(Map<String, ResourceFolder> resourceFolderByName) {
+        static OptionsModel parse(final String[] args) {
+            if(args.length==0) {
+                System.err.println("""
+                        please provide the destination directories as input parameters like e.g.
+                        params=/path/to/params/src/main/java
+                        survey=/path/to/survey/src/main/java
+                        """);
+                System.exit(1);
+            }
+            var map = new HashMap<String, ResourceFolder>();
+            Can.ofArray(args).stream()
+                .map(kv->_Strings.parseKeyValuePair(kv, '=').orElseThrow())
+                .forEach(kvp->map.put(kvp.getKey(), ResourceFolder.ofFileName(kvp.getValue()) ));
+            return new OptionsModel(map);
         }
     }
 
-    private record SchemaAssembler(OrmModel.Schema schema) {
+    private record SchemaAssembler(LicenseHeader licenseHeader, OrmModel.Schema schema) {
         static SchemaAssembler assemble(final File yamlFolder) {
             FileUtils.existingDirectoryElseFail(yamlFolder);
             var schema = OrmModel.Schema.fromYamlFolder(yamlFolder);
-            return new SchemaAssembler(schema);
+            return new SchemaAssembler(LicenseHeader.ASF_V2, schema);
         }
-        void writeAssembly(final LicenseHeader licenseHeader, final File destinationSchemaFile) {
+        void writeAssembly(final File destinationSchemaFile) {
             schema.writeToFileAsYaml(
                     destinationSchemaFile,
                     licenseHeader);
+        }
+        void writeDiagram(final File destinationDiagramFile) {
+            schema
+                .asObjectGraph()
+                .transform(ObjectGraphTransformers.virtualObjectAdder())
+                .transform(ObjectGraphTransformers.relationNameNormalizer())
+
+                //.transform(ObjectGraphTransformers.packageNameNormalizer())
+
+                .transform(ObjectGraphTransformers.unrelatedObjectRemover())
+                //.transform(ObjectGraphTransformers.virtualRelationRemover())
+                .transform(ObjectGraph.Transformers.relationMerger())
+                .asDiagramDslSource(new ObjectGraphRendererStructurizr())
+                .pipe(DataSink.ofFile(destinationDiagramFile));
+        }
+        void writeJavaFiles(
+                final UnaryOperator<DomainGenerator.Config.ConfigBuilder> customizer) {
+            var config = customizer.apply(DomainGenerator.Config.builder()
+                    //.datastore("store2") // DN Data Federation
+                    .schema(schema))
+                    .licenseHeader(licenseHeader)
+                    .build();
+            config.destinationFolder().purgeFiles();
+            new DomainGenerator(config)
+                .writeToDirectory(config.destinationFolder().root());
         }
     }
 
