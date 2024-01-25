@@ -127,10 +127,11 @@ public record TabularData(Can<TabularData.Table> dataTables) {
             final String tableDataSerializedAsYaml, final TabularData.Format formatOptions) {
 
         val asMap = YamlUtils
-                .tryRead(HashMap.class, tableDataSerializedAsYaml, loader->{
-                    loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
-                    return loader;
-                })
+                .tryRead(HashMap.class, tableDataSerializedAsYaml)
+//                , loader->{
+//                    loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
+//                    return loader;
+//                })
                 .valueAsNonNullElseFail();
 
         // parse data from the map, and populate tables, that are already in the Can<DataTable>
