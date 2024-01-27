@@ -26,7 +26,6 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.recall24.dto.InterviewSetDto;
-import dita.recall24.util.Recall24DtoUtils;
 import lombok.Getter;
 import lombok.val;
 import lombok.experimental.Accessors;

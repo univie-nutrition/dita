@@ -19,6 +19,7 @@
 package dita.commons.types;
 
 import java.io.File;
+import java.util.Optional;
 
 import org.apache.causeway.commons.io.FileUtils;
 
@@ -34,6 +35,9 @@ public record ResourceFolder(File root) {
     public static ResourceFolder resourceRoot() {
         return new ResourceFolder(projectRoot().relativeFile("src/main/resources"));
     }
+    public static ResourceFolder testResourceRoot() {
+        return new ResourceFolder(projectRoot().relativeFile("src/test/resources"));
+    }
     public static ResourceFolder ofFileName(final String fileName) {
         return ofFile(new File(fileName));
     }
@@ -42,6 +46,11 @@ public record ResourceFolder(File root) {
     }
 
     // -- UTILITIES
+
+    public Optional<ResourceFolder> relative(final String relativeFolderName) {
+        return FileUtils.existingDirectory(relativeFile(relativeFolderName))
+                .map(ResourceFolder::ofFile);
+    }
 
     public File relativeFile(final String relativeFileName) {
         return new File(root, relativeFileName);

@@ -32,6 +32,7 @@
 		<module>params</module>
 		<module>manager</module>
 		<module>schema</module>
+		<module>survey</module>
 	</modules>
     
 </project>

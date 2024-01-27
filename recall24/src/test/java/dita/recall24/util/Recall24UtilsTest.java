@@ -26,8 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.causeway.commons.io.DataPeer;
 
 import dita.recall24.model.InterviewSet24;
-import dita.recall24.util.Recall24DtoUtils;
-import dita.recall24.util.Recall24ModelUtils;
 import lombok.val;
 
 class Recall24UtilsTest {

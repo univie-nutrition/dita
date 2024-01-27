@@ -70,7 +70,11 @@
             <groupId>org.apache.causeway.persistence</groupId>
             <artifactId>causeway-persistence-jdo-datanucleus</artifactId>
         </dependency>
-		
+
+		<dependency>
+		    <groupId>at.ac.univie.nutrition.dita</groupId>
+		    <artifactId>dita-recall24</artifactId>
+		</dependency>
 	</dependencies>
     
 </project>
