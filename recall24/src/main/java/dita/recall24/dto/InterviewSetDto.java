@@ -26,6 +26,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import org.apache.causeway.commons.io.JsonUtils;
+
 import lombok.Data;
 
 @XmlRootElement(name="interviewSet")
@@ -40,5 +42,9 @@ public class InterviewSetDto {
     @XmlElementWrapper(name="interviews")
     @XmlElement(name="interview", type=InterviewDto.class)
     private List<InterviewDto> interviews;
+
+    public String toJson() {
+        return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
+    }
 
 }

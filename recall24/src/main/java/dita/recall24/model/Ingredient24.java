@@ -35,6 +35,15 @@ public record Ingredient24(
         //,double fractionRelativeToParentRecipe
         ) implements dita.recall24.api.Ingredient24 {
 
+    public static Ingredient24 of(
+            final String sid,
+            final String facetSids,
+            final double rawPerCookedRatio,
+            final Quantity<?> quantityCooked) {
+        var ingredient24 = new Ingredient24(ObjectRef.empty(), sid, facetSids, rawPerCookedRatio, quantityCooked);
+        return ingredient24;
+    }
+
     @Override
     public Record24 parentRecord() {
         return parentRecordRef.getValue();

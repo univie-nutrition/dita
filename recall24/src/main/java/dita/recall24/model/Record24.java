@@ -53,6 +53,30 @@ public record Record24(
 
         ) implements dita.recall24.api.Record24 {
 
+    public static Record24 of(
+            /**
+             * The type of this record.
+             */
+            final dita.recall24.api.Record24.Type type,
+            /**
+             * The name of this record.
+             */
+            final String name,
+            /**
+             * Comma separated list of facet identifiers,
+             * ordered (by some natural order).
+             */
+            final String facetSids,
+            /**
+             * Ingredients of this record.
+             */
+            final Can<Ingredient24> ingredients) {
+
+        var record24 = new Record24(ObjectRef.empty(), type, name, facetSids, ingredients);
+        ingredients.forEach(ingr->ingr.parentRecordRef().setValue(record24));
+        return record24;
+    }
+
     @Override
     public MemorizedFood24 parentMemorizedFood() {
         return parentMemorizedFoodRef.getValue();

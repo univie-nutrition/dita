@@ -54,6 +54,30 @@ public record Interview24(
 
         ) implements dita.recall24.api.Interview24 {
 
+    public static Interview24 of(
+            /**
+             * Respondent of this interview.
+             */
+            final Respondent24 respondent,
+            /**
+             * Interview date.
+             */
+            final LocalDate interviewDate,
+            /**
+             * Respondent meta-data for this interview.
+             */
+            final RespondentMetaData24 respondentMetaData,
+            /**
+             * The meals of this interview.
+             */
+            final Can<Meal24> meals) {
+        var interview = new Interview24(respondent, interviewDate, IntRef.of(-1), respondentMetaData, meals);
+        respondentMetaData.parentInterviewRef().setValue(interview);
+        meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
+        return interview;
+    }
+
+
     @Override
     public int interviewOrdinal() {
         return interviewOrdinalRef().getValue();

@@ -18,6 +18,14 @@
  */
 package dita.commons.types;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +41,9 @@ import lombok.Setter;
  *
  * @see SneakyRef
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE) @AllArgsConstructor
+@JsonSerialize(using = ObjectRef.ObjectRefSerializer.class)
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ObjectRef<T> {
 
     public static <T> ObjectRef<T> of(final @NonNull T value) {
@@ -44,6 +54,7 @@ public final class ObjectRef<T> {
         return new ObjectRef<>();
     }
 
+    @JsonIgnore
     @Getter @Setter
     private T value;
 
@@ -64,6 +75,20 @@ public final class ObjectRef<T> {
                 : value.getClass().isPrimitive()
                     ? value.toString()
                     : String.format("ObjectRef[%s]", value.getClass().getSimpleName());
+    }
+
+    // -- JACKSON SUPPORT
+
+    static class ObjectRefSerializer extends JsonSerializer<ObjectRef<?>> {
+
+        @Override
+        public void serialize(
+                final ObjectRef<?> value,
+                final JsonGenerator gen,
+                final SerializerProvider serializers) throws IOException {
+            gen.writeObject(value.toString());
+        }
+
     }
 
 }

@@ -40,6 +40,21 @@ public record MemorizedFood24(
 
         ) implements dita.recall24.api.MemorizedFood24 {
 
+    public static MemorizedFood24 of(
+            /**
+             * Freetext, describing this memorized food.
+             */
+            final String name,
+            /**
+             * Records for this memorized food.
+             */
+            final Can<Record24> records) {
+
+        var memorizedFood24 = new MemorizedFood24(ObjectRef.empty(), name, records);
+        records.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
+        return memorizedFood24;
+    }
+
     @Override
     public Meal24 parentMeal() {
         return parentMealRef.getValue();

@@ -18,6 +18,9 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -26,8 +29,25 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.io.JsonUtils;
+
+import dita.commons.types.Gender;
+import dita.commons.types.ObjectRef;
+import dita.recall24.api.Record24.Type;
+import dita.recall24.model.Ingredient24;
+import dita.recall24.model.Interview24;
+import dita.recall24.model.Meal24;
+import dita.recall24.model.MemorizedFood24;
+import dita.recall24.model.Record24;
+import dita.recall24.model.Respondent24;
+import dita.recall24.model.RespondentMetaData24;
 import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -42,6 +62,10 @@ class _Dtos {
         @XmlElementWrapper(name="ListeInterviews")
         @XmlElement(name="Interview", type=Interview.class)
         private List<Interview> interviews;
+        //dump
+        String toJson() {
+            return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
+        }
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -91,19 +115,21 @@ class _Dtos {
         @XmlElement(name="SBT_FirstName")
         private String subjectFirstName;
         @XmlElement(name="SBT_Sex")
-        private String subjectSex;
+        private int subjectSex;
         @XmlElement(name="SBT_BirthDate")
-        private String subjectBirthDate;
+        @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
+        private LocalDateTime subjectBirthDate;
         @XmlElement(name="ITG_Release")
         private String itgRelase;
         @XmlElement(name="ITG_Num")
         private String itgNum;
         @XmlElement(name="ITG_Date")
-        private String itgDate;
+        @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
+        private LocalDateTime interviewDate;
         @XmlElement(name="ITG_SubjectHeight")
-        private String itgSubjectHeight;
+        private float heightCM;
         @XmlElement(name="ITG_SubjectWeight")
-        private String itgSubjectWeight;
+        private float weightKG;
         @XmlElement(name="ITG_VURecall")
         private String itgVURecall;
         @XmlElement(name="ITG_VUNextRecall")
@@ -125,9 +151,9 @@ class _Dtos {
         @XmlElement(name="ITG_RecomputeDate")
         private String itgRecomputeDate;
         @XmlElement(name="ITG_SPD_code")
-        private String itgSpecialDayCode;
+        private String specialDayCode;
         @XmlElement(name="ITG_SPT_code")
-        private String itgSpecialDietCode;
+        private String specialDietCode;
         @XmlElement(name="ITG_Version")
         private String itgVersion;
 
@@ -136,8 +162,35 @@ class _Dtos {
         private List<Note> notes;
 
         @XmlElementWrapper(name="ListeLignesITV")
-        @XmlElement(name="LigneITV", type=Ligne.class)
-        private List<Ligne> lignes;
+        @XmlElement(name="LigneITV", type=ListEntry.class)
+        private List<ListEntry> listEntries;
+
+        Interview24 toInterview24() {
+
+            Respondent24 respondent = new Respondent24(
+                    subjectName + "|" + subjectFirstName,
+                    subjectBirthDate.toLocalDate(),
+                    Gender.values()[subjectSex]);
+
+            _NullSafe.stream(listEntries)
+                .map(ListEntry::toRecall24)
+                .forEach(obj24->{
+                    System.err.printf("%s%n", obj24);
+                });
+
+            Can<Meal24> meals = Can.empty();
+
+            return Interview24.of(
+                    respondent,
+                    interviewDate.toLocalDate(),
+                    new RespondentMetaData24(
+                            ObjectRef.<Interview24>empty(),
+                            specialDietCode,
+                            specialDayCode,
+                            heightCM,
+                            weightKG),
+                    meals);
+        }
 
     }
 
@@ -162,11 +215,11 @@ class _Dtos {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @Data
-    static class Ligne {
+    static class ListEntry {
         @XmlElement(name="ITL_POC_Code")
-        private String ITL_POC_Code;
+        private String foodConsumptionPlaceId;
         @XmlElement(name="ITL_FCO_Code")
-        private String ITL_FCO_Code;
+        private String foodConsumptionOccasionId;
         @XmlElement(name="ITL_FCOHour")
         private String ITL_FCOHour;
         @XmlElement(name="ITL_TOK")
@@ -178,7 +231,7 @@ class _Dtos {
         @XmlElement(name="ITL_S_ING_NUM")
         private String ITL_S_ING_NUM;
         @XmlElement(name="ITL_Type")
-        private String ITL_Type;
+        private String listEntryType;
         @XmlElement(name="ITL_FoodNum")
         private String ITL_FoodNum;
         @XmlElement(name="ITL_Group")
@@ -297,6 +350,89 @@ class _Dtos {
         @XmlElementWrapper(name="ListeNotes")
         @XmlElement(name="Note", type=Note.class)
         private List<Note> notes;
+
+        Object toRecall24() {
+            return switch (ListEntryType.parse(listEntryType)) {
+            case FoodConsumptionOccasion -> toMeal24();
+            case QuickListItem -> toMemorizedFood24();
+            case Food -> toRecord24(Type.FOOD);
+            case FoodSelectedAsARecipeIngredient -> toRecord24(Type.FOOD); //TODO information is lost here
+            case FatDuringCookingForFood -> toRecord24(Type.INFORMAL); // TODO verify data contained is duplicated
+            case Recipe -> toRecord24(Type.COMPOSITE); //TODO ad-hoc or prepared?
+
+            case QuickListItemForDietarySupplement -> toRecord24(Type.INCOMPLETE);
+            case DietarySupplement -> toRecord24(Type.INCOMPLETE);
+            case FatDuringCookingForIngredient -> toRecord24(Type.INCOMPLETE);
+            case FatSauceOrSweeteners -> toRecord24(Type.INCOMPLETE);
+            case RecipeSelectedAsARecipeIngredient -> toRecord24(Type.INCOMPLETE);
+            case TypeOfFatUsedFacet -> toRecord24(Type.INCOMPLETE);
+            case TypeOfMilkOrLiquidUsedFacet -> toRecord24(Type.INCOMPLETE);
+            default -> throw new IllegalArgumentException("Unexpected value: " + ListEntryType.parse(listEntryType));
+            };
+        }
+
+        Meal24 toMeal24() {
+            LocalTime hourOfDay = parseLocalTimeFrom4Digits(ITL_FCOHour.trim());
+            Can<MemorizedFood24> memorizedFood = Can.empty();
+            return Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, memorizedFood);
+        }
+
+        MemorizedFood24 toMemorizedFood24() {
+            String name = "TODO"; //TODO
+            Can<Record24> records = Can.empty();
+            return MemorizedFood24.of(name, records);
+        }
+
+        Record24 toRecord24(final Type type) {
+            String name = "TODO"; //TODO
+            Can<Ingredient24> ingredients = Can.empty();
+            return Record24.of(type, name, ITL_Facets_STR, ingredients);
+        }
+
+    }
+
+    private LocalTime parseLocalTimeFrom4Digits(final String hhmm) {
+        var hh = hhmm.substring(0, 2);
+        var mm = hhmm.substring(2, 4);
+        return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
+    }
+
+    //
+
+    private enum ListEntryType {
+        FoodConsumptionOccasion,
+        QuickListItem,
+        QuickListItemForDietarySupplement,
+        Recipe,
+        RecipeSelectedAsARecipeIngredient,
+        Food,
+        FoodSelectedAsARecipeIngredient,
+        FatDuringCookingForFood,
+        FatDuringCookingForIngredient,
+        TypeOfFatUsedFacet,
+        TypeOfMilkOrLiquidUsedFacet,
+        FatSauceOrSweeteners,
+        DietarySupplement;
+        @SneakyThrows
+        static ListEntryType parse(final String byName) {
+            switch(byName){
+            case "1": return FoodConsumptionOccasion;
+            case "2": return QuickListItem;
+            case "2S": return QuickListItemForDietarySupplement;
+            case "3": return Recipe;
+            case "3S": return RecipeSelectedAsARecipeIngredient;
+            case "4": return Food;
+            case "5": return FoodSelectedAsARecipeIngredient;
+            case "6": return FatDuringCookingForFood;
+            case "7": return FatDuringCookingForIngredient;
+            case "A2": return TypeOfFatUsedFacet;
+            case "A3": return TypeOfMilkOrLiquidUsedFacet;
+            case "8": return FatSauceOrSweeteners;
+            case "9": return DietarySupplement;
+            default:
+                throw new ParseException("unmapped value '"+byName+"' for 'RecordType'", 0);
+            }
+        }
     }
 
 }

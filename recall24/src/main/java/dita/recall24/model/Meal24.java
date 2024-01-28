@@ -53,6 +53,30 @@ public record Meal24(
 
         ) implements dita.recall24.api.Meal24 {
 
+    public static Meal24 of(
+            /**
+             * Hour of day, when this meal took place.
+             */
+            final LocalTime hourOfDay,
+            /**
+             * Identifying the occasion, when this meal took place.
+             */
+            final String foodConsumptionOccasionId,
+            /**
+             * Identifying the place, where this meal took place.
+             */
+            final String foodConsumptionPlaceId,
+            /**
+             * Memorized food for this meal.
+             */
+            final Can<MemorizedFood24> memorizedFood
+            ) {
+        var meal24 = new Meal24(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId,
+                foodConsumptionPlaceId, memorizedFood);
+        memorizedFood.forEach(mem->mem.parentMealRef().setValue(meal24));
+        return meal24;
+    }
+
     @Override
     public Interview24 parentInterview() {
         return parentInterviewRef.getValue();

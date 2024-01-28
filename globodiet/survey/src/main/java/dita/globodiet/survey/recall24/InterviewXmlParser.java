@@ -18,11 +18,14 @@
  */
 package dita.globodiet.survey.recall24;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
-import dita.recall24.dto.InterviewSetDto;
+import dita.recall24.model.Interview24;
+import dita.recall24.model.InterviewSet24;
+import dita.recall24.model.Respondent24;
 import lombok.NonNull;
 
 /**
@@ -30,17 +33,28 @@ import lombok.NonNull;
  */
 public class InterviewXmlParser {
 
-    public Try<InterviewSetDto> tryParse(final @NonNull DataSource source) {
+    public Try<InterviewSet24> tryParse(final @NonNull DataSource source) {
         return Try.call(()->parse(source));
     }
 
-    public InterviewSetDto parse(final @NonNull DataSource source) {
-        var iSet = new InterviewSetDto();
+    public InterviewSet24 parse(final @NonNull DataSource source) {
 
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
                 .valueAsNonNullElseFail();
 
-        return iSet;
+        /* Interviews that belong to this survey. */
+        final Can<Interview24> interviews =
+            dto.getInterviews().stream()
+                .map(_Dtos.Interview::toInterview24)
+                .collect(Can.toCan());
+
+        /* Respondents collected from interviews. */
+        final Can<Respondent24> respondents =
+            interviews.stream()
+                .map(Interview24::respondent)
+                .collect(Can.toCan());
+
+        return InterviewSet24.of(respondents, interviews);
     }
 
 }

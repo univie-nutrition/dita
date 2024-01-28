@@ -29,6 +29,7 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.io.JsonUtils;
 
 import dita.commons.types.ObjectRef;
 import lombok.val;
@@ -152,6 +153,10 @@ public record InterviewSet24(
         return InterviewSet24.of(
                 Can.ofCollection(respondents),
                 Can.ofCollection(interviews));
+    }
+
+    public String toJson() {
+        return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
     }
 
 }

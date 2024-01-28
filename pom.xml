@@ -342,11 +342,11 @@
 	
 	<modules>
 		<module>commons</module>
+		<module>recall24</module>
 		<module>causeway</module>
 		<module>foodex</module>
 		<module>vault</module>
 		<module>globodiet</module>
-		<module>recall24</module>
 		<module>tooling</module>
 	</modules>
 	
