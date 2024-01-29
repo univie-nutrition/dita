@@ -59,16 +59,20 @@ class InterviewXmlParserTest {
             //.limit(1)
             .forEach(zippedDs->{
 
-                System.err.printf("%s%n", zippedDs.md5Hex());
-
                 var unzipped = Blob.of("zipped", CommonMimeType.ZIP, zippedDs.bytes())
                     .unZip(CommonMimeType.XML, ZipOptions.builder()
                             .zipEntryCharset(StandardCharsets.ISO_8859_1)
+                            .zipEntryFilter(entry->{
+                                System.err.printf("== Parsing Zip entry %s (%.2fKB)%n",
+                                        entry.getName(),
+                                        0.001*entry.getSize());
+                                return true;
+                            })
                             .build());
 
                 var ds = DataSource.ofBytes(unzipped.getBytes());
                 var iSet = parser.parse(ds);
-                System.err.printf("%s%n", iSet.toJson());
+                //System.err.printf("%s%n", iSet.toJson());
             });
 
         });

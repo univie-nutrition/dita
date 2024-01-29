@@ -33,7 +33,13 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.collections.ImmutableEnumSet;
+import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.graph.GraphUtils.GraphKernel;
+import org.apache.causeway.commons.graph.GraphUtils.GraphKernel.GraphCharacteristic;
+import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.JsonUtils;
 
 import dita.commons.types.Gender;
@@ -47,7 +53,11 @@ import dita.recall24.model.Record24;
 import dita.recall24.model.Respondent24;
 import dita.recall24.model.RespondentMetaData24;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -172,13 +182,82 @@ class _Dtos {
                     subjectBirthDate.toLocalDate(),
                     Gender.values()[subjectSex]);
 
-            _NullSafe.stream(listEntries)
-                .map(ListEntry::toRecall24)
-                .forEach(obj24->{
-                    System.err.printf("%s%n", obj24);
-                });
+            final var tree = new GraphKernel(1 + listEntries.size(), ImmutableEnumSet.noneOf(GraphCharacteristic.class));
+            final int rootIndex = listEntries.size();
+            final int[] current = new int[] {-1, -1, -1, -1, -1, -1};
 
-            Can<Meal24> meals = Can.empty();
+            listEntries.forEach(IndexedConsumer.zeroBased((i, listEntry)->{
+                var listEntryType = listEntry.listEntryType();
+                switch (listEntryType) {
+                case FoodConsumptionOccasion:
+                    tree.addEdge(rootIndex, current[0] = i);
+                    return;
+                case QuickListItem:
+                    tree.addEdge(current[0], current[1] = i);
+                    return;
+                case QuickListItemForDietarySupplement:
+                    tree.addEdge(current[0], current[1] = i);
+                    return;
+                case DietarySupplement:
+                    tree.addEdge(current[1], current[2] = i);
+                    return;
+                case Food:
+                    tree.addEdge(current[1], current[2] = i);
+                    return;
+                case Recipe:
+                    tree.addEdge(current[1], current[2] = i);
+                    return;
+                case FatDuringCookingForFood:
+                    tree.addEdge(current[2], current[3] = i);
+                    return;
+                case FatDuringCookingForIngredient:
+                case FatSauceOrSweeteners:
+                case FoodSelectedAsARecipeIngredient:
+                case RecipeSelectedAsARecipeIngredient:
+                case TypeOfFatUsedFacet:
+                case TypeOfMilkOrLiquidUsedFacet:
+                    break;
+                }
+                _Exceptions.unmatchedCase(listEntryType);
+            }));
+
+            var meals = tree.streamNeighbors(rootIndex)
+                .mapToObj(i0->{
+                    var fcoEntry = listEntries.get(i0);
+                    var memorizedFoods = tree.streamNeighbors(i0)
+                    .mapToObj(i1->{
+                        var qliEntry = listEntries.get(i1);
+                        var records = tree.streamNeighbors(i1)
+                        .mapToObj(i2->{
+                            var recordEntry = listEntries.get(i2);
+                            var record24 = recordEntry.toRecord24();
+                            tree.streamNeighbors(i2)
+                            .forEach(i3->{
+                                System.err.printf(" - - - %s%n", listEntries.get(i3).listEntryType());
+                            });
+                            return record24;
+                        })
+                        .collect(Can.toCan());
+
+                        var memorizedFood24 = qliEntry.toMemorizedFood24(records);
+                        return memorizedFood24;
+                    })
+                    .collect(Can.toCan());
+
+                    var meal24 = fcoEntry.toMeal24(memorizedFoods);
+                    return meal24;
+                })
+                .collect(Can.toCan());
+
+            meals.forEach(meal->{
+                System.err.printf("%s%n", meal);
+                meal.memorizedFood().forEach(mem->{
+                    System.err.printf(" - %s%n", mem);
+                    mem.records().forEach(rec->{
+                        System.err.printf(" - - %s%n", rec);
+                    });
+                });
+            });
 
             return Interview24.of(
                     respondent,
@@ -351,16 +430,32 @@ class _Dtos {
         @XmlElement(name="Note", type=Note.class)
         private List<Note> notes;
 
-        Object toRecall24() {
-            return switch (ListEntryType.parse(listEntryType)) {
-            case FoodConsumptionOccasion -> toMeal24();
-            case QuickListItem -> toMemorizedFood24();
+        ListEntryType listEntryType() {
+            return ListEntryType.parse(listEntryType);
+        }
+
+        boolean isOfType(final @NonNull ListEntryType listEntryType) {
+            return listEntryType().equals(listEntryType);
+        }
+
+        Meal24 toMeal24(final Can<MemorizedFood24> memorizedFood) {
+            LocalTime hourOfDay = parseLocalTimeFrom4Digits(ITL_FCOHour.trim());
+            return Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, memorizedFood);
+        }
+
+        MemorizedFood24 toMemorizedFood24(final Can<Record24> records) {
+            _Assert.assertTrue(_Strings.isNullOrEmpty(ITL_Name));
+            String name = ITL_Text;
+            return MemorizedFood24.of(name, records);
+        }
+
+        Record24 toRecord24() {
+            return switch (listEntryType()) {
             case Food -> toRecord24(Type.FOOD);
             case FoodSelectedAsARecipeIngredient -> toRecord24(Type.FOOD); //TODO information is lost here
             case FatDuringCookingForFood -> toRecord24(Type.INFORMAL); // TODO verify data contained is duplicated
             case Recipe -> toRecord24(Type.COMPOSITE); //TODO ad-hoc or prepared?
 
-            case QuickListItemForDietarySupplement -> toRecord24(Type.INCOMPLETE);
             case DietarySupplement -> toRecord24(Type.INCOMPLETE);
             case FatDuringCookingForIngredient -> toRecord24(Type.INCOMPLETE);
             case FatSauceOrSweeteners -> toRecord24(Type.INCOMPLETE);
@@ -371,21 +466,9 @@ class _Dtos {
             };
         }
 
-        Meal24 toMeal24() {
-            LocalTime hourOfDay = parseLocalTimeFrom4Digits(ITL_FCOHour.trim());
-            Can<MemorizedFood24> memorizedFood = Can.empty();
-            return Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, memorizedFood);
-        }
-
-        MemorizedFood24 toMemorizedFood24() {
-            String name = "TODO"; //TODO
-            Can<Record24> records = Can.empty();
-            return MemorizedFood24.of(name, records);
-        }
-
         Record24 toRecord24(final Type type) {
-            String name = "TODO"; //TODO
-            Can<Ingredient24> ingredients = Can.empty();
+            String name = ITL_Name; //TODO ITL_Text might be non empty -> information lost
+            Can<Ingredient24> ingredients = Can.empty(); //TODO
             return Record24.of(type, name, ITL_Facets_STR, ingredients);
         }
 
@@ -399,39 +482,32 @@ class _Dtos {
 
     //
 
+    @Getter @Accessors(fluent=true)
+    @RequiredArgsConstructor
     private enum ListEntryType {
-        FoodConsumptionOccasion,
-        QuickListItem,
-        QuickListItemForDietarySupplement,
-        Recipe,
-        RecipeSelectedAsARecipeIngredient,
-        Food,
-        FoodSelectedAsARecipeIngredient,
-        FatDuringCookingForFood,
-        FatDuringCookingForIngredient,
-        TypeOfFatUsedFacet,
-        TypeOfMilkOrLiquidUsedFacet,
-        FatSauceOrSweeteners,
-        DietarySupplement;
+        FoodConsumptionOccasion("1", 0),
+        QuickListItem("2", 1),
+        QuickListItemForDietarySupplement("2S", 1),
+        Recipe("3", 2),
+        RecipeSelectedAsARecipeIngredient("3S", 3),
+        Food("4", 2),
+        FoodSelectedAsARecipeIngredient("5", 3),
+        FatDuringCookingForFood("6", 3),
+        FatDuringCookingForIngredient("7", 4),
+        TypeOfFatUsedFacet("A2", 4),
+        TypeOfMilkOrLiquidUsedFacet("A3", 4),
+        FatSauceOrSweeteners("8", 2),
+        DietarySupplement("9", 2);
+        final String code;
+        final int hierarchicalLevel;
         @SneakyThrows
-        static ListEntryType parse(final String byName) {
-            switch(byName){
-            case "1": return FoodConsumptionOccasion;
-            case "2": return QuickListItem;
-            case "2S": return QuickListItemForDietarySupplement;
-            case "3": return Recipe;
-            case "3S": return RecipeSelectedAsARecipeIngredient;
-            case "4": return Food;
-            case "5": return FoodSelectedAsARecipeIngredient;
-            case "6": return FatDuringCookingForFood;
-            case "7": return FatDuringCookingForIngredient;
-            case "A2": return TypeOfFatUsedFacet;
-            case "A3": return TypeOfMilkOrLiquidUsedFacet;
-            case "8": return FatSauceOrSweeteners;
-            case "9": return DietarySupplement;
-            default:
-                throw new ParseException("unmapped value '"+byName+"' for 'RecordType'", 0);
+        static ListEntryType parse(final String code) {
+            for (var type : ListEntryType.values()) {
+                if(type.code.equalsIgnoreCase(code)) {
+                    return type;
+                }
             }
+            throw new ParseException("unmapped code '"+code+"' for 'RecordType'", 0);
         }
     }
 
