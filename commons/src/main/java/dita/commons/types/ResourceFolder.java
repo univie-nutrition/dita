@@ -38,6 +38,17 @@ public record ResourceFolder(File root) {
     public static ResourceFolder testResourceRoot() {
         return new ResourceFolder(projectRoot().relativeFile("src/test/resources"));
     }
+    public static ResourceFolder moduleRoot(final Class<?> anyClassInModule) {
+        int nesting = 3 + (int) anyClassInModule.getPackageName().chars().filter(c->c=='.').count();
+        var moduleRoot = new File(anyClassInModule.getResource("").getFile());
+        for (int i = 0; i < nesting; i++) {
+            moduleRoot = moduleRoot.getParentFile();
+        }
+        return new ResourceFolder(moduleRoot);
+    }
+    public static ResourceFolder testResourceRoot(final Class<?> anyClassInModule) {
+        return new ResourceFolder(moduleRoot(anyClassInModule).relativeFile("src/test/resources"));
+    }
     public static ResourceFolder ofFileName(final String fileName) {
         return ofFile(new File(fileName));
     }
@@ -64,4 +75,5 @@ public record ResourceFolder(File root) {
     public void purgeFiles() {
         FileUtils.searchFiles(root, dir->true, file->true, FileUtils::deleteFile);
     }
+
 }

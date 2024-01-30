@@ -18,27 +18,16 @@
  */
 package dita.globodiet.survey.recall24;
 
-import java.io.File;
-
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.commons.io.FileUtils;
 
 import dita.commons.types.ResourceFolder;
-import lombok.SneakyThrows;
+import dita.globodiet.survey.util.InterviewUtils;
 
 record _InterviewSampler(Can<DataSource> interviewSources) {
 
     _InterviewSampler(final ResourceFolder sourceFolder) {
-        this(scan(sourceFolder.root()));
-    }
-
-    @SneakyThrows
-    private static Can<DataSource> scan(final File folder) {
-        return FileUtils.searchFiles(folder, dir->true, file->file.getName().endsWith(".xml.zip"))
-                .stream()
-                .map(DataSource::ofFile)
-                .collect(Can.toCan());
+        this(InterviewUtils.scanSources(sourceFolder));
     }
 
     static String sampleXml() {

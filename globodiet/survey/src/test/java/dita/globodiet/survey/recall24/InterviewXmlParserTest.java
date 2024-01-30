@@ -18,19 +18,15 @@
  */
 package dita.globodiet.survey.recall24;
 
-import java.nio.charset.StandardCharsets;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Cardinality;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 
 import dita.commons.types.ResourceFolder;
+import dita.globodiet.survey.util.InterviewUtils;
 
 class InterviewXmlParserTest {
 
@@ -52,27 +48,14 @@ class InterviewXmlParserTest {
         .ifPresent(sampler->{
 
             var interviewSources = sampler.interviewSources();
-
             assertEquals(Cardinality.MULTIPLE, interviewSources.getCardinality());
 
             interviewSources.stream()
-            //.limit(1)
-            .forEach(zippedDs->{
-
-                var unzipped = Blob.of("zipped", CommonMimeType.ZIP, zippedDs.bytes())
-                    .unZip(CommonMimeType.XML, ZipOptions.builder()
-                            .zipEntryCharset(StandardCharsets.ISO_8859_1)
-                            .zipEntryFilter(entry->{
-                                System.err.printf("== Parsing Zip entry %s (%.2fKB)%n",
-                                        entry.getName(),
-                                        0.001*entry.getSize());
-                                return true;
-                            })
-                            .build());
-
-                var ds = DataSource.ofBytes(unzipped.getBytes());
-                var iSet = parser.parse(ds);
-                //System.err.printf("%s%n", iSet.toJson());
+            .limit(1)
+            .map(InterviewUtils::unzip)
+            .map(InterviewUtils::parse)
+            .forEach(iSet->{
+                System.err.printf("%s%n", iSet.toJson());
             });
 
         });

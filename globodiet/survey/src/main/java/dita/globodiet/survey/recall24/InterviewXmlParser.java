@@ -41,6 +41,7 @@ public class InterviewXmlParser {
 
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
                 .valueAsNonNullElseFail();
+        System.err.printf("%s%n", dto.toJson());
 
         /* Interviews that belong to this survey. */
         final Can<Interview24> interviews =

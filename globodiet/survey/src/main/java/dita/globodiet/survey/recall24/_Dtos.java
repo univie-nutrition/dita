@@ -54,7 +54,6 @@ import dita.recall24.model.Respondent24;
 import dita.recall24.model.RespondentMetaData24;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
@@ -213,7 +212,7 @@ class _Dtos {
                 case FatDuringCookingForIngredient:
                 case FatSauceOrSweeteners:
                 case FoodSelectedAsARecipeIngredient:
-                case RecipeSelectedAsARecipeIngredient:
+                //case RecipeSelectedAsARecipeIngredient: //Not yet available (as stated in docs)
                 case TypeOfFatUsedFacet:
                 case TypeOfMilkOrLiquidUsedFacet:
                     break;
@@ -295,118 +294,261 @@ class _Dtos {
     @XmlAccessorType(XmlAccessType.FIELD)
     @Data
     static class ListEntry {
+        /** FoodConsumptionPlace */
         @XmlElement(name="ITL_POC_Code")
         private String foodConsumptionPlaceId;
+        /** FoodConsumptionOccasion */
         @XmlElement(name="ITL_FCO_Code")
         private String foodConsumptionOccasionId;
+        /** FoodConsumption Occasion Hour of Day*/
         @XmlElement(name="ITL_FCOHour")
-        private String ITL_FCOHour;
+        private String foodConsumptionHourOfDay;
+
+        /** ListEntry's sequential number */
         @XmlElement(name="ITL_TOK")
-        private String ITL_TOK;
+        private int mealOrdinal;
+        /** Sequential Number Within the Quick List Item */
         @XmlElement(name="ITL_QLINUM")
-        private String ITL_QLINUM;
+        private int recordOrdinal;
+        /** Sequential Number within a Mixed Recipe for Ingredients */
         @XmlElement(name="ITL_ING_NUM")
-        private String ITL_ING_NUM;
+        private int ingredientOrdinal;
+        /** Sequential Number for Ingredients within a Sub-Recipe */
         @XmlElement(name="ITL_S_ING_NUM")
-        private String ITL_S_ING_NUM;
+        private int ingredientSubOrdinal;
+
+        /** ListEntry's Type/Specialization */
         @XmlElement(name="ITL_Type")
         private String listEntryType;
-        @XmlElement(name="ITL_FoodNum")
-        private String ITL_FoodNum;
-        @XmlElement(name="ITL_Group")
-        private String ITL_Group;
-        @XmlElement(name="ITL_SubGroup1")
-        private String ITL_SubGroup1;
-        @XmlElement(name="ITL_SubGroup2")
-        private String ITL_SubGroup2;
-        @XmlElement(name="ITL_DS_Classif") //empty
-        private String ITL_DS_Classif;
-        @XmlElement(name="ITL_F_Type") //empty
+        /** Food Type only for Food/ingredient/fat (for TYPE>3):
+         * GI Generic Item, SH Shadow, ' ' not Generic */
+        @XmlElement(name="ITL_F_Type")
         private String ITL_F_Type;
-        @XmlElement(name="ITL_I_Type") //empty
-        private String ITL_I_Type;
+        /** Recipe Type only for recipe or Sub-recipe (for TYPE=3 or 3S):<br>
+         * 1.1=Open – Known<br>
+         * 1.2=Open – Unknown<br>
+         * 1.3=Open with brand<br>
+         * 2.1=Closed<br>
+         * 2.2=Closed with brand<br>
+         * 3.0=Strictly commercial<br>
+         * 4.1=New – Known<br>
+         * 4.2=New – Unknown */
+        @XmlElement(name="ITL_R_Type")
+        private String recipeType;
+        /** Ingredient Type only for ingredient or sub-recipe (for TYPE=5 or 3S or 5S):<br>
+         * 1 Fixed<br>
+         * 2 Substitutable<br>
+         * 3 Fat during cooking<br>
+         * A2 Fat used Facet<br>
+         * A3 Milk/liquid used */
+        @XmlElement(name="ITL_I_Type")
+        private String ingredientType;
+
+        /** Type of modification done on Recipe or sub-recipes (for TYPE=3 or 3S):<br>
+         * 0 = No modification (default)<br>
+         * 1 = Modified in New interview mode - No update needed (when added & deleted ingredients available)<br>
+         * 2 = Modified in New interview mode – Update needed (when added or deleted ingredients available
+         * and with ingredients with % of consumed quantities > cut-off point)<br>
+         * 3 = Recipe modified in Edit interview mode. Recipe defined with R_Modif=0 in New interview mode.<br>
+         * 4 = Recipe modified in Edit interview mode. Recipe defined with R_Modif=1 in New interview mode.<br>
+         * 5 = Recipe modified in Edit interview mode. Recipe defined with R_Modif=2 in New interview mode.
+         * <p>
+         * Definition: A recipe is considered as modified only when at least one of its important ingredients
+         * (with quantity > 5 % of the whole recipe portion) had been added or deleted during the interview.*/
         @XmlElement(name="ITL_R_Modif")
-        private String ITL_R_Modif;
+        private int recipeModificationType;
+        /** Type of modification done on Ingredient (for Type=5 or 3s or 5S):<br>
+         * 0 = No modification (default)<br>
+         * 1 = Added in New interview mode<br>
+         * 2 = Deleted in New interview mode (for ingredient with consumed quantities > cut-off point)<br>
+         * 3 = Substituted in New interview mode<br>
+         * 4 = Added in Edit interview mode<br>
+         * 5 = Substituted in Edit interview mode
+         * <p>
+         * Definition: A recipe is considered as modified only when at least one of its important ingredients
+         * (with quantity > 5 % of the whole recipe portion) had been added or deleted during the interview.*/
         @XmlElement(name="ITL_I_Modif")
-        private String ITL_I_Modif;
-        @XmlElement(name="ITL_R_Type") //empty
-        private String ITL_R_Type;
+        private int ingredientModificationType;
+
+        /** Food or Recipe or Ingredient or Supplement Code */
+        @XmlElement(name="ITL_FoodNum")
+        private String foodOrSimilarCode;
+        /** Food or Recipe or Ingredient Group */
+        @XmlElement(name="ITL_Group")
+        private String groupCode;
+        /** Food or Recipe or Ingredient Sub-Group */
+        @XmlElement(name="ITL_SubGroup1")
+        private String subgroupCode;
+        /** Food or Ingredient Sub-Sub-Group */
+        @XmlElement(name="ITL_SubGroup2")
+        private String subSubgroupCode;
+
+        /** Dietary supplement classification code */
+        @XmlElement(name="ITL_DS_Classif")
+        private String supplementClassification;
+
+        /** FCO or Quick list item label or food/recipe/ingredient/supplement description label */
         @XmlElement(name="ITL_Text")
-        private String ITL_Text;
+        private String label;
+        /** Recipe or Food or Ingredient or supplement Name */
         @XmlElement(name="ITL_Name")
-        private String ITL_Name;
+        private String name;
+
+        /** Sequence of Facets/Descriptors codes delimited by comma (FFDD,FFDD,... e.g. '0401,0304')
+         * <p>
+         * 4 additional codes are available:<br>
+         * <b>1201</b> is used when a brand or product name has been entered (new brand) during the interview.<br>
+         * <b>1299</b> is used when a brand or product name has been selected from the available list.<br>
+         * <b>1501</b> is used when one or several fats have been selected during the interview to describe the food/ingredient.<br>
+         * This fat information is available as record(s) attached to the described food/ingredient with TYPE=’A2’.<br>
+         * <b>1601</b> is used when one or several liquids have been selected during the interview to describe the food/ingredient.<br>
+         * This liquid information is available as record(s) attached to the described food/ingredient with TYPE=’A3’.
+         * <p>
+         * Particular case of the type of fat used for cooking (TYPE=A2) and the type of liquid used for cooking (TYPE=A3):<br>
+         * For some foods GloboDiet application is asking on qualitative information on its fat(s) or liquid(s) components.
+         * As there are qualitative information, theses fat(s) and liquid(s) foods don’t have attached consumed quantity (=0g)
+         * The link between these items (non-fat and fat/liquid used) is kept via a shared ITL_QLINUM.
+         */
         @XmlElement(name="ITL_Facets_STR")
-        private String ITL_Facets_STR;
-        @XmlElement(name="ITL_BrandName") //empty
-        private String ITL_BrandName;
+        private String facetDescriptorCodes;
+
+        /** BrandName */
+        @XmlElement(name="ITL_BrandName")
+        private String brandName;
+
+        /** Control Variable:<br>
+         * ' ' = not described and not quantified<br>
+         * 1 = described and quantified<br>
+         * 2 = described but not quantified<br>
+         * 3 = recipe to be completed, ingredient should be reviewed */
         @XmlElement(name="ITL_Status")
-        private String ITL_Status;
+        private String status;
+
+        /** Consumed quantity in grams (after having applied conversion factors). (recomputed value as docs state)*/
+        @XmlElement(name="ITL_CONS_QTY")
+        private double consumedQuantity;
+        /** Estimated quantity (before having applied conversion factors). (recomputed value as docs state)*/
         @XmlElement(name="ITL_Estim_QTY")
-        private String ITL_Estim_QTY;
+        private double estimatedQuantity;
+
+        /** Quantification method:
+         * G=Gram<br>
+         * V=Volume<br>
+         * P=Photo<br>
+         * U=Standard Unit<br>
+         * S=Standard Portion<br>
+         * H=HHM A=Shapes<br>
+         * W=Whole recipe fraction<br>
+         * ?=Unknown */
         @XmlElement(name="ITL_Q_Method")
-        private String ITL_Q_Method;
+        private String quantificationMethod;
+        /** Photo series or HHM or Shape or STDU or STDP Code */
         @XmlElement(name="ITL_QM_Code")
-        private String ITL_QM_Code;
+        private String quantificationCode;
+        /** Unit (G=gram, V=volume) of the selected Quantity for method Photo, Std Unit, Std Portion */
         @XmlElement(name="ITL_QUNIT")
-        private String ITL_QUNIT;
+        private String quantificationUnit;
+
+        /** Quantity in gram/ml attached to the selected method */
         @XmlElement(name="ITL_NGRAMS")
-        private String ITL_NGRAMS;
+        private double quantityAmount;
+        /** Proportion/fraction of selected quantity*/
         @XmlElement(name="ITL_Proport")
-        private String ITL_Proport;
+        private String quantityFraction;
+        /** Reported HHM Fraction for method HHM */
         @XmlElement(name="ITL_HHMFract")
-        private String ITL_HHMFract;
+        private String householdMeasureFraction;
+        /** Recipe fraction for ‘whole recipe fraction’ method*/
         @XmlElement(name="ITL_R_Fract")
-        private String ITL_R_Fract;
+        private String recipeFraction;
+
+        /** Variable indicating whether the quantity was Estimated Raw or Cooked:<br>
+         * 1 = Raw<br>
+         * 2 = Cooked or Not applicable */
         @XmlElement(name="ITL_RawCooked")
         private String ITL_RawCooked;
+        /** Variable indicating whether the quantity was Consumed Raw or Cooked:<br>
+         * 1 = Raw<br>
+         * 2 = Cooked or Not applicable*/
         @XmlElement(name="ITL_ConsRawCo")
         private String ITL_ConsRawCo;
+        /** Raw to Cooked Coefficient*/
         @XmlElement(name="ITL_Conver")
-        private String ITL_Conver;
+        private double ITL_Conver;
+
+        /** Variable indicating whether the quantity was Estimated With/Without Inedible Part:<br>
+         * 1 = Without or not applicable<br>
+         * 2 = With*/
         @XmlElement(name="ITL_EDIB")
         private String ITL_EDIB;
+
+        /** TODO */
         @XmlElement(name="ITL_EDIB_CSTE")
         private String ITL_EDIB_CSTE;
-        @XmlElement(name="ITL_DENSITY")
-        private String ITL_DENSITY;
+
+        /** TODO */
         @XmlElement(name="ITL_FATLEFTO")
         private String ITL_FATLEFTO;
+
+        /** TODO */
         @XmlElement(name="ITL_FAT_PCT")
         private String ITL_FAT_PCT;
+
+        /** TODO */
         @XmlElement(name="ITL_PCT_CONS")
         private String ITL_PCT_CONS;
+
+        /** TODO */
         @XmlElement(name="ITL_PCT_ESTIM")
         private String ITL_PCT_ESTIM;
-        @XmlElement(name="ITL_CONS_QTY")
-        private String ITL_CONS_QTY;
+
+        /** TODO */
         @XmlElement(name="ITL_R_COOKED")
         private String ITL_R_COOKED;
+
+        /** TODO */
         @XmlElement(name="ITL_R_EDIB")
         private String ITL_R_EDIB;
+
+        /** TODO */
         @XmlElement(name="ITL_RAW_Q")
         private String ITL_RAW_Q;
+
+        /** TODO */
         @XmlElement(name="ITL_RAW_Q_W")
         private String ITL_RAW_Q_W;
+
+        /** TODO */
         @XmlElement(name="ITL_MAX")
         private String ITL_MAX;
+
+        /** TODO */
         @XmlElement(name="ITL_SUPPL")
         private String ITL_SUPPL;
+
+        /** TODO */
         @XmlElement(name="ITL_ITEM_SEQ")
         private String ITL_ITEM_SEQ;
 
         @XmlAccessorType(XmlAccessType.FIELD)
         @Data
         static class Quantity {
+            /** TODO */
             @XmlElement(name="ITQ_Order")
             private String order;
+            /** TODO */
             @XmlElement(name="ITQ_SH_Surface")
             private String shSurface;
+            /** TODO */
             @XmlElement(name="ITQ_TH_Thick")
             private String thThick;
+            /** TODO */
             @XmlElement(name="ITQ_PH_Code")
             private String phCode;
+            /** TODO */
             @XmlElement(name="ITQ_PH_QTY")
             private String phQuantity;
+            /** TODO */
             @XmlElement(name="ITQ_FRACT")
             private String fraction;
         }
@@ -417,8 +559,10 @@ class _Dtos {
         @XmlAccessorType(XmlAccessType.FIELD)
         @Data
         static class Nutrient {
+            /** TODO */
             @XmlElement(name="NTR_Code")
             private String code;
+            /** TODO */
             @XmlElement(name="ITV_NTR_Value")
             private double value;
         }
@@ -434,19 +578,14 @@ class _Dtos {
             return ListEntryType.parse(listEntryType);
         }
 
-        boolean isOfType(final @NonNull ListEntryType listEntryType) {
-            return listEntryType().equals(listEntryType);
-        }
-
         Meal24 toMeal24(final Can<MemorizedFood24> memorizedFood) {
-            LocalTime hourOfDay = parseLocalTimeFrom4Digits(ITL_FCOHour.trim());
+            LocalTime hourOfDay = parseLocalTimeFrom4Digits(foodConsumptionHourOfDay.trim());
             return Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, memorizedFood);
         }
 
         MemorizedFood24 toMemorizedFood24(final Can<Record24> records) {
-            _Assert.assertTrue(_Strings.isNullOrEmpty(ITL_Name));
-            String name = ITL_Text;
-            return MemorizedFood24.of(name, records);
+            _Assert.assertTrue(_Strings.isNullOrEmpty(name));
+            return MemorizedFood24.of(label, records);
         }
 
         Record24 toRecord24() {
@@ -459,7 +598,7 @@ class _Dtos {
             case DietarySupplement -> toRecord24(Type.INCOMPLETE);
             case FatDuringCookingForIngredient -> toRecord24(Type.INCOMPLETE);
             case FatSauceOrSweeteners -> toRecord24(Type.INCOMPLETE);
-            case RecipeSelectedAsARecipeIngredient -> toRecord24(Type.INCOMPLETE);
+            //case RecipeSelectedAsARecipeIngredient -> toRecord24(Type.INCOMPLETE); //Not yet available (as stated in docs)
             case TypeOfFatUsedFacet -> toRecord24(Type.INCOMPLETE);
             case TypeOfMilkOrLiquidUsedFacet -> toRecord24(Type.INCOMPLETE);
             default -> throw new IllegalArgumentException("Unexpected value: " + ListEntryType.parse(listEntryType));
@@ -467,9 +606,9 @@ class _Dtos {
         }
 
         Record24 toRecord24(final Type type) {
-            String name = ITL_Name; //TODO ITL_Text might be non empty -> information lost
+            //TODO label() might be non empty -> information lost
             Can<Ingredient24> ingredients = Can.empty(); //TODO
-            return Record24.of(type, name, ITL_Facets_STR, ingredients);
+            return Record24.of(type, name, facetDescriptorCodes, ingredients);
         }
 
     }
@@ -480,26 +619,27 @@ class _Dtos {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-    //
-
     @Getter @Accessors(fluent=true)
     @RequiredArgsConstructor
     private enum ListEntryType {
-        FoodConsumptionOccasion("1", 0),
-        QuickListItem("2", 1),
-        QuickListItemForDietarySupplement("2S", 1),
-        Recipe("3", 2),
-        RecipeSelectedAsARecipeIngredient("3S", 3),
-        Food("4", 2),
-        FoodSelectedAsARecipeIngredient("5", 3),
-        FatDuringCookingForFood("6", 3),
-        FatDuringCookingForIngredient("7", 4),
-        TypeOfFatUsedFacet("A2", 4),
-        TypeOfMilkOrLiquidUsedFacet("A3", 4),
-        FatSauceOrSweeteners("8", 2),
-        DietarySupplement("9", 2);
+        FoodConsumptionOccasion("1"),
+        QuickListItem("2"),
+        QuickListItemForDietarySupplement("2S"),
+        Recipe("3"),
+        //RecipeSelectedAsARecipeIngredient("3S"), //Not yet available (as stated in docs)
+        Food("4"),
+        FoodSelectedAsARecipeIngredient("5"),
+        FatDuringCookingForFood("6"),
+        FatDuringCookingForIngredient("7"),
+        TypeOfFatUsedFacet("A2"),
+        TypeOfMilkOrLiquidUsedFacet("A3"),
+        /**
+         * Lines/records with Type=8 should not be used for data analysis because the reported consumed quantities
+         * are redundant with other lines/records.
+         */
+        FatSauceOrSweeteners("8"),
+        DietarySupplement("9");
         final String code;
-        final int hierarchicalLevel;
         @SneakyThrows
         static ListEntryType parse(final String code) {
             for (var type : ListEntryType.values()) {

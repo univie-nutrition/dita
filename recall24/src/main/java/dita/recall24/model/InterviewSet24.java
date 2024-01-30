@@ -139,6 +139,27 @@ public record InterviewSet24(
     /**
      * Returns a joined model of the models passed in.
      */
+    public InterviewSet24 join(final @Nullable InterviewSet24 other) {
+
+        if(other==null) return this;
+
+        val respondents = new ArrayList<Respondent24>(this.respondents().toList());
+        val interviews = new ArrayList<Interview24>(this.interviews().toList());
+
+        Optional.of(other).stream()
+        .forEach(model->{
+            respondents.addAll(model.respondents().toList());
+            interviews.addAll(model.interviews().toList());
+        });
+
+        return InterviewSet24.of(
+                Can.ofCollection(respondents).distinct(),
+                Can.ofCollection(interviews));
+    }
+
+    /**
+     * Returns a joined model of the models passed in.
+     */
     public static InterviewSet24 join(final @Nullable Iterable<InterviewSet24> models) {
 
         val respondents = new ArrayList<Respondent24>();

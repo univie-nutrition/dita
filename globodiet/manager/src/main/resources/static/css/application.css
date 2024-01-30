@@ -93,6 +93,7 @@
 	--bs-info-rgb: 52,152,219;
 	--bs-warning-rgb: 243,156,18;
 	--bs-danger-rgb: 231,76,60;
+	--tree-node-selected-bg-color: AliceBlue;
 }
 .navbar-dark {
   	--bs-navbar-color: rgba(255, 255, 255, 0.85);

@@ -76,6 +76,7 @@ import dita.globodiet.manager.services.search.SearchServiceGdParams;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
+import dita.globodiet.survey.DitaModuleGdSurvey;
 import dita.tooling.orm.OrmModel;
 import lombok.val;
 
@@ -152,6 +153,7 @@ import lombok.val;
     // -- MODULES
     DitaModuleGdParams.class,
     DitaModuleDatabaseReplicator.class,
+    DitaModuleGdSurvey.class,
 
 })
 public class DitaModuleGdManager {
