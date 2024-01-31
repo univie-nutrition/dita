@@ -24,19 +24,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import org.apache.causeway.applib.graph.tree.TreePath;
-import org.apache.causeway.commons.functional.IndexedFunction;
-import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
-
 import dita.commons.types.ResourceFolder;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.globodiet.survey.view.SurveyTreeNode;
 import dita.globodiet.survey.view.SurveyTreeNodeFactory;
 import dita.globodiet.survey.view.SurveyVM;
 import dita.recall24.model.InterviewSet24;
-import lombok.val;
 
 @Configuration
 @Import({
@@ -58,35 +51,15 @@ public class DitaModuleGdSurvey {
         var interviewSet =
             InterviewUtils.scanSources(surveySourcesFolder)
             .stream()
-            .limit(2)
+            .limit(1)
             .map(InterviewUtils::unzip)
             .map(InterviewUtils::parse)
             .reduce(InterviewSet24::join)
-            .orElseThrow();
+            .orElseThrow()
+            .normalized();
 
-        var respNodes = interviewSet.respondents().map(IndexedFunction.zeroBased(
-                new SurveyTreeNodeFactory(TreePath.root())::respondentNode));
-
-        var inerviewNodes = interviewSet.interviews().map(IndexedFunction.zeroBased(
-                new SurveyTreeNodeFactory(TreePath.root())::interviewNode));
-
-
-        String title = "Survey";
-        String faQuickNotation = "solid users-viewfinder";
-        val adoc = new AsciiDocBuilder();
-        adoc.append(doc->doc.setTitle("Entries"));
-        adoc.append(doc->{
-            val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yaml",
-            """
-            data: TODO
-            """
-            );
-            sourceBlock.setTitle("Details");
-        });
-
-        AsciiDoc content = adoc.buildAsValue();
-        TreePath path = TreePath.root();
-        return new SurveyTreeNode(title, faQuickNotation, content, path, respNodes.addAll(inerviewNodes));
+        return SurveyTreeNodeFactory
+                .surveyNode(interviewSet);
     }
 
 }

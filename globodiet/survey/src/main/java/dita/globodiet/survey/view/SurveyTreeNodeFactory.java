@@ -20,27 +20,57 @@ package dita.globodiet.survey.view;
 
 import org.apache.causeway.applib.graph.tree.TreePath;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import dita.recall24.model.Interview24;
+import dita.recall24.model.InterviewSet24;
 import dita.recall24.model.Respondent24;
 import lombok.val;
 
 public record SurveyTreeNodeFactory(TreePath parent) {
 
+    public static SurveyTreeNode surveyNode(final InterviewSet24 interviewSet) {
+
+        var respNodes = interviewSet.respondents().map(IndexedFunction.zeroBased(
+                new SurveyTreeNodeFactory(TreePath.root())::respondentNode));
+
+        var interviewNodes = interviewSet.interviews().map(IndexedFunction.offset(interviewSet.respondents().size(),
+                new SurveyTreeNodeFactory(TreePath.root())::interviewNode));
+
+        record Details(int respondentCount, int interviewCount) {
+            static Details of(final InterviewSet24 interviewSet) {
+                return new Details(
+                        interviewSet.respondents().size(),
+                        interviewSet.interviews().size());
+            }
+        }
+
+        String title = "Survey";
+        AsciiDoc content = adoc(title, "Details", Details.of(interviewSet));
+        return new SurveyTreeNode(title, "solid users-viewfinder", content, TreePath.root(), respNodes.addAll(interviewNodes));
+    }
+
     public SurveyTreeNode respondentNode(final int ordinal, final Respondent24 resp) {
-        final String title = resp.alias();
-        AsciiDoc content = adoc(title, "Details", YamlUtils.toStringUtf8(resp));
+        String title = resp.alias();
+        AsciiDoc content = adoc(title, "Details", resp);
         return new SurveyTreeNode(title, "user", content, parent.append(ordinal), Can.empty());
     }
 
     public SurveyTreeNode interviewNode(final int ordinal, final Interview24 interview) {
-        final String title = interview.respondentAlias();
-        AsciiDoc content = adoc(title, "Details", YamlUtils.toStringUtf8(interview));
+        String title = String.format("%s #%s", interview.respondentAlias(), interview.interviewOrdinal());
+        AsciiDoc content = adoc(title, "Details", interview);
         return new SurveyTreeNode(title, "solid person-circle-question", content, parent.append(ordinal), Can.empty());
+    }
+
+    private static AsciiDoc adoc(
+            final String title,
+            final String yamlBlockLabel,
+            final Object details) {
+        return adoc(title, yamlBlockLabel, YamlUtils.toStringUtf8(details));
     }
 
     private static AsciiDoc adoc(
@@ -55,4 +85,5 @@ public record SurveyTreeNodeFactory(TreePath parent) {
         });
         return adoc.buildAsValue();
     }
+
 }
