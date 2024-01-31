@@ -45,7 +45,7 @@ public class TableSerializerYaml {
     @Inject RepositoryService repositoryService;
     @Inject DataTableService dataTableService;
 
-    public Clob clob(
+    public Clob clobFromDataTables(
             final String name,
             final NameTransformer nameTransformer,
             final Can<DataTable> dataTables) {
@@ -56,12 +56,25 @@ public class TableSerializerYaml {
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
-    public Clob clob(
+    public Clob clobFromRepository(
             final String name,
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter) {
         val yaml = dataTableSet(filter)
                 .populateFromDatabase(repositoryService)
+                .toTabularData(format())
+                .transform(nameTransformer)
+                .toYaml(format());
+        return Clob.of(name, CommonMimeType.YAML, yaml);
+    }
+
+    public Clob clobFromSecondaryConnection(
+            final String name,
+            final NameTransformer nameTransformer,
+            final Predicate<ObjectSpecification> filter,
+            final PersistenceManager pm) {
+        val yaml = dataTableSet(filter)
+                .populateFromSecondaryConnection(pm)
                 .toTabularData(format())
                 .transform(nameTransformer)
                 .toYaml(format());
@@ -126,7 +139,7 @@ public class TableSerializerYaml {
                 .populateFromTabularData(tabularData, format())
                 .replicateToDatabase(pm, sb);
 
-        System.err.printf("replicate %s%n", "done");
+        System.err.printf("replicate (tables=%d) done.%n", dataTableSet.getDataTables().size());
 
         return sb.toString();
     }

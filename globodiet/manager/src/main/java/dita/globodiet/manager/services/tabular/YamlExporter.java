@@ -54,7 +54,7 @@ class YamlExporter implements BiConsumer<DataTable, File> {
                 persistentDataColumns,
                 table.streamDataElements().collect(Can.toCan()));
 
-        var clob = tableSerializerYaml.clob(
+        var clob = tableSerializerYaml.clobFromDataTables(
                 table.getTableFriendlyName(),
                 TabularData.NameTransformer.IDENTITY,
                 Can.of(transformedTable));

@@ -19,6 +19,7 @@
 package dita.recall24.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.apache.causeway.commons.collections.Can;
 
@@ -77,10 +78,13 @@ public record Interview24(
         return interview;
     }
 
-
     @Override
     public int interviewOrdinal() {
         return interviewOrdinalRef().getValue();
+    }
+
+    public boolean matchesRespondent(final Respondent24 candidate) {
+        return Objects.equals(respondent, candidate);
     }
 
 }

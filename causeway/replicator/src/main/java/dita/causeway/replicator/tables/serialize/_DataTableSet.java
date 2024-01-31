@@ -19,6 +19,7 @@
 package dita.causeway.replicator.tables.serialize;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
@@ -71,13 +72,27 @@ class _DataTableSet {
 
     public _DataTableSet populateFromDatabase(final RepositoryService repositoryService) {
         dataTables.forEach(dataTable->{
-            dataTable.setDataElements(
-                    Can
-                        .ofCollection(
-                                repositoryService
-                                    .allInstances(dataTable.getElementType().getCorrespondingClass()))
-                        .map(entityPojo->
-                                ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo)));
+            var entities = Can.ofCollection(
+                    repositoryService
+                        .allInstances(dataTable.getElementType().getCorrespondingClass()));
+            dataTable.setDataElements(entities
+                    .map(entityPojo->ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo)));
+        });
+        return this;
+    }
+
+    public _DataTableSet populateFromSecondaryConnection(final PersistenceManager pm) {
+        dataTables.forEach(dataTable->{
+            pm.currentTransaction().begin();
+            val entityClass = dataTable.getElementType().getCorrespondingClass();
+            System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
+            Query<?> query = pm.newQuery(entityClass);
+            List<?> allInstances = query.executeResultList(entityClass);
+            dataTable.setDataElements(allInstances.stream()
+                    .map(entityPojo->ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo))
+                    .collect(Can.toCan()));
+
+            pm.currentTransaction().commit();
         });
         return this;
     }

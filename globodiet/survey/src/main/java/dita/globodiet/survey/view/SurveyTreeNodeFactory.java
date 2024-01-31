@@ -35,11 +35,9 @@ public record SurveyTreeNodeFactory(TreePath parent) {
 
     public static SurveyTreeNode surveyNode(final InterviewSet24 interviewSet) {
 
-        var respNodes = interviewSet.respondents().map(IndexedFunction.zeroBased(
-                new SurveyTreeNodeFactory(TreePath.root())::respondentNode));
-
-        var interviewNodes = interviewSet.interviews().map(IndexedFunction.offset(interviewSet.respondents().size(),
-                new SurveyTreeNodeFactory(TreePath.root())::interviewNode));
+        var respNodes = interviewSet.respondents().map(IndexedFunction.zeroBased((i, resp)->
+                new SurveyTreeNodeFactory(TreePath.root()).respondentNode(i, resp, interviewSet.interviews()
+                        .filter(intv->intv.matchesRespondent(resp)))));
 
         record Details(int respondentCount, int interviewCount) {
             static Details of(final InterviewSet24 interviewSet) {
@@ -51,17 +49,25 @@ public record SurveyTreeNodeFactory(TreePath parent) {
 
         String title = "Survey";
         AsciiDoc content = adoc(title, "Details", Details.of(interviewSet));
-        return new SurveyTreeNode(title, "solid users-viewfinder", content, TreePath.root(), respNodes.addAll(interviewNodes));
+        return new SurveyTreeNode(title, "solid users-viewfinder", content, TreePath.root(), respNodes);
     }
 
-    public SurveyTreeNode respondentNode(final int ordinal, final Respondent24 resp) {
+    public SurveyTreeNode respondentNode(final int ordinal, final Respondent24 resp, final Can<Interview24> interviews) {
+
+        var respPath = parent.append(ordinal);
+        var interviewNodes = interviews.map(IndexedFunction.zeroBased(
+                new SurveyTreeNodeFactory(respPath)::interviewNode));
+
         String title = resp.alias();
         AsciiDoc content = adoc(title, "Details", resp);
-        return new SurveyTreeNode(title, "user", content, parent.append(ordinal), Can.empty());
+        return new SurveyTreeNode(title, "user", content, respPath, interviewNodes);
     }
 
     public SurveyTreeNode interviewNode(final int ordinal, final Interview24 interview) {
-        String title = String.format("%s #%s", interview.respondentAlias(), interview.interviewOrdinal());
+        String title = String.format("%s #%s %s",
+                interview.respondentAlias(),
+                interview.interviewOrdinal(),
+                interview.interviewDate());
         AsciiDoc content = adoc(title, "Details", interview);
         return new SurveyTreeNode(title, "solid person-circle-question", content, parent.append(ordinal), Can.empty());
     }

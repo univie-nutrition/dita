@@ -18,18 +18,10 @@
  */
 package dita.globodiet.manager.dashboard;
 
-import java.io.File;
-import java.util.Optional;
-import java.util.Properties;
-
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
-import javax.jdo.PersistenceManagerFactory;
 
 import jakarta.inject.Inject;
 
-import org.datanucleus.api.jdo.metadata.api.ClassMetadataImpl;
-import org.datanucleus.metadata.AbstractClassMetaData;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -39,9 +31,6 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.value.Clob;
-import org.apache.causeway.commons.internal.reflection._Reflect;
-import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
@@ -53,7 +42,6 @@ import dita.commons.types.TabularData.NameTransformer;
 import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.val;
 
 @Action//(restrictTo = RestrictTo.PROTOTYPING)
@@ -81,7 +69,8 @@ public class Dashboard_replicateYaml {
         val adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Table Replicate Result"));
 
-        createPersistenceManagerFactory(adoc)
+        new SecondaryDataStore(dataTableService)
+        .createPersistenceManagerFactory(adoc)
             .ifPresent(pmf->{
                 var pm = pmf.getPersistenceManager();
                 try {
@@ -109,78 +98,6 @@ public class Dashboard_replicateYaml {
     private String replicate(final Clob tableData, final NameTransformer nameTransformer, final PersistenceManager pm) {
         return tableSerializer.replicate(tableData, nameTransformer,
                 BlobStore.paramsTableFilter(), pm);
-    }
-
-    private Optional<PersistenceManagerFactory> createPersistenceManagerFactory(final AsciiDocBuilder adoc) {
-        var conf = new Properties();
-
-        var additionalConfigDir = new File("/opt/config");
-        if(additionalConfigDir.exists()) {
-            DataSource.ofFile(new File(additionalConfigDir, "application-SQLSERVER.properties"))
-                .tryReadAndAccept(conf::load);
-        } else {
-            DataSource.ofResource(getClass(), "/config/application-SQLSERVER.properties")
-                .tryReadAndAccept(conf::load);
-        }
-
-        // sanity check
-        if(configValue(conf, "spring.datasource.url")==null) {
-            adoc.append(doc->{
-                var sourceBlock = AsciiDocFactory.sourceBlock(doc, "txt", "missing application-SQLSERVER.properties");
-                sourceBlock.setTitle("Replication Setup");
-            });
-            return Optional.empty();
-        }
-
-        var dn = new Properties();
-        dn.setProperty("javax.jdo.PersistenceManagerFactoryClass", "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");
-        dn.setProperty("javax.jdo.option.ConnectionURL", configValue(conf, "spring.datasource.url"));
-        dn.setProperty("javax.jdo.option.ConnectionUserName", configValue(conf, "spring.datasource.username"));
-        dn.setProperty("datanucleus.query.jdoql.allowAll", "true");
-
-        // output settings, suppress password
-        adoc.append(doc->{
-            var sb = new StringBuilder();
-            dn.forEach((k, v)->{
-                sb.append(String.format("%s: %s\n", k, v));
-            });
-            var sourceBlock = AsciiDocFactory.sourceBlock(doc, "txt", sb.toString());
-            sourceBlock.setTitle("Replication Setup");
-        });
-
-        dn.setProperty("javax.jdo.option.ConnectionPassword", configValue(conf, "spring.datasource.password"));
-
-        final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory(dn);
-        return postProcessDnMetaModel(pmf);
-    }
-
-    private String configValue(final Properties properties, final String key) {
-        return properties.getProperty(key);
-    }
-
-    private Optional<PersistenceManagerFactory> postProcessDnMetaModel(final PersistenceManagerFactory pmf) {
-        try {
-            dataTableService.streamEntities()
-            .filter(BlobStore.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
-            .map(ObjectSpecification::getCorrespondingClass)
-            .map(Class::getName)
-            .forEach(entityClassName->toEntityWithNonDurableId(pmf, entityClassName));
-        } catch (Exception e) {
-            e.printStackTrace(); //XXX could report issues into adoc result
-            return Optional.empty();
-        }
-        return Optional.of(pmf);
-    }
-
-    @SneakyThrows
-    private void toEntityWithNonDurableId(final PersistenceManagerFactory pmf, final String entityClassName) {
-        var metaData = pmf.getMetadata(entityClassName);
-        // equivalent to metaData1.setIdentityType(IdentityType.NONDURABLE);
-        _Reflect.setFieldOn(AbstractClassMetaData.class.getDeclaredField("identityType"),
-                ((ClassMetadataImpl)metaData).getInternal(),
-                org.datanucleus.metadata.IdentityType.NONDURABLE);
-        // debug
-        //System.err.printf("metaData1%n%s%n", metaData1);
     }
 
 }

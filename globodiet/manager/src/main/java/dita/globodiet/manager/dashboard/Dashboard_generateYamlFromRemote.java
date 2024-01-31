@@ -29,20 +29,22 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 
+import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.blobstore.BlobStore;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
-public class Dashboard_generateYaml {
+public class Dashboard_generateYamlFromRemote {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
+    @Inject DataTableService dataTableService;
 
     final Dashboard dashboard;
 
@@ -54,12 +56,29 @@ public class Dashboard_generateYaml {
     @MemberSupport
     public Clob act(
             @Parameter final ExportFormat format) {
-        val clob = tableSerializer.clobFromRepository("gd-params",
-                format==ExportFormat.ENTITY
-                    ? TabularData.NameTransformer.IDENTITY
-                    : entity2table,
-                BlobStore.paramsTableFilter());
-        return clob;
+
+        return new SecondaryDataStore(dataTableService)
+            .createPersistenceManagerFactory(new AsciiDocBuilder())
+            .map(pmf->{
+                var pm = pmf.getPersistenceManager();
+                try {
+                    var transformer = format==ExportFormat.ENTITY
+                            ? TabularData.NameTransformer.IDENTITY
+                            : entity2table;
+
+                    var clob = tableSerializer.clobFromSecondaryConnection("gd-params",
+                            transformer,
+                            BlobStore.paramsTableFilter(),
+                            pm);
+
+                    return clob;
+
+                } finally {
+                    pm.close();
+                    pmf.close();
+                }
+            })
+            .orElseThrow();
     }
 
 }

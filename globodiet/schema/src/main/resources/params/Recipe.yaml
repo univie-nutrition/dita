@@ -117,7 +117,7 @@ params.recipe_list.Recipe:
       unique: true
       enum: |
         :regular:is regular entry
-        :alias:is alias entry
+        SH:alias:is alias entry
       description: |
         whether is an alias (SH=shadow)
     hasSubRecipeQ:
