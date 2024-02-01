@@ -18,6 +18,11 @@
  */
 package dita.commons.services.rules;
 
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.lang.Nullable;
+
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.NonNull;
@@ -32,7 +37,8 @@ public interface RuleChecker {
 
     static record RuleViolation(
             @NonNull Criticality criticality,
-            @NonNull String message) {
+            @NonNull String message,
+            @Nullable Can<URI> uris) {
         public static RuleViolation informal(final String msg) {
             return new RuleViolation(Criticality.INFORMAL, msg);
         }
@@ -51,8 +57,19 @@ public interface RuleChecker {
         public static RuleViolation severe(final String format, final Object...args) {
             return severe(String.format(format, args));
         }
+        public RuleViolation(
+                @NonNull final Criticality criticality,
+                @NonNull final String message) {
+            this(criticality, message, Can.empty());
+        }
         public String formatAsYaml() {
             return message();
+        }
+        public RuleViolation withURI(final URI uri) {
+            return new RuleViolation(criticality, message, Can.of(uri));
+        }
+        public RuleViolation withURIs(final List<URI> uris) {
+            return new RuleViolation(criticality, message, Can.ofCollection(uris));
         }
     }
 

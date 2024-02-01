@@ -18,8 +18,10 @@
  */
 package dita.globodiet.manager.services.rule;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -30,6 +32,7 @@ import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -37,6 +40,7 @@ import org.apache.causeway.commons.internal.collections._Multimaps;
 
 import dita.commons.services.lookup.DependantLookupService;
 import dita.commons.services.rules.RuleChecker;
+import dita.commons.services.rules.RuleChecker.RuleViolation;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import lombok.NonNull;
@@ -48,6 +52,7 @@ implements RuleChecker {
     @Inject FactoryService factoryService;
     @Inject RepositoryService repositoryService;
     @Inject DependantLookupService dependantLookup;
+    @Inject DeepLinkService deepLinkService;
 
     @Override
     public String title() {
@@ -74,14 +79,17 @@ implements RuleChecker {
     private Can<RuleViolation> checkForFood() {
         var violations = new ArrayList<RuleViolation>();
         var displayOrdersByFood = _Multimaps.<String, Integer>newListMultimap();
+        var urlByFoodCode = new HashMap<String, URI>();
         var entries = repositoryService.allInstances(FacetDescriptorPathwayForFood.class);
         for(var entry : entries) {
             displayOrdersByFood.putElement(entry.getFoodCode(), entry.getDisplayOrder());
+            urlByFoodCode.put(entry.getFoodCode(), deepLinkService.deepLinkFor(entry));
         }
         // all descriptors of a specific food must have facet-display-order 1..n
         displayOrdersByFood.forEach((foodCode, displayOrders)->{
             satisfiesOneToN(String.format("facets of food-code %s", foodCode), displayOrders)
-                .ifPresent(msg->violations.add(RuleViolation.severe(msg)));
+                .ifPresent(msg->violations.add(RuleViolation.severe(msg)
+                        .withURI(urlByFoodCode.get(foodCode))));
         });
         return Can.ofCollection(violations);
     }
@@ -90,6 +98,7 @@ implements RuleChecker {
         var violations = new ArrayList<RuleViolation>();
         var displayOrdersByFacet1 = _Multimaps.<String, Integer>newSetMultimap(TreeSet::new);
         var displayOrdersByFacet2 = _Multimaps.<String, Integer>newListMultimap();
+        var urlByFoodGroupingPlusFacet = _Multimaps.<String, URI>newListMultimap();
         var entries = repositoryService.allInstances(FacetDescriptorPathwayForFoodGroup.class);
         for(var entry : entries) {
             var foodGroupingPlusFacet = String.format("foodGrouping=%s|%s|%s, facetCode=%s",
@@ -99,25 +108,30 @@ implements RuleChecker {
                     entry.getFacetCode());
             displayOrdersByFacet1.putElement(foodGroupingPlusFacet, entry.getFacetDisplayOrder());
             displayOrdersByFacet2.putElement(foodGroupingPlusFacet, entry.getDescriptorDisplayOrder());
+            urlByFoodGroupingPlusFacet.putElement(foodGroupingPlusFacet, deepLinkService.deepLinkFor(entry));
         }
 
         // every facet code must uniquely map to a facet-display-order
         displayOrdersByFacet1.forEach((foodGroupingPlusFacet, displayOrders)->{
             if(displayOrders.size()>1) {
                 violations.add(RuleViolation.severe(
-                        String.format("non unique facet-display-order for food-grouping plus facet-code %s: got %s",
+                        "non unique facet-display-order for food-grouping plus facet-code %s: got %s",
                                 foodGroupingPlusFacet,
                                 displayOrders.stream()
                                     .map(i->""+i)
                                     .collect(Collectors.joining(","))
-                                )));
+                                )
+                        .withURIs(urlByFoodGroupingPlusFacet.get(foodGroupingPlusFacet))
+                        );
             }
         });
 
         // all descriptors of a specific facet must have display-order 1..n
         displayOrdersByFacet2.forEach((foodGroupingPlusFacet, displayOrders)->{
             satisfiesOneToN(String.format("descriptors of food-grouping plus facet-code %s", foodGroupingPlusFacet), displayOrders)
-                .ifPresent(msg->violations.add(RuleViolation.severe(msg)));
+                .ifPresent(msg->violations.add(RuleViolation.severe(msg)
+                        .withURIs(urlByFoodGroupingPlusFacet.get(foodGroupingPlusFacet))
+                        ));
         });
 
         return Can.ofCollection(violations);

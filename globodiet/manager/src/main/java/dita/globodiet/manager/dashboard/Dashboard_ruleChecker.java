@@ -37,6 +37,9 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
+import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.list;
+import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.listItem;
+
 import dita.commons.services.rules.RuleChecker;
 import dita.commons.services.rules.RuleChecker.RuleViolation;
 import dita.globodiet.dom.params.DitaModuleGdParams;
@@ -105,6 +108,15 @@ public class Dashboard_ruleChecker {
                                 .collect(Collectors.joining("\n")));
                         sourceBlock.setTitle("Entity: " + entityClass.getSimpleName());
 
+                        val list = list(checkerSection);
+                        list.setTitle("Links");
+                        violations.stream()
+                            .map(RuleViolation::uris)
+                            .flatMap(Can::stream)
+                            .forEach(uri->{
+                                listItem(list, uri.toString());
+                            });
+
                     });
 
                 });
@@ -128,6 +140,15 @@ public class Dashboard_ruleChecker {
                         sourceBlock.setTitle(String.format("Checker: %s (%s)",
                                 checker.title(),
                                 checker.description()));
+
+                        val list = list(entitySection);
+                        list.setTitle("Links");
+                        violations.stream()
+                            .map(RuleViolation::uris)
+                            .flatMap(Can::stream)
+                            .forEach(uri->{
+                                listItem(list, uri.toString());
+                            });
 
                     });
 

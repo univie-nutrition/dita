@@ -28,7 +28,6 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
-import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
@@ -44,7 +43,7 @@ import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
-@Action(restrictTo = RestrictTo.PROTOTYPING)
+@Action// TODO temorary (restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
 public class Dashboard_loadYaml {
