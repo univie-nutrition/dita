@@ -60,7 +60,8 @@ public class Dashboard_generateYamlFromRemote {
     @MemberSupport
     public Clob act(
             @Parameter final Profile profile,
-            @Parameter final ExportFormat format) {
+            @Parameter final ExportFormat format,
+            @Parameter final boolean rowSortingEnabled) {
 
         return new SecondaryDataStore(dataTableService)
             .createPersistenceManagerFactory(profile.name())
@@ -71,10 +72,12 @@ public class Dashboard_generateYamlFromRemote {
                             ? TabularData.NameTransformer.IDENTITY
                             : entity2table;
 
-                    var clob = tableSerializer.clobFromSecondaryConnection("gd-params-" + profile.name().toLowerCase(),
+                    var clob = tableSerializer.clobFromSecondaryConnection(
+                            "gd-params-" + profile.name().toLowerCase(),
                             transformer,
                             BlobStore.paramsTableFilter(),
-                            pm);
+                            pm,
+                            rowSortingEnabled);
 
                     return clob;
 

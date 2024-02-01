@@ -53,12 +53,14 @@ public class Dashboard_generateYaml {
 
     @MemberSupport
     public Clob act(
-            @Parameter final ExportFormat format) {
+            @Parameter final ExportFormat format,
+            @Parameter final boolean rowSortingEnabled) {
         val clob = tableSerializer.clobFromRepository("gd-params",
                 format==ExportFormat.ENTITY
                     ? TabularData.NameTransformer.IDENTITY
                     : entity2table,
-                BlobStore.paramsTableFilter());
+                BlobStore.paramsTableFilter(),
+                rowSortingEnabled);
         return clob;
     }
 

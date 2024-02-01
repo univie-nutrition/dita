@@ -61,12 +61,13 @@ public class TableSerializerYaml {
     public Clob clobFromRepository(
             final String name,
             final NameTransformer nameTransformer,
-            final Predicate<ObjectSpecification> filter) {
+            final Predicate<ObjectSpecification> filter,
+            final boolean rowSortingEnabled) {
         val yaml = dataTableSet(filter)
                 .populateFromDatabase()
                 .toTabularData(format())
                 .transform(nameTransformer)
-                .toYaml(format());
+                .toYaml(format().withRowSorting(rowSortingEnabled));
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
@@ -74,12 +75,13 @@ public class TableSerializerYaml {
             final String name,
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
-            final PersistenceManager pm) {
+            final PersistenceManager pm,
+            final boolean rowSortingEnabled) {
         val yaml = dataTableSet(filter)
                 .populateFromSecondaryConnection(pm)
                 .toTabularData(format())
                 .transform(nameTransformer)
-                .toYaml(format());
+                .toYaml(format().withRowSorting(rowSortingEnabled));
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 

@@ -35,6 +35,8 @@ import org.apache.causeway.commons.internal.collections._Lists;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import dita.commons.types.TabularData.Column;
+import dita.commons.types.TabularData.Table;
 import lombok.NonNull;
 import lombok.val;
 
@@ -63,10 +65,15 @@ public record TabularData(Can<TabularData.Table> dataTables) {
     public record Format(
             @NonNull String columnSeparator,
             @NonNull String nullSymbol,
-            @NonNull String doubleQuoteSymbol) {
+            @NonNull String doubleQuoteSymbol,
+            boolean isRowSortingEnabled) {
 
         public static Format defaults() {
-            return new Format("|", "ø", "¯");
+            return new Format("|", "ø", "¯", false);
+        }
+
+        public Format withRowSorting(final boolean rowSortingEnabled) {
+            return new Format(columnSeparator, nullSymbol, doubleQuoteSymbol, rowSortingEnabled);
         }
 
         /**
@@ -232,14 +239,23 @@ public record TabularData(Can<TabularData.Table> dataTables) {
             });
 
             yaml.ind().ind().ind().write("rows:").nl();
-            dataTable.rows().forEach(dataRow->{
-                val rowLiteral = dataRow.cellLiterals()
-                        .stream()
-                        .map(cellValue->toYaml(cellValue, formatOptions))
-                        .collect(Collectors.joining(formatOptions.columnSeparator()));
 
-                yaml.ind().ind().ind().ul().doubleQuoted(rowLiteral).nl();
-            });
+            var rowLiterals = dataTable.rows()
+                    .map(dataRow->
+                        dataRow.cellLiterals()
+                                .stream()
+                                .map(cellValue->toYaml(cellValue, formatOptions))
+                                .collect(Collectors.joining(formatOptions.columnSeparator())));
+
+            if(formatOptions.isRowSortingEnabled()) {
+                rowLiterals = rowLiterals
+                        .sorted(String::compareTo);
+            }
+
+            rowLiterals
+                .forEach(rowLiteral->{
+                    yaml.ind().ind().ind().ul().doubleQuoted(rowLiteral).nl();
+                });
         });
         return yaml.toString();
     }
