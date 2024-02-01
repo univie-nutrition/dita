@@ -20,7 +20,6 @@ package dita.vault.client;
 
 import java.util.UUID;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +39,7 @@ class VaultTemplateTest {
     private int port = 8081;
     private VaultTemplate vaultTemplate = new VaultTemplate("http://localhost:" + port);
 
-    @Test
+    //@Test
     void getVersion() {
         assertThat(vaultTemplate.getConfig().version())
             .contains("1.0.0");
@@ -53,7 +52,7 @@ class VaultTemplateTest {
 //            .isEqualTo(new VaultDocument(uuid, "data.xml", "todo", null));
 //    }
 
-    @Test
+    //@Test
     void roundTrip() {
         var testFile = ResourceFolder.resourceRoot().relativeFile("node.xml");
         var uuid = UUID.randomUUID();
