@@ -20,6 +20,7 @@ package dita.commons.types;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -126,48 +127,51 @@ public record TabularData(Can<TabularData.Table> dataTables) {
     public static TabularData populateFromYaml(
             final String tableDataSerializedAsYaml, final TabularData.Format formatOptions) {
 
-        val asMap = YamlUtils
-                .tryRead(HashMap.class, tableDataSerializedAsYaml)
-//                , loader->{
-//                    loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
-//                    return loader;
-//                })
+        var asMap = YamlUtils
+                .tryReadCustomized(HashMap.class, tableDataSerializedAsYaml, loader->{
+                    loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
+                    return loader;
+                })
                 .valueAsNonNullElseFail();
 
         // parse data from the map, and populate tables, that are already in the Can<DataTable>
 
-        val dataTables = new ArrayList<TabularData.Table>();
+        var dataTables = new ArrayList<TabularData.Table>();
 
         @SuppressWarnings("unchecked")
-        val tables = (Collection<Map<String, ?>>) asMap.get("tables");
+        var tables = (Collection<Map<String, ?>>) asMap.get("tables");
         tables
         //.stream().limit(1)
         .forEach(table->{
             table.entrySet().stream()
             .forEach(tableEntry->{
-                val tableKey = tableEntry.getKey();
+                var tableKey = tableEntry.getKey();
 
                 @SuppressWarnings("unchecked")
-                val tableColsAndRows = (Map<String, ?>)tableEntry.getValue();
+                var tableColsAndRows = (Map<String, ?>)tableEntry.getValue();
                 @SuppressWarnings("unchecked")
                 val colLiterals = (Collection<String>) tableColsAndRows.get("cols");
+
+                var rowsLit = tableColsAndRows.get("rows");
                 @SuppressWarnings("unchecked")
-                val rowLiterals = (Collection<String>) tableColsAndRows.get("rows");
+                var rowLiterals = (rowsLit instanceof Collection)
+                        ? (Collection<String>) rowsLit
+                        : Collections.<String>emptyList();
 
                 System.err.printf("table %s (rows=%d)%n", tableKey, _NullSafe.size(rowLiterals));
                 //System.err.printf("  cols:%n");
 
-                val columns = Can.ofIterable(colLiterals)
+                var columns = Can.ofIterable(colLiterals)
                     .map(TabularData::parseColumnFromStringified);
 
                 //columns.forEach(c->System.err.printf("   %s%n", c));
 
                 final int colCount = _NullSafe.size(colLiterals);
 
-                val cellLiterals = new String[colCount];
+                var cellLiterals = new String[colCount];
 
                 //System.err.printf("  rows:%n");
-                val rows = _NullSafe.stream(rowLiterals)
+                var rows = _NullSafe.stream(rowLiterals)
                     .map(rowLiteral->{
                         //System.err.printf("  - %s%n", rowLiteral);
                         formatOptions.parseRow(rowLiteral, cellLiterals);

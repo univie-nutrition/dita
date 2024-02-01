@@ -244,7 +244,7 @@ public class BlobStore implements MetamodelListener {
     // -- HELPER
 
     private void checkoutAsCurrent(final @Nullable ParameterDataVersion version, final InsertMode insertMode) {
-        tableSerializer.load(getTableData(version), table2entity, paramsTableFilter(), insertMode);
+        tableSerializer.load(getTableData(version), table2entity, paramsTableFilter(), insertMode, entity->{});
         this.currentlyCheckedOutVersion = version;
     }
 

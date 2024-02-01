@@ -16,9 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.dashboard;
-
-import javax.jdo.PersistenceManager;
+package dita.globodiet.manager.editing;
 
 import jakarta.inject.Inject;
 
@@ -30,74 +28,79 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.core.metamodel.object.ManagedObject;
+import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
+import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
+import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+import org.apache.causeway.core.metamodel.tabular.simple.DataTable.CellVisitor;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
-import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
-import dita.commons.types.TabularData.NameTransformer;
-import dita.globodiet.manager.blobstore.BlobStore;
-import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
+import dita.globodiet.dom.params.recipe_list.Recipe;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
-@Action//(restrictTo = RestrictTo.PROTOTYPING)
-@ActionLayout(fieldSetName="About", position = Position.PANEL,
-    cssClassFa = "solid clone",
-    describedAs = "Replicates given table-data (YAML) to a secondary MS-SQL instance."
-            + "\nWarning: Long-Running")
+@Action(restrictTo = RestrictTo.PROTOTYPING)
+@ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
-public class Dashboard_replicateYaml {
+public class RecipeManager_importRecipes {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
-    @Inject DataTableService dataTableService;
 
-    final Dashboard dashboard;
+    final Recipe.Manager recipeManager;
 
+    public enum ImportFormat {
+        GLOBODIET_XML,
+    }
+
+    //TODO yet just a blueprint, that displays all recipes from current persistence
     @MemberSupport
     public AsciiDoc act(
             @Parameter
-            final ExportFormat format,
+            final ImportFormat format,
             @Parameter
             @ParameterLayout(named = "tableData")
-            final Clob tableData) {
+            final Clob recipeData) {
+
+        var recipeTable = DataTable.forDomainType(Recipe.class)
+                .populateEntities();
+
+        val yaml = new StringBuilder();
+        yaml.append("rows").append("\n");
+
+        recipeTable.visit(new CellVisitor() {
+            int rowNr = 1;
+            @Override public void onRowEnter(final DataRow row) {
+                yaml.append(" -rowNr: ").append(rowNr++).append("\n");
+            }
+            @Override public void onCell(final DataColumn column, final Can<ManagedObject> cellValues) {
+                yaml.append("  ").append(column.getColumnId()).append(": ");
+                cellValues
+                    .forEach(ce->yaml.append(ce.getTitle()));
+                yaml.append("\n");
+            }
+            @Override public void onRowLeave(final DataRow row) {
+            }
+        });
 
         val adoc = new AsciiDocBuilder();
-        adoc.append(doc->doc.setTitle("Table Replicate Result"));
-
-        new SecondaryDataStore(dataTableService)
-        .createPersistenceManagerFactory("SQLSERVER", adoc)
-            .ifPresent(pmf->{
-                var pm = pmf.getPersistenceManager();
-                try {
-                    adoc.append(doc->{
-                      val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
-                              format==ExportFormat.ENTITY
-                                  ? TabularData.NameTransformer.IDENTITY
-                                  : table2entity, pm));
-                      sourceBlock.setTitle("Replication Result");
-                  });
-                } finally {
-                    pm.close();
-                    pmf.close();
-                }
-            });
-
-        //TODO finally issue an SQL statement
-        // BACKUP DATABASE GloboDiet TO DISK = '/var/opt/mssql/backup/dita/GloboDiet2024.bak'
-
+        adoc.append(doc->doc.setTitle("Recipe Import Result"));
+        adoc.append(doc->{
+            AsciiDocFactory.sourceBlock(doc, "yml", yaml.toString());
+        });
         return adoc.buildAsValue();
     }
 
-    // -- HELPER
-
-    private String replicate(final Clob tableData, final NameTransformer nameTransformer, final PersistenceManager pm) {
-        return tableSerializer.replicate(tableData, nameTransformer,
-                BlobStore.paramsTableFilter(), pm);
+    @MemberSupport
+    public ImportFormat defaultFormat() {
+        return ImportFormat.GLOBODIET_XML;
     }
 
 }

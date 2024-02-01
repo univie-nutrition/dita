@@ -22,6 +22,8 @@ params.recipe_list.Recipe:
   table: MIXEDREC
   secondaryKey: |
     R_IDNUM
+  # unfortunately aliases are violating the unique constraint based on {R_IDNUM, TYPE}
+  suppressUniqueConstraint: true
   title: String.format("%s (code=%s)", name, code)
   icon: solid stroopwafel .recipe-color
   description: |
@@ -49,7 +51,7 @@ params.recipe_list.Recipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       description: |
         Recipe ID number
     recipeGroupCode:

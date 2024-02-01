@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -70,28 +71,19 @@ class _DataTableSet {
 
     // -- POPULATING
 
-    public _DataTableSet populateFromDatabase(final RepositoryService repositoryService) {
-        dataTables.forEach(dataTable->{
-            var entities = Can.ofCollection(
-                    repositoryService
-                        .allInstances(dataTable.getElementType().getCorrespondingClass()));
-            dataTable.setDataElements(entities
-                    .map(entityPojo->ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo)));
-        });
+    public _DataTableSet populateFromDatabase() {
+        dataTables.forEach(DataTable::populateEntities);
         return this;
     }
 
     public _DataTableSet populateFromSecondaryConnection(final PersistenceManager pm) {
         dataTables.forEach(dataTable->{
-            pm.currentTransaction().begin();
             val entityClass = dataTable.getElementType().getCorrespondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
-            Query<?> query = pm.newQuery(entityClass);
-            List<?> allInstances = query.executeResultList(entityClass);
-            dataTable.setDataElements(allInstances.stream()
-                    .map(entityPojo->ManagedObject.adaptSingular(dataTable.getElementType(), entityPojo))
-                    .collect(Can.toCan()));
 
+            pm.currentTransaction().begin();
+            List<?> allInstances = pm.newQuery(entityClass).executeResultList(entityClass);
+            dataTable.setDataElementPojos(allInstances);
             pm.currentTransaction().commit();
         });
         return this;
@@ -192,6 +184,14 @@ class _DataTableSet {
                             )))
         ));
     }
+
+    public _DataTableSet modifyObject(final Consumer<? super ManagedObject> modifier) {
+        dataTables.forEach(dataTable->{
+            dataTable.streamDataElements().forEach(modifier);
+        });
+        return this;
+    }
+
 
     // -- WRITING TO DB
 

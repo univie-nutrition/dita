@@ -41,15 +41,21 @@ import lombok.SneakyThrows;
 public record SecondaryDataStore(DataTableService dataTableService) {
 
     Optional<PersistenceManagerFactory> createPersistenceManagerFactory(
+            final String profile){
+        return createPersistenceManagerFactory(profile, new AsciiDocBuilder());
+    }
+
+    Optional<PersistenceManagerFactory> createPersistenceManagerFactory(
+            final String profile,
             final AsciiDocBuilder adoc) {
         var conf = new Properties();
 
         var additionalConfigDir = new File("/opt/config");
         if(additionalConfigDir.exists()) {
-            DataSource.ofFile(new File(additionalConfigDir, "application-SQLSERVER.properties"))
+            DataSource.ofFile(new File(additionalConfigDir, "application-" + profile + ".properties"))
                 .tryReadAndAccept(conf::load);
         } else {
-            DataSource.ofResource(getClass(), "/config/application-SQLSERVER.properties")
+            DataSource.ofResource(getClass(), "/config/application-" + profile + ".properties")
                 .tryReadAndAccept(conf::load);
         }
 
@@ -58,7 +64,7 @@ public record SecondaryDataStore(DataTableService dataTableService) {
             adoc.append(doc->{
                 var sourceBlock = AsciiDocFactory.sourceBlock(doc, "txt", "missing application-SQLSERVER.properties");
                 sourceBlock.setTitle("Replication Setup");
-                System.err.println("missing application-SQLSERVER.properties");
+                System.err.println("missing application-" + profile + ".properties");
             });
             return Optional.empty();
         }

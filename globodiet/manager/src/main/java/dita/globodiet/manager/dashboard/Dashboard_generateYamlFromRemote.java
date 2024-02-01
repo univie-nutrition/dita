@@ -1,5 +1,5 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
+ *  	Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
  *  distributed with this work for additional information
  *  regarding copyright ownership.  The ASF licenses this file
@@ -29,7 +29,6 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
@@ -48,6 +47,11 @@ public class Dashboard_generateYamlFromRemote {
 
     final Dashboard dashboard;
 
+    public enum Profile {
+        SQLSERVER,
+        MARIALIVE
+    }
+
     public enum ExportFormat {
         TABLE,
         ENTITY
@@ -55,10 +59,11 @@ public class Dashboard_generateYamlFromRemote {
 
     @MemberSupport
     public Clob act(
+            @Parameter final Profile profile,
             @Parameter final ExportFormat format) {
 
         return new SecondaryDataStore(dataTableService)
-            .createPersistenceManagerFactory(new AsciiDocBuilder())
+            .createPersistenceManagerFactory(profile.name())
             .map(pmf->{
                 var pm = pmf.getPersistenceManager();
                 try {
@@ -66,7 +71,7 @@ public class Dashboard_generateYamlFromRemote {
                             ? TabularData.NameTransformer.IDENTITY
                             : entity2table;
 
-                    var clob = tableSerializer.clobFromSecondaryConnection("gd-params",
+                    var clob = tableSerializer.clobFromSecondaryConnection("gd-params-" + profile.name().toLowerCase(),
                             transformer,
                             BlobStore.paramsTableFilter(),
                             pm);
@@ -79,6 +84,14 @@ public class Dashboard_generateYamlFromRemote {
                 }
             })
             .orElseThrow();
+    }
+
+    public Profile defaultProfile() {
+        return Profile.SQLSERVER;
+    }
+
+    public ExportFormat defaultFormat() {
+        return ExportFormat.TABLE;
     }
 
 }

@@ -112,7 +112,7 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageComposedRecipeIngredient"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCountryInvolved"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDayOfWeek"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDensityFactorForFood"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDensityFactorForFoodOrRecipe"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplement"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementClassification"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementDescriptor"/>

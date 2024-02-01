@@ -18,6 +18,7 @@
  */
 package dita.causeway.replicator.tables.serialize;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javax.jdo.PersistenceManager;
@@ -30,6 +31,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
@@ -61,7 +63,7 @@ public class TableSerializerYaml {
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter) {
         val yaml = dataTableSet(filter)
-                .populateFromDatabase(repositoryService)
+                .populateFromDatabase()
                 .toTabularData(format())
                 .transform(nameTransformer)
                 .toYaml(format());
@@ -99,7 +101,8 @@ public class TableSerializerYaml {
             final Clob clob,
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
-            final InsertMode insertMode) {
+            final InsertMode insertMode,
+            final Consumer<? super ManagedObject> modifier) {
 
         if(insertMode.isDoNothing()) return "Ignored";
 
@@ -108,6 +111,7 @@ public class TableSerializerYaml {
 
         val yaml = dataTableSet(filter)
                 .populateFromTabularData(tabularData, format())
+                .modifyObject(modifier)
                 .insertToDatabase(repositoryService, insertMode)
                 .toTabularData(format())
                 .toYaml(TabularData.Format.defaults());
