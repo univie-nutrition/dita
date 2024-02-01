@@ -3149,6 +3149,7 @@ params.recipe_list.Recipe:
   secondaryKey: |
     R_IDNUM
   title: String.format("%s (code=%s)", name, code)
+  suppressUniqueConstraint: true
   icon: solid stroopwafel .recipe-color
   description: |
     Mixed (a priory) Recipe (not an on-the-fly one):
@@ -3175,7 +3176,7 @@ params.recipe_list.Recipe:
       column: R_IDNUM
       column-type: nvarchar(5)
       required: true
-      unique: true
+      unique: false
       description: |
         Recipe ID number
     recipeGroupCode:
@@ -3243,7 +3244,7 @@ params.recipe_list.Recipe:
       unique: true
       enum: |
         :regular:is regular entry
-        :alias:is alias entry
+        SH:alias:is alias entry
       description: |
         whether is an alias (SH=shadow)
     hasSubRecipeQ:
