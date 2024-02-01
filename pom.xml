@@ -37,7 +37,7 @@
 		<junit-version>[5,)</junit-version>
 		<lombok-version>1.18.30</lombok-version>
 		
-		<mariadb-jdbc.version>3.3.0</mariadb-jdbc.version>
+		<mariadb-jdbc.version>3.3.2</mariadb-jdbc.version>
 		<mssql-jdbc.version>12.4.2.jre11</mssql-jdbc.version>
 		<!-- testing -->
 		<surefire-plugin.argLine>-Xmx384m</surefire-plugin.argLine>
