@@ -74,8 +74,10 @@ public class Dashboard_loadYaml {
                             entity->{
                                 if(entity.getSpecification().isAssignableFrom(Recipe.class)) {
                                     var recipe = (Recipe)entity.getPojo();
-                                    if(recipe.getAliasQ() == AliasQ.ALIAS) {
+                                    if(recipe.getAliasQ() == Recipe.AliasQ.ALIAS) {
                                         recipe.setRecipeGroupCode("");
+                                    } else {
+                                        recipe.setAliasQ(AliasQ.REGULAR);
                                     }
                                 }
 
