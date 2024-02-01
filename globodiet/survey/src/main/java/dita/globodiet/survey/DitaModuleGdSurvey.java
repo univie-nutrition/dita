@@ -40,13 +40,17 @@ public class DitaModuleGdSurvey {
 
     //TODO remove (temporary for quick prototyping)
     @Bean @Qualifier("survey")
-    public ResourceFolder surveySampleData() {
-        return ResourceFolder.testResourceRoot(DitaModuleGdSurvey.class).relative("secret").orElseThrow();
+    public ResourceFolder surveySourcesFolder() {
+        return ResourceFolder.testResourceRoot(DitaModuleGdSurvey.class).relative("secret").orElse(null);
     }
 
     //TODO replace that with a proper repository
     @Bean
     public SurveyTreeNode surveyTreeRootNode(@Qualifier("survey") final ResourceFolder surveySourcesFolder) {
+
+        if(surveySourcesFolder==null) {
+            return SurveyTreeNodeFactory.emptyNode();
+        }
 
         var interviewSet =
             InterviewUtils.scanSources(surveySourcesFolder)

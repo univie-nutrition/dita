@@ -33,6 +33,12 @@ import lombok.val;
 
 public record SurveyTreeNodeFactory(TreePath parent) {
 
+    public static SurveyTreeNode emptyNode() {
+        String title = "Survey";
+        AsciiDoc content = adoc(title, "Details", "empty");
+        return new SurveyTreeNode(title, "solid users-viewfinder", content, TreePath.root(), Can.empty());
+    }
+
     public static SurveyTreeNode surveyNode(final InterviewSet24 interviewSet) {
 
         var respNodes = interviewSet.respondents().map(IndexedFunction.zeroBased((i, resp)->
