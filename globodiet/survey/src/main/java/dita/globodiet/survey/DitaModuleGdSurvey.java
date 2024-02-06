@@ -20,10 +20,14 @@
 package dita.globodiet.survey;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import dita.blobstore.api.BlobStore;
+import dita.blobstore.api.BlobStoreFactory;
 import dita.commons.types.ResourceFolder;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.globodiet.survey.view.SurveyTreeNode;
@@ -33,15 +37,17 @@ import dita.recall24.model.InterviewSet24;
 
 @Configuration
 @Import({
-    SurveyVM.class
+    SurveyVM.class,
+
         })
+@EnableConfigurationProperties({DitaModuleGdSurvey.SurveyConfiguration.class})
 public class DitaModuleGdSurvey {
     public final static String NAMESPACE = "dita.survey";
 
     //TODO remove (temporary for quick prototyping)
     @Bean @Qualifier("survey")
     public ResourceFolder surveySourcesFolder() {
-        return ResourceFolder.testResourceRoot(DitaModuleGdSurvey.class).relative("secret").orElse(null);
+        return ResourceFolder.testResourceRoot(DitaModuleGdSurvey.class).relative("secret1").orElse(null);
     }
 
     //TODO replace that with a proper repository
@@ -64,6 +70,16 @@ public class DitaModuleGdSurvey {
 
         return SurveyTreeNodeFactory
                 .surveyNode(interviewSet);
+    }
+
+    @ConfigurationProperties(NAMESPACE)
+    public static record SurveyConfiguration(
+            BlobStoreFactory.BlobStoreConfiguration blobstore) {
+    }
+
+    @Bean @Qualifier("survey")
+    public BlobStore surveyBlobStore(final SurveyConfiguration surveyConfiguration) {
+        return BlobStoreFactory.createBlobStore(surveyConfiguration.blobstore());
     }
 
 }
