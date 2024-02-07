@@ -21,8 +21,7 @@ package dita.blobstore.localfs;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -31,7 +30,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
@@ -43,6 +41,7 @@ import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import dita.blobstore.api.BlobDescriptor;
+import dita.blobstore.api.BlobDescriptor.Compression;
 import dita.blobstore.api.BlobStore;
 import dita.blobstore.api.BlobStoreFactory.BlobStoreConfiguration;
 import dita.commons.types.NamedPath;
@@ -128,9 +127,9 @@ public class LocalFsBlobStore implements BlobStore {
     static record DescriptorDto(
             CommonMimeType mimeType,
             String createdBy,
-            ZonedDateTime createdOn,
+            Instant createdOn,
             long size,
-            String compression) {
+            Compression compression) {
         static DescriptorDto of(final BlobDescriptor blobDescriptor) {
             return new DescriptorDto(blobDescriptor.mimeType(),
                     blobDescriptor.createdBy(),
@@ -139,19 +138,45 @@ public class LocalFsBlobStore implements BlobStore {
                     blobDescriptor.compression());
         }
         static DescriptorDto readFrom(final File file) {
-            return YamlUtils.tryRead(DescriptorDto.class, DataSource.ofFile(file))
+            var descriptorDto = YamlUtils.tryRead(DescriptorDto.class, DataSource.ofFile(file))
                     .valueAsNonNullElseFail();
+            return descriptorDto;
         }
         @SneakyThrows
         static DescriptorDto autoDetect(final File blobFile) {
             var attr = Files.readAttributes(blobFile.toPath(), BasicFileAttributes.class);
-            var creationTime = ZonedDateTime.ofInstant(attr.creationTime().toInstant(), ZoneId.systemDefault());
+            var creationTime = attr.creationTime().toInstant();
+
+            var fileNameParts = NamedPath.parse(blobFile.getName(), ".");
+
+            var last = fileNameParts.nameCount()>1
+                    ? fileNameParts.names().getLastElseFail().toUpperCase()
+                    : "NONE";
+            var middle = fileNameParts.nameCount()>2
+                    ? fileNameParts.names().getRelativeToLastElseFail(-1).toUpperCase()
+                    : null;
+
+            final Compression compression = switch(last) {
+                case "ZIP" -> Compression.ZIP;
+                case "7Z" -> Compression.SEVEN_ZIP;
+                default -> Compression.NONE;
+            };
+
+            final CommonMimeType mime = compression == Compression.NONE
+                    ? CommonMimeType.valueOfFileExtension(last)
+                            .orElse(CommonMimeType.BIN)
+                    : middle!=null
+                            ? CommonMimeType.valueOfFileExtension(middle)
+                                    .orElse(CommonMimeType.BIN)
+                            : CommonMimeType.valueOfFileExtension(last)
+                                    .orElse(CommonMimeType.BIN);
+
             var blobDescriptor = new DescriptorDto(
-                    CommonMimeType.BIN,
+                    mime,
                     "unknown",
                     creationTime,
                     attr.size(),
-                    "NONE");
+                    compression);
             return blobDescriptor;
         }
         void writeTo(final File file) {
@@ -188,8 +213,8 @@ public class LocalFsBlobStore implements BlobStore {
         static Locator forManifestFile(
                 final ResourceFolder rootDirectory,
                 final File manifestFile) {
-            var absPath = NamedPath.of(manifestFile);
-            var relPath = absPath.toRelativePath(NamedPath.of(rootDirectory.root()));
+            var relPath = NamedPath.of(manifestFile.getParentFile())
+                    .toRelativePath(NamedPath.of(rootDirectory.root()));
             return new Locator(
                     relPath,
                     manifestFile,
@@ -199,8 +224,8 @@ public class LocalFsBlobStore implements BlobStore {
         static Locator forBlobFile(
                 final ResourceFolder rootDirectory,
                 final File blobFile) {
-            var absPath = NamedPath.of(blobFile);
-            var relPath = absPath.toRelativePath(NamedPath.of(rootDirectory.root()));
+            var relPath = NamedPath.of(blobFile.getParentFile())
+                    .toRelativePath(NamedPath.of(rootDirectory.root()));
             return new Locator(
                     relPath,
                     new File(blobFile.getParentFile(), blobFile.getName() + MANIFEST_SUFFIX),
@@ -240,23 +265,20 @@ public class LocalFsBlobStore implements BlobStore {
         return descriptorsByPath;
     }
 
-    BlobDescriptor blobDescriptorForManifest(final Locator locator) {
-        var clob = Clob.tryReadUtf8(locator.blobFile().getName(), CommonMimeType.YAML, locator.manifestFile())
-            .valueAsNonNullElseFail();
-        System.err.printf("%s%n", clob.asString());
-
-        return DescriptorDto.readFrom(locator.manifestFile())
-            .toBlobDescriptor(locator.relativeFolderAsPath().add(clob.getName()));
+    private BlobDescriptor blobDescriptorForManifest(final Locator locator) {
+        var blobDescriptor = DescriptorDto.readFrom(locator.manifestFile())
+            .toBlobDescriptor(locator.relativeFolderAsPath().add(locator.blobFile().getName()));
+        return blobDescriptor;
     }
 
     @SneakyThrows
-    BlobDescriptor blobDescriptorForBlob(final Locator locator) {
+    private BlobDescriptor blobDescriptorForBlob(final Locator locator) {
         var blobFile = locator.blobFile();
         return DescriptorDto.autoDetect(blobFile)
             .toBlobDescriptor(locator.relativeFolderAsPath().add(locator.blobFile().getName()));
     }
 
-    BlobDescriptor mergeBlobDescriptors(final BlobDescriptor fromManifest, final BlobDescriptor fromBlob) {
+    private BlobDescriptor mergeBlobDescriptors(final BlobDescriptor fromManifest, final BlobDescriptor fromBlob) {
         return fromManifest; //TODO update size?
     }
 

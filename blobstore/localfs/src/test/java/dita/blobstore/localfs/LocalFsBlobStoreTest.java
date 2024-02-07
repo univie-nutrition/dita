@@ -28,17 +28,20 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.apache.causeway.commons.io.FileUtils;
 
 import dita.blobstore.api.BlobStoreFactory;
+import dita.blobstore.api.BlobStoreFactory.BlobStoreConfiguration;
 import dita.blobstore.test.BlobStoreTester;
+import dita.blobstore.test.BlobStoreTester.Scenario;
 
 class LocalFsBlobStoreTest {
 
     private File root;
     private LocalFsBlobStore blobStore;
+    private BlobStoreConfiguration config;
 
     @BeforeEach
     void setup() {
         this.root = FileUtils.tempDir("dita-test");
-        var config = new BlobStoreFactory.BlobStoreConfiguration(LocalFsBlobStore.class, root.getAbsolutePath());
+        this.config = new BlobStoreFactory.BlobStoreConfiguration(LocalFsBlobStore.class, root.getAbsolutePath());
         this.blobStore = new LocalFsBlobStore(config);
     }
 
@@ -52,6 +55,16 @@ class LocalFsBlobStoreTest {
     void roundtrip(final BlobStoreTester.ScenarioSample scenarioSample) {
         var scenario = scenarioSample.create();
         var tester = new BlobStoreTester(blobStore);
-        tester.assertRoundtrip(scenario);
+        tester.setup(scenario);
+        tester.assertExpectations(scenario);
+        assertSameResultsFromScan(scenario);
+        tester.cleanup(scenario);
     }
+
+    void assertSameResultsFromScan(final Scenario scenario) {
+        var secondaryBlobStore = new LocalFsBlobStore(config);
+        var tester = new BlobStoreTester(secondaryBlobStore);
+        tester.assertExpectations(scenario);
+    }
+
 }

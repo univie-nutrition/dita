@@ -18,7 +18,7 @@
  */
 package dita.blobstore.api;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
@@ -28,7 +28,14 @@ public record BlobDescriptor(
         NamedPath path,
         CommonMimeType mimeType,
         String createdBy,
-        ZonedDateTime createdOn,
+        Instant createdOn,
         long size,
-        String compression) {
+        Compression compression) {
+
+    public enum Compression {
+        NONE,
+        ZIP,
+        SEVEN_ZIP;
+    }
+
 }

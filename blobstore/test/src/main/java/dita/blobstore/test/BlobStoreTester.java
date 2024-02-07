@@ -18,7 +18,7 @@
  */
 package dita.blobstore.test;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -28,6 +28,7 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
 import dita.blobstore.api.BlobDescriptor;
+import dita.blobstore.api.BlobDescriptor.Compression;
 import dita.blobstore.api.BlobStore;
 import dita.commons.types.NamedPath;
 import lombok.NonNull;
@@ -52,9 +53,9 @@ public class BlobStoreTester {
                 var name = "myblob.bin";
                 var mime = CommonMimeType.BIN;
                 var blob = Blob.of(name, mime, new byte[] {1, 2, 3, 4});
-                var createdOn = ZonedDateTime.now();
+                var createdOn = Instant.now();
                 var path = NamedPath.of("a", "b", name);
-                var blobDesc = new BlobDescriptor(path, mime, "scenrio-sampler", createdOn, 4, "NONE");
+                var blobDesc = new BlobDescriptor(path, mime, "scenrio-sampler", createdOn, 4, Compression.NONE);
                 return new Scenario(blobDesc, blob);
             }
         }
@@ -62,8 +63,7 @@ public class BlobStoreTester {
         public abstract Scenario create();
     }
 
-    public void assertRoundtrip(final Scenario scenario) {
-
+    public void setup(final Scenario scenario) {
         assertNotNull(blobStore);
 
         var path = scenario.path();
@@ -75,8 +75,23 @@ public class BlobStoreTester {
 
         // when
         blobStore.putBlob(scenario.blobDescriptor(), scenario.blob());
+    }
 
-        // then
+    public void cleanup(final Scenario scenario) {
+        var path = scenario.path();
+
+        // cleanup
+        blobStore.deleteBlob(path);
+
+        // expected postcondition
+        assertTrue(blobStore.lookupDescriptor(path).isEmpty());
+        assertTrue(blobStore.lookupBlob(path).isEmpty());
+
+    }
+
+    public void assertExpectations(final Scenario scenario) {
+        var path = scenario.path();
+
         var blobDescRecovered = blobStore.lookupDescriptor(path).orElse(null);
         assertNotNull(blobDescRecovered);
         assertEquals(scenario.blobDescriptor(), blobDescRecovered);
@@ -88,13 +103,6 @@ public class BlobStoreTester {
         assertTrue(blobStore.listDescriptors(NamedPath.empty(), true).getCardinality().isOne());
         assertTrue(blobStore.listDescriptors(NamedPath.of("a"), true).getCardinality().isOne());
         assertTrue(blobStore.listDescriptors(NamedPath.of("b"), true).getCardinality().isZero());
-
-        // cleanup
-        blobStore.deleteBlob(path);
-
-        // expected postcondition
-        assertTrue(blobStore.lookupDescriptor(path).isEmpty());
-        assertTrue(blobStore.lookupBlob(path).isEmpty());
     }
 
 }

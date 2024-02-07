@@ -18,7 +18,7 @@
  */
 package dita.globodiet.survey;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import jakarta.inject.Inject;
 
@@ -33,6 +33,7 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
 import dita.blobstore.api.BlobDescriptor;
+import dita.blobstore.api.BlobDescriptor.Compression;
 import dita.blobstore.api.BlobStore;
 import dita.commons.types.NamedPath;
 
@@ -49,9 +50,9 @@ class DitaModuleGdSurveyTest {
         assertNotNull(surveyBlobStore);
 
         var blob = Blob.of("test", CommonMimeType.BIN, new byte[] {1, 2, 3, 4});
-        var createdOn = ZonedDateTime.now();
+        var createdOn = Instant.now();
         var path = NamedPath.of("a", "b", "myblob.bin");
-        var blobDesc = new BlobDescriptor(path, CommonMimeType.BIN, "unknown", createdOn, 4, "NONE");
+        var blobDesc = new BlobDescriptor(path, CommonMimeType.BIN, "unknown", createdOn, 4, Compression.NONE);
 
         // expected precondition
         assertTrue(surveyBlobStore.lookupDescriptor(path).isEmpty());
