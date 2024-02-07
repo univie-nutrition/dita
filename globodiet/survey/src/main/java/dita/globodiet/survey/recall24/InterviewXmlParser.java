@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
+import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
@@ -38,9 +39,18 @@ public class InterviewXmlParser {
     }
 
     public InterviewSet24 parse(final @NonNull DataSource source) {
-
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
                 .valueAsNonNullElseFail();
+        return createFromDto(dto);
+    }
+
+    public InterviewSet24 parse(final Clob interviewSource) {
+        var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
+                .valueAsNonNullElseFail();
+        return createFromDto(dto);
+    }
+
+    private InterviewSet24 createFromDto(final @NonNull _Dtos.Itv dto) {
         System.err.printf("%s%n", dto.toJson());
 
         /* Interviews that belong to this survey. */
@@ -57,5 +67,6 @@ public class InterviewXmlParser {
 
         return InterviewSet24.of(respondents, interviews);
     }
+
 
 }

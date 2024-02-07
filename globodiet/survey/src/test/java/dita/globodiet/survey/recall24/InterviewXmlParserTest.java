@@ -18,46 +18,48 @@
  */
 package dita.globodiet.survey.recall24;
 
+import jakarta.inject.Inject;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.apache.causeway.commons.collections.Cardinality;
 import org.apache.causeway.commons.io.DataSource;
 
-import dita.commons.types.ResourceFolder;
+import dita.blobstore.api.BlobStore;
+import dita.commons.types.NamedPath;
+import dita.globodiet.survey.DitaModuleGdSurvey;
+import dita.globodiet.survey.PrivateDataTest;
 import dita.globodiet.survey.util.InterviewUtils;
 
+@SpringBootTest(classes = {
+        DitaModuleGdSurvey.class
+        })
+@PrivateDataTest
 class InterviewXmlParserTest {
 
+    @Inject @Qualifier("survey") BlobStore surveyBlobStore;
     private InterviewXmlParser parser = new InterviewXmlParser();
 
-    //@Test
-    void parsing() {
-        var xml = _InterviewSampler.sampleXml();
-        var iSet = parser.parse(DataSource.ofStringUtf8(xml));
-        System.err.printf("%s%n", iSet.toJson());
-    }
-
-    //TODO WIP
     @Test
-    void aggregation() {
+    void parsingFromBlobStore() {
+        assertNotNull(surveyBlobStore);
 
-        ResourceFolder.testResourceRoot().relative("secret")
-        .map(_InterviewSampler::new)
-        .ifPresent(sampler->{
-
-            var interviewSources = sampler.interviewSources();
-            assertEquals(Cardinality.MULTIPLE, interviewSources.getCardinality());
-
-            interviewSources.stream()
-            .limit(1)
-            .map(InterviewUtils::unzip)
-            .map(InterviewUtils::parse)
-            .forEach(iSet->{
-                System.err.printf("%s%n", iSet.toJson());
-            });
-
+        InterviewUtils.streamSources(surveyBlobStore, NamedPath.empty(), true)
+        .limit(1)
+        .map(InterviewUtils::parse)
+        .forEach(iSet->{
+            System.err.printf("%s%n", iSet.toJson());
         });
     }
+
+    @Test
+    void parsingSample() {
+        var xml = InterviewSampler.sampleXml();
+        var iSet = parser.parse(DataSource.ofStringUtf8(xml));
+        //System.err.printf("%s%n", iSet.toJson());
+    }
+
 }

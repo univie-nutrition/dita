@@ -18,17 +18,9 @@
  */
 package dita.globodiet.survey.recall24;
 
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.DataSource;
+import dita.blobstore.api.BlobStore;
 
-import dita.commons.types.ResourceFolder;
-import dita.globodiet.survey.util.InterviewUtils;
-
-record _InterviewSampler(Can<DataSource> interviewSources) {
-
-    _InterviewSampler(final ResourceFolder sourceFolder) {
-        this(InterviewUtils.scanSources(sourceFolder));
-    }
+record InterviewSampler(BlobStore blobStore) {
 
     static String sampleXml() {
         return

@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Import;
 
 import dita.blobstore.api.BlobStore;
 import dita.blobstore.api.BlobStoreFactory;
-import dita.commons.types.ResourceFolder;
+import dita.commons.types.NamedPath;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.globodiet.survey.view.SurveyTreeNode;
 import dita.globodiet.survey.view.SurveyTreeNodeFactory;
@@ -44,34 +44,6 @@ import dita.recall24.model.InterviewSet24;
 public class DitaModuleGdSurvey {
     public final static String NAMESPACE = "dita.survey";
 
-    //TODO remove (temporary for quick prototyping)
-    @Bean @Qualifier("survey")
-    public ResourceFolder surveySourcesFolder() {
-        return ResourceFolder.testResourceRoot(DitaModuleGdSurvey.class).relative("secret1").orElse(null);
-    }
-
-    //TODO replace that with a proper repository
-    @Bean
-    public SurveyTreeNode surveyTreeRootNode(@Qualifier("survey") final ResourceFolder surveySourcesFolder) {
-
-        if(surveySourcesFolder==null) {
-            return SurveyTreeNodeFactory.emptyNode();
-        }
-
-        var interviewSet =
-            InterviewUtils.scanSources(surveySourcesFolder)
-            .stream()
-            .limit(1)
-            .map(InterviewUtils::unzip)
-            .map(InterviewUtils::parse)
-            .reduce(InterviewSet24::join)
-            .orElseThrow()
-            .normalized();
-
-        return SurveyTreeNodeFactory
-                .surveyNode(interviewSet);
-    }
-
     @ConfigurationProperties(NAMESPACE)
     public static record SurveyConfiguration(
             BlobStoreFactory.BlobStoreConfiguration blobstore) {
@@ -82,6 +54,22 @@ public class DitaModuleGdSurvey {
             final BlobStoreFactory blobStoreFactory,
             final SurveyConfiguration surveyConfiguration) {
         return blobStoreFactory.createBlobStore(surveyConfiguration.blobstore());
+    }
+
+    @Bean
+    public SurveyTreeNode surveyTreeRootNode(@Qualifier("survey") final BlobStore surveyBlobStore) {
+
+        if(surveyBlobStore==null) {
+            return SurveyTreeNodeFactory.emptyNode();
+        }
+
+        return InterviewUtils.streamSources(surveyBlobStore, NamedPath.empty(), true)
+            .limit(1)
+            .map(InterviewUtils::parse)
+            .reduce(InterviewSet24::join)
+            .map(InterviewSet24::normalized)
+            .map(SurveyTreeNodeFactory::surveyNode)
+            .orElseGet(SurveyTreeNodeFactory::emptyNode);
     }
 
 }

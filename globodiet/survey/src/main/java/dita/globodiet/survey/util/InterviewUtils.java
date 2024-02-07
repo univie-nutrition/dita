@@ -19,14 +19,20 @@
 package dita.globodiet.survey.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.causeway.applib.value.Blob;
+import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 
+import dita.blobstore.api.BlobDescriptor;
+import dita.blobstore.api.BlobStore;
+import dita.commons.types.NamedPath;
 import dita.commons.types.ResourceFolder;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.model.InterviewSet24;
@@ -36,6 +42,37 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class InterviewUtils {
 
+    public InterviewSet24 parse(final Clob interviewSource) {
+        return new InterviewXmlParser().parse(interviewSource);
+    }
+
+    public Clob unzip(final Blob zippedInterviewSource) {
+        var unzippedBlob = zippedInterviewSource
+                .unZip(CommonMimeType.XML, ZipOptions.builder()
+                        .zipEntryCharset(StandardCharsets.ISO_8859_1)
+                        .zipEntryFilter(entry->{
+                            //TODO replace with logger
+                            System.err.printf("== Parsing Zip entry %s (%.2fKB)%n",
+                                    entry.getName(),
+                                    0.001*entry.getSize());
+                            return true;
+                        })
+                        .build());
+        return unzippedBlob
+                .toClob(StandardCharsets.UTF_8);
+    }
+
+    public Stream<Clob> streamSources(final BlobStore surveyBlobStore, final NamedPath path, final boolean recursive) {
+        return surveyBlobStore.listDescriptors(path, recursive)
+            .stream()
+            .filter(desc->desc.mimeType().equals(CommonMimeType.XML))
+            .map(BlobDescriptor::path)
+            .map(surveyBlobStore::lookupBlob)
+            .map(Optional::orElseThrow)
+            .map(InterviewUtils::unzip);
+    }
+
+    @Deprecated
     @SneakyThrows
     public Can<DataSource> scanSources(final ResourceFolder folder) {
         return FileUtils.searchFiles(folder.root(), dir->true, file->file.getName().endsWith(".xml.zip"))
@@ -44,10 +81,12 @@ public class InterviewUtils {
                 .collect(Can.toCan());
     }
 
+    @Deprecated
     public InterviewSet24 parse(final DataSource interviewSource) {
         return new InterviewXmlParser().parse(interviewSource);
     }
 
+    @Deprecated
     public DataSource unzip(final DataSource zippedInterviewSource) {
         var unzipped = Blob.of("zipped", CommonMimeType.ZIP, zippedInterviewSource.bytes())
                 .unZip(CommonMimeType.XML, ZipOptions.builder()
@@ -61,5 +100,6 @@ public class InterviewUtils {
                         .build());
         return DataSource.ofBytes(unzipped.getBytes());
     }
+
 
 }

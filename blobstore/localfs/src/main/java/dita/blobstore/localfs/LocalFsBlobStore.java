@@ -100,7 +100,7 @@ public class LocalFsBlobStore implements BlobStore {
             return Optional.empty();
         }
         var locator = Locator.of(rootDirectory, path);
-        _Assert.assertTrue(locator.hasManifest());
+        //_Assert.assertTrue(locator.hasManifest()); allow on-the-fly descriptors, that only exist in memory
         _Assert.assertTrue(locator.hasBlob());
         return Blob.tryRead(descriptor.path().names().getLastElseFail(), descriptor.mimeType(), locator.blobFile())
                 .getValue();
@@ -237,9 +237,9 @@ public class LocalFsBlobStore implements BlobStore {
         boolean hasBlob() {
             return blobFile().exists();
         }
-        boolean hasManifest() {
-            return manifestFile().exists();
-        }
+//        boolean hasManifest() {
+//            return manifestFile().exists();
+//        }
     }
 
     /**
