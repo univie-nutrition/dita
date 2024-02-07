@@ -18,8 +18,13 @@
  */
 package dita.blobstore.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.stereotype.Service;
+
 import lombok.SneakyThrows;
 
+@Service
 public class BlobStoreFactory {
 
     public static record BlobStoreConfiguration(
@@ -27,10 +32,14 @@ public class BlobStoreFactory {
             String resource) {
     }
 
+    private @Autowired AutowireCapableBeanFactory beanFactory;
+
     @SneakyThrows
-    public static BlobStore createBlobStore(final BlobStoreConfiguration config) {
-        return config.implementation().getConstructor(new Class[]{BlobStoreConfiguration.class})
+    public BlobStore createBlobStore(final BlobStoreConfiguration config) {
+        var blobStore = config.implementation().getConstructor(new Class[]{BlobStoreConfiguration.class})
             .newInstance(config);
+        beanFactory.autowireBean(blobStore);
+        return blobStore;
     }
 
 }

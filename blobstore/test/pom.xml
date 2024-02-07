@@ -20,30 +20,33 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>dita-blobstore-localfs</artifactId>
-	<name>Dita - Blob Store for Local Filesystem</name>
+	<artifactId>dita-blobstore-test</artifactId>
+	<name>Dita - Blob Store Test</name>
 	<description>
-		Big Large Object Persistence using Local Filesystem
+		Big Large Object Persistence Testing
 	</description>
 
 	<properties>
-		<jar-plugin.automaticModuleName>at.ac.univie.nutrition.blobstore.localfs</jar-plugin.automaticModuleName>
-		<git-plugin.propertiesDir>at/ac/univie/nutrition/blobstore/localfs</git-plugin.propertiesDir>
+		<jar-plugin.automaticModuleName>at.ac.univie.nutrition.blobstore.test</jar-plugin.automaticModuleName>
+		<git-plugin.propertiesDir>at/ac/univie/nutrition/blobstore/test</git-plugin.propertiesDir>
 	</properties>
 	
 	<dependencies>
-		
-		<dependency>
-			<groupId>at.ac.univie.nutrition.dita</groupId>
-			<artifactId>dita-blobstore-api</artifactId>
-		</dependency>
-		
-		<!-- TESTING -->
-		
-		<dependency>
+        
+        <dependency>
             <groupId>at.ac.univie.nutrition.dita</groupId>
-            <artifactId>dita-blobstore-test</artifactId>
-            <scope>test</scope>
+            <artifactId>dita-commons</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-blobstore-api</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>compile</scope>
         </dependency>
 		
 	</dependencies>

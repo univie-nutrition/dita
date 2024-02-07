@@ -18,19 +18,23 @@
  */
 package dita.blobstore.api;
 
-import java.nio.file.Path;
 import java.util.Optional;
+
+import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.commons.collections.Can;
 
+import dita.commons.types.NamedPath;
+import lombok.NonNull;
+
 public interface BlobStore {
 
-    void putBlob(BlobDescriptor blobDescriptor, Blob blob);
+    void putBlob(@NonNull BlobDescriptor blobDescriptor, @NonNull Blob blob);
 
-    Can<BlobDescriptor> listDescriptors(Path path, boolean recursive);
-    Optional<BlobDescriptor> lookupDescriptor(Path path);
-    Optional<Blob> lookupBlob(Path path);
-    void deleteBlob(Path path);
+    Can<BlobDescriptor> listDescriptors(@Nullable NamedPath path, boolean recursive);
+    Optional<BlobDescriptor> lookupDescriptor(@Nullable NamedPath path);
+    Optional<Blob> lookupBlob(@Nullable NamedPath path);
+    void deleteBlob(@Nullable NamedPath path);
 
 }

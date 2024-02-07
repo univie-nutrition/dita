@@ -38,7 +38,7 @@ import dita.recall24.model.InterviewSet24;
 @Configuration
 @Import({
     SurveyVM.class,
-
+    BlobStoreFactory.class,
         })
 @EnableConfigurationProperties({DitaModuleGdSurvey.SurveyConfiguration.class})
 public class DitaModuleGdSurvey {
@@ -78,8 +78,10 @@ public class DitaModuleGdSurvey {
     }
 
     @Bean @Qualifier("survey")
-    public BlobStore surveyBlobStore(final SurveyConfiguration surveyConfiguration) {
-        return BlobStoreFactory.createBlobStore(surveyConfiguration.blobstore());
+    public BlobStore surveyBlobStore(
+            final BlobStoreFactory blobStoreFactory,
+            final SurveyConfiguration surveyConfiguration) {
+        return blobStoreFactory.createBlobStore(surveyConfiguration.blobstore());
     }
 
 }

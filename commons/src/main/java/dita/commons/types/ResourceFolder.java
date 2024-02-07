@@ -21,6 +21,7 @@ package dita.commons.types;
 import java.io.File;
 import java.util.Optional;
 
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.FileUtils;
 
 import lombok.SneakyThrows;
@@ -63,12 +64,26 @@ public record ResourceFolder(File root) {
                 .map(ResourceFolder::ofFile);
     }
 
+    public Optional<ResourceFolder> relative(final NamedPath relativePath) {
+        return relative(relativePath.toString("/"));
+    }
+
     public File relativeFile(final String relativeFileName) {
         return new File(root, relativeFileName);
     }
 
     public File relativeFile(final String relativeFileNameTemplate, final String arg) {
         return new File(root, String.format(relativeFileNameTemplate, arg));
+    }
+
+    public File relativeFile(final NamedPath relativePath) {
+        return new File(root, relativePath.toString("/"));
+    }
+
+    public ResourceFolder makeDir(final NamedPath relativePath) {
+        FileUtils.makeDir(relativeFile(relativePath));
+        return relative(relativePath).orElseThrow(()->
+                _Exceptions.illegalState("failed to mkdir %s", relativePath));
     }
 
     @SneakyThrows

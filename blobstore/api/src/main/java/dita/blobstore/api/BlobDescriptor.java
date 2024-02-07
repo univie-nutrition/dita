@@ -18,13 +18,14 @@
  */
 package dita.blobstore.api;
 
-import java.nio.file.Path;
 import java.time.ZonedDateTime;
 
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
+import dita.commons.types.NamedPath;
+
 public record BlobDescriptor(
-        Path path,
+        NamedPath path,
         CommonMimeType mimeType,
         String createdBy,
         ZonedDateTime createdOn,
