@@ -162,14 +162,14 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class, mixee)
-        .coll()
-        .forEach(origin->{
-            var clonedDependant = origin.copy();
-            clonedDependant.setFoodOrRecipeCode(clone.getCode());
-            repositoryService.persist(clonedDependant);
-            foreignKeyLookupService.clearCache(clonedDependant.getClass());
-        });
+//        factoryService.mixin(FoodDeps.Food_dependentComposedRecipeIngredientMappedByFoodOrRecipe.class, mixee)
+//        .coll()
+//        .forEach(origin->{
+//            var clonedDependant = origin.copy();
+//            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+//            repositoryService.persist(clonedDependant);
+//            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+//        });
         factoryService.mixin(FoodDeps.Food_dependentProbingQuestionPathwayForFoodMappedByFood.class, mixee)
         .coll()
         .forEach(origin->{
@@ -238,22 +238,22 @@ public class Food_clone {
             repositoryService.persist(clonedDependant);
             foreignKeyLookupService.clearCache(clonedDependant.getClass());
         });
-        factoryService.mixin(FoodDeps.Food_dependentRecipeIngredientMappedByFoodOrRecipe.class, mixee)
-        .coll()
-        .forEach(origin->{
-            var clonedDependant = origin.copy();
-            clonedDependant.setFoodOrRecipeCode(clone.getCode());
-            repositoryService.persist(clonedDependant);
-            foreignKeyLookupService.clearCache(clonedDependant.getClass());
-        });
-        factoryService.mixin(FoodDeps.Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class, mixee)
-        .coll()
-        .forEach(origin->{
-            var clonedDependant = origin.copy();
-            clonedDependant.setIngredientFoodOrRecipeCode(clone.getCode());
-            repositoryService.persist(clonedDependant);
-            foreignKeyLookupService.clearCache(clonedDependant.getClass());
-        });
+//        factoryService.mixin(FoodDeps.Food_dependentRecipeIngredientMappedByFoodOrRecipe.class, mixee)
+//        .coll()
+//        .forEach(origin->{
+//            var clonedDependant = origin.copy();
+//            clonedDependant.setFoodOrRecipeCode(clone.getCode());
+//            repositoryService.persist(clonedDependant);
+//            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+//        });
+//        factoryService.mixin(FoodDeps.Food_dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe.class, mixee)
+//        .coll()
+//        .forEach(origin->{
+//            var clonedDependant = origin.copy();
+//            clonedDependant.setIngredientFoodOrRecipeCode(clone.getCode());
+//            repositoryService.persist(clonedDependant);
+//            foreignKeyLookupService.clearCache(clonedDependant.getClass());
+//        });
 
         return clone;
     }
