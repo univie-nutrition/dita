@@ -33,7 +33,6 @@ import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
-import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Action
@@ -42,7 +41,6 @@ import lombok.RequiredArgsConstructor;
 public class FoodDescriptorManager_addDescriptor {
 
     @Inject IdGeneratorService idGeneratorService;
-    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject ForeignKeyLookupService foreignKeyLookupService;
 

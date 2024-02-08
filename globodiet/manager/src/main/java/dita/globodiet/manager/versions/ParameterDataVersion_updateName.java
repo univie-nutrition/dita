@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ParameterDataVersion_updateName {
 
-    @Inject VersionsService blobStore;
+    @Inject VersionsService versionsService;
 
     final ParameterDataVersion version;
 
@@ -42,7 +42,7 @@ public class ParameterDataVersion_updateName {
             final String name) {
 
         version.setName(name);
-        blobStore.writeManifest(version);
+        versionsService.writeManifest(version);
         return version;
     }
 

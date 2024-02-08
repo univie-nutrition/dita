@@ -19,6 +19,7 @@
 package dita.globodiet.manager.versions;
 
 import java.io.File;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import jakarta.inject.Inject;
@@ -60,7 +61,7 @@ import lombok.val;
 public class ParameterDataVersion {
 
     @Inject ForeignKeyLookupService lookupService;
-    @Inject VersionsService blobStore;
+    @Inject VersionsService versionsService;
     @Inject FactoryService factoryService;
 
     // -- FACTORIES
@@ -81,7 +82,7 @@ public class ParameterDataVersion {
 
     @ObjectSupport
     public FontAwesomeLayers iconFaLayers() {
-        return isCommitted()
+        return isSticky()
                 ? FontAwesomeLayers.fromQuickNotation("file-shield .version-color-dark")
                 : FontAwesomeLayers.fromQuickNotation("file-pen .version-color-light");
     }
@@ -102,13 +103,14 @@ public class ParameterDataVersion {
     private String description;
 
     @Property
-    @PropertyLayout(describedAs = "If COMMITTED, one can no longer EDIT this version, "
-            + "but it can be checked out for VIEWING.")
+    @PropertyLayout(describedAs = "Creation Timestamp")
     @Getter @Setter
-    private boolean committed;
+    private ZonedDateTime creationTime;
 
     @Property
-    @PropertyLayout(describedAs = "If DELETED, does no longer appear in the user interface, "
+    @PropertyLayout(
+            hidden = Where.ALL_TABLES,
+            describedAs = "If DELETED, does no longer appear in the user interface, "
             + "but can be RESTORED by an administrator.")
     @Getter @Setter
     private boolean deleted;
@@ -221,12 +223,7 @@ public class ParameterDataVersion {
             fieldSetName="Details",
             position = Position.PANEL)
     public Blob downloadBAK() {
-        return blobStore.getBAK(this);
-    }
-    @MemberSupport public String disableDownloadBAK() {
-        return guardAgainstDeleted() // just in case
-                .or(()->guardAgainstNotCommitted("Commit this version, for a BAK download to become available."))
-                .orElse(null);
+        return versionsService.getBAK(this);
     }
 
     // -- [5] DELETE
@@ -239,7 +236,7 @@ public class ParameterDataVersion {
             fieldSetName="Details",
             position = Position.PANEL)
     public String delete() {
-        blobStore.delete(this);
+        versionsService.delete(this);
         return String.format("Version '%s' was deleted, that is, it no longer appears in the user interface. "
                 + "However, it can be restored by an administrator.", name);
     }
@@ -267,18 +264,6 @@ public class ParameterDataVersion {
 
     Optional<String> guardAgainstSticky(final String message) {
         return isSticky()
-            ? Optional.of(message)
-            : Optional.empty();
-    }
-
-    Optional<String> guardAgainstCommitted(final String message) {
-        return isCommitted()
-            ? Optional.of(message)
-            : Optional.empty();
-    }
-
-    Optional<String> guardAgainstNotCommitted(final String message) {
-        return !isCommitted()
             ? Optional.of(message)
             : Optional.empty();
     }

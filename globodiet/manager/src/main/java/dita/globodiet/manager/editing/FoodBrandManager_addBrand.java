@@ -35,7 +35,6 @@ import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -44,7 +43,6 @@ import lombok.val;
 @RequiredArgsConstructor
 public class FoodBrandManager_addBrand {
 
-    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject ForeignKeyLookupService foreignKeyLookupService;
 

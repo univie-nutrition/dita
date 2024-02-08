@@ -38,7 +38,7 @@ import dita.globodiet.manager.versions.VersionsService.VersionFilter;
         cssClassFa = FontawesomeConstants.ICON_VERSIONS)
 public class VersionsView {
 
-    @Inject VersionsService blobStore;
+    @Inject VersionsService versionsService;
 
     @ObjectSupport
     public String title() {
@@ -47,7 +47,7 @@ public class VersionsView {
 
     @Collection
     public Can<ParameterDataVersion> getVersions() {
-        return blobStore.getVersions()
+        return versionsService.getVersions()
                 .filter(VersionFilter.NOT_DELETED);
     }
 

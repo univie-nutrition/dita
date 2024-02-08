@@ -21,6 +21,7 @@ package dita.globodiet.manager.versions;
 import java.io.File;
 import java.io.FileFilter;
 import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -84,6 +85,7 @@ public class VersionsService {
                     rootDirectory.listFiles((FileFilter) dir -> dir.isDirectory()
                             && new File(dir, "manifest.yml").exists()))
                     .map(ParameterDataVersion::fromDirectory)
+                    .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
                 : Can.empty();
     }
 
@@ -138,8 +140,10 @@ public class VersionsService {
      * MS-SQL Server backup file that can be imported with the <i>GloboDiet</i> client application.
      */
     public Blob getBAK(final ParameterDataVersion parameterDataVersion) {
-        val resultingFileName = String.format("gd-params-%d.bak.zip", parameterDataVersion.get__id());
-        return resolveZippedResource(parameterDataVersion, "gd-params.bak", Optional.of(resultingFileName));
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd--HH-mm");
+        var timestamp = formatter.format(parameterDataVersion.getCreationTime());
+        var resultingFileName = String.format("GloboDiet-%s.7z", timestamp);
+        return resolve7ZippedResource(parameterDataVersion, "GloboDiet", Optional.of(resultingFileName));
     }
 
     public Clob getTableData(final ParameterDataVersion parameterDataVersion) {
@@ -175,6 +179,15 @@ public class VersionsService {
     /**
      * Loads a zipped resource into a Blob, but does not unzip.
      */
+    private Blob resolve7ZippedResource(
+            final ParameterDataVersion parameterDataVersion,
+            final String resourceName,
+            final Optional<String> filenameOverride) {
+        return new Blob(filenameOverride.orElse(resourceName),
+                CommonMimeType._7Z.getMimeType(),
+                resolveResource(parameterDataVersion, resourceName + ".7z").bytes());
+    }
+
     private Blob resolveZippedResource(
             final ParameterDataVersion parameterDataVersion,
             final String resourceName,

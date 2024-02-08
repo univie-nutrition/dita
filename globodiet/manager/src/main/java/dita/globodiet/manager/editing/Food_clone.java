@@ -47,7 +47,6 @@ import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.dom.params.nutrient.NutrientValue;
 import dita.globodiet.manager.util.FoodUtils;
-import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Action
@@ -58,7 +57,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Food_clone {
 
-    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject FactoryService factoryService;
     @Inject IdGeneratorService idGeneratorService;

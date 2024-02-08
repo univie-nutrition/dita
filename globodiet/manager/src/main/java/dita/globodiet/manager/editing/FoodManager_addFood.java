@@ -34,7 +34,6 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Domain.Exclude
@@ -43,7 +42,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FoodManager_addFood {
 
-    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
 
     protected final Food.Manager mixee;

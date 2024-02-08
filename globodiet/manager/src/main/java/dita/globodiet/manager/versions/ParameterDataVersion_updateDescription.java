@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ParameterDataVersion_updateDescription {
 
-    @Inject VersionsService blobStore;
+    @Inject VersionsService versionsService;
 
     final ParameterDataVersion version;
 
@@ -45,7 +45,7 @@ public class ParameterDataVersion_updateDescription {
             final String description) {
 
         version.setDescription(description);
-        blobStore.writeManifest(version);
+        versionsService.writeManifest(version);
         return version;
     }
 
