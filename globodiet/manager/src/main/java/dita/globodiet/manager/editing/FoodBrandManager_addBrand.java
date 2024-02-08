@@ -35,8 +35,7 @@ import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodBrand;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.manager.blobstore.BlobStore;
-import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -45,7 +44,7 @@ import lombok.val;
 @RequiredArgsConstructor
 public class FoodBrandManager_addBrand {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject ForeignKeyLookupService foreignKeyLookupService;
 
@@ -84,12 +83,6 @@ public class FoodBrandManager_addBrand {
                 fg->fg.getFoodSubSubgroupCode()!=null
                     && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode())
                     && Objects.equals(fg.getFoodSubgroupCode(), p.foodSubgroup().getFoodSubgroupCode()));
-    }
-
-    @MemberSupport public String disableAct() {
-        //TODO refactor into util
-        return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
-                .orElse(null);
     }
 
 }

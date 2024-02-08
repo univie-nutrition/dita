@@ -33,8 +33,7 @@ import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
-import dita.globodiet.manager.blobstore.BlobStore;
-import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Action
@@ -43,7 +42,7 @@ import lombok.RequiredArgsConstructor;
 public class FoodDescriptorManager_addDescriptor {
 
     @Inject IdGeneratorService idGeneratorService;
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject ForeignKeyLookupService foreignKeyLookupService;
 
@@ -74,12 +73,6 @@ public class FoodDescriptorManager_addDescriptor {
 
     @MemberSupport public List<FoodFacet> choicesFacet() {
         return repositoryService.allInstances(FoodFacet.class);
-    }
-
-    @MemberSupport public String disableAct() {
-        //TODO refactor into util
-        return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
-                .orElse(null);
     }
 
 }

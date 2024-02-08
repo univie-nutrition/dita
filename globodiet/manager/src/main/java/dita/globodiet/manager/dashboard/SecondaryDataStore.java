@@ -35,7 +35,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import dita.causeway.replicator.tables.model.DataTableService;
-import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.SneakyThrows;
 
 public record SecondaryDataStore(DataTableService dataTableService) {
@@ -103,7 +103,7 @@ public record SecondaryDataStore(DataTableService dataTableService) {
             final PersistenceManagerFactory pmf) {
         try {
             dataTableService.streamEntities()
-            .filter(BlobStore.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
+            .filter(VersionsService.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
             .map(ObjectSpecification::getCorrespondingClass)
             .map(Class::getName)
             .forEach(entityClassName->toEntityWithNonDurableId(pmf, entityClassName));

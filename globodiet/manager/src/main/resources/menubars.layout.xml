@@ -183,7 +183,7 @@
         <mb:menu>
             <mb:named>Versions</mb:named>
             <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.manager.BlobStoreMenu" id="parameterDataVersions"/>
+                <mb:serviceAction objectType="dita.globodiet.manager.VersionsMenu" id="parameterDataVersions"/>
             </mb:section>
         </mb:menu>
         <mb:menu unreferencedActions="true">

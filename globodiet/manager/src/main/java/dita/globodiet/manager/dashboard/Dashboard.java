@@ -38,15 +38,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
-import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import dita.tooling.orm.OrmModel;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".Dashboard")
 @DomainObjectLayout(cssClassFa = "solid gauge .dashboard-color")
 @HomePage
-public class Dashboard
-implements HasCurrentlyCheckedOutVersion {
+public class Dashboard {
 
     @Inject Optional<BuildProperties> buildProperties;
     @Inject TableSerializerYaml tableSerializer;

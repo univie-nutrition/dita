@@ -33,7 +33,7 @@ import org.apache.causeway.applib.value.Clob;
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
-import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
@@ -75,7 +75,7 @@ public class Dashboard_generateYamlFromRemote {
                     var clob = tableSerializer.clobFromSecondaryConnection(
                             "gd-params-" + profile.name().toLowerCase(),
                             transformer,
-                            BlobStore.paramsTableFilter(),
+                            VersionsService.paramsTableFilter(),
                             pm,
                             rowSortingEnabled);
 

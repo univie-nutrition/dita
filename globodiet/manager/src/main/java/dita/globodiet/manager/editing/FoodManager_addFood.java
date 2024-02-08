@@ -34,8 +34,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.manager.blobstore.BlobStore;
-import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Domain.Exclude
@@ -44,7 +43,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FoodManager_addFood {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
 
     protected final Food.Manager mixee;
@@ -66,11 +65,6 @@ public class FoodManager_addFood {
                 fg->fg.getFoodSubSubgroupCode()!=null
                     && Objects.equals(fg.getFoodGroupCode(), p.foodGroup().getCode())
                     && Objects.equals(fg.getFoodSubgroupCode(), p.foodSubgroup().getFoodSubgroupCode()));
-    }
-    @MemberSupport public String disableAct() {
-        //TODO refactor into util
-        return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
-                .orElse(null);
     }
 
 }

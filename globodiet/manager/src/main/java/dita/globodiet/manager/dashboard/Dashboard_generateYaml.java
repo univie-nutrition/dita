@@ -32,7 +32,7 @@ import org.apache.causeway.applib.value.Clob;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
-import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -59,7 +59,7 @@ public class Dashboard_generateYaml {
                 format==ExportFormat.ENTITY
                     ? TabularData.NameTransformer.IDENTITY
                     : entity2table,
-                BlobStore.paramsTableFilter(),
+                VersionsService.paramsTableFilter(),
                 rowSortingEnabled);
         return clob;
     }

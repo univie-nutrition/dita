@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.blobstore;
+package dita.globodiet.manager.versions;
 
 import java.io.File;
 import java.util.Optional;
@@ -64,7 +64,7 @@ import lombok.val;
 public class ParameterDataVersion {
 
     @Inject ForeignKeyLookupService lookupService;
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
     @Inject FactoryService factoryService;
 
     // -- FACTORIES
@@ -126,8 +126,8 @@ public class ParameterDataVersion {
 
     @Property(snapshot = Snapshot.EXCLUDED)
     @PropertyLayout(hidden = Where.EVERYWHERE, navigable = Navigable.PARENT)
-    public BlobStoreView getBlobStoreView() {
-        return factoryService.viewModel(new BlobStoreView());
+    public VersionsView getBlobStoreView() {
+        return factoryService.viewModel(new VersionsView());
     }
 
     // -- [1] CHECKOUT

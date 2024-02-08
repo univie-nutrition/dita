@@ -39,8 +39,8 @@ import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.Recipe.AliasQ;
-import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -70,7 +70,7 @@ public class Dashboard_loadYaml {
                             format==ExportFormat.ENTITY
                                 ? TabularData.NameTransformer.IDENTITY
                                 : table2entity,
-                            BlobStore.paramsTableFilter(),
+                            VersionsService.paramsTableFilter(),
                             InsertMode.DELETE_ALL_THEN_ADD,
                             entity->{
                                 if(entity.getSpecification().isAssignableFrom(Recipe.class)) {

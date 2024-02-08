@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.blobstore;
+package dita.globodiet.manager.versions;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -30,16 +30,15 @@ import org.apache.causeway.commons.collections.Can;
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
-import dita.globodiet.manager.blobstore.BlobStore.VersionFilter;
+import dita.globodiet.manager.versions.VersionsService.VersionFilter;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".BlobStoreView")
 @DomainObjectLayout(
         cssClassFa = FontawesomeConstants.ICON_VERSIONS)
-public class BlobStoreView
-implements HasCurrentlyCheckedOutVersion {
+public class VersionsView {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
 
     @ObjectSupport
     public String title() {

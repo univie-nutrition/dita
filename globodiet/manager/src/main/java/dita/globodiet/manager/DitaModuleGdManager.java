@@ -47,9 +47,6 @@ import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
-import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion;
-import dita.globodiet.manager.blobstore.ParameterDataVersion_updateDescription;
-import dita.globodiet.manager.blobstore.ParameterDataVersion_updateName;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.FoodBrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodDescriptorManager_addDescriptor;
@@ -73,6 +70,8 @@ import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodDisplay
 import dita.globodiet.manager.services.rule.FoodHasDensityFactorRuleChecker;
 import dita.globodiet.manager.services.rule.ResolvableDependenciesRuleChecker;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
+import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
+import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -136,7 +135,6 @@ import lombok.val;
     ResolvableDependenciesRuleChecker.class,
 
     // Mixins
-    HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion.class,
     ParameterDataVersion_updateName.class,
     ParameterDataVersion_updateDescription.class,
     Persistable_schema.class,

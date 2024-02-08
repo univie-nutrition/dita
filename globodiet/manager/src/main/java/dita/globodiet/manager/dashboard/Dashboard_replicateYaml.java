@@ -39,8 +39,8 @@ import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.NameTransformer;
-import dita.globodiet.manager.blobstore.BlobStore;
 import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -97,7 +97,7 @@ public class Dashboard_replicateYaml {
 
     private String replicate(final Clob tableData, final NameTransformer nameTransformer, final PersistenceManager pm) {
         return tableSerializer.replicate(tableData, nameTransformer,
-                BlobStore.paramsTableFilter(), pm);
+                VersionsService.paramsTableFilter(), pm);
     }
 
 }

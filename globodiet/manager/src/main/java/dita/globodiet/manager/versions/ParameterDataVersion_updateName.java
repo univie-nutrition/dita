@@ -16,31 +16,44 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.blobstore;
+package dita.globodiet.manager.versions;
 
 import jakarta.inject.Inject;
 
-import org.springframework.lang.Nullable;
-
+import org.apache.causeway.applib.annotation.Action;
+import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.Property;
-import org.apache.causeway.applib.annotation.PropertyLayout;
+import org.apache.causeway.applib.annotation.Parameter;
 
 import lombok.RequiredArgsConstructor;
 
-@Property
-@PropertyLayout(describedAs = "The currently checked-out version, "
-        + "that is enabled for EDITING or VIEWING. "
-        + "If NONE, then checkout an exising version.")
+@Action
+@ActionLayout(associateWith = "name")
 @RequiredArgsConstructor
-public class HasCurrentlyCheckedOutVersion_currentlyCheckedOutVersion {
+public class ParameterDataVersion_updateName {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
 
-    final HasCurrentlyCheckedOutVersion mixee;
+    final ParameterDataVersion version;
 
-    @MemberSupport @Nullable
-    public ParameterDataVersion prop() {
-        return blobStore.getCurrentlyCheckedOutVersion();
+    @MemberSupport
+    public ParameterDataVersion act(
+            @Parameter
+            final String name) {
+
+        version.setName(name);
+        blobStore.writeManifest(version);
+        return version;
     }
+
+    @MemberSupport public String disable() {
+        return version.guardAgainstDeleted() // just in case
+                .or(()->version.guardAgainstSticky("This version is marked STICKY by an administrator, hence cannot be edited."))
+                .orElse(null);
+    }
+
+    @MemberSupport public String defaultName() {
+        return version.getName();
+    }
+
 }

@@ -35,7 +35,7 @@ import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.manager.blobstore.BlobStore;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
@@ -48,7 +48,7 @@ import lombok.val;
 @RequiredArgsConstructor
 public class FoodSubgroupManager_addSubgroup {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject FactoryService factoryService;
     @Inject IdGeneratorService idGeneratorService;

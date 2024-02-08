@@ -46,9 +46,8 @@ import dita.globodiet.dom.params.food_list.Food_foodSubSubgroup;
 import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.dom.params.nutrient.NutrientValue;
-import dita.globodiet.manager.blobstore.BlobStore;
-import dita.globodiet.manager.blobstore.HasCurrentlyCheckedOutVersion;
 import dita.globodiet.manager.util.FoodUtils;
+import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 
 @Action
@@ -59,7 +58,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Food_clone {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
     @Inject RepositoryService repositoryService;
     @Inject FactoryService factoryService;
     @Inject IdGeneratorService idGeneratorService;
@@ -336,14 +335,6 @@ public class Food_clone {
      */
     @MemberSupport public String validateCode(final FoodParamsForClone p) {
         return FoodUtils.validateFoodCode(p.code());
-    }
-
-    // -- ENABLING
-
-    @MemberSupport public String disableAct() {
-        //TODO refactor into util
-        return (new HasCurrentlyCheckedOutVersion() {}).guardAgainstCannotEditVersion(blobStore)
-                .orElse(null);
     }
 
 }

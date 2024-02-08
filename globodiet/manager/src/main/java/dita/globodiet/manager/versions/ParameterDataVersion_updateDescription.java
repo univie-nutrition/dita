@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.blobstore;
+package dita.globodiet.manager.versions;
 
 import jakarta.inject.Inject;
 
@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ParameterDataVersion_updateDescription {
 
-    @Inject BlobStore blobStore;
+    @Inject VersionsService blobStore;
 
     final ParameterDataVersion version;
 

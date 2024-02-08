@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.blobstore;
+package dita.globodiet.manager.versions;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -61,8 +61,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 @Service
-@Named(DitaModuleGdManager.NAMESPACE + ".BlobStore")
-public class BlobStore implements MetamodelListener {
+@Named(DitaModuleGdManager.NAMESPACE + ".VersionsService")
+public class VersionsService implements MetamodelListener {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject InteractionService iaService;
