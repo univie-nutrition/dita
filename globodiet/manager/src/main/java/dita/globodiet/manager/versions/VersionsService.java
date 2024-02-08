@@ -33,36 +33,26 @@ import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import org.apache.causeway.applib.events.metamodel.MetamodelListener;
 import org.apache.causeway.applib.services.iactnlayer.InteractionService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.Try;
-import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
-import org.apache.causeway.commons.io.YamlUtils;
-import org.apache.causeway.core.config.beans.CausewayBeanTypeRegistry;
 import org.apache.causeway.core.metamodel.context.MetaModelContext;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
-import org.apache.causeway.persistence.jdo.datanucleus.metamodel.facets.entity.JdoEntityFacet;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
-import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
-import dita.commons.spring.SpringUtils;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
-import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsService")
-public class VersionsService implements MetamodelListener {
+public class VersionsService {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject InteractionService iaService;
@@ -84,12 +74,6 @@ public class VersionsService implements MetamodelListener {
             return predicate.test(version);
         }
     }
-
-    /**
-     * There can be only ONE version checked out, which is then shared among all users for editing or viewing.
-     */
-    @Getter @Nullable
-    private ParameterDataVersion currentlyCheckedOutVersion;
 
     /**
      * Lists all {@link ParameterDataVersion}(s), as recovered from file-system on the fly.
@@ -125,69 +109,6 @@ public class VersionsService implements MetamodelListener {
     public void restore(final ParameterDataVersion version) {
         version.setDeleted(false);
         writeManifest(version);
-    }
-
-    /**
-     * There can be only ONE version checked out, which is then shared among all users for editing or viewing.
-     */
-    public void checkout(final @Nullable ParameterDataVersion version) {
-        checkoutAsCurrent(version, InsertMode.DELETE_ALL_THEN_ADD);
-        // persist so we can recover state on next startup via 'onMetamodelLoaded'
-        writeState();
-    }
-
-    @Override
-    public void onMetamodelLoaded() {
-        //initFederatedDataStore();
-
-        var insertMode = SpringUtils.isProfileH2Active(env)
-                ? InsertMode.ADD
-                : InsertMode.DO_NOTHING;
-
-        readState()
-        .getValue()
-        .ifPresent(state->{
-            lookupVersion(state.getLastCheckedOutVersionId())
-                .ifPresent(version->{
-                    iaService.runAnonymous(()->this.checkoutAsCurrent(version, insertMode));
-                });
-        });
-
-    }
-
-    /**
-     * This is yet an experimental feature, not fully supported by the framework
-     */
-    private void initFederatedDataStore() {
-        //TODO[FEDARATION]
-        //XXX sanity check
-        Can<JdoEntityFacet> jdoEntityFacets = mmc.getServiceRegistry().lookupServiceElseFail(CausewayBeanTypeRegistry.class)
-            .getEntityTypes().keySet().stream()
-            .map(entityType->mmc.getSpecificationLoader().specForTypeElseFail(entityType)
-                    .entityFacetElseFail())
-            .map(JdoEntityFacet.class::cast)
-            .collect(Can.toCan());
-
-        iaService.runAnonymous(()->{
-            jdoEntityFacets.forEach(jdoEntityFacet->{
-                var entityType = ((ObjectSpecification)jdoEntityFacet.getFacetHolder()).getCorrespondingClass();
-
-                //trigger table creation
-                //var pm = jdoEntityFacet.getPersistenceManager();
-                //pm.newQuery(entityType).executeList();
-
-//                try(var con = (Connection)pm.getDataStoreConnection().getNativeConnection()){
-//                    System.err.printf("%s->%s%n", entityType, con.getClass());
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-
-//                .forEach(x->{
-//                    System.err.printf("a: %s%n", x);
-//                });
-                //System.err.printf("OK %s%n", entityType);
-            });
-        });
     }
 
     /**
@@ -243,11 +164,6 @@ public class VersionsService implements MetamodelListener {
 
     // -- HELPER
 
-    private void checkoutAsCurrent(final @Nullable ParameterDataVersion version, final InsertMode insertMode) {
-        tableSerializer.load(getTableData(version), table2entity, paramsTableFilter(), insertMode, entity->{});
-        this.currentlyCheckedOutVersion = version;
-    }
-
     /**
      * Resolves a file resource relative to the given version's blob-store sub-folder.
      */
@@ -278,41 +194,9 @@ public class VersionsService implements MetamodelListener {
                 .orElse(10001);
     }
 
-//    private Optional<File> lookupVersionFolder(final @Nullable ParameterDataVersion version) {
-//        if(version==null) {
-//            return Optional.empty();
-//        }
-//        val versionFolder = new File(rootDirectory, "" + version.get__id());
-//        return FileUtils.existingDirectory(versionFolder);
-//    }
-
     private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
         val versionFolder = new File(rootDirectory, "" + version.get__id());
         return FileUtils.existingDirectoryElseFail(versionFolder);
-    }
-
-    // -- STATE HANDLER
-
-    @Data
-    public static class BlobStoreState {
-        private int lastCheckedOutVersionId;
-    }
-
-    private File blobStoreStateFile() {
-        return new File(rootDirectory, "state.yml");
-    }
-
-    private Try<BlobStoreState> readState() {
-        val readStateTrial =
-                YamlUtils.tryRead(BlobStoreState.class, DataSource.ofFile(blobStoreStateFile()));
-        return readStateTrial;
-    }
-
-    private void writeState() {
-        if(currentlyCheckedOutVersion==null) return;
-        val state = new BlobStoreState();
-        state.setLastCheckedOutVersionId(currentlyCheckedOutVersion.get__id());
-        YamlUtils.write(state, DataSink.ofFile(blobStoreStateFile()));
     }
 
 }

@@ -33,8 +33,6 @@ import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
-import org.apache.causeway.applib.annotation.Parameter;
-import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -44,14 +42,12 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.manager.DitaModuleGdManager;
-import dita.globodiet.manager.FontawesomeConstants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -132,90 +128,89 @@ public class ParameterDataVersion {
 
     // -- [1] CHECKOUT
 
-    @Action
-    @ActionLayout(
-            describedAs = "Checkout this version for VIEWING or EDITING, "
-                    + "based on whether was already committed or not.",
-            sequence = "1",
-            fieldSetName="Details",
-            position = Position.PANEL,
-            cssClassFa = FontawesomeConstants.FA_CLOUD_ARROW_DOWN_SOLID,
-            cssClass = "btn-primary")
-    public String checkout() {
-        lookupService.clearAllCaches();
-        blobStore.checkout(this);
-        return String.format("Version '%s' checked out.", name);
-    }
-    @MemberSupport public String disableCheckout() {
-        if(true) return disableVersionManagement();
-        return guardAgainstDeleted()
-                .or(()->guardAgainstThisVersionAlreadyCheckedOut("This version is already checked out."))
-                .orElse(null);
-    }
+//    @Action
+//    @ActionLayout(
+//            describedAs = "Checkout this version for VIEWING or EDITING, "
+//                    + "based on whether was already committed or not.",
+//            sequence = "1",
+//            fieldSetName="Details",
+//            position = Position.PANEL,
+//            cssClassFa = FontawesomeConstants.FA_CLOUD_ARROW_DOWN_SOLID,
+//            cssClass = "btn-primary")
+//    public String checkout() {
+//        lookupService.clearAllCaches();
+//        blobStore.checkout(this);
+//        return String.format("Version '%s' checked out.", name);
+//    }
+//    @MemberSupport public String disableCheckout() {
+//        if(true) return disableVersionManagement();
+//        return guardAgainstDeleted()
+//                .or(()->guardAgainstThisVersionAlreadyCheckedOut("This version is already checked out."))
+//                .orElse(null);
+//    }
 
     // -- [2] CLONE
 
-    @Action
-    @ActionLayout(
-            describedAs = "Clone this version for EDITING under a new IDENTITY.",
-            sequence = "2",
-            fieldSetName="Details",
-            position = Position.PANEL,
-            cssClassFa = FontawesomeConstants.FA_CLONE_SOLID)
-    public String clone(
-            @Parameter(optionality = Optionality.MANDATORY)
-            final String clonedVersionName,
-
-            @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(multiLine = 4)
-            final String clonedVersionDescription) {
-
-        var cloneRequest = new ParameterDataVersion();
-        cloneRequest.setName(clonedVersionName);
-        cloneRequest.setDescription(clonedVersionDescription);
-        cloneRequest.setCommitted(false);
-
-        blobStore.clone(this, cloneRequest);
-        return String.format("Version '%s' cloned as '%s'.", name, clonedVersionName);
-    }
-    @MemberSupport public String disableClone() {
-        if(true) return disableVersionManagement();
-        return guardAgainstDeleted()
-                .orElse(null);
-    }
-    @MemberSupport public String default0Clone() {
-        return String.format("%s (Clone)", getName());
-    }
-    @MemberSupport public String default1Clone() {
-        return _Strings.isNotEmpty(getDescription())
-                ? String.format("%s (Cloned)", getDescription())
-                : null;
-    }
+//    @Action
+//    @ActionLayout(
+//            describedAs = "Clone this version for EDITING under a new IDENTITY.",
+//            sequence = "2",
+//            fieldSetName="Details",
+//            position = Position.PANEL,
+//            cssClassFa = FontawesomeConstants.FA_CLONE_SOLID)
+//    public String clone(
+//            @Parameter(optionality = Optionality.MANDATORY)
+//            final String clonedVersionName,
+//
+//            @Parameter(optionality = Optionality.OPTIONAL)
+//            @ParameterLayout(multiLine = 4)
+//            final String clonedVersionDescription) {
+//
+//        var cloneRequest = new ParameterDataVersion();
+//        cloneRequest.setName(clonedVersionName);
+//        cloneRequest.setDescription(clonedVersionDescription);
+//        cloneRequest.setCommitted(false);
+//
+//        blobStore.clone(this, cloneRequest);
+//        return String.format("Version '%s' cloned as '%s'.", name, clonedVersionName);
+//    }
+//    @MemberSupport public String disableClone() {
+//        if(true) return disableVersionManagement();
+//        return guardAgainstDeleted()
+//                .orElse(null);
+//    }
+//    @MemberSupport public String default0Clone() {
+//        return String.format("%s (Clone)", getName());
+//    }
+//    @MemberSupport public String default1Clone() {
+//        return _Strings.isNotEmpty(getDescription())
+//                ? String.format("%s (Cloned)", getDescription())
+//                : null;
+//    }
 
     // -- [3] COMMIT
 
-    @Action
-    @ActionLayout(
-            sequence = "3",
-            named = "Commit / Generate BAK",
-            describedAs = "Generates a BAK file, "
-                    + "that is made available for download. "
-                    + "Also locks this version (disables further EDITING).",
-            fieldSetName="Details",
-            position = Position.PANEL,
-            cssClassFa = FontawesomeConstants.FA_CLOUD_ARROW_UP_SOLID,
-            cssClass = "btn-success")
-    public String commitAndGenerateBAK() {
-        //TODO (1) generate BAK file (2) on success transition to committed state
-        //TODO this is perhaps a long runner, need some other feedback mechanism
-        return String.format("Version '%s' committed and locked (further editing is disabled, can only be viewed). "
-                + "A BAK file was generated and made available for download.", name);
-    }
-    @MemberSupport public String disableCommitAndGenerateBAK() {
-        if(true) return disableVersionManagement();
-        return guardAgainstDeleted() // just in case
-                .orElse("TODO: will be implemented");
-    }
+//    @Action
+//    @ActionLayout(
+//            sequence = "3",
+//            named = "Commit / Generate BAK",
+//            describedAs = "Generates a BAK file, "
+//                    + "that is made available for download. "
+//                    + "Also locks this version (disables further EDITING).",
+//            fieldSetName="Details",
+//            position = Position.PANEL,
+//            cssClassFa = FontawesomeConstants.FA_CLOUD_ARROW_UP_SOLID,
+//            cssClass = "btn-success")
+//    public String commitAndGenerateBAK() {
+//        //TODO (1) generate BAK file (2) on success transition to committed state
+//        //TODO this is perhaps a long runner, need some other feedback mechanism
+//        return String.format("Version '%s' committed and locked (further editing is disabled, can only be viewed). "
+//                + "A BAK file was generated and made available for download.", name);
+//    }
+//    @MemberSupport public String disableCommitAndGenerateBAK() {
+//        return guardAgainstDeleted() // just in case
+//                .orElse("TODO: will be implemented");
+//    }
 
     // -- [4] BAK DOWNLOAD
 
@@ -249,7 +244,6 @@ public class ParameterDataVersion {
                 + "However, it can be restored by an administrator.", name);
     }
     @MemberSupport public String disableDelete() {
-        if(true) return disableVersionManagement();
         return guardAgainstDeleted() // just in case
                 .or(()->guardAgainstSticky("This version is marked STICKY by an administrator, hence cannot be deleted."))
                 .orElse(null);
@@ -287,19 +281,6 @@ public class ParameterDataVersion {
         return !isCommitted()
             ? Optional.of(message)
             : Optional.empty();
-    }
-
-    Optional<String> guardAgainstThisVersionAlreadyCheckedOut(final String message) {
-        return Optional.ofNullable(blobStore.getCurrentlyCheckedOutVersion())
-                .map(v->this.get__id() == v.get__id())
-                .orElse(false)
-            ? Optional.of(message)
-            : Optional.empty();
-    }
-
-    @Deprecated // WIP
-    private static String disableVersionManagement() {
-        return "TODO: Version Management is not full implemented yet.";
     }
 
 }
