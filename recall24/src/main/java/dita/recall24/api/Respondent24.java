@@ -20,7 +20,7 @@ package dita.recall24.api;
 
 import java.time.LocalDate;
 
-import dita.commons.types.Gender;
+import dita.commons.types.Sex;
 
 public interface Respondent24 {
 
@@ -31,6 +31,6 @@ public interface Respondent24 {
 
     LocalDate dateOfBirth();
 
-    Gender gender();
+    Sex gender();
 
 }

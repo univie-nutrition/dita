@@ -106,7 +106,7 @@ public class Recall24ModelUtils {
 
     private Respondent24 fromDto(
             final RespondentDto dto) {
-        return new Respondent24(dto.getAlias(), dto.getDateOfBirth(), dto.getGender());
+        return new Respondent24(dto.getAlias(), dto.getDateOfBirth(), dto.getSex());
     }
 
     private Interview24 fromDto(
@@ -186,7 +186,7 @@ public class Recall24ModelUtils {
         val dto = new RespondentDto();
             dto.setAlias(model.alias());
             dto.setDateOfBirth(model.dateOfBirth());
-            dto.setGender(model.gender());
+            dto.setSex(model.gender());
         return dto;
     }
 

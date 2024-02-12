@@ -29,7 +29,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 
 import dita.commons.jaxb.JaxbAdapters;
-import dita.commons.types.Gender;
+import dita.commons.types.Sex;
 import lombok.Data;
 
 @XmlRootElement(name="respondent")
@@ -46,6 +46,6 @@ public class RespondentDto {
 
     @XmlElement(name="gender")
     @XmlJavaTypeAdapter(value=JaxbAdapters.GenderAdapter.class)
-    private Gender gender;
+    private Sex sex;
 
 }

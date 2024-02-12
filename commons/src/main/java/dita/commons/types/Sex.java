@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum Gender {
+public enum Sex {
     UNCLASSIFIED,
     MALE,
     FEMALE;
@@ -47,9 +47,9 @@ public enum Gender {
     }
 
     @Nullable
-    public static Gender destringify(final String stringified) {
+    public static Sex destringify(final String stringified) {
         return StringUtils.hasLength(stringified)
-                ? Gender.valueOf(stringified.toUpperCase())
+                ? Sex.valueOf(stringified.toUpperCase())
                 : null;
     }
 }

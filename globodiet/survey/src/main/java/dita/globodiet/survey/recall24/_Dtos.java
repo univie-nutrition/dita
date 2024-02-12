@@ -42,7 +42,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.JsonUtils;
 
-import dita.commons.types.Gender;
+import dita.commons.types.Sex;
 import dita.commons.types.ObjectRef;
 import dita.recall24.api.Record24.Type;
 import dita.recall24.model.Ingredient24;
@@ -179,7 +179,7 @@ class _Dtos {
             Respondent24 respondent = new Respondent24(
                     subjectName + "|" + subjectFirstName,
                     subjectBirthDate.toLocalDate(),
-                    Gender.values()[subjectSex]);
+                    Sex.values()[subjectSex]);
 
             final var tree = new GraphKernel(1 + listEntries.size(), ImmutableEnumSet.noneOf(GraphCharacteristic.class));
             final int rootIndex = listEntries.size();

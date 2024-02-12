@@ -26,7 +26,7 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.springframework.util.StringUtils;
 
-import dita.commons.types.Gender;
+import dita.commons.types.Sex;
 import lombok.experimental.UtilityClass;
 import tech.units.indriya.format.SimpleUnitFormat;
 import tech.units.indriya.quantity.Quantities;
@@ -34,16 +34,16 @@ import tech.units.indriya.quantity.Quantities;
 @UtilityClass
 public class JaxbAdapters {
 
-    public static final class GenderAdapter extends XmlAdapter<String, Gender>{
-        @Override public Gender unmarshal(final String v) throws Exception {
+    public static final class GenderAdapter extends XmlAdapter<String, Sex>{
+        @Override public Sex unmarshal(final String v) throws Exception {
             try {
-                return Gender.destringify(v);
+                return Sex.destringify(v);
             } catch (Exception e) {
                 e.printStackTrace(); // might be swallowed otherwise
                 throw e;
             }
         }
-        @Override public String marshal(final Gender v) throws Exception {
+        @Override public String marshal(final Sex v) throws Exception {
             return v!=null
                     ? v.stringify()
                     : null;

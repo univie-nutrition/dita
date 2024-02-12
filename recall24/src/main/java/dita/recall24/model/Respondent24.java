@@ -20,7 +20,7 @@ package dita.recall24.model;
 
 import java.time.LocalDate;
 
-import dita.commons.types.Gender;
+import dita.commons.types.Sex;
 
 public record Respondent24(
         /**
@@ -30,7 +30,7 @@ public record Respondent24(
 
         LocalDate dateOfBirth,
 
-        Gender gender
+        Sex gender
 
         ) implements dita.recall24.api.Respondent24 {
 }

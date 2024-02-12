@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.jaxb.JaxbAdapters;
-import dita.commons.types.Gender;
+import dita.commons.types.Sex;
 import lombok.SneakyThrows;
 import lombok.val;
 import tech.units.indriya.quantity.Quantities;
@@ -47,8 +47,8 @@ class JaxbAdaptersTest {
     }
 
     @ParameterizedTest @SneakyThrows
-    @EnumSource(Gender.class)
-    void roundtripOnGender(final Gender gender) {
+    @EnumSource(Sex.class)
+    void roundtripOnGender(final Sex gender) {
 
         var adapter = new JaxbAdapters.GenderAdapter();
 
