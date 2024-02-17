@@ -18,26 +18,26 @@
  */
 package dita.blobstore.api;
 
-import java.time.Instant;
-
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.assertions._Assert;
 
-import dita.commons.types.NamedPath;
+/**
+ * Has non-empty name, with characters conforming to {@link Character#isJavaIdentifierPart(int)}.
+ * <p>
+ * A blob may provide zero ore more qualifiers via its descriptor.
+ * A blob-store search can then be refined to filter for results that satisfy <b>all</b> the requested
+ * qualifiers.
+ */
+public record BlobQualifier(
+        String name) {
 
-public record BlobDescriptor(
-        NamedPath path,
-        CommonMimeType mimeType,
-        String createdBy,
-        Instant createdOn,
-        long size,
-        Compression compression,
-        Can<BlobQualifier> qualifiers) {
-
-    public enum Compression {
-        NONE,
-        ZIP,
-        SEVEN_ZIP;
+    public static Can<BlobQualifier> of(final String ...names) {
+        return Can.ofArray(names).map(BlobQualifier::new);
     }
 
+    public BlobQualifier(final String name) {
+        _Assert.assertNotEmpty(name);
+        _Assert.assertTrue(name.chars().allMatch(Character::isJavaIdentifierPart));
+        this.name = name;
+    }
 }

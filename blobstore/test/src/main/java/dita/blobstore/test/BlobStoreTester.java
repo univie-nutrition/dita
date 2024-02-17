@@ -26,9 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
 
 import dita.blobstore.api.BlobDescriptor;
 import dita.blobstore.api.BlobDescriptor.Compression;
+import dita.blobstore.api.BlobQualifier;
 import dita.blobstore.api.BlobStore;
 import dita.commons.types.NamedPath;
 import lombok.NonNull;
@@ -39,7 +41,10 @@ public class BlobStoreTester {
 
     public static record Scenario(
             @NonNull BlobDescriptor blobDescriptor,
-            @NonNull Blob blob) {
+            @NonNull Blob blob,
+            @NonNull Can<Can<BlobQualifier>> matchingQualifiers,
+            @NonNull Can<Can<BlobQualifier>> excludingQualifiers
+            ) {
         public NamedPath path() {
             return blobDescriptor.path();
         }
@@ -55,10 +60,31 @@ public class BlobStoreTester {
                 var blob = Blob.of(name, mime, new byte[] {1, 2, 3, 4});
                 var createdOn = Instant.now();
                 var path = NamedPath.of("a", "b", name);
-                var blobDesc = new BlobDescriptor(path, mime, "scenrio-sampler", createdOn, 4, Compression.NONE);
-                return new Scenario(blobDesc, blob);
+                var blobDesc = new BlobDescriptor(
+                        path, mime, "scenario-sampler", createdOn, 4, Compression.NONE,
+                        BlobQualifier.of());
+                return new Scenario(blobDesc, blob, Can.empty(), Can.empty());
             }
-        }
+        },
+        SMALL_BINARY_QUALIFIED {
+            @Override public Scenario create() {
+                var name = "myblob.bin";
+                var mime = CommonMimeType.BIN;
+                var blob = Blob.of(name, mime, new byte[] {1, 2, 3, 4});
+                var createdOn = Instant.now();
+                var path = NamedPath.of("a", "b", name);
+                var blobDesc = new BlobDescriptor(
+                        path, mime, "scenario-sampler-qualified", createdOn, 4, Compression.NONE,
+                        BlobQualifier.of("qa", "qb"));
+                return new Scenario(blobDesc, blob,
+                        Can.of(
+                                Can.empty(),
+                                BlobQualifier.of("qa"),
+                                BlobQualifier.of("qb"),
+                                BlobQualifier.of("qa", "qb")),
+                        Can.of(BlobQualifier.of("qc")));
+            }
+        },
         ;
         public abstract Scenario create();
     }
@@ -100,9 +126,23 @@ public class BlobStoreTester {
         assertNotNull(blobRecovered);
         assertEquals(scenario.blob(), blobRecovered);
 
+        // no qualifiers
         assertTrue(blobStore.listDescriptors(NamedPath.empty(), true).getCardinality().isOne());
         assertTrue(blobStore.listDescriptors(NamedPath.of("a"), true).getCardinality().isOne());
         assertTrue(blobStore.listDescriptors(NamedPath.of("b"), true).getCardinality().isZero());
+
+        // with qualifiers
+        scenario.matchingQualifiers().forEach(q->{
+            assertTrue(blobStore.listDescriptors(NamedPath.empty(), q, true).getCardinality().isOne(),
+                    ()->String.format("expeced to match %s, but did not", q));
+        });
+        scenario.excludingQualifiers().forEach(q->{
+            assertTrue(blobStore.listDescriptors(NamedPath.empty(), q, true).getCardinality().isZero(),
+                    ()->String.format("expeced to discriminate %s, but did not", q));
+        });
+
+        assertTrue(blobStore.listDescriptors(NamedPath.empty(), true).getCardinality().isOne());
+
     }
 
 }

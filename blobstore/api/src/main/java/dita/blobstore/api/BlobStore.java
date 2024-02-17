@@ -30,11 +30,43 @@ import lombok.NonNull;
 
 public interface BlobStore {
 
+    /**
+     * Puts a {@link Blob} onto the store, using {@link BlobDescriptor}'s path as the key.
+     * Any existing blob and descriptor associated with this key will be overwritten.
+     */
     void putBlob(@NonNull BlobDescriptor blobDescriptor, @NonNull Blob blob);
 
-    Can<BlobDescriptor> listDescriptors(@Nullable NamedPath path, boolean recursive);
+    /**
+     * Returns all the {@link BlobDescriptor}(s) from given path that match
+     * <em>all</em> given {@code qualifiers}. If {@code qualifiers} is empty or {@code null}
+     * the match does not discriminate. (includes all)
+     * @param recursive whether or not to include sub-paths of given path
+     */
+    Can<BlobDescriptor> listDescriptors(
+            @Nullable NamedPath path, @Nullable Can<BlobQualifier> qualifiers, boolean recursive);
+
+    /**
+     * Same as {@link #listDescriptors(NamedPath, Can, boolean)} but not discriminating by any qualifier.
+     */
+    default Can<BlobDescriptor> listDescriptors(@Nullable final NamedPath path, final boolean recursive) {
+        return listDescriptors(path, Can.empty(), recursive);
+    }
+
+    /**
+     * Optionally returns the {@link BlobDescriptor} thats stored under given {@link NamedPath},
+     * based on existence.
+     */
     Optional<BlobDescriptor> lookupDescriptor(@Nullable NamedPath path);
+
+    /**
+     * Optionally returns the {@link Blob} thats stored under given {@link NamedPath},
+     * based on existence.
+     */
     Optional<Blob> lookupBlob(@Nullable NamedPath path);
+
+    /**
+     * Deletes blob and descriptor that are associated with given {@link NamedPath} (if any).
+     */
     void deleteBlob(@Nullable NamedPath path);
 
 }

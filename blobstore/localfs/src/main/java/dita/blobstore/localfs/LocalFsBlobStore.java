@@ -25,6 +25,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.functions._Predicates;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
@@ -42,6 +44,7 @@ import org.apache.causeway.commons.io.YamlUtils;
 
 import dita.blobstore.api.BlobDescriptor;
 import dita.blobstore.api.BlobDescriptor.Compression;
+import dita.blobstore.api.BlobQualifier;
 import dita.blobstore.api.BlobStore;
 import dita.blobstore.api.BlobStoreFactory.BlobStoreConfiguration;
 import dita.commons.types.NamedPath;
@@ -78,13 +81,19 @@ public class LocalFsBlobStore implements BlobStore {
     }
 
     @Override @Synchronized
-    public Can<BlobDescriptor> listDescriptors(final @Nullable NamedPath path, final boolean recursive) {
+    public Can<BlobDescriptor> listDescriptors(
+            final @Nullable NamedPath path,
+            final @Nullable Can<BlobQualifier> qualifiers,
+            final boolean recursive) {
+        var qualifierDiscriminator = satisfiesAll(qualifiers);
         return recursive
                 ? descriptorsByPath.values().stream()
                     .filter(descriptor->descriptor.path().startsWith(path))
+                    .filter(qualifierDiscriminator)
                     .collect(Can.toCan())
                 : descriptorsByPath.values().stream()
                     .filter(descriptor->descriptor.path().parentElseFail().equals(path))
+                    .filter(qualifierDiscriminator)
                     .collect(Can.toCan());
     }
 
@@ -129,13 +138,15 @@ public class LocalFsBlobStore implements BlobStore {
             String createdBy,
             Instant createdOn,
             long size,
-            Compression compression) {
+            Compression compression,
+            Can<BlobQualifier> qualifiers) {
         static DescriptorDto of(final BlobDescriptor blobDescriptor) {
             return new DescriptorDto(blobDescriptor.mimeType(),
                     blobDescriptor.createdBy(),
                     blobDescriptor.createdOn(),
                     blobDescriptor.size(),
-                    blobDescriptor.compression());
+                    blobDescriptor.compression(),
+                    blobDescriptor.qualifiers());
         }
         static DescriptorDto readFrom(final File file) {
             var descriptorDto = YamlUtils.tryRead(DescriptorDto.class, DataSource.ofFile(file))
@@ -176,7 +187,8 @@ public class LocalFsBlobStore implements BlobStore {
                     "unknown",
                     creationTime,
                     attr.size(),
-                    compression);
+                    compression,
+                    Can.empty());
             return blobDescriptor;
         }
         void writeTo(final File file) {
@@ -189,7 +201,8 @@ public class LocalFsBlobStore implements BlobStore {
                     createdBy,
                     createdOn,
                     size,
-                    compression);
+                    compression,
+                    qualifiers);
             return blobDescriptor;
         }
     }
@@ -280,6 +293,17 @@ public class LocalFsBlobStore implements BlobStore {
 
     private BlobDescriptor mergeBlobDescriptors(final BlobDescriptor fromManifest, final BlobDescriptor fromBlob) {
         return fromManifest; //TODO update size?
+    }
+
+    private Predicate<BlobDescriptor> satisfiesAll(final @Nullable Can<BlobQualifier> requiredQualifiers) {
+        if(requiredQualifiers==null
+                || requiredQualifiers.isEmpty()) {
+            return _Predicates.alwaysTrue();
+        }
+        var required = requiredQualifiers.toSet();
+        return desc -> {
+            return desc.qualifiers().toSet().containsAll(required);
+        };
     }
 
 }
