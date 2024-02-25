@@ -41,15 +41,19 @@ import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Fo
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.object.ManagedObjects;
 import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
+import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
-import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
-import dita.commons.types.TabularData;
-import dita.commons.types.TabularData.Column;
-import dita.commons.types.TabularData.Table;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.val;
+
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizerFactory;
+import dita.commons.types.TabularData;
+import dita.commons.types.TabularData.Column;
+import dita.commons.types.TabularData.Table;
 
 /**
  * Represents an ordered set of {@link DataTable}(s). Order is by logical entity type name (lexicographically).
@@ -75,12 +79,13 @@ class _DataTableSet {
         dataTables.forEach(DataTable::populateEntities);
         return this;
     }
-
-    public _DataTableSet populateFromSecondaryConnection(final PersistenceManager pm) {
+    
+    public _DataTableSet populateFromSecondaryConnection(
+            final PersistenceManager pm) {
         dataTables.forEach(dataTable->{
-            val entityClass = dataTable.getElementType().getCorrespondingClass();
+            final var entityClass = dataTable.getElementType().getCorrespondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
-
+            
             pm.currentTransaction().begin();
             List<?> allInstances = pm.newQuery(entityClass).executeResultList(entityClass);
             dataTable.setDataElementPojos(allInstances);
@@ -90,7 +95,8 @@ class _DataTableSet {
     }
 
     public _DataTableSet populateFromTabularData(
-            final TabularData dataBase, final TabularData.Format formatOptions) {
+            final TabularData dataBase, 
+            final TabularData.Format formatOptions) {
 
         dataBase.dataTables()
         .forEach(tableEntry->{
@@ -164,25 +170,53 @@ class _DataTableSet {
         return this;
     }
 
-    public TabularData toTabularData(final TabularData.Format formatOptions) {
+    public TabularData toTabularData(
+            final TabularData.Format formatOptions) {
         return new TabularData(dataTables.map(dataTable->
-            new Table(
-                    dataTable.getElementType().getLogicalTypeName(),
+            toTable(dataTable, formatOptions, (x, y)->StringNormalizer.IDENTITY)));
+    }
+    
+    public TabularData toTabularData(
+            final TabularData.Format formatOptions,
+            final StringNormalizerFactory stringNormalizerFactory) {
+        return new TabularData(dataTables.map(dataTable->
+            toTable(dataTable, formatOptions, stringNormalizerFactory)));
+    }
+    
+    private Table toTable(
+            final DataTable dataTable,
+            final TabularData.Format formatOptions,
+            final StringNormalizerFactory stringNormalizerFactory) {
+        
+        var rows = dataTable.getDataRows()
+                .map(dataRow->new TabularData.Row(
                     dataTable.getDataColumns()
-                        .map(col->new TabularData.Column(
-                            col.getMetamodel().getId(),
-                            col.getColumnDescription())),
-                    dataTable.getDataRows().map(dataRow->new TabularData.Row(
-
-                            dataTable.getDataColumns()
-                            .stream()
-                            .map(column->dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH))
-                            .map(cells->cells.getSingleton().orElse(null)) // assuming not multivalued
-                            .map(cellValue->stringify(cellValue, formatOptions))
-                            .collect(Collectors.toList())
-
-                            )))
-        ));
+                        .stream()
+                        .map(column->stringify(column, dataRow, stringNormalizerFactory, formatOptions))
+                        .toList()
+                ));
+        
+        return new Table(
+                dataTable.getElementType().getLogicalTypeName(),
+                dataTable.getDataColumns()
+                    .map(col->new TabularData.Column(
+                        col.getMetamodel().getId(),
+                        col.getColumnDescription())),
+                rows);
+    }
+    
+    private String stringify(
+            final DataColumn column,
+            final DataRow dataRow,
+            final StringNormalizerFactory stringNormalizerFactory,
+            final TabularData.Format formatOptions) {
+        final DataTable dataTable = dataRow.getParentTable();
+        var entityClass = dataTable.getElementType().getCorrespondingClass();
+        var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.getColumnId());
+        
+        var cells = dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH);
+        var cellValue = cells.getSingleton().orElse(null); // assuming not multivalued
+        return stringify(cellValue, formatOptions, stringNormalizer);
     }
 
     public _DataTableSet modifyObject(final Consumer<? super ManagedObject> modifier) {
@@ -305,10 +339,11 @@ class _DataTableSet {
         }));
         return colIndexMapping;
     }
-
+    
     private static String stringify(
             final @Nullable ManagedObject cellValue,
-            final @NonNull TabularData.Format formatOptions) {
+            final @NonNull TabularData.Format formatOptions,
+            final @NonNull StringNormalizer stringNormalizer) {
 
         if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue)) {
             return formatOptions.nullSymbol();
@@ -326,7 +361,8 @@ class _DataTableSet {
 
         @SuppressWarnings("unchecked")
         val stringifiedValue = formatOptions.encodeCellValue(
-                        valueFacet.enstring(Format.JSON, cellValue.getPojo()));
+                stringNormalizer.apply(
+                        valueFacet.enstring(Format.JSON, cellValue.getPojo())));
         return stringifiedValue;
     }
 

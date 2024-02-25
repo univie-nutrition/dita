@@ -31,15 +31,17 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+
+import lombok.val;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.NameTransformer;
-import lombok.val;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
 public class TableSerializerYaml {
@@ -71,15 +73,20 @@ public class TableSerializerYaml {
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
+    public interface StringNormalizerFactory {
+        StringNormalizer stringNormalizer(final Class<?> entityClass, final String fieldId);
+    }
+    
     public Clob clobFromSecondaryConnection(
             final String name,
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
             final PersistenceManager pm,
+            final StringNormalizerFactory stringNormalizerFactory,
             final boolean rowSortingEnabled) {
         val yaml = dataTableSet(filter)
                 .populateFromSecondaryConnection(pm)
-                .toTabularData(format())
+                .toTabularData(format(), stringNormalizerFactory)
                 .transform(nameTransformer)
                 .toYaml(format().withRowSorting(rowSortingEnabled));
         return Clob.of(name, CommonMimeType.YAML, yaml);
@@ -92,6 +99,14 @@ public class TableSerializerYaml {
         public boolean isDoNothing() { return this == DO_NOTHING;}
         public boolean isAdd() { return this == ADD;}
         public boolean isDeleteAllThenAdd() { return this == DELETE_ALL_THEN_ADD;}
+    }
+    
+    public enum StringNormalizer {
+        IDENTITY{
+            @Override String apply(String in) { return in; }},
+        EMPTY_TO_NULL{
+            @Override String apply(String in) { return _Strings.emptyToNull(in); }};
+        abstract String apply(String in);
     }
 
     /**

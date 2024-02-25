@@ -18,6 +18,8 @@
  */
 package dita.globodiet.manager.dashboard;
 
+import java.util.function.Consumer;
+
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,12 +31,16 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.commons.internal.functions._Functions;
+
+import lombok.RequiredArgsConstructor;
 
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
+import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
 import dita.commons.types.TabularData;
+import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.manager.versions.VersionsService;
-import lombok.RequiredArgsConstructor;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
@@ -62,7 +68,7 @@ public class Dashboard_generateYamlFromRemote {
             @Parameter final Profile profile,
             @Parameter final ExportFormat format,
             @Parameter final boolean rowSortingEnabled) {
-
+        
         return new SecondaryDataStore(dataTableService)
             .createPersistenceManagerFactory(profile.name())
             .map(pmf->{
@@ -77,6 +83,7 @@ public class Dashboard_generateYamlFromRemote {
                             transformer,
                             VersionsService.paramsTableFilter(),
                             pm,
+                            this::stringNormalizer,
                             rowSortingEnabled);
 
                     return clob;
@@ -95,6 +102,33 @@ public class Dashboard_generateYamlFromRemote {
 
     public ExportFormat defaultFormat() {
         return ExportFormat.TABLE;
+    }
+    
+    // -- HELPER
+    
+    StringNormalizer stringNormalizer(final Class<?> entityClass, final String fieldId) {
+        if(Recipe.class.equals(entityClass)
+                && (
+                        "brandNameForCommercialRecipe".equals(fieldId)
+                        || "recipeSubgroupCode".equals(fieldId))    
+                ) {
+            return StringNormalizer.EMPTY_TO_NULL;
+        }
+        return StringNormalizer.IDENTITY;
+    }
+    
+    <T> Consumer<T> entityNormalizer(final Class<T> entityClass) {
+        if(Recipe.class.equals(entityClass)) {
+            return t->{
+                var recipe = (Recipe) t;
+                var brandName = recipe.getBrandNameForCommercialRecipe();
+                if(brandName!=null
+                        && brandName.length()==0) {
+                    recipe.setBrandNameForCommercialRecipe(null);
+                }
+            };
+        }
+        return _Functions.noopConsumer();
     }
 
 }
