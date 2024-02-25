@@ -32,7 +32,6 @@ import com.structurizr.model.ContainerInstance;
 import com.structurizr.model.DeploymentElement;
 import com.structurizr.model.DeploymentNode;
 import com.structurizr.model.Element;
-import com.structurizr.model.Enterprise;
 import com.structurizr.model.InfrastructureNode;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
@@ -103,11 +102,13 @@ public final class StructurizrDslFormatter extends StructurizrDslTokens {
         List<Person> internalPeople = model.getPeople().stream().filter(p -> p.getLocation() == Location.Internal).sorted(Comparator.comparing(Person::getId)).collect(Collectors.toList());
         List<SoftwareSystem> internalSoftwareSystems = model.getSoftwareSystems().stream().filter(p -> p.getLocation() == Location.Internal).sorted(Comparator.comparing(SoftwareSystem::getId)).collect(Collectors.toList());
 
-        if (workspace.getModel().getEnterprise() == null) {
-            workspace.getModel().setEnterprise(new Enterprise("Enterprise"));
-        }
+//        if (workspace.getModel().getEnterprise() == null) {
+//            workspace.getModel().setEnterprise(new Enterprise("Enterprise"));
+//        }
 
-        if (workspace.getModel().getEnterprise() != null && (!internalPeople.isEmpty() || !internalSoftwareSystems.isEmpty())) {
+        if (workspace.getModel().getEnterprise() != null
+                && (!internalPeople.isEmpty()
+                || !internalSoftwareSystems.isEmpty())) {
             start(ENTERPRISE_TOKEN, quote(workspace.getModel().getEnterprise().getName()));
 
             internalPeople.forEach(this::format);
