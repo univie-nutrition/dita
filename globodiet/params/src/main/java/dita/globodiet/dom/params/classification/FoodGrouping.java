@@ -25,6 +25,7 @@ import dita.commons.format.FormatUtils;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 
+//TODO auto generated - yet please don't override
 public interface FoodGrouping {
 
     default Either<FoodGroup, FoodSubgroup> toEither() {

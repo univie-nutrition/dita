@@ -337,7 +337,9 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     private HasSubRecipeQ hasSubRecipeQ;
 
     /**
-     * has no description
+     * Recipe status:
+     * 1=finalized
+     * 3=to be completed
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -346,7 +348,9 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "has no description",
+            describedAs = "Recipe status:\n"
+                            + "1=finalized\n"
+                            + "3=to be completed",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -356,7 +360,17 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     )
     @Getter
     @Setter
-    private String status;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Status status;
 
     @ObjectSupport
     public String title() {
@@ -505,6 +519,28 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
         private final String title;
     }
 
+    @RequiredArgsConstructor
+    public enum Status {
+        /**
+         * no description
+         */
+        FINALIZED("1", "finalized"),
+
+        /**
+         * no description
+         */
+        INCOMPLETE("3", "incomplete");
+
+        @Getter
+        private final String matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
     /**
      * Manager Viewmodel for @{link Recipe}
      */
@@ -581,7 +617,9 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      * @param aliasQ whether is an alias (SH=shadow)
      * @param hasSubRecipeQ 0=recipe without sub-recipe
      * 1=recipe with sub-recipe
-     * @param status has no description
+     * @param status Recipe status:
+     * 1=finalized
+     * 3=to be completed
      */
     public final record Params(
             @Parameter(
@@ -662,9 +700,11 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "has no description"
+                    describedAs = "Recipe status:\n"
+                                    + "1=finalized\n"
+                                    + "3=to be completed"
             )
-            String status) {
+            Status status) {
     }
 
     /**

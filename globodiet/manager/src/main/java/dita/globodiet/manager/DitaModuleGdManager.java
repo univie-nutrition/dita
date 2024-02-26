@@ -53,6 +53,7 @@ import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.FoodBrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodDescriptorManager_addDescriptor;
 import dita.globodiet.manager.editing.FoodManager_addFood;
+import dita.globodiet.manager.editing.Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway;
 import dita.globodiet.manager.editing.Food_addFoodFacetSelectionForFacetDescriptorPathway;
 import dita.globodiet.manager.editing.Food_clone;
 import dita.globodiet.manager.editing.Food_effectiveFoodDescriptors;
@@ -146,6 +147,7 @@ import dita.tooling.orm.OrmModel;
     FoodDescriptorManager_addDescriptor.class,
     FoodManager_addFood.class,
     // Other
+    Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway.class,
     Food_addFoodFacetSelectionForFacetDescriptorPathway.class,
     Food_clone.class,
     Food_effectiveFoodDescriptors.class,

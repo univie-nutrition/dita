@@ -18,60 +18,53 @@
  */
 package dita.globodiet.manager.editing;
 
-import java.util.List;
-
 import jakarta.inject.Inject;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
-import org.apache.causeway.applib.annotation.Domain;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.ParameterTuple;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
+import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe.QuantificationMethod;
 
-@Domain.Exclude //TODO there are 36 arrows pointing at FoodSubgroup, so we perhaps rather need to clone
 @Action
 @ActionLayout(
         fieldSetId="listOfFoodSubgroup",
         position = Position.PANEL,
-        describedAs = "Add an new FoodSubgroup (or FoodSubSubgroup)")
+        describedAs = "Add a (new) Quantification Method Pathway for a Recipe")
 @RequiredArgsConstructor
-public class FoodSubgroupManager_addSubgroup {
+public class QuantificationMethodPathwayForRecipeManager_addEntry {
 
     @Inject private RepositoryService repositoryService;
+    @Inject private FactoryService factoryService;
+    @Inject private IdGeneratorService idGeneratorService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
-    protected final FoodSubgroup.Manager mixee;
+    final QuantificationMethodPathwayForRecipe.Manager mixee;
 
+    //TODO WIP
     @MemberSupport
-    public FoodSubgroup act(@ParameterTuple final FoodSubgroup.Params p) {
-        val grp = repositoryService.detachedEntity(new FoodSubgroup());
+    public QuantificationMethodPathwayForRecipe act(
+            @Parameter final String recipeCode,
+            @Parameter final QuantificationMethod quantificationMethod,
+            @Parameter final String photoCode) {
+        var quantMethodPathway =
+                repositoryService.detachedEntity(new QuantificationMethodPathwayForRecipe());
 
-        grp.setFatDuringCookingSubgroupQ(p.fatDuringCookingSubgroupQ());
-        grp.setFatOrSauceSubgroupThatCanBeLeftOverInTheDishQ(p.fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ());
-        grp.setFatOrSauceSweetenerSubgroupQ(p.fatOrSauceSweetenerSubgroupQ());
-        grp.setFoodGroupCode(p.foodGroup().getCode());
-        grp.setFoodSubgroupCode(p.foodSubgroupCode());
-        grp.setFoodSubSubgroupCode(p.foodSubSubgroupCode());
-        grp.setName(p.name());
-        grp.setShortName(p.shortName());
-        repositoryService.persist(grp);
-        foreignKeyLookupService.clearCache(FoodSubgroup.class);
-        return grp;
-    }
+        quantMethodPathway.setRecipeCode(recipeCode);
+        quantMethodPathway.setPhotoCode(photoCode);
+        quantMethodPathway.setQuantificationMethod(quantificationMethod);
 
-    // -- CHOICES
-
-    @MemberSupport public List<FoodGroup> choicesFoodGroup(final FoodSubgroup.Params p) {
-        return repositoryService.allInstances(FoodGroup.class);
+        repositoryService.persist(repositoryService);
+        return quantMethodPathway;
     }
 
 }

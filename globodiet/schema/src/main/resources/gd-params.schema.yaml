@@ -3263,7 +3263,13 @@ params.recipe_list.Recipe:
       column-type: nvarchar(1)
       required: true
       unique: false
-      description:
+      enum: |
+        1:finalized
+        3:incomplete
+      description: |
+        Recipe status:
+        1=finalized 
+        3=to be completed
 params.recipe_list.RecipeGroup:
   namespace: params.recipe_list
   table: RGROUPS

@@ -30,17 +30,18 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.collections._Sets;
 
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
+import dita.globodiet.dom.params.classification.FoodGrouping;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
-import dita.globodiet.manager.services.food.FoodHelperService;
 
 /**
  */
@@ -48,41 +49,58 @@ import dita.globodiet.manager.services.food.FoodHelperService;
 @ActionLayout(
         associateWith = "effectiveFoodDescriptors",
         position = Position.PANEL,
-        sequence = "2",
-        describedAs = "Edit the food facet subset to be selected in effect for the food facet/descriptor pathway.")
+        sequence = "1",
+        describedAs = "Add food facet/descriptors to the (effective) grouping for the food facet/descriptor pathway.")
 @RequiredArgsConstructor
-public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
+public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
 
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
-    @Inject private FoodHelperService foodHelperService;
     @Inject private FoodFacetHelperService foodFacetHelperService;
 
     protected final Food mixee;
 
+    //TODO WIP
     @MemberSupport
     public Food act(@Parameter final FoodFacet foodFacet) {
+        if(foodFacet==null) {
+            return mixee; // just in case
+        }
+        var grouping = foodFacetHelperService
+                .effectiveGroupingUsedForFacetDescriptorPathway(mixee);
 
-        var entity = repositoryService.detachedEntity(new FacetDescriptorPathwayForFood());
+        var foodDescriptorsToAdd = Can.ofCollection(repositoryService
+                .allMatches(FoodDescriptor.class, fd->foodFacet.getCode().equals(fd.getFacetCode())));
 
-        entity.setFoodCode(mixee.getCode());
-        entity.setDisplayOrder(-1); // TODO needs post processing
-        entity.setMandatoryInSequenceOfFacetsCode(foodFacet.getCode());
-        repositoryService.persist(entity);
-        foreignKeyLookupService.clearCache(FacetDescriptorPathwayForFood.class);
-        postProcessDisplayOrder();
+//        facetDescriptorPathwayForFoodGroup();
+//
+//
+//        grouping.toEither()
+//            .accept(
+//                group->{
+//                    var entity = repositoryService.detachedEntity(new FacetDescriptorPathwayForFoodGroup());
+//                    entity.setDescriptorDisplayOrder(-1);
+//
+//                },
+//                subgroup->{
+//
+//                });
         return mixee;
     }
 
     @MemberSupport
     public List<FoodFacet> choicesFoodFacet() {
-        var facetsAvailableForPathway = foodFacetCodesAsDefinedByFoodClassification(
+        var allFoodFacets = repositoryService.allInstances(FoodFacet.class)
+                .stream()
+                .map(FoodFacet::secondaryKey)
+                .collect(Collectors.toSet());
+        var facetsChosenForPathway = foodFacetCodesAsDefinedByFoodClassification(
                 foodFacetHelperService
                     .effectiveFacetDescriptorPathwayForFoodClassificationHonoringDisplayOrder(mixee));
 
         return _Sets.minus(
-                facetsAvailableForPathway,
-                foodHelperService.selectedFacetDescriptorPathwayForFoodAsFoodFacetSecondaryKeySet(mixee))
+                allFoodFacets,
+                facetsChosenForPathway)
             .stream()
             .map(foreignKeyLookupService::unique)
             .toList();
@@ -98,8 +116,12 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
                 .collect(Collectors.toSet());
     }
 
-    private void postProcessDisplayOrder() {
-        // TODO also do this when deleting relation
+    private FacetDescriptorPathwayForFoodGroup facetDescriptorPathwayForFoodGroup(
+            final FoodGrouping foodGrouping,
+            final FoodDescriptor foodDescriptor) {
+        var entity = repositoryService.detachedEntity(new FacetDescriptorPathwayForFoodGroup());
+        entity.setDescriptorDisplayOrder(-1);
+        return entity;
     }
 
 }
