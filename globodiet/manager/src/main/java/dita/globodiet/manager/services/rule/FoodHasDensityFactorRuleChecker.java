@@ -24,26 +24,23 @@ import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.collections._Sets;
 
-import dita.commons.services.lookup.DependantLookupService;
+import lombok.NonNull;
+
 import dita.commons.services.rules.RuleChecker;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe.ForFoodOrRecipe;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.Food.TypeOfItem;
-import lombok.NonNull;
 
 @Component
 public class FoodHasDensityFactorRuleChecker
 implements RuleChecker {
 
-    @Inject FactoryService factoryService;
-    @Inject RepositoryService repositoryService;
-    @Inject DependantLookupService dependantLookup;
+    @Inject private RepositoryService repositoryService;
 
     @Override
     public String title() {

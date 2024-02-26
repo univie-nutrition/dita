@@ -31,28 +31,24 @@ import jakarta.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import dita.commons.services.lookup.DependantLookupService;
+import lombok.NonNull;
+
 import dita.commons.services.rules.RuleChecker;
-import dita.commons.services.rules.RuleChecker.RuleViolation;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import lombok.NonNull;
 
 @Component
 public class FacetDescriptorPathwayForFoodDisplayOrderRuleChecker
 implements RuleChecker {
 
-    @Inject FactoryService factoryService;
-    @Inject RepositoryService repositoryService;
-    @Inject DependantLookupService dependantLookup;
-    @Inject DeepLinkService deepLinkService;
+    @Inject private RepositoryService repositoryService;
+    @Inject private DeepLinkService deepLinkService;
 
     @Override
     public String title() {

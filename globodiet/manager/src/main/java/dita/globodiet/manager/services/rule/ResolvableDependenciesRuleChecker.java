@@ -27,7 +27,6 @@ import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
@@ -39,17 +38,17 @@ import org.apache.causeway.core.metamodel.spec.feature.MixedIn;
 import org.apache.causeway.core.metamodel.specloader.SpecificationLoader;
 import org.apache.causeway.core.metamodel.util.Facets;
 
-import dita.commons.services.rules.RuleChecker;
 import lombok.NonNull;
+
+import dita.commons.services.rules.RuleChecker;
 
 @Component
 public class ResolvableDependenciesRuleChecker
 implements RuleChecker {
 
-    @Inject FactoryService factoryService;
-    @Inject RepositoryService repositoryService;
-    @Inject SpecificationLoader specificationLoader;
-    @Inject ObjectManager objectManager;
+    @Inject private RepositoryService repositoryService;
+    @Inject private SpecificationLoader specificationLoader;
+    @Inject private ObjectManager objectManager;
 
     @Override
     public String title() {

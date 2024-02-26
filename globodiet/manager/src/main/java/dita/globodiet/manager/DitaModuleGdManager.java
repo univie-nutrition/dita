@@ -44,6 +44,8 @@ import org.apache.causeway.viewer.restfulobjects.jaxrsresteasy.CausewayModuleVie
 import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRestfulObjectsViewer;
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
+import lombok.val;
+
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
@@ -67,6 +69,7 @@ import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
 import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodDisplayOrderRuleChecker;
+import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodSelectionExistsRuleChecker;
 import dita.globodiet.manager.services.rule.FoodHasDensityFactorRuleChecker;
 import dita.globodiet.manager.services.rule.ResolvableDependenciesRuleChecker;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
@@ -77,7 +80,6 @@ import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import dita.tooling.orm.OrmModel;
-import lombok.val;
 
 /**
  * Makes the integral parts of the web application.
@@ -130,6 +132,7 @@ import lombok.val;
     FoodFacetHelperService.class,
 
     // Rulecheckers
+    FacetDescriptorPathwayForFoodSelectionExistsRuleChecker.class,
     FacetDescriptorPathwayForFoodDisplayOrderRuleChecker.class,
     FoodHasDensityFactorRuleChecker.class,
     ResolvableDependenciesRuleChecker.class,

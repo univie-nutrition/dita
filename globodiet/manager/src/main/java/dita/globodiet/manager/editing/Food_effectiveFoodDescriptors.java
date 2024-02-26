@@ -28,16 +28,15 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.services.factory.FactoryService;
+
+import lombok.RequiredArgsConstructor;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
-import lombok.RequiredArgsConstructor;
 
 /**
  * With {@link FacetDescriptorPathwayForFoodGroup} a set of facet/descriptors is defined
@@ -58,7 +57,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Food_effectiveFoodDescriptors {
 
-    @Inject private FactoryService factoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject private FoodFacetHelperService foodFacetHelperService;
 
@@ -74,10 +72,10 @@ public class Food_effectiveFoodDescriptors {
             .toList();
 
         // filter by individual food's subset of facets (if any)
-        var facetDescriptorPathwayForFood = lookupFacetDescriptorPathwayForFood();
+        var facetDescriptorPathwayForFood = foodFacetHelperService.listFacetDescriptorPathwayForFood(mixee);
         if(!facetDescriptorPathwayForFood.isEmpty()) {
             final Set<String> facetCodeSubset = facetDescriptorPathwayForFood.stream()
-                .map(this::foodFacetCode)
+                .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
                 .collect(Collectors.toSet());
             return foodDescriptorsAsDefinedByFoodClassification.stream()
                     .filter(foodDescriptor->facetCodeSubset.contains(foodDescriptor.getFacetCode()))
@@ -91,19 +89,10 @@ public class Food_effectiveFoodDescriptors {
 
     // -- HELPER
 
-    private String foodFacetCode(final FacetDescriptorPathwayForFood foodPathway) {
-        return foodPathway.getMandatoryInSequenceOfFacetsCode();
-    }
-
     private FoodDescriptor foodDescriptor(final FacetDescriptorPathwayForFoodGroup groupPathway) {
         return foreignKeyLookupService.unique(new FoodDescriptor.SecondaryKey(
                 groupPathway.getFacetCode(),
                 groupPathway.getDescriptorCode()));
-    }
-
-    private List<FacetDescriptorPathwayForFood> lookupFacetDescriptorPathwayForFood() {
-        var mixin = factoryService.mixin(Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class, mixee);
-        return mixin.coll();
     }
 
 }
