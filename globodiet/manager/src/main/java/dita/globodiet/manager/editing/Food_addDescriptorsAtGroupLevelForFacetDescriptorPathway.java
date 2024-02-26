@@ -36,7 +36,6 @@ import org.apache.causeway.commons.internal.collections._Sets;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
@@ -89,6 +88,11 @@ public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
     }
 
     @MemberSupport
+    public String disableAct() {
+        return "Work in progress";
+    }
+
+    @MemberSupport
     public List<FoodFacet> choicesFoodFacet() {
         var allFoodFacets = repositoryService.allInstances(FoodFacet.class)
                 .stream()
@@ -114,14 +118,6 @@ public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
                 .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
                 .map(FoodFacet.SecondaryKey::new)
                 .collect(Collectors.toSet());
-    }
-
-    private FacetDescriptorPathwayForFoodGroup facetDescriptorPathwayForFoodGroup(
-            final FoodGrouping foodGrouping,
-            final FoodDescriptor foodDescriptor) {
-        var entity = repositoryService.detachedEntity(new FacetDescriptorPathwayForFoodGroup());
-        entity.setDescriptorDisplayOrder(-1);
-        return entity;
     }
 
 }

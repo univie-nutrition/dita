@@ -37,7 +37,7 @@ import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe.Qu
 
 @Action
 @ActionLayout(
-        fieldSetId="listOfFoodSubgroup",
+        fieldSetId = "listOfQuantificationMethodPathwayForRecipe",
         position = Position.PANEL,
         describedAs = "Add a (new) Quantification Method Pathway for a Recipe")
 @RequiredArgsConstructor
@@ -65,6 +65,11 @@ public class QuantificationMethodPathwayForRecipeManager_addEntry {
 
         repositoryService.persist(repositoryService);
         return quantMethodPathway;
+    }
+
+    @MemberSupport
+    public String disableAct() {
+        return "Work in progress";
     }
 
 }
