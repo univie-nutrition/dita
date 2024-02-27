@@ -34,13 +34,14 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
+import lombok.RequiredArgsConstructor;
+
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import lombok.RequiredArgsConstructor;
 
 /**
  */
@@ -48,6 +49,7 @@ import lombok.RequiredArgsConstructor;
 @ActionLayout(
         associateWith = "listOfFacetDescriptorPathwayForFoodGroup",
         position = Position.PANEL,
+        sequence = "1",
         describedAs = "Adds an entry to the list of facet/descriptor pathway for food-group.")
 @RequiredArgsConstructor
 public class FacetDescriptorPathwayForFoodGroupManager_addEntry {

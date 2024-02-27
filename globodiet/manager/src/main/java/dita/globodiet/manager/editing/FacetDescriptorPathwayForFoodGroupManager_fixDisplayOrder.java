@@ -34,10 +34,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 
+import lombok.RequiredArgsConstructor;
+
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import lombok.RequiredArgsConstructor;
 
 /**
  */
@@ -45,6 +46,7 @@ import lombok.RequiredArgsConstructor;
 @ActionLayout(
         associateWith = "listOfFacetDescriptorPathwayForFoodGroup",
         position = Position.PANEL,
+        sequence = "2",
         describedAs = "Corrects display order values for selected entries.")
 @RequiredArgsConstructor
 public class FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder {

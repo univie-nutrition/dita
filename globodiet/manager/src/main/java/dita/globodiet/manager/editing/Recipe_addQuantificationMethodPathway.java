@@ -18,58 +18,80 @@
  */
 package dita.globodiet.manager.editing;
 
+import java.util.List;
+
 import jakarta.inject.Inject;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
-import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe.QuantificationMethod;
+import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.Shape;
+import dita.globodiet.dom.params.recipe_list.Recipe;
 
 @Action
 @ActionLayout(
-        fieldSetId = "listOfQuantificationMethodPathwayForRecipe",
+        fieldSetId = "dependentQuantificationMethodPathwayForRecipeMappedByRecipe",
         position = Position.PANEL,
         describedAs = "Add a (new) Quantification Method Pathway for a Recipe")
 @RequiredArgsConstructor
-public class QuantificationMethodPathwayForRecipeManager_addEntry {
+public class Recipe_addQuantificationMethodPathway {
 
     @Inject private RepositoryService repositoryService;
-    @Inject private FactoryService factoryService;
-    @Inject private IdGeneratorService idGeneratorService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
-    final QuantificationMethodPathwayForRecipe.Manager mixee;
+    final Recipe mixee;
 
-    //TODO WIP
     @MemberSupport
-    public QuantificationMethodPathwayForRecipe act(
-            @Parameter final String recipeCode,
-            @Parameter final QuantificationMethod quantificationMethod,
-            @Parameter final String photoCode) {
+    public Recipe act(
+            @Parameter
+            final QuantificationMethodPathwayForRecipe.QuantificationMethod quantificationMethod,
+
+            /**
+             * only required for QuantificationMethod PHOTO or SHAPE
+             */
+            @Parameter(
+                    optionality = Optionality.OPTIONAL)
+            @ParameterLayout(
+                    describedAs = "Only required for Quantification Method PHOTO or SHAPE."
+                    )
+            final String photoCode) {
+
+        var recipeCode = mixee.getCode();
         var quantMethodPathway =
                 repositoryService.detachedEntity(new QuantificationMethodPathwayForRecipe());
 
         quantMethodPathway.setRecipeCode(recipeCode);
-        quantMethodPathway.setPhotoCode(photoCode);
         quantMethodPathway.setQuantificationMethod(quantificationMethod);
+        _Strings.nonEmpty(photoCode)
+            .ifPresent(quantMethodPathway::setPhotoCode);
 
-        repositoryService.persist(repositoryService);
-        return quantMethodPathway;
+        repositoryService.persist(quantMethodPathway);
+        foreignKeyLookupService.clearCache(QuantificationMethodPathwayForRecipe.class);
+
+        return mixee;
     }
 
+    //TODO don't provide duplicates (already selected ones)
     @MemberSupport
-    public String disableAct() {
-        return "Work in progress";
+    public List<String> choicesPhotoCode(final QuantificationMethodPathwayForRecipe.QuantificationMethod quantificationMethod) {
+        if(quantificationMethod==null) return List.of();
+        return switch (quantificationMethod) {
+        case PHOTO -> repositoryService.allInstances(PhotoForQuantity.class).stream().map(PhotoForQuantity::getCode).toList();
+        case SHAPE -> repositoryService.allInstances(Shape.class).stream().map(Shape::getShapeCode).toList();
+        default -> List.of();
+        };
     }
 
 }
