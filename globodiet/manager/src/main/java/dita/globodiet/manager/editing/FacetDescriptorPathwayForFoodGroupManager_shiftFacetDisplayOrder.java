@@ -32,25 +32,21 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.IndexedConsumer;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 
 @Action(choicesFrom = "listOfFacetDescriptorPathwayForFoodGroup")
 @ActionLayout(
         associateWith = "listOfFacetDescriptorPathwayForFoodGroup",
         position = Position.PANEL,
-        sequence = "3",
-        describedAs = "Corrects display order values for selected entries.")
+        sequence = "2",
+        describedAs = "Shifts facet display order for selected entries.")
 @RequiredArgsConstructor
-public class FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder {
+public class FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder {
 
     @Inject private RepositoryService repositoryService;
-    @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
     protected final FacetDescriptorPathwayForFoodGroup.Manager mixee;
 
@@ -61,32 +57,17 @@ public class FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder {
                     optionality = Optionality.MANDATORY)
             @ParameterLayout(
                     describedAs = "Order to display the facets within a group/subgroup")
-            final int facetDisplayOrder,
+            final int facetDisplayOrderShift,
             final List<FacetDescriptorPathwayForFoodGroup> toBeReordered) {
 
         Can.ofCollection(toBeReordered)
-        .sorted(this::compare)
-        .forEach(IndexedConsumer.offset(1, (int order, FacetDescriptorPathwayForFoodGroup pathway)->{
+        .forEach((FacetDescriptorPathwayForFoodGroup pathway)->{
+            var facetDisplayOrder = pathway.getFacetDisplayOrder() + facetDisplayOrderShift;
             pathway.setFacetDisplayOrder(facetDisplayOrder);
-            pathway.setDescriptorDisplayOrder(order);
             repositoryService.persistAndFlush(pathway);
-        }));
+        });
 
         return mixee;
-    }
-
-    // -- HELPER
-
-    // order by descriptor name, descriptor with Other=true comes last
-    private int compare(final FacetDescriptorPathwayForFoodGroup a, final FacetDescriptorPathwayForFoodGroup b) {
-        var descA = foreignKeyLookupService.unique(
-                new FoodDescriptor.SecondaryKey(a.getFacetCode(), a.getDescriptorCode()));
-        var descB = foreignKeyLookupService.unique(
-                new FoodDescriptor.SecondaryKey(b.getFacetCode(), b.getDescriptorCode()));
-
-        int c = Integer.compare(descA.getOtherQ().ordinal(), descB.getOtherQ().ordinal());
-        if(c!=0) return c;
-        return descA.getName().compareTo(descB.getName());
     }
 
 }

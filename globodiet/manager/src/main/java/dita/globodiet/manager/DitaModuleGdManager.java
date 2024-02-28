@@ -50,6 +50,9 @@ import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.dashboard.Dashboard;
+import dita.globodiet.manager.editing.FacetDescriptorPathwayForFoodGroupManager_addEntry;
+import dita.globodiet.manager.editing.FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder;
+import dita.globodiet.manager.editing.FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder;
 import dita.globodiet.manager.editing.FoodBrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodDescriptorManager_addDescriptor;
 import dita.globodiet.manager.editing.FoodManager_addFood;
@@ -152,6 +155,9 @@ import dita.tooling.orm.OrmModel;
     Food_clone.class,
     Food_effectiveFoodDescriptors.class,
     Food_effectiveGroupingUsedForFacetDescriptorPathway.class,
+    FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder.class,
+    FacetDescriptorPathwayForFoodGroupManager_addEntry.class,
+    FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder.class,
 
     // -- MODULES
     DitaModuleGdParams.class,
