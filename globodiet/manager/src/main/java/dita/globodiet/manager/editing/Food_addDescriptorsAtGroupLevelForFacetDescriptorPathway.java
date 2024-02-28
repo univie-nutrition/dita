@@ -49,7 +49,10 @@ import dita.globodiet.manager.services.food.FoodFacetHelperService;
         associateWith = "effectiveFoodDescriptors",
         position = Position.PANEL,
         sequence = "1",
-        describedAs = "Add food facet/descriptors to the (effective) grouping for the food facet/descriptor pathway.")
+        describedAs = "Add food facet/descriptors to the (effective) grouping for the food facet/descriptor pathway."
+                + "\n"
+                + "Yet fields facetDisplayOrder, descriptorDisplayOrder, defaultFlag and notInNameFlag "
+                + "must be manually corrected afterwards.")
 @RequiredArgsConstructor
 public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
 
@@ -59,7 +62,6 @@ public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
 
     protected final Food mixee;
 
-    //TODO WIP
     @MemberSupport
     public Food act(@Parameter final FoodFacet foodFacet) {
         if(foodFacet==null) {
@@ -71,25 +73,39 @@ public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
         var foodDescriptorsToAdd = Can.ofCollection(repositoryService
                 .allMatches(FoodDescriptor.class, fd->foodFacet.getCode().equals(fd.getFacetCode())));
 
-//        facetDescriptorPathwayForFoodGroup();
-//
-//
-//        grouping.toEither()
-//            .accept(
-//                group->{
-//                    var entity = repositoryService.detachedEntity(new FacetDescriptorPathwayForFoodGroup());
-//                    entity.setDescriptorDisplayOrder(-1);
-//
-//                },
-//                subgroup->{
-//
-//                });
-        return mixee;
-    }
+        var groupingAsEither = grouping.toEither();
+        foodDescriptorsToAdd.forEach(fd->{
 
-    @MemberSupport
-    public String disableAct() {
-        return "Work in progress";
+            var entity = repositoryService.detachedEntity(new FacetDescriptorPathwayForFoodGroup());
+
+            groupingAsEither
+            .accept(
+                group->{
+                    entity.setFoodGroupCode(group.getCode());
+                    entity.setFoodSubgroupCode(null);
+                    entity.setFoodSubSubgroupCode(null);
+                },
+                subgroup->{
+                    entity.setFoodGroupCode(subgroup.getFoodGroupCode());
+                    entity.setFoodSubgroupCode(subgroup.getFoodSubgroupCode());
+                    entity.setFoodSubSubgroupCode(subgroup.getFoodSubSubgroupCode());
+                });
+
+            entity.setFacetCode(fd.getFacetCode());
+            entity.setFacetDisplayOrder(-1);
+
+            entity.setDescriptorCode(fd.getCode());
+            entity.setDescriptorDisplayOrder(-1);
+
+            entity.setDefaultFlag(null);
+            entity.setNotInNameFlag(null);
+
+            repositoryService.persist(entity);
+        });
+
+        foreignKeyLookupService.clearCache(FacetDescriptorPathwayForFoodGroup.class);
+
+        return mixee;
     }
 
     @MemberSupport

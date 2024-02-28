@@ -46,7 +46,7 @@ import dita.globodiet.manager.services.food.FoodHelperService;
  */
 @Action
 @ActionLayout(
-        associateWith = "effectiveFoodDescriptors",
+        associateWith = "dependentFacetDescriptorPathwayForFoodMappedByFood",
         position = Position.PANEL,
         sequence = "2",
         describedAs = "Edit the food facet subset to be selected in effect for the food facet/descriptor pathway.")
