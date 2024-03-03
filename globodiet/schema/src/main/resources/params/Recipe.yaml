@@ -139,10 +139,12 @@ params.recipe_list.Recipe:
       required: true
       unique: false
       enum: |
-        1:finalized 
-        3:incomplete
+        1:finalized:enabled for interviews
+        2:with unknown quantity (disabled for interviews)
+        3:to be completed (disabled for interviews)
+        4:empty (disabled for interviews)
       description: |
-        Recipe status:
-        1=finalized 
-        3=to be completed
-
+        1=finalized (enabled for interviews)
+        2=with unknown quantity (disabled for interviews)
+        3=to be completed (disabled for interviews)
+        4=empty (disabled for interviews)

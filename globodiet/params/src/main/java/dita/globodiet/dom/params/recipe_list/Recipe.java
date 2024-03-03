@@ -337,9 +337,10 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     private HasSubRecipeQ hasSubRecipeQ;
 
     /**
-     * Recipe status:
-     * 1=finalized
-     * 3=to be completed
+     * 1=finalized (enabled for interviews)
+     * 2=with unknown quantity (disabled for interviews)
+     * 3=to be completed (disabled for interviews)
+     * 4=empty (disabled for interviews)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -348,9 +349,10 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Recipe status:\n"
-                            + "1=finalized\n"
-                            + "3=to be completed",
+            describedAs = "1=finalized (enabled for interviews)\n"
+                            + "2=with unknown quantity (disabled for interviews)\n"
+                            + "3=to be completed (disabled for interviews)\n"
+                            + "4=empty (disabled for interviews)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -522,14 +524,24 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @RequiredArgsConstructor
     public enum Status {
         /**
-         * no description
+         * enabled for interviews
          */
         FINALIZED("1", "finalized"),
 
         /**
          * no description
          */
-        INCOMPLETE("3", "incomplete");
+        WITH_UNKNOWN_QUANTITY_DISABLED_FOR_INTERVIEWS("2", "with unknown quantity (disabled for interviews)"),
+
+        /**
+         * no description
+         */
+        TO_BE_COMPLETED_DISABLED_FOR_INTERVIEWS("3", "to be completed (disabled for interviews)"),
+
+        /**
+         * no description
+         */
+        EMPTY_DISABLED_FOR_INTERVIEWS("4", "empty (disabled for interviews)");
 
         @Getter
         private final String matchOn;
@@ -617,9 +629,10 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      * @param aliasQ whether is an alias (SH=shadow)
      * @param hasSubRecipeQ 0=recipe without sub-recipe
      * 1=recipe with sub-recipe
-     * @param status Recipe status:
-     * 1=finalized
-     * 3=to be completed
+     * @param status 1=finalized (enabled for interviews)
+     * 2=with unknown quantity (disabled for interviews)
+     * 3=to be completed (disabled for interviews)
+     * 4=empty (disabled for interviews)
      */
     public final record Params(
             @Parameter(
@@ -700,9 +713,10 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Recipe status:\n"
-                                    + "1=finalized\n"
-                                    + "3=to be completed"
+                    describedAs = "1=finalized (enabled for interviews)\n"
+                                    + "2=with unknown quantity (disabled for interviews)\n"
+                                    + "3=to be completed (disabled for interviews)\n"
+                                    + "4=empty (disabled for interviews)"
             )
             Status status) {
     }
