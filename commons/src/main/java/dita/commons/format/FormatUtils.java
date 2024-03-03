@@ -21,6 +21,7 @@ package dita.commons.format;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -57,9 +58,39 @@ public class FormatUtils {
                 : plainString.replace('.', decimalSeparator);
     }
 
-    public String emptyToDash(final @Nullable String string) {
-        return StringUtils.hasLength(string)
-                ? string
+    public String emptyToDash(final @Nullable String input) {
+        return StringUtils.hasLength(input)
+                ? input
                 : "-";
     }
+
+    public String noLeadingZeros(final @Nullable String input) {
+        if(!StringUtils.hasLength(input)) {
+            return input;
+        }
+        var result = input;
+        while(result.length()>1
+                && result.startsWith("0")) {
+            result = result.substring(1);
+        }
+        return result;
+    }
+
+    public String fillString(final int length, final char character) {
+        var array = new char[length];
+        Arrays.fill(array, character);
+        return new String(array);
+    }
+
+    public String fillWithLeadingZeros(final int stringLengthYield, final @Nullable String input) {
+        if(!StringUtils.hasLength(input)) {
+            return fillString(stringLengthYield, '0');
+        }
+        final int gap = stringLengthYield - input.length();
+        if(gap<1) {
+            return input;
+        }
+        return fillString(gap, '0') + input;
+    }
+
 }

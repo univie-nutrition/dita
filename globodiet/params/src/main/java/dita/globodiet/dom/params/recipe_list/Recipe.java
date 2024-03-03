@@ -529,19 +529,19 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
         FINALIZED("1", "finalized"),
 
         /**
-         * no description
+         * with unknown quantity (disabled for interviews)
          */
-        WITH_UNKNOWN_QUANTITY_DISABLED_FOR_INTERVIEWS("2", "with unknown quantity (disabled for interviews)"),
+        WITH_UNKNOWN_QUANTITY("2", "with unknown quantity"),
 
         /**
-         * no description
+         * to be completed (disabled for interviews)
          */
-        TO_BE_COMPLETED_DISABLED_FOR_INTERVIEWS("3", "to be completed (disabled for interviews)"),
+        TO_BE_COMPLETED("3", "to be completed"),
 
         /**
-         * no description
+         * empty (disabled for interviews)
          */
-        EMPTY_DISABLED_FOR_INTERVIEWS("4", "empty (disabled for interviews)");
+        EMPTY("4", "empty");
 
         @Getter
         private final String matchOn;

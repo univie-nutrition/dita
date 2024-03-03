@@ -3265,9 +3265,9 @@ params.recipe_list.Recipe:
       unique: false
       enum: |
         1:finalized:enabled for interviews
-        2:with unknown quantity (disabled for interviews)
-        3:to be completed (disabled for interviews)
-        4:empty (disabled for interviews)
+        2:with unknown quantity:with unknown quantity (disabled for interviews)
+        3:to be completed:to be completed (disabled for interviews)
+        4:empty:empty (disabled for interviews)
       description: |
         1=finalized (enabled for interviews)
         2=with unknown quantity (disabled for interviews)
