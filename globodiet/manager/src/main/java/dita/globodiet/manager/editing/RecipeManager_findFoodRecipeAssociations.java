@@ -20,7 +20,6 @@ package dita.globodiet.manager.editing;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
@@ -35,7 +34,6 @@ import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.functions._Predicates;
 import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -95,10 +93,13 @@ public class RecipeManager_findFoodRecipeAssociations {
                             : recipe.getStatus() != Recipe.Status.FINALIZED,
                         true);
 
+                associatedFood.setFoodNativeName(foodExtendedName);
+                recipe.setName(recipeExtendedName);
+
                 return foodRecpAssoc;
         })
         .collect(Collectors.toCollection(ArrayList::new));
-
+        /*
         var foods = Can.ofCollection(repositoryService.allInstances(Food.class));
         var foodRecpAssociationsBySimilarName = recipes.stream()
                 .filter(_Predicates.not(this::isPrefixed))
@@ -140,7 +141,8 @@ public class RecipeManager_findFoodRecipeAssociations {
             .filter(Objects::nonNull)
             .toList();
 
-        foodRecpAssociations.addAll(foodRecpAssociationsBySimilarName);
+        foodRecpAssociations.addAll(foodRecpAssociationsBySimilarName);*/
+
         return foodRecpAssociations;
     }
 
