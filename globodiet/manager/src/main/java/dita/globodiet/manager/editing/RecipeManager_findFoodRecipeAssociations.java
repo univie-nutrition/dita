@@ -18,7 +18,10 @@
  */
 package dita.globodiet.manager.editing;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -32,6 +35,7 @@ import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.functions._Predicates;
 import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -62,7 +66,7 @@ public class RecipeManager_findFoodRecipeAssociations {
 
         var recipes = Can.ofCollection(repositoryService.allInstances(Recipe.class));
         var foodRecpAssociations = recipes.stream()
-            .filter(recipe->Character.isDigit(recipe.getName().charAt(0)))
+            .filter(this::isPrefixed)
             .map(recipe->{
 
                 var associatedFoodCode = FormatUtils.fillWithLeadingZeros(5,
@@ -85,17 +89,63 @@ public class RecipeManager_findFoodRecipeAssociations {
                         String.format("%s(%s)", recipe.getStatus().name(), recipe.getStatus().getMatchOn()),
                         coffeeFoodCodes.contains(associatedFoodCode)
                             ? "SHOWN(1)"
-                            : "HIDDEN(2,3,4)",
+                            : "HIDDEN(!1)",
                         coffeeFoodCodes.contains(associatedFoodCode)
                             ? recipe.getStatus() == Recipe.Status.FINALIZED
-                            : recipe.getStatus() != Recipe.Status.FINALIZED
-                        );
+                            : recipe.getStatus() != Recipe.Status.FINALIZED,
+                        true);
 
                 return foodRecpAssoc;
-        }).toList();
+        })
+        .collect(Collectors.toCollection(ArrayList::new));
 
-        foodRecpAssociations.clear();
+        var foods = Can.ofCollection(repositoryService.allInstances(Food.class));
+        var foodRecpAssociationsBySimilarName = recipes.stream()
+                .filter(_Predicates.not(this::isPrefixed))
+                .map(recipe->{
+
+                    var associatedFood = foods.stream()
+                            .filter(food->Objects.equals(food.getFoodNativeName(), recipe.getName()))
+                            .findFirst()
+                            .orElse(null);
+                    if(associatedFood==null) return null;
+
+                    var associatedFoodCode = associatedFood.getCode();
+
+                    var recipeSimpleName = recipe.getName();
+                    var recipeExtendedName = String.format("%s {assocFood=%s}", recipeSimpleName, FormatUtils.noLeadingZeros(associatedFoodCode));
+                    var foodSimpleName = associatedFood.getFoodNativeName();
+                    var foodExtendedName = String.format("%s {assocRecp=%s}", foodSimpleName, FormatUtils.noLeadingZeros(recipe.getCode()));
+
+                    System.err.printf("%s<->%s%n", foodExtendedName, recipeExtendedName);
+
+                    var foodRecpAssoc = new FoodRecipeAssociation(
+                            recipe.getCode(),
+                            recipeSimpleName,
+                            recipeExtendedName,
+
+                            associatedFood.getCode(),
+                            foodSimpleName,
+                            foodExtendedName,
+                            String.format("%s(%s)", recipe.getStatus().name(), recipe.getStatus().getMatchOn()),
+                            coffeeFoodCodes.contains(associatedFoodCode)
+                                ? "SHOWN(1)"
+                                : "HIDDEN(!1)",
+                            coffeeFoodCodes.contains(associatedFoodCode)
+                                ? recipe.getStatus() == Recipe.Status.FINALIZED
+                                : recipe.getStatus() != Recipe.Status.FINALIZED,
+                            false);
+                    return foodRecpAssoc;
+            })
+            .filter(Objects::nonNull)
+            .toList();
+
+        foodRecpAssociations.addAll(foodRecpAssociationsBySimilarName);
         return foodRecpAssociations;
+    }
+
+    private boolean isPrefixed(final Recipe recipe) {
+        return Character.isDigit(recipe.getName().charAt(0));
     }
 
     @Named(DitaModuleGdManager.NAMESPACE + ".FoodRecipeAssociation")
@@ -109,7 +159,8 @@ public class RecipeManager_findFoodRecipeAssociations {
         String foodNameWithAttributes,
         String recipeCurrentStatus,
         String recipeDesiredStatus,
-        boolean recipeCurrentMeetsDesiredStatus) {
+        boolean recipeCurrentMeetsDesiredStatus,
+        boolean prefixed) {
 
         public StringBuilder appendAsYaml(final StringBuilder yaml) {
             yaml.append(" -recipeCode: ").append(recipeCode).append("\n");
