@@ -18,12 +18,10 @@
  */
 package dita.globodiet.manager.editing;
 
-import java.io.File;
 import java.util.List;
 
 import jakarta.inject.Inject;
-
-import org.apache.wicket.util.file.Files;
+import jakarta.inject.Named;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -31,45 +29,36 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Nature;
-import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.TextUtils;
-import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
-import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.val;
 
 import dita.commons.format.FormatUtils;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.manager.DitaModuleGdManager;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="listOfRecipe", position = Position.PANEL)
 @RequiredArgsConstructor
-public class RecipeManager_updateFoodRecipeAssociations {
+public class RecipeManager_findFoodRecipeAssociations {
 
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
-    @Inject private CollectionContentsAsExcelExporter excelExporter;
+    //@Inject private CollectionContentsAsExcelExporter excelExporter;
 
     final Recipe.Manager recipeManager;
 
     /**
-     * WIP - yet used for analysis of existing data
+     * WIP - yet used for analysis of existing data, specific to Austrian data
      */
     @MemberSupport @SneakyThrows
-    public Blob act() {
+    public List<FoodRecipeAssociation> act() {
 
         var recipes = Can.ofCollection(repositoryService.allInstances(Recipe.class));
         var foodRecpAssociations = recipes.stream()
@@ -96,7 +85,7 @@ public class RecipeManager_updateFoodRecipeAssociations {
                         String.format("%s(%s)", recipe.getStatus().name(), recipe.getStatus().getMatchOn()),
                         coffeeFoodCodes.contains(associatedFoodCode)
                             ? "SHOWN(1)"
-                            :"HIDDEN(2,3,4)",
+                            : "HIDDEN(2,3,4)",
                         coffeeFoodCodes.contains(associatedFoodCode)
                             ? recipe.getStatus() == Recipe.Status.FINALIZED
                             : recipe.getStatus() != Recipe.Status.FINALIZED
@@ -105,41 +94,22 @@ public class RecipeManager_updateFoodRecipeAssociations {
                 return foodRecpAssoc;
         }).toList();
 
-        var dataTable = DataTable.forDomainType(FoodRecipeAssociation.class);
-        dataTable.setDataElementPojos(foodRecpAssociations);
-
-        val tempFile = File.createTempFile(this.getClass().getCanonicalName(), "FoodRecipeAssociations");
-        try {
-            excelExporter.createExport(dataTable, tempFile);
-            return Blob.of("FoodRecipeAssociations", CommonMimeType.XLSX, DataSource.ofFile(tempFile).bytes());
-        } finally {
-            Files.remove(tempFile); // cleanup
-        }
+        foodRecpAssociations.clear();
+        return foodRecpAssociations;
     }
 
+    @Named(DitaModuleGdManager.NAMESPACE + ".FoodRecipeAssociation")
     @DomainObject(nature = Nature.VIEW_MODEL)
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class FoodRecipeAssociation {
-        @Property
-        private String recipeCode;
-        @Property
-        private String recipeName;
-        @Property
-        private String recipeNameWithAttributes;
-        @Property
-        private String foodCode;
-        @Property
-        private String foodName;
-        @Property
-        private String foodNameWithAttributes;
-        @Property
-        private String recipeCurrentStatus;
-        @Property
-        private String recipeDesiredStatus;
-        @Property
-        private boolean recipeCurrentMeetsDesiredStatus;
+    public static record FoodRecipeAssociation(
+        String recipeCode,
+        String recipeName,
+        String recipeNameWithAttributes,
+        String foodCode,
+        String foodName,
+        String foodNameWithAttributes,
+        String recipeCurrentStatus,
+        String recipeDesiredStatus,
+        boolean recipeCurrentMeetsDesiredStatus) {
 
         public StringBuilder appendAsYaml(final StringBuilder yaml) {
             yaml.append(" -recipeCode: ").append(recipeCode).append("\n");
