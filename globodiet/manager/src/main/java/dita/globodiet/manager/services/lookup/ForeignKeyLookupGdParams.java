@@ -179,7 +179,7 @@ implements ForeignKeyLookupService {
         }
         if(entity instanceof StandardUnitForFoodOrRecipe x) {
             return x.getType() == StandardUnitForFoodOrRecipe.Type.RECIPE
-                    ? 1 //2
+                    ? 2
                     : 1;
         }
         if(entity instanceof QuantificationMethodPathwayForFood x) {

@@ -65,6 +65,11 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageQuantificationMethodPathwayForRecipeGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestionPathwayForRecipe"/>
             </mb:section>
+            <mb:section>
+                <mb:named>Quanitfication</mb:named>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardPortionForFood"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardUnitForFoodOrRecipe"/>
+            </mb:section>
         </mb:menu>
         <mb:menu>
             <mb:named>Supplements</mb:named>
