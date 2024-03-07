@@ -24,10 +24,11 @@ import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
+import lombok.NonNull;
+
 import dita.recall24.model.Interview24;
 import dita.recall24.model.InterviewSet24;
 import dita.recall24.model.Respondent24;
-import lombok.NonNull;
 
 /**
  * Parses GloboDiet XML Interview files into recall24 data structures.
@@ -51,7 +52,6 @@ public class InterviewXmlParser {
     }
 
     private InterviewSet24 createFromDto(final @NonNull _Dtos.Itv dto) {
-        System.err.printf("%s%n", dto.toJson());
 
         /* Interviews that belong to this survey. */
         final Can<Interview24> interviews =

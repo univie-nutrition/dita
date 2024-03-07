@@ -37,7 +37,6 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 
 import dita.commons.format.FormatUtils;
 import dita.commons.services.lookup.ForeignKeyLookupService;
@@ -52,14 +51,13 @@ public class RecipeManager_findFoodRecipeAssociations {
 
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
-    //@Inject private CollectionContentsAsExcelExporter excelExporter;
 
     final Recipe.Manager recipeManager;
 
     /**
      * WIP - yet used for analysis of existing data, specific to Austrian data
      */
-    @MemberSupport @SneakyThrows
+    @MemberSupport
     public List<FoodRecipeAssociation> act() {
 
         var recipes = Can.ofCollection(repositoryService.allInstances(Recipe.class));

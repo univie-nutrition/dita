@@ -25,21 +25,19 @@ import java.util.stream.Stream;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
+
+import lombok.experimental.UtilityClass;
+import lombok.extern.log4j.Log4j2;
 
 import dita.blobstore.api.BlobDescriptor;
 import dita.blobstore.api.BlobStore;
 import dita.commons.types.NamedPath;
-import dita.commons.types.ResourceFolder;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.model.InterviewSet24;
-import lombok.SneakyThrows;
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
+@Log4j2
 public class InterviewUtils {
 
     public InterviewSet24 parse(final Clob interviewSource) {
@@ -51,10 +49,9 @@ public class InterviewUtils {
                 .unZip(CommonMimeType.XML, ZipOptions.builder()
                         .zipEntryCharset(StandardCharsets.ISO_8859_1)
                         .zipEntryFilter(entry->{
-                            //TODO replace with logger
-                            System.err.printf("== Parsing Zip entry %s (%.2fKB)%n",
+                            log.info(String.format("parsing Zip entry %s (%.2fKB)",
                                     entry.getName(),
-                                    0.001*entry.getSize());
+                                    0.001*entry.getSize()));
                             return true;
                         })
                         .build());
@@ -71,35 +68,5 @@ public class InterviewUtils {
             .map(Optional::orElseThrow)
             .map(InterviewUtils::unzip);
     }
-
-    @Deprecated
-    @SneakyThrows
-    public Can<DataSource> scanSources(final ResourceFolder folder) {
-        return FileUtils.searchFiles(folder.root(), dir->true, file->file.getName().endsWith(".xml.zip"))
-                .stream()
-                .map(DataSource::ofFile)
-                .collect(Can.toCan());
-    }
-
-    @Deprecated
-    public InterviewSet24 parse(final DataSource interviewSource) {
-        return new InterviewXmlParser().parse(interviewSource);
-    }
-
-    @Deprecated
-    public DataSource unzip(final DataSource zippedInterviewSource) {
-        var unzipped = Blob.of("zipped", CommonMimeType.ZIP, zippedInterviewSource.bytes())
-                .unZip(CommonMimeType.XML, ZipOptions.builder()
-                        .zipEntryCharset(StandardCharsets.ISO_8859_1)
-                        .zipEntryFilter(entry->{
-                            System.err.printf("== Parsing Zip entry %s (%.2fKB)%n",
-                                    entry.getName(),
-                                    0.001*entry.getSize());
-                            return true;
-                        })
-                        .build());
-        return DataSource.ofBytes(unzipped.getBytes());
-    }
-
 
 }

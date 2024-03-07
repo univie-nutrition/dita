@@ -90,6 +90,68 @@ record InterviewSampler(BlobStore blobStore) {
                     <ITL_POC_Code>01</ITL_POC_Code>
                     <ITL_FCO_Code>01</ITL_FCO_Code>
                     <ITL_FCOHour> 0700</ITL_FCOHour>
+                    <ITL_TOK>0</ITL_TOK>
+                    <ITL_QLINUM>0</ITL_QLINUM>
+                    <ITL_ING_NUM>0</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>1</ITL_Type>
+                    <ITL_Text>VOR DEM FRÜHSTÜCK (NACH DEM AUFSTE ------------------------- 07h00 , Zu Hause</ITL_Text>
+                    <ITL_Estim_QTY>0</ITL_Estim_QTY>
+                    <ITL_NGRAMS>0</ITL_NGRAMS>
+                    <ITL_Conver>0</ITL_Conver>
+                    <ITL_EDIB_CSTE>0</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>0</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>0</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>0</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>0</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>0</ITL_CONS_QTY>
+                    <ITL_R_COOKED>0</ITL_R_COOKED>
+                    <ITL_R_EDIB>0</ITL_R_EDIB>
+                    <ITL_RAW_Q>0</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>0</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>0</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments />
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>01</ITL_FCO_Code>
+                    <ITL_FCOHour> 0700</ITL_FCOHour>
+                    <ITL_TOK>1</ITL_TOK>
+                    <ITL_QLINUM>0</ITL_QLINUM>
+                    <ITL_ING_NUM>0</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>2</ITL_Type>
+                    <ITL_Text>Kaffee</ITL_Text>
+                    <ITL_Estim_QTY>0</ITL_Estim_QTY>
+                    <ITL_NGRAMS>0</ITL_NGRAMS>
+                    <ITL_Conver>0</ITL_Conver>
+                    <ITL_EDIB_CSTE>0</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>0</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>0</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>0</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>0</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>0</ITL_CONS_QTY>
+                    <ITL_R_COOKED>0</ITL_R_COOKED>
+                    <ITL_R_EDIB>0</ITL_R_EDIB>
+                    <ITL_RAW_Q>0</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>0</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>0</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments />
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>01</ITL_FCO_Code>
+                    <ITL_FCOHour> 0700</ITL_FCOHour>
                     <ITL_TOK>1</ITL_TOK>
                     <ITL_QLINUM>1</ITL_QLINUM>
                     <ITL_ING_NUM>0</ITL_ING_NUM>

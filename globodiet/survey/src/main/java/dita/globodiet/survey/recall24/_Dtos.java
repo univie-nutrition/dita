@@ -42,8 +42,15 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.JsonUtils;
 
-import dita.commons.types.Sex;
+import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
+import lombok.experimental.UtilityClass;
+
 import dita.commons.types.ObjectRef;
+import dita.commons.types.Sex;
 import dita.recall24.api.Record24.Type;
 import dita.recall24.model.Ingredient24;
 import dita.recall24.model.Interview24;
@@ -52,12 +59,6 @@ import dita.recall24.model.MemorizedFood24;
 import dita.recall24.model.Record24;
 import dita.recall24.model.Respondent24;
 import dita.recall24.model.RespondentMetaData24;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import lombok.experimental.Accessors;
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
 class _Dtos {
@@ -248,6 +249,7 @@ class _Dtos {
                 })
                 .collect(Can.toCan());
 
+            System.err.println("dita.globodiet.survey.recall24._Dtos.Interview.toInterview24()...");
             meals.forEach(meal->{
                 System.err.printf("%s%n", meal);
                 meal.memorizedFood().forEach(mem->{
