@@ -92,7 +92,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     )
     @Getter
     @Setter
-    private double standardUnitQuantity;
+    private double quantity;
 
     /**
      * Food or Recipe identification number (code)
@@ -120,7 +120,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
      * 2 = cooked (as estimated)
      */
     @Property(
-            optionality = Optionality.OPTIONAL,
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -132,7 +132,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     )
     @Column(
             name = "RAW_COOKED",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -154,7 +154,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
      * 2 = with un-edible (as estimated)
      */
     @Property(
-            optionality = Optionality.OPTIONAL,
+            optionality = Optionality.MANDATORY,
             editing = Editing.ENABLED
     )
     @PropertyLayout(
@@ -166,7 +166,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     )
     @Column(
             name = "EDIB",
-            allowsNull = "true",
+            allowsNull = "false",
             length = 1
     )
     @Getter
@@ -237,7 +237,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     )
     @Getter
     @Setter
-    private String commentAttachedToTheStandardUnit;
+    private String comment;
 
     /**
      * Standard unit code for the same food/recipe (0001, 0002, 0003)
@@ -262,8 +262,8 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     private String standardUnitCode;
 
     /**
-     * G = in grams,
-     * V = in ml (volume)
+     * G = in Unit grams (mass)
+     * V = in Unit milliliter (volume)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -272,8 +272,8 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "G = in grams,\n"
-                            + "V = in ml (volume)",
+            describedAs = "G = in Unit grams (mass)\n"
+                            + "V = in Unit milliliter (volume)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -283,7 +283,17 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     )
     @Getter
     @Setter
-    private String unit;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Unit unit;
 
     /**
      * Order to display the standard unit
@@ -304,7 +314,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     )
     @Getter
     @Setter
-    private double orderToDisplayTheStandardUnit;
+    private double displayOrder;
 
     @ObjectSupport
     public String title() {
@@ -313,30 +323,30 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @Override
     public String toString() {
-        return "StandardUnitForFoodOrRecipe(" + "standardUnitQuantity=" + getStandardUnitQuantity() + ","
+        return "StandardUnitForFoodOrRecipe(" + "quantity=" + getQuantity() + ","
          +"foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
          +"rawOrCooked=" + getRawOrCooked() + ","
          +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
          +"type=" + getType() + ","
-         +"commentAttachedToTheStandardUnit=" + getCommentAttachedToTheStandardUnit() + ","
+         +"comment=" + getComment() + ","
          +"standardUnitCode=" + getStandardUnitCode() + ","
          +"unit=" + getUnit() + ","
-         +"orderToDisplayTheStandardUnit=" + getOrderToDisplayTheStandardUnit() + ")";
+         +"displayOrder=" + getDisplayOrder() + ")";
     }
 
     @Programmatic
     @Override
     public StandardUnitForFoodOrRecipe copy() {
         var copy = repositoryService.detachedEntity(new StandardUnitForFoodOrRecipe());
-        copy.setStandardUnitQuantity(getStandardUnitQuantity());
+        copy.setQuantity(getQuantity());
         copy.setFoodOrRecipeCode(getFoodOrRecipeCode());
         copy.setRawOrCooked(getRawOrCooked());
         copy.setWithUnediblePartQ(getWithUnediblePartQ());
         copy.setType(getType());
-        copy.setCommentAttachedToTheStandardUnit(getCommentAttachedToTheStandardUnit());
+        copy.setComment(getComment());
         copy.setStandardUnitCode(getStandardUnitCode());
         copy.setUnit(getUnit());
-        copy.setOrderToDisplayTheStandardUnit(getOrderToDisplayTheStandardUnit());
+        copy.setDisplayOrder(getDisplayOrder());
         return copy;
     }
 
@@ -407,6 +417,28 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
          * no description
          */
         RECIPE("2", "Recipe");
+
+        @Getter
+        private final String matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
+    @RequiredArgsConstructor
+    public enum Unit {
+        /**
+         * in unit grams (mass)
+         */
+        GRAMS("G", "Grams"),
+
+        /**
+         * in unit milliliter (volume)
+         */
+        MILLILITER("V", "Milliliter");
 
         @Getter
         private final String matchOn;

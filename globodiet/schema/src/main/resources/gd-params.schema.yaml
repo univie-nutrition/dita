@@ -2675,7 +2675,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
   description: |
     standard units for foods and recipes
   fields:
-    standardUnitQuantity:
+    quantity:
       column: STDU_QUANT
       column-type: float(53)
       required: true
@@ -2695,7 +2695,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
     rawOrCooked:
       column: RAW_COOKED
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
       enum: |
         1:raw
@@ -2706,7 +2706,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
     withUnediblePartQ:
       column: EDIB
       column-type: nvarchar(1)
-      required: false
+      required: true
       unique: false
       enum: |
         1:un-edible excluded:without un-edible part
@@ -2725,7 +2725,7 @@ params.quantif.StandardUnitForFoodOrRecipe:
       description: |
         1 = STDU for food, 
         2 = STDU for recipe
-    commentAttachedToTheStandardUnit:
+    comment:
       column: COMMENT
       column-type: nvarchar(100)
       required: true
@@ -2744,10 +2744,13 @@ params.quantif.StandardUnitForFoodOrRecipe:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        G:Grams:in unit grams (mass)
+        V:Milliliter:in unit milliliter (volume)
       description: |
-        G = in grams, 
-        V = in ml (volume)
-    orderToDisplayTheStandardUnit:
+        G = in Unit grams (mass)
+        V = in Unit milliliter (volume)
+    displayOrder:
       column: D_ORDER
       column-type: float(53)
       required: true
