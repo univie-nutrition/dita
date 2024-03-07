@@ -56,6 +56,7 @@ import dita.globodiet.manager.editing.food.Food_addStandardUnit;
 import dita.globodiet.manager.editing.food.Food_clone;
 import dita.globodiet.manager.editing.food.Food_effectiveFoodDescriptors;
 import dita.globodiet.manager.editing.food.Food_effectiveGroupingUsedForFacetDescriptorPathway;
+import dita.globodiet.manager.editing.food.Food_inspectPathway;
 import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_addEntry;
 import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder;
 import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder;
@@ -68,7 +69,6 @@ import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.Persistable_schema;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
-import dita.globodiet.manager.services.food.FoodHelperService;
 import dita.globodiet.manager.services.iconfa.IconFaServiceGdParams;
 import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
@@ -134,7 +134,6 @@ import dita.tooling.orm.OrmModel;
     FallbackLayoutDataSourceGdParams.class,
     IdGeneratorGdParams.class,
     IconFaServiceGdParams.class,
-    FoodHelperService.class,
     FoodFacetHelperService.class,
 
     // Rulecheckers
@@ -162,6 +161,7 @@ import dita.tooling.orm.OrmModel;
     FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder.class,
     Recipe_addStandardUnit.class,
     Food_addStandardUnit.class,
+    Food_inspectPathway.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

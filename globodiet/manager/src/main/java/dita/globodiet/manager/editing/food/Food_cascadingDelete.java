@@ -39,7 +39,9 @@ import dita.globodiet.dom.params.nutrient.NutrientValue;
 @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
 @ActionLayout(
         fieldSetId="details",
+        sequence = "99",
         position = Position.PANEL,
+        cssClassFa = "solid trash-arrow-up",
         describedAs = "Delete this food and its exclusive dependants.")
 @RequiredArgsConstructor
 public class Food_cascadingDelete {

@@ -40,7 +40,6 @@ import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
-import dita.globodiet.manager.services.food.FoodHelperService;
 
 /**
  */
@@ -55,7 +54,6 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
 
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
-    @Inject private FoodHelperService foodHelperService;
     @Inject private FoodFacetHelperService foodFacetHelperService;
 
     protected final Food mixee;
@@ -82,7 +80,7 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
 
         return _Sets.minus(
                 facetsAvailableForPathway,
-                foodHelperService.selectedFacetDescriptorPathwayForFoodAsFoodFacetSecondaryKeySet(mixee))
+                foodFacetHelperService.selectedFacetDescriptorPathwayForFoodAsFoodFacetSecondaryKeySet(mixee))
             .stream()
             .map(foreignKeyLookupService::unique)
             .toList();

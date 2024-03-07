@@ -21,6 +21,7 @@ package dita.globodiet.manager.services.layout;
 import jakarta.annotation.Priority;
 
 import org.datanucleus.enhancement.Persistable;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,9 @@ public class FallbackLayoutDataSourceGdParams implements FallbackLayoutDataSourc
         }
         if(Persistable.class.isAssignableFrom(domainClass)) {
             return DataSource.ofResource(getClass(), "EntityLayout.xml").tryReadAsStringUtf8();
+        }
+        if(domainClass.isRecord()) {
+            return DataSource.ofResource(getClass(), "RecordLayout.xml").tryReadAsStringUtf8();
         }
         return Try.empty();
     }

@@ -37,14 +37,14 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable.CellVisitor;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
+
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.recipe_list.Recipe;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
+import dita.globodiet.manager.util.AsciiDocUtils;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
@@ -90,12 +90,7 @@ public class RecipeManager_importRecipes {
             }
         });
 
-        val adoc = new AsciiDocBuilder();
-        adoc.append(doc->doc.setTitle("Recipe Import Result"));
-        adoc.append(doc->{
-            AsciiDocFactory.sourceBlock(doc, "yml", yaml.toString());
-        });
-        return adoc.buildAsValue();
+        return AsciiDocUtils.yamlBlock("Recipe Import Result", "YAML format", yaml.toString());
     }
 
     @MemberSupport

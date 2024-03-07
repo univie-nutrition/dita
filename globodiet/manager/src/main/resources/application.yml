@@ -11,12 +11,18 @@ causeway:
         explicit: true
         command-publishing: all
         execution-publishing: all
-      #action-layout:
-        #css-class:
-          #patterns:
-            #delete.*:btn-danger,
-            #discard.*:btn-warning,
-            #remove.*:btn-warning
+      action-layout:
+        css-class:
+          patterns:
+            add.*:btn-primary,
+            clone.*:btn-warning,
+            delete.*:btn-danger,
+            remove.*:btn-warning,
+            new.*:btn-primary,
+            create.*:btn-primary,
+            delete.*:btn-danger,
+            verify.*:btn-success,
+            save.*:btn-success
       property:
         command-publishing: all
         execution-publishing: all

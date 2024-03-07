@@ -18,22 +18,26 @@
  */
 package dita.globodiet.manager.services.food;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Lists;
 
 import lombok.NonNull;
 
 import dita.globodiet.dom.params.classification.FoodGrouping;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
 import dita.globodiet.dom.params.food_list.FoodGroup;
@@ -43,12 +47,14 @@ import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_depende
 import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.manager.services.grouping.GroupingHelperService;
+import dita.globodiet.manager.util.GroupingUtils;
 
 @Service
 public class FoodFacetHelperService {
 
     @Inject private FactoryService factoryService;
-    @Inject private FoodHelperService foodHelperService;
+    @Inject private GroupingHelperService groupingHelperService;
 
     public List<FacetDescriptorPathwayForFoodGroup> effectiveFacetDescriptorPathwayForFoodClassification(
             final @NonNull FoodGrouping foodGrouping) {
@@ -57,19 +63,19 @@ public class FoodFacetHelperService {
             .fold(
                 foodGroup->listFacetDescriptorPathwayForFoodGroup(foodGroup),
                 foodSubOrSubSubgroup->{
-                    var hasSubSubgroup = _Strings.isEmpty(foodSubOrSubSubgroup.getFoodSubSubgroupCode());
-                    var lookupResult = hasSubSubgroup
-                        ? listFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup)
-                        : listFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
+                    var isSubSubgroup = GroupingUtils.isSubSubgroup(foodSubOrSubSubgroup);
+                    var lookupResult = isSubSubgroup
+                        ? listFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup)
+                        : listFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup);
 
                     // if lookup was too specific, relax one level
                     if(lookupResult.isEmpty()
-                            && hasSubSubgroup) {
-                        lookupResult = listFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup);
+                            && isSubSubgroup) {
+                        lookupResult = listFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup);
                     }
                     // again, if lookup was too specific, fallback to top-level = FoodGroup
                     return lookupResult.isEmpty()
-                        ? listFacetDescriptorPathwayForFoodGroup(foodHelperService.foodGroup(foodClassification.rightIfAny()))
+                        ? listFacetDescriptorPathwayForFoodGroup(groupingHelperService.foodGroup(foodClassification.rightIfAny()))
                         : lookupResult;
                 });
 
@@ -77,13 +83,13 @@ public class FoodFacetHelperService {
     }
 
     public FoodGrouping effectiveGroupingUsedForFacetDescriptorPathway(final @NonNull Food food) {
-        var foodClassification = foodHelperService.foodClassification(food);
+        var foodClassification = groupingHelperService.foodClassification(food);
         final FoodGrouping foodGrouping = foodClassification
                 .fold(
                     foodGroup->(FoodGrouping)foodGroup,
                     foodSubOrSubSubgroup->{
                         var groupingResult = foodSubOrSubSubgroup; // assignment is non final
-                        var isSubSubgroup = foodHelperService.isSubSubgroup(foodSubOrSubSubgroup);
+                        var isSubSubgroup = GroupingUtils.isSubSubgroup(foodSubOrSubSubgroup);
                         var lookupResult = isSubSubgroup
                             ? listFacetDescriptorPathwayForFoodSubSubgroup(foodSubOrSubSubgroup)
                             : listFacetDescriptorPathwayForFoodSubgroup(foodSubOrSubSubgroup);
@@ -92,12 +98,12 @@ public class FoodFacetHelperService {
                         if(lookupResult.isEmpty()
                                 && isSubSubgroup) {
 
-                            groupingResult = foodHelperService.foodSubSubgroupToSubgroup(foodSubOrSubSubgroup);
+                            groupingResult = groupingHelperService.foodSubSubgroupToSubgroup(foodSubOrSubSubgroup);
                             lookupResult = listFacetDescriptorPathwayForFoodSubgroup(groupingResult);
                         }
                         // again, if lookup was too specific, fallback to top-level = FoodGroup
                         return lookupResult.isEmpty()
-                            ? (FoodGrouping)foodHelperService.foodGroup(foodClassification.rightIfAny())
+                            ? (FoodGrouping)groupingHelperService.foodGroup(foodClassification.rightIfAny())
                             : groupingResult;
                     });
         return foodGrouping;
@@ -128,6 +134,22 @@ public class FoodFacetHelperService {
                 .toList();
     }
 
+    public List<FacetDescriptorPathwayForFood> selectedFacetDescriptorPathwayForFood(
+            final @Nullable Food food) {
+        if(food==null) return Collections.emptyList();
+        var mixin = factoryService.mixin(Food_dependentFacetDescriptorPathwayForFoodMappedByFood.class, food);
+        return mixin.coll();
+    }
+
+    public Set<FoodFacet.SecondaryKey> selectedFacetDescriptorPathwayForFoodAsFoodFacetSecondaryKeySet(
+            final @Nullable Food food) {
+        return selectedFacetDescriptorPathwayForFood(food)
+            .stream()
+            .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
+            .map(FoodFacet.SecondaryKey::new)
+            .collect(Collectors.toSet());
+    }
+
     // -- HELPER
 
     private List<FacetDescriptorPathwayForFoodGroup> listFacetDescriptorPathwayForFoodGroup(
@@ -141,7 +163,7 @@ public class FoodFacetHelperService {
 
     private List<FacetDescriptorPathwayForFoodGroup> listFacetDescriptorPathwayForFoodSubgroup(
             final FoodSubgroup foodSubgroup) {
-        _Assert.assertFalse(foodHelperService.isSubSubgroup(foodSubgroup));
+        _Assert.assertFalse(GroupingUtils.isSubSubgroup(foodSubgroup));
         var mixin = factoryService.mixin(
                 FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup.class,
                 foodSubgroup);

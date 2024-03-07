@@ -31,8 +31,8 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
+
+import lombok.RequiredArgsConstructor;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
@@ -40,9 +40,8 @@ import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.dom.params.recipe_list.Recipe.AliasQ;
 import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
+import dita.globodiet.manager.util.AsciiDocUtils;
 import dita.globodiet.manager.versions.VersionsService;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
@@ -62,31 +61,24 @@ public class Dashboard_loadYaml {
             @ParameterLayout(named = "tableData")
             final Clob tableData) {
 
-        val adoc = new AsciiDocBuilder();
-        adoc.append(doc->doc.setTitle("Table Import Result"));
-        adoc.append(doc->{
-            val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml",
-                    tableSerializer.load(tableData,
-                            format==ExportFormat.ENTITY
-                                ? TabularData.NameTransformer.IDENTITY
-                                : table2entity,
-                            VersionsService.paramsTableFilter(),
-                            InsertMode.DELETE_ALL_THEN_ADD,
-                            entity->{
-                                if(entity.getSpecification().isAssignableFrom(Recipe.class)) {
-                                    var recipe = (Recipe)entity.getPojo();
-                                    if(recipe.getAliasQ() == Recipe.AliasQ.ALIAS) {
-                                        recipe.setRecipeGroupCode("");
-                                    } else {
-                                        recipe.setAliasQ(AliasQ.REGULAR);
-                                    }
-                                }
+        var yamlSource = tableSerializer.load(tableData,
+                format==ExportFormat.ENTITY
+                ? TabularData.NameTransformer.IDENTITY
+                : table2entity,
+            VersionsService.paramsTableFilter(),
+            InsertMode.DELETE_ALL_THEN_ADD,
+            entity->{
+                if(entity.getSpecification().isAssignableFrom(Recipe.class)) {
+                    var recipe = (Recipe)entity.getPojo();
+                    if(recipe.getAliasQ() == Recipe.AliasQ.ALIAS) {
+                        recipe.setRecipeGroupCode("");
+                    } else {
+                        recipe.setAliasQ(AliasQ.REGULAR);
+                    }
+                }
+            });
 
-                            }));
-            sourceBlock.setTitle("Serialized Table Data (yaml)");
-        });
-
-        return adoc.buildAsValue();
+        return AsciiDocUtils.yamlBlock("Table Import Result", "Serialized Table Data (yaml)", yamlSource);
     }
 
 }

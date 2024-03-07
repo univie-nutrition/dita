@@ -32,6 +32,8 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
+import lombok.RequiredArgsConstructor;
+
 import dita.commons.services.idgen.IdGeneratorService;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
@@ -47,11 +49,11 @@ import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
 import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.dom.params.nutrient.NutrientValue;
 import dita.globodiet.manager.util.FoodUtils;
-import lombok.RequiredArgsConstructor;
 
 @Action
 @ActionLayout(
         fieldSetId="details",
+        sequence = "2",
         position = Position.PANEL,
         describedAs = "Clone (create a copy of) this Food")
 @RequiredArgsConstructor
