@@ -69,6 +69,8 @@
                 <mb:named>Quanitfication</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardPortionForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardUnitForFoodOrRecipe"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePhoto"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageShape"/>
             </mb:section>
         </mb:menu>
         <mb:menu>
@@ -153,7 +155,7 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatUseDuringCookingForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePhotoForQuantity"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePhoto"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePlaceOfConsumption"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestion"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestionPathwayForFood"/>
