@@ -26,13 +26,13 @@ params.quantif.StandardUnitForFoodOrRecipe:
   description: |
     standard units for foods and recipes
   fields:
-    quantity:
-      column: STDU_QUANT
-      column-type: float(53)
+    code:
+      column: UNIT_CODE
+      column-type: nvarchar(4)
       required: true
       unique: false
       description: |
-        Standard unit quantity
+        Standard unit code, unique for referenced food/recipe (0001, 0002, ...)
     foodOrRecipeCode:
       column: ID_NUM
       column-type: nvarchar(5)
@@ -83,13 +83,13 @@ params.quantif.StandardUnitForFoodOrRecipe:
       unique: false
       description: |
         Comment attached to the standard unit
-    standardUnitCode:
-      column: UNIT_CODE
-      column-type: nvarchar(4)
+    quantity:
+      column: STDU_QUANT
+      column-type: float(53)
       required: true
       unique: false
       description: |
-        Standard unit code for the same food/recipe (0001, 0002, 0003)
+        Standard unit quantity (amount)
     unit:
       column: STDU_UNIT
       column-type: nvarchar(1)

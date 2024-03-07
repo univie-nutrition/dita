@@ -56,13 +56,12 @@ public class Food_addStandardUnit {
 
     @MemberSupport
     public Food act(
-            @Parameter final double displayOrder,
+            @Parameter final String code,
             @Parameter final StandardUnitForFoodOrRecipe.RawOrCooked rawOrCooked,
             @Parameter final StandardUnitForFoodOrRecipe.WithUnediblePartQ withUnediblePartQ,
             @Parameter final double standardUnitQuantity,
             @Parameter final StandardUnitForFoodOrRecipe.Unit unit,
-            //value 1..26, yet unknown meaning
-            @Parameter final String unitCode) {
+            @Parameter final double displayOrder) {
 
         var entity = repositoryService.detachedEntity(new StandardUnitForFoodOrRecipe());
 
@@ -78,8 +77,8 @@ public class Food_addStandardUnit {
     }
 
     @MemberSupport
-    public List<String> choicesUnitCode() {
-        return IntStream.rangeClosed(1, 26)
+    public List<String> choicesCode() {
+        return IntStream.rangeClosed(1, 30) //TODO simply autogen. next free
             .mapToObj(i->FormatUtils.fillWithLeadingZeros(4, "00"+i))
             .toList();
     }

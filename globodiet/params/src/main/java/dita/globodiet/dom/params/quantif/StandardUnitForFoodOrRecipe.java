@@ -74,7 +74,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     SearchService searchService;
 
     /**
-     * Standard unit quantity
+     * Standard unit code, unique for referenced food/recipe (0001, 0002, ...)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -83,16 +83,17 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Standard unit quantity",
+            describedAs = "Standard unit code, unique for referenced food/recipe (0001, 0002, ...)",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "STDU_QUANT",
-            allowsNull = "false"
+            name = "UNIT_CODE",
+            allowsNull = "false",
+            length = 4
     )
     @Getter
     @Setter
-    private double quantity;
+    private String code;
 
     /**
      * Food or Recipe identification number (code)
@@ -240,7 +241,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     private String comment;
 
     /**
-     * Standard unit code for the same food/recipe (0001, 0002, 0003)
+     * Standard unit quantity (amount)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -249,17 +250,16 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Standard unit code for the same food/recipe (0001, 0002, 0003)",
+            describedAs = "Standard unit quantity (amount)",
             hidden = Where.NOWHERE
     )
     @Column(
-            name = "UNIT_CODE",
-            allowsNull = "false",
-            length = 4
+            name = "STDU_QUANT",
+            allowsNull = "false"
     )
     @Getter
     @Setter
-    private String standardUnitCode;
+    private double quantity;
 
     /**
      * G = in Unit grams (mass)
@@ -323,13 +323,13 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @Override
     public String toString() {
-        return "StandardUnitForFoodOrRecipe(" + "quantity=" + getQuantity() + ","
+        return "StandardUnitForFoodOrRecipe(" + "code=" + getCode() + ","
          +"foodOrRecipeCode=" + getFoodOrRecipeCode() + ","
          +"rawOrCooked=" + getRawOrCooked() + ","
          +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
          +"type=" + getType() + ","
          +"comment=" + getComment() + ","
-         +"standardUnitCode=" + getStandardUnitCode() + ","
+         +"quantity=" + getQuantity() + ","
          +"unit=" + getUnit() + ","
          +"displayOrder=" + getDisplayOrder() + ")";
     }
@@ -338,13 +338,13 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @Override
     public StandardUnitForFoodOrRecipe copy() {
         var copy = repositoryService.detachedEntity(new StandardUnitForFoodOrRecipe());
-        copy.setQuantity(getQuantity());
+        copy.setCode(getCode());
         copy.setFoodOrRecipeCode(getFoodOrRecipeCode());
         copy.setRawOrCooked(getRawOrCooked());
         copy.setWithUnediblePartQ(getWithUnediblePartQ());
         copy.setType(getType());
         copy.setComment(getComment());
-        copy.setStandardUnitCode(getStandardUnitCode());
+        copy.setQuantity(getQuantity());
         copy.setUnit(getUnit());
         copy.setDisplayOrder(getDisplayOrder());
         return copy;

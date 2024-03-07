@@ -57,9 +57,11 @@ import dita.globodiet.manager.editing.FoodBrandManager_addBrand;
 import dita.globodiet.manager.editing.FoodDescriptorManager_addDescriptor;
 import dita.globodiet.manager.editing.Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway;
 import dita.globodiet.manager.editing.Food_addFoodFacetSelectionForFacetDescriptorPathway;
+import dita.globodiet.manager.editing.Food_addStandardUnit;
 import dita.globodiet.manager.editing.Food_clone;
 import dita.globodiet.manager.editing.Food_effectiveFoodDescriptors;
 import dita.globodiet.manager.editing.Food_effectiveGroupingUsedForFacetDescriptorPathway;
+import dita.globodiet.manager.editing.Recipe_addStandardUnit;
 import dita.globodiet.manager.editing.wip.FoodManager_addFood;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
@@ -158,8 +160,8 @@ import dita.tooling.orm.OrmModel;
     FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder.class,
     FacetDescriptorPathwayForFoodGroupManager_addEntry.class,
     FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder.class,
-    dita.globodiet.manager.editing.Recipe_addStandardUnit.class,
-    dita.globodiet.manager.editing.Food_addStandardUnit.class,
+    Recipe_addStandardUnit.class,
+    Food_addStandardUnit.class,
 
     // -- MODULES
     DitaModuleGdParams.class,
