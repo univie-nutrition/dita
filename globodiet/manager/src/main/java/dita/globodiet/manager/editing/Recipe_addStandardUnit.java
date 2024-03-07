@@ -28,6 +28,7 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -59,16 +60,22 @@ public class Recipe_addStandardUnit {
             @Parameter final String code,
             @Parameter final StandardUnitForFoodOrRecipe.RawOrCooked rawOrCooked,
             @Parameter final StandardUnitForFoodOrRecipe.WithUnediblePartQ withUnediblePartQ,
-            @Parameter final double standardUnitQuantity,
+            @Parameter @ParameterLayout(multiLine = 3)
+            final String comment,
+            @Parameter final double quantity,
             @Parameter final StandardUnitForFoodOrRecipe.Unit unit,
             @Parameter final double displayOrder) {
 
         var entity = repositoryService.detachedEntity(new StandardUnitForFoodOrRecipe());
 
-        entity.setType(StandardUnitForFoodOrRecipe.Type.RECIPE);
+        entity.setCode(code);
+        entity.setType(StandardUnitForFoodOrRecipe.Type.FOOD);
         entity.setFoodOrRecipeCode(mixee.getCode());
         entity.setRawOrCooked(rawOrCooked);
         entity.setWithUnediblePartQ(withUnediblePartQ);
+        entity.setComment(comment);
+        entity.setQuantity(quantity);
+        entity.setUnit(unit);
         entity.setDisplayOrder(displayOrder);
 
         repositoryService.persist(entity);
