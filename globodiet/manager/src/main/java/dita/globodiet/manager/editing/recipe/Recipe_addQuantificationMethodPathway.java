@@ -36,7 +36,7 @@ import lombok.RequiredArgsConstructor;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.Photo;
 import dita.globodiet.dom.params.quantif.Shape;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 
@@ -66,7 +66,7 @@ public class Recipe_addQuantificationMethodPathway {
             @ParameterLayout(
                     describedAs = "Only required for Quantification Method PHOTO or SHAPE."
                     )
-            final String photoCode) {
+            final String photoOrShapeCode) {
 
         var recipeCode = mixee.getCode();
         var quantMethodPathway =
@@ -74,8 +74,8 @@ public class Recipe_addQuantificationMethodPathway {
 
         quantMethodPathway.setRecipeCode(recipeCode);
         quantMethodPathway.setQuantificationMethod(quantificationMethod);
-        _Strings.nonEmpty(photoCode)
-            .ifPresent(quantMethodPathway::setPhotoCode);
+        _Strings.nonEmpty(photoOrShapeCode)
+            .ifPresent(quantMethodPathway::setPhotoOrShapeCode);
 
         repositoryService.persist(quantMethodPathway);
         foreignKeyLookupService.clearCache(QuantificationMethodPathwayForRecipe.class);
@@ -85,11 +85,11 @@ public class Recipe_addQuantificationMethodPathway {
 
     //TODO don't provide duplicates (already selected ones)
     @MemberSupport
-    public List<String> choicesPhotoCode(final QuantificationMethodPathwayForRecipe.QuantificationMethod quantificationMethod) {
+    public List<String> choicesPhotoOrShapeCode(final QuantificationMethodPathwayForRecipe.QuantificationMethod quantificationMethod) {
         if(quantificationMethod==null) return List.of();
         return switch (quantificationMethod) {
-        case PHOTO -> repositoryService.allInstances(PhotoForQuantity.class).stream().map(PhotoForQuantity::getCode).toList();
-        case SHAPE -> repositoryService.allInstances(Shape.class).stream().map(Shape::getShapeCode).toList();
+        case PHOTO -> repositoryService.allInstances(Photo.class).stream().map(Photo::getCode).toList();
+        case SHAPE -> repositoryService.allInstances(Shape.class).stream().map(Shape::getCode).toList();
         default -> List.of();
         };
     }

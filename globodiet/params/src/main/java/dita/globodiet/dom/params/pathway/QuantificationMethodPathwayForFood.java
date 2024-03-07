@@ -142,8 +142,9 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
     private QuantificationMethod quantificationMethod;
 
     /**
-     * Photo code (if method='P' and 'A');
-     * either M_photos.ph_code or M_shapes.sh_code
+     * if method='P' Photo code
+     * if method='A' Shape code
+     * else empty
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -151,8 +152,9 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Photo code (if method='P' and 'A');\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code",
+            describedAs = "if method='P' Photo code\n"
+                            + "if method='A' Shape code\n"
+                            + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -162,7 +164,7 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
     )
     @Getter
     @Setter
-    private String photoCode;
+    private String photoOrShapeCode;
 
     @ObjectSupport
     public String title() {
@@ -173,7 +175,7 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
     public String toString() {
         return "QuantificationMethodPathwayForFood(" + "foodCode=" + getFoodCode() + ","
          +"quantificationMethod=" + getQuantificationMethod() + ","
-         +"photoCode=" + getPhotoCode() + ")";
+         +"photoOrShapeCode=" + getPhotoOrShapeCode() + ")";
     }
 
     @Programmatic
@@ -182,7 +184,7 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
         var copy = repositoryService.detachedEntity(new QuantificationMethodPathwayForFood());
         copy.setFoodCode(getFoodCode());
         copy.setQuantificationMethod(getQuantificationMethod());
-        copy.setPhotoCode(getPhotoCode());
+        copy.setPhotoOrShapeCode(getPhotoOrShapeCode());
         return copy;
     }
 

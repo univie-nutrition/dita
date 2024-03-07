@@ -140,8 +140,9 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
     private QuantificationMethod quantificationMethod;
 
     /**
-     * Photo code (if method='P' and 'A');
-     * either M_photos.ph_code or M_shapes.sh_code
+     * if method='P' Photo code
+     * if method='A' Shape code
+     * else empty
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -149,8 +150,9 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "3",
-            describedAs = "Photo code (if method='P' and 'A');\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code",
+            describedAs = "if method='P' Photo code\n"
+                            + "if method='A' Shape code\n"
+                            + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -160,7 +162,7 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
     )
     @Getter
     @Setter
-    private String photoCode;
+    private String photoOrShapeCode;
 
     @ObjectSupport
     public String title() {
@@ -171,7 +173,7 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
     public String toString() {
         return "QuantificationMethodPathwayForRecipe(" + "recipeCode=" + getRecipeCode() + ","
          +"quantificationMethod=" + getQuantificationMethod() + ","
-         +"photoCode=" + getPhotoCode() + ")";
+         +"photoOrShapeCode=" + getPhotoOrShapeCode() + ")";
     }
 
     @Programmatic
@@ -180,7 +182,7 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
         var copy = repositoryService.detachedEntity(new QuantificationMethodPathwayForRecipe());
         copy.setRecipeCode(getRecipeCode());
         copy.setQuantificationMethod(getQuantificationMethod());
-        copy.setPhotoCode(getPhotoCode());
+        copy.setPhotoOrShapeCode(getPhotoOrShapeCode());
         return copy;
     }
 

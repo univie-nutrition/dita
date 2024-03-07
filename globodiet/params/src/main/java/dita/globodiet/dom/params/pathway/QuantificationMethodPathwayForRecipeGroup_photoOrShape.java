@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.pathway;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.Photo;
 import dita.globodiet.dom.params.quantif.Shape;
 import jakarta.inject.Inject;
 import java.lang.Object;
@@ -38,29 +38,30 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "3.1",
-        describedAs = "Photo code (if method='P' and 'A');\n"
-                        + "either M_photos.ph_code or M_shapes.sh_code",
+        describedAs = "if method='P' Photo code\n"
+                        + "if method='A' Shape code\n"
+                        + "else empty",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
-public class QuantificationMethodPathwayForRecipe_photo {
+public class QuantificationMethodPathwayForRecipeGroup_photoOrShape {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final QuantificationMethodPathwayForRecipe mixee;
+    private final QuantificationMethodPathwayForRecipeGroup mixee;
 
     @MemberSupport
     public Object prop() {
         final int switchOn = foreignKeyLookup.switchOn(mixee);
         switch(switchOn) {
         case 1: {
-            if(mixee.getPhotoCode()==null) return null;
-            final var lookupKey = new PhotoForQuantity.SecondaryKey(mixee.getPhotoCode());
+            if(mixee.getPhotoOrShapeCode()==null) return null;
+            final var lookupKey = new Photo.SecondaryKey(mixee.getPhotoOrShapeCode());
             return foreignKeyLookup.nullable(lookupKey);
         }
         case 2: {
-            if(mixee.getPhotoCode()==null) return null;
-            final var lookupKey = new Shape.SecondaryKey(mixee.getPhotoCode());
+            if(mixee.getPhotoOrShapeCode()==null) return null;
+            final var lookupKey = new Shape.SecondaryKey(mixee.getPhotoOrShapeCode());
             return foreignKeyLookup.nullable(lookupKey);
         }}
         throw _Exceptions.unexpectedCodeReach();

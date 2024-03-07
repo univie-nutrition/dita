@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.pathway;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.Photo;
 import dita.globodiet.dom.params.quantif.Shape;
 import jakarta.inject.Inject;
 import java.lang.Object;
@@ -37,30 +37,31 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "7.1",
-        describedAs = "Photo code (if method='P' and 'A');\n"
-                        + "either M_photos.ph_code or M_shapes.sh_code",
+        sequence = "3.1",
+        describedAs = "if method='P' Photo code\n"
+                        + "if method='A' Shape code\n"
+                        + "else empty",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
-public class QuantificationMethodPathwayForFoodGroup_photo {
+public class QuantificationMethodPathwayForFood_photoOrShape {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final QuantificationMethodPathwayForFoodGroup mixee;
+    private final QuantificationMethodPathwayForFood mixee;
 
     @MemberSupport
     public Object prop() {
         final int switchOn = foreignKeyLookup.switchOn(mixee);
         switch(switchOn) {
         case 1: {
-            if(mixee.getPhotoCode()==null) return null;
-            final var lookupKey = new PhotoForQuantity.SecondaryKey(mixee.getPhotoCode());
+            if(mixee.getPhotoOrShapeCode()==null) return null;
+            final var lookupKey = new Photo.SecondaryKey(mixee.getPhotoOrShapeCode());
             return foreignKeyLookup.nullable(lookupKey);
         }
         case 2: {
-            if(mixee.getPhotoCode()==null) return null;
-            final var lookupKey = new Shape.SecondaryKey(mixee.getPhotoCode());
+            if(mixee.getPhotoOrShapeCode()==null) return null;
+            final var lookupKey = new Shape.SecondaryKey(mixee.getPhotoOrShapeCode());
             return foreignKeyLookup.nullable(lookupKey);
         }}
         throw _Exceptions.unexpectedCodeReach();

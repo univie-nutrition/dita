@@ -57,7 +57,7 @@ import dita.globodiet.dom.params.pathway.RecipeTypePathway;
 import dita.globodiet.dom.params.quantif.HouseholdMeasure;
 import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup;
-import dita.globodiet.dom.params.quantif.PhotoForQuantity;
+import dita.globodiet.dom.params.quantif.Photo;
 import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.quantif.Shape;
 import dita.globodiet.dom.params.quantif.StandardPortionForFood;
@@ -422,8 +422,8 @@ public class EntitiesMenu {
             cssClassFa = "solid image,\n"
                             + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
-    public PhotoForQuantity.Manager managePhotoForQuantity() {
-        return factoryService.viewModel(new PhotoForQuantity.Manager(searchService, ""));
+    public Photo.Manager managePhoto() {
+        return factoryService.viewModel(new Photo.Manager(searchService, ""));
     }
 
     @Action
@@ -433,7 +433,10 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid circle-half-stroke,\n"
+                            + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
     public Shape.Manager manageShape() {
         return factoryService.viewModel(new Shape.Manager(searchService, ""));
     }

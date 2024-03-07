@@ -1928,7 +1928,7 @@ params.pathway.QuantificationMethodPathwayForFood:
         'U' for stdu, 
         'S' for standard portion,
         'A' for shape
-    photoCode:
+    photoOrShapeCode:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
@@ -1937,8 +1937,9 @@ params.pathway.QuantificationMethodPathwayForFood:
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
       description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
+        if method='P' Photo code
+        if method='A' Shape code
+        else empty
 params.pathway.QuantificationMethodPathwayForFoodGroup:
   namespace: params.pathway
   table: QM_GROUP
@@ -2023,7 +2024,7 @@ params.pathway.QuantificationMethodPathwayForFoodGroup:
         'U' for stdu, 
         'S' for standard portion, 
         'A' for shape
-    photoCode:
+    photoOrShapeCode:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
@@ -2032,8 +2033,9 @@ params.pathway.QuantificationMethodPathwayForFoodGroup:
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
       description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
+        if method='P' Photo code
+        if method='A' Shape code
+        else empty
     comment:
       column: COMMENT
       column-type: nvarchar(200)
@@ -2080,7 +2082,7 @@ params.pathway.QuantificationMethodPathwayForRecipe:
         'H' for HHM, 
         'U' for stdu, 
         'A' Shape
-    photoCode:
+    photoOrShapeCode:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
@@ -2089,8 +2091,9 @@ params.pathway.QuantificationMethodPathwayForRecipe:
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
       description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
+        if method='P' Photo code
+        if method='A' Shape code
+        else empty
 params.pathway.QuantificationMethodPathwayForRecipeGroup:
   namespace: params.pathway
   table: QM_RCLAS
@@ -2129,7 +2132,7 @@ params.pathway.QuantificationMethodPathwayForRecipeGroup:
         'H' for HHM, 
         'U' for stdu,
         'A' for shape
-    photoCode:
+    photoOrShapeCode:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
@@ -2138,8 +2141,9 @@ params.pathway.QuantificationMethodPathwayForRecipeGroup:
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
       description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
+        if method='P' Photo code
+        if method='A' Shape code
+        else empty
     comment:
       column: COMMENT
       column-type: nvarchar(200)
@@ -2397,12 +2401,12 @@ params.quantif.MaximumValueForRecipeOrGroup:
       unique: false
       description: |
         Maximum value
-params.quantif.PhotoForQuantity:
+params.quantif.Photo:
   namespace: params.quantif
   table: M_PHOTOS
   secondaryKey: |
     PH_CODE
-  title: String.format("%s (unit=%s)", code, unit)
+  title: String.format("Photo (code=%s,unit=%s)", code, unit)
   icon: |
     solid image,
     solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85
@@ -2565,39 +2569,42 @@ params.quantif.Shape:
   table: M_SHAPES
   secondaryKey: |
     SH_CODE
-  title: null
-  icon: null
+  title: String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2)
+  icon: |
+    solid circle-half-stroke,
+    solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85
+    
   description: |
-    Shape
+    Shape for quantity
   fields:
-    shapeCode:
+    code:
       column: SH_CODE
       column-type: nvarchar(5)
       required: true
       unique: true
       description: |
         Shape code (e.g. S001,S002,S003,...)
-    shapeSurfaceInCm2:
+    surfaceInCm2:
       column: SH_SURFACE
       column-type: float(53)
       required: true
       unique: false
       description: |
         Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
-    commentAttachedToTheShape:
+    comment:
       column: SH_COMMENT
       column-type: nvarchar(100)
       required: true
       unique: false
       description: |
         Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
-    orderToDisplayTheStandardUnit:
+    displayOrder:
       column: SH_ORDER
       column-type: tinyint(3)
       required: true
       unique: true
       description: |
-        Order to display the standard unit
+        Order to display this shape
 params.quantif.StandardPortionForFood:
   namespace: params.quantif
   table: M_STDPOR

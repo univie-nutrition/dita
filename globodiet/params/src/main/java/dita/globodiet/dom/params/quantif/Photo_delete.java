@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this PhotoForQuantity",
+        describedAs = "Delete this Photo",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class PhotoForQuantity_delete {
+public class Photo_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class PhotoForQuantity_delete {
     @Inject
     SearchService searchService;
 
-    private final PhotoForQuantity mixee;
+    private final Photo mixee;
 
     @MemberSupport
-    public PhotoForQuantity.Manager act(
+    public Photo.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new PhotoForQuantity.Manager(searchService, "");
+        return new Photo.Manager(searchService, "");
     }
 
     @MemberSupport

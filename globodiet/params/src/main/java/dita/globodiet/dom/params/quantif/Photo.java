@@ -61,7 +61,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 /**
  * Photo and its quantities
  */
-@Named("dita.globodiet.params.quantif.PhotoForQuantity")
+@Named("dita.globodiet.params.quantif.Photo")
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Photo and its quantities",
@@ -76,10 +76,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         column = "id"
 )
 @Unique(
-        name = "SEC_KEY_UNQ_PhotoForQuantity",
+        name = "SEC_KEY_UNQ_Photo",
         members = {"code"}
 )
-public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSecondaryKey<PhotoForQuantity> {
+public class Photo implements Cloneable<Photo>, HasSecondaryKey<Photo> {
     @Inject
     RepositoryService repositoryService;
 
@@ -233,12 +233,12 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (unit=%s)", code, unit);
+        return String.format("Photo (code=%s,unit=%s)", code, unit);
     }
 
     @Override
     public String toString() {
-        return "PhotoForQuantity(" + "code=" + getCode() + ","
+        return "Photo(" + "code=" + getCode() + ","
          +"quantificationList=" + getQuantificationList() + ","
          +"rawOrCooked=" + getRawOrCooked() + ","
          +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
@@ -247,8 +247,8 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
 
     @Programmatic
     @Override
-    public PhotoForQuantity copy() {
-        var copy = repositoryService.detachedEntity(new PhotoForQuantity());
+    public Photo copy() {
+        var copy = repositoryService.detachedEntity(new Photo());
         copy.setCode(getCode());
         copy.setQuantificationList(getQuantificationList());
         copy.setRawOrCooked(getRawOrCooked());
@@ -265,8 +265,8 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public PhotoForQuantity.Manager getNavigableParent() {
-        return new PhotoForQuantity.Manager(searchService, "");
+    public Photo.Manager getNavigableParent() {
+        return new Photo.Manager(searchService, "");
     }
 
     @Programmatic
@@ -341,9 +341,9 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     }
 
     /**
-     * Manager Viewmodel for @{link PhotoForQuantity}
+     * Manager Viewmodel for @{link Photo}
      */
-    @Named("dita.globodiet.params.quantif.PhotoForQuantity.Manager")
+    @Named("dita.globodiet.params.quantif.Photo.Manager")
     @DomainObjectLayout(
             describedAs = "Photo and its quantities",
             cssClassFa = "solid image,\n"
@@ -366,12 +366,12 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
 
         @ObjectSupport
         public String title() {
-            return "Manage Photo For Quantity";
+            return "Manage Photo";
         }
 
         @Collection
-        public final List<PhotoForQuantity> getListOfPhotoForQuantity() {
-            return searchService.search(PhotoForQuantity.class, PhotoForQuantity::title, search);
+        public final List<Photo> getListOfPhoto() {
+            return searchService.search(Photo.class, Photo::title, search);
         }
 
         @Override
@@ -381,7 +381,7 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     }
 
     /**
-     * Parameter model for @{link PhotoForQuantity}
+     * Parameter model for @{link Photo}
      * @param code Photo series code (P001,P002,P003,...)
      * @param quantificationList List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
      * @param rawOrCooked 1 = raw,
@@ -438,13 +438,13 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     }
 
     /**
-     * SecondaryKey for @{link PhotoForQuantity}
+     * SecondaryKey for @{link Photo}
      * @param code Photo series code (P001,P002,P003,...)
      */
-    public final record SecondaryKey(String code) implements ISecondaryKey<PhotoForQuantity> {
+    public final record SecondaryKey(String code) implements ISecondaryKey<Photo> {
         @Override
-        public Class<PhotoForQuantity> correspondingClass() {
-            return PhotoForQuantity.class;
+        public Class<Photo> correspondingClass() {
+            return Photo.class;
         }
 
         @Override
@@ -456,15 +456,15 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link PhotoForQuantity} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link Photo} in case of an unresolvable secondary key.
      */
     @DomainObjectLayout(
-            describedAs = "Unresolvable PhotoForQuantity",
+            describedAs = "Unresolvable Photo",
             cssClassFa = "skull .unresolvable-color"
     )
-    @Named("dita.globodiet.params.quantif.PhotoForQuantity.Unresolvable")
+    @Named("dita.globodiet.params.quantif.Photo.Unresolvable")
     @RequiredArgsConstructor
-    public static final class Unresolvable extends PhotoForQuantity implements ViewModel {
+    public static final class Unresolvable extends Photo implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

@@ -45,9 +45,9 @@ workspace {
             paramsquantif = container "params.quantif" {
                 MaximumValueForFoodOrGroup = component "MaximumValueForFoodOrGroup" "Maximum quantity consumed that could be entered in the interview application for a given food (or group) before the control message warns the interviewer of an implausible value." "Entity" 
                 MaximumValueForRecipeOrGroup = component "MaximumValueForRecipeOrGroup" "Maximum quantity consumed that could be entered in the interview application for a given recipe (or group) before the control message warns the interviewer of an implausible value." "Entity" 
-                PhotoForQuantity = component "PhotoForQuantity" "Photo and its quantities" "Entity" 
+                Photo = component "Photo" "Photo and its quantities" "Entity" 
                 RecipeIngredientQuantification = component "RecipeIngredientQuantification" "Mixed recipes: Ingredients quantification for shape and photo methods" "Entity" 
-                Shape = component "Shape" "Shape" "Entity" 
+                Shape = component "Shape" "Shape for quantity" "Entity" 
                 StandardPortionForFood = component "StandardPortionForFood" "standard portions for foods" "Entity" 
                 StandardUnitForFoodOrRecipe = component "StandardUnitForFoodOrRecipe" "standard units for foods and recipes" "Entity" 
                 ThicknessForShapeMethod = component "ThicknessForShapeMethod" "Thickness for shape method" "Entity" 
@@ -89,12 +89,12 @@ workspace {
                 ImprobableSequenceOfFacetAndDescriptor = component "ImprobableSequenceOfFacetAndDescriptor" "Improbable sequence of facets/descriptors" "Entity" 
             }
         }
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
         DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪,foodOrRecipe￪" 
         DitaGDParams.paramsrecipe_description.RecipeBrand -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
         DitaGDParams.paramsinterview.SubjectToBeInterviewed -> DitaGDParams.paramsinterview.CountryInvolved "country￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.paramspathway.ProbingQuestion "probingQuestion￪" 
+        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.Photo "photo￪" 
         DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
         DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
         DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
@@ -108,7 +108,7 @@ workspace {
         DitaGDParams.paramsfood_descript.FoodFacetRule -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramssetting.GroupSubstitution -> DitaGDParams.paramsfood_list.FoodSubgroup "applyToFoodGroups￪￪,applyToFoodGroups￪￪,applyToFoodGroups￪￪" 
         DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Shape "photo￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
         DitaGDParams.paramsfood_descript.FoodDescriptor -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
         DitaGDParams.paramsquantif.ThicknessForShapeMethod -> DitaGDParams.paramsfood_list.FoodSubgroup "foodSubgroups￪￪,foodSubgroups￪￪,foodSubgroups￪￪" 
         DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
@@ -116,12 +116,13 @@ workspace {
         DitaGDParams.paramspathway.FacetDescriptorPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramsrecipe_description.RecipeDescriptor -> DitaGDParams.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
         DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramsfood_descript.FoodFacetRule -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe -> DitaGDParams.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
         DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.Shape "photo￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
         DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
         DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
@@ -133,6 +134,7 @@ workspace {
         DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramsnutrient.NutrientValue -> DitaGDParams.paramsnutrient.Nutrient "nutrient￪" 
         DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
         DitaGDParams.paramsinterview.SubjectToBeInterviewed -> DitaGDParams.paramsinterview.CenterInvolved "center￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.virtual.FCK "recipeGroup￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.paramspathway.ProbingQuestion "probingQuestion￪" 
@@ -140,7 +142,6 @@ workspace {
         DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramsinterview.Interviewer -> DitaGDParams.paramsinterview.CenterInvolved "center￪" 
         DitaGDParams.paramsfood_list.FoodSubgroup -> DitaGDParams.virtual.FCK "foodGroup￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.PhotoForQuantity "photo￪" 
         DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪,fssGroup￪,fssSubgroup￪,fssSubSubgroup￪" 
         DitaGDParams.paramsfood_descript.FoodBrand -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
@@ -149,15 +150,14 @@ workspace {
         DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
         DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup -> DitaGDParams.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.PhotoForQuantity "photo￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForFood -> DitaGDParams.paramsfood_descript.FoodFacet "mandatoryInSequenceOfFacets￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsquantif.Shape "photo￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
         DitaGDParams.paramsfood_list.ComposedRecipeIngredient -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
         DitaGDParams.paramssupplement.DietarySupplementDescriptor -> DitaGDParams.paramssupplement.DietarySupplementFacet "facet￪" 
         DitaGDParams.paramsnutrient.NutrientValue -> DitaGDParams.paramsnutrient.NutrientForFoodOrGroup "nutrientForFoodOrGroup￪" 
         DitaGDParams.paramsrecipe_list.Recipe -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
         DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Shape "photo￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
         DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood -> DitaGDParams.virtual.FCK "fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
@@ -165,6 +165,7 @@ workspace {
         DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
         DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪,fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
         DitaGDParams.paramsfood_coefficient.RawToCookedConversionFactorForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
         DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramssetting.GroupSubstitution -> DitaGDParams.paramsrecipe_list.RecipeSubgroup "applyToRecipeGroups￪￪,applyToRecipeGroups￪￪" 
         DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
@@ -175,11 +176,10 @@ workspace {
         DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
         DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
         DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.Shape "shape￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.PhotoForQuantity "photo￪" 
         DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
+        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
         DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "cookingMethodFacetDescriptor￪￪,cookingMethodFacetDescriptor￪￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsquantif.PhotoForQuantity "photo￪" 
         DitaGDParams.paramsfood_list.Food -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
         DitaGDParams.paramssupplement.DietarySupplement -> DitaGDParams.paramssupplement.DietarySupplementClassification "classification￪" 
@@ -189,7 +189,7 @@ workspace {
         DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
         DitaGDParams.paramsrecipe_list.RecipeSubgroup -> DitaGDParams.virtual.FCK "recipeGroup￪" 
         DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.PhotoForQuantity "photo￪" 
+        DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
     }
 
     views {
@@ -309,7 +309,7 @@ workspace {
             include DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup 
             include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe 
             include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup 
-            include DitaGDParams.paramsquantif.PhotoForQuantity 
+            include DitaGDParams.paramsquantif.Photo 
             include DitaGDParams.paramsquantif.Shape 
             include DitaGDParams.paramsrecipe_description.RecipeDescriptor 
             include DitaGDParams.paramsrecipe_description.RecipeFacet 
@@ -328,7 +328,7 @@ workspace {
             include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup 
             include DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup 
             include DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup 
-            include DitaGDParams.paramsquantif.PhotoForQuantity 
+            include DitaGDParams.paramsquantif.Photo 
             include DitaGDParams.paramsquantif.RecipeIngredientQuantification 
             include DitaGDParams.paramsquantif.Shape 
             include DitaGDParams.paramsquantif.StandardPortionForFood 

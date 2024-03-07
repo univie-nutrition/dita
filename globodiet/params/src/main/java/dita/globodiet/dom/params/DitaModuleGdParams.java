@@ -193,20 +193,20 @@ import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_foodGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_foodSubgroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_photoOrShape;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_delete;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_food;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_photoOrShape;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeDeps;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroupDeps;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_delete;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_photoOrShape;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_recipeGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_delete;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_photoOrShape;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_recipe;
 import dita.globodiet.dom.params.pathway.RecipeTypePathway;
 import dita.globodiet.dom.params.pathway.RecipeTypePathwayDeps;
@@ -227,9 +227,9 @@ import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_delete;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipe;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipeGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipeSubgroup;
-import dita.globodiet.dom.params.quantif.PhotoForQuantity;
-import dita.globodiet.dom.params.quantif.PhotoForQuantityDeps;
-import dita.globodiet.dom.params.quantif.PhotoForQuantity_delete;
+import dita.globodiet.dom.params.quantif.Photo;
+import dita.globodiet.dom.params.quantif.PhotoDeps;
+import dita.globodiet.dom.params.quantif.Photo_delete;
 import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification;
 import dita.globodiet.dom.params.quantif.RecipeIngredientQuantificationDeps;
 import dita.globodiet.dom.params.quantif.RecipeIngredientQuantification_delete;
@@ -424,7 +424,7 @@ import org.springframework.context.annotation.Import;
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
         PercentOfFatUseDuringCookingForFood.class,
-        PhotoForQuantity.class,
+        Photo.class,
         PlaceOfConsumption.class,
         ProbingQuestion.class,
         ProbingQuestionPathwayForFood.class,
@@ -497,7 +497,7 @@ import org.springframework.context.annotation.Import;
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodDeps.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeDeps.class,
         PercentOfFatUseDuringCookingForFoodDeps.class,
-        PhotoForQuantityDeps.class,
+        PhotoDeps.class,
         PlaceOfConsumptionDeps.class,
         ProbingQuestionDeps.class,
         ProbingQuestionPathwayForFoodDeps.class,
@@ -661,7 +661,7 @@ import org.springframework.context.annotation.Import;
         PercentOfFatUseDuringCookingForFood_foodGroup.class,
         PercentOfFatUseDuringCookingForFood_foodSubSubgroup.class,
         PercentOfFatUseDuringCookingForFood_foodSubgroup.class,
-        PhotoForQuantity_delete.class,
+        Photo_delete.class,
         PlaceOfConsumption_delete.class,
         ProbingQuestionPathwayForFood_delete.class,
         ProbingQuestionPathwayForFood_food.class,
@@ -679,16 +679,16 @@ import org.springframework.context.annotation.Import;
         QuantificationMethodPathwayForFoodGroup_foodGroup.class,
         QuantificationMethodPathwayForFoodGroup_foodSubSubgroup.class,
         QuantificationMethodPathwayForFoodGroup_foodSubgroup.class,
-        QuantificationMethodPathwayForFoodGroup_photo.class,
+        QuantificationMethodPathwayForFoodGroup_photoOrShape.class,
         QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor.class,
         QuantificationMethodPathwayForFood_delete.class,
         QuantificationMethodPathwayForFood_food.class,
-        QuantificationMethodPathwayForFood_photo.class,
+        QuantificationMethodPathwayForFood_photoOrShape.class,
         QuantificationMethodPathwayForRecipeGroup_delete.class,
-        QuantificationMethodPathwayForRecipeGroup_photo.class,
+        QuantificationMethodPathwayForRecipeGroup_photoOrShape.class,
         QuantificationMethodPathwayForRecipeGroup_recipeGroup.class,
         QuantificationMethodPathwayForRecipe_delete.class,
-        QuantificationMethodPathwayForRecipe_photo.class,
+        QuantificationMethodPathwayForRecipe_photoOrShape.class,
         QuantificationMethodPathwayForRecipe_recipe.class,
         RawToCookedConversionFactorForFood_delete.class,
         RawToCookedConversionFactorForFood_facetDescriptors.class,
@@ -783,7 +783,7 @@ public class DitaModuleGdParams {
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class,
         PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.class,
         PercentOfFatUseDuringCookingForFood.class,
-        PhotoForQuantity.class,
+        Photo.class,
         PlaceOfConsumption.class,
         ProbingQuestion.class,
         ProbingQuestionPathwayForFood.class,

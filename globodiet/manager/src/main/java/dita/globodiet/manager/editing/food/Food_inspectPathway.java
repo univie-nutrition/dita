@@ -27,6 +27,7 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
@@ -64,13 +65,18 @@ public class Food_inspectPathway {
     @MemberSupport
     public PathwayView act() {
         return new PathwayView(
+                "Pathway View for Food - " + mixee.title(),
                 AsciiDocUtils.yamlBlock("Facet/Descriptor Pathway", "YAML format", facetDescriptorPathwayAsYaml()),
                 AsciiDocUtils.yamlBlock("Quantification Pathway", "YAML format", quantificationPathwayAsYaml()));
     }
 
     public static record PathwayView(
+        String titleString,
         @PropertyLayout(labelPosition = LabelPosition.NONE) AsciiDoc facetDescriptorPathway,
         @PropertyLayout(labelPosition = LabelPosition.NONE) AsciiDoc quantificationPathway) {
+        @ObjectSupport String title() {
+            return titleString();
+        }
     }
 
     // -- HELPER

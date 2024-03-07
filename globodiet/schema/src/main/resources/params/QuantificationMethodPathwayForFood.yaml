@@ -57,7 +57,7 @@ params.pathway.QuantificationMethodPathwayForFood:
         'U' for stdu, 
         'S' for standard portion,
         'A' for shape
-    photoCode:
+    photoOrShapeCode:
       column: METH_CODE
       column-type: nvarchar(4)
       required: false
@@ -66,6 +66,7 @@ params.pathway.QuantificationMethodPathwayForFood:
         M_PHOTOS.PH_CODE
         M_SHAPES.SH_CODE
       description: |
-        Photo code (if method='P' and 'A'); 
-        either M_photos.ph_code or M_shapes.sh_code
+        if method='P' Photo code
+        if method='A' Shape code
+        else empty
 

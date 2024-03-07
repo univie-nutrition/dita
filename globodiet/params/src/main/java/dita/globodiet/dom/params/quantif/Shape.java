@@ -58,12 +58,14 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * Shape
+ * Shape for quantity
  */
 @Named("dita.globodiet.params.quantif.Shape")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Shape"
+        describedAs = "Shape for quantity",
+        cssClassFa = "solid circle-half-stroke,\n"
+                        + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "M_SHAPES"
@@ -74,7 +76,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Unique(
         name = "SEC_KEY_UNQ_Shape",
-        members = {"shapeCode"}
+        members = {"code"}
 )
 public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
     @Inject
@@ -102,7 +104,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
     )
     @Getter
     @Setter
-    private String shapeCode;
+    private String code;
 
     /**
      * Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
@@ -123,7 +125,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
     )
     @Getter
     @Setter
-    private double shapeSurfaceInCm2;
+    private double surfaceInCm2;
 
     /**
      * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
@@ -145,10 +147,10 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
     )
     @Getter
     @Setter
-    private String commentAttachedToTheShape;
+    private String comment;
 
     /**
-     * Order to display the standard unit
+     * Order to display this shape
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -157,7 +159,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Order to display the standard unit",
+            describedAs = "Order to display this shape",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -166,29 +168,29 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
     )
     @Getter
     @Setter
-    private int orderToDisplayTheStandardUnit;
+    private int displayOrder;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2);
     }
 
     @Override
     public String toString() {
-        return "Shape(" + "shapeCode=" + getShapeCode() + ","
-         +"shapeSurfaceInCm2=" + getShapeSurfaceInCm2() + ","
-         +"commentAttachedToTheShape=" + getCommentAttachedToTheShape() + ","
-         +"orderToDisplayTheStandardUnit=" + getOrderToDisplayTheStandardUnit() + ")";
+        return "Shape(" + "code=" + getCode() + ","
+         +"surfaceInCm2=" + getSurfaceInCm2() + ","
+         +"comment=" + getComment() + ","
+         +"displayOrder=" + getDisplayOrder() + ")";
     }
 
     @Programmatic
     @Override
     public Shape copy() {
         var copy = repositoryService.detachedEntity(new Shape());
-        copy.setShapeCode(getShapeCode());
-        copy.setShapeSurfaceInCm2(getShapeSurfaceInCm2());
-        copy.setCommentAttachedToTheShape(getCommentAttachedToTheShape());
-        copy.setOrderToDisplayTheStandardUnit(getOrderToDisplayTheStandardUnit());
+        copy.setCode(getCode());
+        copy.setSurfaceInCm2(getSurfaceInCm2());
+        copy.setComment(getComment());
+        copy.setDisplayOrder(getDisplayOrder());
         return copy;
     }
 
@@ -206,7 +208,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getShapeCode());
+        return new SecondaryKey(getCode());
     }
 
     /**
@@ -214,7 +216,9 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
      */
     @Named("dita.globodiet.params.quantif.Shape.Manager")
     @DomainObjectLayout(
-            describedAs = "Shape"
+            describedAs = "Shape for quantity",
+            cssClassFa = "solid circle-half-stroke,\n"
+                            + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -249,10 +253,10 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
 
     /**
      * Parameter model for @{link Shape}
-     * @param shapeCode Shape code (e.g. S001,S002,S003,...)
-     * @param shapeSurfaceInCm2 Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
-     * @param commentAttachedToTheShape Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
-     * @param orderToDisplayTheStandardUnit Order to display the standard unit
+     * @param code Shape code (e.g. S001,S002,S003,...)
+     * @param surfaceInCm2 Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
+     * @param comment Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
+     * @param displayOrder Order to display this shape
      */
     public final record Params(
             @Parameter(
@@ -262,7 +266,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
             @ParameterLayout(
                     describedAs = "Shape code (e.g. S001,S002,S003,...)"
             )
-            String shapeCode,
+            String code,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
@@ -270,7 +274,7 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
             @ParameterLayout(
                     describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
             )
-            double shapeSurfaceInCm2,
+            double surfaceInCm2,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
@@ -278,22 +282,22 @@ public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
             @ParameterLayout(
                     describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
             )
-            String commentAttachedToTheShape,
+            String comment,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Order to display the standard unit"
+                    describedAs = "Order to display this shape"
             )
-            int orderToDisplayTheStandardUnit) {
+            int displayOrder) {
     }
 
     /**
      * SecondaryKey for @{link Shape}
-     * @param shapeCode Shape code (e.g. S001,S002,S003,...)
+     * @param code Shape code (e.g. S001,S002,S003,...)
      */
-    public final record SecondaryKey(String shapeCode) implements ISecondaryKey<Shape> {
+    public final record SecondaryKey(String code) implements ISecondaryKey<Shape> {
         @Override
         public Class<Shape> correspondingClass() {
             return Shape.class;

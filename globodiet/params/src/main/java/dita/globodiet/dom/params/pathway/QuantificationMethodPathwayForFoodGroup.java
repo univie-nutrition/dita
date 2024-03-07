@@ -238,8 +238,9 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     private QuantificationMethod quantificationMethod;
 
     /**
-     * Photo code (if method='P' and 'A');
-     * either M_photos.ph_code or M_shapes.sh_code
+     * if method='P' Photo code
+     * if method='A' Shape code
+     * else empty
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -247,8 +248,9 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "7",
-            describedAs = "Photo code (if method='P' and 'A');\n"
-                            + "either M_photos.ph_code or M_shapes.sh_code",
+            describedAs = "if method='P' Photo code\n"
+                            + "if method='A' Shape code\n"
+                            + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -258,7 +260,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     )
     @Getter
     @Setter
-    private String photoCode;
+    private String photoOrShapeCode;
 
     /**
      * Comment
@@ -295,7 +297,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
          +"physicalStateFacetDescriptorLookupKey=" + getPhysicalStateFacetDescriptorLookupKey() + ","
          +"rawOrCookedAsConsumed=" + getRawOrCookedAsConsumed() + ","
          +"quantificationMethod=" + getQuantificationMethod() + ","
-         +"photoCode=" + getPhotoCode() + ","
+         +"photoOrShapeCode=" + getPhotoOrShapeCode() + ","
          +"comment=" + getComment() + ")";
     }
 
@@ -309,7 +311,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
         copy.setPhysicalStateFacetDescriptorLookupKey(getPhysicalStateFacetDescriptorLookupKey());
         copy.setRawOrCookedAsConsumed(getRawOrCookedAsConsumed());
         copy.setQuantificationMethod(getQuantificationMethod());
-        copy.setPhotoCode(getPhotoCode());
+        copy.setPhotoOrShapeCode(getPhotoOrShapeCode());
         copy.setComment(getComment());
         return copy;
     }

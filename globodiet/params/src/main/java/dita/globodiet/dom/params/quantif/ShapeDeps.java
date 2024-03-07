@@ -22,12 +22,12 @@ package dita.globodiet.dom.params.quantif;
 import dita.commons.services.lookup.DependantLookupService;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_photo;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_photoOrShape;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood_photoOrShape;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_photo;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_photo;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup_photoOrShape;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe_photoOrShape;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -40,16 +40,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ShapeDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(Shape_dependentQuantificationMethodPathwayForFoodMappedByPhoto.class,
-        Shape_dependentQuantificationMethodPathwayForFoodGroupMappedByPhoto.class,
-        Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhoto.class,
-        Shape_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhoto.class,
+        return Can.of(Shape_dependentQuantificationMethodPathwayForFoodMappedByPhotoOrShape.class,
+        Shape_dependentQuantificationMethodPathwayForFoodGroupMappedByPhotoOrShape.class,
+        Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhotoOrShape.class,
+        Shape_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhotoOrShape.class,
         Shape_dependentRecipeIngredientQuantificationMappedByShape.class);
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class Shape_dependentQuantificationMethodPathwayForFoodMappedByPhoto {
+    public static class Shape_dependentQuantificationMethodPathwayForFoodMappedByPhotoOrShape {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -59,15 +59,15 @@ public class ShapeDeps {
         public List<QuantificationMethodPathwayForFood> coll() {
             return dependantLookup.findDependants(
                 QuantificationMethodPathwayForFood.class,
-                QuantificationMethodPathwayForFood_photo.class,
-                QuantificationMethodPathwayForFood_photo::prop,
+                QuantificationMethodPathwayForFood_photoOrShape.class,
+                QuantificationMethodPathwayForFood_photoOrShape::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class Shape_dependentQuantificationMethodPathwayForFoodGroupMappedByPhoto {
+    public static class Shape_dependentQuantificationMethodPathwayForFoodGroupMappedByPhotoOrShape {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -77,15 +77,15 @@ public class ShapeDeps {
         public List<QuantificationMethodPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
                 QuantificationMethodPathwayForFoodGroup.class,
-                QuantificationMethodPathwayForFoodGroup_photo.class,
-                QuantificationMethodPathwayForFoodGroup_photo::prop,
+                QuantificationMethodPathwayForFoodGroup_photoOrShape.class,
+                QuantificationMethodPathwayForFoodGroup_photoOrShape::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhoto {
+    public static class Shape_dependentQuantificationMethodPathwayForRecipeMappedByPhotoOrShape {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -95,15 +95,15 @@ public class ShapeDeps {
         public List<QuantificationMethodPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
                 QuantificationMethodPathwayForRecipe.class,
-                QuantificationMethodPathwayForRecipe_photo.class,
-                QuantificationMethodPathwayForRecipe_photo::prop,
+                QuantificationMethodPathwayForRecipe_photoOrShape.class,
+                QuantificationMethodPathwayForRecipe_photoOrShape::prop,
                 mixee);
         }
     }
 
     @Collection
     @RequiredArgsConstructor
-    public static class Shape_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhoto {
+    public static class Shape_dependentQuantificationMethodPathwayForRecipeGroupMappedByPhotoOrShape {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -113,8 +113,8 @@ public class ShapeDeps {
         public List<QuantificationMethodPathwayForRecipeGroup> coll() {
             return dependantLookup.findDependants(
                 QuantificationMethodPathwayForRecipeGroup.class,
-                QuantificationMethodPathwayForRecipeGroup_photo.class,
-                QuantificationMethodPathwayForRecipeGroup_photo::prop,
+                QuantificationMethodPathwayForRecipeGroup_photoOrShape.class,
+                QuantificationMethodPathwayForRecipeGroup_photoOrShape::prop,
                 mixee);
         }
     }

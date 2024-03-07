@@ -17,12 +17,12 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.PhotoForQuantity:
+params.quantif.Photo:
   namespace: params.quantif
   table: M_PHOTOS
   secondaryKey: |
     PH_CODE
-  title: String.format("%s (unit=%s)", code, unit)
+  title: String.format("Photo (code=%s,unit=%s)", code, unit)
   icon: |
     solid image,
     solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85

@@ -22,37 +22,39 @@ params.quantif.Shape:
   table: M_SHAPES
   secondaryKey: |
     SH_CODE
-  title: null
-  icon: null
+  title: String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2)
+  icon: |
+    solid circle-half-stroke,
+    solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85
   description: |
-    Shape
+    Shape for quantity
   fields:
-    shapeCode:
+    code:
       column: SH_CODE
       column-type: nvarchar(5)
       required: true
       unique: true
       description: |
         Shape code (e.g. S001,S002,S003,...)
-    shapeSurfaceInCm2:
+    surfaceInCm2:
       column: SH_SURFACE
       column-type: float(53)
       required: true
       unique: false
       description: |
         Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
-    commentAttachedToTheShape:
+    comment:
       column: SH_COMMENT
       column-type: nvarchar(100)
       required: true
       unique: false
       description: |
         Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
-    orderToDisplayTheStandardUnit:
+    displayOrder:
       column: SH_ORDER
       column-type: tinyint(3)
       required: true
       unique: true
       description: |
-        Order to display the standard unit
+        Order to display this shape
 
