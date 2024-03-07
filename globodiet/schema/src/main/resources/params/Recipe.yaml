@@ -62,7 +62,7 @@ params.recipe_list.Recipe:
       foreignKeys: |
         RGROUPS.GROUP
       description: |
-        Group code of the recipe classification
+        Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)
     recipeSubgroupCode:
       column: R_SUBGROUP
       column-type: nvarchar(2)

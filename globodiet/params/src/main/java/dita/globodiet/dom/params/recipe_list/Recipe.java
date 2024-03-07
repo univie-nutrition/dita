@@ -138,7 +138,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     private String code;
 
     /**
-     * Group code of the recipe classification
+     * Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -146,7 +146,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "2",
-            describedAs = "Group code of the recipe classification",
+            describedAs = "Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -613,7 +613,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     /**
      * Parameter model for @{link Recipe}
      * @param code Recipe ID number
-     * @param recipeGroup Group code of the recipe classification
+     * @param recipeGroup Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)
      * @param recipeSubgroup Subgroup code of the recipe classification
      * @param name Recipe name
      * @param recipeType Type of recipe:
@@ -648,7 +648,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Group code of the recipe classification"
+                    describedAs = "Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)"
             )
             RecipeGroup recipeGroup,
             @Parameter(
