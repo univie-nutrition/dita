@@ -31,27 +31,27 @@ import lombok.RequiredArgsConstructor;
 
 import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.manager.services.food.FoodFacetHelperService;
+import dita.globodiet.manager.services.food.FoodQuantificationHelperService;
 
 @Property(
         snapshot = Snapshot.EXCLUDED
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "90.0",
+        sequence = "91.0",
         describedAs = "Indicates the FoodGroup or FoodSub(Sub)group, "
-                + "that is used to calculate the 'Effective Food Descriptors' list.",
+                + "that is used to calculate the 'Effective Quantification' list.",
         hidden = Where.ALL_TABLES
 )
 @RequiredArgsConstructor
-public class Food_effectiveGroupingUsedForFacetDescriptorPathway {
+public class Food_effectiveGroupingUsedForQuantificationPathway {
 
-    @Inject private FoodFacetHelperService foodFacetHelperService;
+    @Inject private FoodQuantificationHelperService foodQuantificationHelperService;
 
     private final Food mixee;
 
     @MemberSupport
     public FoodGrouping prop() {
-        return foodFacetHelperService.effectiveGroupingUsedForFacetDescriptorPathway(mixee);
+        return foodQuantificationHelperService.effectiveGroupingUsedForQuantificationPathway(mixee);
     }
 }

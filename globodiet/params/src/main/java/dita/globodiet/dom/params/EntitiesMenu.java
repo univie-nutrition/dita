@@ -418,7 +418,10 @@ public class EntitiesMenu {
     }
 
     @Action
-    @ActionLayout
+    @ActionLayout(
+            cssClassFa = "solid image,\n"
+                            + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+    )
     public PhotoForQuantity.Manager managePhotoForQuantity() {
         return factoryService.viewModel(new PhotoForQuantity.Manager(searchService, ""));
     }

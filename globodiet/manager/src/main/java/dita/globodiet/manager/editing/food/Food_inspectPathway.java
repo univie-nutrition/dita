@@ -29,7 +29,6 @@ import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.RequiredArgsConstructor;
@@ -37,8 +36,11 @@ import lombok.RequiredArgsConstructor;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
+import dita.globodiet.dom.params.food_list.FoodGroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 import dita.globodiet.manager.util.AsciiDocUtils;
+import dita.globodiet.manager.util.GroupingUtils;
 
 /**
  * @see Recipe_addStandardUnit
@@ -55,7 +57,6 @@ import dita.globodiet.manager.util.AsciiDocUtils;
 public class Food_inspectPathway {
 
     @Inject private FactoryService factoryService;
-    @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
     protected final Food mixee;
@@ -76,11 +77,20 @@ public class Food_inspectPathway {
 
     private String facetDescriptorPathwayAsYaml() {
         var yaml = new StringBuilder();
-        yaml.append("Food: " + mixee.title()).append("\n");
+        yaml.append("food: " + mixee.title()).append("\n");
 
-        var facetsSeenBefore = new HashSet<String>();
+        var effectiveGrouping = factoryService.mixin(Food_effectiveGroupingUsedForFacetDescriptorPathway.class, mixee).prop();
+        if(effectiveGrouping==null) {
+            yaml.append("effectiveGrouping: not found").append("\n");
+            return yaml.toString();
+        }
+        yaml.append("effectiveGrouping: ")
+            .append(GroupingUtils.foodClassification(effectiveGrouping)
+                    .fold(FoodGroup::title, FoodSubgroup::title))
+            .append("\n");
 
         var effectiveFoodDescriptors = factoryService.mixin(Food_effectiveFoodDescriptors.class, mixee).coll();
+        var facetsSeenBefore = new HashSet<String>();
         effectiveFoodDescriptors.forEach(fd->{
             if(facetsSeenBefore.add(fd.getFacetCode())) {
                 var facet = foreignKeyLookupService.unique(new FoodFacet.SecondaryKey(fd.getFacetCode()));
@@ -95,7 +105,17 @@ public class Food_inspectPathway {
         var yaml = new StringBuilder();
         yaml.append("Food: " + mixee.title()).append("\n");
 
-        yaml.append(" -qm: ").append("TODO").append("\n");
+        var effectiveGrouping = factoryService.mixin(Food_effectiveGroupingUsedForQuantificationPathway.class, mixee).prop();
+        if(effectiveGrouping==null) {
+            yaml.append("effectiveGrouping: not found").append("\n");
+            return yaml.toString();
+        }
+        yaml.append("effectiveGrouping: ")
+        .append(GroupingUtils.foodClassification(effectiveGrouping)
+                .fold(FoodGroup::title, FoodSubgroup::title))
+        .append("\n");
+
+
 
         return yaml.toString();
     }

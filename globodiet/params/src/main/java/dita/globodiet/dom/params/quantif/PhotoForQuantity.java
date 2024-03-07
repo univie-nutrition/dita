@@ -64,7 +64,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.quantif.PhotoForQuantity")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Photo and its quantities"
+        describedAs = "Photo and its quantities",
+        cssClassFa = "solid image,\n"
+                        + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "M_PHOTOS"
@@ -106,7 +108,7 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     private String code;
 
     /**
-     * Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
+     * List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -115,7 +117,7 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)",
+            describedAs = "List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -125,7 +127,7 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     )
     @Getter
     @Setter
-    private String quantificationStringThatDefinesTheQuantitiesOfEachPhotos;
+    private String quantificationList;
 
     /**
      * 1 = raw,
@@ -196,7 +198,8 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     private WithUnediblePartQ withUnediblePartQ;
 
     /**
-     * G = in grams, V = in ml (volume)
+     * G = in Unit grams (mass)
+     * V = in Unit milliliter (volume)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -205,7 +208,8 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "G = in grams, V = in ml (volume)",
+            describedAs = "G = in Unit grams (mass)\n"
+                            + "V = in Unit milliliter (volume)",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -215,17 +219,27 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     )
     @Getter
     @Setter
-    private String unit;
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-check-constraint",
+            value = "true"
+    )
+    @Extension(
+            vendorName = "datanucleus",
+            key = "enum-value-getter",
+            value = "getMatchOn"
+    )
+    private Unit unit;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (unit=%s)", code, unit);
     }
 
     @Override
     public String toString() {
         return "PhotoForQuantity(" + "code=" + getCode() + ","
-         +"quantificationStringThatDefinesTheQuantitiesOfEachPhotos=" + getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos() + ","
+         +"quantificationList=" + getQuantificationList() + ","
          +"rawOrCooked=" + getRawOrCooked() + ","
          +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
          +"unit=" + getUnit() + ")";
@@ -236,7 +250,7 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     public PhotoForQuantity copy() {
         var copy = repositoryService.detachedEntity(new PhotoForQuantity());
         copy.setCode(getCode());
-        copy.setQuantificationStringThatDefinesTheQuantitiesOfEachPhotos(getQuantificationStringThatDefinesTheQuantitiesOfEachPhotos());
+        copy.setQuantificationList(getQuantificationList());
         copy.setRawOrCooked(getRawOrCooked());
         copy.setWithUnediblePartQ(getWithUnediblePartQ());
         copy.setUnit(getUnit());
@@ -304,12 +318,36 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
         private final String title;
     }
 
+    @RequiredArgsConstructor
+    public enum Unit {
+        /**
+         * in unit grams (mass)
+         */
+        GRAMS("G", "Grams"),
+
+        /**
+         * in unit milliliter (volume)
+         */
+        MILLILITER("V", "Milliliter");
+
+        @Getter
+        private final String matchOn;
+
+        @Getter
+        @Accessors(
+                fluent = true
+        )
+        private final String title;
+    }
+
     /**
      * Manager Viewmodel for @{link PhotoForQuantity}
      */
     @Named("dita.globodiet.params.quantif.PhotoForQuantity.Manager")
     @DomainObjectLayout(
-            describedAs = "Photo and its quantities"
+            describedAs = "Photo and its quantities",
+            cssClassFa = "solid image,\n"
+                            + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -345,12 +383,13 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
     /**
      * Parameter model for @{link PhotoForQuantity}
      * @param code Photo series code (P001,P002,P003,...)
-     * @param quantificationStringThatDefinesTheQuantitiesOfEachPhotos Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
+     * @param quantificationList List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
      * @param rawOrCooked 1 = raw,
      * 2 = cooked (as estimated)
      * @param withUnediblePartQ 1 = without un-edible part,
      * 2 = with un-edible (as estimated)
-     * @param unit G = in grams, V = in ml (volume)
+     * @param unit G = in Unit grams (mass)
+     * V = in Unit milliliter (volume)
      */
     public final record Params(
             @Parameter(
@@ -366,9 +405,9 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
+                    describedAs = "List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
             )
-            String quantificationStringThatDefinesTheQuantitiesOfEachPhotos,
+            String quantificationList,
             @Parameter(
                     dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
@@ -392,9 +431,10 @@ public class PhotoForQuantity implements Cloneable<PhotoForQuantity>, HasSeconda
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "G = in grams, V = in ml (volume)"
+                    describedAs = "G = in Unit grams (mass)\n"
+                                    + "V = in Unit milliliter (volume)"
             )
-            String unit) {
+            Unit unit) {
     }
 
     /**

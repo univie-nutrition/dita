@@ -46,6 +46,7 @@ import dita.globodiet.manager.services.food.FoodFacetHelperService;
 @Collection
 @CollectionLayout(
         hidden = Where.ALL_TABLES,
+        sequence = "0.1",
         describedAs = "Food Descriptors in effect associated with this individual food.\n\n"
                 + "With FacetDescriptorPathwayForFoodGroup (table GROUPFAC) a set of facet/descriptors is defined "
                 + "for a specific food classification.\n\n"
@@ -73,18 +74,17 @@ public class Food_effectiveFoodDescriptors {
 
         // filter by individual food's subset of facets (if any)
         var facetDescriptorPathwayForFood = foodFacetHelperService.listFacetDescriptorPathwayForFood(mixee);
-        if(!facetDescriptorPathwayForFood.isEmpty()) {
-            final Set<String> facetCodeSubset = facetDescriptorPathwayForFood.stream()
-                .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
-                .collect(Collectors.toSet());
-            return foodDescriptorsAsDefinedByFoodClassification.stream()
-                    .filter(foodDescriptor->facetCodeSubset.contains(foodDescriptor.getFacetCode()))
-                    //TODO facetDescriptorPathwayForFood have their own ordering
-                    //is this inferred from or an override of the group level?
-                    .toList();
+        if(facetDescriptorPathwayForFood.isEmpty()) {
+            return foodDescriptorsAsDefinedByFoodClassification;
         }
-
-        return foodDescriptorsAsDefinedByFoodClassification;
+        final Set<String> facetCodeSubset = facetDescriptorPathwayForFood.stream()
+            .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
+            .collect(Collectors.toSet());
+        return foodDescriptorsAsDefinedByFoodClassification.stream()
+                .filter(foodDescriptor->facetCodeSubset.contains(foodDescriptor.getFacetCode()))
+                //TODO facetDescriptorPathwayForFood have their own ordering
+                //is this inferred from or an override of the group level?
+                .toList();
     }
 
     // -- HELPER

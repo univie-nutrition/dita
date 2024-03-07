@@ -18,17 +18,25 @@
  */
 package dita.globodiet.manager.util;
 
+import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
+import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 
 @UtilityClass
 public class GroupingUtils {
+
+    public Either<FoodGroup, FoodSubgroup> foodClassification(final @NonNull FoodGrouping foodGrouping) {
+        return foodGrouping instanceof FoodSubgroup
+                ? Either.right((FoodSubgroup)foodGrouping)
+                : Either.left((FoodGroup)foodGrouping);
+    }
 
     public FoodGroup.SecondaryKey foodGroupKeyForFood(final @NonNull Food food) {
         return new FoodGroup.SecondaryKey(food.getFoodGroupCode());

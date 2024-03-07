@@ -40,6 +40,13 @@ public class GroupingHelperService {
 
     // -- FOOD
 
+    public Either<FoodGroup, FoodSubgroup> foodClassification(final @NonNull Food food) {
+        var sub = foodSubgroup(food);
+        return sub!=null
+                ? Either.right(sub)
+                : Either.left(foodGroup(food));
+    }
+
     public FoodGroup foodGroup(final @NonNull Food food) {
         return foreignKeyLookupService.unique(GroupingUtils.foodGroupKeyForFood(food));
     }
@@ -63,13 +70,6 @@ public class GroupingHelperService {
                     GroupingUtils.maskSubSubgroup(foodSubgroupOrSubSubgroup.secondaryKey()));
         }
         return foodSubgroupOrSubSubgroup;
-    }
-
-    public Either<FoodGroup, FoodSubgroup> foodClassification(final @NonNull Food food) {
-        var sub = foodSubgroup(food);
-        return sub!=null
-                ? Either.right(sub)
-                : Either.left(foodGroup(food));
     }
 
     // -- RECIPE

@@ -22,8 +22,10 @@ params.quantif.PhotoForQuantity:
   table: M_PHOTOS
   secondaryKey: |
     PH_CODE
-  title: null
-  icon: null
+  title: String.format("%s (unit=%s)", code, unit)
+  icon: |
+    solid image,
+    solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85
   description: |
     Photo and its quantities
   fields:
@@ -34,13 +36,13 @@ params.quantif.PhotoForQuantity:
       unique: true
       description: |
         Photo series code (P001,P002,P003,...)
-    quantificationStringThatDefinesTheQuantitiesOfEachPhotos:
+    quantificationList:
       column: PH_QSTR
       column-type: nvarchar(2147483647)
       required: true
       unique: false
       description: |
-        Quantification string that defines the quantities of each photos (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
+        List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
     rawOrCooked:
       column: RAW_COOKED
       column-type: nvarchar(1)
@@ -68,6 +70,10 @@ params.quantif.PhotoForQuantity:
       column-type: nvarchar(1)
       required: true
       unique: false
+      enum: |
+        G:Grams:in unit grams (mass)
+        V:Milliliter:in unit milliliter (volume)
       description: |
-        G = in grams, V = in ml (volume)
+        G = in Unit grams (mass)
+        V = in Unit milliliter (volume)
 
