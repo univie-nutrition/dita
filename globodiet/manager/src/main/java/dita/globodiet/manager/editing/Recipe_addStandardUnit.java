@@ -69,7 +69,7 @@ public class Recipe_addStandardUnit {
         var entity = repositoryService.detachedEntity(new StandardUnitForFoodOrRecipe());
 
         entity.setCode(code);
-        entity.setType(StandardUnitForFoodOrRecipe.Type.FOOD);
+        entity.setType(StandardUnitForFoodOrRecipe.Type.RECIPE);
         entity.setFoodOrRecipeCode(mixee.getCode());
         entity.setRawOrCooked(rawOrCooked);
         entity.setWithUnediblePartQ(withUnediblePartQ);
