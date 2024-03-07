@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.editing;
+package dita.globodiet.manager.editing.recipe;
 
 import java.util.List;
 

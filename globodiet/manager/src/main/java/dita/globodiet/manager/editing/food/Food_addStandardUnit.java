@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.editing;
+package dita.globodiet.manager.editing.food;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -37,6 +37,7 @@ import dita.commons.format.FormatUtils;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
+import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 
 /**
  * @see Recipe_addStandardUnit
