@@ -57,6 +57,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.annotation.Snapshot;
+import org.apache.causeway.applib.annotation.TableDecorator;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -278,7 +279,8 @@ class _Annotations {
     @Builder
     static record CollectionLayoutSpec(
             String describedAs,
-            Where hiddenWhere) {
+            Where hiddenWhere,
+            Class<? extends TableDecorator> tableDecorator) {
     }
     AnnotationSpec collectionLayout(final UnaryOperator<CollectionLayoutSpec.CollectionLayoutSpecBuilder> attrProvider) {
         val builder = AnnotationSpec.builder(CollectionLayout.class);
@@ -287,6 +289,8 @@ class _Annotations {
             .ifPresent(describedAs->builder.addMember("describedAs", "$1S", describedAs));
         Optional.ofNullable(attr.hiddenWhere())
             .ifPresent(hiddenWhere->builder.addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name()));
+        Optional.ofNullable(attr.tableDecorator())
+            .ifPresent(tableDecorator->builder.addMember("tableDecorator", "$1T", tableDecorator));
         return builder.build();
     }
 

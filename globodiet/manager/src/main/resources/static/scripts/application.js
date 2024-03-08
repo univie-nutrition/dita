@@ -11,4 +11,3 @@ function highlight_dependants() {
 $(document).ready(
 	highlight_dependants
 );
-

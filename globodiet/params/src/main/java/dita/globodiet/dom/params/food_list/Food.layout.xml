@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><bs:grid xmlns:bs="https://causeway.apache.org/applib/layout/grid/bootstrap3" xmlns:lnk="https://causeway.apache.org/applib/layout/links" xmlns:cpt="https://causeway.apache.org/applib/layout/component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://causeway.apache.org/applib/layout/component https://causeway.apache.org/applib/layout/component/component.xsd https://causeway.apache.org/applib/layout/links https://causeway.apache.org/applib/layout/links/links.xsd https://causeway.apache.org/applib/layout/grid/bootstrap3 https://causeway.apache.org/applib/layout/grid/bootstrap3/bootstrap3.xsd">
+    <bs:row>
+        <bs:col span="12" unreferencedActions="true">
+            <cpt:domainObject/>
+        </bs:col>
+    </bs:row>
+    <bs:row>
+        <bs:col span="4">
+            <bs:row>
+                <bs:col span="12">
+                    <bs:tabGroup>
+                        <bs:tab name="Identity">
+                            <bs:row>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="" id="identity"/>
+                                </bs:col>
+                            </bs:row>
+                        </bs:tab>
+                        <bs:tab name="Foreign">
+                            <bs:row>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="" id="foreign"/>
+                                </bs:col>
+                            </bs:row>
+                        </bs:tab>
+                        <bs:tab name="Other">
+                            <bs:row>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="" id="other" unreferencedProperties="true"/>
+                                </bs:col>
+                            </bs:row>
+                        </bs:tab>
+                        <bs:tab name="Metadata">
+                            <bs:row>
+                                <bs:col span="12">
+                                    <cpt:fieldSet name="" id="metadata"/>
+                                </bs:col>
+                            </bs:row>
+                        </bs:tab>
+                    </bs:tabGroup>
+                </bs:col>
+            </bs:row>
+            <bs:row>
+                <bs:col span="12">
+                    <cpt:fieldSet name="Details" id="details"/>
+                </bs:col>
+            </bs:row>
+        </bs:col>
+        <bs:col span="8">
+            <bs:tabGroup>
+                <bs:tab name="Facet/Descriptor Pathway">
+                    <bs:row>
+                        <bs:col span="12">
+                            <cpt:collection id="effectiveFoodDescriptors"></cpt:collection>
+                            <cpt:collection id="dependentFacetDescriptorPathwayForFoodMappedByFood"></cpt:collection>
+                        </bs:col>
+                    </bs:row>
+                </bs:tab>
+                <bs:tab name="Quantification Method Pathway">
+                    <bs:row>
+                        <bs:col span="12">
+                            <cpt:collection id="effectiveQuantificationMethodPathways"></cpt:collection>
+                            <cpt:collection id="dependentQuantificationMethodPathwayForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentStandardPortionForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe"></cpt:collection>
+                            <cpt:collection id="dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe"></cpt:collection>
+                        </bs:col>
+                    </bs:row>
+                </bs:tab>
+                <bs:tab name="Probing Question Pathway">
+                    <bs:row>
+                        <bs:col span="12">
+                            <cpt:collection id="dependentProbingQuestionPathwayForFoodMappedByFood"></cpt:collection>
+                        </bs:col>
+                    </bs:row>
+                </bs:tab>
+                <bs:tab name="Other">
+                    <bs:row>
+                        <bs:col span="12" unreferencedCollections="true">
+                            <cpt:collection id="dependentDensityFactorForFoodOrRecipeMappedByFoodOrRecipe"></cpt:collection>
+                            <cpt:collection id="dependentEdiblePartCoefficientForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFss"></cpt:collection>
+                            <cpt:collection id="dependentPercentOfFatUseDuringCookingForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentPercentOfFatUseDuringCookingForFoodMappedByFat"></cpt:collection>
+                            <cpt:collection id="dependentRawToCookedConversionFactorForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentImprobableSequenceOfFacetAndDescriptorMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentComposedRecipeIngredientMappedByFoodOrRecipe"></cpt:collection>
+                            <cpt:collection id="dependentNutrientForFoodOrGroupMappedByFoodOrRecipe"></cpt:collection>
+                            <cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFss"></cpt:collection>
+                            <cpt:collection id="dependentRecipeIngredientMappedByFoodOrRecipe"></cpt:collection>
+                        </bs:col>               
+                    </bs:row>
+                </bs:tab>
+            </bs:tabGroup>
+        </bs:col>
+    </bs:row>
+</bs:grid>

@@ -29,13 +29,15 @@ import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.commons.collections.Can;
 
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import lombok.experimental.UtilityClass;
+
+import dita.commons.decorate.CollectionTitleDecorator;
 import dita.commons.services.lookup.DependantLookupService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
 class _GenDependants {
@@ -63,6 +65,7 @@ class _GenDependants {
             val innerMixin = TypeSpec.classBuilder(mixinSpec.mixinClassName())
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addAnnotation(_Annotations.collection(attr->attr))
+                .addAnnotation(_Annotations.collectionLayout(attr->attr.tableDecorator(CollectionTitleDecorator.class)))
                 .addAnnotation(RequiredArgsConstructor.class)
                 .addField(_Fields.inject(DependantLookupService.class, "dependantLookup"))
                 .addField(_Fields.mixee(ClassName.get(packageName, localEntity.name()), Modifier.FINAL, Modifier.PRIVATE))
