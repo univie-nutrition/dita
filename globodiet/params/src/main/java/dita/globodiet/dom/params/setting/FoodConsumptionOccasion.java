@@ -42,7 +42,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.Collection;
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
@@ -51,6 +50,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -320,7 +320,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -328,7 +328,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             )
             String code,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -336,7 +336,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             )
             String textDisplayedOnScreen,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -344,7 +344,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             )
             String mode,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -352,7 +352,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             )
             String shortLabelToIdentifyEasily,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(

@@ -58,7 +58,7 @@
                 </bs:tab>
                 <bs:tab name="Quantification Method Pathway">
                     <bs:row>
-                        <bs:col span="12">
+                        <bs:col span="12" id="123">
                             <cpt:collection id="effectiveQuantificationMethodPathways"></cpt:collection>
                             <cpt:collection id="dependentQuantificationMethodPathwayForFoodMappedByFood"></cpt:collection>
                             <cpt:collection id="dependentStandardPortionForFoodMappedByFood"></cpt:collection>

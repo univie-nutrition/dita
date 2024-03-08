@@ -27,10 +27,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
@@ -40,11 +40,12 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.list;
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.listItem;
 
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+
 import dita.commons.services.rules.RuleChecker;
 import dita.commons.services.rules.RuleChecker.RuleViolation;
 import dita.globodiet.dom.params.DitaModuleGdParams;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 @Action
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
@@ -68,7 +69,7 @@ public class Dashboard_ruleChecker {
             final Can<String> checkers,
 
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES)
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
             @ParameterLayout(
                     describedAs = """
                             The report can be grouped by

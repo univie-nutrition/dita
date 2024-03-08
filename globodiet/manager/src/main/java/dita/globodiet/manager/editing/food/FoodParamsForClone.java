@@ -18,10 +18,10 @@
  */
 package dita.globodiet.manager.editing.food;
 
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 
 import dita.globodiet.dom.params.food_list.Food.DietarySupplementQ;
 import dita.globodiet.dom.params.food_list.Food.GroupOrdinal;
@@ -37,7 +37,7 @@ import dita.globodiet.dom.params.food_list.FoodSubgroup;
  */
 public record FoodParamsForClone(
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY
         )
         @ParameterLayout(
@@ -45,7 +45,7 @@ public record FoodParamsForClone(
         )
         String code,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.OPTIONAL
         )
         @ParameterLayout(
@@ -53,7 +53,7 @@ public record FoodParamsForClone(
         )
         FoodGroup foodGroup,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                 optionality = Optionality.OPTIONAL
         )
         @ParameterLayout(
@@ -61,7 +61,7 @@ public record FoodParamsForClone(
         )
         FoodSubgroup foodSubgroup,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                 optionality = Optionality.OPTIONAL
         )
         @ParameterLayout(
@@ -69,7 +69,7 @@ public record FoodParamsForClone(
         )
         FoodSubgroup foodSubSubgroup,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY
         )
         @ParameterLayout(
@@ -77,7 +77,7 @@ public record FoodParamsForClone(
         )
         String foodNativeName,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY
         )
         @ParameterLayout(
@@ -100,7 +100,7 @@ public record FoodParamsForClone(
         )
         TypeOfItem typeOfItem,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY
         )
         @ParameterLayout(
@@ -109,7 +109,7 @@ public record FoodParamsForClone(
         )
         GroupOrdinal groupOrdinal,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY
         )
         @ParameterLayout(
@@ -121,31 +121,31 @@ public record FoodParamsForClone(
         // -- ADDITIONAL PARAMETERS
 
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
         @ParameterLayout(
                 describedAs = "Nutrient value for energy in kcal.")
         double energy,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
         @ParameterLayout(
                 describedAs = "Nutrient value for fat in g.")
         double fat,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
         @ParameterLayout(
                 describedAs = "Nutrient value for carbohydrates in g.")
         double carbohydrate,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
         @ParameterLayout(
                 describedAs = "Nutrient value for protein in g.")
         double protein,
         @Parameter(
-                dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                 optionality = Optionality.MANDATORY)
         @ParameterLayout(
                 describedAs = "Nutrient value for alcohol in g.")

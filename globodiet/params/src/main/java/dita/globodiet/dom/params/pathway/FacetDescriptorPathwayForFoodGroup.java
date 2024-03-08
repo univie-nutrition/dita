@@ -45,7 +45,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.Collection;
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
@@ -54,6 +53,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -395,7 +395,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -403,7 +403,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             FoodGroup foodGroup,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -411,7 +411,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             FoodSubgroup foodSubgroup,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -419,7 +419,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             FoodSubgroup foodSubSubgroup,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -427,7 +427,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             FoodFacet facet,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -435,7 +435,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             FoodDescriptor descriptor,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -443,7 +443,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             String defaultFlag,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -451,7 +451,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             String notInNameFlag,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -459,7 +459,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             )
             int facetDisplayOrder,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(

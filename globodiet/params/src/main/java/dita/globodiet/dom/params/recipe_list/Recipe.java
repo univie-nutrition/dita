@@ -41,7 +41,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.Collection;
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
@@ -50,6 +49,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -636,7 +636,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      */
     public final record Params(
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -644,7 +644,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             String code,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -652,7 +652,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             RecipeGroup recipeGroup,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.UPDATE_DEPENDENT,
+                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -660,7 +660,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             RecipeSubgroup recipeSubgroup,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -668,7 +668,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             String name,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -684,7 +684,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             RecipeType recipeType,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
@@ -692,7 +692,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             String brandNameForCommercialRecipe,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -700,7 +700,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             AliasQ aliasQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
@@ -709,7 +709,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             )
             HasSubRecipeQ hasSubRecipeQ,
             @Parameter(
-                    dependentDefaultsPolicy = DependentDefaultsPolicy.PRESERVE_CHANGES,
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(

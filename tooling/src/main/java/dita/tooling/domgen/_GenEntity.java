@@ -32,13 +32,16 @@ import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
 import org.apache.causeway.applib.ViewModel;
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
+
+import lombok.val;
+import lombok.experimental.UtilityClass;
 
 import dita.commons.services.iconfa.IconFaService;
 import dita.commons.services.lookup.HasSecondaryKey;
@@ -49,8 +52,6 @@ import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.orm.OrmModel.Entity;
 import dita.tooling.orm.OrmModel.Field;
-import lombok.val;
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
 class _GenEntity {
@@ -331,10 +332,10 @@ class _GenEntity {
                             modifiers)
                     .addJavadoc(field.formatDescription("\n"))
                     .addAnnotation(_Annotations.parameter(attr->attr
-                            .dependentDefaultsPolicy(
+                            .precedingParamsPolicy(
                                 field.hasDiscriminator()
-                                    ? DependentDefaultsPolicy.UPDATE_DEPENDENT
-                                    : DependentDefaultsPolicy.PRESERVE_CHANGES)
+                                    ? PrecedingParamsPolicy.RESET
+                                    : PrecedingParamsPolicy.PRESERVE_CHANGES)
                             .optionality(
                                 field.requiredInTheUi()
                                     ? Optionality.MANDATORY

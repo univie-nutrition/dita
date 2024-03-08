@@ -39,7 +39,6 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
-import org.apache.causeway.applib.annotation.DependentDefaultsPolicy;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.DomainService;
@@ -52,6 +51,7 @@ import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -298,16 +298,16 @@ class _Annotations {
 
     @Builder
     static record ParameterSpec(
-            DependentDefaultsPolicy dependentDefaultsPolicy,
+            PrecedingParamsPolicy precedingParamsPolicy,
             Optionality optionality) {
     }
     AnnotationSpec parameter(final UnaryOperator<ParameterSpec.ParameterSpecBuilder> attrProvider) {
         val builder = AnnotationSpec.builder(Parameter.class);
         val attr = attrProvider.apply(ParameterSpec.builder()).build();
-        Optional.ofNullable(attr.dependentDefaultsPolicy())
-            .ifPresent(dependentDefaultsPolicy->builder.addMember(
-                    "dependentDefaultsPolicy", "$1T.$2L",
-                    DependentDefaultsPolicy.class, dependentDefaultsPolicy.name()));
+        Optional.ofNullable(attr.precedingParamsPolicy())
+            .ifPresent(precedingParamsPolicy->builder.addMember(
+                    "precedingParamsPolicy", "$1T.$2L",
+                    PrecedingParamsPolicy.class, precedingParamsPolicy.name()));
         Optional.ofNullable(attr.optionality())
             .ifPresent(optionality->builder.addMember(
                     "optionality", "$1T.$2L",
