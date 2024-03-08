@@ -19,6 +19,8 @@
 package dita.globodiet.manager.editing.food;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
@@ -32,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.manager.services.food.FoodFacetHelperService;
+import dita.globodiet.manager.services.food.FoodQuantificationHelperService;
 
 /**
  * With {@link QuantificationMethodPathwayForFoodGroup} a set of quantification methods is defined
@@ -43,24 +45,39 @@ import dita.globodiet.manager.services.food.FoodFacetHelperService;
 @CollectionLayout(
         hidden = Where.ALL_TABLES,
         sequence = "0.2",
-        describedAs = "Quantification Methods in effect associated with this individual food.\n\n"
+        describedAs = "Quantification Method Pathways in effect associated with this individual food.\n\n"
                 + "With QuantificationMethodForFoodGroup (table QM_GROUP) a set of methods is defined "
                 + "for a specific food classification.\n\n"
-                + "Optionally, for an individual food, only a subset of those facets can be selected "
+                + "Optionally, for an individual food, only a subset of those methods can be selected "
                 + "using QuantificationMethodPathwayForFood (table QM_FOODS).")
 @RequiredArgsConstructor
-public class Food_effectiveQuantificationMethods {
+public class Food_effectiveQuantificationMethodPathways {
 
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
-    @Inject private FoodFacetHelperService foodFacetHelperService;
+    @Inject private FoodQuantificationHelperService foodQuantificationHelperService;
 
     protected final Food mixee;
 
     @MemberSupport
     public List<QuantificationMethodPathwayForFoodGroup> coll() {
-        //TODO flesh out
-        return List.of();
-    }
 
+        var grouping = foodQuantificationHelperService.effectiveGroupingUsedForQuantificationPathway(mixee);
+
+        var quantificationMethodPathwayAsDefinedByFoodClassification = foodQuantificationHelperService
+                .effectiveQuantificationMethodPathwayForFoodClassification(grouping);
+
+        // filter by selected at food level (Dependent Quantification Method Pathway For Food mapped by Food)
+        var quantificationMethodPathwayForFood = foodQuantificationHelperService.listQuantificationMethodPathwayForFood(mixee);
+        if(quantificationMethodPathwayForFood.isEmpty()) {
+            return quantificationMethodPathwayAsDefinedByFoodClassification;
+        }
+        final Set<QuantificationMethodPathwayKey> selectedKeys = quantificationMethodPathwayForFood.stream()
+            .map(QuantificationMethodPathwayKey::valueOf)
+            .collect(Collectors.toSet());
+        return quantificationMethodPathwayAsDefinedByFoodClassification.stream()
+                .filter(qmp->selectedKeys.contains(QuantificationMethodPathwayKey.valueOf(qmp)))
+                //TODO ordering?
+                .toList();
+    }
 
 }

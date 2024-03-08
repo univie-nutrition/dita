@@ -33,11 +33,13 @@ import lombok.NonNull;
 
 import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.food_list.Food;
+import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentQuantificationMethodPathwayForFoodMappedByFood;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodGroupDeps.FoodGroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubSubgroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubgroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.manager.services.grouping.GroupingHelperService;
 import dita.globodiet.manager.util.GroupingUtils;
@@ -99,6 +101,11 @@ public class FoodQuantificationHelperService {
                             : groupingResult;
                     });
         return foodGrouping;
+    }
+
+    public List<QuantificationMethodPathwayForFood> listQuantificationMethodPathwayForFood(final @NonNull Food food) {
+        var mixin = factoryService.mixin(Food_dependentQuantificationMethodPathwayForFoodMappedByFood.class, food);
+        return mixin.coll();
     }
 
     // -- HELPER

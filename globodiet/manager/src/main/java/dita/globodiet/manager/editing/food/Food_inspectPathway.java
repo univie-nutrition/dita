@@ -19,8 +19,11 @@
 package dita.globodiet.manager.editing.food;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 import jakarta.inject.Inject;
+
+import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -28,17 +31,26 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
 import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 import dita.globodiet.manager.util.AsciiDocUtils;
 import dita.globodiet.manager.util.GroupingUtils;
@@ -60,14 +72,45 @@ public class Food_inspectPathway {
     @Inject private FactoryService factoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
+    private final static String PHYSICAL_STATE_FACET_CODE = "02"; //TODO convert to configuration option
+
     protected final Food mixee;
 
     @MemberSupport
-    public PathwayView act() {
+    public PathwayView act(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(describedAs = "The quantification method pathway "
+                    + "is potentially bound to a chosen physical-state facet/descriptor.\n\n"
+                    + "Choices provided are those that are effective for the current food.")
+            final FoodDescriptor physicalState,
+            @Parameter
+            @ParameterLayout(describedAs = "The quantification method pathway "
+                    + "is potentially bound to whether the food was cooked or not.")
+            final RawOrCookedAsConsumed rawOrCookedAsConsumed
+            ) {
+
+        var physicalState4DigitKey = physicalState!=null
+                ? physicalState.secondaryKey().facetCode() + physicalState.secondaryKey().code()
+                : null;
+
+        var constraints = String.format("Constraints: physicalState=%s, consumed=%s",
+                physicalState!=null
+                    ? physicalState.getName()
+                    : "none",
+                rawOrCookedAsConsumed);
+
         return new PathwayView(
                 "Pathway View for Food - " + mixee.title(),
-                AsciiDocUtils.yamlBlock("Facet/Descriptor Pathway", "YAML format", facetDescriptorPathwayAsYaml()),
-                AsciiDocUtils.yamlBlock("Quantification Pathway", "YAML format", quantificationPathwayAsYaml()));
+                AsciiDocUtils.yamlBlock("Facet/Descriptor Pathway", "Constraints: none", facetDescriptorPathwayAsYaml()),
+                AsciiDocUtils.yamlBlock("Quantification Pathway", constraints, quantificationPathwayAsYaml(
+                        physicalState4DigitKey,
+                        rawOrCookedAsConsumed)));
+    }
+
+    @MemberSupport
+    private Can<FoodDescriptor> choicesPhysicalState() {
+        var effectiveFoodDescriptors = Can.ofCollection(factoryService.mixin(Food_effectiveFoodDescriptors.class, mixee).coll());
+        return effectiveFoodDescriptors.filter(fd->PHYSICAL_STATE_FACET_CODE.equals(fd.getFacetCode()));
     }
 
     public static record PathwayView(
@@ -107,7 +150,9 @@ public class Food_inspectPathway {
         return yaml.toString();
     }
 
-    private String quantificationPathwayAsYaml() {
+    private String quantificationPathwayAsYaml(
+            @Nullable final String physicalState4DigitKey,
+            final RawOrCookedAsConsumed rawOrCookedAsConsumed) {
         var yaml = new StringBuilder();
         yaml.append("Food: " + mixee.title()).append("\n");
 
@@ -121,10 +166,43 @@ public class Food_inspectPathway {
                 .fold(FoodGroup::title, FoodSubgroup::title))
         .append("\n");
 
-
+        var effectiveQuantificationMethodPathways = factoryService.mixin(Food_effectiveQuantificationMethodPathways.class, mixee).coll();
+        effectiveQuantificationMethodPathways.stream()
+        .filter(qmPathway->matches(rawOrCookedAsConsumed, qmPathway))
+        .filter(qmPathway->matches(physicalState4DigitKey, qmPathway))
+        .forEach(qmPathway->{
+            yaml.append("   -quantificationMethod: ").append(qmPathway.getQuantificationMethod()).append("\n");
+            yaml.append("    comment: ").append(qmPathway.getComment()).append("\n");
+            yaml.append("    physicalStateFacetDescriptor: ").append(qmPathway.getPhysicalStateFacetDescriptorLookupKey()).append("\n");
+            yaml.append("    rawOrCookedAsConsumed: ").append(qmPathway.getRawOrCookedAsConsumed()).append("\n");
+            var qmpKey = QuantificationMethodPathwayKey.valueOf(qmPathway);
+            if(qmpKey.quantificationMethod().isPhotoOrShape()) {
+                yaml.append("    photoOrShape: ").append(qmPathway.getPhotoOrShapeCode()).append("\n");
+            }
+        });
 
         return yaml.toString();
     }
 
+    private boolean matches(
+            final @NonNull RawOrCookedAsConsumed rawOrCookedAsConsumed,
+            final QuantificationMethodPathwayForFoodGroup qmPathway) {
+        var constraint = qmPathway.getRawOrCookedAsConsumed();
+        if(constraint==null) {
+            return true; // if no constraint is set, we always match
+        }
+        return Objects.equals(constraint, rawOrCookedAsConsumed);
+    }
+
+    private boolean matches(@Nullable final String physicalState4DigitKey, final QuantificationMethodPathwayForFoodGroup qmPathway) {
+        var physicalStateFacetDescriptorLookupKey = qmPathway.getPhysicalStateFacetDescriptorLookupKey();
+        if(_Strings.isEmpty(physicalStateFacetDescriptorLookupKey)) {
+            return true; // if no constraint is set, we always match
+        }
+        if(physicalState4DigitKey==null) {
+            return false; // can never satisfy non-empty constraint
+        }
+        return physicalStateFacetDescriptorLookupKey.contains(physicalState4DigitKey);
+    }
 
 }
