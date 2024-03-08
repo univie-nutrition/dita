@@ -20,10 +20,13 @@ package dita.commons.types;
 
 import java.io.File;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.apache.causeway.commons.internal.functions._Predicates;
 import org.apache.causeway.commons.io.FileUtils;
 
+import lombok.NonNull;
 import lombok.SneakyThrows;
 
 public record ResourceFolder(File root) {
@@ -88,7 +91,12 @@ public record ResourceFolder(File root) {
 
     @SneakyThrows
     public void purgeFiles() {
-        FileUtils.searchFiles(root, dir->true, file->true, FileUtils::deleteFile);
+        purgeFiles(file->false);
+    }
+
+    @SneakyThrows
+    public void purgeFiles(final @NonNull Predicate<File> keep) {
+        FileUtils.searchFiles(root, dir->true, _Predicates.not(keep), FileUtils::deleteFile);
     }
 
 }

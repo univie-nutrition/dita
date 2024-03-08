@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,13 +37,14 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import dita.commons.types.ResourceFolder;
-import dita.tooling.orm.OrmModel;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 import lombok.val;
 import lombok.experimental.Accessors;
+
+import dita.commons.types.ResourceFolder;
+import dita.tooling.orm.OrmModel;
 
 public record DomainGenerator(@NonNull DomainGenerator.Config config) {
 
@@ -60,6 +62,10 @@ public record DomainGenerator(@NonNull DomainGenerator.Config config) {
         private final @NonNull String entitiesModulePackageName = "";
         @Builder.Default
         private final @NonNull String entitiesModuleClassSimpleName = "EntitiesModule";
+
+        @Builder.Default
+        private final @NonNull Predicate<File> onPurgeKeep = file->false;
+
         /**
          * Data Federation Support
          * @see <a href="https://www.datanucleus.org/products/accessplatform_6_0/jdo/persistence.html#data_federationv">Data Federation</a>

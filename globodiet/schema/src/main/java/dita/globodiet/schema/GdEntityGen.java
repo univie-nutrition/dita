@@ -29,13 +29,14 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.FileUtils;
 
+import lombok.SneakyThrows;
+
 import dita.commons.types.ResourceFolder;
 import dita.commons.util.ObjectGraphTransformers;
 import dita.tooling.domgen.DomainGenerator;
 import dita.tooling.domgen.LicenseHeader;
 import dita.tooling.orm.OrmModel;
 import dita.tooling.structgen.ObjectGraphRendererStructurizr;
-import lombok.SneakyThrows;
 
 public class GdEntityGen {
 
@@ -58,6 +59,7 @@ public class GdEntityGen {
                     .destinationFolder(javaDestinationFolder)
                     .logicalNamespacePrefix("dita.globodiet")
                     .packageNamePrefix("dita.globodiet.dom")
+                    .onPurgeKeep(file->file.getName().endsWith(".layout.xml"))
                     .entitiesModulePackageName(name)
                     .entitiesModuleClassSimpleName("DitaModuleGd" + _Strings.capitalize(name)));
         });
@@ -117,7 +119,7 @@ public class GdEntityGen {
                     .schema(schema))
                     .licenseHeader(licenseHeader)
                     .build();
-            config.destinationFolder().purgeFiles();
+            config.destinationFolder().purgeFiles(config.onPurgeKeep());
             new DomainGenerator(config)
                 .writeToDirectory(config.destinationFolder().root());
         }

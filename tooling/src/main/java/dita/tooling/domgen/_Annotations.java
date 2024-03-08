@@ -290,7 +290,7 @@ class _Annotations {
         Optional.ofNullable(attr.hiddenWhere())
             .ifPresent(hiddenWhere->builder.addMember("hidden", "$1T.$2L", Where.class, hiddenWhere.name()));
         Optional.ofNullable(attr.tableDecorator())
-            .ifPresent(tableDecorator->builder.addMember("tableDecorator", "$1T", tableDecorator));
+            .ifPresent(tableDecorator->builder.addMember("tableDecorator", "$1T.class", tableDecorator));
         return builder.build();
     }
 
