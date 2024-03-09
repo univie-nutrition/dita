@@ -59,8 +59,7 @@
                     <bs:row>
                         <bs:col span="12">
                             <cpt:collection id="effectiveFoodDescriptors"></cpt:collection>
-                            <cpt:collection id="dependentFacetDescriptorPathwayForFoodMappedByFood"></cpt:collection>
-                            <cpt:collection id="dependentImprobableSequenceOfFacetAndDescriptorMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentFacetDescriptorPathwayForRecipeMappedByRecipe"></cpt:collection>
                         </bs:col>
                     </bs:row>
                 </bs:tab>
@@ -68,8 +67,7 @@
                     <bs:row>
                         <bs:col span="12" id="123">
                             <cpt:collection id="effectiveQuantificationMethodPathways"></cpt:collection>
-                            <cpt:collection id="dependentQuantificationMethodPathwayForFoodMappedByFood"></cpt:collection>
-                            <cpt:collection id="dependentStandardPortionForFoodMappedByFood"></cpt:collection>
+                            <cpt:collection id="dependentQuantificationMethodPathwayForRecipeMappedByRecipe"></cpt:collection>
                             <cpt:collection id="dependentStandardUnitForFoodOrRecipeMappedByFoodOrRecipe"></cpt:collection>
                         </bs:col>
                     </bs:row>
@@ -77,30 +75,26 @@
                 <bs:tab name="Questions">
                     <bs:row>
                         <bs:col span="12">
-                            <cpt:collection id="dependentProbingQuestionPathwayForFoodMappedByFood"></cpt:collection>
+							<cpt:collection id="dependentProbingQuestionPathwayForRecipeMappedByRecipe"></cpt:collection>
                         </bs:col>
                     </bs:row>
                 </bs:tab>
                 <bs:tab name="Coefficients">
                     <bs:row>
                         <bs:col span="12">
-                            <cpt:collection id="dependentDensityFactorForFoodOrRecipeMappedByFoodOrRecipe"></cpt:collection>
-                            <cpt:collection id="dependentEdiblePartCoefficientForFoodMappedByFood"></cpt:collection>
-                            <cpt:collection id="dependentRawToCookedConversionFactorForFoodMappedByFood"></cpt:collection>
-                            <cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFood"></cpt:collection>
-                            <cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFoodMappedByFss"></cpt:collection>
-                            <cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFss"></cpt:collection>
-                            <cpt:collection id="dependentPercentOfFatUseDuringCookingForFoodMappedByFood"></cpt:collection>
-                            <cpt:collection id="dependentPercentOfFatUseDuringCookingForFoodMappedByFat"></cpt:collection>
+							<cpt:collection id="dependentDensityFactorForFoodOrRecipeMappedByFoodOrRecipe"></cpt:collection>
+							<cpt:collection id="dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipe"></cpt:collection>
+							<cpt:collection id="dependentMaximumValueForRecipeOrGroupMappedByRecipe"></cpt:collection>
                         </bs:col>
                     </bs:row>
                 </bs:tab>
                 <bs:tab name="Recipe Ingredient">
                     <bs:row>
                         <bs:col span="12">
-							<cpt:collection id="dependentRecipeIngredientQuantificationMappedByIngredientFoodOrRecipe"></cpt:collection>
-							<cpt:collection id="dependentRecipeIngredientMappedByFoodOrRecipe"></cpt:collection>
-							<cpt:collection id="dependentComposedRecipeIngredientMappedByFoodOrRecipe"></cpt:collection>
+							<cpt:collection id="dependentRecipeIngredientMappedByRecipe"></cpt:collection>
+        					<cpt:collection id="dependentRecipeIngredientMappedByFoodOrRecipe"></cpt:collection>
+        					<cpt:collection id="dependentRecipeIngredientQuantificationMappedByRecipe"></cpt:collection>
+        					<cpt:collection id="dependentComposedRecipeIngredientMappedByFoodOrRecipe"></cpt:collection>
                         </bs:col>
                     </bs:row>
                 </bs:tab>
