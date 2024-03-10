@@ -31,10 +31,10 @@ import org.apache.causeway.applib.annotation.Where;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.manager.services.food.FoodQuantificationHelperService;
+import dita.globodiet.manager.util.QuantificationMethodPathwayKey;
 
 /**
  * With {@link QuantificationMethodPathwayForFoodGroup} a set of quantification methods is defined
@@ -53,7 +53,6 @@ import dita.globodiet.manager.services.food.FoodQuantificationHelperService;
 @RequiredArgsConstructor
 public class Food_effectiveQuantificationMethodPathways {
 
-    @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject private FoodQuantificationHelperService foodQuantificationHelperService;
 
     protected final Food mixee;

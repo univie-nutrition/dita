@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.editing.food;
+package dita.globodiet.manager.util;
 
 import org.springframework.lang.Nullable;
 
@@ -54,12 +54,14 @@ public record QuantificationMethodPathwayKey(
             return QuantificationMethod.valueOf(qm.name());
         }
 
-        boolean isPhotoOrShape() {
+        public boolean isPhotoOrShape() {
             return this == PHOTO
                     || this == SHAPE;
         }
 
     }
+
+    // -- FOOD
 
     public static QuantificationMethodPathwayKey valueOf(final QuantificationMethodPathwayForFood qmp) {
         return new QuantificationMethodPathwayKey(
@@ -68,6 +70,20 @@ public record QuantificationMethodPathwayKey(
     }
 
     public static QuantificationMethodPathwayKey valueOf(final QuantificationMethodPathwayForFoodGroup qmp) {
+        return new QuantificationMethodPathwayKey(
+                QuantificationMethod.valueOf(qmp.getQuantificationMethod()),
+                qmp.getPhotoOrShapeCode());
+    }
+
+    // -- RECIPE
+
+    public static QuantificationMethodPathwayKey valueOf(final QuantificationMethodPathwayForRecipe qmp) {
+        return new QuantificationMethodPathwayKey(
+                QuantificationMethod.valueOf(qmp.getQuantificationMethod()),
+                qmp.getPhotoOrShapeCode());
+    }
+
+    public static QuantificationMethodPathwayKey valueOf(final QuantificationMethodPathwayForRecipeGroup qmp) {
         return new QuantificationMethodPathwayKey(
                 QuantificationMethod.valueOf(qmp.getQuantificationMethod()),
                 qmp.getPhotoOrShapeCode());

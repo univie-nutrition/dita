@@ -51,6 +51,7 @@ import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
 import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 import dita.globodiet.manager.util.AsciiDocUtils;
+import dita.globodiet.manager.util.QuantificationMethodPathwayKey;
 
 /**
  * @see Recipe_addStandardUnit
