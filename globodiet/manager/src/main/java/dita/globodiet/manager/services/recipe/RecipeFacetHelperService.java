@@ -31,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
+import org.apache.causeway.commons.internal.collections._Lists;
 
 import lombok.NonNull;
 
@@ -130,10 +131,11 @@ public class RecipeFacetHelperService {
 
     private List<FacetDescriptorPathwayForRecipeGroup> listFacetDescriptorPathwayForRecipeGroup(
             final RecipeGroup recipeGroup) {
-        return factoryService.mixin(
+        var mixin = factoryService.mixin(
                 RecipeGroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeGroup.class,
-                recipeGroup)
-            .coll();
+                recipeGroup);
+        // include only those, that have no subgroup
+        return _Lists.filter(mixin.coll(), groupPathway->groupPathway.getRecipeSubgroupCode()==null);
     }
 
     private List<FacetDescriptorPathwayForRecipeGroup> listFacetDescriptorPathwayForRecipeSubgroup(

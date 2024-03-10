@@ -158,7 +158,8 @@ public class FoodFacetHelperService {
                 FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup.class,
                 foodGroup);
         // include only those, that have no subgroup (or sub-subgroup)
-        return _Lists.filter(mixin.coll(), groupPathway->groupPathway.getFoodSubgroupCode()==null);
+        return _Lists.filter(mixin.coll(), groupPathway->groupPathway.getFoodSubgroupCode()==null
+                && groupPathway.getFoodSubSubgroupCode()==null);
     }
 
     private List<FacetDescriptorPathwayForFoodGroup> listFacetDescriptorPathwayForFoodSubgroup(
