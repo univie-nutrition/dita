@@ -116,11 +116,11 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
                     && Objects.equals(fg.getFoodSubgroupCode(), p.foodSubgroup().getFoodSubgroupCode()));
     }
 
-    @MemberSupport public List<FoodFacet> choicesFacet(
+    @MemberSupport public List<FoodFacet> choicesFoodFacet(
             final FacetDescriptorPathwayForFoodGroup.Params p) {
         return repositoryService.allInstances(FoodFacet.class);
     }
-    @MemberSupport public List<FoodDescriptor> choicesDescriptor(
+    @MemberSupport public List<FoodDescriptor> choicesFoodDescriptor(
             final FacetDescriptorPathwayForFoodGroup.Params p) {
         return p.foodFacet()!=null
                 ? repositoryService.allMatches(FoodDescriptor.class,

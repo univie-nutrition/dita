@@ -58,7 +58,7 @@
                 <bs:tab name="Facet/Descriptor">
                     <bs:row>
                         <bs:col span="12">
-                            <cpt:collection id="effectiveFoodDescriptors"></cpt:collection>
+                            <cpt:collection id="effectiveRecipeDescriptors"></cpt:collection>
                             <cpt:collection id="dependentFacetDescriptorPathwayForRecipeMappedByRecipe"></cpt:collection>
                         </bs:col>
                     </bs:row>
