@@ -79,7 +79,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         name = "SEC_KEY_UNQ_Photo",
         members = {"code"}
 )
-public class Photo implements Cloneable<Photo>, HasSecondaryKey<Photo> {
+public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Photo> {
     @Inject
     RepositoryService repositoryService;
 

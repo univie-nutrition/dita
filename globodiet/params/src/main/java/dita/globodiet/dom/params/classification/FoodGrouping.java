@@ -39,32 +39,44 @@ public interface FoodGrouping {
                 .fold(FoodGroup::title, FoodSubgroup::title);
     }
 
-    /**
-     * Format {@code groupCode|subgroupCode|subSubgroupCode}
-     * with null replaced by dash {@literal -}.
-     */
-    public record FoodGroupingKey(String value) {
+
+    public record FoodGroupingKey(
+            String groupKey,
+            String subgroupKey,
+            String subSubgroupKey,
+            /**
+             * Format {@code groupCode|subgroupCode|subSubgroupCode}
+             * with null replaced by dash {@literal -}.
+             */
+            String combinedKey) {
+
+        public FoodGroupingKey(
+                final String foodGroupCode,
+                final String foodSubgroupCode,
+                final String foodSubSubgroupCode) {
+            this(foodGroupCode, foodSubgroupCode, foodSubSubgroupCode,
+                    String.format("%s|%s|%s",
+                            FormatUtils.emptyToDash(foodGroupCode),
+                            FormatUtils.emptyToDash(foodSubgroupCode),
+                            FormatUtils.emptyToDash(foodSubSubgroupCode)));
+        }
+
+        private FoodGroupingKey(
+                final FoodGroup.SecondaryKey secKey) {
+            this(secKey.code(), null, null);
+        }
+
+        private FoodGroupingKey(
+                final FoodSubgroup.SecondaryKey secKey) {
+            this(secKey.foodGroupCode(), secKey.foodSubgroupCode(), secKey.foodSubSubgroupCode());
+        }
+
     }
 
     default FoodGroupingKey groupingKey() {
         return this instanceof FoodSubgroup foodSubgroup
-                ? new FoodGroupingKey(keyFor(foodSubgroup))
-                : new FoodGroupingKey(keyFor((FoodGroup)this));
-    }
-
-    // -- HELPER
-
-    private static String keyFor(final FoodSubgroup foodSubgroup) {
-        var secKey = foodSubgroup.secondaryKey();
-        return String.format("%s|%s|%s",
-                FormatUtils.emptyToDash(secKey.foodGroupCode()),
-                FormatUtils.emptyToDash(secKey.foodSubgroupCode()),
-                FormatUtils.emptyToDash(secKey.foodSubSubgroupCode()));
-    }
-
-    private static String keyFor(final FoodGroup foodGroup) {
-        return String.format("%s|-|-",
-                FormatUtils.emptyToDash(foodGroup.secondaryKey().code()));
+                ? new FoodGroupingKey(foodSubgroup.secondaryKey())
+                : new FoodGroupingKey(((FoodGroup)this).secondaryKey());
     }
 
 }

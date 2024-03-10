@@ -166,6 +166,15 @@ public class Food_inspectPathway {
         effectiveQuantificationMethodPathways.stream()
         .filter(qmPathway->matches(rawOrCookedAsConsumed, qmPathway))
         .filter(qmPathway->matches(physicalState4DigitKey, qmPathway))
+        .sorted((a, b)->{
+            var keyA = QuantificationMethodPathwayKey.valueOf(a);
+            var keyB = QuantificationMethodPathwayKey.valueOf(b);
+            final int c = Integer.compare(
+                    keyA.quantificationMethod().ordinal(),
+                    keyB.quantificationMethod().ordinal());
+            if(c!=0) return c;
+            return _Strings.compareNullsLast(keyA.photoOrShapeCode(), keyB.photoOrShapeCode());
+        })
         .forEach(qmPathway->{
             yaml.append("   -quantificationMethod: ").append(qmPathway.getQuantificationMethod()).append("\n");
             yaml.append("    comment: ").append(qmPathway.getComment()).append("\n");

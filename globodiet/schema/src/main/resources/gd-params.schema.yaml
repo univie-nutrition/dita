@@ -2411,6 +2411,7 @@ params.quantif.MaximumValueForRecipeOrGroup:
 params.quantif.Photo:
   namespace: params.quantif
   table: M_PHOTOS
+  superType: params.quantif.PhotoOrShape
   secondaryKey: |
     PH_CODE
   title: String.format("Photo (code=%s,unit=%s)", code, unit)
@@ -2574,6 +2575,7 @@ params.quantif.RecipeIngredientQuantification:
 params.quantif.Shape:
   namespace: params.quantif
   table: M_SHAPES
+  superType: params.quantif.PhotoOrShape
   secondaryKey: |
     SH_CODE
   title: String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2)

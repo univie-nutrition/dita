@@ -20,6 +20,7 @@
 params.quantif.Photo:
   namespace: params.quantif
   table: M_PHOTOS
+  superType: params.quantif.PhotoOrShape
   secondaryKey: |
     PH_CODE
   title: String.format("Photo (code=%s,unit=%s)", code, unit)

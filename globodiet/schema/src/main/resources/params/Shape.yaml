@@ -20,6 +20,7 @@
 params.quantif.Shape:
   namespace: params.quantif
   table: M_SHAPES
+  superType: params.quantif.PhotoOrShape
   secondaryKey: |
     SH_CODE
   title: String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2)

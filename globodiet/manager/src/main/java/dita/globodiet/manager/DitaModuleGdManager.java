@@ -50,8 +50,8 @@ import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.dashboard.Dashboard;
-import dita.globodiet.manager.editing.food.Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway;
-import dita.globodiet.manager.editing.food.Food_addFoodFacetSelectionForFacetDescriptorPathway;
+import dita.globodiet.manager.editing.food.Food_addFacetDescriptorPathwayToGroup;
+import dita.globodiet.manager.editing.food.Food_selectFacetDescriptorPathwayForFood;
 import dita.globodiet.manager.editing.food.Food_addStandardUnit;
 import dita.globodiet.manager.editing.food.Food_clone;
 import dita.globodiet.manager.editing.food.Food_effectiveFoodDescriptors;
@@ -151,8 +151,8 @@ import dita.tooling.orm.OrmModel;
     FoodDescriptorManager_addDescriptor.class,
     FoodManager_addFood.class,
     // Other
-    Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway.class,
-    Food_addFoodFacetSelectionForFacetDescriptorPathway.class,
+    Food_addFacetDescriptorPathwayToGroup.class,
+    Food_selectFacetDescriptorPathwayForFood.class,
     Food_clone.class,
     Food_effectiveFoodDescriptors.class,
     Food_effectiveGroupingUsedForFacetDescriptorPathway.class,

@@ -61,7 +61,8 @@ public class GdEntityGen {
                     .packageNamePrefix("dita.globodiet.dom")
                     .onPurgeKeep(file->file.getName().endsWith(".layout.xml")
                             || file.getName().equals("FoodGrouping.java")
-                            || file.getName().equals("RecipeGrouping.java"))
+                            || file.getName().equals("RecipeGrouping.java")
+                            || file.getName().equals("PhotoOrShape.java"))
                     .entitiesModulePackageName(name)
                     .entitiesModuleClassSimpleName("DitaModuleGd" + _Strings.capitalize(name)));
         });

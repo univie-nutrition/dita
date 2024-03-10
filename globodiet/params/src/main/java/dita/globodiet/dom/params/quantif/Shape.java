@@ -78,7 +78,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         name = "SEC_KEY_UNQ_Shape",
         members = {"code"}
 )
-public class Shape implements Cloneable<Shape>, HasSecondaryKey<Shape> {
+public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Shape> {
     @Inject
     RepositoryService repositoryService;
 
