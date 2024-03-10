@@ -37,11 +37,12 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.TextUtils;
 
-import dita.tooling.domgen.DomainGenerator.JavaFileModel;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.experimental.UtilityClass;
+
+import dita.tooling.domgen.DomainGenerator.JavaFileModel;
 
 @UtilityClass
 class _DomainWriter {
@@ -89,8 +90,11 @@ class _DomainWriter {
             }
             Files.createDirectories(outputDirectory);
         }
-
         final Path outputPath = outputDirectory.resolve(javaFile.typeSpec.name + ".java");
+        // don't override existing files
+        if(Files.exists(outputPath)) {
+            return outputPath;
+        }
         try (Writer writer = new OutputStreamWriter(Files.newOutputStream(outputPath), StandardCharsets.UTF_8)) {
             _Strings.nonEmpty(licenseHeader.text())
                 .ifPresent(licenseText->writeMultilineComment(writer, licenseText));

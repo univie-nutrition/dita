@@ -47,13 +47,10 @@ import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
 import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 import dita.globodiet.manager.util.AsciiDocUtils;
-import dita.globodiet.manager.util.GroupingUtils;
 
 /**
  * @see Recipe_addStandardUnit
@@ -134,8 +131,7 @@ public class Food_inspectPathway {
             return yaml.toString();
         }
         yaml.append("effectiveGrouping: ")
-            .append(GroupingUtils.foodClassification(effectiveGrouping)
-                    .fold(FoodGroup::title, FoodSubgroup::title))
+            .append(effectiveGrouping.title())
             .append("\n");
 
         var effectiveFoodDescriptors = factoryService.mixin(Food_effectiveFoodDescriptors.class, mixee).coll();
@@ -162,8 +158,7 @@ public class Food_inspectPathway {
             return yaml.toString();
         }
         yaml.append("effectiveGrouping: ")
-        .append(GroupingUtils.foodClassification(effectiveGrouping)
-                .fold(FoodGroup::title, FoodSubgroup::title))
+        .append(effectiveGrouping.title())
         .append("\n");
 
         var effectiveQuantificationMethodPathways = factoryService.mixin(Food_effectiveQuantificationMethodPathways.class, mixee).coll();

@@ -25,7 +25,7 @@ import dita.commons.format.FormatUtils;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 
-//TODO auto generated - yet please don't override
+// don't purge source file via GdEntityGen
 public interface FoodGrouping {
 
     default Either<FoodGroup, FoodSubgroup> toEither() {
@@ -34,6 +34,15 @@ public interface FoodGrouping {
                 : Either.left((FoodGroup)this);
     }
 
+    default String title() {
+        return toEither()
+                .fold(FoodGroup::title, FoodSubgroup::title);
+    }
+
+    /**
+     * Format {@code groupCode|subgroupCode|subSubgroupCode}
+     * with null replaced by dash {@literal -}.
+     */
     public record FoodGroupingKey(String value) {
     }
 
