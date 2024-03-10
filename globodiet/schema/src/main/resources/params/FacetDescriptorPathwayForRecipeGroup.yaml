@@ -21,7 +21,12 @@ params.pathway.FacetDescriptorPathwayForRecipeGroup:
   namespace: params.pathway
   table: R_GROUPFAC
   secondaryKey:
-  title: null
+  title: |
+    String.format("Pathway (group=%s|%s, descriptor=%s|%s)",
+        recipeGroupCode, 
+        dita.commons.format.FormatUtils.emptyToDash(recipeSubgroupCode), 
+        recipeFacetCode, 
+        recipeDescriptorCode)
   icon: |
     solid person-walking-arrow-right .recipe-color,
     solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85

@@ -80,9 +80,9 @@ public class FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder {
     // order by descriptor name, descriptor with Other=true comes last
     private int compare(final FacetDescriptorPathwayForFoodGroup a, final FacetDescriptorPathwayForFoodGroup b) {
         var descA = foreignKeyLookupService.unique(
-                new FoodDescriptor.SecondaryKey(a.getFacetCode(), a.getDescriptorCode()));
+                new FoodDescriptor.SecondaryKey(a.getFoodFacetCode(), a.getFoodDescriptorCode()));
         var descB = foreignKeyLookupService.unique(
-                new FoodDescriptor.SecondaryKey(b.getFacetCode(), b.getDescriptorCode()));
+                new FoodDescriptor.SecondaryKey(b.getFoodFacetCode(), b.getFoodDescriptorCode()));
 
         int c = Integer.compare(descA.getOtherQ().ordinal(), descB.getOtherQ().ordinal());
         if(c!=0) return c;

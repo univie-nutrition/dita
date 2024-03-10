@@ -31,6 +31,9 @@ import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.dom.params.recipe_list.RecipeGroup;
+import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
 import dita.globodiet.manager.util.GroupingUtils;
 
 @Service
@@ -73,5 +76,25 @@ public class GroupingHelperService {
     }
 
     // -- RECIPE
+
+    public Either<RecipeGroup, RecipeSubgroup> recipeClassification(final @NonNull Recipe recipe) {
+        var sub = recipeSubgroup(recipe);
+        return sub!=null
+                ? Either.right(sub)
+                : Either.left(recipeGroup(recipe));
+    }
+
+    public RecipeGroup recipeGroup(final @NonNull Recipe recipe) {
+        return foreignKeyLookupService.unique(GroupingUtils.recipeGroupKeyForRecipe(recipe));
+    }
+
+    public RecipeGroup recipeGroup(final @NonNull RecipeSubgroup recipeSubgroup) {
+        return foreignKeyLookupService.unique(GroupingUtils.recipeGroupKeyForSubgroup(recipeSubgroup));
+    }
+
+    @Nullable
+    public RecipeSubgroup recipeSubgroup(final @NonNull Recipe recipe) {
+        return foreignKeyLookupService.nullable(GroupingUtils.recipeSubgroupKeyForRecipe(recipe));
+    }
 
 }

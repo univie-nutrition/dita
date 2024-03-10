@@ -31,8 +31,8 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
         foodGroupCode, 
         dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
         dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
-        facetCode, 
-        descriptorCode)
+        foodFacetCode, 
+        foodDescriptorCode)
   icon: |
     solid person-walking-arrow-right .food-color,
     solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85
@@ -72,7 +72,7 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
         SUBGROUP.SUBGROUP2
       description: |
         Food Sub-subgroup code
-    facetCode:
+    foodFacetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
@@ -81,7 +81,7 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
         FACETS.FACET_CODE
       description: |
         Facet code
-    descriptorCode:
+    foodDescriptorCode:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true

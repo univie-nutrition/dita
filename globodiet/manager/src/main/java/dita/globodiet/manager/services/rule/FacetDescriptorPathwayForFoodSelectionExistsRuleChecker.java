@@ -96,7 +96,7 @@ implements RuleChecker {
 
         var entries = repositoryService.allInstances(FacetDescriptorPathwayForFood.class);
         for(var entry : entries) {
-            var referencedFacetCode = entry.getMandatoryInSequenceOfFacetsCode();
+            var referencedFacetCode = entry.getSelectedFoodFacetCode();
             if(referencedFacetCode==null) continue; //TODO should we report?
             var allowedFacetCodes = facetCodesAllowedByFoodKey.getOrElseEmpty(entry.getFoodCode());
             // assert referencedFacetCode exists within effective group

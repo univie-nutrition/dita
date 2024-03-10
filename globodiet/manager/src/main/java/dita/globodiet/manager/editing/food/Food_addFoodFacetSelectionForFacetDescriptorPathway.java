@@ -65,7 +65,7 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
 
         entity.setFoodCode(mixee.getCode());
         entity.setDisplayOrder(-1); // TODO needs post processing
-        entity.setMandatoryInSequenceOfFacetsCode(foodFacet.getCode());
+        entity.setSelectedFoodFacetCode(foodFacet.getCode());
         repositoryService.persist(entity);
         foreignKeyLookupService.clearCache(FacetDescriptorPathwayForFood.class);
         postProcessDisplayOrder();
@@ -91,7 +91,7 @@ public class Food_addFoodFacetSelectionForFacetDescriptorPathway {
     private Set<FoodFacet.SecondaryKey> foodFacetCodesAsDefinedByFoodClassification(
             final List<FacetDescriptorPathwayForFoodGroup> pathwayForFoodGroup) {
         return pathwayForFoodGroup.stream()
-                .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
+                .map(FacetDescriptorPathwayForFoodGroup::getFoodFacetCode)
                 .map(FoodFacet.SecondaryKey::new)
                 .collect(Collectors.toSet());
     }

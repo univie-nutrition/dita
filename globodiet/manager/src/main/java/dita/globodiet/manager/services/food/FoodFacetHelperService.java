@@ -130,7 +130,7 @@ public class FoodFacetHelperService {
     public List<String> facetCodesAllowedForFoodGrouping(final FoodGrouping foodGrouping) {
         return effectiveFacetDescriptorPathwayForFoodClassification(foodGrouping)
                 .stream()
-                .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
+                .map(FacetDescriptorPathwayForFoodGroup::getFoodFacetCode)
                 .toList();
     }
 
@@ -145,7 +145,7 @@ public class FoodFacetHelperService {
             final @Nullable Food food) {
         return selectedFacetDescriptorPathwayForFood(food)
             .stream()
-            .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
+            .map(FacetDescriptorPathwayForFood::getSelectedFoodFacetCode)
             .map(FoodFacet.SecondaryKey::new)
             .collect(Collectors.toSet());
     }

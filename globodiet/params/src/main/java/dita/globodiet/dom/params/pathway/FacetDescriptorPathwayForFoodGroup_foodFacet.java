@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.pathway;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
+import dita.globodiet.dom.params.food_descript.FoodFacet;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,20 +34,20 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "5.1",
-        describedAs = "Descriptor code",
+        sequence = "4.1",
+        describedAs = "Facet code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class FacetDescriptorPathwayForFoodGroup_descriptor {
+public class FacetDescriptorPathwayForFoodGroup_foodFacet {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final FacetDescriptorPathwayForFoodGroup mixee;
 
     @MemberSupport
-    public FoodDescriptor prop() {
-        final var lookupKey = new FoodDescriptor.SecondaryKey(mixee.getFacetCode(), mixee.getDescriptorCode());
+    public FoodFacet prop() {
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFoodFacetCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

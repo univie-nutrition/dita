@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.pathway;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_description.RecipeFacet;
+import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,22 +34,20 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "2.1",
-        describedAs = "Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe\n"
-                        + "(supersedes this Recipe's group pathway).\n"
-                        + "The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.",
+        sequence = "5.1",
+        describedAs = "Descriptor code",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class FacetDescriptorPathwayForRecipe_recipeFacet {
+public class FacetDescriptorPathwayForFoodGroup_foodDescriptor {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final FacetDescriptorPathwayForRecipe mixee;
+    private final FacetDescriptorPathwayForFoodGroup mixee;
 
     @MemberSupport
-    public RecipeFacet prop() {
-        final var lookupKey = new RecipeFacet.SecondaryKey(mixee.getRecipeFacetCode());
+    public FoodDescriptor prop() {
+        final var lookupKey = new FoodDescriptor.SecondaryKey(mixee.getFoodFacetCode(), mixee.getFoodDescriptorCode());
         return foreignKeyLookup.unique(lookupKey);
     }
 }

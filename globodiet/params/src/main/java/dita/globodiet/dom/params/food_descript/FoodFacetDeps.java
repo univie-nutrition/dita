@@ -23,8 +23,8 @@ import dita.commons.decorate.CollectionTitleDecorator;
 import dita.commons.services.lookup.DependantLookupService;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_facet;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodFacet;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_selectedFoodFacet;
 import dita.globodiet.dom.params.recipe_description.RecipeFacetRule;
 import dita.globodiet.dom.params.recipe_description.RecipeFacetRule_facetWhereTheRuleMustBeAppliedObj;
 import dita.globodiet.dom.params.setting.FacetDescriptorThatCannotBeSubstituted;
@@ -45,8 +45,8 @@ public class FoodFacetDeps {
         return Can.of(FoodFacet_dependentFoodDescriptorMappedByFacet.class,
         FoodFacet_dependentFoodFacetRuleMappedByFacet.class,
         FoodFacet_dependentImprobableSequenceOfFacetAndDescriptorMappedByFacet.class,
-        FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets.class,
-        FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet.class,
+        FoodFacet_dependentFacetDescriptorPathwayForFoodMappedBySelectedFoodFacet.class,
+        FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodFacet.class,
         FoodFacet_dependentRecipeFacetRuleMappedByFacetWhereTheRuleMustBeAppliedObj.class,
         FoodFacet_dependentFacetDescriptorThatCannotBeSubstitutedMappedByFacet.class);
     }
@@ -119,7 +119,7 @@ public class FoodFacetDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodMappedByMandatoryInSequenceOfFacets {
+    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodMappedBySelectedFoodFacet {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -129,8 +129,8 @@ public class FoodFacetDeps {
         public List<FacetDescriptorPathwayForFood> coll() {
             return dependantLookup.findDependants(
                 FacetDescriptorPathwayForFood.class,
-                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets.class,
-                FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets::prop,
+                FacetDescriptorPathwayForFood_selectedFoodFacet.class,
+                FacetDescriptorPathwayForFood_selectedFoodFacet::prop,
                 mixee);
         }
     }
@@ -140,7 +140,7 @@ public class FoodFacetDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFacet {
+    public static class FoodFacet_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodFacet {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -150,8 +150,8 @@ public class FoodFacetDeps {
         public List<FacetDescriptorPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
                 FacetDescriptorPathwayForFoodGroup.class,
-                FacetDescriptorPathwayForFoodGroup_facet.class,
-                FacetDescriptorPathwayForFoodGroup_facet::prop,
+                FacetDescriptorPathwayForFoodGroup_foodFacet.class,
+                FacetDescriptorPathwayForFoodGroup_foodFacet::prop,
                 mixee);
         }
     }

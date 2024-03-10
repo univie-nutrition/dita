@@ -71,9 +71,9 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
         e.setFoodSubSubgroupCode(foodSubSubgroupCode(p.foodSubgroup()));
 
         // cross reference
-        e.setFacetCode(p.facet().getCode());
+        e.setFoodFacetCode(p.foodFacet().getCode());
         e.setFacetDisplayOrder(p.facetDisplayOrder());
-        e.setDescriptorCode(p.descriptor().getCode());
+        e.setFoodDescriptorCode(p.foodDescriptor().getCode());
         e.setDescriptorDisplayOrder(p.descriptorDisplayOrder());
 
         // flags
@@ -122,9 +122,9 @@ public class FacetDescriptorPathwayForFoodGroupManager_addEntry {
     }
     @MemberSupport public List<FoodDescriptor> choicesDescriptor(
             final FacetDescriptorPathwayForFoodGroup.Params p) {
-        return p.facet()!=null
+        return p.foodFacet()!=null
                 ? repositoryService.allMatches(FoodDescriptor.class,
-                        fd->Objects.equals(fd.getFacetCode(), p.facet().getCode()))
+                        fd->Objects.equals(fd.getFacetCode(), p.foodFacet().getCode()))
                 : Collections.emptyList();
     }
 

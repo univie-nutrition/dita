@@ -91,10 +91,10 @@ public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
                     entity.setFoodSubSubgroupCode(subgroup.getFoodSubSubgroupCode());
                 });
 
-            entity.setFacetCode(fd.getFacetCode());
+            entity.setFoodFacetCode(fd.getFacetCode());
             entity.setFacetDisplayOrder(-1);
 
-            entity.setDescriptorCode(fd.getCode());
+            entity.setFoodDescriptorCode(fd.getCode());
             entity.setDescriptorDisplayOrder(-1);
 
             entity.setDefaultFlag(null);
@@ -131,7 +131,7 @@ public class Food_addDescriptorsAtGroupLevelForFacetDescriptorPathway {
     private Set<FoodFacet.SecondaryKey> foodFacetCodesAsDefinedByFoodClassification(
             final List<FacetDescriptorPathwayForFoodGroup> pathwayForFoodGroup) {
         return pathwayForFoodGroup.stream()
-                .map(FacetDescriptorPathwayForFoodGroup::getFacetCode)
+                .map(FacetDescriptorPathwayForFoodGroup::getFoodFacetCode)
                 .map(FoodFacet.SecondaryKey::new)
                 .collect(Collectors.toSet());
     }

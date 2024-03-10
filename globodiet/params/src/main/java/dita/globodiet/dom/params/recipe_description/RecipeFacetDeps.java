@@ -24,7 +24,7 @@ import dita.commons.services.lookup.DependantLookupService;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup_recipeFacet;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_recipeFacet;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_selectedRecipeFacet;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RecipeFacetDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(RecipeFacet_dependentFacetDescriptorPathwayForRecipeMappedByRecipeFacet.class,
+        return Can.of(RecipeFacet_dependentFacetDescriptorPathwayForRecipeMappedBySelectedRecipeFacet.class,
         RecipeFacet_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeFacet.class,
         RecipeFacet_dependentRecipeDescriptorMappedByRecipeFacet.class);
     }
@@ -48,7 +48,7 @@ public class RecipeFacetDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class RecipeFacet_dependentFacetDescriptorPathwayForRecipeMappedByRecipeFacet {
+    public static class RecipeFacet_dependentFacetDescriptorPathwayForRecipeMappedBySelectedRecipeFacet {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -58,8 +58,8 @@ public class RecipeFacetDeps {
         public List<FacetDescriptorPathwayForRecipe> coll() {
             return dependantLookup.findDependants(
                 FacetDescriptorPathwayForRecipe.class,
-                FacetDescriptorPathwayForRecipe_recipeFacet.class,
-                FacetDescriptorPathwayForRecipe_recipeFacet::prop,
+                FacetDescriptorPathwayForRecipe_selectedRecipeFacet.class,
+                FacetDescriptorPathwayForRecipe_selectedRecipeFacet::prop,
                 mixee);
         }
     }

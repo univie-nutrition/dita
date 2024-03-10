@@ -78,7 +78,7 @@ public class Food_effectiveFoodDescriptors {
             return foodDescriptorsAsDefinedByFoodClassification;
         }
         final Set<String> facetCodeSubset = facetDescriptorPathwayForFood.stream()
-            .map(FacetDescriptorPathwayForFood::getMandatoryInSequenceOfFacetsCode)
+            .map(FacetDescriptorPathwayForFood::getSelectedFoodFacetCode)
             .collect(Collectors.toSet());
         return foodDescriptorsAsDefinedByFoodClassification.stream()
                 .filter(foodDescriptor->facetCodeSubset.contains(foodDescriptor.getFacetCode()))
@@ -91,8 +91,8 @@ public class Food_effectiveFoodDescriptors {
 
     private FoodDescriptor foodDescriptor(final FacetDescriptorPathwayForFoodGroup groupPathway) {
         return foreignKeyLookupService.unique(new FoodDescriptor.SecondaryKey(
-                groupPathway.getFacetCode(),
-                groupPathway.getDescriptorCode()));
+                groupPathway.getFoodFacetCode(),
+                groupPathway.getFoodDescriptorCode()));
     }
 
 }

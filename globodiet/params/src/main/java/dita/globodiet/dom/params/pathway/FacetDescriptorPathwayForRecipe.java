@@ -76,7 +76,7 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     SearchService searchService;
 
     /**
-     * Recipe ID number
+     * Recipe unique id.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -84,7 +84,7 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     @PropertyLayout(
             fieldSetId = "foreign",
             sequence = "1",
-            describedAs = "Recipe ID number",
+            describedAs = "Recipe unique id.",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -119,10 +119,10 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     )
     @Getter
     @Setter
-    private String recipeFacetCode;
+    private String selectedRecipeFacetCode;
 
     /**
-     * has no description
+     * Order to display the facets for the referenced recipe.
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -131,7 +131,7 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "has no description",
+            describedAs = "Order to display the facets for the referenced recipe.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -140,7 +140,7 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     )
     @Getter
     @Setter
-    private int order;
+    private int displayOrder;
 
     @ObjectSupport
     public String title() {
@@ -150,8 +150,8 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     @Override
     public String toString() {
         return "FacetDescriptorPathwayForRecipe(" + "recipeCode=" + getRecipeCode() + ","
-         +"recipeFacetCode=" + getRecipeFacetCode() + ","
-         +"order=" + getOrder() + ")";
+         +"selectedRecipeFacetCode=" + getSelectedRecipeFacetCode() + ","
+         +"displayOrder=" + getDisplayOrder() + ")";
     }
 
     @Programmatic
@@ -159,8 +159,8 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     public FacetDescriptorPathwayForRecipe copy() {
         var copy = repositoryService.detachedEntity(new FacetDescriptorPathwayForRecipe());
         copy.setRecipeCode(getRecipeCode());
-        copy.setRecipeFacetCode(getRecipeFacetCode());
-        copy.setOrder(getOrder());
+        copy.setSelectedRecipeFacetCode(getSelectedRecipeFacetCode());
+        copy.setDisplayOrder(getDisplayOrder());
         return copy;
     }
 

@@ -246,7 +246,12 @@ public class FacetDescriptorPathwayForRecipeGroup implements Cloneable<FacetDesc
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("Pathway (group=%s|%s, descriptor=%s|%s)",
+            recipeGroupCode, 
+            dita.commons.format.FormatUtils.emptyToDash(recipeSubgroupCode), 
+            recipeFacetCode, 
+            recipeDescriptorCode)
+        ;
     }
 
     @Override

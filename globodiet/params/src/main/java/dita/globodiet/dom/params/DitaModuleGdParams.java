@@ -147,14 +147,14 @@ import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodDeps;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroupDeps;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_delete;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_descriptor;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_facet;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodDescriptor;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodFacet;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodGroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodSubgroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_delete;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_food;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood_selectedFoodFacet;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeDeps;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup;
@@ -166,7 +166,7 @@ import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup_re
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup_recipeSubgroup;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_delete;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_recipe;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_recipeFacet;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe_selectedRecipeFacet;
 import dita.globodiet.dom.params.pathway.ProbingQuestion;
 import dita.globodiet.dom.params.pathway.ProbingQuestionDeps;
 import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForFood;
@@ -550,14 +550,14 @@ import org.springframework.context.annotation.Import;
         EdiblePartCoefficientForFood_facetDescriptor.class,
         EdiblePartCoefficientForFood_food.class,
         FacetDescriptorPathwayForFoodGroup_delete.class,
-        FacetDescriptorPathwayForFoodGroup_descriptor.class,
-        FacetDescriptorPathwayForFoodGroup_facet.class,
+        FacetDescriptorPathwayForFoodGroup_foodDescriptor.class,
+        FacetDescriptorPathwayForFoodGroup_foodFacet.class,
         FacetDescriptorPathwayForFoodGroup_foodGroup.class,
         FacetDescriptorPathwayForFoodGroup_foodSubSubgroup.class,
         FacetDescriptorPathwayForFoodGroup_foodSubgroup.class,
         FacetDescriptorPathwayForFood_delete.class,
         FacetDescriptorPathwayForFood_food.class,
-        FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets.class,
+        FacetDescriptorPathwayForFood_selectedFoodFacet.class,
         FacetDescriptorPathwayForRecipeGroup_delete.class,
         FacetDescriptorPathwayForRecipeGroup_recipeDescriptor.class,
         FacetDescriptorPathwayForRecipeGroup_recipeFacet.class,
@@ -565,7 +565,7 @@ import org.springframework.context.annotation.Import;
         FacetDescriptorPathwayForRecipeGroup_recipeSubgroup.class,
         FacetDescriptorPathwayForRecipe_delete.class,
         FacetDescriptorPathwayForRecipe_recipe.class,
-        FacetDescriptorPathwayForRecipe_recipeFacet.class,
+        FacetDescriptorPathwayForRecipe_selectedRecipeFacet.class,
         FacetDescriptorThatCannotBeSubstituted_delete.class,
         FacetDescriptorThatCannotBeSubstituted_descriptor.class,
         FacetDescriptorThatCannotBeSubstituted_facet.class,

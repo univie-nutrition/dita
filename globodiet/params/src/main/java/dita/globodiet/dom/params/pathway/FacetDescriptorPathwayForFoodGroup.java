@@ -82,7 +82,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Unique(
         name = "SEC_KEY_UNQ_FacetDescriptorPathwayForFoodGroup",
-        members = {"foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode", "facetCode", "descriptorCode"}
+        members = {"foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode", "foodFacetCode", "foodDescriptorCode"}
 )
 public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescriptorPathwayForFoodGroup>, HasSecondaryKey<FacetDescriptorPathwayForFoodGroup> {
     @Inject
@@ -173,7 +173,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     )
     @Getter
     @Setter
-    private String facetCode;
+    private String foodFacetCode;
 
     /**
      * Descriptor code
@@ -194,7 +194,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     )
     @Getter
     @Setter
-    private String descriptorCode;
+    private String foodDescriptorCode;
 
     /**
      * Default flag (if set to 'D' it is the default descriptor)
@@ -288,8 +288,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             foodGroupCode, 
             dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
             dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
-            facetCode, 
-            descriptorCode)
+            foodFacetCode, 
+            foodDescriptorCode)
         ;
     }
 
@@ -298,8 +298,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
         return "FacetDescriptorPathwayForFoodGroup(" + "foodGroupCode=" + getFoodGroupCode() + ","
          +"foodSubgroupCode=" + getFoodSubgroupCode() + ","
          +"foodSubSubgroupCode=" + getFoodSubSubgroupCode() + ","
-         +"facetCode=" + getFacetCode() + ","
-         +"descriptorCode=" + getDescriptorCode() + ","
+         +"foodFacetCode=" + getFoodFacetCode() + ","
+         +"foodDescriptorCode=" + getFoodDescriptorCode() + ","
          +"defaultFlag=" + getDefaultFlag() + ","
          +"notInNameFlag=" + getNotInNameFlag() + ","
          +"facetDisplayOrder=" + getFacetDisplayOrder() + ","
@@ -313,8 +313,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
         copy.setFoodGroupCode(getFoodGroupCode());
         copy.setFoodSubgroupCode(getFoodSubgroupCode());
         copy.setFoodSubSubgroupCode(getFoodSubSubgroupCode());
-        copy.setFacetCode(getFacetCode());
-        copy.setDescriptorCode(getDescriptorCode());
+        copy.setFoodFacetCode(getFoodFacetCode());
+        copy.setFoodDescriptorCode(getFoodDescriptorCode());
         copy.setDefaultFlag(getDefaultFlag());
         copy.setNotInNameFlag(getNotInNameFlag());
         copy.setFacetDisplayOrder(getFacetDisplayOrder());
@@ -336,7 +336,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode(), getFacetCode(), getDescriptorCode());
+        return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode(), getFoodFacetCode(), getFoodDescriptorCode());
     }
 
     /**
@@ -386,8 +386,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
      * @param foodGroup Food group code
      * @param foodSubgroup Food Subgroup code
      * @param foodSubSubgroup Food Sub-subgroup code
-     * @param facet Facet code
-     * @param descriptor Descriptor code
+     * @param foodFacet Facet code
+     * @param foodDescriptor Descriptor code
      * @param defaultFlag Default flag (if set to 'D' it is the default descriptor)
      * @param notInNameFlag Not in name flag
      * @param facetDisplayOrder Order to display the facets within a group/subgroup
@@ -425,7 +425,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             @ParameterLayout(
                     describedAs = "Facet code"
             )
-            FoodFacet facet,
+            FoodFacet foodFacet,
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.RESET,
                     optionality = Optionality.MANDATORY
@@ -433,7 +433,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             @ParameterLayout(
                     describedAs = "Descriptor code"
             )
-            FoodDescriptor descriptor,
+            FoodDescriptor foodDescriptor,
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
@@ -473,15 +473,15 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
      * @param foodGroupCode Food group code
      * @param foodSubgroupCode Food Subgroup code
      * @param foodSubSubgroupCode Food Sub-subgroup code
-     * @param facetCode Facet code
-     * @param descriptorCode Descriptor code
+     * @param foodFacetCode Facet code
+     * @param foodDescriptorCode Descriptor code
      */
     public final record SecondaryKey(
             String foodGroupCode,
             String foodSubgroupCode,
             String foodSubSubgroupCode,
-            String facetCode,
-            String descriptorCode) implements ISecondaryKey<FacetDescriptorPathwayForFoodGroup> {
+            String foodFacetCode,
+            String foodDescriptorCode) implements ISecondaryKey<FacetDescriptorPathwayForFoodGroup> {
         @Override
         public Class<FacetDescriptorPathwayForFoodGroup> correspondingClass() {
             return FacetDescriptorPathwayForFoodGroup.class;

@@ -34,20 +34,23 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "4.1",
-        describedAs = "Facet code",
+        sequence = "2.1",
+        describedAs = "Food Facet codes that will appear in the sequence of facets corresponding to this Food\n"
+                        + "(supersedes this Food's group pathway).\n"
+                        + "The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class FacetDescriptorPathwayForFoodGroup_facet {
+public class FacetDescriptorPathwayForFood_selectedFoodFacet {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final FacetDescriptorPathwayForFoodGroup mixee;
+    private final FacetDescriptorPathwayForFood mixee;
 
     @MemberSupport
     public FoodFacet prop() {
-        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getFacetCode());
-        return foreignKeyLookup.unique(lookupKey);
+        if(mixee.getSelectedFoodFacetCode()==null) return null;
+        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getSelectedFoodFacetCode());
+        return foreignKeyLookup.nullable(lookupKey);
     }
 }

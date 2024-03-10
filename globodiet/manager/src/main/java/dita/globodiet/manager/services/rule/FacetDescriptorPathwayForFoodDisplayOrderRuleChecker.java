@@ -101,7 +101,7 @@ implements RuleChecker {
                     entry.getFoodGroupCode(),
                     dita.commons.format.FormatUtils.emptyToDash(entry.getFoodSubgroupCode()),
                     dita.commons.format.FormatUtils.emptyToDash(entry.getFoodSubSubgroupCode()),
-                    entry.getFacetCode());
+                    entry.getFoodFacetCode());
             displayOrdersByFacet1.putElement(foodGroupingPlusFacet, entry.getFacetDisplayOrder());
             displayOrdersByFacet2.putElement(foodGroupingPlusFacet, entry.getDescriptorDisplayOrder());
             urlByFoodGroupingPlusFacet.putElement(foodGroupingPlusFacet, deepLinkService.deepLinkFor(entry));

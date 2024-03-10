@@ -30,7 +30,7 @@ import dita.globodiet.dom.params.food_coefficient.PercentOfFatUseDuringCookingFo
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood;
 import dita.globodiet.dom.params.food_coefficient.RawToCookedConversionFactorForFood_facetDescriptors;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_descriptor;
+import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup_foodDescriptor;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup_physicalStateFacetDescriptor;
 import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup;
@@ -58,7 +58,7 @@ public class FoodDescriptorDeps {
         FoodDescriptor_dependentRawToCookedConversionFactorForFoodMappedByFacetDescriptors.class,
         FoodDescriptor_dependentFoodFacetRuleMappedByFacetDescriptor.class,
         FoodDescriptor_dependentImprobableSequenceOfFacetAndDescriptorMappedByDescriptor.class,
-        FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor.class,
+        FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodDescriptor.class,
         FoodDescriptor_dependentQuantificationMethodPathwayForFoodGroupMappedByPhysicalStateFacetDescriptor.class,
         FoodDescriptor_dependentMaximumValueForFoodOrGroupMappedByFacetDescriptor.class,
         FoodDescriptor_dependentRecipeIngredientMappedByFacetDescriptors.class,
@@ -196,7 +196,7 @@ public class FoodDescriptorDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByDescriptor {
+    public static class FoodDescriptor_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodDescriptor {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -206,8 +206,8 @@ public class FoodDescriptorDeps {
         public List<FacetDescriptorPathwayForFoodGroup> coll() {
             return dependantLookup.findDependants(
                 FacetDescriptorPathwayForFoodGroup.class,
-                FacetDescriptorPathwayForFoodGroup_descriptor.class,
-                FacetDescriptorPathwayForFoodGroup_descriptor::prop,
+                FacetDescriptorPathwayForFoodGroup_foodDescriptor.class,
+                FacetDescriptorPathwayForFoodGroup_foodDescriptor::prop,
                 mixee);
         }
     }

@@ -38,8 +38,8 @@ params.pathway.FacetDescriptorPathwayForFood:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
-        food ID number
-    mandatoryInSequenceOfFacetsCode:
+        Food unique id.
+    selectedFoodFacetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -56,5 +56,5 @@ params.pathway.FacetDescriptorPathwayForFood:
       required: true
       unique: false
       description: |
-        Order to display the facets for the attached food (same order as ORDER_FAC in @{table GROUPFAC})
+        Order to display the facets for the referenced food (same order as ORDER_FAC in @{table GROUPFAC})
 

@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.pathway;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodFacet;
+import dita.globodiet.dom.params.recipe_description.RecipeFacet;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -35,22 +35,21 @@ import org.apache.causeway.applib.annotation.Where;
 @PropertyLayout(
         fieldSetId = "details",
         sequence = "2.1",
-        describedAs = "Food Facet codes that will appear in the sequence of facets corresponding to this Food\n"
-                        + "(supersedes this Food's group pathway).\n"
-                        + "The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.",
+        describedAs = "Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe\n"
+                        + "(supersedes this Recipe's group pathway).\n"
+                        + "The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor
-public class FacetDescriptorPathwayForFood_mandatoryInSequenceOfFacets {
+public class FacetDescriptorPathwayForRecipe_selectedRecipeFacet {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final FacetDescriptorPathwayForFood mixee;
+    private final FacetDescriptorPathwayForRecipe mixee;
 
     @MemberSupport
-    public FoodFacet prop() {
-        if(mixee.getMandatoryInSequenceOfFacetsCode()==null) return null;
-        final var lookupKey = new FoodFacet.SecondaryKey(mixee.getMandatoryInSequenceOfFacetsCode());
-        return foreignKeyLookup.nullable(lookupKey);
+    public RecipeFacet prop() {
+        final var lookupKey = new RecipeFacet.SecondaryKey(mixee.getSelectedRecipeFacetCode());
+        return foreignKeyLookup.unique(lookupKey);
     }
 }

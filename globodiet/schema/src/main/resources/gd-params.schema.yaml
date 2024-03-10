@@ -1506,8 +1506,8 @@ params.pathway.FacetDescriptorPathwayForFood:
       foreignKeys: |
         FOODS.FOODNUM
       description: |
-        food ID number
-    mandatoryInSequenceOfFacetsCode:
+        Food unique id.
+    selectedFoodFacetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: false
@@ -1524,7 +1524,7 @@ params.pathway.FacetDescriptorPathwayForFood:
       required: true
       unique: false
       description: |
-        Order to display the facets for the attached food (same order as ORDER_FAC in @{table GROUPFAC})
+        Order to display the facets for the referenced food (same order as ORDER_FAC in @{table GROUPFAC})
 params.pathway.FacetDescriptorPathwayForFoodGroup:
   namespace: params.pathway
   table: GROUPFAC
@@ -1539,8 +1539,8 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
         foodGroupCode, 
         dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
         dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
-        facetCode, 
-        descriptorCode)
+        foodFacetCode, 
+        foodDescriptorCode)
     
   icon: |
     solid person-walking-arrow-right .food-color,
@@ -1582,7 +1582,7 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
         SUBGROUP.SUBGROUP2
       description: |
         Food Sub-subgroup code
-    facetCode:
+    foodFacetCode:
       column: FACET_CODE
       column-type: nvarchar(2)
       required: true
@@ -1591,7 +1591,7 @@ params.pathway.FacetDescriptorPathwayForFoodGroup:
         FACETS.FACET_CODE
       description: |
         Facet code
-    descriptorCode:
+    foodDescriptorCode:
       column: DESCR_CODE
       column-type: nvarchar(2)
       required: true
@@ -1652,8 +1652,8 @@ params.pathway.FacetDescriptorPathwayForRecipe:
       foreignKeys: |
         MIXEDREC.R_IDNUM
       description: |
-        Recipe ID number
-    recipeFacetCode:
+        Recipe unique id.
+    selectedRecipeFacetCode:
       column: RFACET_CODE
       column-type: nvarchar(2)
       required: true
@@ -1664,17 +1664,24 @@ params.pathway.FacetDescriptorPathwayForRecipe:
         Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe 
         (supersedes this Recipe's group pathway). 
         The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.
-    order:
+    displayOrder:
       column: ORDER_FAC
       column-type: int(10)
       required: true
       unique: false
-      description:
+      description: |
+        Order to display the facets for the referenced recipe.
 params.pathway.FacetDescriptorPathwayForRecipeGroup:
   namespace: params.pathway
   table: R_GROUPFAC
   secondaryKey:
-  title: null
+  title: |
+    String.format("Pathway (group=%s|%s, descriptor=%s|%s)",
+        recipeGroupCode, 
+        dita.commons.format.FormatUtils.emptyToDash(recipeSubgroupCode), 
+        recipeFacetCode, 
+        recipeDescriptorCode)
+    
   icon: |
     solid person-walking-arrow-right .recipe-color,
     solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85

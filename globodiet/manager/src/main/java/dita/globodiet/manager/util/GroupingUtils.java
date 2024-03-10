@@ -26,9 +26,14 @@ import lombok.experimental.UtilityClass;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.dom.params.recipe_list.RecipeGroup;
+import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
 
 @UtilityClass
 public class GroupingUtils {
+
+    // -- FOOD
 
     public FoodGroup.SecondaryKey foodGroupKeyForFood(final @NonNull Food food) {
         return new FoodGroup.SecondaryKey(food.getFoodGroupCode());
@@ -73,6 +78,22 @@ public class GroupingUtils {
             return foodSubgroupKey;
         }
         return key;
+    }
+
+    // -- RECIPE
+
+    public RecipeGroup.SecondaryKey recipeGroupKeyForRecipe(final @NonNull Recipe recipe) {
+        return new RecipeGroup.SecondaryKey(recipe.getRecipeGroupCode());
+    }
+
+    public RecipeGroup.SecondaryKey recipeGroupKeyForSubgroup(final @NonNull RecipeSubgroup recipeSubgroup) {
+        return new RecipeGroup.SecondaryKey(recipeSubgroup.getRecipeGroupCode());
+    }
+
+    public RecipeSubgroup.SecondaryKey recipeSubgroupKeyForRecipe(final @NonNull Recipe recipe) {
+        return new RecipeSubgroup.SecondaryKey(
+                recipe.getRecipeGroupCode(),
+                recipe.getRecipeSubgroupCode());
     }
 
 }
