@@ -113,7 +113,9 @@ public class Food_addQuantificationMethodPathwayToGroup {
         entity.setRawOrCookedAsConsumed(rawOrCookedAsConsumed);
 
         entity.setQuantificationMethod(quantificationMethod);
-        entity.setPhotoOrShapeCode(photoOrShape.getCode());
+        entity.setPhotoOrShapeCode(photoOrShape!=null
+                ? photoOrShape.getCode()
+                : null);
 
         entity.setComment(comment);
 

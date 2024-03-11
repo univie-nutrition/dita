@@ -1950,7 +1950,14 @@ params.pathway.QuantificationMethodPathwayForFood:
 params.pathway.QuantificationMethodPathwayForFoodGroup:
   namespace: params.pathway
   table: QM_GROUP
-  secondaryKey:
+  secondaryKey: |
+    GROUP
+    SUBGROUP1
+    SUBGROUP2
+    PHYS_STATE
+    RAW_COOKED
+    METHOD
+    METH_CODE
   title: null
   icon: |
     solid person-walking-arrow-right .food-color,
