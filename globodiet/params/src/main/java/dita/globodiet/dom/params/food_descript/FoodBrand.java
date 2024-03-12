@@ -209,7 +209,10 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getNameOfBrand(), getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode());
+        return new SecondaryKey(getNameOfBrand(), 
+        getFoodGroupCode(), 
+        getFoodSubgroupCode(), 
+        getFoodSubSubgroupCode());
     }
 
     /**

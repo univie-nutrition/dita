@@ -295,7 +295,8 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getFacetCode(), getCode());
+        return new SecondaryKey(getFacetCode(), 
+        getCode());
     }
 
     @RequiredArgsConstructor

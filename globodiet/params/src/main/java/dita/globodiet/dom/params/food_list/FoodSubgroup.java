@@ -356,7 +356,9 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode());
+        return new SecondaryKey(getFoodGroupCode(), 
+        getFoodSubgroupCode(), 
+        getFoodSubSubgroupCode());
     }
 
     @RequiredArgsConstructor

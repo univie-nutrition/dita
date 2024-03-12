@@ -372,9 +372,9 @@ class _GenEntity {
     private String asArgList(final List<Field> fields) {
         return fields.stream()
                 .map(field->field.isEnum()
-                        ? String.format("%s().matchOn", field.getter())
+                        ? String.format("%s()!=null ? %s().matchOn : null", field.getter(), field.getter())
                         : String.format("%s()", field.getter()))
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", \n"));
     }
 
 }

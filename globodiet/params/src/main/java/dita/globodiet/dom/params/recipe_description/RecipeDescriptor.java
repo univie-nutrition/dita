@@ -324,7 +324,8 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getRecipeFacetCode(), getCode());
+        return new SecondaryKey(getRecipeFacetCode(), 
+        getCode());
     }
 
     @RequiredArgsConstructor

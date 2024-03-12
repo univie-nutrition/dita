@@ -211,7 +211,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getRecipeGroupCode(), getCode());
+        return new SecondaryKey(getRecipeGroupCode(), 
+        getCode());
     }
 
     /**

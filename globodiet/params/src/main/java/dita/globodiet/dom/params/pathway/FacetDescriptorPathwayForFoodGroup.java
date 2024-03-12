@@ -336,7 +336,11 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getFoodGroupCode(), getFoodSubgroupCode(), getFoodSubSubgroupCode(), getFoodFacetCode(), getFoodDescriptorCode());
+        return new SecondaryKey(getFoodGroupCode(), 
+        getFoodSubgroupCode(), 
+        getFoodSubSubgroupCode(), 
+        getFoodFacetCode(), 
+        getFoodDescriptorCode());
     }
 
     /**
