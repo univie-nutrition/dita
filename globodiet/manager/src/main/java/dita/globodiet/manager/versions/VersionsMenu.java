@@ -32,9 +32,7 @@ import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsMenu")
-@DomainService(
-        nature = org.apache.causeway.applib.annotation.NatureOfService.VIEW
-        )
+@DomainService
 public class VersionsMenu {
 
     @Inject FactoryService factoryService;
