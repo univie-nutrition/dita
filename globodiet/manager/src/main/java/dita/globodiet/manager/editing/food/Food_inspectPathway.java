@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Refs;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
@@ -50,6 +51,7 @@ import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
 import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
+import dita.globodiet.manager.services.thickness.ThicknessLookupService;
 import dita.globodiet.manager.util.AsciiDocUtils;
 import dita.globodiet.manager.util.QuantificationMethodPathwayKey;
 
@@ -69,6 +71,7 @@ public class Food_inspectPathway {
 
     @Inject private FactoryService factoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
+    @Inject private ThicknessLookupService thicknessLookupService;
 
     private final static String PHYSICAL_STATE_FACET_CODE = "02"; //TODO convert to configuration option
 
@@ -162,6 +165,8 @@ public class Food_inspectPathway {
         .append(effectiveGrouping.title())
         .append("\n");
 
+        var hasAnyShapes = _Refs.booleanRef(false);
+
         var effectiveQuantificationMethodPathways = factoryService.mixin(Food_effectiveQuantificationMethodPathways.class, mixee).coll();
         effectiveQuantificationMethodPathways.stream()
         .filter(qmPathway->matches(rawOrCookedAsConsumed, qmPathway))
@@ -183,13 +188,22 @@ public class Food_inspectPathway {
             var qmpKey = QuantificationMethodPathwayKey.valueOf(qmPathway);
             if(qmpKey.quantificationMethod().isPhoto()) {
                 yaml.append("    photoCode: ").append(qmPathway.getPhotoOrShapeCode()).append("\n");
-            }
-            if(qmpKey.quantificationMethod().isShape()) {
+            } else if(qmpKey.quantificationMethod().isShape()) {
                 yaml.append("    shapeCode: ").append(qmPathway.getPhotoOrShapeCode()).append("\n");
+                hasAnyShapes.setValue(true);
             }
         });
 
-        //
+        if(hasAnyShapes.isTrue()) {
+            yaml.append("    thicknessOptionsForShape:\n");
+            //TODO which group to use (food's grouping or effective grouping for QMP)?
+            thicknessLookupService.lookupThicknessForFood(effectiveGrouping.groupingKey())
+            .forEach(thickness->{
+                yaml.append("     -thickness: ").append(thickness.getCode()).append("\n");
+                yaml.append("      cm: ").append(String.format("%.3f", thickness.getThickness())).append("\n");
+                yaml.append("      comment: ").append(thickness.getComment()).append("\n");
+            });
+        }
 
         return yaml.toString();
     }
