@@ -30,7 +30,7 @@ import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe_recipeS
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipeSubgroup;
 import dita.globodiet.dom.params.quantif.ThicknessForShape;
-import dita.globodiet.dom.params.quantif.ThicknessForShape_recipeSubgroups;
+import dita.globodiet.dom.params.quantif.ThicknessForShape_recipeGrouping;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand;
@@ -56,7 +56,7 @@ public class RecipeSubgroupDeps {
         RecipeSubgroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentProbingQuestionPathwayForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentMaximumValueForRecipeOrGroupMappedByRecipeSubgroup.class,
-        RecipeSubgroup_dependentThicknessForShapeMappedByRecipeSubgroups.class,
+        RecipeSubgroup_dependentThicknessForShapeMappedByRecipeGrouping.class,
         RecipeSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeBrandMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeFacetRuleMappedByRecipeSubgroup.class,
@@ -154,7 +154,7 @@ public class RecipeSubgroupDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class RecipeSubgroup_dependentThicknessForShapeMappedByRecipeSubgroups {
+    public static class RecipeSubgroup_dependentThicknessForShapeMappedByRecipeGrouping {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -164,8 +164,8 @@ public class RecipeSubgroupDeps {
         public List<ThicknessForShape> coll() {
             return dependantLookup.findDependants(
                 ThicknessForShape.class,
-                ThicknessForShape_recipeSubgroups.class,
-                ThicknessForShape_recipeSubgroups::coll,
+                ThicknessForShape_recipeGrouping.class,
+                ThicknessForShape_recipeGrouping::coll,
                 mixee);
         }
     }

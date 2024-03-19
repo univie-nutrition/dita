@@ -179,7 +179,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     )
     @Getter
     @Setter
-    private String foodSubgroupsLookupKey;
+    private String foodGroupingLookupKey;
 
     /**
      * For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
@@ -208,7 +208,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     )
     @Getter
     @Setter
-    private String recipeSubgroupsLookupKey;
+    private String recipeGroupingLookupKey;
 
     @ObjectSupport
     public String title() {
@@ -220,8 +220,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
         return "ThicknessForShape(" + "code=" + getCode() + ","
          +"thickness=" + getThickness() + ","
          +"comment=" + getComment() + ","
-         +"foodSubgroupsLookupKey=" + getFoodSubgroupsLookupKey() + ","
-         +"recipeSubgroupsLookupKey=" + getRecipeSubgroupsLookupKey() + ")";
+         +"foodGroupingLookupKey=" + getFoodGroupingLookupKey() + ","
+         +"recipeGroupingLookupKey=" + getRecipeGroupingLookupKey() + ")";
     }
 
     @Programmatic
@@ -231,8 +231,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
         copy.setCode(getCode());
         copy.setThickness(getThickness());
         copy.setComment(getComment());
-        copy.setFoodSubgroupsLookupKey(getFoodSubgroupsLookupKey());
-        copy.setRecipeSubgroupsLookupKey(getRecipeSubgroupsLookupKey());
+        copy.setFoodGroupingLookupKey(getFoodGroupingLookupKey());
+        copy.setRecipeGroupingLookupKey(getRecipeGroupingLookupKey());
         return copy;
     }
 
@@ -297,13 +297,13 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      * @param thickness has no description
      * @param comment Comment attached to the thickness (e.g. small, medium, large…)
-     * @param foodSubgroups For the food items, the food (sub)groups for which this thickness has to be proposed.
+     * @param foodGrouping For the food items, the food (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)
      * When this field is empty, that means that this thickness has always to be proposed
      * whatever the food classification.
      * Multiple subgroup.group and/or subgroup.subgroup1
      * and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)
-     * @param recipeSubgroups For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
+     * @param recipeGrouping For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
      * When this field is empty, that means that this thickness has always to be proposed
      * whatever the recipe classification.
@@ -346,7 +346,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
                                     + "Multiple subgroup.group and/or subgroup.subgroup1\n"
                                     + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)"
             )
-            FoodSubgroup foodSubgroups,
+            FoodSubgroup foodGrouping,
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.OPTIONAL
@@ -358,7 +358,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
                                     + "whatever the recipe classification.\n"
                                     + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)"
             )
-            RecipeSubgroup recipeSubgroups) {
+            RecipeSubgroup recipeGrouping) {
     }
 
     /**

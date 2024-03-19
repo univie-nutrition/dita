@@ -181,10 +181,15 @@ public class Food_inspectPathway {
             yaml.append("    physicalStateFacetDescriptor: ").append(qmPathway.getPhysicalStateFacetDescriptorLookupKey()).append("\n");
             yaml.append("    rawOrCookedAsConsumed: ").append(qmPathway.getRawOrCookedAsConsumed()).append("\n");
             var qmpKey = QuantificationMethodPathwayKey.valueOf(qmPathway);
-            if(qmpKey.quantificationMethod().isPhotoOrShape()) {
-                yaml.append("    photoOrShape: ").append(qmPathway.getPhotoOrShapeCode()).append("\n");
+            if(qmpKey.quantificationMethod().isPhoto()) {
+                yaml.append("    photoCode: ").append(qmPathway.getPhotoOrShapeCode()).append("\n");
+            }
+            if(qmpKey.quantificationMethod().isShape()) {
+                yaml.append("    shapeCode: ").append(qmPathway.getPhotoOrShapeCode()).append("\n");
             }
         });
+
+        //
 
         return yaml.toString();
     }

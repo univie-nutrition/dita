@@ -20,7 +20,7 @@
 package dita.globodiet.dom.params.quantif;
 
 import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
@@ -31,23 +31,24 @@ import org.apache.causeway.commons.collections.Can;
 
 @Collection
 @CollectionLayout(
-        describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
-                        + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
+        describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
+                        + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
-                        + "whatever the recipe classification.\n"
-                        + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)",
+                        + "whatever the food classification.\n"
+                        + "Multiple subgroup.group and/or subgroup.subgroup1\n"
+                        + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
-public class ThicknessForShape_recipeSubgroups {
+public class ThicknessForShape_foodGrouping {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
     private final ThicknessForShape mixee;
 
     @MemberSupport
-    public Can<RecipeSubgroup> coll() {
-        return foreignKeyLookup.decodeLookupKeyList(RecipeSubgroup.class, mixee.getRecipeSubgroupsLookupKey())
+    public Can<FoodSubgroup> coll() {
+        return foreignKeyLookup.decodeLookupKeyList(FoodSubgroup.class, mixee.getFoodGroupingLookupKey())
             .map(foreignKeyLookup::unique);
     }
 }

@@ -38,6 +38,8 @@ public record QuantificationMethodPathwayKey(
         STANDARD_PORTION,
         SHAPE;
 
+        // -- FACTORIES
+
         public static QuantificationMethod valueOf(final QuantificationMethodPathwayForFoodGroup.QuantificationMethod qm) {
             return QuantificationMethod.valueOf(qm.name());
         }
@@ -54,11 +56,14 @@ public record QuantificationMethodPathwayKey(
             return QuantificationMethod.valueOf(qm.name());
         }
 
-        public boolean isPhotoOrShape() {
-            return this == PHOTO
-                    || this == SHAPE;
-        }
+        // -- PREDICATES
 
+        public boolean isPhoto() { return this == PHOTO; }
+        public boolean isShape() { return this == SHAPE; }
+        public boolean isPhotoOrShape() {
+            return isPhoto()
+                    || isShape();
+        }
     }
 
     // -- FOOD

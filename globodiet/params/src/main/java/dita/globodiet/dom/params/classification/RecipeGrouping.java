@@ -20,6 +20,8 @@
 package dita.globodiet.dom.params.classification;
 
 import org.apache.causeway.commons.functional.Either;
+import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.format.FormatUtils;
 import dita.globodiet.dom.params.recipe_list.RecipeGroup;
@@ -40,30 +42,52 @@ public interface RecipeGrouping {
     }
 
     /**
-     * Format {@code groupCode|subgroupCode}
+     * combinedKey: Format {@code groupCode|subgroupCode}
      * with null replaced by dash {@literal -}.
      */
-    public record RecipeGroupingKey(String value) {
+    public record RecipeGroupingKey(
+            String combinedKey,
+            String lookupKey) {
+
+        public boolean equalsOrIsContainedIn(final String recipeGroupingLookupKey) {
+            return _Strings.splitThenStream(recipeGroupingLookupKey, ",")
+                    .anyMatch(lookupKey()::equals);
+        }
     }
 
     default RecipeGroupingKey groupingKey() {
         return this instanceof RecipeSubgroup foodSubgroup
-                ? new RecipeGroupingKey(keyFor(foodSubgroup))
-                : new RecipeGroupingKey(keyFor((RecipeGroup)this));
+                ? new RecipeGroupingKey(combinedKey(foodSubgroup), lookupKey(foodSubgroup))
+                : new RecipeGroupingKey(combinedKey((RecipeGroup)this), lookupKey((RecipeGroup)this));
     }
 
     // -- HELPER
 
-    private static String keyFor(final RecipeSubgroup recipeSubgroup) {
+    private static String combinedKey(final RecipeSubgroup recipeSubgroup) {
         var secKey = recipeSubgroup.secondaryKey();
         return String.format("%s|%s",
                 FormatUtils.emptyToDash(secKey.recipeGroupCode()),
                 FormatUtils.emptyToDash(secKey.code()));
     }
 
-    private static String keyFor(final RecipeGroup recipeGroup) {
+    private static String combinedKey(final RecipeGroup recipeGroup) {
         return String.format("%s|-",
                 FormatUtils.emptyToDash(recipeGroup.secondaryKey().code()));
+    }
+
+    private static String lookupKey(final RecipeSubgroup recipeSubgroup) {
+        var secKey = recipeSubgroup.secondaryKey();
+        if(_Strings.isNullOrEmpty(secKey.recipeGroupCode())) {
+            _Assert.assertTrue(_Strings.isNullOrEmpty(secKey.code()));
+        }
+        return String.format("%s%s",
+                _Strings.nullToEmpty(secKey.recipeGroupCode()),
+                _Strings.nullToEmpty(secKey.code()));
+    }
+
+    private static String lookupKey(final RecipeGroup recipeGroup) {
+        return String.format("%s",
+                _Strings.nullToEmpty(recipeGroup.secondaryKey().code()));
     }
 
 }

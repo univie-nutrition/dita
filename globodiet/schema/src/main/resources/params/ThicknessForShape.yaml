@@ -47,7 +47,7 @@ params.quantif.ThicknessForShape:
       unique: true
       description: |
         Comment attached to the thickness (e.g. small, medium, large…)
-    foodSubgroupsLookupKey:
+    foodGroupingLookupKey:
       column: TH_FDCLASS
       column-type: nvarchar(100)
       required: true
@@ -64,7 +64,7 @@ params.quantif.ThicknessForShape:
         whatever the food classification. 
         Multiple subgroup.group and/or subgroup.subgroup1 
         and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)
-    recipeSubgroupsLookupKey:
+    recipeGroupingLookupKey:
       column: TH_RCPCLASS
       column-type: nvarchar(100)
       required: false

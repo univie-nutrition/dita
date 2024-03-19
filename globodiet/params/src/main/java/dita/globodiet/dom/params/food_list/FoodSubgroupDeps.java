@@ -59,7 +59,7 @@ import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup_foodSubSubgroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForFoodOrGroup_foodSubgroup;
 import dita.globodiet.dom.params.quantif.ThicknessForShape;
-import dita.globodiet.dom.params.quantif.ThicknessForShape_foodSubgroups;
+import dita.globodiet.dom.params.quantif.ThicknessForShape_foodGrouping;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubSubgroup;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_fssSubgroup;
@@ -111,7 +111,7 @@ public class FoodSubgroupDeps {
         FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubSubgroup.class,
         FoodSubgroup_dependentMaximumValueForFoodOrGroupMappedByFoodSubgroup.class,
         FoodSubgroup_dependentMaximumValueForFoodOrGroupMappedByFoodSubSubgroup.class,
-        FoodSubgroup_dependentThicknessForShapeMappedByFoodSubgroups.class,
+        FoodSubgroup_dependentThicknessForShapeMappedByFoodGrouping.class,
         FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssSubgroup.class,
         FoodSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByFssSubSubgroup.class,
         FoodSubgroup_dependentRecipeIngredientMappedByFoodOrRecipeSubgroup.class,
@@ -714,7 +714,7 @@ public class FoodSubgroupDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class FoodSubgroup_dependentThicknessForShapeMappedByFoodSubgroups {
+    public static class FoodSubgroup_dependentThicknessForShapeMappedByFoodGrouping {
         @Inject
         DependantLookupService dependantLookup;
 
@@ -724,8 +724,8 @@ public class FoodSubgroupDeps {
         public List<ThicknessForShape> coll() {
             return dependantLookup.findDependants(
                 ThicknessForShape.class,
-                ThicknessForShape_foodSubgroups.class,
-                ThicknessForShape_foodSubgroups::coll,
+                ThicknessForShape_foodGrouping.class,
+                ThicknessForShape_foodGrouping::coll,
                 mixee);
         }
     }

@@ -51,12 +51,12 @@ import dita.commons.types.TabularData;
 import dita.globodiet.dom.params.DitaModuleGdParams;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.food.Food_addFacetDescriptorPathwayToGroup;
-import dita.globodiet.manager.editing.food.Food_selectFacetDescriptorPathwayForFood;
 import dita.globodiet.manager.editing.food.Food_addStandardUnit;
 import dita.globodiet.manager.editing.food.Food_clone;
 import dita.globodiet.manager.editing.food.Food_effectiveFoodDescriptors;
 import dita.globodiet.manager.editing.food.Food_effectiveGroupingUsedForFacetDescriptorPathway;
 import dita.globodiet.manager.editing.food.Food_inspectPathway;
+import dita.globodiet.manager.editing.food.Food_selectFacetDescriptorPathwayForFood;
 import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_addEntry;
 import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder;
 import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder;
@@ -79,6 +79,7 @@ import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodSelecti
 import dita.globodiet.manager.services.rule.FoodHasDensityFactorRuleChecker;
 import dita.globodiet.manager.services.rule.ResolvableDependenciesRuleChecker;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
+import dita.globodiet.manager.services.thickness.ThicknessLookupService;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.schema.GdEntityGen;
@@ -135,6 +136,7 @@ import dita.tooling.orm.OrmModel;
     IdGeneratorGdParams.class,
     IconFaServiceGdParams.class,
     FoodFacetHelperService.class,
+    ThicknessLookupService.class,
 
     // Rulecheckers
     FacetDescriptorPathwayForFoodSelectionExistsRuleChecker.class,
