@@ -17,13 +17,13 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.ThicknessForShapeMethod:
+params.quantif.ThicknessForShape:
   namespace: params.quantif
   table: THICKNESS
   secondaryKey: |
     TH_CODE
-  title: String.format("%f (code=%s)", thickness)
-  icon: null
+  title: String.format("%s (thickness=%.3f, comment=%s)", code, thickness, comment)
+  icon: solid ruler-horizontal
   description: |
     Thickness for shape method
   fields:
@@ -61,8 +61,9 @@ params.quantif.ThicknessForShapeMethod:
         For the food items, the food (sub)groups for which this thickness has to be proposed. 
         These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101) 
         When this field is empty, that means that this thickness has always to be proposed
-        whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1 
-        and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
+        whatever the food classification. 
+        Multiple subgroup.group and/or subgroup.subgroup1 
+        and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)
     recipeSubgroupsLookupKey:
       column: TH_RCPCLASS
       column-type: nvarchar(100)
@@ -76,5 +77,6 @@ params.quantif.ThicknessForShapeMethod:
         For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
         These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
         When this field is empty, that means that this thickness has always to be proposed 
-        whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
+        whatever the recipe classification. 
+        Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
 

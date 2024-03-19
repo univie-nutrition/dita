@@ -249,11 +249,11 @@ import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipeDeps;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_delete;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe_foodOrRecipe;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethodDeps;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_delete;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_foodSubgroups;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_recipeSubgroups;
+import dita.globodiet.dom.params.quantif.ThicknessForShape;
+import dita.globodiet.dom.params.quantif.ThicknessForShapeDeps;
+import dita.globodiet.dom.params.quantif.ThicknessForShape_delete;
+import dita.globodiet.dom.params.quantif.ThicknessForShape_foodSubgroups;
+import dita.globodiet.dom.params.quantif.ThicknessForShape_recipeSubgroups;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeDeps;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_delete;
@@ -452,7 +452,7 @@ import org.springframework.context.annotation.Import;
         StandardPortionForFood.class,
         StandardUnitForFoodOrRecipe.class,
         SubjectToBeInterviewed.class,
-        ThicknessForShapeMethod.class,
+        ThicknessForShape.class,
         TranslationInCountryLanguage.class,
 
         // Submodules,
@@ -525,7 +525,7 @@ import org.springframework.context.annotation.Import;
         StandardPortionForFoodDeps.class,
         StandardUnitForFoodOrRecipeDeps.class,
         SubjectToBeInterviewedDeps.class,
-        ThicknessForShapeMethodDeps.class,
+        ThicknessForShapeDeps.class,
         TranslationInCountryLanguageDeps.class,
 
         // Mixins,
@@ -735,9 +735,9 @@ import org.springframework.context.annotation.Import;
         SubjectToBeInterviewed_center.class,
         SubjectToBeInterviewed_country.class,
         SubjectToBeInterviewed_delete.class,
-        ThicknessForShapeMethod_delete.class,
-        ThicknessForShapeMethod_foodSubgroups.class,
-        ThicknessForShapeMethod_recipeSubgroups.class,
+        ThicknessForShape_delete.class,
+        ThicknessForShape_foodSubgroups.class,
+        ThicknessForShape_recipeSubgroups.class,
         TranslationInCountryLanguage_delete.class
         })
 public class DitaModuleGdParams {
@@ -811,7 +811,7 @@ public class DitaModuleGdParams {
         StandardPortionForFood.class,
         StandardUnitForFoodOrRecipe.class,
         SubjectToBeInterviewed.class,
-        ThicknessForShapeMethod.class,
+        ThicknessForShape.class,
         TranslationInCountryLanguage.class);
     }
 }

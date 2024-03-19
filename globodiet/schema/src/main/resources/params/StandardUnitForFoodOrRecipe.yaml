@@ -21,8 +21,8 @@ params.quantif.StandardUnitForFoodOrRecipe:
   namespace: params.quantif
   table: M_STDUTS
   secondaryKey:
-  title: null
-  icon: null
+  title: String.format("%s (quantity=%.3f, comment=%s)", code, quantity, comment)
+  icon: solid shapes
   description: |
     standard units for foods and recipes
   fields:

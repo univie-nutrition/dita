@@ -21,12 +21,12 @@ params.quantif.StandardPortionForFood:
   namespace: params.quantif
   table: M_STDPOR
   secondaryKey:
-  title: null
-  icon: null
+  title: String.format("%s (foodCode=%s, quantity=%.3f, unit=%s, comment=%s)", code, foodCode, quantity, unit, comment)
+  icon: solid bowl-rice
   description: |
     standard portions for foods
   fields:
-    standardPortionQuantity:
+    quantity:
       column: STDP_QUANT
       column-type: float(53)
       required: true
@@ -64,14 +64,14 @@ params.quantif.StandardPortionForFood:
       description: |
         1 = without un-edible part, 
         2 = with un-edible (as estimated)
-    commentAttachedToTheStandardPortion:
+    comment:
       column: COMMENT
       column-type: nvarchar(100)
       required: true
       unique: false
       description: |
         Comment attached to the standard portion
-    standardPortionCode:
+    code:
       column: PORT_CODE
       column-type: nvarchar(4)
       required: true
@@ -85,7 +85,7 @@ params.quantif.StandardPortionForFood:
       unique: false
       description: |
         G = in grams, V = in ml (volume)
-    orderToDisplayTheStandardPortion:
+    displayOrder:
       column: D_ORDER
       column-type: float(53)
       required: true

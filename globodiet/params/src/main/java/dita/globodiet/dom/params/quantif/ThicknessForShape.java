@@ -62,10 +62,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 /**
  * Thickness for shape method
  */
-@Named("dita.globodiet.params.quantif.ThicknessForShapeMethod")
+@Named("dita.globodiet.params.quantif.ThicknessForShape")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "Thickness for shape method"
+        describedAs = "Thickness for shape method",
+        cssClassFa = "solid ruler-horizontal"
 )
 @PersistenceCapable(
         table = "THICKNESS"
@@ -75,10 +76,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         column = "id"
 )
 @Unique(
-        name = "SEC_KEY_UNQ_ThicknessForShapeMethod",
+        name = "SEC_KEY_UNQ_ThicknessForShape",
         members = {"code"}
 )
-public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMethod>, HasSecondaryKey<ThicknessForShapeMethod> {
+public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecondaryKey<ThicknessForShape> {
     @Inject
     RepositoryService repositoryService;
 
@@ -153,8 +154,9 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
      * For the food items, the food (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)
      * When this field is empty, that means that this thickness has always to be proposed
-     * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1
-     * and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
+     * whatever the food classification.
+     * Multiple subgroup.group and/or subgroup.subgroup1
+     * and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -165,8 +167,9 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
             describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
                             + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                             + "When this field is empty, that means that this thickness has always to be proposed\n"
-                            + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
-                            + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
+                            + "whatever the food classification.\n"
+                            + "Multiple subgroup.group and/or subgroup.subgroup1\n"
+                            + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -182,7 +185,8 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
      * For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
      * When this field is empty, that means that this thickness has always to be proposed
-     * whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
+     * whatever the recipe classification.
+     * Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
      */
     @Property(
             optionality = Optionality.OPTIONAL
@@ -193,7 +197,8 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
             describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
                             + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
                             + "When this field is empty, that means that this thickness has always to be proposed\n"
-                            + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)",
+                            + "whatever the recipe classification.\n"
+                            + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -207,12 +212,12 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
 
     @ObjectSupport
     public String title() {
-        return String.format("%f (code=%s)", thickness);
+        return String.format("%s (thickness=%.3f, comment=%s)", code, thickness, comment);
     }
 
     @Override
     public String toString() {
-        return "ThicknessForShapeMethod(" + "code=" + getCode() + ","
+        return "ThicknessForShape(" + "code=" + getCode() + ","
          +"thickness=" + getThickness() + ","
          +"comment=" + getComment() + ","
          +"foodSubgroupsLookupKey=" + getFoodSubgroupsLookupKey() + ","
@@ -221,8 +226,8 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
 
     @Programmatic
     @Override
-    public ThicknessForShapeMethod copy() {
-        var copy = repositoryService.detachedEntity(new ThicknessForShapeMethod());
+    public ThicknessForShape copy() {
+        var copy = repositoryService.detachedEntity(new ThicknessForShape());
         copy.setCode(getCode());
         copy.setThickness(getThickness());
         copy.setComment(getComment());
@@ -239,8 +244,8 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public ThicknessForShapeMethod.Manager getNavigableParent() {
-        return new ThicknessForShapeMethod.Manager(searchService, "");
+    public ThicknessForShape.Manager getNavigableParent() {
+        return new ThicknessForShape.Manager(searchService, "");
     }
 
     @Programmatic
@@ -249,11 +254,12 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
     }
 
     /**
-     * Manager Viewmodel for @{link ThicknessForShapeMethod}
+     * Manager Viewmodel for @{link ThicknessForShape}
      */
-    @Named("dita.globodiet.params.quantif.ThicknessForShapeMethod.Manager")
+    @Named("dita.globodiet.params.quantif.ThicknessForShape.Manager")
     @DomainObjectLayout(
-            describedAs = "Thickness for shape method"
+            describedAs = "Thickness for shape method",
+            cssClassFa = "solid ruler-horizontal"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -272,12 +278,12 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
 
         @ObjectSupport
         public String title() {
-            return "Manage Thickness For Shape Method";
+            return "Manage Thickness For Shape";
         }
 
         @Collection
-        public final List<ThicknessForShapeMethod> getListOfThicknessForShapeMethod() {
-            return searchService.search(ThicknessForShapeMethod.class, ThicknessForShapeMethod::title, search);
+        public final List<ThicknessForShape> getListOfThicknessForShape() {
+            return searchService.search(ThicknessForShape.class, ThicknessForShape::title, search);
         }
 
         @Override
@@ -287,19 +293,21 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
     }
 
     /**
-     * Parameter model for @{link ThicknessForShapeMethod}
+     * Parameter model for @{link ThicknessForShape}
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      * @param thickness has no description
      * @param comment Comment attached to the thickness (e.g. small, medium, large…)
      * @param foodSubgroups For the food items, the food (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)
      * When this field is empty, that means that this thickness has always to be proposed
-     * whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1
-     * and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)
+     * whatever the food classification.
+     * Multiple subgroup.group and/or subgroup.subgroup1
+     * and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)
      * @param recipeSubgroups For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.
      * These (sub)groups have to be separated with a comma (e.g. 01,02,0301)
      * When this field is empty, that means that this thickness has always to be proposed
-     * whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)
+     * whatever the recipe classification.
+     * Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
      */
     public final record Params(
             @Parameter(
@@ -334,8 +342,9 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
                     describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
                                     + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                                     + "When this field is empty, that means that this thickness has always to be proposed\n"
-                                    + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
-                                    + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)"
+                                    + "whatever the food classification.\n"
+                                    + "Multiple subgroup.group and/or subgroup.subgroup1\n"
+                                    + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)"
             )
             FoodSubgroup foodSubgroups,
             @Parameter(
@@ -346,20 +355,20 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
                     describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
                                     + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
                                     + "When this field is empty, that means that this thickness has always to be proposed\n"
-                                    + "whatever the recipe classification; muliple rsubgr.group and/or rsubgr.subgroup commaseparated (e.g. 01,0601)"
+                                    + "whatever the recipe classification.\n"
+                                    + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)"
             )
             RecipeSubgroup recipeSubgroups) {
     }
 
     /**
-     * SecondaryKey for @{link ThicknessForShapeMethod}
+     * SecondaryKey for @{link ThicknessForShape}
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      */
-    public final record SecondaryKey(
-            String code) implements ISecondaryKey<ThicknessForShapeMethod> {
+    public final record SecondaryKey(String code) implements ISecondaryKey<ThicknessForShape> {
         @Override
-        public Class<ThicknessForShapeMethod> correspondingClass() {
-            return ThicknessForShapeMethod.class;
+        public Class<ThicknessForShape> correspondingClass() {
+            return ThicknessForShape.class;
         }
 
         @Override
@@ -371,15 +380,15 @@ public class ThicknessForShapeMethod implements Cloneable<ThicknessForShapeMetho
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link ThicknessForShapeMethod} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link ThicknessForShape} in case of an unresolvable secondary key.
      */
     @DomainObjectLayout(
-            describedAs = "Unresolvable ThicknessForShapeMethod",
+            describedAs = "Unresolvable ThicknessForShape",
             cssClassFa = "skull .unresolvable-color"
     )
-    @Named("dita.globodiet.params.quantif.ThicknessForShapeMethod.Unresolvable")
+    @Named("dita.globodiet.params.quantif.ThicknessForShape.Unresolvable")
     @RequiredArgsConstructor
-    public static final class Unresolvable extends ThicknessForShapeMethod implements ViewModel {
+    public static final class Unresolvable extends ThicknessForShape implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

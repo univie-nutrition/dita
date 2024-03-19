@@ -32,9 +32,9 @@ import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ThicknessForShapeMethodDeps {
+public class ThicknessForShapeDeps {
     public static Can<Class<?>> mixinClasses() {
-        return Can.of(ThicknessForShapeMethod_dependentRecipeIngredientQuantificationMappedByShapeThickness.class);
+        return Can.of(ThicknessForShape_dependentRecipeIngredientQuantificationMappedByShapeThickness.class);
     }
 
     @Collection
@@ -42,11 +42,11 @@ public class ThicknessForShapeMethodDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class ThicknessForShapeMethod_dependentRecipeIngredientQuantificationMappedByShapeThickness {
+    public static class ThicknessForShape_dependentRecipeIngredientQuantificationMappedByShapeThickness {
         @Inject
         DependantLookupService dependantLookup;
 
-        private final ThicknessForShapeMethod mixee;
+        private final ThicknessForShape mixee;
 
         @MemberSupport
         public List<RecipeIngredientQuantification> coll() {

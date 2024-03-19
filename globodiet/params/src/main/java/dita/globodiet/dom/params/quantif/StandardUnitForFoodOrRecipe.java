@@ -57,7 +57,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.quantif.StandardUnitForFoodOrRecipe")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "standard units for foods and recipes"
+        describedAs = "standard units for foods and recipes",
+        cssClassFa = "solid shapes"
 )
 @PersistenceCapable(
         table = "M_STDUTS"
@@ -318,7 +319,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (quantity=%.3f, comment=%s)", code, quantity, comment);
     }
 
     @Override
@@ -455,7 +456,8 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
      */
     @Named("dita.globodiet.params.quantif.StandardUnitForFoodOrRecipe.Manager")
     @DomainObjectLayout(
-            describedAs = "standard units for foods and recipes"
+            describedAs = "standard units for foods and recipes",
+            cssClassFa = "solid shapes"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

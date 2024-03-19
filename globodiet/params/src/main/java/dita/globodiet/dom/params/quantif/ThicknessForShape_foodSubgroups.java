@@ -34,16 +34,17 @@ import org.apache.causeway.commons.collections.Can;
         describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
                         + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
                         + "When this field is empty, that means that this thickness has always to be proposed\n"
-                        + "whatever the food classification. multiple subgroup.group and/or subgroup.subgroup1\n"
-                        + "and/or subgroup.subgroup2 commaseparated (e.g. 0603,10,1102)",
+                        + "whatever the food classification.\n"
+                        + "Multiple subgroup.group and/or subgroup.subgroup1\n"
+                        + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor
-public class ThicknessForShapeMethod_foodSubgroups {
+public class ThicknessForShape_foodSubgroups {
     @Inject
     ForeignKeyLookupService foreignKeyLookup;
 
-    private final ThicknessForShapeMethod mixee;
+    private final ThicknessForShape mixee;
 
     @MemberSupport
     public Can<FoodSubgroup> coll() {

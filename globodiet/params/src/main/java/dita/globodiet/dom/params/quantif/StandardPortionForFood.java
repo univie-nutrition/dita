@@ -57,7 +57,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Named("dita.globodiet.params.quantif.StandardPortionForFood")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "standard portions for foods"
+        describedAs = "standard portions for foods",
+        cssClassFa = "solid bowl-rice"
 )
 @PersistenceCapable(
         table = "M_STDPOR"
@@ -92,7 +93,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     )
     @Getter
     @Setter
-    private double standardPortionQuantity;
+    private double quantity;
 
     /**
      * Food identification number (=FOODMUM)
@@ -203,7 +204,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     )
     @Getter
     @Setter
-    private String commentAttachedToTheStandardPortion;
+    private String comment;
 
     /**
      * Standard portion code for the same food (0001, 0002, 0003)
@@ -225,7 +226,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     )
     @Getter
     @Setter
-    private String standardPortionCode;
+    private String code;
 
     /**
      * G = in grams, V = in ml (volume)
@@ -268,37 +269,37 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     )
     @Getter
     @Setter
-    private double orderToDisplayTheStandardPortion;
+    private double displayOrder;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (foodCode=%s, quantity=%.3f, unit=%s, comment=%s)", code, foodCode, quantity, unit, comment);
     }
 
     @Override
     public String toString() {
-        return "StandardPortionForFood(" + "standardPortionQuantity=" + getStandardPortionQuantity() + ","
+        return "StandardPortionForFood(" + "quantity=" + getQuantity() + ","
          +"foodCode=" + getFoodCode() + ","
          +"rawOrCooked=" + getRawOrCooked() + ","
          +"withUnediblePartQ=" + getWithUnediblePartQ() + ","
-         +"commentAttachedToTheStandardPortion=" + getCommentAttachedToTheStandardPortion() + ","
-         +"standardPortionCode=" + getStandardPortionCode() + ","
+         +"comment=" + getComment() + ","
+         +"code=" + getCode() + ","
          +"unit=" + getUnit() + ","
-         +"orderToDisplayTheStandardPortion=" + getOrderToDisplayTheStandardPortion() + ")";
+         +"displayOrder=" + getDisplayOrder() + ")";
     }
 
     @Programmatic
     @Override
     public StandardPortionForFood copy() {
         var copy = repositoryService.detachedEntity(new StandardPortionForFood());
-        copy.setStandardPortionQuantity(getStandardPortionQuantity());
+        copy.setQuantity(getQuantity());
         copy.setFoodCode(getFoodCode());
         copy.setRawOrCooked(getRawOrCooked());
         copy.setWithUnediblePartQ(getWithUnediblePartQ());
-        copy.setCommentAttachedToTheStandardPortion(getCommentAttachedToTheStandardPortion());
-        copy.setStandardPortionCode(getStandardPortionCode());
+        copy.setComment(getComment());
+        copy.setCode(getCode());
         copy.setUnit(getUnit());
-        copy.setOrderToDisplayTheStandardPortion(getOrderToDisplayTheStandardPortion());
+        copy.setDisplayOrder(getDisplayOrder());
         return copy;
     }
 
@@ -363,7 +364,8 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
      */
     @Named("dita.globodiet.params.quantif.StandardPortionForFood.Manager")
     @DomainObjectLayout(
-            describedAs = "standard portions for foods"
+            describedAs = "standard portions for foods",
+            cssClassFa = "solid bowl-rice"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

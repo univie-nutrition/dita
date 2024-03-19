@@ -29,8 +29,8 @@ import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.ProbingQuestionPathwayForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup;
 import dita.globodiet.dom.params.quantif.MaximumValueForRecipeOrGroup_recipeSubgroup;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod;
-import dita.globodiet.dom.params.quantif.ThicknessForShapeMethod_recipeSubgroups;
+import dita.globodiet.dom.params.quantif.ThicknessForShape;
+import dita.globodiet.dom.params.quantif.ThicknessForShape_recipeSubgroups;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe;
 import dita.globodiet.dom.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe_recipeSubgroup;
 import dita.globodiet.dom.params.recipe_description.RecipeBrand;
@@ -56,7 +56,7 @@ public class RecipeSubgroupDeps {
         RecipeSubgroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentProbingQuestionPathwayForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentMaximumValueForRecipeOrGroupMappedByRecipeSubgroup.class,
-        RecipeSubgroup_dependentThicknessForShapeMethodMappedByRecipeSubgroups.class,
+        RecipeSubgroup_dependentThicknessForShapeMappedByRecipeSubgroups.class,
         RecipeSubgroup_dependentPercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipeMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeBrandMappedByRecipeSubgroup.class,
         RecipeSubgroup_dependentRecipeFacetRuleMappedByRecipeSubgroup.class,
@@ -154,18 +154,18 @@ public class RecipeSubgroupDeps {
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
-    public static class RecipeSubgroup_dependentThicknessForShapeMethodMappedByRecipeSubgroups {
+    public static class RecipeSubgroup_dependentThicknessForShapeMappedByRecipeSubgroups {
         @Inject
         DependantLookupService dependantLookup;
 
         private final RecipeSubgroup mixee;
 
         @MemberSupport
-        public List<ThicknessForShapeMethod> coll() {
+        public List<ThicknessForShape> coll() {
             return dependantLookup.findDependants(
-                ThicknessForShapeMethod.class,
-                ThicknessForShapeMethod_recipeSubgroups.class,
-                ThicknessForShapeMethod_recipeSubgroups::coll,
+                ThicknessForShape.class,
+                ThicknessForShape_recipeSubgroups.class,
+                ThicknessForShape_recipeSubgroups::coll,
                 mixee);
         }
     }

@@ -50,7 +50,7 @@ workspace {
                 Shape = component "Shape" "Shape for quantity" "Entity" 
                 StandardPortionForFood = component "StandardPortionForFood" "standard portions for foods" "Entity" 
                 StandardUnitForFoodOrRecipe = component "StandardUnitForFoodOrRecipe" "standard units for foods and recipes" "Entity" 
-                ThicknessForShapeMethod = component "ThicknessForShapeMethod" "Thickness for shape method" "Entity" 
+                ThicknessForShape = component "ThicknessForShape" "Thickness for shape method" "Entity" 
             }
             paramsrecipe_coefficient = container "params.recipe_coefficient" {
                 PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe = component "PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe" "% of fat/sauce/sweetener (FSS) added after cooking (regarding recipes)" "Entity" 
@@ -89,12 +89,12 @@ workspace {
                 ImprobableSequenceOfFacetAndDescriptor = component "ImprobableSequenceOfFacetAndDescriptor" "Improbable sequence of facets/descriptors" "Entity" 
             }
         }
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
         DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪,foodOrRecipe￪" 
         DitaGDParams.paramsrecipe_description.RecipeBrand -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
         DitaGDParams.paramsinterview.SubjectToBeInterviewed -> DitaGDParams.paramsinterview.CountryInvolved "country￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.paramspathway.ProbingQuestion "probingQuestion￪" 
         DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.Photo "photo￪" 
+        DitaGDParams.paramsquantif.ThicknessForShape -> DitaGDParams.paramsrecipe_list.RecipeSubgroup "recipeSubgroups￪￪,recipeSubgroups￪￪" 
         DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
         DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
         DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
@@ -110,12 +110,12 @@ workspace {
         DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
         DitaGDParams.paramsfood_descript.FoodDescriptor -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
-        DitaGDParams.paramsquantif.ThicknessForShapeMethod -> DitaGDParams.paramsfood_list.FoodSubgroup "foodSubgroups￪￪,foodSubgroups￪￪,foodSubgroups￪￪" 
         DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "physicalStateFacetDescriptor￪￪,physicalStateFacetDescriptor￪￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramsrecipe_description.RecipeDescriptor -> DitaGDParams.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
+        DitaGDParams.paramsquantif.ThicknessForShape -> DitaGDParams.paramsfood_list.FoodSubgroup "foodSubgroups￪￪,foodSubgroups￪￪,foodSubgroups￪￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
         DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
         DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
@@ -127,7 +127,6 @@ workspace {
         DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
         DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
         DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.ThicknessForShapeMethod "shapeThickness￪" 
         DitaGDParams.paramsrecipe_description.RecipeFacetRule -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
         DitaGDParams.paramsquantif.StandardPortionForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
@@ -160,6 +159,7 @@ workspace {
         DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
         DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood -> DitaGDParams.virtual.FCK "fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.ThicknessForShape "shapeThickness￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
         DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.paramsfood_list.Food "fss￪" 
         DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
@@ -172,7 +172,6 @@ workspace {
         DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood -> DitaGDParams.paramsfood_list.Food "food￪,fss￪" 
         DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪,fssGroup￪,fssSubgroup￪,fssSubSubgroup￪" 
         DitaGDParams.paramsfood_list.ComposedRecipeIngredient -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
-        DitaGDParams.paramsquantif.ThicknessForShapeMethod -> DitaGDParams.paramsrecipe_list.RecipeSubgroup "recipeSubgroups￪￪,recipeSubgroups￪￪" 
         DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
         DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
         DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.Shape "shape￪" 
@@ -190,6 +189,7 @@ workspace {
         DitaGDParams.paramsrecipe_list.RecipeSubgroup -> DitaGDParams.virtual.FCK "recipeGroup￪" 
         DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
         DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
     }
 
     views {
@@ -264,7 +264,7 @@ workspace {
             include DitaGDParams.paramsquantif.RecipeIngredientQuantification 
             include DitaGDParams.paramsquantif.StandardPortionForFood 
             include DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe 
-            include DitaGDParams.paramsquantif.ThicknessForShapeMethod 
+            include DitaGDParams.paramsquantif.ThicknessForShape 
             include DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
             include DitaGDParams.paramsrecipe_list.Recipe 
             include DitaGDParams.paramsrecipe_list.RecipeIngredient 
@@ -333,7 +333,7 @@ workspace {
             include DitaGDParams.paramsquantif.Shape 
             include DitaGDParams.paramsquantif.StandardPortionForFood 
             include DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe 
-            include DitaGDParams.paramsquantif.ThicknessForShapeMethod 
+            include DitaGDParams.paramsquantif.ThicknessForShape 
             include DitaGDParams.paramsrecipe_list.Recipe 
             include DitaGDParams.paramsrecipe_list.RecipeSubgroup 
             include DitaGDParams.virtual.FCK 
@@ -372,7 +372,7 @@ workspace {
             include DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup 
             include DitaGDParams.paramsquantif.RecipeIngredientQuantification 
             include DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe 
-            include DitaGDParams.paramsquantif.ThicknessForShapeMethod 
+            include DitaGDParams.paramsquantif.ThicknessForShape 
             include DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
             include DitaGDParams.paramsrecipe_list.Recipe 
             include DitaGDParams.paramsrecipe_list.RecipeIngredient 

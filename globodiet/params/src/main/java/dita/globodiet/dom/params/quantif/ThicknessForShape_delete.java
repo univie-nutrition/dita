@@ -39,11 +39,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @ActionLayout(
         fieldSetId = "details",
         sequence = "9",
-        describedAs = "Delete this ThicknessForShapeMethod",
+        describedAs = "Delete this ThicknessForShape",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class ThicknessForShapeMethod_delete {
+public class ThicknessForShape_delete {
     @Inject
     DependantLookupService dependantService;
 
@@ -56,14 +56,14 @@ public class ThicknessForShapeMethod_delete {
     @Inject
     SearchService searchService;
 
-    private final ThicknessForShapeMethod mixee;
+    private final ThicknessForShape mixee;
 
     @MemberSupport
-    public ThicknessForShapeMethod.Manager act(
+    public ThicknessForShape.Manager act(
             @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
-        return new ThicknessForShapeMethod.Manager(searchService, "");
+        return new ThicknessForShape.Manager(searchService, "");
     }
 
     @MemberSupport

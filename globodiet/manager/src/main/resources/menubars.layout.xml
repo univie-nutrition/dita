@@ -65,12 +65,15 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageQuantificationMethodPathwayForRecipeGroup"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestionPathwayForRecipe"/>
             </mb:section>
+        </mb:menu>
+        <mb:menu>
+            <mb:named>Quanitfication</mb:named>
             <mb:section>
-                <mb:named>Quanitfication</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardPortionForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardUnitForFoodOrRecipe"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePhoto"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageShape"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageThicknessForShape"/>
             </mb:section>
         </mb:menu>
         <mb:menu>
@@ -183,7 +186,7 @@
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardPortionForFood"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardUnitForFoodOrRecipe"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSubjectToBeInterviewed"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageThicknessForShapeMethod"/>
+                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageThicknessForShape"/>
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageTranslationInCountryLanguage"/>
             </mb:section>
         </mb:menu>
