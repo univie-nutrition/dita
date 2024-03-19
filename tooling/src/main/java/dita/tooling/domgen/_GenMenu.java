@@ -29,14 +29,14 @@ import org.springframework.javapoet.MethodSpec;
 import org.springframework.javapoet.ParameterizedTypeName;
 import org.springframework.javapoet.TypeSpec;
 
-import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.services.factory.FactoryService;
+
+import lombok.val;
+import lombok.experimental.UtilityClass;
 
 import dita.commons.services.search.SearchService;
 import dita.tooling.domgen.DomainGenerator.QualifiedType;
 import dita.tooling.orm.OrmModel;
-import lombok.val;
-import lombok.experimental.UtilityClass;
 
 @UtilityClass
 class _GenMenu {
@@ -48,7 +48,7 @@ class _GenMenu {
         val typeModelBuilder = TypeSpec.classBuilder("EntitiesMenu")
                 .addAnnotation(_Annotations.named(
                         config.fullLogicalName(config.entitiesModulePackageName()) + "." + "EntitiesMenu"))
-                .addAnnotation(_Annotations.domainService(NatureOfService.VIEW))
+                .addAnnotation(_Annotations.domainService())
                 .addModifiers(Modifier.PUBLIC)
                 //.addField(_Fields.inject(RepositoryService.class, "repositoryService", Modifier.PRIVATE))
                 .addField(_Fields.inject(FactoryService.class, "factoryService", Modifier.PRIVATE))

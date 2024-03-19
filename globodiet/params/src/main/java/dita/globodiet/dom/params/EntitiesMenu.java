@@ -99,9 +99,7 @@ import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
 
 @Named("dita.globodiet.params.EntitiesMenu")
-@DomainService(
-        nature = org.apache.causeway.applib.annotation.NatureOfService.VIEW
-)
+@DomainService
 public class EntitiesMenu {
     @Inject
     private FactoryService factoryService;

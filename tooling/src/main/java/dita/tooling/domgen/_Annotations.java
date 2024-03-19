@@ -45,7 +45,6 @@ import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.annotation.Editing;
 import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.NatureOfService;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -162,9 +161,8 @@ class _Annotations {
         return AnnotationSpec.builder(DomainObject.class)
                 .build();
     }
-    AnnotationSpec domainService(final NatureOfService natureOfService) {
+    AnnotationSpec domainService() {
         return AnnotationSpec.builder(DomainService.class)
-                .addMember("nature", NatureOfService.class.getName() + ".$1L", natureOfService.name())
                 .build();
     }
     /**
