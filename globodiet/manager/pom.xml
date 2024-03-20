@@ -57,7 +57,7 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<configuration>
 					<from>
-						<image>openjdk:21-jdk-bookworm</image>
+						<image>openjdk:22-jdk-bookworm</image>
 					</from>
 				</configuration>
 			</plugin>
