@@ -20,12 +20,13 @@ package dita.blobstore.api;
 
 import java.util.Optional;
 
+import org.causewaystuff.commons.types.NamedPath;
+
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.commons.collections.Can;
 
-import dita.commons.types.NamedPath;
 import lombok.NonNull;
 
 public interface BlobStore {

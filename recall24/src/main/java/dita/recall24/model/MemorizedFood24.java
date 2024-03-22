@@ -18,9 +18,9 @@
  */
 package dita.recall24.model;
 
-import org.apache.causeway.commons.collections.Can;
+import org.causewaystuff.commons.types.internal.ObjectRef;
 
-import dita.commons.types.ObjectRef;
+import org.apache.causeway.commons.collections.Can;
 
 public record MemorizedFood24(
         /**

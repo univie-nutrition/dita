@@ -22,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.causewaystuff.commons.types.NamedPath;
+
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
@@ -32,7 +34,6 @@ import lombok.extern.log4j.Log4j2;
 
 import dita.blobstore.api.BlobDescriptor;
 import dita.blobstore.api.BlobStore;
-import dita.commons.types.NamedPath;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.model.InterviewSet24;
 

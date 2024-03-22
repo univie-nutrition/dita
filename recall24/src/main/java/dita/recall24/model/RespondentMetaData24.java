@@ -18,7 +18,7 @@
  */
 package dita.recall24.model;
 
-import dita.commons.types.ObjectRef;
+import org.causewaystuff.commons.types.internal.ObjectRef;
 
 public record RespondentMetaData24(
 

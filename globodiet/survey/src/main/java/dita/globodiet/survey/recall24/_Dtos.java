@@ -31,6 +31,8 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.causewaystuff.commons.types.internal.ObjectRef;
+
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.collections.ImmutableEnumSet;
@@ -49,7 +51,6 @@ import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.types.ObjectRef;
 import dita.commons.types.Sex;
 import dita.recall24.api.Record24.Type;
 import dita.recall24.model.Ingredient24;

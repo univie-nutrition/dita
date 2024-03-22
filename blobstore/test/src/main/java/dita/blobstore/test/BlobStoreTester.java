@@ -20,6 +20,8 @@ package dita.blobstore.test;
 
 import java.time.Instant;
 
+import org.causewaystuff.commons.types.NamedPath;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,13 +30,13 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import dita.blobstore.api.BlobDescriptor;
 import dita.blobstore.api.BlobDescriptor.Compression;
 import dita.blobstore.api.BlobQualifier;
 import dita.blobstore.api.BlobStore;
-import dita.commons.types.NamedPath;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class BlobStoreTester {

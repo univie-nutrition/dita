@@ -23,6 +23,8 @@ import java.util.function.Function;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.domsupport.services.search.SearchService;
+
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,6 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import dita.commons.services.search.SearchService;
 import lombok.NonNull;
 
 @Service

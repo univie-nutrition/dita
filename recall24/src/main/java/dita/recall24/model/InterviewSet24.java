@@ -24,6 +24,8 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import org.causewaystuff.commons.types.internal.ObjectRef;
+
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
@@ -31,7 +33,6 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
 
-import dita.commons.types.ObjectRef;
 import lombok.val;
 
 /**

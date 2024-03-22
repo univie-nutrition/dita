@@ -20,16 +20,17 @@ package dita.globodiet.survey.recall24;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.commons.types.NamedPath;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.blobstore.api.BlobStore;
-import dita.commons.types.NamedPath;
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.globodiet.survey.util.InterviewUtils;

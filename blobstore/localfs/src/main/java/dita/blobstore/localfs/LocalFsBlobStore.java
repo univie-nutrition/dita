@@ -27,6 +27,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import org.causewaystuff.commons.types.NamedPath;
+import org.causewaystuff.commons.types.ResourceFolder;
+
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
@@ -42,17 +45,16 @@ import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import lombok.NonNull;
+import lombok.SneakyThrows;
+import lombok.Synchronized;
+import lombok.extern.log4j.Log4j2;
+
 import dita.blobstore.api.BlobDescriptor;
 import dita.blobstore.api.BlobDescriptor.Compression;
 import dita.blobstore.api.BlobQualifier;
 import dita.blobstore.api.BlobStore;
 import dita.blobstore.api.BlobStoreFactory.BlobStoreConfiguration;
-import dita.commons.types.NamedPath;
-import dita.commons.types.ResourceFolder;
-import lombok.NonNull;
-import lombok.SneakyThrows;
-import lombok.Synchronized;
-import lombok.extern.log4j.Log4j2;
 
 @Repository
 @Log4j2

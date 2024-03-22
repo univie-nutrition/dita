@@ -42,6 +42,7 @@
 			<groupId>org.apache.causeway.core</groupId>
 			<artifactId>causeway-applib</artifactId>
 		</dependency>
+		
 	</dependencies>
     
 </project>

@@ -20,10 +20,10 @@ package dita.blobstore.api;
 
 import java.time.Instant;
 
+import org.causewaystuff.commons.types.NamedPath;
+
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
-
-import dita.commons.types.NamedPath;
 
 public record BlobDescriptor(
         NamedPath path,
