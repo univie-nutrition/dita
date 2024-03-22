@@ -21,15 +21,17 @@ package dita.globodiet.manager.help;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+
 import org.apache.causeway.applib.id.LogicalType;
 import org.apache.causeway.applib.services.metamodel.BeanSort;
 import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
 
-import dita.commons.util.ObjectGraphTransformers;
-import dita.tooling.orm.OrmModel;
 import lombok.val;
+
+import dita.commons.util.ObjectGraphTransformers;
 
 abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
 

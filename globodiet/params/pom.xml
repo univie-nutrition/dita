@@ -60,6 +60,16 @@
 			<artifactId>causeway-applib</artifactId>
 		</dependency>
 		
+        <dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-commons</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-domsupport</artifactId>
+        </dependency>
+		
 		<!-- PERSISTENCE -->
 		
 		<dependency>

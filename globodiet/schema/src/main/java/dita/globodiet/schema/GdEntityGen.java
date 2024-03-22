@@ -23,6 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
+import org.causewaystuff.commons.types.ResourceFolder;
+import org.causewaystuff.tooling.codegen.domgen.DomainGenerator;
+import org.causewaystuff.tooling.codegen.domgen.LicenseHeader;
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.tooling.codegen.structgen.ObjectGraphRendererStructurizr;
+
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -31,12 +37,7 @@ import org.apache.causeway.commons.io.FileUtils;
 
 import lombok.SneakyThrows;
 
-import dita.commons.types.ResourceFolder;
 import dita.commons.util.ObjectGraphTransformers;
-import dita.tooling.domgen.DomainGenerator;
-import dita.tooling.domgen.LicenseHeader;
-import dita.tooling.orm.OrmModel;
-import dita.tooling.structgen.ObjectGraphRendererStructurizr;
 
 public class GdEntityGen {
 

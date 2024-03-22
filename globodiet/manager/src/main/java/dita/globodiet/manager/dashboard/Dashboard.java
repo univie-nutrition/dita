@@ -25,6 +25,8 @@ import java.util.Optional;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.info.BuildProperties;
 
@@ -38,7 +40,6 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
-import dita.tooling.orm.OrmModel;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".Dashboard")

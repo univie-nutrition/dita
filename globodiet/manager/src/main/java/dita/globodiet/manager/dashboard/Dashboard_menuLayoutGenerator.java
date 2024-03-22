@@ -20,6 +20,8 @@ package dita.globodiet.manager.dashboard;
 
 import java.util.stream.Collectors;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -30,7 +32,6 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
-import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 

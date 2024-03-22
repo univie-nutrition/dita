@@ -21,13 +21,14 @@ package dita.globodiet.manager.help;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 
 import dita.globodiet.manager.DitaModuleGdManager;
-import dita.tooling.orm.OrmModel;
 
 @Component
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaEntityDiagramPage")

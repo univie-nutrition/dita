@@ -26,6 +26,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.asciidoctor.ast.Table;
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
@@ -43,9 +45,9 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.he
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.row;
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.table;
 
-import dita.globodiet.manager.DitaModuleGdManager;
-import dita.tooling.orm.OrmModel;
 import lombok.val;
+
+import dita.globodiet.manager.DitaModuleGdManager;
 
 @Component
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaTableNamesPage")

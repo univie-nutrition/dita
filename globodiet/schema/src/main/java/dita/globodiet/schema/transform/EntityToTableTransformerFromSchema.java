@@ -20,16 +20,18 @@ package dita.globodiet.schema.transform;
 
 import java.util.Optional;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.tooling.codegen.model.OrmModel.Entity;
+
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
+import lombok.val;
+
 import dita.commons.types.BiString;
 import dita.commons.types.TabularData.NameTransformer;
-import dita.tooling.orm.OrmModel;
-import dita.tooling.orm.OrmModel.Entity;
-import lombok.val;
 
 public record EntityToTableTransformerFromSchema(
         String logicalNamespacePrefix,

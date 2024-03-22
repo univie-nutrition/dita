@@ -22,6 +22,7 @@ import java.util.Map;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
 import org.datanucleus.enhancement.Persistable;
 
 import org.apache.causeway.applib.annotation.LabelPosition;
@@ -34,7 +35,6 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
-import dita.tooling.orm.OrmModel;
 import lombok.RequiredArgsConstructor;
 
 @Property

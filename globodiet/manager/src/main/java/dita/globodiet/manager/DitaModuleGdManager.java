@@ -18,6 +18,8 @@
  */
 package dita.globodiet.manager;
 
+import org.causewaystuff.tooling.codegen.model.OrmModel;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -86,7 +88,6 @@ import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
 import dita.globodiet.survey.DitaModuleGdSurvey;
-import dita.tooling.orm.OrmModel;
 
 /**
  * Makes the integral parts of the web application.

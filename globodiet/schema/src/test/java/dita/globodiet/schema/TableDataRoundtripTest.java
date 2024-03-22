@@ -21,6 +21,8 @@ package dita.globodiet.schema;
 import java.io.File;
 import java.util.Optional;
 
+import org.causewaystuff.tooling.codegen.domgen.LicenseHeader;
+import org.causewaystuff.tooling.codegen.model.OrmModel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -32,12 +34,11 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.TextUtils;
 
+import lombok.val;
+
 import dita.commons.types.TabularData;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
-import dita.tooling.domgen.LicenseHeader;
-import dita.tooling.orm.OrmModel;
-import lombok.val;
 
 class TableDataRoundtripTest {
 
