@@ -4,7 +4,7 @@ workspace {
     !identifiers "hierarchical" 
 
     model {
-        DitaGDParams = softwareSystem "Dita GD Params" "Software system having all the GD Params entities." {
+        ProjectxxxEntities = softwareSystem "Project xxx Entities" "Software system having all the xxx entities." {
             paramsfood_list = container "params.food_list" {
                 ComposedRecipeIngredient = component "ComposedRecipeIngredient" "Composed Recipe Ingredient" "Entity" 
                 Food = component "Food" "Food, Product, On-the-fly Recipe or Alias" "Entity" 
@@ -89,346 +89,346 @@ workspace {
                 ImprobableSequenceOfFacetAndDescriptor = component "ImprobableSequenceOfFacetAndDescriptor" "Improbable sequence of facets/descriptors" "Entity" 
             }
         }
-        DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪,foodOrRecipe￪" 
-        DitaGDParams.paramsrecipe_description.RecipeBrand -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
-        DitaGDParams.paramsinterview.SubjectToBeInterviewed -> DitaGDParams.paramsinterview.CountryInvolved "country￪" 
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.paramspathway.ProbingQuestion "probingQuestion￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.Photo "photo￪" 
-        DitaGDParams.paramsquantif.ThicknessForShape -> DitaGDParams.paramsrecipe_list.RecipeSubgroup "recipeGrouping￪￪,recipeGrouping￪￪" 
-        DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
-        DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
-        DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
-        DitaGDParams.paramssetting.FoodConsumptionOccasionDisplayItem -> DitaGDParams.paramssetting.FoodConsumptionOccasion "foodConsumptionOccasion￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsfood_list.Food "ingredientFoodOrRecipe￪" 
-        DitaGDParams.paramsinterview.Interviewer -> DitaGDParams.paramsinterview.CountryInvolved "country￪" 
-        DitaGDParams.paramssetting.GroupSubstitution -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsfood_coefficient.RawToCookedConversionFactorForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> DitaGDParams.paramsfood_list.Food "food￪,fat￪" 
-        DitaGDParams.paramsfood_descript.FoodFacetRule -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
-        DitaGDParams.paramsfood_descript.FoodFacetRule -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramssetting.GroupSubstitution -> DitaGDParams.paramsfood_list.FoodSubgroup "applyToFoodGroups￪￪,applyToFoodGroups￪￪,applyToFoodGroups￪￪" 
-        DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
-        DitaGDParams.paramsfood_descript.FoodDescriptor -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
-        DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "physicalStateFacetDescriptor￪￪,physicalStateFacetDescriptor￪￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramsrecipe_description.RecipeDescriptor -> DitaGDParams.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
-        DitaGDParams.paramsquantif.ThicknessForShape -> DitaGDParams.paramsfood_list.FoodSubgroup "foodGrouping￪￪,foodGrouping￪￪,foodGrouping￪￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
-        DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.paramsfood_descript.FoodDescriptor "descriptor￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsfood_descript.FoodFacetRule -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe -> DitaGDParams.paramsrecipe_description.RecipeFacet "selectedRecipeFacet￪" 
-        DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup -> DitaGDParams.paramsfood_descript.FoodFacet "foodFacet￪" 
-        DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
-        DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
-        DitaGDParams.paramsrecipe_description.RecipeFacetRule -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
-        DitaGDParams.paramsquantif.StandardPortionForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsnutrient.NutrientValue -> DitaGDParams.paramsnutrient.Nutrient "nutrient￪" 
-        DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
-        DitaGDParams.paramsinterview.SubjectToBeInterviewed -> DitaGDParams.paramsinterview.CenterInvolved "center￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.virtual.FCK "recipeGroup￪" 
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.paramspathway.ProbingQuestion "probingQuestion￪" 
-        DitaGDParams.paramsrecipe_description.RecipeFacetRule -> DitaGDParams.paramsfood_descript.FoodFacet "facetWhereTheRuleMustBeApplied" 
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramsinterview.Interviewer -> DitaGDParams.paramsinterview.CenterInvolved "center￪" 
-        DitaGDParams.paramsfood_list.FoodSubgroup -> DitaGDParams.virtual.FCK "foodGroup￪" 
-        DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪,fssGroup￪,fssSubgroup￪,fssSubSubgroup￪" 
-        DitaGDParams.paramsfood_descript.FoodBrand -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
-        DitaGDParams.paramssupplement.DietarySupplement -> DitaGDParams.paramssupplement.DietarySupplementFacet "facet￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup -> DitaGDParams.paramsfood_descript.FoodDescriptor "foodDescriptor￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup -> DitaGDParams.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForFood -> DitaGDParams.paramsfood_descript.FoodFacet "selectedFoodFacet￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
-        DitaGDParams.paramsfood_list.ComposedRecipeIngredient -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
-        DitaGDParams.paramssupplement.DietarySupplementDescriptor -> DitaGDParams.paramssupplement.DietarySupplementFacet "facet￪" 
-        DitaGDParams.paramsnutrient.NutrientValue -> DitaGDParams.paramsnutrient.NutrientForFoodOrGroup "nutrientForFoodOrGroup￪" 
-        DitaGDParams.paramsrecipe_list.Recipe -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
-        DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup -> DitaGDParams.paramsquantif.Shape "photoOrShape￪" 
-        DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood -> DitaGDParams.virtual.FCK "fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.ThicknessForShape "shapeThickness￪" 
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
-        DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.paramsfood_list.Food "fss￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
-        DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪,fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
-        DitaGDParams.paramsfood_coefficient.RawToCookedConversionFactorForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForFood -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
-        DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramssetting.GroupSubstitution -> DitaGDParams.paramsrecipe_list.RecipeSubgroup "applyToRecipeGroups￪￪,applyToRecipeGroups￪￪" 
-        DitaGDParams.paramsnutrient.NutrientForFoodOrGroup -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
-        DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood -> DitaGDParams.paramsfood_list.Food "food￪,fss￪" 
-        DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> DitaGDParams.virtual.FCK "recipeGroup￪,recipeSubgroup￪,fssGroup￪,fssSubgroup￪,fssSubSubgroup￪" 
-        DitaGDParams.paramsfood_list.ComposedRecipeIngredient -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
-        DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
-        DitaGDParams.paramsquantif.RecipeIngredientQuantification -> DitaGDParams.paramsquantif.Shape "shape￪" 
-        DitaGDParams.paramsrecipe_list.RecipeIngredient -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
-        DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe -> DitaGDParams.paramsquantif.Photo "photoOrShape￪" 
-        DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.paramsfood_list.Food "food￪" 
-        DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "cookingMethodFacetDescriptor￪￪,cookingMethodFacetDescriptor￪￪" 
-        DitaGDParams.paramsfood_list.Food -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsfood_list.Food "foodOrRecipe￪" 
-        DitaGDParams.paramssupplement.DietarySupplement -> DitaGDParams.paramssupplement.DietarySupplementClassification "classification￪" 
-        DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup -> DitaGDParams.paramsrecipe_description.RecipeDescriptor "recipeDescriptor￪" 
-        DitaGDParams.paramsinterview.CenterInvolved -> DitaGDParams.paramsinterview.CountryInvolved "attachedCountry￪" 
-        DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> DitaGDParams.paramsfood_descript.FoodFacet "facet￪" 
-        DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup -> DitaGDParams.paramsrecipe_list.Recipe "recipe￪" 
-        DitaGDParams.paramsrecipe_list.RecipeSubgroup -> DitaGDParams.virtual.FCK "recipeGroup￪" 
-        DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood -> DitaGDParams.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
-        DitaGDParams.paramspathway.ProbingQuestionPathwayForFood -> DitaGDParams.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
-        DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> DitaGDParams.paramsrecipe_list.Recipe "foodOrRecipe￪" 
+        ProjectxxxEntities.paramsrecipe_list.RecipeIngredient -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪,foodOrRecipe￪" 
+        ProjectxxxEntities.paramsrecipe_description.RecipeBrand -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        ProjectxxxEntities.paramsinterview.SubjectToBeInterviewed -> ProjectxxxEntities.paramsinterview.CountryInvolved "country￪" 
+        ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForRecipe -> ProjectxxxEntities.paramspathway.ProbingQuestion "probingQuestion￪" 
+        ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification -> ProjectxxxEntities.paramsquantif.Photo "photo￪" 
+        ProjectxxxEntities.paramsquantif.ThicknessForShape -> ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup "recipeGrouping￪￪,recipeGrouping￪￪" 
+        ProjectxxxEntities.paramsquantif.MaximumValueForFoodOrGroup -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
+        ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup -> ProjectxxxEntities.paramsfood_list.Food "foodOrRecipe￪" 
+        ProjectxxxEntities.paramsquantif.StandardUnitForFoodOrRecipe -> ProjectxxxEntities.paramsfood_list.Food "foodOrRecipe￪" 
+        ProjectxxxEntities.paramssetting.FoodConsumptionOccasionDisplayItem -> ProjectxxxEntities.paramssetting.FoodConsumptionOccasion "foodConsumptionOccasion￪" 
+        ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification -> ProjectxxxEntities.paramsfood_list.Food "ingredientFoodOrRecipe￪" 
+        ProjectxxxEntities.paramsinterview.Interviewer -> ProjectxxxEntities.paramsinterview.CountryInvolved "country￪" 
+        ProjectxxxEntities.paramssetting.GroupSubstitution -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_coefficient.RawToCookedConversionFactorForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪,fat￪" 
+        ProjectxxxEntities.paramsfood_descript.FoodFacetRule -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
+        ProjectxxxEntities.paramsfood_descript.FoodFacetRule -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramssetting.GroupSubstitution -> ProjectxxxEntities.paramsfood_list.FoodSubgroup "applyToFoodGroups￪￪,applyToFoodGroups￪￪,applyToFoodGroups￪￪" 
+        ProjectxxxEntities.paramsfood_coefficient.EdiblePartCoefficientForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup -> ProjectxxxEntities.paramsquantif.Shape "photoOrShape￪" 
+        ProjectxxxEntities.paramsfood_descript.FoodDescriptor -> ProjectxxxEntities.paramsfood_descript.FoodFacet "facet￪" 
+        ProjectxxxEntities.paramssetting.FacetDescriptorThatCannotBeSubstituted -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "descriptor￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "physicalStateFacetDescriptor￪￪,physicalStateFacetDescriptor￪￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramsrecipe_description.RecipeDescriptor -> ProjectxxxEntities.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
+        ProjectxxxEntities.paramsquantif.ThicknessForShape -> ProjectxxxEntities.paramsfood_list.FoodSubgroup "foodGrouping￪￪,foodGrouping￪￪,foodGrouping￪￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup -> ProjectxxxEntities.paramsquantif.Photo "photoOrShape￪" 
+        ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "descriptor￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_descript.FoodFacetRule -> ProjectxxxEntities.paramsfood_descript.FoodFacet "facet￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipe -> ProjectxxxEntities.paramsrecipe_description.RecipeFacet "selectedRecipeFacet￪" 
+        ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipe -> ProjectxxxEntities.paramsquantif.Shape "photoOrShape￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFoodGroup -> ProjectxxxEntities.paramsfood_descript.FoodFacet "foodFacet￪" 
+        ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪" 
+        ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup -> ProjectxxxEntities.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsrecipe_list.RecipeIngredient -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
+        ProjectxxxEntities.paramsrecipe_description.RecipeFacetRule -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        ProjectxxxEntities.paramsquantif.StandardPortionForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForRecipe -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFoodGroup -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsnutrient.NutrientValue -> ProjectxxxEntities.paramsnutrient.Nutrient "nutrient￪" 
+        ProjectxxxEntities.paramsrecipe_list.RecipeIngredient -> ProjectxxxEntities.virtual.FCK "foodOrRecipeGroup￪,foodOrRecipeGroup￪,foodOrRecipeSubgroup￪,foodOrRecipeSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipeGroup -> ProjectxxxEntities.paramsquantif.Photo "photoOrShape￪" 
+        ProjectxxxEntities.paramsinterview.SubjectToBeInterviewed -> ProjectxxxEntities.paramsinterview.CenterInvolved "center￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipeGroup -> ProjectxxxEntities.virtual.FCK "recipeGroup￪" 
+        ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForFood -> ProjectxxxEntities.paramspathway.ProbingQuestion "probingQuestion￪" 
+        ProjectxxxEntities.paramsrecipe_description.RecipeFacetRule -> ProjectxxxEntities.paramsfood_descript.FoodFacet "facetWhereTheRuleMustBeApplied" 
+        ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramsinterview.Interviewer -> ProjectxxxEntities.paramsinterview.CenterInvolved "center￪" 
+        ProjectxxxEntities.paramsfood_list.FoodSubgroup -> ProjectxxxEntities.virtual.FCK "foodGroup￪" 
+        ProjectxxxEntities.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪,fssGroup￪,fssSubgroup￪,fssSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_descript.FoodBrand -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsquantif.MaximumValueForRecipeOrGroup -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        ProjectxxxEntities.paramssupplement.DietarySupplement -> ProjectxxxEntities.paramssupplement.DietarySupplementFacet "facet￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipe -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFoodGroup -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "foodDescriptor￪" 
+        ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipeGroup -> ProjectxxxEntities.paramsrecipe_description.RecipeFacet "recipeFacet￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFood -> ProjectxxxEntities.paramsfood_descript.FoodFacet "selectedFoodFacet￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFood -> ProjectxxxEntities.paramsquantif.Shape "photoOrShape￪" 
+        ProjectxxxEntities.paramsfood_list.ComposedRecipeIngredient -> ProjectxxxEntities.paramsfood_list.Food "foodOrRecipe￪" 
+        ProjectxxxEntities.paramssupplement.DietarySupplementDescriptor -> ProjectxxxEntities.paramssupplement.DietarySupplementFacet "facet￪" 
+        ProjectxxxEntities.paramsnutrient.NutrientValue -> ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup "nutrientForFoodOrGroup￪" 
+        ProjectxxxEntities.paramsrecipe_list.Recipe -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        ProjectxxxEntities.paramssetting.FacetDescriptorThatCannotBeSubstituted -> ProjectxxxEntities.paramsfood_descript.FoodFacet "facet￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipeGroup -> ProjectxxxEntities.paramsquantif.Shape "photoOrShape￪" 
+        ProjectxxxEntities.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood -> ProjectxxxEntities.virtual.FCK "fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipeGroup -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪" 
+        ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification -> ProjectxxxEntities.paramsquantif.ThicknessForShape "shapeThickness￪" 
+        ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForRecipe -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪" 
+        ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> ProjectxxxEntities.paramsfood_list.Food "fss￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipe -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪" 
+        ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪,fatGroup￪,fatSubgroup￪,fatSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_coefficient.RawToCookedConversionFactorForFood -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFood -> ProjectxxxEntities.paramsquantif.Photo "photoOrShape￪" 
+        ProjectxxxEntities.paramsquantif.MaximumValueForFoodOrGroup -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramssetting.GroupSubstitution -> ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup "applyToRecipeGroups￪￪,applyToRecipeGroups￪￪" 
+        ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup -> ProjectxxxEntities.paramsrecipe_list.Recipe "foodOrRecipe￪" 
+        ProjectxxxEntities.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood -> ProjectxxxEntities.paramsfood_list.Food "food￪,fss￪" 
+        ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe -> ProjectxxxEntities.virtual.FCK "recipeGroup￪,recipeSubgroup￪,fssGroup￪,fssSubgroup￪,fssSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_list.ComposedRecipeIngredient -> ProjectxxxEntities.paramsrecipe_list.Recipe "foodOrRecipe￪" 
+        ProjectxxxEntities.paramsquantif.StandardUnitForFoodOrRecipe -> ProjectxxxEntities.paramsrecipe_list.Recipe "foodOrRecipe￪" 
+        ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "facetDescriptors￪￪,facetDescriptors￪￪" 
+        ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification -> ProjectxxxEntities.paramsquantif.Shape "shape￪" 
+        ProjectxxxEntities.paramsrecipe_list.RecipeIngredient -> ProjectxxxEntities.paramsfood_list.Food "foodOrRecipe￪" 
+        ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipe -> ProjectxxxEntities.paramsquantif.Photo "photoOrShape￪" 
+        ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> ProjectxxxEntities.paramsfood_list.Food "food￪" 
+        ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "cookingMethodFacetDescriptor￪￪,cookingMethodFacetDescriptor￪￪" 
+        ProjectxxxEntities.paramsfood_list.Food -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> ProjectxxxEntities.paramsfood_list.Food "foodOrRecipe￪" 
+        ProjectxxxEntities.paramssupplement.DietarySupplement -> ProjectxxxEntities.paramssupplement.DietarySupplementClassification "classification￪" 
+        ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipeGroup -> ProjectxxxEntities.paramsrecipe_description.RecipeDescriptor "recipeDescriptor￪" 
+        ProjectxxxEntities.paramsinterview.CenterInvolved -> ProjectxxxEntities.paramsinterview.CountryInvolved "attachedCountry￪" 
+        ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor -> ProjectxxxEntities.paramsfood_descript.FoodFacet "facet￪" 
+        ProjectxxxEntities.paramsquantif.MaximumValueForRecipeOrGroup -> ProjectxxxEntities.paramsrecipe_list.Recipe "recipe￪" 
+        ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup -> ProjectxxxEntities.virtual.FCK "recipeGroup￪" 
+        ProjectxxxEntities.paramsfood_coefficient.EdiblePartCoefficientForFood -> ProjectxxxEntities.paramsfood_descript.FoodDescriptor "facetDescriptor￪￪,facetDescriptor￪￪" 
+        ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForFood -> ProjectxxxEntities.virtual.FCK "foodGroup￪,foodSubgroup￪,foodSubSubgroup￪" 
+        ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe -> ProjectxxxEntities.paramsrecipe_list.Recipe "foodOrRecipe￪" 
     }
 
     views {
-        systemContext DitaGDParams "SystemContext" "An example of a System Context diagram." {
-            include DitaGDParams 
+        systemContext ProjectxxxEntities "SystemContext" "An example of a System Context diagram." {
+            include ProjectxxxEntities 
         }
 
-        container DitaGDParams "a0" "a1" {
-            include DitaGDParams.paramsfood_list 
-            include DitaGDParams.paramsinterview 
-            include DitaGDParams.paramsfood_coefficient 
-            include DitaGDParams.paramsnutrient 
-            include DitaGDParams.paramspathway 
-            include DitaGDParams.paramsquantif 
-            include DitaGDParams.paramsrecipe_coefficient 
-            include DitaGDParams.paramsrecipe_description 
-            include DitaGDParams.paramsrecipe_list 
-            include DitaGDParams.paramssetting 
-            include DitaGDParams.paramssupplement 
-            include DitaGDParams.virtual 
-            include DitaGDParams.paramsfood_descript 
+        container ProjectxxxEntities "a0" "a1" {
+            include ProjectxxxEntities.paramsfood_list 
+            include ProjectxxxEntities.paramsinterview 
+            include ProjectxxxEntities.paramsfood_coefficient 
+            include ProjectxxxEntities.paramsnutrient 
+            include ProjectxxxEntities.paramspathway 
+            include ProjectxxxEntities.paramsquantif 
+            include ProjectxxxEntities.paramsrecipe_coefficient 
+            include ProjectxxxEntities.paramsrecipe_description 
+            include ProjectxxxEntities.paramsrecipe_list 
+            include ProjectxxxEntities.paramssetting 
+            include ProjectxxxEntities.paramssupplement 
+            include ProjectxxxEntities.virtual 
+            include ProjectxxxEntities.paramsfood_descript 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsfood_coefficient "params0food_coefficient" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodDescriptor 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
-            include DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
-            include DitaGDParams.virtual.FCK 
-            include DitaGDParams.paramsfood_coefficient.RawToCookedConversionFactorForFood 
+        component ProjectxxxEntities.paramsfood_coefficient "params0food_coefficient" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodDescriptor 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
+            include ProjectxxxEntities.paramsfood_coefficient.EdiblePartCoefficientForFood 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
+            include ProjectxxxEntities.virtual.FCK 
+            include ProjectxxxEntities.paramsfood_coefficient.RawToCookedConversionFactorForFood 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsfood_descript "params0food_descript" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodBrand 
-            include DitaGDParams.paramsfood_descript.FoodDescriptor 
-            include DitaGDParams.paramsfood_descript.FoodFacet 
-            include DitaGDParams.paramsfood_descript.FoodFacetRule 
-            include DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForFood 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup 
-            include DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood 
-            include DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup 
-            include DitaGDParams.paramsrecipe_description.RecipeFacetRule 
-            include DitaGDParams.paramsrecipe_list.RecipeIngredient 
-            include DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
-            include DitaGDParams.virtual.FCK 
-            include DitaGDParams.paramsfood_coefficient.RawToCookedConversionFactorForFood 
+        component ProjectxxxEntities.paramsfood_descript "params0food_descript" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodBrand 
+            include ProjectxxxEntities.paramsfood_descript.FoodDescriptor 
+            include ProjectxxxEntities.paramsfood_descript.FoodFacet 
+            include ProjectxxxEntities.paramsfood_descript.FoodFacetRule 
+            include ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFood 
+            include ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFoodGroup 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup 
+            include ProjectxxxEntities.paramsfood_coefficient.EdiblePartCoefficientForFood 
+            include ProjectxxxEntities.paramsquantif.MaximumValueForFoodOrGroup 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeFacetRule 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeIngredient 
+            include ProjectxxxEntities.paramssetting.FacetDescriptorThatCannotBeSubstituted 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
+            include ProjectxxxEntities.virtual.FCK 
+            include ProjectxxxEntities.paramsfood_coefficient.RawToCookedConversionFactorForFood 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsfood_list "params0food_list" "no desc" {
-            include DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
-            include DitaGDParams.paramsfood_list.ComposedRecipeIngredient 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsfood_list.FoodSubgroup 
-            include DitaGDParams.paramsnutrient.NutrientForFoodOrGroup 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForFood 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
-            include DitaGDParams.paramspathway.ProbingQuestionPathwayForFood 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFood 
-            include DitaGDParams.paramsfood_coefficient.EdiblePartCoefficientForFood 
-            include DitaGDParams.paramsquantif.RecipeIngredientQuantification 
-            include DitaGDParams.paramsquantif.StandardPortionForFood 
-            include DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe 
-            include DitaGDParams.paramsquantif.ThicknessForShape 
-            include DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.paramsrecipe_list.RecipeIngredient 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
-            include DitaGDParams.paramssetting.GroupSubstitution 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
-            include DitaGDParams.virtual.FCK 
-            include DitaGDParams.paramsfood_coefficient.RawToCookedConversionFactorForFood 
+        component ProjectxxxEntities.paramsfood_list "params0food_list" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
+            include ProjectxxxEntities.paramsfood_list.ComposedRecipeIngredient 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsfood_list.FoodSubgroup 
+            include ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFood 
+            include ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
+            include ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForFood 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFood 
+            include ProjectxxxEntities.paramsfood_coefficient.EdiblePartCoefficientForFood 
+            include ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification 
+            include ProjectxxxEntities.paramsquantif.StandardPortionForFood 
+            include ProjectxxxEntities.paramsquantif.StandardUnitForFoodOrRecipe 
+            include ProjectxxxEntities.paramsquantif.ThicknessForShape 
+            include ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeIngredient 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
+            include ProjectxxxEntities.paramssetting.GroupSubstitution 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
+            include ProjectxxxEntities.virtual.FCK 
+            include ProjectxxxEntities.paramsfood_coefficient.RawToCookedConversionFactorForFood 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsinterview "params0interview" "no desc" {
-            include DitaGDParams.paramsinterview.CenterInvolved 
-            include DitaGDParams.paramsinterview.CountryInvolved 
-            include DitaGDParams.paramsinterview.Interviewer 
-            include DitaGDParams.paramsinterview.SubjectToBeInterviewed 
+        component ProjectxxxEntities.paramsinterview "params0interview" "no desc" {
+            include ProjectxxxEntities.paramsinterview.CenterInvolved 
+            include ProjectxxxEntities.paramsinterview.CountryInvolved 
+            include ProjectxxxEntities.paramsinterview.Interviewer 
+            include ProjectxxxEntities.paramsinterview.SubjectToBeInterviewed 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsnutrient "params0nutrient" "no desc" {
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsnutrient.Nutrient 
-            include DitaGDParams.paramsnutrient.NutrientForFoodOrGroup 
-            include DitaGDParams.paramsnutrient.NutrientValue 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramsnutrient "params0nutrient" "no desc" {
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsnutrient.Nutrient 
+            include ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup 
+            include ProjectxxxEntities.paramsnutrient.NutrientValue 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramspathway "params0pathway" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodDescriptor 
-            include DitaGDParams.paramsfood_descript.FoodFacet 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForFood 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup 
-            include DitaGDParams.paramspathway.ProbingQuestion 
-            include DitaGDParams.paramspathway.ProbingQuestionPathwayForFood 
-            include DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFood 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup 
-            include DitaGDParams.paramsquantif.Photo 
-            include DitaGDParams.paramsquantif.Shape 
-            include DitaGDParams.paramsrecipe_description.RecipeDescriptor 
-            include DitaGDParams.paramsrecipe_description.RecipeFacet 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramspathway "params0pathway" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodDescriptor 
+            include ProjectxxxEntities.paramsfood_descript.FoodFacet 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFood 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFoodGroup 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipeGroup 
+            include ProjectxxxEntities.paramspathway.ProbingQuestion 
+            include ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForFood 
+            include ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFood 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipeGroup 
+            include ProjectxxxEntities.paramsquantif.Photo 
+            include ProjectxxxEntities.paramsquantif.Shape 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeDescriptor 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeFacet 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsquantif "params0quantif" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodDescriptor 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsfood_list.FoodSubgroup 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFood 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup 
-            include DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup 
-            include DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup 
-            include DitaGDParams.paramsquantif.Photo 
-            include DitaGDParams.paramsquantif.RecipeIngredientQuantification 
-            include DitaGDParams.paramsquantif.Shape 
-            include DitaGDParams.paramsquantif.StandardPortionForFood 
-            include DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe 
-            include DitaGDParams.paramsquantif.ThicknessForShape 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.paramsrecipe_list.RecipeSubgroup 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramsquantif "params0quantif" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodDescriptor 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsfood_list.FoodSubgroup 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFood 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipeGroup 
+            include ProjectxxxEntities.paramsquantif.MaximumValueForFoodOrGroup 
+            include ProjectxxxEntities.paramsquantif.MaximumValueForRecipeOrGroup 
+            include ProjectxxxEntities.paramsquantif.Photo 
+            include ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification 
+            include ProjectxxxEntities.paramsquantif.Shape 
+            include ProjectxxxEntities.paramsquantif.StandardPortionForFood 
+            include ProjectxxxEntities.paramsquantif.StandardUnitForFoodOrRecipe 
+            include ProjectxxxEntities.paramsquantif.ThicknessForShape 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsrecipe_coefficient "params0recipe_coefficient" "no desc" {
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramsrecipe_coefficient "params0recipe_coefficient" "no desc" {
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsrecipe_description "params0recipe_description" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodFacet 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup 
-            include DitaGDParams.paramsrecipe_description.RecipeBrand 
-            include DitaGDParams.paramsrecipe_description.RecipeDescriptor 
-            include DitaGDParams.paramsrecipe_description.RecipeFacet 
-            include DitaGDParams.paramsrecipe_description.RecipeFacetRule 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramsrecipe_description "params0recipe_description" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodFacet 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipeGroup 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeBrand 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeDescriptor 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeFacet 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeFacetRule 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramsrecipe_list "params0recipe_list" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodDescriptor 
-            include DitaGDParams.paramsfood_list.ComposedRecipeIngredient 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsnutrient.NutrientForFoodOrGroup 
-            include DitaGDParams.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipe 
-            include DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipe 
-            include DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup 
-            include DitaGDParams.paramsquantif.RecipeIngredientQuantification 
-            include DitaGDParams.paramsquantif.StandardUnitForFoodOrRecipe 
-            include DitaGDParams.paramsquantif.ThicknessForShape 
-            include DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.paramsrecipe_list.RecipeIngredient 
-            include DitaGDParams.paramsrecipe_list.RecipeSubgroup 
-            include DitaGDParams.paramssetting.GroupSubstitution 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramsrecipe_list "params0recipe_list" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodDescriptor 
+            include ProjectxxxEntities.paramsfood_list.ComposedRecipeIngredient 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup 
+            include ProjectxxxEntities.paramsfood_coefficient.DensityFactorForFoodOrRecipe 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipe 
+            include ProjectxxxEntities.paramsquantif.MaximumValueForRecipeOrGroup 
+            include ProjectxxxEntities.paramsquantif.RecipeIngredientQuantification 
+            include ProjectxxxEntities.paramsquantif.StandardUnitForFoodOrRecipe 
+            include ProjectxxxEntities.paramsquantif.ThicknessForShape 
+            include ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeIngredient 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup 
+            include ProjectxxxEntities.paramssetting.GroupSubstitution 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramssetting "params0setting" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodDescriptor 
-            include DitaGDParams.paramsfood_descript.FoodFacet 
-            include DitaGDParams.paramsfood_list.FoodSubgroup 
-            include DitaGDParams.paramsrecipe_list.RecipeSubgroup 
-            include DitaGDParams.paramssetting.FacetDescriptorThatCannotBeSubstituted 
-            include DitaGDParams.paramssetting.FoodConsumptionOccasion 
-            include DitaGDParams.paramssetting.FoodConsumptionOccasionDisplayItem 
-            include DitaGDParams.paramssetting.GroupSubstitution 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.paramssetting "params0setting" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodDescriptor 
+            include ProjectxxxEntities.paramsfood_descript.FoodFacet 
+            include ProjectxxxEntities.paramsfood_list.FoodSubgroup 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup 
+            include ProjectxxxEntities.paramssetting.FacetDescriptorThatCannotBeSubstituted 
+            include ProjectxxxEntities.paramssetting.FoodConsumptionOccasion 
+            include ProjectxxxEntities.paramssetting.FoodConsumptionOccasionDisplayItem 
+            include ProjectxxxEntities.paramssetting.GroupSubstitution 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.paramssupplement "params0supplement" "no desc" {
-            include DitaGDParams.paramssupplement.DietarySupplement 
-            include DitaGDParams.paramssupplement.DietarySupplementClassification 
-            include DitaGDParams.paramssupplement.DietarySupplementDescriptor 
-            include DitaGDParams.paramssupplement.DietarySupplementFacet 
+        component ProjectxxxEntities.paramssupplement "params0supplement" "no desc" {
+            include ProjectxxxEntities.paramssupplement.DietarySupplement 
+            include ProjectxxxEntities.paramssupplement.DietarySupplementClassification 
+            include ProjectxxxEntities.paramssupplement.DietarySupplementDescriptor 
+            include ProjectxxxEntities.paramssupplement.DietarySupplementFacet 
             autolayout tb 300 300 
         }
 
-        component DitaGDParams.virtual "virtual" "no desc" {
-            include DitaGDParams.paramsfood_descript.FoodBrand 
-            include DitaGDParams.paramsfood_descript.FoodFacetRule 
-            include DitaGDParams.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
-            include DitaGDParams.paramsfood_list.Food 
-            include DitaGDParams.paramsfood_list.FoodSubgroup 
-            include DitaGDParams.paramsnutrient.NutrientForFoodOrGroup 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForFoodGroup 
-            include DitaGDParams.paramspathway.FacetDescriptorPathwayForRecipeGroup 
-            include DitaGDParams.paramspathway.ProbingQuestionPathwayForFood 
-            include DitaGDParams.paramspathway.ProbingQuestionPathwayForRecipe 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForFoodGroup 
-            include DitaGDParams.paramspathway.QuantificationMethodPathwayForRecipeGroup 
-            include DitaGDParams.paramsquantif.MaximumValueForFoodOrGroup 
-            include DitaGDParams.paramsquantif.MaximumValueForRecipeOrGroup 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood 
-            include DitaGDParams.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
-            include DitaGDParams.paramsrecipe_description.RecipeBrand 
-            include DitaGDParams.paramsrecipe_description.RecipeFacetRule 
-            include DitaGDParams.paramsrecipe_list.Recipe 
-            include DitaGDParams.paramsrecipe_list.RecipeIngredient 
-            include DitaGDParams.paramsrecipe_list.RecipeSubgroup 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
-            include DitaGDParams.paramssetting.GroupSubstitution 
-            include DitaGDParams.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
-            include DitaGDParams.virtual.FCK 
+        component ProjectxxxEntities.virtual "virtual" "no desc" {
+            include ProjectxxxEntities.paramsfood_descript.FoodBrand 
+            include ProjectxxxEntities.paramsfood_descript.FoodFacetRule 
+            include ProjectxxxEntities.paramsfood_descript.ImprobableSequenceOfFacetAndDescriptor 
+            include ProjectxxxEntities.paramsfood_list.Food 
+            include ProjectxxxEntities.paramsfood_list.FoodSubgroup 
+            include ProjectxxxEntities.paramsnutrient.NutrientForFoodOrGroup 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForFoodGroup 
+            include ProjectxxxEntities.paramspathway.FacetDescriptorPathwayForRecipeGroup 
+            include ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForFood 
+            include ProjectxxxEntities.paramspathway.ProbingQuestionPathwayForRecipe 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForFoodGroup 
+            include ProjectxxxEntities.paramspathway.QuantificationMethodPathwayForRecipeGroup 
+            include ProjectxxxEntities.paramsquantif.MaximumValueForFoodOrGroup 
+            include ProjectxxxEntities.paramsquantif.MaximumValueForRecipeOrGroup 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatLeftInTheDishForFood 
+            include ProjectxxxEntities.paramsrecipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeBrand 
+            include ProjectxxxEntities.paramsrecipe_description.RecipeFacetRule 
+            include ProjectxxxEntities.paramsrecipe_list.Recipe 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeIngredient 
+            include ProjectxxxEntities.paramsrecipe_list.RecipeSubgroup 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood 
+            include ProjectxxxEntities.paramssetting.GroupSubstitution 
+            include ProjectxxxEntities.paramsfood_coefficient.PercentOfFatUseDuringCookingForFood 
+            include ProjectxxxEntities.virtual.FCK 
             autolayout tb 300 300 
         }
 

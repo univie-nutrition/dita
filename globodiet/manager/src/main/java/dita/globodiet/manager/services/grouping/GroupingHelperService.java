@@ -20,6 +20,8 @@ package dita.globodiet.manager.services.grouping;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,6 @@ import org.apache.causeway.commons.functional.Either;
 
 import lombok.NonNull;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.food_list.FoodGroup;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;

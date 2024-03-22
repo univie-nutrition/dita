@@ -35,7 +35,7 @@ import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;

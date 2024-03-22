@@ -26,6 +26,8 @@ import jakarta.inject.Inject;
 
 import com.google.common.collect.ImmutableCollection;
 
+import org.causewaystuff.domsupport.services.lookup.DependantLookupService;
+
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
@@ -34,7 +36,6 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.base._NullSafe;
 
-import dita.commons.services.lookup.DependantLookupService;
 import lombok.SneakyThrows;
 
 @Service

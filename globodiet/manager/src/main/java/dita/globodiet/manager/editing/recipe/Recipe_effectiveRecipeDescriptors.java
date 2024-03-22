@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.Where;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup;
 import dita.globodiet.dom.params.recipe_description.RecipeDescriptor;

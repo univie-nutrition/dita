@@ -44,7 +44,7 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;

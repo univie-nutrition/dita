@@ -26,6 +26,10 @@ import java.util.function.Predicate;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.domsupport.services.lookup.HasSecondaryKey;
+import org.causewaystuff.domsupport.services.lookup.ISecondaryKey;
+
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.bookmark.Bookmark;
@@ -39,9 +43,8 @@ import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.functions._Predicates;
 
-import dita.commons.services.lookup.ForeignKeyLookupService;
-import dita.commons.services.lookup.HasSecondaryKey;
-import dita.commons.services.lookup.ISecondaryKey;
+import lombok.val;
+
 import dita.globodiet.dom.params.classification.FoodGrouping;
 import dita.globodiet.dom.params.classification.RecipeGrouping;
 import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
@@ -60,7 +63,6 @@ import dita.globodiet.dom.params.recipe_list.RecipeGroup;
 import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
 import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
 import dita.globodiet.dom.params.setting.GroupSubstitution;
-import lombok.val;
 
 @Service
 public class ForeignKeyLookupGdParams

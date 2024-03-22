@@ -18,12 +18,13 @@
  */
 package dita.globodiet.manager.services.iconfa;
 
+import org.causewaystuff.domsupport.services.iconfa.IconFaService;
+
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 
-import dita.commons.services.iconfa.IconFaService;
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 
 @Service
