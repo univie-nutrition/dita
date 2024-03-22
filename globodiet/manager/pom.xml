@@ -62,6 +62,7 @@
 						<image>openjdk:22-jdk-bookworm</image>
 					</from>
 				</configuration>
+				<!-- 3.4.1 requires newer asm 9.6 to support java 22 -->
 				<dependencies>
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
