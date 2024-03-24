@@ -59,27 +59,33 @@ import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import org.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
- * A survey collects one or more campaigns.
+ * A  campaign defines a part of a food consumption survey that contains several interviews.
+ * Campaigns can be defined to be the whole study,
+ * a seasonal part of a study,
+ * a regional part of a study etc.
  */
 @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
-@Named("dita.globodiet.survey.entities.Survey")
+@Named("dita.globodiet.survey.entities.Campaign")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "A survey collects one or more campaigns.",
-        cssClassFa = "solid users .survey-color"
+        describedAs = "A  campaign defines a part of a food consumption survey that contains several interviews.\n"
+                        + "Campaigns can be defined to be the whole study,\n"
+                        + "a seasonal part of a study,\n"
+                        + "a regional part of a study etc.",
+        cssClassFa = "solid users-viewfinder .campaign-color"
 )
 @PersistenceCapable(
-        table = "SURVEY"
+        table = "CAMPAIGN"
 )
 @DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
 @Unique(
-        name = "SEC_KEY_UNQ_Survey",
+        name = "SEC_KEY_UNQ_Campaign",
         members = {"code"}
 )
-public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
+public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> {
     @Inject
     RepositoryService repositoryService;
 
@@ -87,7 +93,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     SearchService searchService;
 
     /**
-     * Unique (application scoped) survey identifier.
+     * Unique (application scoped) campaign identifier.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -95,7 +101,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Unique (application scoped) survey identifier.",
+            describedAs = "Unique (application scoped) campaign identifier.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -108,7 +114,28 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     private String code;
 
     /**
-     * Descriptive survey name.
+     * Survey code
+     */
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
+    @PropertyLayout(
+            fieldSetId = "foreign",
+            sequence = "2",
+            describedAs = "Survey code",
+            hidden = Where.ALL_TABLES
+    )
+    @Column(
+            name = "SURVEY",
+            allowsNull = "false",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String surveyCode;
+
+    /**
+     * Descriptive campaign name.
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -116,8 +143,8 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     )
     @PropertyLayout(
             fieldSetId = "details",
-            sequence = "2",
-            describedAs = "Descriptive survey name.",
+            sequence = "3",
+            describedAs = "Descriptive campaign name.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -129,6 +156,28 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @Setter
     private String name;
 
+    /**
+     * Detailed information for this campaign.
+     */
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "4",
+            describedAs = "Detailed information for this campaign.",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "DESCRIPTION",
+            allowsNull = "true",
+            length = 240
+    )
+    @Getter
+    @Setter
+    private String description;
+
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s)", name, code);
@@ -136,16 +185,20 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
 
     @Override
     public String toString() {
-        return "Survey(" + "code=" + getCode() + ","
-         +"name=" + getName() + ")";
+        return "Campaign(" + "code=" + getCode() + ","
+         +"surveyCode=" + getSurveyCode() + ","
+         +"name=" + getName() + ","
+         +"description=" + getDescription() + ")";
     }
 
     @Programmatic
     @Override
-    public Survey copy() {
-        var copy = repositoryService.detachedEntity(new Survey());
+    public Campaign copy() {
+        var copy = repositoryService.detachedEntity(new Campaign());
         copy.setCode(getCode());
+        copy.setSurveyCode(getSurveyCode());
         copy.setName(getName());
+        copy.setDescription(getDescription());
         return copy;
     }
 
@@ -157,8 +210,8 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
             hidden = Where.EVERYWHERE
     )
     @NotPersistent
-    public Survey.Manager getNavigableParent() {
-        return new Survey.Manager(searchService, "");
+    public Campaign.Manager getNavigableParent() {
+        return new Campaign.Manager(searchService, "");
     }
 
     @Programmatic
@@ -167,12 +220,15 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     }
 
     /**
-     * Manager Viewmodel for @{link Survey}
+     * Manager Viewmodel for @{link Campaign}
      */
-    @Named("dita.globodiet.survey.entities.Survey.Manager")
+    @Named("dita.globodiet.survey.entities.Campaign.Manager")
     @DomainObjectLayout(
-            describedAs = "A survey collects one or more campaigns.",
-            cssClassFa = "solid users .survey-color"
+            describedAs = "A  campaign defines a part of a food consumption survey that contains several interviews.\n"
+                            + "Campaigns can be defined to be the whole study,\n"
+                            + "a seasonal part of a study,\n"
+                            + "a regional part of a study etc.",
+            cssClassFa = "solid users-viewfinder .campaign-color"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -191,12 +247,12 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
 
         @ObjectSupport
         public String title() {
-            return "Manage Survey";
+            return "Manage Campaign";
         }
 
         @Collection
-        public final List<Survey> getListOfSurvey() {
-            return searchService.search(Survey.class, Survey::title, search);
+        public final List<Campaign> getListOfCampaign() {
+            return searchService.search(Campaign.class, Campaign::title, search);
         }
 
         @Override
@@ -206,9 +262,11 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     }
 
     /**
-     * Parameter model for @{link Survey}
-     * @param code Unique (application scoped) survey identifier.
-     * @param name Descriptive survey name.
+     * Parameter model for @{link Campaign}
+     * @param code Unique (application scoped) campaign identifier.
+     * @param survey Survey code
+     * @param name Descriptive campaign name.
+     * @param description Detailed information for this campaign.
      */
     public final record Params(
             @Parameter(
@@ -216,7 +274,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Unique (application scoped) survey identifier."
+                    describedAs = "Unique (application scoped) campaign identifier."
             )
             String code,
             @Parameter(
@@ -224,19 +282,35 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Descriptive survey name."
+                    describedAs = "Survey code"
             )
-            String name) {
+            Survey survey,
+            @Parameter(
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "Descriptive campaign name."
+            )
+            String name,
+            @Parameter(
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Detailed information for this campaign."
+            )
+            String description) {
     }
 
     /**
-     * SecondaryKey for @{link Survey}
-     * @param code Unique (application scoped) survey identifier.
+     * SecondaryKey for @{link Campaign}
+     * @param code Unique (application scoped) campaign identifier.
      */
-    public final record SecondaryKey(String code) implements ISecondaryKey<Survey> {
+    public final record SecondaryKey(String code) implements ISecondaryKey<Campaign> {
         @Override
-        public Class<Survey> correspondingClass() {
-            return Survey.class;
+        public Class<Campaign> correspondingClass() {
+            return Campaign.class;
         }
 
         @Override
@@ -248,15 +322,15 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link Survey} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link Campaign} in case of an unresolvable secondary key.
      */
     @DomainObjectLayout(
-            describedAs = "Unresolvable Survey",
+            describedAs = "Unresolvable Campaign",
             cssClassFa = "skull .unresolvable-color"
     )
-    @Named("dita.globodiet.survey.entities.Survey.Unresolvable")
+    @Named("dita.globodiet.survey.entities.Campaign.Unresolvable")
     @RequiredArgsConstructor
-    public static final class Unresolvable extends Survey implements ViewModel {
+    public static final class Unresolvable extends Campaign implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

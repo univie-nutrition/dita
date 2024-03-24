@@ -17,15 +17,18 @@
 # under the License.
 # -----------------------------------------------------------
 
-survey.entities.Survey:
+survey.entities.Campaign:
   namespace: survey.entities
-  table: SURVEY
+  table: CAMPAIGN
   secondaryKey: |
     CODE
   title: String.format("%s (code=%s)", name, code)
-  icon: solid users .survey-color
+  icon: solid users-viewfinder .campaign-color
   description: |
-    A survey collects one or more campaigns.
+    A  campaign defines a part of a food consumption survey that contains several interviews.
+    Campaigns can be defined to be the whole study, 
+    a seasonal part of a study, 
+    a regional part of a study etc.
   fields:
     code:
       column: CODE
@@ -33,11 +36,27 @@ survey.entities.Survey:
       required: true
       unique: true
       description: |
-        Unique (application scoped) survey identifier.
+        Unique (application scoped) campaign identifier.
+    surveyCode:
+      column: SURVEY
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      foreignKeys: |
+        SURVEY.CODE
+      description: |
+        Survey code    
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Descriptive survey name.
+        Descriptive campaign name.
+    description:
+      column: DESCRIPTION
+      column-type: nvarchar(240)
+      required: false
+      unique: false
+      description: |
+        Detailed information for this campaign.
