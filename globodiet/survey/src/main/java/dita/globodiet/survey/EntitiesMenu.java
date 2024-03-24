@@ -20,38 +20,30 @@
 package dita.globodiet.survey;
 
 import dita.globodiet.survey.entities.Survey;
-import dita.globodiet.survey.entities.SurveyDeps;
-import dita.globodiet.survey.entities.Survey_delete;
-import java.lang.Class;
-import java.lang.String;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import javax.annotation.processing.Generated;
-import org.apache.causeway.commons.collections.Can;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.apache.causeway.applib.annotation.Action;
+import org.apache.causeway.applib.annotation.ActionLayout;
+import org.apache.causeway.applib.annotation.DomainService;
+import org.apache.causeway.applib.services.factory.FactoryService;
+import org.causewaystuff.companion.applib.services.search.SearchService;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenModule")
-@Configuration
-@Import({
+@Generated("org.causewaystuff.companion.codegen.domgen._GenMenu")
+@Named("dita.globodiet.survey.EntitiesMenu")
+@DomainService
+public class EntitiesMenu {
+    @Inject
+    private FactoryService factoryService;
 
-        // Config Beans
-        ModuleConfig.class,
+    @Inject
+    private SearchService searchService;
 
-        // Menu Entries
-        EntitiesMenu.class,
-
-        // Entities
-        Survey.class,
-
-        // Submodules
-        SurveyDeps.class,
-
-        // Mixins
-        Survey_delete.class,
-        })
-public class DitaModuleGdSurvey {
-    public static final String NAMESPACE = "dita.globodiet";
-
-    public static Can<Class<?>> entityClasses() {
-        return Can.of(Survey.class);
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid users-viewfinder .survey-color"
+    )
+    public Survey.Manager manageSurvey() {
+        return factoryService.viewModel(new Survey.Manager(searchService, ""));
     }
 }

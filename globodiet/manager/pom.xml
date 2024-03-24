@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
-	license agreements. See the NOTICE file distributed with this work for additional
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more
+contributor
+	license agreements. See the NOTICE file distributed with this work for
+additional
 	information regarding copyright ownership. The ASF licenses this file to
 	you under the Apache License, Version 2.0 (the "License"); you may not use
 	this file except in compliance with the License. You may obtain a copy of
@@ -10,104 +12,108 @@
 	OF ANY KIND, either express or implied. See the License for the specific
 	language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<packaging>jar</packaging>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>at.ac.univie.nutrition.dita</groupId>
-		<artifactId>dita-globodiet</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
+    <packaging>jar</packaging>
 
-	<artifactId>dita-globodiet-manager</artifactId>
-	<name>Dita - Globodiet Manager</name>
-	<description>
-		Globodiet Data Management Application.
-	</description>
+    <parent>
+        <groupId>at.ac.univie.nutrition.dita</groupId>
+        <artifactId>dita-globodiet</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
 
-	<properties>
-	</properties>
-	
-	<build>
-	    <plugins>
-	        
-	        <plugin>
-	            <groupId>org.springframework.boot</groupId>
-	            <artifactId>spring-boot-maven-plugin</artifactId>
-	            <version>${spring-boot.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-					<execution>
-			            <id>build-info</id>
-			            <goals>
-			                <goal>build-info</goal>
-			            </goals>
-			        </execution>
-				</executions>
-	        </plugin>
-	        
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>jib-maven-plugin</artifactId>
-				<version>3.4.1</version>
-				<configuration>
-					<from>
-						<image>openjdk:22-jdk-bookworm</image>
-					</from>
-				</configuration>
-				<!-- 3.4.1 requires newer asm 9.6 to support java 22 -->
-				<dependencies>
+    <artifactId>dita-globodiet-manager</artifactId>
+    <name>Dita - Globodiet Manager</name>
+    <description>
+        Globodiet Data Management Application.
+    </description>
+
+    <properties>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-info</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:22-jdk-bookworm</image>
+                    </from>
+                </configuration>
+                <!-- 3.4.1 requires newer asm 9.6 to support java 22 -->
+                <dependencies>
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
                         <version>9.6</version>
                     </dependency>
                 </dependencies>
-			</plugin>
-	        
-	    </plugins>
-	</build>
-	
-	<dependencies>
+            </plugin>
 
-		<dependency>
-			<groupId>at.ac.univie.nutrition.dita</groupId>
-			<artifactId>dita-globodiet-params</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>at.ac.univie.nutrition.dita</groupId>
-			<artifactId>dita-globodiet-schema</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>at.ac.univie.nutrition.dita</groupId>
-			<artifactId>dita-causeway-replicator</artifactId>
-		</dependency>
-		
-		<!-- WEB STACK -->
-		
-		<dependency>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-globodiet-params</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-globodiet-survey</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-globodiet-schema</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-causeway-replicator</artifactId>
+        </dependency>
+
+        <!-- WEB STACK -->
+
+        <dependency>
             <groupId>org.apache.causeway.mavendeps</groupId>
             <artifactId>causeway-mavendeps-webapp</artifactId>
             <type>pom</type>
         </dependency>
 
         <dependency>
-			<groupId>org.apache.causeway.viewer</groupId>
-			<artifactId>causeway-viewer-wicket-viewer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.causeway.viewer</groupId>
-			<artifactId>causeway-viewer-restfulobjects-jaxrsresteasy</artifactId>
-		</dependency>
+            <groupId>org.apache.causeway.viewer</groupId>
+            <artifactId>causeway-viewer-wicket-viewer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.causeway.viewer</groupId>
+            <artifactId>causeway-viewer-restfulobjects-jaxrsresteasy</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.causeway.viewer</groupId>
@@ -144,45 +150,39 @@
             <artifactId>causeway-extensions-secman-persistence-jdo</artifactId>
         </dependency>
 
-		<!-- JDBC -->
-		
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+        <!-- JDBC -->
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
-	    	<artifactId>mariadb-java-client</artifactId>
+            <artifactId>mariadb-java-client</artifactId>
         </dependency>
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
         </dependency>
-        
-        <!-- EXTENSIONS/TOOLING -->
-		
-		<dependency>
-			<groupId>org.apache.causeway.extensions</groupId>
-			<artifactId>causeway-extensions-docgen-help</artifactId>
-		</dependency>
 
-		<dependency>
-		    <groupId>at.ac.univie.nutrition.dita</groupId>
-		    <artifactId>dita-globodiet-survey</artifactId>
-		    <version>1.0.0-SNAPSHOT</version>
-		</dependency>
+        <!-- EXTENSIONS/TOOLING -->
+
+        <dependency>
+            <groupId>org.apache.causeway.extensions</groupId>
+            <artifactId>causeway-extensions-docgen-help</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-blobstore-localfs</artifactId>
         </dependency>
 
-		<dependency>
-		    <groupId>org.causewaystuff</groupId>
-		    <artifactId>causewaystuff-companion-codegen</artifactId>
-		</dependency>
-		
-	</dependencies>
-    
+        <dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-companion-codegen</artifactId>
+        </dependency>
+
+    </dependencies>
+
 </project>

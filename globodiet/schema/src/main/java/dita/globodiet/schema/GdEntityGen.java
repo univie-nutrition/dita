@@ -59,7 +59,7 @@ public class GdEntityGen {
             schemaAssembler.writeJavaFiles(cfg->cfg
                     .destinationFolder(javaDestinationFolder)
                     .logicalNamespacePrefix("dita.globodiet")
-                    .packageNamePrefix("dita.globodiet.dom")
+                    .packageNamePrefix("dita.globodiet")
                     .onPurgeKeep(FileKeepStrategy.layout()
                             .or(FileKeepStrategy.javaNonGenerated())
                             )

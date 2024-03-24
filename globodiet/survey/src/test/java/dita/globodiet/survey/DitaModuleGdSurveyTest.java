@@ -30,7 +30,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(classes = {
-        DitaModuleGdSurvey.class
+        ModuleConfig.class
         })
 @PrivateDataTest
 class DitaModuleGdSurveyTest {

@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-survey.Survey:
-  namespace: survey
+survey.entities.Survey:
+  namespace: survey.entities
   table: SURVEY
   secondaryKey: |
     CODE
@@ -33,7 +33,7 @@ survey.Survey:
       required: true
       unique: true
       description: |
-        Unique Survey identifier.
+        Unique (application scoped) survey identifier.
     name:
       column: NAME
       column-type: nvarchar(120)

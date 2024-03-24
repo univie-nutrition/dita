@@ -168,8 +168,8 @@ import dita.globodiet.survey.DitaModuleGdSurvey;
 
     // -- MODULES
     DitaModuleGdParams.class,
-    DitaModuleDatabaseReplicator.class,
     DitaModuleGdSurvey.class,
+    DitaModuleDatabaseReplicator.class,
 
 })
 public class DitaModuleGdManager {

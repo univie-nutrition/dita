@@ -66,6 +66,11 @@ additional
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-blobstore-applib</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-companion-applib</artifactId>
+        </dependency>
 
         <!-- PERSISTENCE -->
 

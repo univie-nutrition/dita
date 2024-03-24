@@ -41,9 +41,10 @@ import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.applib.graph.tree.TreePath;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
-import dita.globodiet.survey.DitaModuleGdSurvey;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+
+import dita.globodiet.survey.DitaModuleGdSurvey;
 
 @Named(DitaModuleGdSurvey.NAMESPACE + ".SurveyViewModel")
 @DomainObject(

@@ -4,12 +4,12 @@ workspace {
     !identifiers "hierarchical" 
 
     model {
-        DitaGDParams = softwareSystem "Dita GD Params" "Software system having all the GD Params entities." 
+        ProjectxxxEntities = softwareSystem "Project xxx Entities" "Software system having all the xxx entities." 
     }
 
     views {
-        systemContext DitaGDParams "SystemContext" "An example of a System Context diagram." {
-            include DitaGDParams 
+        systemContext ProjectxxxEntities "SystemContext" "An example of a System Context diagram." {
+            include ProjectxxxEntities 
         }
 
         styles {

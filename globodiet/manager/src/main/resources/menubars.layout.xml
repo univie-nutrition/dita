@@ -95,104 +95,13 @@
             </mb:section>
         </mb:menu>
         <mb:menu>
-            <mb:named>Having no Relations</mb:named>
+            <mb:named>Campaining</mb:named>
             <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageAnthropometricAverage"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDayOfWeek"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDefinitionOfRecipePathway"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageHouseholdMeasure"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMacroNutrientLimit"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMonth"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNoteStatus"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientListAndDefinition"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientValuesPerNutrientAndItem"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePlaceOfConsumption"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSelectedParameter"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSelectedParameterForDataEntry"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSpecialDayPredefinedAnswer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSpecialDietPredefinedAnswer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageTranslationInCountryLanguage"/>
-           </mb:section>
-        </mb:menu>
-        <mb:menu>
-            <mb:named>All Managers</mb:named>
-            <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageAnthropometricAverage"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCenterInvolved"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageComposedRecipeIngredient"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageCountryInvolved"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDayOfWeek"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDensityFactorForFoodOrRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplement"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementClassification"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementDescriptor"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageDietarySupplementFacet"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageEdiblePartCoefficientForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFacetDescriptorPathwayForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFacetDescriptorPathwayForFoodGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFacetDescriptorPathwayForRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFacetDescriptorPathwayForRecipeGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFacetDescriptorThatCannotBeSubstituted"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodConsumptionOccasion"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodConsumptionOccasionDisplayItem"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodBrand"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodDescriptor"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodFacet"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodFacetRule"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageFoodSubgroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageGroupSubstitution"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageHouseholdMeasure"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageImprobableSequenceOfFacetAndDescriptor"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageInterviewer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMacroNutrientLimit"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForFoodOrGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMaximumValueForRecipeOrGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageMonth"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNoteStatus"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrient"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientForFoodOrGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageNutrientValue"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatLeftInTheDishForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePercentOfFatUseDuringCookingForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePhoto"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="managePlaceOfConsumption"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestion"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestionPathwayForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageProbingQuestionPathwayForRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageQuantificationMethodPathwayForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageQuantificationMethodPathwayForFoodGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageQuantificationMethodPathwayForRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageQuantificationMethodPathwayForRecipeGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRawToCookedConversionFactorForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeBrand"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeDescriptor"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeFacet"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeFacetRule"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeGroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeIngredient"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeIngredientQuantification"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeSubgroup"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageRecipeTypePathway"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSelectedParameter"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSelectedParameterForDataEntry"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageShape"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSpecialDayPredefinedAnswer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSpecialDietPredefinedAnswer"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardPortionForFood"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageStandardUnitForFoodOrRecipe"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageSubjectToBeInterviewed"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageThicknessForShape"/>
-                <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="manageTranslationInCountryLanguage"/>
+                <mb:named>Survey</mb:named>
+                <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageSurvey"/>
             </mb:section>
-        </mb:menu>
-        <mb:menu>
-            <mb:named>Versions</mb:named>
             <mb:section>
+                <mb:named>Versions</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.manager.VersionsMenu" id="parameterDataVersions"/>
             </mb:section>
         </mb:menu>
