@@ -24,6 +24,7 @@ import jakarta.inject.Named;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Extension;
@@ -55,6 +56,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
  * Quantification method pathway for individual recipe.
  * Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe")
 @DomainObject
 @DomainObjectLayout(

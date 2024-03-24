@@ -92,12 +92,14 @@ import dita.globodiet.dom.params.supplement.DietarySupplementDescriptor;
 import dita.globodiet.dom.params.supplement.DietarySupplementFacet;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import javax.annotation.processing.Generated;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.causewaystuff.companion.applib.services.search.SearchService;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenMenu")
 @Named("dita.globodiet.params.EntitiesMenu")
 @DomainService
 public class EntitiesMenu {

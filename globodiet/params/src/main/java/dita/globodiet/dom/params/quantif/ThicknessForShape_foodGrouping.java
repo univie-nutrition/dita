@@ -21,6 +21,7 @@ package dita.globodiet.dom.params.quantif;
 
 import dita.globodiet.dom.params.food_list.FoodSubgroup;
 import jakarta.inject.Inject;
+import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
@@ -29,6 +30,7 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.collections.Can;
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Collection
 @CollectionLayout(
         describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"

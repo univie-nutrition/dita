@@ -23,6 +23,7 @@ import dita.globodiet.dom.params.quantif.Photo;
 import dita.globodiet.dom.params.quantif.Shape;
 import jakarta.inject.Inject;
 import java.lang.Object;
+import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
@@ -32,6 +33,7 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Property(
         snapshot = Snapshot.EXCLUDED
 )

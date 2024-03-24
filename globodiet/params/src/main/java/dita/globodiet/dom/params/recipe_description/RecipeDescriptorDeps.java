@@ -24,6 +24,7 @@ import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup_re
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
@@ -33,6 +34,7 @@ import org.causewaystuff.companion.applib.decorate.CollectionTitleDecorator;
 import org.causewaystuff.companion.applib.services.lookup.DependantLookupService;
 import org.springframework.context.annotation.Configuration;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenDependants")
 @Configuration
 public class RecipeDescriptorDeps {
     public static Can<Class<?>> mixinClasses() {

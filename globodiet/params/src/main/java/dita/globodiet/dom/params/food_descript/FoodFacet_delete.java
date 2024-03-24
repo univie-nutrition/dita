@@ -21,6 +21,7 @@ package dita.globodiet.dom.params.food_descript;
 
 import jakarta.inject.Inject;
 import java.lang.String;
+import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -33,6 +34,7 @@ import org.causewaystuff.companion.applib.services.lookup.DependantLookupService
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import org.causewaystuff.companion.applib.services.search.SearchService;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenDeleteMixin")
 @Action(
         semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
 )

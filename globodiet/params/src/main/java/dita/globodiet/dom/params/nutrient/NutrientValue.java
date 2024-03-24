@@ -24,6 +24,7 @@ import jakarta.inject.Named;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.NotPersistent;
@@ -53,6 +54,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
  * The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},
  * which is cross-referencing food(-groups) with this table.
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.nutrient.NutrientValue")
 @DomainObject
 @DomainObjectLayout(

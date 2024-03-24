@@ -372,10 +372,12 @@ import dita.globodiet.dom.params.supplement.DietarySupplement_classification;
 import dita.globodiet.dom.params.supplement.DietarySupplement_delete;
 import dita.globodiet.dom.params.supplement.DietarySupplement_facet;
 import java.lang.Class;
+import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenModule")
 @Configuration
 @Import({
 

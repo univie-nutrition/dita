@@ -20,9 +20,11 @@
 package dita.globodiet.dom.params.food_coefficient;
 
 import java.lang.Class;
+import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenDependants")
 @Configuration
 public class EdiblePartCoefficientForFoodDeps {
     public static Can<Class<?>> mixinClasses() {

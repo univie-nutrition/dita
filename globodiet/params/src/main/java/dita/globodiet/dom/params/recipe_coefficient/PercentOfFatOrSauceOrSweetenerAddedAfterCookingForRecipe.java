@@ -24,6 +24,7 @@ import jakarta.inject.Named;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.NotPersistent;
@@ -51,6 +52,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
 /**
  * % of fat/sauce/sweetener (FSS) added after cooking (regarding recipes)
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe")
 @DomainObject
 @DomainObjectLayout(

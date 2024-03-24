@@ -21,6 +21,7 @@ package dita.globodiet.dom.params.recipe_coefficient;
 
 import dita.globodiet.dom.params.food_list.Food;
 import jakarta.inject.Inject;
+import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Property;
@@ -29,6 +30,7 @@ import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
+@Generated("org.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Property(
         snapshot = Snapshot.EXCLUDED
 )

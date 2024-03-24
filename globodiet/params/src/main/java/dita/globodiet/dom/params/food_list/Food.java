@@ -25,6 +25,7 @@ import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Extension;
@@ -60,6 +61,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
 /**
  * Food, Product, On-the-fly Recipe or Alias
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.food_list.Food")
 @DomainObject
 @DomainObjectLayout(

@@ -29,6 +29,7 @@ import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Extension;
@@ -65,6 +66,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
 /**
  * Cross reference between food (or food group) and nutrient values (usually multiple).
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.nutrient.NutrientForFoodOrGroup")
 @DomainObject
 @DomainObjectLayout(

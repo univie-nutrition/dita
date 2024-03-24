@@ -29,6 +29,7 @@ import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.NotPersistent;
@@ -65,6 +66,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
  * Facet/descriptor pathway for food group/subgroup.
  * Optionally can be superseded by @{table FOODFAEX}.
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup")
 @DomainObject
 @DomainObjectLayout(

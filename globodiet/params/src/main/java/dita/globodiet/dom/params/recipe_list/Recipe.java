@@ -25,6 +25,7 @@ import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.DatastoreIdentity;
 import javax.jdo.annotations.Extension;
@@ -78,6 +79,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
  * When entering the recipe ingredients with RECIPE MANAGER,
  * the ingredients are described and quantified like in the food pathway.
  */
+@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.recipe_list.Recipe")
 @DomainObject
 @DomainObjectLayout(
