@@ -23,9 +23,9 @@ import jakarta.inject.Inject;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 
-import dita.globodiet.dom.params.classification.FoodGrouping.FoodGroupingKey;
-import dita.globodiet.dom.params.classification.RecipeGrouping.RecipeGroupingKey;
-import dita.globodiet.dom.params.quantif.ThicknessForShape;
+import dita.globodiet.params.quantif.ThicknessForShape;
+import dita.globodiet.params.classification.FoodGrouping.FoodGroupingKey;
+import dita.globodiet.params.classification.RecipeGrouping.RecipeGroupingKey;
 
 public class ThicknessLookupService {
 

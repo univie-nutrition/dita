@@ -40,8 +40,8 @@ import org.apache.causeway.commons.internal.collections._Multimaps;
 import lombok.NonNull;
 
 import dita.commons.services.rules.RuleChecker;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFood;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
 
 @Component
 public class FacetDescriptorPathwayForFoodDisplayOrderRuleChecker

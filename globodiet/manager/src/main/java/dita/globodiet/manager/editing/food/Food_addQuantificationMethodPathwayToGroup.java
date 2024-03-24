@@ -36,14 +36,14 @@ import org.apache.causeway.commons.internal.base._Strings;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
-import dita.globodiet.dom.params.quantif.Photo;
-import dita.globodiet.dom.params.quantif.PhotoOrShape;
-import dita.globodiet.dom.params.quantif.Shape;
+import dita.globodiet.params.food_descript.FoodDescriptor;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
+import dita.globodiet.params.quantif.Photo;
+import dita.globodiet.params.quantif.PhotoOrShape;
+import dita.globodiet.params.quantif.Shape;
 import dita.globodiet.manager.util.QuantificationMethodPathwayKey;
 
 /**

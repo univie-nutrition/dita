@@ -35,10 +35,10 @@ import org.apache.causeway.commons.internal.base._Strings;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.quantif.Photo;
-import dita.globodiet.dom.params.quantif.Shape;
-import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.params.quantif.Photo;
+import dita.globodiet.params.quantif.Shape;
+import dita.globodiet.params.recipe_list.Recipe;
 
 @Action
 @ActionLayout(

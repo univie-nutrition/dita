@@ -29,9 +29,9 @@ import org.apache.causeway.applib.annotation.Where;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.dom.params.classification.FoodGrouping;
-import dita.globodiet.dom.params.food_list.Food;
+import dita.globodiet.params.food_list.Food;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
+import dita.globodiet.params.classification.FoodGrouping;
 
 @Property(
         snapshot = Snapshot.EXCLUDED

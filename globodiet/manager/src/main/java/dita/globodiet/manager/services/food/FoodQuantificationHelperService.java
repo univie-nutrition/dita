@@ -31,18 +31,18 @@ import org.apache.causeway.commons.internal.collections._Lists;
 
 import lombok.NonNull;
 
-import dita.globodiet.dom.params.classification.FoodGrouping;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentQuantificationMethodPathwayForFoodMappedByFood;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodGroupDeps.FoodGroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubSubgroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubgroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.FoodDeps.Food_dependentQuantificationMethodPathwayForFoodMappedByFood;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodGroupDeps.FoodGroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubSubgroup;
+import dita.globodiet.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentQuantificationMethodPathwayForFoodGroupMappedByFoodSubgroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFood;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.manager.services.grouping.GroupingHelperService;
 import dita.globodiet.manager.util.GroupingUtils;
+import dita.globodiet.params.classification.FoodGrouping;
 
 @Service
 public class FoodQuantificationHelperService {

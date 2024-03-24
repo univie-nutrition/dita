@@ -50,7 +50,7 @@ import lombok.val;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
-import dita.globodiet.dom.params.DitaModuleGdParams;
+import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.food.Food_addFacetDescriptorPathwayToGroup;
 import dita.globodiet.manager.editing.food.Food_addStandardUnit;

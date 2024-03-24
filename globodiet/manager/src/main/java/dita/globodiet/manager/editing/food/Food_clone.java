@@ -36,18 +36,18 @@ import lombok.RequiredArgsConstructor;
 
 import dita.commons.services.idgen.IdGeneratorService;
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.Food.DietarySupplementQ;
-import dita.globodiet.dom.params.food_list.Food.GroupOrdinal;
-import dita.globodiet.dom.params.food_list.Food.TypeOfItem;
-import dita.globodiet.dom.params.food_list.FoodDeps;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.food_list.Food_foodGroup;
-import dita.globodiet.dom.params.food_list.Food_foodSubSubgroup;
-import dita.globodiet.dom.params.food_list.Food_foodSubgroup;
-import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
-import dita.globodiet.dom.params.nutrient.NutrientValue;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.Food.DietarySupplementQ;
+import dita.globodiet.params.food_list.Food.GroupOrdinal;
+import dita.globodiet.params.food_list.Food.TypeOfItem;
+import dita.globodiet.params.food_list.FoodDeps;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_list.Food_foodGroup;
+import dita.globodiet.params.food_list.Food_foodSubSubgroup;
+import dita.globodiet.params.food_list.Food_foodSubgroup;
+import dita.globodiet.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.params.nutrient.NutrientValue;
 import dita.globodiet.manager.util.FoodUtils;
 
 @Action

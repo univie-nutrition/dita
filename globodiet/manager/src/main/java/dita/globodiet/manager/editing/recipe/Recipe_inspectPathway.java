@@ -35,8 +35,8 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.recipe_description.RecipeFacet;
-import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.params.recipe_description.RecipeFacet;
+import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.manager.util.AsciiDocUtils;
 import dita.globodiet.manager.util.QuantificationMethodPathwayKey;
 

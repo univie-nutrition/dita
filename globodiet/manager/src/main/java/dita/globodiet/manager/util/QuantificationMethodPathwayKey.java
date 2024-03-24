@@ -22,10 +22,10 @@ import org.springframework.lang.Nullable;
 
 import lombok.NonNull;
 
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFood;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipeGroup;
 
 public record QuantificationMethodPathwayKey(
         @NonNull QuantificationMethod quantificationMethod,

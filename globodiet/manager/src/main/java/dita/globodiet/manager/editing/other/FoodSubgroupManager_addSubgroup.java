@@ -34,8 +34,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
 
 @Domain.Exclude //TODO there are 36 arrows pointing at FoodSubgroup, so we perhaps rather need to clone
 @Action

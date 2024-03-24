@@ -39,7 +39,7 @@ import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
 import dita.commons.types.TabularData;
-import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.manager.versions.VersionsService;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)

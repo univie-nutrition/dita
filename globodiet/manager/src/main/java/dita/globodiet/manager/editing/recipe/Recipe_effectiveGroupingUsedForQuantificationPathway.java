@@ -29,8 +29,8 @@ import org.apache.causeway.applib.annotation.Where;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.dom.params.recipe_list.Recipe;
-import dita.globodiet.dom.params.recipe_list.RecipeGroup;
+import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.params.recipe_list.RecipeGroup;
 import dita.globodiet.manager.services.recipe.RecipeQuantificationHelperService;
 
 @Property(

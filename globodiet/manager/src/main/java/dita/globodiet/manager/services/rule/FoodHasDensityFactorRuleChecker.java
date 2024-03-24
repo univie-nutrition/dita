@@ -31,10 +31,10 @@ import org.apache.causeway.commons.internal.collections._Sets;
 import lombok.NonNull;
 
 import dita.commons.services.rules.RuleChecker;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe.ForFoodOrRecipe;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.Food.TypeOfItem;
+import dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe;
+import dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe.ForFoodOrRecipe;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.Food.TypeOfItem;
 
 @Component
 public class FoodHasDensityFactorRuleChecker

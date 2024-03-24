@@ -37,9 +37,9 @@ import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.persistence.jdo.applib.services.JdoSupportService;
 
 import dita.commons.services.idgen.IdGeneratorService;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.params.food_descript.FoodDescriptor;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.manager.util.FoodUtils;
 import lombok.NonNull;
 import lombok.SneakyThrows;

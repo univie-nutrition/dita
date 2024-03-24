@@ -29,12 +29,12 @@ import org.apache.causeway.commons.functional.Either;
 
 import lombok.NonNull;
 
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.recipe_list.Recipe;
-import dita.globodiet.dom.params.recipe_list.RecipeGroup;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
+import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.params.recipe_list.RecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeSubgroup;
 import dita.globodiet.manager.util.GroupingUtils;
 
 @Service

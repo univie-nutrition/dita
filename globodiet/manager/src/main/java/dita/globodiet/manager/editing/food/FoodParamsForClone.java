@@ -23,11 +23,11 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 
-import dita.globodiet.dom.params.food_list.Food.DietarySupplementQ;
-import dita.globodiet.dom.params.food_list.Food.GroupOrdinal;
-import dita.globodiet.dom.params.food_list.Food.TypeOfItem;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_list.Food.DietarySupplementQ;
+import dita.globodiet.params.food_list.Food.GroupOrdinal;
+import dita.globodiet.params.food_list.Food.TypeOfItem;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
 
 /**
  * Copy of {@link dita.globodiet.dom.params.food_list.Food.Params}

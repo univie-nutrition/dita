@@ -32,9 +32,9 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodBrand;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_descript.FoodBrand;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 

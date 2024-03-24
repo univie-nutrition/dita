@@ -34,10 +34,10 @@ import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 import dita.commons.services.rules.RuleChecker;
-import dita.globodiet.dom.params.classification.FoodGrouping.FoodGroupingKey;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.manager.services.food.FoodFacetHelperService;
+import dita.globodiet.params.classification.FoodGrouping.FoodGroupingKey;
 
 @Component
 @Log4j2

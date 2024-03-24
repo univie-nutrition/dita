@@ -41,8 +41,8 @@ import org.apache.causeway.commons.io.TextUtils;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.format.FormatUtils;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.recipe_list.Recipe;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.manager.DitaModuleGdManager;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)

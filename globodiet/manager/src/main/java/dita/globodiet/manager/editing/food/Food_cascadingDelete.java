@@ -31,10 +31,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodDeps;
-import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroupDeps;
-import dita.globodiet.dom.params.nutrient.NutrientValue;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.FoodDeps;
+import dita.globodiet.params.nutrient.NutrientForFoodOrGroupDeps;
+import dita.globodiet.params.nutrient.NutrientValue;
 
 @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
 @ActionLayout(

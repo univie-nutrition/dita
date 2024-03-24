@@ -35,7 +35,7 @@ import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
 
 @Action(choicesFrom = "listOfFacetDescriptorPathwayForFoodGroup")
 @ActionLayout(

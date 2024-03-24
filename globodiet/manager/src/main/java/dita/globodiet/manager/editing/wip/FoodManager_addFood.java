@@ -31,9 +31,9 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
 import lombok.RequiredArgsConstructor;
 
 @Domain.Exclude

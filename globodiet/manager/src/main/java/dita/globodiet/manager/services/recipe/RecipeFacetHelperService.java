@@ -35,17 +35,17 @@ import org.apache.causeway.commons.internal.collections._Lists;
 
 import lombok.NonNull;
 
-import dita.globodiet.dom.params.classification.RecipeGrouping;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipe;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForRecipeGroup;
-import dita.globodiet.dom.params.recipe_description.RecipeFacet;
-import dita.globodiet.dom.params.recipe_list.Recipe;
-import dita.globodiet.dom.params.recipe_list.RecipeDeps.Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe;
-import dita.globodiet.dom.params.recipe_list.RecipeGroup;
-import dita.globodiet.dom.params.recipe_list.RecipeGroupDeps.RecipeGroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeGroup;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroupDeps.RecipeSubgroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeSubgroup;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.params.recipe_description.RecipeFacet;
+import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.params.recipe_list.RecipeDeps.Recipe_dependentFacetDescriptorPathwayForRecipeMappedByRecipe;
+import dita.globodiet.params.recipe_list.RecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeGroupDeps.RecipeGroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.params.recipe_list.RecipeSubgroupDeps.RecipeSubgroup_dependentFacetDescriptorPathwayForRecipeGroupMappedByRecipeSubgroup;
 import dita.globodiet.manager.services.grouping.GroupingHelperService;
+import dita.globodiet.params.classification.RecipeGrouping;
 
 @Service
 public class RecipeFacetHelperService {

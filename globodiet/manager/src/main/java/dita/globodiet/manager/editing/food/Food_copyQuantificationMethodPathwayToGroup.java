@@ -35,10 +35,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.classification.FoodGrouping.FoodGroupingKey;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.classification.FoodGrouping.FoodGroupingKey;
 
 /**
  */

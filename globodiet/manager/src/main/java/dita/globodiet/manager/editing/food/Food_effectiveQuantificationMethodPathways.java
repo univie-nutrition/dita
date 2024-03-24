@@ -31,8 +31,8 @@ import org.apache.causeway.applib.annotation.Where;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
 import dita.globodiet.manager.services.food.FoodQuantificationHelperService;
 import dita.globodiet.manager.util.QuantificationMethodPathwayKey;
 

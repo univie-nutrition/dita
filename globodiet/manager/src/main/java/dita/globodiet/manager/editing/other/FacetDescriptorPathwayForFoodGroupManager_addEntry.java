@@ -37,11 +37,11 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
-import dita.globodiet.dom.params.food_descript.FoodFacet;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.params.food_descript.FoodDescriptor;
+import dita.globodiet.params.food_descript.FoodFacet;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
 
 /**
  */

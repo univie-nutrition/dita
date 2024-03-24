@@ -29,15 +29,15 @@ import org.apache.causeway.commons.functional.Either;
 
 import lombok.NonNull;
 
-import dita.globodiet.dom.params.classification.RecipeGrouping;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
-import dita.globodiet.dom.params.recipe_list.Recipe;
-import dita.globodiet.dom.params.recipe_list.RecipeDeps.Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe;
-import dita.globodiet.dom.params.recipe_list.RecipeGroup;
-import dita.globodiet.dom.params.recipe_list.RecipeGroupDeps.RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroup;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.params.recipe_list.RecipeDeps.Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe;
+import dita.globodiet.params.recipe_list.RecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeGroupDeps.RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeSubgroup;
 import dita.globodiet.manager.services.grouping.GroupingHelperService;
+import dita.globodiet.params.classification.RecipeGrouping;
 
 @Service
 public class RecipeQuantificationHelperService {

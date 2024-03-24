@@ -36,19 +36,19 @@ import org.apache.causeway.commons.internal.collections._Lists;
 
 import lombok.NonNull;
 
-import dita.globodiet.dom.params.classification.FoodGrouping;
-import dita.globodiet.dom.params.food_descript.FoodFacet;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodGroupDeps.FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubSubgroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;
-import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFoodGroup;
+import dita.globodiet.params.food_descript.FoodFacet;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.FoodDeps.Food_dependentFacetDescriptorPathwayForFoodMappedByFood;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodGroupDeps.FoodGroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
+import dita.globodiet.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubSubgroup;
+import dita.globodiet.params.food_list.FoodSubgroupDeps.FoodSubgroup_dependentFacetDescriptorPathwayForFoodGroupMappedByFoodSubgroup;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFood;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
 import dita.globodiet.manager.services.grouping.GroupingHelperService;
 import dita.globodiet.manager.util.GroupingUtils;
+import dita.globodiet.params.classification.FoodGrouping;
 
 @Service
 public class FoodFacetHelperService {

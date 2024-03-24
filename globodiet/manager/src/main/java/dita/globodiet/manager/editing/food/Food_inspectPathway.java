@@ -45,11 +45,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
-import dita.globodiet.dom.params.food_descript.FoodFacet;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
+import dita.globodiet.params.food_descript.FoodDescriptor;
+import dita.globodiet.params.food_descript.FoodFacet;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup.RawOrCookedAsConsumed;
 import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 import dita.globodiet.manager.services.thickness.ThicknessLookupService;
 import dita.globodiet.manager.util.AsciiDocUtils;

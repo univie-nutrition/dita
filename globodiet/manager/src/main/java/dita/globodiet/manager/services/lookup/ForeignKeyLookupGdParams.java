@@ -45,24 +45,24 @@ import org.apache.causeway.commons.internal.functions._Predicates;
 
 import lombok.val;
 
-import dita.globodiet.dom.params.classification.FoodGrouping;
-import dita.globodiet.dom.params.classification.RecipeGrouping;
-import dita.globodiet.dom.params.food_coefficient.DensityFactorForFoodOrRecipe;
-import dita.globodiet.dom.params.food_descript.FoodDescriptor;
-import dita.globodiet.dom.params.food_list.ComposedRecipeIngredient;
-import dita.globodiet.dom.params.food_list.Food;
-import dita.globodiet.dom.params.food_list.FoodGroup;
-import dita.globodiet.dom.params.food_list.FoodSubgroup;
-import dita.globodiet.dom.params.nutrient.NutrientForFoodOrGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFood;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForFoodGroup;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipe;
-import dita.globodiet.dom.params.pathway.QuantificationMethodPathwayForRecipeGroup;
-import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
-import dita.globodiet.dom.params.recipe_list.RecipeGroup;
-import dita.globodiet.dom.params.recipe_list.RecipeIngredient;
-import dita.globodiet.dom.params.recipe_list.RecipeSubgroup;
-import dita.globodiet.dom.params.setting.GroupSubstitution;
+import dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe;
+import dita.globodiet.params.food_descript.FoodDescriptor;
+import dita.globodiet.params.food_list.ComposedRecipeIngredient;
+import dita.globodiet.params.food_list.Food;
+import dita.globodiet.params.food_list.FoodGroup;
+import dita.globodiet.params.food_list.FoodSubgroup;
+import dita.globodiet.params.nutrient.NutrientForFoodOrGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFood;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;
+import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipeGroup;
+import dita.globodiet.params.quantif.StandardUnitForFoodOrRecipe;
+import dita.globodiet.params.recipe_list.RecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeIngredient;
+import dita.globodiet.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.params.setting.GroupSubstitution;
+import dita.globodiet.params.classification.FoodGrouping;
+import dita.globodiet.params.classification.RecipeGrouping;
 
 @Service
 public class ForeignKeyLookupGdParams

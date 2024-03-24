@@ -45,7 +45,7 @@ import lombok.val;
 
 import dita.commons.services.rules.RuleChecker;
 import dita.commons.services.rules.RuleChecker.RuleViolation;
-import dita.globodiet.dom.params.DitaModuleGdParams;
+import dita.globodiet.params.DitaModuleGdParams;
 
 @Action
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
