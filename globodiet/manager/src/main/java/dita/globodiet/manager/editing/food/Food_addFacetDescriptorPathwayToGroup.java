@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -35,7 +37,6 @@ import org.apache.causeway.commons.internal.collections._Sets;
 
 import lombok.RequiredArgsConstructor;
 
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodDescriptor;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;

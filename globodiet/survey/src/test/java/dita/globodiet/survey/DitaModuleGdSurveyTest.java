@@ -20,6 +20,7 @@ package dita.globodiet.survey;
 
 import jakarta.inject.Inject;
 
+import org.causewaystuff.blobstore.applib.BlobStore;
 import org.causewaystuff.commons.types.NamedPath;
 import org.junit.jupiter.api.Test;
 
@@ -27,8 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import dita.blobstore.api.BlobStore;
 
 @SpringBootTest(classes = {
         DitaModuleGdSurvey.class

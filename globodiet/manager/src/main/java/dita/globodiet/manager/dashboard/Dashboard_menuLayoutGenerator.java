@@ -20,7 +20,7 @@ package dita.globodiet.manager.dashboard;
 
 import java.util.stream.Collectors;
 
-import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.companion.codegen.model.OrmModel;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;

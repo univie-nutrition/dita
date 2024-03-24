@@ -55,11 +55,11 @@ import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.domsupport.services.iconfa.IconFaService;
-import org.causewaystuff.domsupport.services.lookup.Cloneable;
-import org.causewaystuff.domsupport.services.lookup.HasSecondaryKey;
-import org.causewaystuff.domsupport.services.lookup.ISecondaryKey;
-import org.causewaystuff.domsupport.services.search.SearchService;
+import org.causewaystuff.companion.applib.services.iconfa.IconFaService;
+import org.causewaystuff.companion.applib.services.lookup.Cloneable;
+import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import org.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Food groups further narrowed down by subgroups and optional sub-subgroups

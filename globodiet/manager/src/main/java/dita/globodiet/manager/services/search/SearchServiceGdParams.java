@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.domsupport.services.search.SearchService;
+import org.causewaystuff.companion.applib.services.search.SearchService;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;

@@ -21,8 +21,8 @@ package dita.globodiet.schema;
 import java.io.File;
 import java.util.Optional;
 
-import org.causewaystuff.tooling.codegen.domgen.LicenseHeader;
-import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.companion.codegen.domgen.LicenseHeader;
+import org.causewaystuff.companion.codegen.model.OrmModel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 

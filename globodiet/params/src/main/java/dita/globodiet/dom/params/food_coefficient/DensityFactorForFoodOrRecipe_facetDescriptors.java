@@ -27,7 +27,7 @@ import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.collections.Can;
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Collection
 @CollectionLayout(

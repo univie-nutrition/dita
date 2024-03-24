@@ -21,7 +21,7 @@ package dita.globodiet.manager.help;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.companion.codegen.model.OrmModel;
 
 import org.apache.causeway.applib.id.LogicalType;
 import org.apache.causeway.applib.services.metamodel.BeanSort;

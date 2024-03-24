@@ -27,7 +27,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Property(
         snapshot = Snapshot.EXCLUDED

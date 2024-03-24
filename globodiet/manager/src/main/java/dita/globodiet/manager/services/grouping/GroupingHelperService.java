@@ -20,7 +20,7 @@ package dita.globodiet.manager.services.grouping;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;

@@ -96,7 +96,7 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import org.causewaystuff.domsupport.services.search.SearchService;
+import org.causewaystuff.companion.applib.services.search.SearchService;
 
 @Named("dita.globodiet.params.EntitiesMenu")
 @DomainService

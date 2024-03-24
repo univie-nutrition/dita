@@ -34,7 +34,7 @@ import org.apache.causeway.commons.internal.collections._Sets;
 
 import lombok.RequiredArgsConstructor;
 
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.food_descript.FoodFacet;
 import dita.globodiet.dom.params.food_list.Food;
 import dita.globodiet.dom.params.pathway.FacetDescriptorPathwayForFood;

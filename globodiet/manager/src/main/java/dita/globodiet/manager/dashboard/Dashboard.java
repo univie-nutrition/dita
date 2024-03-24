@@ -25,7 +25,7 @@ import java.util.Optional;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.companion.codegen.model.OrmModel;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.info.BuildProperties;

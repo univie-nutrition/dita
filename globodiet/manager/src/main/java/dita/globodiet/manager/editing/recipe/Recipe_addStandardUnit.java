@@ -34,7 +34,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.format.FormatUtils;
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.dom.params.quantif.StandardUnitForFoodOrRecipe;
 import dita.globodiet.dom.params.recipe_list.Recipe;
 import dita.globodiet.manager.editing.food.Food_addStandardUnit;

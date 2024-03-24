@@ -22,7 +22,7 @@ import java.util.Map;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.tooling.codegen.model.OrmModel;
+import org.causewaystuff.companion.codegen.model.OrmModel;
 import org.datanucleus.enhancement.Persistable;
 
 import org.apache.causeway.applib.annotation.LabelPosition;

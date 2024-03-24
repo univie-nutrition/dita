@@ -67,7 +67,7 @@
         
         <dependency>
             <groupId>org.causewaystuff</groupId>
-            <artifactId>causewaystuff-domsupport</artifactId>
+            <artifactId>causewaystuff-companion-applib</artifactId>
         </dependency>
 		
 		<!-- PERSISTENCE -->

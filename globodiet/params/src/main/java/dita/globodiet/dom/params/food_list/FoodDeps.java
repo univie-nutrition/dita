@@ -59,8 +59,8 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.commons.collections.Can;
-import org.causewaystuff.domsupport.decorate.CollectionTitleDecorator;
-import org.causewaystuff.domsupport.services.lookup.DependantLookupService;
+import org.causewaystuff.companion.applib.decorate.CollectionTitleDecorator;
+import org.causewaystuff.companion.applib.services.lookup.DependantLookupService;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

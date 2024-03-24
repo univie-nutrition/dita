@@ -47,7 +47,7 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
 
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

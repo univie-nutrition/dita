@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import org.causewaystuff.domsupport.services.lookup.ForeignKeyLookupService;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
