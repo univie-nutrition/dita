@@ -18,16 +18,27 @@
  */
 package dita.globodiet.schema;
 
-import jakarta.annotation.Generated;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.function.Predicate;
+
+import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class FileKeepStrategy {
 
-    @Generated(value = "")
-    void x(){
-
+    Predicate<File> layout(){
+        return file->file.getName().endsWith(".layout.xml");
+    }
+    
+    Predicate<File> javaNonGenerated(){
+        return file->
+            file.getName().endsWith(".java")
+            && !TextUtils.readLinesFromFile(file, StandardCharsets.UTF_8)
+                .stream()
+                .anyMatch(line->line.startsWith("@Generated"));
     }
 
 }

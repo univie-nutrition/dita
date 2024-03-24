@@ -25,7 +25,7 @@ survey.Survey:
   title: String.format("%s, %s (code=%s)", name, code)
   icon: solid users-viewfinder .survey-color
   description: |
-    Interviewer
+    A survey collects one or more campaigns.
   fields:
     code:
       column: CODE
@@ -33,12 +33,12 @@ survey.Survey:
       required: true
       unique: true
       description: |
-        Unique Survey code
+        Unique Survey identifier.
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: true
       description: |
-        Descriptive survey name
+        Descriptive survey name.
 

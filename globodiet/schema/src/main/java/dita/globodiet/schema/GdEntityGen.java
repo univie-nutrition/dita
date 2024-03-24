@@ -60,10 +60,9 @@ public class GdEntityGen {
                     .destinationFolder(javaDestinationFolder)
                     .logicalNamespacePrefix("dita.globodiet")
                     .packageNamePrefix("dita.globodiet.dom")
-                    .onPurgeKeep(file->file.getName().endsWith(".layout.xml")
-                            || file.getName().equals("FoodGrouping.java")
-                            || file.getName().equals("RecipeGrouping.java")
-                            || file.getName().equals("PhotoOrShape.java"))
+                    .onPurgeKeep(FileKeepStrategy.layout()
+                            .or(FileKeepStrategy.javaNonGenerated())
+                            )
                     .entitiesModulePackageName(name)
                     .entitiesModuleClassSimpleName("DitaModuleGd" + _Strings.capitalize(name)));
         });
