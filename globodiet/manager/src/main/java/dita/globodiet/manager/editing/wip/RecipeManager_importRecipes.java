@@ -43,8 +43,8 @@ import lombok.val;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
+import dita.commons.util.AsciiDocUtils;
 import dita.globodiet.params.recipe_list.Recipe;
-import dita.globodiet.manager.util.AsciiDocUtils;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)

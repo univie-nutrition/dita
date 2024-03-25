@@ -56,6 +56,11 @@
         	<groupId>org.apache.causeway.core</groupId>
     		<artifactId>causeway-applib</artifactId>
     	</dependency>
+    	
+    	<dependency>
+            <groupId>org.apache.causeway.valuetypes</groupId>
+            <artifactId>causeway-valuetypes-asciidoc-builder</artifactId>
+        </dependency>
 		
 	</dependencies>
     

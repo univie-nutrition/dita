@@ -37,10 +37,10 @@ import lombok.RequiredArgsConstructor;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.commons.types.TabularData;
+import dita.commons.util.AsciiDocUtils;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.Recipe.AliasQ;
 import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
-import dita.globodiet.manager.util.AsciiDocUtils;
 import dita.globodiet.manager.versions.VersionsService;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)

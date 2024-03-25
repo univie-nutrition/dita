@@ -1,0 +1,98 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package dita.globodiet.params.recipe_list.mixin;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import jakarta.inject.Inject;
+
+import org.apache.causeway.applib.annotation.Collection;
+import org.apache.causeway.applib.annotation.CollectionLayout;
+import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Where;
+
+import lombok.RequiredArgsConstructor;
+
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipe;
+import dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipeGroup;
+import dita.globodiet.params.recipe_description.RecipeDescriptor;
+import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.params.services.recipe.RecipeFacetHelperService;
+
+/**
+ * With {@link FacetDescriptorPathwayForRecipeGroup} a set of facet/descriptors is defined
+ * for a specific food classification.
+ * Optionally, for an individual recipe, only a subset of those facets can be selected.
+ */
+@Collection
+@CollectionLayout(
+        hidden = Where.ALL_TABLES,
+        sequence = "0.1",
+        describedAs = "Recipe Descriptors in effect associated with this individual recipe.\n\n"
+                + "With FacetDescriptorPathwayForRecipeGroup (table R_GROUPFAC) a set of facet/descriptors is defined "
+                + "for a specific recipe classification.\n\n"
+                + "Optionally, for an individual recipe, only a subset of those facets can be selected "
+                + "using FacetDescriptorPathwayForRecipe (table R_RCPFAEX).\n\n"
+                + "Entries are ordered by facet-display-order and then descriptor-display-order. "
+                + "(However, column facet-display-order is duplicated in FacetDescriptorPathwayForRecipe (table R_RCPFAEX),"
+                + "where its yet unclear whether that is inferred from or actually overrides the one defined at group level.)")
+@RequiredArgsConstructor
+public class Recipe_effectiveRecipeDescriptors {
+
+    @Inject private ForeignKeyLookupService foreignKeyLookupService;
+    @Inject private RecipeFacetHelperService recipeFacetHelperService;
+
+    protected final Recipe mixee;
+
+    @MemberSupport
+    public List<RecipeDescriptor> coll() {
+
+        var recipeDescriptorsAsDefinedByRecipeClassification = recipeFacetHelperService
+            .effectiveFacetDescriptorPathwayForRecipeClassificationHonoringDisplayOrder(mixee)
+            .stream()
+            .map(this::recipeDescriptor)
+            .toList();
+
+        // filter by individual recipe's subset of facets (if any)
+        var facetDescriptorPathwayForRecipe = recipeFacetHelperService.listFacetDescriptorPathwayForRecipe(mixee);
+        if(facetDescriptorPathwayForRecipe.isEmpty()) {
+            return recipeDescriptorsAsDefinedByRecipeClassification;
+        }
+        final Set<String> facetCodeSubset = facetDescriptorPathwayForRecipe.stream()
+            .map(FacetDescriptorPathwayForRecipe::getSelectedRecipeFacetCode)
+            .collect(Collectors.toSet());
+        return recipeDescriptorsAsDefinedByRecipeClassification.stream()
+                .filter(recipeDescriptor->facetCodeSubset.contains(recipeDescriptor.getRecipeFacetCode()))
+                //TODO facetDescriptorPathwayForRecipe have their own ordering
+                //is this inferred from or an override of the group level?
+                .toList();
+    }
+
+    // -- HELPER
+
+    private RecipeDescriptor recipeDescriptor(final FacetDescriptorPathwayForRecipeGroup groupPathway) {
+        return foreignKeyLookupService.unique(new RecipeDescriptor.SecondaryKey(
+                groupPathway.getRecipeFacetCode(),
+                groupPathway.getRecipeDescriptorCode()));
+    }
+
+}

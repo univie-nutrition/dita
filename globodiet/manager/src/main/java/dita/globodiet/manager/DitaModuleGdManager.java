@@ -52,36 +52,17 @@ import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.manager.dashboard.Dashboard;
-import dita.globodiet.manager.editing.food.Food_addFacetDescriptorPathwayToGroup;
-import dita.globodiet.manager.editing.food.Food_addStandardUnit;
-import dita.globodiet.manager.editing.food.Food_clone;
-import dita.globodiet.manager.editing.food.Food_effectiveFoodDescriptors;
-import dita.globodiet.manager.editing.food.Food_effectiveGroupingUsedForFacetDescriptorPathway;
-import dita.globodiet.manager.editing.food.Food_inspectPathway;
-import dita.globodiet.manager.editing.food.Food_selectFacetDescriptorPathwayForFood;
-import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_addEntry;
-import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder;
-import dita.globodiet.manager.editing.other.FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder;
-import dita.globodiet.manager.editing.other.FoodBrandManager_addBrand;
-import dita.globodiet.manager.editing.other.FoodDescriptorManager_addDescriptor;
-import dita.globodiet.manager.editing.recipe.Recipe_addStandardUnit;
 import dita.globodiet.manager.editing.wip.FoodManager_addFood;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.Persistable_schema;
-import dita.globodiet.manager.services.food.FoodFacetHelperService;
 import dita.globodiet.manager.services.iconfa.IconFaServiceGdParams;
 import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
-import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodDisplayOrderRuleChecker;
-import dita.globodiet.manager.services.rule.FacetDescriptorPathwayForFoodSelectionExistsRuleChecker;
-import dita.globodiet.manager.services.rule.FoodHasDensityFactorRuleChecker;
-import dita.globodiet.manager.services.rule.ResolvableDependenciesRuleChecker;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
-import dita.globodiet.manager.services.thickness.ThicknessLookupService;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.schema.GdEntityGen;
@@ -136,35 +117,13 @@ import dita.globodiet.survey.DitaModuleGdSurvey;
     FallbackLayoutDataSourceGdParams.class,
     IdGeneratorGdParams.class,
     IconFaServiceGdParams.class,
-    FoodFacetHelperService.class,
-    ThicknessLookupService.class,
-
-    // Rulecheckers
-    FacetDescriptorPathwayForFoodSelectionExistsRuleChecker.class,
-    FacetDescriptorPathwayForFoodDisplayOrderRuleChecker.class,
-    FoodHasDensityFactorRuleChecker.class,
-    ResolvableDependenciesRuleChecker.class,
 
     // Mixins
     ParameterDataVersion_updateName.class,
     ParameterDataVersion_updateDescription.class,
     Persistable_schema.class,
     // Manager Mixins
-    FoodBrandManager_addBrand.class,
-    FoodDescriptorManager_addDescriptor.class,
     FoodManager_addFood.class,
-    // Other
-    Food_addFacetDescriptorPathwayToGroup.class,
-    Food_selectFacetDescriptorPathwayForFood.class,
-    Food_clone.class,
-    Food_effectiveFoodDescriptors.class,
-    Food_effectiveGroupingUsedForFacetDescriptorPathway.class,
-    FacetDescriptorPathwayForFoodGroupManager_fixDisplayOrder.class,
-    FacetDescriptorPathwayForFoodGroupManager_addEntry.class,
-    FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder.class,
-    Recipe_addStandardUnit.class,
-    Food_addStandardUnit.class,
-    Food_inspectPathway.class,
 
     // -- MODULES
     DitaModuleGdParams.class,

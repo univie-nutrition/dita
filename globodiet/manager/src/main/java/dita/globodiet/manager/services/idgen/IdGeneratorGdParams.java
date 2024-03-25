@@ -40,7 +40,8 @@ import dita.commons.services.idgen.IdGeneratorService;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.nutrient.NutrientForFoodOrGroup;
-import dita.globodiet.manager.util.FoodUtils;
+import dita.globodiet.params.util.FoodUtils;
+
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
