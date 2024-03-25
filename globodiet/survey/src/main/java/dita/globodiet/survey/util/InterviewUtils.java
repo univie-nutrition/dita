@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 
 import org.causewaystuff.blobstore.applib.BlobDescriptor;
 import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.commons.types.NamedPath;
+import org.causewaystuff.commons.base.types.NamedPath;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;

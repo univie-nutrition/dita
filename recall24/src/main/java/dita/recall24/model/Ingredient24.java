@@ -20,7 +20,7 @@ package dita.recall24.model;
 
 import javax.measure.Quantity;
 
-import org.causewaystuff.commons.types.internal.ObjectRef;
+import org.causewaystuff.commons.base.types.internal.ObjectRef;
 
 /**
  * Implements {@link dita.recall24.api.Ingredient24} as Java record type.

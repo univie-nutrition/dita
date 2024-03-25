@@ -37,10 +37,6 @@ additional
 
         <dependency>
             <groupId>org.causewaystuff</groupId>
-            <artifactId>causewaystuff-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-companion-codegen</artifactId>
         </dependency>
 

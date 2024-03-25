@@ -21,7 +21,7 @@ package dita.globodiet.survey;
 
 import org.causewaystuff.blobstore.applib.BlobStore;
 import org.causewaystuff.blobstore.applib.BlobStoreFactory;
-import org.causewaystuff.commons.types.NamedPath;
+import org.causewaystuff.commons.base.types.NamedPath;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;

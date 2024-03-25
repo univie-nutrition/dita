@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-import org.causewaystuff.commons.types.ResourceFolder;
+import org.causewaystuff.commons.base.types.ResourceFolder;
 import org.causewaystuff.companion.codegen.domgen.DomainGenerator;
 import org.causewaystuff.companion.codegen.domgen.LicenseHeader;
 import org.causewaystuff.companion.codegen.model.OrmModel;

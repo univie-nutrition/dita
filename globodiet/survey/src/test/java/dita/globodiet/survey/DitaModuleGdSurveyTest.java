@@ -21,7 +21,7 @@ package dita.globodiet.survey;
 import jakarta.inject.Inject;
 
 import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.commons.types.NamedPath;
+import org.causewaystuff.commons.base.types.NamedPath;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

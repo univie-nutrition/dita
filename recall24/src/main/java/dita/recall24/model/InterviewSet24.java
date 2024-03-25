@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import org.causewaystuff.commons.types.internal.ObjectRef;
+import org.causewaystuff.commons.base.types.internal.ObjectRef;
 
 import org.springframework.lang.Nullable;
 

@@ -20,7 +20,7 @@ package dita.recall24.model;
 
 import java.time.LocalTime;
 
-import org.causewaystuff.commons.types.internal.ObjectRef;
+import org.causewaystuff.commons.base.types.internal.ObjectRef;
 
 import org.apache.causeway.commons.collections.Can;
 
