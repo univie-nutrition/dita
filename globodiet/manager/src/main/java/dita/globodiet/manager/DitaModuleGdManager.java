@@ -50,7 +50,6 @@ import lombok.val;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
-import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.wip.FoodManager_addFood;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
@@ -65,6 +64,7 @@ import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
 import dita.globodiet.manager.services.search.SearchServiceGdParams;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
+import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.schema.GdEntityGen;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
@@ -136,11 +136,14 @@ public class DitaModuleGdManager {
     public final static String NAMESPACE = "dita.globodiet.manager";
 
     @Bean
-    public OrmModel.Schema gdParamsSchema() {
-        val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+    public OrmModel.Schema gdSchema() {
+        val schema1 = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
-        return schema;
+        val schema2 = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-survey.schema.yaml")
+                .tryReadAsStringUtf8()
+                .valueAsNonNullElseFail());
+        return schema1.concat(schema2);
     }
 
     @Bean @Qualifier("entity2table")

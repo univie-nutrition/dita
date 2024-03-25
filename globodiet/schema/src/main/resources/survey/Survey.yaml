@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-survey.entities.Survey:
+Survey:
   namespace: survey.entities
   table: SURVEY
   secondaryKey: |
