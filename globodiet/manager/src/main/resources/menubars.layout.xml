@@ -99,6 +99,7 @@
             <mb:section>
                 <mb:named>Survey</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageSurvey"/>
+                <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageInterview"/>
             </mb:section>
             <mb:section>
                 <mb:named>Versions</mb:named>
