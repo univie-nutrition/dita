@@ -27,11 +27,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import dita.globodiet.survey.entities.SurveyManager_addSurvey;
-import dita.globodiet.survey.entities.Survey_addCampaign;
+import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.globodiet.survey.view.SurveyTreeNode;
 import dita.globodiet.survey.view.SurveyTreeNodeFactory;
@@ -42,15 +42,16 @@ import dita.recall24.model.InterviewSet24;
 @Import({
     SurveyVM.class,
     BlobStoreFactory.class,
-    
+
     // non-gen mixins
-    SurveyManager_addSurvey.class,
-    Survey_addCampaign.class,
-        })
+//    Campaign_interviewUploads.class,
+//    SurveyManager_addSurvey.class,
+//    Survey_addCampaign.class,
+})
 @EnableConfigurationProperties({ModuleConfig.SurveyConfiguration.class})
-//@ComponentScan(basePackageClasses = Survey.class)
+@ComponentScan(basePackageClasses = Survey.class)
 public class ModuleConfig {
-    
+
     @ConfigurationProperties(DitaModuleGdSurvey.NAMESPACE)
     public static record SurveyConfiguration(
             BlobStoreFactory.BlobStoreConfiguration blobstore) {

@@ -17,8 +17,8 @@
 # under the License.
 # -----------------------------------------------------------
 
-survey.entities.Campaign:
-  namespace: survey.entities
+survey.dom.Campaign:
+  namespace: survey.dom
   table: CAMPAIGN
   secondaryKey: |
     CODE
@@ -61,8 +61,8 @@ survey.entities.Campaign:
       multiLine: 4
       description: |
         Detailed information for this campaign.
-survey.entities.Survey:
-  namespace: survey.entities
+survey.dom.Survey:
+  namespace: survey.dom
   table: SURVEY
   secondaryKey: |
     CODE
