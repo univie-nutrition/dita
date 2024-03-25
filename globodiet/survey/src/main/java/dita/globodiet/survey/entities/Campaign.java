@@ -167,6 +167,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Detailed information for this campaign.",
+            multiLine = 4,
             hidden = Where.NOWHERE
     )
     @Column(
@@ -298,7 +299,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
-                    describedAs = "Detailed information for this campaign."
+                    describedAs = "Detailed information for this campaign.",
+                    multiLine = 4
             )
             String description) {
     }
