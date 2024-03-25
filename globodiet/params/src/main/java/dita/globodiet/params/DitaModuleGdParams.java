@@ -747,7 +747,7 @@ import org.springframework.context.annotation.Import;
         TranslationInCountryLanguage_delete.class,
         })
 public class DitaModuleGdParams {
-    public static final String NAMESPACE = "dita.globodiet";
+    public static final String NAMESPACE = "dita.globodiet.params";
 
     public static Can<Class<?>> entityClasses() {
         return Can.of(AnthropometricAverage.class,

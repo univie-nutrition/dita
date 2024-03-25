@@ -57,7 +57,7 @@ import org.springframework.context.annotation.Import;
         Survey_delete.class,
         })
 public class DitaModuleGdSurvey {
-    public static final String NAMESPACE = "dita.globodiet";
+    public static final String NAMESPACE = "dita.globodiet.survey";
 
     public static Can<Class<?>> entityClasses() {
         return Can.of(Campaign.class,

@@ -36,6 +36,7 @@ import dita.globodiet.params.pathway.mixin.FacetDescriptorPathwayForFoodGroupMan
 import dita.globodiet.params.pathway.mixin.FacetDescriptorPathwayForFoodGroupManager_shiftFacetDisplayOrder;
 import dita.globodiet.params.recipe_list.mixin.Recipe_addStandardUnit;
 import dita.globodiet.params.services.food.FoodFacetHelperService;
+import dita.globodiet.params.services.grouping.GroupingHelperService;
 import dita.globodiet.params.services.rule.FacetDescriptorPathwayForFoodDisplayOrderRuleChecker;
 import dita.globodiet.params.services.rule.FacetDescriptorPathwayForFoodSelectionExistsRuleChecker;
 import dita.globodiet.params.services.rule.FoodHasDensityFactorRuleChecker;
@@ -47,6 +48,7 @@ import dita.globodiet.params.services.thickness.ThicknessLookupService;
 
     // Services/Components
     FoodFacetHelperService.class,
+    GroupingHelperService.class,
     ThicknessLookupService.class,
 
     // Rulecheckers

@@ -20,48 +20,46 @@ package dita.globodiet.manager;
 
 import lombok.experimental.UtilityClass;
 
+@Deprecated
 @UtilityClass
 public class FontawesomeConstants {
 
-    public final String FA_ARROW_RIGHT_ARROW_LEFT = "fa-solid fa-arrow-right-arrow-left";
-    public final String FA_BARCODE_SOLID = "fa-solid fa-barcode";
-    public final String FA_BRANDS_NUTRITIONIX = "fa-brands fa-nutritionix";
-    public final String FA_BRANDS_SHOPIFY = "fa-brands fa-shopify";
-    public final String FA_CART_SHOPPING_SOLID = "fa-solid fa-cart-shopping";
-    public final String FA_CLONE_SOLID = "fa-solid fa-clone";
-    public final String FA_CLOUD_ARROW_DOWN_SOLID = "fa-solid fa-cloud-arrow-down";
-    public final String FA_CLOUD_ARROW_UP_SOLID = "fa-solid fa-cloud-arrow-up";
-    public final String FA_CODE_BRANCH_SOLID = "fa-solid fa-code-branch";
-    public final String FA_DOWNLOAD_REGULAR = "fa-regular fa-download";
-    public final String FA_DROPLET_SOLID = "fa-solid fa-droplet";
-    public final String FA_FILE_CODE_REGULAR = "fa-regular fa-file-code";
-    public final String FA_FILE_CODE_SOLID = "fa-solid fa-file-code";
-    public final String FA_FLOPPY_DISK_REGULAR = "fa-regular fa-floppy-disk";
-    public final String FA_LAYER_GROUP_SOLID = "fa-solid fa-layer-group";
-    public final String FA_HASHTAG_SOLID = "fa-solid fa-hashtag";
-    public final String FA_INDUSTRY_SOLID = "fa-solid fa-industry";
-    public final String FA_INFO_CIRCLE_SOLID = "fa-solid fa-circle-info";
-    public final String FA_LINK_SOLID = "fa-solid fa-link";
-    public final String FA_LIST_CHECK_SOLID = "fa-solid fa-list-check";
-    public final String FA_LIST_UL_SOLID = "fa-solid fa-list-ul";
-    public final String FA_PERSON_CIRCLE_QUESTION_SOLID = "fa-solid fa-person-circle-question";
-    public final String FA_PERSON_CIRCLE_PLUS_SOLID = "fa-solid fa-person-circle-plus";
-    public final String FA_PIZZA_SLICE_SOLID = "fa-solid fa-pizza-slice";
-    public final String FA_PLAY_SOLID = "fa-solid fa-play";
-    public final String FA_SHIELD_HALVED_SOLID = "fa-solid fa-shield-halved";
-    public final String FA_SITEMAP_SOLID = "fa-solid fa-sitemap";
-    public final String FA_SQUARE_PLUS_REGULAR = "fa-regular fa-square-plus";
-    public final String FA_SQUARE_PLUS_SOLID = "fa-solid fa-square-plus";
-    public final String FA_STAR_HALF_STROKE_REGULAR = "fa-regular fa-star-half-stroke";
-    public final String FA_STORE_SOLID = "fa-solid fa-store";
-    public final String FA_TABLETS_SOLID = "fa-solid fa-tablets";
-    public final String FA_TAG_SOLID = "fa-solid fa-tag";
-    public final String FA_TAGS_SOLID = "fa-solid fa-tags";
-    public final String FA_UTENSILS_SOLID = "fa-solid fa-utensils";
+    final String FA_ARROW_RIGHT_ARROW_LEFT = "fa-solid fa-arrow-right-arrow-left";
+    final String FA_BARCODE_SOLID = "fa-solid fa-barcode";
+    final String FA_BRANDS_NUTRITIONIX = "fa-brands fa-nutritionix";
+    final String FA_BRANDS_SHOPIFY = "fa-brands fa-shopify";
+    final String FA_CART_SHOPPING_SOLID = "fa-solid fa-cart-shopping";
+    final String FA_CLONE_SOLID = "fa-solid fa-clone";
+    final String FA_CLOUD_ARROW_DOWN_SOLID = "fa-solid fa-cloud-arrow-down";
+    final String FA_CLOUD_ARROW_UP_SOLID = "fa-solid fa-cloud-arrow-up";
+    final String FA_CODE_BRANCH_SOLID = "fa-solid fa-code-branch";
+    final String FA_DOWNLOAD_REGULAR = "fa-regular fa-download";
+    final String FA_DROPLET_SOLID = "fa-solid fa-droplet";
+    final String FA_FILE_CODE_REGULAR = "fa-regular fa-file-code";
+    final String FA_FILE_CODE_SOLID = "fa-solid fa-file-code";
+    final String FA_FLOPPY_DISK_REGULAR = "fa-regular fa-floppy-disk";
+    final String FA_LAYER_GROUP_SOLID = "fa-solid fa-layer-group";
+    final String FA_HASHTAG_SOLID = "fa-solid fa-hashtag";
+    final String FA_INDUSTRY_SOLID = "fa-solid fa-industry";
+    final String FA_INFO_CIRCLE_SOLID = "fa-solid fa-circle-info";
+    final String FA_LINK_SOLID = "fa-solid fa-link";
+    final String FA_LIST_CHECK_SOLID = "fa-solid fa-list-check";
+    final String FA_LIST_UL_SOLID = "fa-solid fa-list-ul";
+    final String FA_PERSON_CIRCLE_QUESTION_SOLID = "fa-solid fa-person-circle-question";
+    final String FA_PERSON_CIRCLE_PLUS_SOLID = "fa-solid fa-person-circle-plus";
+    final String FA_PIZZA_SLICE_SOLID = "fa-solid fa-pizza-slice";
+    final String FA_PLAY_SOLID = "fa-solid fa-play";
+    final String FA_SHIELD_HALVED_SOLID = "fa-solid fa-shield-halved";
+    final String FA_SITEMAP_SOLID = "fa-solid fa-sitemap";
+    final String FA_SQUARE_PLUS_REGULAR = "fa-regular fa-square-plus";
+    final String FA_SQUARE_PLUS_SOLID = "fa-solid fa-square-plus";
+    final String FA_STAR_HALF_STROKE_REGULAR = "fa-regular fa-star-half-stroke";
+    final String FA_STORE_SOLID = "fa-solid fa-store";
+    final String FA_TABLETS_SOLID = "fa-solid fa-tablets";
+    final String FA_TAG_SOLID = "fa-solid fa-tag";
+    final String FA_TAGS_SOLID = "fa-solid fa-tags";
+    final String FA_UTENSILS_SOLID = "fa-solid fa-utensils";
 
-    public final String ICON_BRANDS = FA_BRANDS_SHOPIFY + " do-brand";
-    public final String ICON_FOOD = FA_UTENSILS_SOLID + " do-food";
-    public final String ICON_FOOD_GROUP = FA_LAYER_GROUP_SOLID + " do-food";
     public final String ICON_VERSION = FA_FILE_CODE_REGULAR + " do-version";
     public final String ICON_VERSIONS = FA_CODE_BRANCH_SOLID + " do-version";
 
