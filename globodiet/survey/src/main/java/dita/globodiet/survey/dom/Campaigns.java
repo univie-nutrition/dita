@@ -51,7 +51,7 @@ public class Campaigns {
             .map(InterviewUtils::parse)
             .reduce(InterviewSet24::join)
             .map(InterviewSet24::normalized)
-            .map(SurveyTreeNodeFactory::surveyNode)
+            .map(ivSet24->SurveyTreeNodeFactory.surveyNode(ivSet24, campaign))
             .orElseGet(SurveyTreeNodeFactory::emptyNode);
     }
 

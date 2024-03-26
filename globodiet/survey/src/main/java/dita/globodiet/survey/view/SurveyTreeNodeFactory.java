@@ -26,20 +26,22 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
+import lombok.val;
+
+import dita.globodiet.survey.dom.Campaign;
 import dita.recall24.model.Interview24;
 import dita.recall24.model.InterviewSet24;
 import dita.recall24.model.Respondent24;
-import lombok.val;
 
 public record SurveyTreeNodeFactory(TreePath parent) {
 
     public static SurveyTreeNode emptyNode() {
-        String title = "Survey";
+        String title = "Campaign";
         AsciiDoc content = adoc(title, "Details", "empty");
         return new SurveyTreeNode(title, "solid users-viewfinder", content, TreePath.root(), Can.empty());
     }
 
-    public static SurveyTreeNode surveyNode(final InterviewSet24 interviewSet) {
+    public static SurveyTreeNode surveyNode(final InterviewSet24 interviewSet, final Campaign campaign) {
 
         var respNodes = interviewSet.respondents().map(IndexedFunction.zeroBased((i, resp)->
                 new SurveyTreeNodeFactory(TreePath.root()).respondentNode(i, resp, interviewSet.interviews()
@@ -53,7 +55,7 @@ public record SurveyTreeNodeFactory(TreePath parent) {
             }
         }
 
-        String title = "Survey";
+        String title = "Campaign - " + campaign.title();
         AsciiDoc content = adoc(title, "Details", Details.of(interviewSet));
         return new SurveyTreeNode(title, "solid users-viewfinder", content, TreePath.root(), respNodes);
     }
