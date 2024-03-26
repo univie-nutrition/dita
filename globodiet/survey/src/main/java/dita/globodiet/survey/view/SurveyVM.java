@@ -39,12 +39,16 @@ import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.graph.tree.TreeAdapter;
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.applib.graph.tree.TreePath;
+import org.apache.causeway.commons.functional.IndexedFunction;
+import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 
 import dita.globodiet.survey.DitaModuleGdSurvey;
+import dita.globodiet.survey.dom.Campaign;
 
 @Named(DitaModuleGdSurvey.NAMESPACE + ".SurveyViewModel")
 @DomainObject(
@@ -56,31 +60,70 @@ public class SurveyVM implements ViewModel {
 
     public final static String PATH_DELIMITER = ".";
 
+    private record ViewModelMemento(
+            Campaign.SecondaryKey campaignSecondaryKey,
+            TreePath treePath) {
+        static ViewModelMemento empty() {
+            return new ViewModelMemento(new Campaign.SecondaryKey(""), TreePath.root());
+        }
+        static ViewModelMemento parse(final String viewModelMemento) {
+            return _Strings.splitThenApplyRequireNonEmpty(viewModelMemento, "|", (lhs, rhs)->
+                new ViewModelMemento(
+                        new Campaign.SecondaryKey(_Strings.base64UrlDecode(lhs)),
+                        TreePath.parse(_Strings.base64UrlDecode(rhs), PATH_DELIMITER)))
+                .orElseGet(ViewModelMemento::empty);
+        }
+        String stringify() {
+            return _Strings.base64UrlEncode(campaignSecondaryKey.code())
+                    + "|" + _Strings.base64UrlEncode(treePath.stringify(PATH_DELIMITER));
+        }
+        public ViewModelMemento parent() {
+            return new ViewModelMemento(campaignSecondaryKey, treePath.getParentIfAny());
+        }
+        public ViewModelMemento child(final int index) {
+            return new ViewModelMemento(campaignSecondaryKey, treePath.append(index));
+        }
+    }
+
+
     @Getter @Programmatic
     private final SurveyTreeNode rootNode;
 
     @Getter @Programmatic
     private final SurveyTreeNode activeNode;
 
-    public static SurveyVM forRoot(final SurveyTreeNode rootNode) {
-        return new SurveyVM(rootNode, rootNode);
+    @Getter @Programmatic
+    private final ViewModelMemento viewModelMemento;
+
+    public static SurveyVM forRoot(final Campaign.SecondaryKey campaignSecondaryKey, final SurveyTreeNode rootNode) {
+        return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, TreePath.root()), rootNode, rootNode);
     }
 
     @Inject
-    public SurveyVM(final SurveyTreeNode rootNode, final String rootPathMemento) {
-        this(rootNode, TreePath.parse(rootPathMemento, PATH_DELIMITER));
+    public SurveyVM(
+            final SurveyTreeRootNodeHelperService helper,
+            final String viewModelMementoString) {
+        this.viewModelMemento = ViewModelMemento.parse(viewModelMementoString);
+        this.rootNode = helper.root(viewModelMemento.campaignSecondaryKey());
+        this.activeNode = SurveyTreeNode
+                .lookup(rootNode, viewModelMemento.treePath())
+                .orElseGet(()->{
+                    log.warn("could not resolve survey node {}", viewModelMemento.treePath());
+                    return rootNode;
+                });
     }
 
-    SurveyVM(final SurveyTreeNode rootNode, final TreePath treePath) {
-        this(rootNode, SurveyTreeNode
-                .lookup(rootNode, treePath)
+    public SurveyVM(final ViewModelMemento viewModelMemento, final SurveyTreeNode rootNode) {
+        this(viewModelMemento, rootNode, SurveyTreeNode
+                .lookup(rootNode, viewModelMemento.treePath())
                 .orElseGet(()->{
-                    log.warn("could not resolve survey node {}", treePath);
+                    log.warn("could not resolve survey node {}", viewModelMemento.treePath());
                     return rootNode;
                 }));
     }
 
-    SurveyVM(final SurveyTreeNode rootNode, final SurveyTreeNode activeNode) {
+    SurveyVM(final ViewModelMemento viewModelMemento, final SurveyTreeNode rootNode, final SurveyTreeNode activeNode) {
+        this.viewModelMemento = viewModelMemento;
         this.rootNode = rootNode;
         this.activeNode = activeNode;
     }
@@ -95,7 +138,8 @@ public class SurveyVM implements ViewModel {
 
     @Override
     public String viewModelMemento() {
-        return activeNode.path().stringify(PATH_DELIMITER);
+        _Assert.assertEquals(activeNode.path().stringify(PATH_DELIMITER), viewModelMemento.treePath().stringify(PATH_DELIMITER));
+        return viewModelMemento.stringify();
     }
 
     public static class SurveyTreeAdapter implements TreeAdapter<SurveyVM> {
@@ -110,7 +154,8 @@ public class SurveyVM implements ViewModel {
         @Override
         public Stream<SurveyVM> childrenOf(final SurveyVM value) {
             return value.activeNode.children().stream()
-                    .map(childNode->new SurveyVM(value.rootNode, childNode));
+                .map(IndexedFunction.zeroBased((i, childNode)->
+                    new SurveyVM(value.getViewModelMemento().child(i), value.rootNode, childNode)));
         }
     }
 
@@ -118,7 +163,7 @@ public class SurveyVM implements ViewModel {
     @PropertyLayout(labelPosition = LabelPosition.NONE, fieldSetId = "tree", sequence = "1")
     public TreeNode<SurveyVM> getTree() {
         final TreeNode<SurveyVM> tree = TreeNode.lazy(
-                SurveyVM.forRoot(rootNode), SurveyTreeAdapter.class);
+                SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode), SurveyTreeAdapter.class);
 
         // expand the current node
         activeNode.path().streamUpTheHierarchyStartingAtSelf()
@@ -134,7 +179,7 @@ public class SurveyVM implements ViewModel {
     @PropertyLayout(navigable=Navigable.PARENT, hidden=Where.EVERYWHERE, fieldSetId = "detail", sequence = "1")
     public SurveyVM getParent() {
         return Optional.ofNullable(activeNode.path().getParentIfAny())
-                .map(parentPath->new SurveyVM(rootNode, parentPath.toString()))
+                .map(parentPath->new SurveyVM(viewModelMemento.parent(), rootNode))
                 .orElse(null);
     }
 

@@ -16,32 +16,28 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.dashboard;
+package dita.globodiet.survey.view;
 
 import jakarta.inject.Inject;
 
-import org.apache.causeway.applib.annotation.Action;
-import org.apache.causeway.applib.annotation.ActionLayout;
-import org.apache.causeway.applib.annotation.ActionLayout.Position;
-import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.RestrictTo;
+import org.causewaystuff.blobstore.applib.BlobStore;
+import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
-import dita.globodiet.survey.view.SurveyTreeNode;
-import dita.globodiet.survey.view.SurveyVM;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
-@Action(restrictTo = RestrictTo.PROTOTYPING)
-@ActionLayout(fieldSetName="About", position = Position.PANEL)
-@RequiredArgsConstructor
-public class Dashboard_mongo {
+import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Campaigns;
 
-    final Dashboard dashboard;
+@Service
+public class SurveyTreeRootNodeHelperService {
 
-    @Inject SurveyTreeNode surveyTreeRootNode;
+    @Inject private ForeignKeyLookupService foreignKeyLookupService;
+    @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
-    @MemberSupport
-    public SurveyVM act() {
-        return SurveyVM.forRoot(surveyTreeRootNode);
+    public SurveyTreeNode root(final Campaign.SecondaryKey campaignSecondaryKey) {
+        //TODO needs caching
+        var campaign = foreignKeyLookupService.unique(campaignSecondaryKey);
+        return Campaigns.surveyTreeRootNode(campaign, surveyBlobStore);
     }
-
 }

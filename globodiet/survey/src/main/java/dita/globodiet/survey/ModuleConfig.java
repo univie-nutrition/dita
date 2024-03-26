@@ -21,7 +21,6 @@ package dita.globodiet.survey;
 
 import org.causewaystuff.blobstore.applib.BlobStore;
 import org.causewaystuff.blobstore.applib.BlobStoreFactory;
-import org.causewaystuff.commons.base.types.NamedPath;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -32,21 +31,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import dita.globodiet.survey.dom.Survey;
-import dita.globodiet.survey.util.InterviewUtils;
-import dita.globodiet.survey.view.SurveyTreeNode;
-import dita.globodiet.survey.view.SurveyTreeNodeFactory;
+import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
-import dita.recall24.model.InterviewSet24;
 
 @Configuration
 @Import({
     SurveyVM.class,
     BlobStoreFactory.class,
-
-    // non-gen mixins
-//    Campaign_interviewUploads.class,
-//    SurveyManager_addSurvey.class,
-//    Survey_addCampaign.class,
+    SurveyTreeRootNodeHelperService.class,
 })
 @EnableConfigurationProperties({ModuleConfig.SurveyConfiguration.class})
 @ComponentScan(basePackageClasses = Survey.class)
@@ -62,22 +54,6 @@ public class ModuleConfig {
             final BlobStoreFactory blobStoreFactory,
             final SurveyConfiguration surveyConfiguration) {
         return blobStoreFactory.createBlobStore(surveyConfiguration.blobstore());
-    }
-
-    @Bean
-    public SurveyTreeNode surveyTreeRootNode(@Qualifier("survey") final BlobStore surveyBlobStore) {
-
-        if(surveyBlobStore==null) {
-            return SurveyTreeNodeFactory.emptyNode();
-        }
-
-        return InterviewUtils.streamSources(surveyBlobStore, NamedPath.empty(), true)
-            .limit(1)
-            .map(InterviewUtils::parse)
-            .reduce(InterviewSet24::join)
-            .map(InterviewSet24::normalized)
-            .map(SurveyTreeNodeFactory::surveyNode)
-            .orElseGet(SurveyTreeNodeFactory::emptyNode);
     }
 
 }

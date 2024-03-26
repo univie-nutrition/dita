@@ -30,9 +30,10 @@ import lombok.experimental.UtilityClass;
 public class FileKeepStrategy {
 
     Predicate<File> layout(){
-        return file->file.getName().endsWith(".layout.xml");
+        return file->file.getName().endsWith(".layout.xml")
+                || file.getName().endsWith(".layout.fallback.xml");
     }
-    
+
     Predicate<File> javaNonGenerated(){
         return file->
             file.getName().endsWith(".java")
