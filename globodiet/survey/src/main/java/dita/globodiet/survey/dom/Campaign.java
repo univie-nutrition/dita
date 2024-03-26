@@ -61,8 +61,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
 /**
  * A  campaign defines a part of a food consumption survey that contains several interviews.
  * Campaigns can be defined to be the whole study,
- * a seasonal part of a study,
- * a regional part of a study etc.
+ * a seasonal part of a study, a regional part of a study etc.
  */
 @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.survey.dom.Campaign")
@@ -70,8 +69,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
 @DomainObjectLayout(
         describedAs = "A  campaign defines a part of a food consumption survey that contains several interviews.\n"
                         + "Campaigns can be defined to be the whole study,\n"
-                        + "a seasonal part of a study,\n"
-                        + "a regional part of a study etc.",
+                        + "a seasonal part of a study, a regional part of a study etc.",
         cssClassFa = "solid users-viewfinder .campaign-color"
 )
 @PersistenceCapable(
@@ -83,7 +81,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
 )
 @Unique(
         name = "SEC_KEY_UNQ_Campaign",
-        members = {"code"}
+        members = {"surveyCode", "code"}
 )
 public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> {
     @Inject
@@ -93,7 +91,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     SearchService searchService;
 
     /**
-     * Unique (application scoped) campaign identifier.
+     * Unique (survey scoped) campaign identifier.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -101,7 +99,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Unique (application scoped) campaign identifier.",
+            describedAs = "Unique (survey scoped) campaign identifier.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -120,7 +118,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             optionality = Optionality.MANDATORY
     )
     @PropertyLayout(
-            fieldSetId = "foreign",
+            fieldSetId = "identity",
             sequence = "2",
             describedAs = "Survey code",
             hidden = Where.ALL_TABLES
@@ -217,7 +215,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     @Programmatic
     public SecondaryKey secondaryKey() {
-        return new SecondaryKey(getCode());
+        return new SecondaryKey(getSurveyCode(), 
+        getCode());
     }
 
     /**
@@ -227,8 +226,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @DomainObjectLayout(
             describedAs = "A  campaign defines a part of a food consumption survey that contains several interviews.\n"
                             + "Campaigns can be defined to be the whole study,\n"
-                            + "a seasonal part of a study,\n"
-                            + "a regional part of a study etc.",
+                            + "a seasonal part of a study, a regional part of a study etc.",
             cssClassFa = "solid users-viewfinder .campaign-color"
     )
     @AllArgsConstructor
@@ -264,7 +262,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     /**
      * Parameter model for @{link Campaign}
-     * @param code Unique (application scoped) campaign identifier.
+     * @param code Unique (survey scoped) campaign identifier.
      * @param survey Survey code
      * @param name Descriptive campaign name.
      * @param description Detailed information for this campaign.
@@ -275,7 +273,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Unique (application scoped) campaign identifier."
+                    describedAs = "Unique (survey scoped) campaign identifier."
             )
             String code,
             @Parameter(
@@ -307,9 +305,12 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     /**
      * SecondaryKey for @{link Campaign}
-     * @param code Unique (application scoped) campaign identifier.
+     * @param surveyCode Survey code
+     * @param code Unique (survey scoped) campaign identifier.
      */
-    public final record SecondaryKey(String code) implements ISecondaryKey<Campaign> {
+    public final record SecondaryKey(
+            String surveyCode,
+            String code) implements ISecondaryKey<Campaign> {
         @Override
         public Class<Campaign> correspondingClass() {
             return Campaign.class;

@@ -39,6 +39,7 @@ import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.graph.tree.TreeAdapter;
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.applib.graph.tree.TreePath;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -64,17 +65,22 @@ public class SurveyVM implements ViewModel {
             Campaign.SecondaryKey campaignSecondaryKey,
             TreePath treePath) {
         static ViewModelMemento empty() {
-            return new ViewModelMemento(new Campaign.SecondaryKey(""), TreePath.root());
+            return new ViewModelMemento(new Campaign.SecondaryKey("", ""), TreePath.root());
         }
         static ViewModelMemento parse(final String viewModelMemento) {
-            return _Strings.splitThenApplyRequireNonEmpty(viewModelMemento, "|", (lhs, rhs)->
-                new ViewModelMemento(
-                        new Campaign.SecondaryKey(_Strings.base64UrlDecode(lhs)),
-                        TreePath.parse(_Strings.base64UrlDecode(rhs), PATH_DELIMITER)))
-                .orElseGet(ViewModelMemento::empty);
+            var parts = _Strings.splitThenStream(viewModelMemento, "|")
+                    .collect(Can.toCan());
+            if(parts.size()!=3) {
+                return ViewModelMemento.empty();
+            }
+            parts = parts.map(_Strings::base64UrlDecode); // might throw on encoding errors
+            return new ViewModelMemento(
+                        new Campaign.SecondaryKey(parts.getElseFail(0), parts.getElseFail(1)),
+                        TreePath.parse(parts.getElseFail(2), PATH_DELIMITER));
         }
         String stringify() {
-            return _Strings.base64UrlEncode(campaignSecondaryKey.code())
+            return _Strings.base64UrlEncode(campaignSecondaryKey.surveyCode())
+                    + "|" + _Strings.base64UrlEncode(campaignSecondaryKey.code())
                     + "|" + _Strings.base64UrlEncode(treePath.stringify(PATH_DELIMITER));
         }
         public ViewModelMemento parent() {
