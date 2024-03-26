@@ -19,7 +19,7 @@
 package dita.globodiet.survey.view;
 
 import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.inject.Inject;
 
@@ -38,7 +38,7 @@ public class SurveyTreeRootNodeHelperService {
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
-    private final Map<Campaign.SecondaryKey, SurveyTreeNode> cache = new WeakHashMap<>();
+    private final Map<Campaign.SecondaryKey, SurveyTreeNode> cache = new ConcurrentHashMap<>();
 
     public SurveyTreeNode root(final Campaign.SecondaryKey campaignSecondaryKey) {
         var campaign = foreignKeyLookupService.unique(campaignSecondaryKey);

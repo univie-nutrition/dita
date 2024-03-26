@@ -23,7 +23,6 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.blobstore.applib.BlobDescriptor;
 import org.causewaystuff.blobstore.applib.BlobStore;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -50,9 +49,7 @@ public class Campaign_interviewUploads {
         return surveyBlobStore.listDescriptors(mixee.namedPath(), true)
                 .stream()
                 .filter(desc->desc.mimeType().equals(CommonMimeType.XML))
-                .map(BlobDescriptor::path)
-                .map(namedPath->namedPath.toString("/"))
-                .map(InterviewUpload::new)
+                .map(InterviewUpload::of)
                 .toList();
     }
 

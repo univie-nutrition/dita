@@ -35,10 +35,12 @@ public class Campaigns {
 
     public NamedPath namedPath(final Campaign campaign) {
         if(campaign==null
+                || _Strings.isNullOrEmpty(campaign.getSurveyCode())
                 || _Strings.isNullOrEmpty(campaign.getCode())) {
             return NamedPath.of("blackhole");
         }
-        return NamedPath.of(campaign.getCode().toLowerCase());
+        return NamedPath.of(campaign.getSurveyCode().toLowerCase())
+                .add(NamedPath.of(campaign.getCode().toLowerCase()));
     }
 
     public SurveyTreeNode surveyTreeRootNode(final Campaign campaign, final BlobStore surveyBlobStore) {

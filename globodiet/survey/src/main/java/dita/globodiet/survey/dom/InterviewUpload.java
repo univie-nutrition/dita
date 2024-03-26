@@ -18,7 +18,10 @@
  */
 package dita.globodiet.survey.dom;
 
+import org.causewaystuff.blobstore.applib.BlobDescriptor;
+
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.PropertyLayout;
 
 @DomainObjectLayout(
         describedAs = "GloboDiet exported interview XML file.",
@@ -26,8 +29,16 @@ import org.apache.causeway.applib.annotation.DomainObjectLayout;
                         + "solid user .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
 public record InterviewUpload(
-        String namedPath
-
+        @PropertyLayout(sequence = "1")
+        String namedPath,
+        @PropertyLayout(sequence = "2")
+        String sha256
         ) {
+
+    static InterviewUpload of(final BlobDescriptor blobDescriptor) {
+        return new InterviewUpload(
+                blobDescriptor.path().toString("/"),
+                blobDescriptor.attributes().getOrDefault("sha256", "n/a"));
+    }
 
 }

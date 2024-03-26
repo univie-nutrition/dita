@@ -30,8 +30,8 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.ExtensionMethod;
 
+import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
 
 @Action
@@ -42,16 +42,16 @@ import dita.globodiet.survey.view.SurveyVM;
         cssClassFa = "solid fa-binoculars",
         describedAs = "Inspect the content of uploaded interview files.")
 @RequiredArgsConstructor
-@ExtensionMethod(Campaigns.class)
 public class Campaign_inspectInterviews {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+    @Inject private SurveyTreeRootNodeHelperService surveyTreeRootNodeHelperService;
 
     final Campaign mixee;
 
     @MemberSupport
     public SurveyVM act() {
-        return SurveyVM.forRoot(mixee.secondaryKey(), mixee.surveyTreeRootNode(surveyBlobStore));
+        return SurveyVM.forRoot(mixee.secondaryKey(), surveyTreeRootNodeHelperService.root(mixee.secondaryKey()));
     }
 
 }
