@@ -18,6 +18,9 @@
  */
 package dita.globodiet.survey.view;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import jakarta.inject.Inject;
 
 import org.causewaystuff.blobstore.applib.BlobStore;
@@ -35,9 +38,16 @@ public class SurveyTreeRootNodeHelperService {
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
+    private final Map<Campaign.SecondaryKey, SurveyTreeNode> cache = new WeakHashMap<>();
+
     public SurveyTreeNode root(final Campaign.SecondaryKey campaignSecondaryKey) {
-        //TODO needs caching
         var campaign = foreignKeyLookupService.unique(campaignSecondaryKey);
-        return Campaigns.surveyTreeRootNode(campaign, surveyBlobStore);
+        return cache.computeIfAbsent(campaignSecondaryKey, _->
+            Campaigns.surveyTreeRootNode(campaign, surveyBlobStore));
     }
+
+    public void invalidateCache(final Campaign.SecondaryKey campaignSecondaryKey) {
+        cache.remove(campaignSecondaryKey);
+    }
+
 }

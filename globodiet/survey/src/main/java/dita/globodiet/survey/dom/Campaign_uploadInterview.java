@@ -33,6 +33,8 @@ import org.apache.causeway.applib.value.Clob;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
+
 @Action(
         semantics = SemanticsOf.IDEMPOTENT
 )
@@ -46,12 +48,16 @@ import lombok.RequiredArgsConstructor;
 public class Campaign_uploadInterview {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+    @Inject private SurveyTreeRootNodeHelperService surveyTreeRootNodeHelperService;
+
     //private InterviewXmlParser parser = new InterviewXmlParser();
 
     private final Campaign mixee;
 
     @MemberSupport
     public Campaign act(final Clob clob) {
+        //TODO implement upload to blob store
+        surveyTreeRootNodeHelperService.invalidateCache(mixee.secondaryKey());
         return mixee;
     }
 
