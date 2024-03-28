@@ -43,6 +43,11 @@
 			<artifactId>causeway-applib</artifactId>
 		</dependency>
 		
+		<dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-treeview-applib</artifactId>
+        </dependency>
+		
 	</dependencies>
     
 </project>

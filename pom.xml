@@ -295,6 +295,17 @@ additional
                 <artifactId>causewaystuff-blobstore-localfs</artifactId>
                 <version>${causewaystuff.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>org.causewaystuff</groupId>
+                <artifactId>causewaystuff-treeview-applib</artifactId>
+                <version>${causewaystuff.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.causewaystuff</groupId>
+                <artifactId>causewaystuff-treeview-metamodel</artifactId>
+                <version>${causewaystuff.version}</version>
+            </dependency>
 
             <!-- SPRING -->
 

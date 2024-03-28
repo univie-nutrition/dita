@@ -71,6 +71,15 @@ additional
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-companion-applib</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-treeview-applib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.causewaystuff</groupId>
+            <artifactId>causewaystuff-treeview-metamodel</artifactId>
+        </dependency>
 
         <!-- PERSISTENCE -->
 
@@ -115,7 +124,7 @@ additional
                 </exclusion>
             </exclusions>
         </dependency>
-
+        
     </dependencies>
 
 </project>

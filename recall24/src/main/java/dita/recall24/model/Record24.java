@@ -19,6 +19,7 @@
 package dita.recall24.model;
 
 import org.causewaystuff.commons.base.types.internal.ObjectRef;
+import org.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 import org.apache.causeway.commons.collections.Can;
 
@@ -48,6 +49,7 @@ public record Record24(
         /**
          * Ingredients of this record.
          */
+        @TreeSubNodes
         Can<Ingredient24> ingredients
 
 

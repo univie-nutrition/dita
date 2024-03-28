@@ -25,6 +25,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.causewaystuff.commons.base.types.internal.ObjectRef;
+import org.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 import org.springframework.lang.Nullable;
 
@@ -43,11 +44,13 @@ public record InterviewSet24(
         /**
          * Respondents that belong to this survey.
          */
+        @TreeSubNodes(sequence = "1")
         Can<Respondent24> respondents,
 
         /**
          * Interviews that belong to this survey.
          */
+        @TreeSubNodes(sequence = "2")
         Can<Interview24> interviews,
 
         ObjectRef<InterviewSet24.Helper> helperRef

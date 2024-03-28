@@ -18,49 +18,40 @@
  */
 package dita.globodiet.survey.recall24;
 
-import jakarta.inject.Inject;
-
-import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.commons.base.types.NamedPath;
+import org.causewaystuff.treeview.applib.factories.TreeNodeFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.core.metamodel._testing.MetaModelContext_forTesting;
+import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
-import dita.globodiet.survey.DitaTestModuleGdSurvey;
-import dita.globodiet.survey.PrivateDataTest;
-import dita.globodiet.survey.util.InterviewUtils;
-
-@SpringBootTest(classes = {
-        DitaTestModuleGdSurvey.class,
-        })
-@PrivateDataTest
 class InterviewXmlParserTest {
 
-    @Inject @Qualifier("survey") BlobStore surveyBlobStore;
     private InterviewXmlParser parser = new InterviewXmlParser();
 
-    @Test
-    void parsingFromBlobStore() {
-        assertNotNull(surveyBlobStore);
-
-        InterviewUtils.streamSources(surveyBlobStore, NamedPath.empty(), true)
-        .limit(1)
-        .map(InterviewUtils::parse)
-        .forEach(iSet->{
-            System.err.printf("%s%n", iSet.toJson());
-        });
+    @BeforeEach
+    void setUp() {
+        MetaModelContext_forTesting.buildDefault();
+        assertNotNull(MetaModelContext.instanceNullable());
     }
 
     @Test
     void parsingSample() {
         var xml = InterviewSampler.sampleXml();
-        var iSet = parser.parse(DataSource.ofStringUtf8(xml));
-        //System.err.printf("%s%n", iSet.toJson());
+        var interviewSet24 = parser.parse(DataSource.ofStringUtf8(xml));
+
+        TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24);
+
+        root.iteratorDepthFirst()
+            .forEachRemaining(node->System.err.printf("node: %s%n", node.getValue()));
+
+        //debug
+        //System.err.printf("%s%n", interviewSet24.toJson());
     }
+
 
 }
