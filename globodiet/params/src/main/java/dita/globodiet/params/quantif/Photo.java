@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -345,7 +346,11 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     /**
      * Manager Viewmodel for @{link Photo}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.Photo.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Photo and its quantities",
             cssClassFa = "solid image,\n"
@@ -393,6 +398,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
      * @param unit G = in Unit grams (mass)
      * V = in Unit milliliter (volume)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -443,6 +449,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
      * SecondaryKey for @{link Photo}
      * @param code Photo series code (P001,P002,P003,...)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Photo> {
         @Override
         public Class<Photo> correspondingClass() {
@@ -460,6 +467,10 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     /**
      * Placeholder @{link ViewModel} for @{link Photo} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable Photo",
             cssClassFa = "skull .unresolvable-color"

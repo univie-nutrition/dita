@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -445,7 +446,11 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
     /**
      * Manager Viewmodel for @{link Food}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_list.Food.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Food, Product, On-the-fly Recipe or Alias",
             cssClassFa = "solid utensils .food-color"
@@ -509,6 +514,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
      * @param dietarySupplementQ 0=food
      * 1=dietary supplement
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -597,6 +603,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
      * SecondaryKey for @{link Food}
      * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Food> {
         @Override
         public Class<Food> correspondingClass() {
@@ -614,6 +621,10 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
     /**
      * Placeholder @{link ViewModel} for @{link Food} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable Food",
             cssClassFa = "skull .unresolvable-color"

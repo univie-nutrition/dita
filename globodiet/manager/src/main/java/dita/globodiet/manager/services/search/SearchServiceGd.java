@@ -35,7 +35,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import lombok.NonNull;
 
 @Service
-public class SearchServiceGdParams
+public class SearchServiceGd
 implements SearchService {
 
     @Inject RepositoryService repositoryService;

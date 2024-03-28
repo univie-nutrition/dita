@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.survey;
+package dita.globodiet.survey.recall24;
 
 import jakarta.inject.Inject;
 
@@ -29,11 +29,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import dita.globodiet.survey.DitaTestModuleGdSurvey;
+import dita.globodiet.survey.PrivateDataTest;
+
 @SpringBootTest(classes = {
-        ModuleConfig.class
+        DitaTestModuleGdSurvey.class,
         })
 @PrivateDataTest
-class DitaModuleGdSurveyTest {
+class SurveyBlobStorePrereqTest {
 
     @Inject @Qualifier("survey") BlobStore surveyBlobStore;
 

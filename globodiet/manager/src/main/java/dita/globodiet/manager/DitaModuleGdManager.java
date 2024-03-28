@@ -61,7 +61,7 @@ import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
-import dita.globodiet.manager.services.search.SearchServiceGdParams;
+import dita.globodiet.manager.services.search.SearchServiceGd;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.params.DitaModuleGdParams;
@@ -113,7 +113,7 @@ import dita.globodiet.survey.DitaModuleGdSurvey;
     // Services/Components
     DependantLookupGdParams.class,
     ForeignKeyLookupGdParams.class,
-    SearchServiceGdParams.class,
+    SearchServiceGd.class,
     FallbackLayoutDataSourceGdParams.class,
     IdGeneratorGdParams.class,
     IconFaServiceGdParams.class,

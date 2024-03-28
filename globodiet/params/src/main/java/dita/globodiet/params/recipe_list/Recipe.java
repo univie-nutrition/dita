@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -558,7 +559,11 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     /**
      * Manager Viewmodel for @{link Recipe}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_list.Recipe.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Mixed (a priory) Recipe (not an on-the-fly one):\n"
                             + "After preparation, the different ingredients cannot be identified\n"
@@ -636,6 +641,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      * 3=to be completed (disabled for interviews)
      * 4=empty (disabled for interviews)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -727,6 +733,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      * SecondaryKey for @{link Recipe}
      * @param code Recipe ID number
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Recipe> {
         @Override
         public Class<Recipe> correspondingClass() {
@@ -744,6 +751,10 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     /**
      * Placeholder @{link ViewModel} for @{link Recipe} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable Recipe",
             cssClassFa = "skull .unresolvable-color"

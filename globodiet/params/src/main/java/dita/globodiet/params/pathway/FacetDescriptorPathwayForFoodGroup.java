@@ -45,6 +45,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -348,7 +349,11 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     /**
      * Manager Viewmodel for @{link FacetDescriptorPathwayForFoodGroup}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for food group/subgroup.\n"
                             + "Optionally can be superseded by @{table FOODFAEX}.",
@@ -399,6 +404,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
      * @param facetDisplayOrder Order to display the facets within a group/subgroup
      * @param descriptorDisplayOrder Order to display the descriptors within a group/subgroup and a facet
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -482,6 +488,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
      * @param foodFacetCode Facet code
      * @param foodDescriptorCode Descriptor code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String foodGroupCode,
             String foodSubgroupCode,
@@ -504,6 +511,10 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     /**
      * Placeholder @{link ViewModel} for @{link FacetDescriptorPathwayForFoodGroup} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable FacetDescriptorPathwayForFoodGroup",
             cssClassFa = "skull .unresolvable-color"

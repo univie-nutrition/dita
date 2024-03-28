@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -389,7 +390,11 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     /**
      * Manager Viewmodel for @{link DietarySupplementFacet}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.supplement.DietarySupplementFacet.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Dietary supplement facet",
             cssClassFa = "solid tablets .supplement-color,\n"
@@ -439,6 +444,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
      * @param orderToAsk Order to ask the facet (first, second...)
      * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -505,6 +511,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
      * SecondaryKey for @{link DietarySupplementFacet}
      * @param code Facet code for Dietary Supplement
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<DietarySupplementFacet> {
         @Override
         public Class<DietarySupplementFacet> correspondingClass() {
@@ -522,6 +529,10 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     /**
      * Placeholder @{link ViewModel} for @{link DietarySupplementFacet} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable DietarySupplementFacet",
             cssClassFa = "skull .unresolvable-color"

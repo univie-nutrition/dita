@@ -40,6 +40,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -235,7 +236,11 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
     /**
      * Manager Viewmodel for @{link QuantificationMethodPathwayForRecipe}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Quantification method pathway for individual recipe.\n"
                             + "Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.",

@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -197,7 +198,11 @@ public class ProbingQuestionPathwayForRecipe implements Cloneable<ProbingQuestio
     /**
      * Manager Viewmodel for @{link ProbingQuestionPathwayForRecipe}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.ProbingQuestionPathwayForRecipe.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Probing question pathway for recipe.",
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"

@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -192,7 +193,11 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     /**
      * Manager Viewmodel for @{link CenterInvolved}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.interview.CenterInvolved.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Center involved",
             cssClassFa = "building .default-color"
@@ -234,6 +239,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
      * @param attachedCountry Attached Country code
      * @param centerName Center name
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -265,6 +271,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
      * SecondaryKey for @{link CenterInvolved}
      * @param centerCode Center code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String centerCode) implements ISecondaryKey<CenterInvolved> {
         @Override
         public Class<CenterInvolved> correspondingClass() {
@@ -282,6 +289,10 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     /**
      * Placeholder @{link ViewModel} for @{link CenterInvolved} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable CenterInvolved",
             cssClassFa = "skull .unresolvable-color"

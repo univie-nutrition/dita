@@ -46,6 +46,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -416,7 +417,11 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     /**
      * Manager Viewmodel for @{link QuantificationMethodPathwayForFoodGroup}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Quantification method pathway for food group/subgroup.\n"
                             + "Optionally can be superseded by @{table QM_FOODS}.",
@@ -474,6 +479,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
      * else empty
      * @param comment Comment
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -567,6 +573,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
      * if method='A' Shape code
      * else empty
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String foodGroupCode,
             String foodSubgroupCode,
@@ -591,6 +598,10 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     /**
      * Placeholder @{link ViewModel} for @{link QuantificationMethodPathwayForFoodGroup} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable QuantificationMethodPathwayForFoodGroup",
             cssClassFa = "skull .unresolvable-color"

@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -275,7 +276,11 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     /**
      * Manager Viewmodel for @{link FoodConsumptionOccasion}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.setting.FoodConsumptionOccasion.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Food Consumption Occasion",
             cssClassFa = "solid user-clock"
@@ -320,6 +325,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      * @param displayInNutrientCheckScreenQ 0=non main FCO
      * 1=main FCO (to be displayed in nutrient check screen)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -368,6 +374,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      * SecondaryKey for @{link FoodConsumptionOccasion}
      * @param code Food Consumption Occasion code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String code) implements ISecondaryKey<FoodConsumptionOccasion> {
         @Override
@@ -386,6 +393,10 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     /**
      * Placeholder @{link ViewModel} for @{link FoodConsumptionOccasion} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodConsumptionOccasion",
             cssClassFa = "skull .unresolvable-color"

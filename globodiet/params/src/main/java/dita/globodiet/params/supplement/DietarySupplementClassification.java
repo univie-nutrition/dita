@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -194,7 +195,11 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
     /**
      * Manager Viewmodel for @{link DietarySupplementClassification}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.supplement.DietarySupplementClassification.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Dietary supplement classification",
             cssClassFa = "solid tablets .supplement-color,\n"
@@ -238,6 +243,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
      * @param name Name of the food (sub-)(sub-)group
      * @param attachedToCode Dietary Supplement classification code attached to (for subgroup)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -269,6 +275,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
      * SecondaryKey for @{link DietarySupplementClassification}
      * @param code Dietary Supplement classification code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String code) implements ISecondaryKey<DietarySupplementClassification> {
         @Override
@@ -287,6 +294,10 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
     /**
      * Placeholder @{link ViewModel} for @{link DietarySupplementClassification} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable DietarySupplementClassification",
             cssClassFa = "skull .unresolvable-color"

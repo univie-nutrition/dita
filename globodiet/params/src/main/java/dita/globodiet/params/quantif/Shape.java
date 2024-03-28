@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -216,7 +217,11 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     /**
      * Manager Viewmodel for @{link Shape}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.Shape.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Shape for quantity",
             cssClassFa = "solid circle-half-stroke,\n"
@@ -260,6 +265,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
      * @param comment Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
      * @param displayOrder Order to display this shape
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -299,6 +305,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
      * SecondaryKey for @{link Shape}
      * @param code Shape code (e.g. S001,S002,S003,...)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Shape> {
         @Override
         public Class<Shape> correspondingClass() {
@@ -316,6 +323,10 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     /**
      * Placeholder @{link ViewModel} for @{link Shape} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable Shape",
             cssClassFa = "skull .unresolvable-color"

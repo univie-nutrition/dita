@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -169,7 +170,11 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     /**
      * Manager Viewmodel for @{link Survey}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.survey.dom.Survey.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "A survey collects one or more campaigns.",
             cssClassFa = "solid users .survey-color"
@@ -210,6 +215,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      * @param code Unique (application scoped) survey identifier.
      * @param name Descriptive survey name.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -233,6 +239,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      * SecondaryKey for @{link Survey}
      * @param code Unique (application scoped) survey identifier.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Survey> {
         @Override
         public Class<Survey> correspondingClass() {
@@ -250,6 +257,10 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     /**
      * Placeholder @{link ViewModel} for @{link Survey} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable Survey",
             cssClassFa = "skull .unresolvable-color"

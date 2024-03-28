@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -222,7 +223,11 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     /**
      * Manager Viewmodel for @{link Campaign}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.survey.dom.Campaign.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "A  campaign defines a part of a food consumption survey that contains several interviews.\n"
                             + "Campaigns can be defined to be the whole study,\n"
@@ -267,6 +272,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
      * @param name Descriptive campaign name.
      * @param description Detailed information for this campaign.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -308,6 +314,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
      * @param surveyCode Survey code
      * @param code Unique (survey scoped) campaign identifier.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
             String code) implements ISecondaryKey<Campaign> {
@@ -327,6 +334,10 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     /**
      * Placeholder @{link ViewModel} for @{link Campaign} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable Campaign",
             cssClassFa = "skull .unresolvable-color"

@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -157,7 +158,11 @@ public class FoodConsumptionOccasionDisplayItem implements Cloneable<FoodConsump
     /**
      * Manager Viewmodel for @{link FoodConsumptionOccasionDisplayItem}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.setting.FoodConsumptionOccasionDisplayItem.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "List of foods often eaten at each food consumption occasion.\n"
                             + "During the quick list step, this list will appear as a reminder\n"

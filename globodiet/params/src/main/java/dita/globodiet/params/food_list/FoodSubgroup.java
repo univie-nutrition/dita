@@ -43,6 +43,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -432,7 +433,11 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     /**
      * Manager Viewmodel for @{link FoodSubgroup}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_list.FoodSubgroup.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
             cssClassFa = "solid utensils .food-color,\n"
@@ -483,6 +488,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
      * 1= fat during cooking subgroup
      * @param shortName Short Name of the food (sub-)(sub-)group
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -558,6 +564,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
      * @param foodSubgroupCode Food sub-group code
      * @param foodSubSubgroupCode Food sub-sub-group code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String foodGroupCode,
             String foodSubgroupCode,
@@ -578,6 +585,10 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     /**
      * Placeholder @{link ViewModel} for @{link FoodSubgroup} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodSubgroup",
             cssClassFa = "skull .unresolvable-color"

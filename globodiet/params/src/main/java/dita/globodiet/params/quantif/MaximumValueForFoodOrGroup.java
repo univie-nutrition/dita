@@ -37,6 +37,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -268,7 +269,11 @@ public class MaximumValueForFoodOrGroup implements Cloneable<MaximumValueForFood
     /**
      * Manager Viewmodel for @{link MaximumValueForFoodOrGroup}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.MaximumValueForFoodOrGroup.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Maximum quantity consumed that could be entered in the interview application for a given food\n"
                             + "(or group) before the control message warns the interviewer of an implausible value."

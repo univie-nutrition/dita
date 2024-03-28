@@ -46,6 +46,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -434,7 +435,11 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     /**
      * Manager Viewmodel for @{link NutrientForFoodOrGroup}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.nutrient.NutrientForFoodOrGroup.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Cross reference between food (or food group) and nutrient values (usually multiple).",
             cssClassFa = "solid flask .nutrient-color,\n"
@@ -489,6 +494,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
      * @param attachedRecords Attached records: only for the Type=A2 & A3
      * @param comment Comment
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -588,6 +594,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
      * SecondaryKey for @{link NutrientForFoodOrGroup}
      * @param code Unique code, that relates @{table NTR_VALUE}.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(int code) implements ISecondaryKey<NutrientForFoodOrGroup> {
         @Override
         public Class<NutrientForFoodOrGroup> correspondingClass() {
@@ -605,6 +612,10 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     /**
      * Placeholder @{link ViewModel} for @{link NutrientForFoodOrGroup} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable NutrientForFoodOrGroup",
             cssClassFa = "skull .unresolvable-color"

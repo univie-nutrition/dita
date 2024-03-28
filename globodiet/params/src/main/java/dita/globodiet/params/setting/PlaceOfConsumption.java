@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -227,7 +228,11 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
     /**
      * Manager Viewmodel for @{link PlaceOfConsumption}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.setting.PlaceOfConsumption.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Place of Consumption",
             cssClassFa = "solid building-user"
@@ -270,6 +275,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
      * @param otherPlaceQ 0=not a 'Other' place
      * 1='Other' place
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -302,6 +308,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
      * SecondaryKey for @{link PlaceOfConsumption}
      * @param code Place of consumption code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<PlaceOfConsumption> {
         @Override
         public Class<PlaceOfConsumption> correspondingClass() {
@@ -319,6 +326,10 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
     /**
      * Placeholder @{link ViewModel} for @{link PlaceOfConsumption} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable PlaceOfConsumption",
             cssClassFa = "skull .unresolvable-color"

@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -373,7 +374,11 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     /**
      * Manager Viewmodel for @{link FoodFacet}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_descript.FoodFacet.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Facet describing food (not recipe)",
             cssClassFa = "solid utensils .food-color,\n"
@@ -425,6 +430,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
      * Comma is used as delimiter (e.g. 10,050701,050702)
      * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -493,6 +499,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
      * SecondaryKey for @{link FoodFacet}
      * @param code Facet code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<FoodFacet> {
         @Override
         public Class<FoodFacet> correspondingClass() {
@@ -510,6 +517,10 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     /**
      * Placeholder @{link ViewModel} for @{link FoodFacet} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodFacet",
             cssClassFa = "skull .unresolvable-color"

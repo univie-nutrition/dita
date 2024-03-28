@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -195,7 +196,11 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     /**
      * Manager Viewmodel for @{link RecipeGroup}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_list.RecipeGroup.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Recipe group",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
@@ -238,6 +243,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
      * @param name Name of the Recipe group
      * @param shortName Short Name of the Recipe group
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -269,6 +275,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
      * SecondaryKey for @{link RecipeGroup}
      * @param code Recipe Group code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<RecipeGroup> {
         @Override
         public Class<RecipeGroup> correspondingClass() {
@@ -286,6 +293,10 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     /**
      * Placeholder @{link ViewModel} for @{link RecipeGroup} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable RecipeGroup",
             cssClassFa = "skull .unresolvable-color"

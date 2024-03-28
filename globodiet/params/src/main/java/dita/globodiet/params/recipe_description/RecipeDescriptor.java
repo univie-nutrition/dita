@@ -42,6 +42,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -426,7 +427,11 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     /**
      * Manager Viewmodel for @{link RecipeDescriptor}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_description.RecipeDescriptor.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Descriptor per facet",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
@@ -476,6 +481,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      * @param singleOrNot 0=not single descriptor
      * 1=single descriptor
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -543,6 +549,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      * @param recipeFacetCode Facet code for recipes
      * @param code Descriptor code for recipes
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String recipeFacetCode,
             String code) implements ISecondaryKey<RecipeDescriptor> {
@@ -562,6 +569,10 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     /**
      * Placeholder @{link ViewModel} for @{link RecipeDescriptor} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable RecipeDescriptor",
             cssClassFa = "skull .unresolvable-color"

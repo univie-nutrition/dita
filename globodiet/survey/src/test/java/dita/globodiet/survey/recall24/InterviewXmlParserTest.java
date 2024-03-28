@@ -31,12 +31,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.commons.io.DataSource;
 
-import dita.globodiet.survey.ModuleConfig;
+import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.globodiet.survey.util.InterviewUtils;
 
 @SpringBootTest(classes = {
-        ModuleConfig.class
+        DitaTestModuleGdSurvey.class,
         })
 @PrivateDataTest
 class InterviewXmlParserTest {

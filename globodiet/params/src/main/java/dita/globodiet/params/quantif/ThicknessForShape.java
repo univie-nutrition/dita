@@ -43,6 +43,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -258,7 +259,11 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     /**
      * Manager Viewmodel for @{link ThicknessForShape}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.ThicknessForShape.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Thickness for shape method",
             cssClassFa = "solid ruler-horizontal"
@@ -311,6 +316,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
      * whatever the recipe classification.
      * Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -367,6 +373,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
      * SecondaryKey for @{link ThicknessForShape}
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<ThicknessForShape> {
         @Override
         public Class<ThicknessForShape> correspondingClass() {
@@ -384,6 +391,10 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     /**
      * Placeholder @{link ViewModel} for @{link ThicknessForShape} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable ThicknessForShape",
             cssClassFa = "skull .unresolvable-color"

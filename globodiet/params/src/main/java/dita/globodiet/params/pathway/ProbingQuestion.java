@@ -41,6 +41,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -169,7 +170,11 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
     /**
      * Manager Viewmodel for @{link ProbingQuestion}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.ProbingQuestion.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Probing question",
             cssClassFa = "solid circle-question"
@@ -210,6 +215,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
      * @param code Probing question code
      * @param label Probing question label
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -233,6 +239,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
      * SecondaryKey for @{link ProbingQuestion}
      * @param code Probing question code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<ProbingQuestion> {
         @Override
         public Class<ProbingQuestion> correspondingClass() {
@@ -250,6 +257,10 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
     /**
      * Placeholder @{link ViewModel} for @{link ProbingQuestion} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable ProbingQuestion",
             cssClassFa = "skull .unresolvable-color"

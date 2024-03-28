@@ -43,6 +43,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.Optionality;
@@ -220,7 +221,11 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     /**
      * Manager Viewmodel for @{link FoodBrand}
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_descript.FoodBrand.Manager")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Brand names are used in the food description phase",
             cssClassFa = "solid utensils .food-color,\n"
@@ -264,6 +269,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
      * @param foodSubgroup Food subgroup code
      * @param foodSubSubgroup Food sub-subgroup code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -306,6 +312,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
      * @param foodSubgroupCode Food subgroup code
      * @param foodSubSubgroupCode Food sub-subgroup code
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String nameOfBrand,
             String foodGroupCode,
@@ -327,6 +334,10 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     /**
      * Placeholder @{link ViewModel} for @{link FoodBrand} in case of an unresolvable secondary key.
      */
+    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @DomainObject(
+            nature = Nature.VIEW_MODEL
+    )
     @DomainObjectLayout(
             describedAs = "Unresolvable FoodBrand",
             cssClassFa = "skull .unresolvable-color"
