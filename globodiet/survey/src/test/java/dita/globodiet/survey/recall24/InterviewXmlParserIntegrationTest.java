@@ -22,6 +22,8 @@ import jakarta.inject.Inject;
 
 import org.causewaystuff.blobstore.applib.BlobStore;
 import org.causewaystuff.commons.base.types.NamedPath;
+import org.causewaystuff.treeview.applib.factories.TreeNodeFactory;
+import org.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,12 +31,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import org.apache.causeway.applib.graph.tree.TreeNode;
+
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.globodiet.survey.util.InterviewUtils;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
+        TreeNodeFacetFactory.class,
         })
 @PrivateDataTest
 class InterviewXmlParserIntegrationTest {
@@ -49,8 +54,15 @@ class InterviewXmlParserIntegrationTest {
         InterviewUtils.streamSources(surveyBlobStore, NamedPath.empty(), true)
         .limit(1)
         .map(InterviewUtils::parse)
-        .forEach(iSet->{
-            System.err.printf("%s%n", iSet.toJson());
+        .forEach(interviewSet24->{
+            System.err.printf("%s%n", interviewSet24.toJson());
+
+            TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24);
+
+            root.iteratorDepthFirst()
+                .forEachRemaining(node->System.err.printf("node: %s%n", node.getValue()));
+
+
         });
     }
 
