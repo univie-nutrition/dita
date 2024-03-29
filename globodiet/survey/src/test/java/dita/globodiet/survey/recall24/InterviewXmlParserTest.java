@@ -19,12 +19,14 @@
 package dita.globodiet.survey.recall24;
 
 import org.causewaystuff.treeview.applib.factories.TreeNodeFactory;
+import org.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.metamodel._testing.MetaModelContext_forTesting;
 import org.apache.causeway.core.metamodel.context.MetaModelContext;
@@ -35,7 +37,9 @@ class InterviewXmlParserTest {
 
     @BeforeEach
     void setUp() {
-        MetaModelContext_forTesting.buildDefault();
+        MetaModelContext_forTesting.builder()
+            .refiners(Can.of(TreeNodeFacetFactory::new))
+            .build();
         assertNotNull(MetaModelContext.instanceNullable());
     }
 

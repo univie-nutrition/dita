@@ -66,12 +66,12 @@ additional
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-blobstore-applib</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-companion-applib</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-treeview-applib</artifactId>
@@ -108,6 +108,17 @@ additional
         <!-- TESTING -->
 
         <dependency>
+            <groupId>org.apache.causeway.testing</groupId>
+            <artifactId>causeway-testing-integtestsupport-applib</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.causeway.persistence</groupId>
+            <artifactId>causeway-persistence-jdo-datanucleus</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.causewaystuff</groupId>
             <artifactId>causewaystuff-blobstore-localfs</artifactId>
             <scope>test</scope>
@@ -124,7 +135,7 @@ additional
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
     </dependencies>
 
 </project>

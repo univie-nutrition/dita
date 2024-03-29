@@ -23,7 +23,6 @@ import jakarta.inject.Inject;
 import org.causewaystuff.blobstore.applib.BlobStore;
 import org.causewaystuff.commons.base.types.NamedPath;
 import org.causewaystuff.treeview.applib.factories.TreeNodeFactory;
-import org.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,6 +31,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
@@ -39,10 +39,9 @@ import dita.globodiet.survey.util.InterviewUtils;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
-        TreeNodeFacetFactory.class,
         })
 @PrivateDataTest
-class InterviewXmlParserIntegrationTest {
+class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract {
 
     @Inject @Qualifier("survey") BlobStore surveyBlobStore;
     private InterviewXmlParser parser = new InterviewXmlParser();
