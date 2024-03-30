@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
@@ -44,6 +45,7 @@ import dita.globodiet.survey.util.InterviewUtils;
 class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract {
 
     @Inject @Qualifier("survey") BlobStore surveyBlobStore;
+    @Inject FactoryService factoryService;
     private InterviewXmlParser parser = new InterviewXmlParser();
 
     @Test
@@ -56,7 +58,7 @@ class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract 
         .forEach(interviewSet24->{
             System.err.printf("%s%n", interviewSet24.toJson());
 
-            TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24);
+            TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24, factoryService);
 
             root.iteratorDepthFirst()
                 .forEachRemaining(node->System.err.printf("node: %s%n", node.getValue()));

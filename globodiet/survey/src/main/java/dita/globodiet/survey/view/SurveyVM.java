@@ -150,10 +150,6 @@ public class SurveyVM implements ViewModel {
 
     public static class SurveyTreeAdapter implements TreeAdapter<SurveyVM> {
         @Override
-        public Optional<SurveyVM> parentOf(final SurveyVM value) {
-            return Optional.ofNullable(value.getParent());
-        }
-        @Override
         public int childCountOf(final SurveyVM value) {
             return value.activeNode.children().size();
         }
@@ -168,8 +164,8 @@ public class SurveyVM implements ViewModel {
     @Property
     @PropertyLayout(labelPosition = LabelPosition.NONE, fieldSetId = "tree", sequence = "1")
     public TreeNode<SurveyVM> getTree() {
-        final TreeNode<SurveyVM> tree = TreeNode.lazy(
-                SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode), SurveyTreeAdapter.class);
+        final TreeNode<SurveyVM> tree = TreeNode.root(
+                SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode), new SurveyTreeAdapter());
 
         // expand the current node
         activeNode.path().streamUpTheHierarchyStartingAtSelf()

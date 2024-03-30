@@ -34,10 +34,11 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 class InterviewXmlParserTest {
 
     private InterviewXmlParser parser = new InterviewXmlParser();
+    private MetaModelContext mmc;
 
     @BeforeEach
     void setUp() {
-        MetaModelContext_forTesting.builder()
+        mmc = MetaModelContext_forTesting.builder()
             .refiners(Can.of(TreeNodeFacetFactory::new))
             .build();
         assertNotNull(MetaModelContext.instanceNullable());
@@ -48,7 +49,7 @@ class InterviewXmlParserTest {
         var xml = InterviewSampler.sampleXml();
         var interviewSet24 = parser.parse(DataSource.ofStringUtf8(xml));
 
-        TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24);
+        TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24, mmc.getFactoryService());
 
         root.iteratorDepthFirst()
             .forEachRemaining(node->System.err.printf("node: %s%n", node.getValue()));
