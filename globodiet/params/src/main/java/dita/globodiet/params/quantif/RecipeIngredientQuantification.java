@@ -48,13 +48,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Mixed recipes: Ingredients quantification for shape and photo methods
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.quantif.RecipeIngredientQuantification")
 @DomainObject
 @DomainObjectLayout(
@@ -382,7 +382,7 @@ public class RecipeIngredientQuantification implements Cloneable<RecipeIngredien
     /**
      * Manager Viewmodel for @{link RecipeIngredientQuantification}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.RecipeIngredientQuantification.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL

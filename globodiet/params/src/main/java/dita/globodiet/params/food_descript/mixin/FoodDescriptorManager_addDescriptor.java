@@ -30,7 +30,7 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import dita.commons.services.idgen.IdGeneratorService;
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_descript.FoodFacet;
 import lombok.RequiredArgsConstructor;

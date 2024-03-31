@@ -18,7 +18,7 @@
  */
 package dita.globodiet.manager.services.iconfa;
 
-import org.causewaystuff.companion.applib.services.iconfa.IconFaService;
+import io.github.causewaystuff.companion.applib.services.iconfa.IconFaService;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;

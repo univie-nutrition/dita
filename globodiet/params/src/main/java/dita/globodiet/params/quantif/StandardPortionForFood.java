@@ -50,13 +50,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * standard portions for foods
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.quantif.StandardPortionForFood")
 @DomainObject
 @DomainObjectLayout(
@@ -365,7 +365,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     /**
      * Manager Viewmodel for @{link StandardPortionForFood}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.StandardPortionForFood.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL

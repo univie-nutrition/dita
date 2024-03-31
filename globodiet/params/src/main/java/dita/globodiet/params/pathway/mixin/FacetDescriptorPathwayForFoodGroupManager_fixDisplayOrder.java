@@ -36,7 +36,7 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 
 import lombok.RequiredArgsConstructor;
 
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup;
 

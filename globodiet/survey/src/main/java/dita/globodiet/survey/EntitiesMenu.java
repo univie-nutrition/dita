@@ -28,9 +28,9 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenMenu")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenMenu")
 @Named("dita.globodiet.survey.EntitiesMenu")
 @DomainService
 public class EntitiesMenu {

@@ -56,15 +56,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Brand names are used in the food description phase
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.food_descript.FoodBrand")
 @DomainObject
 @DomainObjectLayout(
@@ -221,7 +221,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     /**
      * Manager Viewmodel for @{link FoodBrand}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_descript.FoodBrand.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -269,7 +269,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
      * @param foodSubgroup Food subgroup code
      * @param foodSubSubgroup Food sub-subgroup code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -312,7 +312,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
      * @param foodSubgroupCode Food subgroup code
      * @param foodSubSubgroupCode Food sub-subgroup code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String nameOfBrand,
             String foodGroupCode,
@@ -334,7 +334,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     /**
      * Placeholder @{link ViewModel} for @{link FoodBrand} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

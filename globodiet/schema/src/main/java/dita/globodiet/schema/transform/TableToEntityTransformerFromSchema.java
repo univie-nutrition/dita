@@ -20,8 +20,8 @@ package dita.globodiet.schema.transform;
 
 import java.util.Optional;
 
-import org.causewaystuff.companion.codegen.model.OrmModel;
-import org.causewaystuff.companion.codegen.model.OrmModel.Entity;
+import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.OrmModel.Entity;
 
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 

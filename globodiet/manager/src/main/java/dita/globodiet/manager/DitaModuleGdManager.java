@@ -18,7 +18,7 @@
  */
 package dita.globodiet.manager;
 
-import org.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.OrmModel;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

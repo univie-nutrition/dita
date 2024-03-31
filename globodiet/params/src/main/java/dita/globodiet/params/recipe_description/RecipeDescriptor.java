@@ -55,15 +55,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Descriptor per facet
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.recipe_description.RecipeDescriptor")
 @DomainObject
 @DomainObjectLayout(
@@ -427,7 +427,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     /**
      * Manager Viewmodel for @{link RecipeDescriptor}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_description.RecipeDescriptor.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -481,7 +481,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      * @param singleOrNot 0=not single descriptor
      * 1=single descriptor
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -549,7 +549,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      * @param recipeFacetCode Facet code for recipes
      * @param code Descriptor code for recipes
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String recipeFacetCode,
             String code) implements ISecondaryKey<RecipeDescriptor> {
@@ -569,7 +569,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     /**
      * Placeholder @{link ViewModel} for @{link RecipeDescriptor} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

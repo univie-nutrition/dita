@@ -57,16 +57,16 @@ import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.iconfa.IconFaService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.iconfa.IconFaService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Food groups further narrowed down by subgroups and optional sub-subgroups
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.food_list.FoodSubgroup")
 @DomainObject
 @DomainObjectLayout(
@@ -433,7 +433,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     /**
      * Manager Viewmodel for @{link FoodSubgroup}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_list.FoodSubgroup.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -488,7 +488,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
      * 1= fat during cooking subgroup
      * @param shortName Short Name of the food (sub-)(sub-)group
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -564,7 +564,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
      * @param foodSubgroupCode Food sub-group code
      * @param foodSubSubgroupCode Food sub-sub-group code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String foodGroupCode,
             String foodSubgroupCode,
@@ -585,7 +585,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     /**
      * Placeholder @{link ViewModel} for @{link FoodSubgroup} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

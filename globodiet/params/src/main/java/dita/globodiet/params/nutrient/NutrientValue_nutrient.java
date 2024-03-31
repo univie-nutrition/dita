@@ -27,9 +27,9 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Property(
         snapshot = Snapshot.EXCLUDED
 )

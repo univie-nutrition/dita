@@ -378,7 +378,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenModule")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenModule")
 @Configuration
 @Import({
 

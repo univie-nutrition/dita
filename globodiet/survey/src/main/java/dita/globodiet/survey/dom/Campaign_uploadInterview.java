@@ -24,9 +24,9 @@ import java.util.Map;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.blobstore.applib.BlobDescriptor;
-import org.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
-import org.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 

@@ -55,15 +55,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Photo and its quantities
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.quantif.Photo")
 @DomainObject
 @DomainObjectLayout(
@@ -346,7 +346,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     /**
      * Manager Viewmodel for @{link Photo}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.Photo.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -398,7 +398,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
      * @param unit G = in Unit grams (mass)
      * V = in Unit milliliter (volume)
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -449,7 +449,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
      * SecondaryKey for @{link Photo}
      * @param code Photo series code (P001,P002,P003,...)
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Photo> {
         @Override
         public Class<Photo> correspondingClass() {
@@ -467,7 +467,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     /**
      * Placeholder @{link ViewModel} for @{link Photo} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

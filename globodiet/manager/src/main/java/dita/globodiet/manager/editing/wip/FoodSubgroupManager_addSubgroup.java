@@ -33,7 +33,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
 

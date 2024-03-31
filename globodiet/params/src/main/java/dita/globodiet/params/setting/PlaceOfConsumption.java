@@ -55,15 +55,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Place of Consumption
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.setting.PlaceOfConsumption")
 @DomainObject
 @DomainObjectLayout(
@@ -228,7 +228,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
     /**
      * Manager Viewmodel for @{link PlaceOfConsumption}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.setting.PlaceOfConsumption.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -275,7 +275,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
      * @param otherPlaceQ 0=not a 'Other' place
      * 1='Other' place
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -308,7 +308,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
      * SecondaryKey for @{link PlaceOfConsumption}
      * @param code Place of consumption code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<PlaceOfConsumption> {
         @Override
         public Class<PlaceOfConsumption> correspondingClass() {
@@ -326,7 +326,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
     /**
      * Placeholder @{link ViewModel} for @{link PlaceOfConsumption} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

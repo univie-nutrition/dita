@@ -3,10 +3,10 @@ package dita.globodiet.survey;
 import java.util.List;
 import java.util.function.Function;
 
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
-import org.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

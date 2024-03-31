@@ -54,15 +54,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * A survey collects one or more campaigns.
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.survey.dom.Survey")
 @DomainObject
 @DomainObjectLayout(
@@ -170,7 +170,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     /**
      * Manager Viewmodel for @{link Survey}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.survey.dom.Survey.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -215,7 +215,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      * @param code Unique (application scoped) survey identifier.
      * @param name Descriptive survey name.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -239,7 +239,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      * SecondaryKey for @{link Survey}
      * @param code Unique (application scoped) survey identifier.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Survey> {
         @Override
         public Class<Survey> correspondingClass() {
@@ -257,7 +257,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     /**
      * Placeholder @{link ViewModel} for @{link Survey} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

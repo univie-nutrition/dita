@@ -54,15 +54,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Center involved
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.interview.CenterInvolved")
 @DomainObject
 @DomainObjectLayout(
@@ -193,7 +193,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     /**
      * Manager Viewmodel for @{link CenterInvolved}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.interview.CenterInvolved.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -239,7 +239,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
      * @param attachedCountry Attached Country code
      * @param centerName Center name
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -271,7 +271,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
      * SecondaryKey for @{link CenterInvolved}
      * @param centerCode Center code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String centerCode) implements ISecondaryKey<CenterInvolved> {
         @Override
         public Class<CenterInvolved> correspondingClass() {
@@ -289,7 +289,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     /**
      * Placeholder @{link ViewModel} for @{link CenterInvolved} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

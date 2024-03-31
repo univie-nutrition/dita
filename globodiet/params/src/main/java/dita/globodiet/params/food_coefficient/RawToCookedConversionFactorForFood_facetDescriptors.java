@@ -28,9 +28,9 @@ import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.collections.Can;
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Collection
 @CollectionLayout(
         describedAs = "Facet string; multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",

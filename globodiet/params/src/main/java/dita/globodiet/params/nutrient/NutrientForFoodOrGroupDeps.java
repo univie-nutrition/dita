@@ -28,11 +28,11 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.commons.collections.Can;
-import org.causewaystuff.companion.applib.decorate.CollectionTitleDecorator;
-import org.causewaystuff.companion.applib.services.lookup.DependantLookupService;
+import io.github.causewaystuff.companion.applib.decorate.CollectionTitleDecorator;
+import io.github.causewaystuff.companion.applib.services.lookup.DependantLookupService;
 import org.springframework.context.annotation.Configuration;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenDependants")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenDependants")
 @Configuration
 public class NutrientForFoodOrGroupDeps {
     public static Can<Class<?>> mixinClasses() {

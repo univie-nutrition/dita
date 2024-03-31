@@ -47,13 +47,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Dietary supplement
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.supplement.DietarySupplement")
 @DomainObject
 @DomainObjectLayout(
@@ -223,7 +223,7 @@ public class DietarySupplement implements Cloneable<DietarySupplement> {
     /**
      * Manager Viewmodel for @{link DietarySupplement}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.supplement.DietarySupplement.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL

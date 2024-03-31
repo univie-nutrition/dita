@@ -27,7 +27,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 
 import dita.commons.types.IntRef;
-import org.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import dita.recall24.dto.IngredientDto;
 import dita.recall24.dto.InterviewDto;
 import dita.recall24.dto.InterviewSetDto;

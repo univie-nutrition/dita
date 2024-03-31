@@ -22,9 +22,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.causewaystuff.blobstore.applib.BlobDescriptor;
-import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;

@@ -47,13 +47,13 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Brandname list for mixed recipes
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.recipe_description.RecipeBrand")
 @DomainObject
 @DomainObjectLayout(
@@ -176,7 +176,7 @@ public class RecipeBrand implements Cloneable<RecipeBrand> {
     /**
      * Manager Viewmodel for @{link RecipeBrand}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_description.RecipeBrand.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL

@@ -47,14 +47,14 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Facet/descriptor pathway for recipe group/subgroup.
  * Optionally can be superseded by @{table R_RCPFAEX}.
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipeGroup")
 @DomainObject
 @DomainObjectLayout(
@@ -299,7 +299,7 @@ public class FacetDescriptorPathwayForRecipeGroup implements Cloneable<FacetDesc
     /**
      * Manager Viewmodel for @{link FacetDescriptorPathwayForRecipeGroup}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipeGroup.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL

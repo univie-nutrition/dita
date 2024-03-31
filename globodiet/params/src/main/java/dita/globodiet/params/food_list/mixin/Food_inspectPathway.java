@@ -23,7 +23,7 @@ import java.util.Objects;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 import org.springframework.lang.Nullable;
 

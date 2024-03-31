@@ -26,9 +26,9 @@ import java.util.function.Predicate;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 
 import org.springframework.stereotype.Service;
 

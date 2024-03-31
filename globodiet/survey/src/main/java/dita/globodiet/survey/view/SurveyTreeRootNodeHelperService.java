@@ -23,8 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

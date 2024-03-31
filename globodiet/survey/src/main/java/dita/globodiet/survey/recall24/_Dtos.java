@@ -31,7 +31,7 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 import org.apache.causeway.commons.collections.Can;

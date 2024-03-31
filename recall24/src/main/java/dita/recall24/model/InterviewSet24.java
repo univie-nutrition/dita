@@ -24,8 +24,8 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import org.causewaystuff.commons.base.types.internal.ObjectRef;
-import org.causewaystuff.treeview.applib.annotations.TreeSubNodes;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 import org.springframework.lang.Nullable;
 

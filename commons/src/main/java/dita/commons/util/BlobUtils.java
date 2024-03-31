@@ -22,7 +22,7 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
-import org.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 import org.springframework.lang.Nullable;
 

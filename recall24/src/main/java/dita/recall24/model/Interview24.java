@@ -21,7 +21,7 @@ package dita.recall24.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import org.causewaystuff.treeview.applib.annotations.TreeSubNodes;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 import org.apache.causeway.commons.collections.Can;
 

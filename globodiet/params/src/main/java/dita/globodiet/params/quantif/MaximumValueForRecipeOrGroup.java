@@ -47,14 +47,14 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Maximum quantity consumed that could be entered in the interview application for a given recipe
  * (or group) before the control message warns the interviewer of an implausible value.
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.quantif.MaximumValueForRecipeOrGroup")
 @DomainObject
 @DomainObjectLayout(
@@ -198,7 +198,7 @@ public class MaximumValueForRecipeOrGroup implements Cloneable<MaximumValueForRe
     /**
      * Manager Viewmodel for @{link MaximumValueForRecipeOrGroup}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.MaximumValueForRecipeOrGroup.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL

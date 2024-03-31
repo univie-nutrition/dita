@@ -23,7 +23,7 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 

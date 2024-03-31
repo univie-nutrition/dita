@@ -56,15 +56,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Thickness for shape method
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.quantif.ThicknessForShape")
 @DomainObject
 @DomainObjectLayout(
@@ -259,7 +259,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     /**
      * Manager Viewmodel for @{link ThicknessForShape}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.quantif.ThicknessForShape.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -316,7 +316,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
      * whatever the recipe classification.
      * Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -373,7 +373,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
      * SecondaryKey for @{link ThicknessForShape}
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<ThicknessForShape> {
         @Override
         public Class<ThicknessForShape> correspondingClass() {
@@ -391,7 +391,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     /**
      * Placeholder @{link ViewModel} for @{link ThicknessForShape} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

@@ -18,7 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
-import org.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 record InterviewSampler(BlobStore blobStore) {
 

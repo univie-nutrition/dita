@@ -20,8 +20,8 @@ package dita.recall24.model;
 
 import java.time.LocalTime;
 
-import org.causewaystuff.commons.base.types.internal.ObjectRef;
-import org.causewaystuff.treeview.applib.annotations.TreeSubNodes;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 import org.apache.causeway.commons.collections.Can;
 

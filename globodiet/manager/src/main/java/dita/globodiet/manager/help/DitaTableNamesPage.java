@@ -26,7 +26,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.asciidoctor.ast.Table;
-import org.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.OrmModel;
 
 import org.springframework.stereotype.Component;
 

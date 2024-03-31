@@ -54,15 +54,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Probing question
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.pathway.ProbingQuestion")
 @DomainObject
 @DomainObjectLayout(
@@ -170,7 +170,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
     /**
      * Manager Viewmodel for @{link ProbingQuestion}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.pathway.ProbingQuestion.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -215,7 +215,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
      * @param code Probing question code
      * @param label Probing question label
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -239,7 +239,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
      * SecondaryKey for @{link ProbingQuestion}
      * @param code Probing question code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<ProbingQuestion> {
         @Override
         public Class<ProbingQuestion> correspondingClass() {
@@ -257,7 +257,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
     /**
      * Placeholder @{link ViewModel} for @{link ProbingQuestion} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

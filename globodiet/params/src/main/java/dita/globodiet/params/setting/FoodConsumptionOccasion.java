@@ -55,15 +55,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Food Consumption Occasion
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.setting.FoodConsumptionOccasion")
 @DomainObject
 @DomainObjectLayout(
@@ -276,7 +276,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     /**
      * Manager Viewmodel for @{link FoodConsumptionOccasion}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.setting.FoodConsumptionOccasion.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -325,7 +325,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      * @param displayInNutrientCheckScreenQ 0=non main FCO
      * 1=main FCO (to be displayed in nutrient check screen)
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -374,7 +374,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      * SecondaryKey for @{link FoodConsumptionOccasion}
      * @param code Food Consumption Occasion code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String code) implements ISecondaryKey<FoodConsumptionOccasion> {
         @Override
@@ -393,7 +393,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     /**
      * Placeholder @{link ViewModel} for @{link FoodConsumptionOccasion} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

@@ -54,10 +54,10 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Mixed (a priory) Recipe (not an on-the-fly one):
@@ -80,7 +80,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
  * When entering the recipe ingredients with RECIPE MANAGER,
  * the ingredients are described and quantified like in the food pathway.
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.recipe_list.Recipe")
 @DomainObject
 @DomainObjectLayout(
@@ -559,7 +559,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     /**
      * Manager Viewmodel for @{link Recipe}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_list.Recipe.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -641,7 +641,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      * 3=to be completed (disabled for interviews)
      * 4=empty (disabled for interviews)
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -733,7 +733,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      * SecondaryKey for @{link Recipe}
      * @param code Recipe ID number
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<Recipe> {
         @Override
         public Class<Recipe> correspondingClass() {
@@ -751,7 +751,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     /**
      * Placeholder @{link ViewModel} for @{link Recipe} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

@@ -18,8 +18,8 @@
  */
 package dita.globodiet.survey.dom;
 
-import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 import org.apache.causeway.commons.internal.base._Strings;
 

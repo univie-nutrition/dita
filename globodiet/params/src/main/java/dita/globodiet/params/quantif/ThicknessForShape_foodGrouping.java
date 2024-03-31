@@ -28,9 +28,9 @@ import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.collections.Can;
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Collection
 @CollectionLayout(
         describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"

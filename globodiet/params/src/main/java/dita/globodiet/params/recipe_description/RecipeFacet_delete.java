@@ -30,11 +30,11 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.DependantLookupService;
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.DependantLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
-@Generated("org.causewaystuff.companion.codegen.domgen._GenDeleteMixin")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenDeleteMixin")
 @Action(
         semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
 )

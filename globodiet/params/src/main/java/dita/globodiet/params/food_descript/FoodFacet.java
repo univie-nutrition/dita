@@ -55,15 +55,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Facet describing food (not recipe)
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.food_descript.FoodFacet")
 @DomainObject
 @DomainObjectLayout(
@@ -374,7 +374,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     /**
      * Manager Viewmodel for @{link FoodFacet}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.food_descript.FoodFacet.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -430,7 +430,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
      * Comma is used as delimiter (e.g. 10,050701,050702)
      * @param labelOnHowToAskTheFacetQuestion Label on how to ask the facet question
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -499,7 +499,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
      * SecondaryKey for @{link FoodFacet}
      * @param code Facet code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<FoodFacet> {
         @Override
         public Class<FoodFacet> correspondingClass() {
@@ -517,7 +517,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     /**
      * Placeholder @{link ViewModel} for @{link FoodFacet} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

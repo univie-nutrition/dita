@@ -54,17 +54,17 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * A  campaign defines a part of a food consumption survey that contains several interviews.
  * Campaigns can be defined to be the whole study,
  * a seasonal part of a study, a regional part of a study etc.
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.survey.dom.Campaign")
 @DomainObject
 @DomainObjectLayout(
@@ -223,7 +223,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     /**
      * Manager Viewmodel for @{link Campaign}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.survey.dom.Campaign.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -272,7 +272,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
      * @param name Descriptive campaign name.
      * @param description Detailed information for this campaign.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -314,7 +314,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
      * @param surveyCode Survey code
      * @param code Unique (survey scoped) campaign identifier.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
             String code) implements ISecondaryKey<Campaign> {
@@ -334,7 +334,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     /**
      * Placeholder @{link ViewModel} for @{link Campaign} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

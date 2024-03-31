@@ -26,7 +26,7 @@ import jakarta.inject.Inject;
 
 import com.google.common.collect.ImmutableCollection;
 
-import org.causewaystuff.companion.applib.services.lookup.DependantLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.DependantLookupService;
 
 import org.springframework.stereotype.Service;
 

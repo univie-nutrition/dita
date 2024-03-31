@@ -18,7 +18,7 @@
  */
 package dita.globodiet.survey.dom;
 
-import org.causewaystuff.blobstore.applib.BlobDescriptor;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.PropertyLayout;

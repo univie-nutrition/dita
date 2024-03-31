@@ -18,8 +18,8 @@
  */
 package dita.globodiet.survey.recall24;
 
-import org.causewaystuff.treeview.applib.factories.TreeNodeFactory;
-import org.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
+import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
+import io.github.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

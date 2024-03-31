@@ -55,15 +55,15 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import org.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Recipe group
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.recipe_list.RecipeGroup")
 @DomainObject
 @DomainObjectLayout(
@@ -196,7 +196,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     /**
      * Manager Viewmodel for @{link RecipeGroup}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.recipe_list.RecipeGroup.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
@@ -243,7 +243,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
      * @param name Name of the Recipe group
      * @param shortName Short Name of the Recipe group
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Params")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
@@ -275,7 +275,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
      * SecondaryKey for @{link RecipeGroup}
      * @param code Recipe Group code
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(String code) implements ISecondaryKey<RecipeGroup> {
         @Override
         public Class<RecipeGroup> correspondingClass() {
@@ -293,7 +293,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     /**
      * Placeholder @{link ViewModel} for @{link RecipeGroup} in case of an unresolvable secondary key.
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )

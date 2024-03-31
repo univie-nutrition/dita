@@ -20,8 +20,8 @@ package dita.globodiet.survey.recall24;
 
 import jakarta.inject.Inject;
 
-import org.causewaystuff.blobstore.applib.BlobStore;
-import org.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;

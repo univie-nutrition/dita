@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-import org.causewaystuff.commons.base.types.ResourceFolder;
-import org.causewaystuff.companion.codegen.domgen.DomainGenerator;
-import org.causewaystuff.companion.codegen.domgen.LicenseHeader;
-import org.causewaystuff.companion.codegen.model.OrmModel;
-import org.causewaystuff.companion.codegen.structgen.ObjectGraphRendererStructurizr;
+import io.github.causewaystuff.commons.base.types.ResourceFolder;
+import io.github.causewaystuff.companion.codegen.domgen.DomainGenerator;
+import io.github.causewaystuff.companion.codegen.domgen.LicenseHeader;
+import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.structgen.ObjectGraphRendererStructurizr;
 
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.commons.collections.Can;

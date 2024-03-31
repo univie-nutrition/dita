@@ -34,7 +34,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.RequiredArgsConstructor;
 
-import org.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.params.quantif.Photo;
 import dita.globodiet.params.quantif.Shape;

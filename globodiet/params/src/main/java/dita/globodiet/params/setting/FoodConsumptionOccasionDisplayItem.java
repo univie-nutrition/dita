@@ -47,8 +47,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import org.causewaystuff.companion.applib.services.lookup.Cloneable;
-import org.causewaystuff.companion.applib.services.search.SearchService;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * List of foods often eaten at each food consumption occasion.
@@ -56,7 +56,7 @@ import org.causewaystuff.companion.applib.services.search.SearchService;
  * or a help to the interviewer when a food consumption occasion (FCO) is proposed
  * (before choosing a FCO and after filling in a FCO quick list).
  */
-@Generated("org.causewaystuff.companion.codegen.domgen._GenEntity")
+@Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.params.setting.FoodConsumptionOccasionDisplayItem")
 @DomainObject
 @DomainObjectLayout(
@@ -158,7 +158,7 @@ public class FoodConsumptionOccasionDisplayItem implements Cloneable<FoodConsump
     /**
      * Manager Viewmodel for @{link FoodConsumptionOccasionDisplayItem}
      */
-    @Generated("org.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
+    @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
     @Named("dita.globodiet.params.setting.FoodConsumptionOccasionDisplayItem.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
