@@ -113,11 +113,6 @@ additional
             <artifactId>causeway-testing-integtestsupport-applib</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.causeway.persistence</groupId>
-            <artifactId>causeway-persistence-jdo-datanucleus</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>io.github.causewaystuff</groupId>
