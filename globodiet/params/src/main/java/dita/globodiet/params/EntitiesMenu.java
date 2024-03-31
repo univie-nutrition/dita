@@ -90,6 +90,7 @@ import dita.globodiet.params.supplement.DietarySupplement;
 import dita.globodiet.params.supplement.DietarySupplementClassification;
 import dita.globodiet.params.supplement.DietarySupplementDescriptor;
 import dita.globodiet.params.supplement.DietarySupplementFacet;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import javax.annotation.processing.Generated;
@@ -97,7 +98,6 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenMenu")
 @Named("dita.globodiet.params.EntitiesMenu")

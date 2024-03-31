@@ -20,6 +20,7 @@
 package dita.globodiet.params.quantif;
 
 import dita.globodiet.params.food_list.Food;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import jakarta.inject.Inject;
 import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,6 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Property(

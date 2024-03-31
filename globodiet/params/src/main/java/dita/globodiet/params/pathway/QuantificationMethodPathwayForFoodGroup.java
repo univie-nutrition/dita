@@ -23,6 +23,10 @@ import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
 import dita.globodiet.params.quantif.Photo;
+import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.lang.Class;
@@ -59,10 +63,6 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
-import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 /**
  * Quantification method pathway for food group/subgroup.

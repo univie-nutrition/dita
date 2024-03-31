@@ -20,6 +20,7 @@
 package dita.globodiet.params.recipe_list;
 
 import dita.globodiet.params.food_descript.FoodDescriptor;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import jakarta.inject.Inject;
 import javax.annotation.processing.Generated;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,6 @@ import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.collections.Can;
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Collection

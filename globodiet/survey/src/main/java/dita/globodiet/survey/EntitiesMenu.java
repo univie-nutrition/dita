@@ -21,6 +21,7 @@ package dita.globodiet.survey;
 
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Survey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import javax.annotation.processing.Generated;
@@ -28,7 +29,6 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.DomainService;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenMenu")
 @Named("dita.globodiet.survey.EntitiesMenu")

@@ -21,6 +21,7 @@ package dita.globodiet.params.pathway;
 
 import dita.globodiet.params.quantif.Photo;
 import dita.globodiet.params.quantif.Shape;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import jakarta.inject.Inject;
 import java.lang.Object;
 import javax.annotation.processing.Generated;
@@ -31,7 +32,6 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenAssociationMixin")
 @Property(

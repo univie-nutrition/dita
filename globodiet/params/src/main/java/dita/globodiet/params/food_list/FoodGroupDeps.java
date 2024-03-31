@@ -49,6 +49,8 @@ import dita.globodiet.params.recipe_list.RecipeIngredient;
 import dita.globodiet.params.recipe_list.RecipeIngredient_foodOrRecipeGroup;
 import dita.globodiet.params.setting.GroupSubstitution;
 import dita.globodiet.params.setting.GroupSubstitution_foodGroup;
+import io.github.causewaystuff.companion.applib.decorate.CollectionTitleDecorator;
+import io.github.causewaystuff.companion.applib.services.lookup.DependantLookupService;
 import jakarta.inject.Inject;
 import java.lang.Class;
 import java.util.List;
@@ -58,8 +60,6 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.commons.collections.Can;
-import io.github.causewaystuff.companion.applib.decorate.CollectionTitleDecorator;
-import io.github.causewaystuff.companion.applib.services.lookup.DependantLookupService;
 import org.springframework.context.annotation.Configuration;
 
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenDependants")
