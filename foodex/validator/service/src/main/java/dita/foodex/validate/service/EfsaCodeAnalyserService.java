@@ -18,8 +18,8 @@
  */
 package dita.foodex.validate.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import jakarta.annotation.PostConstruct;
 
@@ -28,13 +28,14 @@ import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.Builder;
-import lombok.val;
 import lombok.extern.slf4j.Slf4j;
-import utilities.GlobalUtil;
+
+import main.ICT;
 
 @Service
 @Slf4j
@@ -54,18 +55,12 @@ public class EfsaCodeAnalyserService {
         }
 
         protected String validate(final String fullCode) {
+            var warnings = new ArrayList<ValidationResult>();
+            super.performWarningChecks(fullCode, true, warnings::add);
 
-            val defaultOut = System.out;
-            val buffer = new ByteArrayOutputStream(16*1024); // 16k
-
-            try(PrintStream out = new PrintStream(buffer)){
-                System.setOut(out); // redirect standard output to the buffer
-                super.performWarningChecks(fullCode, true, true);
-            } finally {
-                System.setOut(defaultOut);
-            }
-
-            return new String(buffer.toByteArray());
+            return warnings.stream()
+                    .map(ValidationResult::format)
+                    .collect(Collectors.joining("|"));
         }
 
     }
@@ -92,7 +87,8 @@ public class EfsaCodeAnalyserService {
 
     public void init(final Options options) {
         // set the working directory to find files
-        GlobalUtil.setWorkingDirectory(options.getWorkingDir());
+        var workDir = options.getWorkingDir() + System.getProperty("file.separator");
+        System.setProperty("user.dir", workDir);
         try {
             validator = new Validator(options);
         } catch (Exception e) {

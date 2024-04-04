@@ -150,6 +150,11 @@ additional
 
             <dependency>
                 <groupId>at.ac.univie.nutrition.dita</groupId>
+                <artifactId>dita-foodex-catalogue</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>at.ac.univie.nutrition.dita</groupId>
                 <artifactId>dita-foodex-validator-api</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
@@ -295,7 +300,7 @@ additional
                 <artifactId>causewaystuff-blobstore-localfs</artifactId>
                 <version>${causewaystuff.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>io.github.causewaystuff</groupId>
                 <artifactId>causewaystuff-treeview-applib</artifactId>

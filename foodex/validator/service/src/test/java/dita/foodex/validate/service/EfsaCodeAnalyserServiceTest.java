@@ -19,15 +19,15 @@
 package dita.foodex.validate.service;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dita.foodex.validate.service.EfsaCodeAnalyserService.Options;
 import lombok.val;
 
-@Disabled("needs test resources")
+import dita.foodex.validate.service.EfsaCodeAnalyserService.Options;
+
+//@Disabled("needs test resources")
 class EfsaCodeAnalyserServiceTest {
 
     private static EfsaCodeAnalyserService analyser;
@@ -38,10 +38,10 @@ class EfsaCodeAnalyserServiceTest {
         EfsaCodeAnalyserService.consoleLoggerOnly();
 
         //GlobalUtil is a mess with its static initializers
-        System.setProperty("workingDir", "N:\\dev\\efsa-catalogue-browser-1.2.5\\app");
+        System.setProperty("workingDir", "N:\\dev\\EFSA-catalogues-browser-onlyapp-win-64bit");
 
         val options = Options.builder()
-                .workingDir("N:\\dev\\efsa-catalogue-browser-1.2.5\\app")
+                .workingDir("N:\\dev\\EFSA-catalogues-browser-onlyapp-win-64bit")
                 .build();
 
         analyser = new EfsaCodeAnalyserService();
@@ -57,7 +57,8 @@ class EfsaCodeAnalyserServiceTest {
     @Test
     void expectsWarning() {
         val validation = analyser.validate("A01SP#F04.A0EZM$F22.A07SS$F28.A07HS");
-        assertEquals("Is it a minor ingredient? Please check!(A0EZM) ;LOW;LOW|", validation);
+        assertEquals("BR12> The F04 ingredient facet can only be used as a minor ingredient "
+                + "to derivative or raw primary commodity terms.(A0EZM) ;LOW;LOW", validation);
     }
 
 }

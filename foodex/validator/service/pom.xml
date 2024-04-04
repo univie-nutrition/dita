@@ -27,8 +27,8 @@
 	</description>
 
 	<properties>
+        <maven.compiler.release>17</maven.compiler.release>
 		<jar-plugin.automaticModuleName>at.ac.univie.nutrition.dita.foodex.validator.service</jar-plugin.automaticModuleName>
-		<git-plugin.propertiesDir>at/ac/univie/nutrition/dita/foodex/validator.service</git-plugin.propertiesDir>
 	</properties>
 	
 	<build>
@@ -50,18 +50,25 @@
 			<artifactId>dita-foodex-validator-api</artifactId>
 		</dependency>
 		
+		<!-- internal project -->
 		<dependency>
-			<!-- jitpack build -->
-		    <groupId>com.github.OpenNutritionScience</groupId>
-		    <artifactId>openefsa-catalogue-browser</artifactId>
-			<version>1.2.5.1-rc.9</version> <!-- was used for austrian nutrition report 2017 -->
-			<exclusions>
-				<exclusion>
-					<groupId>org.kermeta.eclipse</groupId>
-					<artifactId>org.eclipse.jface</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+            <groupId>at.ac.univie.nutrition.foodex2</groupId>
+            <artifactId>foodex2-ict</artifactId>    
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        
+        <!-- jitpack build -->
+<!-- 		<dependency>-->
+<!--		    <groupId>com.github.OpenNutritionScience</groupId>-->
+<!--		    <artifactId>openefsa-catalogue-browser</artifactId>-->
+<!--			<version>1.2.5.1-rc.9</version>  was used for austrian nutrition report 2017 -->
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.kermeta.eclipse</groupId>-->
+<!--					<artifactId>org.eclipse.jface</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+<!--		</dependency>-->
 
 		<!-- REST BACKEND -->
 				
