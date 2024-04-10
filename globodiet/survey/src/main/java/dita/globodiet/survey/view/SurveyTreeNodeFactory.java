@@ -31,6 +31,7 @@ import lombok.val;
 import dita.globodiet.survey.dom.Campaign;
 import dita.recall24.model.Interview24;
 import dita.recall24.model.InterviewSet24;
+import dita.recall24.model.Meal24;
 import dita.recall24.model.Respondent24;
 
 public record SurveyTreeNodeFactory(TreePath parent) {
@@ -77,7 +78,21 @@ public record SurveyTreeNodeFactory(TreePath parent) {
                 interview.interviewOrdinal(),
                 interview.interviewDate());
         AsciiDoc content = adoc(title, "Details", interview);
-        return new SurveyTreeNode(title, "solid person-circle-question", content, parent.append(ordinal), Can.empty());
+
+        var treePath = parent.append(ordinal);
+        var mealNodes = interview.meals().map(IndexedFunction.zeroBased(
+                new SurveyTreeNodeFactory(treePath)::mealNode));
+
+        return new SurveyTreeNode(title, "solid person-circle-question", content, parent.append(ordinal), mealNodes);
+    }
+
+    public SurveyTreeNode mealNode(final int ordinal, final Meal24 meal) {
+        String title = String.format("Meal at %s",
+                meal.hourOfDay());
+        AsciiDoc content = adoc(title, "Details", meal);
+        return new SurveyTreeNode(title,
+                "solid mug-hot, regular clock .ov-size-80 .ov-right-55 .ov-bottom-55",
+                content, parent.append(ordinal), Can.empty());
     }
 
     private static AsciiDoc adoc(
