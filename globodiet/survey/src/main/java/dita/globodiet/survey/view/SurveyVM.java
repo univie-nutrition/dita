@@ -59,6 +59,14 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
 
     public final static String PATH_DELIMITER = ".";
 
+    // -- FACTORIES
+
+    public static SurveyVM forRoot(final Campaign.SecondaryKey campaignSecondaryKey, final SurveyTreeNode rootNode) {
+        return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, TreePath.root()), rootNode, rootNode);
+    }
+
+    // -- RECONSTRUCTION
+
     private record ViewModelMemento(
             Campaign.SecondaryKey campaignSecondaryKey,
             TreePath treePath) {
@@ -86,12 +94,16 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
         }
     }
 
+    @Override
+    public String viewModelMemento() {
+        _Assert.assertEquals(activeNode().path().stringify(PATH_DELIMITER), viewModelMemento.treePath().stringify(PATH_DELIMITER));
+        return viewModelMemento.stringify();
+    }
+
+    // -- CONSTRUCTION
+
     @Getter @Programmatic
     private final ViewModelMemento viewModelMemento;
-
-    public static SurveyVM forRoot(final Campaign.SecondaryKey campaignSecondaryKey, final SurveyTreeNode rootNode) {
-        return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, TreePath.root()), rootNode, rootNode);
-    }
 
     @Inject
     public SurveyVM(
@@ -104,7 +116,7 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
             final ViewModelMemento viewModelMemento) {
         this(viewModelMemento, helper.root(viewModelMemento.campaignSecondaryKey()));
     }
-    
+
     SurveyVM(final ViewModelMemento viewModelMemento, final SurveyTreeNode rootNode) {
         this(viewModelMemento, rootNode, SurveyTreeNode
                 .lookup(rootNode, viewModelMemento.treePath())
@@ -115,12 +127,14 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
     }
 
     SurveyVM(
-            final ViewModelMemento viewModelMemento, 
-            final SurveyTreeNode rootNode, 
+            final ViewModelMemento viewModelMemento,
+            final SurveyTreeNode rootNode,
             final SurveyTreeNode activeNode) {
         super(SurveyTreeNode.class, rootNode, activeNode, activeNode.path());
         this.viewModelMemento = viewModelMemento;
     }
+
+    // -- OBJECT SUPPORT & PROPERTIES
 
     @ObjectSupport public String title() {
         return activeNode().title();
@@ -128,12 +142,6 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
 
     @ObjectSupport public FontAwesomeLayers iconFaLayers() {
         return activeNode().faLayers();
-    }
-
-    @Override
-    public String viewModelMemento() {
-        _Assert.assertEquals(activeNode().path().stringify(PATH_DELIMITER), viewModelMemento.treePath().stringify(PATH_DELIMITER));
-        return viewModelMemento.stringify();
     }
 
     @Property
@@ -149,21 +157,21 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
     @Getter(lazy = true)
     private final AsciiDoc content = activeNode().content();
 
+    // -- TREENODE-VM STUFF
+
     @Override
-    protected SurveyVM getViewModel(SurveyTreeNode node, SurveyVM parentNode, int siblingIndex) {
+    protected SurveyVM getViewModel(final SurveyTreeNode node, final SurveyVM parentNode, final int siblingIndex) {
         return node.path().isRoot()
                 ? SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode())
-                : new SurveyVM(new ViewModelMemento(viewModelMemento.campaignSecondaryKey(), node.path()), 
+                : new SurveyVM(new ViewModelMemento(viewModelMemento.campaignSecondaryKey(), node.path()),
                         rootNode(), node);
     }
 
     public static class SurveyTreeAdapter implements TreeAdapter<SurveyTreeNode> {
-        @Override
-        public int childCountOf(final SurveyTreeNode node) {
+        @Override public int childCountOf(final SurveyTreeNode node) {
             return node.children().size();
         }
-        @Override
-        public Stream<SurveyTreeNode> childrenOf(final SurveyTreeNode node) {
+        @Override public Stream<SurveyTreeNode> childrenOf(final SurveyTreeNode node) {
             return node.children().stream();
         }
     }
