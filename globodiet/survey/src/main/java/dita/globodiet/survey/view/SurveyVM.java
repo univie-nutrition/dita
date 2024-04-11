@@ -43,10 +43,17 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j2;
 
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import dita.globodiet.survey.dom.Campaign;
+import dita.recall24.model.Ingredient24;
+import dita.recall24.model.Interview24;
+import dita.recall24.model.InterviewSet24;
+import dita.recall24.model.Meal24;
+import dita.recall24.model.MemorizedFood24;
+import dita.recall24.model.Node24;
+import dita.recall24.model.Record24;
+import dita.recall24.model.Respondent24;
 import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
 
 @Named(DitaModuleGdSurvey.NAMESPACE + ".SurveyViewModel")
@@ -54,15 +61,24 @@ import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
         nature=Nature.VIEW_MODEL)
 @DomainObjectLayout(
         named = "Survey Introspection")
-@Log4j2
-public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
+//@Log4j2
+public class SurveyVM extends TreeNodeVm<Node24, SurveyVM> {
 
     public final static String PATH_DELIMITER = ".";
 
     // -- FACTORIES
 
-    public static SurveyVM forRoot(final Campaign.SecondaryKey campaignSecondaryKey, final SurveyTreeNode rootNode) {
-        return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, TreePath.root()), rootNode, rootNode);
+    public static SurveyVM forRoot(
+            final Campaign.SecondaryKey campaignSecondaryKey,
+            final Node24 rootNode) {
+        return forTreePath(campaignSecondaryKey, rootNode, TreePath.root());
+    }
+
+    public static SurveyVM forTreePath(
+            final Campaign.SecondaryKey campaignSecondaryKey,
+            final Node24 rootNode,
+            final TreePath treePath) {
+        return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, treePath), rootNode);
     }
 
     // -- RECONSTRUCTION
@@ -96,7 +112,7 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
 
     @Override
     public String viewModelMemento() {
-        _Assert.assertEquals(activeNode().path().stringify(PATH_DELIMITER), viewModelMemento.treePath().stringify(PATH_DELIMITER));
+        _Assert.assertEquals(activeTreePath().stringify(PATH_DELIMITER), viewModelMemento.treePath().stringify(PATH_DELIMITER));
         return viewModelMemento.stringify();
     }
 
@@ -107,77 +123,125 @@ public class SurveyVM extends TreeNodeVm<SurveyTreeNode, SurveyVM> {
 
     @Inject
     public SurveyVM(
-            final SurveyTreeRootNodeHelperService helper,
+            final SurveyTreeHelperService helper,
             final String viewModelMementoString) {
         this(helper, ViewModelMemento.parse(viewModelMementoString));
     }
 
-    SurveyVM(final SurveyTreeRootNodeHelperService helper,
+    SurveyVM(
+            final SurveyTreeHelperService helper,
             final ViewModelMemento viewModelMemento) {
         this(viewModelMemento, helper.root(viewModelMemento.campaignSecondaryKey()));
     }
 
-    SurveyVM(final ViewModelMemento viewModelMemento, final SurveyTreeNode rootNode) {
-        this(viewModelMemento, rootNode, SurveyTreeNode
-                .lookup(rootNode, viewModelMemento.treePath())
-                .orElseGet(()->{
-                    log.warn("could not resolve survey node {}", viewModelMemento.treePath());
-                    return rootNode;
-                }));
+    SurveyVM(final ViewModelMemento viewModelMemento, final Node24 rootNode) {
+        this(viewModelMemento, rootNode, viewModelMemento.treePath());
     }
 
     SurveyVM(
             final ViewModelMemento viewModelMemento,
-            final SurveyTreeNode rootNode,
-            final SurveyTreeNode activeNode) {
-        super(SurveyTreeNode.class, rootNode, activeNode, activeNode.path());
+            final Node24 rootNode,
+            final TreePath treePath) {
+        super(Node24.class, rootNode, treePath);
         this.viewModelMemento = viewModelMemento;
     }
 
     // -- OBJECT SUPPORT & PROPERTIES
 
+    @Property
+    @PropertyLayout(navigable=Navigable.PARENT, hidden=Where.EVERYWHERE)
+    public Object getParent() {
+        return Optional.ofNullable(activeTreePath().getParentIfAny())
+                .<Object>map(parentPath->new SurveyVM(viewModelMemento.parent(), rootNode()))
+                .orElseGet(this::getCampaign);
+    }
+
+    @PropertyLayout(hidden=Where.EVERYWHERE)
+    @Getter(lazy = true)
+    private final Campaign campaign = SurveyTreeHelperService.instance()
+        .campaign(viewModelMemento.campaignSecondaryKey());
+
     @ObjectSupport public String title() {
-        return activeNode().title();
+        var node = activeNode();
+        return switch (node) {
+        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
+        case Respondent24 respondent -> SurveyTreeNodeContentFactory.title(respondent);
+        case Interview24 interview -> SurveyTreeNodeContentFactory.title(interview);
+        case Meal24 meal -> SurveyTreeNodeContentFactory.title(meal);
+        case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.title(mem);
+        case Record24 rec -> SurveyTreeNodeContentFactory.title(rec);
+        case Ingredient24 ingr -> SurveyTreeNodeContentFactory.title(ingr);
+        };
     }
 
     @ObjectSupport public FontAwesomeLayers iconFaLayers() {
-        return activeNode().faLayers();
-    }
-
-    @Property
-    @PropertyLayout(navigable=Navigable.PARENT, hidden=Where.EVERYWHERE, fieldSetId = "detail", sequence = "1")
-    public SurveyVM getParent() {
-        return Optional.ofNullable(activeNode().path().getParentIfAny())
-                .map(parentPath->new SurveyVM(viewModelMemento.parent(), rootNode()))
-                .orElse(null);
+        var node = activeNode();
+        return FontAwesomeLayers.fromQuickNotation(
+            switch (node) {
+            case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
+            case Respondent24 respondent -> SurveyTreeNodeContentFactory.icon(respondent);
+            case Interview24 interview -> SurveyTreeNodeContentFactory.icon(interview);
+            case Meal24 meal -> SurveyTreeNodeContentFactory.icon(meal);
+            case MemorizedFood24 mem -> "regular lightbulb";
+            case Record24 rec -> "regular file-lines";
+            case Ingredient24 ingr -> "solid plate-wheat";
+            });
     }
 
     @Property
     @PropertyLayout(labelPosition = LabelPosition.NONE, fieldSetId = "detail", sequence = "2")
-    @Getter(lazy = true)
-    private final AsciiDoc content = activeNode().content();
+    public AsciiDoc getContent() {
+        var node = activeNode();
+        return switch (node) {
+        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
+        case Respondent24 respondent -> SurveyTreeNodeContentFactory.content(respondent);
+        case Interview24 interview -> SurveyTreeNodeContentFactory.content(interview);
+        case Meal24 meal -> SurveyTreeNodeContentFactory.content(meal);
+        case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.content(mem);
+        case Record24 rec -> SurveyTreeNodeContentFactory.content(rec);
+        case Ingredient24 ingr -> SurveyTreeNodeContentFactory.content(ingr);
+        };
+    }
 
     // -- TREENODE-VM STUFF
 
     @Override
-    protected SurveyVM getViewModel(final SurveyTreeNode node, final SurveyVM parentNode, final int siblingIndex) {
-        return node.path().isRoot()
+    protected SurveyVM getViewModel(final Node24 node, final SurveyVM parentNode, final int siblingIndex) {
+        return node instanceof InterviewSet24
                 ? SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode())
-                : new SurveyVM(new ViewModelMemento(viewModelMemento.campaignSecondaryKey(), node.path()),
-                        rootNode(), node);
+                : SurveyVM.forTreePath(viewModelMemento.campaignSecondaryKey(), rootNode(),
+                        parentNode.activeTreePath().append(siblingIndex));
     }
 
-    public static class SurveyTreeAdapter implements TreeAdapter<SurveyTreeNode> {
-        @Override public int childCountOf(final SurveyTreeNode node) {
-            return node.children().size();
+    public static class SurveyTreeAdapter implements TreeAdapter<Node24> {
+        @Override public int childCountOf(final Node24 node) {
+            return switch (node) {
+            case InterviewSet24 interviewSet -> interviewSet.respondents().size()
+                + interviewSet.interviews().size();
+            case Respondent24 respondent -> 0;
+            case Interview24 interview -> interview.meals().size();
+            case Meal24 meal -> meal.memorizedFood().size();
+            case MemorizedFood24 mem -> mem.records().size();
+            case Record24 rec -> rec.ingredients().size();
+            case Ingredient24 ingr -> 0;
+            };
         }
-        @Override public Stream<SurveyTreeNode> childrenOf(final SurveyTreeNode node) {
-            return node.children().stream();
+        @Override public Stream<Node24> childrenOf(final Node24 node) {
+            return switch (node) {
+            case InterviewSet24 interviewSet -> Stream.concat(interviewSet.respondents().stream(),
+                interviewSet.interviews().stream());
+            case Respondent24 respondent -> Stream.empty();
+            case Interview24 interview -> interview.meals().stream().map(Node24.class::cast);
+            case Meal24 meal -> meal.memorizedFood().stream().map(Node24.class::cast);
+            case MemorizedFood24 mem -> mem.records().stream().map(Node24.class::cast);
+            case Record24 rec -> rec.ingredients().stream().map(Node24.class::cast);
+            case Ingredient24 ingr -> Stream.empty();
+            };
         }
     }
 
     @Override
-    protected TreeAdapter<SurveyTreeNode> getTreeAdapter() {
+    protected TreeAdapter<Node24> getTreeAdapter() {
         return new SurveyTreeAdapter();
     }
 

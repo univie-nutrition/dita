@@ -45,7 +45,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
 
 import dita.commons.util.BlobUtils;
-import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
+import dita.globodiet.survey.view.SurveyTreeHelperService;
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT
@@ -61,7 +61,7 @@ import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
 public class Campaign_uploadInterview {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
-    @Inject private SurveyTreeRootNodeHelperService surveyTreeRootNodeHelperService;
+    @Inject private SurveyTreeHelperService surveyTreeRootNodeHelperService;
 
     //private InterviewXmlParser parser = new InterviewXmlParser();
 

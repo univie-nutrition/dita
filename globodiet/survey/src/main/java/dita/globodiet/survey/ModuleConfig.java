@@ -31,14 +31,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import dita.globodiet.survey.dom.Survey;
-import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
+import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
 
 @Configuration
 @Import({
     SurveyVM.class,
     BlobStoreFactory.class,
-    SurveyTreeRootNodeHelperService.class,
+    SurveyTreeHelperService.class,
 })
 @EnableConfigurationProperties({ModuleConfig.SurveyConfiguration.class})
 @ComponentScan(basePackageClasses = Survey.class)

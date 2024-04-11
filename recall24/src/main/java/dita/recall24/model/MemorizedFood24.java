@@ -18,10 +18,10 @@
  */
 package dita.recall24.model;
 
+import org.apache.causeway.commons.collections.Can;
+
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
-
-import org.apache.causeway.commons.collections.Can;
 
 public record MemorizedFood24(
         /**
@@ -40,7 +40,7 @@ public record MemorizedFood24(
         @TreeSubNodes
         Can<Record24> records
 
-        ) implements dita.recall24.api.MemorizedFood24 {
+        ) implements dita.recall24.api.MemorizedFood24, Node24 {
 
     public static MemorizedFood24 of(
             /**

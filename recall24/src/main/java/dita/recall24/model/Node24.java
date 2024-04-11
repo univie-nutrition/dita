@@ -20,9 +20,11 @@ package dita.recall24.model;
 
 public sealed interface Node24
 permits
+    InterviewSet24,
     Respondent24,
     Interview24,
     Meal24,
+    MemorizedFood24,
     Record24,
     Ingredient24 {
 }

@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.survey.view.SurveyTreeRootNodeHelperService;
+import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
 
 @Action
@@ -45,7 +45,7 @@ import dita.globodiet.survey.view.SurveyVM;
 public class Campaign_inspectInterviews {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
-    @Inject private SurveyTreeRootNodeHelperService surveyTreeRootNodeHelperService;
+    @Inject private SurveyTreeHelperService surveyTreeRootNodeHelperService;
 
     final Campaign mixee;
 

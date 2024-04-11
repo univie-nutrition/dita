@@ -18,17 +18,14 @@
  */
 package dita.globodiet.survey.dom;
 
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.NamedPath;
-
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
 
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.globodiet.survey.view.SurveyTreeNode;
-import dita.globodiet.survey.view.SurveyTreeNodeFactory;
 import dita.recall24.model.InterviewSet24;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @UtilityClass
 public class Campaigns {
@@ -43,18 +40,13 @@ public class Campaigns {
                 .add(NamedPath.of(campaign.getCode().toLowerCase()));
     }
 
-    public SurveyTreeNode surveyTreeRootNode(final Campaign campaign, final BlobStore surveyBlobStore) {
-
-        if(surveyBlobStore==null) {
-            return SurveyTreeNodeFactory.emptyNode();
-        }
-
+    public InterviewSet24 interviewSet(final Campaign campaign, final BlobStore surveyBlobStore) {
+        if(surveyBlobStore==null) return InterviewSet24.empty();
         return InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
             .map(InterviewUtils::parse)
             .reduce(InterviewSet24::join)
             .map(InterviewSet24::normalized)
-            .map(ivSet24->SurveyTreeNodeFactory.surveyNode(ivSet24, campaign))
-            .orElseGet(SurveyTreeNodeFactory::emptyNode);
+            .orElseGet(InterviewSet24::empty);
     }
 
 }

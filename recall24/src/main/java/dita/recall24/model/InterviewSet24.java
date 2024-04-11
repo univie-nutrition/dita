@@ -24,9 +24,6 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
-
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
@@ -35,6 +32,9 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
 
 import lombok.val;
+
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
@@ -55,7 +55,7 @@ public record InterviewSet24(
 
         ObjectRef<InterviewSet24.Helper> helperRef
 
-        ) implements dita.recall24.api.InterviewSet24 {
+        ) implements dita.recall24.api.InterviewSet24, Node24 {
 
     private static record Helper(
         Map<String, Respondent24> respondentsByAlias,
@@ -82,6 +82,10 @@ public record InterviewSet24(
             final Can<Interview24> interviews) {
         return new InterviewSet24(respondents, interviews,
                 ObjectRef.of(Helper.create(respondents, interviews)));
+    }
+
+    public static InterviewSet24 empty() {
+        return of(Can.empty(), Can.empty());
     }
 
     @Override

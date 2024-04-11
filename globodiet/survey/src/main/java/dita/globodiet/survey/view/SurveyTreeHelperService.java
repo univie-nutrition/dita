@@ -23,31 +23,43 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.core.metamodel.context.MetaModelContext;
+
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.recall24.model.InterviewSet24;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Service
-public class SurveyTreeRootNodeHelperService {
+public class SurveyTreeHelperService {
 
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
-    private final Map<Campaign.SecondaryKey, SurveyTreeNode> cache = new ConcurrentHashMap<>();
+    private final Map<Campaign.SecondaryKey, InterviewSet24> cache = new ConcurrentHashMap<>();
 
-    public SurveyTreeNode root(final Campaign.SecondaryKey campaignSecondaryKey) {
+    public Campaign campaign(final Campaign.SecondaryKey campaignSecondaryKey) {
         var campaign = foreignKeyLookupService.unique(campaignSecondaryKey);
+        return campaign;
+    }
+
+    public InterviewSet24 root(final Campaign.SecondaryKey campaignSecondaryKey) {
         return cache.computeIfAbsent(campaignSecondaryKey, _->
-            Campaigns.surveyTreeRootNode(campaign, surveyBlobStore));
+            Campaigns.interviewSet(campaign(campaignSecondaryKey), surveyBlobStore));
     }
 
     public void invalidateCache(final Campaign.SecondaryKey campaignSecondaryKey) {
         cache.remove(campaignSecondaryKey);
+    }
+
+    // -- UTILITY
+
+    static SurveyTreeHelperService instance() {
+        return MetaModelContext.instanceElseFail().lookupServiceElseFail(SurveyTreeHelperService.class);
     }
 
 }
