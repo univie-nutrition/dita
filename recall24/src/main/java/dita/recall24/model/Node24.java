@@ -18,19 +18,11 @@
  */
 package dita.recall24.model;
 
-import java.time.LocalDate;
-
-import dita.commons.types.Sex;
-
-public record Respondent24(
-        /**
-         * Anonymized respondent identifier, unique to the corresponding survey.
-         */
-        String alias,
-
-        LocalDate dateOfBirth,
-
-        Sex gender
-
-        ) implements dita.recall24.api.Respondent24, Node24 {
+public sealed interface Node24
+permits
+    Respondent24,
+    Interview24,
+    Meal24,
+    Record24,
+    Ingredient24 {
 }

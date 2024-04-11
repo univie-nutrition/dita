@@ -21,11 +21,10 @@ package dita.recall24.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
-
 import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.types.IntRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public record Interview24(
 
@@ -56,7 +55,7 @@ public record Interview24(
         @TreeSubNodes
         Can<Meal24> meals
 
-        ) implements dita.recall24.api.Interview24 {
+        ) implements dita.recall24.api.Interview24, Node24 {
 
     public static Interview24 of(
             /**

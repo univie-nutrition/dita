@@ -33,7 +33,7 @@ public record Ingredient24(
         double rawPerCookedRatio,
         Quantity<?> quantityCooked
         //,double fractionRelativeToParentRecipe
-        ) implements dita.recall24.api.Ingredient24 {
+        ) implements dita.recall24.api.Ingredient24, Node24 {
 
     public static Ingredient24 of(
             final String sid,
