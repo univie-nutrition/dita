@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -30,8 +31,6 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 import org.apache.causeway.commons.collections.Can;
@@ -52,6 +51,7 @@ import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Sex;
+import dita.commons.util.NumberUtils;
 import dita.recall24.api.Record24.Type;
 import dita.recall24.model.Ingredient24;
 import dita.recall24.model.Interview24;
@@ -60,6 +60,7 @@ import dita.recall24.model.MemorizedFood24;
 import dita.recall24.model.Record24;
 import dita.recall24.model.Respondent24;
 import dita.recall24.model.RespondentMetaData24;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass
 class _Dtos {
@@ -138,9 +139,9 @@ class _Dtos {
         @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
         private LocalDateTime interviewDate;
         @XmlElement(name="ITG_SubjectHeight")
-        private float heightCM;
+        private BigDecimal heightCM;
         @XmlElement(name="ITG_SubjectWeight")
-        private float weightKG;
+        private BigDecimal weightKG;
         @XmlElement(name="ITG_VURecall")
         private String itgVURecall;
         @XmlElement(name="ITG_VUNextRecall")
@@ -176,13 +177,7 @@ class _Dtos {
         @XmlElement(name="LigneITV", type=ListEntry.class)
         private List<ListEntry> listEntries;
 
-        Interview24 toInterview24() {
-
-            Respondent24 respondent = new Respondent24(
-                    subjectName + "|" + subjectFirstName,
-                    subjectBirthDate.toLocalDate(),
-                    Sex.values()[subjectSex]);
-
+        private GraphKernel listEntriesAsTree() {
             final var tree = new GraphKernel(1 + listEntries.size(), ImmutableEnumSet.noneOf(GraphCharacteristic.class));
             final int rootIndex = listEntries.size();
             final int[] current = new int[] {-1, -1, -1, -1, -1, -1};
@@ -222,7 +217,19 @@ class _Dtos {
                 _Exceptions.unmatchedCase(listEntryType);
             }));
 
-            var meals = tree.streamNeighbors(rootIndex)
+            return tree;
+        }
+
+        Interview24 toInterview24() {
+
+            final Respondent24 respondent = new Respondent24(
+                    subjectName + "|" + subjectFirstName,
+                    subjectBirthDate.toLocalDate(),
+                    Sex.values()[subjectSex]);
+
+            final var tree = listEntriesAsTree();
+
+            var meals = tree.streamNeighbors(listEntries.size())
                 .mapToObj(i0->{
                     var fcoEntry = listEntries.get(i0);
                     var memorizedFoods = tree.streamNeighbors(i0)
@@ -250,17 +257,6 @@ class _Dtos {
                 })
                 .collect(Can.toCan());
 
-            System.err.println("dita.globodiet.survey.recall24._Dtos.Interview.toInterview24()...");
-            meals.forEach(meal->{
-                System.err.printf("%s%n", meal);
-                meal.memorizedFood().forEach(mem->{
-                    System.err.printf(" - %s%n", mem);
-                    mem.records().forEach(rec->{
-                        System.err.printf(" - - %s%n", rec);
-                    });
-                });
-            });
-
             return Interview24.of(
                     respondent,
                     interviewDate.toLocalDate(),
@@ -268,8 +264,8 @@ class _Dtos {
                             ObjectRef.<Interview24>empty(),
                             specialDietCode,
                             specialDayCode,
-                            heightCM,
-                            weightKG),
+                            NumberUtils.roundToNDecimalPlaces(heightCM, 1),
+                            NumberUtils.roundToNDecimalPlaces(weightKG, 1)),
                     meals);
         }
 

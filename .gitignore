@@ -63,6 +63,9 @@ component/objectstore/xml/tmp/objects/
 component/objectstore/xml/xml/objects/
 component/objectstore/xml/tmp/tests/
 
+# approval tests
+*.json.bak
+
 # log files
 *.log
 

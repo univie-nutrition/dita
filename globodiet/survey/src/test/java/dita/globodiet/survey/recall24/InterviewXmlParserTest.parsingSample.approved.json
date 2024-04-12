@@ -1,0 +1,43 @@
+{
+  "respondents" : [ {
+    "alias" : "Svenson|Sven",
+    "dateOfBirth" : "1933-03-17",
+    "gender" : "FEMALE"
+  } ],
+  "interviews" : [ {
+    "respondent" : {
+      "alias" : "Svenson|Sven",
+      "dateOfBirth" : "1933-03-17",
+      "gender" : "FEMALE"
+    },
+    "interviewDate" : "2021-05-02",
+    "interviewOrdinalRef" : {
+      "value" : -1
+    },
+    "respondentMetaData" : {
+      "parentInterviewRef" : "ObjectRef[Interview24]",
+      "specialDietId" : "99",
+      "specialDayId" : "00",
+      "heightCM" : 160,
+      "weightKG" : 54.9
+    },
+    "meals" : [ {
+      "parentInterviewRef" : "ObjectRef[Interview24]",
+      "hourOfDay" : "07:00:00",
+      "foodConsumptionOccasionId" : "01",
+      "foodConsumptionPlaceId" : "01",
+      "memorizedFood" : [ {
+        "parentMealRef" : "ObjectRef[Meal24]",
+        "name" : "Kaffee",
+        "records" : [ {
+          "parentMemorizedFoodRef" : "ObjectRef[MemorizedFood24]",
+          "type" : "FOOD",
+          "name" : "Kaffee, mit Koffein",
+          "facetSids" : "0699,0201,1200,0702",
+          "ingredients" : [ ]
+        } ]
+      } ]
+    } ]
+  } ],
+  "helperRef" : "ObjectRef[Helper]"
+}

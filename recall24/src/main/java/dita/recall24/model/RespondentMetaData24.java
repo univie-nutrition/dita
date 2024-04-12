@@ -18,6 +18,8 @@
  */
 package dita.recall24.model;
 
+import java.math.BigDecimal;
+
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 public record RespondentMetaData24(
@@ -41,13 +43,13 @@ public record RespondentMetaData24(
          * Respondent's height in units of centimeter,
          * as measured on the interview date.
          */
-        double heightCM,
+        BigDecimal heightCM,
 
         /**
          * Respondent's weight in units of kilogram,
          * as measured on the interview date.
          */
-        double weightKG
+        BigDecimal weightKG
 
         ) implements dita.recall24.api.RespondentMetaData24 {
 

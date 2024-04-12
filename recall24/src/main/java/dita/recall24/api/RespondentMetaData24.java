@@ -18,6 +18,8 @@
  */
 package dita.recall24.api;
 
+import java.math.BigDecimal;
+
 public interface RespondentMetaData24 {
 
     /**
@@ -39,12 +41,12 @@ public interface RespondentMetaData24 {
      * Respondent's height in units of centimeter,
      * as measured on the interview date.
      */
-    double heightCM();
+    BigDecimal heightCM();
 
     /**
      * Respondent's weight in units of kilogram,
      * as measured on the interview date.
      */
-    double weightKG();
+    BigDecimal weightKG();
 
 }

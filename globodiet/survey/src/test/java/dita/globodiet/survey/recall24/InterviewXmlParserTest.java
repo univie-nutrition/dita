@@ -18,45 +18,26 @@
  */
 package dita.globodiet.survey.recall24;
 
-import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
-import io.github.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
-import org.junit.jupiter.api.BeforeEach;
+import org.approvaltests.Approvals;
+import org.approvaltests.reporters.DiffReporter;
+import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import org.apache.causeway.applib.graph.tree.TreeNode;
-import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.core.metamodel._testing.MetaModelContext_forTesting;
-import org.apache.causeway.core.metamodel.context.MetaModelContext;
+
+import dita.globodiet.survey.utils.ApprovalTestOptions;
 
 class InterviewXmlParserTest {
 
     private InterviewXmlParser parser = new InterviewXmlParser();
-    private MetaModelContext mmc;
-
-    @BeforeEach
-    void setUp() {
-        mmc = MetaModelContext_forTesting.builder()
-            .refiners(Can.of(TreeNodeFacetFactory::new))
-            .build();
-        assertNotNull(MetaModelContext.instanceNullable());
-    }
 
     @Test
+    @UseReporter(DiffReporter.class)
     void parsingSample() {
         var xml = InterviewSampler.sampleXml();
         var interviewSet24 = parser.parse(DataSource.ofStringUtf8(xml));
 
-        TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24, mmc.getFactoryService());
-
-        root.iteratorDepthFirst()
-            .forEachRemaining(node->System.err.printf("node: %s%n", node.getValue()));
-
-        //debug
-        //System.err.printf("%s%n", interviewSet24.toJson());
+        Approvals.verify(interviewSet24.toJson(), ApprovalTestOptions.jsonOptions());
     }
-
 
 }

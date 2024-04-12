@@ -16,38 +16,27 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.commons.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import org.springframework.lang.Nullable;
 
-import lombok.Data;
+import lombok.experimental.UtilityClass;
 
-@XmlRootElement(name="respondentMetaData")
-@XmlAccessorType(XmlAccessType.FIELD)
-@Data
-public class RespondentMetaDataDto {
-
-    @XmlElement(name="specialDiet")
-    private String specialDietId;
-
-    @XmlElement(name="specialDay")
-    private String specialDayId;
+@UtilityClass
+public class NumberUtils {
 
     /**
-     * In units of cm.
+     * Preserves {@code null}.
      */
-    @XmlElement(name="heightCM")
-    private BigDecimal heightCM;
-
-    /**
-     * In units of kg.
-     */
-    @XmlElement(name="weightKG")
-    private BigDecimal weightKG;
+    public BigDecimal roundToNDecimalPlaces(final @Nullable BigDecimal value, final int decimalPlaces) {
+        return value==null
+                ? null
+                : value.scale()>decimalPlaces
+                    ? value.setScale(decimalPlaces, RoundingMode.HALF_UP)
+                    : value;
+    }
 
 }
