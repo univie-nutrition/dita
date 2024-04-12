@@ -30,6 +30,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
+import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.val;
 
@@ -186,6 +187,10 @@ public record InterviewSet24(
 
     public String toJson() {
         return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
+    }
+
+    public String toYaml() {
+        return YamlUtils.toStringUtf8(this);
     }
 
 }

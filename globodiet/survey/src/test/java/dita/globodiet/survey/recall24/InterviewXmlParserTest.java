@@ -37,7 +37,7 @@ class InterviewXmlParserTest {
         var xml = InterviewSampler.sampleXml();
         var interviewSet24 = parser.parse(DataSource.ofStringUtf8(xml));
 
-        Approvals.verify(interviewSet24.toJson(), ApprovalTestOptions.jsonOptions());
+        Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
 
 }

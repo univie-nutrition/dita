@@ -44,4 +44,10 @@ public class ApprovalTestOptions {
             .withExtension(".json");
     }
 
+    public Options yamlOptions() {
+        return new Options()
+            .forFile()
+            .withExtension(".yaml");
+    }
+
 }

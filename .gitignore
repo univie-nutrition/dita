@@ -65,6 +65,9 @@ component/objectstore/xml/tmp/tests/
 
 # approval tests
 *.json.bak
+*.yaml.bak
+*.received.json
+*.received.yaml
 
 # log files
 *.log
