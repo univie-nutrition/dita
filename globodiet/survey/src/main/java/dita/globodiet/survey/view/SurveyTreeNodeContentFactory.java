@@ -106,50 +106,49 @@ public class SurveyTreeNodeContentFactory {
                         interviewSet.interviews().size());
             }
         }
-        String title = title(interviewSet, campaign);
-        return adoc(title, "Details", Details.of(interviewSet));
+        return adoc("Details", Details.of(interviewSet));
     }
 
     AsciiDoc content(final Respondent24 respondent) {
-        return adoc(title(respondent), "Details", respondent);
+        return adoc("Details", respondent);
     }
 
     AsciiDoc content(final Interview24 interview) {
-        return adoc(title(interview), "Details", interview);
+        return adoc("Details", interview);
     }
 
     AsciiDoc content(final Meal24 meal) {
-        return adoc(title(meal), "Details", meal);
+        return adoc("Details", meal);
     }
 
     AsciiDoc content(final MemorizedFood24 mem) {
-        return adoc(title(mem), "Details", mem);
+        return adoc("Details", mem);
     }
 
     AsciiDoc content(final Record24 rec) {
-        return adoc(title(rec), "Details", rec);
+        return adoc("Details", rec);
     }
 
     AsciiDoc content(final Ingredient24 ingr) {
-        return adoc(title(ingr), "Details", ingr);
+        return adoc("Details", ingr);
     }
 
     // -- HELPER
 
     private static AsciiDoc adoc(
-            final String title,
+            //final String title,
             final String yamlBlockLabel,
             final Object details) {
-        return adoc(title, yamlBlockLabel, YamlUtils.toStringUtf8(details, JsonUtils.JacksonCustomizer
+        return adoc(/*title, */yamlBlockLabel, YamlUtils.toStringUtf8(details, JsonUtils.JacksonCustomizer
                 .wrapXmlAdapter(new JaxbAdapters.QuantityAdapter())));
     }
 
     private static AsciiDoc adoc(
-            final String title,
+            //final String title,
             final String yamlBlockLabel,
             final String yaml) {
         val adoc = new AsciiDocBuilder();
-        adoc.append(doc->doc.setTitle(title));
+        //adoc.append(doc->doc.setTitle(title));
         adoc.append(doc->{
             val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yaml", yaml);
             sourceBlock.setTitle(yamlBlockLabel);
