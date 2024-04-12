@@ -173,6 +173,7 @@ public class Recall24ModelUtils {
     private Ingredient24 fromDto(final IngredientDto dto) {
         val ingredient = new Ingredient24(ObjectRef.empty(),
                 dto.getSid(),
+                dto.getName(),
                 dto.getFacetSids(),
                 dto.getRawPerCookedRatio(),
                 dto.getQuantityCooked());

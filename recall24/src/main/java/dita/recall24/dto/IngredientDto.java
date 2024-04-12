@@ -26,8 +26,9 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import dita.commons.jaxb.JaxbAdapters;
 import lombok.Data;
+
+import dita.commons.jaxb.JaxbAdapters;
 
 @XmlRootElement(name="ingredient")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -36,6 +37,9 @@ public class IngredientDto {
 
     @XmlElement(name="sid")
     private String sid;
+
+    @XmlElement(name="name")
+    private String name;
 
     @XmlElement(name="facetSids")
     private String facetSids;

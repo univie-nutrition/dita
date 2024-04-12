@@ -148,6 +148,11 @@ record InterviewSampler(BlobStore blobStore) {
                     <ListeITV_Nutriments />
                     <ListeNotes />
                 </LigneITV>
+                """
+                +
+                recipeWithIngredients()
+                +
+                """
                 <LigneITV>
                     <ITL_POC_Code>01</ITL_POC_Code>
                     <ITL_FCO_Code>01</ITL_FCO_Code>
@@ -233,6 +238,399 @@ record InterviewSampler(BlobStore blobStore) {
     </ListeInterviews>
 </ITV>
 """;
+    }
+
+    private static String recipeWithIngredients() {
+        return """
+                            <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>02</ITL_FCO_Code>
+                    <ITL_FCOHour> 0630</ITL_FCOHour>
+                    <ITL_TOK>3</ITL_TOK>
+                    <ITL_QLINUM>1</ITL_QLINUM>
+                    <ITL_ING_NUM>0</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>3</ITL_Type>
+                    <ITL_FoodNum>00232</ITL_FoodNum>
+                    <ITL_Group>03</ITL_Group>
+                    <ITL_SubGroup1 />
+                    <ITL_SubGroup2 />
+                    <ITL_DS_Classif />
+                    <ITL_F_Type />
+                    <ITL_I_Type />
+                    <ITL_R_Modif>3</ITL_R_Modif>
+                    <ITL_I_Modif>0</ITL_I_Modif>
+                    <ITL_R_Type>1.2</ITL_R_Type>
+                    <ITL_Text>Supermarkt (industriell), gekühlt bei 5-8°C, Plastikgefäss (z.B. PET-Flasche)</ITL_Text>
+                    <ITL_Name>Eieraufstrich</ITL_Name>
+                    <ITL_Facets_STR>0103,0200,0317,0405</ITL_Facets_STR>
+                    <ITL_BrandName>Marke / Produktname unbekannt</ITL_BrandName>
+                    <ITL_Status>1</ITL_Status>
+                    <ITL_Estim_QTY>25</ITL_Estim_QTY>
+                    <ITL_Q_Method>G</ITL_Q_Method>
+                    <ITL_QM_Code />
+                    <ITL_QUNIT>G</ITL_QUNIT>
+                    <ITL_NGRAMS>25</ITL_NGRAMS>
+                    <ITL_Proport>1</ITL_Proport>
+                    <ITL_HHMFract>1</ITL_HHMFract>
+                    <ITL_R_Fract>1</ITL_R_Fract>
+                    <ITL_RawCooked>2</ITL_RawCooked>
+                    <ITL_ConsRawCo>2</ITL_ConsRawCo>
+                    <ITL_Conver>1</ITL_Conver>
+                    <ITL_EDIB>1</ITL_EDIB>
+                    <ITL_EDIB_CSTE>1</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>1</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>1</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>0</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>0</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>25</ITL_CONS_QTY>
+                    <ITL_R_COOKED>-1</ITL_R_COOKED>
+                    <ITL_R_EDIB>-1</ITL_R_EDIB>
+                    <ITL_RAW_Q>-1</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>-1</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>0</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments />
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>02</ITL_FCO_Code>
+                    <ITL_FCOHour> 0630</ITL_FCOHour>
+                    <ITL_TOK>3</ITL_TOK>
+                    <ITL_QLINUM>1</ITL_QLINUM>
+                    <ITL_ING_NUM>1</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>5</ITL_Type>
+                    <ITL_FoodNum>01529</ITL_FoodNum>
+                    <ITL_Group>15</ITL_Group>
+                    <ITL_SubGroup1>01</ITL_SubGroup1>
+                    <ITL_SubGroup2>02</ITL_SubGroup2>
+                    <ITL_DS_Classif />
+                    <ITL_F_Type />
+                    <ITL_I_Type>2</ITL_I_Type>
+                    <ITL_R_Modif>0</ITL_R_Modif>
+                    <ITL_I_Modif>0</ITL_I_Modif>
+                    <ITL_R_Type />
+                    <ITL_Text>vollfett/normal</ITL_Text>
+                    <ITL_Name>Mayonnaise</ITL_Name>
+                    <ITL_Facets_STR>0699,0400,1000,0801</ITL_Facets_STR>
+                    <ITL_BrandName />
+                    <ITL_Status>1</ITL_Status>
+                    <ITL_Estim_QTY>72</ITL_Estim_QTY>
+                    <ITL_Q_Method>G</ITL_Q_Method>
+                    <ITL_QM_Code />
+                    <ITL_QUNIT>G</ITL_QUNIT>
+                    <ITL_NGRAMS>72</ITL_NGRAMS>
+                    <ITL_Proport>1</ITL_Proport>
+                    <ITL_HHMFract>1</ITL_HHMFract>
+                    <ITL_R_Fract>1</ITL_R_Fract>
+                    <ITL_RawCooked>2</ITL_RawCooked>
+                    <ITL_ConsRawCo>2</ITL_ConsRawCo>
+                    <ITL_Conver>1</ITL_Conver>
+                    <ITL_EDIB>1</ITL_EDIB>
+                    <ITL_EDIB_CSTE>1</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>1</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>1</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>26.966289520263672</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>26.966291427612305</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>6.7415728569030762</ITL_CONS_QTY>
+                    <ITL_R_COOKED>1</ITL_R_COOKED>
+                    <ITL_R_EDIB>1</ITL_R_EDIB>
+                    <ITL_RAW_Q>6.7415728569030762</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>6.7415728569030762</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>1751</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments>
+                        <ITV_Nutriment>
+                            <NTR_Code>4</NTR_Code>
+                            <ITV_NTR_Value>5.2584266662597656</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>3</NTR_Code>
+                            <ITV_NTR_Value>0.067415729165077209</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>2</NTR_Code>
+                            <ITV_NTR_Value>0.067415729165077209</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>1</NTR_Code>
+                            <ITV_NTR_Value>47.191009521484375</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                    </ListeITV_Nutriments>
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>02</ITL_FCO_Code>
+                    <ITL_FCOHour> 0630</ITL_FCOHour>
+                    <ITL_TOK>3</ITL_TOK>
+                    <ITL_QLINUM>1</ITL_QLINUM>
+                    <ITL_ING_NUM>2</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>5</ITL_Type>
+                    <ITL_FoodNum>00916</ITL_FoodNum>
+                    <ITL_Group>09</ITL_Group>
+                    <ITL_SubGroup1>01</ITL_SubGroup1>
+                    <ITL_SubGroup2 />
+                    <ITL_DS_Classif />
+                    <ITL_F_Type />
+                    <ITL_I_Type>1</ITL_I_Type>
+                    <ITL_R_Modif>0</ITL_R_Modif>
+                    <ITL_I_Modif>0</ITL_I_Modif>
+                    <ITL_R_Type />
+                    <ITL_Text>Huhn, gekocht in Wasser</ITL_Text>
+                    <ITL_Name>Ei</ITL_Name>
+                    <ITL_Facets_STR>0107,0303</ITL_Facets_STR>
+                    <ITL_BrandName />
+                    <ITL_Status>1</ITL_Status>
+                    <ITL_Estim_QTY>180</ITL_Estim_QTY>
+                    <ITL_Q_Method>U</ITL_Q_Method>
+                    <ITL_QM_Code>0001</ITL_QM_Code>
+                    <ITL_QUNIT>G</ITL_QUNIT>
+                    <ITL_NGRAMS>60</ITL_NGRAMS>
+                    <ITL_Proport>3</ITL_Proport>
+                    <ITL_HHMFract>1</ITL_HHMFract>
+                    <ITL_R_Fract>1</ITL_R_Fract>
+                    <ITL_RawCooked>1</ITL_RawCooked>
+                    <ITL_ConsRawCo>2</ITL_ConsRawCo>
+                    <ITL_Conver>1</ITL_Conver>
+                    <ITL_EDIB>1</ITL_EDIB>
+                    <ITL_EDIB_CSTE>1</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>1</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>1</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>67.415725708007812</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>67.415733337402344</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>16.853933334350586</ITL_CONS_QTY>
+                    <ITL_R_COOKED>1</ITL_R_COOKED>
+                    <ITL_R_EDIB>0.87999999523162842</ITL_R_EDIB>
+                    <ITL_RAW_Q>16.853933334350586</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>19.152196884155273</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>981</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments>
+                        <ITV_Nutriment>
+                            <NTR_Code>4</NTR_Code>
+                            <ITV_NTR_Value>1.8539326190948486</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>2</NTR_Code>
+                            <ITV_NTR_Value>2.1910114288330078</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>1</NTR_Code>
+                            <ITV_NTR_Value>26.12359619140625</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                    </ListeITV_Nutriments>
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>02</ITL_FCO_Code>
+                    <ITL_FCOHour> 0630</ITL_FCOHour>
+                    <ITL_TOK>3</ITL_TOK>
+                    <ITL_QLINUM>1</ITL_QLINUM>
+                    <ITL_ING_NUM>3</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>5</ITL_Type>
+                    <ITL_FoodNum>01547</ITL_FoodNum>
+                    <ITL_Group>15</ITL_Group>
+                    <ITL_SubGroup1>03</ITL_SubGroup1>
+                    <ITL_SubGroup2 />
+                    <ITL_DS_Classif />
+                    <ITL_F_Type />
+                    <ITL_I_Type>2</ITL_I_Type>
+                    <ITL_R_Modif>0</ITL_R_Modif>
+                    <ITL_I_Modif>0</ITL_I_Modif>
+                    <ITL_R_Type />
+                    <ITL_Text>gehackt, frisch</ITL_Text>
+                    <ITL_Name>Schnittlauch</ITL_Name>
+                    <ITL_Facets_STR>0205,0499</ITL_Facets_STR>
+                    <ITL_BrandName />
+                    <ITL_Status>1</ITL_Status>
+                    <ITL_Estim_QTY>10</ITL_Estim_QTY>
+                    <ITL_Q_Method>G</ITL_Q_Method>
+                    <ITL_QM_Code />
+                    <ITL_QUNIT>G</ITL_QUNIT>
+                    <ITL_NGRAMS>10</ITL_NGRAMS>
+                    <ITL_Proport>1</ITL_Proport>
+                    <ITL_HHMFract>1</ITL_HHMFract>
+                    <ITL_R_Fract>1</ITL_R_Fract>
+                    <ITL_RawCooked>2</ITL_RawCooked>
+                    <ITL_ConsRawCo>2</ITL_ConsRawCo>
+                    <ITL_Conver>1</ITL_Conver>
+                    <ITL_EDIB>1</ITL_EDIB>
+                    <ITL_EDIB_CSTE>1</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>1</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>1</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>3.7453181743621826</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>3.7453184127807617</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>0.93632960319519043</ITL_CONS_QTY>
+                    <ITL_R_COOKED>1</ITL_R_COOKED>
+                    <ITL_R_EDIB>1</ITL_R_EDIB>
+                    <ITL_RAW_Q>0.93632960319519043</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>0.93632960319519043</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>1902</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments>
+                        <ITV_Nutriment>
+                            <NTR_Code>4</NTR_Code>
+                            <ITV_NTR_Value>0.0093632964417338371</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>3</NTR_Code>
+                            <ITV_NTR_Value>0.018726592883467674</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>2</NTR_Code>
+                            <ITV_NTR_Value>0.028089888393878937</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>1</NTR_Code>
+                            <ITV_NTR_Value>0.23408240079879761</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                    </ListeITV_Nutriments>
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>02</ITL_FCO_Code>
+                    <ITL_FCOHour> 0630</ITL_FCOHour>
+                    <ITL_TOK>3</ITL_TOK>
+                    <ITL_QLINUM>1</ITL_QLINUM>
+                    <ITL_ING_NUM>4</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>5</ITL_Type>
+                    <ITL_FoodNum>00103</ITL_FoodNum>
+                    <ITL_Group>02</ITL_Group>
+                    <ITL_SubGroup1>07</ITL_SubGroup1>
+                    <ITL_SubGroup2 />
+                    <ITL_DS_Classif />
+                    <ITL_F_Type />
+                    <ITL_I_Type>2</ITL_I_Type>
+                    <ITL_R_Modif>0</ITL_R_Modif>
+                    <ITL_I_Modif>0</ITL_I_Modif>
+                    <ITL_R_Type />
+                    <ITL_Text>gehackt, frisch, roh/unverarbeitet</ITL_Text>
+                    <ITL_Name>Knoblauch</ITL_Name>
+                    <ITL_Facets_STR>0205,0499,0999,1200,0399,2800</ITL_Facets_STR>
+                    <ITL_BrandName />
+                    <ITL_Status>1</ITL_Status>
+                    <ITL_Estim_QTY>4</ITL_Estim_QTY>
+                    <ITL_Q_Method>G</ITL_Q_Method>
+                    <ITL_QM_Code />
+                    <ITL_QUNIT>G</ITL_QUNIT>
+                    <ITL_NGRAMS>4</ITL_NGRAMS>
+                    <ITL_Proport>1</ITL_Proport>
+                    <ITL_HHMFract>1</ITL_HHMFract>
+                    <ITL_R_Fract>1</ITL_R_Fract>
+                    <ITL_RawCooked>2</ITL_RawCooked>
+                    <ITL_ConsRawCo>1</ITL_ConsRawCo>
+                    <ITL_Conver>1</ITL_Conver>
+                    <ITL_EDIB>1</ITL_EDIB>
+                    <ITL_EDIB_CSTE>1</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>1</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>1</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>1.4981272220611572</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>1.4981273412704468</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>0.37453183531761169</ITL_CONS_QTY>
+                    <ITL_R_COOKED>1</ITL_R_COOKED>
+                    <ITL_R_EDIB>0.85000002384185791</ITL_R_EDIB>
+                    <ITL_RAW_Q>0.37453183531761169</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>0.44062566757202148</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>152</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments>
+                        <ITV_Nutriment>
+                            <NTR_Code>4</NTR_Code>
+                            <ITV_NTR_Value>0.00374531839042902</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>3</NTR_Code>
+                            <ITV_NTR_Value>0.093632958829402924</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>2</NTR_Code>
+                            <ITV_NTR_Value>0.026217227801680565</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                        <ITV_Nutriment>
+                            <NTR_Code>1</NTR_Code>
+                            <ITV_NTR_Value>0.48689138889312744</ITV_NTR_Value>
+                        </ITV_Nutriment>
+                    </ListeITV_Nutriments>
+                    <ListeNotes />
+                </LigneITV>
+                <LigneITV>
+                    <ITL_POC_Code>01</ITL_POC_Code>
+                    <ITL_FCO_Code>02</ITL_FCO_Code>
+                    <ITL_FCOHour> 0630</ITL_FCOHour>
+                    <ITL_TOK>3</ITL_TOK>
+                    <ITL_QLINUM>1</ITL_QLINUM>
+                    <ITL_ING_NUM>5</ITL_ING_NUM>
+                    <ITL_S_ING_NUM>0</ITL_S_ING_NUM>
+                    <ITL_Type>5</ITL_Type>
+                    <ITL_FoodNum>01571</ITL_FoodNum>
+                    <ITL_Group>15</ITL_Group>
+                    <ITL_SubGroup1>04</ITL_SubGroup1>
+                    <ITL_SubGroup2 />
+                    <ITL_DS_Classif />
+                    <ITL_F_Type />
+                    <ITL_I_Type>1</ITL_I_Type>
+                    <ITL_R_Modif>0</ITL_R_Modif>
+                    <ITL_I_Modif>0</ITL_I_Modif>
+                    <ITL_R_Type />
+                    <ITL_Text />
+                    <ITL_Name>Salz, Koch</ITL_Name>
+                    <ITL_Facets_STR />
+                    <ITL_BrandName />
+                    <ITL_Status>1</ITL_Status>
+                    <ITL_Estim_QTY>1</ITL_Estim_QTY>
+                    <ITL_Q_Method>G</ITL_Q_Method>
+                    <ITL_QM_Code />
+                    <ITL_QUNIT>G</ITL_QUNIT>
+                    <ITL_NGRAMS>1</ITL_NGRAMS>
+                    <ITL_Proport>1</ITL_Proport>
+                    <ITL_HHMFract>1</ITL_HHMFract>
+                    <ITL_R_Fract>1</ITL_R_Fract>
+                    <ITL_RawCooked>2</ITL_RawCooked>
+                    <ITL_ConsRawCo>2</ITL_ConsRawCo>
+                    <ITL_Conver>1</ITL_Conver>
+                    <ITL_EDIB>1</ITL_EDIB>
+                    <ITL_EDIB_CSTE>1</ITL_EDIB_CSTE>
+                    <ITL_DENSITY>1</ITL_DENSITY>
+                    <ITL_FATLEFTO>false</ITL_FATLEFTO>
+                    <ITL_FAT_PCT>1</ITL_FAT_PCT>
+                    <ITL_PCT_CONS>0.37453180551528931</ITL_PCT_CONS>
+                    <ITL_PCT_ESTIM>0.37453183531761169</ITL_PCT_ESTIM>
+                    <ITL_CONS_QTY>0.093632958829402924</ITL_CONS_QTY>
+                    <ITL_R_COOKED>1</ITL_R_COOKED>
+                    <ITL_R_EDIB>1</ITL_R_EDIB>
+                    <ITL_RAW_Q>0.093632958829402924</ITL_RAW_Q>
+                    <ITL_RAW_Q_W>0.093632958829402924</ITL_RAW_Q_W>
+                    <ITL_MAX>0</ITL_MAX>
+                    <ITL_SUPPL>false</ITL_SUPPL>
+                    <ITL_ITEM_SEQ>0</ITL_ITEM_SEQ>
+                    <ListeITV_Quantity />
+                    <ListeITV_Nutriments />
+                    <ListeNotes />
+                </LigneITV>
+                """;
     }
 
 }

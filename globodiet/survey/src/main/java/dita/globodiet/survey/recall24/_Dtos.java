@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.measure.quantity.Mass;
+
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -41,7 +43,6 @@ import org.apache.causeway.commons.graph.GraphUtils.GraphKernel.GraphCharacteris
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
-import org.apache.causeway.commons.io.JsonUtils;
 
 import lombok.Data;
 import lombok.Getter;
@@ -50,6 +51,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
+import dita.commons.types.MetricUnits;
 import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
 import dita.recall24.api.Record24.Type;
@@ -74,10 +76,6 @@ class _Dtos {
         @XmlElementWrapper(name="ListeInterviews")
         @XmlElement(name="Interview", type=Interview.class)
         private List<Interview> interviews;
-        //dump
-        String toJson() {
-            return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
-        }
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -200,6 +198,9 @@ class _Dtos {
                 case Food:
                     tree.addEdge(current[1], current[2] = i);
                     return;
+                case FoodSelectedAsARecipeIngredient:
+                    tree.addEdge(current[2], current[3] = i);
+                    return;
                 case Recipe:
                     tree.addEdge(current[1], current[2] = i);
                     return;
@@ -208,7 +209,6 @@ class _Dtos {
                     return;
                 case FatDuringCookingForIngredient:
                 case FatSauceOrSweeteners:
-                case FoodSelectedAsARecipeIngredient:
                 //case RecipeSelectedAsARecipeIngredient: //Not yet available (as stated in docs)
                 case TypeOfFatUsedFacet:
                 case TypeOfMilkOrLiquidUsedFacet:
@@ -238,11 +238,15 @@ class _Dtos {
                         var records = tree.streamNeighbors(i1)
                         .mapToObj(i2->{
                             var recordEntry = listEntries.get(i2);
-                            var record24 = recordEntry.toRecord24();
-                            tree.streamNeighbors(i2)
-                            .forEach(i3->{
-                                System.err.printf(" - - - %s%n", listEntries.get(i3).listEntryType());
-                            });
+                            var ingredients24 = tree.streamNeighbors(i2)
+                            .mapToObj(i3->{
+                                var foodSelectedAsARecipeIngredientEntry = listEntries.get(i3);
+                                return foodSelectedAsARecipeIngredientEntry.toIngredient24();
+                            })
+                            .collect(Can.toCan());
+
+                            var record24 = recordEntry.toRecord24(Type.FOOD, ingredients24);
+                            System.err.printf(" - - %s%n", record24);
                             return record24;
                         })
                         .collect(Can.toCan());
@@ -465,21 +469,21 @@ class _Dtos {
          * 1 = Raw<br>
          * 2 = Cooked or Not applicable */
         @XmlElement(name="ITL_RawCooked")
-        private String ITL_RawCooked;
+        private int ITL_RawCooked;
         /** Variable indicating whether the quantity was Consumed Raw or Cooked:<br>
          * 1 = Raw<br>
          * 2 = Cooked or Not applicable*/
         @XmlElement(name="ITL_ConsRawCo")
-        private String ITL_ConsRawCo;
+        private int ITL_ConsRawCo;
         /** Raw to Cooked Coefficient*/
         @XmlElement(name="ITL_Conver")
-        private double ITL_Conver;
+        private double rawPerCookedRatio;
 
         /** Variable indicating whether the quantity was Estimated With/Without Inedible Part:<br>
          * 1 = Without or not applicable<br>
          * 2 = With*/
         @XmlElement(name="ITL_EDIB")
-        private String ITL_EDIB;
+        private int ITL_EDIB;
 
         /** TODO */
         @XmlElement(name="ITL_EDIB_CSTE")
@@ -605,9 +609,22 @@ class _Dtos {
         }
 
         Record24 toRecord24(final Type type) {
+            return toRecord24(type, Can.empty());
+        }
+
+        Record24 toRecord24(final Type type, final Can<Ingredient24> ingredients) {
+            _Assert.assertFalse(this.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
             //TODO label() might be non empty -> information lost
-            Can<Ingredient24> ingredients = Can.empty(); //TODO
             return Record24.of(type, name, facetDescriptorCodes, ingredients);
+        }
+
+        Ingredient24 toIngredient24() {
+            _Assert.assertTrue(this.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
+            return Ingredient24.of(foodOrSimilarCode, name, facetDescriptorCodes, rawPerCookedRatio, quantityConsumed());
+        }
+
+        javax.measure.Quantity<Mass> quantityConsumed(){
+            return MetricUnits.grams(getConsumedQuantity()); //TODO just guessing which one - needs double check
         }
 
     }

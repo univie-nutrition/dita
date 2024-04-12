@@ -33,6 +33,11 @@ public interface Ingredient24 {
     String sid();
 
     /**
+     * The name of this ingredient.
+     */
+    String name();
+
+    /**
      * Comma separated list of facet identifiers,
      * ordered (by some natural order).
      */

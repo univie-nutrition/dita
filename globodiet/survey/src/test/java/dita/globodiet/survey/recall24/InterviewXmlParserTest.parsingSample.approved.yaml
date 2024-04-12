@@ -27,6 +27,41 @@ interviews:
       records:
       - parentMemorizedFoodRef: "ObjectRef[MemorizedFood24]"
         type: "FOOD"
+        name: "Eieraufstrich"
+        facetSids: "0103,0200,0317,0405"
+        ingredients:
+        - parentRecordRef: "ObjectRef[Record24]"
+          sid: "01529"
+          name: "Mayonnaise"
+          facetSids: "0699,0400,1000,0801"
+          rawPerCookedRatio: 1.0
+          quantityCooked: "6.741572856903076[g]"
+        - parentRecordRef: "ObjectRef[Record24]"
+          sid: "00916"
+          name: "Ei"
+          facetSids: "0107,0303"
+          rawPerCookedRatio: 1.0
+          quantityCooked: "16.853933334350586[g]"
+        - parentRecordRef: "ObjectRef[Record24]"
+          sid: "01547"
+          name: "Schnittlauch"
+          facetSids: "0205,0499"
+          rawPerCookedRatio: 1.0
+          quantityCooked: "0.9363296031951904[g]"
+        - parentRecordRef: "ObjectRef[Record24]"
+          sid: "00103"
+          name: "Knoblauch"
+          facetSids: "0205,0499,0999,1200,0399,2800"
+          rawPerCookedRatio: 1.0
+          quantityCooked: "0.3745318353176117[g]"
+        - parentRecordRef: "ObjectRef[Record24]"
+          sid: "01571"
+          name: "Salz, Koch"
+          facetSids: ""
+          rawPerCookedRatio: 1.0
+          quantityCooked: "0.09363295882940292[g]"
+      - parentMemorizedFoodRef: "ObjectRef[MemorizedFood24]"
+        type: "FOOD"
         name: "Kaffee, mit Koffein"
         facetSids: "0699,0201,1200,0702"
         ingredients: []

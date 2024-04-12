@@ -18,10 +18,14 @@
  */
 package dita.globodiet.survey.utils;
 
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.approvaltests.core.Options;
+
+import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.experimental.UtilityClass;
 
@@ -46,6 +50,11 @@ public class ApprovalTestOptions {
 
     public Options yamlOptions() {
         return new Options()
+            .withScrubber(s ->
+                // UNIX style line endings
+                TextUtils.streamLines(s)
+                    .collect(Collectors.joining("\n"))
+            )
             .forFile()
             .withExtension(".yaml");
     }

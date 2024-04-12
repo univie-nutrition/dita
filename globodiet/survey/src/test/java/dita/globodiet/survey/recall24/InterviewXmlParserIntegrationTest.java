@@ -20,9 +20,6 @@ package dita.globodiet.survey.recall24;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.NamedPath;
-import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -37,6 +34,9 @@ import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTe
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.globodiet.survey.util.InterviewUtils;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
@@ -56,7 +56,7 @@ class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract 
         .limit(1)
         .map(InterviewUtils::parse)
         .forEach(interviewSet24->{
-            System.err.printf("%s%n", interviewSet24.toJson());
+            System.err.printf("%s%n", interviewSet24.toYaml());
 
             TreeNode<Object> root = TreeNodeFactory.wrap(interviewSet24, factoryService);
 

@@ -29,6 +29,7 @@ import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 public record Ingredient24(
         ObjectRef<Record24> parentRecordRef,
         String sid,
+        String name,
         String facetSids,
         double rawPerCookedRatio,
         Quantity<?> quantityCooked
@@ -37,10 +38,11 @@ public record Ingredient24(
 
     public static Ingredient24 of(
             final String sid,
+            final String name,
             final String facetSids,
             final double rawPerCookedRatio,
             final Quantity<?> quantityCooked) {
-        var ingredient24 = new Ingredient24(ObjectRef.empty(), sid, facetSids, rawPerCookedRatio, quantityCooked);
+        var ingredient24 = new Ingredient24(ObjectRef.empty(), sid, name, facetSids, rawPerCookedRatio, quantityCooked);
         return ingredient24;
     }
 

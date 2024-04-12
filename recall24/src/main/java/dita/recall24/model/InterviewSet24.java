@@ -34,6 +34,7 @@ import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.val;
 
+import dita.commons.jaxb.JaxbAdapters;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
@@ -190,7 +191,8 @@ public record InterviewSet24(
     }
 
     public String toYaml() {
-        return YamlUtils.toStringUtf8(this);
+        return YamlUtils.toStringUtf8(this,
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
     }
 
 }
