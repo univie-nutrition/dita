@@ -205,8 +205,8 @@ class _Dtos {
                     tree.addEdge(current[1], current[2] = i);
                     return;
                 case FatDuringCookingForFood:
-                    tree.addEdge(current[2], current[3] = i);
-                    return;
+//                    tree.addEdge(current[2], current[3] = i);
+//                    return;
                 case FatDuringCookingForIngredient:
                 case FatSauceOrSweeteners:
                 //case RecipeSelectedAsARecipeIngredient: //Not yet available (as stated in docs)
@@ -246,7 +246,6 @@ class _Dtos {
                             .collect(Can.toCan());
 
                             var record24 = recordEntry.toRecord24(Type.FOOD, ingredients24);
-                            System.err.printf(" - - %s%n", record24);
                             return record24;
                         })
                         .collect(Can.toCan());
@@ -619,7 +618,7 @@ class _Dtos {
         }
 
         Ingredient24 toIngredient24() {
-            _Assert.assertTrue(this.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
+            _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, this.listEntryType());
             return Ingredient24.of(foodOrSimilarCode, name, facetDescriptorCodes, rawPerCookedRatio, quantityConsumed());
         }
 
