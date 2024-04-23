@@ -1,7 +1,7 @@
 respondents:
 - alias: "Svenson|Sven"
   dateOfBirth: "1933-03-17"
-  gender: "FEMALE"
+  sex: "FEMALE"
   interviews:
   - parentRespondentRef: "ObjectRef[Respondent24]"
     interviewDate: "2021-05-02"
