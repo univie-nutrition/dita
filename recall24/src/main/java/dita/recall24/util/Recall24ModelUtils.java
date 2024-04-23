@@ -210,6 +210,10 @@ public class Recall24ModelUtils {
             dto.setAlias(model.alias());
             dto.setDateOfBirth(model.dateOfBirth());
             dto.setSex(model.sex());
+            dto.setInterviews(model.interviews()
+                    .stream()
+                    .map(Recall24ModelUtils::toDto)
+                    .collect(Collectors.toList()));
         return dto;
     }
 
