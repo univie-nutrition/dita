@@ -19,15 +19,12 @@
 package dita.recall24.model;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
@@ -35,7 +32,6 @@ import org.apache.causeway.commons.io.YamlUtils;
 import lombok.val;
 
 import dita.commons.jaxb.JaxbAdapters;
-import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
@@ -46,83 +42,50 @@ public record InterviewSet24(
         /**
          * Respondents that belong to this survey.
          */
-        @TreeSubNodes(sequence = "1")
-        Can<Respondent24> respondents,
-
-        /**
-         * Interviews that belong to this survey.
-         */
-        @TreeSubNodes(sequence = "2")
-        Can<Interview24> interviews,
-
-        ObjectRef<InterviewSet24.Helper> helperRef
+        @TreeSubNodes
+        Can<Respondent24> respondents
 
         ) implements dita.recall24.api.InterviewSet24, Node24 {
 
-    private static record Helper(
-        Map<String, Respondent24> respondentsByAlias,
-        Map<String, Can<Interview24>> interviewsByAlias) {
-        static Helper create(
-                final Can<Respondent24> respondents,
-                final Can<Interview24> interviews) {
-            val helper = new Helper(
-                    new TreeMap<String, Respondent24>(),
-                    new TreeMap<String, Can<Interview24>>());
-            respondents.forEach(res->helper.respondentsByAlias().put(res.alias(), res));
-            interviews.forEach(inv->helper.interviewsByAlias()
-                    .compute(inv.respondentAlias(),(k, v) -> (v == null)
-                            ? Can.of(inv)
-                            : v.add(inv)));
-            return helper;
-        }
-    }
-
     public static InterviewSet24 of(
             /** Respondents that belong to this survey. */
-            final Can<Respondent24> respondents,
-            /** Interviews that belong to this survey. */
-            final Can<Interview24> interviews) {
-        return new InterviewSet24(respondents, interviews,
-                ObjectRef.of(Helper.create(respondents, interviews)));
+            final Can<Respondent24> respondents) {
+        return new InterviewSet24(respondents);
     }
 
     public static InterviewSet24 empty() {
-        return of(Can.empty(), Can.empty());
+        return of(Can.empty());
     }
 
     @Override
     public Optional<Respondent24> lookupRespondent(
             final String respondentAlias) {
-        return Optional.ofNullable(helperRef.getValue().respondentsByAlias.get(respondentAlias));
+        return respondents.stream()
+            .filter(res->Objects.equals(res.alias(), respondentAlias))
+            .findFirst();
     }
 
     @Override
-    public Can<Interview24> lookupInterviews(
+    public Can<? extends Interview24> lookupInterviews(
             final String respondentAlias) {
-        return Optional.ofNullable(helperRef.getValue().interviewsByAlias.get(respondentAlias))
+        return lookupRespondent(respondentAlias)
+                .map(Respondent24::interviews)
                 .orElseGet(Can::empty);
     }
 
     /**
      * Respondents are sorted by respondent-alias.
-     * Interviews are sorted respondent-alias then by interview-date.
-     * All ordinals are filled in. //TODO
+     * Interviews are sorted by interview-date.
      */
     public InterviewSet24 normalized() {
-        val helper = helperRef.getValue();
-        val respondentsSorted = Can.ofCollection(helper.respondentsByAlias().values());
-        Can<Interview24> interviewsSorted = respondentsSorted.stream()
-                .map(Respondent24::alias)
-                .map(this::lookupInterviews)
-                .map((Can<Interview24> interviews)->
-                    interviews.sorted((a, b)->a.interviewDate().compareTo(b.interviewDate())))
-                .peek((Can<Interview24> interviews)->
-                    interviews.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
-                        inv.interviewOrdinalRef().setValue(ordinal)))) // fill in interview's ordinal
-                .flatMap(Can::stream)
-                .collect(Can.toCan());
+        var respondentsSorted = respondents
+            .sorted((a, b)->a.alias().compareTo(b.alias()))
+            .map(respondent->respondent.normalize());
+        return new InterviewSet24(respondentsSorted);
+    }
 
-        return new InterviewSet24(respondentsSorted, interviewsSorted, helperRef);
+    public int interviewCount() {
+        return (int) respondents().stream().mapToInt(resp->resp.interviews().size()).count();
     }
 
     /**
@@ -132,18 +95,8 @@ public record InterviewSet24(
      * Check the result's cardinality.
      */
     public Can<InterviewSet24> split(final int partitionCountYield) {
-
         val respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
-
-        return respondentBiPartition.map(respondentGroup->{
-            val aliasSet = respondentGroup.map(Respondent24::alias)
-                    .stream()
-                    .collect(Collectors.toSet());
-
-            return InterviewSet24.of(
-                    respondentGroup,
-                    interviews().filter(iv->aliasSet.contains(iv.respondentAlias())));
-        });
+        return respondentBiPartition.map(InterviewSet24::of);
     }
 
     /**
@@ -154,17 +107,14 @@ public record InterviewSet24(
         if(other==null) return this;
 
         val respondents = new ArrayList<Respondent24>(this.respondents().toList());
-        val interviews = new ArrayList<Interview24>(this.interviews().toList());
 
         Optional.of(other).stream()
         .forEach(model->{
-            respondents.addAll(model.respondents().toList());
-            interviews.addAll(model.interviews().toList());
+            respondents.addAll(model.respondents().toList()); //TODO handle interview joins
         });
 
         return InterviewSet24.of(
-                Can.ofCollection(respondents).distinct(),
-                Can.ofCollection(interviews));
+                Can.ofCollection(respondents).distinct());
     }
 
     /**
@@ -173,17 +123,14 @@ public record InterviewSet24(
     public static InterviewSet24 join(final @Nullable Iterable<InterviewSet24> models) {
 
         val respondents = new ArrayList<Respondent24>();
-        val interviews = new ArrayList<Interview24>();
 
         _NullSafe.stream(models)
         .forEach(model->{
-            respondents.addAll(model.respondents().toList()); //TODO collisions could be problematic
-            interviews.addAll(model.interviews().toList()); //TODO collisions could be problematic
+            respondents.addAll(model.respondents().toList()); //TODO handle interview joins
         });
 
         return InterviewSet24.of(
-                Can.ofCollection(respondents),
-                Can.ofCollection(interviews));
+                Can.ofCollection(respondents));
     }
 
     public String toJson() {

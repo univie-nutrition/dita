@@ -41,9 +41,9 @@ public interface Interview24 {
     // -- PARENT / CHILD
 
     /**
-     * Respondent for this interview.
+     * Parent respondent of this interview.
      */
-    Respondent24 respondent();
+    Respondent24 parentRespondent();
 
     /**
      * Respondent meta-data for this interview.
@@ -62,7 +62,7 @@ public interface Interview24 {
      * @see Respondent24#alias()
      */
     default String respondentAlias() {
-        return respondent().alias();
+        return parentRespondent().alias();
     }
 
 }

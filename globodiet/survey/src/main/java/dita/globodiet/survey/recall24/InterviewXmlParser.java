@@ -21,6 +21,7 @@ package dita.globodiet.survey.recall24;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
@@ -52,20 +53,28 @@ public class InterviewXmlParser {
     }
 
     private InterviewSet24 createFromDto(final @NonNull _Dtos.Itv dto) {
+        var interviewsByRespondentStub = _Multimaps.<Respondent24, Interview24>newListMultimap();
+        dto.getInterviews().stream()
+            .forEach(interviewDto->
+                interviewsByRespondentStub
+                    .putElement(interviewDto.stubRespondent24(), interviewDto.toInterview24()));
 
-        /* Interviews that belong to this survey. */
-        final Can<Interview24> interviews =
-            dto.getInterviews().stream()
-                .map(_Dtos.Interview::toInterview24)
-                .collect(Can.toCan());
+        final Can<Respondent24> respondents = interviewsByRespondentStub.entrySet()
+            .stream()
+            .map(entry->{
+                var respondentStub = entry.getKey();
+                var interviews = entry.getValue();
+                var respondent = new Respondent24(
+                        respondentStub.alias(),
+                        respondentStub.dateOfBirth(),
+                        respondentStub.sex(),
+                        Can.ofCollection(interviews));
+                interviews.forEach(iv->iv.parentRespondentRef().setValue(respondent));
+                return respondent;
+            })
+            .collect(Can.toCan());
 
-        /* Respondents collected from interviews. */
-        final Can<Respondent24> respondents =
-            interviews.stream()
-                .map(Interview24::respondent)
-                .collect(Can.toCan());
-
-        return InterviewSet24.of(respondents, interviews);
+        return InterviewSet24.of(respondents).normalized();
     }
 
 

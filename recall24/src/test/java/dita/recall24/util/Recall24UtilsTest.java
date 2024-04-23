@@ -25,8 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.causeway.commons.io.DataPeer;
 
-import dita.recall24.model.InterviewSet24;
 import lombok.val;
+
+import dita.recall24.model.InterviewSet24;
 
 class Recall24UtilsTest {
 
@@ -91,8 +92,8 @@ class Recall24UtilsTest {
                     .normalized();
             assertEquals(interviewSet24.respondents().size(),
                     partA.respondents().size() + partB.respondents().size());
-            assertEquals(interviewSet24.interviews().size(),
-                    partA.interviews().size() + partB.interviews().size());
+            assertEquals(interviewSet24.interviewCount(),
+                    partA.interviewCount() + partB.interviewCount());
         }
 
         val joined = InterviewSet24.join(biPartition)
@@ -102,14 +103,13 @@ class Recall24UtilsTest {
             // sanity checks
             assertEquals(interviewSet24.respondents().size(),
                     joined.respondents().size());
-            assertEquals(interviewSet24.interviews().size(),
-                    joined.interviews().size());
+            assertEquals(interviewSet24.interviewCount(),
+                    joined.interviewCount());
         }
 
         assertEquals(interviewSet24.toString(), joined.toString());
         assertEquals(interviewSet24.hashCode(), joined.hashCode());
         assertEquals(interviewSet24, joined);
     }
-
 
 }

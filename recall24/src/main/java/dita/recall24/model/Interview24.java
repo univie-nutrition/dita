@@ -24,6 +24,7 @@ import java.util.Objects;
 import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.types.IntRef;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public record Interview24(
@@ -31,7 +32,7 @@ public record Interview24(
         /**
          * Respondent of this interview.
          */
-        Respondent24 respondent,
+        ObjectRef<Respondent24> parentRespondentRef,
 
         /**
          * Interview date.
@@ -59,10 +60,6 @@ public record Interview24(
 
     public static Interview24 of(
             /**
-             * Respondent of this interview.
-             */
-            final Respondent24 respondent,
-            /**
              * Interview date.
              */
             final LocalDate interviewDate,
@@ -74,10 +71,15 @@ public record Interview24(
              * The meals of this interview.
              */
             final Can<Meal24> meals) {
-        var interview = new Interview24(respondent, interviewDate, IntRef.of(-1), respondentMetaData, meals);
+        var interview = new Interview24(ObjectRef.empty(), interviewDate, IntRef.of(-1), respondentMetaData, meals);
         respondentMetaData.parentInterviewRef().setValue(interview);
         meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
         return interview;
+    }
+
+    @Override
+    public Respondent24 parentRespondent() {
+        return parentRespondentRef.getValue();
     }
 
     @Override
@@ -86,7 +88,7 @@ public record Interview24(
     }
 
     public boolean matchesRespondent(final Respondent24 candidate) {
-        return Objects.equals(respondent, candidate);
+        return Objects.equals(parentRespondent(), candidate);
     }
 
 }

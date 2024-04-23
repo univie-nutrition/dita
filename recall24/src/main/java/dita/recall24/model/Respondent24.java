@@ -20,7 +20,11 @@ package dita.recall24.model;
 
 import java.time.LocalDate;
 
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
+
 import dita.commons.types.Sex;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public record Respondent24(
         /**
@@ -30,7 +34,29 @@ public record Respondent24(
 
         LocalDate dateOfBirth,
 
-        Sex gender
+        Sex sex,
+
+        /**
+         * Interviews that this respondent was subject to.
+         */
+        @TreeSubNodes
+        Can<Interview24> interviews
 
         ) implements dita.recall24.api.Respondent24, Node24 {
+
+
+    /**
+     * Interviews are sorted by interview-date.
+     * All ordinals are filled in. //TODO
+     */
+    Respondent24 normalize() {
+        var interviewsSorted = interviews()
+                .sorted((a, b)->a.interviewDate().compareTo(b.interviewDate()));
+
+        interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
+            inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
+
+        return new Respondent24(alias, dateOfBirth, sex, interviewsSorted);
+    }
+
 }

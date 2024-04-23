@@ -216,9 +216,8 @@ public class SurveyVM extends TreeNodeVm<Node24, SurveyVM> {
     public static class SurveyTreeAdapter implements TreeAdapter<Node24> {
         @Override public int childCountOf(final Node24 node) {
             return switch (node) {
-            case InterviewSet24 interviewSet -> interviewSet.respondents().size()
-                + interviewSet.interviews().size();
-            case Respondent24 respondent -> 0;
+            case InterviewSet24 interviewSet -> interviewSet.respondents().size();
+            case Respondent24 respondent -> respondent.interviews().size();
             case Interview24 interview -> interview.meals().size();
             case Meal24 meal -> meal.memorizedFood().size();
             case MemorizedFood24 mem -> mem.records().size();
@@ -228,9 +227,8 @@ public class SurveyVM extends TreeNodeVm<Node24, SurveyVM> {
         }
         @Override public Stream<Node24> childrenOf(final Node24 node) {
             return switch (node) {
-            case InterviewSet24 interviewSet -> Stream.concat(interviewSet.respondents().stream(),
-                interviewSet.interviews().stream());
-            case Respondent24 respondent -> Stream.empty();
+            case InterviewSet24 interviewSet -> interviewSet.respondents().stream().map(Node24.class::cast);
+            case Respondent24 respondent -> respondent.interviews().stream().map(Node24.class::cast);
             case Interview24 interview -> interview.meals().stream().map(Node24.class::cast);
             case Meal24 meal -> meal.memorizedFood().stream().map(Node24.class::cast);
             case MemorizedFood24 mem -> mem.records().stream().map(Node24.class::cast);

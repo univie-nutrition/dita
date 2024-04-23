@@ -20,6 +20,8 @@ package dita.recall24.api;
 
 import java.time.LocalDate;
 
+import org.apache.causeway.commons.collections.Can;
+
 import dita.commons.types.Sex;
 
 public interface Respondent24 {
@@ -31,6 +33,11 @@ public interface Respondent24 {
 
     LocalDate dateOfBirth();
 
-    Sex gender();
+    Sex sex();
+
+    /**
+     * Interviews that this respondent was subject to.
+     */
+    Can<? extends Interview24> interviews();
 
 }

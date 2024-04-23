@@ -220,13 +220,19 @@ class _Dtos {
             return tree;
         }
 
-        Interview24 toInterview24() {
-
+        /**
+         * has no children
+         */
+        Respondent24 stubRespondent24() {
             final Respondent24 respondent = new Respondent24(
                     subjectName + "|" + subjectFirstName,
                     subjectBirthDate.toLocalDate(),
-                    Sex.values()[subjectSex]);
+                    Sex.values()[subjectSex],
+                    Can.empty());
+            return respondent;
+        }
 
+        Interview24 toInterview24() {
             final var tree = listEntriesAsTree();
 
             var meals = tree.streamNeighbors(listEntries.size())
@@ -261,7 +267,6 @@ class _Dtos {
                 .collect(Can.toCan());
 
             return Interview24.of(
-                    respondent,
                     interviewDate.toLocalDate(),
                     new RespondentMetaData24(
                             ObjectRef.<Interview24>empty(),

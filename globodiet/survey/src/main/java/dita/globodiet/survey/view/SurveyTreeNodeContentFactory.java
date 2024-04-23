@@ -103,7 +103,7 @@ public class SurveyTreeNodeContentFactory {
             static Details of(final InterviewSet24 interviewSet) {
                 return new Details(
                         interviewSet.respondents().size(),
-                        interviewSet.interviews().size());
+                        interviewSet.interviewCount());
             }
         }
         return adoc("Details", Details.of(interviewSet));

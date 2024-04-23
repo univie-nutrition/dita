@@ -51,7 +51,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Recall24ModelUtils {
 
-    // -- CONVERIONS
+    // -- CONVERSIONS
 
     public InterviewSet24 fromDto(final InterviewSetDto interviewSet) {
 
@@ -60,12 +60,12 @@ public class Recall24ModelUtils {
             .collect(Can.toCan());
 
         val cc = new ConversionContext(respondents, interviewSet.getRespondents());
+//FIXME[17]
+//        val interviews = _NullSafe.stream(interviewSet.getInterviews())
+//                .map(dto->fromDto(dto, cc))
+//                .collect(Can.toCan());
 
-        val interviews = _NullSafe.stream(interviewSet.getInterviews())
-                .map(dto->fromDto(dto, cc))
-                .collect(Can.toCan());
-
-        return InterviewSet24.of(respondents, interviews);
+        return InterviewSet24.of(respondents);
     }
 
     public InterviewSetDto toDto(
@@ -76,11 +76,11 @@ public class Recall24ModelUtils {
                 .stream()
                 .map(Recall24ModelUtils::toDto)
                 .collect(Collectors.toList()));
-        dto.setInterviews(
-                model.interviews()
-                    .stream()
-                    .map(Recall24ModelUtils::toDto)
-                    .collect(Collectors.toList()));
+//        dto.setInterviews(
+//                model.interviews()
+//                    .stream()
+//                    .map(Recall24ModelUtils::toDto)
+//                    .collect(Collectors.toList()));
         return dto;
     }
 
@@ -106,7 +106,7 @@ public class Recall24ModelUtils {
 
     private Respondent24 fromDto(
             final RespondentDto dto) {
-        return new Respondent24(dto.getAlias(), dto.getDateOfBirth(), dto.getSex());
+        return new Respondent24(dto.getAlias(), dto.getDateOfBirth(), dto.getSex(), Can.empty()); //FIXME[17]
     }
 
     private Interview24 fromDto(
@@ -114,7 +114,8 @@ public class Recall24ModelUtils {
         val meals = _NullSafe.stream(dto.getMeals())
                 .map(meal->fromDto(meal))
                 .collect(Can.toCan());
-        val interview = new Interview24(cc.respondent24ByAliasElseFail(dto.getRespondentAlias()),
+        val respondent = cc.respondent24ByAliasElseFail(dto.getRespondentAlias());
+        val interview = new Interview24(new ObjectRef<>(respondent),
                 dto.getInterviewDate(),
                 IntRef.of(dto.getInterviewOrdinal()),
                 fromDto(dto.getRespondentMetaData()),
@@ -187,7 +188,7 @@ public class Recall24ModelUtils {
         val dto = new RespondentDto();
             dto.setAlias(model.alias());
             dto.setDateOfBirth(model.dateOfBirth());
-            dto.setSex(model.gender());
+            dto.setSex(model.sex());
         return dto;
     }
 

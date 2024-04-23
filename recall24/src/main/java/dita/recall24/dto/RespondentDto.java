@@ -19,18 +19,21 @@
 package dita.recall24.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 
+import lombok.Data;
+
 import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.types.Sex;
-import lombok.Data;
 
 @XmlRootElement(name="respondent")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -44,8 +47,12 @@ public class RespondentDto {
     @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateToStringAdapter.class)
     private LocalDate dateOfBirth;
 
-    @XmlElement(name="gender")
+    @XmlElement(name="sex")
     @XmlJavaTypeAdapter(value=JaxbAdapters.GenderAdapter.class)
     private Sex sex;
+
+    @XmlElementWrapper(name="interviews")
+    @XmlElement(name="interview", type=InterviewDto.class)
+    private List<InterviewDto> interviews;
 
 }

@@ -32,11 +32,6 @@ public interface InterviewSet24 {
      */
     Can<? extends Respondent24> respondents();
 
-    /**
-     * Interviews that belong to this survey.
-     */
-    Can<? extends Interview24> interviews();
-
     Optional<? extends Respondent24> lookupRespondent(String respondentAlias);
     Can<? extends Interview24> lookupInterviews(String respondentAlias);
 
