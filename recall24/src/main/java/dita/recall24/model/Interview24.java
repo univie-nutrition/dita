@@ -59,6 +59,7 @@ public record Interview24(
         ) implements dita.recall24.api.Interview24, Node24 {
 
     public static Interview24 of(
+            final Respondent24 respondent,
             /**
              * Interview date.
              */
@@ -71,7 +72,7 @@ public record Interview24(
              * The meals of this interview.
              */
             final Can<Meal24> meals) {
-        var interview = new Interview24(ObjectRef.empty(), interviewDate, IntRef.of(-1), respondentMetaData, meals);
+        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentMetaData, meals);
         respondentMetaData.parentInterviewRef().setValue(interview);
         meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
         return interview;

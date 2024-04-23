@@ -19,17 +19,14 @@
 package dita.globodiet.survey.recall24;
 
 import org.apache.causeway.applib.value.Clob;
-import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
-import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
 import lombok.NonNull;
 
-import dita.recall24.model.Interview24;
 import dita.recall24.model.InterviewSet24;
-import dita.recall24.model.Respondent24;
+import dita.recall24.util.Recall24ModelUtils;
 
 /**
  * Parses GloboDiet XML Interview files into recall24 data structures.
@@ -52,30 +49,13 @@ public class InterviewXmlParser {
         return createFromDto(dto);
     }
 
+    // -- HELPER
+
     private InterviewSet24 createFromDto(final @NonNull _Dtos.Itv dto) {
-        var interviewsByRespondentStub = _Multimaps.<Respondent24, Interview24>newListMultimap();
-        dto.getInterviews().stream()
-            .forEach(interviewDto->
-                interviewsByRespondentStub
-                    .putElement(interviewDto.stubRespondent24(), interviewDto.toInterview24()));
-
-        final Can<Respondent24> respondents = interviewsByRespondentStub.entrySet()
-            .stream()
-            .map(entry->{
-                var respondentStub = entry.getKey();
-                var interviews = entry.getValue();
-                var respondent = new Respondent24(
-                        respondentStub.alias(),
-                        respondentStub.dateOfBirth(),
-                        respondentStub.sex(),
-                        Can.ofCollection(interviews));
-                interviews.forEach(iv->iv.parentRespondentRef().setValue(respondent));
-                return respondent;
-            })
-            .collect(Can.toCan());
-
-        return InterviewSet24.of(respondents).normalized();
+        return Recall24ModelUtils
+                .join(dto.getInterviews().stream()
+                        .map(_Dtos.Interview::toInterview24)
+                        .toList());
     }
-
 
 }

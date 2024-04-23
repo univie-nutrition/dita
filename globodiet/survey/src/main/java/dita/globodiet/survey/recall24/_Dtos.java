@@ -223,7 +223,7 @@ class _Dtos {
         /**
          * has no children
          */
-        Respondent24 stubRespondent24() {
+        private Respondent24 respondentStub() {
             final Respondent24 respondent = new Respondent24(
                     subjectName + "|" + subjectFirstName,
                     subjectBirthDate.toLocalDate(),
@@ -232,6 +232,9 @@ class _Dtos {
             return respondent;
         }
 
+        /**
+         * parented by an Respondent24 stub, that has no children (needs post-processing)
+         */
         Interview24 toInterview24() {
             final var tree = listEntriesAsTree();
 
@@ -267,6 +270,7 @@ class _Dtos {
                 .collect(Can.toCan());
 
             return Interview24.of(
+                    respondentStub(),
                     interviewDate.toLocalDate(),
                     new RespondentMetaData24(
                             ObjectRef.<Interview24>empty(),

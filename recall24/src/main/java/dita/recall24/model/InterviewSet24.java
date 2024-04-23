@@ -18,9 +18,9 @@
  */
 package dita.recall24.model;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
@@ -32,6 +32,7 @@ import org.apache.causeway.commons.io.YamlUtils;
 import lombok.val;
 
 import dita.commons.jaxb.JaxbAdapters;
+import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
@@ -85,7 +86,12 @@ public record InterviewSet24(
     }
 
     public int interviewCount() {
-        return (int) respondents().stream().mapToInt(resp->resp.interviews().size()).count();
+        return (int) respondents().stream().mapToInt(resp->resp.interviews().size()).sum();
+    }
+
+    public Stream<Interview24> streamInterviews() {
+        return this.respondents().stream()
+                .flatMap(resp->resp.interviews().stream());
     }
 
     /**
@@ -106,31 +112,23 @@ public record InterviewSet24(
 
         if(other==null) return this;
 
-        val respondents = new ArrayList<Respondent24>(this.respondents().toList());
+        var interviews = Stream.concat(
+                this.streamInterviews(),
+                other.streamInterviews())
+                .toList();
 
-        Optional.of(other).stream()
-        .forEach(model->{
-            respondents.addAll(model.respondents().toList()); //TODO handle interview joins
-        });
-
-        return InterviewSet24.of(
-                Can.ofCollection(respondents).distinct());
+        return Recall24ModelUtils.join(interviews);
     }
 
     /**
      * Returns a joined model of the models passed in.
      */
     public static InterviewSet24 join(final @Nullable Iterable<InterviewSet24> models) {
+        var interviews = _NullSafe.stream(models)
+                .flatMap(InterviewSet24::streamInterviews)
+                .toList();
 
-        val respondents = new ArrayList<Respondent24>();
-
-        _NullSafe.stream(models)
-        .forEach(model->{
-            respondents.addAll(model.respondents().toList()); //TODO handle interview joins
-        });
-
-        return InterviewSet24.of(
-                Can.ofCollection(respondents));
+        return Recall24ModelUtils.join(interviews);
     }
 
     public String toJson() {

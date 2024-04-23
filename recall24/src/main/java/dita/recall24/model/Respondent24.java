@@ -44,7 +44,6 @@ public record Respondent24(
 
         ) implements dita.recall24.api.Respondent24, Node24 {
 
-
     /**
      * Interviews are sorted by interview-date.
      * All ordinals are filled in. //TODO
