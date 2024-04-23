@@ -34,7 +34,7 @@ import tech.units.indriya.quantity.Quantities;
 @UtilityClass
 public class JaxbAdapters {
 
-    public static final class GenderAdapter extends XmlAdapter<String, Sex>{
+    public static final class SexAdapter extends XmlAdapter<String, Sex>{
         @Override public Sex unmarshal(final String v) throws Exception {
             try {
                 return Sex.destringify(v);

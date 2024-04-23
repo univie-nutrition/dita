@@ -19,8 +19,6 @@
 package dita.recall24.util;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -29,7 +27,6 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import lombok.NonNull;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -105,17 +102,9 @@ public class Recall24ModelUtils {
     // -- CONVERSIONS
 
     public InterviewSet24 fromDto(final InterviewSetDto interviewSet) {
-
         val respondents = _NullSafe.stream(interviewSet.getRespondents())
             .map(dto->fromDto(dto))
             .collect(Can.toCan());
-
-        val cc = new ConversionContext(respondents, interviewSet.getRespondents());
-//FIXME[17]
-//        val interviews = _NullSafe.stream(interviewSet.getInterviews())
-//                .map(dto->fromDto(dto, cc))
-//                .collect(Can.toCan());
-
         return InterviewSet24.of(respondents);
     }
 
@@ -132,36 +121,22 @@ public class Recall24ModelUtils {
 
     // -- HELPER
 
-    private static class ConversionContext {
-
-        private final Map<String, Respondent24> respondent24ByAlias = new HashMap<>();
-
-        public ConversionContext(final Iterable<Respondent24> respondents24, final Iterable<RespondentDto> respondents) {
-            _NullSafe.stream(respondents24)
-                .forEach(r->respondent24ByAlias.put(r.alias(), r));
-        }
-
-        Respondent24 respondent24ByAliasElseFail(final @NonNull String alias) {
-            return Objects.requireNonNull(respondent24ByAlias.get(alias),
-                    ()->String.format("failed to lookup Respondent24 by alias '%s'", alias));
-        }
-
-    }
-
     // -- DTO TO MODEL
 
-    private Respondent24 fromDto(
-            final RespondentDto dto) {
-        return new Respondent24(dto.getAlias(), dto.getDateOfBirth(), dto.getSex(), Can.empty()); //FIXME[17]
+    private Respondent24 fromDto(final RespondentDto dto) {
+        var interviews = _NullSafe.stream(dto.getInterviews())
+            .map(Recall24ModelUtils::fromDto)
+            .collect(Can.toCan());
+        var respondent = new Respondent24(dto.getAlias(), dto.getDateOfBirth(), dto.getSex(), interviews);
+        interviews.forEach(iv->iv.parentRespondentRef().setValue(respondent));
+        return respondent;
     }
 
-    private Interview24 fromDto(
-            final InterviewDto dto, final ConversionContext cc) {
+    private Interview24 fromDto(final InterviewDto dto) {
         val meals = _NullSafe.stream(dto.getMeals())
                 .map(meal->fromDto(meal))
                 .collect(Can.toCan());
-        val respondent = cc.respondent24ByAliasElseFail(dto.getRespondentAlias());
-        val interview = new Interview24(new ObjectRef<>(respondent),
+        val interview = new Interview24(ObjectRef.empty(),
                 dto.getInterviewDate(),
                 IntRef.of(dto.getInterviewOrdinal()),
                 fromDto(dto.getRespondentMetaData()),

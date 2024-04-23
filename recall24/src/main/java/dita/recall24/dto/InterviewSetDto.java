@@ -39,6 +39,12 @@ public class InterviewSetDto {
     @XmlElement(name="respondent", type=RespondentDto.class)
     private List<RespondentDto> respondents;
 
+
+    @XmlElementWrapper(name="interviews")
+    @XmlElement(name="interview", type=InterviewDto.class)
+    @Deprecated
+    private List<InterviewDto> interviews;
+
     public String toJson() {
         return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
     }

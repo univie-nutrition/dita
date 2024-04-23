@@ -48,7 +48,7 @@ public class RespondentDto {
     private LocalDate dateOfBirth;
 
     @XmlElement(name="sex")
-    @XmlJavaTypeAdapter(value=JaxbAdapters.GenderAdapter.class)
+    @XmlJavaTypeAdapter(value=JaxbAdapters.SexAdapter.class)
     private Sex sex;
 
     @XmlElementWrapper(name="interviews")

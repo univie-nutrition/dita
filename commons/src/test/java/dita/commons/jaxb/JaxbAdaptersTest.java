@@ -50,7 +50,7 @@ class JaxbAdaptersTest {
     @EnumSource(Sex.class)
     void roundtripOnGender(final Sex gender) {
 
-        var adapter = new JaxbAdapters.GenderAdapter();
+        var adapter = new JaxbAdapters.SexAdapter();
 
         val stringified = adapter.marshal(gender);
         val genderAfterRoundTrip = adapter.unmarshal(stringified);
