@@ -18,14 +18,14 @@
  */
 package dita.commons.types;
 
-import static dita.commons.format.FormatUtils.safelyFormat;
-
 import java.io.Serializable;
 import java.util.function.Consumer;
 
 import org.springframework.lang.Nullable;
 
 import lombok.NonNull;
+
+import dita.commons.format.FormatUtils;
 
 public record Message(@NonNull Message.Severity severity, @NonNull String text)
 implements Serializable {
@@ -40,31 +40,31 @@ implements Serializable {
     // -- FACTORIES
 
     public static Message error(final @Nullable String text) {
-        return new Message(Severity.ERROR, safelyFormat(text));
+        return new Message(Severity.ERROR, FormatUtils.safelyFormat(text));
     }
     public static Message error(final @Nullable String format, final Object ...args) {
-        return error(safelyFormat(format, args));
+        return error(FormatUtils.safelyFormat(format, args));
     }
 
     public static Message warn(final @Nullable String text) {
-        return new Message(Severity.WARNING, text);
+        return new Message(Severity.WARNING, FormatUtils.safelyFormat(text));
     }
     public static Message warn(final @Nullable String format, final Object ...args) {
-        return warn(safelyFormat(format, args));
+        return warn(FormatUtils.safelyFormat(format, args));
     }
 
     public static Message info(final @Nullable String text) {
-        return new Message(Severity.INFO, text);
+        return new Message(Severity.INFO, FormatUtils.safelyFormat(text));
     }
     public static Message info(final @Nullable String format, final Object ...args) {
-        return info(safelyFormat(format, args));
+        return info(FormatUtils.safelyFormat(format, args));
     }
 
     public static Message debug(final @Nullable String text) {
-        return new Message(Severity.DEBUG, text);
+        return new Message(Severity.DEBUG, FormatUtils.safelyFormat(text));
     }
     public static Message debug(final @Nullable String format, final Object ...args) {
-        return debug(safelyFormat(format, args));
+        return debug(FormatUtils.safelyFormat(format, args));
     }
 
     // -- UTILITY
