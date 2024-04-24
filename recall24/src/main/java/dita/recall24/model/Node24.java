@@ -18,6 +18,15 @@
  */
 package dita.recall24.model;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Casts;
+
 public sealed interface Node24
 permits
     InterviewSet24,
@@ -27,4 +36,24 @@ permits
     MemorizedFood24,
     Record24,
     Ingredient24 {
+
+    // -- ANNOTATIONS
+
+    public record Annotation(String key, Serializable value) implements Serializable {
+        public static <T extends Serializable> Function<Annotation, T> valueAs(final Class<T> requiredType) {
+            return annot->_Casts.<T>uncheckedCast(annot.value());
+        }
+        public static <E extends Serializable> Function<Annotation, Can<E>> valueAsCan(final Class<E> requiredElementType) {
+            return annot->_Casts.<Can<E>>uncheckedCast(annot.value());
+        }
+    }
+
+    default Map<String, Annotation> annotations() {
+        return Collections.emptyMap();
+    }
+
+    default Optional<Annotation> annotation(final String key) {
+        return Optional.ofNullable(annotations().get(key));
+    }
+
 }

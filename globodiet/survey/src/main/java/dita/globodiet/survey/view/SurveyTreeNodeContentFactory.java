@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.view;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
@@ -28,12 +29,15 @@ import lombok.val;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.jaxb.JaxbAdapters;
+import dita.commons.types.Message;
 import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.model.Ingredient24;
 import dita.recall24.model.Interview24;
 import dita.recall24.model.InterviewSet24;
 import dita.recall24.model.Meal24;
 import dita.recall24.model.MemorizedFood24;
+import dita.recall24.model.Node24;
 import dita.recall24.model.Record24;
 import dita.recall24.model.Respondent24;
 
@@ -99,11 +103,15 @@ public class SurveyTreeNodeContentFactory {
     // -- CONTENT
 
     AsciiDoc content(final InterviewSet24 interviewSet, final Campaign campaign) {
-        record Details(int respondentCount, int interviewCount) {
+        record Details(int respondentCount, int interviewCount, Can<Message> messages) {
             static Details of(final InterviewSet24 interviewSet) {
+                final Can<Message> messages = interviewSet.annotation(Campaigns.ANNOTATION_MESSAGES)
+                        .map(Node24.Annotation.valueAsCan(Message.class))
+                        .orElseGet(Can::empty);
                 return new Details(
                         interviewSet.respondents().size(),
-                        interviewSet.interviewCount());
+                        interviewSet.interviewCount(),
+                        messages);
             }
         }
         return adoc("Details", Details.of(interviewSet));

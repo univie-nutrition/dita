@@ -20,6 +20,8 @@ package dita.recall24.model;
 
 import javax.measure.Quantity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 /**
@@ -27,6 +29,7 @@ import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
  * @see Ingredient24
  */
 public record Ingredient24(
+        @JsonIgnore
         ObjectRef<Record24> parentRecordRef,
         String sid,
         String name,

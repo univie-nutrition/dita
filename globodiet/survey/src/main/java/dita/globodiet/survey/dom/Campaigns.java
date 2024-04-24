@@ -18,17 +18,27 @@
  */
 package dita.globodiet.survey.dom;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
 
+import dita.commons.types.Message;
+import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.model.InterviewSet24;
+import dita.recall24.model.Node24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @UtilityClass
 public class Campaigns {
+
+    public static String ANNOTATION_MESSAGES = "messages";
 
     public NamedPath namedPath(final Campaign campaign) {
         if(campaign==null
@@ -40,13 +50,47 @@ public class Campaigns {
                 .add(NamedPath.of(campaign.getCode().toLowerCase()));
     }
 
-    public InterviewSet24 interviewSet(final Campaign campaign, final BlobStore surveyBlobStore) {
-        if(surveyBlobStore==null) return InterviewSet24.empty();
-        return InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
-            .map(InterviewUtils::parse)
-            .reduce(InterviewSet24::join)
-            .map(InterviewSet24::normalized)
-            .orElseGet(InterviewSet24::empty);
+    public InterviewSet24 interviewSet(
+            final Campaign campaign,
+            final BlobStore surveyBlobStore) {
+
+        var messageConsumer = new MessageConsumer();
+
+        return surveyBlobStore==null
+            ? InterviewSet24.empty()
+            : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
+                .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
+                .reduce((a, b)->a.join(b, messageConsumer))
+                .map(InterviewSet24::normalized)
+                .map(messageConsumer::annotate)
+                .orElseGet(InterviewSet24::empty);
+    }
+
+    // -- HELPER
+
+    /**
+     * First collects {@link Message}(s),
+     * then annotates given {@link InterviewSet24} with those.
+     */
+    private static class MessageConsumer implements Consumer<Message> {
+
+        private final List<Message> messages = new ArrayList<>();
+
+        @Override
+        public void accept(final Message message) {
+            messages.add(message);
+        }
+
+        InterviewSet24 annotate(final InterviewSet24 interviewSet) {
+            return messages.isEmpty()
+                    ? interviewSet
+                    : interviewSet.annotate(toAnnotation());
+        }
+
+        private final Node24.Annotation toAnnotation() {
+            return new Node24.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
+        }
+
     }
 
 }

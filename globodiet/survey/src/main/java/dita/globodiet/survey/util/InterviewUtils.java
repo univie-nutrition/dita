@@ -22,10 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.NamedPath;
-
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
@@ -34,16 +30,13 @@ import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
-import dita.globodiet.survey.recall24.InterviewXmlParser;
-import dita.recall24.model.InterviewSet24;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @UtilityClass
 @Log4j2
 public class InterviewUtils {
-
-    public InterviewSet24 parse(final Clob interviewSource) {
-        return new InterviewXmlParser().parse(interviewSource);
-    }
 
     public Clob unzip(final Blob zippedInterviewSource) {
         var unzippedBlob = zippedInterviewSource

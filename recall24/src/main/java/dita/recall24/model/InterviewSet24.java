@@ -18,9 +18,14 @@
  */
 package dita.recall24.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.lang.Nullable;
 
@@ -32,6 +37,7 @@ import org.apache.causeway.commons.io.YamlUtils;
 import lombok.val;
 
 import dita.commons.jaxb.JaxbAdapters;
+import dita.commons.types.Message;
 import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
@@ -44,14 +50,17 @@ public record InterviewSet24(
          * Respondents that belong to this survey.
          */
         @TreeSubNodes
-        Can<Respondent24> respondents
+        Can<Respondent24> respondents,
+
+        @JsonIgnore
+        Map<String, Annotation> annotations
 
         ) implements dita.recall24.api.InterviewSet24, Node24 {
 
     public static InterviewSet24 of(
             /** Respondents that belong to this survey. */
             final Can<Respondent24> respondents) {
-        return new InterviewSet24(respondents);
+        return new InterviewSet24(respondents, new HashMap<>());
     }
 
     public static InterviewSet24 empty() {
@@ -82,7 +91,7 @@ public record InterviewSet24(
         var respondentsSorted = respondents
             .sorted((a, b)->a.alias().compareTo(b.alias()))
             .map(respondent->respondent.normalize());
-        return new InterviewSet24(respondentsSorted);
+        return new InterviewSet24(respondentsSorted, copy(annotations));
     }
 
     public int interviewCount() {
@@ -107,8 +116,11 @@ public record InterviewSet24(
 
     /**
      * Returns a joined model of the models passed in.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24 join(final @Nullable InterviewSet24 other) {
+    public InterviewSet24 join(
+            final @Nullable InterviewSet24 other,
+            final @Nullable Consumer<Message> messageConsumer) {
 
         if(other==null) return this;
 
@@ -117,27 +129,45 @@ public record InterviewSet24(
                 other.streamInterviews())
                 .toList();
 
-        return Recall24ModelUtils.join(interviews);
+        return Recall24ModelUtils.join(interviews, messageConsumer);
     }
 
     /**
      * Returns a joined model of the models passed in.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public static InterviewSet24 join(final @Nullable Iterable<InterviewSet24> models) {
+    public static InterviewSet24 join(
+            final @Nullable Iterable<InterviewSet24> models,
+            final @Nullable Consumer<Message> messageConsumer) {
         var interviews = _NullSafe.stream(models)
                 .flatMap(InterviewSet24::streamInterviews)
                 .toList();
 
-        return Recall24ModelUtils.join(interviews);
+        return Recall24ModelUtils.join(interviews, messageConsumer);
     }
 
     public String toJson() {
-        return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
+        return JsonUtils.toStringUtf8(this,
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()),
+                JsonUtils::indentedOutput);
     }
 
     public String toYaml() {
         return YamlUtils.toStringUtf8(this,
                 JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
+    }
+
+    // -- ANNOTATIONS
+
+    public InterviewSet24 annotate(final Annotation annotation) {
+        annotations.put(annotation.key(), annotation);
+        return this;
+    }
+
+    private Map<String, Annotation> copy(final Map<String, Annotation> map) {
+        var copy = new HashMap<String, Annotation>();
+        copy.putAll(map);
+        return copy;
     }
 
 }

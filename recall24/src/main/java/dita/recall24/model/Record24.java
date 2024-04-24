@@ -18,6 +18,8 @@
  */
 package dita.recall24.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.apache.causeway.commons.collections.Can;
 
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
@@ -28,6 +30,7 @@ public record Record24(
         /**
          * Memorized food this record belongs to.
          */
+        @JsonIgnore
         ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
 
         /**

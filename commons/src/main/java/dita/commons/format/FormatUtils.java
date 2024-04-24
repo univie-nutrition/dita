@@ -28,6 +28,9 @@ import java.util.Optional;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
+import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.internal.base._Strings;
+
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
@@ -91,6 +94,21 @@ public class FormatUtils {
             return input;
         }
         return fillString(gap, '0') + input;
+    }
+
+    // -- JAVA UTIL FORMAT
+
+    public String safelyFormat(final @Nullable String format) {
+        return _Strings.nullToEmpty(format);
+    }
+
+    public String safelyFormat(final @Nullable String format, final Object ...args) {
+        return StringUtils.hasLength(format)
+                ? Try.call(()->String.format(format, args))
+                        .mapFailureToSuccess(ex->"message formatting error: " + ex.getMessage())
+                    .getValue()
+                    .orElse("")
+                : "";
     }
 
 }

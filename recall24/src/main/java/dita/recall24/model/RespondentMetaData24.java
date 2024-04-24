@@ -20,6 +20,8 @@ package dita.recall24.model;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 public record RespondentMetaData24(
@@ -27,6 +29,7 @@ public record RespondentMetaData24(
         /**
          * Parent interview.
          */
+        @JsonIgnore
         ObjectRef<Interview24> parentInterviewRef,
 
         /**

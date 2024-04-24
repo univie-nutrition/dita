@@ -21,6 +21,8 @@ package dita.recall24.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.types.IntRef;
@@ -32,6 +34,7 @@ public record Interview24(
         /**
          * Respondent of this interview.
          */
+        @JsonIgnore
         ObjectRef<Respondent24> parentRespondentRef,
 
         /**

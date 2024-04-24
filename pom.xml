@@ -37,9 +37,9 @@ additional
         <causeway.version>3.0.0-SNAPSHOT</causeway.version>
         <causewaystuff.version>1.0.0-SNAPSHOT</causewaystuff.version>
 
-        <indriya-version>2.2</indriya-version>
-        <junit-version>[5,)</junit-version>
-        <lombok-version>1.18.32</lombok-version>
+        <indriya.version>2.2</indriya.version>
+        <junit.version>5.10.2</junit.version>
+        <lombok.version>1.18.32</lombok.version>
 
         <mariadb-jdbc.version>3.3.2</mariadb-jdbc.version>
         <mssql-jdbc.version>12.4.2.jre11</mssql-jdbc.version>
@@ -90,7 +90,7 @@ additional
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${lombok-version}</version>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -198,7 +198,7 @@ additional
             <dependency>
                 <groupId>tech.units</groupId>
                 <artifactId>indriya</artifactId>
-                <version>${indriya-version}</version>
+                <version>${indriya.version}</version>
             </dependency>
 
             <!-- APACHE CAUSEWAY -->
@@ -346,7 +346,7 @@ additional
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${lombok-version}</version>
+                <version>${lombok.version}</version>
             </dependency>
 
             <!-- TESTING -->
@@ -354,19 +354,19 @@ additional
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit-version}</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit-version}</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-params</artifactId>
-                <version>${junit-version}</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
 

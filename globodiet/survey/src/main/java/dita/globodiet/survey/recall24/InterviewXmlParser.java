@@ -18,44 +18,74 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.util.function.Consumer;
+
+import org.springframework.lang.Nullable;
+
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
 import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 
+import dita.commons.types.Message;
 import dita.recall24.model.InterviewSet24;
 import dita.recall24.util.Recall24ModelUtils;
 
 /**
  * Parses GloboDiet XML Interview files into recall24 data structures.
  */
+@UtilityClass
 public class InterviewXmlParser {
 
-    public Try<InterviewSet24> tryParse(final @NonNull DataSource source) {
-        return Try.call(()->parse(source));
+    /**
+     * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet24},
+     * wrapped by a {@link Try}.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
+     */
+    public Try<InterviewSet24> tryParse(
+            final @NonNull DataSource source,
+            final @Nullable Consumer<Message> messageConsumer) {
+        return Try.call(()->parse(source, messageConsumer));
     }
 
-    public InterviewSet24 parse(final @NonNull DataSource source) {
+    /**
+     * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet24}.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
+     */
+    public InterviewSet24 parse(
+            final @NonNull DataSource source,
+            final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
                 .valueAsNonNullElseFail();
-        return createFromDto(dto);
+        return createFromDto(dto, messageConsumer);
     }
 
-    public InterviewSet24 parse(final Clob interviewSource) {
+    /**
+     * Parses GloboDiet XML Interview file from given {@link Clob} into a {@link InterviewSet24}.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
+     */
+    public InterviewSet24 parse(
+            final Clob interviewSource,
+            final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
                 .valueAsNonNullElseFail();
-        return createFromDto(dto);
+        return createFromDto(dto, messageConsumer);
     }
 
     // -- HELPER
 
-    private InterviewSet24 createFromDto(final @NonNull _Dtos.Itv dto) {
+    private InterviewSet24 createFromDto(
+            final @NonNull _Dtos.Itv dto,
+            final @Nullable Consumer<Message> messageConsumer) {
         return Recall24ModelUtils
-                .join(dto.getInterviews().stream()
+                .join(
+                    dto.getInterviews().stream()
                         .map(_Dtos.Interview::toInterview24)
-                        .toList());
+                        .toList(),
+                    messageConsumer);
     }
 
 }

@@ -96,7 +96,7 @@ class Recall24UtilsTest {
                     partA.interviewCount() + partB.interviewCount());
         }
 
-        val joined = InterviewSet24.join(biPartition)
+        val joined = InterviewSet24.join(biPartition, null)
                 .normalized();
 
         {

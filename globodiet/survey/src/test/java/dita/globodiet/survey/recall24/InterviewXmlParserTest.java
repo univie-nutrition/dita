@@ -29,13 +29,11 @@ import dita.globodiet.survey.utils.ApprovalTestOptions;
 
 class InterviewXmlParserTest {
 
-    private InterviewXmlParser parser = new InterviewXmlParser();
-
     @Test
     @UseReporter(DiffReporter.class)
     void parsingSample() {
         var xml = InterviewSampler.sampleXml();
-        var interviewSet24 = parser.parse(DataSource.ofStringUtf8(xml));
+        var interviewSet24 = InterviewXmlParser.parse(DataSource.ofStringUtf8(xml), null);
 
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }

@@ -46,7 +46,6 @@ class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract 
 
     @Inject @Qualifier("survey") BlobStore surveyBlobStore;
     @Inject FactoryService factoryService;
-    private InterviewXmlParser parser = new InterviewXmlParser();
 
     @Test
     void parsingFromBlobStore() {
@@ -54,7 +53,7 @@ class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract 
 
         InterviewUtils.streamSources(surveyBlobStore, NamedPath.empty(), true)
         .limit(1)
-        .map(InterviewUtils::parse)
+        .map(ds->InterviewXmlParser.parse(ds, null))
         .forEach(interviewSet24->{
             System.err.printf("%s%n", interviewSet24.toYaml());
 
@@ -62,8 +61,6 @@ class InterviewXmlParserIntegrationTest extends CausewayIntegrationTestAbstract 
 
             root.iteratorDepthFirst()
                 .forEachRemaining(node->System.err.printf("node: %s%n", node.getValue()));
-
-
         });
     }
 
