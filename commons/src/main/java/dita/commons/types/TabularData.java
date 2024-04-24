@@ -35,10 +35,7 @@ import org.apache.causeway.commons.internal.collections._Lists;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
-import dita.commons.types.TabularData.Column;
-import dita.commons.types.TabularData.Table;
 import lombok.NonNull;
-import lombok.val;
 
 /**
  * Represents a database snapshot with stringified cell values.
@@ -157,7 +154,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
                 @SuppressWarnings("unchecked")
                 var tableColsAndRows = (Map<String, ?>)tableEntry.getValue();
                 @SuppressWarnings("unchecked")
-                val colLiterals = (Collection<String>) tableColsAndRows.get("cols");
+                var colLiterals = (Collection<String>) tableColsAndRows.get("cols");
 
                 var rowsLit = tableColsAndRows.get("rows");
                 @SuppressWarnings("unchecked")
@@ -187,7 +184,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
                     .map(Row::new)
                     .collect(Can.toCan());
 
-                val dataTable = new TabularData.Table(tableKey, columns, rows);
+                var dataTable = new TabularData.Table(tableKey, columns, rows);
                 dataTables.add(dataTable);
             });
         });
@@ -222,7 +219,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
 
     public String toYaml(final TabularData.Format formatOptions) {
 
-        val yaml = new YamlWriter();
+        var yaml = new YamlWriter();
 
         yaml.write("tables:").nl();
 
@@ -231,7 +228,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
 
             yaml.ind().ind().ind().write("cols:").nl();
             dataTable.columns().forEach(col->{
-                val colLiteral = col.description()
+                var colLiteral = col.description()
                     .map(desc->String.format("%s: %s", col.name(), desc.replace('\n', '|')))
                     .orElse(col.name());
 
@@ -270,7 +267,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         final StringBuilder sb = new StringBuilder();
         @Override public String toString() { return sb.toString(); }
         YamlWriter write(final String ...s) {
-            for(val str:s) sb.append(str);
+            for(var str:s) sb.append(str);
             return this;
         }
         YamlWriter doubleQuoted(final String s) {
