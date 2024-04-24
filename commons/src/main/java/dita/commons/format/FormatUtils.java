@@ -31,7 +31,6 @@ import org.springframework.util.StringUtils;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import lombok.val;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -46,7 +45,7 @@ public class FormatUtils {
             final double x, final int scale,
             final Optional<Locale> locale) {
 
-        val decimal = BigDecimal.valueOf(x)
+        var decimal = BigDecimal.valueOf(x)
                 .setScale(scale, RoundingMode.HALF_UP);
 
         final char decimalSeparator = locale
@@ -54,7 +53,7 @@ public class FormatUtils {
                 .map(DecimalFormatSymbols::getDecimalSeparator)
                 .orElse('.');
 
-        val plainString = decimal.stripTrailingZeros().toPlainString();
+        var plainString = decimal.stripTrailingZeros().toPlainString();
 
         return decimalSeparator=='.'
                 ? plainString
