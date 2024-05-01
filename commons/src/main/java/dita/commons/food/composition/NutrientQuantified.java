@@ -16,25 +16,11 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.types.onto;
+package dita.commons.food.composition;
 
-import dita.commons.types.SemanticIdentifier;
+import java.math.BigDecimal;
 
-/**
- * A Qualified Map Entry relates a data object from one system to another, 
- * respecting a qualifier.
- */
-public record QualifiedMapEntry(
-        /**
-         * Semantic identifier of the data object that is mapped from.
-         */
-        SemanticIdentifier source,
-        /**
-         * Encodes constraints under which this map entry is applicable.
-         */
-        String qualifier,
-        /**
-         * Semantic identifier of the data object that is mapped to.
-         */
-        SemanticIdentifier target) {
+public record NutrientQuantified(
+        Nutrient nutrient,
+        BigDecimal grams) {
 }

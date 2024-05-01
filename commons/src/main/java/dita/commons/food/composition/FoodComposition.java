@@ -16,17 +16,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.types.onto;
+package dita.commons.food.composition;
 
-import dita.commons.types.SemanticIdentifier;
+import java.util.Set;
 
-/**
- * Represents a term within a hierarchy of ontology terms. 
- */
-public record OntoTerm(
-        SemanticIdentifier termId,
-        SemanticIdentifier broadened,
-        SemanticIdentifier narrowed,
-        String name
-        ) {
+import dita.commons.sid.SemanticIdentifier;
+
+public record FoodComposition(
+        SemanticIdentifier foodId,
+        Set<NutrientFraction> nutrientFractions) {
 }

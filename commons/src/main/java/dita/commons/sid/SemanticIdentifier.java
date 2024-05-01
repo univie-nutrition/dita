@@ -16,31 +16,22 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.types.onto;
-
-import java.util.Optional;
-
-import dita.commons.types.SemanticIdentifier;
+package dita.commons.sid;
 
 /**
- * A Qualified Map relates data objects from one system to another, 
- * respecting arbitrary qualifiers. Represents a collection of {@link QualifiedMapEntry}(s). 
+ * A Semantic Identifier references data objects across system boundaries.
  */
-public class QualifiedMap {
-    
-    public QualifiedMap put(QualifiedMapEntry entry) {
-        //TODO flesh out
-        return this;
-    }
-    
-    public Optional<QualifiedMapEntry> lookup(SemanticIdentifier sid){
-        //TODO flesh out
-        return Optional.empty();
-    }
-    
-    public QualifiedMapEntry lookupElseFail(SemanticIdentifier sid){
-        //TODO flesh out
-        return null;
-    }
-    
+public record SemanticIdentifier(
+        /**
+         * Identifies the system (and optionally version) of the referenced data object.
+         */
+        String systemId,
+        /**
+         * Identifies the category, class or hierarchy the data object belongs to.
+         */
+        String categoryId,
+        /**
+         * Uniquely identifies the data object within the category and/or system.
+         */
+        String objectId) {
 }

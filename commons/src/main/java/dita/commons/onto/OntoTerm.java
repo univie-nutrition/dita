@@ -16,24 +16,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.types.onto;
+package dita.commons.onto;
 
-import dita.commons.types.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 
 /**
- * Arbitrary textual annotation to an {@link OntoTerm}. E.g. translation, description, web reference, etc. 
+ * Represents a term within a hierarchy of ontology terms. 
  */
-public record OntoTermAnnotation(
-        /**
-         * Identifier of the {@link OntoTerm} this annotation references.
-         */
+public record OntoTerm(
         SemanticIdentifier termId,
-        /**
-         * Arbitrary annotation classification e.g. {@code description,language=de}
-         */
-        String key,
-        /**
-         * Annotation's value.
-         */
-        String value) {
+        String name,
+        SemanticIdentifier broadened,
+        SemanticIdentifierSet narrowed
+        ) {
 }

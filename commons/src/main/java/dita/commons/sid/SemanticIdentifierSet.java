@@ -16,18 +16,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.types;
+package dita.commons.sid;
 
-/**
- * A Semantic Identifier references data objects across system boundaries.
- */
-public record SemanticIdentifier(
-        /**
-         * Identifies the system (and optionally version) of the referenced data object.
-         */
-        String systemId,
-        /**
-         * Identifies the data object within the system.
-         */
-        String objectId) {
+import java.util.Collections;
+import java.util.Set;
+
+import org.springframework.lang.Nullable;
+
+public record SemanticIdentifierSet(Set<SemanticIdentifier> elements) {
+    
+    private static final SemanticIdentifierSet EMPTY = new SemanticIdentifierSet(Collections.emptySet());
+    
+    public static SemanticIdentifierSet empty() {
+        return EMPTY;
+    }
+    
+    public static SemanticIdentifierSet nullToEmpty(@Nullable SemanticIdentifierSet set) {
+        return set!=null
+                ? set
+                : EMPTY;
+    }
 }
