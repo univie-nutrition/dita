@@ -28,6 +28,7 @@ import javax.measure.Quantity;
 import javax.measure.Unit;
 import javax.measure.format.UnitFormat;
 import javax.measure.quantity.Dimensionless;
+import javax.measure.quantity.Energy;
 import javax.measure.quantity.Mass;
 import javax.measure.quantity.Volume;
 
@@ -35,12 +36,25 @@ import lombok.experimental.UtilityClass;
 
 import tech.units.indriya.AbstractUnit;
 import tech.units.indriya.format.EBNFUnitFormat;
+import tech.units.indriya.function.MultiplyConverter;
 import tech.units.indriya.quantity.Quantities;
+import tech.units.indriya.unit.TransformedUnit;
 import tech.units.indriya.unit.Units;
 
 @UtilityClass
 public class MetricUnits {
 
+    // -- CUSTOM UNITS
+    
+    public static final Unit<Energy> CALORIES = 
+            new TransformedUnit<>("cal", Units.JOULE, Units.JOULE, MultiplyConverter.ofRational(4184, 1000));
+
+    public static final Unit<Dimensionless> BREAD_EXCHANGE = 
+            AbstractUnit.ONE.alternate("BE").asType(Dimensionless.class);
+
+    public static final Unit<Dimensionless> PARTS = 
+            AbstractUnit.ONE.alternate("parts").asType(Dimensionless.class);
+    
     // -- FACTORIES
 
     public Quantity<Dimensionless> one() {

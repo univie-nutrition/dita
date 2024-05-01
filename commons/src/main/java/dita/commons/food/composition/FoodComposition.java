@@ -25,4 +25,5 @@ import dita.commons.sid.SemanticIdentifier;
 public record FoodComposition(
         SemanticIdentifier foodId,
         Set<NutrientFraction> nutrientFractions) {
+  
 }
