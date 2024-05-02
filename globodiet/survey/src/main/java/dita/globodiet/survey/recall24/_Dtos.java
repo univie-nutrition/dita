@@ -487,7 +487,7 @@ class _Dtos {
         @XmlElement(name="ITL_Conver")
         private double rawPerCookedRatio;
 
-        /** Variable indicating whether the quantity was Estimated With/Without Inedible Part:<br>
+        /** Variable indicating whether the quantity was estimated with/without inedible part:<br>
          * 1 = Without or not applicable<br>
          * 2 = With*/
         @XmlElement(name="ITL_EDIB")
@@ -575,7 +575,7 @@ class _Dtos {
             private String code;
             /** TODO */
             @XmlElement(name="ITV_NTR_Value")
-            private double value;
+            private BigDecimal value;
         }
         @XmlElementWrapper(name="ListeITV_Nutriments")
         @XmlElement(name="ITV_Nutriment", type=Nutrient.class)
