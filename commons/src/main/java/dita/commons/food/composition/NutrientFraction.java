@@ -22,6 +22,10 @@ import java.math.BigDecimal;
 
 import dita.commons.food.composition.Nutrient.ComponentUnit;
 
+/**
+ * Represents a measured or calculated value for the relative mass amount of a chemical substance
+ * or other food component or simply a food specific fixed value like 'protein animal to plant ratio'.
+ */
 public record NutrientFraction(
         Nutrient nutrient,
         BigDecimal per100gOrFixedValue) {

@@ -35,8 +35,8 @@ import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
 
 /**
- * Represents a chemical substance or other food component.
- * A food component may or may not be quantity related e.g. RATIO or PERCENT are not related to the consumed quantity.
+ * Represents a chemical substance or other food component
+ * or simply a food specific fixed value like 'protein animal to plant ratio'.
  */
 public record Nutrient(
         SemanticIdentifier componentId,

@@ -23,6 +23,9 @@ import java.math.BigDecimal;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
+/**
+ * By convention consumption is always given in grams.
+ */
 public record FoodConsumption(
         SemanticIdentifier foodId,
         SemanticIdentifierSet facetIds,
