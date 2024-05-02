@@ -18,58 +18,72 @@
  */
 package dita.commons.food.composition;
 
-import org.apache.causeway.applib.annotation.Title;
+import java.math.BigDecimal;
+
+import javax.measure.Quantity;
+
+import org.apache.causeway.applib.annotation.MemberSupport;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.MetricUnits;
 import tech.units.indriya.AbstractUnit;
+import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
 
 /**
- * Represents a nutrient or other food component. 
- * A food component may or may not be quantity related ().
+ * Represents a chemical substance or other food component.
+ * A food component may or may not be quantity related e.g. RATIO or PERCENT are not related to the consumed quantity.
  */
 public record Nutrient(
         SemanticIdentifier componentId,
         ComponentUnit componentUnit) {
-    
+
     @RequiredArgsConstructor
     public enum ComponentUnit {
         ONE("𝟙", AbstractUnit.ONE),
         RATIO("⅟₁", AbstractUnit.ONE),
+        PERCENT("%", AbstractUnit.ONE),
         CALORIES("cal", MetricUnits.CALORIES),
         JOUL("J", Units.JOULE),
         GRAM("g", Units.GRAM),
-        BREAD_EXCHANGE("BE", MetricUnits.BREAD_EXCHANGE)
-        ;
+        BREAD_EXCHANGE("BE", MetricUnits.BREAD_EXCHANGE);
 
-        final String display;
-        @Getter final javax.measure.Unit<?> unit;
-
-        public static ComponentUnit parse(final String x){
-            switch (x) {
+        public static ComponentUnit parse(final String symbol){
+            switch (symbol) {
             case "BE": return BREAD_EXCHANGE;
             case "cal": return CALORIES;
             case "J": return JOUL;
             case "g": return GRAM;
-            case "𝟙": 
+            case "𝟙":
             case "1": return ONE;
-            case "⅟₁": 
+            case "⅟₁":
             case "/": return RATIO;
-            default: throw new IllegalArgumentException("Unknown unit: " + x);
+            case "%": return PERCENT;
+            default: throw new IllegalArgumentException("Unknown unit symbol: " + symbol);
             }
         }
 
-        @Title
-        public String shortForm() {
-            return display;
+        @Getter @Accessors(fluent=true)
+        final String symbol;
+
+        @Getter @Accessors(fluent=true)
+        final javax.measure.Unit<?> unit;
+
+        @MemberSupport
+        public String title() {
+            return symbol;
         }
 
         public boolean isGram() { return this==GRAM; }
-        public boolean isQuantityRelated() { return this!=RATIO; }
+        public boolean isInvariantWithRespectToAmountConusmed() { return this==RATIO || this==PERCENT; }
+
+        public Quantity<?> quantity(final BigDecimal amount) {
+            return Quantities.getQuantity(amount, unit);
+        }
 
     }
 }

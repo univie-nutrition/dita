@@ -20,12 +20,22 @@ package dita.commons.food.composition;
 
 import java.math.BigDecimal;
 
+import dita.commons.food.composition.Nutrient.ComponentUnit;
+
 public record NutrientFraction(
         Nutrient nutrient,
-        BigDecimal gramsPer100g) {
-    
-    public NutrientQuantified quantify(BigDecimal grams) {
-        return new NutrientQuantified(nutrient, grams.multiply(gramsPer100g).scaleByPowerOfTen(-2));
+        BigDecimal per100gOrFixedValue) {
+
+    /**
+     * Whether or not given {@code amountConusmed} is used to quantify the result,
+     * depends on the {@link ComponentUnit} of underlying {@link Nutrient}.
+     * Some of these may represent a ratio or percentage, that is independent of the amount consumed.
+     */
+    public NutrientQuantified quantify(final BigDecimal gramsConusmed) {
+        var amount = nutrient.componentUnit().isInvariantWithRespectToAmountConusmed()
+                ? per100gOrFixedValue
+                : gramsConusmed.multiply(per100gOrFixedValue).scaleByPowerOfTen(-2);
+        return new NutrientQuantified(nutrient, nutrient.componentUnit().quantity(amount));
     }
-    
+
 }

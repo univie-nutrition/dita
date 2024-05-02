@@ -18,9 +18,21 @@
  */
 package dita.commons.food.composition;
 
-import java.math.BigDecimal;
+import javax.measure.Quantity;
+
+import dita.commons.food.composition.Nutrient.ComponentUnit;
+import dita.commons.sid.SemanticIdentifier;
 
 public record NutrientQuantified(
         Nutrient nutrient,
-        BigDecimal grams) {
+        Quantity<?> quantity) {
+
+    public SemanticIdentifier componentId() {
+        return nutrient.componentId();
+    }
+
+    public ComponentUnit componentUnit() {
+        return nutrient.componentUnit();
+    }
+
 }

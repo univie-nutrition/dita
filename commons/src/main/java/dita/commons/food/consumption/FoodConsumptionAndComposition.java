@@ -26,14 +26,13 @@ import dita.commons.food.composition.NutrientQuantified;
 
 public record FoodConsumptionAndComposition(
         FoodConsumption consumption,
-        FoodComposition composition
-        ) {
-    
+        FoodComposition composition) {
+
     public Set<NutrientQuantified> nutrients() {
         var grams = consumption.grams();
         return composition.nutrientFractions().stream()
                 .map(nutrientFraction->nutrientFraction.quantify(grams))
                 .collect(Collectors.toSet());
     }
-    
+
 }

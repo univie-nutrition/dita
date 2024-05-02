@@ -41,55 +41,55 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
 class FoodTest {
-    
+
     @Test
     void test() {
-        
+
         var gdId = "AT-GD-2024.05";
         var blsId = "DE-BLS-3.02";
 
         // setup food consumption
         var gdBanana = LanguaL.foodId(gdId, "00136"); // Banana
-        var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gdId, "0399"); 
-                
+        var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gdId, "0399");
+
         var raw = new SemanticIdentifierSet(Set.of(gdFacetRaw));
         var bananaConsumption = new FoodConsumption(gdBanana, raw, new BigDecimal(64));
-        
+
         // setup food composition database (map)
         var blsBanana = LanguaL.foodId(blsId, "F503100"); // Banana raw
         var nutZuckerGesamtId = new SemanticIdentifier(blsId, "NUTRIENT", "KMD");
-        
+
         //TODO food components may have different units, e.g. supplements components given in per PART
-        var nutZuckerGesamt = new Nutrient(nutZuckerGesamtId, ComponentUnit.GRAM);  
-        
+        var nutZuckerGesamt = new Nutrient(nutZuckerGesamtId, ComponentUnit.GRAM);
+
         var bananaComposition = new FoodComposition(blsBanana, Set.of(
                 new NutrientFraction(nutZuckerGesamt, new BigDecimal("17.267"))));
-        
+
         var fcdb = new FoodCompositionDatabase();
         fcdb.put(bananaComposition);
-        
+
         var qMap = new QualifiedMap();
         var qMapEntry = new QualifiedMapEntry(gdBanana, raw, blsBanana);
         qMap.put(qMapEntry);
-        
+
         // verify lookups
         assertEquals(
-                Optional.empty(), 
+                Optional.empty(),
                 qMap.lookup(gdBanana, SemanticIdentifierSet.empty()));
-        
+
         assertEquals(
-                Optional.of(blsBanana), 
+                Optional.of(blsBanana),
                 qMap.lookup(gdBanana, raw));
-        
+
         assertEquals(
-                Optional.of(bananaComposition), 
+                Optional.of(bananaComposition),
                 fcdb.lookupEntry(blsBanana));
-        
+
         var fcac = new FoodConsumptionAndComposition(bananaConsumption, bananaComposition);
-        
+
         assertEquals(
-                Set.of(new NutrientQuantified(nutZuckerGesamt, 
-                        new BigDecimal("17.267").multiply(new BigDecimal("0.64")))), 
+                Set.of(new NutrientQuantified(nutZuckerGesamt, ComponentUnit.GRAM.quantity(
+                        new BigDecimal("17.267").multiply(new BigDecimal("0.64"))))),
                 fcac.nutrients());
     }
 }
