@@ -57,13 +57,13 @@ public class FoodCompositionRepository {
                         foodId));
     }
     
-    public Optional<Set<NutrientFraction>> lookup(
+    public Optional<Set<FoodComponentDatapoint>> lookup(
             @Nullable SemanticIdentifier foodId){
         return lookupEntry(foodId)
                 .map(FoodComposition::nutrientFractions);
     }
     
-    public Set<NutrientFraction> lookupElseFail(
+    public Set<FoodComponentDatapoint> lookupElseFail(
             @Nullable SemanticIdentifier foodId){
         return lookupEntryElseFail(foodId).nutrientFractions();
     }

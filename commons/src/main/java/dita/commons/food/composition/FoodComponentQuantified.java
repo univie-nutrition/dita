@@ -16,23 +16,23 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.food.consumption;
+package dita.commons.food.composition;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import javax.measure.Quantity;
 
-import dita.commons.food.composition.FoodComposition;
-import dita.commons.food.composition.NutrientQuantified;
+import dita.commons.food.composition.FoodComponent.ComponentUnit;
+import dita.commons.sid.SemanticIdentifier;
 
-public record FoodConsumptionAndComposition(
-        FoodConsumption consumption,
-        FoodComposition composition) {
+public record FoodComponentQuantified(
+        FoodComponent nutrient,
+        Quantity<?> quantity) {
 
-    public Set<NutrientQuantified> nutrients() {
-        var grams = consumption.grams();
-        return composition.nutrientFractions().stream()
-                .map(nutrientFraction->nutrientFraction.quantify(grams))
-                .collect(Collectors.toSet());
+    public SemanticIdentifier componentId() {
+        return nutrient.componentId();
+    }
+
+    public ComponentUnit componentUnit() {
+        return nutrient.componentUnit();
     }
 
 }

@@ -28,12 +28,12 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.sid.SemanticIdentifier;
 
-public class NutrientCatalog {
+public class FoodComponentCatalog {
 
-    private final Map<SemanticIdentifier, Nutrient> internalMap = new ConcurrentHashMap<>();
+    private final Map<SemanticIdentifier, FoodComponent> internalMap = new ConcurrentHashMap<>();
 
-    public NutrientCatalog put(
-            @Nullable final Nutrient entry) {
+    public FoodComponentCatalog put(
+            @Nullable final FoodComponent entry) {
         if(entry==null) return this;
         if(entry.componentId()==null) return this;
         internalMap.put(entry.componentId(), entry);
@@ -42,13 +42,13 @@ public class NutrientCatalog {
 
     // -- LOOKUP
 
-    public Optional<Nutrient> lookupEntry(
+    public Optional<FoodComponent> lookupEntry(
             @Nullable final SemanticIdentifier componentId){
         if(componentId==null) return Optional.empty();
         return Optional.ofNullable(internalMap.get(componentId));
     }
 
-    public Nutrient lookupEntryElseFail(
+    public FoodComponent lookupEntryElseFail(
             @Nullable final SemanticIdentifier componentId){
         return lookupEntry(componentId)
                 .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for componentId=%s",

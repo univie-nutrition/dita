@@ -20,26 +20,26 @@ package dita.commons.food.composition;
 
 import java.math.BigDecimal;
 
-import dita.commons.food.composition.Nutrient.ComponentUnit;
+import dita.commons.food.composition.FoodComponent.ComponentUnit;
 
 /**
  * Represents a measured or calculated value for the relative mass amount of a chemical substance
  * or other food component or simply a food specific fixed value like 'protein animal to plant ratio'.
  */
-public record NutrientFraction(
-        Nutrient nutrient,
+public record FoodComponentDatapoint(
+        FoodComponent component,
         BigDecimal per100gOrFixedValue) {
 
     /**
      * Whether or not given {@code amountConusmed} is used to quantify the result,
-     * depends on the {@link ComponentUnit} of underlying {@link Nutrient}.
+     * depends on the {@link ComponentUnit} of underlying {@link FoodComponent}.
      * Some of these may represent a ratio or percentage, that is independent of the amount consumed.
      */
-    public NutrientQuantified quantify(final BigDecimal gramsConusmed) {
-        var amount = nutrient.componentUnit().isInvariantWithRespectToAmountConusmed()
+    public FoodComponentQuantified quantify(final BigDecimal gramsConusmed) {
+        var amount = component.componentUnit().isInvariantWithRespectToAmountConusmed()
                 ? per100gOrFixedValue
                 : gramsConusmed.multiply(per100gOrFixedValue).scaleByPowerOfTen(-2);
-        return new NutrientQuantified(nutrient, nutrient.componentUnit().quantity(amount));
+        return new FoodComponentQuantified(component, component.componentUnit().quantity(amount));
     }
 
 }

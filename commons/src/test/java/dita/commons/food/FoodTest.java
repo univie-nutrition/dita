@@ -22,18 +22,20 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.measure.MetricPrefix;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import dita.commons.food.composition.FoodComponent;
+import dita.commons.food.composition.FoodComponent.ComponentUnit;
+import dita.commons.food.composition.FoodComponentDatapoint;
+import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.food.composition.Nutrient;
-import dita.commons.food.composition.Nutrient.ComponentUnit;
-import dita.commons.food.composition.NutrientFraction;
-import dita.commons.food.composition.NutrientQuantified;
 import dita.commons.food.consumption.FoodConsumption;
-import dita.commons.food.consumption.FoodConsumptionAndComposition;
+import dita.commons.food.consumption.FoodConsumptionWithQuantifiedComponents;
 import dita.commons.ontologies.BLS302;
 import dita.commons.ontologies.GloboDiet;
 import dita.commons.ontologies.LanguaL;
@@ -47,7 +49,10 @@ class FoodTest {
     private GloboDiet gd = new GloboDiet("AT-GD-2024.05");
     private SemanticIdentifier blsBananaId = BLS302.foodId("F503100"); // Banana raw
     // food components may have different units, e.g. GRAM, kcal, etc.
-    private Nutrient blsZuckerGesamt = new Nutrient(BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"), ComponentUnit.GRAM);
+    private FoodComponent blsZuckerGesamt = new FoodComponent(
+            BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"),
+            MetricPrefix.MILLI,
+            ComponentUnit.GRAM);
     private QualifiedMap qMap = new QualifiedMap();
 
     @Test
@@ -71,12 +76,12 @@ class FoodTest {
 
         var bananaComposition = foodCompositionRepo.lookupEntryElseFail(blsBananaId);
 
-        var fcac = new FoodConsumptionAndComposition(bananaConsumption, bananaComposition);
+        var fcac = new FoodConsumptionWithQuantifiedComponents(bananaConsumption, bananaComposition);
 
         assertEquals(
-                Set.of(new NutrientQuantified(blsZuckerGesamt, ComponentUnit.GRAM.quantity(
+                Set.of(new FoodComponentQuantified(blsZuckerGesamt, ComponentUnit.GRAM.quantity(
                         new BigDecimal("17.267").multiply(new BigDecimal("0.64"))))),
-                fcac.nutrients());
+                fcac.quantifiedComponents());
     }
 
     // -- HELPER
@@ -92,7 +97,7 @@ class FoodTest {
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();
         var bananaComposition = new FoodComposition(blsBananaId, Set.of(
-                new NutrientFraction(blsZuckerGesamt, new BigDecimal("17.267"))));
+                new FoodComponentDatapoint(blsZuckerGesamt, new BigDecimal("17.267"))));
         foodCompositionRepo.put(bananaComposition);
         return foodCompositionRepo;
     }

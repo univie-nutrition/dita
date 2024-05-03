@@ -20,6 +20,7 @@ package dita.commons.food.composition;
 
 import java.math.BigDecimal;
 
+import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
 
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -36,10 +37,11 @@ import tech.units.indriya.unit.Units;
 
 /**
  * Represents a chemical substance or other food component
- * or simply a food specific fixed value like 'protein animal to plant ratio'.
+ * or simply a food specific value, that is independent of the consumed amount e.g. 'protein animal to plant ratio'.
  */
-public record Nutrient(
+public record FoodComponent(
         SemanticIdentifier componentId,
+        MetricPrefix metricPrefix,
         ComponentUnit componentUnit) {
 
     @RequiredArgsConstructor
