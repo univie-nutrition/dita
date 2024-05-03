@@ -19,6 +19,7 @@
 package dita.commons.food;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -79,9 +80,15 @@ class FoodTest {
         var fcac = new FoodConsumptionWithQuantifiedComponents(bananaConsumption, bananaComposition);
 
         assertEquals(
-                Set.of(new FoodComponentQuantified(blsZuckerGesamt, ComponentUnit.GRAM.quantity(
+                Map.of(
+                        blsZuckerGesamt.componentId(),
+                        new FoodComponentQuantified(blsZuckerGesamt, ComponentUnit.GRAM.quantity(
                         new BigDecimal("17.267").multiply(new BigDecimal("0.64"))))),
                 fcac.quantifiedComponents());
+        assertEquals(
+                Optional.of(new FoodComponentQuantified(blsZuckerGesamt, ComponentUnit.GRAM.quantity(
+                        new BigDecimal("17.267").multiply(new BigDecimal("0.64"))))),
+                fcac.quantifiedComponent(blsZuckerGesamt));
     }
 
     // -- HELPER
@@ -96,7 +103,8 @@ class FoodTest {
 
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();
-        var bananaComposition = new FoodComposition(blsBananaId, Set.of(
+        var bananaComposition = new FoodComposition(blsBananaId, Map.of(
+                blsZuckerGesamt.componentId(),
                 new FoodComponentDatapoint(blsZuckerGesamt, new BigDecimal("17.267"))));
         foodCompositionRepo.put(bananaComposition);
         return foodCompositionRepo;

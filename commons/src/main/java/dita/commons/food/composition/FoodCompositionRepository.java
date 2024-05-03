@@ -20,7 +20,6 @@ package dita.commons.food.composition;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.lang.Nullable;
@@ -30,42 +29,42 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import dita.commons.sid.SemanticIdentifier;
 
 public class FoodCompositionRepository {
-    
+
     private final Map<SemanticIdentifier, FoodComposition> internalMap = new ConcurrentHashMap<>();
-    
+
     public FoodCompositionRepository put(
-            @Nullable FoodComposition entry) {
+            @Nullable final FoodComposition entry) {
         if(entry==null) return this;
         if(entry.foodId()==null) return this;
-        if(entry.nutrientFractions()==null) return this;
+        if(entry.datapoints()==null) return this;
         internalMap.put(entry.foodId(), entry);
         return this;
     }
-    
+
     // -- LOOKUP
-    
+
     public Optional<FoodComposition> lookupEntry(
-            @Nullable SemanticIdentifier foodId){
+            @Nullable final SemanticIdentifier foodId){
         if(foodId==null) return Optional.empty();
         return Optional.ofNullable(internalMap.get(foodId));
     }
-    
+
     public FoodComposition lookupEntryElseFail(
-            @Nullable SemanticIdentifier foodId){
+            @Nullable final SemanticIdentifier foodId){
         return lookupEntry(foodId)
-                .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for foodId=%s", 
+                .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for foodId=%s",
                         foodId));
     }
-    
-    public Optional<Set<FoodComponentDatapoint>> lookup(
-            @Nullable SemanticIdentifier foodId){
+
+    public Optional<Map<SemanticIdentifier, FoodComponentDatapoint>> lookup(
+            @Nullable final SemanticIdentifier foodId){
         return lookupEntry(foodId)
-                .map(FoodComposition::nutrientFractions);
+                .map(FoodComposition::datapoints);
     }
-    
-    public Set<FoodComponentDatapoint> lookupElseFail(
-            @Nullable SemanticIdentifier foodId){
-        return lookupEntryElseFail(foodId).nutrientFractions();
+
+    public Map<SemanticIdentifier, FoodComponentDatapoint> lookupElseFail(
+            @Nullable final SemanticIdentifier foodId){
+        return lookupEntryElseFail(foodId).datapoints();
     }
-    
+
 }

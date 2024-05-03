@@ -18,11 +18,21 @@
  */
 package dita.commons.food.composition;
 
-import java.util.Set;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.lang.Nullable;
+
+import lombok.NonNull;
 
 import dita.commons.sid.SemanticIdentifier;
 
 public record FoodComposition(
-        SemanticIdentifier foodId,
-        Set<FoodComponentDatapoint> nutrientFractions) {
+        @NonNull SemanticIdentifier foodId,
+        @NonNull Map<SemanticIdentifier, FoodComponentDatapoint> datapoints) {
+
+    public Optional<FoodComponentDatapoint> datapoint(final @Nullable SemanticIdentifier componentId) {
+        return Optional.ofNullable(componentId)
+                .map(datapoints::get);
+    }
 }

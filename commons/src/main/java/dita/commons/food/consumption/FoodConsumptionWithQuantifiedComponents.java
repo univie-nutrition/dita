@@ -18,21 +18,38 @@
  */
 package dita.commons.food.consumption;
 
-import java.util.Set;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.lang.Nullable;
+
+import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
+import dita.commons.sid.SemanticIdentifier;
 
 public record FoodConsumptionWithQuantifiedComponents(
         FoodConsumption consumption,
         FoodComposition composition) {
 
-    public Set<FoodComponentQuantified> quantifiedComponents() {
-        var grams = consumption.grams();
-        return composition.nutrientFractions().stream()
-                .map(nutrientFraction->nutrientFraction.quantify(grams))
-                .collect(Collectors.toSet());
+    public Map<SemanticIdentifier, FoodComponentQuantified> quantifiedComponents() {
+        return composition.datapoints()
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().quantify(consumption.grams())));
+    }
+
+    public Optional<FoodComponentQuantified> quantifiedComponent(@Nullable final SemanticIdentifier componentId) {
+        return Optional.ofNullable(componentId)
+                .flatMap(composition::datapoint)
+                .map(datapoint->datapoint.quantify(consumption.grams()));
+    }
+
+    public Optional<FoodComponentQuantified> quantifiedComponent(@Nullable final FoodComponent foodComponent) {
+        return Optional.ofNullable(foodComponent)
+                .map(FoodComponent::componentId)
+                .flatMap(this::quantifiedComponent);
     }
 
 }
