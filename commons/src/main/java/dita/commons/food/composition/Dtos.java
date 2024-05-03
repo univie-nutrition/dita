@@ -30,6 +30,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
@@ -93,10 +94,7 @@ class Dtos {
         }
         public static Try<FoodCompositionRepositoryDto> tryFromYaml(@Nullable final DataSource ds) {
             if(ds==null) return Try.failure(_Exceptions.noSuchElement("missing datasource"));
-            return YamlUtils.tryRead(FoodCompositionRepositoryDto.class, ds, yamlOptions());
-        }
-        private static JacksonCustomizer yamlOptions() {
-            return JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+            return YamlUtils.tryReadCustomized(FoodCompositionRepositoryDto.class, ds, yamlMillionCodePointsLimit(200), yamlOptions());
         }
     }
 
@@ -114,6 +112,19 @@ class Dtos {
         dto.compositions().forEach(comp->internalMap.put(comp.foodId(), Dtos.fromDto(comp, componentCatalog)));
         var repo = new FoodCompositionRepository(componentCatalog, internalMap);
         return repo;
+    }
+
+    // -- HELPER
+
+    private JacksonCustomizer yamlOptions() {
+        return JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+    }
+
+    private YamlLoadCustomizer yamlMillionCodePointsLimit(final int millions) {
+        return loader->{
+            loader.setCodePointLimit(millions * 1_000_000);
+            return loader;
+        };
     }
 
 }

@@ -32,7 +32,6 @@ class FoodCompositionRepositoryTest {
 
     @Test
     void roundtrip() {
-
         // setup food consumption
         var foodCompositionRepoOrig = FoodCompositionSampler.createFoodCompositionRepository();
         var yaml = foodCompositionRepoOrig.toYaml();
@@ -48,8 +47,6 @@ class FoodCompositionRepositoryTest {
                 .lookupEntryElseFail(BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"));
 
         assertNotNull(blsZuckerGesamt);
-
     }
-
 
 }

@@ -268,6 +268,12 @@ additional
                 <artifactId>causewaystuff-commons-base</artifactId>
                 <version>${causewaystuff.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>io.github.causewaystuff</groupId>
+                <artifactId>causewaystuff-commons-compression</artifactId>
+                <version>${causewaystuff.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>io.github.causewaystuff</groupId>

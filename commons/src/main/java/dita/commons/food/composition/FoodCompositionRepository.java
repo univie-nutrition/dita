@@ -60,6 +60,10 @@ public class FoodCompositionRepository {
         return this;
     }
 
+    public int compositionCount() {
+        return internalMap.values().size();
+    }
+
     public Stream<FoodComposition> streamCompositions() {
         return internalMap.values().stream();
     }
