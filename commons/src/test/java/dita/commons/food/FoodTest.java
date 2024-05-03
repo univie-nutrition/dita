@@ -23,18 +23,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.measure.MetricPrefix;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
-import dita.commons.food.composition.FoodComponentDatapoint;
 import dita.commons.food.composition.FoodComponentQuantified;
-import dita.commons.food.composition.FoodComposition;
-import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumptionWithQuantifiedComponents;
 import dita.commons.ontologies.BLS302;
@@ -49,21 +44,21 @@ class FoodTest {
 
     private GloboDiet gd = new GloboDiet("AT-GD-2024.05");
     private SemanticIdentifier blsBananaId = BLS302.foodId("F503100"); // Banana raw
-    // food components may have different units, e.g. GRAM, kcal, etc.
-    private FoodComponent blsZuckerGesamt = new FoodComponent(
-            BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"),
-            MetricPrefix.MILLI,
-            ComponentUnit.GRAM);
-    private QualifiedMap qMap = new QualifiedMap();
 
     @Test
     void test() {
 
         // setup food consumption
         var bananaConsumption = createFoodConsumption();
-        var foodCompositionRepo = createFoodCompositionRepository();
+        var foodCompositionRepo = FoodCompositionSampler.createFoodCompositionRepository();
+        System.err.printf("%s%n", foodCompositionRepo.toYaml());
+
+        final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
+                .lookupEntryElseFail(BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"));
+
 
         // setup nutrient mapping
+        final QualifiedMap qMap = new QualifiedMap();
         qMap.put(new QualifiedMapEntry(bananaConsumption.foodId(), bananaConsumption.facetIds(), blsBananaId));
 
         // verify lookups
@@ -99,15 +94,6 @@ class FoodTest {
         var facets = new SemanticIdentifierSet(Set.of(gdFacetRaw));
         var bananaConsumption = new FoodConsumption(gdBanana, facets, new BigDecimal(64));
         return bananaConsumption;
-    }
-
-    FoodCompositionRepository createFoodCompositionRepository() {
-        var foodCompositionRepo = new FoodCompositionRepository();
-        var bananaComposition = new FoodComposition(blsBananaId, Map.of(
-                blsZuckerGesamt.componentId(),
-                new FoodComponentDatapoint(blsZuckerGesamt, new BigDecimal("17.267"))));
-        foodCompositionRepo.put(bananaComposition);
-        return foodCompositionRepo;
     }
 
 }

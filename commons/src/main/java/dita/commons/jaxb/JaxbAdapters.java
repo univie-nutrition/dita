@@ -26,13 +26,31 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.springframework.util.StringUtils;
 
-import dita.commons.types.Sex;
 import lombok.experimental.UtilityClass;
+
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.types.Sex;
 import tech.units.indriya.format.SimpleUnitFormat;
 import tech.units.indriya.quantity.Quantities;
 
 @UtilityClass
 public class JaxbAdapters {
+
+    public static final class SemanticIdentifierAdapter extends XmlAdapter<String, SemanticIdentifier>{
+        @Override public SemanticIdentifier unmarshal(final String v) throws Exception {
+            try {
+                return SemanticIdentifier.destringify(v);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
+        }
+        @Override public String marshal(final SemanticIdentifier v) throws Exception {
+            return v!=null
+                    ? v.stringify()
+                    : null;
+        }
+    }
 
     public static final class SexAdapter extends XmlAdapter<String, Sex>{
         @Override public Sex unmarshal(final String v) throws Exception {

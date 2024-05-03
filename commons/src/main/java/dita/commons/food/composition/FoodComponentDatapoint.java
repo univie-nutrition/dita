@@ -21,6 +21,7 @@ package dita.commons.food.composition;
 import java.math.BigDecimal;
 
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
+import dita.commons.sid.SemanticIdentifier;
 
 /**
  * Represents a measured or calculated value for the relative mass amount of a chemical substance
@@ -29,6 +30,10 @@ import dita.commons.food.composition.FoodComponent.ComponentUnit;
 public record FoodComponentDatapoint(
         FoodComponent component,
         BigDecimal per100gOrFixedValue) {
+
+    public SemanticIdentifier componentId() {
+        return component.componentId();
+    }
 
     /**
      * Whether or not given {@code amountConusmed} is used to quantify the result,

@@ -21,9 +21,11 @@ package dita.commons.food.composition;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.sid.SemanticIdentifier;
@@ -33,12 +35,17 @@ public class FoodComponentCatalog {
     private final Map<SemanticIdentifier, FoodComponent> internalMap = new ConcurrentHashMap<>();
 
     public FoodComponentCatalog put(
-            @Nullable final FoodComponent entry) {
-        if(entry==null) return this;
-        if(entry.componentId()==null) return this;
-        internalMap.put(entry.componentId(), entry);
+            @Nullable final FoodComponent component) {
+        if(component==null) return this;
+        if(component.componentId()==null) return this;
+        internalMap.merge(component.componentId(), component, (a, b)->{ _Assert.assertEquals(a, b); return a;});
         return this;
     }
+
+    public Stream<FoodComponent> streamComponents() {
+        return internalMap.values().stream();
+    }
+
 
     // -- LOOKUP
 

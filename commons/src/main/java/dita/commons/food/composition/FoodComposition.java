@@ -20,6 +20,7 @@ package dita.commons.food.composition;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
@@ -35,4 +36,9 @@ public record FoodComposition(
         return Optional.ofNullable(componentId)
                 .map(datapoints::get);
     }
+
+    public Stream<FoodComponentDatapoint> streamDatapoints() {
+        return datapoints.values().stream();
+    }
+
 }

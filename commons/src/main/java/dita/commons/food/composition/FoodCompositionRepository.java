@@ -21,16 +21,32 @@ package dita.commons.food.composition;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.apache.causeway.commons.io.DataSource;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
+
+import dita.commons.food.composition.Dtos.FoodCompositionRepositoryDto;
 import dita.commons.sid.SemanticIdentifier;
 
+@RequiredArgsConstructor
 public class FoodCompositionRepository {
 
-    private final Map<SemanticIdentifier, FoodComposition> internalMap = new ConcurrentHashMap<>();
+    @Getter @Accessors(fluent=true)
+    private final FoodComponentCatalog componentCatalog;
+    private final Map<SemanticIdentifier, FoodComposition> internalMap;
+
+    public FoodCompositionRepository() {
+        this.componentCatalog = new FoodComponentCatalog();
+        this.internalMap = new ConcurrentHashMap<>();
+    }
 
     public FoodCompositionRepository put(
             @Nullable final FoodComposition entry) {
@@ -38,7 +54,14 @@ public class FoodCompositionRepository {
         if(entry.foodId()==null) return this;
         if(entry.datapoints()==null) return this;
         internalMap.put(entry.foodId(), entry);
+        entry.datapoints().values().forEach(datapoint->{
+            componentCatalog.put(datapoint.component());
+        });
         return this;
+    }
+
+    public Stream<FoodComposition> streamCompositions() {
+        return internalMap.values().stream();
     }
 
     // -- LOOKUP
@@ -65,6 +88,17 @@ public class FoodCompositionRepository {
     public Map<SemanticIdentifier, FoodComponentDatapoint> lookupElseFail(
             @Nullable final SemanticIdentifier foodId){
         return lookupEntryElseFail(foodId).datapoints();
+    }
+
+    // -- SERIALIZE
+
+    public String toYaml() {
+        return Dtos.toDto(this).toYaml();
+    }
+
+    public static Try<FoodCompositionRepository> tryFromYaml(@Nullable final DataSource ds) {
+        return FoodCompositionRepositoryDto.tryFromYaml(ds)
+                .mapSuccessAsNullable(Dtos::fromDto);
     }
 
 }
