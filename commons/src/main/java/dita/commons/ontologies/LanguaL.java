@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.langual;
+package dita.commons.ontologies;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ import dita.commons.sid.SemanticIdentifier;
 
 @UtilityClass
 public class LanguaL {
-    
+
     public enum FacetCharacteristic {
         FOOD_GROUP,
         FOOD_ORIGIN,
@@ -38,7 +38,7 @@ public class LanguaL {
         GEOGRAPHIC_ORIGIN,
         MISCELLANEOUS_CHARACTERISTICS
     }
-    
+
     @Getter @Accessors(fluent=true)
     @RequiredArgsConstructor
     public enum Facet {
@@ -50,28 +50,28 @@ public class LanguaL {
          * Species of plant or animal, or chemical food source.
          */
         FOOD_SOURCE("B", FacetCharacteristic.FOOD_ORIGIN),
-        
+
         /**
          * Part of Plant or Animal.
          */
-        PART_OF("C", FacetCharacteristic.FOOD_ORIGIN), 
+        PART_OF("C", FacetCharacteristic.FOOD_ORIGIN),
         /**
          * Physical State, Shape or Form.
          * e.g. liquid, semi-liquid, solid, whole natural shape, divided into pieces
          */
-        PHYSICAL_STATE_SHAPE_OR_FORM("E", FacetCharacteristic.PHYSICAL_ATTRIBUTES), 
+        PHYSICAL_STATE_SHAPE_OR_FORM("E", FacetCharacteristic.PHYSICAL_ATTRIBUTES),
         /**
          * Extent of Heat Treatment.
          */
-        EXTENT_OF_HEAT_TREATMENT("F", FacetCharacteristic.PROCESSING), 
+        EXTENT_OF_HEAT_TREATMENT("F", FacetCharacteristic.PROCESSING),
         /**
          * Cooked by dry or moist heat; cooked with fat; cooked by microwave.
          */
         COOKING_METHOD("G", FacetCharacteristic.PROCESSING),
         /**
-         * Additional processing steps, including adding, substituting, or removing components. 
+         * Additional processing steps, including adding, substituting, or removing components.
          */
-        TREATMENT_APPLIED("H", FacetCharacteristic.PROCESSING), 
+        TREATMENT_APPLIED("H", FacetCharacteristic.PROCESSING),
         /**
          * Any preservation method applied
          */
@@ -80,11 +80,11 @@ public class LanguaL {
         /**
          * Container material, form, and possibly other characteristics
          */
-        CONTAINER_OR_WRAPPING("M", FacetCharacteristic.PACKAGING), 
+        CONTAINER_OR_WRAPPING("M", FacetCharacteristic.PACKAGING),
         /**
-         * The surface(s) with which the food is in contact. 
+         * The surface(s) with which the food is in contact.
          */
-        FOOD_CONTACT("N", FacetCharacteristic.PACKAGING), 
+        FOOD_CONTACT("N", FacetCharacteristic.PACKAGING),
         /**
          * Human or animal; special dietary characteristics or claims
          */
@@ -92,23 +92,19 @@ public class LanguaL {
         /**
          * Country of origin, preparation of consumption.
          */
-        GEOGRAPHIC_PLACES_AND_REGIONS("R", FacetCharacteristic.GEOGRAPHIC_ORIGIN), 
+        GEOGRAPHIC_PLACES_AND_REGIONS("R", FacetCharacteristic.GEOGRAPHIC_ORIGIN),
         /**
          * Additional miscellaneous descriptors.
          */
-        ADJUNCT_CHARACTERISTICS("Z", FacetCharacteristic.MISCELLANEOUS_CHARACTERISTICS), 
+        ADJUNCT_CHARACTERISTICS("Z", FacetCharacteristic.MISCELLANEOUS_CHARACTERISTICS),
         ;
-        
+
         final String letterCode;
         final FacetCharacteristic characteristic;
-        
-        public SemanticIdentifier facetId(String systemId, String objectId) {
-            return new SemanticIdentifier(systemId, letterCode, objectId);
+
+        public SemanticIdentifier facetId(final String systemId, final String facetTermCode) {
+            return new SemanticIdentifier(systemId, letterCode, facetTermCode);
         }
     }
-    
-    public SemanticIdentifier foodId(String systemId, String objectId) {
-        return new SemanticIdentifier(systemId, null, objectId);
-    }
-    
+
 }

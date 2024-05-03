@@ -63,7 +63,7 @@ public record Nutrient(
             case "⅟₁":
             case "/": return RATIO;
             case "%": return PERCENT;
-            default: throw new IllegalArgumentException("Unknown unit symbol: " + symbol);
+            default: throw new IllegalArgumentException("Unknown component unit symbol: " + symbol);
             }
         }
 

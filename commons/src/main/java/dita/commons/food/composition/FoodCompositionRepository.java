@@ -29,11 +29,11 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.sid.SemanticIdentifier;
 
-public class FoodCompositionDatabase {
+public class FoodCompositionRepository {
     
     private final Map<SemanticIdentifier, FoodComposition> internalMap = new ConcurrentHashMap<>();
     
-    public FoodCompositionDatabase put(
+    public FoodCompositionRepository put(
             @Nullable FoodComposition entry) {
         if(entry==null) return this;
         if(entry.foodId()==null) return this;

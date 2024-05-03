@@ -27,14 +27,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.food.composition.FoodComposition;
-import dita.commons.food.composition.FoodCompositionDatabase;
+import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.food.composition.Nutrient;
 import dita.commons.food.composition.Nutrient.ComponentUnit;
 import dita.commons.food.composition.NutrientFraction;
 import dita.commons.food.composition.NutrientQuantified;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumptionAndComposition;
-import dita.commons.langual.LanguaL;
+import dita.commons.ontologies.BLS302;
+import dita.commons.ontologies.GloboDiet;
+import dita.commons.ontologies.LanguaL;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
@@ -42,54 +44,57 @@ import dita.commons.sid.SemanticIdentifierSet;
 
 class FoodTest {
 
+    private GloboDiet gd = new GloboDiet("AT-GD-2024.05");
+    private SemanticIdentifier blsBananaId = BLS302.foodId("F503100"); // Banana raw
+    // food components may have different units, e.g. GRAM, kcal, etc.
+    private Nutrient blsZuckerGesamt = new Nutrient(BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"), ComponentUnit.GRAM);
+    private QualifiedMap qMap = new QualifiedMap();
+
     @Test
     void test() {
 
-        var gdId = "AT-GD-2024.05";
-        var blsId = "DE-BLS-3.02";
-
         // setup food consumption
-        var gdBanana = LanguaL.foodId(gdId, "00136"); // Banana
-        var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gdId, "0399");
+        var bananaConsumption = createFoodConsumption();
+        var foodCompositionRepo = createFoodCompositionRepository();
 
-        var raw = new SemanticIdentifierSet(Set.of(gdFacetRaw));
-        var bananaConsumption = new FoodConsumption(gdBanana, raw, new BigDecimal(64));
-
-        // setup food composition database (map)
-        var blsBanana = LanguaL.foodId(blsId, "F503100"); // Banana raw
-        var nutZuckerGesamtId = new SemanticIdentifier(blsId, "NUTRIENT", "KMD");
-
-        //TODO food components may have different units, e.g. supplements components given in per PART
-        var nutZuckerGesamt = new Nutrient(nutZuckerGesamtId, ComponentUnit.GRAM);
-
-        var bananaComposition = new FoodComposition(blsBanana, Set.of(
-                new NutrientFraction(nutZuckerGesamt, new BigDecimal("17.267"))));
-
-        var fcdb = new FoodCompositionDatabase();
-        fcdb.put(bananaComposition);
-
-        var qMap = new QualifiedMap();
-        var qMapEntry = new QualifiedMapEntry(gdBanana, raw, blsBanana);
-        qMap.put(qMapEntry);
+        // setup nutrient mapping
+        qMap.put(new QualifiedMapEntry(bananaConsumption.foodId(), bananaConsumption.facetIds(), blsBananaId));
 
         // verify lookups
         assertEquals(
                 Optional.empty(),
-                qMap.lookup(gdBanana, SemanticIdentifierSet.empty()));
+                qMap.lookup(bananaConsumption.foodId(), SemanticIdentifierSet.empty()));
 
         assertEquals(
-                Optional.of(blsBanana),
-                qMap.lookup(gdBanana, raw));
+                Optional.of(blsBananaId),
+                qMap.lookup(bananaConsumption.foodId(), bananaConsumption.facetIds()));
 
-        assertEquals(
-                Optional.of(bananaComposition),
-                fcdb.lookupEntry(blsBanana));
+        var bananaComposition = foodCompositionRepo.lookupEntryElseFail(blsBananaId);
 
         var fcac = new FoodConsumptionAndComposition(bananaConsumption, bananaComposition);
 
         assertEquals(
-                Set.of(new NutrientQuantified(nutZuckerGesamt, ComponentUnit.GRAM.quantity(
+                Set.of(new NutrientQuantified(blsZuckerGesamt, ComponentUnit.GRAM.quantity(
                         new BigDecimal("17.267").multiply(new BigDecimal("0.64"))))),
                 fcac.nutrients());
     }
+
+    // -- HELPER
+
+    FoodConsumption createFoodConsumption() {
+        var gdBanana = gd.foodId("00136"); // Banana
+        var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gd.systemId(), "0399");
+        var facets = new SemanticIdentifierSet(Set.of(gdFacetRaw));
+        var bananaConsumption = new FoodConsumption(gdBanana, facets, new BigDecimal(64));
+        return bananaConsumption;
+    }
+
+    FoodCompositionRepository createFoodCompositionRepository() {
+        var foodCompositionRepo = new FoodCompositionRepository();
+        var bananaComposition = new FoodComposition(blsBananaId, Set.of(
+                new NutrientFraction(blsZuckerGesamt, new BigDecimal("17.267"))));
+        foodCompositionRepo.put(bananaComposition);
+        return foodCompositionRepo;
+    }
+
 }
