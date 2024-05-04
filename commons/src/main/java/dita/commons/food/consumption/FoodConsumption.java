@@ -26,22 +26,22 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
 /**
- * By convention consumption is always given in grams.
+ * Represents an amount of some food or product that was consumed.
  */
 public record FoodConsumption(
         SemanticIdentifier foodId,
         SemanticIdentifierSet facetIds,
         /**
-         * Nature of how to quantify the amount of food (or product) consumed.
+         * Amount consumed is given in units of.
          */
-        ConsumptionQuantification consumptionQuantification,
+        ConsumptionUnit consumptionUnit,
         BigDecimal amountConsumed) {
 
     /**
-     * Nature of how to quantify the amount of food (or product) consumed.
+     * Unit of amount consumed.
      */
     @RequiredArgsConstructor
-    public enum ConsumptionQuantification {
+    public enum ConsumptionUnit {
         /**
          * Amount consumed is given in gram.
          */

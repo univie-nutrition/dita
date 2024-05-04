@@ -24,15 +24,15 @@ import dita.commons.food.composition.FoodComponent.ComponentUnit;
 import dita.commons.sid.SemanticIdentifier;
 
 public record FoodComponentQuantified(
-        FoodComponent nutrient,
+        FoodComponent foodComponent,
         Quantity<?> quantity) {
 
     public SemanticIdentifier componentId() {
-        return nutrient.componentId();
+        return foodComponent.componentId();
     }
 
     public ComponentUnit componentUnit() {
-        return nutrient.componentUnit();
+        return foodComponent.componentUnit();
     }
 
 }

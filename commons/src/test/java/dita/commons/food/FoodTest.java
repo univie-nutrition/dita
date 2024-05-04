@@ -31,8 +31,8 @@ import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
 import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.consumption.FoodConsumption;
-import dita.commons.food.consumption.FoodConsumption.ConsumptionQuantification;
-import dita.commons.food.consumption.FoodConsumptionWithQuantifiedComponents;
+import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
+import dita.commons.food.consumption.FoodConsumptionWithComposition;
 import dita.commons.ontologies.BLS302;
 import dita.commons.ontologies.GloboDiet;
 import dita.commons.ontologies.LanguaL;
@@ -73,7 +73,7 @@ class FoodTest {
 
         var bananaComposition = foodCompositionRepo.lookupEntryElseFail(blsBananaId);
 
-        var fcac = new FoodConsumptionWithQuantifiedComponents(bananaConsumption, bananaComposition);
+        var fcac = new FoodConsumptionWithComposition(bananaConsumption, bananaComposition);
 
         assertEquals(
                 Map.of(
@@ -93,7 +93,7 @@ class FoodTest {
         var gdBanana = gd.foodId("00136"); // Banana
         var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gd.systemId(), "0399");
         var facets = new SemanticIdentifierSet(Set.of(gdFacetRaw));
-        var bananaConsumption = new FoodConsumption(gdBanana, facets, ConsumptionQuantification.GRAM, new BigDecimal(64));
+        var bananaConsumption = new FoodConsumption(gdBanana, facets, ConsumptionUnit.GRAM, new BigDecimal(64));
         return bananaConsumption;
     }
 

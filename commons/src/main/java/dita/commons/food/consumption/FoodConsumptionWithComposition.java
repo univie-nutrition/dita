@@ -29,7 +29,7 @@ import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.sid.SemanticIdentifier;
 
-public record FoodConsumptionWithQuantifiedComponents(
+public record FoodConsumptionWithComposition(
         FoodConsumption consumption,
         FoodComposition composition) {
 

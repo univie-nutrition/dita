@@ -31,7 +31,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.food.consumption.FoodConsumption;
-import dita.commons.food.consumption.FoodConsumption.ConsumptionQuantification;
+import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 
 public record FoodComposition(
@@ -50,28 +50,28 @@ public record FoodComposition(
         /**
          * Datapoint values are given as per 100g (consumed).
          */
-        PER_100_GRAM(ConsumptionQuantification.GRAM),
+        PER_100_GRAM(ConsumptionUnit.GRAM),
         /**
          * Datapoint values are given as per 100ml (consumed).
          */
-        PER_100_ML(ConsumptionQuantification.MILLILITER),
+        PER_100_ML(ConsumptionUnit.MILLILITER),
         /**
          * Datapoint values are given as per part (consumed).
          * e.g. dietary supplement tablets
          */
-        PER_PART(ConsumptionQuantification.PART);
+        PER_PART(ConsumptionUnit.PART);
 
-        private final ConsumptionQuantification expectedConsumptionQuantification;
+        private final ConsumptionUnit expectedConsumptionQuantification;
 
         /**
          * Whether given consumption has the expected metric unit for quantification to succeed.
          */
         public boolean isCommensurable(final @NonNull FoodConsumption consumption) {
-            return expectedConsumptionQuantification.equals(consumption.consumptionQuantification());
+            return expectedConsumptionQuantification.equals(consumption.consumptionUnit());
         }
 
         BigDecimal multiply(final @NonNull FoodConsumption consumption, final @NonNull BigDecimal datapointValue) {
-            _Assert.assertEquals(expectedConsumptionQuantification, consumption.consumptionQuantification(),
+            _Assert.assertEquals(expectedConsumptionQuantification, consumption.consumptionUnit(),
                     ()->"consumption has incommensurable unit");
             return switch (this) {
             case PER_100_GRAM -> consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(-2);
