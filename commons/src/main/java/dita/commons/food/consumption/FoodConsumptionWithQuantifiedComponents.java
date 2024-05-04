@@ -37,13 +37,13 @@ public record FoodConsumptionWithQuantifiedComponents(
         return composition.datapoints()
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().quantify(consumption.grams())));
+                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().quantify(consumption)));
     }
 
     public Optional<FoodComponentQuantified> quantifiedComponent(@Nullable final SemanticIdentifier componentId) {
         return Optional.ofNullable(componentId)
                 .flatMap(composition::datapoint)
-                .map(datapoint->datapoint.quantify(consumption.grams()));
+                .map(datapoint->datapoint.quantify(consumption));
     }
 
     public Optional<FoodComponentQuantified> quantifiedComponent(@Nullable final FoodComponent foodComponent) {

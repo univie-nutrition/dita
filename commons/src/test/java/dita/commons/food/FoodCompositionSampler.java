@@ -28,7 +28,9 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
 import dita.commons.food.composition.FoodComponentDatapoint;
+import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
 import dita.commons.food.composition.FoodComposition;
+import dita.commons.food.composition.FoodComposition.CompositionQuantification;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.ontologies.BLS302;
 import dita.commons.sid.SemanticIdentifier;
@@ -45,11 +47,16 @@ class FoodCompositionSampler {
 
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();
-        var bananaComposition = new FoodComposition(blsBananaId, Map.of(
+        var bananaComposition = new FoodComposition(blsBananaId, CompositionQuantification.PER_100_GRAM, Map.of(
                 blsZuckerGesamt.componentId(),
-                new FoodComponentDatapoint(blsZuckerGesamt, new BigDecimal("17.267"))));
+                datapointPer100gAsIs(blsZuckerGesamt, new BigDecimal("17.267"))));
         foodCompositionRepo.put(bananaComposition);
         return foodCompositionRepo;
+    }
+
+    private FoodComponentDatapoint datapointPer100gAsIs(final FoodComponent component, final BigDecimal datapointValue) {
+        return new FoodComponentDatapoint(
+                component, CompositionQuantification.PER_100_GRAM, DatapointSemantic.AS_IS, datapointValue);
     }
 
 }

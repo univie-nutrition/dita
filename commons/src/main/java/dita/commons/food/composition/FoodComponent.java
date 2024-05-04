@@ -37,7 +37,8 @@ import tech.units.indriya.unit.Units;
 
 /**
  * Represents a chemical substance or other food component
- * or simply a food specific value, that is independent of the consumed amount e.g. 'protein animal to plant ratio'.
+ * or simply a food specific value, that is independent of the consumed amount
+ * e.g. 'recommended daily dosage' or 'protein animal to plant ratio'.
  */
 public record FoodComponent(
         SemanticIdentifier componentId,
@@ -81,6 +82,11 @@ public record FoodComponent(
         }
 
         public boolean isGram() { return this==GRAM; }
+
+        /**
+         * Invariant with respect to amount consumed.
+         * e.g. 'recommended daily dosage' or 'protein animal to plant ratio'
+         */
         public boolean isInvariantWithRespectToAmountConusmed() { return this==RATIO || this==PERCENT; }
 
         public Quantity<?> quantity(final BigDecimal amount) {

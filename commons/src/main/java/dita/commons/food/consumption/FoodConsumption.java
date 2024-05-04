@@ -20,6 +20,8 @@ package dita.commons.food.consumption;
 
 import java.math.BigDecimal;
 
+import lombok.RequiredArgsConstructor;
+
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -29,5 +31,29 @@ import dita.commons.sid.SemanticIdentifierSet;
 public record FoodConsumption(
         SemanticIdentifier foodId,
         SemanticIdentifierSet facetIds,
-        BigDecimal grams) {
+        /**
+         * Nature of how to quantify the amount of food (or product) consumed.
+         */
+        ConsumptionQuantification consumptionQuantification,
+        BigDecimal amountConsumed) {
+
+    /**
+     * Nature of how to quantify the amount of food (or product) consumed.
+     */
+    @RequiredArgsConstructor
+    public enum ConsumptionQuantification {
+        /**
+         * Amount consumed is given in gram.
+         */
+        GRAM,
+        /**
+         * Amount consumed is given in milliliter.
+         */
+        MILLILITER,
+        /**
+         * Amount consumed is given in parts (e.g. tablets).
+         */
+        PART;
+    }
+
 }

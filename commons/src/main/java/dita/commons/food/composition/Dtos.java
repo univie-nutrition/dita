@@ -35,6 +35,8 @@ import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
+import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
+import dita.commons.food.composition.FoodComposition.CompositionQuantification;
 import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.sid.SemanticIdentifier;
 
@@ -45,33 +47,40 @@ class Dtos {
 
     public record FoodComponentDatapointDto(
             @NonNull SemanticIdentifier componentId,
-            @NonNull BigDecimal per100gOrFixedValue) {
+            @NonNull DatapointSemantic datapointSemantic,
+            @NonNull BigDecimal datapointValue) {
     }
 
     FoodComponentDatapointDto toDto(final FoodComponentDatapoint datapoint) {
         return new FoodComponentDatapointDto(
                 datapoint.component().componentId(),
-                datapoint.per100gOrFixedValue());
+                datapoint.datapointSemantic(),
+                datapoint.datapointValue());
     }
 
     FoodComponentDatapoint fromDto(
             final FoodComponentDatapointDto dto,
+            final CompositionQuantification compositionQuantification,
             final FoodComponentCatalog componentCatalog) {
         return new FoodComponentDatapoint(
                 componentCatalog.lookupEntryElseFail(dto.componentId()),
-                dto.per100gOrFixedValue());
+                compositionQuantification,
+                dto.datapointSemantic(),
+                dto.datapointValue());
     }
 
     // -- FOOD COMPOSITION
 
     public record FoodCompositionDto(
             @NonNull SemanticIdentifier foodId,
+            @NonNull CompositionQuantification compositionQuantification,
             @NonNull Collection<FoodComponentDatapointDto> datapoints) {
     }
 
     FoodCompositionDto toDto(final FoodComposition composition) {
         return new FoodCompositionDto(
                 composition.foodId(),
+                composition.compositionQuantification(),
                 composition.streamDatapoints().map(Dtos::toDto).toList());
     }
 
@@ -79,8 +88,10 @@ class Dtos {
             final FoodCompositionDto dto,
             final FoodComponentCatalog componentCatalog) {
         var datapointMap = new HashMap<SemanticIdentifier, FoodComponentDatapoint>();
-        dto.datapoints().stream().map(d->Dtos.fromDto(d, componentCatalog)).forEach(dp->datapointMap.put(dp.componentId(), dp));
-        return new FoodComposition(dto.foodId(), datapointMap);
+        dto.datapoints().stream()
+            .map(d->Dtos.fromDto(d, dto.compositionQuantification(), componentCatalog))
+            .forEach(dp->datapointMap.put(dp.componentId(), dp));
+        return new FoodComposition(dto.foodId(), dto.compositionQuantification(), datapointMap);
     }
 
     // -- FOOD COMPOSITION REPOSITORY
@@ -94,7 +105,8 @@ class Dtos {
         }
         public static Try<FoodCompositionRepositoryDto> tryFromYaml(@Nullable final DataSource ds) {
             if(ds==null) return Try.failure(_Exceptions.noSuchElement("missing datasource"));
-            return YamlUtils.tryReadCustomized(FoodCompositionRepositoryDto.class, ds, yamlMillionCodePointsLimit(200), yamlOptions());
+            return YamlUtils.tryReadCustomized(
+                    FoodCompositionRepositoryDto.class, ds, yamlMillionCodePointsLimit(200), yamlOptions());
         }
     }
 

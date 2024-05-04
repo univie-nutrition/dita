@@ -20,19 +20,55 @@ package dita.commons.food.composition;
 
 import java.math.BigDecimal;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
+import dita.commons.food.composition.FoodComposition.CompositionQuantification;
+import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.sid.SemanticIdentifier;
 
 /**
- * Represents a measured or calculated value for the relative mass amount of a chemical substance
+ * Represents a measured or calculated value for the relative amount of a chemical substance
  * or other food component or simply a food specific fixed value like 'protein animal to plant ratio'.
  */
 public record FoodComponentDatapoint(
         FoodComponent component,
-        BigDecimal per100gOrFixedValue) {
+        /**
+         * Nature of how to quantify the amount of dietary components consumed for this associated food (or product).
+         * @apiNote always same as in parent {@link FoodComposition}, provided here for convenience
+         */
+        CompositionQuantification compositionQuantification,
+        /**
+         * Nature of how to the datapoint is interpreted (as-is or as upper-bound).
+         */
+        DatapointSemantic datapointSemantic,
+        BigDecimal datapointValue) {
+
+    /**
+     * Nature of how to the datapoint is interpreted (as-is or as upper-bound).
+     */
+    @RequiredArgsConstructor
+    public enum DatapointSemantic {
+        /**
+         * The datapoint directly represents the (measured or calculated) value.
+         */
+        AS_IS,
+        /**
+         * The datapoint is an upper bound for the real value.
+         */
+        UPPER_BOUND;
+    }
 
     public SemanticIdentifier componentId() {
         return component.componentId();
+    }
+
+    public boolean isCommensurable(
+            final @NonNull FoodConsumption consumption) {
+        return component.componentUnit().isInvariantWithRespectToAmountConusmed()
+                ? true
+                : compositionQuantification.isCommensurable(consumption);
     }
 
     /**
@@ -40,10 +76,11 @@ public record FoodComponentDatapoint(
      * depends on the {@link ComponentUnit} of underlying {@link FoodComponent}.
      * Some of these may represent a ratio or percentage, that is independent of the amount consumed.
      */
-    public FoodComponentQuantified quantify(final BigDecimal gramsConusmed) {
+    public FoodComponentQuantified quantify(
+            final @NonNull FoodConsumption consumption) {
         var amount = component.componentUnit().isInvariantWithRespectToAmountConusmed()
-                ? per100gOrFixedValue
-                : gramsConusmed.multiply(per100gOrFixedValue).scaleByPowerOfTen(-2);
+                ? datapointValue
+                : compositionQuantification.multiply(consumption, datapointValue);
         return new FoodComponentQuantified(component, component.componentUnit().quantity(amount));
     }
 

@@ -18,19 +18,69 @@
  */
 package dita.commons.food.composition;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
-import lombok.NonNull;
+import org.apache.causeway.commons.internal.assertions._Assert;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+import dita.commons.food.consumption.FoodConsumption;
+import dita.commons.food.consumption.FoodConsumption.ConsumptionQuantification;
 import dita.commons.sid.SemanticIdentifier;
 
 public record FoodComposition(
         @NonNull SemanticIdentifier foodId,
+        /**
+         * Nature of how to quantify the amount of dietary components consumed for this associated food (or product).
+         */
+        @NonNull CompositionQuantification compositionQuantification,
         @NonNull Map<SemanticIdentifier, FoodComponentDatapoint> datapoints) {
+
+    /**
+     * Nature of how to quantify the amount of dietary components consumed for the associated food (or product).
+     */
+    @RequiredArgsConstructor
+    public enum CompositionQuantification {
+        /**
+         * Datapoint values are given as per 100g (consumed).
+         */
+        PER_100_GRAM(ConsumptionQuantification.GRAM),
+        /**
+         * Datapoint values are given as per 100ml (consumed).
+         */
+        PER_100_ML(ConsumptionQuantification.MILLILITER),
+        /**
+         * Datapoint values are given as per part (consumed).
+         * e.g. dietary supplement tablets
+         */
+        PER_PART(ConsumptionQuantification.PART);
+
+        private final ConsumptionQuantification expectedConsumptionQuantification;
+
+        /**
+         * Whether given consumption has the expected metric unit for quantification to succeed.
+         */
+        public boolean isCommensurable(final @NonNull FoodConsumption consumption) {
+            return expectedConsumptionQuantification.equals(consumption.consumptionQuantification());
+        }
+
+        BigDecimal multiply(final @NonNull FoodConsumption consumption, final @NonNull BigDecimal datapointValue) {
+            _Assert.assertEquals(expectedConsumptionQuantification, consumption.consumptionQuantification(),
+                    ()->"consumption has incommensurable unit");
+            return switch (this) {
+            case PER_100_GRAM -> consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(-2);
+            case PER_100_ML -> consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(-2);
+            case PER_PART -> consumption.amountConsumed().multiply(datapointValue);
+            };
+        }
+
+    }
 
     public Optional<FoodComponentDatapoint> datapoint(final @Nullable SemanticIdentifier componentId) {
         return Optional.ofNullable(componentId)
