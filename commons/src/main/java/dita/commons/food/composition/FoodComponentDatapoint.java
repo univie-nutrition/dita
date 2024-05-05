@@ -24,7 +24,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
-import dita.commons.food.composition.FoodComposition.CompositionQuantification;
+import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.sid.SemanticIdentifier;
 
@@ -38,7 +38,7 @@ public record FoodComponentDatapoint(
          * Nature of how to quantify the amount of dietary components consumed for this associated food (or product).
          * @apiNote always same as in parent {@link FoodComposition}, provided here for convenience
          */
-        CompositionQuantification compositionQuantification,
+        ConcentrationUnit concentrationUnit,
         /**
          * Nature of how to the datapoint is interpreted (as-is or as upper-bound).
          */
@@ -46,7 +46,7 @@ public record FoodComponentDatapoint(
         BigDecimal datapointValue) {
 
     /**
-     * Nature of how to the datapoint is interpreted (as-is or as upper-bound).
+     * How to the datapoint is interpreted (as-is or as upper-bound).
      */
     @RequiredArgsConstructor
     public enum DatapointSemantic {
@@ -68,7 +68,7 @@ public record FoodComponentDatapoint(
             final @NonNull FoodConsumption consumption) {
         return component.componentUnit().isInvariantWithRespectToAmountConusmed()
                 ? true
-                : compositionQuantification.isCommensurable(consumption);
+                : concentrationUnit.isCommensurable(consumption);
     }
 
     /**
@@ -80,7 +80,7 @@ public record FoodComponentDatapoint(
             final @NonNull FoodConsumption consumption) {
         var amount = component.componentUnit().isInvariantWithRespectToAmountConusmed()
                 ? datapointValue
-                : compositionQuantification.multiply(consumption, datapointValue);
+                : concentrationUnit.multiply(consumption, datapointValue);
         return new FoodComponentQuantified(component, component.componentUnit().quantity(amount));
     }
 

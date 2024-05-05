@@ -36,32 +36,34 @@ import dita.commons.sid.SemanticIdentifier;
 
 public record FoodComposition(
         @NonNull SemanticIdentifier foodId,
-        /**
-         * Nature of how to quantify the amount of dietary components consumed for this associated food (or product).
-         */
-        @NonNull CompositionQuantification compositionQuantification,
+        @NonNull ConcentrationUnit concentrationUnit,
         @NonNull Map<SemanticIdentifier, FoodComponentDatapoint> datapoints) {
 
     /**
-     * Nature of how to quantify the amount of dietary components consumed for the associated food (or product).
+     * Unit in which concentration values are given.
      */
     @RequiredArgsConstructor
-    public enum CompositionQuantification {
+    public enum ConcentrationUnit {
         /**
-         * Datapoint values are given as per 100g (consumed).
+         * Concentration values are given as per 100g (consumed).
          */
-        PER_100_GRAM(ConsumptionUnit.GRAM),
+        PER_100_GRAM(ConsumptionUnit.GRAM, -2),
         /**
-         * Datapoint values are given as per 100ml (consumed).
+         * Concentration values are given as per 100ml (consumed).
          */
-        PER_100_ML(ConsumptionUnit.MILLILITER),
+        PER_100_ML(ConsumptionUnit.MILLILITER, -2),
         /**
-         * Datapoint values are given as per part (consumed).
+         * Concentration values are given as per part (consumed).
          * e.g. dietary supplement tablets
          */
-        PER_PART(ConsumptionUnit.PART);
+        PER_PART(ConsumptionUnit.PART, 0);
 
         private final ConsumptionUnit expectedConsumptionQuantification;
+        /**
+         * When consumed amount is given in 'gram', then concentration data is given in 'per 100g'.
+         * Likewise when 'ml' then 'per 100ml', or when 'part' then 'per part'.
+         */
+        final int concentrationScale;
 
         /**
          * Whether given consumption has the expected metric unit for quantification to succeed.
@@ -73,16 +75,12 @@ public record FoodComposition(
         BigDecimal multiply(final @NonNull FoodConsumption consumption, final @NonNull BigDecimal datapointValue) {
             _Assert.assertEquals(expectedConsumptionQuantification, consumption.consumptionUnit(),
                     ()->"consumption has incommensurable unit");
-            return switch (this) {
-            case PER_100_GRAM -> consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(-2);
-            case PER_100_ML -> consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(-2);
-            case PER_PART -> consumption.amountConsumed().multiply(datapointValue);
-            };
+            return consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(concentrationScale);
         }
 
     }
 
-    public Optional<FoodComponentDatapoint> datapoint(final @Nullable SemanticIdentifier componentId) {
+    public Optional<FoodComponentDatapoint> lookupDatapoint(final @Nullable SemanticIdentifier componentId) {
         return Optional.ofNullable(componentId)
                 .map(datapoints::get);
     }

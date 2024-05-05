@@ -42,7 +42,7 @@ public record FoodConsumptionWithComposition(
 
     public Optional<FoodComponentQuantified> quantifiedComponent(@Nullable final SemanticIdentifier componentId) {
         return Optional.ofNullable(componentId)
-                .flatMap(composition::datapoint)
+                .flatMap(composition::lookupDatapoint)
                 .map(datapoint->datapoint.quantify(consumption));
     }
 

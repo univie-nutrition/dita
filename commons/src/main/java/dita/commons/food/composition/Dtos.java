@@ -36,7 +36,7 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
-import dita.commons.food.composition.FoodComposition.CompositionQuantification;
+import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.sid.SemanticIdentifier;
 
@@ -60,7 +60,7 @@ class Dtos {
 
     FoodComponentDatapoint fromDto(
             final FoodComponentDatapointDto dto,
-            final CompositionQuantification compositionQuantification,
+            final ConcentrationUnit compositionQuantification,
             final FoodComponentCatalog componentCatalog) {
         return new FoodComponentDatapoint(
                 componentCatalog.lookupEntryElseFail(dto.componentId()),
@@ -73,14 +73,14 @@ class Dtos {
 
     public record FoodCompositionDto(
             @NonNull SemanticIdentifier foodId,
-            @NonNull CompositionQuantification compositionQuantification,
+            @NonNull ConcentrationUnit compositionQuantification,
             @NonNull Collection<FoodComponentDatapointDto> datapoints) {
     }
 
     FoodCompositionDto toDto(final FoodComposition composition) {
         return new FoodCompositionDto(
                 composition.foodId(),
-                composition.compositionQuantification(),
+                composition.concentrationUnit(),
                 composition.streamDatapoints().map(Dtos::toDto).toList());
     }
 
