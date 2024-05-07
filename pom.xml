@@ -38,12 +38,16 @@ additional
         <causewaystuff.version>1.0.0-SNAPSHOT</causewaystuff.version>
 
         <indriya.version>2.2</indriya.version>
-        <junit.version>5.10.2</junit.version>
+        
         <lombok.version>1.18.32</lombok.version>
 
         <mariadb-jdbc.version>3.3.2</mariadb-jdbc.version>
         <mssql-jdbc.version>12.4.2.jre11</mssql-jdbc.version>
+        
+        <owlapi.version>5.5.0</owlapi.version>           
+        
         <!-- testing -->
+        <junit.version>5.10.2</junit.version>
         <surefire-plugin.argLine>-Xmx384m</surefire-plugin.argLine>
     </properties>
 
@@ -125,10 +129,10 @@ additional
             <name>Central Repository</name>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
-<!--        <repository>-->
-<!--            <id>jitpack.io</id>-->
-<!--            <url>https://jitpack.io</url>-->
-<!--        </repository>-->
+        <!--        <repository>-->
+        <!--            <id>jitpack.io</id>-->
+        <!--            <url>https://jitpack.io</url>-->
+        <!--        </repository>-->
     </repositories>
 
     <dependencyManagement>
@@ -268,7 +272,7 @@ additional
                 <artifactId>causewaystuff-commons-base</artifactId>
                 <version>${causewaystuff.version}</version>
             </dependency>
-            
+
             <dependency>
                 <groupId>io.github.causewaystuff</groupId>
                 <artifactId>causewaystuff-commons-compression</artifactId>
@@ -348,6 +352,12 @@ additional
             </dependency>
 
             <!-- OTHER -->
+
+            <dependency>
+                <groupId>net.sourceforge.owlapi</groupId>
+                <artifactId>owlapi-distribution</artifactId>
+                <version>${owlapi.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
