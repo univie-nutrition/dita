@@ -19,13 +19,15 @@
 package dita.commons.food;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
@@ -59,7 +61,7 @@ class FoodTest {
 
 
         // setup nutrient mapping
-        final QualifiedMap qMap = new QualifiedMap();
+        final QualifiedMap qMap = new QualifiedMap(new HashMap<>());
         qMap.put(new QualifiedMapEntry(bananaConsumption.foodId(), bananaConsumption.facetIds(), blsBananaId));
 
         // verify lookups
@@ -92,7 +94,7 @@ class FoodTest {
     FoodConsumption createFoodConsumption() {
         var gdBanana = gd.foodId("00136"); // Banana
         var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gd.systemId(), "0399");
-        var facets = new SemanticIdentifierSet(Set.of(gdFacetRaw));
+        var facets = new SemanticIdentifierSet(Can.of(gdFacetRaw));
         var bananaConsumption = new FoodConsumption(gdBanana, facets, ConsumptionUnit.GRAM, new BigDecimal(64));
         return bananaConsumption;
     }

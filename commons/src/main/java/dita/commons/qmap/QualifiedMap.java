@@ -20,23 +20,28 @@ package dita.commons.qmap;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.apache.causeway.commons.io.DataSource;
 
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+import dita.commons.qmap.Dtos.QualifiedMapDto;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
 /**
- * A Qualified Map relates data objects from one system to another, 
- * respecting arbitrary qualifiers. Represents a collection of {@link QualifiedMapEntry}(s). 
+ * A Qualified Map relates data objects from one system to another,
+ * respecting arbitrary qualifiers. Represents a collection of {@link QualifiedMapEntry}(s).
  */
+@RequiredArgsConstructor
 public class QualifiedMap {
-    
+
     private record QualifiedMapKey(
             /**
              * Semantic identifier of the data object that is mapped from.
@@ -47,50 +52,65 @@ public class QualifiedMap {
              */
             SemanticIdentifierSet qualifier) {
 
-        static QualifiedMapKey from(@NonNull QualifiedMapEntry entry) {
+        static QualifiedMapKey from(@NonNull final QualifiedMapEntry entry) {
             return new QualifiedMapKey(entry.source(), SemanticIdentifierSet.nullToEmpty(entry.qualifier()));
         }
     }
-    
-    private final Map<QualifiedMapKey, QualifiedMapEntry> internalMap = new ConcurrentHashMap<>();
-    
-    public QualifiedMap put(@Nullable QualifiedMapEntry entry) {
+
+    final Map<QualifiedMapKey, QualifiedMapEntry> internalMap;
+
+    public QualifiedMap put(@Nullable final QualifiedMapEntry entry) {
         if(entry==null) return this;
         if(entry.source()==null) return this;
         if(entry.target()==null) return this;
         internalMap.put(QualifiedMapKey.from(entry), entry);
         return this;
     }
-    
+
+    public Stream<QualifiedMapEntry> streamEntries() {
+        return internalMap.values().stream();
+    }
+
     // -- LOOKUP
-    
+
     public Optional<QualifiedMapEntry> lookupEntry(
-            @Nullable SemanticIdentifier source, 
-            @Nullable SemanticIdentifierSet qualifier){
+            @Nullable final SemanticIdentifier source,
+            @Nullable final SemanticIdentifierSet qualifier){
         if(source==null) return Optional.empty();
         var key = new QualifiedMapKey(source, SemanticIdentifierSet.nullToEmpty(qualifier));
         return Optional.ofNullable(internalMap.get(key));
     }
-    
+
     public QualifiedMapEntry lookupEntryElseFail(
-            @Nullable SemanticIdentifier source, 
-            @Nullable SemanticIdentifierSet qualifier){
+            @Nullable final SemanticIdentifier source,
+            @Nullable final SemanticIdentifierSet qualifier){
         return lookupEntry(source, qualifier)
-                .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for source=%s and qualifier=%s", 
+                .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for source=%s and qualifier=%s",
                         source, qualifier));
     }
-    
+
     public Optional<SemanticIdentifier> lookup(
-            @Nullable SemanticIdentifier source, 
-            @Nullable SemanticIdentifierSet qualifier){
+            @Nullable final SemanticIdentifier source,
+            @Nullable final SemanticIdentifierSet qualifier){
         return lookupEntry(source, qualifier)
                 .map(QualifiedMapEntry::target);
     }
-    
+
     public SemanticIdentifier lookupElseFail(
-            @Nullable SemanticIdentifier source, 
-            @Nullable SemanticIdentifierSet qualifier){
+            @Nullable final SemanticIdentifier source,
+            @Nullable final SemanticIdentifierSet qualifier){
         return lookupEntryElseFail(source, qualifier).target();
     }
-    
+
+    // -- SERIALIZE
+
+    public String toYaml() {
+        return Dtos.toDto(this).toYaml();
+    }
+
+    public static Try<QualifiedMap> tryFromYaml(@Nullable final DataSource ds) {
+        return QualifiedMapDto.tryFromYaml(ds)
+                .mapSuccessAsNullable(Dtos::fromDto);
+    }
+
 }

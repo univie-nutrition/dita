@@ -18,22 +18,47 @@
  */
 package dita.commons.sid;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.Collection;
 
 import org.springframework.lang.Nullable;
 
-public record SemanticIdentifierSet(Set<SemanticIdentifier> elements) {
-    
-    private static final SemanticIdentifierSet EMPTY = new SemanticIdentifierSet(Collections.emptySet());
-    
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.base._Strings;
+
+public record SemanticIdentifierSet(
+        /**
+         * Expects elements already to be sorted.<br>
+         * Use factory method {@link SemanticIdentifierSet#ofCollection} if unsure.
+         */
+        Can<SemanticIdentifier> elements) {
+
+    private static final SemanticIdentifierSet EMPTY = new SemanticIdentifierSet(Can.empty());
+
     public static SemanticIdentifierSet empty() {
         return EMPTY;
     }
-    
-    public static SemanticIdentifierSet nullToEmpty(@Nullable SemanticIdentifierSet set) {
+
+    public static SemanticIdentifierSet nullToEmpty(final @Nullable SemanticIdentifierSet set) {
         return set!=null
                 ? set
                 : EMPTY;
     }
+
+    public static SemanticIdentifierSet ofCollection(final @Nullable Collection<SemanticIdentifier> collection) {
+        if(_NullSafe.isEmpty(collection)) {
+            return EMPTY;
+        }
+        return new SemanticIdentifierSet(Can.ofCollection(collection).sorted(SemanticIdentifierSet::compare));
+    }
+
+    // -- UTILITY
+
+    public static int compare(final SemanticIdentifier a, final SemanticIdentifier b) {
+        int c = _Strings.compareNullsFirst(a.systemId(), b.systemId());
+        return c!=0
+            ? c
+            : _Strings.compareNullsFirst(a.objectId(), b.objectId());
+    }
+
 }
