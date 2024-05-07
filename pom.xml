@@ -409,6 +409,7 @@ additional
 
     <modules>
         <module>commons</module>
+        <module>foodon</module>
         <module>recall24</module>
         <module>causeway</module>
         <module>foodex</module>

@@ -1,0 +1,12 @@
+= Resource Credits
+
+Resources under `src/main/resources`.
+
+[options="header",cols="1,1,5a"]
+|===
+|Resource |Version |Origin   
+//-------------
+|foodon.owl.7z |Apr 8, 2024
+|FoodOntology (Foodon) OWL file https://github.com/FoodOntology/foodon/raw/master/foodon.owl   
+  
+|===
