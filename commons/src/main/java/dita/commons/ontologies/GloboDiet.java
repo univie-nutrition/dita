@@ -23,7 +23,7 @@ import dita.commons.sid.SemanticIdentifier;
 public record GloboDiet(String systemId) {
 
     public SemanticIdentifier foodId(final String objectId) {
-        return new SemanticIdentifier(systemId, null, objectId);
+        return new SemanticIdentifier(systemId, objectId);
     }
 
 }

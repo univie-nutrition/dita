@@ -60,10 +60,6 @@ public class BLS302 {
 
         final String blsCode;
 
-        public SemanticIdentifier componentId(final String objectId) {
-            return new SemanticIdentifier(SYSTEM_ID, blsCode, objectId);
-        }
-
         public static DietaryDataCategory parse(final String blsCode){
             if(StringUtils.hasLength(blsCode)) switch (blsCode) {
             case "E": return AMINO_ACIDS;
@@ -83,8 +79,8 @@ public class BLS302 {
 
     }
 
-    public SemanticIdentifier foodId(final String objectId) {
-        return new SemanticIdentifier(SYSTEM_ID, null, objectId);
+    public SemanticIdentifier id(final String objectId) {
+        return new SemanticIdentifier(SYSTEM_ID, objectId);
     }
 
 }

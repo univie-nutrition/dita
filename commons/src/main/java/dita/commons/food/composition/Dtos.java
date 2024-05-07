@@ -19,13 +19,17 @@
 package dita.commons.food.composition;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
@@ -45,35 +49,68 @@ class Dtos {
 
     // -- DATAPOINT
 
-    public record FoodComponentDatapointDto(
+    /** tiny packed format, to save space */
+    public record FoodComponentDatapointDto(String dp) {
+
+    }
+
+    public record FoodComponentDatapointProxy(
             @NonNull SemanticIdentifier componentId,
             @NonNull DatapointSemantic datapointSemantic,
             @NonNull BigDecimal datapointValue) {
+        FoodComponentDatapointDto pack(){
+          return new FoodComponentDatapointDto(
+              _Strings.nullToEmpty(componentId.systemId())
+              + "," + _Strings.nullToEmpty(componentId.objectId())
+              + "," + (datapointSemantic == DatapointSemantic.UPPER_BOUND
+                  ? "<"
+                  : "")
+              + "," + datapointValue.unscaledValue()
+              + "," + datapointValue.scale());
+        }
+        static FoodComponentDatapointProxy unpack(final FoodComponentDatapointDto dto){
+            var parts = _Strings.splitThenStream(dto.dp(), ",")
+                    .collect(Can.toCan());
+            _Assert.assertEquals(5, parts.size());
+            var systemId = _Strings.emptyToNull(parts.getElseFail(0));
+            var objectId = _Strings.emptyToNull(parts.getElseFail(1));
+            var datapointSemantic = "<".equals(parts.getElseFail(2))
+                    ? DatapointSemantic.UPPER_BOUND
+                    : DatapointSemantic.AS_IS;
+            var unscaledVal = parts.getElseFail(3);
+            var scale = parts.getElseFail(4);
+            return new FoodComponentDatapointProxy(
+                    new SemanticIdentifier(systemId, objectId),
+                    datapointSemantic,
+                    new BigDecimal(new BigInteger(unscaledVal), Integer.valueOf(scale)));
+        }
     }
 
     FoodComponentDatapointDto toDto(final FoodComponentDatapoint datapoint) {
-        return new FoodComponentDatapointDto(
+        return new FoodComponentDatapointProxy(
                 datapoint.component().componentId(),
                 datapoint.datapointSemantic(),
-                datapoint.datapointValue());
+                datapoint.datapointValue())
+                .pack();
     }
 
     FoodComponentDatapoint fromDto(
             final FoodComponentDatapointDto dto,
             final ConcentrationUnit compositionQuantification,
             final FoodComponentCatalog componentCatalog) {
+        var proxy = FoodComponentDatapointProxy.unpack(dto);
         return new FoodComponentDatapoint(
-                componentCatalog.lookupEntryElseFail(dto.componentId()),
+                componentCatalog.lookupEntryElseFail(proxy.componentId()),
                 compositionQuantification,
-                dto.datapointSemantic(),
-                dto.datapointValue());
+                proxy.datapointSemantic(),
+                proxy.datapointValue());
     }
 
     // -- FOOD COMPOSITION
 
     public record FoodCompositionDto(
             @NonNull SemanticIdentifier foodId,
-            @NonNull ConcentrationUnit compositionQuantification,
+            @NonNull ConcentrationUnit concentrationUnit,
             @NonNull Collection<FoodComponentDatapointDto> datapoints) {
     }
 
@@ -89,9 +126,9 @@ class Dtos {
             final FoodComponentCatalog componentCatalog) {
         var datapointMap = new HashMap<SemanticIdentifier, FoodComponentDatapoint>();
         dto.datapoints().stream()
-            .map(d->Dtos.fromDto(d, dto.compositionQuantification(), componentCatalog))
+            .map(d->Dtos.fromDto(d, dto.concentrationUnit(), componentCatalog))
             .forEach(dp->datapointMap.put(dp.componentId(), dp));
-        return new FoodComposition(dto.foodId(), dto.compositionQuantification(), datapointMap);
+        return new FoodComposition(dto.foodId(), dto.concentrationUnit(), datapointMap);
     }
 
     // -- FOOD COMPOSITION REPOSITORY

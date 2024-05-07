@@ -44,7 +44,7 @@ class FoodCompositionRepositoryTest {
         System.err.printf("AFTER%n%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
-                .lookupEntryElseFail(BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"));
+                .lookupEntryElseFail(BLS302.id("KMD"));
 
         assertNotNull(blsZuckerGesamt);
     }

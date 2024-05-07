@@ -27,11 +27,7 @@ public record SemanticIdentifier(
          */
         String systemId,
         /**
-         * Identifies the category, class or hierarchy the data object belongs to.
-         */
-        String categoryId,
-        /**
-         * Uniquely identifies the data object within the category and/or system.
+         * Uniquely identifies the data object within the system.
          */
         String objectId) {
 

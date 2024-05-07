@@ -44,7 +44,7 @@ import dita.commons.sid.SemanticIdentifierSet;
 class FoodTest {
 
     private GloboDiet gd = new GloboDiet("AT-GD-2024.05");
-    private SemanticIdentifier blsBananaId = BLS302.foodId("F503100"); // Banana raw
+    private SemanticIdentifier blsBananaId = BLS302.id("F503100"); // Banana raw
 
     @Test
     void test() {
@@ -55,7 +55,7 @@ class FoodTest {
         System.err.printf("%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
-                .lookupEntryElseFail(BLS302.DietaryDataCategory.CARBOHYDRATES.componentId("KMD"));
+                .lookupEntryElseFail(BLS302.id("KMD"));
 
 
         // setup nutrient mapping

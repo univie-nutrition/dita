@@ -103,7 +103,7 @@ public class LanguaL {
         final FacetCharacteristic characteristic;
 
         public SemanticIdentifier facetId(final String systemId, final String facetTermCode) {
-            return new SemanticIdentifier(systemId, letterCode, facetTermCode);
+            return new SemanticIdentifier(systemId, facetTermCode);
         }
     }
 

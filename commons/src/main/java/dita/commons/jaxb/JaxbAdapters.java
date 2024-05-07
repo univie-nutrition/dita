@@ -68,16 +68,15 @@ public class JaxbAdapters {
                 var parts = _Strings.splitThenStream(commaSeparatedValues, ",")
                         .map(SemanticIdentifierAdapter::argumentIn)
                         .toList();
-                _Assert.assertEquals(3, parts.size(), ()->
+                _Assert.assertEquals(2, parts.size(), ()->
                     String.format("invalid token count in '%s'", commaSeparatedValues));
-                return new SemanticIdentifier(parts.get(0), parts.get(1), parts.get(2));
+                return new SemanticIdentifier(parts.get(0), parts.get(1));
             } catch (Exception e) {
                 throw _Exceptions.illegalArgument(e, "cannot parse '%s' as SemanticIdentifier", string);
             }
         }
         private static String stringify(final SemanticIdentifier sid) {
             return "SID[" + argumentOut(sid.systemId())
-                + "," + argumentOut(sid.categoryId())
                 + "," + argumentOut(sid.objectId()) + "]";
         }
         private static String argumentIn(@Nullable final String in) {

@@ -51,7 +51,7 @@ public record FoodComposition(
         /**
          * Concentration values are given as per 100ml (consumed).
          */
-        PER_100_ML(ConsumptionUnit.MILLILITER, -2),
+        PER_100_MILLILITER(ConsumptionUnit.MILLILITER, -2),
         /**
          * Concentration values are given as per part (consumed).
          * e.g. dietary supplement tablets
