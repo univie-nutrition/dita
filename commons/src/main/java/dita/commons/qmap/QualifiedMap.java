@@ -67,6 +67,10 @@ public class QualifiedMap {
         return this;
     }
 
+    public int entryCount() {
+        return internalMap.size();
+    }
+
     public Stream<QualifiedMapEntry> streamEntries() {
         return internalMap.values().stream();
     }

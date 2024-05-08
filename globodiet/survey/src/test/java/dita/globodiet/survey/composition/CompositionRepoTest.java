@@ -74,8 +74,6 @@ class CompositionRepoTest {
 
     private void toCSV(final FoodCompositionRepository repo) {
 
-        var catalog = repo.componentCatalog();
-
         final List<String> lines = new ArrayList<>();
 
         //header
