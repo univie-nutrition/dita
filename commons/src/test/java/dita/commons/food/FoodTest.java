@@ -35,9 +35,6 @@ import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.food.consumption.FoodConsumptionWithComposition;
-import dita.commons.ontologies.BLS302;
-import dita.commons.ontologies.GloboDiet;
-import dita.commons.ontologies.LanguaL;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
@@ -45,8 +42,7 @@ import dita.commons.sid.SemanticIdentifierSet;
 
 class FoodTest {
 
-    private GloboDiet gd = new GloboDiet("AT-GD-2024.05");
-    private SemanticIdentifier blsBananaId = BLS302.id("F503100"); // Banana raw
+    private SemanticIdentifier blsBananaId = new SemanticIdentifier("bls", "F503100"); // Banana raw
 
     @Test
     void test() {
@@ -57,7 +53,7 @@ class FoodTest {
         System.err.printf("%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
-                .lookupEntryElseFail(BLS302.id("KMD"));
+                .lookupEntryElseFail(new SemanticIdentifier("bls", "KMD"));
 
 
         // setup nutrient mapping
@@ -92,8 +88,8 @@ class FoodTest {
     // -- HELPER
 
     FoodConsumption createFoodConsumption() {
-        var gdBanana = gd.foodId("00136"); // Banana
-        var gdFacetRaw = LanguaL.Facet.COOKING_METHOD.facetId(gd.systemId(), "0399");
+        var gdBanana = new SemanticIdentifier("gd", "00136"); // Banana
+        var gdFacetRaw = new SemanticIdentifier("gd", "0399");
         var facets = new SemanticIdentifierSet(Can.of(gdFacetRaw));
         var bananaConsumption = new FoodConsumption(gdBanana, facets, ConsumptionUnit.GRAM, new BigDecimal(64));
         return bananaConsumption;

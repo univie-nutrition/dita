@@ -23,7 +23,7 @@ additional
     </parent>
 
     <artifactId>dita-foodon</artifactId>
-    <name>Dita - Food Ontology (Foodon)</name>
+    <name>Dita - Food Ontologies (Foodon)</name>
     <description>
         Integrates https://foodon.org/
     </description>

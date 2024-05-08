@@ -59,6 +59,11 @@ additional
         </dependency>
 
         <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-foodon</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.causeway.core</groupId>
             <artifactId>causeway-applib</artifactId>
         </dependency>
@@ -131,7 +136,7 @@ additional
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
     </dependencies>
 
 </project>

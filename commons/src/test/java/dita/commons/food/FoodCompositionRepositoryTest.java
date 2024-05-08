@@ -26,7 +26,7 @@ import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.ontologies.BLS302;
+import dita.commons.sid.SemanticIdentifier;
 
 class FoodCompositionRepositoryTest {
 
@@ -44,7 +44,7 @@ class FoodCompositionRepositoryTest {
         System.err.printf("AFTER%n%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
-                .lookupEntryElseFail(BLS302.id("KMD"));
+                .lookupEntryElseFail(new SemanticIdentifier("bls", "KMD"));
 
         assertNotNull(blsZuckerGesamt);
     }

@@ -16,7 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.ontologies;
+package dita.commons.foodon.bls;
+
+import java.util.stream.Stream;
 
 import org.springframework.util.StringUtils;
 
@@ -81,6 +83,23 @@ public class BLS302 {
 
     public SemanticIdentifier id(final String objectId) {
         return new SemanticIdentifier(SYSTEM_ID, objectId);
+    }
+
+    public static Stream<Component> streamComponents(){
+        return Stream.of(Component.values());
+    }
+
+    public enum Component {
+        GCAL, GJ, GCALZB, GJZB, ZW, ZE, ZF, ZK, ZB, ZM, ZO, ZA, VA, VAR, VAC, VD, VE, VEAT, VK, VB1, VB2, VB3, VB3A, VB5,
+        VB6, VB7, VB9G, VB12, VC, MNA, MK, MCA, MMG, MP, MS, MCL, MFE, MZN, MCU, MMN, MF, MJ, KAM, KAS, KAX, KA, KMT, KMF,
+        KMG, KM, KDS, KDM, KDL, KD, KMD, KPOR, KPON, KPG, KPS, KP, KBP, KBH, KBU, KBC, KBL, KBW, KBN, EILE, ELEU, ELYS,
+        EMET, ECYS, EPHE, ETYR, ETHR, ETRP, EVAL, EARG, EHIS, EEA, EALA, EASP, EGLU, EGLY, EPRO, ESER, ENA, EH, EP, F40,
+        F60, F80, F100, F120, F140, F150, F160, F170, F180, F200, F220, F240, FS, F141, F151, F161, F171, F181, F201, F221,
+        F241, FU, F162, F164, F182, F183, F184, F193, F202, F203, F204, F205, F222, F223, F224, F225, F226, FP, FK, FM, FL,
+        FO3, FO6, FG, FC, GFPS, GKB, GMKO, GP;
+        public SemanticIdentifier componentId() {
+            return BLS302.id(name());
+        }
     }
 
 }

@@ -32,16 +32,15 @@ import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.ontologies.BLS302;
 import dita.commons.sid.SemanticIdentifier;
 
 @UtilityClass
 class FoodCompositionSampler {
 
-    private SemanticIdentifier blsBananaId = BLS302.id("F503100"); // Banana raw
+    private SemanticIdentifier blsBananaId = new SemanticIdentifier("bls", "F503100"); // Banana raw
     // food components may have different units, e.g. GRAM, kcal, etc.
     private FoodComponent blsZuckerGesamt = new FoodComponent(
-            BLS302.id("KMD"),
+            new SemanticIdentifier("bls", "KMD"),
             MetricPrefix.MILLI,
             ComponentUnit.GRAM);
 
