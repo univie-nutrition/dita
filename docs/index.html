@@ -456,12 +456,21 @@ for application developers to make tools that manage configuration and allow acc
 <div id="toctitle" class="title"><h3>Contents</h3></div>
 <ul class="sectlevel1">
 <li><a href="#design-documents">Design Documents</a></li>
-<li><a href="#modules">Modules</a>
+<li><a href="#generic-modules">Generic Modules</a>
 <ul class="sectlevel2">
 <li><a href="#commons">Commons</a></li>
+<li><a href="#foodon">Foodon</a></li>
+<li><a href="#causeway">Causeway</a></li>
+<li><a href="#recall24">Recall24</a></li>
+</ul>
+</li>
+<li><a href="#specific-modules">Specific Modules</a>
+<ul class="sectlevel2">
+<li><a href="#foodex">Foodex</a></li>
 <li><a href="#globodiet">GloboDiet</a></li>
 </ul>
 </li>
+<li><a href="#license">License</a></li>
 </ul>
 </div>
 </div>
@@ -482,7 +491,7 @@ for application developers to make tools that manage configuration and allow acc
 </div>
 </div>
 <div class="sect1">
-<h2 id="modules"><a class="anchor" href="#modules"></a>Modules</h2>
+<h2 id="generic-modules"><a class="anchor" href="#generic-modules"></a>Generic Modules</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="commons"><a class="anchor" href="#commons"></a>Commons</h3>
@@ -498,7 +507,99 @@ for application developers to make tools that manage configuration and allow acc
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dita-commons</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Basic <strong>utilities</strong>.</p>
+<p>Common types and basic utilities.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="foodon"><a class="anchor" href="#foodon"></a>Foodon</h3>
+<div class="paragraph">
+<p>Food ontologies.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dita-foodon</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Integrates <em>foodon</em> ontologies and others (like BLS).</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="causeway"><a class="anchor" href="#causeway"></a>Causeway</h3>
+<div class="paragraph">
+<p><em>Apache Causeway</em> integration.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dita-causeway-replicator</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Entity replication utilities, utilizing <em>Apache Causeway</em> meta-model.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="recall24"><a class="anchor" href="#recall24"></a>Recall24</h3>
+<div class="paragraph">
+<p>Data structures to model <em>Recall-24</em> interviews.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dita-recall24</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>XML and DTO objects for <em>Recall-24</em> data exchange.</p>
+</div>
+<div class="paragraph">
+<p>Schema: <a href="https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd" class="bare">https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="specific-modules"><a class="anchor" href="#specific-modules"></a>Specific Modules</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="foodex"><a class="anchor" href="#foodex"></a>Foodex</h3>
+<div class="paragraph">
+<p>FoodEx2 (EFSA) integration.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dita-foodex-validator</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Integrates the <em>FoodEx2 Interpreting and Checking Tool</em> (ICT).</p>
+</div>
+<div class="paragraph">
+<p>Info: <a href="https://www.efsa.europa.eu/en/supporting/pub/en-1727" class="bare">https://www.efsa.europa.eu/en/supporting/pub/en-1727</a>
+Github: <a href="https://github.com/openefsa/catalogue-browser" class="bare">https://github.com/openefsa/catalogue-browser</a></p>
 </div></div></td>
 </tr>
 </tbody>
@@ -544,10 +645,18 @@ for application developers to make tools that manage configuration and allow acc
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="license"><a class="anchor" href="#license"></a>License</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dita is <em>Open Source</em> software released under the <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0 license</a>.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-09 08:24:29 +0200
+Last updated 2024-05-09 08:53:08 +0200
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

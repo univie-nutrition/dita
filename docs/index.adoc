@@ -18,7 +18,7 @@ toc::[]
 * xref:FoodModelMapping.adoc[Food Model Mapping]
 * xref:CampaignManager.adoc[Campaign Manager]
 
-== Modules
+== Generic Modules
 
 === Commons
 
@@ -28,7 +28,62 @@ Shared general purpose utilities.
 |===
 
 | dita-commons
-| Basic *utilities*.
+| Common types and basic utilities.
+
+|===
+
+=== Foodon
+
+Food ontologies.
+
+[cols="1,5a"]
+|===
+
+| dita-foodon
+| Integrates _foodon_ ontologies and others (like BLS).
+
+|===
+
+=== Causeway
+
+_Apache Causeway_ integration.
+
+[cols="1,5a"]
+|===
+
+| dita-causeway-replicator
+| Entity replication utilities, utilizing _Apache Causeway_ meta-model. 
+
+|===
+
+=== Recall24
+
+Data structures to model _Recall-24_ interviews. 
+
+[cols="1,5a"]
+|===
+
+| dita-recall24
+| XML and DTO objects for _Recall-24_ data exchange.
+
+Schema: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
+
+|===
+
+== Specific Modules
+
+=== Foodex
+
+FoodEx2 (EFSA) integration.
+
+[cols="1,5a"]
+|===
+
+| dita-foodex-validator
+| Integrates the _FoodEx2 Interpreting and Checking Tool_ (ICT).
+
+Info: https://www.efsa.europa.eu/en/supporting/pub/en-1727
+Github: https://github.com/openefsa/catalogue-browser
 
 |===
 
@@ -52,3 +107,6 @@ GloboDiet integration.
 | Web Application / User Interface
 
 |===
+
+== License
+Dita is _Open Source_ software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].

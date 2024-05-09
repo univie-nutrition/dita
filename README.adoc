@@ -10,23 +10,19 @@ for application developers to make tools that manage configuration and allow acc
 
 Rough overview of aspects of interest (work in progress): 
 
-* Food Description Models (such as FoodEx/EFSA and Globodiet; using _Facet Catalogs_)
-* Configuration Data Model for an interview application (such as Globodiet)
-* Interview Data Specification (XML) with accompanied Data Transfer Objects (DTOs)
+* Food Description Models (such as FoodOn, LanguaL, FoodEx(EFSA) and GloboDiet)
+* Configuration Data Model for an interview application (such as GloboDiet)
+* Specification of Recall-24 Interview Data (XML) with accompanied Data Transfer Objects (DTOs)
 * Data Validation (Rule Checkers)
 * File Formats and Interfaces for Data Exchange (XML, YAML, JSON, EXCEL, etc.)
+
+For more details see https://univie-nutrition.github.io/dita[Dita Documentation]
 
 == Technology Stack
 
 * Java (21+) - Programming Language
 * Spring Boot - Orchestration
 * Apache Causeway - Application Framework
-
-== Modules
-
-* xref:foodex/validator/README.adoc[Foodex Validator]
-* xref:globodiet/README.adoc[Globodiet]
-* to be continued ..
 
 == License
 Dita is _Open Source_ software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
