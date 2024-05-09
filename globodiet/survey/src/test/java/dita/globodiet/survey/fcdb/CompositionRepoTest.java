@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.survey.composition;
+package dita.globodiet.survey.fcdb;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,14 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import jakarta.inject.Inject;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.commons.internal.base._Strings;
@@ -43,35 +39,26 @@ import dita.commons.food.composition.FoodComponentDatapoint;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.foodon.bls.BLS302;
 import dita.commons.sid.SemanticIdentifier;
+import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.NamedPath;
-import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
         })
 @PrivateDataTest
-class CompositionRepoTest {
-
-    @Inject @Qualifier("survey") BlobStore surveyBlobStore;
+class CompositionRepoTest extends DitaGdSurveyIntegrationTest {
 
     @Test
     void loading() throws IOException {
-        assertNotNull(surveyBlobStore);
-
-        var fcdbDataSource = SevenZUtils.decompress(
-                surveyBlobStore.lookupBlob(NamedPath.of("fcdb", "fcdb.yaml.7z")).orElseThrow().asDataSource());
-
-        var foodCompositionRepo = FoodCompositionRepository.tryFromYaml(fcdbDataSource)
-            .valueAsNonNullElseFail();
+        var foodCompositionRepo = loadFcdb();
 
         assertEquals(14814, foodCompositionRepo.compositionCount());
-
-        toCSV(foodCompositionRepo);
+        //toCSV(foodCompositionRepo);
     }
 
+    // for debugging
+    @SuppressWarnings("unused")
     private void toCSV(final FoodCompositionRepository repo) {
 
         final List<String> lines = new ArrayList<>();

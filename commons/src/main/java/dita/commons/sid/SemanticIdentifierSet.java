@@ -19,6 +19,7 @@
 package dita.commons.sid;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
@@ -51,6 +52,13 @@ public record SemanticIdentifierSet(
         }
         return new SemanticIdentifierSet(Can.ofCollection(collection).sorted(SemanticIdentifierSet::compare));
     }
+    public static SemanticIdentifierSet ofStream(final @Nullable Stream<SemanticIdentifier> stream) {
+        var ids = Can.ofStream(stream);
+        return ids.isEmpty()
+                ? EMPTY
+                : new SemanticIdentifierSet(ids.sorted(SemanticIdentifierSet::compare));
+    }
+
 
     // -- UTILITY
 

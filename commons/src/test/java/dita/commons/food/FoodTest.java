@@ -63,11 +63,11 @@ class FoodTest {
         // verify lookups
         assertEquals(
                 Optional.empty(),
-                qMap.lookup(bananaConsumption.foodId(), SemanticIdentifierSet.empty()));
+                qMap.lookupTarget(bananaConsumption.foodId(), SemanticIdentifierSet.empty()));
 
         assertEquals(
                 Optional.of(blsBananaId),
-                qMap.lookup(bananaConsumption.foodId(), bananaConsumption.facetIds()));
+                qMap.lookupTarget(bananaConsumption.foodId(), bananaConsumption.facetIds()));
 
         var bananaComposition = foodCompositionRepo.lookupEntryElseFail(blsBananaId);
 

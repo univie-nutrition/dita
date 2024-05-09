@@ -19,14 +19,12 @@
 package dita.commons.qmap;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
-import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
@@ -61,9 +59,6 @@ class Dtos {
     }
 
     QualifiedMapEntry fromDto(final QualifiedMapEntryDto dto) {
-        var qualifier = new LinkedHashSet<SemanticIdentifier>();
-        _NullSafe.stream(dto.qualifier())
-            .forEach(qualifier::add);
         return new QualifiedMapEntry(
                 dto.source,
                 SemanticIdentifierSet.ofCollection(dto.qualifier),

@@ -18,11 +18,12 @@
  */
 package dita.globodiet.survey.recall24;
 
-import io.github.causewaystuff.blobstore.applib.BlobStore;
+import lombok.experimental.UtilityClass;
 
-record InterviewSampler(BlobStore blobStore) {
+@UtilityClass
+class InterviewSampler {
 
-    static String sampleXml() {
+    String sampleXml() {
         return
 """
 ﻿<?xml version="1.0" encoding="utf-8"?>
@@ -240,7 +241,9 @@ record InterviewSampler(BlobStore blobStore) {
 """;
     }
 
-    private static String recipeWithIngredients() {
+    // -- HELPER
+
+    private String recipeWithIngredients() {
         return """
                             <LigneITV>
                     <ITL_POC_Code>01</ITL_POC_Code>

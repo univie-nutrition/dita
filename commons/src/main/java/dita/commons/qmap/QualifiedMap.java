@@ -42,7 +42,7 @@ import dita.commons.sid.SemanticIdentifierSet;
 @RequiredArgsConstructor
 public class QualifiedMap {
 
-    private record QualifiedMapKey(
+    public record QualifiedMapKey(
             /**
              * Semantic identifier of the data object that is mapped from.
              */
@@ -75,14 +75,35 @@ public class QualifiedMap {
         return internalMap.values().stream();
     }
 
-    // -- LOOKUP
+    // -- LOOKUP VIA KEY
+
+    public Optional<QualifiedMapEntry> lookupEntry(@Nullable final QualifiedMapKey key){
+        if(key==null || key.source == null) return Optional.empty();
+        return Optional.ofNullable(internalMap.get(key));
+    }
+
+    public QualifiedMapEntry lookupEntryElseFail(@Nullable final QualifiedMapKey key){
+        return lookupEntry(key)
+                .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for source=%s and qualifier=%s",
+                        key.source, key.qualifier));
+    }
+
+    public Optional<SemanticIdentifier> lookupTarget(@Nullable final QualifiedMapKey key){
+        return lookupEntry(key)
+                .map(QualifiedMapEntry::target);
+    }
+
+    public SemanticIdentifier lookupTargetElseFail(@Nullable final QualifiedMapKey key){
+        return lookupEntryElseFail(key).target();
+    }
+
+    // -- LOOKUP WITHOUT KEY
 
     public Optional<QualifiedMapEntry> lookupEntry(
             @Nullable final SemanticIdentifier source,
             @Nullable final SemanticIdentifierSet qualifier){
         if(source==null) return Optional.empty();
-        var key = new QualifiedMapKey(source, SemanticIdentifierSet.nullToEmpty(qualifier));
-        return Optional.ofNullable(internalMap.get(key));
+        return lookupEntry(new QualifiedMapKey(source, SemanticIdentifierSet.nullToEmpty(qualifier)));
     }
 
     public QualifiedMapEntry lookupEntryElseFail(
@@ -93,14 +114,14 @@ public class QualifiedMap {
                         source, qualifier));
     }
 
-    public Optional<SemanticIdentifier> lookup(
+    public Optional<SemanticIdentifier> lookupTarget(
             @Nullable final SemanticIdentifier source,
             @Nullable final SemanticIdentifierSet qualifier){
         return lookupEntry(source, qualifier)
                 .map(QualifiedMapEntry::target);
     }
 
-    public SemanticIdentifier lookupElseFail(
+    public SemanticIdentifier lookupTargetElseFail(
             @Nullable final SemanticIdentifier source,
             @Nullable final SemanticIdentifierSet qualifier){
         return lookupEntryElseFail(source, qualifier).target();

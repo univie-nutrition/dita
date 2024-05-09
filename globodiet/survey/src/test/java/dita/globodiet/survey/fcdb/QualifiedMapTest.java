@@ -16,45 +16,29 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.survey.composition;
+package dita.globodiet.survey.fcdb;
 
 import java.io.IOException;
-
-import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import dita.commons.qmap.QualifiedMap;
+import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.NamedPath;
-import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
         })
 @PrivateDataTest
-class QualifiedMapTest {
-
-    @Inject @Qualifier("survey") BlobStore surveyBlobStore;
+class QualifiedMapTest extends DitaGdSurveyIntegrationTest {
 
     @Test
     void loading() throws IOException {
-        assertNotNull(surveyBlobStore);
-
-        var fcdbDataSource = SevenZUtils.decompress(
-                surveyBlobStore.lookupBlob(NamedPath.of("qmap", "qmap.yaml.7z")).orElseThrow().asDataSource());
-
-        var qMap = QualifiedMap.tryFromYaml(fcdbDataSource)
-            .valueAsNonNullElseFail();
-
-        assertEquals(36016, qMap.entryCount());
+        var nutMapping = loadNutMapping();
+        assertEquals(36016, nutMapping.entryCount());
     }
 }
