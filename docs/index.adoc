@@ -1,6 +1,6 @@
 = Dita
 :toc:
-:toc-title: pass:[<h3>Contents</h3>]
+:toc-title: pass:[<h4 style="margin-top: 0;">Contents</h4>]
 :toc-placement!:
 
 Scientific Nutrition and Dietary Intake Assessment (Umbrella Project, started in 2023)
@@ -10,6 +10,8 @@ and data transfer objects that can be used to collect, store and analyze dietary
 
 In particular, the project aims to provide various building blocks
 for application developers to make tools that manage configuration and allow access to the collected data.
+
+Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 
 toc::[]
 
@@ -82,7 +84,7 @@ FoodEx2 (EFSA) integration.
 | dita-foodex-validator
 | Integrates the _FoodEx2 Interpreting and Checking Tool_ (ICT).
 
-Info: https://www.efsa.europa.eu/en/supporting/pub/en-1727
+Info: https://www.efsa.europa.eu/en/supporting/pub/en-1727 +
 Github: https://github.com/openefsa/catalogue-browser
 
 |===
