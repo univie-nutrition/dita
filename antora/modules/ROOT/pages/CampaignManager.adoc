@@ -1,0 +1,218 @@
+= Campaign Manager Model
+:toc:
+
+== Survey
+
+A _survey_ collects one or more campaigns.
+
+[plantuml,fig-survey,svg]
+.Survey Model
+----
+@startuml
+left to right direction
+
+class Survey {
+    objectId¹: String
+    name: String
+    description: String
+}
+
+Survey o--> "1..*" Campaign : collects
+hide class method
+
+@enduml
+----
+
+<.> objectId: immutable identifier to reference the _Survey_ object
+
+== Campaign
+
+A _campaign_ defines a part of a food consumption survey that contains several interviews. Campaigns can be defined to be the whole study, a seasonal part of a study, a regional part of a study etc. 
+
+A campaign uses a large set of configuration options (_campaign settings_) that make up possible questions and answers for the interviews.
+
+[plantuml,fig-campaign,svg]
+.Campaign Model
+----
+@startuml
+left to right direction
+
+class Campaign {
+    objectId¹: String
+    name: String
+    description: String
+    startDate²: LocalDate
+    endDate²: LocalDate
+}
+
+Campaign "1..*" --> "1" "Campaign Settings" : uses
+Interview "1..*" --> "1" "Campaign Settings" : uses
+Campaign "1" --> "0..n" Interview : collects
+hide class method
+
+@enduml
+----
+
+<.> objectId: immutable identifier to reference the _Campaign_ object
+<.> startDate, endDate: optional, for informal purpose
+
+== Campaign Settings
+
+_Campaign Settings_ are created by taking a snapshot of the current state of the _Parameter Data Model_. The latter is subject to continuous improvements. In contrast, _Campaign Settings_ are fixated for the duration of a campaign run.
+
+[plantuml,fig-campaign-settings,svg]
+.Campaign Settings Model
+----
+@startuml
+left to right direction
+
+package "GloboDiet Parameter Data" <<Frame>> #DAE8FC {
+
+    Food --> FoodFacet 
+    FoodFacet --> FoodDescriptor
+    Recipe --> RecipeFacet 
+    RecipeFacet --> RecipeDescriptor
+    hide class method
+    hide class field
+    hide class circle
+    
+    note as N1
+      and many more
+    end note
+
+}
+
+class "Campaign Settings" {
+    creationTimestamp¹: Instant
+    name: String
+    description: String
+    parameterData²: BlobDescriptor
+}
+
+package "Blob Store" <<Database>> {
+  object Yaml {
+    timestamp
+  }
+}
+
+"GloboDiet Parameter Data" .left.> "Campaign Settings" : snapshot
+"Campaign Settings" o--> Yaml : owns
+hide class method
+
+@enduml
+----
+
+<.> creationTimestamp: immutable identifier to reference the _Snapshot_ 
+- formats with `yyyy-MM-dd--HH-mm`
+<.> parameterData: blob-store handle to retrieve the serialized _Parameter Data Model_ 
+
+== Respondent
+
+A _respondent_ is the subject of at least one interview.
+
+[plantuml,fig-respondent,svg]
+.Respondent Model
+----
+@startuml
+left to right direction
+
+class Respondent {
+    objectId¹: String
+    alias²: String
+    dateOfBirth: LocalDate
+    age³(referenceDate): int
+}
+
+Respondent --> Interview : answers to
+hide Interview method
+
+@enduml
+----
+
+<.> objectId: immutable identifier to reference the _Respondent_
+<.> alias: arbitrary human readable _Respondent_ identifier
+- e.g. full name, nickname or campaign specific code
+<.> age: calculated value, based on the `referenceDate` argument
+
+== Interview
+
+An _interview_ is a set of questions and answers attributed to a person (respondent). It specifically collects consumption data from a single day.
+
+[plantuml,fig-interview,svg]
+.Interview Model
+----
+@startuml
+left to right direction
+
+class Interview {
+    objectId: String
+    consumptionDate: LocalDate
+    interviewOrdinal: int
+    interviewDate: LocalDate
+}
+
+package "Consumption Data" <<Frame>> #DAE8FC {
+
+    class Meal {
+        hourOfDay: LocalTime
+        foodConsumptionOccasion: String 
+        foodConsumptionPlace: String 
+    }
+    
+    class "Memorized Food" {
+        name: String
+    }
+    
+    class Record {
+        name: String
+        facets: String
+    }
+    
+    enum "Record Type" {
+        FOOD
+        COMPOSITE
+        PRODUCT
+        INFORMAL
+        INCOMPLETE
+    }
+    
+    class Ingredient {
+        objectId: String
+        facets: String
+        rawPerCookedRatio: float
+    }
+    
+    class Quantity {
+        amount: double
+        unit: Unit
+    }
+
+    Meal o--> "*" "Memorized Food"
+    "Memorized Food" o--> "*" Record
+    Record o--> "*" Ingredient
+    Record -left-> "Record Type": type
+    Ingredient o-left-> Quantity: consumed
+    
+    hide class circle
+    hide class method
+    hide enum method
+}
+
+class "Respondent\nSupplementary Data" <<Map>> {
+    height[cm]: decimal
+    weight[kg]: decimal
+    specialDay: String
+    specialDiet: String
+    .. etc.
+}
+
+Interview o-> Meal : collects\n\n
+Interview <-- Respondent : answers to
+Interview <-- Campaign : collects
+Interview o--> "Respondent\nSupplementary Data": collects
+hide class method
+
+@enduml
+----
+
+<.> objectId: immutable identifier to reference the _Interview_ object
