@@ -4,7 +4,8 @@ site:
   start_page: component-main::index.adoc
 content:
   sources:
-  - url: /antora
+  - url: https://github.com/univie-nutrition/dita.git
+    start_path: antora
 ui:
   bundle:
     url: https://github.com/spring-io/antora-ui-spring/releases/download/v0.4.12/ui-bundle.zip
