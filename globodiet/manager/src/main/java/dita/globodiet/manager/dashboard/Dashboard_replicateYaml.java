@@ -48,7 +48,9 @@ import lombok.val;
 @ActionLayout(fieldSetName="About", position = Position.PANEL,
     cssClassFa = "solid clone",
     describedAs = "Replicates given table-data (YAML) to a secondary MS-SQL instance."
-            + "\nWarning: Long-Running")
+            + "\nWarning: Long-Running"
+            + "\nEnable TLSv1: goto jdk/lib/security/java.security, "
+            + "find option jdk.tls.disabledAlgorithms and delete TLSv1")
 @RequiredArgsConstructor
 public class Dashboard_replicateYaml {
 
