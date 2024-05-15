@@ -11,8 +11,8 @@ Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 
 == Design Documents
 
-* xref:FoodModelMapping.adoc[Food Model Mapping]
-* xref:CampaignManager.adoc[Campaign Manager]
+* xref:designdocs:FoodModelMapping.adoc[Food Model Mapping]
+* xref:designdocs:CampaignManager.adoc[Campaign Manager]
 
 == Schema URLs
 

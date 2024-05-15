@@ -1,6 +1,7 @@
 * xref:About.adoc[About]
 * xref:TerminologyAndResources.adoc[Terminology And Resources]
 * Design Documents
-** xref:FoodModelMapping.adoc[Food Model Mapping]
-** xref:CampaignManager.adoc[Campaign Manager]
+** xref:designdocs:FoodModelMapping.adoc[Food Model Mapping]
+** xref:designdocs:CampaignManager.adoc[Campaign Manager]
+** xref:designdocs:OntologyTermAndAnnotations.adoc[Ontology Term And Annotations (Draft)]
 * xref:SubModules.adoc[Sub Modules]

@@ -1,0 +1,39 @@
+= Ontology Term and Annotations (DRAF)
+
+An _Onto Term_ represents a term within a hierarchy of terms. 
+This hierarchy can be navigated to broader or narrower terms.
+
+An _Onto Term Annotations_ allow to attach arbitrary information to a selected term, 
+like descriptions or translations.
+
+[NOTE]
+====
+Candidate types to be associated with an OntoTerm are food facets (LanguaL) and food components (CDNO).   
+====
+
+[plantuml,fig-ontoterm,svg]
+.Ontology Terms
+----
+@startuml
+
+class OntoTermAnnotation {
+    termId: SemanticIdentifier
+    key: String
+    value: String
+}
+
+class OntoTerm {
+    termId: SemanticIdentifier
+    broadened: SemanticIdentifier
+    narrowed: SemanticIdentifierSet
+    name¹: String
+}
+
+OntoTerm <- "*" OntoTermAnnotation : annotates
+
+hide class method
+
+@enduml
+----
+
+<.> *name*: common term (typically in English)
