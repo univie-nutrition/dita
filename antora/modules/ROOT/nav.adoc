@@ -1,4 +1,4 @@
-* xref:about.adoc[About]
+* xref:About.adoc[About]
 * xref:TerminologyAndResources.adoc[Terminology And Resources]
 * Design Documents
 ** xref:FoodModelMapping.adoc[Food Model Mapping]

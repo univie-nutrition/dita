@@ -1,7 +1,7 @@
 site:
   title: Dita Docs
   url: https://univie-nutrition.github.io/dita
-  start_page: component-main::about.adoc
+  start_page: component-main::About.adoc
 content:
   sources:
   - url: https://github.com/univie-nutrition/dita.git
