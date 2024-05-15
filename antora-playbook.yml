@@ -11,3 +11,13 @@ ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
+asciidoc:
+  extensions:
+    - asciidoctor-kroki
+  attributes:
+    # kroki
+    # for more options see https://github.com/Mogztter/asciidoctor-kroki
+    kroki-default-format: svg # (default)
+    kroki-default-options: interactive # only available for SVG
+    kroki-fetch-diagram: true
+    kroki-server-url: https://kroki.io # (default)
