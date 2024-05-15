@@ -14,7 +14,7 @@ Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 * FOODON - Food Ontology (Open Source Project), aims at combining all food ontologies that are out there
 ** Info: https://foodon.org/
 ** Github: https://github.com/FoodOntology/foodon
-* FCDB - Food Composition Database, e.g. German's BLS, GS1 (Global Language of Business)
+* FCDB - Food Composition Database, e.g. German's BLS, GS1 (Global Language of Business) or Swiss FCDB: https://naehrwertdaten.ch/
 * FTC - Facet Term Code (e.g. FoodEx2, LanguaL)
 * CDNO - Compositional Dietary Nutrition Ontology - provides structured terminologies to describe nutritional attributes of material entities that contribute to human diet
 ** Info: https://cdno.info/
@@ -29,7 +29,11 @@ Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 * xref:FoodModelMapping.adoc[Food Model Mapping]
 * xref:CampaignManager.adoc[Campaign Manager]
 
-== Generic Modules
+== Schema URLs
+
+* Recall-24: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
+
+== (Sub) Modules
 
 === Commons
 
@@ -80,8 +84,6 @@ Data structures to model _Recall-24_ interviews.
 Schema: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
 
 |===
-
-== Specific Modules
 
 === Foodex
 
