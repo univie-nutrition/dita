@@ -1,18 +1,19 @@
 = Dita
 
-Scientific Nutrition and Dietary Intake Assessment (Umbrella Project, started in 2023)
+Scientific Nutrition and Dietary Intake Assessment
 
-Dita is a research initiative that aims at development of specifications 
-and data transfer objects that can be used to collect, store and analyze dietary intake data. 
+Dita is a research initiative that focuses on creating specifications and data transfer objects. 
+These can be utilized for collecting, storing, and analyzing dietary intake data. 
+Additionally, the project provides building blocks to assist application developers 
+in creating customized solutions for dietary data collection and analysis.
 
-In particular, the project aims to provide various building blocks
-for application developers to make tools that manage configuration and allow access to the collected data.
+The Project, started in 2023.
 
-Rough overview of aspects of interest (work in progress): 
+Aspects of interest: 
 
-* Food Description Models (such as FoodOn, LanguaL, FoodEx(EFSA) and GloboDiet)
-* Configuration Data Model for an interview application (such as GloboDiet)
-* Specification of Recall-24 Interview Data (XML) with accompanied Data Transfer Objects (DTOs)
+* Integration of _Food Description Models_ such as FoodOn, LanguaL, FoodEx (EFSA) or GloboDiet
+* _Configuration Data Management_ for an interview application (such as GloboDiet)
+* Specification of _Recall-24_ Interview Data (XML) and accompanied _Data Transfer Objects_ (DTOs)
 * Data Validation (Rule Checkers)
 * File Formats and Interfaces for Data Exchange (XML, YAML, JSON, EXCEL, etc.)
 
@@ -20,9 +21,9 @@ For more details see https://univie-nutrition.github.io/dita[Dita Documentation]
 
 == Technology Stack
 
-* Java (21+) - Programming Language
-* Spring Boot - Orchestration
-* Apache Causeway - Application Framework
+* Java - Programming Language
+* Spring Framework - Orchestration - https://spring.io/projects/spring-framework
+* Apache Causeway - Application Framework - https://causeway.apache.org/
 
 == License
 Dita is _Open Source_ software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].
