@@ -4,7 +4,7 @@
       <div class="navbar-item">
         <a href="{{or site.url (or siteRootUrl siteRootPath)}}">Dita Docs</a>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -14,7 +14,7 @@
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-link">Project</div>
-          <div class="navbar-dropdown">
+          <div class="navbar-dropdown" style="right: 0;left: auto;">
             <div class="navbar-item"><strong>Sponsorship</strong></div>
             <a class="navbar-item" href="https://nutrition.univie.ac.at/en/">Department of Nutritional Sciences (University of Vienna)</a>
             <hr class="navbar-divider">
@@ -30,4 +30,3 @@
     </div>
   </nav>
 </header>
-
