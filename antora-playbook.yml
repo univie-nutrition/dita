@@ -16,6 +16,8 @@ asciidoc:
   extensions:
     - asciidoctor-kroki
   attributes:
+    # https://docs.antora.org/antora-ui-default/template-customization/#page-pagination-attribute
+    page-pagination: ''
     # kroki
     # for more options see https://github.com/Mogztter/asciidoctor-kroki
     kroki-default-format: svg # (default)
