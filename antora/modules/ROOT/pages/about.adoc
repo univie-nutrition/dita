@@ -1,4 +1,4 @@
-= Dita Project
+= About
 
 Scientific Nutrition and Dietary Intake Assessment
 
@@ -9,21 +9,6 @@ in creating customized solutions for dietary data collection and analysis.
 
 Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 
-== Terminology and Resources
-
-* FOODON - Food Ontology (Open Source Project), aims at combining all food ontologies that are out there
-** Info: https://foodon.org/
-** Github: https://github.com/FoodOntology/foodon
-* FCDB - Food Composition Database, e.g. German's BLS, GS1 (Global Language of Business) or Swiss FCDB: https://naehrwertdaten.ch/
-* FTC - Facet Term Code (e.g. FoodEx2, LanguaL)
-* CDNO - Compositional Dietary Nutrition Ontology - provides structured terminologies to describe nutritional attributes of material entities that contribute to human diet
-** Info: https://cdno.info/
-** Term Search: https://ontobee.org/ontology/CDNO
-** Github: https://github.com/CompositionalDietaryNutritionOntology/cdno
-* MATCHING
-** Matching of Food Consumption Data with Food Composition Data (Paper) https://www.mdpi.com/2072-6643/10/4/433
-
-
 == Design Documents
 
 * xref:FoodModelMapping.adoc[Food Model Mapping]
@@ -32,94 +17,6 @@ Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 == Schema URLs
 
 * Recall-24: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
-
-== (Sub) Modules
-
-=== Commons
-
-Shared general purpose utilities.
-
-[cols="1,5a"]
-|===
-
-| dita-commons
-| Common types and basic utilities.
-
-|===
-
-=== Foodon
-
-Food ontologies.
-
-[cols="1,5a"]
-|===
-
-| dita-foodon
-| Integrates _foodon_ ontologies and others (like BLS).
-
-|===
-
-=== Causeway
-
-_Apache Causeway_ integration.
-
-[cols="1,5a"]
-|===
-
-| dita-causeway-replicator
-| Entity replication utilities, utilizing _Apache Causeway_ meta-model. 
-
-|===
-
-=== Recall24
-
-Data structures to model _Recall-24_ interviews. 
-
-[cols="1,5a"]
-|===
-
-| dita-recall24
-| XML and DTO objects for _Recall-24_ data exchange.
-
-Schema: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
-
-|===
-
-=== Foodex
-
-FoodEx2 (EFSA) integration.
-
-[cols="1,5a"]
-|===
-
-| dita-foodex-validator
-| Integrates the _FoodEx2 Interpreting and Checking Tool_ (ICT).
-
-Info: https://www.efsa.europa.eu/en/supporting/pub/en-1727 +
-Github: https://github.com/openefsa/catalogue-browser
-
-|===
-
-=== GloboDiet
-
-GloboDiet integration.
-
-[cols="1,5a"]
-|===
-
-| dita-globodiet-schema
-| GloboDiet Relational Data Schema
-
-| dita-globodiet-params
-| GloboDiet Entities mostly auto-generated from Schema
-
-| dita-globodiet-survey
-| Survey and Campaign Management Entities
-
-| dita-globodiet-manager
-| Web Application / User Interface
-
-|===
 
 == License
 Dita is _Open Source_ software released under the https://www.apache.org/licenses/LICENSE-2.0.html[Apache 2.0 license].

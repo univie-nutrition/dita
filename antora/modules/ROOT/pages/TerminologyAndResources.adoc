@@ -1,0 +1,13 @@
+= Terminology and Resources
+
+* FOODON - Food Ontology (Open Source Project), aims at combining all food ontologies that are out there
+** Info: https://foodon.org/
+** Github: https://github.com/FoodOntology/foodon
+* FCDB - Food Composition Database, e.g. German's BLS, GS1 (Global Language of Business) or Swiss FCDB: https://naehrwertdaten.ch/
+* FTC - Facet Term Code (e.g. FoodEx2, LanguaL)
+* CDNO - Compositional Dietary Nutrition Ontology - provides structured terminologies to describe nutritional attributes of material entities that contribute to human diet
+** Info: https://cdno.info/
+** Term Search: https://ontobee.org/ontology/CDNO
+** Github: https://github.com/CompositionalDietaryNutritionOntology/cdno
+* MATCHING
+** Matching of Food Consumption Data with Food Composition Data (Paper) https://www.mdpi.com/2072-6643/10/4/433
