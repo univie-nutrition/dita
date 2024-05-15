@@ -1,7 +1,4 @@
 = Dita
-:toc:
-:toc-title: pass:[<h4 style="margin-top: 0;">Contents</h4>]
-:toc-placement!:
 
 Scientific Nutrition and Dietary Intake Assessment
 
@@ -12,8 +9,6 @@ In particular, the project establishes various building blocks
 for application developers to help provide customized solutions for dietary data collection and analysis.
 
 Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
-
-toc::[]
 
 == Design Documents
 
