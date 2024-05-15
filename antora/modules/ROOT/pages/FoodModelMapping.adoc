@@ -1,23 +1,7 @@
 = Food Model Mapping
-:toc:
 
 In the following chapters we describe the basic principles used for mapping from arbitrary _food models_ to others. 
 And in particular matching _Food Consumption Data_ with _Food Composition Data_.
-
-== Terminology and Resources
-
-* FOODON - Food Ontology (Open Source Project), aims at combining all food ontologies that are out there
-** Info: https://foodon.org/
-** Github: https://github.com/FoodOntology/foodon
-* FCDB - Food Composition Database, e.g. German's BLS, GS1 (Global Language of Business)
-* FTC - Facet Term Code (e.g. FoodEx2, LanguaL)
-* CDNO - Compositional Dietary Nutrition Ontology
-** Description: CDNO provides structured terminologies to describe nutritional attributes of material entities that contribute to human diet.
-** Info: https://cdno.info/
-** Term Search: https://ontobee.org/ontology/CDNO
-** Github: https://github.com/CompositionalDietaryNutritionOntology/cdno
-* MATCHING
-** Matching of Food Consumption Data with Food Composition Data (Paper) https://www.mdpi.com/2072-6643/10/4/433
 
 == Generic Types
 

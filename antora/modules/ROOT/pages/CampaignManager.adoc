@@ -1,5 +1,4 @@
 = Campaign Manager Model
-:toc:
 
 == Survey
 
