@@ -7,7 +7,7 @@ These can be utilized for collecting, storing, and analyzing dietary intake data
 Additionally, the project provides building blocks to assist application developers 
 in creating customized solutions for dietary data collection and analysis.
 
-The Project, started in 2023.
+The project started in 2023.
 
 Aspects of interest: 
 
