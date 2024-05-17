@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
-import org.apache.causeway.commons.internal.base._Refs;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.format.FormatUtils;
@@ -39,6 +38,8 @@ import dita.globodiet.survey.PrivateDataTest;
 import dita.recall24.api.Record24.Type;
 import dita.recall24.model.Ingredient24;
 import dita.recall24.model.Node24;
+import dita.recall24.util.Recall24SummaryStatistics;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @SpringBootTest(classes = {
@@ -50,15 +51,17 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     @Test
     void parsingFromBlobStore() {
 
-        var ingredientProcessor = new IngredientProcessor(new Stats(), "GD-AT20240507", loadNutMapping());
+        var stats = new Recall24SummaryStatistics();
+        var ingredientProcessor = new IngredientProcessor(stats, "GD-AT20240507", loadNutMapping());
 
-        loadAndStreamInterviews(null)
+        loadAndStreamInterviews(NamedPath.of("at-national-2026"), null)
         //.limit(1)
         .forEach(interviewSet24->{
             var root = TreeNodeFactory.wrap(Node24.class, interviewSet24, factoryService);
             root.streamDepthFirst()
                 .map(TreeNode::getValue)
                 .forEach((Node24 node)->{
+                    stats.accept((dita.recall24.api.Node24) node);
                     switch(node) {
                     case Ingredient24 ingr -> ingredientProcessor.accept(ingr);
                     default -> {}
@@ -66,30 +69,22 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 });
         });
 
-        System.err.printf("%s%n", ingredientProcessor.stats);
-
+        System.err.println("=== STATS ===");
+        System.err.println(stats.formatted());
+        System.err.println("=============");
     }
 
-    record Stats(
-            _Refs.IntReference ingredientCount,
-            _Refs.IntReference unmappedCount) {
-        Stats() {
-            this(_Refs.intRef(0), _Refs.intRef(0));
-        }
-    }
-
-    record IngredientProcessor(Stats stats, String systemId, QualifiedMap nutMapping)
+    record IngredientProcessor(Recall24SummaryStatistics stats, String systemId, QualifiedMap nutMapping)
     implements Consumer<Ingredient24> {
         @Override
         public void accept(final Ingredient24 ingr) {
-            stats.ingredientCount().incAndGet();
             var mapKey = extractQualifiedMapKey(ingr);
             var mapEntry = nutMapping.lookupEntry(mapKey);
-            if(!mapEntry.isPresent()) {
-                stats.unmappedCount().incAndGet();
+            if(mapEntry.isPresent()) {
+                stats.ingredientStats().mappedCount().increment();
+            } else {
                 System.err.printf("unmapped ingr: %s (%s)%n", ingr.name(), mapKey);
             }
-
         }
         // -- HELPER
         private QualifiedMap.QualifiedMapKey extractQualifiedMapKey(final Ingredient24 ingr) {

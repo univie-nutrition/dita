@@ -23,7 +23,7 @@ import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
 
-public interface Record24 {
+public non-sealed interface Record24 extends Node24 {
 
     public static enum Type {
 

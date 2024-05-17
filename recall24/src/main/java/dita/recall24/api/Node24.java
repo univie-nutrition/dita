@@ -18,48 +18,13 @@
  */
 package dita.recall24.api;
 
-import javax.measure.Quantity;
-
-public non-sealed interface Ingredient24 extends Node24 {
-
-    /**
-     * The parent {@link Record24}.
-     */
-    Record24 parentRecord();
-
-    /**
-     * Ingredient identifier.
-     */
-    String sid();
-
-    /**
-     * The name of this ingredient.
-     */
-    String name();
-
-    /**
-     * Comma separated list of facet identifiers,
-     * ordered (by some natural order).
-     */
-    String facetSids();
-
-    /**
-     * Raw per cooked ratio, ranging from 0. to 1.
-     */
-    double rawPerCookedRatio();
-
-    /**
-     * {@link Quantity} cooked.
-     */
-    Quantity<?> quantityCooked();
-
-//    /**
-//     * Mass/amount fraction relative to parent recipe.
-//     */
-//    double fractionRelativeToParentRecipe();
-
-    default public String discriminator() {
-        return "" + sid() + ";" + facetSids();
-    }
-
+public sealed interface Node24
+permits
+    InterviewSet24,
+    Respondent24,
+    Interview24,
+    Meal24,
+    MemorizedFood24,
+    Record24,
+    Ingredient24 {
 }

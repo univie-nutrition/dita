@@ -26,7 +26,7 @@ import org.apache.causeway.commons.collections.Can;
 /**
  * The Interface Meal24.
  */
-public interface Meal24 {
+public non-sealed interface Meal24 extends Node24 {
 
     /**
      * Parent interview.

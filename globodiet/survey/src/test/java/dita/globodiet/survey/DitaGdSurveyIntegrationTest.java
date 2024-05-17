@@ -28,6 +28,8 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
+import lombok.NonNull;
+
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
@@ -63,8 +65,10 @@ extends CausewayIntegrationTestAbstract {
         return qMap;
     }
 
-    protected Stream<InterviewSet24> loadAndStreamInterviews(final @Nullable Consumer<Message> messageConsumer) {
-        return InterviewUtils.streamSources(surveyBlobStore, NamedPath.of("at-national-2026"), true)
+    protected Stream<InterviewSet24> loadAndStreamInterviews(
+            final @NonNull NamedPath path,
+            final @Nullable Consumer<Message> messageConsumer) {
+        return InterviewUtils.streamSources(surveyBlobStore, path, true)
             .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
     }
 
