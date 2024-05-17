@@ -19,6 +19,7 @@
 package dita.globodiet.survey;
 
 import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import jakarta.inject.Inject;
@@ -31,11 +32,15 @@ import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTe
 import lombok.NonNull;
 
 import dita.commons.food.composition.FoodCompositionRepository;
+import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
+import dita.recall24.model.Ingredient24;
 import dita.recall24.model.InterviewSet24;
+import dita.recall24.model.Node24;
+import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.compression.SevenZUtils;
@@ -70,6 +75,29 @@ extends CausewayIntegrationTestAbstract {
             final @Nullable Consumer<Message> messageConsumer) {
         return InterviewUtils.streamSources(surveyBlobStore, path, true)
             .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
+    }
+
+    /**
+     * Converts ingredient identifiers to NutriDb (prefixed) identifiers.
+     */
+    protected UnaryOperator<InterviewSet24> nutriDbTransfomer(){
+
+        record NutriDbTransfomer() implements UnaryOperator<Node24> {
+            @Override public Node24 apply(final Node24 node) {
+                return switch (node) {
+                case Ingredient24 ingr -> toNutriDbPrefixes(ingr);
+                default -> node;
+                };
+            }
+            private Ingredient24 toNutriDbPrefixes(final Ingredient24 ingr) {
+                return switch (ingr.parentRecord().type()) {
+                case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));
+                default -> ingr;
+                };
+            }
+        }
+
+        return Recall24ModelUtils.transform(new NutriDbTransfomer());
     }
 
 }

@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,6 +35,7 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import lombok.NonNull;
 import lombok.val;
 
 import dita.commons.jaxb.JaxbAdapters;
@@ -101,6 +103,15 @@ public record InterviewSet24(
     public Stream<Interview24> streamInterviews() {
         return this.respondents().stream()
                 .flatMap(resp->resp.interviews().stream());
+    }
+
+    /**
+     * Returns a new tree with the transformed nodes.
+     * @param transformer - transforms fields only (leave parent child relations untouched)
+     */
+    public InterviewSet24 transform(
+            final @NonNull UnaryOperator<Node24> transformer) {
+        return Recall24ModelUtils.transform(transformer).apply(this);
     }
 
     /**

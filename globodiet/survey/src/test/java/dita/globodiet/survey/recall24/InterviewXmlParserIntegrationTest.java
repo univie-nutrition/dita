@@ -19,7 +19,6 @@
 package dita.globodiet.survey.recall24;
 
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +27,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
@@ -56,7 +54,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
         loadAndStreamInterviews(NamedPath.of("at-national-2026"), null)
         //.limit(1)
-        .map(Recall24ModelUtils.transform(new NutriDbTransfomer()))
+        .map(nutriDbTransfomer())
         .map(interviewSet24 -> Recall24ModelUtils.wrapAsTreeNode(interviewSet24, factoryService))
         .forEach(rootNode->{
             rootNode
@@ -74,21 +72,6 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         System.err.println("=== STATS ===");
         System.err.println(stats.formatted());
         System.err.println("=============");
-    }
-
-    record NutriDbTransfomer() implements UnaryOperator<Node24> {
-        @Override public Node24 apply(final Node24 node) {
-            return switch (node) {
-            case Ingredient24 ingr -> toNutriDbPrefixes(ingr);
-            default -> node;
-            };
-        }
-        private Ingredient24 toNutriDbPrefixes(final Ingredient24 ingr) {
-            return switch (ingr.parentRecord().type()) {
-            case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));
-            default -> ingr;
-            };
-        }
     }
 
     record IngredientProcessor(Recall24SummaryStatistics stats, String systemId, QualifiedMap nutMapping)
