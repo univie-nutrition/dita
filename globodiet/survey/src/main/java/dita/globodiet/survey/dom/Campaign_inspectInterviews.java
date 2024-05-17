@@ -20,21 +20,21 @@ package dita.globodiet.survey.dom;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.SemanticsOf;
 
 import lombok.RequiredArgsConstructor;
 
 import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
-@Action
+@Action(semantics = SemanticsOf.NON_IDEMPOTENT)
 @ActionLayout(
         fieldSetId = "interviewUploads",
         position = Position.PANEL,
@@ -51,6 +51,7 @@ public class Campaign_inspectInterviews {
 
     @MemberSupport
     public SurveyVM act() {
+        surveyTreeRootNodeHelperService.invalidateCache(mixee.secondaryKey());
         return SurveyVM.forRoot(mixee.secondaryKey(), surveyTreeRootNodeHelperService.root(mixee.secondaryKey()));
     }
 

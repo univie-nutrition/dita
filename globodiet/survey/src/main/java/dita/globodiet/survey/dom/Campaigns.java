@@ -61,12 +61,15 @@ public class Campaigns {
         var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(campaign.getCorrection()))
             .valueAsNullableElseFail();
 
+        //debug
+        //messageConsumer.accept(Message.info("generated at %s", LocalDateTime.now()));
+
         return surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
                 .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
-                .reduce((a, b)->a.join(b, messageConsumer))
                 .map(Recall24ModelUtils.correct(correction))
+                .reduce((a, b)->a.join(b, messageConsumer))
                 .map(InterviewSet24::normalized)
                 .map(messageConsumer::annotate)
                 .orElseGet(InterviewSet24::empty);

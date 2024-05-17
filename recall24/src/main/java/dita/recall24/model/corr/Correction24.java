@@ -32,6 +32,7 @@ import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.NonNull;
+import lombok.extern.log4j.Log4j2;
 
 import dita.commons.types.Sex;
 import dita.recall24.model.Node24;
@@ -40,10 +41,12 @@ import dita.recall24.model.Respondent24;
 /**
  * Models interview data corrections. WIP
  */
+@Log4j2
 public record Correction24(List<RespondentCorr> respondents) {
 
     public record RespondentCorr(
             @NonNull String alias,
+            @Nullable String newAlias,
             @Nullable LocalDate dateOfBirth,
             @Nullable Sex sex) {
     }
@@ -71,7 +74,11 @@ public record Correction24(List<RespondentCorr> respondents) {
             Respondent24 correct(final Respondent24 resp) {
                 var respCorr = respCorrByAlias.get(resp.alias());
                 if(respCorr==null) return resp;
-                return new Respondent24(resp.alias(),
+                log.info("about to correct {}", respCorr);
+                return new Respondent24(
+                        respCorr.newAlias()!=null
+                            ? respCorr.newAlias()
+                            : resp.alias(),
                         respCorr.dateOfBirth()!=null
                             ? respCorr.dateOfBirth()
                             : resp.dateOfBirth(),

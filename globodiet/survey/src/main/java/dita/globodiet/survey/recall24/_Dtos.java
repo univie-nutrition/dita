@@ -225,10 +225,14 @@ class _Dtos {
          */
         private Respondent24 respondentStub() {
             final Respondent24 respondent = new Respondent24(
-                    subjectName + "|" + subjectFirstName,
+                    subjectCode,
+                    //subjectName + "|" + subjectFirstName,
                     subjectBirthDate.toLocalDate(),
                     Sex.values()[subjectSex],
                     Can.empty());
+
+            //respondent.annotate().(new Annotation("Name", name));
+
             return respondent;
         }
 
