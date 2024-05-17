@@ -178,6 +178,29 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @Setter
     private String description;
 
+    /**
+     * Yaml formatted interview data corrections.
+     */
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "5",
+            describedAs = "Yaml formatted interview data corrections.",
+            multiLine = 24,
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "CORRECTION",
+            allowsNull = "true",
+            length = 4096
+    )
+    @Getter
+    @Setter
+    private String correction;
+
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s)", name, code);
@@ -188,7 +211,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
         return "Campaign(" + "code=" + getCode() + ","
          +"surveyCode=" + getSurveyCode() + ","
          +"name=" + getName() + ","
-         +"description=" + getDescription() + ")";
+         +"description=" + getDescription() + ","
+         +"correction=" + getCorrection() + ")";
     }
 
     @Programmatic
@@ -199,6 +223,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
         copy.setSurveyCode(getSurveyCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
+        copy.setCorrection(getCorrection());
         return copy;
     }
 
@@ -271,6 +296,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
      * @param survey Survey code
      * @param name Descriptive campaign name.
      * @param description Detailed information for this campaign.
+     * @param correction Yaml formatted interview data corrections.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
@@ -306,7 +332,16 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     describedAs = "Detailed information for this campaign.",
                     multiLine = 4
             )
-            String description) {
+            String description,
+            @Parameter(
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Yaml formatted interview data corrections.",
+                    multiLine = 24
+            )
+            String correction) {
     }
 
     /**
