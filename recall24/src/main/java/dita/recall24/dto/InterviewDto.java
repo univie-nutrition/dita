@@ -35,7 +35,7 @@ import lombok.Data;
 @XmlRootElement(name="interview")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class InterviewDto {
+public final class InterviewDto implements NodeDto {
 
     @XmlElement(name="respondentAlias")
     private String respondentAlias;

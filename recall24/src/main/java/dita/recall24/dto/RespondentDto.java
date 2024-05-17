@@ -38,7 +38,7 @@ import dita.commons.types.Sex;
 @XmlRootElement(name="respondent")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class RespondentDto {
+public final class RespondentDto implements NodeDto {
 
     @XmlElement(name="alias")
     private String alias;

@@ -18,26 +18,13 @@
  */
 package dita.recall24.dto;
 
-import java.util.List;
-
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
-import jakarta.xml.bind.annotation.XmlRootElement;
-
-import lombok.Data;
-
-@XmlRootElement(name="memorizedFood")
-@XmlAccessorType(XmlAccessType.FIELD)
-@Data
-public final class MemorizedFoodDto implements NodeDto {
-
-    @XmlElement(name="Name")
-    private String name;
-
-    @XmlElementWrapper(name="records")
-    @XmlElement(name="record", type=RecordDto.class)
-    private List<RecordDto> records;
-
+public sealed interface NodeDto
+permits
+    InterviewSetDto,
+    RespondentDto,
+    InterviewDto,
+    MealDto,
+    MemorizedFoodDto,
+    RecordDto,
+    IngredientDto {
 }

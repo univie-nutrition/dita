@@ -54,4 +54,12 @@ public record Ingredient24(
         return parentRecordRef.getValue();
     }
 
+    public Ingredient24 copy() {
+        return of(sid(), name(), facetSids(), rawPerCookedRatio(), quantityCooked());
+    }
+
+    public Ingredient24 withSid(final String sid) {
+        return of(sid, name(), facetSids(), rawPerCookedRatio(), quantityCooked());
+    }
+
 }

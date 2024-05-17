@@ -28,13 +28,14 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import dita.recall24.api.Record24;
 import lombok.Data;
+
+import dita.recall24.api.Record24;
 
 @XmlRootElement(name="record")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class RecordDto {
+public final class RecordDto implements NodeDto {
 
     @XmlElement(name="type")
     @XmlJavaTypeAdapter(value=RecordDto.RecordTypeAdapter.class)

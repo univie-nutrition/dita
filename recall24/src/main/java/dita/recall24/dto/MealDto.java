@@ -35,7 +35,7 @@ import lombok.Data;
 @XmlRootElement(name="meal")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class MealDto {
+public final class MealDto implements NodeDto {
 
     @XmlElement(name="hourOfDay")
     @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalTimeToStringAdapter.class)

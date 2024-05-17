@@ -33,7 +33,7 @@ import lombok.Data;
 @XmlRootElement(name="interviewSet")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class InterviewSetDto {
+public final class InterviewSetDto implements NodeDto {
 
     @XmlElementWrapper(name="respondents")
     @XmlElement(name="respondent", type=RespondentDto.class)

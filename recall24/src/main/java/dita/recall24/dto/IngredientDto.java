@@ -33,7 +33,7 @@ import dita.commons.jaxb.JaxbAdapters;
 @XmlRootElement(name="ingredient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class IngredientDto {
+public final class IngredientDto implements NodeDto {
 
     @XmlElement(name="sid")
     private String sid;

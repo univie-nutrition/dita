@@ -75,12 +75,12 @@ class Recall24UtilsTest {
     void roundtripOnDtoToModelConversion() {
         val interviewSetDto = sampler.asInterviewSet(sampler.survey());
         assertEquals(interviewSetDto,
-                Recall24ModelUtils.toDto(Recall24ModelUtils.fromDto(interviewSetDto)));
+                Recall24DtoUtils.toDto(Recall24DtoUtils.fromDto(interviewSetDto)));
     }
 
     @Test
     void roundtripOnModelSplitAndJoin() {
-        val interviewSet24 = Recall24ModelUtils.fromDto(sampler.asInterviewSet(sampler.survey()))
+        val interviewSet24 = Recall24DtoUtils.fromDto(sampler.asInterviewSet(sampler.survey()))
                 .normalized();
         val biPartition = interviewSet24.split(2);
 
