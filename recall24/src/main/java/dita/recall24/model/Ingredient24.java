@@ -22,6 +22,12 @@ import javax.measure.Quantity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.apache.causeway.commons.internal.base._Strings;
+
+import dita.commons.qmap.QualifiedMap;
+import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 /**
@@ -54,12 +60,15 @@ public record Ingredient24(
         return parentRecordRef.getValue();
     }
 
-    public Ingredient24 copy() {
-        return of(sid(), name(), facetSids(), rawPerCookedRatio(), quantityCooked());
-    }
-
     public Ingredient24 withSid(final String sid) {
         return of(sid, name(), facetSids(), rawPerCookedRatio(), quantityCooked());
+    }
+
+    public QualifiedMap.QualifiedMapKey qualifiedMapKey(final String systemId) {
+        var source = new SemanticIdentifier(systemId, sid());
+        return new QualifiedMapKey(source,
+                SemanticIdentifierSet.ofStream(_Strings.splitThenStream(facetSids(), ",")
+                        .map(facetId->new SemanticIdentifier(systemId, facetId))));
     }
 
 }

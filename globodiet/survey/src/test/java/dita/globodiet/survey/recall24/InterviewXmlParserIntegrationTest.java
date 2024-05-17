@@ -25,12 +25,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
-import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
-import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifierSet;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
@@ -78,20 +74,13 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     implements Consumer<Ingredient24> {
         @Override
         public void accept(final Ingredient24 ingr) {
-            var mapKey = extractQualifiedMapKey(ingr);
+            var mapKey = ingr.qualifiedMapKey(systemId);
             var mapEntry = nutMapping.lookupEntry(mapKey);
             if(mapEntry.isPresent()) {
                 stats.ingredientStats().mappedCount().increment();
             } else {
                 System.err.printf("unmapped ingr: %s (%s)%n", ingr.name(), mapKey);
             }
-        }
-        // -- HELPER
-        private QualifiedMap.QualifiedMapKey extractQualifiedMapKey(final Ingredient24 ingr) {
-            var source = new SemanticIdentifier(systemId, ingr.sid());
-            return new QualifiedMapKey(source,
-                    SemanticIdentifierSet.ofStream(_Strings.splitThenStream(ingr.facetSids(), ",")
-                            .map(facetId->new SemanticIdentifier(systemId, facetId))));
         }
     }
 
