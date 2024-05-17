@@ -32,6 +32,8 @@ import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.model.InterviewSet24;
 import dita.recall24.model.Node24;
+import dita.recall24.model.corr.Correction24;
+import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -56,11 +58,15 @@ public class Campaigns {
 
         var messageConsumer = new MessageConsumer();
 
+        var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(campaign.getCorrection()))
+            .valueAsNullableElseFail();
+
         return surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
                 .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
                 .reduce((a, b)->a.join(b, messageConsumer))
+                .map(Recall24ModelUtils.correct(correction))
                 .map(InterviewSet24::normalized)
                 .map(messageConsumer::annotate)
                 .orElseGet(InterviewSet24::empty);

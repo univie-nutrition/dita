@@ -46,6 +46,7 @@ import dita.recall24.model.MemorizedFood24;
 import dita.recall24.model.Node24;
 import dita.recall24.model.Record24;
 import dita.recall24.model.Respondent24;
+import dita.recall24.model.corr.Correction24;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @UtilityClass
@@ -156,6 +157,12 @@ public class Recall24ModelUtils {
             });
             return Recall24DtoUtils.fromDto(mutableRoot);
         };
+    }
+
+    public static UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {
+        return correction24!=null
+                ? transform(correction24.asOperator())
+                : UnaryOperator.identity();
     }
 
     // -- HELPER
