@@ -1,0 +1,117 @@
+= Interview Model
+
+In the following chapters we describe the key data structures for capturing food consumption data.
+
+== Respondent
+
+A _respondent_ is the subject of at least one interview.
+
+[plantuml,fig-respondent,svg]
+.Respondent Model
+----
+@startuml
+
+class Respondent {
+    alias: String
+    dateOfBirth: LocalDate
+    age(referenceDate: LocalDate)
+}
+
+note right of Respondent::alias
+  campaign scoped identifier to uniquely reference the respondent
+end note
+note right of Respondent::age
+  calculated value, based on the 'referenceDate' argument
+end note
+
+Respondent --> Interview : answers to
+hide Interview method
+
+@enduml
+----
+
+== Interview
+
+An _interview_ is a set of questions and answers attributed to a person (respondent). It specifically collects consumption data from a single day.
+
+[plantuml,fig-interview,svg]
+.Interview Model
+----
+@startuml
+
+class Interview {
+    objectId: String
+    consumptionDate: LocalDate
+    interviewOrdinal: int
+    interviewDate: LocalDate
+}
+
+package "Consumption Data" <<Frame>> #E8DAFC {
+
+    class Meal {
+        hourOfDay: LocalTime
+        foodConsumptionOccasion: String 
+        foodConsumptionPlace: String 
+    }
+    
+    class "Memorized Food" {
+        name: String
+    }
+    
+    class Record {
+        name: String
+        facets: String
+    }
+    
+    enum "Record Type" {
+        FOOD
+        COMPOSITE
+        PRODUCT
+        INFORMAL
+        INCOMPLETE
+    }
+    
+    class Ingredient {
+        objectId: String
+        facets: String
+        rawPerCookedRatio: float
+    }
+    
+    class Quantity {
+        amount: double
+        unit: Unit
+    }
+
+    Meal o--> "*" "Memorized Food"
+    "Memorized Food" o--> "*" Record
+    Record o--> "*" Ingredient
+    Record -right-> "Record Type": type
+    Ingredient o-right-> Quantity: consumed
+    
+    hide class circle
+    hide class method
+    hide enum method
+}
+
+class "Respondent\nSupplementary Data" <<Map>> {
+    height[cm]: decimal
+    weight[kg]: decimal
+    specialDay: String
+    specialDiet: String
+    .. etc.
+}
+
+Campaign o--> Interview : collects
+Respondent --> Interview : answers to
+Interview o-left-> "Respondent\nSupplementary Data": collects
+Interview o-down-> Meal : collects\n\n
+hide class method
+
+note right of Interview::objectId
+  campaign scoped identifier to uniquely reference the interview
+  e.g. respondent alias and consumption date
+end note
+
+
+@enduml
+----
