@@ -18,6 +18,8 @@
  */
 package dita.recall24.api;
 
+import java.math.BigDecimal;
+
 import javax.measure.Quantity;
 
 public non-sealed interface Ingredient24 extends Node24 {
@@ -46,7 +48,7 @@ public non-sealed interface Ingredient24 extends Node24 {
     /**
      * Raw per cooked ratio, ranging from 0. to 1.
      */
-    double rawPerCookedRatio();
+    BigDecimal rawPerCookedRatio();
 
     /**
      * {@link Quantity} cooked.

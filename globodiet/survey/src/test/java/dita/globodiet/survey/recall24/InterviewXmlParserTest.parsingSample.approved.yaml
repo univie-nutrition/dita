@@ -3,7 +3,7 @@ respondents:
   dateOfBirth: "1933-03-17"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2021-05-02"
+  - interviewDate: "2021-04-06"
     interviewOrdinalRef:
       value: 1
     respondentMetaData:

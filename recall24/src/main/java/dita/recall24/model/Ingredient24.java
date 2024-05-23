@@ -18,6 +18,8 @@
  */
 package dita.recall24.model;
 
+import java.math.BigDecimal;
+
 import javax.measure.Quantity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,7 +42,7 @@ public record Ingredient24(
         String sid,
         String name,
         String facetSids,
-        double rawPerCookedRatio,
+        BigDecimal rawPerCookedRatio,
         Quantity<?> quantityCooked
         //,double fractionRelativeToParentRecipe
         ) implements dita.recall24.api.Ingredient24, Node24 {
@@ -49,7 +51,7 @@ public record Ingredient24(
             final String sid,
             final String name,
             final String facetSids,
-            final double rawPerCookedRatio,
+            final BigDecimal rawPerCookedRatio,
             final Quantity<?> quantityCooked) {
         var ingredient24 = new Ingredient24(ObjectRef.empty(), sid, name, facetSids, rawPerCookedRatio, quantityCooked);
         return ingredient24;

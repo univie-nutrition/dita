@@ -23,6 +23,8 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.LongAdder;
+import java.util.function.Consumer;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -32,8 +34,11 @@ import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.springframework.lang.Nullable;
+
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
 import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.Data;
@@ -173,14 +178,15 @@ class _Dtos {
         // -- UTILITY
 
         record ListEntryTreeNode(
+                int nestingLevel,
                 ObjectRef<ListEntryTreeNode> parentNode,
                 ListEntry entry,
                 List<ListEntryTreeNode> childNodes) {
             static ListEntryTreeNode root() {
-                return new ListEntryTreeNode(ObjectRef.empty(), null, new ArrayList<>());
+                return new ListEntryTreeNode(0, ObjectRef.empty(), null, new ArrayList<>());
             }
-            static ListEntryTreeNode node(final ListEntry entry) {
-                return new ListEntryTreeNode(ObjectRef.empty(), entry, new ArrayList<>());
+            static ListEntryTreeNode node(final int nestingLevel, final ListEntry entry) {
+                return new ListEntryTreeNode(nestingLevel, ObjectRef.empty(), entry, new ArrayList<>());
             }
             boolean isRoot() {
                 return entry==null;
@@ -189,53 +195,121 @@ class _Dtos {
                 return isRoot() ? null : entry.listEntryType();
             }
             ListEntryTreeNode add(final ListEntry entry) {
-                var childNode = node(entry);
+                var childNode = node(nestingLevel + 1, entry);
                 childNodes.add(childNode);
                 childNode.parentNode.setValue(this);
                 return childNode;
+            }
+            void visitDepthFirst(final Consumer<ListEntry> visitor) {
+                if(!isRoot()) visitor.accept(this.entry());
+                childNodes.forEach(node->node.visitDepthFirst(visitor));
             }
         }
 
         ListEntryTreeNode asTree() {
             var root = ListEntryTreeNode.root();
-            var current = new ListEntryTreeNode[] {null, null, null, null, null, null};
+            var current = new ListEntryTreeNode[] {null, null, null, null}; // 4 (tree) levels of placeholders
+
             listEntries.forEach(IndexedConsumer.zeroBased((i, listEntry)->{
                 var listEntryType = listEntry.listEntryType();
                 switch (listEntryType) {
                 case FoodConsumptionOccasion:
                     current[0] = root.add(listEntry);
+                    current[1] = null;
+                    current[2] = null;
+                    current[3] = null;
                     return;
                 case QuickListItem:
-                    current[1] = current[0].add(listEntry);
-                    return;
                 case QuickListItemForDietarySupplement:
                     current[1] = current[0].add(listEntry);
-                    return;
-                case DietarySupplement:
-                    current[2] = current[1].add(listEntry);
+                    current[2] = null;
+                    current[3] = null;
                     return;
                 case Food:
-                    current[2] = current[1].add(listEntry);
-                    return;
                 case Recipe:
+                case DietarySupplement:
                     current[2] = current[1].add(listEntry);
+                    current[3] = null;
                     return;
-                case FoodSelectedAsARecipeIngredient:
-                    current[3] = current[2].add(listEntry);
+                case FoodSelectedAsARecipeIngredient: {
+                    var recipe = current[2];
+                    _Assert.assertEquals(ListEntryType.Recipe, recipe.type());
+                    current[3] = recipe.add(listEntry);
                     return;
-                case FatDuringCookingForFood:
-//                    tree.addEdge(current[2], current[3] = i);
-//                    return;
-                case FatDuringCookingForIngredient:
-                case FatSauceOrSweeteners:
-                //case RecipeSelectedAsARecipeIngredient: //Not yet available (as stated in docs)
-                case TypeOfFatUsedFacet:
-                case TypeOfMilkOrLiquidUsedFacet:
-                    break;
                 }
-                _Exceptions.unmatchedCase(listEntryType);
+                case TypeOfFatUsedFacet:
+                case TypeOfMilkOrLiquidUsedFacet: {
+                    var foodOrRecipeOrSupplement = current[2];
+                    var ingredient = current[3];
+                    if(ingredient!=null) {
+                        assertSharedOrdinal(ingredient.entry(), listEntry);
+                        ingredient.add(listEntry); // leaf node
+                    } else {
+                        assertSharedOrdinal(foodOrRecipeOrSupplement.entry(), listEntry);
+                        foodOrRecipeOrSupplement.add(listEntry); // leaf node
+                    }
+                    return;
+                }
+                case FatDuringCookingForFood: {
+                    var food = current[2];
+                    _Assert.assertEquals(ListEntryType.Food, food.type());
+                    assertSharedOrdinal(food.entry(), listEntry);
+                    food.add(listEntry); // leaf node
+                    return;
+                }
+                case FatDuringCookingForIngredient: {
+                    var ingredient = current[3];
+                    _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, ingredient.type());
+                    assertSharedOrdinal(ingredient.entry(), listEntry);
+                    ingredient.add(listEntry); // leaf node
+                    return;
+                }
+                case FatSauceOrSweeteners: {
+                    var foodOrRecipeOrSupplement = current[2];
+                    var ingredient = current[3];
+                    if(ingredient!=null) {
+                        System.err.printf("ignored for ingredient: %s %n  %s%n  %s%n", listEntryType, ingredient.entry(), listEntry);
+                        assertSharedOrdinal(ingredient.entry(), listEntry);
+                        ingredient.add(listEntry); // leaf node
+                    } else {
+                        System.err.printf("ignored for food: %s %n  %s%n  %s%n", listEntryType, foodOrRecipeOrSupplement.entry(), listEntry);
+                        assertSharedOrdinal(foodOrRecipeOrSupplement.entry(), listEntry);
+                        foodOrRecipeOrSupplement.add(listEntry); // leaf node
+                    }
+                    return;
+                }
+                //case RecipeSelectedAsARecipeIngredient: //Not (yet) available (as stated in docs)
+                }
+
+                throw _Exceptions.unmatchedCase(listEntryType);
             }));
+
+            {   // verify we have all nodes
+                var nodeCounter = new LongAdder();
+                root.visitDepthFirst(_->nodeCounter.increment());
+                _Assert.assertEquals(listEntries.size(), nodeCounter.intValue(),
+                        ()->"tree size not equal to list size");
+            }
             return root;
+        }
+
+        private static void assertSharedOrdinal(final ListEntry a, final ListEntry b) {
+
+            // FatSauceOrSweeteners appear to be special here, they come with their own ingredient ordinal,
+            // which is also non sequential, perhaps always added to the bottom with a sequence number gap of size 2
+            var skipIngredientOrdinalCheck = a.listEntryType().equals(ListEntryType.FatSauceOrSweeteners)
+                    || b.listEntryType().equals(ListEntryType.FatSauceOrSweeteners);
+
+            if(!skipIngredientOrdinalCheck)
+                _Assert.assertEquals(a.ingredientOrdinal, b.ingredientOrdinal, ()->"ingredient ordinal mismatch; "
+                        + "informal entry is expected to share the ingredient ordinal with the food or ingredient "
+                        + "it is associated with");
+            _Assert.assertEquals(a.recordOrdinal, b.recordOrdinal, ()->"record ordinal mismatch; "
+                    + "informal entry is expected to share the record ordinal with the food or ingredient "
+                    + "it is associated with");
+            _Assert.assertEquals(a.mealOrdinal, b.mealOrdinal, ()->"meal ordinal mismatch; "
+                    + "informal entry is expected to share the meal ordinal with the food or ingredient "
+                    + "it is associated with");
         }
 
     }
@@ -290,8 +364,8 @@ class _Dtos {
         private String listEntryType;
         /** Food Type only for Food/ingredient/fat (for TYPE>3):
          * GI Generic Item, SH Shadow, ' ' not Generic */
-        @XmlElement(name="ITL_F_Type")
-        private String ITL_F_Type;
+        @Nullable @XmlElement(name="ITL_F_Type")
+        private String foodType;
         /** Recipe Type only for recipe or Sub-recipe (for TYPE=3 or 3S):<br>
          * 1.1=Open – Known<br>
          * 1.2=Open – Unknown<br>
@@ -301,7 +375,7 @@ class _Dtos {
          * 3.0=Strictly commercial<br>
          * 4.1=New – Known<br>
          * 4.2=New – Unknown */
-        @XmlElement(name="ITL_R_Type")
+        @Nullable @XmlElement(name="ITL_R_Type")
         private String recipeType;
         /** Ingredient Type only for ingredient or sub-recipe (for TYPE=5 or 3S or 5S):<br>
          * 1 Fixed<br>
@@ -309,7 +383,7 @@ class _Dtos {
          * 3 Fat during cooking<br>
          * A2 Fat used Facet<br>
          * A3 Milk/liquid used */
-        @XmlElement(name="ITL_I_Type")
+        @Nullable @XmlElement(name="ITL_I_Type")
         private String ingredientType;
 
         /** Type of modification done on Recipe or sub-recipes (for TYPE=3 or 3S):<br>
@@ -394,10 +468,10 @@ class _Dtos {
 
         /** Consumed quantity in grams (after having applied conversion factors). (recomputed value as docs state)*/
         @XmlElement(name="ITL_CONS_QTY")
-        private double consumedQuantity;
+        private BigDecimal consumedQuantity;
         /** Estimated quantity (before having applied conversion factors). (recomputed value as docs state)*/
         @XmlElement(name="ITL_Estim_QTY")
-        private double estimatedQuantity;
+        private BigDecimal estimatedQuantity;
 
         /** Quantification method:
          * G=Gram<br>
@@ -419,7 +493,7 @@ class _Dtos {
 
         /** Quantity in gram/ml attached to the selected method */
         @XmlElement(name="ITL_NGRAMS")
-        private double quantityAmount;
+        private BigDecimal quantityAmount;
         /** Proportion/fraction of selected quantity*/
         @XmlElement(name="ITL_Proport")
         private String quantityFraction;
@@ -434,15 +508,15 @@ class _Dtos {
          * 1 = Raw<br>
          * 2 = Cooked or Not applicable */
         @XmlElement(name="ITL_RawCooked")
-        private int ITL_RawCooked;
+        private int estimatedRawOrCookedOrNotApplicable;
         /** Variable indicating whether the quantity was Consumed Raw or Cooked:<br>
          * 1 = Raw<br>
          * 2 = Cooked or Not applicable*/
         @XmlElement(name="ITL_ConsRawCo")
-        private int ITL_ConsRawCo;
+        private int consumedRawOrCookedOrNotApplicable;
         /** Raw to Cooked Coefficient*/
         @XmlElement(name="ITL_Conver")
-        private double rawPerCookedRatio;
+        private BigDecimal rawPerCookedRatio;
 
         /** Variable indicating whether the quantity was estimated with/without inedible part:<br>
          * 1 = Without or not applicable<br>
@@ -556,7 +630,9 @@ class _Dtos {
             FoodSelectedAsARecipeIngredient("5"),
             FatDuringCookingForFood("6"),
             FatDuringCookingForIngredient("7"),
+            /** Type of Fat used (informal) */
             TypeOfFatUsedFacet("A2"),
+            /** Type of milk/liquid used (informal) */
             TypeOfMilkOrLiquidUsedFacet("A3"),
             /**
              * Lines/records with Type=8 should not be used for data analysis because the reported consumed quantities

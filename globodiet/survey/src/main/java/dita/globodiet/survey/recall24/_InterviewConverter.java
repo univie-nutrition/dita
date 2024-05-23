@@ -55,24 +55,34 @@ class _InterviewConverter {
             .map(fcoNode->{
                 var fcoEntry = fcoNode.entry();
                 var memorizedFoods = fcoNode.childNodes().stream()
-                .map(qliNode->{
-                    var qliEntry = qliNode.entry();
-                    var records = qliNode.childNodes().stream()
+                .map(memNode->{
+                    var memEntry = memNode.entry();
+                    var records = memNode.childNodes().stream()
                     .map(recordNode->{
                         var recordEntry = recordNode.entry();
-                        var ingredients24 = recordNode.childNodes().stream()
-                        .map(ingredientNode->{
-                            var foodSelectedAsARecipeIngredientEntry = ingredientNode.entry();
-                            return toIngredient24(foodSelectedAsARecipeIngredientEntry);
+                        var recordSubEntries = recordNode.childNodes().stream()
+                        .map(recordSubNode->{
+                            var type = recordSubNode.type();
+                            switch (type) {
+                            case FoodSelectedAsARecipeIngredient:
+                                return toIngredient24(recordSubNode.entry());
+                            case FatDuringCookingForFood:
+                            case TypeOfFatUsedFacet:
+                            case TypeOfMilkOrLiquidUsedFacet:
+                            case FatSauceOrSweeteners:
+                                return null; //TODO no receiving type yet
+                            default:
+                                throw new IllegalArgumentException("Unexpected value: " + type);
+                            }
                         })
                         .collect(Can.toCan());
 
-                        var record24 = toRecord24(recordEntry, ingredients24);
+                        var record24 = toRecord24(recordEntry, recordSubEntries);
                         return record24;
                     })
                     .collect(Can.toCan());
 
-                    var memorizedFood24 = toMemorizedFood24(qliEntry, records);
+                    var memorizedFood24 = toMemorizedFood24(memEntry, records);
                     return memorizedFood24;
                 })
                 .collect(Can.toCan());
@@ -124,6 +134,7 @@ class _InterviewConverter {
     private Record24 toRecord24(final ListEntry listEntry, final Can<Ingredient24> ingredients) {
         _Assert.assertFalse(listEntry.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
         //TODO label() might be non empty -> information lost
+        //TODO needs a switch on type actually
         return Record24.of(Type.FOOD, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
     }
 

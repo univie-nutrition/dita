@@ -18,6 +18,8 @@
  */
 package dita.recall24.dto;
 
+import java.math.BigDecimal;
+
 import javax.measure.Quantity;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -45,7 +47,7 @@ public final class IngredientDto implements NodeDto {
     private String facetSids;
 
     @XmlElement(name="rawPerCookedRatio")
-    private double rawPerCookedRatio;
+    private BigDecimal rawPerCookedRatio;
 
     @XmlElement(name="quantityCooked")
     @XmlJavaTypeAdapter(value=JaxbAdapters.QuantityAdapter.class)
