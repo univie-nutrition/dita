@@ -12,6 +12,7 @@ Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 == Design Documents
 
 * xref:designdocs/FoodModelMapping.adoc[Food Model Mapping]
+* xref:designdocs/InterviewModel.adoc[Interview Model]
 * xref:designdocs/CampaignManager.adoc[Campaign Manager]
 * xref:designdocs/OntologyTermAndAnnotations.adoc[Ontology Term And Annotations (Draft)]
 

@@ -83,7 +83,7 @@ public class InterviewXmlParser {
         return Recall24ModelUtils
                 .join(
                     dto.getInterviews().stream()
-                        .map(_Dtos.Interview::toInterview24)
+                        .map(_InterviewConverter::toInterview24)
                         .toList(),
                     messageConsumer);
     }

@@ -21,10 +21,8 @@ package dita.globodiet.survey.recall24;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.measure.quantity.Mass;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -35,13 +33,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.causeway.applib.jaxb.JavaTimeJaxbAdapters;
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.collections.ImmutableEnumSet;
 import org.apache.causeway.commons.functional.IndexedConsumer;
-import org.apache.causeway.commons.graph.GraphUtils.GraphKernel;
-import org.apache.causeway.commons.graph.GraphUtils.GraphKernel.GraphCharacteristic;
-import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.Data;
@@ -51,17 +43,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.types.MetricUnits;
-import dita.commons.types.Sex;
-import dita.commons.util.NumberUtils;
-import dita.recall24.api.Record24.Type;
-import dita.recall24.model.Ingredient24;
-import dita.recall24.model.Interview24;
-import dita.recall24.model.Meal24;
-import dita.recall24.model.MemorizedFood24;
-import dita.recall24.model.Record24;
-import dita.recall24.model.Respondent24;
-import dita.recall24.model.RespondentMetaData24;
+import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass
@@ -84,14 +66,16 @@ class _Dtos {
         @XmlElement(name="PAR_ExportDate")
         private String exportDate;
         @XmlElement(name="Project")
-        private Project Project;
+        private Project project;
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
     @Data
     static class Project {
+        /** Project name. */
         @XmlAttribute(name = "PRO_Code")
-        protected String code;
+        protected String name;
+        /** Language used by these interviews/records. */
         @XmlElement(name="PRO_Language")
         private String language;
     }
@@ -99,6 +83,7 @@ class _Dtos {
     @XmlAccessorType(XmlAccessType.FIELD)
     @Data
     static class Country {
+        /** Country code */
         @XmlAttribute(name = "CTY_code")
         protected String code;
     }
@@ -106,10 +91,15 @@ class _Dtos {
     @XmlAccessorType(XmlAccessType.FIELD)
     @Data
     static class Interview {
+        /** Empty not used (at least at time of writing)*/
         @XmlElement(name="ITV_Id")
         private String id;
+
+        /** Date when the interview occurred. */
         @XmlElement(name="ITV_RecallDate")
-        private String recallDate;
+        @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
+        private LocalDateTime interviewDate;
+
         @XmlElement(name="CTR_Code")
         private String ctrCode;
         @XmlElement(name="ITR_Code")
@@ -126,16 +116,21 @@ class _Dtos {
         private String subjectFirstName;
         @XmlElement(name="SBT_Sex")
         private int subjectSex;
+
         @XmlElement(name="SBT_BirthDate")
         @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
         private LocalDateTime subjectBirthDate;
+
         @XmlElement(name="ITG_Release")
         private String itgRelase;
         @XmlElement(name="ITG_Num")
         private String itgNum;
+
+        /** Date when the consumptions occurred. */
         @XmlElement(name="ITG_Date")
         @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
-        private LocalDateTime interviewDate;
+        private LocalDateTime consumptionDate;
+
         @XmlElement(name="ITG_SubjectHeight")
         private BigDecimal heightCM;
         @XmlElement(name="ITG_SubjectWeight")
@@ -175,34 +170,58 @@ class _Dtos {
         @XmlElement(name="LigneITV", type=ListEntry.class)
         private List<ListEntry> listEntries;
 
-        private GraphKernel listEntriesAsTree() {
-            final var tree = new GraphKernel(1 + listEntries.size(), ImmutableEnumSet.noneOf(GraphCharacteristic.class));
-            final int rootIndex = listEntries.size();
-            final int[] current = new int[] {-1, -1, -1, -1, -1, -1};
+        // -- UTILITY
 
+        record ListEntryTreeNode(
+                ObjectRef<ListEntryTreeNode> parentNode,
+                ListEntry entry,
+                List<ListEntryTreeNode> childNodes) {
+            static ListEntryTreeNode root() {
+                return new ListEntryTreeNode(ObjectRef.empty(), null, new ArrayList<>());
+            }
+            static ListEntryTreeNode node(final ListEntry entry) {
+                return new ListEntryTreeNode(ObjectRef.empty(), entry, new ArrayList<>());
+            }
+            boolean isRoot() {
+                return entry==null;
+            }
+            ListEntryType type() {
+                return isRoot() ? null : entry.listEntryType();
+            }
+            ListEntryTreeNode add(final ListEntry entry) {
+                var childNode = node(entry);
+                childNodes.add(childNode);
+                childNode.parentNode.setValue(this);
+                return childNode;
+            }
+        }
+
+        ListEntryTreeNode asTree() {
+            var root = ListEntryTreeNode.root();
+            var current = new ListEntryTreeNode[] {null, null, null, null, null, null};
             listEntries.forEach(IndexedConsumer.zeroBased((i, listEntry)->{
                 var listEntryType = listEntry.listEntryType();
                 switch (listEntryType) {
                 case FoodConsumptionOccasion:
-                    tree.addEdge(rootIndex, current[0] = i);
+                    current[0] = root.add(listEntry);
                     return;
                 case QuickListItem:
-                    tree.addEdge(current[0], current[1] = i);
+                    current[1] = current[0].add(listEntry);
                     return;
                 case QuickListItemForDietarySupplement:
-                    tree.addEdge(current[0], current[1] = i);
+                    current[1] = current[0].add(listEntry);
                     return;
                 case DietarySupplement:
-                    tree.addEdge(current[1], current[2] = i);
+                    current[2] = current[1].add(listEntry);
                     return;
                 case Food:
-                    tree.addEdge(current[1], current[2] = i);
-                    return;
-                case FoodSelectedAsARecipeIngredient:
-                    tree.addEdge(current[2], current[3] = i);
+                    current[2] = current[1].add(listEntry);
                     return;
                 case Recipe:
-                    tree.addEdge(current[1], current[2] = i);
+                    current[2] = current[1].add(listEntry);
+                    return;
+                case FoodSelectedAsARecipeIngredient:
+                    current[3] = current[2].add(listEntry);
                     return;
                 case FatDuringCookingForFood:
 //                    tree.addEdge(current[2], current[3] = i);
@@ -216,73 +235,7 @@ class _Dtos {
                 }
                 _Exceptions.unmatchedCase(listEntryType);
             }));
-
-            return tree;
-        }
-
-        /**
-         * has no children
-         */
-        private Respondent24 respondentStub() {
-            final Respondent24 respondent = new Respondent24(
-                    subjectCode,
-                    //subjectName + "|" + subjectFirstName,
-                    subjectBirthDate.toLocalDate(),
-                    Sex.values()[subjectSex],
-                    Can.empty());
-
-            //respondent.annotate().(new Annotation("Name", name));
-
-            return respondent;
-        }
-
-        /**
-         * parented by an Respondent24 stub, that has no children (needs post-processing)
-         */
-        Interview24 toInterview24() {
-            final var tree = listEntriesAsTree();
-
-            var meals = tree.streamNeighbors(listEntries.size())
-                .mapToObj(i0->{
-                    var fcoEntry = listEntries.get(i0);
-                    var memorizedFoods = tree.streamNeighbors(i0)
-                    .mapToObj(i1->{
-                        var qliEntry = listEntries.get(i1);
-                        var records = tree.streamNeighbors(i1)
-                        .mapToObj(i2->{
-                            var recordEntry = listEntries.get(i2);
-                            var ingredients24 = tree.streamNeighbors(i2)
-                            .mapToObj(i3->{
-                                var foodSelectedAsARecipeIngredientEntry = listEntries.get(i3);
-                                return foodSelectedAsARecipeIngredientEntry.toIngredient24();
-                            })
-                            .collect(Can.toCan());
-
-                            var record24 = recordEntry.toRecord24(Type.FOOD, ingredients24);
-                            return record24;
-                        })
-                        .collect(Can.toCan());
-
-                        var memorizedFood24 = qliEntry.toMemorizedFood24(records);
-                        return memorizedFood24;
-                    })
-                    .collect(Can.toCan());
-
-                    var meal24 = fcoEntry.toMeal24(memorizedFoods);
-                    return meal24;
-                })
-                .collect(Can.toCan());
-
-            return Interview24.of(
-                    respondentStub(),
-                    interviewDate.toLocalDate(),
-                    new RespondentMetaData24(
-                            ObjectRef.<Interview24>empty(),
-                            specialDietCode,
-                            specialDayCode,
-                            NumberUtils.roundToNDecimalPlaces(heightCM, 1),
-                            NumberUtils.roundToNDecimalPlaces(weightKG, 1)),
-                    meals);
+            return root;
         }
 
     }
@@ -589,93 +542,42 @@ class _Dtos {
         @XmlElement(name="Note", type=Note.class)
         private List<Note> notes;
 
+        // -- UTILITY
+
+        @Getter @Accessors(fluent=true)
+        @RequiredArgsConstructor
+        enum ListEntryType {
+            FoodConsumptionOccasion("1"),
+            QuickListItem("2"),
+            QuickListItemForDietarySupplement("2S"),
+            Recipe("3"),
+            //RecipeSelectedAsARecipeIngredient("3S"), //Not yet available (as stated in docs)
+            Food("4"),
+            FoodSelectedAsARecipeIngredient("5"),
+            FatDuringCookingForFood("6"),
+            FatDuringCookingForIngredient("7"),
+            TypeOfFatUsedFacet("A2"),
+            TypeOfMilkOrLiquidUsedFacet("A3"),
+            /**
+             * Lines/records with Type=8 should not be used for data analysis because the reported consumed quantities
+             * are redundant with other lines/records.
+             */
+            FatSauceOrSweeteners("8"),
+            DietarySupplement("9");
+            final String code;
+            @SneakyThrows
+            static ListEntryType parse(final String code) {
+                for (var type : ListEntryType.values()) {
+                    if(type.code.equalsIgnoreCase(code)) {
+                        return type;
+                    }
+                }
+                throw new ParseException("unmapped code '"+code+"' for 'RecordType'", 0);
+            }
+        }
+
         ListEntryType listEntryType() {
             return ListEntryType.parse(listEntryType);
-        }
-
-        Meal24 toMeal24(final Can<MemorizedFood24> memorizedFood) {
-            LocalTime hourOfDay = parseLocalTimeFrom4Digits(foodConsumptionHourOfDay.trim());
-            return Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, memorizedFood);
-        }
-
-        MemorizedFood24 toMemorizedFood24(final Can<Record24> records) {
-            _Assert.assertTrue(_Strings.isNullOrEmpty(name));
-            return MemorizedFood24.of(label, records);
-        }
-
-        Record24 toRecord24() {
-            return switch (listEntryType()) {
-            case Food -> toRecord24(Type.FOOD);
-            case FoodSelectedAsARecipeIngredient -> toRecord24(Type.FOOD); //TODO information is lost here
-            case FatDuringCookingForFood -> toRecord24(Type.INFORMAL); // TODO verify data contained is duplicated
-            case Recipe -> toRecord24(Type.COMPOSITE); //TODO ad-hoc or prepared?
-
-            case DietarySupplement -> toRecord24(Type.INCOMPLETE);
-            case FatDuringCookingForIngredient -> toRecord24(Type.INCOMPLETE);
-            case FatSauceOrSweeteners -> toRecord24(Type.INCOMPLETE);
-            //case RecipeSelectedAsARecipeIngredient -> toRecord24(Type.INCOMPLETE); //Not yet available (as stated in docs)
-            case TypeOfFatUsedFacet -> toRecord24(Type.INCOMPLETE);
-            case TypeOfMilkOrLiquidUsedFacet -> toRecord24(Type.INCOMPLETE);
-            default -> throw new IllegalArgumentException("Unexpected value: " + ListEntryType.parse(listEntryType));
-            };
-        }
-
-        Record24 toRecord24(final Type type) {
-            return toRecord24(type, Can.empty());
-        }
-
-        Record24 toRecord24(final Type type, final Can<Ingredient24> ingredients) {
-            _Assert.assertFalse(this.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
-            //TODO label() might be non empty -> information lost
-            return Record24.of(type, name, facetDescriptorCodes, ingredients);
-        }
-
-        Ingredient24 toIngredient24() {
-            _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, this.listEntryType());
-            return Ingredient24.of(foodOrSimilarCode, name, facetDescriptorCodes, rawPerCookedRatio, quantityConsumed());
-        }
-
-        javax.measure.Quantity<Mass> quantityConsumed(){
-            return MetricUnits.grams(getConsumedQuantity()); //TODO just guessing which one - needs double check
-        }
-
-    }
-
-    private LocalTime parseLocalTimeFrom4Digits(final String hhmm) {
-        var hh = hhmm.substring(0, 2);
-        var mm = hhmm.substring(2, 4);
-        return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
-    }
-
-    @Getter @Accessors(fluent=true)
-    @RequiredArgsConstructor
-    private enum ListEntryType {
-        FoodConsumptionOccasion("1"),
-        QuickListItem("2"),
-        QuickListItemForDietarySupplement("2S"),
-        Recipe("3"),
-        //RecipeSelectedAsARecipeIngredient("3S"), //Not yet available (as stated in docs)
-        Food("4"),
-        FoodSelectedAsARecipeIngredient("5"),
-        FatDuringCookingForFood("6"),
-        FatDuringCookingForIngredient("7"),
-        TypeOfFatUsedFacet("A2"),
-        TypeOfMilkOrLiquidUsedFacet("A3"),
-        /**
-         * Lines/records with Type=8 should not be used for data analysis because the reported consumed quantities
-         * are redundant with other lines/records.
-         */
-        FatSauceOrSweeteners("8"),
-        DietarySupplement("9");
-        final String code;
-        @SneakyThrows
-        static ListEntryType parse(final String code) {
-            for (var type : ListEntryType.values()) {
-                if(type.code.equalsIgnoreCase(code)) {
-                    return type;
-                }
-            }
-            throw new ParseException("unmapped code '"+code+"' for 'RecordType'", 0);
         }
     }
 
