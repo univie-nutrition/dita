@@ -38,6 +38,6 @@ public final class MemorizedFoodDto implements NodeDto {
 
     @XmlElementWrapper(name="records")
     @XmlElement(name="record", type=RecordDto.class)
-    private List<RecordDto> records;
+    private List<RecordDto> topLevelRecords;
 
 }

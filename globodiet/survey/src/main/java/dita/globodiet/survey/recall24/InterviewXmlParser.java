@@ -74,10 +74,27 @@ public class InterviewXmlParser {
                 .valueAsNonNullElseFail();
         return createFromDto(dto, messageConsumer);
     }
+    public InterviewSet24 parse2(
+            final Clob interviewSource,
+            final @Nullable Consumer<Message> messageConsumer) {
+        var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
+                .valueAsNonNullElseFail();
+        return createFromDto2(dto, messageConsumer);
+    }
 
     // -- HELPER
 
     private InterviewSet24 createFromDto(
+            final @NonNull _Dtos.Itv dto,
+            final @Nullable Consumer<Message> messageConsumer) {
+        return Recall24ModelUtils
+                .join(
+                    dto.getInterviews().stream()
+                        .map(_InterviewConverter::toInterview24)
+                        .toList(),
+                    messageConsumer);
+    }
+    private InterviewSet24 createFromDto2(
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
         return Recall24ModelUtils

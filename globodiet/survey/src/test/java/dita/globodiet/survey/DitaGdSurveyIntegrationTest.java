@@ -77,6 +77,13 @@ extends CausewayIntegrationTestAbstract {
             .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
     }
 
+    protected Stream<InterviewSet24> loadAndStreamInterviews2(
+            final @NonNull NamedPath path,
+            final @Nullable Consumer<Message> messageConsumer) {
+        return InterviewUtils.streamSources(surveyBlobStore, path, true)
+            .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
+    }
+
     /**
      * Converts ingredient identifiers to NutriDb (prefixed) identifiers.
      */

@@ -178,15 +178,14 @@ class _Dtos {
         // -- UTILITY
 
         record ListEntryTreeNode(
-                int nestingLevel,
                 ObjectRef<ListEntryTreeNode> parentNode,
                 ListEntry entry,
                 List<ListEntryTreeNode> childNodes) {
             static ListEntryTreeNode root() {
-                return new ListEntryTreeNode(0, ObjectRef.empty(), null, new ArrayList<>());
+                return new ListEntryTreeNode(ObjectRef.empty(), null, new ArrayList<>());
             }
-            static ListEntryTreeNode node(final int nestingLevel, final ListEntry entry) {
-                return new ListEntryTreeNode(nestingLevel, ObjectRef.empty(), entry, new ArrayList<>());
+            static ListEntryTreeNode node(final ListEntry entry) {
+                return new ListEntryTreeNode(ObjectRef.empty(), entry, new ArrayList<>());
             }
             boolean isRoot() {
                 return entry==null;
@@ -195,7 +194,7 @@ class _Dtos {
                 return isRoot() ? null : entry.listEntryType();
             }
             ListEntryTreeNode add(final ListEntry entry) {
-                var childNode = node(nestingLevel + 1, entry);
+                var childNode = node(entry);
                 childNodes.add(childNode);
                 childNode.parentNode.setValue(this);
                 return childNode;

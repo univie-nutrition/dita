@@ -285,6 +285,7 @@ A _Food Composition_ represents an amount of some food or product that was consu
 @startuml
 
 class FoodConsumption {
+    name: String
     foodId: SemanticIdentifier
     facetIds: SemanticIdentifierSet
     amountConsumed: BigDecimal
@@ -352,7 +353,7 @@ class Interview {
 class FoodConsumption {
     foodId: SemanticIdentifier
     facetIds: SemanticIdentifierSet
- }
+}
 
 class QualifiedMapEntry {
     source: SemanticIdentifier

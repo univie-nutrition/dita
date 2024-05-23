@@ -143,7 +143,7 @@ public class Recall24ModelUtils {
                         meal.memorizedFood().zip(mealDto.getMemorizedFood(), (mem, memDto)->{
                             Recall24DtoUtils.updateDtoFromModelFields(memDto,
                                     (MemorizedFood24) invokeWithRuturnTypeChecked(transformer, mem));
-                            mem.records().zip(memDto.getRecords(), (rec, recDto)->{
+                            mem.topLevelRecords().zip(memDto.getTopLevelRecords(), (rec, recDto)->{
                                 Recall24DtoUtils.updateDtoFromModelFields(recDto,
                                         (Record24) invokeWithRuturnTypeChecked(transformer, rec));
                                 rec.ingredients().zip(recDto.getIngredients(), (ingr, ingrDto)->{

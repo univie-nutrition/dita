@@ -33,30 +33,32 @@ public record MemorizedFood24(
         ObjectRef<Meal24> parentMealRef,
 
         /**
-         * Freetext, describing this memorized food.
+         * Free text, describing this memorized food.
          */
         String name,
 
         /**
-         * Records for this memorized food.
+         * Top level record(s) for this memorized food.
+         * Those may themselves have sub records.
          */
         @TreeSubNodes
-        Can<Record24> records
+        Can<Record24> topLevelRecords
 
         ) implements dita.recall24.api.MemorizedFood24, Node24 {
 
     public static MemorizedFood24 of(
             /**
-             * Freetext, describing this memorized food.
+             * Free text, describing this memorized food.
              */
             final String name,
             /**
-             * Records for this memorized food.
+             * Top level record(s) for this memorized food.
+             * Those may themselves have sub records.
              */
-            final Can<Record24> records) {
+            final Can<Record24> topLevelRecords) {
 
-        var memorizedFood24 = new MemorizedFood24(ObjectRef.empty(), name, records);
-        records.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
+        var memorizedFood24 = new MemorizedFood24(ObjectRef.empty(), name, topLevelRecords);
+        topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
         return memorizedFood24;
     }
 

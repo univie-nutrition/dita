@@ -218,13 +218,13 @@ public class Recall24DtoUtils {
     }
 
     private MemorizedFood24 fromDto(final MemorizedFoodDto dto) {
-        val records = _NullSafe.stream(dto.getRecords())
+        val topLevelRecords = _NullSafe.stream(dto.getTopLevelRecords())
                 .map(record->fromDto(record))
                 .collect(Can.toCan());
         val memorizedFood = new MemorizedFood24(ObjectRef.empty(),
                 dto.getName(),
-                records);
-        records.forEach(r->r.parentMemorizedFoodRef().setValue(memorizedFood));
+                topLevelRecords);
+        topLevelRecords.forEach(r->r.parentMemorizedFoodRef().setValue(memorizedFood));
         return memorizedFood;
     }
 
@@ -292,7 +292,7 @@ public class Recall24DtoUtils {
     private MemorizedFoodDto toDto(
             final MemorizedFood24 model) {
         val dto = updateDtoFromModelFields(new MemorizedFoodDto(), model);
-        dto.setRecords(model.records()
+        dto.setTopLevelRecords(model.topLevelRecords()
                 .stream()
                 .map(Recall24DtoUtils::toDto)
                 .collect(Collectors.toList()));

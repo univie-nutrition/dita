@@ -220,7 +220,7 @@ public class SurveyVM extends TreeNodeVm<Node24, SurveyVM> {
             case Respondent24 respondent -> respondent.interviews().size();
             case Interview24 interview -> interview.meals().size();
             case Meal24 meal -> meal.memorizedFood().size();
-            case MemorizedFood24 mem -> mem.records().size();
+            case MemorizedFood24 mem -> mem.topLevelRecords().size();
             case Record24 rec -> rec.ingredients().size();
             case Ingredient24 ingr -> 0;
             };
@@ -231,7 +231,7 @@ public class SurveyVM extends TreeNodeVm<Node24, SurveyVM> {
             case Respondent24 respondent -> respondent.interviews().stream().map(Node24.class::cast);
             case Interview24 interview -> interview.meals().stream().map(Node24.class::cast);
             case Meal24 meal -> meal.memorizedFood().stream().map(Node24.class::cast);
-            case MemorizedFood24 mem -> mem.records().stream().map(Node24.class::cast);
+            case MemorizedFood24 mem -> mem.topLevelRecords().stream().map(Node24.class::cast);
             case Record24 rec -> rec.ingredients().stream().map(Node24.class::cast);
             case Ingredient24 ingr -> Stream.empty();
             };

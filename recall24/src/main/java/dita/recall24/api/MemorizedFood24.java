@@ -28,13 +28,14 @@ public non-sealed interface MemorizedFood24 extends Node24 {
     Meal24 parentMeal();
 
     /**
-     * Freetext, describing this memorized food.
+     * Free text, describing this memorized food.
      */
     String name();
 
     /**
-     * Records for this memorized food.
+     * Top level record(s) for this memorized food.
+     * Those may themselves have sub records.
      */
-    Can<? extends Record24> records();
+    Can<? extends Record24> topLevelRecords();
 
 }

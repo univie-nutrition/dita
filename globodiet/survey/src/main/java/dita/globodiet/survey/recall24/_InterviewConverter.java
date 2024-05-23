@@ -66,9 +66,9 @@ class _InterviewConverter {
                             switch (type) {
                             case FoodSelectedAsARecipeIngredient:
                                 return toIngredient24(recordSubNode.entry());
-                            case FatDuringCookingForFood:
                             case TypeOfFatUsedFacet:
                             case TypeOfMilkOrLiquidUsedFacet:
+                            case FatDuringCookingForFood:
                             case FatSauceOrSweeteners:
                                 return null; //TODO no receiving type yet
                             default:
@@ -114,28 +114,16 @@ class _InterviewConverter {
     // -- RECORDS
 
 
-//  Record24 toRecord24() {
-//      return switch (listEntryType()) {
-//      case Food -> toRecord24(Type.FOOD);
-//      case FoodSelectedAsARecipeIngredient -> toRecord24(Type.FOOD); //TODO information is lost here
-//      case FatDuringCookingForFood -> toRecord24(Type.INFORMAL); // TODO verify data contained is duplicated
-//      case Recipe -> toRecord24(Type.COMPOSITE); //TODO ad-hoc or prepared?
-//
-//      case DietarySupplement -> toRecord24(Type.INCOMPLETE);
-//      case FatDuringCookingForIngredient -> toRecord24(Type.INCOMPLETE);
-//      case FatSauceOrSweeteners -> toRecord24(Type.INCOMPLETE);
-//      //case RecipeSelectedAsARecipeIngredient -> toRecord24(Type.INCOMPLETE); //Not yet available (as stated in docs)
-//      case TypeOfFatUsedFacet -> toRecord24(Type.INCOMPLETE);
-//      case TypeOfMilkOrLiquidUsedFacet -> toRecord24(Type.INCOMPLETE);
-//      default -> throw new IllegalArgumentException("Unexpected value: " + ListEntryType.parse(listEntryType));
-//      };
-//  }
-
     private Record24 toRecord24(final ListEntry listEntry, final Can<Ingredient24> ingredients) {
         _Assert.assertFalse(listEntry.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
         //TODO label() might be non empty -> information lost
         //TODO needs a switch on type actually
-        return Record24.of(Type.FOOD, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        return switch (listEntry.listEntryType()) {
+        case Food -> Record24.of(Type.FOOD, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        case Recipe -> Record24.of(Type.COMPOSITE, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        case DietarySupplement -> Record24.of(Type.PRODUCT, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
+        };
     }
 
     // -- MEALS

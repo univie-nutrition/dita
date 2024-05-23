@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.commons.qmap.QualifiedMap;
+import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -29,6 +31,7 @@ import dita.commons.sid.SemanticIdentifierSet;
  * Represents an amount of some food or product that was consumed.
  */
 public record FoodConsumption(
+        String name,
         SemanticIdentifier foodId,
         SemanticIdentifierSet facetIds,
         /**
@@ -54,6 +57,10 @@ public record FoodConsumption(
          * Amount consumed is given in parts (e.g. tablets).
          */
         PART;
+    }
+
+    public QualifiedMap.QualifiedMapKey qualifiedMapKey() {
+        return new QualifiedMapKey(foodId, facetIds);
     }
 
 }

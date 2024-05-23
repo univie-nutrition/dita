@@ -91,7 +91,7 @@ class FoodTest {
         var gdBanana = new SemanticIdentifier("gd", "00136"); // Banana
         var gdFacetRaw = new SemanticIdentifier("gd", "0399");
         var facets = new SemanticIdentifierSet(Can.of(gdFacetRaw));
-        var bananaConsumption = new FoodConsumption(gdBanana, facets, ConsumptionUnit.GRAM, new BigDecimal(64));
+        var bananaConsumption = new FoodConsumption("Banana",  gdBanana, facets, ConsumptionUnit.GRAM, new BigDecimal(64));
         return bananaConsumption;
     }
 

@@ -72,13 +72,13 @@ package "Consumption Data" <<Frame>> #E8DAFC {
     }
     
     class Ingredient {
-        objectId: String
+        sid: String
         facets: String
-        rawPerCookedRatio: float
+        rawPerCookedRatio: BigDecimal
     }
     
     class Quantity {
-        amount: double
+        amount: BigDecimal
         unit: Unit
     }
 
@@ -115,3 +115,56 @@ end note
 
 @enduml
 ----
+
+== New Record Model (DRAFT)
+
+[plantuml,fig-record-model,svg]
+.Record Model
+----
+@startuml
+
+class Record {
+    name: String
+}
+
+enum "Record Type" {
+    FOOD
+    PRODUCT
+    COMPOSITE
+    FAT_SAUCE_OR_SWEETENERS
+}
+
+class FoodConsumption {
+    name: String
+    foodId: SemanticIdentifier
+    facetIds: SemanticIdentifierSet
+    amountConsumed: BigDecimal
+}
+
+enum ConsumptionUnit {
+    GRAM
+    MILLILITER
+    PART
+}
+
+Food --|> Record 
+Product --|> Record 
+Composite --|> Record 
+Composite o--> "0..*" Record : subRecords
+FatSauceOrSweetener --|> Record 
+
+Record -right-> "Record Type" : type
+Record o--> "0..*" Notes
+Record o---> "0..1" FoodConsumption
+
+Food o--> "0..1" TypeOfFatUsed
+Food o--> "0..1" TypeOfMilkOrLiquidUsed
+
+FoodConsumption -> ConsumptionUnit : amount consumed\nis given in units of
+
+@enduml
+----
+
+
+
+
