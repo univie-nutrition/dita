@@ -313,23 +313,33 @@ class _Dtos {
 
     }
 
+    /*<Note>
+        <NOT_Status>99</NOT_Status>
+        <NOT_Memo>•••●LEERER QUICKLIST-Eintrag●•••¤[LF]¤Rezept bekannt , in der Arbeit gemacht¤[LF]¤Leinsamen - 1 EL, DM bio/Zurück zum Ursprung - mit Wasser gequellt¤[LF]¤Chiasamen - 1 EL, Natur aktiv, mit Wasser gequellt¤[LF]¤Wasser, Leitung - 100 ml¤[LF]¤Braunhirsemehl - 1 EL, Staudigl/Urkornhof¤[LF]¤Naturjogurt - 3 EL, Spar Natur Pur¤[LF]¤Pistazienmuß - 1 EL, Marke KA wie Nutella in der Art¤[LF]¤¤[LF]¤¤[LF]¤¤[LF]¤</NOT_Memo>
+        <NOT_Date>2024-03-19T23:19:43</NOT_Date>
+        <NOT_Type>SPE</NOT_Type>
+        <NOT_QuantityConsumed>0</NOT_QuantityConsumed>
+        <NOT_MaxVal>false</NOT_MaxVal>
+        <NOT_EmptyQLI>false</NOT_EmptyQLI>
+    </Note>*/
     @XmlAccessorType(XmlAccessType.FIELD)
     @Data
     static class Note {
         @XmlElement(name="NOT_Status")
-        private String status;
+        private String status; // 3 chars max
         @XmlElement(name="NOT_Memo")
         private String memo;
         @XmlElement(name="NOT_Date")
-        private String date;
+        @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
+        private LocalDateTime date;
         @XmlElement(name="NOT_Type")
         private String type;
         @XmlElement(name="NOT_QuantityConsumed")
-        private String quantityConsumed;
+        private BigDecimal quantityConsumed;
         @XmlElement(name="NOT_MaxVal")
-        private String maxVal;
+        private boolean maxVal;
         @XmlElement(name="NOT_EmptyQLI")
-        private String emptyQLI;
+        private boolean emptyQLI;
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)

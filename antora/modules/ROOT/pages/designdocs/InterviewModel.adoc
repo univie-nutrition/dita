@@ -123,23 +123,21 @@ end note
 ----
 @startuml
 
-class Record {
-    name: String
-}
-
-enum "Record Type" {
-    FOOD
-    PRODUCT
-    COMPOSITE
-    FAT_SAUCE_OR_SWEETENERS
-}
-
-class FoodConsumption {
-    name: String
+interface Record {
     foodId: SemanticIdentifier
     facetIds: SemanticIdentifierSet
+    name: String
+    description: String
+}
+
+interface ConsumptionRecord {
     amountConsumed: BigDecimal
     rawPerCookedRatio: BigDecimal
+    asFoodConsumption(): FoodConsumption
+}
+
+class Note {
+    text: String
 }
 
 enum ConsumptionUnit {
@@ -148,23 +146,76 @@ enum ConsumptionUnit {
     PART
 }
 
-Food --|> Record 
-Product --|> Record 
-Composite --|> Record 
-Composite o--> "0..*" Record : subRecords
-FatSauceOrSweetener --|> Record 
+together {
+    class TypeOfFatUsed
+    class TypeOfMilkOrLiquidUsed
+}
 
-Record -right-> "Record Type" : type
-Record o--> "0..*" Notes
-Record o---> "0..1" FoodConsumption
+ConsumptionRecord --|> Record
+Product ---|> ConsumptionRecord
+Food ---|> ConsumptionRecord 
+ 
+Composite -|> Record : "   "
+Composite o-> "0..*" Record : subRecords
+
+Record o--> "0..*" Note
 
 Food o--> "0..1" TypeOfFatUsed
 Food o--> "0..1" TypeOfMilkOrLiquidUsed
 
-FoodConsumption -> ConsumptionUnit : amount consumed\nis given in units of
+ConsumptionRecord -d-> ConsumptionUnit : amount consumed\nis given in units of
+
+TypeOfFatUsed --|> Record
+TypeOfMilkOrLiquidUsed --|> Record
 
 @enduml
 ----
+
+== APPENDIX
+
+GloboDiet Interview Export Semantics
+
+[cols="1m,1m,1m,1m,4a"]
+|===
+|Dita Model |Java Type |GloboDiet XML (LigneITV tag)|GloboDiet CSV (INTERV File)|Description
+
+|Record.foodId
+|SemanticIdentifier
+|ITL_FoodNum
+|FOODNUM
+|_Food_ or _Recipe_ or _Product_ code. *Empty* for ad-hoc recipes (e.g. `R_TYPE=4.1` .. `New Unknown`). 
+
+|Record.facetIds
+|SemanticIdentifierSet
+|ITL_Facets_STR
+|FACETS_STR
+|Sequence of Facets/Descriptors codes delimited by comma (ffdd,ffdd,ffdd,... e.g. “0401,0304”)
+
+|Record.name
+|String
+|ITL_Name
+|NAME
+|_Food_ or _Recipe_ or _Product_ name.
+
+|Record.description
+|String
+|ITL_Text
+|TEXT
+|_Food_ or _Recipe_ or _Product_ description.
+
+|NonComposite.amountConsumed
+|BigDecimal
+|ITL_CONS_QTY
+|CONS_QTY
+|Consumed quantity in grams (after having applied conversion factors).
+
+|NonComposite.rawPerCookedRatio
+|BigDecimal
+|ITL_CONVER
+|CONVER
+|Raw to cooked coefficient.
+
+|===
 
 
 
