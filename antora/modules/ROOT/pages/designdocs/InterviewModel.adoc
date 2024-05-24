@@ -24,7 +24,7 @@ note right of Respondent::age
   calculated value, based on the 'referenceDate' argument
 end note
 
-Respondent --> Interview : answers to
+Respondent --> "*" Interview : answers to \none or more
 hide Interview method
 
 @enduml
@@ -67,6 +67,14 @@ package "Consumption Data" <<Frame>> #E8DAFC {
 
     Meal o--> "*" "Memorized Food"  : has one \nor more
     "Memorized Food" o--> "*" Record : has one \nor more \ntop-level
+    
+    Composite --|> Record : "        "
+    Composite o-> "*" Record : subRecords
+    
+    ConsumptionRecord -l-|> Record
+    Food -d-|> ConsumptionRecord
+    Product -d-|> ConsumptionRecord
+    
     
     hide class circle
     hide class method
