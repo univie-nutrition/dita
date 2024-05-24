@@ -58,35 +58,15 @@ package "Consumption Data" <<Frame>> #E8DAFC {
         name: String
     }
     
-    class Record {
+    interface Record {
+        foodId: SemanticIdentifier
+        facetIds: SemanticIdentifierSet
         name: String
-        facets: String
-    }
-    
-    enum "Record Type" {
-        FOOD
-        COMPOSITE
-        PRODUCT
-        INFORMAL
-        INCOMPLETE
-    }
-    
-    class Ingredient {
-        sid: String
-        facets: String
-        rawPerCookedRatio: BigDecimal
-    }
-    
-    class Quantity {
-        amount: BigDecimal
-        unit: Unit
+        description: String
     }
 
-    Meal o--> "*" "Memorized Food"
-    "Memorized Food" o--> "*" Record
-    Record o--> "*" Ingredient
-    Record -right-> "Record Type": type
-    Ingredient o-right-> Quantity: consumed
+    Meal o--> "*" "Memorized Food"  : has one \nor more
+    "Memorized Food" o--> "*" Record : has one \nor more \ntop-level
     
     hide class circle
     hide class method
@@ -116,7 +96,12 @@ end note
 @enduml
 ----
 
-== New Record Model (DRAFT)
+== Record Model
+
+A _record_ is either directly a consumption entry (`Food`, `Product`) 
+or a composite (`Composite`) of such 
+or an informal entry (`TypeOfFatUsed`, `TypeOfMilkOrLiquidUsed`) attached 
+to another _record_ (`Food`).
 
 [plantuml,fig-record-model,svg]
 .Record Model
