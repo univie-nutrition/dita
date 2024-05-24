@@ -175,42 +175,44 @@ TypeOfMilkOrLiquidUsed --|> Record
 
 GloboDiet Interview Export Semantics
 
-[cols="1m,1m,1m,1m,4a"]
+[cols="1m,1m,1m,4a"]
 |===
-|Dita Model |Java Type |GloboDiet XML (LigneITV tag)|GloboDiet CSV (INTERV File)|Description
+|Dita Model |GloboDiet XML (LigneITV tag) |GloboDiet CSV (INTERV File) |Description
 
-|Record.foodId
-|SemanticIdentifier
+|Record.*foodId* +
+(SemanticIdentifier)
 |ITL_FoodNum
 |FOODNUM
 |_Food_ or _Recipe_ or _Product_ code. *Empty* for ad-hoc recipes (e.g. `R_TYPE=4.1` .. `New Unknown`). 
 
-|Record.facetIds
-|SemanticIdentifierSet
+|Record.*facetIds* +
+(SemanticIdentifierSet)
 |ITL_Facets_STR
 |FACETS_STR
 |Sequence of Facets/Descriptors codes delimited by comma (ffdd,ffdd,ffdd,... e.g. “0401,0304”)
 
-|Record.name
-|String
+|Record.*name* +
+(String)
 |ITL_Name
 |NAME
 |_Food_ or _Recipe_ or _Product_ name.
 
-|Record.description
-|String
+|Record.*description* +
+(String)
 |ITL_Text
 |TEXT
 |_Food_ or _Recipe_ or _Product_ description.
 
-|ConsumptionRecord.amountConsumed
-|BigDecimal
+|ConsumptionRecord +
+.*amountConsumed* +
+(BigDecimal)
 |ITL_CONS_QTY
 |CONS_QTY
 |Consumed quantity in grams (after having applied conversion factors).
 
-|ConsumptionRecord.rawPerCookedRatio
-|BigDecimal
+|ConsumptionRecord +
+.*rawPerCookedRatio* +
+(BigDecimal)
 |ITL_CONVER
 |CONVER
 |Raw to cooked coefficient.
