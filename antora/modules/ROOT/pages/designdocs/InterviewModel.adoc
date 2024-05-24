@@ -203,13 +203,13 @@ GloboDiet Interview Export Semantics
 |TEXT
 |_Food_ or _Recipe_ or _Product_ description.
 
-|NonComposite.amountConsumed
+|ConsumptionRecord.amountConsumed
 |BigDecimal
 |ITL_CONS_QTY
 |CONS_QTY
 |Consumed quantity in grams (after having applied conversion factors).
 
-|NonComposite.rawPerCookedRatio
+|ConsumptionRecord.rawPerCookedRatio
 |BigDecimal
 |ITL_CONVER
 |CONVER
