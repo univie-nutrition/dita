@@ -18,35 +18,13 @@
  */
 package dita.recall24.api;
 
-import java.math.BigDecimal;
+import org.apache.causeway.commons.collections.Can;
 
-public interface RespondentMetaData24 {
-
-    /**
-     * Parent interview.
-     */
-    Interview24 parentInterview();
+public interface CompositeRecord24 extends Record24 {
 
     /**
-     * Diet as practiced on the interview date.
+     * Nested records.
      */
-    String specialDietId();
-
-    /**
-     * Special day as practiced on the interview date.
-     */
-    String specialDayId();
-
-    /**
-     * Respondent's height in units of centimeter,
-     * as measured on the interview date.
-     */
-    BigDecimal heightCM();
-
-    /**
-     * Respondent's weight in units of kilogram,
-     * as measured on the interview date.
-     */
-    BigDecimal weightKG();
+    Can<? extends Record24> subRecords();
 
 }

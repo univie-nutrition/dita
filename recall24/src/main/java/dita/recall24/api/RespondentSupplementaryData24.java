@@ -16,29 +16,37 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model.corr;
+package dita.recall24.api;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
-import org.junit.jupiter.api.Test;
+public interface RespondentSupplementaryData24 {
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+    /**
+     * Parent interview.
+     */
+    Interview24 parentInterview();
 
-import dita.commons.types.Sex;
-import dita.recall24.immutable.corr.Correction24;
-import dita.recall24.immutable.corr.Correction24.RespondentCorr;
+    /**
+     * Diet as practiced on the interview date.
+     */
+    String specialDietId();
 
-class Correction24Test {
+    /**
+     * Special day as practiced on the interview date.
+     */
+    String specialDayId();
 
-    @Test
-    void roundtripOnYaml() {
-        var corr = new Correction24();
-        corr.respondents().add(new RespondentCorr("EB_0061", null, LocalDate.parse("1977-03-23"), null));
-        corr.respondents().add(new RespondentCorr("EB_0058", null, null, Sex.MALE));
+    /**
+     * Respondent's height in units of centimeter,
+     * as measured on the interview date.
+     */
+    BigDecimal heightCM();
 
-        // debug
-        //System.err.printf("Correction24Test%n%s%n", corr.toYaml());
+    /**
+     * Respondent's weight in units of kilogram,
+     * as measured on the interview date.
+     */
+    BigDecimal weightKG();
 
-        assertEquals(corr, Correction24.tryFromYaml(corr.toYaml()).valueAsNonNullElseFail());
-    }
 }

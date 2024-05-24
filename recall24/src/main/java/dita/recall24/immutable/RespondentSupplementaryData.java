@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.math.BigDecimal;
 
@@ -24,13 +24,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
-public record RespondentMetaData24(
+public record RespondentSupplementaryData(
 
         /**
          * Parent interview.
          */
         @JsonIgnore
-        ObjectRef<Interview24> parentInterviewRef,
+        ObjectRef<Interview> parentInterviewRef,
 
         /**
          * Diet as practiced on the interview date.
@@ -54,10 +54,10 @@ public record RespondentMetaData24(
          */
         BigDecimal weightKG
 
-        ) implements dita.recall24.api.RespondentMetaData24 {
+        ) implements dita.recall24.api.RespondentSupplementaryData24 {
 
     @Override
-    public Interview24 parentInterview() {
+    public Interview parentInterview() {
         return parentInterviewRef.getValue();
     }
 }

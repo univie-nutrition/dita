@@ -32,81 +32,81 @@ import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
-import dita.recall24.model.Ingredient24;
-import dita.recall24.model.Interview24;
-import dita.recall24.model.InterviewSet24;
-import dita.recall24.model.Meal24;
-import dita.recall24.model.MemorizedFood24;
-import dita.recall24.model.Node24;
-import dita.recall24.model.Record24;
-import dita.recall24.model.Respondent24;
+import dita.recall24.immutable.Ingredient;
+import dita.recall24.immutable.Interview;
+import dita.recall24.immutable.InterviewSet;
+import dita.recall24.immutable.Meal;
+import dita.recall24.immutable.MemorizedFood;
+import dita.recall24.immutable.RecallNode;
+import dita.recall24.immutable.Record;
+import dita.recall24.immutable.Respondent;
 
 @UtilityClass
 public class SurveyTreeNodeContentFactory {
 
     // -- TITLE
 
-    String title(final InterviewSet24 interviewSet, final Campaign campaign) {
+    String title(final InterviewSet interviewSet, final Campaign campaign) {
         return "Campaign - " + campaign.title();
     }
 
-    String title(final Respondent24 respondent) {
+    String title(final Respondent respondent) {
         return respondent.alias();
     }
 
-    String title(final Interview24 interview) {
+    String title(final Interview interview) {
         return String.format("%s #%s %s",
                 interview.respondentAlias(),
                 interview.interviewOrdinal(),
                 interview.interviewDate());
     }
 
-    String title(final Meal24 meal) {
+    String title(final Meal meal) {
         return String.format("Meal at %s",
                 meal.hourOfDay());
     }
 
-    String title(final MemorizedFood24 mem) {
+    String title(final MemorizedFood mem) {
         return String.format("Memorized Food '%s'",
                 mem.name());
     }
 
-    String title(final Record24 rec) {
+    String title(final Record rec) {
         return String.format("Record %s '%s'",
                 rec.type().name(),
                 rec.name());
     }
 
-    String title(final Ingredient24 ingr) {
+    String title(final Ingredient ingr) {
         return String.format("Ingredient (sid=%s)",
                 ingr.sid());
     }
 
     // -- ICON
 
-    String icon(final InterviewSet24 interviewSet) {
+    String icon(final InterviewSet interviewSet) {
         return "solid users-viewfinder";
     }
 
-    String icon(final Respondent24 respondent) {
+    String icon(final Respondent respondent) {
         return "user";
     }
 
-    String icon(final Interview24 interview) {
+    String icon(final Interview interview) {
         return "solid person-circle-question";
     }
 
-    String icon(final Meal24 meal) {
+    String icon(final Meal meal) {
         return "solid mug-hot, regular clock .ov-size-80 .ov-right-55 .ov-bottom-55";
     }
 
     // -- CONTENT
 
-    AsciiDoc content(final InterviewSet24 interviewSet, final Campaign campaign) {
+    AsciiDoc content(final InterviewSet interviewSet, final Campaign campaign) {
         record Details(int respondentCount, int interviewCount, Can<Message> messages) {
-            static Details of(final InterviewSet24 interviewSet) {
+            static Details of(final InterviewSet interviewSet) {
                 final Can<Message> messages = interviewSet.annotation(Campaigns.ANNOTATION_MESSAGES)
-                        .map(Node24.Annotation.valueAsCan(Message.class))
+                        .map(RecallNode.Annotation.valueAsCan(Message.class))
                         .orElseGet(Can::empty);
                 return new Details(
                         interviewSet.respondents().size(),
@@ -117,27 +117,27 @@ public class SurveyTreeNodeContentFactory {
         return adoc("Details", Details.of(interviewSet));
     }
 
-    AsciiDoc content(final Respondent24 respondent) {
+    AsciiDoc content(final Respondent respondent) {
         return adoc("Details", respondent);
     }
 
-    AsciiDoc content(final Interview24 interview) {
+    AsciiDoc content(final Interview interview) {
         return adoc("Details", interview);
     }
 
-    AsciiDoc content(final Meal24 meal) {
+    AsciiDoc content(final Meal meal) {
         return adoc("Details", meal);
     }
 
-    AsciiDoc content(final MemorizedFood24 mem) {
+    AsciiDoc content(final MemorizedFood mem) {
         return adoc("Details", mem);
     }
 
-    AsciiDoc content(final Record24 rec) {
+    AsciiDoc content(final Record rec) {
         return adoc("Details", rec);
     }
 
-    AsciiDoc content(final Ingredient24 ingr) {
+    AsciiDoc content(final Ingredient ingr) {
         return adoc("Details", ingr);
     }
 

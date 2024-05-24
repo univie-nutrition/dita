@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -35,7 +35,7 @@ import lombok.Data;
 @XmlRootElement(name="meal")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class MealDto implements NodeDto {
+public final class Meal implements RecallNode {
 
     @XmlElement(name="hourOfDay")
     @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalTimeToStringAdapter.class)
@@ -48,7 +48,7 @@ public final class MealDto implements NodeDto {
     private String foodConsumptionPlaceId;
 
     @XmlElementWrapper(name="memorized")
-    @XmlElement(name="memorizedFood", type=MemorizedFoodDto.class)
-    private List<MemorizedFoodDto> memorizedFood;
+    @XmlElement(name="memorizedFood", type=MemorizedFood.class)
+    private List<MemorizedFood> memorizedFood;
 
 }

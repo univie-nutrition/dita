@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dita.recall24.api.Ingredient24;
-import dita.recall24.api.Node24;
+import dita.recall24.api.RecallNode24;
 import dita.recall24.api.Record24;
 
 public record Recall24SummaryStatistics(
@@ -34,7 +34,7 @@ public record Recall24SummaryStatistics(
             this(new Record24SummaryStatistics(), new Ingredient24SummaryStatistics());
     }
 
-    public void accept(final Node24 node24) {
+    public void accept(final RecallNode24 node24) {
         switch (node24) {
         case Record24 rec -> recordStats.accept(rec);
         case Ingredient24 rec -> ingredientStats.accept(rec);

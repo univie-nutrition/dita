@@ -23,8 +23,9 @@ import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
 
-public non-sealed interface Record24 extends Node24 {
+public interface Record24 extends RecallNode24 {
 
+    @Deprecated
     public static enum Type {
 
         /**
@@ -93,6 +94,7 @@ public non-sealed interface Record24 extends Node24 {
     /**
      * The type of this record.
      */
+    @Deprecated
     Record24.Type type();
 
     /**
@@ -109,6 +111,7 @@ public non-sealed interface Record24 extends Node24 {
     /**
      * Ingredients of this record.
      */
+    @Deprecated
     Can<? extends Ingredient24> ingredients();
 
 }

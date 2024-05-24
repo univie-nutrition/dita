@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,12 +25,12 @@ import org.apache.causeway.commons.collections.Can;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public record MemorizedFood24(
+public record MemorizedFood(
         /**
          * Meal this memorized food belongs to.
          */
         @JsonIgnore
-        ObjectRef<Meal24> parentMealRef,
+        ObjectRef<Meal> parentMealRef,
 
         /**
          * Free text, describing this memorized food.
@@ -42,11 +42,11 @@ public record MemorizedFood24(
          * Those may themselves have sub records.
          */
         @TreeSubNodes
-        Can<Record24> topLevelRecords
+        Can<Record> topLevelRecords
 
-        ) implements dita.recall24.api.MemorizedFood24, Node24 {
+        ) implements dita.recall24.api.MemorizedFood24, RecallNode {
 
-    public static MemorizedFood24 of(
+    public static MemorizedFood of(
             /**
              * Free text, describing this memorized food.
              */
@@ -55,15 +55,15 @@ public record MemorizedFood24(
              * Top level record(s) for this memorized food.
              * Those may themselves have sub records.
              */
-            final Can<Record24> topLevelRecords) {
+            final Can<Record> topLevelRecords) {
 
-        var memorizedFood24 = new MemorizedFood24(ObjectRef.empty(), name, topLevelRecords);
+        var memorizedFood24 = new MemorizedFood(ObjectRef.empty(), name, topLevelRecords);
         topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
         return memorizedFood24;
     }
 
     @Override
-    public Meal24 parentMeal() {
+    public Meal parentMeal() {
         return parentMealRef.getValue();
     }
 }

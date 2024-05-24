@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -29,13 +29,13 @@ import dita.commons.types.IntRef;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public record Interview24(
+public record Interview(
 
         /**
          * Respondent of this interview.
          */
         @JsonIgnore
-        ObjectRef<Respondent24> parentRespondentRef,
+        ObjectRef<Respondent> parentRespondentRef,
 
         /**
          * Interview date.
@@ -51,18 +51,18 @@ public record Interview24(
         /**
          * Respondent meta-data for this interview.
          */
-        RespondentMetaData24 respondentMetaData,
+        RespondentSupplementaryData respondentMetaData,
 
         /**
          * The meals of this interview.
          */
         @TreeSubNodes
-        Can<Meal24> meals
+        Can<Meal> meals
 
-        ) implements dita.recall24.api.Interview24, Node24 {
+        ) implements dita.recall24.api.Interview24, RecallNode {
 
-    public static Interview24 of(
-            final Respondent24 respondent,
+    public static Interview of(
+            final Respondent respondent,
             /**
              * Interview date.
              */
@@ -70,19 +70,19 @@ public record Interview24(
             /**
              * Respondent meta-data for this interview.
              */
-            final RespondentMetaData24 respondentMetaData,
+            final RespondentSupplementaryData respondentMetaData,
             /**
              * The meals of this interview.
              */
-            final Can<Meal24> meals) {
-        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentMetaData, meals);
+            final Can<Meal> meals) {
+        var interview = new Interview(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentMetaData, meals);
         respondentMetaData.parentInterviewRef().setValue(interview);
         meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
         return interview;
     }
 
     @Override
-    public Respondent24 parentRespondent() {
+    public Respondent parentRespondent() {
         return parentRespondentRef.getValue();
     }
 
@@ -91,7 +91,7 @@ public record Interview24(
         return interviewOrdinalRef().getValue();
     }
 
-    public boolean matchesRespondent(final Respondent24 candidate) {
+    public boolean matchesRespondent(final Respondent candidate) {
         return Objects.equals(parentRespondent(), candidate);
     }
 

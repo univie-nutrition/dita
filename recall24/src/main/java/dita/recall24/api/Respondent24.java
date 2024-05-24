@@ -24,7 +24,7 @@ import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.types.Sex;
 
-public non-sealed interface Respondent24 extends Node24 {
+public interface Respondent24 extends RecallNode24 {
 
     /**
      * Anonymized respondent identifier, unique to the corresponding survey.

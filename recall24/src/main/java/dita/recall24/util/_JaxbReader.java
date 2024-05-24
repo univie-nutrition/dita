@@ -33,9 +33,10 @@ import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 import org.apache.causeway.commons.io.ZipUtils;
 
-import dita.recall24.dto.InterviewSetDto;
 import lombok.SneakyThrows;
 import lombok.val;
+
+import dita.recall24.mutable.InterviewSet;
 
 class _JaxbReader {
 
@@ -44,11 +45,11 @@ class _JaxbReader {
 
     @SneakyThrows
     _JaxbReader() {
-        jaxbContext = JaxbUtils.jaxbContextFor(InterviewSetDto.class, true);
+        jaxbContext = JaxbUtils.jaxbContextFor(InterviewSet.class, true);
         jaxbUnmarshaller = jaxbContext.createUnmarshaller();
     }
 
-    InterviewSetDto unzip(final DataSource ds) {
+    InterviewSet unzip(final DataSource ds) {
 
         return ZipUtils.streamZipEntries(ds)
             .map(this::readFromXml)
@@ -57,17 +58,17 @@ class _JaxbReader {
             .valueAsNonNullElseFail();
     }
 
-    Try<InterviewSetDto> readFromXml(final DataSource dataSource) {
+    Try<InterviewSet> readFromXml(final DataSource dataSource) {
         return dataSource.tryReadAndApply(this::readFromXml);
     }
 
     // -- HELPER
 
 
-    private InterviewSetDto readFromXml(final InputStream is)
+    private InterviewSet readFromXml(final InputStream is)
             throws XMLStreamException, IOException, JAXBException {
 
-        val interviewSet = (InterviewSetDto) jaxbUnmarshaller.unmarshal(is);
+        val interviewSet = (InterviewSet) jaxbUnmarshaller.unmarshal(is);
 
 //        // post-processing, set transient fields
 //        final Map<String, Respondent24> respondentsByAlias = new HashMap<>();

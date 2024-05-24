@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model.corr;
+package dita.recall24.immutable.corr;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,8 +35,8 @@ import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 import dita.commons.types.Sex;
-import dita.recall24.model.Node24;
-import dita.recall24.model.Respondent24;
+import dita.recall24.immutable.RecallNode;
+import dita.recall24.immutable.Respondent;
 
 /**
  * Models interview data corrections. WIP
@@ -69,13 +69,13 @@ public record Correction24(List<RespondentCorr> respondents) {
 
     // -- CORRECTION APPLICATION
 
-    public UnaryOperator<Node24> asOperator() {
+    public UnaryOperator<RecallNode> asOperator() {
         record Helper(Map<String, RespondentCorr> respCorrByAlias) {
-            Respondent24 correct(final Respondent24 resp) {
+            Respondent correct(final Respondent resp) {
                 var respCorr = respCorrByAlias.get(resp.alias());
                 if(respCorr==null) return resp;
                 log.info("about to correct {}", respCorr);
-                return new Respondent24(
+                return new Respondent(
                         respCorr.newAlias()!=null
                             ? respCorr.newAlias()
                             : resp.alias(),
@@ -91,8 +91,8 @@ public record Correction24(List<RespondentCorr> respondents) {
         var helper = new Helper(respondents.stream()
             .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
 
-        return (final Node24 node) -> switch(node) {
-        case Respondent24 resp -> helper.correct(resp);
+        return (final RecallNode node) -> switch(node) {
+        case Respondent resp -> helper.correct(resp);
         default -> node;
         };
     }

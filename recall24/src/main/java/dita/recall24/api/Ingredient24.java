@@ -22,7 +22,8 @@ import java.math.BigDecimal;
 
 import javax.measure.Quantity;
 
-public non-sealed interface Ingredient24 extends Node24 {
+@Deprecated
+public interface Ingredient24 extends RecallNode24 {
 
     /**
      * The parent {@link Record24}.

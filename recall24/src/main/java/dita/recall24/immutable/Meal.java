@@ -16,7 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
+
+import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,65 +27,63 @@ import org.apache.causeway.commons.collections.Can;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public record Record24(
+public record Meal(
 
         /**
-         * Memorized food this record belongs to.
+         * Parent interview.
          */
         @JsonIgnore
-        ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
+        ObjectRef<Interview> parentInterviewRef,
 
         /**
-         * The type of this record.
+         * Hour of day, when this meal took place.
          */
-        dita.recall24.api.Record24.Type type,
+        LocalTime hourOfDay,
 
         /**
-         * The name of this record.
+         * Identifying the occasion, when this meal took place.
          */
-        String name,
+        String foodConsumptionOccasionId,
 
         /**
-         * Comma separated list of facet identifiers,
-         * ordered (by some natural order).
+         * Identifying the place, where this meal took place.
          */
-        String facetSids,
+        String foodConsumptionPlaceId,
 
         /**
-         * Ingredients of this record.
+         * Memorized food for this meal.
          */
         @TreeSubNodes
-        Can<Ingredient24> ingredients
+        Can<MemorizedFood> memorizedFood
 
+        ) implements dita.recall24.api.Meal24, RecallNode {
 
-        ) implements dita.recall24.api.Record24, Node24 {
-
-    public static Record24 of(
+    public static Meal of(
             /**
-             * The type of this record.
+             * Hour of day, when this meal took place.
              */
-            final dita.recall24.api.Record24.Type type,
+            final LocalTime hourOfDay,
             /**
-             * The name of this record.
+             * Identifying the occasion, when this meal took place.
              */
-            final String name,
+            final String foodConsumptionOccasionId,
             /**
-             * Comma separated list of facet identifiers,
-             * ordered (by some natural order).
+             * Identifying the place, where this meal took place.
              */
-            final String facetSids,
+            final String foodConsumptionPlaceId,
             /**
-             * Ingredients of this record.
+             * Memorized food for this meal.
              */
-            final Can<Ingredient24> ingredients) {
-
-        var record24 = new Record24(ObjectRef.empty(), type, name, facetSids, ingredients);
-        ingredients.forEach(ingr->ingr.parentRecordRef().setValue(record24));
-        return record24;
+            final Can<MemorizedFood> memorizedFood
+            ) {
+        var meal24 = new Meal(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId,
+                foodConsumptionPlaceId, memorizedFood);
+        memorizedFood.forEach(mem->mem.parentMealRef().setValue(meal24));
+        return meal24;
     }
 
     @Override
-    public MemorizedFood24 parentMemorizedFood() {
-        return parentMemorizedFoodRef.getValue();
+    public Interview parentInterview() {
+        return parentInterviewRef.getValue();
     }
 }

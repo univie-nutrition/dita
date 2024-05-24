@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -38,7 +38,7 @@ import dita.commons.types.Sex;
 @XmlRootElement(name="respondent")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class RespondentDto implements NodeDto {
+public final class Respondent implements RecallNode {
 
     @XmlElement(name="alias")
     private String alias;
@@ -52,7 +52,7 @@ public final class RespondentDto implements NodeDto {
     private Sex sex;
 
     @XmlElementWrapper(name="interviews")
-    @XmlElement(name="interview", type=InterviewDto.class)
-    private List<InterviewDto> interviews;
+    @XmlElement(name="interview", type=Interview.class)
+    private List<Interview> interviews;
 
 }

@@ -16,38 +16,36 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+
+import org.apache.causeway.commons.io.JsonUtils;
 
 import lombok.Data;
 
-@XmlRootElement(name="respondentMetaData")
+@XmlRootElement(name="interviewSet")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class RespondentMetaDataDto {
+public final class InterviewSet implements RecallNode {
 
-    @XmlElement(name="specialDiet")
-    private String specialDietId;
+    @XmlElementWrapper(name="respondents")
+    @XmlElement(name="respondent", type=Respondent.class)
+    private List<Respondent> respondents;
 
-    @XmlElement(name="specialDay")
-    private String specialDayId;
+//    @XmlElementWrapper(name="interviews")
+//    @XmlElement(name="interview", type=InterviewDto.class)
+//    @Deprecated
+//    private List<InterviewDto> interviews;
 
-    /**
-     * In units of cm.
-     */
-    @XmlElement(name="heightCM")
-    private BigDecimal heightCM;
-
-    /**
-     * In units of kg.
-     */
-    @XmlElement(name="weightKG")
-    private BigDecimal weightKG;
+    public String toJson() {
+        return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
+    }
 
 }

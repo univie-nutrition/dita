@@ -20,7 +20,7 @@ package dita.recall24.api;
 
 import org.apache.causeway.commons.collections.Can;
 
-public non-sealed interface MemorizedFood24 extends Node24 {
+public interface MemorizedFood24 extends RecallNode24 {
 
     /**
      * Meal this memorized food belongs to.

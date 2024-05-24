@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.time.LocalDate;
 
@@ -26,7 +26,7 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 import dita.commons.types.Sex;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public record Respondent24(
+public record Respondent(
         /**
          * Anonymized respondent identifier, unique to the corresponding survey.
          */
@@ -40,22 +40,22 @@ public record Respondent24(
          * Interviews that this respondent was subject to.
          */
         @TreeSubNodes
-        Can<Interview24> interviews
+        Can<Interview> interviews
 
-        ) implements dita.recall24.api.Respondent24, Node24 {
+        ) implements dita.recall24.api.Respondent24, RecallNode {
 
     /**
      * Interviews are sorted by interview-date.
      * All ordinals are filled in. //TODO
      */
-    Respondent24 normalize() {
+    Respondent normalize() {
         var interviewsSorted = interviews()
                 .sorted((a, b)->a.interviewDate().compareTo(b.interviewDate()));
 
         interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
             inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
 
-        return new Respondent24(alias, dateOfBirth, sex, interviewsSorted);
+        return new Respondent(alias, dateOfBirth, sex, interviewsSorted);
     }
 
 }

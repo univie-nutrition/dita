@@ -16,29 +16,38 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model.corr;
+package dita.recall24.mutable;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
-import org.junit.jupiter.api.Test;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import lombok.Data;
 
-import dita.commons.types.Sex;
-import dita.recall24.immutable.corr.Correction24;
-import dita.recall24.immutable.corr.Correction24.RespondentCorr;
+@XmlRootElement(name="respondentMetaData")
+@XmlAccessorType(XmlAccessType.FIELD)
+@Data
+public class RespondentSupplementaryData {
 
-class Correction24Test {
+    @XmlElement(name="specialDiet")
+    private String specialDietId;
 
-    @Test
-    void roundtripOnYaml() {
-        var corr = new Correction24();
-        corr.respondents().add(new RespondentCorr("EB_0061", null, LocalDate.parse("1977-03-23"), null));
-        corr.respondents().add(new RespondentCorr("EB_0058", null, null, Sex.MALE));
+    @XmlElement(name="specialDay")
+    private String specialDayId;
 
-        // debug
-        //System.err.printf("Correction24Test%n%s%n", corr.toYaml());
+    /**
+     * In units of cm.
+     */
+    @XmlElement(name="heightCM")
+    private BigDecimal heightCM;
 
-        assertEquals(corr, Correction24.tryFromYaml(corr.toYaml()).valueAsNonNullElseFail());
-    }
+    /**
+     * In units of kg.
+     */
+    @XmlElement(name="weightKG")
+    private BigDecimal weightKG;
+
 }

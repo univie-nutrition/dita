@@ -16,29 +16,30 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
-import java.math.BigDecimal;
-
-import javax.measure.Quantity;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import lombok.Data;
 
-import dita.commons.jaxb.JaxbAdapters;
+import dita.recall24.api.Record24;
 
-@XmlRootElement(name="ingredient")
+@XmlRootElement(name="record")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class IngredientDto implements NodeDto {
+public final class Record implements RecallNode {
 
-    @XmlElement(name="sid")
-    private String sid;
+    @XmlElement(name="type")
+    @XmlJavaTypeAdapter(value=Record.RecordTypeAdapter.class)
+    private Record24.Type type;
 
     @XmlElement(name="name")
     private String name;
@@ -46,11 +47,24 @@ public final class IngredientDto implements NodeDto {
     @XmlElement(name="facetSids")
     private String facetSids;
 
-    @XmlElement(name="rawPerCookedRatio")
-    private BigDecimal rawPerCookedRatio;
+    @XmlElementWrapper(name="ingredients")
+    @XmlElement(name="ingredient", type=Ingredient.class)
+    private List<Ingredient> ingredients;
 
-    @XmlElement(name="quantityCooked")
-    @XmlJavaTypeAdapter(value=JaxbAdapters.QuantityAdapter.class)
-    private Quantity<?> quantityCooked;
+    static final class RecordTypeAdapter extends XmlAdapter<String, Record24.Type>{
+        @Override public Record24.Type unmarshal(final String v) throws Exception {
+            try {
+                return Record24.Type.destringify(v);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
+        }
+        @Override public String marshal(final Record24.Type v) throws Exception {
+            return v!=null
+                    ? v.stringify()
+                    : null;
+        }
+    }
 
 }

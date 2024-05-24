@@ -25,7 +25,7 @@ import org.apache.causeway.commons.collections.Can;
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
-public non-sealed interface InterviewSet24 extends Node24 {
+public interface InterviewSet24 extends RecallNode24 {
 
     /**
      * Respondents that belong to this survey.

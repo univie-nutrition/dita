@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,7 +35,7 @@ import lombok.Data;
 @XmlRootElement(name="interview")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class InterviewDto implements NodeDto {
+public final class Interview implements RecallNode {
 
     @XmlElement(name="respondentAlias")
     private String respondentAlias;
@@ -48,10 +48,10 @@ public final class InterviewDto implements NodeDto {
     private LocalDate interviewDate;
 
     @XmlElement(name="respondentMetaData")
-    private RespondentMetaDataDto respondentMetaData;
+    private RespondentSupplementaryData respondentMetaData;
 
     @XmlElementWrapper(name="meals")
-    @XmlElement(name="meal", type=MealDto.class)
-    private List<MealDto> meals;
+    @XmlElement(name="meal", type=Meal.class)
+    private List<Meal> meals;
 
 }

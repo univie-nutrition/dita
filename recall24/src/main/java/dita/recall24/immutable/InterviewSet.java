@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,31 +46,31 @@ import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
-public record InterviewSet24(
+public record InterviewSet(
 
         /**
          * Respondents that belong to this survey.
          */
         @TreeSubNodes
-        Can<Respondent24> respondents,
+        Can<Respondent> respondents,
 
         @JsonIgnore
         Map<String, Annotation> annotations
 
-        ) implements dita.recall24.api.InterviewSet24, Node24 {
+        ) implements dita.recall24.api.InterviewSet24, RecallNode {
 
-    public static InterviewSet24 of(
+    public static InterviewSet of(
             /** Respondents that belong to this survey. */
-            final Can<Respondent24> respondents) {
-        return new InterviewSet24(respondents, new HashMap<>());
+            final Can<Respondent> respondents) {
+        return new InterviewSet(respondents, new HashMap<>());
     }
 
-    public static InterviewSet24 empty() {
+    public static InterviewSet empty() {
         return of(Can.empty());
     }
 
     @Override
-    public Optional<Respondent24> lookupRespondent(
+    public Optional<Respondent> lookupRespondent(
             final String respondentAlias) {
         return respondents.stream()
             .filter(res->Objects.equals(res.alias(), respondentAlias))
@@ -78,10 +78,10 @@ public record InterviewSet24(
     }
 
     @Override
-    public Can<? extends Interview24> lookupInterviews(
+    public Can<? extends Interview> lookupInterviews(
             final String respondentAlias) {
         return lookupRespondent(respondentAlias)
-                .map(Respondent24::interviews)
+                .map(Respondent::interviews)
                 .orElseGet(Can::empty);
     }
 
@@ -89,18 +89,18 @@ public record InterviewSet24(
      * Respondents are sorted by respondent-alias.
      * Interviews are sorted by interview-date.
      */
-    public InterviewSet24 normalized() {
+    public InterviewSet normalized() {
         var respondentsSorted = respondents
             .sorted((a, b)->a.alias().compareTo(b.alias()))
             .map(respondent->respondent.normalize());
-        return new InterviewSet24(respondentsSorted, copy(annotations));
+        return new InterviewSet(respondentsSorted, copy(annotations));
     }
 
     public int interviewCount() {
         return (int) respondents().stream().mapToInt(resp->resp.interviews().size()).sum();
     }
 
-    public Stream<Interview24> streamInterviews() {
+    public Stream<Interview> streamInterviews() {
         return this.respondents().stream()
                 .flatMap(resp->resp.interviews().stream());
     }
@@ -109,8 +109,8 @@ public record InterviewSet24(
      * Returns a new tree with the transformed nodes.
      * @param transformer - transforms fields only (leave parent child relations untouched)
      */
-    public InterviewSet24 transform(
-            final @NonNull UnaryOperator<Node24> transformer) {
+    public InterviewSet transform(
+            final @NonNull UnaryOperator<RecallNode> transformer) {
         return Recall24ModelUtils.transform(transformer).apply(this);
     }
 
@@ -120,17 +120,17 @@ public record InterviewSet24(
      * <p>
      * Check the result's cardinality.
      */
-    public Can<InterviewSet24> split(final int partitionCountYield) {
+    public Can<InterviewSet> split(final int partitionCountYield) {
         val respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
-        return respondentBiPartition.map(InterviewSet24::of);
+        return respondentBiPartition.map(InterviewSet::of);
     }
 
     /**
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24 join(
-            final @Nullable InterviewSet24 other,
+    public InterviewSet join(
+            final @Nullable InterviewSet other,
             final @Nullable Consumer<Message> messageConsumer) {
 
         if(other==null) return this;
@@ -147,11 +147,11 @@ public record InterviewSet24(
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public static InterviewSet24 join(
-            final @Nullable Iterable<InterviewSet24> models,
+    public static InterviewSet join(
+            final @Nullable Iterable<InterviewSet> models,
             final @Nullable Consumer<Message> messageConsumer) {
         var interviews = _NullSafe.stream(models)
-                .flatMap(InterviewSet24::streamInterviews)
+                .flatMap(InterviewSet::streamInterviews)
                 .toList();
 
         return Recall24ModelUtils.join(interviews, messageConsumer);
@@ -170,7 +170,7 @@ public record InterviewSet24(
 
     // -- ANNOTATIONS
 
-    public InterviewSet24 annotate(final Annotation annotation) {
+    public InterviewSet annotate(final Annotation annotation) {
         annotations.put(annotation.key(), annotation);
         return this;
     }

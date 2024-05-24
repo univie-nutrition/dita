@@ -27,7 +27,7 @@ import org.apache.causeway.commons.io.DataPeer;
 
 import lombok.val;
 
-import dita.recall24.model.InterviewSet24;
+import dita.recall24.immutable.InterviewSet;
 
 class Recall24UtilsTest {
 
@@ -96,7 +96,7 @@ class Recall24UtilsTest {
                     partA.interviewCount() + partB.interviewCount());
         }
 
-        val joined = InterviewSet24.join(biPartition, null)
+        val joined = InterviewSet.join(biPartition, null)
                 .normalized();
 
         {

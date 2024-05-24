@@ -16,15 +16,17 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
-public sealed interface NodeDto
+import dita.recall24.api.RecallNode24;
+
+public sealed interface RecallNode extends RecallNode24
 permits
-    InterviewSetDto,
-    RespondentDto,
-    InterviewDto,
-    MealDto,
-    MemorizedFoodDto,
-    RecordDto,
-    IngredientDto {
+    InterviewSet,
+    Respondent,
+    Interview,
+    Meal,
+    MemorizedFood,
+    Record,
+    Ingredient {
 }

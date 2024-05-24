@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import dita.recall24.api.Respondent24;
  * A named survey object, identified by a key,
  * that holds a collective of respondents and their individual 24h recall interviews.
  */
-public record Survey24(
+public record Survey(
         /**
          * Survey identifier.
          */
@@ -56,13 +56,13 @@ public record Survey24(
 
     /**
      * Factory for when the collective of respondents and their individual 24h recall interviews,
-     * is made up of multiple {@link InterviewSet24}s.
+     * is made up of multiple {@link InterviewSet}s.
      */
-    public static Survey24 of(
+    public static Survey of(
             final String surveyKey,
             final String surveyName,
-            final List<InterviewSet24> interviewSets) {
-        return new Survey24(surveyKey, surveyName, null, null); //FIXME add merger
+            final List<InterviewSet> interviewSets) {
+        return new Survey(surveyKey, surveyName, null, null); //FIXME add merger
     }
 
 }

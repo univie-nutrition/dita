@@ -25,10 +25,11 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSource;
 
-import dita.recall24.dto.InterviewSetDto;
 import lombok.Getter;
 import lombok.val;
 import lombok.experimental.Accessors;
+
+import dita.recall24.mutable.InterviewSet;
 
 @Getter @Accessors(fluent=true)
 class _SurveySampler {
@@ -39,7 +40,7 @@ class _SurveySampler {
         this.survey = getSurvey24SampleAsBlob("sample-survey.xml.zip");
     }
 
-    InterviewSetDto asInterviewSet(final Blob blob) {
+    InterviewSet asInterviewSet(final Blob blob) {
         val survey24 = Recall24DtoUtils.tryUnzip(blob)
                 .valueAsNonNullElseFail();
         assertNotNull(survey24);

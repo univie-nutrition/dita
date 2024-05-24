@@ -25,7 +25,7 @@ import org.apache.causeway.commons.collections.Can;
 /**
  * Represents a (single) 24h recall interview event.
  */
-public non-sealed interface Interview24 extends Node24 {
+public interface Interview24 extends RecallNode24 {
 
     /**
      * Interview date.
@@ -48,7 +48,7 @@ public non-sealed interface Interview24 extends Node24 {
     /**
      * Respondent meta-data for this interview.
      */
-    RespondentMetaData24 respondentMetaData();
+    RespondentSupplementaryData24 respondentMetaData();
 
     /**
      * The meals of this interview.

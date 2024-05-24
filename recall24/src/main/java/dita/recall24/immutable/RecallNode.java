@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -27,15 +27,15 @@ import java.util.function.Function;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 
-public sealed interface Node24
+public sealed interface RecallNode
 permits
-    InterviewSet24,
-    Respondent24,
-    Interview24,
-    Meal24,
-    MemorizedFood24,
-    Record24,
-    Ingredient24 {
+    InterviewSet,
+    Respondent,
+    Interview,
+    Meal,
+    MemorizedFood,
+    Record,
+    Ingredient {
 
     // -- ANNOTATIONS
 

@@ -16,30 +16,30 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
-import java.util.List;
+import java.math.BigDecimal;
+
+import javax.measure.Quantity;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import lombok.Data;
 
-import dita.recall24.api.Record24;
+import dita.commons.jaxb.JaxbAdapters;
 
-@XmlRootElement(name="record")
+@Deprecated
+@XmlRootElement(name="ingredient")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class RecordDto implements NodeDto {
+public final class Ingredient implements RecallNode {
 
-    @XmlElement(name="type")
-    @XmlJavaTypeAdapter(value=RecordDto.RecordTypeAdapter.class)
-    private Record24.Type type;
+    @XmlElement(name="sid")
+    private String sid;
 
     @XmlElement(name="name")
     private String name;
@@ -47,24 +47,11 @@ public final class RecordDto implements NodeDto {
     @XmlElement(name="facetSids")
     private String facetSids;
 
-    @XmlElementWrapper(name="ingredients")
-    @XmlElement(name="ingredient", type=IngredientDto.class)
-    private List<IngredientDto> ingredients;
+    @XmlElement(name="rawPerCookedRatio")
+    private BigDecimal rawPerCookedRatio;
 
-    static final class RecordTypeAdapter extends XmlAdapter<String, Record24.Type>{
-        @Override public Record24.Type unmarshal(final String v) throws Exception {
-            try {
-                return Record24.Type.destringify(v);
-            } catch (Exception e) {
-                e.printStackTrace(); // might be swallowed otherwise
-                throw e;
-            }
-        }
-        @Override public String marshal(final Record24.Type v) throws Exception {
-            return v!=null
-                    ? v.stringify()
-                    : null;
-        }
-    }
+    @XmlElement(name="quantityCooked")
+    @XmlJavaTypeAdapter(value=JaxbAdapters.QuantityAdapter.class)
+    private Quantity<?> quantityCooked;
 
 }

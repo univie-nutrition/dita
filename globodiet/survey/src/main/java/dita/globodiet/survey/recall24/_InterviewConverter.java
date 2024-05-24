@@ -34,13 +34,13 @@ import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import dita.recall24.api.Record24.Type;
-import dita.recall24.model.Ingredient24;
-import dita.recall24.model.Interview24;
-import dita.recall24.model.Meal24;
-import dita.recall24.model.MemorizedFood24;
-import dita.recall24.model.Record24;
-import dita.recall24.model.Respondent24;
-import dita.recall24.model.RespondentMetaData24;
+import dita.recall24.immutable.Ingredient;
+import dita.recall24.immutable.Interview;
+import dita.recall24.immutable.Meal;
+import dita.recall24.immutable.MemorizedFood;
+import dita.recall24.immutable.Record;
+import dita.recall24.immutable.Respondent;
+import dita.recall24.immutable.RespondentSupplementaryData;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass
@@ -49,7 +49,7 @@ class _InterviewConverter {
     /**
      * parented by an Respondent24 stub, that has no children (needs post-processing)
      */
-    Interview24 toInterview24(final _Dtos.Interview iv) {
+    Interview toInterview24(final _Dtos.Interview iv) {
         final var tree = iv.asTree();
         var meals = tree.childNodes().stream()
             .map(fcoNode->{
@@ -92,11 +92,11 @@ class _InterviewConverter {
             })
             .collect(Can.toCan());
 
-        return Interview24.of(
+        return Interview.of(
                 respondentStub(iv),
                 iv.getInterviewDate().toLocalDate(),
-                new RespondentMetaData24(
-                        ObjectRef.<Interview24>empty(),
+                new RespondentSupplementaryData(
+                        ObjectRef.<Interview>empty(),
                         iv.getSpecialDietCode(),
                         iv.getSpecialDayCode(),
                         NumberUtils.roundToNDecimalPlaces(iv.getHeightCM(), 1),
@@ -106,38 +106,38 @@ class _InterviewConverter {
 
     // -- MEM
 
-    private MemorizedFood24 toMemorizedFood24(final ListEntry listEntry, final Can<Record24> records) {
+    private MemorizedFood toMemorizedFood24(final ListEntry listEntry, final Can<Record> records) {
         _Assert.assertTrue(_Strings.isNullOrEmpty(listEntry.getName()));
-        return MemorizedFood24.of(listEntry.getLabel(), records);
+        return MemorizedFood.of(listEntry.getLabel(), records);
     }
 
     // -- RECORDS
 
 
-    private Record24 toRecord24(final ListEntry listEntry, final Can<Ingredient24> ingredients) {
+    private Record toRecord24(final ListEntry listEntry, final Can<Ingredient> ingredients) {
         _Assert.assertFalse(listEntry.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
         //TODO label() might be non empty -> information lost
         //TODO needs a switch on type actually
         return switch (listEntry.listEntryType()) {
-        case Food -> Record24.of(Type.FOOD, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
-        case Recipe -> Record24.of(Type.COMPOSITE, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
-        case DietarySupplement -> Record24.of(Type.PRODUCT, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        case Food -> Record.of(Type.FOOD, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        case Recipe -> Record.of(Type.COMPOSITE, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        case DietarySupplement -> Record.of(Type.PRODUCT, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
         default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
         };
     }
 
     // -- MEALS
 
-    private Meal24 toMeal24(final ListEntry listEntry, final Can<MemorizedFood24> memorizedFood) {
+    private Meal toMeal24(final ListEntry listEntry, final Can<MemorizedFood> memorizedFood) {
         LocalTime hourOfDay = parseLocalTimeFrom4Digits(listEntry.getFoodConsumptionHourOfDay().trim());
-        return Meal24.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
+        return Meal.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
     }
 
     // -- INGREDIENTS
 
-    private Ingredient24 toIngredient24(final ListEntry listEntry) {
+    private Ingredient toIngredient24(final ListEntry listEntry) {
         _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, listEntry.listEntryType());
-        return Ingredient24.of(listEntry.getFoodOrSimilarCode(), listEntry.getName(),
+        return Ingredient.of(listEntry.getFoodOrSimilarCode(), listEntry.getName(),
                 listEntry.getFacetDescriptorCodes(), listEntry.getRawPerCookedRatio(), quantityConsumed(listEntry));
     }
 
@@ -148,8 +148,8 @@ class _InterviewConverter {
     /**
      * has no children
      */
-    private Respondent24 respondentStub(final _Dtos.Interview iv) {
-        final Respondent24 respondent = new Respondent24(
+    private Respondent respondentStub(final _Dtos.Interview iv) {
+        final Respondent respondent = new Respondent(
                 iv.getSubjectCode(),
                 //subjectName + "|" + subjectFirstName,
                 iv.getSubjectBirthDate().toLocalDate(),

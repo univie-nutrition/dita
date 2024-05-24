@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.model;
+package dita.recall24.immutable;
 
 import java.math.BigDecimal;
 
@@ -32,37 +32,38 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
+@Deprecated
 /**
  * Implements {@link dita.recall24.api.Ingredient24} as Java record type.
- * @see Ingredient24
+ * @see Ingredient
  */
-public record Ingredient24(
+public record Ingredient(
         @JsonIgnore
-        ObjectRef<Record24> parentRecordRef,
+        ObjectRef<Record> parentRecordRef,
         String sid,
         String name,
         String facetSids,
         BigDecimal rawPerCookedRatio,
         Quantity<?> quantityCooked
         //,double fractionRelativeToParentRecipe
-        ) implements dita.recall24.api.Ingredient24, Node24 {
+        ) implements dita.recall24.api.Ingredient24, RecallNode {
 
-    public static Ingredient24 of(
+    public static Ingredient of(
             final String sid,
             final String name,
             final String facetSids,
             final BigDecimal rawPerCookedRatio,
             final Quantity<?> quantityCooked) {
-        var ingredient24 = new Ingredient24(ObjectRef.empty(), sid, name, facetSids, rawPerCookedRatio, quantityCooked);
+        var ingredient24 = new Ingredient(ObjectRef.empty(), sid, name, facetSids, rawPerCookedRatio, quantityCooked);
         return ingredient24;
     }
 
     @Override
-    public Record24 parentRecord() {
+    public Record parentRecord() {
         return parentRecordRef.getValue();
     }
 
-    public Ingredient24 withSid(final String sid) {
+    public Ingredient withSid(final String sid) {
         return of(sid, name(), facetSids(), rawPerCookedRatio(), quantityCooked());
     }
 

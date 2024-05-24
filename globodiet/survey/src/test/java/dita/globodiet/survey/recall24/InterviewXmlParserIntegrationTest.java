@@ -30,8 +30,8 @@ import dita.commons.qmap.QualifiedMap;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.recall24.model.Ingredient24;
-import dita.recall24.model.Node24;
+import dita.recall24.api.ConsumptionRecord24;
+import dita.recall24.immutable.RecallNode;
 import dita.recall24.util.Recall24ModelUtils;
 import dita.recall24.util.Recall24SummaryStatistics;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -46,7 +46,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     void parsingFromBlobStore() {
 
         var stats = new Recall24SummaryStatistics();
-        var ingredientProcessor = new IngredientProcessor(stats, "GD-AT20240507", loadNutMapping());
+        var recordProcessor = new RecordProcessor(stats, "GD-AT20240507", loadNutMapping());
 
         loadAndStreamInterviews(NamedPath.of("at-national-2026"), null)
         //.limit(1)
@@ -56,10 +56,10 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
             rootNode
                 .streamDepthFirst()
                 .map(TreeNode::getValue)
-                .forEach((Node24 node)->{
-                    stats.accept((dita.recall24.api.Node24) node);
+                .forEach((RecallNode node)->{
+                    stats.accept((dita.recall24.api.RecallNode24) node);
                     switch(node) {
-                    case Ingredient24 ingr -> ingredientProcessor.accept(ingr);
+                    case ConsumptionRecord24 cRec -> recordProcessor.accept(cRec);
                     default -> {}
                     }
                 });
@@ -70,17 +70,18 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         System.err.println("=============");
     }
 
-    record IngredientProcessor(Recall24SummaryStatistics stats, String systemId, QualifiedMap nutMapping)
-    implements Consumer<Ingredient24> {
+    record RecordProcessor(Recall24SummaryStatistics stats, String systemId, QualifiedMap nutMapping)
+    implements Consumer<ConsumptionRecord24> {
         @Override
-        public void accept(final Ingredient24 ingr) {
-            var mapKey = ingr.qualifiedMapKey(systemId);
-            var mapEntry = nutMapping.lookupEntry(mapKey);
-            if(mapEntry.isPresent()) {
-                stats.ingredientStats().mappedCount().increment();
-            } else {
-                System.err.printf("unmapped ingr: %s (%s)%n", ingr.name(), mapKey);
-            }
+        public void accept(final ConsumptionRecord24 rec) {
+//FIXME
+//            var mapKey = rec.qualifiedMapKey(systemId);
+//            var mapEntry = nutMapping.lookupEntry(mapKey);
+//            if(mapEntry.isPresent()) {
+//                stats.ingredientStats().mappedCount().increment();
+//            } else {
+//                System.err.printf("unmapped ingr: %s (%s)%n", rec.name(), mapKey);
+//            }
         }
     }
 

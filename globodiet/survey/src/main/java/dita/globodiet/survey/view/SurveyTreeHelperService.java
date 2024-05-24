@@ -30,7 +30,7 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
-import dita.recall24.model.InterviewSet24;
+import dita.recall24.immutable.InterviewSet;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
@@ -40,14 +40,14 @@ public class SurveyTreeHelperService {
     @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
-    private final Map<Campaign.SecondaryKey, InterviewSet24> cache = new ConcurrentHashMap<>();
+    private final Map<Campaign.SecondaryKey, InterviewSet> cache = new ConcurrentHashMap<>();
 
     public Campaign campaign(final Campaign.SecondaryKey campaignSecondaryKey) {
         var campaign = foreignKeyLookupService.unique(campaignSecondaryKey);
         return campaign;
     }
 
-    public InterviewSet24 root(final Campaign.SecondaryKey campaignSecondaryKey) {
+    public InterviewSet root(final Campaign.SecondaryKey campaignSecondaryKey) {
         return cache.computeIfAbsent(campaignSecondaryKey, _->
             Campaigns.interviewSet(campaign(campaignSecondaryKey), surveyBlobStore));
     }

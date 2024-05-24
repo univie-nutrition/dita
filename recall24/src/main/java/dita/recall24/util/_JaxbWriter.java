@@ -27,8 +27,9 @@ import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.JaxbUtils;
 
-import dita.recall24.dto.InterviewSetDto;
 import lombok.SneakyThrows;
+
+import dita.recall24.mutable.InterviewSet;
 
 class _JaxbWriter {
 
@@ -37,12 +38,12 @@ class _JaxbWriter {
 
     @SneakyThrows
     _JaxbWriter() {
-        jaxbContext = JaxbUtils.jaxbContextFor(InterviewSetDto.class, true);
+        jaxbContext = JaxbUtils.jaxbContextFor(InterviewSet.class, true);
         jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
     }
 
-    Try<String> tryToString(final InterviewSetDto survey) {
+    Try<String> tryToString(final InterviewSet survey) {
         return Try.call(()->{
             final var stringWriter = new StringWriter();
             jaxbMarshaller.marshal(survey, stringWriter);
@@ -50,7 +51,7 @@ class _JaxbWriter {
         });
     }
 
-    Try<Void> tryWriteTo(final InterviewSetDto survey, final DataSink dataSink) {
+    Try<Void> tryWriteTo(final InterviewSet survey, final DataSink dataSink) {
         return Try.run(()->{
             dataSink.writeAll(os->{
                 jaxbMarshaller.marshal(survey, os);

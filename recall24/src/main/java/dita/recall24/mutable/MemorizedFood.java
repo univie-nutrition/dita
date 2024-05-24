@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.dto;
+package dita.recall24.mutable;
 
 import java.util.List;
 
@@ -26,26 +26,18 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-import org.apache.causeway.commons.io.JsonUtils;
-
 import lombok.Data;
 
-@XmlRootElement(name="interviewSet")
+@XmlRootElement(name="memorizedFood")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class InterviewSetDto implements NodeDto {
+public final class MemorizedFood implements RecallNode {
 
-    @XmlElementWrapper(name="respondents")
-    @XmlElement(name="respondent", type=RespondentDto.class)
-    private List<RespondentDto> respondents;
+    @XmlElement(name="Name")
+    private String name;
 
-//    @XmlElementWrapper(name="interviews")
-//    @XmlElement(name="interview", type=InterviewDto.class)
-//    @Deprecated
-//    private List<InterviewDto> interviews;
-
-    public String toJson() {
-        return JsonUtils.toStringUtf8(this, JsonUtils::indentedOutput);
-    }
+    @XmlElementWrapper(name="records")
+    @XmlElement(name="record", type=Record.class)
+    private List<Record> topLevelRecords;
 
 }

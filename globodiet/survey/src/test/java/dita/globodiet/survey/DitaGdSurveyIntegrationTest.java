@@ -37,9 +37,9 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.model.Ingredient24;
-import dita.recall24.model.InterviewSet24;
-import dita.recall24.model.Node24;
+import dita.recall24.immutable.Ingredient;
+import dita.recall24.immutable.InterviewSet;
+import dita.recall24.immutable.RecallNode;
 import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -70,14 +70,14 @@ extends CausewayIntegrationTestAbstract {
         return qMap;
     }
 
-    protected Stream<InterviewSet24> loadAndStreamInterviews(
+    protected Stream<InterviewSet> loadAndStreamInterviews(
             final @NonNull NamedPath path,
             final @Nullable Consumer<Message> messageConsumer) {
         return InterviewUtils.streamSources(surveyBlobStore, path, true)
             .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
     }
 
-    protected Stream<InterviewSet24> loadAndStreamInterviews2(
+    protected Stream<InterviewSet> loadAndStreamInterviews2(
             final @NonNull NamedPath path,
             final @Nullable Consumer<Message> messageConsumer) {
         return InterviewUtils.streamSources(surveyBlobStore, path, true)
@@ -87,16 +87,16 @@ extends CausewayIntegrationTestAbstract {
     /**
      * Converts ingredient identifiers to NutriDb (prefixed) identifiers.
      */
-    protected UnaryOperator<InterviewSet24> nutriDbTransfomer(){
+    protected UnaryOperator<InterviewSet> nutriDbTransfomer(){
 
-        record NutriDbTransfomer() implements UnaryOperator<Node24> {
-            @Override public Node24 apply(final Node24 node) {
+        record NutriDbTransfomer() implements UnaryOperator<RecallNode> {
+            @Override public RecallNode apply(final RecallNode node) {
                 return switch (node) {
-                case Ingredient24 ingr -> toNutriDbPrefixes(ingr);
+                case Ingredient ingr -> toNutriDbPrefixes(ingr);
                 default -> node;
                 };
             }
-            private Ingredient24 toNutriDbPrefixes(final Ingredient24 ingr) {
+            private Ingredient toNutriDbPrefixes(final Ingredient ingr) {
                 return switch (ingr.parentRecord().type()) {
                 case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));
                 default -> ingr;

@@ -30,9 +30,9 @@ import lombok.experimental.UtilityClass;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.model.InterviewSet24;
-import dita.recall24.model.Node24;
-import dita.recall24.model.corr.Correction24;
+import dita.recall24.immutable.InterviewSet;
+import dita.recall24.immutable.RecallNode;
+import dita.recall24.immutable.corr.Correction24;
 import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -52,7 +52,7 @@ public class Campaigns {
                 .add(NamedPath.of(campaign.getCode().toLowerCase()));
     }
 
-    public InterviewSet24 interviewSet(
+    public InterviewSet interviewSet(
             final Campaign campaign,
             final BlobStore surveyBlobStore) {
 
@@ -65,21 +65,21 @@ public class Campaigns {
         //messageConsumer.accept(Message.info("generated at %s", LocalDateTime.now()));
 
         return surveyBlobStore==null
-            ? InterviewSet24.empty()
+            ? InterviewSet.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
                 .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
                 .map(Recall24ModelUtils.correct(correction))
                 .reduce((a, b)->a.join(b, messageConsumer))
-                .map(InterviewSet24::normalized)
+                .map(InterviewSet::normalized)
                 .map(messageConsumer::annotate)
-                .orElseGet(InterviewSet24::empty);
+                .orElseGet(InterviewSet::empty);
     }
 
     // -- HELPER
 
     /**
      * First collects {@link Message}(s),
-     * then annotates given {@link InterviewSet24} with those.
+     * then annotates given {@link InterviewSet} with those.
      */
     private static class MessageConsumer implements Consumer<Message> {
 
@@ -90,14 +90,14 @@ public class Campaigns {
             messages.add(message);
         }
 
-        InterviewSet24 annotate(final InterviewSet24 interviewSet) {
+        InterviewSet annotate(final InterviewSet interviewSet) {
             return messages.isEmpty()
                     ? interviewSet
                     : interviewSet.annotate(toAnnotation());
         }
 
-        private final Node24.Annotation toAnnotation() {
-            return new Node24.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
+        private final RecallNode.Annotation toAnnotation() {
+            return new RecallNode.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
         }
 
     }
