@@ -139,6 +139,7 @@ class FoodConsumption {
     foodId: SemanticIdentifier
     facetIds: SemanticIdentifierSet
     amountConsumed: BigDecimal
+    rawPerCookedRatio: BigDecimal
 }
 
 enum ConsumptionUnit {
