@@ -166,11 +166,29 @@ TypeOfMilkOrLiquidUsed --|> Record
 
 == APPENDIX
 
-GloboDiet Interview Export Semantics
+=== Interview Data Structure Requirements
 
-[cols="1m,1m,1m,4a"]
+The data structure forms a tree, starting from its root followed by _respondent_ nodes followed by _interview_ nodes and so on.
+
+* *Serializable.* It should be possible to serialize the entire tree to XML, JSON or YAML 
+and deserialize likewise.
+ 
+* *Transformable.* Starting from a given tree, 
+it should be possible to create a new tree that has some selected nodes modified.
+ 
+* *Navigable.* For every node in the tree we want to be able to navigate to its parent node or child nodes.
+
+* *Immutable.* Modification of the tree (once created), should not be possible unless by means of a transformer.
+
+=== GloboDiet Interview Export Semantics
+
+The following table shows correspondence between fields from the _GloboDiet_ export files and our record model. 
+
+.GloboDiet Interview Export Semantics
+[cols="1m,1m,1m,4a",width="100%"]
 |===
-|Dita Model |GloboDiet XML (LigneITV tag) |GloboDiet CSV (INTERV File) |Description
+.2+h|*Record Model* 3+h|*GloboDiet*
+|*XML* (LigneITV tag) |*CSV* (INTERV File) | *Description*
 
 |Record.*foodId* +
 (SemanticIdentifier)
@@ -211,7 +229,3 @@ GloboDiet Interview Export Semantics
 |Raw to cooked coefficient.
 
 |===
-
-
-
-
