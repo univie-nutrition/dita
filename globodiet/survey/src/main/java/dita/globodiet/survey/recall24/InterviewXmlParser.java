@@ -31,7 +31,8 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
-import dita.recall24.immutable.InterviewSet;
+import dita.recall24.api.InterviewSet24;
+import dita.recall24.mutable.InterviewSet;
 import dita.recall24.util.Recall24ModelUtils;
 
 /**
@@ -45,7 +46,7 @@ public class InterviewXmlParser {
      * wrapped by a {@link Try}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public Try<InterviewSet> tryParse(
+    public Try<InterviewSet24.Dto> tryParse(
             final @NonNull DataSource source,
             final @Nullable Consumer<Message> messageConsumer) {
         return Try.call(()->parse(source, messageConsumer));
@@ -55,7 +56,7 @@ public class InterviewXmlParser {
      * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet parse(
+    public InterviewSet24.Dto parse(
             final @NonNull DataSource source,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
@@ -67,14 +68,14 @@ public class InterviewXmlParser {
      * Parses GloboDiet XML Interview file from given {@link Clob} into a {@link InterviewSet}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet parse(
+    public InterviewSet24.Dto parse(
             final Clob interviewSource,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
                 .valueAsNonNullElseFail();
         return createFromDto(dto, messageConsumer);
     }
-    public InterviewSet parse2(
+    public InterviewSet24.Dto parse2(
             final Clob interviewSource,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
@@ -84,7 +85,7 @@ public class InterviewXmlParser {
 
     // -- HELPER
 
-    private InterviewSet createFromDto(
+    private InterviewSet24.Dto createFromDto(
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
         return Recall24ModelUtils
@@ -94,7 +95,7 @@ public class InterviewXmlParser {
                         .toList(),
                     messageConsumer);
     }
-    private InterviewSet createFromDto2(
+    private InterviewSet24.Dto createFromDto2(
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
         return Recall24ModelUtils

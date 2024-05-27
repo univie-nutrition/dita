@@ -35,7 +35,7 @@ import lombok.Data;
 @XmlRootElement(name="interview")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class Interview implements RecallNode {
+public final class Interview {
 
     @XmlElement(name="respondentAlias")
     private String respondentAlias;

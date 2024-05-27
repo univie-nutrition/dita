@@ -18,10 +18,14 @@
  */
 package dita.recall24.api;
 
+import org.apache.causeway.commons.collections.Can;
+
+import dita.recall24.mutable.InterviewSet;
+
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
-public interface Survey24 extends InterviewSet24 {
+public interface Survey24 {
 
     /**
      * Survey identifier.
@@ -32,4 +36,60 @@ public interface Survey24 extends InterviewSet24 {
      * Human readable survey name.
      */
     String name();
+
+    /**
+     * Respondents that belong to this survey.
+     */
+    Can<Respondent24.Dto> respondents();
+
+    /**
+     * Interviews that belong to this survey.
+     */
+    Can<Interview24.Dto> interviews();
+
+    // -- DTO
+
+    /**
+     * A named survey object, identified by a key,
+     * that holds a collective of respondents and their individual 24h recall interviews.
+     */
+    public record Dto(
+            /**
+             * Survey identifier.
+             */
+            String key,
+
+            /**
+             * Human readable survey name.
+             */
+            String name,
+
+            InterviewSet24.Dto interviewSet
+
+            ) implements Survey24 {
+
+
+        /**
+         * Factory for when the collective of respondents and their individual 24h recall interviews,
+         * is made up of multiple {@link InterviewSet}s.
+         */
+        public static Dto of(
+                final String surveyKey,
+                final String surveyName,
+                final InterviewSet24.Dto interviewSet) {
+            return new Dto(surveyKey, surveyName, interviewSet);
+        }
+
+        @Override
+        public Can<Respondent24.Dto> respondents() {
+            return interviewSet.respondents();
+        }
+
+        @Override
+        public Can<Interview24.Dto> interviews() {
+            return interviewSet.streamInterviews().collect(Can.toCan());
+        }
+
+    }
+
 }

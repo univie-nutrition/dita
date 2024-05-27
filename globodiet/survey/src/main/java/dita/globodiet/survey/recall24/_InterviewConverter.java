@@ -20,27 +20,22 @@ package dita.globodiet.survey.recall24;
 
 import java.time.LocalTime;
 
-import javax.measure.quantity.Mass;
-
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.types.MetricUnits;
+import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
-import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
-import dita.recall24.api.Record24.Type;
-import dita.recall24.immutable.Ingredient;
-import dita.recall24.immutable.Interview;
-import dita.recall24.immutable.Meal;
-import dita.recall24.immutable.MemorizedFood;
-import dita.recall24.immutable.Record;
-import dita.recall24.immutable.Respondent;
-import dita.recall24.immutable.RespondentSupplementaryData;
+import dita.recall24.api.Interview24;
+import dita.recall24.api.Meal24;
+import dita.recall24.api.MemorizedFood24;
+import dita.recall24.api.Record24;
+import dita.recall24.api.Respondent24;
+import dita.recall24.api.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass
@@ -49,7 +44,7 @@ class _InterviewConverter {
     /**
      * parented by an Respondent24 stub, that has no children (needs post-processing)
      */
-    Interview toInterview24(final _Dtos.Interview iv) {
+    Interview24.Dto toInterview24(final _Dtos.Interview iv) {
         final var tree = iv.asTree();
         var meals = tree.childNodes().stream()
             .map(fcoNode->{
@@ -60,24 +55,26 @@ class _InterviewConverter {
                     var records = memNode.childNodes().stream()
                     .map(recordNode->{
                         var recordEntry = recordNode.entry();
-                        var recordSubEntries = recordNode.childNodes().stream()
-                        .map(recordSubNode->{
-                            var type = recordSubNode.type();
-                            switch (type) {
-                            case FoodSelectedAsARecipeIngredient:
-                                return toIngredient24(recordSubNode.entry());
-                            case TypeOfFatUsedFacet:
-                            case TypeOfMilkOrLiquidUsedFacet:
-                            case FatDuringCookingForFood:
-                            case FatSauceOrSweeteners:
-                                return null; //TODO no receiving type yet
-                            default:
-                                throw new IllegalArgumentException("Unexpected value: " + type);
-                            }
-                        })
-                        .collect(Can.toCan());
 
-                        var record24 = toRecord24(recordEntry, recordSubEntries);
+//FIXME
+//                        var recordSubEntries = recordNode.childNodes().stream()
+//                        .map(recordSubNode->{
+//                            var type = recordSubNode.type();
+//                            switch (type) {
+//                            case FoodSelectedAsARecipeIngredient:
+//                                return toIngredient24(recordSubNode.entry());
+//                            case TypeOfFatUsedFacet:
+//                            case TypeOfMilkOrLiquidUsedFacet:
+//                            case FatDuringCookingForFood:
+//                            case FatSauceOrSweeteners:
+//                                return null; //TODO no receiving type yet
+//                            default:
+//                                throw new IllegalArgumentException("Unexpected value: " + type);
+//                            }
+//                        })
+//                        .collect(Can.toCan());
+
+                        var record24 = toTopLevelRecord24(recordEntry);
                         return record24;
                     })
                     .collect(Can.toCan());
@@ -92,11 +89,11 @@ class _InterviewConverter {
             })
             .collect(Can.toCan());
 
-        return Interview.of(
+        return Interview24.Dto.of(
                 respondentStub(iv),
                 iv.getInterviewDate().toLocalDate(),
-                new RespondentSupplementaryData(
-                        ObjectRef.<Interview>empty(),
+                new RespondentSupplementaryData24.Dto(
+                        ObjectRef.empty(),
                         iv.getSpecialDietCode(),
                         iv.getSpecialDayCode(),
                         NumberUtils.roundToNDecimalPlaces(iv.getHeightCM(), 1),
@@ -106,58 +103,71 @@ class _InterviewConverter {
 
     // -- MEM
 
-    private MemorizedFood toMemorizedFood24(final ListEntry listEntry, final Can<Record> records) {
+    private MemorizedFood24.Dto toMemorizedFood24(final ListEntry listEntry, final Can<Record24.Dto> topLevelRecords) {
         _Assert.assertTrue(_Strings.isNullOrEmpty(listEntry.getName()));
-        return MemorizedFood.of(listEntry.getLabel(), records);
+        return MemorizedFood24.Dto.of(listEntry.getLabel(), topLevelRecords);
     }
 
     // -- RECORDS
 
 
-    private Record toRecord24(final ListEntry listEntry, final Can<Ingredient> ingredients) {
-        _Assert.assertFalse(listEntry.listEntryType().equals(ListEntryType.FoodSelectedAsARecipeIngredient));
+    private Record24.Dto toTopLevelRecord24(final ListEntry listEntry) {
         //TODO label() might be non empty -> information lost
         //TODO needs a switch on type actually
         return switch (listEntry.listEntryType()) {
-        case Food -> Record.of(Type.FOOD, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
-        case Recipe -> Record.of(Type.COMPOSITE, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
-        case DietarySupplement -> Record.of(Type.PRODUCT, listEntry.getName(), listEntry.getFacetDescriptorCodes(), ingredients);
+        //TODO assert has no sub-records
+        case Food -> Record24.food(
+                listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
+                listEntry.getQuantityAmount(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
         default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
         };
     }
 
     // -- MEALS
 
-    private Meal toMeal24(final ListEntry listEntry, final Can<MemorizedFood> memorizedFood) {
+    private Meal24.Dto toMeal24(final ListEntry listEntry, final Can<MemorizedFood24.Dto> memorizedFood) {
         LocalTime hourOfDay = parseLocalTimeFrom4Digits(listEntry.getFoodConsumptionHourOfDay().trim());
-        return Meal.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
+        return Meal24.Dto.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
     }
 
-    // -- INGREDIENTS
+    // -- CONSUMPTION
 
-    private Ingredient toIngredient24(final ListEntry listEntry) {
-        _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, listEntry.listEntryType());
-        return Ingredient.of(listEntry.getFoodOrSimilarCode(), listEntry.getName(),
-                listEntry.getFacetDescriptorCodes(), listEntry.getRawPerCookedRatio(), quantityConsumed(listEntry));
-    }
-
-    private javax.measure.Quantity<Mass> quantityConsumed(final ListEntry listEntry){
-        return MetricUnits.grams(listEntry.getConsumedQuantity()); //TODO just guessing which one - needs double check
-    }
+//    private Optional<FoodConsumption> consumption(final String systemId, final ListEntry listEntry) {
+//        switch(listEntry.listEntryType()) {
+//        case Food:
+//        case FoodSelectedAsARecipeIngredient:
+//        case DietarySupplement:
+//            var sid = semanticIdentifier(systemId, listEntry);
+//            var facets = semanticIdentifierSet(systemId, listEntry);
+//            //TODO just guessing GRAM - needs double check
+//            return Optional.of(new FoodConsumption(listEntry.getLabel(), sid, facets,
+//                    ConsumptionUnit.GRAM, listEntry.getConsumedQuantity()));
+//        default:
+//            return Optional.empty();
+//        }
+//    }
+//
+//    private Optional<Respondent24.TypeOfFatUsed> typeOfFatUsedDuringCooking(final ListEntry listEntry) {
+//        return Optional.empty(); //TODO flesh out
+//    }
+//    private Optional<Respondent24.TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking(final ListEntry listEntry) {
+//        return Optional.empty(); //TODO flesh out
+//    }
+//    private List<R24.Note> notes(final ListEntry listEntry) {
+//        return Collections.emptyList(); //TODO flesh out
+//    }
 
     /**
      * has no children
      */
-    private Respondent respondentStub(final _Dtos.Interview iv) {
-        final Respondent respondent = new Respondent(
+    private Respondent24.Dto respondentStub(final _Dtos.Interview iv) {
+        final Respondent24.Dto respondent = new Respondent24.Dto(
                 iv.getSubjectCode(),
                 //subjectName + "|" + subjectFirstName,
                 iv.getSubjectBirthDate().toLocalDate(),
                 Sex.values()[iv.getSubjectSex()],
                 Can.empty());
-
         //respondent.annotate().(new Annotation("Name", name));
-
         return respondent;
     }
 
@@ -166,5 +176,14 @@ class _InterviewConverter {
         var mm = hhmm.substring(2, 4);
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
+
+//    private SemanticIdentifier semanticIdentifier(final String systemId, final ListEntry listEntry) {
+//        return new SemanticIdentifier(systemId, listEntry.getFoodOrSimilarCode());
+//    }
+//
+//    private SemanticIdentifierSet semanticIdentifierSet(final String systemId, final ListEntry listEntry) {
+//        return SemanticIdentifierSet.ofStream(_Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")
+//                .map(facetId->new SemanticIdentifier(systemId, facetId)));
+//    }
 
 }

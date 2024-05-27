@@ -20,13 +20,17 @@ package dita.recall24.api;
 
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.apache.causeway.commons.collections.Can;
 
-// TODO: Auto-generated Javadoc
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
+
 /**
- * The Interface Meal24.
+ * Meal of the day.
  */
-public interface Meal24 extends RecallNode24 {
+public sealed interface Meal24 extends RecallNode24 {
 
     /**
      * Parent interview.
@@ -52,5 +56,68 @@ public interface Meal24 extends RecallNode24 {
      * Memorized food for this meal.
      */
     Can<? extends MemorizedFood24> memorizedFood();
+
+    // -- DTO
+
+    public record Dto(
+
+            /**
+             * Parent interview.
+             */
+            @JsonIgnore
+            ObjectRef<Interview24.Dto> parentInterviewRef,
+
+            /**
+             * Hour of day, when this meal took place.
+             */
+            LocalTime hourOfDay,
+
+            /**
+             * Identifying the occasion, when this meal took place.
+             */
+            String foodConsumptionOccasionId,
+
+            /**
+             * Identifying the place, where this meal took place.
+             */
+            String foodConsumptionPlaceId,
+
+            /**
+             * Memorized food for this meal.
+             */
+            @TreeSubNodes
+            Can<MemorizedFood24.Dto> memorizedFood
+
+            ) implements Meal24 {
+
+        public static Dto of(
+                /**
+                 * Hour of day, when this meal took place.
+                 */
+                final LocalTime hourOfDay,
+                /**
+                 * Identifying the occasion, when this meal took place.
+                 */
+                final String foodConsumptionOccasionId,
+                /**
+                 * Identifying the place, where this meal took place.
+                 */
+                final String foodConsumptionPlaceId,
+                /**
+                 * Memorized food for this meal.
+                 */
+                final Can<MemorizedFood24.Dto> memorizedFood
+                ) {
+            var meal24 = new Dto(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId,
+                    foodConsumptionPlaceId, memorizedFood);
+            memorizedFood.forEach(mem->mem.parentMealRef().setValue(meal24));
+            return meal24;
+        }
+
+        @Override
+        public Interview24.Dto parentInterview() {
+            return parentInterviewRef.getValue();
+        }
+    }
 
 }

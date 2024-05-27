@@ -19,13 +19,21 @@
 package dita.recall24.api;
 
 import java.time.LocalDate;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.apache.causeway.commons.collections.Can;
+
+import dita.commons.types.IntRef;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
  * Represents a (single) 24h recall interview event.
  */
-public interface Interview24 extends RecallNode24 {
+public sealed interface Interview24 extends RecallNode24
+permits Interview24.Dto {
 
     /**
      * Interview date.
@@ -46,9 +54,9 @@ public interface Interview24 extends RecallNode24 {
     Respondent24 parentRespondent();
 
     /**
-     * Respondent meta-data for this interview.
+     * Respondent supplementary data for this interview.
      */
-    RespondentSupplementaryData24 respondentMetaData();
+    RespondentSupplementaryData24 respondentSupplementaryData();
 
     /**
      * The meals of this interview.
@@ -65,8 +73,74 @@ public interface Interview24 extends RecallNode24 {
         return parentRespondent().alias();
     }
 
+    // -- DTO
+
+    public record Dto(
+
+            /**
+             * Respondent of this interview.
+             */
+            @JsonIgnore
+            ObjectRef<Respondent24.Dto> parentRespondentRef,
+
+            /**
+             * Interview date.
+             */
+            LocalDate interviewDate,
+
+            /**
+             *  Each respondent can have one ore more interviews within the context of a specific survey.
+             *  This ordinal denotes the n-th interview (when ordered by interview date).
+             */
+            IntRef interviewOrdinalRef,
+
+            /**
+             * Respondent meta-data for this interview.
+             */
+            RespondentSupplementaryData24.Dto respondentSupplementaryData,
+
+            /**
+             * The meals of this interview.
+             */
+            @TreeSubNodes
+            Can<Meal24.Dto> meals
+
+            ) implements Interview24 {
+
+        public static Dto of(
+                final Respondent24.Dto respondent,
+                /**
+                 * Interview date.
+                 */
+                final LocalDate interviewDate,
+                /**
+                 * Respondent meta-data for this interview.
+                 */
+                final RespondentSupplementaryData24.Dto respondentSupplementaryData,
+                /**
+                 * The meals of this interview.
+                 */
+                final Can<Meal24.Dto> meals) {
+            var interview = new Dto(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentSupplementaryData, meals);
+            respondentSupplementaryData.parentInterviewRef().setValue(interview);
+            meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
+            return interview;
+        }
+
+        @Override
+        public Respondent24.Dto parentRespondent() {
+            return parentRespondentRef.getValue();
+        }
+
+        @Override
+        public int interviewOrdinal() {
+            return interviewOrdinalRef().getValue();
+        }
+
+        public boolean matchesRespondent(final Respondent24.Dto candidate) {
+            return Objects.equals(parentRespondent(), candidate);
+        }
+
+    }
+
 }
-
-
-
-

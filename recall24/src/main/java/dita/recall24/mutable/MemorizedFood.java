@@ -31,7 +31,7 @@ import lombok.Data;
 @XmlRootElement(name="memorizedFood")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class MemorizedFood implements RecallNode {
+public final class MemorizedFood {
 
     @XmlElement(name="Name")
     private String name;

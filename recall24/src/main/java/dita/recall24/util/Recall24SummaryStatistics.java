@@ -22,30 +22,26 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import dita.recall24.api.Ingredient24;
 import dita.recall24.api.RecallNode24;
 import dita.recall24.api.Record24;
 
 public record Recall24SummaryStatistics(
-        Record24SummaryStatistics recordStats,
-        Ingredient24SummaryStatistics ingredientStats) {
+        Record24SummaryStatistics recordStats) {
 
     public Recall24SummaryStatistics() {
-            this(new Record24SummaryStatistics(), new Ingredient24SummaryStatistics());
+            this(new Record24SummaryStatistics());
     }
 
     public void accept(final RecallNode24 node24) {
         switch (node24) {
-        case Record24 rec -> recordStats.accept(rec);
-        case Ingredient24 rec -> ingredientStats.accept(rec);
+        case Record24.Dto rec -> recordStats.accept(rec);
         default -> {}
         }
     }
 
     public String formatted() {
         return Stream.of(
-                recordStats.formatted(),
-                ingredientStats.formatted())
+                recordStats.formatted())
             .collect(Collectors.joining("\n"));
     }
 
@@ -61,14 +57,15 @@ public record Recall24SummaryStatistics(
         public Record24SummaryStatistics() {
             this(nla(), nla(), nla(), nla(), nla(), nla());
         }
-        public void accept(final Record24 rec) {
+        public void accept(final Record24.Dto rec) {
             recordCount.increment();
-            switch (rec.type()) {
-            case FOOD -> foodCount.increment();
-            case COMPOSITE -> compositeCount.increment();
-            case INCOMPLETE -> incompleteCount.increment();
-            case INFORMAL -> informalCount.increment();
-            case PRODUCT -> productCount.increment();
+            switch (rec) {
+            case Record24.Product prod -> productCount.increment();
+            case Record24.Food food -> foodCount.increment();
+            case Record24.Composite comp -> compositeCount.increment();
+            default -> {}
+//            case INCOMPLETE -> incompleteCount.increment();
+//            case INFORMAL -> informalCount.increment();
             }
         }
         public String formatted() {
@@ -78,20 +75,20 @@ public record Recall24SummaryStatistics(
         }
     }
 
-    public record Ingredient24SummaryStatistics(
-            LongAdder ingredientCount,
-            LongAdder mappedCount) {
-        public Ingredient24SummaryStatistics() {
-            this(nla(), nla());
-        }
-        public void accept(final Ingredient24 ingr) {
-            ingredientCount.increment();
-        }
-        public String formatted() {
-            return String.format("ingredients: %d (unmapped: %d)",
-                    ingredientCount.longValue(), ingredientCount.longValue() - mappedCount.longValue());
-        }
-    }
+//    public record Ingredient24SummaryStatistics(
+//            LongAdder ingredientCount,
+//            LongAdder mappedCount) {
+//        public Ingredient24SummaryStatistics() {
+//            this(nla(), nla());
+//        }
+//        public void accept(final Ingredient24 ingr) {
+//            ingredientCount.increment();
+//        }
+//        public String formatted() {
+//            return String.format("ingredients: %d (unmapped: %d)",
+//                    ingredientCount.longValue(), ingredientCount.longValue() - mappedCount.longValue());
+//        }
+//    }
 
     // -- HELPER
 

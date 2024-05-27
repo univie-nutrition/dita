@@ -46,14 +46,13 @@ import lombok.Getter;
 
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import dita.globodiet.survey.dom.Campaign;
-import dita.recall24.immutable.Ingredient;
-import dita.recall24.immutable.Interview;
-import dita.recall24.immutable.InterviewSet;
-import dita.recall24.immutable.Meal;
-import dita.recall24.immutable.MemorizedFood;
-import dita.recall24.immutable.RecallNode;
-import dita.recall24.immutable.Record;
-import dita.recall24.immutable.Respondent;
+import dita.recall24.api.Interview24;
+import dita.recall24.api.InterviewSet24;
+import dita.recall24.api.Meal24;
+import dita.recall24.api.MemorizedFood24;
+import dita.recall24.api.RecallNode24;
+import dita.recall24.api.Record24;
+import dita.recall24.api.Respondent24;
 import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
 
 @Named(DitaModuleGdSurvey.NAMESPACE + ".SurveyViewModel")
@@ -62,7 +61,7 @@ import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
 @DomainObjectLayout(
         named = "Survey Introspection")
 //@Log4j2
-public class SurveyVM extends TreeNodeVm<RecallNode, SurveyVM> {
+public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
 
     public final static String PATH_DELIMITER = ".";
 
@@ -70,13 +69,13 @@ public class SurveyVM extends TreeNodeVm<RecallNode, SurveyVM> {
 
     public static SurveyVM forRoot(
             final Campaign.SecondaryKey campaignSecondaryKey,
-            final RecallNode rootNode) {
+            final RecallNode24 rootNode) {
         return forTreePath(campaignSecondaryKey, rootNode, TreePath.root());
     }
 
     public static SurveyVM forTreePath(
             final Campaign.SecondaryKey campaignSecondaryKey,
-            final RecallNode rootNode,
+            final RecallNode24 rootNode,
             final TreePath treePath) {
         return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, treePath), rootNode);
     }
@@ -134,15 +133,15 @@ public class SurveyVM extends TreeNodeVm<RecallNode, SurveyVM> {
         this(viewModelMemento, helper.root(viewModelMemento.campaignSecondaryKey()));
     }
 
-    SurveyVM(final ViewModelMemento viewModelMemento, final RecallNode rootNode) {
+    SurveyVM(final ViewModelMemento viewModelMemento, final RecallNode24 rootNode) {
         this(viewModelMemento, rootNode, viewModelMemento.treePath());
     }
 
     SurveyVM(
             final ViewModelMemento viewModelMemento,
-            final RecallNode rootNode,
+            final RecallNode24 rootNode,
             final TreePath treePath) {
-        super(RecallNode.class, rootNode, treePath);
+        super(RecallNode24.class, rootNode, treePath);
         this.viewModelMemento = viewModelMemento;
     }
 
@@ -164,13 +163,12 @@ public class SurveyVM extends TreeNodeVm<RecallNode, SurveyVM> {
     @ObjectSupport public String title() {
         var node = activeNode();
         return switch (node) {
-        case InterviewSet interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
-        case Respondent respondent -> SurveyTreeNodeContentFactory.title(respondent);
-        case Interview interview -> SurveyTreeNodeContentFactory.title(interview);
-        case Meal meal -> SurveyTreeNodeContentFactory.title(meal);
-        case MemorizedFood mem -> SurveyTreeNodeContentFactory.title(mem);
-        case Record rec -> SurveyTreeNodeContentFactory.title(rec);
-        case Ingredient ingr -> SurveyTreeNodeContentFactory.title(ingr);
+        case InterviewSet24.Dto interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
+        case Respondent24.Dto respondent -> SurveyTreeNodeContentFactory.title(respondent);
+        case Interview24.Dto interview -> SurveyTreeNodeContentFactory.title(interview);
+        case Meal24.Dto meal -> SurveyTreeNodeContentFactory.title(meal);
+        case MemorizedFood24.Dto mem -> SurveyTreeNodeContentFactory.title(mem);
+        case Record24.Dto rec -> SurveyTreeNodeContentFactory.title(rec);
         };
     }
 
@@ -178,13 +176,13 @@ public class SurveyVM extends TreeNodeVm<RecallNode, SurveyVM> {
         var node = activeNode();
         return FontAwesomeLayers.fromQuickNotation(
             switch (node) {
-            case InterviewSet interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
-            case Respondent respondent -> SurveyTreeNodeContentFactory.icon(respondent);
-            case Interview interview -> SurveyTreeNodeContentFactory.icon(interview);
-            case Meal meal -> SurveyTreeNodeContentFactory.icon(meal);
-            case MemorizedFood mem -> "regular lightbulb";
-            case Record rec -> "regular file-lines";
-            case Ingredient ingr -> "solid plate-wheat";
+            case InterviewSet24.Dto interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
+            case Respondent24.Dto respondent -> SurveyTreeNodeContentFactory.icon(respondent);
+            case Interview24.Dto interview -> SurveyTreeNodeContentFactory.icon(interview);
+            case Meal24.Dto meal -> SurveyTreeNodeContentFactory.icon(meal);
+            case MemorizedFood24.Dto mem -> "regular lightbulb";
+            case Record24.Dto rec -> "regular file-lines";
+//            case Ingredient24.Dto ingr -> "solid plate-wheat";
             });
     }
 
@@ -193,53 +191,52 @@ public class SurveyVM extends TreeNodeVm<RecallNode, SurveyVM> {
     public AsciiDoc getContent() {
         var node = activeNode();
         return switch (node) {
-        case InterviewSet interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
-        case Respondent respondent -> SurveyTreeNodeContentFactory.content(respondent);
-        case Interview interview -> SurveyTreeNodeContentFactory.content(interview);
-        case Meal meal -> SurveyTreeNodeContentFactory.content(meal);
-        case MemorizedFood mem -> SurveyTreeNodeContentFactory.content(mem);
-        case Record rec -> SurveyTreeNodeContentFactory.content(rec);
-        case Ingredient ingr -> SurveyTreeNodeContentFactory.content(ingr);
+        case InterviewSet24.Dto interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
+        case Respondent24.Dto respondent -> SurveyTreeNodeContentFactory.content(respondent);
+        case Interview24.Dto interview -> SurveyTreeNodeContentFactory.content(interview);
+        case Meal24.Dto meal -> SurveyTreeNodeContentFactory.content(meal);
+        case MemorizedFood24.Dto mem -> SurveyTreeNodeContentFactory.content(mem);
+        case Record24.Dto rec -> SurveyTreeNodeContentFactory.content(rec);
         };
     }
 
     // -- TREENODE-VM STUFF
 
     @Override
-    protected SurveyVM getViewModel(final RecallNode node, final SurveyVM parentNode, final int siblingIndex) {
-        return node instanceof InterviewSet
+    protected SurveyVM getViewModel(final RecallNode24 node, final SurveyVM parentNode, final int siblingIndex) {
+        return node instanceof InterviewSet24.Dto
                 ? SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode())
                 : SurveyVM.forTreePath(viewModelMemento.campaignSecondaryKey(), rootNode(),
                         parentNode.activeTreePath().append(siblingIndex));
     }
 
-    public static class SurveyTreeAdapter implements TreeAdapter<RecallNode> {
-        @Override public int childCountOf(final RecallNode node) {
+    public static class SurveyTreeAdapter implements TreeAdapter<RecallNode24> {
+        @Override public int childCountOf(final RecallNode24 node) {
             return switch (node) {
-            case InterviewSet interviewSet -> interviewSet.respondents().size();
-            case Respondent respondent -> respondent.interviews().size();
-            case Interview interview -> interview.meals().size();
-            case Meal meal -> meal.memorizedFood().size();
-            case MemorizedFood mem -> mem.topLevelRecords().size();
-            case Record rec -> rec.ingredients().size();
-            case Ingredient ingr -> 0;
+            case InterviewSet24.Dto interviewSet -> interviewSet.respondents().size();
+            case Respondent24.Dto respondent -> respondent.interviews().size();
+            case Interview24.Dto interview -> interview.meals().size();
+            case Meal24.Dto meal -> meal.memorizedFood().size();
+            case MemorizedFood24.Dto mem -> mem.topLevelRecords().size();
+            case Record24.Composite comp -> comp.subRecords().size();
+            default -> 0;
             };
         }
-        @Override public Stream<RecallNode> childrenOf(final RecallNode node) {
+        @Override public Stream<RecallNode24> childrenOf(final RecallNode24 node) {
             return switch (node) {
-            case InterviewSet interviewSet -> interviewSet.respondents().stream().map(RecallNode.class::cast);
-            case Respondent respondent -> respondent.interviews().stream().map(RecallNode.class::cast);
-            case Interview interview -> interview.meals().stream().map(RecallNode.class::cast);
-            case Meal meal -> meal.memorizedFood().stream().map(RecallNode.class::cast);
-            case MemorizedFood mem -> mem.topLevelRecords().stream().map(RecallNode.class::cast);
-            case Record rec -> rec.ingredients().stream().map(RecallNode.class::cast);
-            case Ingredient ingr -> Stream.empty();
+            case InterviewSet24.Dto interviewSet -> interviewSet.respondents().stream().map(RecallNode24.class::cast);
+            case Respondent24.Dto respondent -> respondent.interviews().stream().map(RecallNode24.class::cast);
+            case Interview24.Dto interview -> interview.meals().stream().map(RecallNode24.class::cast);
+            case Meal24.Dto meal -> meal.memorizedFood().stream().map(RecallNode24.class::cast);
+            case MemorizedFood24.Dto mem -> mem.topLevelRecords().stream().map(RecallNode24.class::cast);
+            case Record24.Composite comp -> comp.subRecords().stream().map(RecallNode24.class::cast);
+            default -> Stream.empty();
             };
         }
     }
 
     @Override
-    protected TreeAdapter<RecallNode> getTreeAdapter() {
+    protected TreeAdapter<RecallNode24> getTreeAdapter() {
         return new SurveyTreeAdapter();
     }
 

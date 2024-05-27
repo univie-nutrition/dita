@@ -30,8 +30,8 @@ import dita.commons.qmap.QualifiedMap;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.recall24.api.ConsumptionRecord24;
-import dita.recall24.immutable.RecallNode;
+import dita.recall24.api.RecallNode24;
+import dita.recall24.api.Record24;
 import dita.recall24.util.Recall24ModelUtils;
 import dita.recall24.util.Recall24SummaryStatistics;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -56,10 +56,10 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
             rootNode
                 .streamDepthFirst()
                 .map(TreeNode::getValue)
-                .forEach((RecallNode node)->{
+                .forEach((RecallNode24 node)->{
                     stats.accept((dita.recall24.api.RecallNode24) node);
                     switch(node) {
-                    case ConsumptionRecord24 cRec -> recordProcessor.accept(cRec);
+                    case Record24.Consumption cRec -> recordProcessor.accept(cRec);
                     default -> {}
                     }
                 });
@@ -71,9 +71,9 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     }
 
     record RecordProcessor(Recall24SummaryStatistics stats, String systemId, QualifiedMap nutMapping)
-    implements Consumer<ConsumptionRecord24> {
+    implements Consumer<Record24.Consumption> {
         @Override
-        public void accept(final ConsumptionRecord24 rec) {
+        public void accept(final Record24.Consumption rec) {
 //FIXME
 //            var mapKey = rec.qualifiedMapKey(systemId);
 //            var mapEntry = nutMapping.lookupEntry(mapKey);

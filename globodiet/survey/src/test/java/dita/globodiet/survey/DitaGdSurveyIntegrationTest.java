@@ -32,14 +32,13 @@ import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTe
 import lombok.NonNull;
 
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.immutable.Ingredient;
-import dita.recall24.immutable.InterviewSet;
-import dita.recall24.immutable.RecallNode;
+import dita.recall24.api.InterviewSet24;
+import dita.recall24.api.RecallNode24;
+import dita.recall24.api.Record24;
 import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -70,14 +69,7 @@ extends CausewayIntegrationTestAbstract {
         return qMap;
     }
 
-    protected Stream<InterviewSet> loadAndStreamInterviews(
-            final @NonNull NamedPath path,
-            final @Nullable Consumer<Message> messageConsumer) {
-        return InterviewUtils.streamSources(surveyBlobStore, path, true)
-            .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
-    }
-
-    protected Stream<InterviewSet> loadAndStreamInterviews2(
+    protected Stream<InterviewSet24.Dto> loadAndStreamInterviews(
             final @NonNull NamedPath path,
             final @Nullable Consumer<Message> messageConsumer) {
         return InterviewUtils.streamSources(surveyBlobStore, path, true)
@@ -87,20 +79,22 @@ extends CausewayIntegrationTestAbstract {
     /**
      * Converts ingredient identifiers to NutriDb (prefixed) identifiers.
      */
-    protected UnaryOperator<InterviewSet> nutriDbTransfomer(){
+    protected UnaryOperator<InterviewSet24.Dto> nutriDbTransfomer(){
 
-        record NutriDbTransfomer() implements UnaryOperator<RecallNode> {
-            @Override public RecallNode apply(final RecallNode node) {
+        record NutriDbTransfomer() implements UnaryOperator<RecallNode24> {
+            @Override public RecallNode24 apply(final RecallNode24 node) {
                 return switch (node) {
-                case Ingredient ingr -> toNutriDbPrefixes(ingr);
+                case Record24.Food food -> toNutriDbPrefixes(food);
                 default -> node;
                 };
             }
-            private Ingredient toNutriDbPrefixes(final Ingredient ingr) {
-                return switch (ingr.parentRecord().type()) {
-                case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));
-                default -> ingr;
-                };
+            private Record24.Food toNutriDbPrefixes(final Record24.Food food) {
+                return food;
+//FIXME
+//                return switch (ingr.parentRecord().type()) {
+//                case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));
+//                default -> ingr;
+//                };
             }
         }
 

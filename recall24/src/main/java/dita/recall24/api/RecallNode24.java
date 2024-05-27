@@ -18,5 +18,41 @@
  */
 package dita.recall24.api;
 
-public interface RecallNode24 {
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Casts;
+
+public sealed interface RecallNode24
+permits
+    InterviewSet24,
+    Respondent24,
+    Interview24,
+    Meal24,
+    MemorizedFood24,
+    Record24 {
+
+    // -- ANNOTATIONS
+
+    public record Annotation(String key, Serializable value) implements Serializable {
+        public static <T extends Serializable> Function<Annotation, T> valueAs(final Class<T> requiredType) {
+            return annot->_Casts.<T>uncheckedCast(annot.value());
+        }
+        public static <E extends Serializable> Function<Annotation, Can<E>> valueAsCan(final Class<E> requiredElementType) {
+            return annot->_Casts.<Can<E>>uncheckedCast(annot.value());
+        }
+    }
+
+    default Map<String, Annotation> annotations() {
+        return Collections.emptyMap();
+    }
+
+    default Optional<Annotation> annotation(final String key) {
+        return Optional.ofNullable(annotations().get(key));
+    }
+
 }

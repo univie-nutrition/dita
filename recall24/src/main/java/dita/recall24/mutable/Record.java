@@ -30,16 +30,24 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import lombok.Data;
 
-import dita.recall24.api.Record24;
-
 @XmlRootElement(name="record")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class Record implements RecallNode {
+public final class Record {
+
+    enum Type {
+        LEGACY;
+        static Type destringify(final String v) {
+            return Type.valueOf(v);
+        }
+        String stringify() {
+            return name();
+        }
+    }
 
     @XmlElement(name="type")
     @XmlJavaTypeAdapter(value=Record.RecordTypeAdapter.class)
-    private Record24.Type type;
+    private Record.Type type;
 
     @XmlElement(name="name")
     private String name;
@@ -48,19 +56,19 @@ public final class Record implements RecallNode {
     private String facetSids;
 
     @XmlElementWrapper(name="ingredients")
-    @XmlElement(name="ingredient", type=Ingredient.class)
-    private List<Ingredient> ingredients;
+    @XmlElement(name="ingredient", type=Record.class)
+    private List<Record> subRecords;
 
-    static final class RecordTypeAdapter extends XmlAdapter<String, Record24.Type>{
-        @Override public Record24.Type unmarshal(final String v) throws Exception {
+    static final class RecordTypeAdapter extends XmlAdapter<String, Record.Type>{
+        @Override public Record.Type unmarshal(final String v) throws Exception {
             try {
-                return Record24.Type.destringify(v);
+                return Record.Type.destringify(v);
             } catch (Exception e) {
                 e.printStackTrace(); // might be swallowed otherwise
                 throw e;
             }
         }
-        @Override public String marshal(final Record24.Type v) throws Exception {
+        @Override public String marshal(final Record.Type v) throws Exception {
             return v!=null
                     ? v.stringify()
                     : null;

@@ -21,10 +21,12 @@ package dita.recall24.api;
 import java.time.LocalDate;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
 
 import dita.commons.types.Sex;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public interface Respondent24 extends RecallNode24 {
+public sealed interface Respondent24 extends RecallNode24 {
 
     /**
      * Anonymized respondent identifier, unique to the corresponding survey.
@@ -39,5 +41,41 @@ public interface Respondent24 extends RecallNode24 {
      * Interviews that this respondent was subject to.
      */
     Can<? extends Interview24> interviews();
+
+    // -- DTO
+
+    public record Dto(
+            /**
+             * Anonymized respondent identifier, unique to the corresponding survey.
+             */
+            String alias,
+
+            LocalDate dateOfBirth,
+
+            Sex sex,
+
+            /**
+             * Interviews that this respondent was subject to.
+             */
+            @TreeSubNodes
+            Can<Interview24.Dto> interviews
+
+            ) implements Respondent24 {
+
+        /**
+         * Interviews are sorted by interview-date.
+         * All ordinals are filled in. //TODO
+         */
+        Dto normalize() {
+            var interviewsSorted = interviews()
+                    .sorted((a, b)->a.interviewDate().compareTo(b.interviewDate()));
+
+            interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
+                inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
+
+            return new Dto(alias, dateOfBirth, sex, interviewsSorted);
+        }
+
+    }
 
 }

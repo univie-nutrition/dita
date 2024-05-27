@@ -33,7 +33,7 @@ import lombok.Data;
 @XmlRootElement(name="interviewSet")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class InterviewSet implements RecallNode {
+public final class InterviewSet {
 
     @XmlElementWrapper(name="respondents")
     @XmlElement(name="respondent", type=Respondent.class)

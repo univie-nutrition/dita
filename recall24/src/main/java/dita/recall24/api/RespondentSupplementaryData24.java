@@ -20,6 +20,10 @@ package dita.recall24.api;
 
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+
 public interface RespondentSupplementaryData24 {
 
     /**
@@ -48,5 +52,45 @@ public interface RespondentSupplementaryData24 {
      * as measured on the interview date.
      */
     BigDecimal weightKG();
+
+    // -- DTO
+
+    public record Dto(
+
+            /**
+             * Parent interview.
+             */
+            @JsonIgnore
+            ObjectRef<Interview24.Dto> parentInterviewRef,
+
+            /**
+             * Diet as practiced on the interview date.
+             */
+            String specialDietId,
+
+            /**
+             * Special day as practiced on the interview date.
+             */
+            String specialDayId,
+
+            /**
+             * Respondent's height in units of centimeter,
+             * as measured on the interview date.
+             */
+            BigDecimal heightCM,
+
+            /**
+             * Respondent's weight in units of kilogram,
+             * as measured on the interview date.
+             */
+            BigDecimal weightKG
+
+            ) implements dita.recall24.api.RespondentSupplementaryData24 {
+
+        @Override
+        public Interview24.Dto parentInterview() {
+            return parentInterviewRef.getValue();
+        }
+    }
 
 }

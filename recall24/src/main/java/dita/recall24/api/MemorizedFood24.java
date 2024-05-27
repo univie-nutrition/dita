@@ -18,9 +18,14 @@
  */
 package dita.recall24.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.apache.causeway.commons.collections.Can;
 
-public interface MemorizedFood24 extends RecallNode24 {
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
+
+public sealed interface MemorizedFood24 extends RecallNode24 {
 
     /**
      * Meal this memorized food belongs to.
@@ -37,5 +42,50 @@ public interface MemorizedFood24 extends RecallNode24 {
      * Those may themselves have sub records.
      */
     Can<? extends Record24> topLevelRecords();
+
+    // -- DTO
+
+    public record Dto(
+            /**
+             * Meal this memorized food belongs to.
+             */
+            @JsonIgnore
+            ObjectRef<Meal24.Dto> parentMealRef,
+
+            /**
+             * Free text, describing this memorized food.
+             */
+            String name,
+
+            /**
+             * Top level record(s) for this memorized food.
+             * Those may themselves have sub records.
+             */
+            @TreeSubNodes
+            Can<Record24.Dto> topLevelRecords
+
+            ) implements MemorizedFood24 {
+
+        public static Dto of(
+                /**
+                 * Free text, describing this memorized food.
+                 */
+                final String name,
+                /**
+                 * Top level record(s) for this memorized food.
+                 * Those may themselves have sub records.
+                 */
+                final Can<Record24.Dto> topLevelRecords) {
+
+            var memorizedFood24 = new Dto(ObjectRef.empty(), name, topLevelRecords);
+            topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
+            return memorizedFood24;
+        }
+
+        @Override
+        public Meal24.Dto parentMeal() {
+            return parentMealRef.getValue();
+        }
+    }
 
 }

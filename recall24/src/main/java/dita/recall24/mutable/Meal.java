@@ -35,7 +35,7 @@ import lombok.Data;
 @XmlRootElement(name="meal")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class Meal implements RecallNode {
+public final class Meal {
 
     @XmlElement(name="hourOfDay")
     @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalTimeToStringAdapter.class)

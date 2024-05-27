@@ -37,15 +37,15 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
-import dita.recall24.immutable.Ingredient;
-import dita.recall24.immutable.Interview;
-import dita.recall24.immutable.InterviewSet;
-import dita.recall24.immutable.Meal;
-import dita.recall24.immutable.MemorizedFood;
-import dita.recall24.immutable.RecallNode;
-import dita.recall24.immutable.Record;
-import dita.recall24.immutable.Respondent;
-import dita.recall24.immutable.corr.Correction24;
+import dita.recall24.api.Correction24;
+import dita.recall24.api.Interview24;
+import dita.recall24.api.InterviewSet24;
+import dita.recall24.api.Meal24;
+import dita.recall24.api.MemorizedFood24;
+import dita.recall24.api.RecallNode24;
+import dita.recall24.api.Record24;
+import dita.recall24.api.Respondent24;
+import dita.recall24.mutable.InterviewSet;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @UtilityClass
@@ -53,10 +53,10 @@ public class Recall24ModelUtils {
 
     // -- WRAP
 
-    public TreeNode<RecallNode> wrapAsTreeNode(
-            final @NonNull InterviewSet interviewSet24,
+    public TreeNode<RecallNode24> wrapAsTreeNode(
+            final @NonNull InterviewSet24 interviewSet24,
             final @NonNull FactoryService factoryService) {
-        return TreeNodeFactory.wrap(RecallNode.class, interviewSet24, factoryService);
+        return TreeNodeFactory.wrap(RecallNode24.class, interviewSet24, factoryService);
     }
 
     // -- DATA JOINING
@@ -65,22 +65,22 @@ public class Recall24ModelUtils {
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet join(
-            final @Nullable Iterable<Interview> iterable,
+    public InterviewSet24.Dto join(
+            final @Nullable Iterable<Interview24.Dto> iterable,
             final @Nullable Consumer<Message> messageConsumer) {
 
-        if(iterable==null) return InterviewSet.empty();
+        if(iterable==null) return InterviewSet24.empty();
 
         record Helper(
                 String alias,
                 LocalDate dateOfBirth,
                 Sex sex) {
-            static Helper helper(final Interview interview) {
+            static Helper helper(final Interview24.Dto interview) {
                 var respondent = interview.parentRespondent();
                 return new Helper(respondent.alias(), respondent.dateOfBirth(), respondent.sex());
             }
-            Respondent createRespondent(final Can<Interview> interviews, final Consumer<Message> messageConsumer) {
-                var respondent = new Respondent(alias, dateOfBirth, sex, interviews);
+            Respondent24.Dto createRespondent(final Can<Interview24.Dto> interviews, final Consumer<Message> messageConsumer) {
+                var respondent = new Respondent24.Dto(alias, dateOfBirth, sex, interviews);
                 interviews.forEach(iv->{
                     _Assert.assertEquals(alias, iv.parentRespondent().alias()); // unexpected
                     if(!Objects.equals(dateOfBirth, iv.parentRespondent().dateOfBirth())) {
@@ -100,12 +100,12 @@ public class Recall24ModelUtils {
         var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
                 .orElseGet(Message::consumerWritingToSyserr);
 
-        var interviewsByRespondentAlias = _Multimaps.<String, Interview>newListMultimap();
+        var interviewsByRespondentAlias = _Multimaps.<String, Interview24.Dto>newListMultimap();
         iterable.forEach(interview->
             interviewsByRespondentAlias
                     .putElement(interview.parentRespondent().alias(), interview));
 
-        final Can<Respondent> respondents = interviewsByRespondentAlias.entrySet()
+        final Can<Respondent24.Dto> respondents = interviewsByRespondentAlias.entrySet()
             .stream()
             .map(entry->{
                 var interviews = entry.getValue();
@@ -115,7 +115,7 @@ public class Recall24ModelUtils {
             })
             .collect(Can.toCan());
 
-        return InterviewSet.of(respondents).normalized();
+        return InterviewSet24.Dto.of(respondents).normalized();
     }
 
     // -- TRANSFORM
@@ -126,29 +126,30 @@ public class Recall24ModelUtils {
      * @implNote we convert the immutable {@link InterviewSet} into a mutable {@link InterviewSet},
      *      then transform the mutable nodes and then convert back to immutable {@link InterviewSet}
      */
-    public UnaryOperator<InterviewSet> transform(
-            final @NonNull UnaryOperator<RecallNode> transformer) {
-        return (final InterviewSet interviewSet24) -> {
+    public UnaryOperator<InterviewSet24.Dto> transform(
+            final @NonNull UnaryOperator<RecallNode24> transformer) {
+        return (final InterviewSet24.Dto interviewSet24) -> {
             final dita.recall24.mutable.InterviewSet mutableRoot = Recall24DtoUtils.toDto(interviewSet24);
             interviewSet24.respondents().zip(mutableRoot.getRespondents(), (resp, respDto)->{
                 Recall24DtoUtils.updateDtoFromModelFields(respDto,
-                        (Respondent) invokeWithRuturnTypeChecked(transformer, resp));
+                        (Respondent24.Dto) invokeWithRuturnTypeChecked(transformer, resp));
                 resp.interviews().zip(respDto.getInterviews(), (intv, intvDto)->{
                     Recall24DtoUtils.updateDtoFromModelFields(intvDto,
-                            (Interview) invokeWithRuturnTypeChecked(transformer, intv));
+                            (Interview24.Dto) invokeWithRuturnTypeChecked(transformer, intv));
                     intv.meals().zip(intvDto.getMeals(), (meal, mealDto)->{
                         Recall24DtoUtils.updateDtoFromModelFields(mealDto,
-                                (Meal) invokeWithRuturnTypeChecked(transformer, meal));
+                                (Meal24.Dto) invokeWithRuturnTypeChecked(transformer, meal));
                         meal.memorizedFood().zip(mealDto.getMemorizedFood(), (mem, memDto)->{
                             Recall24DtoUtils.updateDtoFromModelFields(memDto,
-                                    (MemorizedFood) invokeWithRuturnTypeChecked(transformer, mem));
+                                    (MemorizedFood24.Dto) invokeWithRuturnTypeChecked(transformer, mem));
                             mem.topLevelRecords().zip(memDto.getTopLevelRecords(), (rec, recDto)->{
                                 Recall24DtoUtils.updateDtoFromModelFields(recDto,
-                                        (Record) invokeWithRuturnTypeChecked(transformer, rec));
-                                rec.ingredients().zip(recDto.getIngredients(), (ingr, ingrDto)->{
-                                    Recall24DtoUtils.updateDtoFromModelFields(ingrDto,
-                                            (Ingredient) invokeWithRuturnTypeChecked(transformer, ingr));
-                                });
+                                        (Record24.Dto) invokeWithRuturnTypeChecked(transformer, rec));
+                                //FIXME sub-records
+//                                rec.ingredients().zip(recDto.getIngredients(), (ingr, ingrDto)->{
+//                                    Recall24DtoUtils.updateDtoFromModelFields(ingrDto,
+//                                            (Ingredient) invokeWithRuturnTypeChecked(transformer, ingr));
+//                                });
                             });
                         });
                     });
@@ -158,7 +159,7 @@ public class Recall24ModelUtils {
         };
     }
 
-    public static UnaryOperator<InterviewSet> correct(final @Nullable Correction24 correction24) {
+    public static UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
                 ? transform(correction24.asOperator())
                 : UnaryOperator.identity();
@@ -166,8 +167,8 @@ public class Recall24ModelUtils {
 
     // -- HELPER
 
-    private RecallNode invokeWithRuturnTypeChecked(
-            final @NonNull UnaryOperator<RecallNode> transformer, final @NonNull RecallNode node){
+    private RecallNode24 invokeWithRuturnTypeChecked(
+            final @NonNull UnaryOperator<RecallNode24> transformer, final @NonNull RecallNode24 node){
         var transformedNode = transformer.apply(node);
         _Assert.assertNotNull(transformedNode);
         _Assert.assertEquals(node.getClass(), transformedNode.getClass());

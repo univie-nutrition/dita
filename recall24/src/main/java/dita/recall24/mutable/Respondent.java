@@ -38,7 +38,7 @@ import dita.commons.types.Sex;
 @XmlRootElement(name="respondent")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public final class Respondent implements RecallNode {
+public final class Respondent {
 
     @XmlElement(name="alias")
     private String alias;
