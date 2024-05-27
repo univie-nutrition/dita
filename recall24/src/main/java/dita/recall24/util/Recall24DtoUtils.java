@@ -210,7 +210,8 @@ public class Recall24DtoUtils {
     }
 
     private Record24.Dto fromDto(final dita.recall24.mutable.Record dto) {
-        return Record24.product(null, null, null, null, null, null); // FIXME
+        // FIXME[23] flesh out
+        return Record24.product(null, null, null, null, null, null); 
 //        val ingredients = _NullSafe.stream(dto.getIngredients())
 //                .map(ingr->fromDto(ingr))
 //                .collect(Can.toCan());
@@ -274,7 +275,7 @@ public class Recall24DtoUtils {
     private dita.recall24.mutable.Record toDto(
             final Record24.Dto model) {
         val dto = updateDtoFromModelFields(new dita.recall24.mutable.Record(), model); 
-//FIXME        
+//FIXME[23]       
 //        dto.setIngredients(model.ingredients()
 //                .stream()
 //                .map(Recall24DtoUtils::toDto)

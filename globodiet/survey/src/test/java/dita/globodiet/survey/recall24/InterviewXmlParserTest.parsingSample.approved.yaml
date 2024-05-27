@@ -6,7 +6,7 @@ respondents:
   - interviewDate: "2021-04-06"
     interviewOrdinalRef:
       value: 1
-    respondentMetaData:
+    respondentSupplementaryData:
       specialDietId: "99"
       specialDayId: "00"
       heightCM: 160
@@ -17,37 +17,63 @@ respondents:
       foodConsumptionPlaceId: "01"
       memorizedFood:
       - name: "Kaffee"
-        records:
-        - type: "FOOD"
+        topLevelRecords:
+        - type: "COMPOSITE"
           name: "Eieraufstrich"
+          sid: "00232"
           facetSids: "0103,0200,0317,0405"
-          ingredients:
-          - sid: "01529"
+          subRecords:
+          - type: "FOOD"
             name: "Mayonnaise"
+            sid: "01529"
             facetSids: "0699,0400,1000,0801"
-            rawPerCookedRatio: 1.0
-            quantityCooked: "6.741572856903076[g]"
-          - sid: "00916"
+            amountConsumed: 6.7415728569030762
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+          - type: "FOOD"
             name: "Ei"
+            sid: "00916"
             facetSids: "0107,0303"
-            rawPerCookedRatio: 1.0
-            quantityCooked: "16.853933334350586[g]"
-          - sid: "01547"
+            amountConsumed: 16.853933334350586
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+          - type: "FOOD"
             name: "Schnittlauch"
+            sid: "01547"
             facetSids: "0205,0499"
-            rawPerCookedRatio: 1.0
-            quantityCooked: "0.9363296031951904[g]"
-          - sid: "00103"
+            amountConsumed: 0.93632960319519043
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+          - type: "FOOD"
             name: "Knoblauch"
+            sid: "00103"
             facetSids: "0205,0499,0999,1200,0399,2800"
-            rawPerCookedRatio: 1.0
-            quantityCooked: "0.3745318353176117[g]"
-          - sid: "01571"
+            amountConsumed: 0.37453183531761169
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+          - type: "FOOD"
             name: "Salz, Koch"
+            sid: "01571"
             facetSids: ""
-            rawPerCookedRatio: 1.0
-            quantityCooked: "0.09363295882940292[g]"
+            amountConsumed: 0.093632958829402924
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Kaffee, mit Koffein"
+          sid: "01339"
           facetSids: "0699,0201,1200,0702"
-          ingredients: []
+          amountConsumed: 125
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null

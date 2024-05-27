@@ -57,8 +57,7 @@ class _InterviewConverter {
                     var memEntry = memNode.entry();
                     var records = memNode.childNodes().stream()
                     .map(recordNode->{
-                        var recordEntry = recordNode.entry();
-                        var record24 = toTopLevelRecord24(recordEntry, recordNode.childNodes());
+                        var record24 = toTopLevelRecord24(recordNode);
                         return record24;
                     })
                     .collect(Can.toCan());
@@ -94,60 +93,65 @@ class _InterviewConverter {
 
     // -- RECORDS
 
-
-    private Record24.Dto toTopLevelRecord24(final ListEntry listEntry, final List<ListEntryTreeNode> subEntries) {
+    private Record24.Dto toTopLevelRecord24(final ListEntryTreeNode topLevelRecordNode) {
+        final List<ListEntryTreeNode> subEntries = topLevelRecordNode.childNodes();
         final int subRecordCount = _NullSafe.size(subEntries);
-
-      //FIXME
-//      var recordSubEntries = recordNode.childNodes().stream()
-//      .map(recordSubNode->{
-//          var type = recordSubNode.type();
-//          switch (type) {
-//          case FoodSelectedAsARecipeIngredient:
-//              return toIngredient24(recordSubNode.entry());
-//          case TypeOfFatUsedFacet:
-//          case TypeOfMilkOrLiquidUsedFacet:
-//          case FatDuringCookingForFood:
-//          case FatSauceOrSweeteners:
-//              return null; //TODO no receiving type yet
-//          default:
-//              throw new IllegalArgumentException("Unexpected value: " + type);
-//          }
-//      })
-//      .collect(Can.toCan());
+        var listEntry = topLevelRecordNode.entry();
 
         //TODO label() might be non empty -> information lost
-        //TODO needs a switch on type actually
         return switch (listEntry.listEntryType()) {
-        case Food -> {
-            //FIXME sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
-            _Assert.assertEquals(0, subRecordCount, ()->"'food' record is not expected to have sub-records");
-            yield Record24.food(
-                listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
-                listEntry.getQuantityAmount(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
-        }
         case Recipe -> {
             _Assert.assertTrue(subRecordCount>0, ()->"'recipe' record is expected to have at least one sub-record");
             yield Record24.composite(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
-                subEntries.stream().map(_InterviewConverter::toLeafRecord24).collect(Can.toCan())); //FIXME
+                toRecords24(subEntries));
         }
-        case FatSauceOrSweeteners -> null; // redundant: ignore
-        default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
+        default -> toRecord24(topLevelRecordNode);
         };
     }
 
-    private Record24.Dto toLeafRecord24(final ListEntryTreeNode node) {
+    private Can<Record24.Dto> toRecords24(final List<ListEntryTreeNode> nodes) {
+        return _NullSafe.stream(nodes).map(_InterviewConverter::toRecord24).collect(Can.toCan());
+    }
+
+    private Record24.Dto toRecord24(final ListEntryTreeNode node) {
+        final List<ListEntryTreeNode> subEntries = node.childNodes();
         final int subRecordCount = _NullSafe.size(node.childNodes());
-        _Assert.assertEquals(0, subRecordCount, ()->"leaf record is expected to have no sub-records");
+
+        //_Assert.assertEquals(0, subRecordCount, ()->"leaf record is expected to have no sub-records");
         var listEntry = node.entry();
         return switch (listEntry.listEntryType()) {
-        case FoodSelectedAsARecipeIngredient -> {
+        case Food, FoodSelectedAsARecipeIngredient, FatDuringCookingForFood, FatDuringCookingForIngredient -> {
+            // sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
+            var usedDuringCooking = subRecordCount>0
+                 ? toRecords24(subEntries)
+                 : Can.<Record24.Dto>empty();
             yield Record24.food(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
-                listEntry.getQuantityAmount(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
+                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                usedDuringCooking);
+        }
+        case DietarySupplement -> {
+            _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
+            yield Record24.product(
+                listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
+                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
         }
         case FatSauceOrSweeteners -> null; // redundant: ignore
+        case TypeOfFatUsedFacet -> {
+            _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfFatUsedFacet' record is expected to have no sub-records");
+            yield Record24.typeOfFatUsed(
+                    listEntry.getName(),
+                    listEntry.getFoodOrSimilarCode(),
+                    listEntry.getFacetDescriptorCodes());
+        }
+        case TypeOfMilkOrLiquidUsedFacet -> {
+            _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfMilkOrLiquidUsedFacet' record is expected to have no sub-records");
+            yield Record24.typeOfMilkOrLiquidUsed(
+                    listEntry.getName(),
+                    listEntry.getFoodOrSimilarCode(),
+                    listEntry.getFacetDescriptorCodes());
+        }
         default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
         };
     }

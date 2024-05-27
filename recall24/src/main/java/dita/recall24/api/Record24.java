@@ -21,12 +21,15 @@ package dita.recall24.api;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
@@ -41,6 +44,11 @@ permits
      * Memorized food this record belongs to.
      */
     MemorizedFood24 parentMemorizedFood();
+
+    /**
+     * The type of this record.
+     */
+    Record24.Type type();
 
     /**
      * The name of this record.
@@ -62,7 +70,52 @@ permits
     String facetSids();
 
     default public String discriminator() {
-        return "" + sid() + ";" + facetSids();
+        return _Strings.nullToEmpty(sid()) + ";" + _Strings.nullToEmpty(facetSids());
+    }
+
+    public static enum Type {
+
+        /**
+         * A composition of identified generic food or recipes.
+         * <p>
+         * Eg. 'on-the-fly' recipes, that were recorded during an interview.
+         */
+        COMPOSITE,
+
+        /**
+         * Generic food, identified within the standard food description model (food-list)
+         * or identified within eg. a recipe data base.
+         */
+        FOOD,
+
+        /**
+         * Product identified within a product data base. <p>Eg. supplements.
+         */
+        PRODUCT,
+
+        TYPE_OF_FAT_USED,
+        TYPE_OF_MILK_OR_LIQUID_USED,
+        ;
+
+        /** @see #FOOD */
+        public boolean isFood() { return this == FOOD; }
+        /** @see #COMPOSITE */
+        public boolean isComposite() { return this == COMPOSITE; }
+        /** @see #PRODUCT */
+        public boolean isProduct() { return this == PRODUCT; }
+
+        /** to DTO */
+        public String stringify() {
+            return name().toLowerCase();
+        }
+
+        /** from DTO */
+        @Nullable
+        public static Type destringify(final String stringified) {
+            return StringUtils.hasLength(stringified)
+                    ? Type.valueOf(stringified.toUpperCase())
+                    : null;
+        }
     }
 
     public record Note(
@@ -97,6 +150,7 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
             String name,
             String sid,
             String facetSids,
@@ -106,6 +160,7 @@ permits
             @TreeSubNodes
             Can<? extends Record24> subRecords
             ) implements Record24.Dto {
+
     }
 
     public sealed interface Consumption extends Record24.Dto
@@ -129,7 +184,10 @@ permits
         /**
          * Convert to a {@link FoodConsumption}.
          */
-        FoodConsumption asFoodConsumption();
+        default FoodConsumption asFoodConsumption() {
+            //FIXME[23] flesh out
+            return new FoodConsumption(null, null, null, null, null);
+        }
     }
 
     /**
@@ -140,21 +198,16 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
             String name,
             String sid,
             String facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio,
-            TypeOfFatUsed typeOfFatUsedDuringCooking,
-            TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsedDuringCooking
+            Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
+            Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking
             ) implements Consumption {
-
-        @Override
-        public FoodConsumption asFoodConsumption() {
-            // TODO Auto-generated method stub
-            return null;
-        }
     }
 
     /**
@@ -164,6 +217,7 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
             Food parentFood,
             String name,
             String sid,
@@ -178,6 +232,7 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
             Food parentFood,
             String name,
             String sid,
@@ -192,6 +247,7 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
             String name,
             String sid,
             String facetSids,
@@ -199,12 +255,6 @@ permits
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio
             ) implements Consumption {
-
-        @Override
-        public FoodConsumption asFoodConsumption() {
-            // TODO Auto-generated method stub
-            return null;
-        }
     }
 
     // -- FACTORIES
@@ -224,7 +274,8 @@ permits
              */
             final String facetSids,
             final Can<? extends Record24> subRecords) {
-        var composite = new Composite(ObjectRef.empty(), name, sid, facetSids, subRecords);
+        var composite = new Composite(ObjectRef.empty(), Record24.Type.COMPOSITE,
+                name, sid, facetSids, subRecords);
         //subRecords.forEach(rec->rec.parentRecordRef().setValue(composite));
         return composite;
     }
@@ -246,7 +297,8 @@ permits
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio) {
-        return new Product(ObjectRef.empty(), name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+        return new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
     }
 
     public static Food food(
@@ -265,8 +317,45 @@ permits
             final String facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
-            final BigDecimal rawPerCookedRatio) {
-        return new Food(ObjectRef.empty(), name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, null, null);
+            final BigDecimal rawPerCookedRatio,
+            final Can<Record24.Dto> usedDuringCooking) {
+
+        var typeOfFatUsed = usedDuringCooking.stream()
+                .filter(TypeOfFatUsed.class::isInstance)
+                .findFirst()
+                .map(TypeOfFatUsed.class::cast);
+        var typeOfMilkOrLiquidUsed = usedDuringCooking.stream()
+                .filter(TypeOfMilkOrLiquidUsed.class::isInstance)
+                .findFirst()
+                .map(TypeOfMilkOrLiquidUsed.class::cast);
+
+        return new Food(ObjectRef.empty(), Record24.Type.FOOD,
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
+                typeOfFatUsed, typeOfMilkOrLiquidUsed);
+    }
+
+    /**
+     * Type of fat used during cooking.
+     */
+    public static TypeOfFatUsed typeOfFatUsed(
+            //Food parentFood, //FIXME[23] Food parentFood,
+            final String name,
+            final String sid,
+            final String facetSids) {
+        return new Record24.TypeOfFatUsed(ObjectRef.empty(), Record24.Type.TYPE_OF_FAT_USED,
+                null, name, sid, facetSids);
+    }
+
+    /**
+     * Type of milk or liquid used during cooking.
+     */
+    public static TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed(
+            //Food parentFood, //FIXME[23] Food parentFood,
+            final String name,
+            final String sid,
+            final String facetSids) {
+        return new Record24.TypeOfMilkOrLiquidUsed(ObjectRef.empty(), Record24.Type.TYPE_OF_MILK_OR_LIQUID_USED,
+                null, name, sid, facetSids);
     }
 
 }

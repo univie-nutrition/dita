@@ -145,7 +145,7 @@ public class Recall24ModelUtils {
                             mem.topLevelRecords().zip(memDto.getTopLevelRecords(), (rec, recDto)->{
                                 Recall24DtoUtils.updateDtoFromModelFields(recDto,
                                         (Record24.Dto) invokeWithRuturnTypeChecked(transformer, rec));
-                                //FIXME sub-records
+                                //FIXME[23] sub-records
 //                                rec.ingredients().zip(recDto.getIngredients(), (ingr, ingrDto)->{
 //                                    Recall24DtoUtils.updateDtoFromModelFields(ingrDto,
 //                                            (Ingredient) invokeWithRuturnTypeChecked(transformer, ingr));

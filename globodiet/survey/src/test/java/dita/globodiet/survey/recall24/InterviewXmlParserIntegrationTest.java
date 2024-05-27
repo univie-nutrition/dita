@@ -74,7 +74,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     implements Consumer<Record24.Consumption> {
         @Override
         public void accept(final Record24.Consumption rec) {
-//FIXME
+//FIXME[23]
 //            var mapKey = rec.qualifiedMapKey(systemId);
 //            var mapEntry = nutMapping.lookupEntry(mapKey);
 //            if(mapEntry.isPresent()) {
