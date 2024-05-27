@@ -209,7 +209,7 @@ permits
 
     // -- FACTORIES
 
-    public static Composite Composite(
+    public static Composite composite(
             /**
              * The name of this record.
              */

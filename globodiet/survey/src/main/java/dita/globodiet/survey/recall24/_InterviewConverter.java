@@ -19,9 +19,11 @@
 package dita.globodiet.survey.recall24;
 
 import java.time.LocalTime;
+import java.util.List;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
@@ -29,6 +31,7 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
+import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.recall24.api.Interview24;
 import dita.recall24.api.Meal24;
@@ -55,26 +58,7 @@ class _InterviewConverter {
                     var records = memNode.childNodes().stream()
                     .map(recordNode->{
                         var recordEntry = recordNode.entry();
-
-//FIXME
-//                        var recordSubEntries = recordNode.childNodes().stream()
-//                        .map(recordSubNode->{
-//                            var type = recordSubNode.type();
-//                            switch (type) {
-//                            case FoodSelectedAsARecipeIngredient:
-//                                return toIngredient24(recordSubNode.entry());
-//                            case TypeOfFatUsedFacet:
-//                            case TypeOfMilkOrLiquidUsedFacet:
-//                            case FatDuringCookingForFood:
-//                            case FatSauceOrSweeteners:
-//                                return null; //TODO no receiving type yet
-//                            default:
-//                                throw new IllegalArgumentException("Unexpected value: " + type);
-//                            }
-//                        })
-//                        .collect(Can.toCan());
-
-                        var record24 = toTopLevelRecord24(recordEntry);
+                        var record24 = toTopLevelRecord24(recordEntry, recordNode.childNodes());
                         return record24;
                     })
                     .collect(Can.toCan());
@@ -111,17 +95,63 @@ class _InterviewConverter {
     // -- RECORDS
 
 
-    private Record24.Dto toTopLevelRecord24(final ListEntry listEntry) {
+    private Record24.Dto toTopLevelRecord24(final ListEntry listEntry, final List<ListEntryTreeNode> subEntries) {
+        final int subRecordCount = _NullSafe.size(subEntries);
+
+      //FIXME
+//      var recordSubEntries = recordNode.childNodes().stream()
+//      .map(recordSubNode->{
+//          var type = recordSubNode.type();
+//          switch (type) {
+//          case FoodSelectedAsARecipeIngredient:
+//              return toIngredient24(recordSubNode.entry());
+//          case TypeOfFatUsedFacet:
+//          case TypeOfMilkOrLiquidUsedFacet:
+//          case FatDuringCookingForFood:
+//          case FatSauceOrSweeteners:
+//              return null; //TODO no receiving type yet
+//          default:
+//              throw new IllegalArgumentException("Unexpected value: " + type);
+//          }
+//      })
+//      .collect(Can.toCan());
+
         //TODO label() might be non empty -> information lost
         //TODO needs a switch on type actually
         return switch (listEntry.listEntryType()) {
-        //TODO assert has no sub-records
-        case Food -> Record24.food(
+        case Food -> {
+            //FIXME sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
+            _Assert.assertEquals(0, subRecordCount, ()->"'food' record is not expected to have sub-records");
+            yield Record24.food(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
                 listEntry.getQuantityAmount(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
+        }
+        case Recipe -> {
+            _Assert.assertTrue(subRecordCount>0, ()->"'recipe' record is expected to have at least one sub-record");
+            yield Record24.composite(
+                listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
+                subEntries.stream().map(_InterviewConverter::toLeafRecord24).collect(Can.toCan())); //FIXME
+        }
+        case FatSauceOrSweeteners -> null; // redundant: ignore
         default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
         };
     }
+
+    private Record24.Dto toLeafRecord24(final ListEntryTreeNode node) {
+        final int subRecordCount = _NullSafe.size(node.childNodes());
+        _Assert.assertEquals(0, subRecordCount, ()->"leaf record is expected to have no sub-records");
+        var listEntry = node.entry();
+        return switch (listEntry.listEntryType()) {
+        case FoodSelectedAsARecipeIngredient -> {
+            yield Record24.food(
+                listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
+                listEntry.getQuantityAmount(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
+        }
+        case FatSauceOrSweeteners -> null; // redundant: ignore
+        default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
+        };
+    }
+
 
     // -- MEALS
 
