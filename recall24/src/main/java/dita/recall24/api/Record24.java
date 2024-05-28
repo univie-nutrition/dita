@@ -19,10 +19,10 @@
 package dita.recall24.api;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,9 +30,11 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -131,11 +133,9 @@ permits
         return Collections.emptyList();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    default Builder24<Dto> builder() {
-        return new Builder();
-    }
+    @SuppressWarnings("unchecked")
+    Builder24<Dto> asBuilder();
 
     // -- DTOs
 
@@ -153,8 +153,8 @@ permits
             return parentMemorizedFoodRef().getValue();
         }
 
-        default void visitDepthFirst(final Consumer<Dto> onRecord) {
-            onRecord.accept(this);
+        default void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
+            onRecord.accept(level, this);
         }
     }
 
@@ -177,16 +177,20 @@ permits
             ) implements Record24.Dto {
 
         @Override
-        public void visitDepthFirst(final Consumer<Dto> onRecord) {
-            onRecord.accept(this);
+        public void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
+            onRecord.accept(level, this);
             subRecords.forEach(rec->{
                 switch (rec) {
-                case Dto dto -> dto.visitDepthFirst(onRecord);
+                case Dto dto -> dto.visitDepthFirst(level+1, onRecord);
                 default -> {}
                 }
             });
         }
 
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+        }
     }
 
     public sealed interface Consumption extends Record24.Dto
@@ -236,10 +240,17 @@ permits
             ) implements Consumption {
 
         @Override
-        public void visitDepthFirst(final Consumer<Dto> onRecord) {
-            onRecord.accept(this);
-            typeOfFatUsedDuringCooking.ifPresent(onRecord);
-            typeOfMilkOrLiquidUsedDuringCooking.ifPresent(onRecord);
+        public void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
+            onRecord.accept(level, this);
+            typeOfFatUsedDuringCooking.ifPresent(x->onRecord.accept(level + 1, x));
+            typeOfMilkOrLiquidUsedDuringCooking.ifPresent(x->onRecord.accept(level + 1, x));
+        }
+
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids)
+                    .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
+                    .rawPerCookedRatio(rawPerCookedRatio);
         }
     }
 
@@ -256,6 +267,11 @@ permits
             String sid,
             String facetSids
             ) implements Record24.Dto {
+
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+        }
     }
 
     /**
@@ -271,6 +287,10 @@ permits
             String sid,
             String facetSids
             ) implements Record24.Dto {
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+        }
     }
 
     /**
@@ -288,6 +308,13 @@ permits
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio
             ) implements Consumption {
+
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids)
+                    .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
+                    .rawPerCookedRatio(rawPerCookedRatio);
+        }
     }
 
     // -- FACTORIES
@@ -393,12 +420,29 @@ permits
 
     // -- BUILDER
 
+    @RequiredArgsConstructor
     @Getter @Setter @Accessors(fluent=true)
     public static class Builder implements Builder24<Dto> {
-        //final List<Respondent24.Dto> respondents = new ArrayList<>();
+        private final Record24.Type type;
+
+        private String name;
+        private String sid;
+        private String facetSids;
+        private BigDecimal amountConsumed;
+        private ConsumptionUnit consumptionUnit;
+        private BigDecimal rawPerCookedRatio;
+
+        final List<Record24.Dto> subRecords = new ArrayList<>();
         @Override
         public Dto build() {
-            return null;//Dto.of(Can.ofCollection(respondents));
+            return switch (type) {
+            case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords));
+            case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords));
+            case PRODUCT -> product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+            case TYPE_OF_FAT_USED -> typeOfFatUsed(name, sid, facetSids);
+            case TYPE_OF_MILK_OR_LIQUID_USED -> typeOfMilkOrLiquidUsed(name, sid, facetSids);
+            default -> throw new IllegalArgumentException("Unexpected value: " + type);
+            };
         }
     }
 

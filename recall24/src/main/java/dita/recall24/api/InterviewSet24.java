@@ -210,7 +210,7 @@ permits InterviewSet24.Dto {
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> builder() {
+        public Builder24<Dto> asBuilder() {
             return new Builder();
         }
 

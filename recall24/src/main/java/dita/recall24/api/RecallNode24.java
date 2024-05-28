@@ -37,7 +37,7 @@ permits
     MemorizedFood24,
     Record24 {
 
-    <T extends RecallNode24> Builder24<T> builder();
+    <T extends RecallNode24> Builder24<T> asBuilder();
 
     public interface Builder24<T extends RecallNode24> {
         T build();

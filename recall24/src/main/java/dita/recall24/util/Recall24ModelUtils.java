@@ -42,7 +42,10 @@ import dita.commons.types.Sex;
 import dita.recall24.api.Correction24;
 import dita.recall24.api.Interview24;
 import dita.recall24.api.InterviewSet24;
+import dita.recall24.api.Meal24;
+import dita.recall24.api.MemorizedFood24;
 import dita.recall24.api.RecallNode24;
+import dita.recall24.api.Record24;
 import dita.recall24.api.Respondent24;
 import dita.recall24.mutable.InterviewSet;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
@@ -132,6 +135,8 @@ public class Recall24ModelUtils {
             final @NonNull RecallNode24.Transfomer transformer) {
         return (final InterviewSet24.Dto interviewSet) -> {
 
+            final var stack = new int[4];
+
             var gBuilder = GraphUtils.GraphBuilder.directed(RecallNode24.class);
             gBuilder.addNode(interviewSet);
 
@@ -154,14 +159,13 @@ public class Recall24ModelUtils {
                             gBuilder.addNode(mem);
                             final int memIndex = gBuilder.nodeCount()-1;
                             gBuilder.addEdge(mealIndex, memIndex);
-
+                            stack[0] = memIndex;
                             mem.topLevelRecords().forEach(topLevelRec->{
-                                topLevelRec.visitDepthFirst(rec->{
-
+                                topLevelRec.visitDepthFirst(0, (level, rec)->{
                                     gBuilder.addNode(rec);
                                     final int recIndex = gBuilder.nodeCount()-1;
-                                    gBuilder.addEdge(memIndex, recIndex); //FIXME[23]
-
+                                    stack[level + 1] = recIndex;
+                                    gBuilder.addEdge(stack[level], recIndex);
                                 });
                             });
                         });
@@ -173,26 +177,48 @@ public class Recall24ModelUtils {
 
             //var builderGraph = new GraphUtils.Graph(graph.kernel(), graph.nodes().map(x->x.builder()));
 
-            var builderNodes = graph.nodes().map(node->node.builder());
+            var builderNodes = graph.nodes().map(node->node.asBuilder());
             builderNodes.forEach(transformer);
+            final int interviewSetIndex = 0;
 
-            var setBuilder = _Casts.<InterviewSet24.Builder>uncheckedCast(builderNodes.getElseFail(0));
-            var respondentBuilders = graph.kernel().streamNeighbors(0)
-                    .mapToObj(builderNodes::getElseFail)
-                    .collect(Can.toCan());
-
-            respondentBuilders.forEach(respBuilder->{
+            var setBuilder = _Casts.<InterviewSet24.Builder>uncheckedCast(builderNodes.getElseFail(interviewSetIndex));
+            graph.kernel().streamNeighbors(interviewSetIndex).forEach(respIndex->{
+                var respBuilder = _Casts.<Respondent24.Builder>uncheckedCast(builderNodes.getElseFail(respIndex));
+                graph.kernel().streamNeighbors(respIndex).forEach(intvIndex->{
+                    var intvBuilder = _Casts.<Interview24.Builder>uncheckedCast(builderNodes.getElseFail(intvIndex));
+                    graph.kernel().streamNeighbors(intvIndex).forEach(mealIndex->{
+                        var mealBuilder = _Casts.<Meal24.Builder>uncheckedCast(builderNodes.getElseFail(mealIndex));
+                        graph.kernel().streamNeighbors(mealIndex).forEach(memIndex->{
+                            var memBuilder = _Casts.<MemorizedFood24.Builder>uncheckedCast(builderNodes.getElseFail(memIndex));
+                            graph.kernel().streamNeighbors(memIndex).forEach(topLevelRecordIndex->{
+                                var recBuilder0 = _Casts.<Record24.Builder>uncheckedCast(builderNodes.getElseFail(topLevelRecordIndex));
+                                graph.kernel().streamNeighbors(topLevelRecordIndex).forEach(rec1->{
+                                    var recBuilder1 = _Casts.<Record24.Builder>uncheckedCast(builderNodes.getElseFail(rec1));
+                                    graph.kernel().streamNeighbors(rec1).forEach(rec2->{
+                                        var recBuilder2 = _Casts.<Record24.Builder>uncheckedCast(builderNodes.getElseFail(rec2));
+                                        _Assert.assertEquals(0L, graph.kernel().streamNeighbors(rec2).count(), ()->
+                                                "record nesting overflow");
+                                        recBuilder1.subRecords().add((Record24.Dto) recBuilder2.build());
+                                    });
+                                    recBuilder0.subRecords().add((Record24.Dto) recBuilder1.build());
+                                });
+                                memBuilder.topLevelRecords().add((Record24.Dto) recBuilder0.build());
+                            });
+                            mealBuilder.memorizedFood().add((MemorizedFood24.Dto) memBuilder.build());
+                        });
+                        intvBuilder.meals().add((Meal24.Dto) mealBuilder.build());
+                    });
+                    respBuilder.interviews().add((Interview24.Dto) intvBuilder.build());
+                });
                 setBuilder.respondents().add((Respondent24.Dto) respBuilder.build());
             });
 
-            //var transformedNodes = builderNodes.map(node->node.build());
-
-            var transformedInterview = (InterviewSet24.Dto) setBuilder.build();
+            var transformedInterviewSet = (InterviewSet24.Dto) setBuilder.build();
 
             //FIXME[23] remove debug code
-            System.err.printf("transformedInterview %s%n", transformedInterview.toYaml());
+            System.err.printf("transformedInterviewSet %s%n", transformedInterviewSet.toYaml());
 
-            return transformedInterview;
+            return transformedInterviewSet;
         };
     }
 

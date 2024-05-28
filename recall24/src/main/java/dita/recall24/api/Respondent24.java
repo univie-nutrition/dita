@@ -84,7 +84,7 @@ public sealed interface Respondent24 extends RecallNode24 {
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> builder() {
+        public Builder24<Dto> asBuilder() {
             return new Builder().alias(alias).dateOfBirth(dateOfBirth).sex(sex);
         }
 

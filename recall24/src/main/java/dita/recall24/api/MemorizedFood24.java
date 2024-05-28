@@ -96,7 +96,7 @@ public sealed interface MemorizedFood24 extends RecallNode24 {
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> builder() {
+        public Builder24<Dto> asBuilder() {
             return new Builder()
                     .name(name);
         }
