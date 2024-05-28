@@ -111,6 +111,9 @@ permits
         /** @see #PRODUCT */
         public boolean isProduct() { return this == PRODUCT; }
 
+        public boolean isInformal() { return this == TYPE_OF_FAT_USED
+                || this == TYPE_OF_MILK_OR_LIQUID_USED; }
+
         /** to DTO */
         public String stringify() {
             return name().toLowerCase();
@@ -123,6 +126,7 @@ permits
                     ? Type.valueOf(stringified.toUpperCase())
                     : null;
         }
+
     }
 
     public record Note(
