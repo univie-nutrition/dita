@@ -18,269 +18,211 @@
  */
 package dita.recall24.util;
 
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
-import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.Clob;
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.springframework.lang.Nullable;
+
+import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.Try;
-import org.apache.causeway.commons.internal.base._NullSafe;
-import org.apache.causeway.commons.io.DataSink;
-import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.graph.GraphUtils;
+import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Casts;
+import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import lombok.val;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.types.IntRef;
+import dita.commons.types.Message;
+import dita.commons.types.Sex;
+import dita.recall24.api.Correction24;
 import dita.recall24.api.Interview24;
 import dita.recall24.api.InterviewSet24;
 import dita.recall24.api.Meal24;
 import dita.recall24.api.MemorizedFood24;
+import dita.recall24.api.RecallNode24;
 import dita.recall24.api.Record24;
 import dita.recall24.api.Respondent24;
-import dita.recall24.api.RespondentSupplementaryData24;
-import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @UtilityClass
 public class Recall24DtoUtils {
 
-    // -- SURVEY IO
+    // -- WRAP
 
-    public Try<dita.recall24.mutable.InterviewSet> tryReadSurvey(final DataSource dataSource) {
-        return new _JaxbReader()
-                .readFromXml(dataSource);
+    public TreeNode<RecallNode24> wrapAsTreeNode(
+            final @NonNull InterviewSet24 interviewSet24,
+            final @NonNull FactoryService factoryService) {
+        return TreeNodeFactory.wrap(RecallNode24.class, interviewSet24, factoryService);
     }
 
-    public Try<Void> tryWriteSurvey(final dita.recall24.mutable.InterviewSet interviewSet, final DataSink dataSink) {
-        return new _JaxbWriter()
-                .tryWriteTo(interviewSet, dataSink);
-    }
+    // -- DATA JOINING
 
-    public Try<Blob> tryZip(final String zipEntryName, final dita.recall24.mutable.InterviewSet interviewSet) {
-        return new _JaxbWriter()
-                .tryToString(interviewSet)
-                .mapEmptyToFailure()
-                .mapSuccessAsNullable(xml->
-                    Clob.of(zipEntryName, CommonMimeType.XML, xml)
-                    .toBlobUtf8()
-                    .zip());
-    }
+    /**
+     * Returns a joined model of the models passed in.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
+     */
+    public InterviewSet24.Dto join(
+            final @Nullable Iterable<Interview24.Dto> iterable,
+            final @Nullable Consumer<Message> messageConsumer) {
 
-    public Try<dita.recall24.mutable.InterviewSet> tryUnzip(final Blob blob) {
-        return tryReadSurvey(blob
-                .unZip(CommonMimeType.XML)
-                .asDataSource());
-    }
+        if(iterable==null) return InterviewSet24.empty();
 
-    // -- CONVERSIONS
+        record Helper(
+                String alias,
+                LocalDate dateOfBirth,
+                Sex sex) {
+            static Helper helper(final Interview24.Dto interview) {
+                var respondent = interview.parentRespondent();
+                return new Helper(respondent.alias(), respondent.dateOfBirth(), respondent.sex());
+            }
+            Respondent24.Dto createRespondent(final Can<Interview24.Dto> interviews, final Consumer<Message> messageConsumer) {
+                var respondent = new Respondent24.Dto(alias, dateOfBirth, sex, interviews);
+                interviews.forEach(iv->{
+                    _Assert.assertEquals(alias, iv.parentRespondent().alias()); // unexpected
+                    if(!Objects.equals(dateOfBirth, iv.parentRespondent().dateOfBirth())) {
+                        messageConsumer.accept(
+                                Message.error("dateOfBirth mismatch joining data for alias %s", alias));
+                    }
+                    if(!Objects.equals(sex, iv.parentRespondent().sex())) {
+                        messageConsumer.accept(
+                                Message.error("sex mismatch joining data for alias %s", alias));
+                    }
+                    iv.parentRespondentRef().setValue(respondent);
+                });
+                return respondent;
+            }
+        }
 
-    public InterviewSet24.Dto fromDto(final dita.recall24.mutable.InterviewSet interviewSet) {
-        val respondents = _NullSafe.stream(interviewSet.getRespondents())
-            .map(dto->fromDto(dto))
+        var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
+                .orElseGet(Message::consumerWritingToSyserr);
+
+        var interviewsByRespondentAlias = _Multimaps.<String, Interview24.Dto>newListMultimap();
+        iterable.forEach(interview->
+            interviewsByRespondentAlias
+                    .putElement(interview.parentRespondent().alias(), interview));
+
+        final Can<Respondent24.Dto> respondents = interviewsByRespondentAlias.entrySet()
+            .stream()
+            .map(entry->{
+                var interviews = entry.getValue();
+                var helper = Helper.helper(interviews.get(0));
+                var respondent = helper.createRespondent(Can.ofCollection(interviews), messageConsumerOrFallback);
+                return respondent;
+            })
             .collect(Can.toCan());
-        return InterviewSet24.Dto.of(respondents);
+
+        return InterviewSet24.Dto.of(respondents).normalized();
     }
 
-    public dita.recall24.mutable.InterviewSet toDto(
-            final InterviewSet24.Dto model) {
-        val dto = new dita.recall24.mutable.InterviewSet();
-        dto.setRespondents(
-            model.respondents()
-                .stream()
-                .map(Recall24DtoUtils::toDto)
-                .collect(Collectors.toList()));
-        return dto;
+
+
+
+    // -- TRANSFORM
+
+    /**
+     * Returns a new tree with the transformed nodes.
+     * @param transformer - transforms fields only (leave parent child relations untouched)
+     */
+    public UnaryOperator<InterviewSet24.Dto> transform(
+            final @NonNull RecallNode24.Transfomer transformer) {
+        return (final InterviewSet24.Dto interviewSet) -> {
+
+            final var stack = new int[4];
+
+            var gBuilder = GraphUtils.GraphBuilder.directed(RecallNode24.class);
+            gBuilder.addNode(interviewSet);
+
+            interviewSet.respondents().forEach(resp->{
+                gBuilder.addNode(resp);
+                final int respIndex = gBuilder.nodeCount()-1;
+                gBuilder.addEdge(0, respIndex);
+
+                resp.interviews().forEach(intv->{
+                    gBuilder.addNode(intv);
+                    final int intvIndex = gBuilder.nodeCount()-1;
+                    gBuilder.addEdge(respIndex, intvIndex);
+
+                    intv.meals().forEach(meal->{
+                        gBuilder.addNode(meal);
+                        final int mealIndex = gBuilder.nodeCount()-1;
+                        gBuilder.addEdge(intvIndex, mealIndex);
+
+                        meal.memorizedFood().forEach(mem->{
+                            gBuilder.addNode(mem);
+                            final int memIndex = gBuilder.nodeCount()-1;
+                            gBuilder.addEdge(mealIndex, memIndex);
+                            stack[0] = memIndex;
+                            mem.topLevelRecords().forEach(topLevelRec->{
+                                topLevelRec.visitDepthFirst(0, (level, rec)->{
+                                    gBuilder.addNode(rec);
+                                    final int recIndex = gBuilder.nodeCount()-1;
+                                    stack[level + 1] = recIndex;
+                                    gBuilder.addEdge(stack[level], recIndex);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            var graph = gBuilder.build();
+
+            //var builderGraph = new GraphUtils.Graph(graph.kernel(), graph.nodes().map(x->x.builder()));
+
+            var builderNodes = graph.nodes().map(node->node.asBuilder());
+            builderNodes.forEach(transformer);
+            final int interviewSetIndex = 0;
+
+            var setBuilder = _Casts.<InterviewSet24.Builder>uncheckedCast(builderNodes.getElseFail(interviewSetIndex));
+            graph.kernel().streamNeighbors(interviewSetIndex).forEach(respIndex->{
+                var respBuilder = _Casts.<Respondent24.Builder>uncheckedCast(builderNodes.getElseFail(respIndex));
+                graph.kernel().streamNeighbors(respIndex).forEach(intvIndex->{
+                    var intvBuilder = _Casts.<Interview24.Builder>uncheckedCast(builderNodes.getElseFail(intvIndex));
+                    graph.kernel().streamNeighbors(intvIndex).forEach(mealIndex->{
+                        var mealBuilder = _Casts.<Meal24.Builder>uncheckedCast(builderNodes.getElseFail(mealIndex));
+                        graph.kernel().streamNeighbors(mealIndex).forEach(memIndex->{
+                            var memBuilder = _Casts.<MemorizedFood24.Builder>uncheckedCast(builderNodes.getElseFail(memIndex));
+                            graph.kernel().streamNeighbors(memIndex).forEach(topLevelRecordIndex->{
+                                var recBuilder0 = _Casts.<Record24.Builder>uncheckedCast(builderNodes.getElseFail(topLevelRecordIndex));
+                                graph.kernel().streamNeighbors(topLevelRecordIndex).forEach(rec1->{
+                                    var recBuilder1 = _Casts.<Record24.Builder>uncheckedCast(builderNodes.getElseFail(rec1));
+                                    graph.kernel().streamNeighbors(rec1).forEach(rec2->{
+                                        var recBuilder2 = _Casts.<Record24.Builder>uncheckedCast(builderNodes.getElseFail(rec2));
+                                        _Assert.assertEquals(0L, graph.kernel().streamNeighbors(rec2).count(), ()->
+                                                "record nesting overflow");
+                                        recBuilder1.subRecords().add((Record24.Dto) recBuilder2.build());
+                                    });
+                                    recBuilder0.subRecords().add((Record24.Dto) recBuilder1.build());
+                                });
+                                memBuilder.topLevelRecords().add((Record24.Dto) recBuilder0.build());
+                            });
+                            mealBuilder.memorizedFood().add((MemorizedFood24.Dto) memBuilder.build());
+                        });
+                        intvBuilder.meals().add((Meal24.Dto) mealBuilder.build());
+                    });
+                    respBuilder.interviews().add((Interview24.Dto) intvBuilder.build());
+                });
+                setBuilder.respondents().add((Respondent24.Dto) respBuilder.build());
+            });
+
+            var transformedInterviewSet = (InterviewSet24.Dto) setBuilder.build();
+
+            //FIXME[23] remove debug code
+            System.err.printf("transformedInterviewSet %s%n", transformedInterviewSet.toYaml());
+
+            return transformedInterviewSet;
+        };
     }
 
-    // -- UPDATE DTO FROM MODEL FIELDS
-
-    dita.recall24.mutable.Respondent updateDtoFromModelFields(
-            final dita.recall24.mutable.Respondent dto,
-            final Respondent24.Dto model) {
-        dto.setAlias(model.alias());
-        dto.setDateOfBirth(model.dateOfBirth());
-        dto.setSex(model.sex());
-        return dto;
-    }
-
-    dita.recall24.mutable.Interview updateDtoFromModelFields(
-            final dita.recall24.mutable.Interview dto,
-            final Interview24.Dto model) {
-        dto.setRespondentAlias(model.respondentAlias());
-        dto.setInterviewOrdinal(model.interviewOrdinal());
-        dto.setInterviewDate(model.interviewDate());
-        dto.setRespondentMetaData(toDto(model.respondentSupplementaryData()));
-        return dto;
-    }
-
-    dita.recall24.mutable.RespondentSupplementaryData updateDtoFromModelFields(
-            final dita.recall24.mutable.RespondentSupplementaryData dto,
-            final RespondentSupplementaryData24.Dto model) {
-        dto.setSpecialDietId(model.specialDietId());
-        dto.setSpecialDayId(model.specialDayId());
-        dto.setHeightCM(model.heightCM());
-        dto.setWeightKG(model.weightKG());
-        return dto;
-    }
-
-    dita.recall24.mutable.Meal updateDtoFromModelFields(
-            final dita.recall24.mutable.Meal dto,
-            final Meal24.Dto model) {
-        dto.setHourOfDay(model.hourOfDay());
-        dto.setFoodConsumptionOccasionId(model.foodConsumptionOccasionId());
-        dto.setFoodConsumptionPlaceId(model.foodConsumptionPlaceId());
-        return dto;
-    }
-
-    dita.recall24.mutable.MemorizedFood updateDtoFromModelFields(
-            final dita.recall24.mutable.MemorizedFood dto,
-            final MemorizedFood24.Dto model) {
-        dto.setName(model.name());
-        return dto;
-    }
-
-    dita.recall24.mutable.Record updateDtoFromModelFields(
-            final dita.recall24.mutable.Record dto,
-            final Record24.Dto model) {
-        //dto.setType(model.type());
-        dto.setName(model.name());
-        dto.setFacetSids(model.facetSids());
-        return dto;
-    }
-
-    // -- HELPER
-
-    // -- DTO TO MODEL
-
-    private Respondent24.Dto fromDto(final dita.recall24.mutable.Respondent dto) {
-        var interviews = _NullSafe.stream(dto.getInterviews())
-            .map(Recall24DtoUtils::fromDto)
-            .collect(Can.toCan());
-        var respondent = new Respondent24.Dto(dto.getAlias(), dto.getDateOfBirth(), dto.getSex(), interviews);
-        interviews.forEach(iv->iv.parentRespondentRef().setValue(respondent));
-        return respondent;
-    }
-
-    private Interview24.Dto fromDto(final dita.recall24.mutable.Interview dto) {
-        val meals = _NullSafe.stream(dto.getMeals())
-                .map(meal->fromDto(meal))
-                .collect(Can.toCan());
-        val interview = new Interview24.Dto(ObjectRef.empty(),
-                dto.getInterviewDate(),
-                IntRef.of(dto.getInterviewOrdinal()),
-                fromDto(dto.getRespondentMetaData()),
-                meals);
-        interview.respondentSupplementaryData().parentInterviewRef().setValue(interview);
-        meals.forEach(meal->meal.parentInterviewRef().setValue(interview));
-        return interview;
-    }
-
-    private RespondentSupplementaryData24.Dto fromDto(final dita.recall24.mutable.RespondentSupplementaryData dto) {
-        val respondentMetaData = new RespondentSupplementaryData24.Dto(ObjectRef.empty(),
-                dto.getSpecialDietId(),
-                dto.getSpecialDayId(),
-                dto.getHeightCM(),
-                dto.getWeightKG());
-        return respondentMetaData;
-    }
-
-    private Meal24.Dto fromDto(final dita.recall24.mutable.Meal dto) {
-        val memorizedFood = _NullSafe.stream(dto.getMemorizedFood())
-                .map(mf->fromDto(mf))
-                .collect(Can.toCan());
-        val meal = new Meal24.Dto(ObjectRef.empty(),
-                dto.getHourOfDay(),
-                dto.getFoodConsumptionOccasionId(),
-                dto.getFoodConsumptionPlaceId(),
-                memorizedFood);
-        memorizedFood.forEach(mf->mf.parentMealRef().setValue(meal));
-        return meal;
-    }
-
-    private MemorizedFood24.Dto fromDto(final dita.recall24.mutable.MemorizedFood dto) {
-        val topLevelRecords = _NullSafe.stream(dto.getTopLevelRecords())
-                .map(record->fromDto(record))
-                .collect(Can.toCan());
-        val memorizedFood = new MemorizedFood24.Dto(ObjectRef.empty(),
-                dto.getName(),
-                topLevelRecords);
-        topLevelRecords.forEach(r->r.parentMemorizedFoodRef().setValue(memorizedFood));
-        return memorizedFood;
-    }
-
-    private Record24.Dto fromDto(final dita.recall24.mutable.Record dto) {
-        // FIXME[23] flesh out
-        return Record24.product(null, null, null, null, null, null); 
-//        val ingredients = _NullSafe.stream(dto.getIngredients())
-//                .map(ingr->fromDto(ingr))
-//                .collect(Can.toCan());
-//        val record24 = new Record24.Dto(ObjectRef.empty(),
-//                dto.getType(),
-//                dto.getName(),
-//                dto.getFacetSids(),
-//                ingredients);
-//        ingredients.forEach(i->i.parentRecordRef().setValue(record24));
-//        return record24;
-    }
-
-    // -- MODEL TO DTO
-
-    private dita.recall24.mutable.Respondent toDto(
-            final Respondent24.Dto model) {
-        val dto = updateDtoFromModelFields(new dita.recall24.mutable.Respondent(), model);
-        dto.setInterviews(model.interviews()
-                .stream()
-                .map(Recall24DtoUtils::toDto)
-                .collect(Collectors.toList()));
-        return dto;
-    }
-
-    private dita.recall24.mutable.Interview toDto(
-            final Interview24.Dto model) {
-        val dto = updateDtoFromModelFields(new dita.recall24.mutable.Interview(), model);
-        dto.setMeals(model.meals()
-                .stream()
-                .map(Recall24DtoUtils::toDto)
-                .collect(Collectors.toList()));
-        return dto;
-    }
-
-    private dita.recall24.mutable.RespondentSupplementaryData toDto(
-            final RespondentSupplementaryData24.Dto model) {
-        val dto = updateDtoFromModelFields(new dita.recall24.mutable.RespondentSupplementaryData(), model);
-        return dto;
-    }
-
-    private dita.recall24.mutable.Meal toDto(
-            final Meal24.Dto model) {
-        val dto = updateDtoFromModelFields(new dita.recall24.mutable.Meal(), model);
-        dto.setMemorizedFood(model.memorizedFood()
-                .stream()
-                .map(Recall24DtoUtils::toDto)
-                .collect(Collectors.toList()));
-        return dto;
-    }
-
-    private dita.recall24.mutable.MemorizedFood toDto(
-            final MemorizedFood24.Dto model) {
-        val dto = updateDtoFromModelFields(new dita.recall24.mutable.MemorizedFood(), model);
-        dto.setTopLevelRecords(model.topLevelRecords()
-                .stream()
-                .map(Recall24DtoUtils::toDto)
-                .collect(Collectors.toList()));
-        return dto;
-    }
-
-    private dita.recall24.mutable.Record toDto(
-            final Record24.Dto model) {
-        val dto = updateDtoFromModelFields(new dita.recall24.mutable.Record(), model); 
-//FIXME[23]       
-//        dto.setIngredients(model.ingredients()
-//                .stream()
-//                .map(Recall24DtoUtils::toDto)
-//                .collect(Collectors.toList()));
-        return dto;
+    public static UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
+        return correction24!=null
+                ? transform(correction24.asTransformer())
+                : UnaryOperator.identity();
     }
 
 }

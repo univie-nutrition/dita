@@ -18,19 +18,10 @@
  */
 package dita.recall24.util;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import org.apache.causeway.commons.io.DataPeer;
-
-import lombok.val;
-
-import dita.recall24.api.InterviewSet24;
-
+@Deprecated
 class Recall24UtilsTest {
 
+    /*
     static _SurveySampler sampler;
 
     @BeforeAll
@@ -111,5 +102,5 @@ class Recall24UtilsTest {
         assertEquals(interviewSet24.hashCode(), joined.hashCode());
         assertEquals(interviewSet24, joined);
     }
-
+*/
 }

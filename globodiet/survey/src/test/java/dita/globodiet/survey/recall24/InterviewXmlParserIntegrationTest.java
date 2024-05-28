@@ -32,7 +32,7 @@ import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.recall24.api.RecallNode24;
 import dita.recall24.api.Record24;
-import dita.recall24.util.Recall24ModelUtils;
+import dita.recall24.util.Recall24DtoUtils;
 import dita.recall24.util.Recall24SummaryStatistics;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -51,7 +51,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         loadAndStreamInterviews(NamedPath.of("at-national-2026"), null)
         //.limit(1)
         .map(nutriDbTransfomer())
-        .map(interviewSet24 -> Recall24ModelUtils.wrapAsTreeNode(interviewSet24, factoryService))
+        .map(interviewSet24 -> Recall24DtoUtils.wrapAsTreeNode(interviewSet24, factoryService))
         .forEach(rootNode->{
             rootNode
                 .streamDepthFirst()

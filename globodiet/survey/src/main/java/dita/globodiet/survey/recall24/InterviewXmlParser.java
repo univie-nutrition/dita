@@ -32,8 +32,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
 import dita.recall24.api.InterviewSet24;
-import dita.recall24.mutable.InterviewSet;
-import dita.recall24.util.Recall24ModelUtils;
+import dita.recall24.util.Recall24DtoUtils;
 
 /**
  * Parses GloboDiet XML Interview files into recall24 data structures.
@@ -42,7 +41,7 @@ import dita.recall24.util.Recall24ModelUtils;
 public class InterviewXmlParser {
 
     /**
-     * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet},
+     * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet24},
      * wrapped by a {@link Try}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
@@ -53,7 +52,7 @@ public class InterviewXmlParser {
     }
 
     /**
-     * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet}.
+     * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet24}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
     public InterviewSet24.Dto parse(
@@ -65,7 +64,7 @@ public class InterviewXmlParser {
     }
 
     /**
-     * Parses GloboDiet XML Interview file from given {@link Clob} into a {@link InterviewSet}.
+     * Parses GloboDiet XML Interview file from given {@link Clob} into a {@link InterviewSet24}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
     public InterviewSet24.Dto parse(
@@ -88,7 +87,7 @@ public class InterviewXmlParser {
     private InterviewSet24.Dto createFromDto(
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
-        return Recall24ModelUtils
+        return Recall24DtoUtils
                 .join(
                     dto.getInterviews().stream()
                         .map(_InterviewConverter::toInterview24)
@@ -98,7 +97,7 @@ public class InterviewXmlParser {
     private InterviewSet24.Dto createFromDto2(
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
-        return Recall24ModelUtils
+        return Recall24DtoUtils
                 .join(
                     dto.getInterviews().stream()
                         .map(_InterviewConverter::toInterview24)

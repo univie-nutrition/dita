@@ -44,7 +44,7 @@ import lombok.experimental.Accessors;
 
 import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.types.Message;
-import dita.recall24.util.Recall24ModelUtils;
+import dita.recall24.util.Recall24DtoUtils;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
@@ -138,7 +138,7 @@ permits InterviewSet24.Dto {
          */
         public InterviewSet24.Dto transform(
                 final @NonNull RecallNode24.Transfomer transformer) {
-            return Recall24ModelUtils.transform(transformer).apply(this);
+            return Recall24DtoUtils.transform(transformer).apply(this);
         }
 
         /**
@@ -167,7 +167,7 @@ permits InterviewSet24.Dto {
                     other.streamInterviews())
                     .toList();
 
-            return Recall24ModelUtils.join(interviews, messageConsumer);
+            return Recall24DtoUtils.join(interviews, messageConsumer);
         }
 
         /**
@@ -181,7 +181,7 @@ permits InterviewSet24.Dto {
                     .flatMap(InterviewSet24.Dto::streamInterviews)
                     .toList();
 
-            return Recall24ModelUtils.join(interviews, messageConsumer);
+            return Recall24DtoUtils.join(interviews, messageConsumer);
         }
 
         public String toJson() {

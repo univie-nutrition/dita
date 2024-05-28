@@ -40,7 +40,7 @@ import dita.recall24.api.InterviewSet24;
 import dita.recall24.api.RecallNode24;
 import dita.recall24.api.RecallNode24.Builder24;
 import dita.recall24.api.Record24;
-import dita.recall24.util.Recall24ModelUtils;
+import dita.recall24.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.compression.SevenZUtils;
@@ -101,7 +101,7 @@ extends CausewayIntegrationTestAbstract {
             }
         }
 
-        return Recall24ModelUtils.transform(new NutriDbTransfomer());
+        return Recall24DtoUtils.transform(new NutriDbTransfomer());
     }
 
 }

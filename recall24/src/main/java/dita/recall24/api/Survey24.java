@@ -20,8 +20,6 @@ package dita.recall24.api;
 
 import org.apache.causeway.commons.collections.Can;
 
-import dita.recall24.mutable.InterviewSet;
-
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
@@ -71,7 +69,7 @@ public interface Survey24 {
 
         /**
          * Factory for when the collective of respondents and their individual 24h recall interviews,
-         * is made up of multiple {@link InterviewSet}s.
+         * is made up of multiple {@link InterviewSet24}s.
          */
         public static Dto of(
                 final String surveyKey,
