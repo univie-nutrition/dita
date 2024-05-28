@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.apache.causeway.commons.collections.Can;
@@ -35,6 +36,15 @@ permits
     Meal24,
     MemorizedFood24,
     Record24 {
+
+    <T extends RecallNode24> Builder24<T> builder();
+
+    public interface Builder24<T extends RecallNode24> {
+        T build();
+    }
+
+    public interface Transfomer extends Consumer<RecallNode24.Builder24<?>> {
+    }
 
     // -- ANNOTATIONS
 

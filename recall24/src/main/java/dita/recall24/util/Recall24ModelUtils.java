@@ -29,7 +29,9 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.graph.GraphUtils;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
 import lombok.NonNull;
@@ -40,10 +42,7 @@ import dita.commons.types.Sex;
 import dita.recall24.api.Correction24;
 import dita.recall24.api.Interview24;
 import dita.recall24.api.InterviewSet24;
-import dita.recall24.api.Meal24;
-import dita.recall24.api.MemorizedFood24;
 import dita.recall24.api.RecallNode24;
-import dita.recall24.api.Record24;
 import dita.recall24.api.Respondent24;
 import dita.recall24.mutable.InterviewSet;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
@@ -118,6 +117,9 @@ public class Recall24ModelUtils {
         return InterviewSet24.Dto.of(respondents).normalized();
     }
 
+
+
+
     // -- TRANSFORM
 
     /**
@@ -127,52 +129,77 @@ public class Recall24ModelUtils {
      *      then transform the mutable nodes and then convert back to immutable {@link InterviewSet}
      */
     public UnaryOperator<InterviewSet24.Dto> transform(
-            final @NonNull UnaryOperator<RecallNode24> transformer) {
-        return (final InterviewSet24.Dto interviewSet24) -> {
-            final dita.recall24.mutable.InterviewSet mutableRoot = Recall24DtoUtils.toDto(interviewSet24);
-            interviewSet24.respondents().zip(mutableRoot.getRespondents(), (resp, respDto)->{
-                Recall24DtoUtils.updateDtoFromModelFields(respDto,
-                        (Respondent24.Dto) invokeWithRuturnTypeChecked(transformer, resp));
-                resp.interviews().zip(respDto.getInterviews(), (intv, intvDto)->{
-                    Recall24DtoUtils.updateDtoFromModelFields(intvDto,
-                            (Interview24.Dto) invokeWithRuturnTypeChecked(transformer, intv));
-                    intv.meals().zip(intvDto.getMeals(), (meal, mealDto)->{
-                        Recall24DtoUtils.updateDtoFromModelFields(mealDto,
-                                (Meal24.Dto) invokeWithRuturnTypeChecked(transformer, meal));
-                        meal.memorizedFood().zip(mealDto.getMemorizedFood(), (mem, memDto)->{
-                            Recall24DtoUtils.updateDtoFromModelFields(memDto,
-                                    (MemorizedFood24.Dto) invokeWithRuturnTypeChecked(transformer, mem));
-                            mem.topLevelRecords().zip(memDto.getTopLevelRecords(), (rec, recDto)->{
-                                Recall24DtoUtils.updateDtoFromModelFields(recDto,
-                                        (Record24.Dto) invokeWithRuturnTypeChecked(transformer, rec));
-                                //FIXME[23] sub-records
-//                                rec.ingredients().zip(recDto.getIngredients(), (ingr, ingrDto)->{
-//                                    Recall24DtoUtils.updateDtoFromModelFields(ingrDto,
-//                                            (Ingredient) invokeWithRuturnTypeChecked(transformer, ingr));
-//                                });
+            final @NonNull RecallNode24.Transfomer transformer) {
+        return (final InterviewSet24.Dto interviewSet) -> {
+
+            var gBuilder = GraphUtils.GraphBuilder.directed(RecallNode24.class);
+            gBuilder.addNode(interviewSet);
+
+            interviewSet.respondents().forEach(resp->{
+                gBuilder.addNode(resp);
+                final int respIndex = gBuilder.nodeCount()-1;
+                gBuilder.addEdge(0, respIndex);
+
+                resp.interviews().forEach(intv->{
+                    gBuilder.addNode(intv);
+                    final int intvIndex = gBuilder.nodeCount()-1;
+                    gBuilder.addEdge(respIndex, intvIndex);
+
+                    intv.meals().forEach(meal->{
+                        gBuilder.addNode(meal);
+                        final int mealIndex = gBuilder.nodeCount()-1;
+                        gBuilder.addEdge(intvIndex, mealIndex);
+
+                        meal.memorizedFood().forEach(mem->{
+                            gBuilder.addNode(mem);
+                            final int memIndex = gBuilder.nodeCount()-1;
+                            gBuilder.addEdge(mealIndex, memIndex);
+
+                            mem.topLevelRecords().forEach(topLevelRec->{
+                                topLevelRec.visitDepthFirst(rec->{
+
+                                    gBuilder.addNode(rec);
+                                    final int recIndex = gBuilder.nodeCount()-1;
+                                    gBuilder.addEdge(memIndex, recIndex); //FIXME[23]
+
+                                });
                             });
                         });
                     });
                 });
             });
-            return Recall24DtoUtils.fromDto(mutableRoot);
+
+            var graph = gBuilder.build();
+
+            //var builderGraph = new GraphUtils.Graph(graph.kernel(), graph.nodes().map(x->x.builder()));
+
+            var builderNodes = graph.nodes().map(node->node.builder());
+            builderNodes.forEach(transformer);
+
+            var setBuilder = _Casts.<InterviewSet24.Builder>uncheckedCast(builderNodes.getElseFail(0));
+            var respondentBuilders = graph.kernel().streamNeighbors(0)
+                    .mapToObj(builderNodes::getElseFail)
+                    .collect(Can.toCan());
+
+            respondentBuilders.forEach(respBuilder->{
+                setBuilder.respondents().add((Respondent24.Dto) respBuilder.build());
+            });
+
+            //var transformedNodes = builderNodes.map(node->node.build());
+
+            var transformedInterview = (InterviewSet24.Dto) setBuilder.build();
+
+            //FIXME[23] remove debug code
+            System.err.printf("transformedInterview %s%n", transformedInterview.toYaml());
+
+            return transformedInterview;
         };
     }
 
     public static UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
-                ? transform(correction24.asOperator())
+                ? transform(correction24.asTransformer())
                 : UnaryOperator.identity();
-    }
-
-    // -- HELPER
-
-    private RecallNode24 invokeWithRuturnTypeChecked(
-            final @NonNull UnaryOperator<RecallNode24> transformer, final @NonNull RecallNode24 node){
-        var transformedNode = transformer.apply(node);
-        _Assert.assertNotNull(transformedNode);
-        _Assert.assertEquals(node.getClass(), transformedNode.getClass());
-        return transformedNode;
     }
 
 }

@@ -18,12 +18,13 @@
  */
 package dita.recall24.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,8 +36,11 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.val;
+import lombok.experimental.Accessors;
 
 import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.types.Message;
@@ -133,7 +137,7 @@ permits InterviewSet24.Dto {
          * @param transformer - transforms fields only (leave parent child relations untouched)
          */
         public InterviewSet24.Dto transform(
-                final @NonNull UnaryOperator<RecallNode24> transformer) {
+                final @NonNull RecallNode24.Transfomer transformer) {
             return Recall24ModelUtils.transform(transformer).apply(this);
         }
 
@@ -204,6 +208,23 @@ permits InterviewSet24.Dto {
             return copy;
         }
 
+        @SuppressWarnings("unchecked")
+        @Override
+        public Builder24<Dto> builder() {
+            return new Builder();
+        }
+
+    }
+
+    // -- BUILDER
+
+    @Getter @Setter @Accessors(fluent=true)
+    public static class Builder implements Builder24<Dto> {
+        final List<Respondent24.Dto> respondents = new ArrayList<>();
+        @Override
+        public Dto build() {
+            return Dto.of(Can.ofCollection(respondents));
+        }
     }
 
 }

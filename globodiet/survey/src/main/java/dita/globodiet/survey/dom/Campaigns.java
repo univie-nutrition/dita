@@ -34,6 +34,7 @@ import dita.recall24.api.Correction24;
 import dita.recall24.api.InterviewSet24;
 import dita.recall24.api.RecallNode24;
 import dita.recall24.mutable.InterviewSet;
+import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -68,7 +69,7 @@ public class Campaigns {
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
                 .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
-             //   .map(Recall24ModelUtils.correct(correction)) //FIXME[23] resurrect transformer
+                .map(Recall24ModelUtils.correct(correction)) //FIXME[23] resurrect transformer
                 .reduce((a, b)->a.join(b, messageConsumer))
                 .map(InterviewSet24.Dto::normalized)
                 .map(messageConsumer::annotate)

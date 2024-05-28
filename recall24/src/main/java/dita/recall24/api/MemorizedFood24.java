@@ -18,9 +18,16 @@
  */
 package dita.recall24.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.apache.causeway.commons.collections.Can;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
@@ -85,6 +92,25 @@ public sealed interface MemorizedFood24 extends RecallNode24 {
         @Override
         public Meal24.Dto parentMeal() {
             return parentMealRef.getValue();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Builder24<Dto> builder() {
+            return new Builder()
+                    .name(name);
+        }
+    }
+
+    // -- BUILDER
+
+    @Getter @Setter @Accessors(fluent=true)
+    public static class Builder implements Builder24<Dto> {
+        String name;
+        final List<Record24.Dto> topLevelRecords = new ArrayList<>();
+        @Override
+        public Dto build() {
+            return Dto.of(name, Can.ofCollection(topLevelRecords));
         }
     }
 

@@ -38,6 +38,7 @@ import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.api.InterviewSet24;
 import dita.recall24.api.RecallNode24;
+import dita.recall24.api.RecallNode24.Builder24;
 import dita.recall24.api.Record24;
 import dita.recall24.util.Recall24ModelUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -81,15 +82,17 @@ extends CausewayIntegrationTestAbstract {
      */
     protected UnaryOperator<InterviewSet24.Dto> nutriDbTransfomer(){
 
-        record NutriDbTransfomer() implements UnaryOperator<RecallNode24> {
-            @Override public RecallNode24 apply(final RecallNode24 node) {
-                return switch (node) {
-                case Record24.Food food -> toNutriDbPrefixes(food);
-                default -> node;
+        record NutriDbTransfomer() implements RecallNode24.Transfomer {
+
+            @Override
+            public void accept(final Builder24<?> builder) {
+                switch (builder) {
+                case Record24.Builder recBuilder -> toNutriDbPrefixes(recBuilder);
+                default -> {}
                 };
             }
-            private Record24.Food toNutriDbPrefixes(final Record24.Food food) {
-                return food;
+            private void toNutriDbPrefixes(final Record24.Builder recBuilder) {
+
 //FIXME[23]
 //                return switch (ingr.parentRecord().type()) {
 //                case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));

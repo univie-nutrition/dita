@@ -19,11 +19,17 @@
 package dita.recall24.api;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.apache.causeway.commons.collections.Can;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import dita.commons.types.IntRef;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
@@ -141,6 +147,27 @@ permits Interview24.Dto {
             return Objects.equals(parentRespondent(), candidate);
         }
 
+        @SuppressWarnings("unchecked")
+        @Override
+        public Builder24<Dto> builder() {
+            return new Builder().respondent(parentRespondent()).interviewDate(interviewDate)
+                    .respondentSupplementaryData(respondentSupplementaryData);
+        }
+
+    }
+
+    // -- BUILDER
+
+    @Getter @Setter @Accessors(fluent=true)
+    public static class Builder implements Builder24<Dto> {
+        Respondent24.Dto respondent;
+        LocalDate interviewDate;
+        RespondentSupplementaryData24.Dto respondentSupplementaryData;
+        final List<Meal24.Dto> meals = new ArrayList<>();
+        @Override
+        public Dto build() {
+            return Dto.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
+        }
     }
 
 }

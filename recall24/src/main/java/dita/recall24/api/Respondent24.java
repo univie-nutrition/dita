@@ -19,9 +19,15 @@
 package dita.recall24.api;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import dita.commons.types.Sex;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
@@ -76,6 +82,26 @@ public sealed interface Respondent24 extends RecallNode24 {
             return new Dto(alias, dateOfBirth, sex, interviewsSorted);
         }
 
+        @SuppressWarnings("unchecked")
+        @Override
+        public Builder24<Dto> builder() {
+            return new Builder().alias(alias).dateOfBirth(dateOfBirth).sex(sex);
+        }
+
+    }
+
+    // -- BUILDER
+
+    @Getter @Setter @Accessors(fluent=true)
+    public static class Builder implements Builder24<Dto> {
+        private String alias;
+        private LocalDate dateOfBirth;
+        private Sex sex;
+        private final List<Interview24.Dto> interviews = new ArrayList<>();
+        @Override
+        public Dto build() {
+            return new Dto(alias, dateOfBirth, sex, Can.ofCollection(interviews));
+        }
     }
 
 }

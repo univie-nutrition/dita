@@ -19,10 +19,16 @@
 package dita.recall24.api;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.apache.causeway.commons.collections.Can;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
@@ -117,6 +123,28 @@ public sealed interface Meal24 extends RecallNode24 {
         @Override
         public Interview24.Dto parentInterview() {
             return parentInterviewRef.getValue();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Builder24<Dto> builder() {
+            return new Builder().hourOfDay(hourOfDay)
+                    .foodConsumptionOccasionId(foodConsumptionOccasionId)
+                    .foodConsumptionPlaceId(foodConsumptionPlaceId);
+        }
+    }
+
+    // -- BUILDER
+
+    @Getter @Setter @Accessors(fluent=true)
+    public static class Builder implements Builder24<Dto> {
+        LocalTime hourOfDay;
+        String foodConsumptionOccasionId;
+        String foodConsumptionPlaceId;
+        final List<MemorizedFood24.Dto> memorizedFood = new ArrayList<>();
+        @Override
+        public Dto build() {
+            return Dto.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
         }
     }
 

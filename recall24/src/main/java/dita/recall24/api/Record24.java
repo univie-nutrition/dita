@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,6 +31,10 @@ import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
@@ -126,6 +131,12 @@ permits
         return Collections.emptyList();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    default Builder24<Dto> builder() {
+        return new Builder();
+    }
+
     // -- DTOs
 
     public sealed interface Dto extends Record24
@@ -140,6 +151,10 @@ permits
         @Override
         default MemorizedFood24.Dto parentMemorizedFood() {
             return parentMemorizedFoodRef().getValue();
+        }
+
+        default void visitDepthFirst(final Consumer<Dto> onRecord) {
+            onRecord.accept(this);
         }
     }
 
@@ -160,6 +175,17 @@ permits
             @TreeSubNodes
             Can<? extends Record24> subRecords
             ) implements Record24.Dto {
+
+        @Override
+        public void visitDepthFirst(final Consumer<Dto> onRecord) {
+            onRecord.accept(this);
+            subRecords.forEach(rec->{
+                switch (rec) {
+                case Dto dto -> dto.visitDepthFirst(onRecord);
+                default -> {}
+                }
+            });
+        }
 
     }
 
@@ -208,6 +234,13 @@ permits
             Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
             Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking
             ) implements Consumption {
+
+        @Override
+        public void visitDepthFirst(final Consumer<Dto> onRecord) {
+            onRecord.accept(this);
+            typeOfFatUsedDuringCooking.ifPresent(onRecord);
+            typeOfMilkOrLiquidUsedDuringCooking.ifPresent(onRecord);
+        }
     }
 
     /**
@@ -356,6 +389,17 @@ permits
             final String facetSids) {
         return new Record24.TypeOfMilkOrLiquidUsed(ObjectRef.empty(), Record24.Type.TYPE_OF_MILK_OR_LIQUID_USED,
                 null, name, sid, facetSids);
+    }
+
+    // -- BUILDER
+
+    @Getter @Setter @Accessors(fluent=true)
+    public static class Builder implements Builder24<Dto> {
+        //final List<Respondent24.Dto> respondents = new ArrayList<>();
+        @Override
+        public Dto build() {
+            return null;//Dto.of(Can.ofCollection(respondents));
+        }
     }
 
 }

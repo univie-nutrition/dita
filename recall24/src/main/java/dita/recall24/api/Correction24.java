@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.lang.Nullable;
 
-import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.YamlUtils;
 
@@ -67,31 +66,32 @@ public record Correction24(List<RespondentCorr> respondents) {
 
     // -- CORRECTION APPLICATION
 
-    public UnaryOperator<RecallNode24> asOperator() {
+    public RecallNode24.Transfomer asTransformer() {
         record Helper(Map<String, RespondentCorr> respCorrByAlias) {
-            Respondent24.Dto correct(final Respondent24.Dto resp) {
-                var respCorr = respCorrByAlias.get(resp.alias());
-                if(respCorr==null) return resp;
+            void correct(final Respondent24.Builder builder) {
+                var respCorr = respCorrByAlias.get(builder.alias());
+                if(respCorr==null) return;
                 log.info("about to correct {}", respCorr);
-                return new Respondent24.Dto(
-                        respCorr.newAlias()!=null
-                            ? respCorr.newAlias()
-                            : resp.alias(),
-                        respCorr.dateOfBirth()!=null
-                            ? respCorr.dateOfBirth()
-                            : resp.dateOfBirth(),
-                        respCorr.sex()!=null
-                            ? respCorr.sex()
-                            : resp.sex(),
-                        Can.empty());
+
+                if(respCorr.newAlias()!=null) {
+                    builder.alias(respCorr.newAlias());
+                }
+                if(respCorr.dateOfBirth()!=null) {
+                    builder.dateOfBirth(respCorr.dateOfBirth());
+                }
+                if(respCorr.sex()!=null) {
+                    builder.sex(respCorr.sex());
+                }
             }
         }
         var helper = new Helper(respondents.stream()
             .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
 
-        return (final RecallNode24 node) -> switch(node) {
-        case Respondent24.Dto resp -> helper.correct(resp);
-        default -> node;
+        return (final RecallNode24.Builder24<?> builder) -> {
+            switch(builder) {
+                case Respondent24.Builder resp -> helper.correct(resp);
+                default -> {}
+            }
         };
     }
 
