@@ -40,6 +40,8 @@ import lombok.experimental.Accessors;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
@@ -218,9 +220,12 @@ permits
         /**
          * Convert to a {@link FoodConsumption}.
          */
-        default FoodConsumption asFoodConsumption() {
-            //FIXME[23] flesh out
-            return new FoodConsumption(null, null, null, null, null);
+        default FoodConsumption asFoodConsumption(final String systemId) {
+            var foodId = new SemanticIdentifier(systemId, sid());
+            var facetIdSet = SemanticIdentifierSet.ofStream(
+                _Strings.splitThenStream(facetSids(), ",")
+                    .map(facetSid->new SemanticIdentifier(systemId, facetSid)));
+            return new FoodConsumption(name(), foodId, facetIdSet, consumptionUnit(), amountConsumed());
         }
     }
 
@@ -265,12 +270,18 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            /** Food this record belongs to. */
+            @JsonIgnore
+            ObjectRef<Food> parentFoodRef,
             Type type,
-            Food parentFood,
             String name,
             String sid,
             String facetSids
             ) implements Record24.Dto {
+
+        public Food parentFood() {
+            return parentFoodRef.getValue();
+        }
 
         @Override
         public Builder24<Dto> asBuilder() {
@@ -285,8 +296,10 @@ permits
             /** Memorized food this record belongs to. */
             @JsonIgnore
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            /** Food this record belongs to. */
+            @JsonIgnore
+            ObjectRef<Food> parentFoodRef,
             Type type,
-            Food parentFood,
             String name,
             String sid,
             String facetSids
@@ -294,6 +307,10 @@ permits
         @Override
         public Builder24<Dto> asBuilder() {
             return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+        }
+
+        public Food parentFood() {
+            return parentFoodRef.getValue();
         }
     }
 
@@ -393,33 +410,38 @@ permits
                 .findFirst()
                 .map(TypeOfMilkOrLiquidUsed.class::cast);
 
-        return new Food(ObjectRef.empty(), Record24.Type.FOOD,
+        var food = new Food(ObjectRef.empty(), Record24.Type.FOOD,
                 name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
                 typeOfFatUsed, typeOfMilkOrLiquidUsed);
+
+        typeOfFatUsed.ifPresent(rec->rec.parentFoodRef().setValue(food));
+        typeOfMilkOrLiquidUsed.ifPresent(rec->rec.parentFoodRef().setValue(food));
+
+        return food;
     }
 
     /**
      * Type of fat used during cooking.
      */
     public static TypeOfFatUsed typeOfFatUsed(
-            //Food parentFood, //FIXME[23] Food parentFood,
             final String name,
             final String sid,
             final String facetSids) {
-        return new Record24.TypeOfFatUsed(ObjectRef.empty(), Record24.Type.TYPE_OF_FAT_USED,
-                null, name, sid, facetSids);
+        return new Record24.TypeOfFatUsed(ObjectRef.empty(), ObjectRef.empty(),
+                Record24.Type.TYPE_OF_FAT_USED,
+                name, sid, facetSids);
     }
 
     /**
      * Type of milk or liquid used during cooking.
      */
     public static TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed(
-            //Food parentFood, //FIXME[23] Food parentFood,
             final String name,
             final String sid,
             final String facetSids) {
-        return new Record24.TypeOfMilkOrLiquidUsed(ObjectRef.empty(), Record24.Type.TYPE_OF_MILK_OR_LIQUID_USED,
-                null, name, sid, facetSids);
+        return new Record24.TypeOfMilkOrLiquidUsed(ObjectRef.empty(), ObjectRef.empty(),
+                Record24.Type.TYPE_OF_MILK_OR_LIQUID_USED,
+                name, sid, facetSids);
     }
 
     // -- BUILDER

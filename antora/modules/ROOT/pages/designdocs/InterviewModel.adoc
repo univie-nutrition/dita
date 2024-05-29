@@ -126,7 +126,7 @@ interface Record {
 interface ConsumptionRecord {
     amountConsumed: BigDecimal
     rawPerCookedRatio: BigDecimal
-    asFoodConsumption(): FoodConsumption
+    asFoodConsumption(systemId: String): FoodConsumption
 }
 
 class Note {

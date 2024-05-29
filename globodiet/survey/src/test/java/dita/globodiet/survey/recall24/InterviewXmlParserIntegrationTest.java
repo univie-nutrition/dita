@@ -74,14 +74,13 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     implements Consumer<Record24.Consumption> {
         @Override
         public void accept(final Record24.Consumption rec) {
-//FIXME[23]
-//            var mapKey = rec.qualifiedMapKey(systemId);
-//            var mapEntry = nutMapping.lookupEntry(mapKey);
-//            if(mapEntry.isPresent()) {
-//                stats.ingredientStats().mappedCount().increment();
-//            } else {
-//                System.err.printf("unmapped ingr: %s (%s)%n", rec.name(), mapKey);
-//            }
+            var mapKey = rec.asFoodConsumption(systemId).qualifiedMapKey();
+            var mapEntry = nutMapping.lookupEntry(mapKey);
+            if(mapEntry.isPresent()) {
+                stats.consumptionStats().mappedCount().increment();
+            } else {
+                System.err.printf("unmapped ingr: %s (%s)%n", rec.name(), mapKey);
+            }
         }
     }
 

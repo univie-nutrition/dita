@@ -119,9 +119,6 @@ public class Recall24DtoUtils {
         return InterviewSet24.Dto.of(respondents).normalized();
     }
 
-
-
-
     // -- TRANSFORM
 
     /**
@@ -212,7 +209,7 @@ public class Recall24DtoUtils {
 
             var transformedInterviewSet = (InterviewSet24.Dto) setBuilder.build();
 
-            //FIXME[23] remove debug code
+            //TODO[23] remove debug code
             System.err.printf("transformedInterviewSet %s%n", transformedInterviewSet.toYaml());
 
             return transformedInterviewSet;

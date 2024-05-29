@@ -26,12 +26,14 @@ import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
 
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
 import lombok.NonNull;
 
 import dita.commons.food.composition.FoodCompositionRepository;
+import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
@@ -92,12 +94,17 @@ extends CausewayIntegrationTestAbstract {
                 };
             }
             private void toNutriDbPrefixes(final Record24.Builder recBuilder) {
-
-//FIXME[23]
-//                return switch (ingr.parentRecord().type()) {
-//                case FOOD -> ingr.withSid("N" + FormatUtils.noLeadingZeros(ingr.sid()));
-//                default -> ingr;
-//                };
+                switch(recBuilder.type()) {
+                    case FOOD, TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> {
+                        recBuilder.sid("N" + FormatUtils.noLeadingZeros(recBuilder.sid()));
+                    }
+                    default -> {
+                        //FIXME[23] transformer cases
+                        if(StringUtils.hasLength(recBuilder.sid())) {
+                            System.err.printf("nutriDbTransfomer unmatched case %s->%s%n", recBuilder.type(), recBuilder.sid());
+                        }
+                    }
+                }
             }
         }
 

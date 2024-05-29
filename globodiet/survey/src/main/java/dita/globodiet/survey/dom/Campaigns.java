@@ -68,7 +68,7 @@ public class Campaigns {
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
                 .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
-                .map(Recall24DtoUtils.correct(correction)) //FIXME[23] resurrect transformer
+                .map(Recall24DtoUtils.correct(correction))
                 .reduce((a, b)->a.join(b, messageConsumer))
                 .map(InterviewSet24.Dto::normalized)
                 .map(messageConsumer::annotate)

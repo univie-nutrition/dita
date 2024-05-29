@@ -26,15 +26,21 @@ import dita.recall24.api.RecallNode24;
 import dita.recall24.api.Record24;
 
 public record Recall24SummaryStatistics(
-        Record24SummaryStatistics recordStats) {
+        Record24SummaryStatistics recordStats,
+        Consumption24SummaryStatistics consumptionStats) {
 
     public Recall24SummaryStatistics() {
-            this(new Record24SummaryStatistics());
+            this(new Record24SummaryStatistics(), new Consumption24SummaryStatistics());
     }
 
     public void accept(final RecallNode24 node24) {
         switch (node24) {
-        case Record24.Dto rec -> recordStats.accept(rec);
+        case Record24.Dto rec -> {
+            recordStats.accept(rec);
+            if(rec instanceof Record24.Consumption consumption) {
+                consumptionStats.accept(consumption);
+            }
+        }
         default -> {}
         }
     }
@@ -63,7 +69,10 @@ public record Recall24SummaryStatistics(
             case Record24.Product prod -> productCount.increment();
             case Record24.Food food -> foodCount.increment();
             case Record24.Composite comp -> compositeCount.increment();
-            default -> {}
+            default -> {
+                //FIXME[23] stats missed casees
+                System.err.printf("not counted %s%n", rec);
+            }
 //            case INCOMPLETE -> incompleteCount.increment();
 //            case INFORMAL -> informalCount.increment();
             }
@@ -75,23 +84,24 @@ public record Recall24SummaryStatistics(
         }
     }
 
-//    public record Ingredient24SummaryStatistics(
-//            LongAdder ingredientCount,
-//            LongAdder mappedCount) {
-//        public Ingredient24SummaryStatistics() {
-//            this(nla(), nla());
-//        }
-//        public void accept(final Ingredient24 ingr) {
-//            ingredientCount.increment();
-//        }
-//        public String formatted() {
-//            return String.format("ingredients: %d (unmapped: %d)",
-//                    ingredientCount.longValue(), ingredientCount.longValue() - mappedCount.longValue());
-//        }
-//    }
+    public record Consumption24SummaryStatistics(
+            LongAdder consumptionCount,
+            LongAdder mappedCount) {
+        public Consumption24SummaryStatistics() {
+            this(nla(), nla());
+        }
+        public void accept(final Record24.Consumption consumption) {
+            consumptionCount.increment();
+        }
+        public String formatted() {
+            return String.format("consumptions: %d (unmapped: %d)",
+                    consumptionCount.longValue(), consumptionCount.longValue() - mappedCount.longValue());
+        }
+    }
 
     // -- HELPER
 
+    /** new long adder */
     private static LongAdder nla() {
         return new LongAdder();
     }

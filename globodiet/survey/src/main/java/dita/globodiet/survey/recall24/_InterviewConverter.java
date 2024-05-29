@@ -164,33 +164,6 @@ class _InterviewConverter {
         return Meal24.Dto.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
     }
 
-    // -- CONSUMPTION
-
-//    private Optional<FoodConsumption> consumption(final String systemId, final ListEntry listEntry) {
-//        switch(listEntry.listEntryType()) {
-//        case Food:
-//        case FoodSelectedAsARecipeIngredient:
-//        case DietarySupplement:
-//            var sid = semanticIdentifier(systemId, listEntry);
-//            var facets = semanticIdentifierSet(systemId, listEntry);
-//            //TODO just guessing GRAM - needs double check
-//            return Optional.of(new FoodConsumption(listEntry.getLabel(), sid, facets,
-//                    ConsumptionUnit.GRAM, listEntry.getConsumedQuantity()));
-//        default:
-//            return Optional.empty();
-//        }
-//    }
-//
-//    private Optional<Respondent24.TypeOfFatUsed> typeOfFatUsedDuringCooking(final ListEntry listEntry) {
-//        return Optional.empty(); //TODO flesh out
-//    }
-//    private Optional<Respondent24.TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking(final ListEntry listEntry) {
-//        return Optional.empty(); //TODO flesh out
-//    }
-//    private List<R24.Note> notes(final ListEntry listEntry) {
-//        return Collections.emptyList(); //TODO flesh out
-//    }
-
     /**
      * has no children
      */
