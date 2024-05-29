@@ -38,6 +38,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
+import dita.recall24.api.Correction24;
 import dita.recall24.api.InterviewSet24;
 import dita.recall24.api.RecallNode24;
 import dita.recall24.api.RecallNode24.Builder24;
@@ -74,9 +75,11 @@ extends CausewayIntegrationTestAbstract {
 
     protected Stream<InterviewSet24.Dto> loadAndStreamInterviews(
             final @NonNull NamedPath path,
+            final @Nullable Correction24 correction,
             final @Nullable Consumer<Message> messageConsumer) {
         return InterviewUtils.streamSources(surveyBlobStore, path, true)
-            .map(ds->InterviewXmlParser.parse(ds, messageConsumer));
+            .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
+            .map(Recall24DtoUtils.correct(correction));
     }
 
     /**

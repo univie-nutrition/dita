@@ -64,7 +64,7 @@ public class Campaigns {
         //debug
         //messageConsumer.accept(Message.info("generated at %s", LocalDateTime.now()));
 
-        return surveyBlobStore==null
+        var interviewSet = surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
                 .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
@@ -73,6 +73,8 @@ public class Campaigns {
                 .map(InterviewSet24.Dto::normalized)
                 .map(messageConsumer::annotate)
                 .orElseGet(InterviewSet24::empty);
+
+        return interviewSet;
     }
 
     // -- HELPER

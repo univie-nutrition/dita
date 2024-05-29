@@ -30,6 +30,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
+import dita.recall24.api.Correction24;
 import dita.recall24.api.RecallNode24;
 import dita.recall24.api.Record24;
 import dita.recall24.util.Recall24DtoUtils;
@@ -48,7 +49,25 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var stats = new Recall24SummaryStatistics();
         var recordProcessor = new RecordProcessor(stats, "GD-AT20240507", loadNutMapping());
 
-        loadAndStreamInterviews(NamedPath.of("at-national-2026"), null)
+        var correction = Correction24.tryFromYaml("""
+                respondents:
+                - alias: "EB0070"
+                  newAlias: "EB_0070"
+                - alias: "EB:0029"
+                  newAlias: "EB_0029"
+                - alias: "EB_0061"
+                  dateOfBirth: "1977-04-24"
+                - alias: "EB_0058"
+                  dateOfBirth: "1992-08-28"
+                - alias: "EB_0038"
+                  dateOfBirth: "2002-09-21"
+                - alias: "EB_0093"
+                  sex: FEMALE
+                """)
+                .valueAsNullableElseFail();
+
+
+        loadAndStreamInterviews(NamedPath.of("at-national-2026"), correction, null)
         //.limit(1)
         .map(nutriDbTransfomer())
         .map(interviewSet24 -> Recall24DtoUtils.wrapAsTreeNode(interviewSet24, factoryService))

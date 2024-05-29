@@ -240,40 +240,40 @@ class _Dtos {
                 case TypeOfMilkOrLiquidUsedFacet: {
                     var foodOrRecipeOrSupplement = current[2];
                     var ingredient = current[3];
-                    if(ingredient!=null) {
-                        assertSharedOrdinal(ingredient.entry(), listEntry);
-                        ingredient.add(listEntry); // leaf node
-                    } else {
-                        assertSharedOrdinal(foodOrRecipeOrSupplement.entry(), listEntry);
+                    if(ingredient==null) {
+                        assertSharedOrdinals(foodOrRecipeOrSupplement.entry(), listEntry);
                         foodOrRecipeOrSupplement.add(listEntry); // leaf node
+                    } else {
+                        assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
+                        ingredient.add(listEntry); // leaf node
                     }
                     return;
                 }
                 case FatDuringCookingForFood: {
                     var food = current[2];
                     _Assert.assertEquals(ListEntryType.Food, food.type());
-                    assertSharedOrdinal(food.entry(), listEntry);
+                    assertSharedOrdinals(food.entry(), listEntry);
                     food.add(listEntry); // leaf node
                     return;
                 }
                 case FatDuringCookingForIngredient: {
                     var ingredient = current[3];
                     _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, ingredient.type());
-                    assertSharedOrdinal(ingredient.entry(), listEntry);
+                    assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
                     ingredient.add(listEntry); // leaf node
                     return;
                 }
                 case FatSauceOrSweeteners: {
                     var foodOrRecipeOrSupplement = current[2];
                     var ingredient = current[3];
-                    if(ingredient!=null) {
-                        System.err.printf("ignored for ingredient: %s %n  %s%n  %s%n", listEntryType, ingredient.entry(), listEntry);
-                        assertSharedOrdinal(ingredient.entry(), listEntry);
-                        ingredient.add(listEntry); // leaf node
-                    } else {
+                    if(ingredient==null) {
                         System.err.printf("ignored for food: %s %n  %s%n  %s%n", listEntryType, foodOrRecipeOrSupplement.entry(), listEntry);
-                        assertSharedOrdinal(foodOrRecipeOrSupplement.entry(), listEntry);
+                        assertSharedOrdinals(foodOrRecipeOrSupplement.entry(), listEntry);
                         foodOrRecipeOrSupplement.add(listEntry); // leaf node
+                    } else {
+                        System.err.printf("ignored for ingredient: %s %n  %s%n  %s%n", listEntryType, ingredient.entry(), listEntry);
+                        assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
+                        ingredient.add(listEntry); // leaf node
                     }
                     return;
                 }
@@ -292,22 +292,19 @@ class _Dtos {
             return root;
         }
 
-        private static void assertSharedOrdinal(final ListEntry a, final ListEntry b) {
+        private static void assertSharedOrdinalsForIngredient(final ListEntry a, final ListEntry b) {
+            assertSharedOrdinals(a, b);
+            _Assert.assertEquals(a.ingredientOrdinal, b.ingredientOrdinal, ()->String.format("ingredient ordinal mismatch; "
+                    + "informal entry is expected to share the ingredient ordinal with the food or ingredient "
+                    + "it is associated with (listEntryType left: %s, right: %s)", a.listEntryType().name(), b.listEntryType().name()));
+        }
 
-            // FatSauceOrSweeteners appear to be special here, they come with their own ingredient ordinal,
-            // which is also non sequential, perhaps always added to the bottom with a sequence number gap of size 2
-            var skipIngredientOrdinalCheck = a.listEntryType().equals(ListEntryType.FatSauceOrSweeteners)
-                    || b.listEntryType().equals(ListEntryType.FatSauceOrSweeteners);
-
-            if(!skipIngredientOrdinalCheck)
-                _Assert.assertEquals(a.ingredientOrdinal, b.ingredientOrdinal, ()->"ingredient ordinal mismatch; "
-                        + "informal entry is expected to share the ingredient ordinal with the food or ingredient "
-                        + "it is associated with");
-            _Assert.assertEquals(a.recordOrdinal, b.recordOrdinal, ()->"record ordinal mismatch; "
-                    + "informal entry is expected to share the record ordinal with the food or ingredient "
-                    + "it is associated with");
+        private static void assertSharedOrdinals(final ListEntry a, final ListEntry b) {
             _Assert.assertEquals(a.mealOrdinal, b.mealOrdinal, ()->"meal ordinal mismatch; "
                     + "informal entry is expected to share the meal ordinal with the food or ingredient "
+                    + "it is associated with");
+            _Assert.assertEquals(a.recordOrdinal, b.recordOrdinal, ()->"record ordinal mismatch; "
+                    + "informal entry is expected to share the record ordinal with the food or ingredient "
                     + "it is associated with");
         }
 
@@ -637,12 +634,43 @@ class _Dtos {
             //RecipeSelectedAsARecipeIngredient("3S"), //Not yet available (as stated in docs)
             Food("4"),
             FoodSelectedAsARecipeIngredient("5"),
+
+            /**
+             * When a food is consumed “fried” or an ingredient “deep fried”,
+             * fat(s) during cooking is asked and their quantities are automatically computed.
+             * <p>
+             * Shares the QLINUM with the preceding {@link ListEntryType#Food}.
+             */
             FatDuringCookingForFood("6"),
+            /**
+             * When a food is consumed “fried” or an ingredient “deep fried”,
+             * fat(s) during cooking is asked and their quantities are automatically computed.
+             * <p>
+             * Shares the QLINUM and ING_NUM with the preceding {@link ListEntryType#Food}.
+             */
             FatDuringCookingForIngredient("7"),
-            /** Type of Fat used (informal) */
+
+            /**
+             * Type of Fat used (informal).
+             * <p>
+             * For some foods GloboDiet is asking on qualitative information on its fat(s) or liquid(s) components.
+             * As there are qualitative information, theses fat(s) and liquid(s) foods don’t have attached consumed
+             * quantity (=0g).
+             * <p>
+             * Shares the QLINUM with the preceding {@link ListEntryType#Food}.
+             */
             TypeOfFatUsedFacet("A2"),
-            /** Type of milk/liquid used (informal) */
+            /**
+             * Type of milk/liquid used (informal).
+             * <p>
+             * For some foods GloboDiet is asking on qualitative information on its fat(s) or liquid(s) components.
+             * As there are qualitative information, theses fat(s) and liquid(s) foods don’t have attached consumed
+             * quantity (=0g).
+             * <p>
+             * Shares the QLINUM with the preceding {@link ListEntryType#Food}.
+             */
             TypeOfMilkOrLiquidUsedFacet("A3"),
+
             /**
              * Lines/records with Type=8 should not be used for data analysis because the reported consumed quantities
              * are redundant with other lines/records.

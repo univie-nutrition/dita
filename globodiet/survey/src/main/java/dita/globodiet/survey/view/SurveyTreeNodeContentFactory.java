@@ -18,8 +18,11 @@
  */
 package dita.globodiet.survey.view;
 
+import java.util.stream.Collectors;
+
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.JsonUtils;
+import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
@@ -137,8 +140,18 @@ public class SurveyTreeNodeContentFactory {
             //final String title,
             final String yamlBlockLabel,
             final Object details) {
-        return adoc(/*title, */yamlBlockLabel, YamlUtils.toStringUtf8(details, JsonUtils.JacksonCustomizer
-                .wrapXmlAdapter(new JaxbAdapters.QuantityAdapter())));
+
+        var yaml = YamlUtils.toStringUtf8(details, JsonUtils.JacksonCustomizer
+                .wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
+
+        return adoc(/*title, */yamlBlockLabel,
+                TextUtils.readLines(yaml)
+                    .stream()
+                    .filter(line->
+                        !line.contains("typeOfFatUsedDuringCooking: null")
+                        && !line.contains("typeOfMilkOrLiquidUsedDuringCooking: null"))
+                    .collect(Collectors.joining("\n"))
+                );
     }
 
     private static AsciiDoc adoc(

@@ -47,7 +47,8 @@ public record Recall24SummaryStatistics(
 
     public String formatted() {
         return Stream.of(
-                recordStats.formatted())
+                recordStats.formatted(),
+                consumptionStats.formatted())
             .collect(Collectors.joining("\n"));
     }
 
@@ -70,7 +71,7 @@ public record Recall24SummaryStatistics(
             case Record24.Food food -> foodCount.increment();
             case Record24.Composite comp -> compositeCount.increment();
             default -> {
-                //FIXME[23] stats missed casees
+                //FIXME[23] stats missed cases
                 System.err.printf("not counted %s%n", rec);
             }
 //            case INCOMPLETE -> incompleteCount.increment();
