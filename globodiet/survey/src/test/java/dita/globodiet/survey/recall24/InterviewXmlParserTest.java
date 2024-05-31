@@ -23,39 +23,28 @@ import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
-import org.apache.causeway.commons.io.DataSource;
-
 import dita.globodiet.survey.utils.ApprovalTestOptions;
-import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 class InterviewXmlParserTest {
 
     @Test
     @UseReporter(DiffReporter.class)
     void parsingSample() {
-        var xml = InterviewSampler.sampleXml();
-        var interviewSet24 = InterviewXmlParser.parse(DataSource.ofStringUtf8(xml), null);
-
+        var interviewSet24 = InterviewSamples.SAMPLES.asInterviewSet(null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
     
     @Test
     @UseReporter(DiffReporter.class)
     void parsingRefComposites() {
-        var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(
-                InterviewXmlParserTest.class.getResourceAsStream("Ref_Composites_202405281318.7z")));
-        
-        var interviewSet24 = InterviewXmlParser.parse(ds, null);
+        var interviewSet24 = InterviewSamples.COMPOSITES.asInterviewSet(null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
     
     @Test
     @UseReporter(DiffReporter.class)
     void parsingRefFatSouceSweetener() {
-        var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(
-                InterviewXmlParserTest.class.getResourceAsStream("Ref_FatSouceSweetener_202405300942.7z")));
-        
-        var interviewSet24 = InterviewXmlParser.parse(ds, null);
+        var interviewSet24 = InterviewSamples.FAT_SOUCE_SWEETENERS.asInterviewSet(null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
 
