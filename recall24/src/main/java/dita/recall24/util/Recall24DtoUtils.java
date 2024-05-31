@@ -128,8 +128,6 @@ public class Recall24DtoUtils {
     public UnaryOperator<InterviewSet24.Dto> transform(
             final @NonNull RecallNode24.Transfomer transformer) {
         
-        return (final InterviewSet24.Dto interviewSet) -> interviewSet;
-/*        
         return (final InterviewSet24.Dto interviewSet) -> {
 
             final var stack = new int[4];
@@ -213,7 +211,7 @@ public class Recall24DtoUtils {
             var transformedInterviewSet = helper.build(setBuilder);
             return transformedInterviewSet;
             
-        };*/
+        };
     }
 
     public UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
