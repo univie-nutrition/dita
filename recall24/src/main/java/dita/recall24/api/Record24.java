@@ -31,6 +31,7 @@ import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.Getter;
@@ -333,6 +334,10 @@ permits
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio
             ) implements Consumption {
+
+        public FryingFat {
+            _Assert.assertEquals(Type.FRYING_FAT, type);
+        }
 
         @Override
         public Builder24<Dto> asBuilder() {

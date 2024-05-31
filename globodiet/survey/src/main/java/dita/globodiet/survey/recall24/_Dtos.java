@@ -225,12 +225,14 @@ class _Dtos {
                     current[3] = null;
                     return;
                 case Food:
+                case FatDuringCookingForFood:
                 case Recipe:
                 case DietarySupplement:
                     current[2] = current[1].add(listEntry);
                     current[3] = null;
                     return;
-                case FoodSelectedAsARecipeIngredient: {
+                case FoodSelectedAsARecipeIngredient:
+                case FatDuringCookingForIngredient: {
                     var recipe = current[2];
                     _Assert.assertEquals(ListEntryType.Recipe, recipe.type());
                     current[3] = recipe.add(listEntry);
@@ -249,20 +251,20 @@ class _Dtos {
                     }
                     return;
                 }
-                case FatDuringCookingForFood: {
-                    var food = current[2];
-                    _Assert.assertEquals(ListEntryType.Food, food.type());
-                    assertSharedOrdinals(food.entry(), listEntry);
-                    food.add(listEntry); // leaf node
-                    return;
-                }
-                case FatDuringCookingForIngredient: {
-                    var ingredient = current[3];
-                    _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, ingredient.type());
-                    assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
-                    ingredient.add(listEntry); // leaf node
-                    return;
-                }
+//                case FatDuringCookingForFood: {
+//                    var food = current[2];
+//                    _Assert.assertEquals(ListEntryType.Food, food.type());
+//                    assertSharedOrdinals(food.entry(), listEntry);
+//                    food.add(listEntry); // leaf node
+//                    return;
+//                }
+//                case FatDuringCookingForIngredient: {
+//                    var ingredient = current[3];
+//                    _Assert.assertEquals(ListEntryType.FoodSelectedAsARecipeIngredient, ingredient.type());
+//                    assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
+//                    ingredient.add(listEntry); // leaf node
+//                    return;
+//                }
                 case FatSauceOrSweeteners: {
                     var foodOrRecipeOrSupplement = current[2];
                     var ingredient = current[3];

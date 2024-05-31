@@ -1193,6 +1193,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 1.3700000047683716
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"

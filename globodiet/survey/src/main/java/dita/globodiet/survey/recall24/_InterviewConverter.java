@@ -33,6 +33,7 @@ import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
+import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import dita.recall24.api.Interview24;
 import dita.recall24.api.Meal24;
 import dita.recall24.api.MemorizedFood24;
@@ -58,6 +59,7 @@ class _InterviewConverter {
                     var records = memNode.childNodes().stream()
                     .map(recordNode->{
                         var record24 = toTopLevelRecord24(recordNode);
+                        System.err.printf("  record24 %s%n", record24);
                         return record24;
                     })
                     .collect(Can.toCan());
@@ -94,8 +96,10 @@ class _InterviewConverter {
     // -- RECORDS
 
     private Record24.Dto toTopLevelRecord24(final ListEntryTreeNode topLevelRecordNode) {
-        final List<ListEntryTreeNode> subEntries = topLevelRecordNode.childNodes();
-        final int subRecordCount = _NullSafe.size(subEntries);
+        final List<ListEntryTreeNode> subEntries = topLevelRecordNode.childNodes().stream()
+                .filter(x->!ListEntryType.FatSauceOrSweeteners.equals(x.type()))
+                .toList();
+        final int subRecordCount = subEntries.size();
         var listEntry = topLevelRecordNode.entry();
 
         //TODO label() might be non empty -> information lost
@@ -115,8 +119,10 @@ class _InterviewConverter {
     }
 
     private Record24.Dto toRecord24(final ListEntryTreeNode node) {
-        final List<ListEntryTreeNode> subEntries = node.childNodes();
-        final int subRecordCount = _NullSafe.size(node.childNodes());
+        final List<ListEntryTreeNode> subEntries = node.childNodes().stream()
+                .filter(x->!ListEntryType.FatSauceOrSweeteners.equals(x.type()))
+                .toList();
+        final int subRecordCount = subEntries.size();
         var listEntry = node.entry();
         return switch (listEntry.listEntryType()) {
         case Food, FoodSelectedAsARecipeIngredient -> {
@@ -124,12 +130,21 @@ class _InterviewConverter {
             var usedDuringCooking = subRecordCount>0
                  ? toRecords24(subEntries)
                  : Can.<Record24.Dto>empty();
+            usedDuringCooking.forEach((Record24.Dto dto)->{
+                switch (dto.type()) {
+                    case TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> { /* valid */}
+                    default -> throw new IllegalArgumentException("Unexpected value: " + dto);
+                }
+            });
+            
+            System.err.printf("FOOD %s%n", listEntry.getName());
             yield Record24.food(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
                 usedDuringCooking);
         }
         case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
+            System.err.printf("FAT %s -> %s%n", listEntry.getName(), subEntries);
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
             yield Record24.fryingFat(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),

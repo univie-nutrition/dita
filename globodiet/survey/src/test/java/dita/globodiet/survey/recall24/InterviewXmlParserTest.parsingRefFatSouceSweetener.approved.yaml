@@ -173,6 +173,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 25.560001373291016
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Ketchup"
           sid: "01515"
@@ -191,6 +198,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 11.359999656677246
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Pommes frites"
           sid: "00010"
@@ -200,6 +214,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 5.679999828338623
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Pommes frites"
           sid: "00010"
@@ -209,6 +230,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 11.359999656677246
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Pommes frites"
           sid: "00010"
@@ -286,6 +314,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 1.6964999437332153
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Fisch, Lachs"
           sid: "00872"
@@ -295,6 +330,13 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 2.8275001049041748
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
       - name: "Gemüse"
         topLevelRecords:
         - type: "FOOD"
@@ -306,3 +348,10 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "00937"
+          facetSids: "1200"
+          amountConsumed: 6.3199996948242188
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
