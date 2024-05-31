@@ -96,12 +96,16 @@ permits
          * or identified within eg. a recipe data base.
          */
         FOOD,
+        /**
+         * Fat used for frying, added as Consumption record.
+         */
+        FRYING_FAT,
 
         /**
          * Product identified within a product data base. <p>Eg. supplements.
          */
         PRODUCT,
-
+        
         TYPE_OF_FAT_USED,
         TYPE_OF_MILK_OR_LIQUID_USED,
         ;
@@ -200,7 +204,7 @@ permits
     }
 
     public sealed interface Consumption extends Record24.Dto
-    permits Food, Product {
+    permits Food, FryingFat, Product {
 
         /**
          * Amount consumed in units of {@link #consumptionUnit()}.
@@ -315,6 +319,30 @@ permits
     }
 
     /**
+     * Fat consumed due to the fact that it was used for frying during cooking.
+     */
+    public record FryingFat(
+            /** Memorized food this record belongs to. */
+            @JsonIgnore
+            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
+            String name,
+            String sid,
+            String facetSids,
+            BigDecimal amountConsumed,
+            ConsumptionUnit consumptionUnit,
+            BigDecimal rawPerCookedRatio
+            ) implements Consumption {
+
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids)
+                    .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
+                    .rawPerCookedRatio(rawPerCookedRatio);
+        }
+    }
+    
+    /**
      * Product identified within a product data base.<p>e.g. supplements
      */
     public record Product(
@@ -381,7 +409,28 @@ permits
         return new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
                 name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
     }
-
+    
+    public static FryingFat fryingFat(
+            /**
+             * The name of this record.
+             */
+            final String name,
+            /**
+             * Identifier of this record.
+             */
+            final String sid,
+            /**
+             * Comma separated list of facet identifiers,
+             * ordered (by some natural order).
+             */
+            final String facetSids,
+            final BigDecimal amountConsumed,
+            final ConsumptionUnit consumptionUnit,
+            final BigDecimal rawPerCookedRatio) {
+        return new FryingFat(ObjectRef.empty(), Record24.Type.FRYING_FAT,
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+    }
+    
     public static Food food(
             /**
              * The name of this record.
@@ -464,6 +513,7 @@ permits
             return switch (type) {
             case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords));
             case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords));
+            case FRYING_FAT -> fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
             case PRODUCT -> product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
             case TYPE_OF_FAT_USED -> typeOfFatUsed(name, sid, facetSids);
             case TYPE_OF_MILK_OR_LIQUID_USED -> typeOfMilkOrLiquidUsed(name, sid, facetSids);

@@ -117,11 +117,9 @@ class _InterviewConverter {
     private Record24.Dto toRecord24(final ListEntryTreeNode node) {
         final List<ListEntryTreeNode> subEntries = node.childNodes();
         final int subRecordCount = _NullSafe.size(node.childNodes());
-
-        //_Assert.assertEquals(0, subRecordCount, ()->"leaf record is expected to have no sub-records");
         var listEntry = node.entry();
         return switch (listEntry.listEntryType()) {
-        case Food, FoodSelectedAsARecipeIngredient, FatDuringCookingForFood, FatDuringCookingForIngredient -> {
+        case Food, FoodSelectedAsARecipeIngredient -> {
             // sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
             var usedDuringCooking = subRecordCount>0
                  ? toRecords24(subEntries)
@@ -130,6 +128,12 @@ class _InterviewConverter {
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
                 usedDuringCooking);
+        }
+        case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
+            _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
+            yield Record24.fryingFat(
+                listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
+                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
         }
         case DietarySupplement -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");

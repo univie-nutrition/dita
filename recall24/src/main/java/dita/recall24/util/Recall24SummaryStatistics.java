@@ -57,31 +57,34 @@ public record Recall24SummaryStatistics(
     public record Record24SummaryStatistics(
             LongAdder recordCount,
             LongAdder foodCount,
+            LongAdder fryingFatCount,
             LongAdder compositeCount,
             LongAdder incompleteCount,
             LongAdder informalCount,
             LongAdder productCount) {
         public Record24SummaryStatistics() {
-            this(nla(), nla(), nla(), nla(), nla(), nla());
+            this(nla(), nla(), nla(), nla(), nla(), nla(), nla());
         }
         public void accept(final Record24.Dto rec) {
             recordCount.increment();
             switch (rec) {
             case Record24.Product prod -> productCount.increment();
             case Record24.Food food -> foodCount.increment();
+            case Record24.FryingFat fryingFat -> fryingFatCount.increment();
             case Record24.Composite comp -> compositeCount.increment();
             default -> {
                 //FIXME[23] stats missed cases
                 System.err.printf("not counted %s%n", rec);
             }
-//            case INCOMPLETE -> incompleteCount.increment();
-//            case INFORMAL -> informalCount.increment();
             }
         }
         public String formatted() {
-            return String.format("records: %d (food: %d, comp: %d, prod: %d, info: %d, incomplete: %d)",
-                    recordCount.longValue(), foodCount.longValue(), compositeCount.longValue(),
-                    productCount.longValue(), informalCount.longValue(), incompleteCount.longValue());
+            return String.format("records: %d (food: %d, fat: %d, comp: %d, prod: %d, info: %d, incomplete: %d)",
+                    recordCount.longValue(), 
+                    foodCount.longValue(), fryingFatCount.longValue(), 
+                    compositeCount.longValue(), 
+                    productCount.longValue(),
+                    informalCount.longValue(), incompleteCount.longValue());
         }
     }
 

@@ -73,6 +73,7 @@ package "Consumption Data" <<Frame>> #E8DAFC {
     
     ConsumptionRecord -l-|> Record
     Food -d-|> ConsumptionRecord
+    FryingFat -d-|> ConsumptionRecord
     Product -d-|> ConsumptionRecord
     
     
@@ -106,10 +107,13 @@ end note
 
 == Record Model
 
-A _record_ is either directly a consumption entry (`Food`, `Product`) 
+A _record_ is either directly a consumption entry (`Food`, `FryingFat`, `Product`) 
 or a composite (`Composite`) of such 
 or an informal entry (`TypeOfFatUsed`, `TypeOfMilkOrLiquidUsed`) attached 
 to another _record_ (`Food`).
+
+`FryingFat` is fat used during cooking, which is also added as consumption record (amount reducing factors considered).
+
 
 [plantuml,fig-record-model,svg]
 .Record Model
@@ -146,7 +150,8 @@ together {
 
 ConsumptionRecord --|> Record
 Product ---|> ConsumptionRecord
-Food ---|> ConsumptionRecord 
+Food ---|> ConsumptionRecord
+FryingFat ---|> ConsumptionRecord
  
 Composite -|> Record : "   "
 Composite o-> "0..*" Record : subRecords
