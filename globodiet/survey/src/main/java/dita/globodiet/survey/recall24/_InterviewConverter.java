@@ -59,7 +59,6 @@ class _InterviewConverter {
                     var records = memNode.childNodes().stream()
                     .map(recordNode->{
                         var record24 = toTopLevelRecord24(recordNode);
-                        System.err.printf("  record24 %s%n", record24);
                         return record24;
                     })
                     .collect(Can.toCan());
@@ -136,15 +135,12 @@ class _InterviewConverter {
                     default -> throw new IllegalArgumentException("Unexpected value: " + dto);
                 }
             });
-            
-            System.err.printf("FOOD %s%n", listEntry.getName());
             yield Record24.food(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
                 usedDuringCooking);
         }
         case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
-            System.err.printf("FAT %s -> %s%n", listEntry.getName(), subEntries);
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
             yield Record24.fryingFat(
                 listEntry.getName(), listEntry.getFoodOrSimilarCode(), listEntry.getFacetDescriptorCodes(),
