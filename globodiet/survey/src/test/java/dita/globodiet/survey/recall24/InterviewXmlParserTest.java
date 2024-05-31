@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.globodiet.survey.utils.ApprovalTestOptions;
+import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 class InterviewXmlParserTest {
 
@@ -35,6 +36,26 @@ class InterviewXmlParserTest {
         var xml = InterviewSampler.sampleXml();
         var interviewSet24 = InterviewXmlParser.parse(DataSource.ofStringUtf8(xml), null);
 
+        Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
+    }
+    
+    @Test
+    @UseReporter(DiffReporter.class)
+    void parsingRefComposites() {
+        var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(
+                InterviewXmlParserTest.class.getResourceAsStream("Ref_Composites_202405281318.7z")));
+        
+        var interviewSet24 = InterviewXmlParser.parse(ds, null);
+        Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
+    }
+    
+    @Test
+    @UseReporter(DiffReporter.class)
+    void parsingRefFatSouceSweetener() {
+        var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(
+                InterviewXmlParserTest.class.getResourceAsStream("Ref_FatSouceSweetener_202405300942.7z")));
+        
+        var interviewSet24 = InterviewXmlParser.parse(ds, null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
 

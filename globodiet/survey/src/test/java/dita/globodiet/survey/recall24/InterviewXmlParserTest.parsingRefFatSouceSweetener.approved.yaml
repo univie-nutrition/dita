@@ -1,0 +1,308 @@
+respondents:
+- alias: "1234"
+  dateOfBirth: "2000-01-01"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-28"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "09:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Kaffee, mit Koffein und Zucker"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Kaffee, mit Koffein {assocRecp=492}"
+          sid: "01339"
+          facetSids: "0699,0201,1200,0701"
+          amountConsumed: 150
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Zucker, Kristall"
+          sid: "00992"
+          facetSids: "1200"
+          amountConsumed: 7.5
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Salat, gemischt mit Essig/Öl-Dressing"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Salat, Eichblatt"
+          sid: "00036"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salat, Kopf n.s."
+          sid: "00040"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salat, Romana"
+          sid: "00031"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salatdressing, Essig/Öl {assocRecp=384}"
+          sid: "01527"
+          facetSids: "0699,0499,1009,1200"
+          amountConsumed: 12
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+      - name: "Salat, gemischt mit Joghurtdressing (Rezept bekannt)"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Salat, Eichblatt"
+          sid: "00036"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salat, Kopf n.s."
+          sid: "00040"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salat, Romana"
+          sid: "00031"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salatdressing, Jogurt {assocRecp=334}"
+          sid: "01525"
+          facetSids: "0699,0201,0499,1001,1501,1601"
+          amountConsumed: 12
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking:
+            type: "TYPE_OF_FAT_USED"
+            name: "Öl, Raps"
+            sid: "00937"
+            facetSids: "1200"
+          typeOfMilkOrLiquidUsedDuringCooking:
+            type: "TYPE_OF_MILK_OR_LIQUID_USED"
+            name: "Jogurt"
+            sid: "00236"
+            facetSids: "0102,0699,1200,0701,0801"
+      - name: "Salat, gemisch mit Joghurtdressing (zubereitet in Rest.)"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Salat, Eichblatt"
+          sid: "00036"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salat, Kopf n.s."
+          sid: "00040"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salat, Romana"
+          sid: "00031"
+          facetSids: "0204,0499,0910,2807"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Salatdressing, Jogurt {assocRecp=334}"
+          sid: "01525"
+          facetSids: "0699,0201,0400,1009,1200"
+          amountConsumed: 12
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+      - name: "Pommes frites mit Ketchup"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Pommes frites"
+          sid: "00010"
+          facetSids: "0204,0499,1200,0801,0310"
+          amountConsumed: 142
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Ketchup"
+          sid: "01515"
+          facetSids: "0699,1200"
+          amountConsumed: 28.399999618530273
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Pommes frites"
+          sid: "00010"
+          facetSids: "0204,0402,1200,0801,0309"
+          amountConsumed: 142
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Pommes frites"
+          sid: "00010"
+          facetSids: "0204,0402,1200,0801,0307"
+          amountConsumed: 142
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Pommes frites"
+          sid: "00010"
+          facetSids: "0204,0402,1200,0801,0309"
+          amountConsumed: 142
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Pommes frites"
+          sid: "00010"
+          facetSids: "0204,0402,1200,0801,0301"
+          amountConsumed: 142
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+    - hourOfDay: "14:00:00"
+      foodConsumptionOccasionId: "07"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Kuchen"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Kuchen n.s. {assocRecp=638}"
+          sid: "01151"
+          facetSids: "0699,1001,1500,1602,0702"
+          amountConsumed: 80
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Kuchen n.s. {assocRecp=638}"
+          sid: "01151"
+          facetSids: "0699,1006,0702,0801"
+          amountConsumed: 80
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Kuchen n.s. {assocRecp=638}"
+          sid: "01151"
+          facetSids: "0699,1009,0702"
+          amountConsumed: 80
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+      - name: "Topfentorte"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Topfentorte {assocRecp=434}"
+          sid: "01179"
+          facetSids: "0699,1001,1500,1602,0702"
+          amountConsumed: 88
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Topfentorte {assocRecp=434}"
+          sid: "01179"
+          facetSids: "0699,1006,0702,0801"
+          amountConsumed: 88
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+    - hourOfDay: "19:00:00"
+      foodConsumptionOccasionId: "09"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Fisch, Lachs"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Fisch, Lachs"
+          sid: "00872"
+          facetSids: "0131,0204,0499,1001,0328,1301,2807"
+          amountConsumed: 56.549999237060547
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+        - type: "FOOD"
+          name: "Fisch, Lachs"
+          sid: "00872"
+          facetSids: "0131,0204,0402,1009,0905,0308,1301,2807"
+          amountConsumed: 56.549999237060547
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+      - name: "Gemüse"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Gemüsemischung n.s."
+          sid: "00017"
+          facetSids: "0204,0499,0910,1200,0307,1302,2807"
+          amountConsumed: 79
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null

@@ -32,6 +32,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ApprovalTestOptions {
 
+    /**
+     * Note: WinMerge needs to play along, that is configure their default file encoding to UTF-8.
+     */
     public Options jsonOptions() {
         var objectMapper = new ObjectMapper();
         return new Options()
@@ -48,6 +51,9 @@ public class ApprovalTestOptions {
             .withExtension(".json");
     }
 
+    /**
+     * Note: WinMerge needs to play along, that is configure their default file encoding to UTF-8.
+     */
     public Options yamlOptions() {
         return new Options()
             .withScrubber(s ->
