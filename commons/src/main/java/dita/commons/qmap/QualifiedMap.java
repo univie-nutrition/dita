@@ -50,11 +50,32 @@ public class QualifiedMap {
             /**
              * Constraints under which this map entry is applicable.
              */
-            SemanticIdentifierSet qualifier) {
+            SemanticIdentifierSet qualifier) implements Comparable<QualifiedMapKey> {
 
         static QualifiedMapKey from(@NonNull final QualifiedMapEntry entry) {
             return new QualifiedMapKey(entry.source(), SemanticIdentifierSet.nullToEmpty(entry.qualifier()));
         }
+        
+        @Override
+        public int compareTo(final @Nullable QualifiedMapKey o) {
+            return compare(this, o);
+        }
+        
+        // -- UTILITY
+        
+        public static int compare(
+                final @Nullable QualifiedMapKey a, 
+                final @Nullable QualifiedMapKey b) {
+            if(a==null) return b==null
+                        ? 0
+                        : -1;
+            if(b==null) return 1;
+            final int c = SemanticIdentifier.compare(a.source(), b.source());
+            return c!=0
+                ? c
+                : SemanticIdentifierSet.compare(a.qualifier(), b.qualifier());
+        }
+        
     }
 
     final Map<QualifiedMapKey, QualifiedMapEntry> internalMap;

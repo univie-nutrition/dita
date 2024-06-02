@@ -89,7 +89,10 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         System.err.println("=============");
     }
 
-    record RecordProcessor(Recall24SummaryStatistics stats, String systemId, QualifiedMap nutMapping)
+    record RecordProcessor(
+            Recall24SummaryStatistics stats, 
+            String systemId, 
+            QualifiedMap nutMapping)
     implements Consumer<Record24.Consumption> {
         @Override
         public void accept(final Record24.Consumption rec) {
@@ -98,7 +101,8 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
             if(mapEntry.isPresent()) {
                 stats.consumptionStats().mappedCount().increment();
             } else {
-                System.err.printf("unmapped ingr: %s (%s)%n", rec.name(), mapKey);
+                stats.consumptionStats().collectUnmappedKey(mapKey);
+                System.err.printf("unmapped cons.: %s (%s)%n", rec.name(), mapKey);
             }
         }
     }

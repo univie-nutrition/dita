@@ -18,10 +18,14 @@
  */
 package dita.commons.sid;
 
+import org.springframework.lang.Nullable;
+
+import org.apache.causeway.commons.internal.base._Strings;
+
 /**
  * A Semantic Identifier references data objects across system boundaries.
  */
-public record SemanticIdentifier(
+public record SemanticIdentifier (
         /**
          * Identifies the system (and optionally version) of the referenced data object.
          */
@@ -29,6 +33,26 @@ public record SemanticIdentifier(
         /**
          * Uniquely identifies the data object within the system.
          */
-        String objectId) {
+        String objectId) implements Comparable<SemanticIdentifier> {
+
+    @Override
+    public int compareTo(final @Nullable SemanticIdentifier o) {
+        return compare(this, o);
+    }
+    
+    // -- UTILITY
+    
+    public static int compare(
+            final @Nullable SemanticIdentifier a, 
+            final @Nullable SemanticIdentifier b) {
+        if(a==null) return b==null
+                    ? 0
+                    : -1;
+        if(b==null) return 1;
+        final int c = _Strings.compareNullsFirst(a.systemId(), b.systemId());
+        return c!=0
+            ? c
+            : _Strings.compareNullsFirst(a.objectId(), b.objectId());
+    }
 
 }

@@ -25,14 +25,13 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
-import org.apache.causeway.commons.internal.base._Strings;
 
 public record SemanticIdentifierSet(
         /**
          * Expects elements already to be sorted.<br>
          * Use factory method {@link SemanticIdentifierSet#ofCollection} if unsure.
          */
-        Can<SemanticIdentifier> elements) {
+        Can<SemanticIdentifier> elements) implements Comparable<SemanticIdentifierSet> {
 
     private static final SemanticIdentifierSet EMPTY = new SemanticIdentifierSet(Can.empty());
 
@@ -50,23 +49,41 @@ public record SemanticIdentifierSet(
         if(_NullSafe.isEmpty(collection)) {
             return EMPTY;
         }
-        return new SemanticIdentifierSet(Can.ofCollection(collection).sorted(SemanticIdentifierSet::compare));
+        return new SemanticIdentifierSet(Can.ofCollection(collection).sorted(SemanticIdentifier::compare));
     }
     public static SemanticIdentifierSet ofStream(final @Nullable Stream<SemanticIdentifier> stream) {
         var ids = Can.ofStream(stream);
         return ids.isEmpty()
                 ? EMPTY
-                : new SemanticIdentifierSet(ids.sorted(SemanticIdentifierSet::compare));
+                : new SemanticIdentifierSet(ids.sorted(SemanticIdentifier::compare));
     }
 
-
+    @Override
+    public int compareTo(SemanticIdentifierSet o) {
+        return compare(this, o);
+    }
+    
     // -- UTILITY
+    
+    public static int compare(
+            final @Nullable SemanticIdentifierSet a, 
+            final @Nullable SemanticIdentifierSet b) {
+        if(a==null) return b==null
+                    ? 0
+                    : -1;
+        if(b==null) return 1;
+        
+        final int na = a.elements().size();
+        final int nb = b.elements().size();
 
-    public static int compare(final SemanticIdentifier a, final SemanticIdentifier b) {
-        int c = _Strings.compareNullsFirst(a.systemId(), b.systemId());
-        return c!=0
-            ? c
-            : _Strings.compareNullsFirst(a.objectId(), b.objectId());
+        for(int i=0; i<Math.max(na, nb); i++) {
+            var elemA = a.elements().get(i).orElse(null);
+            var elemB = b.elements().get(i).orElse(null);
+            final int c = SemanticIdentifier.compare(elemA, elemB);
+            if(c!=0) return c;
+            
+        }
+        return 0;
     }
 
 }
