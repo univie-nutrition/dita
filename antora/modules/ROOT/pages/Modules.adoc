@@ -11,6 +11,7 @@ _Dita_ modules and sub-modules.
 ** Commons
 ** Foodon
 ** Causeway
+*** Replicator
 ** Recall24
 ** Foodex
 *** Validator
