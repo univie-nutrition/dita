@@ -72,10 +72,10 @@ package "Consumption Data" <<Frame>> #E8DAFC {
     Composite --|> Record : "        "
     Composite o-> "*" Record : subRecords
     
-    ConsumptionRecord -l-|> Record
-    Food -d-|> ConsumptionRecord
-    FryingFat -d-|> ConsumptionRecord
-    Product -d-|> ConsumptionRecord
+    Consumption -l-|> Record
+    Food -d-|> Consumption
+    FryingFat -d-|> Consumption
+    Product -d-|> Consumption
     
     
     hide class circle

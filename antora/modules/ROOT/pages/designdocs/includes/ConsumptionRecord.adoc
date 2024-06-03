@@ -7,7 +7,6 @@ to another _record_ (`Food`).
 
 `FryingFat` is fat used during cooking, which is also added as consumption record (amount reducing factors considered).
 
-
 [plantuml,fig-record-model,svg]
 .Record Model
 ----
@@ -42,9 +41,9 @@ together {
 }
 
 Consumption --|> Record
-Product ---|> ConsumptionRecord
-Food ---|> ConsumptionRecord
-FryingFat ---|> ConsumptionRecord
+Product ---|> Consumption
+Food ---|> Consumption
+FryingFat ---|> Consumption
  
 Composite -|> Record : "   "
 Composite o-> "0..*" Record : subRecords

@@ -4,4 +4,66 @@
 In the following chapters we describe the key data structures 
 for reporting food consumption data.
 
+== Reporter
+
+Aspects to be considered for the `ReporterService`:
+
+* Filtering - e.g. by respondent alias or by interview date say.
+* Nutritional attribute selection - provide choices of `FoodComponent`(s) given a `FoodComponentCatalog`. 
+* Aggregation of nutrient values:
+** `MEAL` - Sum total of nutrient values for each meal.  
+** `INTERVIEW` - Sum total of nutrient values for each interview.
+** `RESPONDENT_AVERAGE` - Average of nutrient values for each respondent per interview 
+(averaged over all interviews available for a given respondent).
+** `RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP` - variant that groups by food-group.
+** `RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP` - variant that groups by food-group and food-subgroup.
+* Target `FileFormat` (at least support `EXCEL`).
+
+Requirements:
+
+* Connection to a _Food Composition Database_ (FCDB)
+
+Perhaps a good design decision is for calling clients 
+to store those `Clob` results in a `BlobStore`.
+
+[plantuml,fig-reporter,svg]
+.Reporter
+----
+@startuml
+
+interface ReporterService {
+    report(settings: ReporterSettings): Clob
+}
+
+class ReporterSettings {
+    name: String
+    description: String
+}
+
+enum FileFormat {
+    JSON
+    YAML
+    XML
+    EXCEL
+}
+
+enum Aggregation {
+    NONE
+    MEAL
+    INTERVIEW
+    RESPONDENT_AVERAGE
+    RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP
+    RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP
+}
+
+ReporterService ..> FoodCompositionRepository : "connected to"
+ReporterService -> ReporterSettings : "uses"
+ReporterSettings --> FileFormat
+ReporterSettings ---> Aggregation
+ReporterSettings --> "1..*" FoodComponent : "components\n(has one\nor many)"
+
+
+@enduml
+----
+
 include::{includedir}/ConsumptionRecord.adoc[leveloffset=1]
