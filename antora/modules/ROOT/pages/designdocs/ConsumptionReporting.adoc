@@ -23,6 +23,8 @@ Requirements:
 
 * Connection to a _Food Composition Database_ (FCDB)
 
+`ReporterSettings` are either provided in a static way (configuration) or originate from a data base.
+
 Perhaps a good design decision is for calling clients 
 to store those `Clob` results in a `BlobStore`.
 
@@ -32,7 +34,7 @@ to store those `Clob` results in a `BlobStore`.
 @startuml
 
 interface ReporterService {
-    report(settings: ReporterSettings): Clob
+    report(InterviewSet24, ReporterSettings): Clob
 }
 
 class ReporterSettings {
