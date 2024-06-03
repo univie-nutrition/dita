@@ -1,0 +1,13 @@
+= Recall24
+
+Data structures to model _Recall-24_ interviews. 
+
+[cols="1m,5a"]
+|===
+
+| dita-recall24
+| XML and DTO objects for _Recall-24_ data exchange.
+
+Schema: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
+
+|===

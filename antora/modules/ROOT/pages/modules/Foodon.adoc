@@ -1,0 +1,11 @@
+= Foodon
+
+Food ontologies.
+
+[cols="1m,5a"]
+|===
+
+| dita-foodon
+| Integrates _foodon_ ontologies and others (like BLS).
+
+|===

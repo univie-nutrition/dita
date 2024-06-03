@@ -1,0 +1,14 @@
+= Foodex
+
+FoodEx2 (EFSA) integration.
+
+[cols="1m,5a"]
+|===
+
+| dita-foodex-validator
+| Integrates the _FoodEx2 Interpreting and Checking Tool_ (ICT).
+
+Info: https://www.efsa.europa.eu/en/supporting/pub/en-1727 +
+Github: https://github.com/openefsa/catalogue-browser
+
+|===

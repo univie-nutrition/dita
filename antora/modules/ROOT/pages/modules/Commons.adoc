@@ -1,0 +1,11 @@
+= Commons
+
+Shared general purpose utilities.
+
+[cols="1m,5a"]
+|===
+
+| dita-commons
+| Common types and basic utilities.
+
+|===

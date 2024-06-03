@@ -1,0 +1,11 @@
+= Causeway
+
+_Apache Causeway_ integration.
+
+[cols="1m,5a"]
+|===
+
+| dita-causeway-replicator
+| Entity replication utilities, utilizing _Apache Causeway_ meta-model. 
+
+|===

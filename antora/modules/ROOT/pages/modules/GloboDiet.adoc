@@ -1,0 +1,20 @@
+= GloboDiet
+
+GloboDiet integration.
+
+[cols="1m,5a"]
+|===
+
+| dita-globodiet-schema
+| GloboDiet Relational Data Schema
+
+| dita-globodiet-params
+| GloboDiet Entities mostly auto-generated from Schema
+
+| dita-globodiet-survey
+| Survey and Campaign Management Entities
+
+| dita-globodiet-manager
+| Web Application / User Interface
+
+|===
