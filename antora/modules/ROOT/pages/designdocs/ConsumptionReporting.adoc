@@ -23,7 +23,7 @@ Requirements:
 
 * Connection to a _Food Composition Database_ (FCDB)
 
-`ReporterSettings` are either provided in a static way (configuration) or originate from a data base.
+`ReportOptions` are either provided in a static way (configuration) or originate from a data base.
 
 Perhaps a good design decision is for calling clients 
 to store those `Clob` results in a `BlobStore`.
@@ -34,10 +34,10 @@ to store those `Clob` results in a `BlobStore`.
 @startuml
 
 interface ReporterService {
-    report(InterviewSet24, ReporterSettings): Clob
+    report(InterviewSet24, ReportOptions): Clob
 }
 
-class ReporterSettings {
+class ReportOptions {
     name: String
     description: String
 }
@@ -59,10 +59,10 @@ enum Aggregation {
 }
 
 ReporterService ..> FoodCompositionRepository : "connected to"
-ReporterService -> ReporterSettings : "uses"
-ReporterSettings --> FileFormat
-ReporterSettings ---> Aggregation
-ReporterSettings --> "1..*" FoodComponent : "components\n(has one\nor many)"
+ReporterService -> ReportOptions : "uses"
+ReportOptions --> FileFormat
+ReportOptions ---> Aggregation
+ReportOptions --> "1..*" FoodComponent : "components\n(has one\nor many)"
 
 
 @enduml
