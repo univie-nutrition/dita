@@ -1,0 +1,63 @@
+= Consumption Record
+
+A _record_ is either directly a consumption entry (`Food`, `FryingFat`, `Product`) 
+or a composite (`Composite`) of such 
+or an informal entry (`TypeOfFatUsed`, `TypeOfMilkOrLiquidUsed`) attached 
+to another _record_ (`Food`).
+
+`FryingFat` is fat used during cooking, which is also added as consumption record (amount reducing factors considered).
+
+
+[plantuml,fig-record-model,svg]
+.Record Model
+----
+@startuml
+
+interface Record {
+    foodId: SemanticIdentifier
+    facetIds: SemanticIdentifierSet
+    name: String
+    description: String
+}
+
+interface Consumption {
+    amountConsumed: BigDecimal
+    rawPerCookedRatio: BigDecimal
+    asFoodConsumption(systemId: String): FoodConsumption
+}
+
+class Note {
+    text: String
+}
+
+enum ConsumptionUnit {
+    GRAM
+    MILLILITER
+    PART
+}
+
+together {
+    class TypeOfFatUsed
+    class TypeOfMilkOrLiquidUsed
+}
+
+Consumption --|> Record
+Product ---|> ConsumptionRecord
+Food ---|> ConsumptionRecord
+FryingFat ---|> ConsumptionRecord
+ 
+Composite -|> Record : "   "
+Composite o-> "0..*" Record : subRecords
+
+Record o--> "0..*" Note
+
+Food o--> "0..1" TypeOfFatUsed
+Food o--> "0..1" TypeOfMilkOrLiquidUsed
+
+ConsumptionRecord -d-> ConsumptionUnit : amount consumed\nis given in units of
+
+TypeOfFatUsed --|> Record
+TypeOfMilkOrLiquidUsed --|> Record
+
+@enduml
+----

@@ -11,4 +11,5 @@
 ** xref:designdocs/FoodModelMapping.adoc[Food Model Mapping]
 ** xref:designdocs/InterviewModel.adoc[Interview Model]
 ** xref:designdocs/CampaignManager.adoc[Campaign Manager]
+** xref:designdocs/ConsumptionReporting.adoc[Consumption Reporting]
 ** xref:designdocs/OntologyTermAndAnnotations.adoc[Ontology Term And Annotations (Draft)]

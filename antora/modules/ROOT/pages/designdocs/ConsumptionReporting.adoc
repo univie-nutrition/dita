@@ -1,0 +1,7 @@
+= Consumption Reporting
+:includedir: includes
+
+In the following chapters we describe the key data structures 
+for reporting food consumption data.
+
+include::{includedir}/ConsumptionRecord.adoc[leveloffset=1]
