@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.api;
+package dita.recall24.dto;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

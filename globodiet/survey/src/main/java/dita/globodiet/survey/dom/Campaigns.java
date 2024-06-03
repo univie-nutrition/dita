@@ -30,10 +30,10 @@ import lombok.experimental.UtilityClass;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.api.Correction24;
-import dita.recall24.api.InterviewSet24;
-import dita.recall24.api.RecallNode24;
-import dita.recall24.util.Recall24DtoUtils;
+import dita.recall24.dto.Correction24;
+import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 

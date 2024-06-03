@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24;
+package dita.recall24.dto;
 
 public class ModuleRecall24 {
     public static final String NAMESPACE = "dita.recall24";

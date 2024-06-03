@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.api;
+package dita.recall24.dto;
 
 import java.math.BigDecimal;
 
@@ -85,7 +85,7 @@ public interface RespondentSupplementaryData24 {
              */
             BigDecimal weightKG
 
-            ) implements dita.recall24.api.RespondentSupplementaryData24 {
+            ) implements dita.recall24.dto.RespondentSupplementaryData24 {
 
         @Override
         public Interview24.Dto parentInterview() {

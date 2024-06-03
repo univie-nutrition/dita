@@ -31,8 +31,8 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
-import dita.recall24.api.InterviewSet24;
-import dita.recall24.util.Recall24DtoUtils;
+import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.util.Recall24DtoUtils;
 
 /**
  * Parses GloboDiet XML Interview files into recall24 data structures.

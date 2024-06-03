@@ -25,8 +25,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.types.Sex;
-import dita.recall24.api.Correction24;
-import dita.recall24.api.Correction24.RespondentCorr;
+import dita.recall24.dto.Correction24;
+import dita.recall24.dto.Correction24.RespondentCorr;
 
 class Correction24Test {
 

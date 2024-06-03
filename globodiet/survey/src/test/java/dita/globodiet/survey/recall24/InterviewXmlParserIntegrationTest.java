@@ -30,11 +30,11 @@ import dita.commons.qmap.QualifiedMap;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.recall24.api.Correction24;
-import dita.recall24.api.RecallNode24;
-import dita.recall24.api.Record24;
-import dita.recall24.util.Recall24DtoUtils;
-import dita.recall24.util.Recall24SummaryStatistics;
+import dita.recall24.dto.Correction24;
+import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.Record24;
+import dita.recall24.dto.util.Recall24DtoUtils;
+import dita.recall24.dto.util.Recall24SummaryStatistics;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @SpringBootTest(classes = {
@@ -76,7 +76,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 .streamDepthFirst()
                 .map(TreeNode::getValue)
                 .forEach((RecallNode24 node)->{
-                    stats.accept((dita.recall24.api.RecallNode24) node);
+                    stats.accept((dita.recall24.dto.RecallNode24) node);
                     switch(node) {
                     case Record24.Consumption cRec -> recordProcessor.accept(cRec);
                     default -> {}

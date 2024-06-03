@@ -35,13 +35,13 @@ import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
-import dita.recall24.api.Interview24;
-import dita.recall24.api.InterviewSet24;
-import dita.recall24.api.Meal24;
-import dita.recall24.api.MemorizedFood24;
-import dita.recall24.api.RecallNode24;
-import dita.recall24.api.Record24;
-import dita.recall24.api.Respondent24;
+import dita.recall24.dto.Interview24;
+import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.Meal24;
+import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.Record24;
+import dita.recall24.dto.Respondent24;
 
 @UtilityClass
 public class SurveyTreeNodeContentFactory {

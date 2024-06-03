@@ -34,12 +34,12 @@ import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
-import dita.recall24.api.Interview24;
-import dita.recall24.api.Meal24;
-import dita.recall24.api.MemorizedFood24;
-import dita.recall24.api.Record24;
-import dita.recall24.api.Respondent24;
-import dita.recall24.api.RespondentSupplementaryData24;
+import dita.recall24.dto.Interview24;
+import dita.recall24.dto.Meal24;
+import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.Record24;
+import dita.recall24.dto.Respondent24;
+import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass

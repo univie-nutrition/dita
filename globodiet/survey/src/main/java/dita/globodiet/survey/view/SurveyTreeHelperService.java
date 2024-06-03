@@ -30,7 +30,7 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
-import dita.recall24.api.InterviewSet24;
+import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 

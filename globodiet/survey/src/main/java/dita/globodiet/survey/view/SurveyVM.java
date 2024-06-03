@@ -46,13 +46,13 @@ import lombok.Getter;
 
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import dita.globodiet.survey.dom.Campaign;
-import dita.recall24.api.Interview24;
-import dita.recall24.api.InterviewSet24;
-import dita.recall24.api.Meal24;
-import dita.recall24.api.MemorizedFood24;
-import dita.recall24.api.RecallNode24;
-import dita.recall24.api.Record24;
-import dita.recall24.api.Respondent24;
+import dita.recall24.dto.Interview24;
+import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.Meal24;
+import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.Record24;
+import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
 
 @Named(DitaModuleGdSurvey.NAMESPACE + ".SurveyViewModel")

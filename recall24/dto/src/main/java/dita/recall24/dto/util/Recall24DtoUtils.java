@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.util;
+package dita.recall24.dto.util;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -39,14 +39,14 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
-import dita.recall24.api.Correction24;
-import dita.recall24.api.Interview24;
-import dita.recall24.api.InterviewSet24;
-import dita.recall24.api.Meal24;
-import dita.recall24.api.MemorizedFood24;
-import dita.recall24.api.RecallNode24;
-import dita.recall24.api.Record24;
-import dita.recall24.api.Respondent24;
+import dita.recall24.dto.Correction24;
+import dita.recall24.dto.Interview24;
+import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.Meal24;
+import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.Record24;
+import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @UtilityClass

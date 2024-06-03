@@ -27,7 +27,7 @@ import org.apache.causeway.commons.io.DataSource;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.types.Message;
-import dita.recall24.api.InterviewSet24;
+import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 @RequiredArgsConstructor

@@ -11,10 +11,12 @@ _Dita_ modules and sub-modules.
 ** Commons
 ** Foodon
 ** Causeway
-*** Replicator
+*** Replicator¹
 ** Recall24
+*** Dto
+*** Reporter
 ** Foodex
-*** Validator
+*** Validator²
 **** API
 **** Services
 ** GloboDiet
@@ -25,3 +27,6 @@ _Dita_ modules and sub-modules.
 
 @endwbs
 ----
+
+<.> `Replicator` candidate to be moved to _Causewaystuff_.
+<.> `Validator` depends on internal (closed source) project _foodex2_.

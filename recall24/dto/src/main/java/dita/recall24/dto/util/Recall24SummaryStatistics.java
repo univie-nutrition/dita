@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.util;
+package dita.recall24.dto.util;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -26,8 +26,8 @@ import java.util.stream.Stream;
 
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
-import dita.recall24.api.RecallNode24;
-import dita.recall24.api.Record24;
+import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.Record24;
 
 public record Recall24SummaryStatistics(
         Record24SummaryStatistics recordStats,

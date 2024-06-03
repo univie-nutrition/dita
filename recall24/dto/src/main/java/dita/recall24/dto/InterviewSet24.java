@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.api;
+package dita.recall24.dto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +44,7 @@ import lombok.experimental.Accessors;
 
 import dita.commons.jaxb.JaxbAdapters;
 import dita.commons.types.Message;
-import dita.recall24.util.Recall24DtoUtils;
+import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
