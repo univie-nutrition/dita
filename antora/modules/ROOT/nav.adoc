@@ -1,7 +1,6 @@
 * xref:About.adoc[About]
 * xref:TerminologyAndResources.adoc[Terminology And Resources]
 * xref:Modules.adoc[Modules]
-* Modules
 ** xref:designdocs/modules/Commons.adoc[Commons]
 ** xref:designdocs/modules/Foodon.adoc[Foodon]
 ** xref:designdocs/modules/Causeway.adoc[Causeway]

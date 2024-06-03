@@ -6,7 +6,7 @@ Data structures to model _Recall-24_ interviews.
 |===
 
 | dita-recall24
-| XML and DTO objects for _Recall-24_ data exchange.
+| Specifies objects for _Recall-24_ data exchange.
 
 Schema: https://univie-nutrition.github.io/dita/schema/dita-recall24.xsd
 

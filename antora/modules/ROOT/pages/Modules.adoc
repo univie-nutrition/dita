@@ -1,0 +1,26 @@
+= Modules
+
+_Dita_ modules and sub-modules.
+
+[plantuml,fig-modules,svg]
+.Dita Modules
+----
+@startwbs
+
+* Modules
+** Commons
+** Foodon
+** Causeway
+** Recall24
+** Foodex
+*** Validator
+**** API
+**** Services
+** GloboDiet
+*** Schema
+*** Params
+*** Survey
+*** Manager
+
+@endwbs
+----
