@@ -17,6 +17,8 @@ Aspects to be considered for the `ReporterService`:
 (averaged over all interviews available for a given respondent).
 ** `RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP` - variant that groups by food-group.
 ** `RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP` - variant that groups by food-group and food-subgroup.
+* Aggregation of Composites - allow for some composites to be reported as single consumption 
+(instead of splitting them up into their sub-records, which is the default).
 * Target `FileFormat` (at least support `EXCEL`).
 
 Requirements:
@@ -49,7 +51,7 @@ enum FileFormat {
     EXCEL
 }
 
-enum Aggregation {
+enum NutrientAggregation {
     NONE
     MEAL
     INTERVIEW
@@ -60,9 +62,11 @@ enum Aggregation {
 
 ReporterService ..> FoodCompositionRepository : "connected to"
 ReporterService -> ReportOptions : "uses"
+
+ReportOptions -> NutrientAggregation
 ReportOptions --> FileFormat
-ReportOptions ---> Aggregation
-ReportOptions --> "1..*" FoodComponent : "components\n(has one\nor many)"
+ReportOptions --> "1..*" FoodComponent : "components\n(has one\nor more)"
+ReportOptions --> "0..*" SemanticIdentifier : "compositesToAggregate\n(has zero or more)"
 
 
 @enduml
