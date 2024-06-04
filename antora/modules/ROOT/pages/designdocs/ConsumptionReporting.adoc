@@ -28,9 +28,6 @@ Requirements:
 
 `ReportOptions` are either provided in a static way (configuration) or originate from a data base.
 
-Perhaps a good design decision for calling clients 
-is to store the reporter's `Clob` results in a `BlobStore`.
-
 [plantuml,fig-reporter,svg]
 .Reporter
 ----
@@ -70,8 +67,55 @@ ReportOptions --> FileFormat
 ReportOptions --> "1..*" FoodComponent : "components\n(has one\nor more)"
 ReportOptions --> "0..*" SemanticIdentifier : "compositesToAggregate\n(has zero or more)"
 
+@enduml
+----
+
+== Interview Set
+
+An `Interview Set` is a set of respondents 
+including their interview and consumption data.
+
+[plantuml,fig-interviewset,svg]
+.Interview Set
+----
+@startuml
+
+package "Consumption Data" <<Frame>> #E8DAFC {
+
+    class Meal {
+    }
+    
+    class "Memorized Food" {
+    }
+    
+    interface Record {
+    }
+
+    Meal o-d-> "*" "Memorized Food"
+    "Memorized Food" o-> "*" Record
+    
+    Consumption -d-|> Record
+    
+    hide class circle
+    hide class method
+    hide enum method
+}
+
+InterviewSet o-> "*" Respondent
+Respondent o-> "*" Interview
+Interview o--> "*" Meal
+
+hide class circle
+hide class method
+hide enum method
 
 @enduml
 ----
+
+[NOTE]
+====
+Perhaps a good design decision for calling clients 
+is to store the reporter's `Clob` results in a `BlobStore`.
+====
 
 include::{includedir}/ConsumptionRecord.adoc[leveloffset=1]
