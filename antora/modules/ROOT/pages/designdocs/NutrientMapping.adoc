@@ -1,4 +1,4 @@
-= Nutrient Mapping
+= Nutrient Mapping (Draft)
 :includedir: includes
 
 In the following chapters we describe the key data structures 
@@ -9,7 +9,18 @@ food-consumption to food-composition resolution.
 
 A design goal for the `FoodCompositionResolutionService` is, 
 that it should be possible to implemented it as a Web API client,
-that queries another system.  
+that queries another system.
+
+[NOTE]
+====
+An alternative solution: 
+From _Dita_ download a mapping-todo file (generated on a per Campaign basis), 
+which can be imported into an external system. 
+
+Nutrition experts then process those _todos_ resulting in an updated FCDB download, 
+that is then used as a configuration resource for Dita. (perhaps use the `BlobStore`) 
+====
+
 
 Aspects to consider:
 
@@ -20,7 +31,7 @@ return a `FoodComposition`. (Optional, since redundant with _download_.)
 * *Update* - for a given `QualifiedMapKey`, that represents a food-consumption,
 set a `FoodComposition`. (This invalidates any previous download.)
 * *Search* - for a given `QualifiedMapKey`, that represents a food-consumption,
-list some candidate `FoodComposition`(s).
+list some candidate `FoodComposition`(s). (Search can be realized against the downloaded `FoodCompositionRepository`.)
 ** Could be hinted by already existing entries, 
 based on some similarity metric.
 ** Could be hinted by _name-similarity_ search.
