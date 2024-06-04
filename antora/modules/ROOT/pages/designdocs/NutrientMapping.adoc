@@ -1,0 +1,45 @@
+= Nutrient Mapping
+:includedir: includes
+
+In the following chapters we describe the key data structures 
+for querying and updating 
+food-consumption to food-composition resolution.
+
+== Food Composition Resolution (Web API)
+
+A design goal for the `FoodCompositionResolutionService` is, 
+that it should be possible to implemented it as a Web API client,
+that queries another system.  
+
+Aspects to consider:
+
+* *Download* - get the entire `FoodCompositionRepository` in serialized form, 
+such that the caller can recreate it in memory.
+* *Lookup* - for a given `QualifiedMapKey`, that represents a food-consumption,
+return a `FoodComposition`. (Optional, since redundant with _download_.)
+* *Update* - for a given `QualifiedMapKey`, that represents a food-consumption,
+set a `FoodComposition`. (This invalidates any previous download.)
+* *Search* - for a given `QualifiedMapKey`, that represents a food-consumption,
+list some candidate `FoodComposition`(s).
+** Could be hinted by already existing entries, 
+based on some similarity metric.
+** Could be hinted by _name-similarity_ search.
+
+[plantuml,fig-composition-resolution,svg]
+.Food Composition Resolution
+----
+@startuml
+
+interface FoodCompositionResolutionService {
+    download(): Blob
+    lookup(QualifiedMapKey): Optional<FoodComposition>
+    update(QualifiedMapKey, FoodComposition)
+    search(QualifiedMapKey, SearchOptions): List<FoodComposition>  
+}
+
+FoodCompositionResolutionService .> "uses" SearchOptions
+
+@enduml
+----
+
+include::{includedir}/CompositionResolution.adoc[leveloffset=1]

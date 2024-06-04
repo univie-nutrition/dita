@@ -1,4 +1,5 @@
 = Food Model Mapping
+:includedir: includes
 
 In the following chapters we describe the basic principles used for mapping from arbitrary _food models_ to others. 
 And in particular matching _Food Consumption Data_ with _Food Composition Data_.
@@ -334,49 +335,5 @@ hide class method
 @enduml
 ----
 
-=== Food Composition Resolution (via Nutrient Mapping)
+include::{includedir}/CompositionResolution.adoc[leveloffset=2]
 
-Food consumption data (typically originating from recall 24 interviews) is mapped to a food composition database, 
-that provides (measured or estimated) chemical food component quantities for a given specific food.
-
-In effect, consumed quantities of food X can be resolved to consumed quantities of nutrients A, B, C, etc..   
-
-[plantuml,fig-mapping,svg]
-.Food Composition Resolution
-----
-@startuml
-
-class Interview {
-    respondentAlias¹: String
-    date²: LocalDate
-}
-
-class FoodConsumption {
-    foodId: SemanticIdentifier
-    facetIds: SemanticIdentifierSet
-}
-
-class QualifiedMapEntry {
-    source: SemanticIdentifier
-    qualifier: SemanticIdentifierSet
-    target: SemanticIdentifier
-}
-
-class FoodComposition {
-    foodId: SemanticIdentifier
-}
-
-Interview o-> "*" FoodConsumption : collects
-FoodConsumption -> QualifiedMapEntry : mapped by
-QualifiedMapEntry -> FoodComposition : maps to
-
-FoodConsumptionWithComposition ..> FoodComposition : is constructed by
-FoodConsumptionWithComposition ..> FoodConsumption : is constructed by
-
-hide class method
-
-@enduml
-----
-
-<.> *respondentAlias*: first part of the secondary object identifier
-<.> *date*: second part of the secondary object identifier
