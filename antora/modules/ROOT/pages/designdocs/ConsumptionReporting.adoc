@@ -19,6 +19,7 @@ Aspects to be considered for the `ReporterService`:
 ** `RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP` - variant that groups by food-group and food-subgroup.
 * Aggregation of Composites - allow for some composites to be reported as single consumption 
 (instead of splitting them up into their sub-records, which is the default).
+* Language - Translation e.g. in which to express column headers.
 * Target `FileFormat` (at least support `EXCEL`).
 
 Requirements:
@@ -27,8 +28,8 @@ Requirements:
 
 `ReportOptions` are either provided in a static way (configuration) or originate from a data base.
 
-Perhaps a good design decision is for calling clients 
-to store those `Clob` results in a `BlobStore`.
+Perhaps a good design decision for calling clients 
+is to store the reporter's `Clob` results in a `BlobStore`.
 
 [plantuml,fig-reporter,svg]
 .Reporter
@@ -42,6 +43,7 @@ interface ReporterService {
 class ReportOptions {
     name: String
     description: String
+    language: Locale
 }
 
 enum FileFormat {
@@ -60,8 +62,8 @@ enum NutrientAggregation {
     RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP
 }
 
-ReporterService ..> FoodCompositionRepository : "connected to"
-ReporterService -> ReportOptions : "uses"
+ReporterService .> FoodCompositionRepository : "connected to"
+ReporterService ..> ReportOptions : "uses"
 
 ReportOptions -> NutrientAggregation
 ReportOptions --> FileFormat
