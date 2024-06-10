@@ -25,8 +25,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.qmap.QualifiedMap;
+import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
+import dita.commons.qmap.QualifiedMapEntry;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
@@ -35,6 +38,7 @@ import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
+import dita.recall24.dto.util.Recall24SummaryStatistics.MappingTodo;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @SpringBootTest(classes = {
@@ -85,7 +89,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         });
 
         System.err.println(stats.consumptionStats()
-            .reportUnmapped());
+            .reportMappingTodos());
 
         System.err.println("=== STATS ===");
         System.err.println(stats.formatted());
@@ -104,9 +108,14 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
             if(mapEntry.isPresent()) {
                 stats.consumptionStats().mappedCount().increment();
             } else {
-                stats.consumptionStats().collectUnmappedKey(mapKey);
-                System.err.printf("unmapped cons.: %s (%s)%n", rec.name(), mapKey);
+                stats.consumptionStats().collectMappingTodo(new MappingTodo(mapKey, similar(mapKey)));
+                System.err.printf("unmapped: %s (%s)%n", rec.name(), mapKey);
             }
+        }
+        private Can<QualifiedMapEntry> similar(final QualifiedMapKey mapKey) {
+            return nutMapping.streamEntriesHavingSource(mapKey.source())
+                    .collect(Can.toCan())
+                    .distinct();
         }
     }
 

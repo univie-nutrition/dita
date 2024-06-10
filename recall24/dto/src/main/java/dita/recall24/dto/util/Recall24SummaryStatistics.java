@@ -18,14 +18,16 @@
  */
 package dita.recall24.dto.util;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.causeway.commons.collections.Can;
+
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
-import dita.commons.sid.SemanticIdentifier;
+import dita.commons.qmap.QualifiedMapEntry;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 
@@ -83,9 +85,9 @@ public record Recall24SummaryStatistics(
         }
         public String formatted() {
             return String.format("records: %d (food: %d, fat: %d, comp: %d, prod: %d, info: %d)",
-                    recordCount.longValue(), 
-                    foodCount.longValue(), fryingFatCount.longValue(), 
-                    compositeCount.longValue(), 
+                    recordCount.longValue(),
+                    foodCount.longValue(), fryingFatCount.longValue(),
+                    compositeCount.longValue(),
                     productCount.longValue(),
                     informalCount.longValue());
         }
@@ -94,32 +96,34 @@ public record Recall24SummaryStatistics(
     public record Consumption24SummaryStatistics(
             LongAdder consumptionCount,
             LongAdder mappedCount,
-            Set<QualifiedMapKey> unmappedSet) {
+            Map<QualifiedMapKey, MappingTodo> mappingTodoByKey) {
         public Consumption24SummaryStatistics() {
-            this(nla(), nla(), new TreeSet<QualifiedMapKey>());
+            this(nla(), nla(), new TreeMap<QualifiedMapKey, MappingTodo>());
         }
         public void accept(final Record24.Consumption consumption) {
             consumptionCount.increment();
         }
-        public void collectUnmappedKey(QualifiedMapKey mapKey) {
-            unmappedSet.add(mapKey);
+        public void collectMappingTodo(final MappingTodo todo) {
+            mappingTodoByKey.put(todo.mapKey(), todo);
         }
         public String formatted() {
             return String.format("consumptions: %d (unmapped total: %d, unmapped unique: %d)",
-                    consumptionCount.longValue(), 
+                    consumptionCount.longValue(),
                     consumptionCount.longValue() - mappedCount.longValue(),
-                    unmappedSet.size());
+                    mappingTodoByKey.size());
         }
-        public String reportUnmapped() {
-            var sb = new StringBuilder();
-            unmappedSet.forEach(unmappedKey->{
-                sb
-                .append(String.format("%s;%s", 
-                        unmappedKey.source().objectId(),
-                        unmappedKey.qualifier().elements().stream().map(SemanticIdentifier::objectId).collect(Collectors.joining(","))))
-                .append("\n");    
-            });
-            return sb.toString();
+        public String reportMappingTodos() {
+            return mappingTodoByKey.values().stream()
+                    .map(MappingTodo::formatted)
+                    .collect(Collectors.joining("\n"));
+        }
+    }
+
+    public record MappingTodo(
+            QualifiedMapKey mapKey,
+            Can<QualifiedMapEntry> similar) {
+        public String formatted() {
+            return mapKey.shortFormat(";", ",");
         }
     }
 

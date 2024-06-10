@@ -55,16 +55,27 @@ public class QualifiedMap {
         static QualifiedMapKey from(@NonNull final QualifiedMapEntry entry) {
             return new QualifiedMapKey(entry.source(), SemanticIdentifierSet.nullToEmpty(entry.qualifier()));
         }
-        
+
         @Override
         public int compareTo(final @Nullable QualifiedMapKey o) {
             return compare(this, o);
         }
-        
+
+        /**
+         * Skips systemId information.
+         * @param primaryDelimiter that separates source and qualifier
+         * @param secondaryDelimiter that separates the qualifier element objectIds
+         */
+        public String shortFormat(final String primaryDelimiter, final String secondaryDelimiter) {
+            return source().objectId()
+                + primaryDelimiter
+                + qualifier().shortFormat(secondaryDelimiter);
+        }
+
         // -- UTILITY
-        
+
         public static int compare(
-                final @Nullable QualifiedMapKey a, 
+                final @Nullable QualifiedMapKey a,
                 final @Nullable QualifiedMapKey b) {
             if(a==null) return b==null
                         ? 0
@@ -75,7 +86,7 @@ public class QualifiedMap {
                 ? c
                 : SemanticIdentifierSet.compare(a.qualifier(), b.qualifier());
         }
-        
+
     }
 
     final Map<QualifiedMapKey, QualifiedMapEntry> internalMap;
@@ -92,8 +103,17 @@ public class QualifiedMap {
         return internalMap.size();
     }
 
+    // -- STREAMS
+
     public Stream<QualifiedMapEntry> streamEntries() {
         return internalMap.values().stream();
+    }
+
+    public Stream<QualifiedMapEntry> streamEntriesHavingSource(
+            @Nullable final SemanticIdentifier source){
+        return source==null
+                ? Stream.empty()
+                : streamEntries().filter(entry->entry.source().equals(source));
     }
 
     // -- LOOKUP VIA KEY

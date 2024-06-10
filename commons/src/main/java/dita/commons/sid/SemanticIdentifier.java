@@ -39,11 +39,11 @@ public record SemanticIdentifier (
     public int compareTo(final @Nullable SemanticIdentifier o) {
         return compare(this, o);
     }
-    
+
     // -- UTILITY
-    
+
     public static int compare(
-            final @Nullable SemanticIdentifier a, 
+            final @Nullable SemanticIdentifier a,
             final @Nullable SemanticIdentifier b) {
         if(a==null) return b==null
                     ? 0

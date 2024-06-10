@@ -19,6 +19,7 @@
 package dita.commons.sid;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
@@ -59,20 +60,30 @@ public record SemanticIdentifierSet(
     }
 
     @Override
-    public int compareTo(SemanticIdentifierSet o) {
+    public int compareTo(final SemanticIdentifierSet o) {
         return compare(this, o);
     }
-    
+
+    /**
+     * Skips systemId information.
+     * @param delimiter that separates the element objectIds
+     */
+    public String shortFormat(final String delimiter) {
+        return elements().stream()
+            .map(SemanticIdentifier::objectId)
+            .collect(Collectors.joining(delimiter));
+    }
+
     // -- UTILITY
-    
+
     public static int compare(
-            final @Nullable SemanticIdentifierSet a, 
+            final @Nullable SemanticIdentifierSet a,
             final @Nullable SemanticIdentifierSet b) {
         if(a==null) return b==null
                     ? 0
                     : -1;
         if(b==null) return 1;
-        
+
         final int na = a.elements().size();
         final int nb = b.elements().size();
 
@@ -81,7 +92,7 @@ public record SemanticIdentifierSet(
             var elemB = b.elements().get(i).orElse(null);
             final int c = SemanticIdentifier.compare(elemA, elemB);
             if(c!=0) return c;
-            
+
         }
         return 0;
     }
