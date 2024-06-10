@@ -25,9 +25,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.collections._Multimaps;
 
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.qmap.QualifiedMapEntry;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 
@@ -77,10 +80,8 @@ public record Recall24SummaryStatistics(
             case Record24.Food food -> foodCount.increment();
             case Record24.FryingFat fryingFat -> fryingFatCount.increment();
             case Record24.Composite comp -> compositeCount.increment();
-            default -> {
-                //FIXME[23] stats missed cases
-                System.err.printf("not counted %s%n", rec);
-            }
+            case Record24.TypeOfFatUsed info -> informalCount.increment();
+            case Record24.TypeOfMilkOrLiquidUsed info -> informalCount.increment();
             }
         }
         public String formatted() {
@@ -122,8 +123,31 @@ public record Recall24SummaryStatistics(
     public record MappingTodo(
             QualifiedMapKey mapKey,
             Can<QualifiedMapEntry> similar) {
+
         public String formatted() {
-            return mapKey.shortFormat(";", ",");
+
+            // group all similar map-entries by target
+            var similarByTarget = _Multimaps.<SemanticIdentifier, SemanticIdentifierSet>newListMultimap();
+            similar.stream()
+                .forEach(s->similarByTarget.putElement(s.target(), s.qualifier()));
+
+            var similarFormatted = similarByTarget.entrySet().stream()
+                .map(multiValuedEntry->{
+                    var targetSid = multiValuedEntry.getKey();
+                    var qualifiersFormatted = multiValuedEntry.getValue()
+                        .stream()
+                        .map(sidSet->String.format("    {%s}", sidSet.shortFormat(",")))
+                        .sorted()
+                        .toList();
+                    return String.format("  - %s\n", targetSid.fullFormat(":"))
+                            + qualifiersFormatted.stream()
+                                .collect(Collectors.joining("\n"));
+                })
+                .collect(Collectors.joining("\n"));
+
+            return mapKey.shortFormat(";", ",")
+                    + (similar.isEmpty() ? "" : "\n")
+                    + similarFormatted;
         }
     }
 

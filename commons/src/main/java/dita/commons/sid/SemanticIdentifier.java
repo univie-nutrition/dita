@@ -22,6 +22,8 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.internal.base._Strings;
 
+import lombok.NonNull;
+
 /**
  * A Semantic Identifier references data objects across system boundaries.
  */
@@ -38,6 +40,13 @@ public record SemanticIdentifier (
     @Override
     public int compareTo(final @Nullable SemanticIdentifier o) {
         return compare(this, o);
+    }
+
+    /**
+     * @param delimiter that separates systemId and objectId
+     */
+    public String fullFormat(final @NonNull String delimiter) {
+        return _Strings.nullToEmpty(systemId) + delimiter + _Strings.nullToEmpty(objectId);
     }
 
     // -- UTILITY

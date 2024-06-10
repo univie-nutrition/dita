@@ -88,8 +88,14 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 });
         });
 
-        System.err.println(stats.consumptionStats()
-            .reportMappingTodos());
+        var mappingTodosAsText = stats.consumptionStats()
+                .reportMappingTodos();
+        System.err.println(mappingTodosAsText);
+
+//export for analysis
+//        TextUtils.writeLinesToFile(TextUtils.readLines(mappingTodosAsText),
+//                new File("d:/tmp/_scratch/mapping-todos.txt"),
+//                StandardCharsets.UTF_8);
 
         System.err.println("=== STATS ===");
         System.err.println(stats.formatted());
