@@ -84,14 +84,17 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 });
         });
 
+        System.err.println(stats.consumptionStats()
+            .reportUnmapped());
+
         System.err.println("=== STATS ===");
         System.err.println(stats.formatted());
         System.err.println("=============");
     }
 
     record RecordProcessor(
-            Recall24SummaryStatistics stats, 
-            String systemId, 
+            Recall24SummaryStatistics stats,
+            String systemId,
             QualifiedMap nutMapping)
     implements Consumer<Record24.Consumption> {
         @Override

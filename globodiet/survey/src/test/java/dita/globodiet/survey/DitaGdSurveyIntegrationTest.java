@@ -26,7 +26,6 @@ import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
 
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
@@ -41,8 +40,8 @@ import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.Record24;
 import dita.recall24.dto.RecallNode24.Builder24;
+import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -98,14 +97,17 @@ extends CausewayIntegrationTestAbstract {
             }
             private void toNutriDbPrefixes(final Record24.Builder recBuilder) {
                 switch(recBuilder.type()) {
-                    case FOOD, TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> {
+                    case FOOD, TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED, FRYING_FAT -> {
+                        // ndb system-id = 'gd'
                         recBuilder.sid("N" + FormatUtils.noLeadingZeros(recBuilder.sid()));
                     }
-                    default -> {
-                        //FIXME[23] transformer cases
-                        if(StringUtils.hasLength(recBuilder.sid())) {
-                            System.err.printf("nutriDbTransfomer unmatched case %s->%s%n", recBuilder.type(), recBuilder.sid());
-                        }
+                    case COMPOSITE -> {
+                        // ndb system-id = 'gdr'
+                        recBuilder.sid(FormatUtils.noLeadingZeros(recBuilder.sid()));
+                    }
+                    case PRODUCT -> {
+                        // ndb system-id = 'ndb' (supplements only)
+                        recBuilder.sid(FormatUtils.noLeadingZeros(recBuilder.sid()));
                     }
                 }
             }
