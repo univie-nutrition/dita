@@ -92,27 +92,6 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     SearchService searchService;
 
     /**
-     * Unique (survey scoped) campaign identifier.
-     */
-    @Property(
-            optionality = Optionality.MANDATORY
-    )
-    @PropertyLayout(
-            fieldSetId = "identity",
-            sequence = "1",
-            describedAs = "Unique (survey scoped) campaign identifier.",
-            hidden = Where.NOWHERE
-    )
-    @Column(
-            name = "CODE",
-            allowsNull = "false",
-            length = 20
-    )
-    @Getter
-    @Setter
-    private String code;
-
-    /**
      * Survey code
      */
     @Property(
@@ -120,7 +99,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     )
     @PropertyLayout(
             fieldSetId = "identity",
-            sequence = "2",
+            sequence = "1",
             describedAs = "Survey code",
             hidden = Where.ALL_TABLES
     )
@@ -132,6 +111,27 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @Getter
     @Setter
     private String surveyCode;
+
+    /**
+     * Unique (survey scoped) campaign identifier.
+     */
+    @Property(
+            optionality = Optionality.MANDATORY
+    )
+    @PropertyLayout(
+            fieldSetId = "identity",
+            sequence = "2",
+            describedAs = "Unique (survey scoped) campaign identifier.",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "CODE",
+            allowsNull = "false",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String code;
 
     /**
      * Descriptive campaign name.
@@ -208,8 +208,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     @Override
     public String toString() {
-        return "Campaign(" + "code=" + getCode() + ","
-         +"surveyCode=" + getSurveyCode() + ","
+        return "Campaign(" + "surveyCode=" + getSurveyCode() + ","
+         +"code=" + getCode() + ","
          +"name=" + getName() + ","
          +"description=" + getDescription() + ","
          +"correction=" + getCorrection() + ")";
@@ -219,8 +219,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @Override
     public Campaign copy() {
         var copy = repositoryService.detachedEntity(new Campaign());
-        copy.setCode(getCode());
         copy.setSurveyCode(getSurveyCode());
+        copy.setCode(getCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
         copy.setCorrection(getCorrection());
@@ -292,8 +292,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     /**
      * Parameter model for @{link Campaign}
-     * @param code Unique (survey scoped) campaign identifier.
      * @param survey Survey code
+     * @param code Unique (survey scoped) campaign identifier.
      * @param name Descriptive campaign name.
      * @param description Detailed information for this campaign.
      * @param correction Yaml formatted interview data corrections.
@@ -305,17 +305,17 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Unique (survey scoped) campaign identifier."
+                    describedAs = "Survey code"
             )
-            String code,
+            Survey survey,
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Survey code"
+                    describedAs = "Unique (survey scoped) campaign identifier."
             )
-            Survey survey,
+            String code,
             @Parameter(
                     precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
                     optionality = Optionality.MANDATORY

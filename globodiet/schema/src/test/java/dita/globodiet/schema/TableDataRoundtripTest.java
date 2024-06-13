@@ -21,8 +21,6 @@ package dita.globodiet.schema;
 import java.io.File;
 import java.util.Optional;
 
-import io.github.causewaystuff.companion.codegen.domgen.LicenseHeader;
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
@@ -39,6 +37,8 @@ import lombok.val;
 import dita.commons.types.TabularData;
 import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
+import io.github.causewaystuff.companion.codegen.domgen.LicenseHeader;
+import io.github.causewaystuff.companion.codegen.model.OrmModel;
 
 class TableDataRoundtripTest {
 
@@ -174,7 +174,7 @@ class TableDataRoundtripTest {
             }));
         });
 
-        schema.splitIntoFiles(new File("d:/tmp/", "gd-schema"), LicenseHeader.ASF_V2);
+        schema.writeEntitiesToIndividualFiles(new File("d:/tmp/", "gd-schema"), LicenseHeader.ASF_V2);
 
         System.out.println("done.");
     }

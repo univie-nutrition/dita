@@ -35,7 +35,7 @@ import org.apache.causeway.applib.annotation.Where;
 )
 @PropertyLayout(
         fieldSetId = "details",
-        sequence = "2.1",
+        sequence = "1.1",
         describedAs = "Survey code",
         hidden = Where.REFERENCES_PARENT
 )

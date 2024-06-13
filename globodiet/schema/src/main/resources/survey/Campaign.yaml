@@ -30,13 +30,6 @@ Campaign:
     Campaigns can be defined to be the whole study, 
     a seasonal part of a study, a regional part of a study etc.
   fields:
-    code:
-      column: CODE
-      column-type: nvarchar(20)
-      required: true
-      unique: false
-      description: |
-        Unique (survey scoped) campaign identifier.
     surveyCode:
       column: SURVEY
       column-type: nvarchar(20)
@@ -45,7 +38,14 @@ Campaign:
       foreignKeys: |
         SURVEY.CODE
       description: |
-        Survey code    
+        Survey code   
+    code:
+      column: CODE
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      description: |
+        Unique (survey scoped) campaign identifier.
     name:
       column: NAME
       column-type: nvarchar(120)
@@ -66,6 +66,7 @@ Campaign:
       column-type: nvarchar(64000)
       required: false
       unique: false
+      hiddenWhere: TABLES
       multiLine: 24
       description: |
         Yaml formatted interview data corrections.
