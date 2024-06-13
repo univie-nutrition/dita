@@ -203,7 +203,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s)", name, code);
+        return String.format("%s (code=%s|%s)", name, surveyCode, code);
     }
 
     @Override
