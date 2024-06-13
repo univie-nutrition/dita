@@ -67,6 +67,7 @@ survey.dom.Campaign:
       required: false
       unique: false
       multiLine: 24
+      hiddenWhere: ALL_TABLES
       description: |
         Yaml formatted interview data corrections.
 survey.dom.Survey:

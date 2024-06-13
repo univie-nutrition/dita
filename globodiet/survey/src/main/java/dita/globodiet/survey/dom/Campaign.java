@@ -166,8 +166,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Detailed information for this campaign.",
-            multiLine = 4,
-            hidden = Where.NOWHERE
+            hidden = Where.NOWHERE,
+            multiLine = 4
     )
     @Column(
             name = "DESCRIPTION",
@@ -189,8 +189,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             fieldSetId = "details",
             sequence = "5",
             describedAs = "Yaml formatted interview data corrections.",
-            multiLine = 24,
-            hidden = Where.NOWHERE
+            hidden = Where.ALL_TABLES,
+            multiLine = 24
     )
     @Column(
             name = "CORRECTION",
@@ -231,8 +231,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public Campaign.Manager getNavigableParent() {
