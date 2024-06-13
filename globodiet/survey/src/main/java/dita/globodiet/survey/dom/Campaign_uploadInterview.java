@@ -24,10 +24,6 @@ import java.util.Map;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
-import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -46,13 +42,16 @@ import lombok.experimental.ExtensionMethod;
 
 import dita.commons.util.BlobUtils;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT
 )
 @ActionLayout(
         fieldSetId = "interviewUploads",
-        sequence = "1",
+        sequence = "3",
         describedAs = "Uploads an interview XML file.",
         position = ActionLayout.Position.PANEL
 )

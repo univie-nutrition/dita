@@ -37,6 +37,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 @Action(semantics = SemanticsOf.NON_IDEMPOTENT)
 @ActionLayout(
         fieldSetId = "interviewUploads",
+        sequence = "1",
         position = Position.PANEL,
         cssClass = "btn-success",
         cssClassFa = "solid fa-binoculars",
