@@ -278,8 +278,8 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe.Manager getNavigableParent() {

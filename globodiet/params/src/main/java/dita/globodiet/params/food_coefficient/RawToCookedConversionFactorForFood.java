@@ -186,8 +186,8 @@ public class RawToCookedConversionFactorForFood implements Cloneable<RawToCooked
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public RawToCookedConversionFactorForFood.Manager getNavigableParent() {

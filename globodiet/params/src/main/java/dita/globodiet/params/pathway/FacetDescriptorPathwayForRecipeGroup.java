@@ -288,8 +288,8 @@ public class FacetDescriptorPathwayForRecipeGroup implements Cloneable<FacetDesc
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FacetDescriptorPathwayForRecipeGroup.Manager getNavigableParent() {

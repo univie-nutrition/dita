@@ -195,8 +195,8 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public QuantificationMethodPathwayForFood.Manager getNavigableParent() {

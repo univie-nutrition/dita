@@ -171,8 +171,8 @@ public class FacetDescriptorPathwayForFood implements Cloneable<FacetDescriptorP
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FacetDescriptorPathwayForFood.Manager getNavigableParent() {

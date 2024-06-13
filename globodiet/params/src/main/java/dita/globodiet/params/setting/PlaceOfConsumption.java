@@ -190,8 +190,8 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public PlaceOfConsumption.Manager getNavigableParent() {

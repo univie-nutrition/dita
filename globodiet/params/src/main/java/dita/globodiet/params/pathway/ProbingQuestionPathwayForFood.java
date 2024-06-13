@@ -210,8 +210,8 @@ public class ProbingQuestionPathwayForFood implements Cloneable<ProbingQuestionP
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public ProbingQuestionPathwayForFood.Manager getNavigableParent() {

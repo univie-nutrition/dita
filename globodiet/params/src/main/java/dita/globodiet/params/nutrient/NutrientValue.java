@@ -166,8 +166,8 @@ public class NutrientValue implements Cloneable<NutrientValue> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public NutrientValue.Manager getNavigableParent() {

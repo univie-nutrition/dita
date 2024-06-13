@@ -387,8 +387,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public NutrientForFoodOrGroup.Manager getNavigableParent() {

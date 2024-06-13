@@ -213,8 +213,8 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public HouseholdMeasure.Manager getNavigableParent() {

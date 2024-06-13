@@ -371,8 +371,8 @@ public class RecipeIngredientQuantification implements Cloneable<RecipeIngredien
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public RecipeIngredientQuantification.Manager getNavigableParent() {

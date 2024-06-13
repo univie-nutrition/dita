@@ -213,8 +213,8 @@ public class TranslationInCountryLanguage implements Cloneable<TranslationInCoun
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public TranslationInCountryLanguage.Manager getNavigableParent() {

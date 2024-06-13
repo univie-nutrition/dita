@@ -180,8 +180,8 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public RecipeGroup.Manager getNavigableParent() {

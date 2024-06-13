@@ -288,8 +288,8 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FoodDescriptor.Manager getNavigableParent() {

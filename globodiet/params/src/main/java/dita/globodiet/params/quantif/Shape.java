@@ -201,8 +201,8 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public Shape.Manager getNavigableParent() {

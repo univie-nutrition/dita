@@ -310,8 +310,8 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public StandardPortionForFood.Manager getNavigableParent() {

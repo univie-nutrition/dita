@@ -260,8 +260,8 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public MacroNutrientLimit.Manager getNavigableParent() {

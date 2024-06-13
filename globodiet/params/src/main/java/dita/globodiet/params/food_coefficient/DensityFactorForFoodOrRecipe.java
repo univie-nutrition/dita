@@ -301,8 +301,8 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public DensityFactorForFoodOrRecipe.Manager getNavigableParent() {

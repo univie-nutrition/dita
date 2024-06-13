@@ -212,8 +212,8 @@ public class Interviewer implements Cloneable<Interviewer> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public Interviewer.Manager getNavigableParent() {

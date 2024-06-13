@@ -186,8 +186,8 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public PercentOfFatLeftInTheDishForFood.Manager getNavigableParent() {

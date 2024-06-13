@@ -180,8 +180,8 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FoodGroup.Manager getNavigableParent() {

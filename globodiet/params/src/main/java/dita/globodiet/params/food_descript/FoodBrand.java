@@ -202,8 +202,8 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FoodBrand.Manager getNavigableParent() {

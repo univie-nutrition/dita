@@ -358,8 +358,8 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public StandardUnitForFoodOrRecipe.Manager getNavigableParent() {

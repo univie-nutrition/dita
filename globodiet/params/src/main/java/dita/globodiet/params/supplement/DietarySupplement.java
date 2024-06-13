@@ -212,8 +212,8 @@ public class DietarySupplement implements Cloneable<DietarySupplement> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public DietarySupplement.Manager getNavigableParent() {

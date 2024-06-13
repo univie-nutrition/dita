@@ -154,8 +154,8 @@ public class CountryInvolved implements Cloneable<CountryInvolved>, HasSecondary
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public CountryInvolved.Manager getNavigableParent() {

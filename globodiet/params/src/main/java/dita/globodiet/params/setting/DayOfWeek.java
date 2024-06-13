@@ -141,8 +141,8 @@ public class DayOfWeek implements Cloneable<DayOfWeek> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public DayOfWeek.Manager getNavigableParent() {

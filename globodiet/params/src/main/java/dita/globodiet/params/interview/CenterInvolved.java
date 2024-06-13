@@ -177,8 +177,8 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public CenterInvolved.Manager getNavigableParent() {

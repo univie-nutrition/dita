@@ -304,8 +304,8 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FoodFacet.Manager getNavigableParent() {

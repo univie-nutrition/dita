@@ -238,8 +238,8 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public FoodConsumptionOccasion.Manager getNavigableParent() {

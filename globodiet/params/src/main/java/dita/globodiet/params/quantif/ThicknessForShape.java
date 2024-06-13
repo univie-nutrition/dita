@@ -243,8 +243,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public ThicknessForShape.Manager getNavigableParent() {

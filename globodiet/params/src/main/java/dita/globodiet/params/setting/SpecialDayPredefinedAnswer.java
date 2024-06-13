@@ -141,8 +141,8 @@ public class SpecialDayPredefinedAnswer implements Cloneable<SpecialDayPredefine
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public SpecialDayPredefinedAnswer.Manager getNavigableParent() {

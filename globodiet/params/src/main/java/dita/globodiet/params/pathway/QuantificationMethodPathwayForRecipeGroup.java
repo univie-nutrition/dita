@@ -216,8 +216,8 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public QuantificationMethodPathwayForRecipeGroup.Manager getNavigableParent() {

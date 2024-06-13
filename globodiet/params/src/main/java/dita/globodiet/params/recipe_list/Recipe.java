@@ -415,8 +415,8 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             snapshot = Snapshot.EXCLUDED
     )
     @PropertyLayout(
-            navigable = Navigable.PARENT,
-            hidden = Where.EVERYWHERE
+            hidden = Where.EVERYWHERE,
+            navigable = Navigable.PARENT
     )
     @NotPersistent
     public Recipe.Manager getNavigableParent() {
