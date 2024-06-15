@@ -19,7 +19,7 @@
 package dita.globodiet.survey;
 
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import jakarta.inject.Inject;
@@ -27,6 +27,7 @@ import jakarta.inject.Inject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
 import lombok.NonNull;
@@ -84,7 +85,7 @@ extends CausewayIntegrationTestAbstract {
     /**
      * Converts ingredient identifiers to NutriDb (prefixed) identifiers.
      */
-    protected UnaryOperator<InterviewSet24.Dto> nutriDbTransfomer(){
+    protected RecallNode24.Transfomer nutriDbTransfomer(){
 
         record NutriDbTransfomer() implements RecallNode24.Transfomer {
 
@@ -99,21 +100,29 @@ extends CausewayIntegrationTestAbstract {
                 switch(recBuilder.type()) {
                     case FOOD, TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED, FRYING_FAT -> {
                         // ndb system-id = 'gd'
-                        recBuilder.sid("N" + FormatUtils.noLeadingZeros(recBuilder.sid()));
+                        recBuilder.sid("gd:N" + FormatUtils.noLeadingZeros(recBuilder.sid()));
                     }
                     case COMPOSITE -> {
                         // ndb system-id = 'gdr'
-                        recBuilder.sid(FormatUtils.noLeadingZeros(recBuilder.sid()));
+                        recBuilder.sid("gdr:" + FormatUtils.noLeadingZeros(recBuilder.sid()));
                     }
                     case PRODUCT -> {
                         // ndb system-id = 'ndb' (supplements only)
-                        recBuilder.sid(FormatUtils.noLeadingZeros(recBuilder.sid()));
+                        recBuilder.sid("ndb:" + FormatUtils.noLeadingZeros(recBuilder.sid()));
                     }
                 }
+                recBuilder.facetSids(_Strings.splitThenStream(recBuilder.facetSids(), ",")
+                        .map(this::toNutriDbFacet)
+                        .collect(Collectors.joining(",")));
+            }
+            private String toNutriDbFacet(final String f) {
+                var facet = f.substring(0, 2);
+                var descriptor = f.substring(2);
+                return "gd:F" + FormatUtils.noLeadingZeros(facet) + "." + descriptor;
             }
         }
 
-        return Recall24DtoUtils.transform(new NutriDbTransfomer());
+        return new NutriDbTransfomer();
     }
 
 }

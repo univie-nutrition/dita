@@ -27,12 +27,15 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.recall24.reporter.tabular.TabularReportUtil;
+import dita.recall24.reporter.tabular.TabularReportUtil.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
@@ -53,8 +56,10 @@ public class Campaign_generateReport {
     final Campaign mixee;
 
     @MemberSupport
-    public Clob act() {
+    public Clob act(@Parameter final Aggregation aggregation) {
         var interviewSet = Campaigns.interviewSet(mixee, surveyBlobStore);
+        var tabularReport = new TabularReportUtil.TabularReport(interviewSet, Aggregation.NONE);
+
         return Clob.of("report", CommonMimeType.YAML, interviewSet.toYaml());
     }
 

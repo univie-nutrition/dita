@@ -28,12 +28,10 @@ import org.apache.causeway.commons.internal.base._Strings;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
-import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -61,18 +59,13 @@ public class Campaigns {
         var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(campaign.getCorrection()))
             .valueAsNullableElseFail();
 
+        var interviewSet = InterviewUtils
+            .interviewSetFromBlobStrore(namedPath(campaign), surveyBlobStore, correction, messageConsumer);
+
         //debug
         //messageConsumer.accept(Message.info("generated at %s", LocalDateTime.now()));
 
-        var interviewSet = surveyBlobStore==null
-            ? InterviewSet24.empty()
-            : InterviewUtils.streamSources(surveyBlobStore, namedPath(campaign), true)
-                .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
-                .map(Recall24DtoUtils.correct(correction))
-                .reduce((a, b)->a.join(b, messageConsumer))
-                .map(InterviewSet24.Dto::normalized)
-                .map(messageConsumer::annotate)
-                .orElseGet(InterviewSet24::empty);
+        messageConsumer.annotate(interviewSet);
 
         return interviewSet;
     }

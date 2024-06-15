@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.io.File;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.io.DataSink;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
@@ -33,12 +35,14 @@ import dita.commons.qmap.QualifiedMapEntry;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
+import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
 import dita.recall24.dto.util.Recall24SummaryStatistics.MappingTodo;
+import dita.recall24.reporter.todo.TodoReportUtils;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @SpringBootTest(classes = {
@@ -50,8 +54,9 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     @Test
     void parsingFromBlobStore() {
 
+        var nutMapping = loadNutMapping();
         var stats = new Recall24SummaryStatistics();
-        var recordProcessor = new RecordProcessor(stats, "GD-AT20240507", loadNutMapping());
+        var recordProcessor = new RecordProcessor(stats, "GD-AT20240507", nutMapping);
 
         var correction = Correction24.tryFromYaml("""
                 respondents:
@@ -70,23 +75,25 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 """)
                 .valueAsNullableElseFail();
 
+        var interviewSet = InterviewUtils
+                .interviewSetFromBlobStrore(NamedPath.of("at-national-2026"), surveyBlobStore, correction, null)
+                .transform(nutriDbTransfomer());
 
-        loadAndStreamInterviews(NamedPath.of("at-national-2026"), correction, null)
-        //.limit(1)
-        .map(nutriDbTransfomer())
-        .map(interviewSet24 -> Recall24DtoUtils.wrapAsTreeNode(interviewSet24, factoryService))
-        .forEach(rootNode->{
-            rootNode
-                .streamDepthFirst()
-                .map(TreeNode::getValue)
-                .forEach((RecallNode24 node)->{
-                    stats.accept((dita.recall24.dto.RecallNode24) node);
-                    switch(node) {
-                    case Record24.Consumption cRec -> recordProcessor.accept(cRec);
-                    default -> {}
-                    }
-                });
-        });
+        var todoReporter = new TodoReportUtils.TodoReporter("GD-AT20240507", nutMapping, interviewSet);
+        todoReporter.report(
+                factoryService,
+                DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));
+
+        Recall24DtoUtils.wrapAsTreeNode(interviewSet, factoryService)
+            .streamDepthFirst()
+            .map(TreeNode::getValue)
+            .forEach((RecallNode24 node)->{
+                stats.accept((dita.recall24.dto.RecallNode24) node);
+                switch(node) {
+                case Record24.Consumption cRec -> recordProcessor.accept(cRec);
+                default -> {}
+                }
+            });
 
         var mappingTodosAsText = stats.consumptionStats()
                 .reportMappingTodos();

@@ -20,6 +20,7 @@ package dita.globodiet.survey.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.apache.causeway.applib.value.Blob;
@@ -30,6 +31,11 @@ import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
+import dita.commons.types.Message;
+import dita.globodiet.survey.recall24.InterviewXmlParser;
+import dita.recall24.dto.Correction24;
+import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -61,6 +67,24 @@ public class InterviewUtils {
             .map(surveyBlobStore::lookupBlob)
             .map(Optional::orElseThrow)
             .map(InterviewUtils::unzip);
+    }
+
+    public InterviewSet24.Dto interviewSetFromBlobStrore(
+            final NamedPath namedPath,
+            final BlobStore surveyBlobStore,
+            final Correction24 correction,
+            final Consumer<Message> messageConsumer) {
+
+        var interviewSet = surveyBlobStore==null
+            ? InterviewSet24.empty()
+            : InterviewUtils.streamSources(surveyBlobStore, namedPath, true)
+                .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
+                .map(Recall24DtoUtils.correct(correction))
+                .reduce((a, b)->a.join(b, messageConsumer))
+                .map(InterviewSet24.Dto::normalized)
+                .orElseGet(InterviewSet24::empty);
+
+        return interviewSet;
     }
 
 }

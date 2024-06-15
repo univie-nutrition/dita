@@ -67,9 +67,11 @@ public class QualifiedMap {
          * @param secondaryDelimiter that separates the qualifier element objectIds
          */
         public String shortFormat(final String primaryDelimiter, final String secondaryDelimiter) {
-            return source().objectId()
-                + primaryDelimiter
-                + qualifier().shortFormat(secondaryDelimiter);
+            return qualifier().elements().isEmpty()
+                ? source().objectId()
+                : source().objectId()
+                    + primaryDelimiter
+                    + qualifier().shortFormat(secondaryDelimiter);
         }
 
         // -- UTILITY

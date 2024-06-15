@@ -119,6 +119,51 @@ public class Recall24DtoUtils {
         return InterviewSet24.Dto.of(respondents).normalized();
     }
 
+    // -- AS GRAPH
+
+    public GraphUtils.Graph<RecallNode24> asGraph(final InterviewSet24.Dto interviewSet) {
+        final var stack = new int[4];
+
+        var gBuilder = GraphUtils.GraphBuilder.directed(RecallNode24.class);
+        gBuilder.addNode(interviewSet);
+
+        interviewSet.respondents().forEach(resp->{
+            gBuilder.addNode(resp);
+            final int respIndex = gBuilder.nodeCount()-1;
+            gBuilder.addEdge(0, respIndex);
+
+            resp.interviews().forEach(intv->{
+                gBuilder.addNode(intv);
+                final int intvIndex = gBuilder.nodeCount()-1;
+                gBuilder.addEdge(respIndex, intvIndex);
+
+                intv.meals().forEach(meal->{
+                    gBuilder.addNode(meal);
+                    final int mealIndex = gBuilder.nodeCount()-1;
+                    gBuilder.addEdge(intvIndex, mealIndex);
+
+                    meal.memorizedFood().forEach(mem->{
+                        gBuilder.addNode(mem);
+                        final int memIndex = gBuilder.nodeCount()-1;
+                        gBuilder.addEdge(mealIndex, memIndex);
+                        stack[0] = memIndex;
+                        mem.topLevelRecords().forEach(topLevelRec->{
+                            topLevelRec.visitDepthFirst(0, (level, rec)->{
+                                gBuilder.addNode(rec);
+                                final int recIndex = gBuilder.nodeCount()-1;
+                                stack[level + 1] = recIndex;
+                                gBuilder.addEdge(stack[level], recIndex);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+
+        return gBuilder.build();
+    }
+
+
     // -- TRANSFORM
 
     /**
@@ -127,48 +172,10 @@ public class Recall24DtoUtils {
      */
     public UnaryOperator<InterviewSet24.Dto> transform(
             final @NonNull RecallNode24.Transfomer transformer) {
-        
+
         return (final InterviewSet24.Dto interviewSet) -> {
 
-            final var stack = new int[4];
-
-            var gBuilder = GraphUtils.GraphBuilder.directed(RecallNode24.class);
-            gBuilder.addNode(interviewSet);
-
-            interviewSet.respondents().forEach(resp->{
-                gBuilder.addNode(resp);
-                final int respIndex = gBuilder.nodeCount()-1;
-                gBuilder.addEdge(0, respIndex);
-
-                resp.interviews().forEach(intv->{
-                    gBuilder.addNode(intv);
-                    final int intvIndex = gBuilder.nodeCount()-1;
-                    gBuilder.addEdge(respIndex, intvIndex);
-
-                    intv.meals().forEach(meal->{
-                        gBuilder.addNode(meal);
-                        final int mealIndex = gBuilder.nodeCount()-1;
-                        gBuilder.addEdge(intvIndex, mealIndex);
-
-                        meal.memorizedFood().forEach(mem->{
-                            gBuilder.addNode(mem);
-                            final int memIndex = gBuilder.nodeCount()-1;
-                            gBuilder.addEdge(mealIndex, memIndex);
-                            stack[0] = memIndex;
-                            mem.topLevelRecords().forEach(topLevelRec->{
-                                topLevelRec.visitDepthFirst(0, (level, rec)->{
-                                    gBuilder.addNode(rec);
-                                    final int recIndex = gBuilder.nodeCount()-1;
-                                    stack[level + 1] = recIndex;
-                                    gBuilder.addEdge(stack[level], recIndex);
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-
-            var graph = gBuilder.build().map(node->node.asBuilder());
+            var graph = asGraph(interviewSet).map(node->node.asBuilder());
             var helper = new BuilderCastHelper(graph);
 
             // apply the transformer
@@ -210,7 +217,7 @@ public class Recall24DtoUtils {
 
             var transformedInterviewSet = helper.build(setBuilder);
             return transformedInterviewSet;
-            
+
         };
     }
 
