@@ -18,6 +18,8 @@
  */
 package dita.commons.qmap;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -92,6 +94,16 @@ public class QualifiedMap {
     }
 
     final Map<QualifiedMapKey, QualifiedMapEntry> internalMap;
+
+    /**
+     * Creates a {@link QualifiedMap} with entries that have no target. (A <i>todo</i> map.)
+     */
+    public static QualifiedMap todo(final Iterable<QualifiedMapKey> keys) {
+        var map = new LinkedHashMap<QualifiedMapKey, QualifiedMapEntry>();
+        keys.forEach(key->
+            map.put(key, new QualifiedMapEntry(key.source, key.qualifier, null)));
+        return new QualifiedMap(Collections.unmodifiableMap(map));
+    }
 
     public QualifiedMap put(@Nullable final QualifiedMapEntry entry) {
         if(entry==null) return this;

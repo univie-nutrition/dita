@@ -120,10 +120,10 @@ NutriDb <- TodoReporter : import \nnutmap-todo.yaml
 ----
 
 [source,yaml]
-.Fully qualified data transfer format
+.Todo data-transfer-format (QualifiedMap with empty targets)
 ----
 # nutmap-todo.yaml example
-qualifiedKeys:
+qualifiedMapEntries:
 - source: "SID[GD-AT20240507,00010]"
   qualifier:
     elements:
@@ -131,9 +131,11 @@ qualifiedKeys:
     - "SID[GD-AT20240507,0301]"
     - "SID[GD-AT20240507,0402]"
     - "SID[GD-AT20240507,0801]"
+  target: null
 - source: "SID[GD-AT20240507,00025]"
   qualifier:
-    elements:    
+    elements:
+  target: null   
 - source: "SID[GD-AT20240507,00100]"
   qualifier:
     elements:
@@ -142,6 +144,7 @@ qualifiedKeys:
     - "SID[GD-AT20240507,0334]"
     - "SID[GD-AT20240507,0400]"
     - "SID[GD-AT20240507,0999]"
+  target: null
 ----
 
 [source]

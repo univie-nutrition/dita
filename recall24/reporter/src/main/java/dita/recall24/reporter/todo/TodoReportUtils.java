@@ -65,14 +65,11 @@ public class TodoReportUtils {
                     }
                 });
 
-            var sb = new StringBuilder();
 
-            //gd:N176,gd:F2.04,gd:F3.98,gd:F4.01,gd:F5.27,gd:F9.06,gd:F12.00
-            unmapped.forEach(key->{
-                sb.append(key.shortFormat(",", ",")).append("\n");
-            });
+            var qmap = QualifiedMap.todo(unmapped);
 
-            DataSource.ofStringUtf8(sb.toString())
+
+            DataSource.ofStringUtf8(qmap.toYaml())
                 .pipe(dataSink);
         }
 
