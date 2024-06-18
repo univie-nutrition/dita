@@ -433,7 +433,6 @@ additional
         <module>causeway</module>
         <module>foodex</module>
         <module>globodiet</module>
-        <module>nutridb</module>
     </modules>
 
     <!-- META DATA -->
