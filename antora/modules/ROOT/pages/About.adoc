@@ -15,7 +15,7 @@ Dita Source Code Repository: https://github.com/univie-nutrition/dita[GitHub]
 * xref:designdocs/InterviewModel.adoc[Interview Model]
 * xref:designdocs/CampaignManager.adoc[Campaign Manager]
 * xref:designdocs/ConsumptionReporting.adoc[Consumption Reporting]
-* xref:designdocs/NutrientMapping.adoc[Nutrient Mapping]
+* xref:designdocs/NutrientMapping.adoc[Nutrient Mapping (Draft)]
 * xref:designdocs/OntologyTermAndAnnotations.adoc[Ontology Term And Annotations (Draft)]
 
 == Schema URLs

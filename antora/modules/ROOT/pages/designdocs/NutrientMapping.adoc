@@ -64,6 +64,7 @@ include::{includedir}/CompositionResolution.adoc[leveloffset=1]
 [source,yaml]
 .Qualified Map (Yaml)
 ----
+# qmap.yaml example
 qualifiedMapEntries:
 - source: "SID[GD-AT20240507,00010]"
   qualifier:
@@ -87,6 +88,10 @@ qualifiedMapEntries:
 ----
 
 === Mapping Todo Example (Todo Reporter)
+
+`NutriDb` is an external system that acts as _FCDB_ 
+and has a _nutrient mapping process_ implemented. 
+(Can create mapping-todo-tasks for humans to process.)
 
 [plantuml,fig-mapping-todo,svg]
 .Mapping Todo
