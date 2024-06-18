@@ -89,6 +89,15 @@ public record SemanticIdentifierSet(
             .collect(Collectors.joining(delimiter));
     }
 
+    /**
+     * @param delimiter that separates the elements
+     */
+    public String fullFormat(final String delimiter) {
+        return elements().stream()
+            .map(elem->elem.fullFormat(":"))
+            .collect(Collectors.joining(delimiter));
+    }
+
     // -- UTILITY
 
     public static int compare(

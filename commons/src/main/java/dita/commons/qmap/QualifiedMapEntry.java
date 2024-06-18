@@ -20,6 +20,7 @@ package dita.commons.qmap;
 
 import java.util.function.UnaryOperator;
 
+import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -41,6 +42,10 @@ public record QualifiedMapEntry(
          */
         SemanticIdentifier target) {
 
+    public QualifiedMapKey key() {
+        return new QualifiedMapKey(source(), qualifier());
+    }
+    
     // -- WITHER
 
     public QualifiedMapEntry withSource(final SemanticIdentifier source) {

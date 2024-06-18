@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
@@ -58,6 +59,22 @@ public class QualifiedMap {
             return new QualifiedMapKey(entry.source(), SemanticIdentifierSet.nullToEmpty(entry.qualifier()));
         }
 
+        public QualifiedMapKey withSource(final SemanticIdentifier source) {
+            return new QualifiedMapKey(source, qualifier);
+        }
+        public QualifiedMapKey withQualifier(final SemanticIdentifierSet qualifier) {
+            return new QualifiedMapKey(source, qualifier);
+        }
+        public QualifiedMapKey mapSource(final UnaryOperator<SemanticIdentifier> sourceMapper) {
+            return withSource(sourceMapper.apply(source));
+        }
+        public QualifiedMapKey mapQualifier(final UnaryOperator<SemanticIdentifierSet> qualifierMapper) {
+            return withQualifier(qualifierMapper.apply(qualifier));
+        }
+        public QualifiedMapKey mapQualifierElementwise(final UnaryOperator<SemanticIdentifier> qualifierElementwiseMapper) {
+            return mapQualifier(set->SemanticIdentifierSet.ofStream(set.elements().stream().map(qualifierElementwiseMapper)));
+        }
+
         @Override
         public int compareTo(final @Nullable QualifiedMapKey o) {
             return compare(this, o);
@@ -74,6 +91,18 @@ public class QualifiedMap {
                 : source().objectId()
                     + primaryDelimiter
                     + qualifier().shortFormat(secondaryDelimiter);
+        }
+
+        /**
+         * @param primaryDelimiter that separates source and qualifier
+         * @param secondaryDelimiter that separates the qualifier elements
+         */
+        public String fullFormat(final String primaryDelimiter, final String secondaryDelimiter) {
+            return qualifier().elements().isEmpty()
+                ? source().fullFormat(":")
+                : source().fullFormat(":")
+                    + primaryDelimiter
+                    + qualifier().fullFormat(secondaryDelimiter);
         }
 
         // -- UTILITY
@@ -191,6 +220,11 @@ public class QualifiedMap {
     public static Try<QualifiedMap> tryFromYaml(@Nullable final DataSource ds) {
         return QualifiedMapDto.tryFromYaml(ds)
                 .mapSuccessAsNullable(Dtos::fromDto);
+    }
+
+    public static Try<QualifiedMap> tryFromYamlAllowEmptyTargets(@Nullable final DataSource ds) {
+        return QualifiedMapDto.tryFromYaml(ds)
+                .mapSuccessAsNullable(Dtos::fromDtoAllowEmptyTargets);
     }
 
 }
