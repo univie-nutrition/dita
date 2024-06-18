@@ -18,3 +18,15 @@ GloboDiet integration.
 | Web Application / User Interface
 
 |===
+
+== Connectors
+
+Connectors to external systems.
+
+[cols="1m,5a"]
+|===
+
+| dita-globodiet-connectors-nutridb
+| NutriDb integration.
+
+|===

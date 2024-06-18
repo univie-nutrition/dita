@@ -54,3 +54,98 @@ FoodCompositionResolutionService .> "uses" SearchOptions
 ----
 
 include::{includedir}/CompositionResolution.adoc[leveloffset=1]
+
+== APPENDIX
+
+=== Nutrient Mapping Example
+
+`qmap.yaml` file using fully qualified identifiers, involving systems `GD` and `BLS`:
+
+[source,yaml]
+.Qualified Map (Yaml)
+----
+qualifiedMapEntries:
+- source: "SID[GD-AT20240507,00010]"
+  qualifier:
+    elements:
+    - "SID[GD-AT20240507,0200]"
+    - "SID[GD-AT20240507,0310]"
+    - "SID[GD-AT20240507,0400]"
+    - "SID[GD-AT20240507,0801]"
+    - "SID[GD-AT20240507,1009]"
+    - "SID[GD-AT20240507,1200]"
+  target: "SID[BLS-3.02,K130192]"
+- source: "SID[GD-AT20240507,00010]"
+  qualifier:
+    elements:
+    - "SID[GD-AT20240507,0200]"
+    - "SID[GD-AT20240507,0310]"
+    - "SID[GD-AT20240507,0400]"
+    - "SID[GD-AT20240507,0801]"
+    - "SID[GD-AT20240507,1200]"
+  target: "SID[BLS-3.02,K130192]" 
+----
+
+=== Mapping Todo Example (Todo Reporter)
+
+[plantuml,fig-mapping-todo,svg]
+.Mapping Todo
+----
+@startuml
+
+boundary    NutriDb
+database    BlobStore
+participant TodoReporter
+
+NutriDb -> BlobStore : export \nqmap.yaml
+BlobStore -> TodoReporter : qmap.yaml
+BlobStore -> TodoReporter : interviews
+TodoReporter -> TodoReporter : creates list of yet \nnot mapped \nQualifiedMapKey(s) \nas nutmap-todo.yaml
+NutriDb <- TodoReporter : import \nnutmap-todo.yaml
+
+@enduml
+----
+
+[source]
+.Dita GloboDiet (short format)
+----
+00010;0204,0301,0402,0801
+00025
+00100;0204,2800,0334,0400,0999
+----
+
+[source,yaml]
+.Fully qualified data transfer format
+----
+# nutmap-todo.yaml example
+qualifiedKeys:
+- source: "SID[GD-AT20240507,00010]"
+  qualifier:
+    elements:
+    - "SID[GD-AT20240507,0204]"
+    - "SID[GD-AT20240507,0301]"
+    - "SID[GD-AT20240507,0402]"
+    - "SID[GD-AT20240507,0801]"
+- source: "SID[GD-AT20240507,00025]"
+  qualifier:
+    elements:    
+- source: "SID[GD-AT20240507,00100]"
+  qualifier:
+    elements:
+    - "SID[GD-AT20240507,0204]"
+    - "SID[GD-AT20240507,2800]"
+    - "SID[GD-AT20240507,0334]"
+    - "SID[GD-AT20240507,0400]"
+    - "SID[GD-AT20240507,0999]"
+----
+
+[source]
+.NutriDb internal format
+----
+gd:N10,gd:F2.04,gd:F3.01,gd:F4.02,gd:F8.01
+gd:N25
+gd:N100,gd:F2.04,gd:F28.00,gd:F3.34,gd:F4.00,gd:F9.99
+----
+
+
+

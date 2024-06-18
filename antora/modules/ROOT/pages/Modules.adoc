@@ -24,6 +24,8 @@ _Dita_ modules and sub-modules.
 *** Params
 *** Survey
 *** Manager
+*** Connectors
+**** NutriDb
 
 @endwbs
 ----
