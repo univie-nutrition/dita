@@ -32,6 +32,7 @@ import org.apache.causeway.commons.io.DataSink;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.qmap.QualifiedMapEntry;
+import dita.globodiet.connectors.nutridb.util.NutriDbConverters;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
@@ -54,9 +55,11 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     @Test
     void parsingFromBlobStore() {
 
+        final var systemId = "GD-AT20240507";
+
         var nutMapping = loadNutMapping();
         var stats = new Recall24SummaryStatistics();
-        var recordProcessor = new RecordProcessor(stats, "GD-AT20240507", nutMapping);
+        var recordProcessor = new RecordProcessor(stats, systemId, nutMapping);
 
         var correction = Correction24.tryFromYaml("""
                 respondents:
@@ -77,9 +80,9 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
         var interviewSet = InterviewUtils
                 .interviewSetFromBlobStrore(NamedPath.of("at-national-2026"), surveyBlobStore, correction, null)
-                .transform(nutriDbTransfomer());
+                .transform(new NutriDbConverters.ToNutriDbTransfomer());
 
-        var todoReporter = new TodoReportUtils.TodoReporter("GD-AT20240507", nutMapping, interviewSet);
+        var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
         todoReporter.report(
                 factoryService,
                 DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));

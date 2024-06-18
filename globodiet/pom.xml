@@ -33,6 +33,7 @@
 		<module>manager</module>
 		<module>schema</module>
 		<module>survey</module>
+		<module>connectors</module>
 	</modules>
     
 </project>

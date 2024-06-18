@@ -19,7 +19,6 @@
 package dita.globodiet.survey;
 
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import jakarta.inject.Inject;
@@ -27,22 +26,17 @@ import jakarta.inject.Inject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.lang.Nullable;
 
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
 import lombok.NonNull;
 
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.RecallNode24.Builder24;
-import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -80,49 +74,6 @@ extends CausewayIntegrationTestAbstract {
         return InterviewUtils.streamSources(surveyBlobStore, path, true)
             .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
             .map(Recall24DtoUtils.correct(correction));
-    }
-
-    /**
-     * Converts ingredient identifiers to NutriDb (prefixed) identifiers.
-     */
-    protected RecallNode24.Transfomer nutriDbTransfomer(){
-
-        record NutriDbTransfomer() implements RecallNode24.Transfomer {
-
-            @Override
-            public void accept(final Builder24<?> builder) {
-                switch (builder) {
-                case Record24.Builder recBuilder -> toNutriDbPrefixes(recBuilder);
-                default -> {}
-                };
-            }
-            private void toNutriDbPrefixes(final Record24.Builder recBuilder) {
-                switch(recBuilder.type()) {
-                    case FOOD, TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED, FRYING_FAT -> {
-                        // ndb system-id = 'gd'
-                        recBuilder.sid("gd:N" + FormatUtils.noLeadingZeros(recBuilder.sid()));
-                    }
-                    case COMPOSITE -> {
-                        // ndb system-id = 'gdr'
-                        recBuilder.sid("gdr:" + FormatUtils.noLeadingZeros(recBuilder.sid()));
-                    }
-                    case PRODUCT -> {
-                        // ndb system-id = 'ndb' (supplements only)
-                        recBuilder.sid("ndb:" + FormatUtils.noLeadingZeros(recBuilder.sid()));
-                    }
-                }
-                recBuilder.facetSids(_Strings.splitThenStream(recBuilder.facetSids(), ",")
-                        .map(this::toNutriDbFacet)
-                        .collect(Collectors.joining(",")));
-            }
-            private String toNutriDbFacet(final String f) {
-                var facet = f.substring(0, 2);
-                var descriptor = f.substring(2);
-                return "gd:F" + FormatUtils.noLeadingZeros(facet) + "." + descriptor;
-            }
-        }
-
-        return new NutriDbTransfomer();
     }
 
 }

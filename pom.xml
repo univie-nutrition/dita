@@ -101,6 +101,7 @@ additional
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.3.0</version>
                 <configuration>
                     <printSummary>false</printSummary>
                     <argLine>${surefire-plugin.argLine}</argLine>
@@ -188,7 +189,11 @@ additional
                 <artifactId>dita-globodiet-schema</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
-
+            <dependency>
+                <groupId>at.ac.univie.nutrition.dita</groupId>
+                <artifactId>dita-globodiet-connectors-nutridb</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
 
             <dependency>
                 <groupId>at.ac.univie.nutrition.dita</groupId>
@@ -198,12 +203,6 @@ additional
             <dependency>
                 <groupId>at.ac.univie.nutrition.dita</groupId>
                 <artifactId>dita-recall24-reporter</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
-            </dependency>
-
-            <dependency>
-                <groupId>at.ac.univie.nutrition.dita</groupId>
-                <artifactId>dita-vault</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
@@ -434,6 +433,7 @@ additional
         <module>causeway</module>
         <module>foodex</module>
         <module>globodiet</module>
+        <module>nutridb</module>
     </modules>
 
     <!-- META DATA -->
