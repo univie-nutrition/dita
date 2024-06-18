@@ -36,6 +36,8 @@ public record SemanticIdentifierSet(
 
     private static final SemanticIdentifierSet EMPTY = new SemanticIdentifierSet(Can.empty());
 
+    // -- FACTORIES
+
     public static SemanticIdentifierSet empty() {
         return EMPTY;
     }
@@ -52,12 +54,25 @@ public record SemanticIdentifierSet(
         }
         return new SemanticIdentifierSet(Can.ofCollection(collection).sorted(SemanticIdentifier::compare));
     }
+
     public static SemanticIdentifierSet ofStream(final @Nullable Stream<SemanticIdentifier> stream) {
         var ids = Can.ofStream(stream);
         return ids.isEmpty()
                 ? EMPTY
                 : new SemanticIdentifierSet(ids.sorted(SemanticIdentifier::compare));
     }
+
+    public static SemanticIdentifierSet ofStream(
+            final @Nullable String systemId,
+            final @Nullable Stream<String> facetIds) {
+        return facetIds==null
+                ? EMPTY
+                : SemanticIdentifierSet.ofStream(
+                    facetIds
+                        .map(facetId->new SemanticIdentifier(systemId, facetId)));
+    }
+
+    // --
 
     @Override
     public int compareTo(final SemanticIdentifierSet o) {

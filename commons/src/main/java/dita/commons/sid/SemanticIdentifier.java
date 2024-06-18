@@ -18,6 +18,8 @@
  */
 package dita.commons.sid;
 
+import java.util.function.UnaryOperator;
+
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.internal.base._Strings;
@@ -36,6 +38,26 @@ public record SemanticIdentifier (
          * Uniquely identifies the data object within the system.
          */
         String objectId) implements Comparable<SemanticIdentifier> {
+
+
+    // -- WITHER
+
+    public SemanticIdentifier withSystemId(final String systemId) {
+        return new SemanticIdentifier(systemId, objectId);
+    }
+    public SemanticIdentifier withObjectId(final String objectId) {
+        return new SemanticIdentifier(systemId, objectId);
+    }
+
+    // -- MAPPER
+
+    public SemanticIdentifier mapSystemId(final UnaryOperator<String> systemIdMapper) {
+        return withSystemId(systemIdMapper.apply(systemId));
+    }
+    public SemanticIdentifier mapObjectId(final UnaryOperator<String> objectIdMapper) {
+        return withObjectId(objectIdMapper.apply(objectId));
+    }
+
 
     @Override
     public int compareTo(final @Nullable SemanticIdentifier o) {

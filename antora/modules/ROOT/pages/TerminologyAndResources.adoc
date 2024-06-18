@@ -12,5 +12,6 @@
 ** Paper: https://acsess.onlinelibrary.wiley.com/doi/full/10.1002/csc2.20092[Knowledge representation and data sharing to unlock crop variation for nutritional food security]
 * MATCHING
 ** Paper: https://www.mdpi.com/2072-6643/10/4/433[Matching of Food Consumption Data with Food Composition Data]
-** Attempts have been made to classify specific food catalogs (e.g. BLS) using _LanguaL_:  
+
+Attempts have been made to classify specific food catalogs (e.g. BLS) using _LanguaL_:  
 see chapter https://www.langual.org/langual_indexed_datasets.asp[LanguaL Indexed Datasets (indexed by EuroFIR Members)]

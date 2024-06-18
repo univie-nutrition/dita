@@ -18,11 +18,13 @@
  */
 package dita.commons.qmap;
 
+import java.util.function.UnaryOperator;
+
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
 /**
- * A Qualified Map Entry relates a data object from one system to another, 
+ * A Qualified Map Entry relates a data object from one system to another,
  * respecting a qualifier.
  */
 public record QualifiedMapEntry(
@@ -38,4 +40,35 @@ public record QualifiedMapEntry(
          * Semantic identifier of the data object that is mapped to.
          */
         SemanticIdentifier target) {
+
+    // -- WITHER
+
+    public QualifiedMapEntry withSource(final SemanticIdentifier source) {
+        return new QualifiedMapEntry(source, qualifier, target);
+    }
+    public QualifiedMapEntry withQualifier(final SemanticIdentifierSet qualifier) {
+        return new QualifiedMapEntry(source, qualifier, target);
+    }
+    public QualifiedMapEntry withTarget(final SemanticIdentifier target) {
+        return new QualifiedMapEntry(source, qualifier, target);
+    }
+
+    // -- MAPPER
+
+    public QualifiedMapEntry mapSource(final UnaryOperator<SemanticIdentifier> sourceMapper) {
+        return withSource(sourceMapper.apply(source));
+    }
+    public QualifiedMapEntry mapQualifier(final UnaryOperator<SemanticIdentifierSet> qualifierMapper) {
+        return withQualifier(qualifierMapper.apply(qualifier));
+    }
+    public QualifiedMapEntry mapTarget(final UnaryOperator<SemanticIdentifier> targetMapper) {
+        return withTarget(targetMapper.apply(target));
+    }
+
+    // -- ADVANCED MAPPER
+
+    public QualifiedMapEntry mapQualifierElementwise(final UnaryOperator<SemanticIdentifier> qualifierElementwiseMapper) {
+        return mapQualifier(set->SemanticIdentifierSet.ofStream(set.elements().stream().map(qualifierElementwiseMapper)));
+    }
+    
 }
