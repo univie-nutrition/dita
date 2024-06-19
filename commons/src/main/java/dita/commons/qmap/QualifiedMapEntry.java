@@ -29,42 +29,69 @@ import dita.commons.sid.SemanticIdentifierSet;
  * respecting a qualifier.
  */
 public record QualifiedMapEntry(
+        
         /**
-         * Semantic identifier of the data object that is mapped from.
+         * Key holding the semantic identifier of the data object that is mapped from
+         * and constraints under which this map entry is applicable.
          */
-        SemanticIdentifier source,
-        /**
-         * Constraints under which this map entry is applicable.
-         */
-        SemanticIdentifierSet qualifier,
+        QualifiedMapKey key,
+        
         /**
          * Semantic identifier of the data object that is mapped to.
          */
         SemanticIdentifier target) {
-
-    public QualifiedMapKey key() {
-        return new QualifiedMapKey(source(), qualifier());
+    
+    
+    public QualifiedMapEntry(
+            SemanticIdentifier source,
+            SemanticIdentifierSet qualifier,
+            SemanticIdentifier target) {
+        this(new QualifiedMapKey(source, qualifier), target);
+    }
+    
+    /**
+     * Semantic identifier of the data object that is mapped from.
+     */
+    public SemanticIdentifier source() {
+        return key.source();
+    }
+    
+    /**
+     * Constraints under which this map entry is applicable.
+     */
+    public SemanticIdentifierSet qualifier() {
+        return key.qualifier();
     }
     
     // -- WITHER
 
+    @Deprecated
     public QualifiedMapEntry withSource(final SemanticIdentifier source) {
-        return new QualifiedMapEntry(source, qualifier, target);
+        return new QualifiedMapEntry(source, qualifier(), target);
     }
+    @Deprecated
     public QualifiedMapEntry withQualifier(final SemanticIdentifierSet qualifier) {
-        return new QualifiedMapEntry(source, qualifier, target);
+        return new QualifiedMapEntry(source(), qualifier, target);
+    }
+    public QualifiedMapEntry withKey(final QualifiedMapKey key) {
+        return new QualifiedMapEntry(key, target);
     }
     public QualifiedMapEntry withTarget(final SemanticIdentifier target) {
-        return new QualifiedMapEntry(source, qualifier, target);
+        return new QualifiedMapEntry(key, target);
     }
 
     // -- MAPPER
 
+    @Deprecated
     public QualifiedMapEntry mapSource(final UnaryOperator<SemanticIdentifier> sourceMapper) {
-        return withSource(sourceMapper.apply(source));
+        return withSource(sourceMapper.apply(source()));
     }
+    @Deprecated
     public QualifiedMapEntry mapQualifier(final UnaryOperator<SemanticIdentifierSet> qualifierMapper) {
-        return withQualifier(qualifierMapper.apply(qualifier));
+        return withQualifier(qualifierMapper.apply(qualifier()));
+    }
+    public QualifiedMapEntry mapKey(final UnaryOperator<QualifiedMapKey> keyMapper) {
+        return withKey(keyMapper.apply(key()));
     }
     public QualifiedMapEntry mapTarget(final UnaryOperator<SemanticIdentifier> targetMapper) {
         return withTarget(targetMapper.apply(target));

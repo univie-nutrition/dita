@@ -19,7 +19,6 @@
 package dita.commons.qmap;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,7 +35,7 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.jaxb.JaxbAdapters;
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
+import dita.commons.qmap.QualifiedMap.Policy;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -86,18 +85,11 @@ class Dtos {
                 map.streamEntries().toList());
     }
 
-    QualifiedMap fromDto(@Nullable final QualifiedMapDto dto) {
+    QualifiedMap fromDto(@Nullable final QualifiedMapDto dto, Policy policy) {
         if(dto==null) return null;
-        var map = new QualifiedMap(new ConcurrentHashMap<>());
+        var map = new QualifiedMap(new ConcurrentHashMap<>(), policy);
         dto.qualifiedMapEntries.forEach(map::put);
         return map;
-    }
-    
-    QualifiedMap fromDtoAllowEmptyTargets(@Nullable final QualifiedMapDto dto) {
-        if(dto==null) return null;
-        var internalMap = new HashMap<QualifiedMapKey, QualifiedMapEntry>();
-        dto.qualifiedMapEntries.forEach(e->internalMap.put(QualifiedMapKey.from(e), e));
-        return new QualifiedMap(internalMap);
     }
     
     // -- HELPER

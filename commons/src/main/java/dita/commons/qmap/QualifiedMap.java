@@ -21,6 +21,7 @@ package dita.commons.qmap;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
@@ -55,8 +56,9 @@ public class QualifiedMap {
              */
             SemanticIdentifierSet qualifier) implements Comparable<QualifiedMapKey> {
 
-        static QualifiedMapKey from(@NonNull final QualifiedMapEntry entry) {
-            return new QualifiedMapKey(entry.source(), SemanticIdentifierSet.nullToEmpty(entry.qualifier()));
+        public QualifiedMapKey(final SemanticIdentifier source, final @Nullable SemanticIdentifierSet qualifier) {
+            this.source = Objects.requireNonNull(source, ()->"a QualifiedMapKey must have a non-null source");
+            this.qualifier = SemanticIdentifierSet.nullToEmpty(qualifier);
         }
 
         public QualifiedMapKey withSource(final SemanticIdentifier source) {
@@ -122,7 +124,15 @@ public class QualifiedMap {
 
     }
 
-    final Map<QualifiedMapKey, QualifiedMapEntry> internalMap;
+    enum Policy {
+        EMPTY_TARGET_IGNORED,
+        EMPTY_TARGET_ALLOWED;
+        static Policy defaultPolicy() {
+            return EMPTY_TARGET_IGNORED;
+        }
+    }
+
+    // -- FACTORIES
 
     /**
      * Creates a {@link QualifiedMap} with entries that have no target. (A <i>todo</i> map.)
@@ -131,15 +141,32 @@ public class QualifiedMap {
         var map = new LinkedHashMap<QualifiedMapKey, QualifiedMapEntry>();
         keys.forEach(key->
             map.put(key, new QualifiedMapEntry(key.source, key.qualifier, null)));
-        return new QualifiedMap(Collections.unmodifiableMap(map));
+        return new QualifiedMap(Collections.unmodifiableMap(map), Policy.EMPTY_TARGET_ALLOWED);
     }
+
+    // -- CONSTRUCTION
+
+    final Map<QualifiedMapKey, QualifiedMapEntry> internalMap;
+    final @NonNull Policy policy;
+
+    public QualifiedMap(final Map<QualifiedMapKey, QualifiedMapEntry> internalMap) {
+        this.internalMap = internalMap;
+        this.policy = Policy.defaultPolicy();
+    }
+
+    // --
 
     public QualifiedMap put(@Nullable final QualifiedMapEntry entry) {
         if(entry==null) return this;
         if(entry.source()==null) return this;
-        if(entry.target()==null) return this;
-        internalMap.put(QualifiedMapKey.from(entry), entry);
+        if(entry.target()==null
+                && policy == Policy.EMPTY_TARGET_IGNORED) return this;
+        internalMap.put(entry.key(), entry);
         return this;
+    }
+
+    public boolean isEmpty() {
+        return internalMap.isEmpty();
     }
 
     public int entryCount() {
@@ -219,12 +246,12 @@ public class QualifiedMap {
 
     public static Try<QualifiedMap> tryFromYaml(@Nullable final DataSource ds) {
         return QualifiedMapDto.tryFromYaml(ds)
-                .mapSuccessAsNullable(Dtos::fromDto);
+                .mapSuccessAsNullable(dto->Dtos.fromDto(dto, Policy.EMPTY_TARGET_IGNORED));
     }
 
     public static Try<QualifiedMap> tryFromYamlAllowEmptyTargets(@Nullable final DataSource ds) {
         return QualifiedMapDto.tryFromYaml(ds)
-                .mapSuccessAsNullable(Dtos::fromDtoAllowEmptyTargets);
+                .mapSuccessAsNullable(dto->Dtos.fromDto(dto, Policy.EMPTY_TARGET_ALLOWED));
     }
 
 }
