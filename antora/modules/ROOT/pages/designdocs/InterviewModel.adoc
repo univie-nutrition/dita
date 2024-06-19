@@ -122,7 +122,7 @@ it should be possible to create a new tree that has some selected nodes modified
  
 * *Navigable.* For every node in the tree we want to be able to navigate to its parent node or child nodes.
 
-* *Immutable.* Modification of the tree (once created), should not be possible unless by means of a transformer.
+* *Immutable.* Modification of the tree (once created), should not be possible.
 
 === GloboDiet Interview Export Semantics
 

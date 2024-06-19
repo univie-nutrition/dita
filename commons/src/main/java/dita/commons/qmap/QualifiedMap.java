@@ -254,4 +254,20 @@ public class QualifiedMap {
                 .mapSuccessAsNullable(dto->Dtos.fromDto(dto, Policy.EMPTY_TARGET_ALLOWED));
     }
 
+    // -- CONTRACT
+
+    @Override
+    public boolean equals(final Object obj) {
+        return switch(obj) {
+            case QualifiedMap other -> other.internalMap.equals(this.internalMap);
+            default -> false;
+        };
+    }
+
+    @Override
+    public int hashCode() {
+        return internalMap.hashCode();
+    }
+
+
 }

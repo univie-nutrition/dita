@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
@@ -45,20 +46,19 @@ class FoodTest {
     private SemanticIdentifier blsBananaId = new SemanticIdentifier("bls", "F503100"); // Banana raw
 
     @Test
-    void test() {
+    void qMapCreation() {
 
         // setup food consumption
         var bananaConsumption = createFoodConsumption();
         var foodCompositionRepo = FoodCompositionSampler.createFoodCompositionRepository();
-        System.err.printf("%s%n", foodCompositionRepo.toYaml());
+        //debug
+        //System.err.printf("%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
                 .lookupEntryElseFail(new SemanticIdentifier("bls", "KMD"));
 
-
         // setup nutrient mapping
-        final QualifiedMap qMap = new QualifiedMap(new HashMap<>());
-        qMap.put(new QualifiedMapEntry(bananaConsumption.foodId(), bananaConsumption.facetIds(), blsBananaId));
+        final QualifiedMap qMap = createQMap();
 
         // verify lookups
         assertEquals(
@@ -85,7 +85,30 @@ class FoodTest {
                 fcac.quantifiedComponent(blsZuckerGesamt));
     }
 
+    @Test
+    void qMapRoundtrip() {
+        // setup nutrient mapping
+        final QualifiedMap qMap = createQMap();
+        var yaml = qMap.toYaml();
+        var qMapAfterRoundtrip = QualifiedMap.tryFromYaml(DataSource.ofStringUtf8(yaml))
+                .valueAsNonNullElseFail();
+
+        //debug
+        System.err.printf("%s%n", yaml);
+
+        assertEquals(qMap, qMapAfterRoundtrip);
+    }
+
     // -- HELPER
+
+    QualifiedMap createQMap() {
+        // setup food consumption
+        var bananaConsumption = createFoodConsumption();
+        // setup nutrient mapping
+        final QualifiedMap qMap = new QualifiedMap(new HashMap<>());
+        qMap.put(new QualifiedMapEntry(bananaConsumption.foodId(), bananaConsumption.facetIds(), blsBananaId));
+        return qMap;
+    }
 
     FoodConsumption createFoodConsumption() {
         var gdBanana = new SemanticIdentifier("gd", "00136"); // Banana
