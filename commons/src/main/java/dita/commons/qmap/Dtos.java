@@ -69,7 +69,7 @@ class Dtos {
     // -- QUALIFIED MAP
 
     public record QualifiedMapDto(
-            Collection<QualifiedMapEntry> qualifiedMapEntries) {
+            Collection<QualifiedMapEntryDto> qualifiedMapEntries) {
         public String toYaml() {
             return YamlUtils.toStringUtf8(this, yamlOptions());
         }
@@ -82,13 +82,17 @@ class Dtos {
 
     QualifiedMapDto toDto(final QualifiedMap map) {
         return new QualifiedMapDto(
-                map.streamEntries().toList());
+                map.streamEntries()
+                    .map(Dtos::toDto)
+                    .toList());
     }
 
     QualifiedMap fromDto(@Nullable final QualifiedMapDto dto, Policy policy) {
         if(dto==null) return null;
         var map = new QualifiedMap(new ConcurrentHashMap<>(), policy);
-        dto.qualifiedMapEntries.forEach(map::put);
+        dto.qualifiedMapEntries.stream()
+            .map(Dtos::fromDto)
+            .forEach(map::put);
         return map;
     }
     
