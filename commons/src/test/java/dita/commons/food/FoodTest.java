@@ -94,7 +94,7 @@ class FoodTest {
                 .valueAsNonNullElseFail();
 
         //debug
-        System.err.printf("%s%n", yaml);
+        //System.err.printf("%s%n", yaml);
 
         assertEquals(qMap, qMapAfterRoundtrip);
     }

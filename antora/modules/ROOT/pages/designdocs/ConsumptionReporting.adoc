@@ -114,7 +114,7 @@ hide enum method
 
 [NOTE]
 ====
-Perhaps a good design decision for calling clients 
+Perhaps a good design for calling clients 
 is to store the reporter's `Clob` results in a `BlobStore`.
 ====
 

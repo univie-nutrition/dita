@@ -47,7 +47,7 @@ class Dtos {
     public record QualifiedMapEntryDto(
             @NonNull SemanticIdentifier source,
             @Nullable List<SemanticIdentifier> qualifier,
-            @NonNull SemanticIdentifier target) {
+            @Nullable SemanticIdentifier target) {
     }
 
     QualifiedMapEntryDto toDto(final QualifiedMapEntry entry) {
