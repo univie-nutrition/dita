@@ -20,9 +20,12 @@ class FoodConsumption {
     facetIds: SemanticIdentifierSet
 }
 
-class QualifiedMapEntry {
+class QualifiedMapKey {
     source: SemanticIdentifier
     qualifier: SemanticIdentifierSet
+}
+
+class QualifiedMapEntry {
     target: SemanticIdentifier
 }
 
@@ -31,6 +34,7 @@ class FoodComposition {
 }
 
 Interview o-> "*" FoodConsumption : collects
+QualifiedMapEntry o--> QualifiedMapKey : key
 FoodConsumption -> QualifiedMapEntry : mapped by
 QualifiedMapEntry -> FoodComposition : maps to
 

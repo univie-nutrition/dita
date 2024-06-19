@@ -59,16 +59,19 @@ that allow for fine-grained conditionals like _facet term codes_ (FTCs).
 ----
 @startuml
 
-class QualifiedMapEntry {
+class QualifiedMapKey {
     source: SemanticIdentifier
     qualifier: SemanticIdentifierSet
+}
+
+class QualifiedMapEntry {
     target: SemanticIdentifier
 }
 
-note right of QualifiedMapEntry::source
+note right of QualifiedMapKey::source
   semantic identifier of the data object that is mapped from
 end note
-note right of QualifiedMapEntry::qualifier
+note right of QualifiedMapKey::qualifier
   constraints under which this mapping entry is applicable; e.g. food facet terms
 end note
 note right of QualifiedMapEntry::target
@@ -76,6 +79,7 @@ note right of QualifiedMapEntry::target
 end note
 
 QualifiedMap -right-> "*" QualifiedMapEntry : has many
+QualifiedMapEntry o--> QualifiedMapKey : key
 
 hide class method
 
