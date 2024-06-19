@@ -29,50 +29,42 @@ import dita.commons.sid.SemanticIdentifierSet;
  * respecting a qualifier.
  */
 public record QualifiedMapEntry(
-        
+
         /**
          * Key holding the semantic identifier of the data object that is mapped from
          * and constraints under which this map entry is applicable.
          */
         QualifiedMapKey key,
-        
+
         /**
          * Semantic identifier of the data object that is mapped to.
          */
         SemanticIdentifier target) {
-    
-    
+
+
     public QualifiedMapEntry(
-            SemanticIdentifier source,
-            SemanticIdentifierSet qualifier,
-            SemanticIdentifier target) {
+            final SemanticIdentifier source,
+            final SemanticIdentifierSet qualifier,
+            final SemanticIdentifier target) {
         this(new QualifiedMapKey(source, qualifier), target);
     }
-    
+
     /**
      * Semantic identifier of the data object that is mapped from.
      */
     public SemanticIdentifier source() {
         return key.source();
     }
-    
+
     /**
      * Constraints under which this map entry is applicable.
      */
     public SemanticIdentifierSet qualifier() {
         return key.qualifier();
     }
-    
+
     // -- WITHER
 
-    @Deprecated
-    public QualifiedMapEntry withSource(final SemanticIdentifier source) {
-        return new QualifiedMapEntry(source, qualifier(), target);
-    }
-    @Deprecated
-    public QualifiedMapEntry withQualifier(final SemanticIdentifierSet qualifier) {
-        return new QualifiedMapEntry(source(), qualifier, target);
-    }
     public QualifiedMapEntry withKey(final QualifiedMapKey key) {
         return new QualifiedMapEntry(key, target);
     }
@@ -82,14 +74,6 @@ public record QualifiedMapEntry(
 
     // -- MAPPER
 
-    @Deprecated
-    public QualifiedMapEntry mapSource(final UnaryOperator<SemanticIdentifier> sourceMapper) {
-        return withSource(sourceMapper.apply(source()));
-    }
-    @Deprecated
-    public QualifiedMapEntry mapQualifier(final UnaryOperator<SemanticIdentifierSet> qualifierMapper) {
-        return withQualifier(qualifierMapper.apply(qualifier()));
-    }
     public QualifiedMapEntry mapKey(final UnaryOperator<QualifiedMapKey> keyMapper) {
         return withKey(keyMapper.apply(key()));
     }
@@ -97,10 +81,4 @@ public record QualifiedMapEntry(
         return withTarget(targetMapper.apply(target));
     }
 
-    // -- ADVANCED MAPPER
-
-    public QualifiedMapEntry mapQualifierElementwise(final UnaryOperator<SemanticIdentifier> qualifierElementwiseMapper) {
-        return mapQualifier(set->SemanticIdentifierSet.ofStream(set.elements().stream().map(qualifierElementwiseMapper)));
-    }
-    
 }
