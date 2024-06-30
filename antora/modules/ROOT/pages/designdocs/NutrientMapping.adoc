@@ -68,22 +68,20 @@ include::{includedir}/CompositionResolution.adoc[leveloffset=1]
 qualifiedMapEntries:
 - source: "SID[GD-AT20240507,00010]"
   qualifier:
-    elements:
-    - "SID[GD-AT20240507,0200]"
-    - "SID[GD-AT20240507,0310]"
-    - "SID[GD-AT20240507,0400]"
-    - "SID[GD-AT20240507,0801]"
-    - "SID[GD-AT20240507,1009]"
-    - "SID[GD-AT20240507,1200]"
+  - "SID[GD-AT20240507,0200]"
+  - "SID[GD-AT20240507,0310]"
+  - "SID[GD-AT20240507,0400]"
+  - "SID[GD-AT20240507,0801]"
+  - "SID[GD-AT20240507,1009]"
+  - "SID[GD-AT20240507,1200]"
   target: "SID[BLS-3.02,K130192]"
 - source: "SID[GD-AT20240507,00010]"
   qualifier:
-    elements:
-    - "SID[GD-AT20240507,0200]"
-    - "SID[GD-AT20240507,0310]"
-    - "SID[GD-AT20240507,0400]"
-    - "SID[GD-AT20240507,0801]"
-    - "SID[GD-AT20240507,1200]"
+  - "SID[GD-AT20240507,0200]"
+  - "SID[GD-AT20240507,0310]"
+  - "SID[GD-AT20240507,0400]"
+  - "SID[GD-AT20240507,0801]"
+  - "SID[GD-AT20240507,1200]"
   target: "SID[BLS-3.02,K130192]" 
 ----
 
@@ -126,24 +124,21 @@ NutriDb <- TodoReporter : import \nnutmap-todo.yaml
 qualifiedMapEntries:
 - source: "SID[GD-AT20240507,00010]"
   qualifier:
-    elements:
-    - "SID[GD-AT20240507,0204]"
-    - "SID[GD-AT20240507,0301]"
-    - "SID[GD-AT20240507,0402]"
-    - "SID[GD-AT20240507,0801]"
+  - "SID[GD-AT20240507,0204]"
+  - "SID[GD-AT20240507,0301]"
+  - "SID[GD-AT20240507,0402]"
+  - "SID[GD-AT20240507,0801]"
   target: null
 - source: "SID[GD-AT20240507,00025]"
   qualifier:
-    elements:
   target: null   
 - source: "SID[GD-AT20240507,00100]"
   qualifier:
-    elements:
-    - "SID[GD-AT20240507,0204]"
-    - "SID[GD-AT20240507,2800]"
-    - "SID[GD-AT20240507,0334]"
-    - "SID[GD-AT20240507,0400]"
-    - "SID[GD-AT20240507,0999]"
+  - "SID[GD-AT20240507,0204]"
+  - "SID[GD-AT20240507,2800]"
+  - "SID[GD-AT20240507,0334]"
+  - "SID[GD-AT20240507,0400]"
+  - "SID[GD-AT20240507,0999]"
   target: null
 ----
 
