@@ -1,4 +1,4 @@
-= Campaign Manager Model
+= Campaign Manager
 
 == Survey
 
