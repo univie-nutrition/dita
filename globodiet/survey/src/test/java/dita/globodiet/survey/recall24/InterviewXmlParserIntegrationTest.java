@@ -36,7 +36,6 @@ import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.dto.Correction24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24DtoUtils;
@@ -57,25 +56,10 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         final var systemId = "GD-AT20240507";
 
         var nutMapping = loadNutMapping();
+        var correction = loadCorrection();
+
         var stats = new Recall24SummaryStatistics();
         var recordProcessor = new RecordProcessor(stats, systemId, nutMapping);
-
-        var correction = Correction24.tryFromYaml("""
-                respondents:
-                - alias: "EB0070"
-                  newAlias: "EB_0070"
-                - alias: "EB:0029"
-                  newAlias: "EB_0029"
-                - alias: "EB_0061"
-                  dateOfBirth: "1977-04-24"
-                - alias: "EB_0058"
-                  dateOfBirth: "1992-08-28"
-                - alias: "EB_0038"
-                  dateOfBirth: "2002-09-21"
-                - alias: "EB_0093"
-                  sex: FEMALE
-                """)
-                .valueAsNullableElseFail();
 
         var interviewSet = InterviewUtils
                 .interviewSetFromBlobStrore(NamedPath.of("at-national-2026"), surveyBlobStore, correction, null)
@@ -84,10 +68,9 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
         var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
         todoReporter.report(
-                factoryService,
                 DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));
 
-        Recall24DtoUtils.wrapAsTreeNode(interviewSet, factoryService)
+        Recall24DtoUtils.wrapAsTreeNode(interviewSet)
             .streamDepthFirst()
             .map(TreeNode::getValue)
             .forEach((RecallNode24 node)->{
@@ -97,15 +80,6 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 default -> {}
                 }
             });
-
-        var mappingTodosAsText = stats.consumptionStats()
-                .reportMappingTodos();
-        System.err.println(mappingTodosAsText);
-
-//export for analysis
-//        TextUtils.writeLinesToFile(TextUtils.readLines(mappingTodosAsText),
-//                new File("d:/tmp/_scratch/mapping-todos.txt"),
-//                StandardCharsets.UTF_8);
 
         System.err.println("=== STATS ===");
         System.err.println(stats.formatted());

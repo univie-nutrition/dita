@@ -23,8 +23,6 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.blobstore.applib.BlobStore;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Collection;
@@ -32,11 +30,11 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.ExtensionMethod;
+
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Collection
 @RequiredArgsConstructor
-@ExtensionMethod(Campaigns.class)
 public class Campaign_interviewUploads {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
@@ -46,7 +44,7 @@ public class Campaign_interviewUploads {
 
     @MemberSupport
     public List<InterviewUpload> coll() {
-        return surveyBlobStore.listDescriptors(mixee.namedPath(), true)
+        return surveyBlobStore.listDescriptors(Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee), true)
                 .stream()
                 .filter(desc->desc.mimeType().equals(CommonMimeType.XML))
                 .map(InterviewUpload::of)

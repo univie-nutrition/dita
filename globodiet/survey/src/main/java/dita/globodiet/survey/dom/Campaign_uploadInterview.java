@@ -56,7 +56,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-@ExtensionMethod({Campaigns.class, BlobUtils.class})
+@ExtensionMethod({BlobUtils.class})
 public class Campaign_uploadInterview {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
@@ -97,7 +97,7 @@ public class Campaign_uploadInterview {
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
                 .getUser().getName();
         var blobDescriptor = new BlobDescriptor(
-                mixee.namedPath().add(xmlBlob.getName()),
+                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee).add(xmlBlob.getName()),
                 CommonMimeType.XML,
                 createdBy,
                 Instant.now(),

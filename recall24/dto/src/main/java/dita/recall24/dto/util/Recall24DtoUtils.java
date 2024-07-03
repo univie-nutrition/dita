@@ -27,7 +27,6 @@ import java.util.function.UnaryOperator;
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.graph.GraphUtils;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -55,9 +54,8 @@ public class Recall24DtoUtils {
     // -- WRAP
 
     public TreeNode<RecallNode24> wrapAsTreeNode(
-            final @NonNull InterviewSet24 interviewSet24,
-            final @NonNull FactoryService factoryService) {
-        return TreeNodeFactory.wrap(RecallNode24.class, interviewSet24, factoryService);
+            final @NonNull InterviewSet24 interviewSet24) {
+        return TreeNodeFactory.wrap(RecallNode24.class, interviewSet24);
     }
 
     // -- DATA JOINING

@@ -269,5 +269,4 @@ public class QualifiedMap {
         return internalMap.hashCode();
     }
 
-
 }

@@ -76,4 +76,23 @@ extends CausewayIntegrationTestAbstract {
             .map(Recall24DtoUtils.correct(correction));
     }
 
+    protected Correction24 loadCorrection() {
+        return Correction24.tryFromYaml("""
+                respondents:
+                - alias: "EB0070"
+                  newAlias: "EB_0070"
+                - alias: "EB:0029"
+                  newAlias: "EB_0029"
+                - alias: "EB_0061"
+                  dateOfBirth: "1977-04-24"
+                - alias: "EB_0058"
+                  dateOfBirth: "1992-08-28"
+                - alias: "EB_0038"
+                  dateOfBirth: "2002-09-21"
+                - alias: "EB_0093"
+                  sex: FEMALE
+                """)
+                .valueAsNullableElseFail();
+    }
+
 }

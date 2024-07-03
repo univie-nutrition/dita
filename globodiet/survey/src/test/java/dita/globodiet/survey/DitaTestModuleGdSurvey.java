@@ -3,11 +3,6 @@ package dita.globodiet.survey;
 import java.util.List;
 import java.util.function.Function;
 
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-import io.github.causewaystuff.companion.applib.services.search.SearchService;
-import io.github.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
-
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +19,10 @@ import org.apache.causeway.security.bypass.CausewayModuleSecurityBypass;
 
 import lombok.NonNull;
 
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
+
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
@@ -39,11 +38,6 @@ import lombok.NonNull;
 })
 public class DitaTestModuleGdSurvey {
 
-    @Bean
-    public TreeNodeFacetFactory treeNodeFacetFactory() {
-        return new TreeNodeFacetFactory(null);
-    }
-    
     @Bean
     public SearchService searchService() {
         return new SearchService() {

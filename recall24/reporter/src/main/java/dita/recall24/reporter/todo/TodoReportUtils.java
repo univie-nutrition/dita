@@ -21,7 +21,6 @@ package dita.recall24.reporter.todo;
 import java.util.TreeSet;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 
@@ -44,11 +43,10 @@ public class TodoReportUtils {
             InterviewSet24.Dto interviewSet) {
 
         public void report(
-                final FactoryService factoryService,
                 final DataSink dataSink) {
 
             val unmapped = new TreeSet<QualifiedMapKey>();
-            val root = Recall24DtoUtils.wrapAsTreeNode(interviewSet, factoryService);
+            val root = Recall24DtoUtils.wrapAsTreeNode(interviewSet);
             root
                 .streamDepthFirst()
                 .map(TreeNode::getValue)
@@ -65,9 +63,7 @@ public class TodoReportUtils {
                     }
                 });
 
-
             var qmap = QualifiedMap.todo(unmapped);
-
 
             DataSource.ofStringUtf8(qmap.toYaml())
                 .pipe(dataSink);
