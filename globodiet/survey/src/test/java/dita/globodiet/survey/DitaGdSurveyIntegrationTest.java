@@ -18,29 +18,18 @@
  */
 package dita.globodiet.survey;
 
-import java.util.function.Consumer;
-import java.util.stream.Stream;
-
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.lang.Nullable;
 
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
-import lombok.NonNull;
-
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
-import dita.commons.types.Message;
-import dita.globodiet.survey.recall24.InterviewXmlParser;
-import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.dto.Correction24;
+import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.NamedPath;
-import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 public abstract class DitaGdSurveyIntegrationTest
 extends CausewayIntegrationTestAbstract {
@@ -48,36 +37,31 @@ extends CausewayIntegrationTestAbstract {
     @Inject @Qualifier("survey") protected BlobStore surveyBlobStore;
 
     protected FoodCompositionRepository loadFcdb() {
-        var fcdbDataSource = SevenZUtils.decompress(
-                surveyBlobStore.lookupBlob(NamedPath.of("fcdb", "fcdb.yaml.7z")).orElseThrow().asDataSource());
-
-        var foodCompositionRepo = FoodCompositionRepository.tryFromYaml(fcdbDataSource)
-            .valueAsNonNullElseFail();
-
-        return foodCompositionRepo;
+        return Campaigns.fcdb(campaignForTesting(), surveyBlobStore);
     }
 
     protected QualifiedMap loadNutMapping() {
-        var mapDataSource = SevenZUtils.decompress(
-                surveyBlobStore.lookupBlob(NamedPath.of("qmap", "qmap.yaml.7z")).orElseThrow().asDataSource());
-
-        var qMap = QualifiedMap.tryFromYaml(mapDataSource)
-            .valueAsNonNullElseFail();
-
-        return qMap;
+        return Campaigns.nutMapping(campaignForTesting(), surveyBlobStore);
     }
 
-    protected Stream<InterviewSet24.Dto> loadAndStreamInterviews(
-            final @NonNull NamedPath path,
-            final @Nullable Correction24 correction,
-            final @Nullable Consumer<Message> messageConsumer) {
-        return InterviewUtils.streamSources(surveyBlobStore, path, true)
-            .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
-            .map(Recall24DtoUtils.correct(correction));
+    protected QualifiedMap loadFcoMapping() {
+        return Campaigns.fcoMapping(campaignForTesting(), surveyBlobStore);
     }
 
-    protected Correction24 loadCorrection() {
-        return Correction24.tryFromYaml("""
+    protected QualifiedMap loadPocMapping() {
+        return Campaigns.pocMapping(campaignForTesting(), surveyBlobStore);
+    }
+
+    protected InterviewSet24.Dto loadInterviewSet() {
+        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore);
+    }
+
+    // -- HELPER
+
+    private Campaign campaignForTesting() {
+        var campaign = new Campaign();
+        campaign.setCode("wave1");
+        campaign.setCorrection("""
                 respondents:
                 - alias: "EB0070"
                   newAlias: "EB_0070"
@@ -91,8 +75,15 @@ extends CausewayIntegrationTestAbstract {
                   dateOfBirth: "2002-09-21"
                 - alias: "EB_0093"
                   sex: FEMALE
-                """)
-                .valueAsNullableElseFail();
+                - alias: "EB_0088"
+                  dateOfBirth: "1967-06-09"
+                - alias: "EB_0032"
+                  dateOfBirth: "1999-03-04"
+                - alias: "EB_0116"
+                  dateOfBirth: "1998-01-26"
+                """);
+        campaign.setSurveyCode("at-national-2026");
+        return campaign;
     }
 
 }

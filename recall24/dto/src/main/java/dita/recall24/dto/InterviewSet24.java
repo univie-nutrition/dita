@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
@@ -130,6 +131,15 @@ permits InterviewSet24.Dto {
         public Stream<Interview24.Dto> streamInterviews() {
             return this.respondents().stream()
                     .flatMap(resp->resp.interviews().stream());
+        }
+
+        /**
+         * @implNote requires Causewaystuff tree metamodel integration
+         */
+        public Stream<RecallNode24> streamDepthFirst() {
+            return Recall24DtoUtils.wrapAsTreeNode(this)
+                .streamDepthFirst()
+                .map(TreeNode::getValue);
         }
 
         /**

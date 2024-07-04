@@ -19,30 +19,32 @@
 package dita.globodiet.survey.recall24;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
-import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.DataSink;
+
+import lombok.val;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.qmap.QualifiedMapEntry;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.util.Recall24DtoUtils;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
 import dita.recall24.dto.util.Recall24SummaryStatistics.MappingTodo;
-import dita.recall24.reporter.todo.TodoReportUtils;
-import io.github.causewaystuff.commons.base.types.NamedPath;
+import dita.recall24.reporter.tabular.TabularReporters;
+import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
@@ -56,28 +58,46 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         final var systemId = "GD-AT20240507";
 
         var nutMapping = loadNutMapping();
-        var correction = loadCorrection();
+        var fcoMapping = loadFcoMapping();
+        var pocMapping = loadPocMapping();
+        var interviewSet = loadInterviewSet();
 
         var stats = new Recall24SummaryStatistics();
         var recordProcessor = new RecordProcessor(stats, systemId, nutMapping);
 
-        var interviewSet = InterviewUtils
-                .interviewSetFromBlobStrore(NamedPath.of("at-national-2026"), surveyBlobStore, correction, null)
-                //.transform(new NutriDbConverters.ToNutriDbTransfomer())
-                ;
+        //TODO flesh out reporting
+        var xlsxFile = new File("d:/tmp/_scratch/report-no-aggregates.xlsx");
+        var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
+                nutMapping,
+                fcoMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
+                pocMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
+                Aggregation.NONE);
+        tabularReport.report(xlsxFile);
 
-        var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
-        todoReporter.report(
-                DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));
+        val pb = new ProcessBuilder();
 
-        Recall24DtoUtils.wrapAsTreeNode(interviewSet)
-            .streamDepthFirst()
-            .map(TreeNode::getValue)
-            .forEach((RecallNode24 node)->{
-                stats.accept((dita.recall24.dto.RecallNode24) node);
+        pb.directory(new File("d:/tmp/_scratch"));
+        pb.command(List.of(
+                "C:/Program Files/LibreOffice/program/scalc.exe",
+                xlsxFile.getAbsolutePath()));
+        pb.inheritIO();
+
+        try {
+            pb.start().waitFor();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+//        var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
+//        todoReporter.report(
+//                DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));
+
+        interviewSet.streamDepthFirst()
+            .forEach((final RecallNode24 node)->{
+                stats.accept(node);
                 switch(node) {
-                case Record24.Consumption cRec -> recordProcessor.accept(cRec);
-                default -> {}
+                    case Record24.Consumption cRec -> recordProcessor.accept(cRec);
+                    default -> {}
                 }
             });
 

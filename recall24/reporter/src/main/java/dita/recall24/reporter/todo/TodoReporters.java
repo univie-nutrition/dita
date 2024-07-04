@@ -20,7 +20,6 @@ package dita.recall24.reporter.todo;
 
 import java.util.TreeSet;
 
-import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 
@@ -32,34 +31,29 @@ import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.util.Recall24DtoUtils;
 
 @UtilityClass
-public class TodoReportUtils {
+public class TodoReporters {
 
     public record TodoReporter(
+            InterviewSet24.Dto interviewSet,
             String systemId,
-            QualifiedMap nutMapping,
-            InterviewSet24.Dto interviewSet) {
+            QualifiedMap nutMapping) {
 
-        public void report(
-                final DataSink dataSink) {
+        public void report(final DataSink dataSink) {
 
             val unmapped = new TreeSet<QualifiedMapKey>();
-            val root = Recall24DtoUtils.wrapAsTreeNode(interviewSet);
-            root
-                .streamDepthFirst()
-                .map(TreeNode::getValue)
-                .forEach((RecallNode24 node)->{
+            interviewSet.streamDepthFirst()
+                .forEach((final RecallNode24 node)->{
                     switch(node) {
-                    case Record24.Consumption cRec -> {
-                        var mapKey = cRec.asFoodConsumption(systemId).qualifiedMapKey();
-                        var mapEntry = nutMapping.lookupEntry(mapKey);
-                        if(!mapEntry.isPresent()) {
-                            unmapped.add(mapKey);
+                        case Record24.Consumption cRec -> {
+                            var mapKey = cRec.asFoodConsumption(systemId).qualifiedMapKey();
+                            var mapEntry = nutMapping.lookupEntry(mapKey);
+                            if(!mapEntry.isPresent()) {
+                                unmapped.add(mapKey);
+                            }
                         }
-                    }
-                    default -> {}
+                        default -> {}
                     }
                 });
 

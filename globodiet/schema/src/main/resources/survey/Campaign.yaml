@@ -61,6 +61,22 @@ Campaign:
       multiLine: 4
       description: |
         Detailed information for this campaign.
+#    sidSystemId:
+#      column: SYSID
+#      column-type: nvarchar(40)
+#      required: true
+#      unique: false
+#      description: |
+#        Semantic Identifiers (SIDs) come as pair of SystemId and ObjectId.
+#        This specifies the SystemId part (e.g. when generating data exports).
+#    nutMapPath:
+#      column: NUTMAPPATH
+#      column-type: nvarchar(120)
+#      required: true
+#      unique: false
+#      description: |
+#        Specifies the named path within the configured BlobStore, that points to the QualifiedMap data used for 
+#        food-consumtion to food-component resolution (nutrient mapping).
     correction:
       column: CORRECTION
       column-type: nvarchar(64000)

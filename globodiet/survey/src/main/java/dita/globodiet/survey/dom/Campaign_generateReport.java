@@ -34,8 +34,8 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.recall24.reporter.tabular.TabularReportUtil;
-import dita.recall24.reporter.tabular.TabularReportUtil.Aggregation;
+import dita.recall24.reporter.tabular.TabularReporters;
+import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
@@ -60,9 +60,11 @@ public class Campaign_generateReport {
         var interviewSet = Campaigns.interviewSet(mixee, surveyBlobStore);
 
         //TODO flesh out reporting
-        var tabularReport = new TabularReportUtil.TabularReport(interviewSet, Aggregation.NONE);
+        var tabularReport = new TabularReporters.TabularReport(interviewSet, null, null, null, null, null, null, aggregation);
 
-        return Clob.of("report", CommonMimeType.YAML, interviewSet.toYaml());
+        var name = String.format("report-%s", aggregation.name());
+
+        return Clob.of(name, CommonMimeType.YAML, interviewSet.toYaml());
     }
 
 }

@@ -36,7 +36,7 @@ import org.apache.causeway.commons.io.DataSink;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.recall24.reporter.todo.TodoReportUtils;
+import dita.recall24.reporter.todo.TodoReporters;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
@@ -63,7 +63,7 @@ public class Campaign_downloadMappingTodos {
         var systemId = "GD-AT20240507"; //TODO get from Campaign or Survey?
 
         var yaml = new StringBuilder();
-        var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
+        var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));
 

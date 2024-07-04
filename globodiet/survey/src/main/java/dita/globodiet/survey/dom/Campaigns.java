@@ -27,6 +27,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
 
+import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
 import dita.globodiet.survey.util.InterviewUtils;
@@ -45,7 +46,9 @@ public class Campaigns {
     enum DataSourceLocation {
         INTERVIEW,
         FCDB,
-        QMAP;
+        QMAP_NUT,
+        QMAP_FCO,
+        QMAP_POC;
         NamedPath namedPath(final Campaign campaign) {
             if(campaign==null
                     || _Strings.isNullOrEmpty(campaign.getSurveyCode())
@@ -56,7 +59,9 @@ public class Campaigns {
             return switch(this) {
                 case INTERVIEW -> root.add("campaigns").add(NamedPath.of(campaign.getCode().toLowerCase()));
                 case FCDB -> root.add("fcdb").add("fcdb.yaml.7z");
-                case QMAP -> root.add("qmap").add("qmap.yaml.7z");
+                case QMAP_NUT -> root.add("qmap").add("nut.yaml.7z");
+                case QMAP_FCO -> root.add("qmap").add("fco.yaml");
+                case QMAP_POC -> root.add("qmap").add("poc.yaml");
             };
         }
     }
@@ -87,22 +92,38 @@ public class Campaigns {
         return interviewSet;
     }
 
-    // -- NUT MAPPING (Q-MAP)
+    // -- FCDB
+
+    public FoodCompositionRepository fcdb(
+            final Campaign campaign,
+            final BlobStore blobStore) {
+
+        var fcdbDataSource = blobStore.lookupBlob(DataSourceLocation.FCDB.namedPath(campaign))
+                .orElseThrow()
+                .asDataSource();
+        var foodCompositionRepo = FoodCompositionRepository.tryFromYaml(SevenZUtils.decompress(fcdbDataSource))
+                .valueAsNonNullElseFail();
+        return foodCompositionRepo;
+    }
+
+    // -- Q-MAP
 
     public QualifiedMap nutMapping(
             final Campaign campaign,
             final BlobStore blobStore) {
+        return loadQmap(DataSourceLocation.QMAP_NUT, campaign, blobStore);
+    }
 
-        var mapDataSource = SevenZUtils.decompress(
-                blobStore
-                    .lookupBlob(DataSourceLocation.QMAP.namedPath(campaign))
-                    .orElseThrow()
-                    .asDataSource());
+    public QualifiedMap fcoMapping(
+            final Campaign campaign,
+            final BlobStore blobStore) {
+        return loadQmap(DataSourceLocation.QMAP_FCO, campaign, blobStore);
+    }
 
-        var qMap = QualifiedMap.tryFromYaml(mapDataSource)
-            .valueAsNonNullElseFail();
-
-        return qMap;
+    public QualifiedMap pocMapping(
+            final Campaign campaign,
+            final BlobStore blobStore) {
+        return loadQmap(DataSourceLocation.QMAP_POC, campaign, blobStore);
     }
 
     // -- HELPER
@@ -135,6 +156,23 @@ public class Campaigns {
             return new RecallNode24.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
         }
 
+    }
+
+    private QualifiedMap loadQmap(
+            final DataSourceLocation loc,
+            final Campaign campaign,
+            final BlobStore blobStore) {
+        var mapDataSource =
+                blobStore
+                    .lookupBlob(loc.namedPath(campaign))
+                    .orElseThrow()
+                    .asDataSource();
+        switch(loc) {
+            case QMAP_NUT ->
+                mapDataSource = SevenZUtils.decompress(mapDataSource);
+            default -> {}
+        }
+        return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
     }
 
 }
