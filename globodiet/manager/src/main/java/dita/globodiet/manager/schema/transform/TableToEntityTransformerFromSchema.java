@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.schema.transform;
+package dita.globodiet.manager.schema.transform;
 
 import java.util.Optional;
 

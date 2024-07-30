@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.schema;
+package dita.globodiet.manager.schema;
 
 import java.io.File;
 import java.util.Optional;
@@ -35,8 +35,10 @@ import org.apache.causeway.commons.io.TextUtils;
 import lombok.val;
 
 import dita.commons.types.TabularData;
-import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
-import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
+import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchema;
+import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchema;
+import dita.globodiet.params.DitaModuleGdParams;
+import dita.globodiet.survey.DitaModuleGdSurvey;
 import io.github.causewaystuff.companion.codegen.domgen.LicenseHeader;
 import io.github.causewaystuff.companion.codegen.model.OrmModel;
 
@@ -54,7 +56,8 @@ class TableDataRoundtripTest {
 
         val dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
 
-        val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+
+        val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/entities.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
@@ -87,7 +90,7 @@ class TableDataRoundtripTest {
 
         var dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
 
-        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
@@ -192,7 +195,7 @@ class TableDataRoundtripTest {
     //@Test
     void genSortedChecklist() {
 
-        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
@@ -208,7 +211,7 @@ class TableDataRoundtripTest {
     @Test
     void havingTitles() {
 
-        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 

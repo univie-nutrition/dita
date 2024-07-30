@@ -56,6 +56,8 @@ import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.Persistable_schema;
+import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchema;
+import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchema;
 import dita.globodiet.manager.services.iconfa.IconFaServiceGdParams;
 import dita.globodiet.manager.services.idgen.IdGeneratorGdParams;
 import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
@@ -65,9 +67,6 @@ import dita.globodiet.manager.services.search.SearchServiceGd;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.params.DitaModuleGdParams;
-import dita.globodiet.schema.GdEntityGen;
-import dita.globodiet.schema.transform.EntityToTableTransformerFromSchema;
-import dita.globodiet.schema.transform.TableToEntityTransformerFromSchema;
 import dita.globodiet.survey.DitaModuleGdSurvey;
 
 /**
@@ -137,10 +136,10 @@ public class DitaModuleGdManager {
 
     @Bean
     public OrmModel.Schema gdSchema() {
-        val schema1 = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-params.schema.yaml")
+        val schema1 = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
-        val schema2 = OrmModel.Schema.fromYaml(DataSource.ofResource(GdEntityGen.class, "/gd-survey.schema.yaml")
+        val schema2 = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/entities.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
         return schema1.concat(schema2);

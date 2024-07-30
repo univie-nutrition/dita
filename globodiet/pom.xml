@@ -31,7 +31,6 @@
 	<modules>
 		<module>params</module>
 		<module>manager</module>
-		<module>schema</module>
 		<module>survey</module>
 		<module>connectors</module>
 	</modules>
