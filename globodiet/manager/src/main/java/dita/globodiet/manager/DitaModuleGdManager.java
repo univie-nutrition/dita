@@ -18,8 +18,6 @@
  */
 package dita.globodiet.manager;
 
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +26,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
-import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
 import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
@@ -68,6 +65,7 @@ import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.survey.DitaModuleGdSurvey;
+import io.github.causewaystuff.companion.codegen.model.OrmModel;
 
 /**
  * Makes the integral parts of the web application.
@@ -136,10 +134,10 @@ public class DitaModuleGdManager {
 
     @Bean
     public OrmModel.Schema gdSchema() {
-        val schema1 = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
+        val schema1 = OrmModel.Schema.fromYaml(DitaModuleGdParams.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
-        val schema2 = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/entities.schema.yaml")
+        val schema2 = OrmModel.Schema.fromYaml(DitaModuleGdSurvey.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
         return schema1.concat(schema2);

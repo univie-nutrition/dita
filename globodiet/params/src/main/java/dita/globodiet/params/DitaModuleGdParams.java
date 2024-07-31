@@ -375,6 +375,7 @@ import java.lang.Class;
 import java.lang.String;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.io.DataSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -748,6 +749,10 @@ import org.springframework.context.annotation.Import;
         })
 public class DitaModuleGdParams {
     public static final String NAMESPACE = "dita.globodiet.params";
+
+    public static DataSource schemaSource() {
+        return DataSource.ofResource(dita.globodiet.params.DitaModuleGdParams.class, "/entities.schema.yaml");
+    }
 
     public static Can<Class<?>> entityClasses() {
         return Can.of(AnthropometricAverage.class,

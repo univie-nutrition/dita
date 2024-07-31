@@ -30,6 +30,7 @@ import java.lang.Class;
 import java.lang.String;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.io.DataSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -58,6 +59,10 @@ import org.springframework.context.annotation.Import;
         })
 public class DitaModuleGdSurvey {
     public static final String NAMESPACE = "dita.globodiet.survey";
+
+    public static DataSource schemaSource() {
+        return DataSource.ofResource(dita.globodiet.survey.DitaModuleGdSurvey.class, "/entities.schema.yaml");
+    }
 
     public static Can<Class<?>> entityClasses() {
         return Can.of(Campaign.class,
