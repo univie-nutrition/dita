@@ -19,14 +19,12 @@
 package dita.recall24.reporter.tabular;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
 
@@ -42,6 +40,7 @@ import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
+import dita.recall24.reporter.dom.ConsumptionRow;
 
 @UtilityClass
 public class TabularReporters {
@@ -84,26 +83,26 @@ public class TabularReporters {
             SemanticIdentifierSet pocQualifier,
             Aggregation aggregation) {
 
-        record ConsumptionRow(
-                @PropertyLayout(sequence = "1.0", describedAs = "sequential\nrespondent\nindex")
-                int respondentOrdinal,
-
-                @PropertyLayout(sequence = "1.1", describedAs = "anonymized\nrespondent identifier,\n"
-                        + "unique to the\ncorresponding survey")
-                String respondentAlias,
-
-                @PropertyLayout(sequence = "2.0", describedAs = "respondent's\nn-th interview\n(chronological)")
-                int interviewOrdinal,
-
-                @PropertyLayout(sequence = "3.0", describedAs = "food\nconsumption\noccasion\ncode")
-                String fco,
-
-                @PropertyLayout(sequence = "3.1", describedAs = "meal happened\nwhen and where")
-                String meal,
-
-                @PropertyLayout(sequence = "99")
-                BigDecimal value) {
-        }
+//        record ConsumptionRow(
+//                @PropertyLayout(sequence = "1.0", describedAs = "sequential\nrespondent\nindex")
+//                int respondentOrdinal,
+//
+//                @PropertyLayout(sequence = "1.1", describedAs = "anonymized\nrespondent identifier,\n"
+//                        + "unique to the\ncorresponding survey")
+//                String respondentAlias,
+//
+//                @PropertyLayout(sequence = "2.0", describedAs = "respondent's\nn-th interview\n(chronological)")
+//                int interviewOrdinal,
+//
+//                @PropertyLayout(sequence = "3.0", describedAs = "food\nconsumption\noccasion\ncode")
+//                String fco,
+//
+//                @PropertyLayout(sequence = "3.1", describedAs = "meal happened\nwhen and where")
+//                String meal,
+//
+//                @PropertyLayout(sequence = "99")
+//                BigDecimal value) {
+//        }
 
         @Data
         private static class RowFactory {

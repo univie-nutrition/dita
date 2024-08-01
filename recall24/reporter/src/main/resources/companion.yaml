@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 codegen:
-- include: _records
+- include: records
   logicalNamespacePrefix: dita.recall24
   packageNamePrefix: dita.recall24
   entitiesModulePackageName: reporter

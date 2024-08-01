@@ -18,6 +18,7 @@
 # -----------------------------------------------------------
 
 viewmodel:
+  generator: record    
   namespace: reporter.dom
   fields:
     respondentOrdinal:
