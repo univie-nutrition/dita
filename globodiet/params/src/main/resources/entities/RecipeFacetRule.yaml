@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_description.RecipeFacetRule:
+entity:
   namespace: params.recipe_description
   table: R_FACETRUL
   secondaryKey:

@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.QuantificationMethodPathwayForRecipeGroup:
+entity:
   namespace: params.pathway
   table: QM_RCLAS
   secondaryKey:

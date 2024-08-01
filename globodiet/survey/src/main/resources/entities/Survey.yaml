@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-Survey:
+entity:
   namespace: survey.dom
   table: SURVEY
   secondaryKey: |

@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.FoodDescriptor:
+entity:
   namespace: params.food_descript
   table: DESCFACE
   secondaryKey: |

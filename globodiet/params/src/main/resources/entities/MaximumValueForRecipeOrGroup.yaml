@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.MaximumValueForRecipeOrGroup:
+entity:
   namespace: params.quantif
   table: MAXRVAL
   secondaryKey:

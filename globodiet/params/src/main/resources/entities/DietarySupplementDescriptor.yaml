@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.supplement.DietarySupplementDescriptor:
+entity:
   namespace: params.supplement
   table: DS_DESCFACE
   secondaryKey:

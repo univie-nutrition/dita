@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.FacetDescriptorPathwayForRecipeGroup:
+entity:
   namespace: params.pathway
   table: R_GROUPFAC
   secondaryKey:

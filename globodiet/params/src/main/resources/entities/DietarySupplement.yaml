@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.supplement.DietarySupplement:
+entity:
   namespace: params.supplement
   table: SUPPLEMENTS
   secondaryKey:

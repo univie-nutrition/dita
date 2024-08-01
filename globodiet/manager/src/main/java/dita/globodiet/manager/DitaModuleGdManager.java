@@ -65,7 +65,7 @@ import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
 import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.survey.DitaModuleGdSurvey;
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 /**
  * Makes the integral parts of the web application.
@@ -133,23 +133,23 @@ public class DitaModuleGdManager {
     public final static String NAMESPACE = "dita.globodiet.manager";
 
     @Bean
-    public OrmModel.Schema gdSchema() {
-        val schema1 = OrmModel.Schema.fromYaml(DitaModuleGdParams.schemaSource()
+    public Schema.Domain gdSchema() {
+        val schema1 = Schema.Domain.fromYaml(DitaModuleGdParams.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
-        val schema2 = OrmModel.Schema.fromYaml(DitaModuleGdSurvey.schemaSource()
+        val schema2 = Schema.Domain.fromYaml(DitaModuleGdSurvey.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
         return schema1.concat(schema2);
     }
 
     @Bean @Qualifier("entity2table")
-    public TabularData.NameTransformer entity2table(final OrmModel.Schema gdParamsSchema) {
+    public TabularData.NameTransformer entity2table(final Schema.Domain gdParamsSchema) {
         return new EntityToTableTransformerFromSchema("dita.globodiet", gdParamsSchema);
     }
 
     @Bean @Qualifier("table2entity")
-    public TabularData.NameTransformer table2entity(final OrmModel.Schema gdParamsSchema) {
+    public TabularData.NameTransformer table2entity(final Schema.Domain gdParamsSchema) {
         return new TableToEntityTransformerFromSchema("dita.globodiet", gdParamsSchema);
     }
 

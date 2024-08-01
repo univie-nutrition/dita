@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.Photo:
+entity:
   namespace: params.quantif
   table: M_PHOTOS
   superType: params.quantif.PhotoOrShape

@@ -21,7 +21,7 @@ package dita.globodiet.manager.help;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class DitaEntityDiagramPage extends DitaEntityDiagramPageAbstract {
 
     @Inject
     public DitaEntityDiagramPage(
-            final OrmModel.Schema gdParamsSchema,
+            final Schema.Domain gdParamsSchema,
             final MetaModelService metaModelService) {
         super(gdParamsSchema, metaModelService);
     }

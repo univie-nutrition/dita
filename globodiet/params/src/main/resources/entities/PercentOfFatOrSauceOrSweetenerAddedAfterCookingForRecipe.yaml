@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe:
+entity:
   namespace: params.recipe_coefficient
   table: SPFACORE
   secondaryKey:

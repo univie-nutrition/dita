@@ -21,7 +21,7 @@ package dita.globodiet.manager.help;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 import org.apache.causeway.applib.id.LogicalType;
 import org.apache.causeway.applib.services.metamodel.BeanSort;
@@ -35,10 +35,10 @@ import dita.commons.util.ObjectGraphTransformers;
 
 abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
 
-    private final OrmModel.Schema gdParamsSchema;
+    private final Schema.Domain gdParamsSchema;
 
     protected DitaEntityDiagramPageAbstract(
-            final OrmModel.Schema gdParamsSchema,
+            final Schema.Domain gdParamsSchema,
             final MetaModelService metaModelService) {
         super(metaModelService);
         this.gdParamsSchema = gdParamsSchema;

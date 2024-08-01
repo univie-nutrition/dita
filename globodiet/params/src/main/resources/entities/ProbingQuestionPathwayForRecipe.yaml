@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.ProbingQuestionPathwayForRecipe:
+entity:
   namespace: params.pathway
   table: RPQPATH
   secondaryKey:

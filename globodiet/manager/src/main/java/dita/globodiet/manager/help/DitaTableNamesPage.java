@@ -26,7 +26,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.asciidoctor.ast.Table;
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 import org.springframework.stereotype.Component;
 
@@ -53,7 +53,7 @@ import dita.globodiet.manager.DitaModuleGdManager;
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaTableNamesPage")
 public class DitaTableNamesPage implements HelpPage {
 
-    @Inject OrmModel.Schema gdParamsSchema;
+    @Inject Schema.Domain gdParamsSchema;
     @Inject MetaModelContext mmc;
 
     @Override

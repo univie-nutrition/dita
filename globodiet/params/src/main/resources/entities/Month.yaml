@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.Month:
+entity:
   namespace: params.setting
   table: MONTHS
   secondaryKey:

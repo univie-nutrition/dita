@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.recipe_description.RecipeBrand:
+entity:
   namespace: params.recipe_description
   table: R_BRAND
   secondaryKey:

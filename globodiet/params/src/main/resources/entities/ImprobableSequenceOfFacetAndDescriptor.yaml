@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.ImprobableSequenceOfFacetAndDescriptor:
+entity:
   namespace: params.food_descript
   table: DESC_IMP
   secondaryKey:

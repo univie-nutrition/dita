@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.AnthropometricAverage:
+entity:
   namespace: params.setting
   table: ANTHROP
   secondaryKey:

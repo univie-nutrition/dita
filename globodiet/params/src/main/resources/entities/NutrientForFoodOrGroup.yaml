@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.nutrient.NutrientForFoodOrGroup:
+entity:
   namespace: params.nutrient
   table: ITEMS_DEF
   secondaryKey: |

@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.ThicknessForShape:
+entity:
   namespace: params.quantif
   table: THICKNESS
   secondaryKey: |

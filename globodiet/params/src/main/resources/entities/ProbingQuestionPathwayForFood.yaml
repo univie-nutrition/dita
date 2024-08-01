@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.ProbingQuestionPathwayForFood:
+entity:
   namespace: params.pathway
   table: PQPATH
   secondaryKey:

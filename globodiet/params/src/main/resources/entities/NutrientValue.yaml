@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.nutrient.NutrientValue:
+entity:
   namespace: params.nutrient
   table: NTR_VALUE
   secondaryKey:

@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.RecipeIngredientQuantification:
+entity:
   namespace: params.quantif
   table: MIXEDING_QT
   secondaryKey:

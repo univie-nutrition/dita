@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.FoodConsumptionOccasion:
+entity:
   namespace: params.setting
   table: FCO
   secondaryKey: |

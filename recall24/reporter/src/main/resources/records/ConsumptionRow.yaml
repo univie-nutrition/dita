@@ -17,26 +17,41 @@
 # under the License.
 # -----------------------------------------------------------
 
-ConsumptionRow: 
+viewmodel:
   namespace: reporter.dom
-  table:
-  secondaryKey:
-  title: String.format("%s (code=%s|%s)", name, surveyCode, code)
-  icon: solid users-viewfinder .campaign-color
-  description:
   fields:
-    name:
-      column: NAME
-      column-type: nvarchar(120)
-      required: true
-      unique: false
+    respondentOrdinal:
+      type: int
       description: |
-        Descriptive campaign name.
-    description:
-      column: DESCRIPTION
-      column-type: nvarchar(240)
-      required: false
-      unique: false
-      multiLine: 4
+        sequential
+        respondent
+        index
+    respondentAlias:
+      type: String
       description: |
-        Detailed information for this campaign.
+        anonymized
+        respondent identifier,
+        unique to the
+        corresponding survey
+    interviewOrdinal:
+      type: int
+      description: |
+        respondent's
+        n-th interview
+        (chronological)
+    fco:
+      type: String
+      description: |
+        food
+        consumption
+        occasion 
+        code
+    meal:
+      type: String
+      description: |
+        meal happened
+        when and where        
+    value:
+      type: BigDecimal
+      description: |
+        w.i.p.

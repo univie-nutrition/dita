@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.QuantificationMethodPathwayForRecipe:
+entity:
   namespace: params.pathway
   table: QM_RECIP
   secondaryKey:

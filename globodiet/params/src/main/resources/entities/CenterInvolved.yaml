@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.interview.CenterInvolved:
+entity:
   namespace: params.interview
   table: CENTERS
   secondaryKey: |

@@ -40,7 +40,7 @@ import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchem
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import io.github.causewaystuff.companion.codegen.domgen.LicenseHeader;
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 class TableDataRoundtripTest {
 
@@ -57,7 +57,7 @@ class TableDataRoundtripTest {
         val dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
 
 
-        val schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/entities.schema.yaml")
+        val schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/companion-schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
@@ -90,7 +90,7 @@ class TableDataRoundtripTest {
 
         var dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
 
-        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
+        var schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/companion-schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
@@ -195,7 +195,7 @@ class TableDataRoundtripTest {
     //@Test
     void genSortedChecklist() {
 
-        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
+        var schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/companion-schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
@@ -211,7 +211,7 @@ class TableDataRoundtripTest {
     @Test
     void havingTitles() {
 
-        var schema = OrmModel.Schema.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/entities.schema.yaml")
+        var schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdParams.class, "/companion.schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 

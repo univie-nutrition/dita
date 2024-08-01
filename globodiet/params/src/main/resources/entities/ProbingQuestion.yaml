@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.ProbingQuestion:
+entity:
   namespace: params.pathway
   table: PROBQUE
   secondaryKey: |

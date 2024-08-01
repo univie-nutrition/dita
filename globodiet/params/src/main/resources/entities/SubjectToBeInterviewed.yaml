@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.interview.SubjectToBeInterviewed:
+entity:
   namespace: params.interview
   table: SUBJECTS
   secondaryKey:

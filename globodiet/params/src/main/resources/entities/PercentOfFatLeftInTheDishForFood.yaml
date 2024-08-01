@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_coefficient.PercentOfFatLeftInTheDishForFood:
+entity:
   namespace: params.food_coefficient
   table: FATLEFTO
   secondaryKey:

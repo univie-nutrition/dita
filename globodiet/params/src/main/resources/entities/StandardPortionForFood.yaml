@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.StandardPortionForFood:
+entity:
   namespace: params.quantif
   table: M_STDPOR
   secondaryKey:

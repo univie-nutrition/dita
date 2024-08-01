@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_list.FoodGroup:
+entity:
   namespace: params.food_list
   table: GROUPS
   superType: params.classification.FoodGrouping 

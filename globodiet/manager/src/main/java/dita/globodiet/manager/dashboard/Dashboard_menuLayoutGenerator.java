@@ -20,7 +20,7 @@ package dita.globodiet.manager.dashboard;
 
 import java.util.stream.Collectors;
 
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -112,13 +112,13 @@ public class Dashboard_menuLayoutGenerator {
 
     // -- HELPER
 
-    private static String toServiceActionXmlLayoutEntries(final Can<OrmModel.Entity> entities) {
+    private static String toServiceActionXmlLayoutEntries(final Can<Schema.Entity> entities) {
         return entities.stream()
                 .map(Dashboard_menuLayoutGenerator::toServiceActionXmlLayoutEntry)
                 .collect(Collectors.joining("\n        "));
     }
 
-    private static String toServiceActionXmlLayoutEntry(final OrmModel.Entity entity) {
+    private static String toServiceActionXmlLayoutEntry(final Schema.Entity entity) {
         return String.format(
                 """
                 <mb:serviceAction objectType="dita.globodiet.params.EntitiesMenu" id="%s"/>""",

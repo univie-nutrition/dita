@@ -22,7 +22,6 @@ import java.util.Map;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
 import org.datanucleus.enhancement.Persistable;
 
 import org.apache.causeway.applib.annotation.LabelPosition;
@@ -37,6 +36,8 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.RequiredArgsConstructor;
 
+import io.github.causewaystuff.companion.codegen.model.Schema;
+
 @Property
 @PropertyLayout(
         labelPosition = LabelPosition.TOP,
@@ -45,7 +46,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Persistable_schema {
 
-    @Inject OrmModel.Schema schema;
+    @Inject Schema.Domain schema;
     @Inject SpecificationLoader specLoader;
 
     final Persistable mixee;
@@ -61,7 +62,9 @@ public class Persistable_schema {
             return AsciiDoc.valueOf("no metadata available");
         }
 
-        var subSchema = new OrmModel.Schema(Map.of(entitySchema.key(), entitySchema));
+        var subSchema = new Schema.Domain(
+                Map.of(),
+                Map.of(entitySchema.fqn(), entitySchema));
         subSchema.toYaml();
 
         return new AsciiDocBuilder()

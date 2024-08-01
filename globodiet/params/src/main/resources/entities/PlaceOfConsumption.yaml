@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.PlaceOfConsumption:
+entity:
   namespace: params.setting
   table: POC
   secondaryKey: |

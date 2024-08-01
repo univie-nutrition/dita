@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.FacetDescriptorPathwayForFood:
+entity:
   namespace: params.pathway
   table: FOODFAEX
   secondaryKey:

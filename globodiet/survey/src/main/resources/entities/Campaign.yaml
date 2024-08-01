@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-Campaign: 
+entity: 
   namespace: survey.dom
   table: CAMPAIGN
   secondaryKey: |

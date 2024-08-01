@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.FoodFacet:
+entity:
   namespace: params.food_descript
   table: FACETS
   secondaryKey: |

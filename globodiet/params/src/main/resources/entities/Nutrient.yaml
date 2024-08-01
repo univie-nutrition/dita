@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.nutrient.Nutrient:
+entity:
   namespace: params.nutrient
   table: NUTRIENT
   secondaryKey: |

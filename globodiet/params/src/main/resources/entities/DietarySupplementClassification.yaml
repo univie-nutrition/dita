@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.supplement.DietarySupplementClassification:
+entity:
   namespace: params.supplement
   table: DS_CLASSIF
   secondaryKey: |

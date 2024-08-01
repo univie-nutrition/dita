@@ -20,8 +20,8 @@ package dita.globodiet.manager.schema.transform;
 
 import java.util.Optional;
 
-import io.github.causewaystuff.companion.codegen.model.OrmModel;
-import io.github.causewaystuff.companion.codegen.model.OrmModel.Entity;
+import io.github.causewaystuff.companion.codegen.model.Schema;
+import io.github.causewaystuff.companion.codegen.model.Schema.Entity;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -35,7 +35,7 @@ import dita.commons.types.TabularData.NameTransformer;
 
 public record EntityToTableTransformerFromSchema(
         String logicalNamespacePrefix,
-        OrmModel.Schema schema)
+        Schema.Domain schema)
 implements NameTransformer {
 
     @Override

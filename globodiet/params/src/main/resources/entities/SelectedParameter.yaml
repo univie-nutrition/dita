@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.SelectedParameter:
+entity:
   namespace: params.setting
   table: PARAM
   secondaryKey:

@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_list.Food:
+entity:
   namespace: params.food_list
   table: FOODS
   secondaryKey: |

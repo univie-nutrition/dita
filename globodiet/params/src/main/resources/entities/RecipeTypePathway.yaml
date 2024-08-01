@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.pathway.RecipeTypePathway:
+entity:
   namespace: params.pathway
   table: RCP_PATH
   secondaryKey:

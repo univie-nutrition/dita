@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_descript.FoodBrand:
+entity:
   namespace: params.food_descript
   table: BRANDNAM
   secondaryKey: |

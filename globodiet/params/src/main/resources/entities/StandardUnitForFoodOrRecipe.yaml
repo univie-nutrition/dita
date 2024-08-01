@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.quantif.StandardUnitForFoodOrRecipe:
+entity:
   namespace: params.quantif
   table: M_STDUTS
   secondaryKey:

@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.food_coefficient.EdiblePartCoefficientForFood:
+entity:
   namespace: params.food_coefficient
   table: EDIBLEP
   secondaryKey:

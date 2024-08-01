@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-params.setting.NoteStatus:
+entity:
   namespace: params.setting
   table: STATUS
   secondaryKey:
