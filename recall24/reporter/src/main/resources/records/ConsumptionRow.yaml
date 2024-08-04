@@ -52,7 +52,12 @@ viewmodel:
       description: |
         meal happened
         when and where        
-    value:
+    quantity:
       type: BigDecimal
       description: |
-        w.i.p.
+        quantity 
+        consumed [g]
+    GCALZB:
+      type: java.lang.Number
+      description: |
+        Nut.: Energie inkl. Ballaststoffen[kcal]

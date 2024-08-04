@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
@@ -31,6 +32,11 @@ import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsA
 import lombok.Data;
 import lombok.experimental.UtilityClass;
 
+import dita.commons.food.composition.FoodComponentQuantified;
+import dita.commons.food.composition.FoodComposition;
+import dita.commons.food.composition.FoodCompositionRepository;
+import dita.commons.food.consumption.FoodConsumption;
+import dita.commons.foodon.bls.BLS302;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
@@ -81,28 +87,8 @@ public class TabularReporters {
             SemanticIdentifierSet fcoQualifier,
             QualifiedMap pocMapping,
             SemanticIdentifierSet pocQualifier,
+            FoodCompositionRepository foodCompositionRepo,
             Aggregation aggregation) {
-
-//        record ConsumptionRow(
-//                @PropertyLayout(sequence = "1.0", describedAs = "sequential\nrespondent\nindex")
-//                int respondentOrdinal,
-//
-//                @PropertyLayout(sequence = "1.1", describedAs = "anonymized\nrespondent identifier,\n"
-//                        + "unique to the\ncorresponding survey")
-//                String respondentAlias,
-//
-//                @PropertyLayout(sequence = "2.0", describedAs = "respondent's\nn-th interview\n(chronological)")
-//                int interviewOrdinal,
-//
-//                @PropertyLayout(sequence = "3.0", describedAs = "food\nconsumption\noccasion\ncode")
-//                String fco,
-//
-//                @PropertyLayout(sequence = "3.1", describedAs = "meal happened\nwhen and where")
-//                String meal,
-//
-//                @PropertyLayout(sequence = "99")
-//                BigDecimal value) {
-//        }
 
         @Data
         private static class RowFactory {
@@ -113,14 +99,24 @@ public class TabularReporters {
             String fco;
             String meal;
             //
-            ConsumptionRow row(final Record24.Consumption cRec){
+            ConsumptionRow row(
+                    final Record24.Consumption cRec,
+                    final FoodConsumption foodConsumption,
+                    final Optional<FoodComposition> compositionEntry){
                 return new ConsumptionRow(
                         respondentOrdinal,
                         respondentAlias,
                         interviewOrdinal,
                         fco,
                         meal,
-                        cRec.amountConsumed());
+                        cRec.amountConsumed(),
+                        compositionEntry
+                            .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
+                            .map(dp->dp.quantify(foodConsumption))
+                            .map(FoodComponentQuantified::quantity)
+                            .map(q->q.getValue())
+                            .orElse(null)
+                        );
             }
             void setRespondentAlias(final String respondentAlias) {
                 if(respondentAliasSeenBefore.add(respondentAlias)) respondentOrdinal++;
@@ -157,12 +153,15 @@ public class TabularReporters {
                         rowFactory.setMeal(String.format("%s (%s) @ %s", fcoLabel, timeOfDayLabel, pocLabel));
                     }
                     case Record24.Consumption cRec -> {
-                        var mapKey = cRec.asFoodConsumption(systemId).qualifiedMapKey();
-                        var mapEntry = nutMapping.lookupEntry(mapKey);
-                        if(!mapEntry.isPresent()) {
+                        var foodConsumption = cRec.asFoodConsumption(systemId);
+                        var compositionEntry = nutMapping
+                                .lookupEntry(foodConsumption.qualifiedMapKey())
+                                .map(QualifiedMapEntry::target)
+                                .flatMap(foodCompositionRepo::lookupEntry);
+                        if(!compositionEntry.isPresent()) {
                             //unmapped.add(mapKey);
                         }
-                        consumptions.add(rowFactory.row(cRec));
+                        consumptions.add(rowFactory.row(cRec, foodConsumption, compositionEntry));
                     }
                     default -> {}
                 }

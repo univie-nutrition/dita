@@ -61,10 +61,16 @@ viewmodels:
       description: |
         meal happened
         when and where        
-    value:
+    quantity:
       type: BigDecimal
       required: true
       description: |
-        w.i.p.
+        quantity 
+        consumed [g]
+    GCALZB:
+      type: java.lang.Number
+      required: true
+      description: |
+        Nut.: Energie inkl. Ballaststoffen[kcal]
 entities:
 

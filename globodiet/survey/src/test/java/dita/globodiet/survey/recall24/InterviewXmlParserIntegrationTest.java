@@ -60,6 +60,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var nutMapping = loadNutMapping();
         var fcoMapping = loadFcoMapping();
         var pocMapping = loadPocMapping();
+        var foodCompositionRepo = loadFcdb();
         var interviewSet = loadInterviewSet();
 
         var stats = new Recall24SummaryStatistics();
@@ -71,6 +72,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 nutMapping,
                 fcoMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
                 pocMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
+                foodCompositionRepo,
                 Aggregation.NONE);
         tabularReport.report(xlsxFile);
 

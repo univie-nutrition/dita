@@ -41,6 +41,11 @@ additional
         </dependency>
 
         <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-foodon</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.causeway.core</groupId>
             <artifactId>causeway-core-metamodel</artifactId>
         </dependency>
@@ -49,7 +54,7 @@ additional
             <groupId>org.apache.causeway.extensions</groupId>
             <artifactId>causeway-extensions-tabular-excel</artifactId>
         </dependency>
-        
+
     </dependencies>
 
 </project>

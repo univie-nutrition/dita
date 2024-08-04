@@ -20,15 +20,13 @@
 package dita.recall24.reporter.dom;
 
 import jakarta.inject.Named;
+import java.lang.Number;
 import java.lang.String;
 import java.math.BigDecimal;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
-import org.apache.causeway.applib.annotation.Optionality;
-import org.apache.causeway.applib.annotation.Parameter;
-import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 
@@ -50,7 +48,9 @@ import org.apache.causeway.applib.annotation.Where;
  * code
  * @param meal meal happened
  * when and where
- * @param value w.i.p.
+ * @param quantity quantity
+ * consumed [g]
+ * @param GCALZB Nut.: Energie inkl. Ballaststoffen[kcal]
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenViewmodel")
 @Named("dita.recall24.reporter.dom.ConsumptionRow")
@@ -59,10 +59,6 @@ import org.apache.causeway.applib.annotation.Where;
         describedAs = "has no description"
 )
 public record ConsumptionRow(
-        @Parameter(
-                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY
-        )
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "1",
@@ -72,10 +68,6 @@ public record ConsumptionRow(
                 hidden = Where.NOWHERE
         )
         int respondentOrdinal,
-        @Parameter(
-                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY
-        )
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "2",
@@ -86,10 +78,6 @@ public record ConsumptionRow(
                 hidden = Where.NOWHERE
         )
         String respondentAlias,
-        @Parameter(
-                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY
-        )
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "3",
@@ -99,10 +87,6 @@ public record ConsumptionRow(
                 hidden = Where.NOWHERE
         )
         int interviewOrdinal,
-        @Parameter(
-                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY
-        )
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "4",
@@ -113,10 +97,6 @@ public record ConsumptionRow(
                 hidden = Where.NOWHERE
         )
         String fco,
-        @Parameter(
-                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY
-        )
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "5",
@@ -125,17 +105,21 @@ public record ConsumptionRow(
                 hidden = Where.NOWHERE
         )
         String meal,
-        @Parameter(
-                precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                optionality = Optionality.MANDATORY
-        )
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "6",
-                describedAs = "w.i.p.",
+                describedAs = "quantity\n"
+                                + "consumed [g]",
                 hidden = Where.NOWHERE
         )
-        BigDecimal value) {
+        BigDecimal quantity,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "7",
+                describedAs = "Nut.: Energie inkl. Ballaststoffen[kcal]",
+                hidden = Where.NOWHERE
+        )
+        Number GCALZB) {
     @ObjectSupport
     public String title() {
         return this.toString();

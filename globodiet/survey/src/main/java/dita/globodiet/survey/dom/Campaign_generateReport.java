@@ -60,7 +60,8 @@ public class Campaign_generateReport {
         var interviewSet = Campaigns.interviewSet(mixee, surveyBlobStore);
 
         //TODO flesh out reporting
-        var tabularReport = new TabularReporters.TabularReport(interviewSet, null, null, null, null, null, null, aggregation);
+        var tabularReport = new TabularReporters.TabularReport(
+                interviewSet, null, null, null, null, null, null, null, aggregation);
 
         var name = String.format("report-%s", aggregation.name());
 
