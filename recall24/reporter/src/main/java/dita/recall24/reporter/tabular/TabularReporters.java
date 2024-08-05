@@ -103,6 +103,7 @@ public class TabularReporters {
                     final Record24.Consumption cRec,
                     final FoodConsumption foodConsumption,
                     final Optional<FoodComposition> compositionEntry){
+
                 return new ConsumptionRow(
                         respondentOrdinal,
                         respondentAlias,
@@ -113,8 +114,7 @@ public class TabularReporters {
                         compositionEntry
                             .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
                             .map(dp->dp.quantify(foodConsumption))
-                            .map(FoodComponentQuantified::quantity)
-                            .map(q->q.getValue())
+                            .map(FoodComponentQuantified::quantityValue)
                             .orElse(null)
                         );
             }

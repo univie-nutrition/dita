@@ -18,6 +18,8 @@
  */
 package dita.commons.food.composition;
 
+import java.math.BigDecimal;
+
 import javax.measure.Quantity;
 
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
@@ -33,6 +35,15 @@ public record FoodComponentQuantified(
 
     public ComponentUnit componentUnit() {
         return foodComponent.componentUnit();
+    }
+
+    public BigDecimal quantityValue() {
+        final Number n = quantity().getValue();
+        return switch (n) {
+            case BigDecimal bd -> bd;
+            case Integer i -> BigDecimal.valueOf(i);
+            default -> throw new IllegalArgumentException("Unhandled number type: " + n.getClass());
+        };
     }
 
 }

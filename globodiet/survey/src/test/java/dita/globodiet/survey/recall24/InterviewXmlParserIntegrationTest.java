@@ -25,6 +25,8 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.commons.collections.Can;
@@ -61,6 +63,8 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var fcoMapping = loadFcoMapping();
         var pocMapping = loadPocMapping();
         var foodCompositionRepo = loadFcdb();
+        assertEquals(14814, foodCompositionRepo.compositionCount());
+
         var interviewSet = loadInterviewSet();
 
         var stats = new Recall24SummaryStatistics();
