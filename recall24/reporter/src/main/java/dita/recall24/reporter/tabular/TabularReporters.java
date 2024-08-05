@@ -19,7 +19,9 @@
 package dita.recall24.reporter.tabular;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
@@ -41,6 +43,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.types.Sex;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
@@ -95,6 +98,8 @@ public class TabularReporters {
             final Set<String> respondentAliasSeenBefore = new HashSet<>();
             int respondentOrdinal;
             String respondentAlias;
+            Sex respondentSex;
+            long respondentAgeInDays;
             int interviewOrdinal;
             String fco;
             String meal;
@@ -107,6 +112,8 @@ public class TabularReporters {
                 return new ConsumptionRow(
                         respondentOrdinal,
                         respondentAlias,
+                        respondentSex.ordinal(),
+                        BigDecimal.valueOf(Math.round(respondentAgeInDays/36.52422)).scaleByPowerOfTen(-1),
                         interviewOrdinal,
                         fco,
                         meal,
@@ -136,6 +143,9 @@ public class TabularReporters {
                     case Interview24.Dto iv -> {
                         rowFactory.setRespondentAlias(iv.parentRespondent().alias());
                         rowFactory.setInterviewOrdinal(iv.interviewOrdinal());
+                        rowFactory.setRespondentSex(iv.parentRespondent().sex());
+                        rowFactory.setRespondentAgeInDays(
+                                ChronoUnit.DAYS.between(iv.parentRespondent().dateOfBirth(), iv.interviewDate()));
                     }
                     case Meal24.Dto meal -> {
                         rowFactory.setFco(meal.foodConsumptionOccasionId());

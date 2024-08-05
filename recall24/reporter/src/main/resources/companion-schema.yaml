@@ -40,6 +40,19 @@ viewmodels:
         respondent identifier,
         unique to the
         corresponding survey
+    respondentSex:
+      type: int
+      required: true
+      description: |
+        1=male
+        2=female    
+    respondentAge:
+      type: BigDecimal
+      required: true
+      description: |
+        age at first
+        interview day 
+        =ageInDays/365.2422       
     interviewOrdinal:
       type: int
       required: true
@@ -68,7 +81,7 @@ viewmodels:
         quantity 
         consumed [g]
     GCALZB:
-      type: java.lang.Number
+      type: BigDecimal
       required: true
       description: |
         Nut.: Energie inkl. Ballaststoffen[kcal]

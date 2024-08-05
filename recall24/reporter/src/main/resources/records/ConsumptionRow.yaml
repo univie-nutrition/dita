@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 viewmodel:
-  generator: record    
+  generator: record
   namespace: reporter.dom
   fields:
     respondentOrdinal:
@@ -34,6 +34,17 @@ viewmodel:
         respondent identifier,
         unique to the
         corresponding survey
+    respondentSex:
+      type: int
+      description: |
+        1=male
+        2=female    
+    respondentAge:
+      type: BigDecimal
+      description: |
+        age at first
+        interview day 
+        =ageInDays/365.2422       
     interviewOrdinal:
       type: int
       description: |
@@ -58,6 +69,6 @@ viewmodel:
         quantity 
         consumed [g]
     GCALZB:
-      type: java.lang.Number
+      type: BigDecimal
       description: |
         Nut.: Energie inkl. Ballaststoffen[kcal]
