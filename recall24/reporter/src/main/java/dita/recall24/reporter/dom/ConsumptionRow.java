@@ -22,6 +22,7 @@ package dita.recall24.reporter.dom;
 import jakarta.inject.Named;
 import java.lang.String;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
@@ -41,11 +42,13 @@ import org.apache.causeway.applib.annotation.Where;
  * @param respondentSex 1=male
  * 2=female
  * @param respondentAge age at first
- * interview day
+ * consumption day
  * =ageInDays/365.2422
  * @param interviewOrdinal respondent's
  * n-th interview
  * (chronological)
+ * @param consumptionDate Date of
+ * consumption
  * @param fco food
  * consumption
  * occasion
@@ -94,7 +97,7 @@ public record ConsumptionRow(
                 fieldSetId = "details",
                 sequence = "4",
                 describedAs = "age at first\n"
-                                + "interview day\n"
+                                + "consumption day\n"
                                 + "=ageInDays/365.2422",
                 hidden = Where.NOWHERE
         )
@@ -111,6 +114,14 @@ public record ConsumptionRow(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "6",
+                describedAs = "Date of\n"
+                                + "consumption",
+                hidden = Where.NOWHERE
+        )
+        LocalDate consumptionDate,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "7",
                 describedAs = "food\n"
                                 + "consumption\n"
                                 + "occasion\n"
@@ -120,7 +131,7 @@ public record ConsumptionRow(
         String fco,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "7",
+                sequence = "8",
                 describedAs = "meal happened\n"
                                 + "when and where",
                 hidden = Where.NOWHERE
@@ -128,7 +139,7 @@ public record ConsumptionRow(
         String meal,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "8",
+                sequence = "9",
                 describedAs = "quantity\n"
                                 + "consumed [g]",
                 hidden = Where.NOWHERE
@@ -136,7 +147,7 @@ public record ConsumptionRow(
         BigDecimal quantity,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "9",
+                sequence = "10",
                 describedAs = "Nut.: Energie inkl. Ballaststoffen[kcal]",
                 hidden = Where.NOWHERE
         )

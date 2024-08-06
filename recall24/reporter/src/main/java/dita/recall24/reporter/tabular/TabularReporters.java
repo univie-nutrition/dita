@@ -20,6 +20,7 @@ package dita.recall24.reporter.tabular;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -101,6 +102,7 @@ public class TabularReporters {
             Sex respondentSex;
             long respondentAgeInDays;
             int interviewOrdinal;
+            LocalDate consumptionDate;
             String fco;
             String meal;
             //
@@ -115,6 +117,7 @@ public class TabularReporters {
                         respondentSex.ordinal(),
                         BigDecimal.valueOf(Math.round(respondentAgeInDays/36.52422)).scaleByPowerOfTen(-1),
                         interviewOrdinal,
+                        consumptionDate,
                         fco,
                         meal,
                         cRec.amountConsumed(),
@@ -143,9 +146,12 @@ public class TabularReporters {
                     case Interview24.Dto iv -> {
                         rowFactory.setRespondentAlias(iv.parentRespondent().alias());
                         rowFactory.setInterviewOrdinal(iv.interviewOrdinal());
+                        rowFactory.setConsumptionDate(iv.interviewDate());
                         rowFactory.setRespondentSex(iv.parentRespondent().sex());
-                        rowFactory.setRespondentAgeInDays(
-                                ChronoUnit.DAYS.between(iv.parentRespondent().dateOfBirth(), iv.interviewDate()));
+                        if(iv.interviewOrdinal()==1) {
+                            rowFactory.setRespondentAgeInDays(
+                                    ChronoUnit.DAYS.between(iv.parentRespondent().dateOfBirth(), iv.interviewDate()));
+                        }
                     }
                     case Meal24.Dto meal -> {
                         rowFactory.setFco(meal.foodConsumptionOccasionId());

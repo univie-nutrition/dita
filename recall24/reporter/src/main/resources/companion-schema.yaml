@@ -51,7 +51,7 @@ viewmodels:
       required: true
       description: |
         age at first
-        interview day 
+        consumption day 
         =ageInDays/365.2422       
     interviewOrdinal:
       type: int
@@ -60,6 +60,12 @@ viewmodels:
         respondent's
         n-th interview
         (chronological)
+    consumptionDate:
+      type: java.time.LocalDate
+      required: true
+      description: |
+        Date of 
+        consumption
     fco:
       type: String
       required: true
