@@ -79,7 +79,39 @@ viewmodels:
       required: true
       description: |
         meal happened
-        when and where        
+        when and where
+    food:
+      type: String
+      required: true
+      description: |
+        name of consumed
+        food
+    foodId:
+      type: String
+      required: true
+      description: |
+        food identifier     
+    group:
+      type: String
+      required: true
+      description: |
+        food group
+    subgroup:
+      type: String
+      required: true
+      description: |
+        food subgroup
+    subSubgroup:
+      type: String
+      required: true
+      description: |
+        food sub-subgroup
+    facetIds:
+      type: String
+      required: true
+      description: |
+        facet descriptor
+        identifiers                  
     quantity:
       type: BigDecimal
       required: true

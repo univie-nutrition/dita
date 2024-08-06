@@ -55,6 +55,14 @@ import org.apache.causeway.applib.annotation.Where;
  * code
  * @param meal meal happened
  * when and where
+ * @param food name of consumed
+ * food
+ * @param foodId food identifier
+ * @param group food group
+ * @param subgroup food subgroup
+ * @param subSubgroup food sub-subgroup
+ * @param facetIds facet descriptor
+ * identifiers
  * @param quantity quantity
  * consumed [g]
  * @param GCALZB Energie
@@ -142,6 +150,50 @@ public record ConsumptionRow(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "9",
+                describedAs = "name of consumed\n"
+                                + "food",
+                hidden = Where.NOWHERE
+        )
+        String food,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "10",
+                describedAs = "food identifier",
+                hidden = Where.NOWHERE
+        )
+        String foodId,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "11",
+                describedAs = "food group",
+                hidden = Where.NOWHERE
+        )
+        String group,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "12",
+                describedAs = "food subgroup",
+                hidden = Where.NOWHERE
+        )
+        String subgroup,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "13",
+                describedAs = "food sub-subgroup",
+                hidden = Where.NOWHERE
+        )
+        String subSubgroup,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "14",
+                describedAs = "facet descriptor\n"
+                                + "identifiers",
+                hidden = Where.NOWHERE
+        )
+        String facetIds,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "15",
                 describedAs = "quantity\n"
                                 + "consumed [g]",
                 hidden = Where.NOWHERE
@@ -149,7 +201,7 @@ public record ConsumptionRow(
         BigDecimal quantity,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "10",
+                sequence = "16",
                 describedAs = "Energie\n"
                                 + "inkl. Ballaststoffen\n"
                                 + "[kcal]",

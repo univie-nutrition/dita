@@ -110,6 +110,9 @@ public class TabularReporters {
             LocalDate consumptionDate;
             String fco;
             String meal;
+            String group = "wip";
+            String subgroup = "wip";
+            String subSubgroup = "wip";
             //
             ConsumptionRow row(
                     final Record24.Consumption cRec,
@@ -125,6 +128,12 @@ public class TabularReporters {
                         consumptionDate,
                         fco,
                         meal,
+                        foodConsumption.name(),
+                        foodConsumption.foodId().fullFormat(":"),
+                        group,
+                        subgroup,
+                        subSubgroup,
+                        foodConsumption.facetIds().fullFormat(","),
                         cRec.amountConsumed(),
                         compositionEntry
                             .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))

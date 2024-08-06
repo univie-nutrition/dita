@@ -67,7 +67,33 @@ viewmodel:
       type: String
       description: |
         meal happened
-        when and where        
+        when and where
+    food:
+      type: String
+      description: |
+        name of consumed
+        food
+    foodId:
+      type: String
+      description: |
+        food identifier     
+    group:
+      type: String
+      description: |
+        food group
+    subgroup:
+      type: String
+      description: |
+        food subgroup
+    subSubgroup:
+      type: String
+      description: |
+        food sub-subgroup
+    facetIds:
+      type: String
+      description: |
+        facet descriptor
+        identifiers                  
     quantity:
       type: BigDecimal
       description: |
