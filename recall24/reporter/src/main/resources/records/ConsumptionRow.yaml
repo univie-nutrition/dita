@@ -76,4 +76,6 @@ viewmodel:
     GCALZB:
       type: BigDecimal
       description: |
-        Nut.: Energie inkl. Ballaststoffen[kcal]
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]

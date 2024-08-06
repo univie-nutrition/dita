@@ -21,6 +21,8 @@ package dita.commons.format;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormatSymbols;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
@@ -93,6 +95,13 @@ public class FormatUtils {
             return input;
         }
         return fillString(gap, '0') + input;
+    }
+
+    // -- TEMPORAL
+    private static DateTimeFormatter ISO_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public String isoDate(final @Nullable LocalDate localDate) {
+        return ISO_DATE.format(localDate);
     }
 
     // -- JAVA UTIL FORMAT

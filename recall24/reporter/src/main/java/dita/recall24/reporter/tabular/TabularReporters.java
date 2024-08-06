@@ -20,6 +20,7 @@ package dita.recall24.reporter.tabular;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -29,10 +30,14 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.causeway.applib.value.Blob;
+import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
 
 import lombok.Data;
+import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponentQuantified;
@@ -188,6 +193,18 @@ public class TabularReporters {
 
             new CollectionContentsAsExcelExporter().createExport(dataTable, file);
         }
+
+        @SneakyThrows
+        public Blob reportAsBlob(final String name) {
+            var tempFile = File.createTempFile(this.getClass().getCanonicalName(), name);
+            try {
+                this.report(tempFile);
+                return Blob.of(name, CommonMimeType.XLSX, DataSource.ofFile(tempFile).bytes());
+            } finally {
+                Files.deleteIfExists(tempFile.toPath()); // cleanup
+            }
+        }
+
     }
 
 }

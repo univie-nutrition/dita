@@ -57,7 +57,9 @@ import org.apache.causeway.applib.annotation.Where;
  * when and where
  * @param quantity quantity
  * consumed [g]
- * @param GCALZB Nut.: Energie inkl. Ballaststoffen[kcal]
+ * @param GCALZB Energie
+ * inkl. Ballaststoffen
+ * [kcal]
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenViewmodel")
 @Named("dita.recall24.reporter.dom.ConsumptionRow")
@@ -148,7 +150,9 @@ public record ConsumptionRow(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "10",
-                describedAs = "Nut.: Energie inkl. Ballaststoffen[kcal]",
+                describedAs = "Energie\n"
+                                + "inkl. Ballaststoffen\n"
+                                + "[kcal]",
                 hidden = Where.NOWHERE
         )
         BigDecimal GCALZB) {

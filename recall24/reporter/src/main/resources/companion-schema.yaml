@@ -90,6 +90,8 @@ viewmodels:
       type: BigDecimal
       required: true
       description: |
-        Nut.: Energie inkl. Ballaststoffen[kcal]
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
 entities:
 
