@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.springframework.lang.Nullable;
@@ -59,7 +60,11 @@ public class InterviewXmlParser {
             final @NonNull DataSource source,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
-                .valueAsNonNullElseFail();
+                .valueAsNullableElseFail();
+        if(dto==null) {
+            warnEmptyDataSource(source, messageConsumer);
+            return InterviewSet24.empty();
+        }
         return createFromDto(dto, messageConsumer);
     }
 
@@ -71,15 +76,12 @@ public class InterviewXmlParser {
             final Clob interviewSource,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
-                .valueAsNonNullElseFail();
+                .valueAsNullableElseFail();
+        if(dto==null) {
+            warnEmptyDataSource(interviewSource, messageConsumer);
+            return InterviewSet24.empty();
+        }
         return createFromDto(dto, messageConsumer);
-    }
-    public InterviewSet24.Dto parse2(
-            final Clob interviewSource,
-            final @Nullable Consumer<Message> messageConsumer) {
-        var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
-                .valueAsNonNullElseFail();
-        return createFromDto2(dto, messageConsumer);
     }
 
     // -- HELPER
@@ -88,21 +90,24 @@ public class InterviewXmlParser {
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
         return Recall24DtoUtils
-                .join(
-                    dto.getInterviews().stream()
-                        .map(_InterviewConverter::toInterview24)
-                        .toList(),
-                    messageConsumer);
+            .join(
+                dto.getInterviews().stream()
+                    .map(_InterviewConverter::toInterview24)
+                    .toList(),
+                messageConsumer);
     }
-    private InterviewSet24.Dto createFromDto2(
-            final @NonNull _Dtos.Itv dto,
+
+    private void warnEmptyDataSource(
+            final Object source,
             final @Nullable Consumer<Message> messageConsumer) {
-        return Recall24DtoUtils
-                .join(
-                    dto.getInterviews().stream()
-                        .map(_InterviewConverter::toInterview24)
-                        .toList(),
-                    messageConsumer);
+        var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
+                .orElseGet(Message::consumerWritingToSyserr);
+        var sourceName = switch (source) {
+            case Clob clob -> clob.getName();
+            default -> source.getClass().getName();
+        };
+        messageConsumerOrFallback
+            .accept(Message.warn("empty interview data source detected: %s", sourceName));
     }
 
 }
