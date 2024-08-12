@@ -35,14 +35,15 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.NameTransformer;
-import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
-import dita.globodiet.manager.versions.VersionsService;
-import lombok.RequiredArgsConstructor;
-import lombok.val;
+import dita.globodiet.manager.versions.VersionsExportService;
+import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 
 @Action//(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL,
@@ -99,7 +100,7 @@ public class Dashboard_replicateYaml {
 
     private String replicate(final Clob tableData, final NameTransformer nameTransformer, final PersistenceManager pm) {
         return tableSerializer.replicate(tableData, nameTransformer,
-                VersionsService.paramsTableFilter(), pm);
+                VersionsExportService.paramsTableFilter(), pm);
     }
 
 }

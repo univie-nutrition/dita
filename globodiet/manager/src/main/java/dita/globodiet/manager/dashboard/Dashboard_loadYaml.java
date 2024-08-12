@@ -38,19 +38,19 @@ import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.commons.types.TabularData;
 import dita.commons.util.AsciiDocUtils;
+import dita.globodiet.manager.versions.VersionsExportService;
+import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.Recipe.AliasQ;
-import dita.globodiet.manager.dashboard.Dashboard_generateYaml.ExportFormat;
-import dita.globodiet.manager.versions.VersionsService;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
 public class Dashboard_loadYaml {
 
-    @Inject TableSerializerYaml tableSerializer;
-    @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
-
+    @Inject private TableSerializerYaml tableSerializer;
+    @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
+    
     final Dashboard dashboard;
 
     @MemberSupport
@@ -65,7 +65,7 @@ public class Dashboard_loadYaml {
                 format==ExportFormat.ENTITY
                 ? TabularData.NameTransformer.IDENTITY
                 : table2entity,
-            VersionsService.paramsTableFilter(),
+            VersionsExportService.paramsTableFilter(),
             InsertMode.DELETE_ALL_THEN_ADD,
             entity->{
                 if(entity.getSpecification().isAssignableFrom(Recipe.class)) {

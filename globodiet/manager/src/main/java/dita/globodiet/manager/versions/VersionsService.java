@@ -20,49 +20,30 @@ package dita.globodiet.manager.versions;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import org.apache.causeway.applib.services.iactnlayer.InteractionService;
 import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
-import org.apache.causeway.core.metamodel.context.MetaModelContext;
-import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
-import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
-import dita.commons.types.TabularData;
-import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
+import dita.globodiet.manager.DitaModuleGdManager;
+
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsService")
 public class VersionsService {
-
-    @Inject TableSerializerYaml tableSerializer;
-    @Inject InteractionService iaService;
-    @Inject MetaModelContext mmc;
-
-    @Autowired Environment env;
-
-    @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
-    @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
 
     private File rootDirectory = new File(System.getenv("dita.blobstore.root"));
 
@@ -145,13 +126,7 @@ public class VersionsService {
         var resultingFileName = String.format("GloboDiet-%s.7z", timestamp);
         return resolve7ZippedResource(parameterDataVersion, "GloboDiet", Optional.of(resultingFileName));
     }
-
-    public Clob getTableData(final ParameterDataVersion parameterDataVersion) {
-        return resolveZippedResource(parameterDataVersion, "gd-params.yml", Optional.empty())
-                .unZip(CommonMimeType.YAML)
-                .toClob(StandardCharsets.UTF_8);
-    }
-
+    
     // -- UTILITY
 
     public void writeManifest(final @Nullable ParameterDataVersion version) {
@@ -159,11 +134,6 @@ public class VersionsService {
             return;
         }
         version.writeManifest(lookupVersionFolderElseFail(version));
-    }
-
-    public static Predicate<ObjectSpecification> paramsTableFilter() {
-        return entityType->entityType.getLogicalTypeName()
-                .startsWith("dita.globodiet.params.");
     }
 
     // -- HELPER
@@ -188,7 +158,7 @@ public class VersionsService {
                 resolveResource(parameterDataVersion, resourceName + ".7z").bytes());
     }
 
-    private Blob resolveZippedResource(
+    Blob resolveZippedResource(
             final ParameterDataVersion parameterDataVersion,
             final String resourceName,
             final Optional<String> filenameOverride) {

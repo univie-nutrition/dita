@@ -39,8 +39,8 @@ import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
 import dita.commons.types.TabularData;
+import dita.globodiet.manager.versions.VersionsExportService;
 import dita.globodiet.params.recipe_list.Recipe;
-import dita.globodiet.manager.versions.VersionsService;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
@@ -81,7 +81,7 @@ public class Dashboard_generateYamlFromRemote {
                     var clob = tableSerializer.clobFromSecondaryConnection(
                             "gd-params-" + profile.name().toLowerCase(),
                             transformer,
-                            VersionsService.paramsTableFilter(),
+                            VersionsExportService.paramsTableFilter(),
                             pm,
                             this::stringNormalizer,
                             rowSortingEnabled);

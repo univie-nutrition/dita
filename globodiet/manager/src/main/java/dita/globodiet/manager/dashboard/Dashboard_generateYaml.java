@@ -20,8 +20,6 @@ package dita.globodiet.manager.dashboard;
 
 import jakarta.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -30,37 +28,27 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
 
-import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
-import dita.commons.types.TabularData;
-import dita.globodiet.manager.versions.VersionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+
+import dita.globodiet.manager.versions.VersionsExportService;
+import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
 public class Dashboard_generateYaml {
 
-    @Inject TableSerializerYaml tableSerializer;
-    @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
+    @Inject private VersionsExportService versionsExportService;
 
     final Dashboard dashboard;
-
-    public enum ExportFormat {
-        TABLE,
-        ENTITY
-    }
 
     @MemberSupport
     public Clob act(
             @Parameter final ExportFormat format,
             @Parameter final boolean rowSortingEnabled) {
-        val clob = tableSerializer.clobFromRepository("gd-params",
-                format==ExportFormat.ENTITY
-                    ? TabularData.NameTransformer.IDENTITY
-                    : entity2table,
-                VersionsService.paramsTableFilter(),
-                rowSortingEnabled);
+        val clob = versionsExportService.tablesAsYamlFromRepository(
+                VersionsExportService.paramsTableFilter(), format, rowSortingEnabled);
         return clob;
     }
 

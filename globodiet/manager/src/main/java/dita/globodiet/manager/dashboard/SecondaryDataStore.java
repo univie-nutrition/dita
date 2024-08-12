@@ -34,9 +34,10 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
-import dita.causeway.replicator.tables.model.DataTableService;
-import dita.globodiet.manager.versions.VersionsService;
 import lombok.SneakyThrows;
+
+import dita.causeway.replicator.tables.model.DataTableService;
+import dita.globodiet.manager.versions.VersionsExportService;
 
 public record SecondaryDataStore(DataTableService dataTableService) {
 
@@ -103,7 +104,7 @@ public record SecondaryDataStore(DataTableService dataTableService) {
             final PersistenceManagerFactory pmf) {
         try {
             dataTableService.streamEntities()
-            .filter(VersionsService.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
+            .filter(VersionsExportService.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
             .map(ObjectSpecification::getCorrespondingClass)
             .map(Class::getName)
             .forEach(entityClassName->toEntityWithNonDurableId(pmf, entityClassName));

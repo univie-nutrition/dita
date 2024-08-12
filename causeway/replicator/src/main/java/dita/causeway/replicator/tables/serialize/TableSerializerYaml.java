@@ -131,7 +131,7 @@ public class TableSerializerYaml {
                 .modifyObject(modifier)
                 .insertToDatabase(repositoryService, insertMode)
                 .toTabularData(format())
-                .toYaml(TabularData.Format.defaults());
+                .toYaml(format());
         return yaml;
     }
 

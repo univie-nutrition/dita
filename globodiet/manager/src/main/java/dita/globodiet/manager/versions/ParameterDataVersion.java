@@ -47,22 +47,22 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
 
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import dita.globodiet.manager.DitaModuleGdManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.val;
 
+import dita.globodiet.manager.DitaModuleGdManager;
+
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".ParameterDataVersion")
 @NoArgsConstructor
 public class ParameterDataVersion {
 
-    @Inject ForeignKeyLookupService lookupService;
-    @Inject VersionsService versionsService;
-    @Inject FactoryService factoryService;
+    @Inject private VersionsService versionsService;
+    @Inject private VersionsExportService versionsExportService;
+    @Inject private FactoryService factoryService;
 
     // -- FACTORIES
 
@@ -214,11 +214,23 @@ public class ParameterDataVersion {
 //                .orElse("TODO: will be implemented");
 //    }
 
-    // -- [4] BAK DOWNLOAD
+    // -- [4] FOOD DESCRIPTION MODEL
 
     @Action
     @ActionLayout(
             sequence = "4",
+            describedAs = "Food Description Model as YAML.",
+            fieldSetName="Details",
+            position = Position.PANEL)
+    public Blob downloadFoodDescriptionModel() {
+        return versionsExportService.getFoodDescriptionModelAsYaml(this);
+    }
+    
+    // -- [5] BAK DOWNLOAD
+    
+    @Action
+    @ActionLayout(
+            sequence = "5",
             describedAs = "MS-SQL Server backup file, that can be imported with the GloboDiet client application.",
             fieldSetName="Details",
             position = Position.PANEL)
@@ -226,11 +238,11 @@ public class ParameterDataVersion {
         return versionsService.getBAK(this);
     }
 
-    // -- [5] DELETE
+    // -- [6] DELETE
 
     @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE)
     @ActionLayout(
-            sequence = "5",
+            sequence = "6",
             describedAs = "Does not actually delete from blob-store, just changes the manifest, "
                     + "such that given version no longer appears in the user interface.",
             fieldSetName="Details",

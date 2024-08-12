@@ -232,6 +232,9 @@ class _DataTableSet {
     public _DataTableSet insertToDatabase(
             final RepositoryService repositoryService,
             final InsertMode insertMode) {
+        if(insertMode==InsertMode.DO_NOTHING) {
+            return this;
+        }
         // delete all existing entities
         if(insertMode.isDeleteAllThenAdd()) {
             dataTables.forEach(dataTable->{
@@ -241,9 +244,8 @@ class _DataTableSet {
         }
         // insert new entities
         dataTables.forEach(dataTable->{
-            dataTable.streamDataElements().forEach(entity->{
-                repositoryService.persist(entity);
-            });
+            dataTable.streamDataElements()
+                .forEach(repositoryService::persist);
         });
         return this;
     }
