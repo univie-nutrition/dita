@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.foodon.langual;
+package dita.foodon.langual;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

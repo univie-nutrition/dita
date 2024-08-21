@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.foodon.bls;
+package dita.foodon.bls;
 
 import java.util.stream.Stream;
 

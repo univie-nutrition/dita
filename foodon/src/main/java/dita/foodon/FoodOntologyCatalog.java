@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.foodon;
+package dita.foodon;
 
 import java.io.PrintStream;
 import java.util.stream.Collectors;

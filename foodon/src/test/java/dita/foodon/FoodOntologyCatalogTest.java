@@ -16,14 +16,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.foodon.fdm;
+package dita.foodon;
 
-/**
- * TODO Should act as DTO for food ontologies, 
- * that describe food terms and there catagorization into groups,
- * as well as catalogue all available descriptors.
- * 
- * @see "https://univie-nutrition.github.io/dita/component-main/1.0.0/designdocs/OntologyTermAndAnnotations.html"
- */
-public record FoodDescriptionModel() {
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import dita.foodon.FoodOntologyCatalog;
+
+class FoodOntologyCatalogTest {
+
+    @Test
+    void test() {
+        var foodOntologyCatalog = FoodOntologyCatalog.instance();
+        assertNotNull(foodOntologyCatalog);
+        assertNotNull(foodOntologyCatalog.rootOntology());
+        //assertEquals(1, foodOntologyCatalog.getOntologies().size());
+
+        foodOntologyCatalog.dump(System.out);
+
+    }
 }

@@ -37,8 +37,8 @@ import org.apache.causeway.commons.io.TextUtils;
 
 import dita.commons.food.composition.FoodComponentDatapoint;
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.foodon.bls.BLS302;
 import dita.commons.sid.SemanticIdentifier;
+import dita.foodon.bls.BLS302;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;

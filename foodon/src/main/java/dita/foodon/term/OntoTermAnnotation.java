@@ -16,18 +16,26 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.onto;
+package dita.foodon.term;
 
 import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifierSet;
 
 /**
- * Represents a term within a hierarchy of ontology terms. 
+ * DRAFT: Arbitrary textual annotation to an {@link OntoTerm}.
+ * E.g. translation, description, web reference, etc.
+ * @see "https://univie-nutrition.github.io/dita/component-main/1.0.0/designdocs/OntologyTermAndAnnotations.html"
  */
-public record OntoTerm(
+public record OntoTermAnnotation(
+        /**
+         * Identifier of the {@link OntoTerm} this annotation references.
+         */
         SemanticIdentifier termId,
-        String name,
-        SemanticIdentifier broadened,
-        SemanticIdentifierSet narrowed
-        ) {
+        /**
+         * Arbitrary annotation classification e.g. {@code description,language=de}
+         */
+        String key,
+        /**
+         * Annotation's value.
+         */
+        String value) {
 }
