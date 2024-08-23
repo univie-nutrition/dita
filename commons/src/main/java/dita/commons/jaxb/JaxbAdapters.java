@@ -81,7 +81,8 @@ public class JaxbAdapters {
         }
         private static String argumentIn(@Nullable final String in) {
             var arg = _Strings.emptyToNull(_Strings.trim(in));
-            if(arg!=null) _Assert.assertTrue(arg.indexOf(',') + arg.indexOf(' ') == -2);
+            if(arg!=null) _Assert.assertTrue(arg.indexOf(',') + arg.indexOf(' ') == -2,
+                    ()->"Semantic Identifiers may not contain characters ',' or whitespace");
             return arg;
         }
         private static String argumentOut(@Nullable final String arg) {

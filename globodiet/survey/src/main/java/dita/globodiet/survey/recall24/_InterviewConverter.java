@@ -193,9 +193,15 @@ class _InterviewConverter {
                 //TODO[DITA-25] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
                 //exclude if brand-name is just a placeholder
                 .filter(name->!name.equals("marke / produktname unbekannt"))
+                .map(name->name.replace(",", " "))
+                .map(name->_Strings.condenseWhitespaces(name, "_"))
                 .map(name->{
                     _Assert.assertFalse(name.contains("]"),
-                            ()->"brand-name cannot contain character ']'");
+                            ()->"brand-name cannot contain character ']' got: " + name);
+                    _Assert.assertFalse(name.contains(","),
+                            ()->"brand-name cannot contain character ',' got: " + name);
+                    _Assert.assertFalse(name.contains(" "),
+                            ()->"brand-name cannot contain character ' ' got: " + name);
                     return BRAND_FACET_CODE + "[" + name + "]";
                 })
                 .orElse(null);
