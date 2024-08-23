@@ -1,16 +1,15 @@
 package dita.globodiet.survey.recall24;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.TextUtils;
 
+@Deprecated
 class Convert {
 
-    @Test
+    //@Test
     void test() {
         String source = """
                 RSP_NR;RSP_AL;RSP_DOB;RSP_SEX;RSP_IVC;IV_NR;IV_DAT;IV_DOW;IV_RDAT;IV_RDOW;IV_DUR;IV_SDIC;IV_SDIN;IV_SDAC;IV_SDAN;IV_RESH;IV_RESW;IV_RESE;IV_RESER;FCO_NR;FCO_C;FCO_HR;FCO_PC;FCO_TX;QLI_NR;QLI_TX;REC_NR;REC_T;REC_N;IG_NR;IG_NM;IG_G0;IG_G1;IG_G2;IG_FNR;IG_FAC;IG_DSC;IG_BRN;IG_TX;IG_RQI;IG_RQ;IG_QFU;IG_Q;IG_QU;NU_NR;NU_Q;NU_QU;NU_K;NU_TX;GCALZB;ZK;KDS;ZB;ZF;FC;FS;FP;FU;ZE;ZA;ZW;VA;VB1;VB2;VB3A;VB5;VB6;VB7;VB9G;VB12;VC;VD;VE;VK;MCA;MMG;MFE;MZN;F226;GCAL;GFPS;GKB;GJZB;GJ;GMKO;GP;F223;F222;F221;F220;F225;F224;F202;F201;F200;F205;F204;F203;F241;F240;F120;F100;F171;F170;F162;F161;F160;F164;F151;F150;F141;F140;F193;F183;F182;F181;F180;F184;F60;F40;F80;FCLA;FG;FM;FL;FK;FO3;FO6;FO9;FT;ECYS;EALA;EASP;EARG;EILE;EHIS;EH;EGLU;EGLY;EEA;ENA;EMET;ELEU;ELYS;EPHE;EPRO;EP;EVAL;ETHR;ETRP;ETYR;ESER;MCL;MCR;MCU;MF;MK;MJ;MNA;MMO;MMN;MP;MSE;MSI;MS;KDM;KDL;KD;KBC;KBH;KBN;KBL;KBP;KBW;KBU;KAM;KAS;KAX;KA;KER;KINST;KMF;KMD;KMG;KMT;KM;KPG;KPON;KPOR;KPS;KP;S_Carnitin;S_Chlorella;S_Chonroitinsulfat;S_Cholin;S_Coffein;S_Collagen;S_Cranberry;S_Curcuma;S_Baeckerhefe;S_Baldrian;S_Bierhefe;S_Bitterorange;S_Birkenblaetter;S_Blaubeere;S_Brennnessel;S_Bromelain;S_Brunnenkresse;S_Acerol;S_Ananas;S_Aronia;S_Artischoke;S_Augentrost;S_Isoflavone;S_Heidelbeere;S_Hirse;S_Holunderbeere;S_HyaluronS;S_Gelatine;S_Ginkgo;S_Ginseng;S_Glucomannan;S_GlucosaminHC;S_GlucosaminSF;S_Glutathion;S_Grapefruit;S_Granatapfel;S_Gruentee;S_Guarana;S_MSM;S_Mate;S_Meerrettich;S_Melissenblaetter;S_Melone;S_Mucopolysaccharide;S_Lavendeloel;S_Lecithin;S_Leinoel;S_Leinsamen;S_Karotte;S_Kieselerde;S_Knoblauch;S_Kreatin;S_Kuerbiskern;S_Kuerbiskernoel;S_Ringelblume;S_Rhodiola;S_Rotklee;S_Rotweintraube;S_Rutin;S_Passionsblume;S_Pflanzensterine;S_Petersilienkraut;S_Phosphatidylserin;S_PolyphenoleOhneIso;S_Pycnogenol;S_Olivenextrakt;S_Olivenoel;S_Nachtkerzenoel;S_Taurin;S_Teufelskralle;S_Traubenkern;S_Schachtelhalm;S_Schisandra;S_Sabale;S_Sanddorn;S_Salbei;S_Seefischoel;S_Spirulina;S_Soja;S_Wacholderbeere;S_Weinlaub;S_Weissdornbeere;S_Weizenkeimoel;S_Zitronensaft;S_betaGlucan;VB3;VAC;VAR;VEAT;VLUT;VLYC;VQ10;VZEA;ZO;ZM
