@@ -224,6 +224,7 @@ permits InterviewSet24.Dto {
             return new Builder();
         }
 
+        @JsonIgnore
         public boolean isEmpty() {
             return respondents==null
                     || respondents.isEmpty();
