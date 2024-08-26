@@ -69,7 +69,7 @@ public class InterviewUtils {
             .map(InterviewUtils::unzip);
     }
 
-    public InterviewSet24.Dto interviewSetFromBlobStrore(
+    public InterviewSet24.Dto interviewSetFromBlobStore(
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final Correction24 correction,

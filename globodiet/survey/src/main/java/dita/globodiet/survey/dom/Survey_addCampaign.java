@@ -23,8 +23,6 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -34,6 +32,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT

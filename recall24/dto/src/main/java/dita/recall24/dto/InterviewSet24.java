@@ -125,7 +125,7 @@ permits InterviewSet24.Dto {
         }
 
         public int interviewCount() {
-            return (int) respondents().stream().mapToInt(resp->resp.interviews().size()).sum();
+            return respondents().stream().mapToInt(resp->resp.interviews().size()).sum();
         }
 
         public Stream<Interview24.Dto> streamInterviews() {
@@ -222,6 +222,11 @@ permits InterviewSet24.Dto {
         @Override
         public Builder24<Dto> asBuilder() {
             return new Builder();
+        }
+
+        public boolean isEmpty() {
+            return respondents==null
+                    || respondents.isEmpty();
         }
 
     }

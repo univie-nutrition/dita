@@ -68,27 +68,45 @@ public class Campaigns {
 
     // -- INTERVIEW SET
 
-    public InterviewSet24.Dto interviewSet(
+    private InterviewSet24.Dto interviewSet(
             final Campaign campaign,
-            final BlobStore blobStore) {
-
-        var messageConsumer = new MessageConsumer();
+            final BlobStore blobStore,
+            final MessageConsumer messageConsumer) {
 
         var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(campaign.getCorrection()))
             .valueAsNullableElseFail();
 
         var interviewSet = InterviewUtils
-            .interviewSetFromBlobStrore(
+            .interviewSetFromBlobStore(
                     DataSourceLocation.INTERVIEW.namedPath(campaign),
                     blobStore,
                     correction,
                     messageConsumer);
 
-        //debug
-        //messageConsumer.accept(Message.info("generated at %s", LocalDateTime.now()));
+        return interviewSet;
+    }
 
+    public InterviewSet24.Dto interviewSet(
+            final Campaign campaign,
+            final BlobStore blobStore) {
+        var messageConsumer = new MessageConsumer();
+        var interviewSet = interviewSet(campaign, blobStore, messageConsumer);
         messageConsumer.annotate(interviewSet);
+        return interviewSet;
+    }
 
+    public InterviewSet24.Dto interviewSet(
+            final Can<Campaign> campaigns,
+            final BlobStore blobStore) {
+        if(campaigns.isEmpty()) {
+            return InterviewSet24.Dto.empty();
+        }
+        var messageConsumer = new MessageConsumer();
+        var interviewSet = campaigns.stream()
+                .map(campaign->Campaigns.interviewSet(campaign, blobStore, messageConsumer))
+                .reduce((a, b)->a.join(b, messageConsumer))
+                .orElse(null);
+        messageConsumer.annotate(interviewSet);
         return interviewSet;
     }
 
