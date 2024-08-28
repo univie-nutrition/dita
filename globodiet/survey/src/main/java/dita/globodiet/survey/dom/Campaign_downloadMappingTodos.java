@@ -56,11 +56,14 @@ public class Campaign_downloadMappingTodos {
 
     final Campaign mixee;
 
+    /**
+     * @see Survey_downloadMappingTodos
+     */
     @MemberSupport
     public Clob act() {
         var interviewSet = Campaigns.interviewSet(mixee, surveyBlobStore);
         var nutMapping = Campaigns.nutMapping(mixee, surveyBlobStore);
-        var systemId = "GD-AT20240507"; //TODO get from Campaign or Survey?
+        var systemId = _SystemIds.globoDietSystemId();
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);

@@ -87,6 +87,10 @@ public class TabularReporters {
         RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP
     }
 
+    public enum Feature {
+        BRANDNAMES,
+        FACETS
+    }
 
     public record TabularReport(
             InterviewSet24.Dto interviewSet,
@@ -109,11 +113,35 @@ public class TabularReporters {
             int interviewOrdinal;
             LocalDate consumptionDate;
             String fco;
+            String poc;
             String meal;
+            Record24.Type recordType;
             String group = "wip";
             String subgroup = "wip";
             String subSubgroup = "wip";
-            //
+            // factory method for composites
+            ConsumptionRow compositeHeader(final String systemId, final Record24.Composite comp) {
+                return new ConsumptionRow(
+                        respondentOrdinal,
+                        respondentAlias,
+                        respondentSex.ordinal(),
+                        BigDecimal.valueOf(Math.round(respondentAgeInDays/36.52422)).scaleByPowerOfTen(-1),
+                        interviewOrdinal,
+                        consumptionDate,
+                        fco,
+                        poc,
+                        meal,
+                        Record24.Type.COMPOSITE.name(),
+                        comp.name(),
+                        comp.sidFullyQualified(systemId).fullFormat(":"),
+                        group,
+                        subgroup,
+                        subSubgroup,
+                        comp.facetSidsFullyQualified(systemId).fullFormat(":"),
+                        null, //comp.amountConsumed(),
+                        null);
+            }
+            // factory method for consumptions
             ConsumptionRow row(
                     final Record24.Consumption cRec,
                     final FoodConsumption foodConsumption,
@@ -127,7 +155,11 @@ public class TabularReporters {
                         interviewOrdinal,
                         consumptionDate,
                         fco,
+                        poc,
                         meal,
+                        Optional.ofNullable(recordType)
+                            .map(Record24.Type::name)
+                            .orElse("?"),
                         foodConsumption.name(),
                         foodConsumption.foodId().fullFormat(":"),
                         group,
@@ -169,6 +201,7 @@ public class TabularReporters {
                     }
                     case Meal24.Dto meal -> {
                         rowFactory.setFco(meal.foodConsumptionOccasionId());
+                        rowFactory.setPoc(meal.foodConsumptionPlaceId());
                         var fcoLabel = fcoMapping.lookupEntry(new SemanticIdentifier(systemId, meal.foodConsumptionOccasionId()), fcoQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
@@ -182,7 +215,12 @@ public class TabularReporters {
                         var timeOfDayLabel = meal.hourOfDay().format(hourOfDayFormat);
                         rowFactory.setMeal(String.format("%s (%s) @ %s", fcoLabel, timeOfDayLabel, pocLabel));
                     }
+                    case Record24.Composite comp -> {
+                        rowFactory.setRecordType(comp.type());
+                        consumptions.add(rowFactory.compositeHeader(systemId, comp));
+                    }
                     case Record24.Consumption cRec -> {
+                        rowFactory.setRecordType(cRec.type());
                         var foodConsumption = cRec.asFoodConsumption(systemId);
                         var compositionEntry = nutMapping
                                 .lookupEntry(foodConsumption.qualifiedMapKey())

@@ -54,20 +54,30 @@ viewmodel:
     consumptionDate:
       type: java.time.LocalDate
       description: |
-        Date of 
+        date of 
         consumption
     fco:
       type: String
       description: |
-        food
         consumption
         occasion 
+        code
+    poc:
+      type: String
+      description: |
+        place of
+        consumption
         code
     meal:
       type: String
       description: |
         meal happened
         when and where
+    recordType:
+      type: String
+      description: |
+        type of food
+        record
     food:
       type: String
       description: |

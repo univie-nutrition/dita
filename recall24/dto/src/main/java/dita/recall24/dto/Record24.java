@@ -106,7 +106,7 @@ permits
          * Product identified within a product data base. <p>Eg. supplements.
          */
         PRODUCT,
-        
+
         TYPE_OF_FAT_USED,
         TYPE_OF_MILK_OR_LIQUID_USED,
         ;
@@ -167,6 +167,22 @@ permits
         default void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
             onRecord.accept(level, this);
         }
+
+        /**
+         * Converts {@link #sid()} to a {@link SemanticIdentifier}.
+         */
+        default SemanticIdentifier sidFullyQualified(final String systemId) {
+            return new SemanticIdentifier(systemId, sid());
+        }
+
+        /**
+         * Converts {@link #facetSids()} to a {@link SemanticIdentifierSet}.
+         */
+        default SemanticIdentifierSet facetSidsFullyQualified(final String systemId) {
+            return SemanticIdentifierSet.ofStream(
+                    _Strings.splitThenStream(facetSids(), ",")
+                        .map(facetSid->new SemanticIdentifier(systemId, facetSid)));
+        }
     }
 
     /**
@@ -226,10 +242,8 @@ permits
          * Convert to a {@link FoodConsumption}.
          */
         default FoodConsumption asFoodConsumption(final String systemId) {
-            var foodId = new SemanticIdentifier(systemId, sid());
-            var facetIdSet = SemanticIdentifierSet.ofStream(
-                _Strings.splitThenStream(facetSids(), ",")
-                    .map(facetSid->new SemanticIdentifier(systemId, facetSid)));
+            var foodId = sidFullyQualified(systemId);
+            var facetIdSet = facetSidsFullyQualified(systemId);
             return new FoodConsumption(name(), foodId, facetIdSet, consumptionUnit(), amountConsumed());
         }
     }
@@ -346,7 +360,7 @@ permits
                     .rawPerCookedRatio(rawPerCookedRatio);
         }
     }
-    
+
     /**
      * Product identified within a product data base.<p>e.g. supplements
      */
@@ -414,7 +428,7 @@ permits
         return new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
                 name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
     }
-    
+
     public static FryingFat fryingFat(
             /**
              * The name of this record.
@@ -435,7 +449,7 @@ permits
         return new FryingFat(ObjectRef.empty(), Record24.Type.FRYING_FAT,
                 name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
     }
-    
+
     public static Food food(
             /**
              * The name of this record.

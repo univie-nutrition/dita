@@ -54,11 +54,14 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 @RequiredArgsConstructor
 public class Survey_downloadMappingTodos {
 
-    //@Inject private FactoryService factoryService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
+    @SuppressWarnings({"unused"})
     private final Survey mixee;
 
+    /**
+     * @see Campaign_downloadMappingTodos
+     */
     @MemberSupport
     public Clob act(final List<Campaign> campaigns) {
         // see also Campaign_downloadMappingTodos
@@ -68,7 +71,7 @@ public class Survey_downloadMappingTodos {
         }
 
         var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
-        var systemId = "GD-AT20240507"; //TODO get from Campaign or Survey?
+        var systemId = _SystemIds.globoDietSystemId();
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);
