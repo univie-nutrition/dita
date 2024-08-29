@@ -21,7 +21,6 @@ package dita.recall24.reporter.tabular;
 import java.io.File;
 import java.math.BigDecimal;
 import java.nio.file.Files;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -36,8 +35,11 @@ import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponentQuantified;
@@ -56,6 +58,7 @@ import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.reporter.dom.ConsumptionRow;
+import dita.recall24.reporter.dom.ConsumptionRow.ConsumptionRowBuilder;
 
 @UtilityClass
 public class TabularReporters {
@@ -103,86 +106,64 @@ public class TabularReporters {
             FoodCompositionRepository foodCompositionRepo,
             Aggregation aggregation) {
 
-        @Data
+        @Setter
         private static class RowFactory {
+            @Getter @Accessors(fluent=true)
+            final ConsumptionRowBuilder builder = ConsumptionRow.builder();
             final Set<String> respondentAliasSeenBefore = new HashSet<>();
-            int respondentOrdinal;
-            String respondentAlias;
-            Sex respondentSex;
-            long respondentAgeInDays;
-            int interviewOrdinal;
-            LocalDate consumptionDate;
-            String fco;
-            String poc;
-            String meal;
-            Record24.Type recordType;
-            String group = "wip";
-            String subgroup = "wip";
-            String subSubgroup = "wip";
+            private int respondentOrdinal;
+
             // factory method for composites
             ConsumptionRow compositeHeader(final String systemId, final Record24.Composite comp) {
-                return new ConsumptionRow(
-                        respondentOrdinal,
-                        respondentAlias,
-                        respondentSex.ordinal(),
-                        BigDecimal.valueOf(Math.round(respondentAgeInDays/36.52422)).scaleByPowerOfTen(-1),
-                        interviewOrdinal,
-                        consumptionDate,
-                        fco,
-                        poc,
-                        meal,
-                        Record24.Type.COMPOSITE.name(),
-                        comp.name(),
-                        comp.sidFullyQualified(systemId).fullFormat(":"),
-                        group,
-                        subgroup,
-                        subSubgroup,
-                        comp.facetSidsFullyQualified(systemId).fullFormat(":"),
-                        null, //comp.amountConsumed(),
-                        null);
+                return builder
+                    .food(comp.name())
+                    .foodId(comp.sidFullyQualified(systemId).fullFormat(":"))
+                    .facetIds(comp.facetSidsFullyQualified(systemId).fullFormat(":"))
+                    .quantity(null)
+                    .GCALZB(null)
+                    .build();
             }
             // factory method for consumptions
             ConsumptionRow row(
                     final Record24.Consumption cRec,
                     final FoodConsumption foodConsumption,
                     final Optional<FoodComposition> compositionEntry){
-
-                return new ConsumptionRow(
-                        respondentOrdinal,
-                        respondentAlias,
-                        respondentSex.ordinal(),
-                        BigDecimal.valueOf(Math.round(respondentAgeInDays/36.52422)).scaleByPowerOfTen(-1),
-                        interviewOrdinal,
-                        consumptionDate,
-                        fco,
-                        poc,
-                        meal,
-                        Optional.ofNullable(recordType)
-                            .map(Record24.Type::name)
-                            .orElse("?"),
-                        foodConsumption.name(),
-                        foodConsumption.foodId().fullFormat(":"),
-                        group,
-                        subgroup,
-                        subSubgroup,
-                        foodConsumption.facetIds().fullFormat(","),
-                        cRec.amountConsumed(),
-                        compositionEntry
+                return builder
+                    .food(foodConsumption.name())
+                    .foodId(foodConsumption.foodId().fullFormat(":"))
+                    .facetIds(foodConsumption.facetIds().fullFormat(","))
+                    .quantity(cRec.amountConsumed())
+                    //TODO if compositionEntry is empty -> indicate missing data by expressing null?
+                    .GCALZB(compositionEntry
                             .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
                             .map(dp->dp.quantify(foodConsumption))
                             .map(FoodComponentQuantified::quantityValue)
-                            .orElse(null)
-                        );
+                            .orElse(null))
+                    .build();
             }
-            void setRespondentAlias(final String respondentAlias) {
+            void respondentAlias(final String respondentAlias) {
                 if(respondentAliasSeenBefore.add(respondentAlias)) respondentOrdinal++;
-                this.respondentAlias = respondentAlias;
+                builder.respondentAlias(respondentAlias);
+                builder.respondentOrdinal(respondentOrdinal);
+            }
+            void respondentSex(final Sex sex) {
+                builder.respondentSex(sex.ordinal());
+            }
+            void respondentAge(final long respondentAgeInDays) {
+                builder.respondentAge(
+                        BigDecimal
+                            .valueOf(Math.round(respondentAgeInDays/36.52422))
+                            .scaleByPowerOfTen(-1));
+            }
+            void recordType(@NonNull final Record24.Type type) {
+                builder.recordType(type.name());
             }
         }
 
         public void report(final File file) {
 
             var rowFactory = new RowFactory();
+            var rowBuilder = rowFactory.builder();
             var consumptions = new ArrayList<ConsumptionRow>();
             var hourOfDayFormat = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
 
@@ -190,37 +171,42 @@ public class TabularReporters {
             .forEach((final RecallNode24 node)->{
                 switch(node) {
                     case Interview24.Dto iv -> {
-                        rowFactory.setRespondentAlias(iv.parentRespondent().alias());
-                        rowFactory.setInterviewOrdinal(iv.interviewOrdinal());
-                        rowFactory.setConsumptionDate(iv.interviewDate());
-                        rowFactory.setRespondentSex(iv.parentRespondent().sex());
+                        rowFactory.respondentAlias(iv.parentRespondent().alias());
+                        rowFactory.respondentSex(iv.parentRespondent().sex());
+                        rowBuilder.interviewOrdinal(iv.interviewOrdinal());
+                        rowBuilder.consumptionDate(iv.interviewDate());
                         if(iv.interviewOrdinal()==1) {
-                            rowFactory.setRespondentAgeInDays(
-                                    ChronoUnit.DAYS.between(iv.parentRespondent().dateOfBirth(), iv.interviewDate()));
+                            rowFactory.respondentAge(
+                                    ChronoUnit.DAYS.between(
+                                            iv.parentRespondent().dateOfBirth(),
+                                            iv.interviewDate()));
                         }
                     }
                     case Meal24.Dto meal -> {
-                        rowFactory.setFco(meal.foodConsumptionOccasionId());
-                        rowFactory.setPoc(meal.foodConsumptionPlaceId());
-                        var fcoLabel = fcoMapping.lookupEntry(new SemanticIdentifier(systemId, meal.foodConsumptionOccasionId()), fcoQualifier)
+                        rowBuilder.fco(meal.foodConsumptionOccasionId());
+                        rowBuilder.poc(meal.foodConsumptionPlaceId());
+                        var fcoLabel = fcoMapping.lookupEntry(
+                                new SemanticIdentifier(systemId, meal.foodConsumptionOccasionId()), fcoQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
                             .orElse("?")
                             .replace('_', ' ');
-                        var pocLabel = pocMapping.lookupEntry(new SemanticIdentifier(systemId, meal.foodConsumptionPlaceId()), pocQualifier)
+                        var pocLabel = pocMapping.lookupEntry(
+                                new SemanticIdentifier(systemId, meal.foodConsumptionPlaceId()), pocQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
                             .orElse("?")
                             .replace('_', ' ');
                         var timeOfDayLabel = meal.hourOfDay().format(hourOfDayFormat);
-                        rowFactory.setMeal(String.format("%s (%s) @ %s", fcoLabel, timeOfDayLabel, pocLabel));
+                        rowBuilder.meal(String.format("%s (%s) @ %s",
+                                fcoLabel, timeOfDayLabel, pocLabel));
                     }
                     case Record24.Composite comp -> {
-                        rowFactory.setRecordType(comp.type());
+                        rowFactory.recordType(comp.type());
                         consumptions.add(rowFactory.compositeHeader(systemId, comp));
                     }
                     case Record24.Consumption cRec -> {
-                        rowFactory.setRecordType(cRec.type());
+                        rowFactory.recordType(cRec.type());
                         var foodConsumption = cRec.asFoodConsumption(systemId);
                         var compositionEntry = nutMapping
                                 .lookupEntry(foodConsumption.qualifiedMapKey())
