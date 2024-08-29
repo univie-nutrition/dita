@@ -120,11 +120,12 @@ public class TabularReporters {
                     .foodId(comp.sidFullyQualified(systemId).fullFormat(":"))
                     .facetIds(comp.facetSidsFullyQualified(systemId).fullFormat(":"))
                     .quantity(null)
+                    .fcdbId(null)
                     .GCALZB(null)
                     .build();
             }
             // factory method for consumptions
-            ConsumptionRecord row(
+            ConsumptionRecord consumption(
                     final Record24.Consumption cRec,
                     final FoodConsumption foodConsumption,
                     final Optional<FoodComposition> compositionEntry){
@@ -133,7 +134,10 @@ public class TabularReporters {
                     .foodId(foodConsumption.foodId().fullFormat(":"))
                     .facetIds(foodConsumption.facetIds().fullFormat(","))
                     .quantity(cRec.amountConsumed())
-                    //TODO if compositionEntry is empty -> indicate missing data by expressing null?
+                    .fcdbId(compositionEntry
+                            .map(FoodComposition::foodId)
+                            .map(sid->sid.fullFormat(":"))
+                            .orElse(null))
                     .GCALZB(compositionEntry
                             .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
                             .map(dp->dp.quantify(foodConsumption))
@@ -203,10 +207,17 @@ public class TabularReporters {
                     }
                     case Record24.Composite comp -> {
                         rowFactory.recordType(comp.type());
-                        consumptions.add(rowFactory.compositeHeader(systemId, comp));
+                        rowBuilder.group("wip");
+                        rowBuilder.subgroup("wip");
+                        rowBuilder.subSubgroup("wip");
+                        consumptions.add(
+                                rowFactory.compositeHeader(systemId, comp));
                     }
                     case Record24.Consumption cRec -> {
                         rowFactory.recordType(cRec.type());
+                        rowBuilder.group("wip");
+                        rowBuilder.subgroup("wip");
+                        rowBuilder.subSubgroup("wip");
                         var foodConsumption = cRec.asFoodConsumption(systemId);
                         var compositionEntry = nutMapping
                                 .lookupEntry(foodConsumption.qualifiedMapKey())
@@ -215,7 +226,8 @@ public class TabularReporters {
                         if(!compositionEntry.isPresent()) {
                             //unmapped.add(mapKey);
                         }
-                        consumptions.add(rowFactory.row(cRec, foodConsumption, compositionEntry));
+                        consumptions.add(
+                                rowFactory.consumption(cRec, foodConsumption, compositionEntry));
                     }
                     default -> {}
                 }

@@ -105,22 +105,30 @@ viewmodels:
       type: String
       required: true
       description: |
-        food identifier     
+        food or 
+        composite 
+        identifier     
     group:
       type: String
       required: true
       description: |
-        food group
+        food or 
+        composite 
+        group
     subgroup:
       type: String
       required: true
       description: |
-        food subgroup
+        food or 
+        composite
+        subgroup
     subSubgroup:
       type: String
       required: true
       description: |
-        food sub-subgroup
+        food or 
+        composite 
+        sub-subgroup
     facetIds:
       type: String
       required: true
@@ -133,6 +141,13 @@ viewmodels:
       description: |
         quantity 
         consumed [g]
+    fcdbId:
+      type: String
+      required: true
+      description: |
+        food composition 
+        database identifier
+        (nutrient mapping) 
     GCALZB:
       type: BigDecimal
       required: true

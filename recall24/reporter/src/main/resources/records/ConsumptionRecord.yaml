@@ -90,19 +90,27 @@ viewmodel:
     foodId:
       type: String
       description: |
-        food identifier     
+        food or 
+        composite 
+        identifier     
     group:
       type: String
       description: |
-        food group
+        food or 
+        composite 
+        group
     subgroup:
       type: String
       description: |
-        food subgroup
+        food or 
+        composite
+        subgroup
     subSubgroup:
       type: String
       description: |
-        food sub-subgroup
+        food or 
+        composite 
+        sub-subgroup
     facetIds:
       type: String
       description: |
@@ -113,6 +121,12 @@ viewmodel:
       description: |
         quantity 
         consumed [g]
+    fcdbId:
+      type: String
+      description: |
+        food composition 
+        database identifier
+        (nutrient mapping) 
     GCALZB:
       type: BigDecimal
       description: |

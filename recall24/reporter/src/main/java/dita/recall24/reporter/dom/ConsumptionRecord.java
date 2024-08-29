@@ -63,14 +63,25 @@ import org.apache.causeway.applib.annotation.Where;
  * record
  * @param food name of consumed
  * food
- * @param foodId food identifier
- * @param group food group
- * @param subgroup food subgroup
- * @param subSubgroup food sub-subgroup
+ * @param foodId food or
+ * composite
+ * identifier
+ * @param group food or
+ * composite
+ * group
+ * @param subgroup food or
+ * composite
+ * subgroup
+ * @param subSubgroup food or
+ * composite
+ * sub-subgroup
  * @param facetIds facet descriptor
  * identifiers
  * @param quantity quantity
  * consumed [g]
+ * @param fcdbId food composition
+ * database identifier
+ * (nutrient mapping)
  * @param GCALZB Energie
  * inkl. Ballaststoffen
  * [kcal]
@@ -183,28 +194,36 @@ public record ConsumptionRecord(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "12",
-                describedAs = "food identifier",
+                describedAs = "food or\n"
+                                + "composite\n"
+                                + "identifier",
                 hidden = Where.NOWHERE
         )
         String foodId,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "13",
-                describedAs = "food group",
+                describedAs = "food or\n"
+                                + "composite\n"
+                                + "group",
                 hidden = Where.NOWHERE
         )
         String group,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "14",
-                describedAs = "food subgroup",
+                describedAs = "food or\n"
+                                + "composite\n"
+                                + "subgroup",
                 hidden = Where.NOWHERE
         )
         String subgroup,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "15",
-                describedAs = "food sub-subgroup",
+                describedAs = "food or\n"
+                                + "composite\n"
+                                + "sub-subgroup",
                 hidden = Where.NOWHERE
         )
         String subSubgroup,
@@ -227,6 +246,15 @@ public record ConsumptionRecord(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "18",
+                describedAs = "food composition\n"
+                                + "database identifier\n"
+                                + "(nutrient mapping)",
+                hidden = Where.NOWHERE
+        )
+        String fcdbId,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "19",
                 describedAs = "Energie\n"
                                 + "inkl. Ballaststoffen\n"
                                 + "[kcal]",
