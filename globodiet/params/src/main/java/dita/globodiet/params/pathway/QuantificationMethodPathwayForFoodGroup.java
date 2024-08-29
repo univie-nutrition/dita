@@ -603,6 +603,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable QuantificationMethodPathwayForFoodGroup",
             describedAs = "Unresolvable QuantificationMethodPathwayForFoodGroup",
             cssClassFa = "skull .unresolvable-color"
     )

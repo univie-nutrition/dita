@@ -472,6 +472,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Photo",
             describedAs = "Unresolvable Photo",
             cssClassFa = "skull .unresolvable-color"
     )

@@ -262,6 +262,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable ProbingQuestion",
             describedAs = "Unresolvable ProbingQuestion",
             cssClassFa = "skull .unresolvable-color"
     )

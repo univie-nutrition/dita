@@ -535,6 +535,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable RecipeFacet",
             describedAs = "Unresolvable RecipeFacet",
             cssClassFa = "skull .unresolvable-color"
     )

@@ -534,6 +534,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable DietarySupplementFacet",
             describedAs = "Unresolvable DietarySupplementFacet",
             cssClassFa = "skull .unresolvable-color"
     )

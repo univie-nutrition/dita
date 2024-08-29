@@ -396,6 +396,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Nutrient",
             describedAs = "Unresolvable Nutrient",
             cssClassFa = "skull .unresolvable-color"
     )

@@ -262,6 +262,7 @@ public class CountryInvolved implements Cloneable<CountryInvolved>, HasSecondary
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable CountryInvolved",
             describedAs = "Unresolvable CountryInvolved",
             cssClassFa = "skull .unresolvable-color"
     )

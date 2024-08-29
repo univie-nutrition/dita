@@ -590,6 +590,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable FoodSubgroup",
             describedAs = "Unresolvable FoodSubgroup",
             cssClassFa = "skull .unresolvable-color"
     )

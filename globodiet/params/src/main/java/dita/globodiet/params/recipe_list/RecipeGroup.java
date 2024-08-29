@@ -298,6 +298,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable RecipeGroup",
             describedAs = "Unresolvable RecipeGroup",
             cssClassFa = "skull .unresolvable-color"
     )

@@ -617,6 +617,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable NutrientForFoodOrGroup",
             describedAs = "Unresolvable NutrientForFoodOrGroup",
             cssClassFa = "skull .unresolvable-color"
     )

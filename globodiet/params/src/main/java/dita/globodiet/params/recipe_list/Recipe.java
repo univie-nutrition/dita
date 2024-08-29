@@ -756,6 +756,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Recipe",
             describedAs = "Unresolvable Recipe",
             cssClassFa = "skull .unresolvable-color"
     )

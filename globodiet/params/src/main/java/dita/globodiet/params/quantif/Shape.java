@@ -328,6 +328,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Shape",
             describedAs = "Unresolvable Shape",
             cssClassFa = "skull .unresolvable-color"
     )

@@ -516,6 +516,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable FacetDescriptorPathwayForFoodGroup",
             describedAs = "Unresolvable FacetDescriptorPathwayForFoodGroup",
             cssClassFa = "skull .unresolvable-color"
     )

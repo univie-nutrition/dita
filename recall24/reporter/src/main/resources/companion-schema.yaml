@@ -23,7 +23,10 @@ viewmodels:
   name: ConsumptionRecord
   namespace: reporter.dom
   icon: null
-  description:
+  named: Consumption
+  description: |
+    Represents a single food consumption as flattened data,
+    useful for tabular data exports.
   fields:
     respondentOrdinal:
       type: int

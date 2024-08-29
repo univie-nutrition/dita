@@ -262,6 +262,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Survey",
             describedAs = "Unresolvable Survey",
             cssClassFa = "skull .unresolvable-color"
     )

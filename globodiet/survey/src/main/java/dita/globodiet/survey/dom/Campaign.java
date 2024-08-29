@@ -374,6 +374,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Campaign",
             describedAs = "Unresolvable Campaign",
             cssClassFa = "skull .unresolvable-color"
     )

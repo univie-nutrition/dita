@@ -299,6 +299,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable DietarySupplementClassification",
             describedAs = "Unresolvable DietarySupplementClassification",
             cssClassFa = "skull .unresolvable-color"
     )

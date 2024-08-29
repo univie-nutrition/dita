@@ -574,6 +574,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable RecipeDescriptor",
             describedAs = "Unresolvable RecipeDescriptor",
             cssClassFa = "skull .unresolvable-color"
     )

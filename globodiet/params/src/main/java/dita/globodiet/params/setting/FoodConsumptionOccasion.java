@@ -398,6 +398,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable FoodConsumptionOccasion",
             describedAs = "Unresolvable FoodConsumptionOccasion",
             cssClassFa = "skull .unresolvable-color"
     )

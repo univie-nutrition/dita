@@ -396,6 +396,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable ThicknessForShape",
             describedAs = "Unresolvable ThicknessForShape",
             cssClassFa = "skull .unresolvable-color"
     )

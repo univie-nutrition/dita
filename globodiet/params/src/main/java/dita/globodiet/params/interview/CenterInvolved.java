@@ -294,6 +294,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable CenterInvolved",
             describedAs = "Unresolvable CenterInvolved",
             cssClassFa = "skull .unresolvable-color"
     )

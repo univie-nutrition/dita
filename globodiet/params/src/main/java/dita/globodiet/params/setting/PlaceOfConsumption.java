@@ -331,6 +331,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable PlaceOfConsumption",
             describedAs = "Unresolvable PlaceOfConsumption",
             cssClassFa = "skull .unresolvable-color"
     )

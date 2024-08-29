@@ -522,6 +522,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable FoodFacet",
             describedAs = "Unresolvable FoodFacet",
             cssClassFa = "skull .unresolvable-color"
     )

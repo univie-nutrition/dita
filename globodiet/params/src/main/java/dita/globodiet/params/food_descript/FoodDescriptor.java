@@ -523,6 +523,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable FoodDescriptor",
             describedAs = "Unresolvable FoodDescriptor",
             cssClassFa = "skull .unresolvable-color"
     )

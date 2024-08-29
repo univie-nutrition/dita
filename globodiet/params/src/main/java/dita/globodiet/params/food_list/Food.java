@@ -626,6 +626,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable Food",
             describedAs = "Unresolvable Food",
             cssClassFa = "skull .unresolvable-color"
     )

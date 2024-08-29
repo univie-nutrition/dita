@@ -339,6 +339,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
+            named = "Unresolvable FoodBrand",
             describedAs = "Unresolvable FoodBrand",
             cssClassFa = "skull .unresolvable-color"
     )
