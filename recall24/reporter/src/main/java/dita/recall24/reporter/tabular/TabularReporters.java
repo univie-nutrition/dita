@@ -57,8 +57,8 @@ import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
-import dita.recall24.reporter.dom.ConsumptionRow;
-import dita.recall24.reporter.dom.ConsumptionRow.ConsumptionRowBuilder;
+import dita.recall24.reporter.dom.ConsumptionRecord;
+import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
 
 @UtilityClass
 public class TabularReporters {
@@ -109,12 +109,12 @@ public class TabularReporters {
         @Setter
         private static class RowFactory {
             @Getter @Accessors(fluent=true)
-            final ConsumptionRowBuilder builder = ConsumptionRow.builder();
+            final ConsumptionRecordBuilder builder = ConsumptionRecord.builder();
             final Set<String> respondentAliasSeenBefore = new HashSet<>();
             private int respondentOrdinal;
 
             // factory method for composites
-            ConsumptionRow compositeHeader(final String systemId, final Record24.Composite comp) {
+            ConsumptionRecord compositeHeader(final String systemId, final Record24.Composite comp) {
                 return builder
                     .food(comp.name())
                     .foodId(comp.sidFullyQualified(systemId).fullFormat(":"))
@@ -124,7 +124,7 @@ public class TabularReporters {
                     .build();
             }
             // factory method for consumptions
-            ConsumptionRow row(
+            ConsumptionRecord row(
                     final Record24.Consumption cRec,
                     final FoodConsumption foodConsumption,
                     final Optional<FoodComposition> compositionEntry){
@@ -164,7 +164,7 @@ public class TabularReporters {
 
             var rowFactory = new RowFactory();
             var rowBuilder = rowFactory.builder();
-            var consumptions = new ArrayList<ConsumptionRow>();
+            var consumptions = new ArrayList<ConsumptionRecord>();
             var hourOfDayFormat = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
 
             interviewSet.streamDepthFirst()
@@ -221,7 +221,7 @@ public class TabularReporters {
                 }
             });
 
-            var dataTable = DataTable.forDomainType(ConsumptionRow.class);
+            var dataTable = DataTable.forDomainType(ConsumptionRecord.class);
             dataTable.setDataElementPojos(consumptions);
 
             new CollectionContentsAsExcelExporter().createExport(dataTable, file);

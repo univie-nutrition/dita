@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 viewmodels:
-- fqn: reporter.dom.ConsumptionRow
+- fqn: reporter.dom.ConsumptionRecord
   generator: record
-  name: ConsumptionRow
+  name: ConsumptionRecord
   namespace: reporter.dom
   icon: null
   description:

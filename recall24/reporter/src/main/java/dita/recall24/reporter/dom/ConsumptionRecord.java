@@ -78,13 +78,14 @@ import lombok.Builder;
  * [kcal]
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenViewmodel")
-@Named("dita.recall24.reporter.dom.ConsumptionRow")
+@Named("dita.recall24.reporter.dom.ConsumptionRecord")
 @DomainObject
 @DomainObjectLayout(
+        named = "Consumption",
         describedAs = "has no description"
 )
 @Builder
-public record ConsumptionRow(
+public record ConsumptionRecord(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "1",
