@@ -20,12 +20,14 @@ package dita.globodiet.survey.dom;
 
 import lombok.experimental.UtilityClass;
 
+import dita.commons.sid.SemanticIdentifier.SystemId;
+
 @Deprecated
 @UtilityClass
-class _SystemIds {
+public class _SystemIds {
 
-    String globoDietSystemId() {
-        return "GD-AT20240507"; //TODO get from Campaign or Survey?
+    public SystemId globoDietSystemId() {
+        return new SystemId("at.gd", "2.0"); //TODO get from Campaign or Survey?
     }
 
 }

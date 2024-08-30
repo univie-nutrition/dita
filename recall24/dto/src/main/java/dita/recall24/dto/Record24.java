@@ -42,6 +42,9 @@ import lombok.experimental.Accessors;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
@@ -171,17 +174,21 @@ permits
         /**
          * Converts {@link #sid()} to a {@link SemanticIdentifier}.
          */
-        default SemanticIdentifier sidFullyQualified(final String systemId) {
-            return new SemanticIdentifier(systemId, sid());
+        default SemanticIdentifier sidFullyQualified(
+                final SystemId systemId,
+                final ObjectId.Context context) {
+            return new SemanticIdentifier(systemId, new ObjectId(context, sid()));
         }
 
         /**
          * Converts {@link #facetSids()} to a {@link SemanticIdentifierSet}.
          */
-        default SemanticIdentifierSet facetSidsFullyQualified(final String systemId) {
+        default SemanticIdentifierSet facetSidsFullyQualified(
+                final SystemId systemId,
+                final ObjectId.Context context) {
             return SemanticIdentifierSet.ofStream(
                     _Strings.splitThenStream(facetSids(), ",")
-                        .map(facetSid->new SemanticIdentifier(systemId, facetSid)));
+                        .map(facetSid->new SemanticIdentifier(systemId, new ObjectId(context, facetSid))));
         }
     }
 
@@ -240,10 +247,11 @@ permits
 
         /**
          * Convert to a {@link FoodConsumption}.
+         * @param ctx1
          */
-        default FoodConsumption asFoodConsumption(final String systemId) {
-            var foodId = sidFullyQualified(systemId);
-            var facetIdSet = facetSidsFullyQualified(systemId);
+        default FoodConsumption asFoodConsumption(final SystemId systemId) {
+            var foodId = sidFullyQualified(systemId, Context.FOOD);
+            var facetIdSet = facetSidsFullyQualified(systemId, Context.FOOD_DESCRIPTOR);
             return new FoodConsumption(name(), foodId, facetIdSet, consumptionUnit(), amountConsumed());
         }
     }

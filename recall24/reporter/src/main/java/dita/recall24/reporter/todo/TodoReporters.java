@@ -28,6 +28,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
@@ -37,7 +38,7 @@ public class TodoReporters {
 
     public record TodoReporter(
             InterviewSet24.Dto interviewSet,
-            String systemId,
+            SystemId systemId,
             QualifiedMap nutMapping) {
 
         public void report(final DataSink dataSink) {

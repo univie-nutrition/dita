@@ -50,6 +50,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.foodon.bls.BLS302;
@@ -98,7 +99,7 @@ public class TabularReporters {
 
     public record TabularReport(
             InterviewSet24.Dto interviewSet,
-            String systemId,
+            SystemId systemId,
             QualifiedMap nutMapping,
             QualifiedMap fcoMapping,
             SemanticIdentifierSet fcoQualifier,
@@ -115,11 +116,11 @@ public class TabularReporters {
             private int respondentOrdinal;
 
             // factory method for composites
-            ConsumptionRecord compositeHeader(final String systemId, final Record24.Composite comp) {
+            ConsumptionRecord compositeHeader(final SystemId systemId, final Record24.Composite comp) {
                 return builder
                     .food(comp.name())
-                    .foodId(comp.sidFullyQualified(systemId).toStringNoBox())
-                    .facetIds(comp.facetSidsFullyQualified(systemId).fullFormat(","))
+                    .foodId(comp.sidFullyQualified(systemId, ObjectId.Context.RECIPE).toStringNoBox())
+                    .facetIds(comp.facetSidsFullyQualified(systemId, ObjectId.Context.RECIPE_DESCRIPTOR).fullFormat(","))
                     .quantity(null)
                     .fcdbId(null)
                     .GCALZB(null)
@@ -191,14 +192,14 @@ public class TabularReporters {
                         rowBuilder.fco(meal.foodConsumptionOccasionId());
                         rowBuilder.poc(meal.foodConsumptionPlaceId());
                         var fcoLabel = fcoMapping.lookupEntry(
-                                new SemanticIdentifier(systemId, meal.foodConsumptionOccasionId()), fcoQualifier)
+                                new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId())), fcoQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
                             .map(ObjectId::toString)
                             .orElse("?")
                             .replace('_', ' ');
                         var pocLabel = pocMapping.lookupEntry(
-                                new SemanticIdentifier(systemId, meal.foodConsumptionPlaceId()), pocQualifier)
+                                new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId())), pocQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
                             .map(ObjectId::toString)
