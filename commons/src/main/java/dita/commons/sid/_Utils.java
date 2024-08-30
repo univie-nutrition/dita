@@ -120,8 +120,11 @@ class _Utils {
         var arg = _Strings.nullToEmpty(_Strings.trim(in));
         streamInvalidChars(arg)
             .forEach(codePoint->{
-                throw _Exceptions.illegalArgument("SemanticIdentifier parts may not contain any special characters. '%s'",
-                        "" + (char)codePoint);
+                throw _Exceptions.illegalArgument(
+                        "SemanticIdentifier parts may not contain any special characters. "
+                        + "Character '%s' in '%s'",
+                        "" + (char)codePoint,
+                        in);
             });
         return arg;
     }

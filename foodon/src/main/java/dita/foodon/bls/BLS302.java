@@ -83,8 +83,12 @@ public class BLS302 {
 
     }
 
-    public SemanticIdentifier sid(final String objectId) {
-        return new SemanticIdentifier(SYSTEM_ID, new ObjectId(null, objectId));
+    public SemanticIdentifier foodSid(final String objectId) {
+        return new SemanticIdentifier(SYSTEM_ID, new ObjectId(ObjectId.Context.FOOD, objectId));
+    }
+
+    public SemanticIdentifier componentSid(final String objectId) {
+        return new SemanticIdentifier(SYSTEM_ID, new ObjectId(ObjectId.Context.COMPONENT, objectId));
     }
 
     public static Stream<Component> streamComponents(){
@@ -100,7 +104,7 @@ public class BLS302 {
         F241, FU, F162, F164, F182, F183, F184, F193, F202, F203, F204, F205, F222, F223, F224, F225, F226, FP, FK, FM, FL,
         FO3, FO6, FG, FC, GFPS, GKB, GMKO, GP;
         public SemanticIdentifier componentId() {
-            return BLS302.sid(name());
+            return BLS302.componentSid(name());
         }
     }
 

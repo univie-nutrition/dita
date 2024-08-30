@@ -25,7 +25,10 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * A Semantic Identifier references data objects across system boundaries.
@@ -146,8 +149,28 @@ public record SemanticIdentifier (
              */
             String object) implements Comparable<ObjectId> {
 
+        /**
+         * Some predefined contexts.
+         */
+        @RequiredArgsConstructor
+        public enum Context {
+            LITERAL("lit"),
+            LANGUAGE("lang"),
+            COMPONENT("comp"),
+            FOOD("food"),
+            RECIPE("recp"),
+            BRAND("brand"),
+            FOOD_DESCRIPTOR("fd"),
+            RECIPE_DESCRIPTOR("rd"),
+            FOOD_GROUP("fg"),
+            RECIPE_GROUP("rg"),
+            ;
+            @Getter @Accessors(fluent=true)
+            final String id;
+        }
+
         public static ObjectId empty() {
-            return new ObjectId(null, null);
+            return new ObjectId((String)null, null);
         }
 
         public static ObjectId parse(final @Nullable String objectIdStringified) {
@@ -159,11 +182,15 @@ public record SemanticIdentifier (
             this.object = _Utils.validateObject(object);
         }
 
+        public ObjectId(final @NonNull Context context, final String object) {
+            this(context.id, object);
+        }
+
         /**
          * ObjectId constructor with empty context part.
          */
         public ObjectId(final String object) {
-            this(null, object);
+            this((String)null, object);
         }
 
         // -- WITHER
