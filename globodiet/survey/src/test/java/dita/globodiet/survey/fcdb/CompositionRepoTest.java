@@ -38,6 +38,7 @@ import org.apache.causeway.commons.io.TextUtils;
 import dita.commons.food.composition.FoodComponentDatapoint;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.foodon.bls.BLS302;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
@@ -67,10 +68,11 @@ class CompositionRepoTest extends DitaGdSurveyIntegrationTest {
         lines.add("foodId," + BLS302.streamComponents()
             .map(BLS302.Component::componentId)
             .map(SemanticIdentifier::objectId)
+            .map(ObjectId::object)
             .collect(Collectors.joining(",")));
 
         repo.streamCompositions()
-        .sorted((a, b)->_Strings.compareNullsFirst(a.foodId().objectId(), b.foodId().objectId()))
+        .sorted((a, b)->_Strings.compareNullsFirst(a.foodId().objectId().object(), b.foodId().objectId().object()))
         .forEach(comp->{
             lines.add(
                     comp.foodId().objectId()

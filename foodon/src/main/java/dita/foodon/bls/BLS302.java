@@ -28,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 
 /**
  * German's Bundeslebenmittelschlüssel (BLS 3.02).
@@ -35,7 +37,7 @@ import dita.commons.sid.SemanticIdentifier;
 @UtilityClass
 public class BLS302 {
 
-    public static final String SYSTEM_ID = "BLS-3.02";
+    public static final SystemId SYSTEM_ID = new SystemId("de.bls", "3.02");
 
     @RequiredArgsConstructor
     public enum DietaryDataCategory {
@@ -81,8 +83,8 @@ public class BLS302 {
 
     }
 
-    public SemanticIdentifier id(final String objectId) {
-        return new SemanticIdentifier(SYSTEM_ID, objectId);
+    public SemanticIdentifier sid(final String objectId) {
+        return new SemanticIdentifier(SYSTEM_ID, new ObjectId(null, objectId));
     }
 
     public static Stream<Component> streamComponents(){
@@ -98,7 +100,7 @@ public class BLS302 {
         F241, FU, F162, F164, F182, F183, F184, F193, F202, F203, F204, F205, F222, F223, F224, F225, F226, FP, FK, FM, FL,
         FO3, FO6, FG, FC, GFPS, GKB, GMKO, GP;
         public SemanticIdentifier componentId() {
-            return BLS302.id(name());
+            return BLS302.sid(name());
         }
     }
 

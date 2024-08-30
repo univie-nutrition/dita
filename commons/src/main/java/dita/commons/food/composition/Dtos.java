@@ -60,8 +60,8 @@ class Dtos {
             @NonNull BigDecimal datapointValue) {
         FoodComponentDatapointDto pack(){
           return new FoodComponentDatapointDto(
-              _Strings.nullToEmpty(componentId.systemId())
-              + "," + _Strings.nullToEmpty(componentId.objectId())
+              componentId.systemId().toString()
+              + "," + componentId.objectId().toString()
               + "," + (datapointSemantic == DatapointSemantic.UPPER_BOUND
                   ? "<"
                   : "")

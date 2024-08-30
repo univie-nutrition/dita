@@ -90,11 +90,12 @@ class FoodTest {
         // setup nutrient mapping
         final QualifiedMap qMap = createQMap();
         var yaml = qMap.toYaml();
+        System.err.printf("%s%n", yaml);
         var qMapAfterRoundtrip = QualifiedMap.tryFromYaml(DataSource.ofStringUtf8(yaml))
                 .valueAsNonNullElseFail();
 
         //debug
-        //System.err.printf("%s%n", yaml);
+        System.err.printf("%s%n", yaml);
 
         assertEquals(qMap, qMapAfterRoundtrip);
     }

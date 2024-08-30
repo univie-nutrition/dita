@@ -139,7 +139,7 @@ public record Recall24SummaryStatistics(
                         .map(sidSet->String.format("    {%s}", sidSet.shortFormat(",")))
                         .sorted()
                         .toList();
-                    return String.format("  - %s\n", targetSid.fullFormat(":"))
+                    return String.format("  - %s\n", targetSid.toStringNoBox())
                             + qualifiersFormatted.stream()
                                 .collect(Collectors.joining("\n"));
                 })

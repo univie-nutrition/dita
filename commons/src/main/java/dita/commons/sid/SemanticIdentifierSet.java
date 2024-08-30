@@ -27,6 +27,8 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+
 public record SemanticIdentifierSet(
         /**
          * Expects elements already to be sorted.<br>
@@ -86,6 +88,7 @@ public record SemanticIdentifierSet(
     public String shortFormat(final String delimiter) {
         return elements().stream()
             .map(SemanticIdentifier::objectId)
+            .map(ObjectId::toString)
             .collect(Collectors.joining(delimiter));
     }
 
@@ -94,7 +97,7 @@ public record SemanticIdentifierSet(
      */
     public String fullFormat(final String delimiter) {
         return elements().stream()
-            .map(elem->elem.fullFormat(":"))
+            .map(elem->elem.toStringNoBox())
             .collect(Collectors.joining(delimiter));
     }
 

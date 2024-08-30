@@ -49,6 +49,7 @@ import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.foodon.bls.BLS302;
@@ -117,8 +118,8 @@ public class TabularReporters {
             ConsumptionRecord compositeHeader(final String systemId, final Record24.Composite comp) {
                 return builder
                     .food(comp.name())
-                    .foodId(comp.sidFullyQualified(systemId).fullFormat(":"))
-                    .facetIds(comp.facetSidsFullyQualified(systemId).fullFormat(":"))
+                    .foodId(comp.sidFullyQualified(systemId).toStringNoBox())
+                    .facetIds(comp.facetSidsFullyQualified(systemId).fullFormat(","))
                     .quantity(null)
                     .fcdbId(null)
                     .GCALZB(null)
@@ -131,12 +132,12 @@ public class TabularReporters {
                     final Optional<FoodComposition> compositionEntry){
                 return builder
                     .food(foodConsumption.name())
-                    .foodId(foodConsumption.foodId().fullFormat(":"))
+                    .foodId(foodConsumption.foodId().toStringNoBox())
                     .facetIds(foodConsumption.facetIds().fullFormat(","))
                     .quantity(cRec.amountConsumed())
                     .fcdbId(compositionEntry
                             .map(FoodComposition::foodId)
-                            .map(sid->sid.fullFormat(":"))
+                            .map(sid->sid.toStringNoBox())
                             .orElse(null))
                     .GCALZB(compositionEntry
                             .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
@@ -193,12 +194,14 @@ public class TabularReporters {
                                 new SemanticIdentifier(systemId, meal.foodConsumptionOccasionId()), fcoQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
+                            .map(ObjectId::toString)
                             .orElse("?")
                             .replace('_', ' ');
                         var pocLabel = pocMapping.lookupEntry(
                                 new SemanticIdentifier(systemId, meal.foodConsumptionPlaceId()), pocQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
+                            .map(ObjectId::toString)
                             .orElse("?")
                             .replace('_', ' ');
                         var timeOfDayLabel = meal.hourOfDay().format(hourOfDayFormat);

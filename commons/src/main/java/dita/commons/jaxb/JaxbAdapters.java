@@ -24,13 +24,7 @@ import javax.measure.format.UnitFormat;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
-import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
-
-import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.internal.base._NullSafe;
-import org.apache.causeway.commons.internal.base._Strings;
-import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.experimental.UtilityClass;
 
@@ -45,7 +39,7 @@ public class JaxbAdapters {
     public static final class SemanticIdentifierAdapter extends XmlAdapter<String, SemanticIdentifier>{
         @Override public SemanticIdentifier unmarshal(final String v) throws Exception {
             try {
-                return destringify(v);
+                return SemanticIdentifier.parse(v);
             } catch (Exception e) {
                 e.printStackTrace(); // might be swallowed otherwise
                 throw e;
@@ -53,41 +47,10 @@ public class JaxbAdapters {
         }
         @Override public String marshal(final SemanticIdentifier v) throws Exception {
             return v!=null
-                    ? stringify(v)
+                    ? v.toString()
                     : null;
         }
 
-        // -- HELPER
-
-        private static SemanticIdentifier destringify(final String string) {
-            if(_NullSafe.size(string)<7) {
-                throw _Exceptions.illegalArgument("cannot parse '%s' as SemanticIdentifier (too short)", string);
-            }
-            try {
-                var commaSeparatedValues = _Strings.substring(string, 4, -1);
-                var parts = _Strings.splitThenStream(commaSeparatedValues, ",")
-                        .map(SemanticIdentifierAdapter::argumentIn)
-                        .toList();
-                _Assert.assertEquals(2, parts.size(), ()->
-                    String.format("invalid token count in '%s'", commaSeparatedValues));
-                return new SemanticIdentifier(parts.get(0), parts.get(1));
-            } catch (Exception e) {
-                throw _Exceptions.illegalArgument(e, "cannot parse '%s' as SemanticIdentifier", string);
-            }
-        }
-        private static String stringify(final SemanticIdentifier sid) {
-            return "SID[" + argumentOut(sid.systemId())
-                + "," + argumentOut(sid.objectId()) + "]";
-        }
-        private static String argumentIn(@Nullable final String in) {
-            var arg = _Strings.emptyToNull(_Strings.trim(in));
-            if(arg!=null) _Assert.assertTrue(arg.indexOf(',') + arg.indexOf(' ') == -2,
-                    ()->"Semantic Identifiers may not contain characters ',' or whitespace");
-            return arg;
-        }
-        private static String argumentOut(@Nullable final String arg) {
-            return _Strings.nullToEmpty(arg);
-        }
     }
 
     public static final class SexAdapter extends XmlAdapter<String, Sex>{

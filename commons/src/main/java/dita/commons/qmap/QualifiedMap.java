@@ -89,8 +89,8 @@ public class QualifiedMap {
          */
         public String shortFormat(final String primaryDelimiter, final String secondaryDelimiter) {
             return qualifier().elements().isEmpty()
-                ? source().objectId()
-                : source().objectId()
+                ? source().objectId().toString()
+                : source().objectId().toString()
                     + primaryDelimiter
                     + qualifier().shortFormat(secondaryDelimiter);
         }
@@ -101,8 +101,8 @@ public class QualifiedMap {
          */
         public String fullFormat(final String primaryDelimiter, final String secondaryDelimiter) {
             return qualifier().elements().isEmpty()
-                ? source().fullFormat(":")
-                : source().fullFormat(":")
+                ? source().toStringNoBox()
+                : source().toStringNoBox()
                     + primaryDelimiter
                     + qualifier().fullFormat(secondaryDelimiter);
         }
