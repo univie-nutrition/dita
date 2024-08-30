@@ -144,13 +144,7 @@ class _Utils {
     }
     private String unescapeLiteral(final @Nullable String in) {
         var arg = _Strings.nullToEmpty(in);
-        if(arg.startsWith("" + QUOTATION_START)) {
-            if(!arg.endsWith("" + QUOTATION_END)) {
-                throw _Exceptions.illegalArgument("escaped literal must end with " + QUOTATION_END + " character");
-            }
-            if(arg.length()<2) {
-                throw _Exceptions.illegalArgument("escaped literal must at least have length 2");
-            }
+        if(stringIsQuotationMarked(arg)) {
             return _Strings.substring(arg, 1, -1);
         }
         return arg;
@@ -159,6 +153,7 @@ class _Utils {
     private IntStream streamInvalidChars(final @Nullable String in) {
         return _Strings.nullToEmpty(in).codePoints()
             .filter(codePoint->codePoint!='.')
+            .filter(codePoint->codePoint!='-')
             .filter(codePoint->!Character.isJavaIdentifierPart(codePoint));
     }
 
@@ -186,5 +181,23 @@ class _Utils {
                     "literal must not contain " + QUOTATION_END + " character");
         }
     }
+
+    /**
+     * Whether has quotation marks at begin and end.
+     */
+    private boolean stringIsQuotationMarked(final @Nullable String in) {
+        if(_Strings.isEmpty(in)) return false;
+        if(in.startsWith("" + QUOTATION_START)) {
+            if(!in.endsWith("" + QUOTATION_END)) {
+                throw _Exceptions.illegalArgument("escaped literal must end with " + QUOTATION_END + " character");
+            }
+            if(in.length()<2) {
+                throw _Exceptions.illegalArgument("escaped literal must at least have length 2");
+            }
+            return true;
+        }
+        return false;
+    }
+
 
 }

@@ -48,6 +48,8 @@ class SemanticIdentifierTest {
                 """
                 ‹&^?zu`rüc'k "zu",/ karlovačko!›"""
                 + "]"),
+        LEGACY("GD-AT20240507", null, null, "00010",
+                "SID[GD-AT20240507:00010]"),
         ;
         final String system;
         final String version;
