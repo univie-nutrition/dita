@@ -20,13 +20,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Eieraufstrich"
-          sid: "00232"
-          facetSids: "0103,0200,0317,0405"
+          sid: "at.gd/2.0:recp/00232"
+          facetSids: "at.gd/2.0:rd/0103, at.gd/2.0:rd/0200, at.gd/2.0:rd/0317, at.gd/2.0:rd/0405"
           subRecords:
           - type: "FOOD"
             name: "Mayonnaise"
-            sid: "01529"
-            facetSids: "0699,0400,1000,0801"
+            sid: "at.gd/2.0:food/01529"
+            facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
             amountConsumed: 6.7415728569030762
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -34,8 +34,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0303"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
             amountConsumed: 16.853933334350586
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -43,8 +43,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Schnittlauch"
-            sid: "01547"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01547"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.93632960319519043
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -52,8 +52,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0205,0499,0999,1200,0399,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.37453183531761169
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -61,7 +62,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.093632958829402924
             consumptionUnit: "GRAM"
@@ -70,8 +71,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Kaffee, mit Koffein"
-          sid: "01339"
-          facetSids: "0699,0201,1200,0702"
+          sid: "at.gd/2.0:food/01339"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1200"
           amountConsumed: 125
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1

@@ -20,13 +20,14 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Striezel {assocFood=2287}"
-          sid: "00398"
-          facetSids: "0101,0001,0300,0499,0598"
+          sid: "at.gd/2.0:recp/00398"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0300, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0598"
           subRecords:
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
-            sid: "00394"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 20.824655532836914
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -34,7 +35,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Germ n.s."
-            sid: "01534"
+            sid: "at.gd/2.0:food/01534"
             facetSids: ""
             amountConsumed: 1.2494794130325317
             consumptionUnit: "GRAM"
@@ -43,8 +44,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Milch, normal"
-            sid: "00217"
-            facetSids: "0102,0699,0201,0408,1200,0801,0334"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0334, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 10.724698066711426
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -52,8 +54,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Butter, normal"
-            sid: "01887"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 3.3319449424743652
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -61,8 +63,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zucker, Kristall"
-            sid: "00992"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00992"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 3.3319449424743652
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -70,7 +72,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.041649311780929565
             consumptionUnit: "GRAM"
@@ -79,8 +81,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0307"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0307"
             amountConsumed: 4.24822998046875
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.85000002384185791
@@ -88,8 +90,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rosinen"
-            sid: "00183"
-            facetSids: "0204,0418,1200,0307"
+            sid: "at.gd/2.0:food/00183"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0307, at.gd/2.0:fd/0418, at.gd/2.0:fd/1200"
             amountConsumed: 4.9979181289672852
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1.2000000476837158
@@ -97,8 +99,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zucker, Hagel"
-            sid: "00990"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00990"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 1.2494794130325317
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -112,13 +114,14 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Knödel, Serviettenknödel {assocFood=1967}"
-          sid: "00600"
-          facetSids: "0101,0001,0399,0499,0504"
+          sid: "at.gd/2.0:recp/00600"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0504"
           subRecords:
           - type: "FOOD"
             name: "Semmel"
-            sid: "00535"
-            facetSids: "0699,0410,1200,0394"
+            sid: "at.gd/2.0:food/00535"
+            facetSids: "at.gd/2.0:fd/0394, at.gd/2.0:fd/0410, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
             amountConsumed: 67.533767700195312
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.89999997615814209
@@ -126,8 +129,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Butter, normal"
-            sid: "01887"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 15.007503509521484
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -135,8 +138,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Petersilie"
-            sid: "01543"
-            facetSids: "0204,0499"
+            sid: "at.gd/2.0:food/01543"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499"
             amountConsumed: 1.5007504224777222
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -144,8 +147,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0303"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
             amountConsumed: 27.013505935668945
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -153,8 +156,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Milch, normal"
-            sid: "00217"
-            facetSids: "0102,0699,0201,0408,1200,0801,0394"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0394, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 38.644321441650391
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -162,7 +166,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.1500750333070755
             consumptionUnit: "GRAM"
@@ -171,8 +175,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Gewürzmischung"
-            sid: "01538"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/01538"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 0.07503751665353775
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -180,7 +184,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Muskatnuss"
-            sid: "01541"
+            sid: "at.gd/2.0:food/01541"
             facetSids: ""
             amountConsumed: 0.07503751665353775
             consumptionUnit: "GRAM"
@@ -191,13 +195,15 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Fleischklösschen, Suppe {assocFood=2086}"
-          sid: "00556"
-          facetSids: "0101,0000,0399,0499,0503"
+          sid: "at.gd/2.0:recp/00556"
+          facetSids: "at.gd/2.0:rd/0000, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0503"
           subRecords:
           - type: "FOOD"
             name: "Rindfleisch, faschiert"
-            sid: "00669"
-            facetSids: "0699,0410,0599,1000,0801,0309"
+            sid: "at.gd/2.0:food/00669"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0410, at.gd/2.0:fd/0599, at.gd/2.0:fd/0699,\
+              \ at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
             amountConsumed: 72.02587890625
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.64999997615814209
@@ -205,8 +211,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Stärke (Kartoffel, Mais, Weizen)"
-            sid: "01809"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/01809"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 13.297086715698242
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -214,8 +220,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Semmelbrösel"
-            sid: "00569"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00569"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 13.297086715698242
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -223,8 +229,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0309"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0309"
             amountConsumed: 15.956503868103027
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.89999997615814209
@@ -232,8 +238,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0204,0499,0900,1200,0309,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.75350165367126465
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -241,8 +248,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Koriander"
-            sid: "01926"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/01926"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 1.4774540662765503
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -250,7 +257,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Meer"
-            sid: "01573"
+            sid: "at.gd/2.0:food/01573"
             facetSids: ""
             amountConsumed: 1.6251994371414185
             consumptionUnit: "GRAM"
@@ -259,7 +266,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.73872703313827515
             consumptionUnit: "GRAM"
@@ -268,7 +275,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Chili (Gewürz)"
-            sid: "00055"
+            sid: "at.gd/2.0:food/00055"
             facetSids: ""
             amountConsumed: 0.073872700333595276
             consumptionUnit: "GRAM"
@@ -277,8 +284,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Butter, normal"
-            sid: "01887"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 8.8647241592407227
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -286,8 +293,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
-            sid: "00394"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 1.4774540662765503
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -295,7 +302,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Wasser, Leitung"
-            sid: "01399"
+            sid: "at.gd/2.0:food/01399"
             facetSids: ""
             amountConsumed: 118.19632720947266
             consumptionUnit: "GRAM"
@@ -304,8 +311,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfefferminze"
-            sid: "02142"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/02142"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 1.4774540662765503
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -313,7 +320,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Safran"
-            sid: "02358"
+            sid: "at.gd/2.0:food/02358"
             facetSids: ""
             amountConsumed: 0.73872703313827515
             consumptionUnit: "GRAM"
@@ -341,13 +348,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Rührei, mit Schinken"
-          sid: "00131"
-          facetSids: "0101,0399,0508"
+          sid: "at.gd/2.0:recp/00131"
+          facetSids: "at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0508"
           subRecords:
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0309"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0309"
             amountConsumed: 80.655731201171875
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.89999997615814209
@@ -355,8 +362,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Milch, normal"
-            sid: "00217"
-            facetSids: "0102,0699,0201,0408,1200,0801,0398"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0398, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 24.441131591796875
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -364,7 +372,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.50919026136398315
             consumptionUnit: "GRAM"
@@ -373,7 +381,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.040735218673944473
             consumptionUnit: "GRAM"
@@ -382,7 +390,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Muskatnuss"
-            sid: "01541"
+            sid: "at.gd/2.0:food/01541"
             facetSids: ""
             amountConsumed: 0.040735218673944473
             consumptionUnit: "GRAM"
@@ -391,8 +399,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Butter n.s."
-            sid: "00945"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/00945"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 2.0367610454559326
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -400,8 +408,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Schinken n.s."
-            sid: "00808"
-            facetSids: "0105,0499,1200,0801,0309,1400"
+            sid: "at.gd/2.0:food/00808"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1400"
             amountConsumed: 15.275707244873047
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.75
@@ -415,13 +424,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Cannelloni, gefüllt"
-          sid: "00050"
-          facetSids: "0101,0001,0399,0598"
+          sid: "at.gd/2.0:recp/00050"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0598"
           subRecords:
           - type: "FOOD"
             name: "Teigwaren, Lasagne (nur Teig)"
-            sid: "00447"
-            facetSids: "0204,0418,0301"
+            sid: "at.gd/2.0:food/00447"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0418"
             amountConsumed: 67.600013732910156
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 2.2999999523162842
@@ -429,8 +438,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Öl, Raps"
-            sid: "00937"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 1.8523937463760376
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -438,8 +447,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rindfleisch, faschiert"
-            sid: "00669"
-            facetSids: "0699,0499,1000,0801,0309"
+            sid: "at.gd/2.0:food/00669"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
             amountConsumed: 32.108158111572266
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.64999997615814209
@@ -447,8 +457,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zwiebel"
-            sid: "00107"
-            facetSids: "0205,0499,0999,0309,2800"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
             amountConsumed: 3.8900270462036133
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -456,8 +467,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0205,0499,0999,1200,0309,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.14819151163101196
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -465,8 +477,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Karotte"
-            sid: "00073"
-            facetSids: "0214,0499,0900,1200,0309,1301,2800"
+            sid: "at.gd/2.0:food/00073"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
             amountConsumed: 12.151702880859375
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.81999999284744263
@@ -474,8 +487,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Sellerie"
-            sid: "00077"
-            facetSids: "0214,0499,0900,1200,0309,2800"
+            sid: "at.gd/2.0:food/00077"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 11.139060974121094
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.81999999284744263
@@ -483,8 +497,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Petersilie"
-            sid: "01543"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01543"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.49397164583206177
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -492,8 +506,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rosmarin"
-            sid: "01545"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01545"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.49397164583206177
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -501,8 +515,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
-            sid: "00394"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 1.8523937463760376
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -510,8 +524,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate n.s."
-            sid: "00065"
-            facetSids: "0224,0400,0900,1200,0309,2800"
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0309, at.gd/2.0:fd/0400, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 4.1678857803344727
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.75
@@ -519,8 +534,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate n.s."
-            sid: "00065"
-            facetSids: "0216,0401,0528,0904,1200,0345,1301,2800"
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0216, at.gd/2.0:fd/0345, at.gd/2.0:fd/0401, at.gd/2.0:fd/0528,\
+              \ at.gd/2.0:fd/0904, at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
             amountConsumed: 24.698583602905273
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.800000011920929
@@ -528,7 +544,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.024698583409190178
             consumptionUnit: "GRAM"
@@ -537,7 +553,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Paprikapulver"
-            sid: "01803"
+            sid: "at.gd/2.0:food/01803"
             facetSids: ""
             amountConsumed: 0.024698583409190178
             consumptionUnit: "GRAM"
@@ -546,8 +562,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Sauerrahm"
-            sid: "00353"
-            facetSids: "0408,1200,0801"
+            sid: "at.gd/2.0:food/00353"
+            facetSids: "at.gd/2.0:fd/0408, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 19.758867263793945
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -555,8 +571,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Parmesan"
-            sid: "00297"
-            facetSids: "0212,1200,0801,0398"
+            sid: "at.gd/2.0:food/00297"
+            facetSids: "at.gd/2.0:fd/0212, at.gd/2.0:fd/0398, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 8.95323657989502
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -564,7 +580,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Bouillon Konzentrat"
-            sid: "01811"
+            sid: "at.gd/2.0:food/01811"
             facetSids: ""
             amountConsumed: 0.61746460199356079
             consumptionUnit: "GRAM"
@@ -573,8 +589,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Oregano"
-            sid: "01542"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.024698583409190178
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -588,13 +604,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Kebabsandwich (mit Lammfleisch)"
-          sid: "00074"
-          facetSids: "0105,0200,0598"
+          sid: "at.gd/2.0:recp/00074"
+          facetSids: "at.gd/2.0:rd/0105, at.gd/2.0:rd/0200, at.gd/2.0:rd/0598"
           subRecords:
           - type: "FOOD"
             name: "Öl, Raps"
-            sid: "00937"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 2.0835933685302734
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -602,8 +618,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salat, Kopf, grün"
-            sid: "00041"
-            facetSids: "0221,0499,0900,2800"
+            sid: "at.gd/2.0:food/00041"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900, at.gd/2.0:fd/2800"
             amountConsumed: 8.3343734741210938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -611,8 +627,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate n.s."
-            sid: "00065"
-            facetSids: "0215,0499,0900,1200,0399,1302,2800"
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
             amountConsumed: 8.3343734741210938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -620,8 +637,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Gurke"
-            sid: "00057"
-            facetSids: "0215,0499,0900,1200,0399,1300,2800"
+            sid: "at.gd/2.0:food/00057"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1300, at.gd/2.0:fd/2800"
             amountConsumed: 16.668746948242188
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -629,8 +647,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Mayonnaise {assocRecp=327}"
-            sid: "01529"
-            facetSids: "0699,0400,1000,0801"
+            sid: "at.gd/2.0:food/01529"
+            facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
             amountConsumed: 4.1671867370605469
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -638,7 +656,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.20835933089256287
             consumptionUnit: "GRAM"
@@ -647,7 +665,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.20835933089256287
             consumptionUnit: "GRAM"
@@ -656,8 +674,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Brot, Fladen, Weizen"
-            sid: "01982"
-            facetSids: "0699,0499,1200,0398"
+            sid: "at.gd/2.0:food/01982"
+            facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
             amountConsumed: 62.507797241210938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -665,8 +683,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zwiebel"
-            sid: "00107"
-            facetSids: "0215,0499,0999,0399,2800"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
             amountConsumed: 9.37617015838623
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -674,8 +693,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Weißkraut"
-            sid: "00088"
-            facetSids: "0221,0499,0900,1200,0399,2800"
+            sid: "at.gd/2.0:food/00088"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 4.1671867370605469
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -683,8 +703,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfefferoni, rot"
-            sid: "00063"
-            facetSids: "0214,0499,0900,1200,0399,1302,2800"
+            sid: "at.gd/2.0:food/00063"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
             amountConsumed: 1.0417966842651367
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -692,8 +713,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Topfen"
-            sid: "00242"
-            facetSids: "0102,0699,1200,0701,0801"
+            sid: "at.gd/2.0:food/00242"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200"
             amountConsumed: 13.022458076477051
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -701,8 +723,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0205,0499,0999,1200,0399,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.41671866178512573
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -710,8 +733,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Lammfleisch n.s."
-            sid: "00702"
-            facetSids: "0499,1000,0309,1400"
+            sid: "at.gd/2.0:food/00702"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/1000, at.gd/2.0:fd/1400"
             amountConsumed: 36.462882995605469
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.699999988079071
@@ -738,13 +761,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Rührei, mit Schinken"
-          sid: "00131"
-          facetSids: "0101,0399,0508"
+          sid: "at.gd/2.0:recp/00131"
+          facetSids: "at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0508"
           subRecords:
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0309"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0309"
             amountConsumed: 77.449508666992188
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.89999997615814209
@@ -752,8 +775,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Haferdrink"
-            sid: "02397"
-            facetSids: "0699,1200,0701"
+            sid: "at.gd/2.0:food/02397"
+            facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/1200"
             amountConsumed: 23.469549179077148
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -761,7 +784,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.48894894123077393
             consumptionUnit: "GRAM"
@@ -770,7 +793,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.039115916937589645
             consumptionUnit: "GRAM"
@@ -779,7 +802,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Muskatnuss"
-            sid: "01541"
+            sid: "at.gd/2.0:food/01541"
             facetSids: ""
             amountConsumed: 0.039115916937589645
             consumptionUnit: "GRAM"
@@ -788,8 +811,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Butter n.s."
-            sid: "00945"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/00945"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 1.9557957649230957
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -797,8 +820,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salami"
-            sid: "00801"
-            facetSids: "0105,0499,1200,0801"
+            sid: "at.gd/2.0:food/00801"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 19.557956695556641
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -812,13 +835,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Cannelloni, gefüllt"
-          sid: "00050"
-          facetSids: "0101,0001,0399,0503"
+          sid: "at.gd/2.0:recp/00050"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0503"
           subRecords:
           - type: "FOOD"
             name: "Teigwaren, Lasagne (nur Teig)"
-            sid: "00447"
-            facetSids: "0204,0418,0301"
+            sid: "at.gd/2.0:food/00447"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0418"
             amountConsumed: 63.475326538085938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 2.2999999523162842
@@ -826,8 +849,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Öl, Raps"
-            sid: "00937"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 1.7393679618835449
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -835,8 +858,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rindfleisch, faschiert"
-            sid: "00669"
-            facetSids: "0699,0499,1000,0801,0309"
+            sid: "at.gd/2.0:food/00669"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
             amountConsumed: 30.149044036865234
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.64999997615814209
@@ -844,8 +868,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zwiebel"
-            sid: "00107"
-            facetSids: "0205,0499,0999,0309,2800"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
             amountConsumed: 3.6526730060577393
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -853,8 +878,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0205,0499,0999,1200,0309,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.13914944231510162
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -862,8 +888,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Karotte"
-            sid: "00073"
-            facetSids: "0214,0499,0900,1200,0309,1301,2800"
+            sid: "at.gd/2.0:food/00073"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
             amountConsumed: 11.410253524780273
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.81999999284744263
@@ -871,8 +898,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Sellerie"
-            sid: "00077"
-            facetSids: "0214,0499,0900,1200,0309,2800"
+            sid: "at.gd/2.0:food/00077"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 10.45939826965332
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.81999999284744263
@@ -880,8 +908,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Petersilie"
-            sid: "01543"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01543"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.46383145451545715
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -889,8 +917,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rosmarin"
-            sid: "01545"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01545"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.46383145451545715
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -898,8 +926,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
-            sid: "00394"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 1.7393679618835449
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -907,8 +935,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate n.s."
-            sid: "00065"
-            facetSids: "0224,0400,0900,1200,0309,2800"
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0309, at.gd/2.0:fd/0400, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 3.9135777950286865
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.75
@@ -916,8 +945,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate n.s."
-            sid: "00065"
-            facetSids: "0216,0401,0528,0904,1200,0345,1301,2800"
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0216, at.gd/2.0:fd/0345, at.gd/2.0:fd/0401, at.gd/2.0:fd/0528,\
+              \ at.gd/2.0:fd/0904, at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
             amountConsumed: 23.191572189331055
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.800000011920929
@@ -925,7 +955,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.023191573098301888
             consumptionUnit: "GRAM"
@@ -934,7 +964,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Paprikapulver"
-            sid: "01803"
+            sid: "at.gd/2.0:food/01803"
             facetSids: ""
             amountConsumed: 0.023191573098301888
             consumptionUnit: "GRAM"
@@ -943,8 +973,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Sauerrahm"
-            sid: "00353"
-            facetSids: "0408,1200,0801"
+            sid: "at.gd/2.0:food/00353"
+            facetSids: "at.gd/2.0:fd/0408, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 18.553256988525391
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -952,7 +982,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Bouillon Konzentrat"
-            sid: "01811"
+            sid: "at.gd/2.0:food/01811"
             facetSids: ""
             amountConsumed: 0.57978928089141846
             consumptionUnit: "GRAM"
@@ -961,8 +991,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Oregano"
-            sid: "01542"
-            facetSids: "0205,0499"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.023191573098301888
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -970,8 +1000,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Gouda"
-            sid: "00277"
-            facetSids: "0204,1200,0801,0398"
+            sid: "at.gd/2.0:food/00277"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0398, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 20
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -985,13 +1015,13 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Kebabsandwich (mit Hühnerfleisch)"
-          sid: "00074"
-          facetSids: "0105,0200,0598"
+          sid: "at.gd/2.0:recp/00074"
+          facetSids: "at.gd/2.0:rd/0105, at.gd/2.0:rd/0200, at.gd/2.0:rd/0598"
           subRecords:
           - type: "FOOD"
             name: "Öl, Raps"
-            sid: "00937"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 2.0835933685302734
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -999,8 +1029,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salat, Kopf, grün"
-            sid: "00041"
-            facetSids: "0221,0499,0900,2800"
+            sid: "at.gd/2.0:food/00041"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900, at.gd/2.0:fd/2800"
             amountConsumed: 8.3343734741210938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1008,8 +1038,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate n.s."
-            sid: "00065"
-            facetSids: "0215,0499,0900,1200,0399,1302,2800"
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
             amountConsumed: 8.3343734741210938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1017,8 +1048,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Gurke"
-            sid: "00057"
-            facetSids: "0215,0499,0900,1200,0399,1300,2800"
+            sid: "at.gd/2.0:food/00057"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1300, at.gd/2.0:fd/2800"
             amountConsumed: 16.668746948242188
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1026,8 +1058,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Mayonnaise {assocRecp=327}"
-            sid: "01529"
-            facetSids: "0699,0400,1000,0801"
+            sid: "at.gd/2.0:food/01529"
+            facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
             amountConsumed: 4.1671867370605469
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1035,7 +1067,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.20835933089256287
             consumptionUnit: "GRAM"
@@ -1044,7 +1076,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.20835933089256287
             consumptionUnit: "GRAM"
@@ -1053,8 +1085,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Brot, Fladen, Weizen"
-            sid: "01982"
-            facetSids: "0699,0499,1200,0398"
+            sid: "at.gd/2.0:food/01982"
+            facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
             amountConsumed: 62.507797241210938
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1062,8 +1094,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zwiebel"
-            sid: "00107"
-            facetSids: "0215,0499,0999,0399,2800"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
             amountConsumed: 9.37617015838623
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1071,8 +1104,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rotkraut"
-            sid: "00086"
-            facetSids: "0221,0499,0900,1200,0399,2800"
+            sid: "at.gd/2.0:food/00086"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 4.1671867370605469
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1080,8 +1114,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfefferoni, rot"
-            sid: "00063"
-            facetSids: "0214,0499,0900,1200,0399,1302,2800"
+            sid: "at.gd/2.0:food/00063"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
             amountConsumed: 1.0417966842651367
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1089,8 +1124,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Topfen"
-            sid: "00242"
-            facetSids: "0102,0699,1200,0701,0801"
+            sid: "at.gd/2.0:food/00242"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200"
             amountConsumed: 13.022458076477051
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1098,8 +1134,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0205,0499,0999,1200,0399,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.41671866178512573
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1107,8 +1144,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Hühnchen, geschnetzelt (nur Fleisch)"
-            sid: "00723"
-            facetSids: "0699,0499,1000,0302"
+            sid: "at.gd/2.0:food/00723"
+            facetSids: "at.gd/2.0:fd/0302, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1000"
             amountConsumed: 36.462882995605469
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.699999988079071
@@ -1135,8 +1172,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Brot, Roggen"
-          sid: "00504"
-          facetSids: "0699,0499,1200,0398"
+          sid: "at.gd/2.0:food/00504"
+          facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
           amountConsumed: 64.5
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1144,8 +1181,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Butter, normal"
-          sid: "01887"
-          facetSids: "1200,0801"
+          sid: "at.gd/2.0:food/01887"
+          facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
           amountConsumed: 10
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1153,8 +1190,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Marmelade"
-          sid: "02027"
-          facetSids: "0669,1006,1200,0702"
+          sid: "at.gd/2.0:food/02027"
+          facetSids: "at.gd/2.0:fd/0669, at.gd/2.0:fd/0702, at.gd/2.0:fd/1006, at.gd/2.0:fd/1200"
           amountConsumed: 11
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1168,8 +1205,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Salat, Endivien"
-          sid: "00038"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00038"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 100
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1177,8 +1214,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salatdressing Balsamico {assocRecp=381}"
-          sid: "01522"
-          facetSids: "0699,0499,1002,1600"
+          sid: "at.gd/2.0:food/01522"
+          facetSids: "at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1002, at.gd/2.0:fd/1600"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1186,8 +1223,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Hühnchen, Filet"
-          sid: "01902"
-          facetSids: "0699,0499,1001,0328"
+          sid: "at.gd/2.0:food/01902"
+          facetSids: "at.gd/2.0:fd/0328, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1001"
           amountConsumed: 137
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1195,8 +1232,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 1.3700000047683716
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1208,8 +1245,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Toastbrot, Roggenmisch"
-          sid: "02299"
-          facetSids: "0699,0410,1200,0398"
+          sid: "at.gd/2.0:food/02299"
+          facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0410, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
           amountConsumed: 56.700000762939453
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1217,8 +1254,9 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Schinken, Bein"
-          sid: "00810"
-          facetSids: "0105,0404,0410,0413,1200,0801,0398,1401"
+          sid: "at.gd/2.0:food/00810"
+          facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0398, at.gd/2.0:fd/0404, at.gd/2.0:fd/0410,\
+            \ at.gd/2.0:fd/0413, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200, at.gd/2.0:fd/1401"
           amountConsumed: 40
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1226,8 +1264,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Gouda"
-          sid: "00277"
-          facetSids: "0204,1200,0801,0398"
+          sid: "at.gd/2.0:food/00277"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0398, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1254,13 +1292,15 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Pizza, Salami"
-          sid: "00255"
-          facetSids: "0105,0200,0399,0499,0501"
+          sid: "at.gd/2.0:recp/00255"
+          facetSids: "at.gd/2.0:rd/0105, at.gd/2.0:rd/0200, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0501"
           subRecords:
           - type: "FOOD"
             name: "Teig, Pizza {assocRecp=544}"
-            sid: "00644"
-            facetSids: "0204,0402,1000,0801,0301"
+            sid: "at.gd/2.0:food/00644"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0402, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
             amountConsumed: 126.71975708007813
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.81999999284744263
@@ -1268,8 +1308,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate, normal"
-            sid: "02308"
-            facetSids: "0224,0400,0900,1200,0301,2800"
+            sid: "at.gd/2.0:food/02308"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0301, at.gd/2.0:fd/0400, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 13.908266067504883
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.800000011920929
@@ -1277,8 +1318,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Parmesan"
-            sid: "00297"
-            facetSids: "0212,1200,0801,0301"
+            sid: "at.gd/2.0:food/00297"
+            facetSids: "at.gd/2.0:fd/0212, at.gd/2.0:fd/0301, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 23.180444717407227
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1286,8 +1327,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salami"
-            sid: "00801"
-            facetSids: "0105,0499,1200,0801"
+            sid: "at.gd/2.0:food/00801"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 15.453629493713379
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1295,8 +1336,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomate, normal"
-            sid: "02308"
-            facetSids: "0214,0499,0900,1200,0301,1302,2800"
+            sid: "at.gd/2.0:food/02308"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0301, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
             amountConsumed: 15.453629493713379
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.800000011920929
@@ -1304,7 +1346,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.019317036494612694
             consumptionUnit: "GRAM"
@@ -1313,7 +1355,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.038634072989225388
             consumptionUnit: "GRAM"
@@ -1322,8 +1364,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Oregano"
-            sid: "01542"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 0.772681474685669
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1331,8 +1373,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salami"
-            sid: "00801"
-            facetSids: "0105,0499,1200,0801"
+            sid: "at.gd/2.0:food/00801"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 15.453629493713379
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1359,8 +1401,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Cappuccino, Koffein n.s. {assocRecp=483}"
-          sid: "01330"
-          facetSids: "0699,0201,1200,0701"
+          sid: "at.gd/2.0:food/01330"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/1200"
           amountConsumed: 176
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1370,8 +1412,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Rührkuchen {assocRecp=390}"
-          sid: "01829"
-          facetSids: "0699,1006,0702,0801"
+          sid: "at.gd/2.0:food/01829"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/0801, at.gd/2.0:fd/1006"
           amountConsumed: 80
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1385,8 +1427,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Spätzle {assocRecp=602}"
-          sid: "00440"
-          facetSids: "0204,0499,0303"
+          sid: "at.gd/2.0:food/00440"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0303, at.gd/2.0:fd/0499"
           amountConsumed: 171
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1394,8 +1436,9 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Sauce Bolognaise {assocRecp=326}"
-          sid: "01517"
-          facetSids: "0699,0201,0401,1006,1200,0801"
+          sid: "at.gd/2.0:food/01517"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0401, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1006, at.gd/2.0:fd/1200"
           amountConsumed: 182
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -1422,13 +1465,14 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Cappuccino, Koffein n.s. {assocFood=1330}"
-          sid: "00483"
-          facetSids: "0101,0001,0399,0400,0598"
+          sid: "at.gd/2.0:recp/00483"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0400,\
+            \ at.gd/2.0:rd/0598"
           subRecords:
           - type: "FOOD"
             name: "Espresso, Koffein n.s."
-            sid: "01669"
-            facetSids: "0699,0202,1200,0700"
+            sid: "at.gd/2.0:food/01669"
+            facetSids: "at.gd/2.0:fd/0202, at.gd/2.0:fd/0699, at.gd/2.0:fd/0700, at.gd/2.0:fd/1200"
             amountConsumed: 6.5625
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1436,8 +1480,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Milch, normal"
-            sid: "00217"
-            facetSids: "0102,0699,0201,0408,1200,0801,0315"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0315, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 96.5625
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1445,7 +1490,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Wasser, Leitung"
-            sid: "01399"
+            sid: "at.gd/2.0:food/01399"
             facetSids: ""
             amountConsumed: 46.875
             consumptionUnit: "GRAM"
@@ -1456,13 +1501,14 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Rührkuchen {assocFood=1829}"
-          sid: "00390"
-          facetSids: "0103,0200,0399,0499,0598"
+          sid: "at.gd/2.0:recp/00390"
+          facetSids: "at.gd/2.0:rd/0103, at.gd/2.0:rd/0200, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0598"
           subRecords:
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0307"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0307"
             amountConsumed: 11.877729415893555
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.85000002384185791
@@ -1470,8 +1516,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Margarine"
-            sid: "00953"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/00953"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 12.22707462310791
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1479,8 +1525,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zucker, Kristall"
-            sid: "00992"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00992"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 17.467248916625977
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1488,8 +1534,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
-            sid: "00394"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 17.467248916625977
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1497,8 +1543,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Sauerrahm"
-            sid: "00353"
-            facetSids: "0408,1200,0801"
+            sid: "at.gd/2.0:food/00353"
+            facetSids: "at.gd/2.0:fd/0408, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 17.467248916625977
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1506,8 +1552,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Kakaopulver"
-            sid: "01017"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/01017"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 0.87336242198944092
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1515,8 +1561,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Semmelbrösel"
-            sid: "00569"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00569"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 2.3289666175842285
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1524,7 +1570,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Backpulver"
-            sid: "01532"
+            sid: "at.gd/2.0:food/01532"
             facetSids: ""
             amountConsumed: 0.29112082719802856
             consumptionUnit: "GRAM"
@@ -1539,13 +1585,14 @@ respondents:
         topLevelRecords:
         - type: "COMPOSITE"
           name: "Sauce Bolognaise {assocFood=1517}"
-          sid: "00326"
-          facetSids: "0101,0001,0301,0406,0503"
+          sid: "at.gd/2.0:recp/00326"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0301, at.gd/2.0:rd/0406,\
+            \ at.gd/2.0:rd/0503"
           subRecords:
           - type: "FOOD"
             name: "Öl, Oliven"
-            sid: "00935"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00935"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 6.5843954086303711
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1553,8 +1600,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Zwiebel"
-            sid: "00107"
-            facetSids: "0204,0499,0900,0309,2800"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/2800"
             amountConsumed: 12.115287780761719
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -1562,8 +1610,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Gemüsemischung n.s."
-            sid: "00017"
-            facetSids: "0204,0499,0900,1200,0309,1301,2800"
+            sid: "at.gd/2.0:food/00017"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
             amountConsumed: 23.411184310913086
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.800000011920929
@@ -1571,8 +1620,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Knoblauch"
-            sid: "00103"
-            facetSids: "0204,0499,0900,1200,0309,2800"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.37311577796936035
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.60000002384185791
@@ -1580,8 +1630,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Faschiertes n.s."
-            sid: "00653"
-            facetSids: "0101,0105,0600,0499,1000,0801,0309"
+            sid: "at.gd/2.0:food/00653"
+            facetSids: "at.gd/2.0:fd/0101, at.gd/2.0:fd/0105, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499,\
+              \ at.gd/2.0:fd/0600, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
             amountConsumed: 76.086349487304688
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 0.64999997615814209
@@ -1589,8 +1640,9 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Tomatensauce {assocRecp=325}"
-            sid: "01519"
-            facetSids: "0600,0224,0410,1000,0801"
+            sid: "at.gd/2.0:food/01519"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0410, at.gd/2.0:fd/0600, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
             amountConsumed: 11.705592155456543
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1598,8 +1650,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Wein, rot"
-            sid: "01427"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/01427"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 14.631989479064941
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1607,7 +1659,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Wasser, Leitung"
-            sid: "01399"
+            sid: "at.gd/2.0:food/01399"
             facetSids: ""
             amountConsumed: 36.579975128173828
             consumptionUnit: "GRAM"
@@ -1616,7 +1668,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.14631989598274231
             consumptionUnit: "GRAM"
@@ -1625,7 +1677,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Pfeffer"
-            sid: "02136"
+            sid: "at.gd/2.0:food/02136"
             facetSids: ""
             amountConsumed: 0.14631989598274231
             consumptionUnit: "GRAM"
@@ -1634,8 +1686,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Oregano"
-            sid: "01542"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 0.073159947991371155
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1643,8 +1695,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Rosmarin"
-            sid: "01545"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/01545"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 0.073159947991371155
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1652,8 +1704,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Basilikum"
-            sid: "01536"
-            facetSids: "0203,0418"
+            sid: "at.gd/2.0:food/01536"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
             amountConsumed: 0.073159947991371155
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1661,13 +1713,14 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "COMPOSITE"
           name: "Spätzle {assocFood=440}"
-          sid: "00602"
-          facetSids: "0101,0001,0399,0499,0503"
+          sid: "at.gd/2.0:recp/00602"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0503"
           subRecords:
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
-            sid: "00394"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
             amountConsumed: 81.6618881225586
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1675,8 +1728,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Ei"
-            sid: "00916"
-            facetSids: "0107,0303"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
             amountConsumed: 19.598854064941406
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1
@@ -1684,7 +1737,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Wasser, Leitung"
-            sid: "01399"
+            sid: "at.gd/2.0:food/01399"
             facetSids: ""
             amountConsumed: 61.246417999267578
             consumptionUnit: "GRAM"
@@ -1693,7 +1746,7 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Salz, Koch"
-            sid: "01571"
+            sid: "at.gd/2.0:food/01571"
             facetSids: ""
             amountConsumed: 0.32664754986763
             consumptionUnit: "GRAM"
@@ -1702,8 +1755,8 @@ respondents:
             typeOfMilkOrLiquidUsedDuringCooking: null
           - type: "FOOD"
             name: "Butter, normal"
-            sid: "01887"
-            facetSids: "1200,0801"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
             amountConsumed: 8.1661891937255859
             consumptionUnit: "GRAM"
             rawPerCookedRatio: 1

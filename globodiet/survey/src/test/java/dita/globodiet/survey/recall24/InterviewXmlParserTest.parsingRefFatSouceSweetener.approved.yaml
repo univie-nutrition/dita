@@ -20,8 +20,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Kaffee, mit Koffein {assocRecp=492}"
-          sid: "01339"
-          facetSids: "0699,0201,1200,0701"
+          sid: "at.gd/2.0:food/01339"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/1200"
           amountConsumed: 150
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -29,8 +29,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Zucker, Kristall"
-          sid: "00992"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00992"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 7.5
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -44,8 +44,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Salat, Eichblatt"
-          sid: "00036"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00036"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -53,8 +53,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salat, Kopf n.s."
-          sid: "00040"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00040"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -62,8 +62,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salat, Romana"
-          sid: "00031"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00031"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -71,8 +71,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salatdressing, Essig/Öl {assocRecp=384}"
-          sid: "01527"
-          facetSids: "0699,0499,1009,1200"
+          sid: "at.gd/2.0:food/01527"
+          facetSids: "at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1009, at.gd/2.0:fd/1200"
           amountConsumed: 12
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -82,8 +82,8 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Salat, Eichblatt"
-          sid: "00036"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00036"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -91,8 +91,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salat, Kopf n.s."
-          sid: "00040"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00040"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -100,8 +100,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salat, Romana"
-          sid: "00031"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00031"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -109,27 +109,29 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salatdressing, Jogurt {assocRecp=334}"
-          sid: "01525"
-          facetSids: "0699,0201,0499,1001,1501,1601"
+          sid: "at.gd/2.0:food/01525"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1001,\
+            \ at.gd/2.0:fd/1501, at.gd/2.0:fd/1601"
           amountConsumed: 12
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking:
             type: "TYPE_OF_FAT_USED"
             name: "Öl, Raps"
-            sid: "00937"
-            facetSids: "1200"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
           typeOfMilkOrLiquidUsedDuringCooking:
             type: "TYPE_OF_MILK_OR_LIQUID_USED"
             name: "Jogurt"
-            sid: "00236"
-            facetSids: "0102,0699,1200,0701,0801"
+            sid: "at.gd/2.0:food/00236"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200"
       - name: "Salat, gemisch mit Joghurtdressing (zubereitet in Rest.)"
         topLevelRecords:
         - type: "FOOD"
           name: "Salat, Eichblatt"
-          sid: "00036"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00036"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -137,8 +139,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salat, Kopf n.s."
-          sid: "00040"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00040"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -146,8 +148,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salat, Romana"
-          sid: "00031"
-          facetSids: "0204,0499,0910,2807"
+          sid: "at.gd/2.0:food/00031"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -155,8 +157,9 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Salatdressing, Jogurt {assocRecp=334}"
-          sid: "01525"
-          facetSids: "0699,0201,0400,1009,1200"
+          sid: "at.gd/2.0:food/01525"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/1009,\
+            \ at.gd/2.0:fd/1200"
           amountConsumed: 12
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -166,8 +169,9 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Pommes frites"
-          sid: "00010"
-          facetSids: "0204,0499,1200,0801,0310"
+          sid: "at.gd/2.0:food/00010"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0310, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -175,15 +179,15 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 25.560001373291016
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Ketchup"
-          sid: "01515"
-          facetSids: "0699,1200"
+          sid: "at.gd/2.0:food/01515"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
           amountConsumed: 28.399999618530273
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -191,8 +195,9 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Pommes frites"
-          sid: "00010"
-          facetSids: "0204,0402,1200,0801,0309"
+          sid: "at.gd/2.0:food/00010"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0402, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -200,15 +205,16 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 11.359999656677246
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Pommes frites"
-          sid: "00010"
-          facetSids: "0204,0402,1200,0801,0307"
+          sid: "at.gd/2.0:food/00010"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0307, at.gd/2.0:fd/0402, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -216,15 +222,16 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 5.679999828338623
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Pommes frites"
-          sid: "00010"
-          facetSids: "0204,0402,1200,0801,0309"
+          sid: "at.gd/2.0:food/00010"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0402, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -232,15 +239,16 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 11.359999656677246
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Pommes frites"
-          sid: "00010"
-          facetSids: "0204,0402,1200,0801,0301"
+          sid: "at.gd/2.0:food/00010"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0402, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -254,8 +262,9 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Kuchen n.s. {assocRecp=638}"
-          sid: "01151"
-          facetSids: "0699,1001,1500,1602,0702"
+          sid: "at.gd/2.0:food/01151"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1001, at.gd/2.0:fd/1500,\
+            \ at.gd/2.0:fd/1602"
           amountConsumed: 80
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -263,8 +272,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Kuchen n.s. {assocRecp=638}"
-          sid: "01151"
-          facetSids: "0699,1006,0702,0801"
+          sid: "at.gd/2.0:food/01151"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/0801, at.gd/2.0:fd/1006"
           amountConsumed: 80
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -272,8 +281,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Kuchen n.s. {assocRecp=638}"
-          sid: "01151"
-          facetSids: "0699,1009,0702"
+          sid: "at.gd/2.0:food/01151"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1009"
           amountConsumed: 80
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -283,8 +292,9 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Topfentorte {assocRecp=434}"
-          sid: "01179"
-          facetSids: "0699,1001,1500,1602,0702"
+          sid: "at.gd/2.0:food/01179"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1001, at.gd/2.0:fd/1500,\
+            \ at.gd/2.0:fd/1602"
           amountConsumed: 88
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -292,8 +302,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FOOD"
           name: "Topfentorte {assocRecp=434}"
-          sid: "01179"
-          facetSids: "0699,1006,0702,0801"
+          sid: "at.gd/2.0:food/01179"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/0801, at.gd/2.0:fd/1006"
           amountConsumed: 88
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -307,8 +317,9 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Fisch, Lachs"
-          sid: "00872"
-          facetSids: "0131,0204,0499,1001,0328,1301,2807"
+          sid: "at.gd/2.0:food/00872"
+          facetSids: "at.gd/2.0:fd/0131, at.gd/2.0:fd/0204, at.gd/2.0:fd/0328, at.gd/2.0:fd/0499,\
+            \ at.gd/2.0:fd/1001, at.gd/2.0:fd/1301, at.gd/2.0:fd/2807"
           amountConsumed: 56.549999237060547
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -316,15 +327,16 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 1.6964999437332153
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
         - type: "FOOD"
           name: "Fisch, Lachs"
-          sid: "00872"
-          facetSids: "0131,0204,0402,1009,0905,0308,1301,2807"
+          sid: "at.gd/2.0:food/00872"
+          facetSids: "at.gd/2.0:fd/0131, at.gd/2.0:fd/0204, at.gd/2.0:fd/0308, at.gd/2.0:fd/0402,\
+            \ at.gd/2.0:fd/0905, at.gd/2.0:fd/1009, at.gd/2.0:fd/1301, at.gd/2.0:fd/2807"
           amountConsumed: 56.549999237060547
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -332,8 +344,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 2.8275001049041748
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -341,8 +353,9 @@ respondents:
         topLevelRecords:
         - type: "FOOD"
           name: "Gemüsemischung n.s."
-          sid: "00017"
-          facetSids: "0204,0499,0910,1200,0307,1302,2807"
+          sid: "at.gd/2.0:food/00017"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0307, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910,\
+            \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2807"
           amountConsumed: 79
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
@@ -350,8 +363,8 @@ respondents:
           typeOfMilkOrLiquidUsedDuringCooking: null
         - type: "FRYING_FAT"
           name: "Öl, Raps"
-          sid: "00937"
-          facetSids: "1200"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 6.3199996948242188
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1

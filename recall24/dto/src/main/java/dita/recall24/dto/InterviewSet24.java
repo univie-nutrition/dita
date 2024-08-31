@@ -196,12 +196,16 @@ permits InterviewSet24.Dto {
 
         public String toJson() {
             return JsonUtils.toStringUtf8(this,
+                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter()),
+                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter()),
                     JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()),
                     JsonUtils::indentedOutput);
         }
 
         public String toYaml() {
             return YamlUtils.toStringUtf8(this,
+                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter()),
+                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter()),
                     JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
         }
 

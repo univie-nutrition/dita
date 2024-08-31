@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import tech.units.indriya.format.SimpleUnitFormat;
 import tech.units.indriya.quantity.Quantities;
@@ -47,10 +48,25 @@ public class JaxbAdapters {
         }
         @Override public String marshal(final SemanticIdentifier v) throws Exception {
             return v!=null
-                    ? v.toString()
+                    ? v.toStringNoBox()
                     : null;
         }
+    }
 
+    public static final class SemanticIdentifierSetAdapter extends XmlAdapter<String, SemanticIdentifierSet>{
+        @Override public SemanticIdentifierSet unmarshal(final String v) throws Exception {
+            try {
+                return SemanticIdentifierSet.parse(v);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
+        }
+        @Override public String marshal(final SemanticIdentifierSet v) throws Exception {
+            return v!=null
+                    ? v.toStringNoBox()
+                    : null;
+        }
     }
 
     public static final class SexAdapter extends XmlAdapter<String, Sex>{
