@@ -43,7 +43,7 @@ class SemanticIdentifierTest {
         BRAND("global", null, "brand",
                 """
                 &^?zu`rüc'k "zu",/ karlovačko!""",
-                "SID[global:brand/"
+                "SID[:brand/"
                 +
                 """
                 ‹&^?zu`rüc'k "zu",/ karlovačko!›"""
