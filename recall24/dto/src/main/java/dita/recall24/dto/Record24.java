@@ -32,7 +32,6 @@ import org.springframework.util.StringUtils;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -41,10 +40,8 @@ import lombok.experimental.Accessors;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
+import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
@@ -74,16 +71,17 @@ permits
      * e.g. food that cannot be identified within the standard food description model (food-list),
      * or other data base, because an appropriate entry is yet missing.
      */
-    @Nullable String sid();
+    SemanticIdentifier sid();
 
     /**
-     * Comma separated list of facet identifiers,
-     * ordered (by some natural order).
+     * Set of qualifying semantic identifiers (ordered by some natural order).
      */
-    String facetSids();
+    SemanticIdentifierSet facetSids();
 
     default public String discriminator() {
-        return _Strings.nullToEmpty(sid()) + ";" + _Strings.nullToEmpty(facetSids());
+        return (sid().isEmpty() ? "" : sid().toStringNoBox())
+                + ";"
+                + facetSids().toString();
     }
 
     public static enum Type {
@@ -171,25 +169,29 @@ permits
             onRecord.accept(level, this);
         }
 
-        /**
-         * Converts {@link #sid()} to a {@link SemanticIdentifier}.
-         */
-        default SemanticIdentifier sidFullyQualified(
-                final SystemId systemId,
-                final ObjectId.Context context) {
-            return new SemanticIdentifier(systemId, new ObjectId(context, sid()));
+        default QualifiedMapKey asQualifiedMapKey() {
+            return new QualifiedMapKey(sid(), facetSids());
         }
 
-        /**
-         * Converts {@link #facetSids()} to a {@link SemanticIdentifierSet}.
-         */
-        default SemanticIdentifierSet facetSidsFullyQualified(
-                final SystemId systemId,
-                final ObjectId.Context context) {
-            return SemanticIdentifierSet.ofStream(
-                    _Strings.splitThenStream(facetSids(), ",")
-                        .map(facetSid->new SemanticIdentifier(systemId, new ObjectId(context, facetSid))));
-        }
+//        /**
+//         * Converts {@link #sid()} to a {@link SemanticIdentifier}.
+//         */
+//        default SemanticIdentifier sidFullyQualified(
+//                final SystemId systemId,
+//                final ObjectId.Context context) {
+//            return new SemanticIdentifier(systemId, new ObjectId(context, sid()));
+//        }
+//
+//        /**
+//         * Converts {@link #facetSids()} to a {@link SemanticIdentifierSet}.
+//         */
+//        default SemanticIdentifierSet facetSidsFullyQualified(
+//                final SystemId systemId,
+//                final ObjectId.Context context) {
+//            return SemanticIdentifierSet.ofStream(
+//                    _Strings.splitThenStream(facetSids(), ",")
+//                        .map(facetSid->new SemanticIdentifier(systemId, new ObjectId(context, facetSid))));
+//        }
     }
 
     /**
@@ -201,8 +203,8 @@ permits
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
             Type type,
             String name,
-            String sid,
-            String facetSids,
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids,
             /**
              * Nested records.
              */
@@ -247,12 +249,11 @@ permits
 
         /**
          * Convert to a {@link FoodConsumption}.
-         * @param ctx1
          */
-        default FoodConsumption asFoodConsumption(final SystemId systemId) {
-            var foodId = sidFullyQualified(systemId, Context.FOOD);
-            var facetIdSet = facetSidsFullyQualified(systemId, Context.FOOD_DESCRIPTOR);
-            return new FoodConsumption(name(), foodId, facetIdSet, consumptionUnit(), amountConsumed());
+        default FoodConsumption asFoodConsumption() {
+            return new FoodConsumption(
+                    name(), sid(), facetSids(),
+                    consumptionUnit(), amountConsumed());
         }
     }
 
@@ -266,8 +267,8 @@ permits
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
             Type type,
             String name,
-            String sid,
-            String facetSids,
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio,
@@ -302,8 +303,8 @@ permits
             ObjectRef<Food> parentFoodRef,
             Type type,
             String name,
-            String sid,
-            String facetSids
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids
             ) implements Record24.Dto {
 
         public Food parentFood() {
@@ -328,8 +329,8 @@ permits
             ObjectRef<Food> parentFoodRef,
             Type type,
             String name,
-            String sid,
-            String facetSids
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids
             ) implements Record24.Dto {
         @Override
         public Builder24<Dto> asBuilder() {
@@ -350,8 +351,8 @@ permits
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
             Type type,
             String name,
-            String sid,
-            String facetSids,
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio
@@ -378,8 +379,8 @@ permits
             ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
             Type type,
             String name,
-            String sid,
-            String facetSids,
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio
@@ -403,12 +404,12 @@ permits
             /**
              * Identifier of this record.
              */
-            final String sid,
+            final SemanticIdentifier sid,
             /**
              * Comma separated list of facet identifiers,
              * ordered (by some natural order).
              */
-            final String facetSids,
+            final SemanticIdentifierSet facetSids,
             final Can<? extends Record24> subRecords) {
         var composite = new Composite(ObjectRef.empty(), Record24.Type.COMPOSITE,
                 name, sid, facetSids, subRecords);
@@ -424,12 +425,11 @@ permits
             /**
              * Identifier of this record.
              */
-            final String sid,
+            final SemanticIdentifier sid,
             /**
-             * Comma separated list of facet identifiers,
-             * ordered (by some natural order).
+             * Set of qualifying semantic identifiers (ordered by some natural order).
              */
-            final String facetSids,
+            final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio) {
@@ -445,12 +445,11 @@ permits
             /**
              * Identifier of this record.
              */
-            final String sid,
+            final SemanticIdentifier sid,
             /**
-             * Comma separated list of facet identifiers,
-             * ordered (by some natural order).
+             * Set of qualifying semantic identifiers (ordered by some natural order).
              */
-            final String facetSids,
+            final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio) {
@@ -466,12 +465,11 @@ permits
             /**
              * Identifier of this record.
              */
-            final String sid,
+            final SemanticIdentifier sid,
             /**
-             * Comma separated list of facet identifiers,
-             * ordered (by some natural order).
+             * Set of qualifying semantic identifiers (ordered by some natural order).
              */
-            final String facetSids,
+            final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio,
@@ -501,8 +499,8 @@ permits
      */
     public static TypeOfFatUsed typeOfFatUsed(
             final String name,
-            final String sid,
-            final String facetSids) {
+            final SemanticIdentifier sid,
+            final SemanticIdentifierSet facetSids) {
         return new Record24.TypeOfFatUsed(ObjectRef.empty(), ObjectRef.empty(),
                 Record24.Type.TYPE_OF_FAT_USED,
                 name, sid, facetSids);
@@ -513,8 +511,8 @@ permits
      */
     public static TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed(
             final String name,
-            final String sid,
-            final String facetSids) {
+            final SemanticIdentifier sid,
+            final SemanticIdentifierSet facetSids) {
         return new Record24.TypeOfMilkOrLiquidUsed(ObjectRef.empty(), ObjectRef.empty(),
                 Record24.Type.TYPE_OF_MILK_OR_LIQUID_USED,
                 name, sid, facetSids);
@@ -528,8 +526,8 @@ permits
         private final Record24.Type type;
 
         private String name;
-        private String sid;
-        private String facetSids;
+        private SemanticIdentifier sid;
+        private SemanticIdentifierSet facetSids;
         private BigDecimal amountConsumed;
         private ConsumptionUnit consumptionUnit;
         private BigDecimal rawPerCookedRatio;

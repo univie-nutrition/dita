@@ -205,8 +205,13 @@ public record SemanticIdentifier (
 
         // -- WITHER
 
-        public ObjectId withContext(final String context) {
+        public ObjectId withContext(final @Nullable String context) {
             return new ObjectId(context, objectSimpleId());
+        }
+        public ObjectId withContext(final @Nullable Context context) {
+            return context!=null
+                    ? withContext(context.id())
+                    : withContext((String)null);
         }
         public ObjectId withObjectSimpleId(final String objectSimpleId) {
             return new ObjectId(context(), objectSimpleId);
@@ -255,8 +260,10 @@ public record SemanticIdentifier (
 
     // -- SID IMPL
 
+    private static final SemanticIdentifier EMPTY = new SemanticIdentifier(SystemId.empty(), ObjectId.empty());
+
     public static SemanticIdentifier empty() {
-        return new SemanticIdentifier(SystemId.empty(), ObjectId.empty());
+        return EMPTY;
     }
 
     public static SemanticIdentifier parse(final String systemId, final String objectId) {
@@ -291,6 +298,13 @@ public record SemanticIdentifier (
         return withObjectId(objectIdMapper.apply(objectId()));
     }
 
+    // -- PREDICATES
+
+    public boolean isEmpty() {
+        return EMPTY.equals(this);
+    }
+
+    // -- CONTRACT
 
     @Override
     public int compareTo(final @Nullable SemanticIdentifier o) {

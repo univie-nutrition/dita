@@ -20,6 +20,10 @@ package dita.globodiet.survey.recall24;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -29,8 +33,12 @@ import org.apache.causeway.commons.internal.base._Strings;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
+import dita.globodiet.survey.dom.SidUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
@@ -107,7 +115,9 @@ class _InterviewConverter {
             _Assert.assertTrue(subRecordCount>0, ()->"'recipe' record is expected to have at least one sub-record");
 
             yield Record24.composite(
-                listEntry.getName(), listEntry.getFoodOrSimilarCode(), facets(listEntry),
+                listEntry.getName(),
+                recipeSid(listEntry),
+                recipeFacets(listEntry),
                 toRecords24(subEntries));
         }
         default -> toRecord24(topLevelRecordNode);
@@ -131,27 +141,27 @@ class _InterviewConverter {
             var usedDuringCooking = subRecordCount>0
                  ? toRecords24(subEntries)
                  : Can.<Record24.Dto>empty();
-            usedDuringCooking.forEach((Record24.Dto dto)->{
+            usedDuringCooking.forEach((final Record24.Dto dto)->{
                 switch (dto.type()) {
                     case TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> { /* valid */}
                     default -> throw new IllegalArgumentException("Unexpected value: " + dto);
                 }
             });
             yield Record24.food(
-                listEntry.getName(), listEntry.getFoodOrSimilarCode(), facets(listEntry),
+                listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
                 usedDuringCooking);
         }
         case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
             yield Record24.fryingFat(
-                listEntry.getName(), listEntry.getFoodOrSimilarCode(), facets(listEntry),
+                listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
         }
         case DietarySupplement -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
             yield Record24.product(
-                listEntry.getName(), listEntry.getFoodOrSimilarCode(), facets(listEntry),
+                listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
         }
         case FatSauceOrSweeteners -> null; // redundant: ignore
@@ -159,15 +169,15 @@ class _InterviewConverter {
             _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfFatUsedFacet' record is expected to have no sub-records");
             yield Record24.typeOfFatUsed(
                     listEntry.getName(),
-                    listEntry.getFoodOrSimilarCode(),
-                    facets(listEntry));
+                    foodSid(listEntry),
+                    foodFacets(listEntry));
         }
         case TypeOfMilkOrLiquidUsedFacet -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfMilkOrLiquidUsedFacet' record is expected to have no sub-records");
             yield Record24.typeOfMilkOrLiquidUsed(
                     listEntry.getName(),
-                    listEntry.getFoodOrSimilarCode(),
-                    facets(listEntry));
+                    foodSid(listEntry),
+                    foodFacets(listEntry));
         }
         default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
         };
@@ -179,37 +189,6 @@ class _InterviewConverter {
     private Meal24.Dto toMeal24(final ListEntry listEntry, final Can<MemorizedFood24.Dto> memorizedFood) {
         LocalTime hourOfDay = parseLocalTimeFrom4Digits(listEntry.getFoodConsumptionHourOfDay().trim());
         return Meal24.Dto.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
-    }
-
-    static String BRAND_FACET_CODE = "12"; //TODO[DITA-25] instead can auto-detect based on facet type = BRAND
-
-    /**
-     * appends the brand-name
-     * e.g. {@code 0105,0200,0598,12[spar]} to the facet list, if present
-     */
-    private static String facets(final ListEntry listEntry) {
-        var brandName = _Strings.nonEmpty(listEntry.getBrandName())
-                .map(String::toLowerCase)
-                //TODO[DITA-25] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
-                //exclude if brand-name is just a placeholder
-                .filter(name->!name.equals("marke / produktname unbekannt"))
-                .map(name->name.replace(",", " "))
-                .map(name->_Strings.condenseWhitespaces(name, "_"))
-                .map(name->{
-                    _Assert.assertFalse(name.contains("]"),
-                            ()->"brand-name cannot contain character ']' got: " + name);
-                    _Assert.assertFalse(name.contains(","),
-                            ()->"brand-name cannot contain character ',' got: " + name);
-                    _Assert.assertFalse(name.contains(" "),
-                            ()->"brand-name cannot contain character ' ' got: " + name);
-                    return BRAND_FACET_CODE + "[" + name + "]";
-                })
-                .orElse(null);
-        return brandName == null
-                ? listEntry.getFacetDescriptorCodes()
-                : _Strings.nonEmpty(listEntry.getFacetDescriptorCodes())
-                    .map(x->x + "," + brandName)
-                    .orElse(brandName);
     }
 
     /**
@@ -232,13 +211,52 @@ class _InterviewConverter {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-//    private SemanticIdentifier semanticIdentifier(final String systemId, final ListEntry listEntry) {
-//        return new SemanticIdentifier(systemId, listEntry.getFoodOrSimilarCode());
-//    }
-//
-//    private SemanticIdentifierSet semanticIdentifierSet(final String systemId, final ListEntry listEntry) {
-//        return SemanticIdentifierSet.ofStream(_Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")
-//                .map(facetId->new SemanticIdentifier(systemId, facetId)));
-//    }
+    private static SemanticIdentifier foodSid(final ListEntry listEntry) {
+        return new SemanticIdentifier(
+                SidUtils.globoDietSystemId(),
+                ObjectId.Context.FOOD.objectId(listEntry.getFoodOrSimilarCode()));
+    }
+
+    private static SemanticIdentifier recipeSid(final ListEntry listEntry) {
+        return new SemanticIdentifier(
+                SidUtils.globoDietSystemId(),
+                ObjectId.Context.RECIPE.objectId(listEntry.getFoodOrSimilarCode()));
+    }
+
+    private static SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
+        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.FOOD_DESCRIPTOR, listEntry)
+                .map(objectId->new SemanticIdentifier(SidUtils.globoDietSystemId(), objectId)));
+    }
+
+    private static SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
+        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.RECIPE_DESCRIPTOR, listEntry)
+                .map(objectId->new SemanticIdentifier(SidUtils.globoDietSystemId(), objectId)));
+    }
+
+    /**
+     * includes brand name, if any
+     */
+    private static Stream<ObjectId> streamFacetObjectIds(
+            final @Nullable ObjectId.Context context,
+            final ListEntry listEntry) {
+        return Stream.concat(
+                _Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")
+                    .filter(_Strings::isNotEmpty)
+                    .map(objSimpleId->new ObjectId(context, objSimpleId)),
+                canonicalBrandName(listEntry)
+                    .map(ObjectId.Context.BRAND::objectId)
+                    .stream()
+                );
+    }
+
+    private static Optional<String> canonicalBrandName(final ListEntry listEntry){
+        return  _Strings.nonEmpty(listEntry.getBrandName())
+            .map(String::toLowerCase)
+            //TODO[DITA-25] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
+            //exclude if brand-name is just a placeholder
+            .filter(name->!name.equals("marke / produktname unbekannt"))
+            .map(name->name.replace(",", " "))
+            .map(name->_Strings.condenseWhitespaces(name, "_"));
+    }
 
 }

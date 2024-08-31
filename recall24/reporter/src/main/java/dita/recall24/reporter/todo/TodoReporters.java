@@ -48,7 +48,7 @@ public class TodoReporters {
                 .forEach((final RecallNode24 node)->{
                     switch(node) {
                         case Record24.Consumption cRec -> {
-                            var mapKey = cRec.asFoodConsumption(systemId).qualifiedMapKey();
+                            var mapKey = cRec.asQualifiedMapKey();
                             var mapEntry = nutMapping.lookupEntry(mapKey);
                             if(!mapEntry.isPresent()) {
                                 unmapped.add(mapKey);

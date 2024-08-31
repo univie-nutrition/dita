@@ -116,11 +116,11 @@ public class TabularReporters {
             private int respondentOrdinal;
 
             // factory method for composites
-            ConsumptionRecord compositeHeader(final SystemId systemId, final Record24.Composite comp) {
+            ConsumptionRecord compositeHeader(final Record24.Composite comp) {
                 return builder
                     .food(comp.name())
-                    .foodId(comp.sidFullyQualified(systemId, ObjectId.Context.RECIPE).toStringNoBox())
-                    .facetIds(comp.facetSidsFullyQualified(systemId, ObjectId.Context.RECIPE_DESCRIPTOR).fullFormat(","))
+                    .foodId(comp.sid().toStringNoBox())
+                    .facetIds(comp.facetSids().toStringNoBox())
                     .quantity(null)
                     .fcdbId(null)
                     .GCALZB(null)
@@ -129,12 +129,12 @@ public class TabularReporters {
             // factory method for consumptions
             ConsumptionRecord consumption(
                     final Record24.Consumption cRec,
-                    final FoodConsumption foodConsumption,
                     final Optional<FoodComposition> compositionEntry){
+                final FoodConsumption foodConsumption = cRec.asFoodConsumption();
                 return builder
-                    .food(foodConsumption.name())
-                    .foodId(foodConsumption.foodId().toStringNoBox())
-                    .facetIds(foodConsumption.facetIds().fullFormat(","))
+                    .food(cRec.name())
+                    .foodId(cRec.sid().toStringNoBox())
+                    .facetIds(cRec.facetSids().toStringNoBox())
                     .quantity(cRec.amountConsumed())
                     .fcdbId(compositionEntry
                             .map(FoodComposition::foodId)
@@ -189,16 +189,16 @@ public class TabularReporters {
                         }
                     }
                     case Meal24.Dto meal -> {
-                        rowBuilder.fco(meal.foodConsumptionOccasionId());
-                        rowBuilder.poc(meal.foodConsumptionPlaceId());
-                        var fcoLabel = fcoMapping.lookupEntry(
-                                new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId())), fcoQualifier)
+                        var fcoCode = new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId()));
+                        var pocCode = new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId()));
+                        rowBuilder.fco(fcoCode.toStringNoBox());
+                        rowBuilder.poc(pocCode.toStringNoBox());
+                        var fcoLabel = fcoMapping.lookupEntry(fcoCode, fcoQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
                             .map(ObjectId::objectSimpleId)
                             .orElse("?");
-                        var pocLabel = pocMapping.lookupEntry(
-                                new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId())), pocQualifier)
+                        var pocLabel = pocMapping.lookupEntry(pocCode, pocQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
                             .map(ObjectId::objectSimpleId)
@@ -213,23 +213,27 @@ public class TabularReporters {
                         rowBuilder.subgroup("wip");
                         rowBuilder.subSubgroup("wip");
                         consumptions.add(
-                                rowFactory.compositeHeader(systemId, comp));
+                                rowFactory.compositeHeader(comp));
                     }
                     case Record24.Consumption cRec -> {
                         rowFactory.recordType(cRec.type());
                         rowBuilder.group("wip");
                         rowBuilder.subgroup("wip");
                         rowBuilder.subSubgroup("wip");
-                        var foodConsumption = cRec.asFoodConsumption(systemId);
-                        var compositionEntry = nutMapping
-                                .lookupEntry(foodConsumption.qualifiedMapKey())
-                                .map(QualifiedMapEntry::target)
+                        var mappingTarget = nutMapping
+                                .lookupTarget(cRec.asQualifiedMapKey());
+                        var compositionEntry = mappingTarget
                                 .flatMap(foodCompositionRepo::lookupEntry);
-                        if(!compositionEntry.isPresent()) {
-                            //unmapped.add(mapKey);
-                        }
+//                        if(!mappingTarget.isPresent()) {
+//                            //unmapped.add(mapKey);
+//                            throw _Exceptions.noSuchElement("no mappingTarget for %s", foodConsumption.qualifiedMapKey());
+//                        }
+//                        if(!compositionEntry.isPresent()) {
+//                            //unmapped.add(mapKey);
+//                            throw _Exceptions.noSuchElement("no compositionEntry for %s", mappingTarget.get());
+//                        }
                         consumptions.add(
-                                rowFactory.consumption(cRec, foodConsumption, compositionEntry));
+                                rowFactory.consumption(cRec, compositionEntry));
                     }
                     default -> {}
                 }

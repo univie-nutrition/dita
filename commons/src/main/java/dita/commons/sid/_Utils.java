@@ -18,7 +18,9 @@
  */
 package dita.commons.sid;
 
+import java.util.ArrayList;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.lang.Nullable;
@@ -43,6 +45,7 @@ class _Utils {
     String BOX_END = "]";
     char QUOTATION_START = '‹';
     char QUOTATION_END = '›';
+    char SET_DELIMITER = ',';
 
     // -- FORMATTER
 
@@ -62,6 +65,16 @@ class _Utils {
     String formatUnboxed(final @NonNull SemanticIdentifier sid) {
         return sid.systemId().toString()
                 + OUTER_DELIMITER + sid.objectId().toString();
+    }
+    String formatBoxed(final @NonNull SemanticIdentifierSet semanticIdentifierSet) {
+        return semanticIdentifierSet.elements().stream()
+                .map(_Utils::formatBoxed)
+                .collect(Collectors.joining(", "));
+    }
+    String formatUnboxed(final @NonNull SemanticIdentifierSet semanticIdentifierSet) {
+        return semanticIdentifierSet.elements().stream()
+                .map(_Utils::formatUnboxed)
+                .collect(Collectors.joining(", "));
     }
 
     // -- PARSER
@@ -112,6 +125,41 @@ class _Utils {
                     SystemId.parse(lhs),
                     ObjectId.parse(rhs)),
                 _->{throw _Exceptions.illegalArgument("cannot parse '%s' as SemanticIdentifier", stringified);});
+    }
+
+    SemanticIdentifierSet parseSidSet(final @Nullable String stringifiedSet) {
+        if(_Strings.isEmpty(stringifiedSet)) return SemanticIdentifierSet.empty();
+        // inner class
+        class Helper {
+            String remainder;
+            int nextSetDelimiterIndex(final int offset) {
+                final int c1 = remainder.indexOf(SET_DELIMITER, offset);
+                if(c1>-1) {
+                    final int c2 = remainder.indexOf(QUOTATION_START, offset);
+                    if(c2>-1) {
+                        final int c3 = remainder.indexOf(QUOTATION_END, offset);
+                        if(c3<0) {
+                            throw _Exceptions.illegalArgument("escaped literal must end with " + QUOTATION_END + " character");
+                        }
+                        if(c2<c1) {
+                            // skip ahead after c3
+                            return nextSetDelimiterIndex(c3+1);
+                        }
+                    }
+                }
+                return c1;
+            }
+        }
+        var helper = new Helper();
+        helper.remainder = stringifiedSet;
+        int nextSetDelimiterIndex = 0;
+        var sids = new ArrayList<SemanticIdentifier>();
+        while((nextSetDelimiterIndex = helper.nextSetDelimiterIndex(nextSetDelimiterIndex)) > -1) {
+            sids.add(parseSid(helper.remainder.substring(0, nextSetDelimiterIndex).trim()));
+            helper.remainder = helper.remainder.substring(nextSetDelimiterIndex + 1);
+        }
+        sids.add(parseSid(helper.remainder.trim()));
+        return SemanticIdentifierSet.ofCollection(sids);
     }
 
     // -- VALIDATE
@@ -177,11 +225,11 @@ class _Utils {
         if(_Strings.isEmpty(in)) return;
         if(in.indexOf(QUOTATION_START)>-1) {
             throw _Exceptions.illegalArgument(
-                    "literal must not contain " + QUOTATION_START + " character");
+                    "literal must not contain " + QUOTATION_START + " character in '%s'", in);
         }
         if(in.indexOf(QUOTATION_END)>-1) {
             throw _Exceptions.illegalArgument(
-                    "literal must not contain " + QUOTATION_END + " character");
+                    "literal must not contain " + QUOTATION_END + " character in '%s'", in);
         }
     }
 
@@ -201,6 +249,5 @@ class _Utils {
         }
         return false;
     }
-
 
 }

@@ -54,7 +54,8 @@ public record SemanticIdentifierSet(
         if(_NullSafe.isEmpty(collection)) {
             return EMPTY;
         }
-        return new SemanticIdentifierSet(Can.ofCollection(collection).sorted(SemanticIdentifier::compare));
+        return new SemanticIdentifierSet(Can.ofCollection(collection)
+                .sorted(SemanticIdentifier::compare));
     }
 
     public static SemanticIdentifierSet ofStream(final @Nullable Stream<SemanticIdentifier> stream) {
@@ -74,7 +75,31 @@ public record SemanticIdentifierSet(
                         .map(facetId->SemanticIdentifier.parse(systemId, facetId)));
     }
 
-    // --
+    // -- CONSTRUCTION
+
+    public SemanticIdentifierSet(final @Nullable Can<SemanticIdentifier> elements) {
+        this.elements = elements!=null
+                ? elements.filter(sid->!sid.isEmpty())
+                : Can.empty();
+    }
+
+    // -- PARSE
+
+    public static SemanticIdentifierSet parse(final @Nullable String stringified) {
+        return _Utils.parseSidSet(stringified);
+    }
+
+    // -- TO STRING
+
+    @Override
+    public final String toString() {
+        return _Utils.formatBoxed(this);
+    }
+    public String toStringNoBox() {
+        return _Utils.formatUnboxed(this);
+    }
+
+    // -- CONMPARE
 
     @Override
     public int compareTo(final SemanticIdentifierSet o) {

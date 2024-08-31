@@ -65,6 +65,11 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var foodCompositionRepo = loadFcdb();
         assertEquals(14814, foodCompositionRepo.compositionCount());
 
+        nutMapping.streamEntries()
+            .limit(20)
+            .forEach(e->System.err.printf("nut map: %s%n", e));
+
+
         var interviewSet = loadInterviewSet();
 
         var stats = new Recall24SummaryStatistics();
@@ -119,7 +124,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     implements Consumer<Record24.Consumption> {
         @Override
         public void accept(final Record24.Consumption rec) {
-            var mapKey = rec.asFoodConsumption(systemId).qualifiedMapKey();
+            var mapKey = rec.asQualifiedMapKey();
             var mapEntry = nutMapping.lookupEntry(mapKey);
             if(mapEntry.isPresent()) {
                 stats.consumptionStats().mappedCount().increment();
