@@ -44,7 +44,7 @@ class FoodCompositionRepositoryTest {
         System.err.printf("AFTER%n%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
-                .lookupEntryElseFail(SemanticIdentifier.parse("bls/3.02", "comp/KMD"));
+                .lookupEntryElseFail(SemanticIdentifier.parse("de.bls/3.02", "comp/KMD"));
 
         assertNotNull(blsZuckerGesamt);
     }
