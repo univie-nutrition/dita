@@ -43,7 +43,7 @@ import dita.commons.sid.SemanticIdentifierSet;
 
 class FoodTest {
 
-    private SemanticIdentifier blsBananaId = new SemanticIdentifier("bls", "F503100"); // Banana raw
+    private SemanticIdentifier blsBananaId = SemanticIdentifier.parse("de.bls/3.02", "food/F503100"); // Banana raw
 
     @Test
     void qMapCreation() {
@@ -55,7 +55,7 @@ class FoodTest {
         //System.err.printf("%s%n", foodCompositionRepo.toYaml());
 
         final FoodComponent blsZuckerGesamt = foodCompositionRepo.componentCatalog()
-                .lookupEntryElseFail(new SemanticIdentifier("bls", "KMD"));
+                .lookupEntryElseFail(SemanticIdentifier.parse("de.bls/3.02", "comp/KMD"));
 
         // setup nutrient mapping
         final QualifiedMap qMap = createQMap();
@@ -112,8 +112,8 @@ class FoodTest {
     }
 
     FoodConsumption createFoodConsumption() {
-        var gdBanana = new SemanticIdentifier("gd", "00136"); // Banana
-        var gdFacetRaw = new SemanticIdentifier("gd", "0399");
+        var gdBanana = SemanticIdentifier.parse("at.gd/2.0", "food/00136"); // Banana
+        var gdFacetRaw = SemanticIdentifier.parse("at.gd/2.0", "fd/0399");
         var facets = new SemanticIdentifierSet(Can.of(gdFacetRaw));
         var bananaConsumption = new FoodConsumption("Banana",  gdBanana, facets, ConsumptionUnit.GRAM, new BigDecimal(64));
         return bananaConsumption;

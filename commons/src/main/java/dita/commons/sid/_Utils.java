@@ -53,8 +53,8 @@ class _Utils {
     }
     String format(final @NonNull ObjectId objectId) {
         return StringUtils.hasLength(objectId.context())
-                ? objectId.context() + INNER_DELIMITER + escapeLiteral(objectId.object())
-                : escapeLiteral(objectId.object());
+                ? objectId.context() + INNER_DELIMITER + escapeLiteral(objectId.objectSimpleId())
+                : escapeLiteral(objectId.objectSimpleId());
     }
     String formatBoxed(final @NonNull SemanticIdentifier sid) {
         return BOX_START + formatUnboxed(sid) + BOX_END;

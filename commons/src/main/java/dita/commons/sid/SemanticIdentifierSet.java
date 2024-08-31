@@ -71,7 +71,7 @@ public record SemanticIdentifierSet(
                 ? EMPTY
                 : SemanticIdentifierSet.ofStream(
                     facetIds
-                        .map(facetId->new SemanticIdentifier(systemId, facetId)));
+                        .map(facetId->SemanticIdentifier.parse(systemId, facetId)));
     }
 
     // --

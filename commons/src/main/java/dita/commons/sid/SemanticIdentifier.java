@@ -147,15 +147,15 @@ public record SemanticIdentifier (
             /**
              * Uniquely identifies the data object within the system's context.
              */
-            String object) implements Comparable<ObjectId> {
+            String objectSimpleId) implements Comparable<ObjectId> {
 
         /**
          * Some predefined contexts.
          */
         @RequiredArgsConstructor
         public enum Context {
-            LITERAL("lit"),
-            LANGUAGE("lang"),
+            LITERAL("literal"),
+            LANGUAGE("language"),
             COMPONENT("comp"),
             FOOD("food"),
             RECIPE("recp"),
@@ -167,6 +167,16 @@ public record SemanticIdentifier (
             ;
             @Getter @Accessors(fluent=true)
             final String id;
+            // -- FACTORIES
+            public ObjectId objectId(final String object) {
+                return new ObjectId(id(), object);
+            }
+            public SemanticIdentifier sid(final String object) {
+                return sid(SystemId.empty(), object);
+            }
+            public SemanticIdentifier sid(final SystemId systemId, final String object) {
+                return new SemanticIdentifier(systemId, objectId(object));
+            }
         }
 
         public static ObjectId empty() {
@@ -177,9 +187,9 @@ public record SemanticIdentifier (
             return _Utils.parseObjectId(objectIdStringified);
         }
 
-        public ObjectId(final String context, final String object) {
+        public ObjectId(final String context, final String objectSimpleId) {
             this.context = _Utils.validate(context);
-            this.object = _Utils.validateObject(object);
+            this.objectSimpleId = _Utils.validateObject(objectSimpleId);
         }
 
         public ObjectId(final @NonNull Context context, final String object) {
@@ -196,7 +206,7 @@ public record SemanticIdentifier (
         // -- WITHER
 
         public ObjectId withContext(final String context) {
-            return new ObjectId(context, object());
+            return new ObjectId(context, objectSimpleId());
         }
         public ObjectId withObject(final String object) {
             return new ObjectId(context(), object);
@@ -208,7 +218,7 @@ public record SemanticIdentifier (
             return withContext(contextMapper.apply(context()));
         }
         public ObjectId mapObject(final UnaryOperator<String> objectMapper) {
-            return withObject(objectMapper.apply(object()));
+            return withObject(objectMapper.apply(objectSimpleId()));
         }
 
         // -- CONTRACT
@@ -238,7 +248,7 @@ public record SemanticIdentifier (
             return c!=0
                 ? c
                 // TODO should use DEWEY compare here
-                : _Strings.compareNullsFirst(a.object(), b.object());
+                : _Strings.compareNullsFirst(a.objectSimpleId(), b.objectSimpleId());
         }
 
     }
@@ -249,8 +259,8 @@ public record SemanticIdentifier (
         return new SemanticIdentifier(SystemId.empty(), ObjectId.empty());
     }
 
-    public SemanticIdentifier(final String systemId, final String objectId) {
-        this(SystemId.parse(systemId), ObjectId.parse(objectId));
+    public static SemanticIdentifier parse(final String systemId, final String objectId) {
+        return new SemanticIdentifier(SystemId.parse(systemId), ObjectId.parse(objectId));
     }
 
     // -- PARSER

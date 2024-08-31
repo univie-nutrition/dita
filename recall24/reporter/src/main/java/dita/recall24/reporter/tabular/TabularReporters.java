@@ -195,16 +195,14 @@ public class TabularReporters {
                                 new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId())), fcoQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
-                            .map(ObjectId::toString)
-                            .orElse("?")
-                            .replace('_', ' ');
+                            .map(ObjectId::objectSimpleId)
+                            .orElse("?");
                         var pocLabel = pocMapping.lookupEntry(
                                 new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId())), pocQualifier)
                             .map(QualifiedMapEntry::target)
                             .map(SemanticIdentifier::objectId)
-                            .map(ObjectId::toString)
-                            .orElse("?")
-                            .replace('_', ' ');
+                            .map(ObjectId::objectSimpleId)
+                            .orElse("?");
                         var timeOfDayLabel = meal.hourOfDay().format(hourOfDayFormat);
                         rowBuilder.meal(String.format("%s (%s) @ %s",
                                 fcoLabel, timeOfDayLabel, pocLabel));

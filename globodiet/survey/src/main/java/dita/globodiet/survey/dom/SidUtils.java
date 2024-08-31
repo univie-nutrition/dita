@@ -18,16 +18,26 @@
  */
 package dita.globodiet.survey.dom;
 
+import java.util.List;
+
 import lombok.experimental.UtilityClass;
 
+import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.SemanticIdentifierSet;
 
-@Deprecated
+// perhaps move to commons
 @UtilityClass
-public class _SystemIds {
+public class SidUtils {
 
+    @Deprecated
     public SystemId globoDietSystemId() {
         return new SystemId("at.gd", "2.0"); //TODO get from Campaign or Survey?
+    }
+
+    public SemanticIdentifierSet languageQualifier(final String languageId) {
+        return SemanticIdentifierSet.ofCollection(List.of(
+                ObjectId.Context.LANGUAGE.sid(languageId)));
     }
 
 }

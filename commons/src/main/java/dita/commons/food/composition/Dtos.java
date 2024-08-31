@@ -80,7 +80,7 @@ class Dtos {
             var unscaledVal = parts.getElseFail(3);
             var scale = parts.getElseFail(4);
             return new FoodComponentDatapointProxy(
-                    new SemanticIdentifier(systemId, objectId),
+                    SemanticIdentifier.parse(systemId, objectId),
                     datapointSemantic,
                     new BigDecimal(new BigInteger(unscaledVal), Integer.valueOf(scale)));
         }

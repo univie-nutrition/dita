@@ -25,6 +25,6 @@ class OntoTermTest {
     }
 
     private static SemanticIdentifier sid(final String objedId) {
-        return new SemanticIdentifier("gd", objedId);
+        return SemanticIdentifier.parse("at.gd/2.0", objedId);
     }
 }

@@ -37,10 +37,10 @@ import dita.commons.sid.SemanticIdentifier;
 @UtilityClass
 class FoodCompositionSampler {
 
-    private SemanticIdentifier blsBananaId = new SemanticIdentifier("bls", "F503100"); // Banana raw
+    private SemanticIdentifier blsBananaId = SemanticIdentifier.parse("de.bls/3.02", "food/F503100"); // Banana raw
     // food components may have different units, e.g. GRAM, kcal, etc.
     private FoodComponent blsZuckerGesamt = new FoodComponent(
-            new SemanticIdentifier("bls", "KMD"),
+            SemanticIdentifier.parse("de.bls/3.02", "comp/KMD"),
             MetricPrefix.MILLI,
             ComponentUnit.GRAM);
 

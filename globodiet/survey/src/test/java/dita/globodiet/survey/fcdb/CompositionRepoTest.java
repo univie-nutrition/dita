@@ -68,11 +68,11 @@ class CompositionRepoTest extends DitaGdSurveyIntegrationTest {
         lines.add("foodId," + BLS302.streamComponents()
             .map(BLS302.Component::componentId)
             .map(SemanticIdentifier::objectId)
-            .map(ObjectId::object)
+            .map(ObjectId::objectSimpleId)
             .collect(Collectors.joining(",")));
 
         repo.streamCompositions()
-        .sorted((a, b)->_Strings.compareNullsFirst(a.foodId().objectId().object(), b.foodId().objectId().object()))
+        .sorted((a, b)->_Strings.compareNullsFirst(a.foodId().objectId().objectSimpleId(), b.foodId().objectId().objectSimpleId()))
         .forEach(comp->{
             lines.add(
                     comp.foodId().objectId()

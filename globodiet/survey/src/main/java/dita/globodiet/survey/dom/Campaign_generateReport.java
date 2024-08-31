@@ -20,7 +20,6 @@
 package dita.globodiet.survey.dom;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import jakarta.inject.Inject;
 
@@ -37,8 +36,6 @@ import org.apache.causeway.applib.value.Blob;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.format.FormatUtils;
-import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifierSet;
 import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -71,11 +68,12 @@ public class Campaign_generateReport {
         var pocMapping = Campaigns.pocMapping(mixee, surveyBlobStore);
         var foodCompositionRepo = Campaigns.fcdb(mixee, surveyBlobStore);
 
-        var systemId = _SystemIds.globoDietSystemId();
+        var systemId = SidUtils.globoDietSystemId();
+
         var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
                 nutMapping,
-                fcoMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
-                pocMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
+                fcoMapping, SidUtils.languageQualifier("de"),
+                pocMapping, SidUtils.languageQualifier("de"),
                 foodCompositionRepo,
                 aggregation);
 

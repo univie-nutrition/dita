@@ -23,8 +23,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.sid.SemanticIdentifier;
-
 @UtilityClass
 public class LanguaL {
 
@@ -102,9 +100,9 @@ public class LanguaL {
         final String letterCode;
         final FacetCharacteristic characteristic;
 
-        public SemanticIdentifier facetId(final String systemId, final String facetTermCode) {
-            return new SemanticIdentifier(systemId, facetTermCode);
-        }
+//        public SemanticIdentifier facetId(final String systemId, final String facetTermCode) {
+//            return SemanticIdentifier.parse(systemId, facetTermCode);
+//        }
     }
 
 }

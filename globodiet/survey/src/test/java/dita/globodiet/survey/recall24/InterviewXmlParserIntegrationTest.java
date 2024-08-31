@@ -36,13 +36,11 @@ import lombok.val;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.qmap.QualifiedMapEntry;
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.SystemId;
-import dita.commons.sid.SemanticIdentifierSet;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.globodiet.survey.dom._SystemIds;
+import dita.globodiet.survey.dom.SidUtils;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
@@ -59,7 +57,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     @Test
     void parsingFromBlobStore() {
 
-        var systemId = _SystemIds.globoDietSystemId();
+        var systemId = SidUtils.globoDietSystemId();
 
         var nutMapping = loadNutMapping();
         var fcoMapping = loadFcoMapping();
@@ -76,8 +74,8 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var xlsxFile = new File("d:/tmp/_scratch/report-no-aggregates.xlsx");
         var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
                 nutMapping,
-                fcoMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
-                pocMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
+                fcoMapping, SidUtils.languageQualifier("de"),
+                pocMapping, SidUtils.languageQualifier("de"),
                 foodCompositionRepo,
                 Aggregation.NONE);
         tabularReport.report(xlsxFile);

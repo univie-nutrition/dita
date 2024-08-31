@@ -38,8 +38,6 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.format.FormatUtils;
-import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifierSet;
 import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -80,12 +78,12 @@ public class Survey_generateReport {
         var fcoMapping = Campaigns.fcoMapping(campaigns.getFirst(), surveyBlobStore);
         var pocMapping = Campaigns.pocMapping(campaigns.getFirst(), surveyBlobStore);
         var foodCompositionRepo = Campaigns.fcdb(campaigns.getFirst(), surveyBlobStore);
-        var systemId = _SystemIds.globoDietSystemId();
+        var systemId = SidUtils.globoDietSystemId();
 
         var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
                 nutMapping,
-                fcoMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
-                pocMapping, SemanticIdentifierSet.ofCollection(List.of(new SemanticIdentifier("Language", "de"))),
+                fcoMapping, SidUtils.languageQualifier("de"),
+                pocMapping, SidUtils.languageQualifier("de"),
                 foodCompositionRepo,
                 aggregation);
 
