@@ -168,14 +168,14 @@ public record SemanticIdentifier (
             @Getter @Accessors(fluent=true)
             final String id;
             // -- FACTORIES
-            public ObjectId objectId(final String object) {
-                return new ObjectId(id(), object);
+            public ObjectId objectId(final String objectSimpleId) {
+                return new ObjectId(id(), objectSimpleId);
             }
-            public SemanticIdentifier sid(final String object) {
-                return sid(SystemId.empty(), object);
+            public SemanticIdentifier sid(final String objectSimpleId) {
+                return sid(SystemId.empty(), objectSimpleId);
             }
-            public SemanticIdentifier sid(final SystemId systemId, final String object) {
-                return new SemanticIdentifier(systemId, objectId(object));
+            public SemanticIdentifier sid(final SystemId systemId, final String objectSimpleId) {
+                return new SemanticIdentifier(systemId, objectId(objectSimpleId));
             }
         }
 
@@ -192,15 +192,15 @@ public record SemanticIdentifier (
             this.objectSimpleId = _Utils.validateObject(objectSimpleId);
         }
 
-        public ObjectId(final @NonNull Context context, final String object) {
-            this(context.id, object);
+        public ObjectId(final @NonNull Context context, final String objectSimpleId) {
+            this(context.id, objectSimpleId);
         }
 
         /**
          * ObjectId constructor with empty context part.
          */
-        public ObjectId(final String object) {
-            this((String)null, object);
+        public ObjectId(final String objectSimpleId) {
+            this((String)null, objectSimpleId);
         }
 
         // -- WITHER
@@ -208,8 +208,8 @@ public record SemanticIdentifier (
         public ObjectId withContext(final String context) {
             return new ObjectId(context, objectSimpleId());
         }
-        public ObjectId withObject(final String object) {
-            return new ObjectId(context(), object);
+        public ObjectId withObjectSimpleId(final String objectSimpleId) {
+            return new ObjectId(context(), objectSimpleId);
         }
 
         // -- MAPPER
@@ -217,8 +217,8 @@ public record SemanticIdentifier (
         public ObjectId mapContext(final UnaryOperator<String> contextMapper) {
             return withContext(contextMapper.apply(context()));
         }
-        public ObjectId mapObject(final UnaryOperator<String> objectMapper) {
-            return withObject(objectMapper.apply(objectSimpleId()));
+        public ObjectId mapObjectSimpleId(final UnaryOperator<String> objectMapper) {
+            return withObjectSimpleId(objectMapper.apply(objectSimpleId()));
         }
 
         // -- CONTRACT
