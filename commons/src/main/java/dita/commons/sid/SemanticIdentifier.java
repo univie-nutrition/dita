@@ -151,22 +151,27 @@ public record SemanticIdentifier (
 
         /**
          * Some predefined contexts.
+         * @implSpec system-agnostic come first, that allows for optimization of
+         *      {@link Context#isSystemAgnostic(ObjectId)}
          */
         @RequiredArgsConstructor
         public enum Context {
-            LITERAL("literal"),
-            LANGUAGE("language"),
+            LITERAL("literal", true),
+            LANGUAGE("language", true),
+            BRAND("brand", true),
             COMPONENT("comp"),
             FOOD("food"),
             RECIPE("recp"),
-            BRAND("brand"),
-            FOOD_DESCRIPTOR("fd"),
-            RECIPE_DESCRIPTOR("rd"),
-            FOOD_GROUP("fg"),
-            RECIPE_GROUP("rg"),
+            FOOD_DESCRIPTOR("fd"), //TODO[dita-commons-26] too specific, remove?
+            RECIPE_DESCRIPTOR("rd"), //TODO[dita-commons-26] too specific, remove?
+            FOOD_GROUP("fg"), //TODO[dita-commons-26] too specific, remove?
+            RECIPE_GROUP("rg"), //TODO[dita-commons-26] too specific, remove?
             ;
+            Context(final String id){ this(id, false); }
             @Getter @Accessors(fluent=true)
             final String id;
+            @Getter
+            final boolean systemAgnostic;
             // -- FACTORIES
             public ObjectId objectId(final String objectSimpleId) {
                 return new ObjectId(id(), objectSimpleId);
@@ -176,6 +181,13 @@ public record SemanticIdentifier (
             }
             public SemanticIdentifier sid(final SystemId systemId, final String objectSimpleId) {
                 return new SemanticIdentifier(systemId, objectId(objectSimpleId));
+            }
+            static boolean isSystemAgnostic(@NonNull final ObjectId objectId) {
+                for(var context : Context.values()) {
+                    if(!context.isSystemAgnostic()) return false;
+                    if(context.id().equals(objectId.context())) return true;
+                }
+                return false;
             }
         }
 
@@ -278,6 +290,17 @@ public record SemanticIdentifier (
      */
     public static SemanticIdentifier parse(final @Nullable String stringified) {
         return _Utils.parseSid(stringified);
+    }
+
+    // -- CONSTRUCTION
+
+    public SemanticIdentifier(
+            @NonNull final SystemId systemId,
+            @NonNull final ObjectId objectId) {
+        this.systemId = ObjectId.Context.isSystemAgnostic(objectId)
+                ? SystemId.empty()
+                : systemId;
+        this.objectId = objectId;
     }
 
     // -- WITHER
