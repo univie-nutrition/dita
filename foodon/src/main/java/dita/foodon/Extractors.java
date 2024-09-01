@@ -19,9 +19,7 @@
 package dita.foodon;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
@@ -38,24 +36,17 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class Extractors {
 
-    Stream<OWLAnnotation> streamAnnotations(final OWLOntology ontology, final OWLClass owlClass) {
+    Can<OWLAnnotation> annotations(final OWLOntology ontology, final OWLClass owlClass) {
         var annotations = new ArrayList<OWLAnnotation>();
         var extractor = new OWLAnnotationExtractor(annotations::add);
         EntitySearcher.getAnnotationObjects(owlClass, ontology)
             .forEach((final OWLAnnotation anno)->anno.accept(extractor));
-        return annotations.stream();
-    }
-
-    Stream<OWLLiteral> streamLiterals(final OWLOntology ontology, final OWLClass owlClass) {
-        return streamAnnotations(ontology, owlClass)
-            .map(annot->annot.literalValue())
-            .filter(Optional::isPresent)
-            .map(Optional::get);
+        return Can.ofCollection(annotations);
     }
 
     Can<OWLLiteral> literals(final OWLOntology ontology, final OWLClass owlClass) {
-        return streamLiterals(ontology, owlClass)
-            .collect(Can.toCan());
+        return annotations(ontology, owlClass)
+            .map(annot->annot.literalValue().orElse(null));
     }
 
     // -- HELPER

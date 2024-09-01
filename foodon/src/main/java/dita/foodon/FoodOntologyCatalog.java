@@ -19,11 +19,12 @@
 package dita.foodon;
 
 import java.io.PrintStream;
-import java.util.function.BiConsumer;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -48,6 +49,9 @@ import lombok.extern.log4j.Log4j2;
 
 import io.github.causewaystuff.commons.compression.SevenZUtils;
 
+/**
+ * @see <a href="https://owlapi.sourceforge.net/owled2011_tutorial.pdf">Tutorial</a>
+ */
 @RequiredArgsConstructor
 @Log4j2
 public final class FoodOntologyCatalog {
@@ -69,6 +73,22 @@ public final class FoodOntologyCatalog {
     public OWLClass owlThing() {
         return dataFactory().getOWLThing();
     }
+
+    public FoodonClassRecord toFoodonClassRecord(final OWLClass owlClass) {
+        return FoodonClassRecord.create(rootOntology, owlClass);
+    }
+
+    // -- EXTRACTORS
+
+    public Can<OWLAnnotation> annotations(final OWLClass owlClass) {
+        return Extractors.annotations(rootOntology(), owlClass);
+    }
+
+    public Can<OWLLiteral> annotationLables(final OWLClass owlClass) {
+        return Extractors.literals(rootOntology(), owlClass);
+    }
+
+    // -- TRAVERSAL
 
     public Stream<HierarchyEntry> streamDepthFirst(final OWLReasoner reasoner) {
         return new HierarchyStreamer(reasoner)
@@ -105,16 +125,12 @@ public final class FoodOntologyCatalog {
     /**
      * @param iri e.g. FOODON, CDNO (case sensitive)
      * @param search e.g. beverage (case insensitive)
-     * @param limit max results
-     * @param resultConsumer {@link BiConsumer}
-     *      of {@link OWLClass} and {@link Can} of {@link OWLLiteral}
      */
-    public void searchLabel(
+    public Can<OWLClass> searchInAnnotationLabels(
             final String iri,
-            final String search,
-            final int limit,
-            final BiConsumer<OWLClass, Can<OWLLiteral>> resultConsumer) {
+            final String search) {
 
+        var result = new ArrayList<OWLClass>();
         var searchLower = search.toLowerCase();
 
         reasonWith(reasoner->
@@ -126,10 +142,11 @@ public final class FoodOntologyCatalog {
                     var literals = Extractors.literals(rootOntology, owlClass);
                     if(literals.stream()
                         .anyMatch(lit->lit.getLiteral().toLowerCase().contains(searchLower))) {
-                        resultConsumer.accept(owlClass, literals);
+                        result.add(owlClass);
                     }
                 })
         );
+        return Can.ofCollection(result);
     }
 
     // -- HIERARCHY ENTRY
@@ -182,9 +199,8 @@ public final class FoodOntologyCatalog {
     }
 
     private static String labelFor(final OWLOntology ontology, final OWLClass owlClass) {
-        var parts = Extractors.streamLiterals(ontology, owlClass)
-            .map(OWLLiteral::getLiteral)
-            .collect(Can.toCan());
+        var parts = Extractors.literals(ontology, owlClass)
+            .map(OWLLiteral::getLiteral);
         return parts
                 .add(owlClass.getIRI().toQuotedString())
                 .stream()

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class FoodOntologyCatalogTest {
 
-    @Test
+    //@Test
     void dump() {
         var foodOntologyCatalog = FoodOntologyCatalog.instance();
         assertNotNull(foodOntologyCatalog);
@@ -36,11 +36,10 @@ class FoodOntologyCatalogTest {
     @Test
     void search() {
         var foodOntologyCatalog = FoodOntologyCatalog.instance();
-        foodOntologyCatalog.searchLabel("FOODON", "NON-ALCOHOLIC BEVERAGES", 20,
-                (owlClass, owlLiterals)->{
-                    System.err.printf("%s [%s]%n",
-                            owlLiterals.map(owlLiteral->owlLiteral.getLiteral()),
-                            owlClass);
-                });
+        foodOntologyCatalog.searchInAnnotationLabels("FOODON", "NON-ALCOHOLIC BEVERAGES")
+        .forEach(owlClass->{
+            System.err.printf("%s%n",
+                    foodOntologyCatalog.toFoodonClassRecord(owlClass));
+        });
     }
 }
