@@ -126,7 +126,7 @@ public final class FoodOntologyCatalog {
      * @param iri e.g. FOODON, CDNO (case sensitive)
      * @param search e.g. beverage (case insensitive)
      */
-    public Can<OWLClass> searchInAnnotationLabels(
+    public Can<FoodonClassRecord> searchInAnnotationLabels(
             final String iri,
             final String search) {
 
@@ -146,7 +146,8 @@ public final class FoodOntologyCatalog {
                     }
                 })
         );
-        return Can.ofCollection(result);
+        return Can.ofCollection(result)
+                .map(owlClass->FoodonClassRecord.create(rootOntology, owlClass));
     }
 
     // -- HIERARCHY ENTRY

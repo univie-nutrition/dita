@@ -20,6 +20,7 @@ package dita.foodon;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class FoodOntologyCatalogTest {
@@ -36,10 +37,11 @@ class FoodOntologyCatalogTest {
     @Test
     void search() {
         var foodOntologyCatalog = FoodOntologyCatalog.instance();
-        foodOntologyCatalog.searchInAnnotationLabels("FOODON", "NON-ALCOHOLIC BEVERAGES")
-        .forEach(owlClass->{
-            System.err.printf("%s%n",
-                    foodOntologyCatalog.toFoodonClassRecord(owlClass));
+        var searchResult = foodOntologyCatalog.searchInAnnotationLabels("FOODON", "non-alcoholic beverages");
+        searchResult.forEach(owlClassRec->{
+            //debug
+            System.err.printf("%s%n", owlClassRec);
         });
+        assertEquals(2, searchResult.size());
     }
 }
