@@ -30,6 +30,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.search.EntitySearcher;
 
+import org.apache.causeway.commons.collections.Can;
+
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
@@ -49,6 +51,11 @@ class Extractors {
             .map(annot->annot.literalValue())
             .filter(Optional::isPresent)
             .map(Optional::get);
+    }
+
+    Can<OWLLiteral> literals(final OWLOntology ontology, final OWLClass owlClass) {
+        return streamLiterals(ontology, owlClass)
+            .collect(Can.toCan());
     }
 
     // -- HELPER

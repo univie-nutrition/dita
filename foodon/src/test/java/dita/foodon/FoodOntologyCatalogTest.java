@@ -22,18 +22,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import dita.foodon.FoodOntologyCatalog;
-
 class FoodOntologyCatalogTest {
 
     @Test
-    void test() {
+    void dump() {
         var foodOntologyCatalog = FoodOntologyCatalog.instance();
         assertNotNull(foodOntologyCatalog);
         assertNotNull(foodOntologyCatalog.rootOntology());
         //assertEquals(1, foodOntologyCatalog.getOntologies().size());
+        foodOntologyCatalog.dump("CDNO", System.out);
+    }
 
-        foodOntologyCatalog.dump(System.out);
-
+    @Test
+    void search() {
+        var foodOntologyCatalog = FoodOntologyCatalog.instance();
+        foodOntologyCatalog.searchLabel("FOODON", "NON-ALCOHOLIC BEVERAGES", 20,
+                (owlClass, owlLiterals)->{
+                    System.err.printf("%s [%s]%n",
+                            owlLiterals.map(owlLiteral->owlLiteral.getLiteral()),
+                            owlClass);
+                });
     }
 }

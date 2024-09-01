@@ -19,6 +19,7 @@
 package dita.foodon;
 
 import java.io.PrintStream;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -84,19 +85,50 @@ public final class FoodOntologyCatalog {
     }
 
     /**
-     * Dumps CDNO only. XXX Refactor to term search like 'CDNO:0200001'.
+     * Dumps all labels for matching IRIs.
+     * @param iri e.g. FOODON, CDNO (case sensitive)
      */
-    public void dump(final PrintStream out) {
+    public void dump(final String iri, final PrintStream out) {
         System.out.println("Ontology : " + rootOntology.getOntologyID());
         System.out.println("Format   : " + manager().getOntologyFormat(rootOntology));
         reasonWith(reasoner->
             streamDepthFirst(reasoner)
                 .filter(hEntry->hEntry.owlClass.getIRI()!=null)
-                .filter(hEntry->hEntry.owlClass.getIRI().toString().contains("CDNO"))
+                .filter(hEntry->hEntry.owlClass.getIRI().toString().contains(iri))
                 //.limit(200)
                 .forEach(hEntry->
                     out.println(_Strings.of(hEntry.nestingLevel() * 2, ' ')
                             + labelFor(reasoner.getRootOntology(), hEntry.owlClass())))
+        );
+    }
+
+    /**
+     * @param iri e.g. FOODON, CDNO (case sensitive)
+     * @param search e.g. beverage (case insensitive)
+     * @param limit max results
+     * @param resultConsumer {@link BiConsumer}
+     *      of {@link OWLClass} and {@link Can} of {@link OWLLiteral}
+     */
+    public void searchLabel(
+            final String iri,
+            final String search,
+            final int limit,
+            final BiConsumer<OWLClass, Can<OWLLiteral>> resultConsumer) {
+
+        var searchLower = search.toLowerCase();
+
+        reasonWith(reasoner->
+            streamDepthFirst(reasoner)
+                .filter(hEntry->hEntry.owlClass.getIRI()!=null)
+                .filter(hEntry->hEntry.owlClass.getIRI().toString().contains("FOODON"))
+                .forEach(hEntry->{
+                    var owlClass = hEntry.owlClass;
+                    var literals = Extractors.literals(rootOntology, owlClass);
+                    if(literals.stream()
+                        .anyMatch(lit->lit.getLiteral().toLowerCase().contains(searchLower))) {
+                        resultConsumer.accept(owlClass, literals);
+                    }
+                })
         );
     }
 
@@ -153,8 +185,10 @@ public final class FoodOntologyCatalog {
         var parts = Extractors.streamLiterals(ontology, owlClass)
             .map(OWLLiteral::getLiteral)
             .collect(Can.toCan());
-        return parts.add(owlClass.getIRI().toQuotedString()).stream()
-            .collect(Collectors.joining("; "));
+        return parts
+                .add(owlClass.getIRI().toQuotedString())
+                .stream()
+                .collect(Collectors.joining("; "));
     }
 
 }
