@@ -18,10 +18,19 @@
  */
 package dita.foodon;
 
+import java.nio.charset.StandardCharsets;
+import java.util.StringTokenizer;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.io.TextUtils;
 
 class FoodOntologyCatalogTest {
 
@@ -35,7 +44,7 @@ class FoodOntologyCatalogTest {
     }
 
     @Test
-    void search() {
+    void searchBeverage() {
         var foodOntologyCatalog = FoodOntologyCatalog.instance();
         var searchResult = foodOntologyCatalog.searchInAnnotationLabels("FOODON", "non-alcoholic beverages");
         searchResult.forEach(owlClassRec->{
@@ -43,5 +52,52 @@ class FoodOntologyCatalogTest {
             System.err.printf("%s%n", owlClassRec);
         });
         assertEquals(2, searchResult.size());
+    }
+
+    @Test
+    void searchSugar() {
+        var foodOntologyCatalog = FoodOntologyCatalog.instance();
+        var searchResult = foodOntologyCatalog.searchInAnnotationLabels("FOODON", "brown", "sugar", "efsa");
+        searchResult.forEach(owlClassRec->{
+            //debug
+            System.err.printf("%s%n", owlClassRec);
+        });
+        //assertEquals(2, searchResult.size());
+    }
+
+    //TODO[dita-foodon-26] can we map at-gd groups to foodon?
+    @Test
+    void groupTermSearch()  {
+        var ds = DataSource.ofResource(getClass(), "at-gd.groups.txt");
+        var groups = TextUtils.readLinesFromDataSource(ds, StandardCharsets.UTF_8)
+        .map(String::trim)
+        .map(s->s.replace("/", " "))
+        .map(s->s.replace(",", " "))
+        .map(s->s.replace("(", " "))
+        .map(s->s.replace(")", " "))
+        .map(s->s.replace("  ", " "))
+        .filter(_Strings::isNotEmpty)
+        //.filter(line->!"TRANSLATE".equals(line))
+        //.filter(line->!line.codePoints().anyMatch(Character::isLowerCase))
+        ;
+
+        var foodOntologyCatalog = FoodOntologyCatalog.instance();
+
+        groups.forEach(group->{
+
+            System.err.printf("%s%n", group);
+
+            var words = Can.ofStream(
+                    _NullSafe.stream(new StringTokenizer(group).asIterator())
+                    .map(String.class::cast)
+                )
+                .toArray(new String[0]);
+
+            var searchResult = foodOntologyCatalog.searchInAnnotationLabels("FOODON", words);
+            searchResult.stream().limit(5).forEach(owlClassRec->{
+                System.err.printf("  %s%n", owlClassRec);
+            });
+
+        });
     }
 }

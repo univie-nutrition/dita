@@ -20,10 +20,12 @@ package dita.foodon;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -124,9 +126,33 @@ public final class FoodOntologyCatalog {
 
     /**
      * @param iri e.g. FOODON, CDNO (case sensitive)
-     * @param search e.g. beverage (case insensitive)
+     * @param searchTerms e.g. beverage (case insensitive)
      */
     public Can<FoodonClassRecord> searchInAnnotationLabels(
+            final String iri,
+            final String ... searchTerms) {
+
+        var searchTermsLower = Can.ofArray(searchTerms)
+             .map(String::toLowerCase);
+
+        return rootOntology.getClassesInSignature().stream()
+            .filter(owlClass->Optional.ofNullable(owlClass.getIRI())
+                    .flatMap(IRI::getRemainder)
+                    .map(r->r.contains(iri))
+                    .orElse(false))
+            .map(owlClass->{
+                var literals = Extractors.literals(rootOntology, owlClass);
+                if(literals.stream()
+                        .anyMatch(OwlUtils.searchAllMatch(searchTermsLower))) {
+                    return FoodonClassRecord.create(rootOntology, owlClass);
+                }
+                return null;
+            })
+            .collect(Can.toCan());
+    }
+
+    // variant with reasoner
+    public Can<FoodonClassRecord> searchInAnnotationLabels2(
             final String iri,
             final String search) {
 
@@ -136,7 +162,7 @@ public final class FoodOntologyCatalog {
         reasonWith(reasoner->
             streamDepthFirst(reasoner)
                 .filter(hEntry->hEntry.owlClass.getIRI()!=null)
-                .filter(hEntry->hEntry.owlClass.getIRI().toString().contains("FOODON"))
+                .filter(hEntry->hEntry.owlClass.getIRI().toString().contains(iri))
                 .forEach(hEntry->{
                     var owlClass = hEntry.owlClass;
                     var literals = Extractors.literals(rootOntology, owlClass);

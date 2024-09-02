@@ -19,11 +19,14 @@
 package dita.foodon;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
@@ -74,6 +77,16 @@ public class OwlUtils {
             return Optional.of(url.substring(c+8));
         }
         return Optional.empty();
+    }
+
+    /**
+     * In support of searching literals, whether they match all search terms.
+     */
+    public Predicate<OWLLiteral> searchAllMatch(final Can<String> searchTerms) {
+        final long termCount = searchTerms.size();
+        return owlLiteral->searchTerms.stream()
+                .filter(owlLiteral.getLiteral().toLowerCase()::contains)
+                .count() == termCount;
     }
 
 }
