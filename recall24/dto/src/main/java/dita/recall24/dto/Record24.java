@@ -34,6 +34,7 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -504,7 +505,7 @@ permits
     @RequiredArgsConstructor
     @Getter @Setter @Accessors(fluent=true)
     public static class Builder implements Builder24<Dto> {
-        private final Record24.Type type;
+        private @NonNull Record24.Type type;
 
         private String name;
         private SemanticIdentifier sid;

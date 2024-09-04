@@ -53,7 +53,8 @@ extends CausewayIntegrationTestAbstract {
     }
 
     protected InterviewSet24.Dto loadInterviewSet() {
-        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore);
+        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore)
+                .transform(new AssociatedRecipeResolver());
     }
 
     // -- HELPER
