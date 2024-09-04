@@ -150,14 +150,6 @@ class _InterviewConverter {
                     default -> throw new IllegalArgumentException("Unexpected value: " + dto);
                 }
             });
-            if(listEntry.getName().contains("{assoc")) {
-                //TODO[dita-globodiet-survey-24] parse recipe id then add additional recipe entry
-                System.err.printf("%s (%s)%n", listEntry.getName(), foodSid(listEntry));
-            }
-            if(listEntry.getName().contains("Apfelstrudel")) {
-                //TODO[dita-globodiet-survey-24]
-                System.err.printf("%s (%s)%n", listEntry.getName(), foodSid(listEntry));
-            }
             yield Record24.food(
                 listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),

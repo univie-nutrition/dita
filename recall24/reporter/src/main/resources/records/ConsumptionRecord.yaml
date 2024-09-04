@@ -93,24 +93,12 @@ viewmodel:
         food or 
         composite 
         identifier     
-    group:
+    groupId:
       type: String
       description: |
         food or 
         composite 
         group
-    subgroup:
-      type: String
-      description: |
-        food or 
-        composite
-        subgroup
-    subSubgroup:
-      type: String
-      description: |
-        food or 
-        composite 
-        sub-subgroup
     facetIds:
       type: String
       description: |

@@ -183,7 +183,6 @@ permits
              */
             @TreeSubNodes
             Can<? extends Record24> subRecords,
-            @TreeSubNodes
             Map<String, Annotation> annotations
 
             ) implements Record24.Dto {
@@ -201,7 +200,9 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+            var builder = new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+            annotations.values().forEach(builder.annotations()::add);
+            return builder;
         }
     }
 
@@ -250,7 +251,6 @@ permits
             BigDecimal rawPerCookedRatio,
             Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
             Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking,
-            @TreeSubNodes
             Map<String, Annotation> annotations
             ) implements Consumption {
 
@@ -263,9 +263,11 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids)
+            var builder = new Builder(type()).name(name).sid(sid).facetSids(facetSids)
                     .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
                     .rawPerCookedRatio(rawPerCookedRatio);
+            annotations.values().forEach(builder.annotations()::add);
+            return builder;
         }
     }
 

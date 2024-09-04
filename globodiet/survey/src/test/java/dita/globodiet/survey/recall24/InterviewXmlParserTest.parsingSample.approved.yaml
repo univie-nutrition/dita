@@ -32,6 +32,10 @@ respondents:
             rawPerCookedRatio: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "150102"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -41,6 +45,10 @@ respondents:
             rawPerCookedRatio: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "0901"
           - type: "FOOD"
             name: "Schnittlauch"
             sid: "at.gd/2.0:food/01547"
@@ -50,6 +58,10 @@ respondents:
             rawPerCookedRatio: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "1503"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -60,6 +72,10 @@ respondents:
             rawPerCookedRatio: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "0207"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -69,6 +85,14 @@ respondents:
             rawPerCookedRatio: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "1504"
+          annotations:
+            group:
+              key: "group"
+              value: "03"
         - type: "FOOD"
           name: "Kaffee, mit Koffein"
           sid: "at.gd/2.0:food/01339"
@@ -78,3 +102,7 @@ respondents:
           rawPerCookedRatio: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "130301"

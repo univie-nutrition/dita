@@ -66,15 +66,9 @@ import org.apache.causeway.applib.annotation.Where;
  * @param foodId food or
  * composite
  * identifier
- * @param group food or
+ * @param groupId food or
  * composite
  * group
- * @param subgroup food or
- * composite
- * subgroup
- * @param subSubgroup food or
- * composite
- * sub-subgroup
  * @param facetIds facet descriptor
  * identifiers
  * @param quantity quantity
@@ -208,28 +202,10 @@ public record ConsumptionRecord(
                                 + "group",
                 hidden = Where.NOWHERE
         )
-        String group,
+        String groupId,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "14",
-                describedAs = "food or\n"
-                                + "composite\n"
-                                + "subgroup",
-                hidden = Where.NOWHERE
-        )
-        String subgroup,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "15",
-                describedAs = "food or\n"
-                                + "composite\n"
-                                + "sub-subgroup",
-                hidden = Where.NOWHERE
-        )
-        String subSubgroup,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "16",
                 describedAs = "facet descriptor\n"
                                 + "identifiers",
                 hidden = Where.NOWHERE
@@ -237,7 +213,7 @@ public record ConsumptionRecord(
         String facetIds,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "17",
+                sequence = "15",
                 describedAs = "quantity\n"
                                 + "consumed [g]",
                 hidden = Where.NOWHERE
@@ -245,7 +221,7 @@ public record ConsumptionRecord(
         BigDecimal quantity,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "18",
+                sequence = "16",
                 describedAs = "food composition\n"
                                 + "database identifier\n"
                                 + "(nutrient mapping)",
@@ -254,7 +230,7 @@ public record ConsumptionRecord(
         String fcdbId,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "19",
+                sequence = "17",
                 describedAs = "Energie\n"
                                 + "inkl. Ballaststoffen\n"
                                 + "[kcal]",

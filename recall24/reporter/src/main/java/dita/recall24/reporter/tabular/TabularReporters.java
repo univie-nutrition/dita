@@ -50,6 +50,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
@@ -58,6 +59,7 @@ import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.Record24;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
@@ -209,29 +211,36 @@ public class TabularReporters {
                     }
                     case Record24.Composite comp -> {
                         rowFactory.recordType(comp.type());
-                        rowBuilder.group("wip");
-                        rowBuilder.subgroup("wip");
-                        rowBuilder.subSubgroup("wip");
+                        rowBuilder.groupId(
+                                comp.annotation("group")
+                                .map(Annotation::value)
+                                .map(String.class::cast)
+                                .map(group->Context.RECIPE_GROUP.sid(systemId, group))
+                                .map(SemanticIdentifier::toStringNoBox)
+                                .orElse(""));
                         consumptions.add(
                                 rowFactory.compositeHeader(comp));
                     }
                     case Record24.Consumption cRec -> {
                         rowFactory.recordType(cRec.type());
-                        rowBuilder.group("wip");
-                        rowBuilder.subgroup("wip");
-                        rowBuilder.subSubgroup("wip");
+                        rowBuilder.groupId(
+                                cRec.annotation("group")
+                                .map(Annotation::value)
+                                .map(String.class::cast)
+                                .map(group->Context.FOOD_GROUP.sid(systemId, group))
+                                .map(SemanticIdentifier::toStringNoBox)
+                                .orElse(""));
                         var mappingTarget = nutMapping
                                 .lookupTarget(cRec.asQualifiedMapKey());
                         var compositionEntry = mappingTarget
                                 .flatMap(foodCompositionRepo::lookupEntry);
-//                        if(!mappingTarget.isPresent()) {
-//                            //unmapped.add(mapKey);
-//                            throw _Exceptions.noSuchElement("no mappingTarget for %s", foodConsumption.qualifiedMapKey());
-//                        }
-//                        if(!compositionEntry.isPresent()) {
-//                            //unmapped.add(mapKey);
-//                            throw _Exceptions.noSuchElement("no compositionEntry for %s", mappingTarget.get());
-//                        }
+                        if(mappingTarget.isPresent()) {
+                            if(!compositionEntry.isPresent()) {
+                                //TODO[dita-recall24-reporter-24] unresolved food proxies - should be done by the interview reader, or a post processor
+//                                throw _Exceptions.noSuchElement("no compositionEntry for %s (%s)",
+//                                        cRec.name(), mappingTarget.get());
+                            }
+                        }
                         consumptions.add(
                                 rowFactory.consumption(cRec, compositionEntry));
                     }

@@ -108,27 +108,13 @@ viewmodels:
         food or 
         composite 
         identifier     
-    group:
+    groupId:
       type: String
       required: true
       description: |
         food or 
         composite 
         group
-    subgroup:
-      type: String
-      required: true
-      description: |
-        food or 
-        composite
-        subgroup
-    subSubgroup:
-      type: String
-      required: true
-      description: |
-        food or 
-        composite 
-        sub-subgroup
     facetIds:
       type: String
       required: true
