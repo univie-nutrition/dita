@@ -35,7 +35,6 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
@@ -46,6 +45,7 @@ import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
@@ -119,7 +119,9 @@ class _InterviewConverter {
                 listEntry.getName(),
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
-                toRecords24(subEntries));
+                toRecords24(subEntries),
+                Can.of(group(listEntry))
+                );
         }
         default -> toRecord24(topLevelRecordNode);
         };
@@ -148,10 +150,19 @@ class _InterviewConverter {
                     default -> throw new IllegalArgumentException("Unexpected value: " + dto);
                 }
             });
+            if(listEntry.getName().contains("{assoc")) {
+                //TODO[dita-globodiet-survey-24] parse recipe id then add additional recipe entry
+                System.err.printf("%s (%s)%n", listEntry.getName(), foodSid(listEntry));
+            }
+            if(listEntry.getName().contains("Apfelstrudel")) {
+                //TODO[dita-globodiet-survey-24]
+                System.err.printf("%s (%s)%n", listEntry.getName(), foodSid(listEntry));
+            }
             yield Record24.food(
                 listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
-                usedDuringCooking);
+                usedDuringCooking,
+                Can.of(group(listEntry)));
         }
         case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
@@ -210,6 +221,13 @@ class _InterviewConverter {
         var hh = hhmm.substring(0, 2);
         var mm = hhmm.substring(2, 4);
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
+    }
+
+    private static RecallNode24.Annotation group(final ListEntry listEntry) {
+        return new RecallNode24.Annotation("group", String.format("%s%s%s",
+                _Strings.nullToEmpty(listEntry.getGroupCode()),
+                _Strings.nullToEmpty(listEntry.getSubgroupCode()),
+                _Strings.nullToEmpty(listEntry.getSubSubgroupCode())));
     }
 
     private static SemanticIdentifier foodSid(final ListEntry listEntry) {

@@ -7,6 +7,8 @@ to another _record_ (`Food`).
 
 `FryingFat` is fat used during cooking, which is also added as consumption record (amount reducing factors considered).
 
+A `Record` can have arbitrary `Annotation`(s) such as group information or notes. 
+
 [plantuml,fig-record-model,svg]
 .Record Model
 ----
@@ -25,8 +27,9 @@ interface Consumption {
     asFoodConsumption(systemId: String): FoodConsumption
 }
 
-class Note {
-    text: String
+class Annotation {
+    key: String
+    value: Serializable
 }
 
 enum ConsumptionUnit {
@@ -48,7 +51,7 @@ FryingFat ---|> Consumption
 Composite -|> Record : "   "
 Composite o-> "0..*" Record : subRecords
 
-Record o--> "0..*" Note
+Record o--> "0..*" Annotation : annotations
 
 Food o--> "0..1" TypeOfFatUsed
 Food o--> "0..1" TypeOfMilkOrLiquidUsed

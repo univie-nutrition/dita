@@ -20,8 +20,8 @@ package dita.recall24.dto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -137,14 +137,6 @@ permits
 
     }
 
-    public record Note(
-            String text) {
-    }
-
-    default List<Note> notes() {
-        return Collections.emptyList();
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     Builder24<Dto> asBuilder();
@@ -173,25 +165,6 @@ permits
             return new QualifiedMapKey(sid(), facetSids());
         }
 
-//        /**
-//         * Converts {@link #sid()} to a {@link SemanticIdentifier}.
-//         */
-//        default SemanticIdentifier sidFullyQualified(
-//                final SystemId systemId,
-//                final ObjectId.Context context) {
-//            return new SemanticIdentifier(systemId, new ObjectId(context, sid()));
-//        }
-//
-//        /**
-//         * Converts {@link #facetSids()} to a {@link SemanticIdentifierSet}.
-//         */
-//        default SemanticIdentifierSet facetSidsFullyQualified(
-//                final SystemId systemId,
-//                final ObjectId.Context context) {
-//            return SemanticIdentifierSet.ofStream(
-//                    _Strings.splitThenStream(facetSids(), ",")
-//                        .map(facetSid->new SemanticIdentifier(systemId, new ObjectId(context, facetSid))));
-//        }
     }
 
     /**
@@ -209,7 +182,10 @@ permits
              * Nested records.
              */
             @TreeSubNodes
-            Can<? extends Record24> subRecords
+            Can<? extends Record24> subRecords,
+            @TreeSubNodes
+            Map<String, Annotation> annotations
+
             ) implements Record24.Dto {
 
         @Override
@@ -273,7 +249,9 @@ permits
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio,
             Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
-            Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking
+            Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking,
+            @TreeSubNodes
+            Map<String, Annotation> annotations
             ) implements Consumption {
 
         @Override
@@ -410,10 +388,10 @@ permits
              * ordered (by some natural order).
              */
             final SemanticIdentifierSet facetSids,
-            final Can<? extends Record24> subRecords) {
+            final Can<? extends Record24> subRecords,
+            final Can<Annotation> annotations) {
         var composite = new Composite(ObjectRef.empty(), Record24.Type.COMPOSITE,
-                name, sid, facetSids, subRecords);
-        //subRecords.forEach(rec->rec.parentRecordRef().setValue(composite));
+                name, sid, facetSids, subRecords, annotations.toMap(Annotation::key));
         return composite;
     }
 
@@ -473,7 +451,8 @@ permits
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio,
-            final Can<Record24.Dto> usedDuringCooking) {
+            final Can<Record24.Dto> usedDuringCooking,
+            final Can<Annotation> annotations) {
 
         var typeOfFatUsed = usedDuringCooking.stream()
                 .filter(TypeOfFatUsed.class::isInstance)
@@ -486,7 +465,7 @@ permits
 
         var food = new Food(ObjectRef.empty(), Record24.Type.FOOD,
                 name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
-                typeOfFatUsed, typeOfMilkOrLiquidUsed);
+                typeOfFatUsed, typeOfMilkOrLiquidUsed, annotations.toMap(Annotation::key));
 
         typeOfFatUsed.ifPresent(rec->rec.parentFoodRef().setValue(food));
         typeOfMilkOrLiquidUsed.ifPresent(rec->rec.parentFoodRef().setValue(food));
@@ -533,11 +512,13 @@ permits
         private BigDecimal rawPerCookedRatio;
 
         final List<Record24.Dto> subRecords = new ArrayList<>();
+        final List<Annotation> annotations = new ArrayList<>();
+
         @Override
         public Dto build() {
             return switch (type) {
-            case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords));
-            case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords));
+            case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords), Can.ofCollection(annotations));
+            case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords), Can.ofCollection(annotations));
             case FRYING_FAT -> fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
             case PRODUCT -> product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
             case TYPE_OF_FAT_USED -> typeOfFatUsed(name, sid, facetSids);
