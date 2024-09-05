@@ -26,6 +26,7 @@ import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTe
 
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.InterviewSet24;
@@ -52,9 +53,13 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.pocMapping(campaignForTesting(), surveyBlobStore);
     }
 
+    protected FoodDescriptionModel loadFoodDescriptionModel() {
+        return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
+    }
+
     protected InterviewSet24.Dto loadInterviewSet() {
         return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore)
-                .transform(new AssociatedRecipeResolver());
+                .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()));
     }
 
     // -- HELPER

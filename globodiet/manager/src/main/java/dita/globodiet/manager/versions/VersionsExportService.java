@@ -49,6 +49,7 @@ import dita.globodiet.params.recipe_description.RecipeDescriptor;
 import dita.globodiet.params.recipe_description.RecipeFacet;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.RecipeGroup;
+import dita.globodiet.params.recipe_list.RecipeIngredient;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
 
 @Service
@@ -59,30 +60,31 @@ public class VersionsExportService {
         TABLE,
         ENTITY
     }
-    
+
     private static Can<Class<?>> FDM_ENTITIES = Can.of(
             Food.class,
             FoodGroup.class,
             FoodSubgroup.class,
             FoodFacet.class,
             FoodDescriptor.class,
-            
+
             Recipe.class,
+            RecipeIngredient.class,
             RecipeGroup.class,
             RecipeSubgroup.class,
             RecipeFacet.class,
             RecipeDescriptor.class
-            );   
-    
+            );
+
     @Inject private VersionsService versionsService;
-    
+
     @Inject private TableSerializerYaml tableSerializer;
 
     @Inject @Qualifier("entity2table") private TabularData.NameTransformer entity2table;
     @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
 
     public Blob getFoodDescriptionModelAsYaml(final ParameterDataVersion parameterDataVersion) {
-        var yaml = tablesAsYamlFromVersion(parameterDataVersion, 
+        var yaml = tablesAsYamlFromVersion(parameterDataVersion,
                 table->FDM_ENTITIES.stream()
                     .anyMatch(cls->table.key().endsWith("." + cls.getSimpleName())),
                 ExportFormat.ENTITY);
@@ -92,8 +94,8 @@ public class VersionsExportService {
     }
 
     /**
-     * Returns a gd-params YAML from (primary) data-base. 
-     * @param tableFilter 
+     * Returns a gd-params YAML from (primary) data-base.
+     * @param tableFilter
      */
     public String tablesAsYamlFromVersion(
             final ParameterDataVersion parameterDataVersion,
@@ -103,9 +105,9 @@ public class VersionsExportService {
         var nameTransformer = format==ExportFormat.TABLE
                 ? TabularData.NameTransformer.IDENTITY
                 : table2entity;
-     
+
         val tables = TabularData.populateFromYaml(
-                tableDataClob.asString(), 
+                tableDataClob.asString(),
                 format())
             .transform(nameTransformer)
             .dataTables()
@@ -114,10 +116,10 @@ public class VersionsExportService {
         return new TabularData(tables)
                 .toYaml(format().withRowSorting(true));
     }
-    
+
     /**
-     * Returns a gd-params YAML from (primary) data-base. 
-     * @param tableFilter 
+     * Returns a gd-params YAML from (primary) data-base.
+     * @param tableFilter
      */
     public Clob tablesAsYamlFromRepository(
             final Predicate<ObjectSpecification> tableFilter,
@@ -131,22 +133,22 @@ public class VersionsExportService {
                 rowSortingEnabled);
         return clob;
     }
-    
+
     // -- UTILITY
 
     public static Predicate<ObjectSpecification> paramsTableFilter() {
         return entityType->entityType.getLogicalTypeName()
                 .startsWith("dita.globodiet.params.");
     }
-    
+
     // -- HELPER
-    
+
     private Clob getTableData(final ParameterDataVersion parameterDataVersion) {
         return versionsService.resolveZippedResource(parameterDataVersion, "gd-params.yml", Optional.empty())
                 .unZip(CommonMimeType.YAML)
                 .toClob(StandardCharsets.UTF_8);
     }
-    
+
     private static TabularData.Format format() {
         return TabularData.Format.defaults();
     }

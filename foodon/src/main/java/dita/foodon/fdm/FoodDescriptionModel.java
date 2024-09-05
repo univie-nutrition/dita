@@ -18,15 +18,20 @@
  */
 package dita.foodon.fdm;
 
-import lombok.experimental.UtilityClass;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides a set of food ontologies,
  * that allow to describe consumed food,
  * including categorization (grouping) and descriptive facets.
  */
-@UtilityClass
-public class FoodDescriptionModel {
+public record FoodDescriptionModel(
+        Map<String, Food> foodByCode,
+        Map<String, Recipe> recipeByCode,
+        Map<String, List<RecipeIngredient>> ingredientsByRecipeCode
+        ) {
 
     public record Food(
             String code,
@@ -43,6 +48,12 @@ public class FoodDescriptionModel {
             boolean isAlias,
             String recipeGroupCode,
             String recipeSubgroupCode) {
+    }
+
+    public record RecipeIngredient(
+            String recipeCode,
+            String foodCode,
+            BigDecimal amountGrams) {
     }
 
     public record FoodFacet(

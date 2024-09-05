@@ -69,7 +69,6 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
             .limit(20)
             .forEach(e->System.err.printf("nut map: %s%n", e));
 
-
         var interviewSet = loadInterviewSet();
 
         var stats = new Recall24SummaryStatistics();

@@ -30,6 +30,8 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.types.Message;
+import dita.foodon.fdm.FdmGlobodietReader;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
@@ -48,7 +50,8 @@ public class Campaigns {
         FCDB,
         QMAP_NUT,
         QMAP_FCO,
-        QMAP_POC;
+        QMAP_POC,
+        FDM;
         NamedPath namedPath(final Campaign campaign) {
             if(campaign==null
                     || _Strings.isNullOrEmpty(campaign.getSurveyCode())
@@ -62,6 +65,7 @@ public class Campaigns {
                 case QMAP_NUT -> root.add("qmap").add("nut.yaml.7z");
                 case QMAP_FCO -> root.add("qmap").add("fco.yaml");
                 case QMAP_POC -> root.add("qmap").add("poc.yaml");
+                case FDM -> root.add("fdm").add("fdm.yaml.zip");
             };
         }
     }
@@ -115,7 +119,6 @@ public class Campaigns {
     public FoodCompositionRepository fcdb(
             final Campaign campaign,
             final BlobStore blobStore) {
-
         var fcdbDataSource = blobStore.lookupBlob(DataSourceLocation.FCDB.namedPath(campaign))
                 .orElseThrow()
                 .asDataSource();
@@ -142,6 +145,16 @@ public class Campaigns {
             final Campaign campaign,
             final BlobStore blobStore) {
         return loadQmap(DataSourceLocation.QMAP_POC, campaign, blobStore);
+    }
+
+    public FoodDescriptionModel foodDescriptionModel(
+            final Campaign campaign,
+            final BlobStore blobStore) {
+        var fdmDataSource = blobStore.lookupBlob(DataSourceLocation.FDM.namedPath(campaign))
+                .orElseThrow()
+                .asDataSource();
+        var fdmReader = FdmGlobodietReader.fromZippedYaml(fdmDataSource);
+        return fdmReader.createFoodDescriptionModel();
     }
 
     // -- HELPER

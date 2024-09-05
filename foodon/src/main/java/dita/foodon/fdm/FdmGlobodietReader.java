@@ -18,7 +18,9 @@
  */
 package dita.foodon.fdm;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +37,13 @@ import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.FoodDescriptor;
 import dita.foodon.fdm.FoodDescriptionModel.FoodFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 
 public record FdmGlobodietReader(TabularData tabularData) {
-    
+
     // -- FACTORIES
 
-    public static FdmGlobodietReader readFromZippedYaml(final DataSource ds) {
+    public static FdmGlobodietReader fromZippedYaml(final DataSource ds) {
         var yaml = Blob.tryRead("fdm", CommonMimeType.ZIP, ds)
                 .valueAsNonNullElseFail()
                 .unZip(CommonMimeType.YAML)
@@ -50,7 +53,14 @@ public record FdmGlobodietReader(TabularData tabularData) {
         var tabularData = TabularData.populateFromYaml(yaml, TabularData.Format.defaults());
         return new FdmGlobodietReader(tabularData);
     }
-    
+
+    public FoodDescriptionModel createFoodDescriptionModel() {
+        return new FoodDescriptionModel(
+                foodByCode(),
+                recipeByCode(),
+                ingredientsByRecipeCode());
+    }
+
     // -- FOOD
 
     public Stream<FoodDescriptionModel.Food> streamFood() {
@@ -81,6 +91,28 @@ public record FdmGlobodietReader(TabularData tabularData) {
         return map;
     }
 
+    // -- RECIPE INGREDIENT
+
+    public Stream<RecipeIngredient> streamRecipeIngredient() {
+        return lookupTableByKey("dita.globodiet.params.recipe_list.RecipeIngredient").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->recipeIngredientFromRowData(row.cellLiterals()));
+    }
+
+    public Map<String, List<RecipeIngredient>> ingredientsByRecipeCode() {
+        final Map<String, List<RecipeIngredient>> map = new HashMap<>();
+        streamRecipeIngredient()
+            .forEach(recipeIngredient->{
+                var list = map.get(recipeIngredient.recipeCode());
+                if(list==null) {
+                    list = new ArrayList<>();
+                    map.put(recipeIngredient.recipeCode(), list);
+                }
+                list.add(recipeIngredient);
+            });
+        return map;
+    }
+
     // -- FOOD FACETS
 
     public Stream<FoodFacet> streamFoodFacet() {
@@ -94,25 +126,26 @@ public record FdmGlobodietReader(TabularData tabularData) {
             .flatMap(dataTable->dataTable.rows().stream())
             .map(row->descriptorFromRowData(row.cellLiterals()));
     }
-    
+
     // -- HELPER
-    
+
     // dita.globodiet.params.food_list.Food
     // dita.globodiet.params.food_descript.FoodDescriptor
     // dita.globodiet.params.food_descript.FoodFacet
     // dita.globodiet.params.food_list.FoodGroup
     // dita.globodiet.params.food_list.FoodSubgroup
     // dita.globodiet.params.recipe_list.Recipe
+    // dita.globodiet.params.recipe_list.RecipeIngredient
     // dita.globodiet.params.recipe_description.RecipeDescriptor
     // dita.globodiet.params.recipe_description.RecipeFacet
     // dita.globodiet.params.recipe_list.RecipeGroup
-    // dita.globodiet.params.recipe_list.RecipeSubgroup    
+    // dita.globodiet.params.recipe_list.RecipeSubgroup
     private Optional<Table> lookupTableByKey(final String key) {
         return tabularData.dataTables().stream()
                 .filter(dataTable->dataTable.key().equals(key))
                 .findFirst();
     }
-    
+
     private static Food foodFromRowData(final List<String> cellLiterals) {
         return new Food(
                 cellLiterals.get(7),
@@ -122,7 +155,7 @@ public record FdmGlobodietReader(TabularData tabularData) {
                 cellLiterals.get(5),
                 cellLiterals.get(6));
     }
-    
+
     // 0 "name: Recipe name"
     // 1 "recipeType: Type of recipe:|1.1=Open – Known|1.2=Open – Unknown|1.3=Open with brand|2.1=Closed|2.2=Closed with brand|3.0=Commercial|4.1=New – Known|4.2=New – Unknown"
     // 2 "brandNameForCommercialRecipe: Brand name for commercial recipe"
@@ -141,7 +174,55 @@ public record FdmGlobodietReader(TabularData tabularData) {
                 cellLiterals.get(7)
                 );
     }
-    
+
+    // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
+    // 1 "foodType: Food type (GI or blank)"
+    // 2 "descriptionText: Description text (facet/descriptor text)"
+    // 3 "name: Ingredient name"
+    // 4 "brandName: Ingredient brand (if any)"
+    // 5 "describedAndQuantifiedQ: 1 = ingredient described and quantified|2 = otherwise"
+    // 6 "finalQuantityInG: Final quantity in g (with coefficient applied)"
+    // 7 "estimatedQuantityBeforeCoefficientApplied: Estimated quantity (before coefficient applied)"
+    // 8 "quantityEstimatedRawOrCooked: Quantity Estimated Raw or Cooked|1 = Raw|2 = Cooked or Not applicable"
+    // 9 "quantityConsumedRawOrCooked: Quantity Consumed Raw or Cooked|1 = Raw|2 = Cooked or Not applicable"
+    // 10 "conversionFactorRawToCooked: Conversion factor raw->cooked"
+    // 11 "withUnediblePartQ: Quantity as estimated: 1=without un-edible part & 2=with un-edible part"
+    // 12 "conversionFactorForEdiblePart: Conversion factor for edible part"
+    // 13 "quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU: Quantity in gram/volume attached to the selected Photo, HHM, STDU"
+    // 14 "proportionOfPhotoHHMSTDU: Proportion of Photo, HHM, STDU"
+    // 15 "typeOfQuantificationMethod: Type of quantification method"
+    // 16 "quantificationMethodCode: Quantification method code"
+    // 17 "densityCoefficientOnlyForHHM: Density Coefficient only for HHM"
+    // 18 "sequentialNumberForIngredientsWithinARecipe: Sequential Number for Ingredients within a Mixed Recipe"
+    // 19 "fatLeftOverPercentage: Fat Left-Over Percentage"
+    // 20 "fatLeftOverQ: Fat Left-Over Code (F=False, T=True)"
+    // 21 "hhmFraction: HHM Fraction"
+    // 22 "consumedQuantityInPound: Consumed quantity in pound"
+    // 23 "consumedQuantityInOunce: Consumed quantity in ounce"
+    // 24 "consumedQuantityInQuart: Consumed quantity in quart"
+    // 25 "consumedQuantityInPint: Consumed quantity in pint"
+    // 26 "consumedQuantityInFlounce: Consumed quantity in flounce"
+    // 27 "sequentialNumberForIngredientsWithinASubRecipe: Sequential Number for Ingredients within a Sub-Recipe"
+    // 28 "rawQuantityWithoutInedible: Raw quantity without inedible (sans dechet)"
+    // 29 "percentageOrProportionAsEstimatedForRecipeIngredients: Percentage/Proportion as Estimated for Recipe Ingredients"
+    // 30 "percentageOrProportionAsConsumedForRecipeIngredients: Percentage/Proportion as Consumed for Recipe Ingredients"
+    // 31 "typeOfItem: 1 = food|2 = recipe"
+    // 32 "unitOfSelectedQuantityForMethod: Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)"
+    // 33 "percentageRaw: has no description"
+    // 34 "recipeCode: Recipe ID number the ingredient belongs to"
+    // 35 "foodOrRecipeGroupCode: Ingredient food or recipe group"
+    // 36 "foodOrRecipeSubgroupCode: Ingredient food or recipe subgroup"
+    // 37 "foodSubSubgroupCode: Ingredient food sub-subgroup"
+    // 38 "facetDescriptorsLookupKey: Facets-Descriptors codes used to describe the ingredient;|multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+    // 39 "foodOrRecipeCode: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
+    private static RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
+        return new RecipeIngredient(
+                cellLiterals.get(34),
+                cellLiterals.get(39),
+                new BigDecimal(cellLiterals.get(6))
+                );
+    }
+
     // 0 "name: Facet name"
     // 1 "text: Facet text (text to show on the screen describing the facet)"
     // 2 "type: 0=Standard facets with descriptors available in Descface table|1=Facets with descriptors available in Brandnam table|2=Facets with descriptors available in Foods table - facet 15 type of fat|3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
@@ -155,7 +236,7 @@ public record FdmGlobodietReader(TabularData tabularData) {
                 cellLiterals.get(0)
                 );
     }
-    
+
     // 0 "name: Descriptor name"
     // 1 "cooking: 0=default without consequences in the algorithms regarding cooking|1=raw (not cooked)|2=asks the question 'fat used during cooking?'|3=found in austrian data for 'frittiert' - invalid enum constant?"
     // 2 "choice: 0=Multiple choice (allowed)|1=Single (exclusive) choice"
@@ -169,6 +250,6 @@ public record FdmGlobodietReader(TabularData tabularData) {
                 cellLiterals.get(0)
                 );
     }
-    
+
 }
 

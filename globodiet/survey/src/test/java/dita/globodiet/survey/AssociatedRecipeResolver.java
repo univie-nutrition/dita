@@ -18,30 +18,78 @@
  */
 package dita.globodiet.survey;
 
-import jakarta.inject.Inject;
+import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
+import lombok.RequiredArgsConstructor;
+
+import dita.commons.format.FormatUtils;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.SemanticIdentifierSet;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.recall24.dto.RecallNode24.Builder24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Food;
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
+@RequiredArgsConstructor
 public class AssociatedRecipeResolver implements Transfomer {
 
-    @Inject private ForeignKeyLookupService foreignKeyLookup;
+    private final FoodDescriptionModel foodDescriptionModel;
+
+    record NameWithCode(String name, String code) {
+        static NameWithCode parseAssocFood(final String nameAndCode) {
+            return parse(nameAndCode, "{assocFood=");
+        }
+        static NameWithCode parseAssocRecipe(final String nameAndCode) {
+            return parse(nameAndCode, "{assocRecp=");
+        }
+        static NameWithCode parse(final String nameAndCode, final String magic) {
+            int c1 =nameAndCode.indexOf(magic);
+            if(c1==-1) return new NameWithCode(nameAndCode, null);
+            int c2 = nameAndCode.indexOf("}", c1);
+            return new NameWithCode(
+                    nameAndCode.substring(0, c1).trim(),
+                    FormatUtils.fillWithLeadingZeros(5, nameAndCode.substring(c1 + magic.length(), c2)));
+        }
+    }
 
     @Override
     public void accept(final Builder24<?> builder) {
         switch(builder) {
             case Food.Builder recordBuilder -> {
+                var origFood = recordBuilder.build();
+                var foodNameWithCode = NameWithCode.parseAssocRecipe(origFood.name());
+                var associatedRecipeId = foodNameWithCode.code();
+                if(associatedRecipeId == null) return;
+
+                var associatedRecipe = foodDescriptionModel.recipeByCode().get(associatedRecipeId);
+                System.err.printf("associatedRecipe=%s%n", associatedRecipe);
+
+                if(associatedRecipe==null) {
+                    throw _Exceptions.illegalArgument("failed to resolve %s", origFood.name());
+                }
+
+                var recipeNameWithCode = NameWithCode.parseAssocFood(associatedRecipe.name());
+
                 //TODO[dita-globodiet-survey-24] replace the (proxy-) food node by its associated composite node
                 recordBuilder.type(Record24.Type.COMPOSITE);
-                //final var lookupKey = new Recipe.SecondaryKey(recordBuilder.name()); //TODO extract recipeId
-                //final var recipe = foreignKeyLookup.unique(lookupKey);
+                recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
+                recordBuilder.subRecords().add(origFood); //TODO new type perhaps: COMMENT
 
-
-                //TODO[dita-globodiet-survey-24] lookup from recipe data
-                //recordBuilder.subRecords(...);
+                var recipeIngredients = foodDescriptionModel.ingredientsByRecipeCode().get(associatedRecipeId);
+                _NullSafe.stream(recipeIngredients)
+                    .map(ingr->{
+                        var food = foodDescriptionModel.foodByCode().get(ingr.foodCode());
+                        var foodBuilder = new Food.Builder(Record24.Type.FOOD)
+                            .name(food.name())
+                            .sid(new SemanticIdentifier(new SystemId("WIP"), ObjectId.Context.FOOD.objectId(ingr.foodCode())))
+                            .facetSids(SemanticIdentifierSet.empty());
+                        return foodBuilder.build();
+                    })
+                    .forEach(recordBuilder.subRecords()::add);
             }
             default -> {}
         }
