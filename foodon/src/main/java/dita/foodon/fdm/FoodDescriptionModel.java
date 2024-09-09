@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import dita.commons.sid.SemanticIdentifier;
+
 /**
  * Provides a set of food ontologies,
  * that allow to describe consumed food,
@@ -52,7 +54,7 @@ public record FoodDescriptionModel(
     }
 
     public record ClassificationFacet(
-            String code,
+            SemanticIdentifier sid,
             String name) {
     }
 

@@ -35,6 +35,8 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.format.FormatUtils;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
@@ -42,11 +44,15 @@ import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 
-public record FdmGlobodietReader(TabularData tabularData) {
+public record FdmGlobodietReader(
+        SystemId systemId,
+        TabularData tabularData) {
 
     // -- FACTORIES
 
-    public static FdmGlobodietReader fromZippedYaml(final DataSource ds) {
+    public static FdmGlobodietReader fromZippedYaml(
+            final SystemId systemId,
+            final DataSource ds) {
         var yaml = Blob.tryRead("fdm", CommonMimeType.ZIP, ds)
                 .valueAsNonNullElseFail()
                 .unZip(CommonMimeType.YAML)
@@ -54,7 +60,7 @@ public record FdmGlobodietReader(TabularData tabularData) {
                 .asString();
 
         var tabularData = TabularData.populateFromYaml(yaml, TabularData.Format.defaults());
-        return new FdmGlobodietReader(tabularData);
+        return new FdmGlobodietReader(systemId, tabularData);
     }
 
     public FoodDescriptionModel createFoodDescriptionModel() {
@@ -122,13 +128,13 @@ public record FdmGlobodietReader(TabularData tabularData) {
     public Stream<ClassificationFacet> streamFoodFacet() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodFacet").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->facetFromRowData(row.cellLiterals()));
+            .map(row->facetFromRowData(ObjectId.Context.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     public Stream<ClassificationFacet> streamFoodDescriptor() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodDescriptor").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->descriptorFromRowData(row.cellLiterals()));
+            .map(row->descriptorFromRowData(ObjectId.Context.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     // -- HELPER
@@ -239,9 +245,11 @@ public record FdmGlobodietReader(TabularData tabularData) {
     // 4 "group: If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.|Comma is used as delimiter (e.g. 10,050701,050702)"
     // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
     // 6 "code: Facet code"
-    private static ClassificationFacet facetFromRowData(final List<String> cellLiterals) {
+    private ClassificationFacet facetFromRowData(
+            final ObjectId.Context context,
+            final List<String> cellLiterals) {
         return new ClassificationFacet(
-                cellLiterals.get(6),
+                context.sid(systemId, cellLiterals.get(6)),
                 cellLiterals.get(0)
                 );
     }
@@ -252,11 +260,13 @@ public record FdmGlobodietReader(TabularData tabularData) {
     // 3 "otherQ: 0=Regular choice|1=Choice with additional text as provided by the interviewer (other: [...])"
     // 4 "facetCode: Facet code"
     // 5 "code: Descriptor code"
-    private static ClassificationFacet descriptorFromRowData(final List<String> cellLiterals) {
+    private ClassificationFacet descriptorFromRowData(
+            final ObjectId.Context context,
+            final List<String> cellLiterals) {
         return new ClassificationFacet(
-                FormatUtils.concat(
+                context.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(4),
-                        cellLiterals.get(5)),
+                        cellLiterals.get(5))),
                 cellLiterals.get(0)
                 );
     }

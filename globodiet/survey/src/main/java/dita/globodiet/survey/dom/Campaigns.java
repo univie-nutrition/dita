@@ -153,7 +153,7 @@ public class Campaigns {
         var fdmDataSource = blobStore.lookupBlob(DataSourceLocation.FDM.namedPath(campaign))
                 .orElseThrow()
                 .asDataSource();
-        var fdmReader = FdmGlobodietReader.fromZippedYaml(fdmDataSource);
+        var fdmReader = FdmGlobodietReader.fromZippedYaml(SidUtils.globoDietSystemId(), fdmDataSource);
         return fdmReader.createFoodDescriptionModel();
     }
 
