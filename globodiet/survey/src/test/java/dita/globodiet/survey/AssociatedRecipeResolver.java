@@ -18,17 +18,18 @@
  */
 package dita.globodiet.survey;
 
+import java.util.Optional;
+
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.format.FormatUtils;
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
+import dita.globodiet.survey.dom.SidUtils;
 import dita.recall24.dto.RecallNode24.Builder24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
@@ -62,10 +63,12 @@ public class AssociatedRecipeResolver implements Transfomer {
             case Food.Builder recordBuilder -> {
                 var origFood = recordBuilder.build();
                 var foodNameWithCode = NameWithCode.parseAssocRecipe(origFood.name());
-                var associatedRecipeId = foodNameWithCode.code();
-                if(associatedRecipeId == null) return;
+                var associatedRecipeSid = Optional.ofNullable(foodNameWithCode.code())
+                        .map(code->ObjectId.Context.RECIPE.sid(SidUtils.globoDietSystemId(), code))
+                        .orElse(null);
+                if(associatedRecipeSid == null) return;
 
-                var associatedRecipe = foodDescriptionModel.recipeByCode().get(associatedRecipeId);
+                var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
                 System.err.printf("associatedRecipe=%s%n", associatedRecipe);
 
                 if(associatedRecipe==null) {
@@ -79,13 +82,13 @@ public class AssociatedRecipeResolver implements Transfomer {
                 recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
                 recordBuilder.subRecords().add(origFood); //TODO new type perhaps: COMMENT
 
-                var recipeIngredients = foodDescriptionModel.ingredientsByRecipeCode().get(associatedRecipeId);
+                var recipeIngredients = foodDescriptionModel.ingredientsByRecipeSid().get(associatedRecipeSid);
                 _NullSafe.stream(recipeIngredients)
                     .map(ingr->{
-                        var food = foodDescriptionModel.foodByCode().get(ingr.foodCode());
+                        var food = foodDescriptionModel.foodBySid().get(ingr.foodSid());
                         var foodBuilder = new Food.Builder(Record24.Type.FOOD)
                             .name(food.name())
-                            .sid(new SemanticIdentifier(new SystemId("WIP"), ObjectId.Context.FOOD.objectId(ingr.foodCode())))
+                            .sid(ingr.foodSid())
                             .facetSids(SemanticIdentifierSet.empty());
                         return foodBuilder.build();
                     })

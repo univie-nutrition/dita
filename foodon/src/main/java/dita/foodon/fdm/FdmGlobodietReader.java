@@ -35,6 +35,7 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.format.FormatUtils;
+import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.TabularData;
@@ -65,9 +66,9 @@ public record FdmGlobodietReader(
 
     public FoodDescriptionModel createFoodDescriptionModel() {
         return new FoodDescriptionModel(
-                foodByCode(),
-                recipeByCode(),
-                ingredientsByRecipeCode());
+                foodBySid(),
+                recipeBySid(),
+                ingredientsByRecipeSid());
     }
 
     // -- FOOD
@@ -79,10 +80,10 @@ public record FdmGlobodietReader(
             .filter(Objects::nonNull);
     }
 
-    public Map<String, Food> foodByCode() {
-        final Map<String, Food> map = new HashMap<>();
+    public Map<SemanticIdentifier, Food> foodBySid() {
+        final Map<SemanticIdentifier, Food> map = new HashMap<>();
         streamFood()
-            .forEach(food->map.put(food.code(), food));
+            .forEach(food->map.put(food.sid(), food));
         return map;
     }
 
@@ -94,10 +95,10 @@ public record FdmGlobodietReader(
             .map(row->recipeFromRowData(row.cellLiterals()));
     }
 
-    public Map<String, Recipe> recipeByCode() {
-        final Map<String, Recipe> map = new HashMap<>();
+    public Map<SemanticIdentifier, Recipe> recipeBySid() {
+        final Map<SemanticIdentifier, Recipe> map = new HashMap<>();
         streamRecipe()
-            .forEach(recipe->map.put(recipe.code(), recipe));
+            .forEach(recipe->map.put(recipe.sid(), recipe));
         return map;
     }
 
@@ -109,14 +110,14 @@ public record FdmGlobodietReader(
             .map(row->recipeIngredientFromRowData(row.cellLiterals()));
     }
 
-    public Map<String, List<RecipeIngredient>> ingredientsByRecipeCode() {
-        final Map<String, List<RecipeIngredient>> map = new HashMap<>();
+    public Map<SemanticIdentifier, List<RecipeIngredient>> ingredientsByRecipeSid() {
+        final Map<SemanticIdentifier, List<RecipeIngredient>> map = new HashMap<>();
         streamRecipeIngredient()
             .forEach(recipeIngredient->{
-                var list = map.get(recipeIngredient.recipeCode());
+                var list = map.get(recipeIngredient.recipeSid());
                 if(list==null) {
                     list = new ArrayList<>();
-                    map.put(recipeIngredient.recipeCode(), list);
+                    map.put(recipeIngredient.recipeSid(), list);
                 }
                 list.add(recipeIngredient);
             });
@@ -157,11 +158,11 @@ public record FdmGlobodietReader(
     }
 
     @Nullable
-    private static Food foodFromRowData(final List<String> cellLiterals) {
+    private Food foodFromRowData(final List<String> cellLiterals) {
         var isAlias = "ALIAS".equals(cellLiterals.get(1));
         if(isAlias) return null;
         return new Food(
-                cellLiterals.get(7),
+                ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(7)),
                 cellLiterals.get(0),
                 FormatUtils.concat(
                         cellLiterals.get(4),
@@ -179,11 +180,11 @@ public record FdmGlobodietReader(
     // 7 "recipeSubgroupCode: Subgroup code of the recipe classification"
     // 8 "code: Recipe ID number"
     @Nullable
-    private static Recipe recipeFromRowData(final List<String> cellLiterals) {
+    private Recipe recipeFromRowData(final List<String> cellLiterals) {
         var isAlias = "true".equals(cellLiterals.get(3));
         if(isAlias) return null;
         return new Recipe(
-                cellLiterals.get(8),
+                ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(8)),
                 cellLiterals.get(0),
                 FormatUtils.concat(
                         cellLiterals.get(6),
@@ -230,10 +231,10 @@ public record FdmGlobodietReader(
     // 37 "foodSubSubgroupCode: Ingredient food sub-subgroup"
     // 38 "facetDescriptorsLookupKey: Facets-Descriptors codes used to describe the ingredient;|multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
     // 39 "foodOrRecipeCode: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
-    private static RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
+    private RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
         return new RecipeIngredient(
-                cellLiterals.get(34),
-                cellLiterals.get(39),
+                ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(34)),
+                ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(39)),
                 new BigDecimal(cellLiterals.get(6))
                 );
     }

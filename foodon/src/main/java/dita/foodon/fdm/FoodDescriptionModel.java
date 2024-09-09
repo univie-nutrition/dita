@@ -30,26 +30,26 @@ import dita.commons.sid.SemanticIdentifier;
  * including categorization (grouping) and descriptive facets.
  */
 public record FoodDescriptionModel(
-        Map<String, Food> foodByCode,
-        Map<String, Recipe> recipeByCode,
-        Map<String, List<RecipeIngredient>> ingredientsByRecipeCode
+        Map<SemanticIdentifier, Food> foodBySid,
+        Map<SemanticIdentifier, Recipe> recipeBySid,
+        Map<SemanticIdentifier, List<RecipeIngredient>> ingredientsByRecipeSid
         ) {
 
     public record Food(
-            String code,
+            SemanticIdentifier sid,
             String name,
             String groupCode) {
     }
 
     public record Recipe(
-            String code,
+            SemanticIdentifier sid,
             String name,
             String groupCode) {
     }
 
     public record RecipeIngredient(
-            String recipeCode,
-            String foodCode,
+            SemanticIdentifier recipeSid,
+            SemanticIdentifier foodSid,
             BigDecimal amountGrams) {
     }
 
