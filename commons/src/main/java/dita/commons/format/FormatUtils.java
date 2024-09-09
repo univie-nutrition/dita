@@ -25,12 +25,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.experimental.UtilityClass;
@@ -117,6 +121,58 @@ public class FormatUtils {
                     .getValue()
                     .orElse("")
                 : "";
+    }
+
+    // -- NULLABLE CONCAT
+
+    /**
+     * Returns String concatenation of given parts, ignoring null parts.
+     */
+    public String concat(final @Nullable String ... parts) {
+        if(_NullSafe.isEmpty(parts)) return "";
+        var sum = "";
+        for(String part : parts) {
+            sum += _Strings.nullToEmpty(part);
+        }
+        return sum;
+    }
+
+    public Can<String> cut(final @Nullable IntStream indexes, final @Nullable String input){
+        if(indexes==null
+                || _Strings.isEmpty(input)) {
+            return Can.empty();
+        }
+        class Helper {
+            int count;
+            int startIncl;
+            int endExcl;
+            Helper next(final int index) {
+                if(1==count%2) {
+                    endExcl = index;
+                } else {
+                    startIncl = index;
+                }
+                count++;
+                return this;
+            }
+            String substring() {
+                if(count==0
+                        || 1==count%2
+                        || startIncl<0
+                        || endExcl<=startIncl
+                        || startIncl>=input.length()
+                        || endExcl>input.length()) {
+                    return null;
+                }
+                return input.substring(startIncl, endExcl);
+            }
+        }
+        var helper = new Helper();
+        return indexes
+            .mapToObj(helper::next)
+            .filter(Objects::nonNull)
+            .map(Helper::substring)
+            .collect(Can.toCan());
     }
 
 }

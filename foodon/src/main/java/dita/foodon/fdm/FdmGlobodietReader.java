@@ -24,18 +24,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSource;
 
+import dita.commons.format.FormatUtils;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
+import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
-import dita.foodon.fdm.FoodDescriptionModel.FoodDescriptor;
-import dita.foodon.fdm.FoodDescriptionModel.FoodFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 
@@ -66,7 +69,8 @@ public record FdmGlobodietReader(TabularData tabularData) {
     public Stream<FoodDescriptionModel.Food> streamFood() {
         return lookupTableByKey("dita.globodiet.params.food_list.Food").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->foodFromRowData(row.cellLiterals()));
+            .map(row->foodFromRowData(row.cellLiterals()))
+            .filter(Objects::nonNull);
     }
 
     public Map<String, Food> foodByCode() {
@@ -115,13 +119,13 @@ public record FdmGlobodietReader(TabularData tabularData) {
 
     // -- FOOD FACETS
 
-    public Stream<FoodFacet> streamFoodFacet() {
+    public Stream<ClassificationFacet> streamFoodFacet() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodFacet").stream()
             .flatMap(dataTable->dataTable.rows().stream())
             .map(row->facetFromRowData(row.cellLiterals()));
     }
 
-    public Stream<FoodDescriptor> streamFoodDescriptor() {
+    public Stream<ClassificationFacet> streamFoodDescriptor() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodDescriptor").stream()
             .flatMap(dataTable->dataTable.rows().stream())
             .map(row->descriptorFromRowData(row.cellLiterals()));
@@ -146,14 +150,17 @@ public record FdmGlobodietReader(TabularData tabularData) {
                 .findFirst();
     }
 
+    @Nullable
     private static Food foodFromRowData(final List<String> cellLiterals) {
+        var isAlias = "ALIAS".equals(cellLiterals.get(1));
+        if(isAlias) return null;
         return new Food(
                 cellLiterals.get(7),
                 cellLiterals.get(0),
-                "ALIAS".equals(cellLiterals.get(1)),
-                cellLiterals.get(4),
-                cellLiterals.get(5),
-                cellLiterals.get(6));
+                FormatUtils.concat(
+                        cellLiterals.get(4),
+                        cellLiterals.get(5),
+                        cellLiterals.get(6)));
     }
 
     // 0 "name: Recipe name"
@@ -165,14 +172,16 @@ public record FdmGlobodietReader(TabularData tabularData) {
     // 6 "recipeGroupCode: Group code of the recipe classification."
     // 7 "recipeSubgroupCode: Subgroup code of the recipe classification"
     // 8 "code: Recipe ID number"
+    @Nullable
     private static Recipe recipeFromRowData(final List<String> cellLiterals) {
+        var isAlias = "true".equals(cellLiterals.get(3));
+        if(isAlias) return null;
         return new Recipe(
                 cellLiterals.get(8),
                 cellLiterals.get(0),
-                "true".equals(cellLiterals.get(3)),
-                cellLiterals.get(6),
-                cellLiterals.get(7)
-                );
+                FormatUtils.concat(
+                        cellLiterals.get(6),
+                        cellLiterals.get(7)));
     }
 
     // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
@@ -230,8 +239,8 @@ public record FdmGlobodietReader(TabularData tabularData) {
     // 4 "group: If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.|Comma is used as delimiter (e.g. 10,050701,050702)"
     // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
     // 6 "code: Facet code"
-    private static FoodFacet facetFromRowData(final List<String> cellLiterals) {
-        return new FoodFacet(
+    private static ClassificationFacet facetFromRowData(final List<String> cellLiterals) {
+        return new ClassificationFacet(
                 cellLiterals.get(6),
                 cellLiterals.get(0)
                 );
@@ -243,10 +252,11 @@ public record FdmGlobodietReader(TabularData tabularData) {
     // 3 "otherQ: 0=Regular choice|1=Choice with additional text as provided by the interviewer (other: [...])"
     // 4 "facetCode: Facet code"
     // 5 "code: Descriptor code"
-    private static FoodDescriptor descriptorFromRowData(final List<String> cellLiterals) {
-        return new FoodDescriptor(
-                cellLiterals.get(5),
-                cellLiterals.get(4),
+    private static ClassificationFacet descriptorFromRowData(final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                FormatUtils.concat(
+                        cellLiterals.get(4),
+                        cellLiterals.get(5)),
                 cellLiterals.get(0)
                 );
     }

@@ -36,18 +36,13 @@ public record FoodDescriptionModel(
     public record Food(
             String code,
             String name,
-            boolean isAlias,
-            String foodGroupCode,
-            String foodSubgroupCode,
-            String foodSubSubgroupCode) {
+            String groupCode) {
     }
 
     public record Recipe(
             String code,
             String name,
-            boolean isAlias,
-            String recipeGroupCode,
-            String recipeSubgroupCode) {
+            String groupCode) {
     }
 
     public record RecipeIngredient(
@@ -56,14 +51,8 @@ public record FoodDescriptionModel(
             BigDecimal amountGrams) {
     }
 
-    public record FoodFacet(
+    public record ClassificationFacet(
             String code,
-            String name) {
-    }
-
-    public record FoodDescriptor(
-            String code,
-            String facetCode,
             String name) {
     }
 
