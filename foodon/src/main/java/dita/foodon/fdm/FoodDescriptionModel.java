@@ -38,13 +38,13 @@ public record FoodDescriptionModel(
     public record Food(
             SemanticIdentifier sid,
             String name,
-            String groupCode) {
+            SemanticIdentifier groupSid) {
     }
 
     public record Recipe(
             SemanticIdentifier sid,
             String name,
-            String groupCode) {
+            SemanticIdentifier groupSid) {
     }
 
     public record RecipeIngredient(

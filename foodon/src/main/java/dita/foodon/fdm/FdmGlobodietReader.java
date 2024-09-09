@@ -164,10 +164,10 @@ public record FdmGlobodietReader(
         return new Food(
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(7)),
                 cellLiterals.get(0),
-                FormatUtils.concat(
+                ObjectId.Context.FOOD_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(4),
                         cellLiterals.get(5),
-                        cellLiterals.get(6)));
+                        cellLiterals.get(6))));
     }
 
     // 0 "name: Recipe name"
@@ -186,9 +186,9 @@ public record FdmGlobodietReader(
         return new Recipe(
                 ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(8)),
                 cellLiterals.get(0),
-                FormatUtils.concat(
+                ObjectId.Context.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(6),
-                        cellLiterals.get(7)));
+                        cellLiterals.get(7))));
     }
 
     // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
