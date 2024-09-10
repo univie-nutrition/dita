@@ -59,8 +59,9 @@ import org.apache.causeway.applib.annotation.Where;
  * code
  * @param meal meal happened
  * when and where
- * @param ordinal dewey
- * ordinal
+ * @param mealOrdinal Dewey
+ * decimal
+ * order
  * @param recordType type of food
  * record
  * @param food name of consumed
@@ -174,11 +175,12 @@ public record ConsumptionRecord(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "10",
-                describedAs = "dewey\n"
-                                + "ordinal",
+                describedAs = "Dewey\n"
+                                + "decimal\n"
+                                + "order",
                 hidden = Where.NOWHERE
         )
-        String ordinal,
+        String mealOrdinal,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "11",

@@ -82,6 +82,7 @@ public record Recall24SummaryStatistics(
             case Record24.Composite comp -> compositeCount.increment();
             case Record24.TypeOfFatUsed info -> informalCount.increment();
             case Record24.TypeOfMilkOrLiquidUsed info -> informalCount.increment();
+            case Record24.Comment info -> informalCount.increment();
             }
         }
         public String formatted() {

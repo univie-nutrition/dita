@@ -88,6 +88,8 @@ permits
 
     public static enum Type {
 
+        COMMENT,
+
         /**
          * A composition of identified generic food or recipes.
          * <p>
@@ -121,7 +123,9 @@ permits
         /** @see #PRODUCT */
         public boolean isProduct() { return this == PRODUCT; }
 
-        public boolean isInformal() { return this == TYPE_OF_FAT_USED
+        public boolean isInformal() {
+            return this == COMMENT
+                || this == TYPE_OF_FAT_USED
                 || this == TYPE_OF_MILK_OR_LIQUID_USED; }
 
         /** to DTO */
@@ -147,6 +151,7 @@ permits
 
     public sealed interface Dto extends Record24
     permits
+        Record24.Comment,
         Record24.Composite,
         Record24.TypeOfFatUsed,
         Record24.TypeOfMilkOrLiquidUsed,
@@ -379,7 +384,47 @@ permits
         }
     }
 
+    /**
+     * Type of fat used during cooking.
+     */
+    public record Comment(
+            /** Memorized food this record belongs to. */
+            @JsonIgnore
+            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            Type type,
+            String name,
+            SemanticIdentifier sid,
+            SemanticIdentifierSet facetSids,
+            Map<String, Annotation> annotations
+            ) implements Record24.Dto {
+
+        @Override
+        public Builder24<Dto> asBuilder() {
+            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+        }
+    }
+
     // -- FACTORIES
+
+    public static Comment comment(
+            /**
+             * The name of this record.
+             */
+            final String name,
+            /**
+             * Identifier of this record.
+             */
+            final SemanticIdentifier sid,
+            /**
+             * Comma separated list of facet identifiers,
+             * ordered (by some natural order).
+             */
+            final SemanticIdentifierSet facetSids,
+            final Can<Annotation> annotations) {
+        var comment = new Comment(ObjectRef.empty(), Record24.Type.COMMENT,
+                name, sid, facetSids, annotations.toMap(Annotation::key));
+        return comment;
+    }
 
     public static Composite composite(
             /**
@@ -524,6 +569,7 @@ permits
         @Override
         public Dto build() {
             return switch (type) {
+            case COMMENT -> comment(name, sid, facetSids, Can.ofCollection(annotations));
             case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords), Can.ofCollection(annotations));
             case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords), Can.ofCollection(annotations));
             case FRYING_FAT -> fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);

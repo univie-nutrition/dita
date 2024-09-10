@@ -31,17 +31,22 @@ class OrdinalTracker {
     int mealOrdinal;
     int[] consumptionOrdinal = new int[5]; // arbitrary composite max nesting level
     final Stack<Can<? extends Record24>> stack = new Stack<>();
+    boolean isInformal;
     void nextMeal() {
         mealOrdinal++;
         indices(0)
             .forEach(i->consumptionOrdinal[i] = 0);
     }
     void nextComposite(final Composite comp) {
+        isInformal = comp.type().isInformal();
+        if(isInformal) return; // informal records don't have an ordinal
         shrinkStack(comp);
         inc();
         stack.push(comp.subRecords());
     }
     void nextConsumption(final Consumption cons) {
+        isInformal = cons.type().isInformal();
+        if(isInformal) return; // informal records don't have an ordinal
         shrinkStack(cons);
         inc();
     }
@@ -63,6 +68,7 @@ class OrdinalTracker {
     }
 
     String deweyOrdinal() {
+        if(isInformal) return "-";
         var dewey = "" + mealOrdinal;
         int i = 0;
         while(i<consumptionOrdinal.length

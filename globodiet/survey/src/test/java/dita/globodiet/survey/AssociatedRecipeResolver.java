@@ -21,6 +21,7 @@ package dita.globodiet.survey;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
@@ -32,6 +33,7 @@ import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.SidUtils;
+import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Builder24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
@@ -82,9 +84,18 @@ public class AssociatedRecipeResolver implements Transfomer {
                 //TODO[dita-globodiet-survey-24] replace the (proxy-) food node by its associated composite node
                 recordBuilder.type(Record24.Type.COMPOSITE);
                 recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
-                recordBuilder.subRecords().add(origFood); //TODO new type perhaps: COMMENT
+                recordBuilder.subRecords().add(Record24
+                        .comment(origFood.name(), origFood.sid(), origFood.facetSids(),
+                                Can.ofCollection(origFood.annotations().values())));
 
-                var recipeIngredients = foodDescriptionModel.ingredientsByRecipeSid().get(associatedRecipeSid);
+                recordBuilder.annotations().clear();
+                //TODO[dita-globodiet-survey-24] refactor group annot. to by of type sid
+                recordBuilder.annotations().add(new Annotation("group", associatedRecipe.groupSid().objectId().objectSimpleId()));
+
+                recordBuilder.facetSids(SidUtils.wipSids());
+
+                var recipeIngredients = foodDescriptionModel.ingredientsByRecipeSid()
+                        .get(associatedRecipeSid);
                 _NullSafe.stream(recipeIngredients)
                     .map(ingr->{
                         var food = foodDescriptionModel.foodBySid().get(ingr.foodSid());
@@ -92,8 +103,8 @@ public class AssociatedRecipeResolver implements Transfomer {
                             .name(food.name())
                             .sid(ingr.foodSid())
                             .facetSids(SemanticIdentifierSet.empty())
-                            .amountConsumed(BigDecimal.ONE)
-                            .consumptionUnit(ConsumptionUnit.GRAM);
+                            .amountConsumed(BigDecimal.ONE.negate()) //TODO[dita-globodiet-survey-24] fix actual amount
+                            .consumptionUnit(ConsumptionUnit.GRAM);  //TODO[dita-globodiet-survey-24] fix actual unit
                         return foodBuilder.build();
                     })
                     .forEach(recordBuilder.subRecords()::add);

@@ -141,13 +141,27 @@ public class TabularReporters {
                     .quantity(cRec.amountConsumed())
                     .fcdbId(compositionEntry
                             .map(FoodComposition::foodId)
-                            .map(sid->sid.toStringNoBox())
-                            .orElse(null))
+                            .orElseGet(TabularReporters::wipSid)
+                            .toStringNoBox())
                     .GCALZB(compositionEntry
                             .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
                             .map(dp->dp.quantify(foodConsumption))
                             .map(FoodComponentQuantified::quantityValue)
                             .orElse(null))
+                    .build();
+            }
+            // factory method for comments
+            ConsumptionRecord comment(
+                    final Record24.Comment comment){
+                return builder
+                    .recordType(comment.type().name())
+                    .mealOrdinal(null)
+                    .food(comment.name())
+                    .foodId(comment.sid().toStringNoBox())
+                    .facetIds(comment.facetSids().toStringNoBox())
+                    .quantity(null)
+                    .fcdbId(null)
+                    .GCALZB(null)
                     .build();
             }
             void respondentAlias(final String respondentAlias) {
@@ -211,9 +225,21 @@ public class TabularReporters {
                         rowBuilder.meal(String.format("%s (%s) @ %s",
                                 fcoLabel, timeOfDayLabel, pocLabel));
                     }
+                    case Record24.Comment comment -> {
+                        rowFactory.recordType(comment.type());
+                        rowBuilder.groupId(
+                                comment.annotation("group")
+                                .map(Annotation::value)
+                                .map(String.class::cast)
+                                .map(group->Context.FOOD_GROUP.sid(systemId, group))
+                                .map(SemanticIdentifier::toStringNoBox)
+                                .orElse(""));
+                        consumptions.add(
+                                rowFactory.comment(comment));
+                    }
                     case Record24.Composite comp -> {
                         rowFactory.ordinalTracker.nextComposite(comp);
-                        rowBuilder.ordinal(rowFactory.ordinalTracker.deweyOrdinal());
+                        rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                         rowFactory.recordType(comp.type());
                         rowBuilder.groupId(
                                 comp.annotation("group")
@@ -227,7 +253,7 @@ public class TabularReporters {
                     }
                     case Record24.Consumption cRec -> {
                         rowFactory.ordinalTracker.nextConsumption(cRec);
-                        rowBuilder.ordinal(rowFactory.ordinalTracker.deweyOrdinal());
+                        rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                         rowFactory.recordType(cRec.type());
                         rowBuilder.groupId(
                                 cRec.annotation("group")
@@ -271,6 +297,10 @@ public class TabularReporters {
             }
         }
 
+    }
+
+    SemanticIdentifier wipSid() {
+        return new SemanticIdentifier(SystemId.empty(), new ObjectId("WIP"));
     }
 
 }
