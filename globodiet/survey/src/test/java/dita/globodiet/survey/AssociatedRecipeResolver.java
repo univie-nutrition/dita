@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -25,6 +26,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifierSet;
@@ -89,7 +91,9 @@ public class AssociatedRecipeResolver implements Transfomer {
                         var foodBuilder = new Food.Builder(Record24.Type.FOOD)
                             .name(food.name())
                             .sid(ingr.foodSid())
-                            .facetSids(SemanticIdentifierSet.empty());
+                            .facetSids(SemanticIdentifierSet.empty())
+                            .amountConsumed(BigDecimal.ONE)
+                            .consumptionUnit(ConsumptionUnit.GRAM);
                         return foodBuilder.build();
                     })
                     .forEach(recordBuilder.subRecords()::add);

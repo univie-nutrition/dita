@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -230,8 +231,11 @@ permits
          */
         default FoodConsumption asFoodConsumption() {
             return new FoodConsumption(
-                    name(), sid(), facetSids(),
-                    consumptionUnit(), amountConsumed());
+                    name(),
+                    Objects.requireNonNull(sid()),
+                    Objects.requireNonNull(facetSids()),
+                    Objects.requireNonNull(consumptionUnit()),
+                    Objects.requireNonNull(amountConsumed()));
         }
     }
 
