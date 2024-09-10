@@ -1,9 +1,11 @@
 = Consumption Record
 
-A _record_ is either directly a consumption entry (`Food`, `FryingFat`, `Product`) 
-or a composite (`Composite`) of such 
-or an informal entry (`TypeOfFatUsed`, `TypeOfMilkOrLiquidUsed`) attached 
-to another _record_ (`Food`).
+A _record_ is either 
+
+- directly a consumption entry (`Food`, `FryingFat`, `Product`) 
+- or a `Composite` of these
+- or a `Comment` 
+- or an informal entry (`TypeOfFatUsed`, `TypeOfMilkOrLiquidUsed`) attached to another _record_ (`Food`)
 
 `FryingFat` is fat used during cooking, which is also added as consumption record (amount reducing factors considered).
 
