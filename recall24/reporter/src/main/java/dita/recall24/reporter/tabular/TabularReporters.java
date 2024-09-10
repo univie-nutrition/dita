@@ -50,7 +50,6 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
@@ -230,8 +229,7 @@ public class TabularReporters {
                         rowBuilder.groupId(
                                 comment.annotation("group")
                                 .map(Annotation::value)
-                                .map(String.class::cast)
-                                .map(group->Context.FOOD_GROUP.sid(systemId, group))
+                                .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
                         consumptions.add(
@@ -244,8 +242,7 @@ public class TabularReporters {
                         rowBuilder.groupId(
                                 comp.annotation("group")
                                 .map(Annotation::value)
-                                .map(String.class::cast)
-                                .map(group->Context.RECIPE_GROUP.sid(systemId, group))
+                                .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
                         consumptions.add(
@@ -258,8 +255,7 @@ public class TabularReporters {
                         rowBuilder.groupId(
                                 cRec.annotation("group")
                                 .map(Annotation::value)
-                                .map(String.class::cast)
-                                .map(group->Context.FOOD_GROUP.sid(systemId, group))
+                                .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
                         var mappingTarget = nutMapping

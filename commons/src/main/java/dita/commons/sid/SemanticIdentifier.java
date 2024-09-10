@@ -18,6 +18,7 @@
  */
 package dita.commons.sid;
 
+import java.io.Serializable;
 import java.util.function.UnaryOperator;
 
 import org.springframework.lang.Nullable;
@@ -53,7 +54,7 @@ public record SemanticIdentifier (
          * Uniquely identifies the data object within the system.
          * (optionally includes context information)
          */
-        @NonNull ObjectId objectId) implements Comparable<SemanticIdentifier> {
+        @NonNull ObjectId objectId) implements Comparable<SemanticIdentifier>, Serializable {
 
     // -- SYSTEM ID
 
@@ -65,7 +66,7 @@ public record SemanticIdentifier (
             /**
              * Identifies the system's version of the referenced data object.
              */
-            String version) implements Comparable<SystemId> {
+            String version) implements Comparable<SystemId>, Serializable {
 
         public static SystemId empty() {
             return new SystemId(null, null);
@@ -147,7 +148,7 @@ public record SemanticIdentifier (
             /**
              * Uniquely identifies the data object within the system's context.
              */
-            String objectSimpleId) implements Comparable<ObjectId> {
+            String objectSimpleId) implements Comparable<ObjectId>, Serializable {
 
         /**
          * Some predefined contexts.

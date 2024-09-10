@@ -84,13 +84,16 @@ public class AssociatedRecipeResolver implements Transfomer {
                 //TODO[dita-globodiet-survey-24] replace the (proxy-) food node by its associated composite node
                 recordBuilder.type(Record24.Type.COMPOSITE);
                 recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
+                recordBuilder.sid(associatedRecipeSid);
                 recordBuilder.subRecords().add(Record24
                         .comment(origFood.name(), origFood.sid(), origFood.facetSids(),
                                 Can.ofCollection(origFood.annotations().values())));
 
                 recordBuilder.annotations().clear();
-                //TODO[dita-globodiet-survey-24] refactor group annot. to by of type sid
-                recordBuilder.annotations().add(new Annotation("group", associatedRecipe.groupSid().objectId().objectSimpleId()));
+                recordBuilder.annotations().add(new Annotation("group",
+                        associatedRecipe.groupSid()
+                            .mapObjectId(o->o.mapContext(_->ObjectId.Context.RECIPE_GROUP.id()))
+                        ));
 
                 recordBuilder.facetSids(SidUtils.wipSids());
 

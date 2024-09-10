@@ -30,15 +30,15 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import lombok.experimental.UtilityClass;
-
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
+import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.NumberUtils;
-import dita.globodiet.survey.dom.SidUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
@@ -51,8 +51,7 @@ import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
-@UtilityClass
-class _InterviewConverter {
+record InterviewConverter(SystemId systemId) {
 
     /**
      * parented by an Respondent24 stub, that has no children (needs post-processing)
@@ -120,7 +119,7 @@ class _InterviewConverter {
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
                 toRecords24(subEntries),
-                Can.of(group(listEntry))
+                Can.of(group(Context.RECIPE_GROUP, listEntry))
                 );
         }
         default -> toRecord24(topLevelRecordNode);
@@ -128,7 +127,7 @@ class _InterviewConverter {
     }
 
     private Can<Record24.Dto> toRecords24(final List<ListEntryTreeNode> nodes) {
-        return _NullSafe.stream(nodes).map(_InterviewConverter::toRecord24).collect(Can.toCan());
+        return _NullSafe.stream(nodes).map(this::toRecord24).collect(Can.toCan());
     }
 
     private Record24.Dto toRecord24(final ListEntryTreeNode node) {
@@ -154,7 +153,7 @@ class _InterviewConverter {
                 listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
                 usedDuringCooking,
-                Can.of(group(listEntry)));
+                Can.of(group(Context.FOOD_GROUP, listEntry)));
         }
         case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
@@ -215,33 +214,31 @@ class _InterviewConverter {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-    private static RecallNode24.Annotation group(final ListEntry listEntry) {
-        return new RecallNode24.Annotation("group", String.format("%s%s%s",
-                _Strings.nullToEmpty(listEntry.getGroupCode()),
-                _Strings.nullToEmpty(listEntry.getSubgroupCode()),
-                _Strings.nullToEmpty(listEntry.getSubSubgroupCode())));
+    private RecallNode24.Annotation group(final Context context, final ListEntry listEntry) {
+        var groupSimpleId = FormatUtils.concat(
+                listEntry.getGroupCode(),
+                listEntry.getSubgroupCode(),
+                listEntry.getSubSubgroupCode());
+        return new RecallNode24.Annotation("group", context
+                .sid(systemId, groupSimpleId));
     }
 
-    private static SemanticIdentifier foodSid(final ListEntry listEntry) {
-        return new SemanticIdentifier(
-                SidUtils.globoDietSystemId(),
-                ObjectId.Context.FOOD.objectId(listEntry.getFoodOrSimilarCode()));
+    private SemanticIdentifier foodSid(final ListEntry listEntry) {
+        return ObjectId.Context.FOOD.sid(systemId, listEntry.getFoodOrSimilarCode());
     }
 
-    private static SemanticIdentifier recipeSid(final ListEntry listEntry) {
-        return new SemanticIdentifier(
-                SidUtils.globoDietSystemId(),
-                ObjectId.Context.RECIPE.objectId(listEntry.getFoodOrSimilarCode()));
+    private SemanticIdentifier recipeSid(final ListEntry listEntry) {
+        return ObjectId.Context.RECIPE.sid(systemId, listEntry.getFoodOrSimilarCode());
     }
 
-    private static SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
+    private SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
         return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.FOOD_DESCRIPTOR, listEntry)
-                .map(objectId->new SemanticIdentifier(SidUtils.globoDietSystemId(), objectId)));
+                .map(objectId->new SemanticIdentifier(systemId, objectId)));
     }
 
-    private static SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
+    private SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
         return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.RECIPE_DESCRIPTOR, listEntry)
-                .map(objectId->new SemanticIdentifier(SidUtils.globoDietSystemId(), objectId)));
+                .map(objectId->new SemanticIdentifier(systemId, objectId)));
     }
 
     /**

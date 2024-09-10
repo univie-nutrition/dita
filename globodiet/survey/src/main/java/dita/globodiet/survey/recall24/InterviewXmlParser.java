@@ -32,6 +32,7 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
+import dita.globodiet.survey.dom.SidUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 
@@ -89,10 +90,12 @@ public class InterviewXmlParser {
     private InterviewSet24.Dto createFromDto(
             final @NonNull _Dtos.Itv dto,
             final @Nullable Consumer<Message> messageConsumer) {
+
+        var interviewConverter = new InterviewConverter(SidUtils.globoDietSystemId());
         return Recall24DtoUtils
             .join(
                 dto.getInterviews().stream()
-                    .map(_InterviewConverter::toInterview24)
+                    .map(interviewConverter::toInterview24)
                     .toList(),
                 messageConsumer);
     }
