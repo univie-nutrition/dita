@@ -15,16 +15,15 @@ A `Record` can have arbitrary `Annotation`(s) such as group information or notes
 @startuml
 
 interface Record {
-    foodId: SemanticIdentifier
-    facetIds: SemanticIdentifierSet
+    sid: SemanticIdentifier
+    facetSids: SemanticIdentifierSet
     name: String
-    description: String
 }
 
 interface Consumption {
     amountConsumed: BigDecimal
     rawPerCookedRatio: BigDecimal
-    asFoodConsumption(systemId: String): FoodConsumption
+    asFoodConsumption(): FoodConsumption
 }
 
 class Annotation {
@@ -56,7 +55,9 @@ Record o--> "0..*" Annotation : annotations
 Food o--> "0..1" TypeOfFatUsed
 Food o--> "0..1" TypeOfMilkOrLiquidUsed
 
-ConsumptionRecord -d-> ConsumptionUnit : amount consumed\nis given in units of
+Comment --|> Record
+
+Consumption -d-> ConsumptionUnit : consumptionUnit()\namount consumed\nis given in units of
 
 TypeOfFatUsed --|> Record
 TypeOfMilkOrLiquidUsed --|> Record
