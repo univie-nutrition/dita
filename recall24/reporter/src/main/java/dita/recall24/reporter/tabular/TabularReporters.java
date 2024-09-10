@@ -116,6 +116,7 @@ public class TabularReporters {
             final ConsumptionRecordBuilder builder = ConsumptionRecord.builder();
             final Set<String> respondentAliasSeenBefore = new HashSet<>();
             private int respondentOrdinal;
+            private OrdinalTracker ordinalTracker = new OrdinalTracker();
 
             // factory method for composites
             ConsumptionRecord compositeHeader(final Record24.Composite comp) {
@@ -191,6 +192,7 @@ public class TabularReporters {
                         }
                     }
                     case Meal24.Dto meal -> {
+                        rowFactory.ordinalTracker.nextMeal();
                         var fcoCode = new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId()));
                         var pocCode = new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId()));
                         rowBuilder.fco(fcoCode.toStringNoBox());
@@ -210,6 +212,8 @@ public class TabularReporters {
                                 fcoLabel, timeOfDayLabel, pocLabel));
                     }
                     case Record24.Composite comp -> {
+                        rowFactory.ordinalTracker.nextComposite(comp);
+                        rowBuilder.ordinal(rowFactory.ordinalTracker.deweyOrdinal());
                         rowFactory.recordType(comp.type());
                         rowBuilder.groupId(
                                 comp.annotation("group")
@@ -222,6 +226,8 @@ public class TabularReporters {
                                 rowFactory.compositeHeader(comp));
                     }
                     case Record24.Consumption cRec -> {
+                        rowFactory.ordinalTracker.nextConsumption(cRec);
+                        rowBuilder.ordinal(rowFactory.ordinalTracker.deweyOrdinal());
                         rowFactory.recordType(cRec.type());
                         rowBuilder.groupId(
                                 cRec.annotation("group")

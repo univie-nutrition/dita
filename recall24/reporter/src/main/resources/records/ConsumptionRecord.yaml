@@ -77,6 +77,11 @@ viewmodel:
       description: |
         meal happened
         when and where
+    ordinal:
+      type: String
+      description: |
+        dewey 
+        ordinal
     recordType:
       type: String
       description: |

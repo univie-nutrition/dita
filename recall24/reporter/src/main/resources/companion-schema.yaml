@@ -89,6 +89,12 @@ viewmodels:
       description: |
         meal happened
         when and where
+    ordinal:
+      type: String
+      required: true
+      description: |
+        dewey 
+        ordinal
     recordType:
       type: String
       required: true
