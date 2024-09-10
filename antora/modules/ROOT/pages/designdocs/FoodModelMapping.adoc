@@ -15,9 +15,17 @@ A _Semantic Identifier_ (SID) references data objects across system boundaries.
 ----
 @startuml
 
+class SystemId {
+    system: String
+    version: String
+}
+
+class ObjectId {
+    context: String
+    objectSimpleId: String
+}
+
 class SemanticIdentifier {
-    systemId: String
-    objectId: String
 }
 
 class SemanticIdentifierSet {
@@ -29,6 +37,9 @@ end note
 note right of SemanticIdentifier::objectId
   uniquely identifies the data object within the system
 end note
+
+SemanticIdentifier --> SystemId
+SemanticIdentifier --> ObjectId
 
 SemanticIdentifierSet -right-> "*" SemanticIdentifier : has many
 
@@ -43,10 +54,11 @@ Example use, referencing a food, product or facet.
 .Java
 ----
 // within BLS v3.02 represents 'Banana raw'
-var blsBananaId = new SemanticIdentifier("BLS302", "F503100");
+var blsBanana = SemanticIdentifier.parse("de.bls/3.02", "food/F503100");
+var totalSuguar = SemanticIdentifier.parse("de.bls/3.02", "comp/KMD");
 
 // within LanguaL 2017 Facet Category - A (PRODUCT TYPE) represents 'Bananas' from GS1 ontology
-var gs1BananaId = new SemanticIdentifier("LanguaL2017", "A1415"); 
+var gs1BananaId = new SemanticIdentifier("langual/2017:A1415"); 
 ----
 
 === Qualified Map
