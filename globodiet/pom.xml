@@ -32,7 +32,6 @@
 		<module>params</module>
 		<module>manager</module>
 		<module>survey</module>
-		<module>connectors</module>
 	</modules>
     
 </project>
