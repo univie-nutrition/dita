@@ -31,6 +31,7 @@ import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.dto.Correction24;
@@ -72,13 +73,14 @@ public class InterviewUtils {
     public InterviewSet24.Dto interviewSetFromBlobStore(
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
+            final SystemId systemId,
             final Correction24 correction,
             final Consumer<Message> messageConsumer) {
 
         var interviewSet = surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath, true)
-                .map(ds->InterviewXmlParser.parse(ds, messageConsumer))
+                .map(ds->InterviewXmlParser.parse(ds, systemId, messageConsumer))
                 .map(Recall24DtoUtils.correct(correction))
                 .reduce((a, b)->a.join(b, messageConsumer))
                 .map(InterviewSet24.Dto::normalized)

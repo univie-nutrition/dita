@@ -79,7 +79,7 @@ public class Survey_generateReport {
         var fcoMapping = Campaigns.fcoMapping(campaigns.getFirst(), surveyBlobStore);
         var pocMapping = Campaigns.pocMapping(campaigns.getFirst(), surveyBlobStore);
         var foodCompositionRepo = Campaigns.fcdb(campaigns.getFirst(), surveyBlobStore);
-        var systemId = SidUtils.globoDietSystemId();
+        var systemId = Campaigns.systemId(mixee);
 
         var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
                 nutMapping,

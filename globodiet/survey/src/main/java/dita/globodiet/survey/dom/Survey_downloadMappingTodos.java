@@ -36,7 +36,6 @@ import org.apache.causeway.commons.io.DataSink;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.reporter.todo.TodoReporters;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
@@ -72,7 +71,7 @@ public class Survey_downloadMappingTodos {
         }
 
         var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
-        var systemId = SidUtils.globoDietSystemId();
+        var systemId = Campaigns.systemId(mixee);
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);

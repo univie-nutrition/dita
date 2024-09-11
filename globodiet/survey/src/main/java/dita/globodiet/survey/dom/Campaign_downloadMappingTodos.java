@@ -36,7 +36,6 @@ import org.apache.causeway.commons.io.DataSink;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.reporter.todo.TodoReporters;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
@@ -64,7 +63,7 @@ public class Campaign_downloadMappingTodos {
     public Clob act() {
         var interviewSet = Campaigns.interviewSet(mixee, surveyBlobStore);
         var nutMapping = Campaigns.nutMapping(mixee, surveyBlobStore);
-        var systemId = SidUtils.globoDietSystemId();
+        var systemId = Campaigns.systemId(mixee);
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);

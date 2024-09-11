@@ -32,7 +32,6 @@ import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Builder24;
 import dita.recall24.dto.RecallNode24.Transfomer;
@@ -68,7 +67,7 @@ public class AssociatedRecipeResolver implements Transfomer {
                 var origFood = recordBuilder.build();
                 var foodNameWithCode = NameWithCode.parseAssocRecipe(origFood.name());
                 var associatedRecipeSid = Optional.ofNullable(foodNameWithCode.code())
-                        .map(code->ObjectId.Context.RECIPE.sid(SidUtils.globoDietSystemId(), code))
+                        .map(code->ObjectId.Context.RECIPE.sid(origFood.sid().systemId(), code))
                         .orElse(null);
                 if(associatedRecipeSid == null) return;
 

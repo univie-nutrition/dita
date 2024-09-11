@@ -31,8 +31,8 @@ import org.apache.causeway.commons.io.JaxbUtils;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 
@@ -49,8 +49,9 @@ public class InterviewXmlParser {
      */
     public Try<InterviewSet24.Dto> tryParse(
             final @NonNull DataSource source,
+            final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
-        return Try.call(()->parse(source, messageConsumer));
+        return Try.call(()->parse(source, systemId, messageConsumer));
     }
 
     /**
@@ -59,6 +60,7 @@ public class InterviewXmlParser {
      */
     public InterviewSet24.Dto parse(
             final @NonNull DataSource source,
+            final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
                 .valueAsNullableElseFail();
@@ -66,7 +68,7 @@ public class InterviewXmlParser {
             warnEmptyDataSource(source, messageConsumer);
             return InterviewSet24.empty();
         }
-        return createFromDto(dto, messageConsumer);
+        return createFromDto(dto, systemId, messageConsumer);
     }
 
     /**
@@ -75,6 +77,7 @@ public class InterviewXmlParser {
      */
     public InterviewSet24.Dto parse(
             final Clob interviewSource,
+            final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
                 .valueAsNullableElseFail();
@@ -82,16 +85,17 @@ public class InterviewXmlParser {
             warnEmptyDataSource(interviewSource, messageConsumer);
             return InterviewSet24.empty();
         }
-        return createFromDto(dto, messageConsumer);
+        return createFromDto(dto, systemId, messageConsumer);
     }
 
     // -- HELPER
 
     private InterviewSet24.Dto createFromDto(
             final @NonNull _Dtos.Itv dto,
+            final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
 
-        var interviewConverter = new InterviewConverter(SidUtils.globoDietSystemId());
+        var interviewConverter = new InterviewConverter(systemId);
         return Recall24DtoUtils
             .join(
                 dto.getInterviews().stream()

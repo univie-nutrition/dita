@@ -20,20 +20,26 @@ package dita.globodiet.survey.dom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
+
+import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.foodon.fdm.FdmGlobodietReader;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
@@ -71,6 +77,39 @@ public class Campaigns {
         }
     }
 
+    // -- SYSTEM ID
+
+    private Map<String, SystemId> systemIdBySurveyCode;
+
+    /**
+     * System ID part of semantic identifiers for given campaign's survey.
+     * e.g. {@code at.gd/2.0}
+     */
+    public SystemId systemId(
+            final Campaign campaign) {
+        if(systemIdBySurveyCode==null) {
+            systemIdBySurveyCode = new ConcurrentHashMap<>();
+        }
+        return systemIdBySurveyCode.computeIfAbsent(campaign.getSurveyCode(), surveyCode->{
+            return systemId(
+                    MetaModelContext.instanceElseFail()
+                        .getRepositoryService()
+                        .uniqueMatch(Survey.class, survey->surveyCode.equals(survey.getCode()))
+                        .orElse(null));
+        });
+    }
+
+    /**
+     * System ID part of semantic identifiers for given survey.
+     * e.g. {@code at.gd/2.0}
+     */
+    public SystemId systemId(final @Nullable Survey survey) {
+        return Optional.ofNullable(survey)
+            .map(Survey::getSystemId)
+            .map(SystemId::parse)
+            .orElseGet(()->new SystemId("undefined"));
+    }
+
     // -- INTERVIEW SET
 
     private InterviewSet24.Dto interviewSet(
@@ -85,6 +124,7 @@ public class Campaigns {
             .interviewSetFromBlobStore(
                     DataSourceLocation.INTERVIEW.namedPath(campaign),
                     blobStore,
+                    systemId(campaign),
                     correction,
                     messageConsumer);
 
@@ -154,7 +194,7 @@ public class Campaigns {
         var fdmDataSource = blobStore.lookupBlob(DataSourceLocation.FDM.namedPath(campaign))
                 .orElseThrow()
                 .asDataSource();
-        var fdmReader = FdmGlobodietReader.fromZippedYaml(SidUtils.globoDietSystemId(), fdmDataSource);
+        var fdmReader = FdmGlobodietReader.fromZippedYaml(systemId(campaign), fdmDataSource);
         return fdmReader.createFoodDescriptionModel();
     }
 
