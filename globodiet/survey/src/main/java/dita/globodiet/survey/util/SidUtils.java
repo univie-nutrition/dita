@@ -20,9 +20,15 @@ package dita.globodiet.survey.util;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
+import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -30,14 +36,46 @@ import dita.commons.sid.SemanticIdentifierSet;
 @UtilityClass
 public class SidUtils {
 
-    @Deprecated
-    public SystemId globoDietSystemId() {
-        return new SystemId("at.gd", "2.0"); //TODO get from Campaign or Survey?
-    }
-
     public SemanticIdentifierSet languageQualifier(final String languageId) {
         return SemanticIdentifierSet.ofCollection(List.of(
                 ObjectId.Context.LANGUAGE.sid(languageId)));
+    }
+
+    /**
+     * GloboDiet specific predefined contexts.
+     * @implSpec system-agnostic come first, that allows for optimization of
+     *      {@link Context#isSystemAgnostic(ObjectId)}
+     */
+    @RequiredArgsConstructor
+    public enum GdContext {
+        RECIPE("recp"),
+        FOOD_DESCRIPTOR("fd"),
+        RECIPE_DESCRIPTOR("rd"),
+        FOOD_GROUP("fg"),
+        RECIPE_GROUP("rg"),
+        ;
+        GdContext(final String id){ this(id, false); }
+        @Getter @Accessors(fluent=true)
+        final String id;
+        @Getter
+        final boolean systemAgnostic;
+        // -- FACTORIES
+        public ObjectId objectId(final String objectSimpleId) {
+            return new ObjectId(id(), objectSimpleId);
+        }
+        public SemanticIdentifier sid(final String objectSimpleId) {
+            return sid(SystemId.empty(), objectSimpleId);
+        }
+        public SemanticIdentifier sid(final SystemId systemId, final String objectSimpleId) {
+            return new SemanticIdentifier(systemId, objectId(objectSimpleId));
+        }
+        static boolean isSystemAgnostic(@NonNull final ObjectId objectId) {
+            for(var context : Context.values()) {
+                if(!context.isSystemAgnostic()) return false;
+                if(context.id().equals(objectId.context())) return true;
+            }
+            return false;
+        }
     }
 
 }

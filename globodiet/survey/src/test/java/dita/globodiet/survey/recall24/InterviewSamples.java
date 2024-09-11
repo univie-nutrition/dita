@@ -24,10 +24,11 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.io.DataSource;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.commons.compression.SevenZUtils;
 
@@ -38,10 +39,12 @@ enum InterviewSamples {
     FAT_SOUCE_SWEETENERS("Ref_FatSouceSweetener_202405300942.7z");
     final String resourceName;
 
-    public InterviewSet24.Dto asInterviewSet(@Nullable final Consumer<Message> onMsg) {
+    public InterviewSet24.Dto asInterviewSet(
+            final @NonNull SystemId systemId,
+            final @Nullable Consumer<Message> onMsg) {
         var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(
                 InterviewSamples.class.getResourceAsStream(resourceName)));
-        var interviewSet24 = InterviewXmlParser.parse(ds, SidUtils.globoDietSystemId(), onMsg);
+        var interviewSet24 = InterviewXmlParser.parse(ds, systemId, onMsg);
         return interviewSet24;
     }
 }

@@ -34,7 +34,6 @@ import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
@@ -42,6 +41,7 @@ import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
+import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
@@ -119,7 +119,7 @@ record InterviewConverter(SystemId systemId) {
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
                 toRecords24(subEntries),
-                Can.of(group(Context.RECIPE_GROUP, listEntry))
+                Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry))
                 );
         }
         default -> toRecord24(topLevelRecordNode);
@@ -153,7 +153,7 @@ record InterviewConverter(SystemId systemId) {
                 listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                 listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
                 usedDuringCooking,
-                Can.of(group(Context.FOOD_GROUP, listEntry)));
+                Can.of(group(SidUtils.GdContext.FOOD_GROUP, listEntry)));
         }
         case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
@@ -214,7 +214,7 @@ record InterviewConverter(SystemId systemId) {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-    private RecallNode24.Annotation group(final Context context, final ListEntry listEntry) {
+    private RecallNode24.Annotation group(final SidUtils.GdContext context, final ListEntry listEntry) {
         var groupSimpleId = FormatUtils.concat(
                 listEntry.getGroupCode(),
                 listEntry.getSubgroupCode(),
@@ -228,16 +228,16 @@ record InterviewConverter(SystemId systemId) {
     }
 
     private SemanticIdentifier recipeSid(final ListEntry listEntry) {
-        return ObjectId.Context.RECIPE.sid(systemId, listEntry.getFoodOrSimilarCode());
+        return SidUtils.GdContext.RECIPE.sid(systemId, listEntry.getFoodOrSimilarCode());
     }
 
     private SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
-        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.FOOD_DESCRIPTOR, listEntry)
+        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(SidUtils.GdContext.FOOD_DESCRIPTOR, listEntry)
                 .map(objectId->new SemanticIdentifier(systemId, objectId)));
     }
 
     private SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
-        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.RECIPE_DESCRIPTOR, listEntry)
+        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(SidUtils.GdContext.RECIPE_DESCRIPTOR, listEntry)
                 .map(objectId->new SemanticIdentifier(systemId, objectId)));
     }
 
@@ -245,12 +245,12 @@ record InterviewConverter(SystemId systemId) {
      * includes brand name, if any
      */
     private static Stream<ObjectId> streamFacetObjectIds(
-            final @Nullable ObjectId.Context context,
+            final @Nullable SidUtils.GdContext context,
             final ListEntry listEntry) {
         return Stream.concat(
                 _Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")
                     .filter(_Strings::isNotEmpty)
-                    .map(objSimpleId->new ObjectId(context, objSimpleId)),
+                    .map(objSimpleId->context.objectId(objSimpleId)),
                 canonicalBrandName(listEntry)
                     .map(ObjectId.Context.BRAND::objectId)
                     .stream()

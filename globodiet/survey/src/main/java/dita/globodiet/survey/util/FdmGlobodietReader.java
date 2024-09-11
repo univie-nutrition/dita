@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.foodon.fdm;
+package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -40,6 +40,7 @@ import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
@@ -129,13 +130,13 @@ public record FdmGlobodietReader(
     public Stream<ClassificationFacet> streamFoodFacet() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodFacet").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->facetFromRowData(ObjectId.Context.FOOD_DESCRIPTOR, row.cellLiterals()));
+            .map(row->facetFromRowData(SidUtils.GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     public Stream<ClassificationFacet> streamFoodDescriptor() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodDescriptor").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->descriptorFromRowData(ObjectId.Context.FOOD_DESCRIPTOR, row.cellLiterals()));
+            .map(row->descriptorFromRowData(SidUtils.GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     // -- HELPER
@@ -164,7 +165,7 @@ public record FdmGlobodietReader(
         return new Food(
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(7)),
                 cellLiterals.get(0),
-                ObjectId.Context.FOOD_GROUP.sid(systemId, FormatUtils.concat(
+                SidUtils.GdContext.FOOD_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(4),
                         cellLiterals.get(5),
                         cellLiterals.get(6))));
@@ -184,9 +185,9 @@ public record FdmGlobodietReader(
         var isAlias = "true".equals(cellLiterals.get(3));
         if(isAlias) return null;
         return new Recipe(
-                ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(8)),
+                SidUtils.GdContext.RECIPE.sid(systemId, cellLiterals.get(8)),
                 cellLiterals.get(0),
-                ObjectId.Context.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
+                SidUtils.GdContext.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(6),
                         cellLiterals.get(7))));
     }
@@ -233,7 +234,7 @@ public record FdmGlobodietReader(
     // 39 "foodOrRecipeCode: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
     private RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
         return new RecipeIngredient(
-                ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(34)),
+                SidUtils.GdContext.RECIPE.sid(systemId, cellLiterals.get(34)),
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(39)),
                 new BigDecimal(cellLiterals.get(6))
                 );
@@ -247,7 +248,7 @@ public record FdmGlobodietReader(
     // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
     // 6 "code: Facet code"
     private ClassificationFacet facetFromRowData(
-            final ObjectId.Context context,
+            final SidUtils.GdContext context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId, cellLiterals.get(6)),
@@ -262,7 +263,7 @@ public record FdmGlobodietReader(
     // 4 "facetCode: Facet code"
     // 5 "code: Descriptor code"
     private ClassificationFacet descriptorFromRowData(
-            final ObjectId.Context context,
+            final SidUtils.GdContext context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId, FormatUtils.concat(

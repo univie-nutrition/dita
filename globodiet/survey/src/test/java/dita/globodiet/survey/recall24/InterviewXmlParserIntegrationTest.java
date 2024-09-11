@@ -54,10 +54,10 @@ import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 @PrivateDataTest
 class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
+    private SystemId systemId = new SystemId("at.gd", "2.0");
+
     @Test
     void parsingFromBlobStore() {
-
-        var systemId = SidUtils.globoDietSystemId();
 
         var nutMapping = loadNutMapping();
         var fcoMapping = loadFcoMapping();

@@ -166,11 +166,6 @@ public record SemanticIdentifier (
             BRAND("brand", true),
             COMPONENT("comp"),
             FOOD("food"),
-            RECIPE("recp"),
-            FOOD_DESCRIPTOR("fd"), //TODO[dita-commons-26] too specific, remove?
-            RECIPE_DESCRIPTOR("rd"), //TODO[dita-commons-26] too specific, remove?
-            FOOD_GROUP("fg"), //TODO[dita-commons-26] too specific, remove?
-            RECIPE_GROUP("rg"), //TODO[dita-commons-26] too specific, remove?
             ;
             Context(final String id){ this(id, false); }
             @Getter @Accessors(fluent=true)

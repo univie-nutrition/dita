@@ -23,28 +23,31 @@ import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.globodiet.survey.utils.ApprovalTestOptions;
 
 class InterviewXmlParserTest {
 
+    private SystemId systemId = new SystemId("at.gd", "2.0");
+
     @Test
     @UseReporter(DiffReporter.class)
     void parsingSample() {
-        var interviewSet24 = InterviewSamples.SAMPLES.asInterviewSet(null);
+        var interviewSet24 = InterviewSamples.SAMPLES.asInterviewSet(systemId, null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
-    
+
     @Test
     @UseReporter(DiffReporter.class)
     void parsingRefComposites() {
-        var interviewSet24 = InterviewSamples.COMPOSITES.asInterviewSet(null);
+        var interviewSet24 = InterviewSamples.COMPOSITES.asInterviewSet(systemId, null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
-    
+
     @Test
     @UseReporter(DiffReporter.class)
     void parsingRefFatSouceSweetener() {
-        var interviewSet24 = InterviewSamples.FAT_SOUCE_SWEETENERS.asInterviewSet(null);
+        var interviewSet24 = InterviewSamples.FAT_SOUCE_SWEETENERS.asInterviewSet(systemId, null);
         Approvals.verify(interviewSet24.toYaml(), ApprovalTestOptions.yamlOptions());
     }
 
