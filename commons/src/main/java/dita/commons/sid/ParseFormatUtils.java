@@ -37,7 +37,7 @@ import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 
 @UtilityClass
-class _Utils {
+class ParseFormatUtils {
 
     char INNER_DELIMITER = '/';
     char OUTER_DELIMITER = ':';
@@ -68,12 +68,12 @@ class _Utils {
     }
     String formatBoxed(final @NonNull SemanticIdentifierSet semanticIdentifierSet) {
         return semanticIdentifierSet.elements().stream()
-                .map(_Utils::formatBoxed)
+                .map(ParseFormatUtils::formatBoxed)
                 .collect(Collectors.joining(", "));
     }
     String formatUnboxed(final @NonNull SemanticIdentifierSet semanticIdentifierSet) {
         return semanticIdentifierSet.elements().stream()
-                .map(_Utils::formatUnboxed)
+                .map(ParseFormatUtils::formatUnboxed)
                 .collect(Collectors.joining(", "));
     }
 

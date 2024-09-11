@@ -130,6 +130,30 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @Setter
     private String name;
 
+    /**
+     * System ID part of semantic identifiers for this survey.
+     * e.g. at.gd/2.0
+     */
+    @Property(
+            optionality = Optionality.MANDATORY,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "3",
+            describedAs = "System ID part of semantic identifiers for this survey.\n"
+                            + "e.g. at.gd/2.0",
+            hidden = Where.NOWHERE
+    )
+    @Column(
+            name = "SYSID",
+            allowsNull = "false",
+            length = 20
+    )
+    @Getter
+    @Setter
+    private String systemId;
+
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s)", name, code);
@@ -138,7 +162,8 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @Override
     public String toString() {
         return "Survey(" + "code=" + getCode() + ","
-         +"name=" + getName() + ")";
+         +"name=" + getName() + ","
+         +"systemId=" + getSystemId() + ")";
     }
 
     @Programmatic
@@ -147,6 +172,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
         var copy = repositoryService.detachedEntity(new Survey());
         copy.setCode(getCode());
         copy.setName(getName());
+        copy.setSystemId(getSystemId());
         return copy;
     }
 
@@ -214,6 +240,8 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      * Parameter model for @{link Survey}
      * @param code Unique (application scoped) survey identifier.
      * @param name Descriptive survey name.
+     * @param systemId System ID part of semantic identifiers for this survey.
+     * e.g. at.gd/2.0
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
@@ -232,7 +260,16 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
             @ParameterLayout(
                     describedAs = "Descriptive survey name."
             )
-            String name) {
+            String name,
+            @Parameter(
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.MANDATORY
+            )
+            @ParameterLayout(
+                    describedAs = "System ID part of semantic identifiers for this survey.\n"
+                                    + "e.g. at.gd/2.0"
+            )
+            String systemId) {
     }
 
     /**

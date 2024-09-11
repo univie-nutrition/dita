@@ -32,7 +32,7 @@ import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.globodiet.survey.dom.SidUtils;
+import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Builder24;
 import dita.recall24.dto.RecallNode24.Transfomer;
@@ -95,7 +95,7 @@ public class AssociatedRecipeResolver implements Transfomer {
                             .mapObjectId(o->o.mapContext(_->ObjectId.Context.RECIPE_GROUP.id()))
                         ));
 
-                recordBuilder.facetSids(SidUtils.wipSids());
+                recordBuilder.facetSids(SemanticIdentifierSet.wip());
 
                 var recipeIngredients = foodDescriptionModel.ingredientsByRecipeSid()
                         .get(associatedRecipeSid);

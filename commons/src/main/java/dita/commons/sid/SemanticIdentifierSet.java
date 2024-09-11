@@ -44,6 +44,13 @@ public record SemanticIdentifierSet(
         return EMPTY;
     }
 
+    /**
+     * Placeholder for 'work in progress'.
+     */
+    public static SemanticIdentifierSet wip() {
+        return new SemanticIdentifierSet(Can.of(SemanticIdentifier.wip()));
+    }
+
     public static SemanticIdentifierSet nullToEmpty(final @Nullable SemanticIdentifierSet set) {
         return set!=null
                 ? set
@@ -86,17 +93,17 @@ public record SemanticIdentifierSet(
     // -- PARSE
 
     public static SemanticIdentifierSet parse(final @Nullable String stringified) {
-        return _Utils.parseSidSet(stringified);
+        return ParseFormatUtils.parseSidSet(stringified);
     }
 
     // -- TO STRING
 
     @Override
     public final String toString() {
-        return _Utils.formatBoxed(this);
+        return ParseFormatUtils.formatBoxed(this);
     }
     public String toStringNoBox() {
-        return _Utils.formatUnboxed(this);
+        return ParseFormatUtils.formatUnboxed(this);
     }
 
     // -- CONMPARE

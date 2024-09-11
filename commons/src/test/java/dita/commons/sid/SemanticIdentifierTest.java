@@ -113,13 +113,13 @@ class SemanticIdentifierTest {
     @ParameterizedTest
     @ValueSource(strings = {"ä", "", "č"})
     void validStrings(final String string) {
-        _Utils.validate(string);
+        ParseFormatUtils.validate(string);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {",", "{", "[", "a\tb", "a\nb", "a\rb", "!", "'", "\""})
     void invalidCharacters(final String string) {
-        assertThrows(IllegalArgumentException.class, ()->_Utils.validate(string));
+        assertThrows(IllegalArgumentException.class, ()->ParseFormatUtils.validate(string));
     }
 
 }

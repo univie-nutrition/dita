@@ -260,7 +260,7 @@ record InterviewConverter(SystemId systemId) {
     private static Optional<String> canonicalBrandName(final ListEntry listEntry){
         return  _Strings.nonEmpty(listEntry.getBrandName())
             .map(String::toLowerCase)
-            //TODO[DITA-25] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
+            //TODO[dita-globodiet-survey] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
             //exclude if brand-name is just a placeholder
             .filter(name->!name.equals("marke / produktname unbekannt"))
             .map(name->name.replace(",", " "))

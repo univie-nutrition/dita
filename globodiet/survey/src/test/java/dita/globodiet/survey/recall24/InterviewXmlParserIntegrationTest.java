@@ -40,7 +40,7 @@ import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.globodiet.survey.dom.SidUtils;
+import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24SummaryStatistics;

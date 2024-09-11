@@ -32,7 +32,7 @@ import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.types.Message;
-import dita.globodiet.survey.dom.SidUtils;
+import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 

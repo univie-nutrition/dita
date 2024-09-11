@@ -16,15 +16,12 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.survey.dom;
+package dita.globodiet.survey.util;
 
 import java.util.List;
 
-import org.apache.causeway.commons.collections.Can;
-
 import lombok.experimental.UtilityClass;
 
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
@@ -32,14 +29,6 @@ import dita.commons.sid.SemanticIdentifierSet;
 // perhaps move to commons
 @UtilityClass
 public class SidUtils {
-
-    public SemanticIdentifier wipSid() {
-        return new SemanticIdentifier(SystemId.empty(), new ObjectId("WIP"));
-    }
-
-    public SemanticIdentifierSet wipSids() {
-        return new SemanticIdentifierSet(Can.of(wipSid()));
-    }
 
     @Deprecated
     public SystemId globoDietSystemId() {

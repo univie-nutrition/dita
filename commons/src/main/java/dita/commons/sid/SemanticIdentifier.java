@@ -68,17 +68,21 @@ public record SemanticIdentifier (
              */
             String version) implements Comparable<SystemId>, Serializable {
 
+        // -- FACTORIES
+
         public static SystemId empty() {
             return new SystemId(null, null);
         }
 
         public static SystemId parse(final @Nullable String systemIdStringified) {
-            return _Utils.parseSystemId(systemIdStringified);
+            return ParseFormatUtils.parseSystemId(systemIdStringified);
         }
 
+        // -- CONSTRUCTION
+
         public SystemId(final String system, final String version) {
-            this.system = _Utils.validate(system);
-            this.version = _Utils.validate(version);
+            this.system = ParseFormatUtils.validate(system);
+            this.version = ParseFormatUtils.validate(version);
         }
 
         /**
@@ -119,7 +123,7 @@ public record SemanticIdentifier (
          */
         @Override
         public final String toString() {
-            return _Utils.format(this);
+            return ParseFormatUtils.format(this);
         }
 
         public static int compare(
@@ -192,17 +196,28 @@ public record SemanticIdentifier (
             }
         }
 
+        // -- FACTORIES
+
         public static ObjectId empty() {
             return new ObjectId((String)null, null);
         }
 
-        public static ObjectId parse(final @Nullable String objectIdStringified) {
-            return _Utils.parseObjectId(objectIdStringified);
+        /**
+         * Placeholder for 'work in progress'.
+         */
+        public static ObjectId wip() {
+            return new ObjectId((String)null, null);
         }
 
+        public static ObjectId parse(final @Nullable String objectIdStringified) {
+            return ParseFormatUtils.parseObjectId(objectIdStringified);
+        }
+
+        // -- CONSTRUCTION
+
         public ObjectId(final String context, final String objectSimpleId) {
-            this.context = _Utils.validate(context);
-            this.objectSimpleId = _Utils.validateObject(objectSimpleId);
+            this.context = ParseFormatUtils.validate(context);
+            this.objectSimpleId = ParseFormatUtils.validateObject(objectSimpleId);
         }
 
         public ObjectId(final @NonNull Context context, final String objectSimpleId) {
@@ -252,7 +267,7 @@ public record SemanticIdentifier (
          */
         @Override
         public final String toString() {
-            return _Utils.format(this);
+            return ParseFormatUtils.format(this);
         }
 
         public static int compare(
@@ -265,7 +280,7 @@ public record SemanticIdentifier (
             final int c = _Strings.compareNullsFirst(a.context(), b.context());
             return c!=0
                 ? c
-                // TODO should use DEWEY compare here
+                //TODO[dita-commons] should use DEWEY compare here
                 : _Strings.compareNullsFirst(a.objectSimpleId(), b.objectSimpleId());
         }
 
@@ -279,6 +294,13 @@ public record SemanticIdentifier (
         return EMPTY;
     }
 
+    /**
+     * Placeholder for 'work in progress'.
+     */
+    public static SemanticIdentifier wip() {
+        return new SemanticIdentifier(SystemId.empty(), ObjectId.wip());
+    }
+
     public static SemanticIdentifier parse(final String systemId, final String objectId) {
         return new SemanticIdentifier(SystemId.parse(systemId), ObjectId.parse(objectId));
     }
@@ -290,7 +312,7 @@ public record SemanticIdentifier (
      * @see SemanticIdentifier#toString()
      */
     public static SemanticIdentifier parse(final @Nullable String stringified) {
-        return _Utils.parseSid(stringified);
+        return ParseFormatUtils.parseSid(stringified);
     }
 
     // -- CONSTRUCTION
@@ -339,7 +361,7 @@ public record SemanticIdentifier (
      * e.g. {@code at.gd/2.0:food/00123}
      */
     public String toStringNoBox() {
-        return _Utils.formatUnboxed(this);
+        return ParseFormatUtils.formatUnboxed(this);
     }
 
     /**
@@ -347,7 +369,7 @@ public record SemanticIdentifier (
      */
     @Override
     public final String toString() {
-        return _Utils.formatBoxed(this);
+        return ParseFormatUtils.formatBoxed(this);
     }
 
     // -- UTILITY
