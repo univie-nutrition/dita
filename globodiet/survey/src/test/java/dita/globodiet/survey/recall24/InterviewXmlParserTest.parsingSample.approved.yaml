@@ -35,7 +35,7 @@ respondents:
             annotations:
               group:
                 key: "group"
-                value: "150102"
+                value: "at.gd/2.0:fg/150102"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -48,7 +48,7 @@ respondents:
             annotations:
               group:
                 key: "group"
-                value: "0901"
+                value: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Schnittlauch"
             sid: "at.gd/2.0:food/01547"
@@ -61,7 +61,7 @@ respondents:
             annotations:
               group:
                 key: "group"
-                value: "1503"
+                value: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -75,7 +75,7 @@ respondents:
             annotations:
               group:
                 key: "group"
-                value: "0207"
+                value: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -88,11 +88,11 @@ respondents:
             annotations:
               group:
                 key: "group"
-                value: "1504"
+                value: "at.gd/2.0:fg/1504"
           annotations:
             group:
               key: "group"
-              value: "03"
+              value: "at.gd/2.0:rg/03"
         - type: "FOOD"
           name: "Kaffee, mit Koffein"
           sid: "at.gd/2.0:food/01339"
@@ -105,4 +105,4 @@ respondents:
           annotations:
             group:
               key: "group"
-              value: "130301"
+              value: "at.gd/2.0:fg/130301"
