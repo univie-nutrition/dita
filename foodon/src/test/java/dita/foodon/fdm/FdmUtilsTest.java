@@ -67,7 +67,8 @@ class FdmUtilsTest {
         var fdm = FdmUtils.fromDto(dto);
         var yaml = FdmUtils.toYaml(fdm);
 
-        System.err.printf("%s%n", yaml);
+        //debug
+        //System.err.printf("%s%n", yaml);
 
         Approvals.verify(yaml, ApprovalTestOptions.yamlOptions());
         assertEquals(fdm, FdmUtils.fromYaml(yaml), ()->"roundtrip on yaml failed");

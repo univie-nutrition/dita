@@ -92,6 +92,7 @@ public class VersionsExportService {
                 ExportFormat.ENTITY);
 
         var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
+        //TODO[dita-globodiet-manager-27] get SystemId from yet to be defined Version field
         var fdmFactory = new FdmFactory(SystemId.empty(), tabularData);
         var yaml = FdmUtils.toYaml(fdmFactory.createFoodDescriptionModel());
 

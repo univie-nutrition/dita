@@ -19,7 +19,6 @@
 package dita.globodiet.manager.versions;
 
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,9 +26,7 @@ import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
-import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.internal.collections._Streams;
 
 import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
@@ -50,18 +47,18 @@ record FdmFactory(
 
     // -- FACTORIES
 
-    public static FdmFactory fromZippedYaml(
-            final SystemId systemId,
-            final DataSource ds) {
-        var yaml = Blob.tryRead("fdm", CommonMimeType.ZIP, ds)
-                .valueAsNonNullElseFail()
-                .unZip(CommonMimeType.YAML)
-                .toClob(StandardCharsets.UTF_8)
-                .asString();
-
-        var tabularData = TabularData.populateFromYaml(yaml, TabularData.Format.defaults());
-        return new FdmFactory(systemId, tabularData);
-    }
+//    public static FdmFactory fromZippedYaml(
+//            final SystemId systemId,
+//            final DataSource ds) {
+//        var yaml = Blob.tryRead("fdm", CommonMimeType.ZIP, ds)
+//                .valueAsNonNullElseFail()
+//                .unZip(CommonMimeType.YAML)
+//                .toClob(StandardCharsets.UTF_8)
+//                .asString();
+//
+//        var tabularData = TabularData.populateFromYaml(yaml, TabularData.Format.defaults());
+//        return new FdmFactory(systemId, tabularData);
+//    }
 
     public FoodDescriptionModel createFoodDescriptionModel() {
         return new FoodDescriptionModel(
@@ -69,14 +66,15 @@ record FdmFactory(
                 FdmUtils.collectRecipeBySid(streamRecipe()),
                 FdmUtils.collectIngredientsByRecipeSid(streamRecipeIngredient()),
                 FdmUtils.collectClassificationFacetBySid(
-                        Stream.<ClassificationFacet>concat(
+                        _Streams.<ClassificationFacet>concat(
+                                streamFoodGroups(),
+                                streamFoodSubgroups(),
                                 streamFoodFacet(),
-                                streamFoodDescriptor()
-                                //TODO[dita-globodiet-survey-27] add food groups
-                                //TODO[dita-globodiet-survey-27] add recipe groups
-                                //TODO[dita-globodiet-survey-27] add recipe facets
-                                //TODO[dita-globodiet-survey-27] add recipe descriptors
-                                )
+                                streamFoodDescriptor(),
+                                streamRecipeGroups(),
+                                streamRecipeSubgroups(),
+                                streamRecipeFacet(),
+                                streamRecipeDescriptor())
                         ));
     }
 
@@ -89,12 +87,38 @@ record FdmFactory(
             .filter(Objects::nonNull);
     }
 
+    public Stream<FoodDescriptionModel.ClassificationFacet> streamFoodGroups() {
+        return lookupTableByKey("dita.globodiet.params.food_list.FoodGroup").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->foodGroupFromRowData(GdContext.FOOD_GROUP, row.cellLiterals()))
+            .filter(Objects::nonNull);
+    }
+    public Stream<FoodDescriptionModel.ClassificationFacet> streamFoodSubgroups() {
+        return lookupTableByKey("dita.globodiet.params.food_list.FoodSubgroup").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->foodSubgroupFromRowData(GdContext.FOOD_GROUP, row.cellLiterals()))
+            .filter(Objects::nonNull);
+    }
+
     // -- RECIPE
 
     public Stream<Recipe> streamRecipe() {
         return lookupTableByKey("dita.globodiet.params.recipe_list.Recipe").stream()
             .flatMap(dataTable->dataTable.rows().stream())
             .map(row->recipeFromRowData(row.cellLiterals()));
+    }
+
+    public Stream<FoodDescriptionModel.ClassificationFacet> streamRecipeGroups() {
+        return lookupTableByKey("dita.globodiet.params.recipe_list.RecipeGroup").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->recipeGroupFromRowData(GdContext.RECIPE_GROUP, row.cellLiterals()))
+            .filter(Objects::nonNull);
+    }
+    public Stream<FoodDescriptionModel.ClassificationFacet> streamRecipeSubgroups() {
+        return lookupTableByKey("dita.globodiet.params.recipe_list.RecipeSubgroup").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->recipeSubgroupFromRowData(GdContext.RECIPE_GROUP, row.cellLiterals()))
+            .filter(Objects::nonNull);
     }
 
     // -- RECIPE INGREDIENT
@@ -110,13 +134,27 @@ record FdmFactory(
     public Stream<ClassificationFacet> streamFoodFacet() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodFacet").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->facetFromRowData(GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
+            .map(row->foodFacetFromRowData(GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     public Stream<ClassificationFacet> streamFoodDescriptor() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodDescriptor").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->descriptorFromRowData(GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
+            .map(row->foodDescriptorFromRowData(GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
+    }
+
+    // -- RECIPE FACETS
+
+    public Stream<ClassificationFacet> streamRecipeFacet() {
+        return lookupTableByKey("dita.globodiet.params.recipe_description.RecipeFacet").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->recipeFacetFromRowData(GdContext.RECIPE_DESCRIPTOR, row.cellLiterals()));
+    }
+
+    public Stream<ClassificationFacet> streamRecipeDescriptor() {
+        return lookupTableByKey("dita.globodiet.params.recipe_description.RecipeDescriptor").stream()
+            .flatMap(dataTable->dataTable.rows().stream())
+            .map(row->recipeDescriptorFromRowData(GdContext.RECIPE_DESCRIPTOR, row.cellLiterals()));
     }
 
     // -- HELPER
@@ -227,7 +265,7 @@ record FdmFactory(
     // 4 "group: If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.|Comma is used as delimiter (e.g. 10,050701,050702)"
     // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
     // 6 "code: Facet code"
-    private ClassificationFacet facetFromRowData(
+    private ClassificationFacet foodFacetFromRowData(
             final GdContext context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
@@ -242,13 +280,106 @@ record FdmFactory(
     // 3 "otherQ: 0=Regular choice|1=Choice with additional text as provided by the interviewer (other: [...])"
     // 4 "facetCode: Facet code"
     // 5 "code: Descriptor code"
-    private ClassificationFacet descriptorFromRowData(
+    private ClassificationFacet foodDescriptorFromRowData(
             final GdContext context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(4),
                         cellLiterals.get(5))),
+                cellLiterals.get(0)
+                );
+    }
+
+    // 0 "name: Facet name"
+    // 1 "textToShowOnTheScreenDescribingTheFacet: Facet text (text to show on the screen describing the facet)"
+    // 2 "descriptorsAvailableForRecipeOrBrandQ: 0=Standard facets with descriptors available in R_Descface table|1=Facets with descriptors available in RBrand table"
+    // 3 "singleOrMultiSelectDescriptorQ: 0 = facet with single-selection of descriptor|1 = facets with multi-selection of descriptors"
+    // 4 "standardOrMainFacetQ: 0 = standard facet|1 = Main facet (with non modified descriptor)"
+    // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
+    // 6 "code: Facet code for recipes"
+    private ClassificationFacet recipeFacetFromRowData(
+            final GdContext context,
+            final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                context.sid(systemId, cellLiterals.get(6)),
+                cellLiterals.get(0)
+                );
+    }
+
+    // 0 "name: Descriptor name"
+    // 1 "homemadeOrNot: Only for facet recipe production:|0=not homemade descriptor|1=Homemade descriptor"
+    // 2 "knownOrUnknown: Only for facet known/unknown: 1=unknown 2=known"
+    // 3 "yesOrNo: Descriptor with type='other' : 1=yes 0=no"
+    // 4 "singleOrNot: 0=not single descriptor|1=single descriptor"
+    // 5 "recipeFacetCode: Facet code for recipes"
+    // 6 "code: Descriptor code for recipes"
+    private ClassificationFacet recipeDescriptorFromRowData(
+            final GdContext context,
+            final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                context.sid(systemId, FormatUtils.concat(
+                        cellLiterals.get(5),
+                        cellLiterals.get(6))),
+                cellLiterals.get(0)
+                );
+    }
+
+    // 0 "name: Food group name"
+    // 1 "shortName: Food group short name"
+    // 2 "code: Food group code"
+    private ClassificationFacet foodGroupFromRowData(
+            final GdContext context,
+            final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                context.sid(systemId, cellLiterals.get(2)),
+                cellLiterals.get(0)
+                );
+    }
+
+    // 0 "name: Name of the food (sub-)(sub-)group"
+    // 1 "fatOrSauceSweetenerSubgroupQ: 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
+    // 2 "fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ: 0=non fat/sauce subgroup|1= fat/sauce subgroup that can be left over in the dish"
+    // 3 "fatDuringCookingSubgroupQ: 0=non fat during cooking subgroup|1= fat during cooking subgroup"
+    // 4 "shortName: Short Name of the food (sub-)(sub-)group"
+    // 5 "foodGroupCode: Food group code"
+    // 6 "foodSubgroupCode: Food sub-group code"
+    // 7 "foodSubSubgroupCode: Food sub-sub-group code"
+    private ClassificationFacet foodSubgroupFromRowData(
+            final GdContext context,
+            final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                context.sid(systemId, FormatUtils.concat(
+                        cellLiterals.get(5),
+                        cellLiterals.get(6),
+                        cellLiterals.get(7))),
+                cellLiterals.get(0)
+                );
+    }
+
+    // 0 "name: Name of the Recipe group"
+    // 1 "shortName: Short Name of the Recipe group"
+    // 2 "code: Recipe Group code"
+    private ClassificationFacet recipeGroupFromRowData(
+            final GdContext context,
+            final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                context.sid(systemId, cellLiterals.get(2)),
+                cellLiterals.get(0)
+                );
+    }
+
+    // 0 "name: Name of the recipe (sub-)group"
+    // 1 "shortName: Short Name of the recipe (sub-)group"
+    // 2 "recipeGroupCode: Recipe group code"
+    // 3 "code: Recipe sub-group code"
+    private ClassificationFacet recipeSubgroupFromRowData(
+            final GdContext context,
+            final List<String> cellLiterals) {
+        return new ClassificationFacet(
+                context.sid(systemId, FormatUtils.concat(
+                        cellLiterals.get(2),
+                        cellLiterals.get(3))),
                 cellLiterals.get(0)
                 );
     }
