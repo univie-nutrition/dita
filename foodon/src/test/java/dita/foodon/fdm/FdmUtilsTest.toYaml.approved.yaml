@@ -1,0 +1,26 @@
+food:
+- sid: "test:food/0002"
+  name: "Apple"
+  groupSid: "test:fg/01"
+- sid: "test:food/0001"
+  name: "Banana"
+  groupSid: "test:fg/01"
+recipes:
+- sid: "test:recipe/0002"
+  name: "Spaghetti"
+  groupSid: "test:rg/01"
+ingredients:
+- recipeSid: "test:recipe/0002"
+  foodSid: "test:food/0002"
+  amountGrams: 0.123
+classificationFacets:
+- sid: "test:rg/01"
+  name: "Common Recipes"
+- sid: "test:fg/01"
+  name: "Fruits"
+- sid: "test:fg/02"
+  name: "Vegetables"
+- sid: "test:fd/A"
+  name: "Food Descriptor A"
+- sid: "test:fd/B"
+  name: "Food Descriptor B"

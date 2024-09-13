@@ -37,8 +37,8 @@ import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
+import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.globodiet.survey.util.FdmGlobodietReader;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
@@ -194,8 +194,7 @@ public class Campaigns {
         var fdmDataSource = blobStore.lookupBlob(DataSourceLocation.FDM.namedPath(campaign))
                 .orElseThrow()
                 .asDataSource();
-        var fdmReader = FdmGlobodietReader.fromZippedYaml(systemId(campaign), fdmDataSource);
-        return fdmReader.createFoodDescriptionModel();
+        return FdmUtils.fromYaml(fdmDataSource);
     }
 
     // -- HELPER

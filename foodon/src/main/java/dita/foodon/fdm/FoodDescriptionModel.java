@@ -19,6 +19,7 @@
 package dita.foodon.fdm;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +33,8 @@ import dita.commons.sid.SemanticIdentifier;
 public record FoodDescriptionModel(
         Map<SemanticIdentifier, Food> foodBySid,
         Map<SemanticIdentifier, Recipe> recipeBySid,
-        Map<SemanticIdentifier, List<RecipeIngredient>> ingredientsByRecipeSid
+        Map<SemanticIdentifier, List<RecipeIngredient>> ingredientsByRecipeSid,
+        Map<SemanticIdentifier, ClassificationFacet> classificationFacetBySid
         ) {
 
     public record Food(
@@ -56,6 +58,22 @@ public record FoodDescriptionModel(
     public record ClassificationFacet(
             SemanticIdentifier sid,
             String name) {
+    }
+
+    public static FoodDescriptionModel empty() {
+        return new FoodDescriptionModel(
+                new HashMap<SemanticIdentifier, Food>(),
+                new HashMap<SemanticIdentifier, Recipe>(),
+                new HashMap<SemanticIdentifier, List<RecipeIngredient>>(),
+                new HashMap<SemanticIdentifier, ClassificationFacet>());
+    }
+
+    public static FoodDescriptionModel fromYaml(final String yaml) {
+        return FdmUtils.fromYaml(yaml);
+    }
+
+    public String toYaml() {
+        return FdmUtils.toYaml(this);
     }
 
 }

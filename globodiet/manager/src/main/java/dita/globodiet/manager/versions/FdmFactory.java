@@ -16,14 +16,11 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.survey.util;
+package dita.globodiet.manager.versions;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -35,24 +32,25 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSource;
 
 import dita.commons.format.FormatUtils;
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
+import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
+import dita.globodiet.survey.util.SidUtils.GdContext;
 
-public record FdmGlobodietReader(
+record FdmFactory(
         SystemId systemId,
         TabularData tabularData) {
 
     // -- FACTORIES
 
-    public static FdmGlobodietReader fromZippedYaml(
+    public static FdmFactory fromZippedYaml(
             final SystemId systemId,
             final DataSource ds) {
         var yaml = Blob.tryRead("fdm", CommonMimeType.ZIP, ds)
@@ -62,14 +60,24 @@ public record FdmGlobodietReader(
                 .asString();
 
         var tabularData = TabularData.populateFromYaml(yaml, TabularData.Format.defaults());
-        return new FdmGlobodietReader(systemId, tabularData);
+        return new FdmFactory(systemId, tabularData);
     }
 
     public FoodDescriptionModel createFoodDescriptionModel() {
         return new FoodDescriptionModel(
-                foodBySid(),
-                recipeBySid(),
-                ingredientsByRecipeSid());
+                FdmUtils.collectFoodBySid(streamFood()),
+                FdmUtils.collectRecipeBySid(streamRecipe()),
+                FdmUtils.collectIngredientsByRecipeSid(streamRecipeIngredient()),
+                FdmUtils.collectClassificationFacetBySid(
+                        Stream.<ClassificationFacet>concat(
+                                streamFoodFacet(),
+                                streamFoodDescriptor()
+                                //TODO[dita-globodiet-survey-27] add food groups
+                                //TODO[dita-globodiet-survey-27] add recipe groups
+                                //TODO[dita-globodiet-survey-27] add recipe facets
+                                //TODO[dita-globodiet-survey-27] add recipe descriptors
+                                )
+                        ));
     }
 
     // -- FOOD
@@ -81,26 +89,12 @@ public record FdmGlobodietReader(
             .filter(Objects::nonNull);
     }
 
-    public Map<SemanticIdentifier, Food> foodBySid() {
-        final Map<SemanticIdentifier, Food> map = new HashMap<>();
-        streamFood()
-            .forEach(food->map.put(food.sid(), food));
-        return map;
-    }
-
     // -- RECIPE
 
     public Stream<Recipe> streamRecipe() {
         return lookupTableByKey("dita.globodiet.params.recipe_list.Recipe").stream()
             .flatMap(dataTable->dataTable.rows().stream())
             .map(row->recipeFromRowData(row.cellLiterals()));
-    }
-
-    public Map<SemanticIdentifier, Recipe> recipeBySid() {
-        final Map<SemanticIdentifier, Recipe> map = new HashMap<>();
-        streamRecipe()
-            .forEach(recipe->map.put(recipe.sid(), recipe));
-        return map;
     }
 
     // -- RECIPE INGREDIENT
@@ -111,32 +105,18 @@ public record FdmGlobodietReader(
             .map(row->recipeIngredientFromRowData(row.cellLiterals()));
     }
 
-    public Map<SemanticIdentifier, List<RecipeIngredient>> ingredientsByRecipeSid() {
-        final Map<SemanticIdentifier, List<RecipeIngredient>> map = new HashMap<>();
-        streamRecipeIngredient()
-            .forEach(recipeIngredient->{
-                var list = map.get(recipeIngredient.recipeSid());
-                if(list==null) {
-                    list = new ArrayList<>();
-                    map.put(recipeIngredient.recipeSid(), list);
-                }
-                list.add(recipeIngredient);
-            });
-        return map;
-    }
-
     // -- FOOD FACETS
 
     public Stream<ClassificationFacet> streamFoodFacet() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodFacet").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->facetFromRowData(SidUtils.GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
+            .map(row->facetFromRowData(GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     public Stream<ClassificationFacet> streamFoodDescriptor() {
         return lookupTableByKey("dita.globodiet.params.food_descript.FoodDescriptor").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->descriptorFromRowData(SidUtils.GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
+            .map(row->descriptorFromRowData(GdContext.FOOD_DESCRIPTOR, row.cellLiterals()));
     }
 
     // -- HELPER
@@ -165,7 +145,7 @@ public record FdmGlobodietReader(
         return new Food(
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(7)),
                 cellLiterals.get(0),
-                SidUtils.GdContext.FOOD_GROUP.sid(systemId, FormatUtils.concat(
+                GdContext.FOOD_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(4),
                         cellLiterals.get(5),
                         cellLiterals.get(6))));
@@ -185,9 +165,9 @@ public record FdmGlobodietReader(
         var isAlias = "true".equals(cellLiterals.get(3));
         if(isAlias) return null;
         return new Recipe(
-                SidUtils.GdContext.RECIPE.sid(systemId, cellLiterals.get(8)),
+                GdContext.RECIPE.sid(systemId, cellLiterals.get(8)),
                 cellLiterals.get(0),
-                SidUtils.GdContext.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
+                GdContext.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(6),
                         cellLiterals.get(7))));
     }
@@ -234,7 +214,7 @@ public record FdmGlobodietReader(
     // 39 "foodOrRecipeCode: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
     private RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
         return new RecipeIngredient(
-                SidUtils.GdContext.RECIPE.sid(systemId, cellLiterals.get(34)),
+                GdContext.RECIPE.sid(systemId, cellLiterals.get(34)),
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(39)),
                 new BigDecimal(cellLiterals.get(6))
                 );
@@ -248,7 +228,7 @@ public record FdmGlobodietReader(
     // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
     // 6 "code: Facet code"
     private ClassificationFacet facetFromRowData(
-            final SidUtils.GdContext context,
+            final GdContext context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId, cellLiterals.get(6)),
@@ -263,7 +243,7 @@ public record FdmGlobodietReader(
     // 4 "facetCode: Facet code"
     // 5 "code: Descriptor code"
     private ClassificationFacet descriptorFromRowData(
-            final SidUtils.GdContext context,
+            final GdContext context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId, FormatUtils.concat(

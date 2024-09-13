@@ -37,8 +37,10 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import lombok.val;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
+import dita.foodon.fdm.FdmUtils;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_descript.FoodFacet;
@@ -84,10 +86,15 @@ public class VersionsExportService {
     @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
 
     public Blob getFoodDescriptionModelAsYaml(final ParameterDataVersion parameterDataVersion) {
-        var yaml = tablesAsYamlFromVersion(parameterDataVersion,
+        var yamlTabular = tablesAsYamlFromVersion(parameterDataVersion,
                 table->FDM_ENTITIES.stream()
                     .anyMatch(cls->table.key().endsWith("." + cls.getSimpleName())),
                 ExportFormat.ENTITY);
+
+        var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
+        var fdmFactory = new FdmFactory(SystemId.empty(), tabularData);
+        var yaml = FdmUtils.toYaml(fdmFactory.createFoodDescriptionModel());
+
         return Clob.of("fdm", CommonMimeType.YAML, yaml)
                 .toBlob(StandardCharsets.UTF_8)
                 .zip();

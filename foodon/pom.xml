@@ -45,6 +45,14 @@ additional
             <artifactId>owlapi-distribution</artifactId>
         </dependency>
         
+        <!-- TESTING -->
+        
+        <dependency>
+            <groupId>org.apache.causeway.testing</groupId>
+            <artifactId>causeway-testing-integtestsupport-applib</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
     </dependencies>
 
 </project>

@@ -20,6 +20,8 @@ package dita.globodiet.survey.util;
 
 import java.util.List;
 
+import org.springframework.lang.Nullable;
+
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 
 // perhaps move to commons
 @UtilityClass
@@ -68,6 +71,14 @@ public class SidUtils {
         }
         public SemanticIdentifier sid(final SystemId systemId, final String objectSimpleId) {
             return new SemanticIdentifier(systemId, objectId(objectSimpleId));
+        }
+        public boolean matches(final @Nullable ClassificationFacet classificationFacet) {
+            if(classificationFacet==null) return false;
+            return matches(classificationFacet.sid());
+        }
+        public boolean matches(final @Nullable SemanticIdentifier sid) {
+            if(sid==null) return false;
+            return id().equals(sid.objectId().context());
         }
         static boolean isSystemAgnostic(@NonNull final ObjectId objectId) {
             for(var context : Context.values()) {
