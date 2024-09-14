@@ -65,7 +65,7 @@ public class Campaigns {
                     || _Strings.isNullOrEmpty(campaign.getCode())) {
                 return NamedPath.of("blackhole");
             }
-            var root = NamedPath.of(campaign.getSurveyCode().toLowerCase());
+            var root = NamedPath.of("surveys", campaign.getSurveyCode().toLowerCase());
             return switch(this) {
                 case INTERVIEW -> root.add("campaigns").add(NamedPath.of(campaign.getCode().toLowerCase()));
                 case FCDB -> root.add("fcdb").add("fcdb.yaml.7z");

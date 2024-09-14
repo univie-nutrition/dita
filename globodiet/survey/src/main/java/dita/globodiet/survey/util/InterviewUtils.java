@@ -77,6 +77,8 @@ public class InterviewUtils {
             final Correction24 correction,
             final Consumer<Message> messageConsumer) {
 
+        log.info("load from namedPath: {}", namedPath);
+
         var interviewSet = surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath, true)

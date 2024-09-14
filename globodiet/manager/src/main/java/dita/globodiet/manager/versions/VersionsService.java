@@ -24,8 +24,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import javax.inject.Inject;
+
 import jakarta.inject.Named;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -35,17 +39,30 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import lombok.experimental.Accessors;
 
 import dita.globodiet.manager.DitaModuleGdManager;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsService")
 public class VersionsService {
 
-    private File rootDirectory = new File(System.getenv("dita.blobstore.root"));
+    @Deprecated
+    @Value("${dita.globodiet.survey.blobstore.resource}")
+    private String blobStoreRoot;
+
+    @Deprecated
+    @Getter(lazy = true) @Accessors(fluent=true)
+    private final File rootDirectory = new File(new File(blobStoreRoot), "versions");
+
+    @Inject @Qualifier("survey")
+    private BlobStore blobStore;
 
     @RequiredArgsConstructor
     public enum VersionFilter implements Predicate<ParameterDataVersion> {
@@ -61,9 +78,35 @@ public class VersionsService {
      * Lists all {@link ParameterDataVersion}(s), as recovered from file-system on the fly.
      */
     public Can<ParameterDataVersion> getVersions() {
-        return rootDirectory.exists()
+
+        var versionDirs = blobStore.listDescriptors(NamedPath.of(), false);
+
+        System.err.println("----- VERSIONS");
+
+        System.err.printf("blobStore: %s%n", blobStore.getClass());
+
+        versionDirs.forEach(dir->{
+            System.err.printf("dir: %s%n", dir);
+        });
+
+        System.err.println("--------------");
+
+        return rootDirectory().exists()
                 ? Can.ofArray(
-                    rootDirectory.listFiles((FileFilter) dir -> dir.isDirectory()
+                    rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
+                            && new File(dir, "manifest.yml").exists()))
+                    .map(ParameterDataVersion::fromDirectory)
+                    .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
+                : Can.empty();
+    }
+
+    /**
+     * Lists all {@link ParameterDataVersion}(s), as recovered from file-system on the fly.
+     */
+    public Can<ParameterDataVersion> getVersions1() {
+        return rootDirectory().exists()
+                ? Can.ofArray(
+                    rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
                             && new File(dir, "manifest.yml").exists()))
                     .map(ParameterDataVersion::fromDirectory)
                     .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
@@ -107,7 +150,7 @@ public class VersionsService {
         final int cloneId = getNextFreeVersionId();
         clone.set__id(cloneId);
 
-        val cloneDir = FileUtils.makeDir(new File(rootDirectory, "" + cloneId));
+        val cloneDir = FileUtils.makeDir(new File(rootDirectory(), "" + cloneId));
         clone.writeManifest(cloneDir);
 
         val masterDir = lookupVersionFolderElseFail(master);
@@ -126,7 +169,7 @@ public class VersionsService {
         var resultingFileName = String.format("GloboDiet-%s.7z", timestamp);
         return resolve7ZippedResource(parameterDataVersion, "GloboDiet", Optional.of(resultingFileName));
     }
-    
+
     // -- UTILITY
 
     public void writeManifest(final @Nullable ParameterDataVersion version) {
@@ -142,7 +185,7 @@ public class VersionsService {
      * Resolves a file resource relative to the given version's blob-store sub-folder.
      */
     private DataSource resolveResource(final ParameterDataVersion parameterDataVersion, final String resourceName) {
-        val versionFolder = new File(rootDirectory, "" + parameterDataVersion.get__id());
+        val versionFolder = new File(rootDirectory(), "" + parameterDataVersion.get__id());
         return DataSource.ofFile(new File(versionFolder, resourceName));
     }
 
@@ -178,7 +221,7 @@ public class VersionsService {
     }
 
     private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
-        val versionFolder = new File(rootDirectory, "" + version.get__id());
+        val versionFolder = new File(rootDirectory(), "" + version.get__id());
         return FileUtils.existingDirectoryElseFail(versionFolder);
     }
 
