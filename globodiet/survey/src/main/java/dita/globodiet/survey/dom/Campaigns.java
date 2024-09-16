@@ -68,11 +68,11 @@ public class Campaigns {
             var root = NamedPath.of("surveys", campaign.getSurveyCode().toLowerCase());
             return switch(this) {
                 case INTERVIEW -> root.add("campaigns").add(NamedPath.of(campaign.getCode().toLowerCase()));
-                case FCDB -> root.add("fcdb").add("fcdb.yaml.7z");
-                case QMAP_NUT -> root.add("qmap").add("nut.yaml.7z");
+                case FCDB -> root.add("fcdb").add("fcdb.yaml");
+                case QMAP_NUT -> root.add("qmap").add("nut.yaml");
                 case QMAP_FCO -> root.add("qmap").add("fco.yaml");
                 case QMAP_POC -> root.add("qmap").add("poc.yaml");
-                case FDM -> root.add("fdm").add("fdm.yaml.zip");
+                case FDM -> root.add("fdm").add("fdm.yaml");
             };
         }
     }
