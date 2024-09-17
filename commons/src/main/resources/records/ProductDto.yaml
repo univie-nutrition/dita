@@ -1,0 +1,207 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+viewmodel:
+  generator: record
+  namespace: dom.product
+  named: Consumption
+  description: |
+    Represents a single food product as flattened data,
+    useful for tabular data import/export.
+  fields:
+    name:
+      type: String
+      description: |
+        native 
+        product name
+    brand:
+      type: String
+      description: |
+        product 
+        brand name
+    productCategory:
+      type: String
+      description: |
+        product 
+        category name    
+    massInGram:
+      type: BigDecimal
+      description: |
+        product 
+        content/netto 
+        weight [g]       
+    volumeInMilliliter:
+      type: BigDecimal
+      description: |
+        product 
+        content/netto 
+        volume [ml]
+    quantificationUnit:
+      type: QuantificationUnit
+      description: |
+        Parts, 
+        Mass [g],
+        Volume [ml]
+    recommendedServingSize:
+      type: String
+      description: |
+        producer
+        recommendation
+        in units of 
+        'Quantification Unit'
+    referenceUnit:
+      type: ReferenceUnit
+      description: |
+        food composition
+        data given in 
+        reference to 
+    nutriScore:
+      type: String
+      description: |
+        Nutri-Score 
+        (A-E)
+    basedOn:
+      type: String
+      description: |
+        basis of 
+        processed food
+    sourceOfData:
+      type: URL
+      description: |
+        web location provding
+        data for this product
+
+    /** Fett [mg] */Number ZF,
+    /** Gesättigte Fettsäuren [mg] */Number FS,
+    /** Kohlenhydrate [mg] */Number ZK,
+    /** davon Zucker [mg] */Number KMD,
+    /** Ballaststoffe [mg] */Number ZB,
+    /** Eiweiß [mg] */Number ZE,
+    /** Salz [mg] */Number GMKO,
+    /** Kalzium [mg] */Number MCA,
+
+    /** Vitamin B12 [µg] */Number VB12,
+    /** Vitamin B2 [mg] convert to [µg] */Number VB2,
+    /** Vitamin D [µg] */Number VD,
+    /** Vitamin A [µg] */Number VA,
+    /** Vitamin E [mg] convert to [µg] */Number VE,
+    /** Vitamin B 6 [mg] convert to [µg] */Number VB6,
+    /** Eisen [mg] convert to [µg] */Number MFE,
+    /** Omega 3 FS [mg] */Number FO3
+    
+    GCALZB:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    ZF:
+      type: BigDecimal
+      description: |
+        Fett [mg]
+    FS:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    ZK:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    KMD:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    ZB:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    ZE:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    GMKO:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    MCA:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    VB12:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    VB2:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    VD:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    VA:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    VE:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    VB6:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    MFE:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+    FO3:
+      type: BigDecimal
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]

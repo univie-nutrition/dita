@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -69,8 +67,8 @@ class _DataTableSet {
     public _DataTableSet(
             final Can<DataTable> dataTables) {
         this.dataTables = dataTables;
-        this.dataTableByLogicalName = dataTables.stream()
-                .collect(Collectors.toMap(DataTable::getLogicalName, UnaryOperator.identity()));
+        this.dataTableByLogicalName = dataTables
+                .toMap(DataTable::getLogicalName);
     }
 
     // -- POPULATING
@@ -79,13 +77,13 @@ class _DataTableSet {
         dataTables.forEach(DataTable::populateEntities);
         return this;
     }
-    
+
     public _DataTableSet populateFromSecondaryConnection(
             final PersistenceManager pm) {
         dataTables.forEach(dataTable->{
             final var entityClass = dataTable.getElementType().getCorrespondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
-            
+
             pm.currentTransaction().begin();
             List<?> allInstances = pm.newQuery(entityClass).executeResultList(entityClass);
             dataTable.setDataElementPojos(allInstances);
@@ -95,7 +93,7 @@ class _DataTableSet {
     }
 
     public _DataTableSet populateFromTabularData(
-            final TabularData dataBase, 
+            final TabularData dataBase,
             final TabularData.Format formatOptions) {
 
         dataBase.dataTables()
@@ -175,19 +173,19 @@ class _DataTableSet {
         return new TabularData(dataTables.map(dataTable->
             toTable(dataTable, formatOptions, (x, y)->StringNormalizer.IDENTITY)));
     }
-    
+
     public TabularData toTabularData(
             final TabularData.Format formatOptions,
             final StringNormalizerFactory stringNormalizerFactory) {
         return new TabularData(dataTables.map(dataTable->
             toTable(dataTable, formatOptions, stringNormalizerFactory)));
     }
-    
+
     private Table toTable(
             final DataTable dataTable,
             final TabularData.Format formatOptions,
             final StringNormalizerFactory stringNormalizerFactory) {
-        
+
         var rows = dataTable.getDataRows()
                 .map(dataRow->new TabularData.Row(
                     dataTable.getDataColumns()
@@ -195,7 +193,7 @@ class _DataTableSet {
                         .map(column->stringify(column, dataRow, stringNormalizerFactory, formatOptions))
                         .toList()
                 ));
-        
+
         return new Table(
                 dataTable.getElementType().getLogicalTypeName(),
                 dataTable.getDataColumns()
@@ -204,7 +202,7 @@ class _DataTableSet {
                         col.getColumnDescription())),
                 rows);
     }
-    
+
     private String stringify(
             final DataColumn column,
             final DataRow dataRow,
@@ -213,7 +211,7 @@ class _DataTableSet {
         final DataTable dataTable = dataRow.getParentTable();
         var entityClass = dataTable.getElementType().getCorrespondingClass();
         var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.getColumnId());
-        
+
         var cells = dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH);
         var cellValue = cells.getSingleton().orElse(null); // assuming not multivalued
         return stringify(cellValue, formatOptions, stringNormalizer);
@@ -341,7 +339,7 @@ class _DataTableSet {
         }));
         return colIndexMapping;
     }
-    
+
     private static String stringify(
             final @Nullable ManagedObject cellValue,
             final @NonNull TabularData.Format formatOptions,

@@ -1,0 +1,152 @@
+# -----------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+# 
+#       http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# -----------------------------------------------------------
+
+viewmodels:
+- fqn: dom.product.ProductDto
+  generator: record
+  name: ProductDto
+  namespace: dom.product
+  icon: null
+  named: Consumption
+  description: |
+    Represents a single food product as flattened data,
+    useful for tabular data import/export.
+  fields:
+    respondentOrdinal:
+      type: int
+      required: true
+      description: |
+        sequential
+        respondent
+        index
+    respondentAlias:
+      type: String
+      required: true
+      description: |
+        anonymized
+        respondent identifier,
+        unique to the
+        corresponding survey
+    respondentSex:
+      type: int
+      required: true
+      description: |
+        1=male
+        2=female    
+    respondentAge:
+      type: BigDecimal
+      required: true
+      description: |
+        age at first
+        consumption day 
+        =ageInDays/365.2422       
+    interviewOrdinal:
+      type: int
+      required: true
+      description: |
+        respondent's
+        n-th interview
+        (chronological)
+    consumptionDate:
+      type: java.time.LocalDate
+      required: true
+      description: |
+        date of 
+        consumption
+    fco:
+      type: String
+      required: true
+      description: |
+        consumption
+        occasion 
+        code
+    poc:
+      type: String
+      required: true
+      description: |
+        place of
+        consumption
+        code
+    meal:
+      type: String
+      required: true
+      description: |
+        meal happened
+        when and where
+    mealOrdinal:
+      type: String
+      required: true
+      description: |
+        Dewey 
+        decimal
+        order
+    recordType:
+      type: String
+      required: true
+      description: |
+        type of food
+        record
+    food:
+      type: String
+      required: true
+      description: |
+        name of consumed
+        food
+    foodId:
+      type: String
+      required: true
+      description: |
+        food or 
+        composite 
+        identifier     
+    groupId:
+      type: String
+      required: true
+      description: |
+        food or 
+        composite 
+        group
+    facetIds:
+      type: String
+      required: true
+      description: |
+        facet descriptor
+        identifiers                  
+    quantity:
+      type: BigDecimal
+      required: true
+      description: |
+        quantity 
+        consumed [g]
+    fcdbId:
+      type: String
+      required: true
+      description: |
+        food composition 
+        database identifier
+        (nutrient mapping) 
+    GCALZB:
+      type: BigDecimal
+      required: true
+      description: |
+        Energie 
+        inkl. Ballaststoffen
+        [kcal]
+entities:
+
