@@ -23,14 +23,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-@Getter @Accessors(fluent = true)
+@Getter
+@Accessors(fluent = true)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum QuantificationUnit {
-	PARTS("Parts", "parts"),
-	MASS_IN_GRAM("Mass [g]", "g"),
-	VOLUME_IN_MILLILITER("Volume [ml]", "ml");
+    PARTS("Parts", "parts"),
+    MASS_IN_GRAM("Mass [g]", "g"),
+    VOLUME_IN_MILLILITER("Volume [ml]", "ml");
 
     private final String title;
-	private final String symbol;
-
+    private final String symbol;
 }

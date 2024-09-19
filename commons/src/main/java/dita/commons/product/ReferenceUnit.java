@@ -30,20 +30,18 @@ import dita.commons.types.MetricUnits;
 import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
 
-@Getter @Accessors(fluent = true)
+@Getter
+@Accessors(fluent = true)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ReferenceUnit {
-	PER_PART("/part", Quantities.getQuantity(1., MetricUnits.PARTS.inverse())),
-	PER_100_GRAM("/100g", Quantities.getQuantity(0.01, Units.GRAM.inverse())),
-	PER_100_MILLILITER("/100ml", Quantities.getQuantity(0.01, MetricPrefix.MILLI(Units.LITRE).inverse()));
+    PER_PART("/part", Quantities.getQuantity(1., MetricUnits.PARTS.inverse())),
+    PER_100_GRAM("/100g", Quantities.getQuantity(0.01, Units.GRAM.inverse())),
+    PER_100_MILLILITER("/100ml", Quantities.getQuantity(0.01, MetricPrefix.MILLI(Units.LITRE).inverse()));
 
     private final String title;
-	private final Quantity<?> metricQuantity;
+    private final Quantity<?> metricQuantity;
 
-	public static Quantity<?> toMetricQuantity(final ReferenceUnit quantificationUnit) {
-		return quantificationUnit!=null
-		        ? quantificationUnit.metricQuantity()
-                : null;
-	}
-
+    public static Quantity<?> toMetricQuantity(final ReferenceUnit quantificationUnit) {
+        return quantificationUnit != null ? quantificationUnit.metricQuantity() : null;
+    }
 }
