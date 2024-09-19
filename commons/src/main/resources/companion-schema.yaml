@@ -18,135 +18,192 @@
 # -----------------------------------------------------------
 
 viewmodels:
-- fqn: dom.product.ProductDto
+- fqn: product.ProductDto
   generator: record
   name: ProductDto
-  namespace: dom.product
+  namespace: product
   icon: null
   named: Consumption
   description: |
     Represents a single food product as flattened data,
     useful for tabular data import/export.
   fields:
-    respondentOrdinal:
-      type: int
-      required: true
-      description: |
-        sequential
-        respondent
-        index
-    respondentAlias:
+    name:
       type: String
       required: true
       description: |
-        anonymized
-        respondent identifier,
-        unique to the
-        corresponding survey
-    respondentSex:
-      type: int
+        native 
+        product name
+    brand:
+      type: String
       required: true
       description: |
-        1=male
-        2=female    
-    respondentAge:
+        product 
+        brand name
+    productCategory:
+      type: String
+      required: true
+      description: |
+        product 
+        category name    
+    massInGram:
       type: BigDecimal
       required: true
       description: |
-        age at first
-        consumption day 
-        =ageInDays/365.2422       
-    interviewOrdinal:
-      type: int
-      required: true
-      description: |
-        respondent's
-        n-th interview
-        (chronological)
-    consumptionDate:
-      type: java.time.LocalDate
-      required: true
-      description: |
-        date of 
-        consumption
-    fco:
-      type: String
-      required: true
-      description: |
-        consumption
-        occasion 
-        code
-    poc:
-      type: String
-      required: true
-      description: |
-        place of
-        consumption
-        code
-    meal:
-      type: String
-      required: true
-      description: |
-        meal happened
-        when and where
-    mealOrdinal:
-      type: String
-      required: true
-      description: |
-        Dewey 
-        decimal
-        order
-    recordType:
-      type: String
-      required: true
-      description: |
-        type of food
-        record
-    food:
-      type: String
-      required: true
-      description: |
-        name of consumed
-        food
-    foodId:
-      type: String
-      required: true
-      description: |
-        food or 
-        composite 
-        identifier     
-    groupId:
-      type: String
-      required: true
-      description: |
-        food or 
-        composite 
-        group
-    facetIds:
-      type: String
-      required: true
-      description: |
-        facet descriptor
-        identifiers                  
-    quantity:
+        product 
+        content/netto 
+        weight [g]       
+    volumeInMilliliter:
       type: BigDecimal
       required: true
       description: |
-        quantity 
-        consumed [g]
-    fcdbId:
+        product 
+        content/netto 
+        volume [ml]
+    quantificationUnit:
+      type: dita.commons.product.QuantificationUnit
+      required: true
+      description: |
+        Parts, 
+        Mass [g],
+        Volume [ml]
+    recommendedServingSize:
       type: String
       required: true
       description: |
-        food composition 
-        database identifier
-        (nutrient mapping) 
+        producer
+        recommendation
+        in units of 
+        'Quantification Unit'
+    referenceUnit:
+      type: dita.commons.product.ReferenceUnit
+      required: true
+      description: |
+        food composition
+        data given in 
+        reference to 
+    nutriScore:
+      type: String
+      required: true
+      description: |
+        Nutri-Score 
+        (A-E)
+    basedOn:
+      type: String
+      required: true
+      description: |
+        basis of 
+        processed food
+    sourceOfData:
+      type: java.net.URL
+      required: true
+      description: |
+        web location provding
+        data for this product
     GCALZB:
       type: BigDecimal
       required: true
       description: |
-        Energie 
-        inkl. Ballaststoffen
+        Energy 
+        incl. fiber
         [kcal]
+    ZF:
+      type: BigDecimal
+      required: true
+      description: |
+        Fat
+        [mg]
+    FS:
+      type: BigDecimal
+      required: true
+      description: |
+        Saturated
+        fatty acids
+        [mg]
+    ZK:
+      type: BigDecimal
+      required: true
+      description: |
+        Carbohydrates
+        [mg]
+    KMD:
+      type: BigDecimal
+      required: true
+      description: |
+        Sugar
+        [mg]
+    ZB:
+      type: BigDecimal
+      required: true
+      description: |
+        Fiber
+        [mg]
+    ZE:
+      type: BigDecimal
+      required: true
+      description: |
+        Protein
+        [mg]
+    GMKO:
+      type: BigDecimal
+      required: true
+      description: |
+        Salt
+        [mg]
+    MCA:
+      type: BigDecimal
+      required: true
+      description: |
+        Calcium
+        [mg]
+    VB12:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit B12
+        [µg]
+    VB2:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit B2
+        [µg]
+    VD:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit D
+        [µg]
+    VA:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit A 
+        [µg]
+    VE:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit E
+        [µg]
+    VB6:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit B6
+        [µg]
+    MFE:
+      type: BigDecimal
+      required: true
+      description: |
+        Iron
+        [µg]
+    FO3:
+      type: BigDecimal
+      required: true
+      description: |
+        Omega 3
+        F.A.
+        [mg]
 entities:
 

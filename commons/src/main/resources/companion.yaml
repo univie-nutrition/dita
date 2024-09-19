@@ -21,5 +21,5 @@ codegen:
 - include: records
   logicalNamespacePrefix: dita.commons
   packageNamePrefix: dita.commons
-  entitiesModulePackageName: dom
+  entitiesModulePackageName:
   entitiesModuleClassSimpleName: DitaModuleCommons

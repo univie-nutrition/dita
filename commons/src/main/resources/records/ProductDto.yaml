@@ -19,7 +19,7 @@
 
 viewmodel:
   generator: record
-  namespace: dom.product
+  namespace: product
   named: Consumption
   description: |
     Represents a single food product as flattened data,
@@ -53,7 +53,7 @@ viewmodel:
         content/netto 
         volume [ml]
     quantificationUnit:
-      type: QuantificationUnit
+      type: dita.commons.product.QuantificationUnit
       description: |
         Parts, 
         Mass [g],
@@ -66,7 +66,7 @@ viewmodel:
         in units of 
         'Quantification Unit'
     referenceUnit:
-      type: ReferenceUnit
+      type: dita.commons.product.ReferenceUnit
       description: |
         food composition
         data given in 
@@ -82,126 +82,106 @@ viewmodel:
         basis of 
         processed food
     sourceOfData:
-      type: URL
+      type: java.net.URL
       description: |
         web location provding
         data for this product
-
-    /** Fett [mg] */Number ZF,
-    /** Gesättigte Fettsäuren [mg] */Number FS,
-    /** Kohlenhydrate [mg] */Number ZK,
-    /** davon Zucker [mg] */Number KMD,
-    /** Ballaststoffe [mg] */Number ZB,
-    /** Eiweiß [mg] */Number ZE,
-    /** Salz [mg] */Number GMKO,
-    /** Kalzium [mg] */Number MCA,
-
-    /** Vitamin B12 [µg] */Number VB12,
-    /** Vitamin B2 [mg] convert to [µg] */Number VB2,
-    /** Vitamin D [µg] */Number VD,
-    /** Vitamin A [µg] */Number VA,
-    /** Vitamin E [mg] convert to [µg] */Number VE,
-    /** Vitamin B 6 [mg] convert to [µg] */Number VB6,
-    /** Eisen [mg] convert to [µg] */Number MFE,
-    /** Omega 3 FS [mg] */Number FO3
-    
     GCALZB:
       type: BigDecimal
+      #TODO translate (Energie inkl. Ballaststoffen)
       description: |
-        Energie 
-        inkl. Ballaststoffen
+        Energy 
+        incl. fiber
         [kcal]
     ZF:
       type: BigDecimal
+      #TODO translate (Fett)
       description: |
-        Fett [mg]
+        Fat
+        [mg]
     FS:
       type: BigDecimal
+      #TODO translate (Gesättigte Fettsäuren)
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Saturated
+        fatty acids
+        [mg]
     ZK:
       type: BigDecimal
+      #TODO translate (Kohlenhydrate)
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Carbohydrates
+        [mg]
     KMD:
       type: BigDecimal
+      #TODO translate (davon Zucker)
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Sugar
+        [mg]
     ZB:
       type: BigDecimal
+      #TODO translate (Ballaststoffe)
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Fiber
+        [mg]
     ZE:
       type: BigDecimal
+      #TODO translate (Eiweiß)
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Protein
+        [mg]
     GMKO:
       type: BigDecimal
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Salt
+        [mg]
     MCA:
       type: BigDecimal
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Calcium
+        [mg]
     VB12:
       type: BigDecimal
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Vit B12
+        [µg]
     VB2:
       type: BigDecimal
+      #converted from [mg] 
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Vit B2
+        [µg]
     VD:
       type: BigDecimal
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Vit D
+        [µg]
     VA:
       type: BigDecimal
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Vit A 
+        [µg]
     VE:
       type: BigDecimal
+      #converted from [mg]
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Vit E
+        [µg]
     VB6:
       type: BigDecimal
+      #converted from [mg]
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Vit B6
+        [µg]
     MFE:
       type: BigDecimal
+      #converted from [mg]
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Iron
+        [µg]
     FO3:
       type: BigDecimal
       description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+        Omega 3
+        F.A.
+        [mg]
