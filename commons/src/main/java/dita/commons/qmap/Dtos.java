@@ -34,7 +34,7 @@ import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.jaxb.JaxbAdapters;
+import dita.commons.io.JaxbAdapters;
 import dita.commons.qmap.QualifiedMap.Policy;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;

@@ -31,7 +31,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.jaxb.JaxbAdapters;
+import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;

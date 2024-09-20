@@ -43,7 +43,7 @@ import lombok.Setter;
 import lombok.val;
 import lombok.experimental.Accessors;
 
-import dita.commons.jaxb.JaxbAdapters;
+import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;

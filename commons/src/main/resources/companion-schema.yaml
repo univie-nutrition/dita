@@ -28,6 +28,12 @@ viewmodels:
     Represents a single food product as flattened data,
     useful for tabular data import/export.
   fields:
+    sid:
+      type: dita.commons.sid.SemanticIdentifier
+      required: true
+      description: |
+        semantic
+        identifier
     name:
       type: String
       required: true

@@ -24,10 +24,11 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dita.commons.jaxb.JaxbAdapters;
-import dita.commons.types.Sex;
 import lombok.SneakyThrows;
 import lombok.val;
+
+import dita.commons.io.JaxbAdapters;
+import dita.commons.types.Sex;
 import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
 

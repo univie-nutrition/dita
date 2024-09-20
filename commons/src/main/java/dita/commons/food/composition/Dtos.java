@@ -41,7 +41,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
-import dita.commons.jaxb.JaxbAdapters;
+import dita.commons.io.JaxbAdapters;
 import dita.commons.sid.SemanticIdentifier;
 
 @UtilityClass
