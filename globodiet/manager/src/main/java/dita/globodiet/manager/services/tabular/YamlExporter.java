@@ -26,15 +26,21 @@ import jakarta.inject.Inject;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.feature.MixedIn;
 import org.apache.causeway.core.metamodel.spec.feature.ObjectMember;
+import org.apache.causeway.core.metamodel.tabular.simple.CollectionContentsExporter.AccessMode;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
-import lombok.SneakyThrows;
 
+@RequiredArgsConstructor
 class YamlExporter implements BiConsumer<DataTable, File> {
 
     @Inject TableSerializerYaml tableSerializerYaml;
+
+    final AccessMode accessMode; // ignored for now
 
     @Override @SneakyThrows
     public void accept(final DataTable table, final File tempFile) {

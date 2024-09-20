@@ -31,8 +31,8 @@ public class CollectionContentsAsYamlExporter
 implements CollectionContentsExporter {
 
     @Override
-    public void createExport(final DataTable dataTable, final File tempFile) {
-        new YamlExporter().accept(dataTable, tempFile);
+    public void createExport(final DataTable dataTable, final File tempFile, final AccessMode accessMode) {
+        new YamlExporter(accessMode).accept(dataTable, tempFile);
     }
 
     @Override

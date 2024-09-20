@@ -41,10 +41,10 @@ import org.apache.causeway.applib.annotation.Where;
  * @param productCategory product
  * category name
  * @param massInGram product
- * content/netto
+ * content
  * weight [g]
  * @param volumeInMilliliter product
- * content/netto
+ * content
  * volume [ml]
  * @param quantificationUnit Parts,
  * Mass [g],
@@ -60,7 +60,7 @@ import org.apache.causeway.applib.annotation.Where;
  * (A-E)
  * @param basedOn basis of
  * processed food
- * @param sourceOfData web location provding
+ * @param sourceOfData web location providing
  * data for this product
  * @param GCALZB Energy
  * incl. fiber
@@ -138,7 +138,7 @@ public record ProductDto(
                 fieldSetId = "details",
                 sequence = "4",
                 describedAs = "product\n"
-                                + "content/netto\n"
+                                + "content\n"
                                 + "weight [g]",
                 hidden = Where.NOWHERE
         )
@@ -147,7 +147,7 @@ public record ProductDto(
                 fieldSetId = "details",
                 sequence = "5",
                 describedAs = "product\n"
-                                + "content/netto\n"
+                                + "content\n"
                                 + "volume [ml]",
                 hidden = Where.NOWHERE
         )
@@ -199,7 +199,7 @@ public record ProductDto(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "11",
-                describedAs = "web location provding\n"
+                describedAs = "web location providing\n"
                                 + "data for this product",
                 hidden = Where.NOWHERE
         )

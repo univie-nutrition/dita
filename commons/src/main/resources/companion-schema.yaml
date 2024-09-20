@@ -51,14 +51,14 @@ viewmodels:
       required: true
       description: |
         product 
-        content/netto 
+        content 
         weight [g]       
     volumeInMilliliter:
       type: BigDecimal
       required: true
       description: |
         product 
-        content/netto 
+        content 
         volume [ml]
     quantificationUnit:
       type: dita.commons.product.QuantificationUnit
@@ -98,7 +98,7 @@ viewmodels:
       type: java.net.URL
       required: true
       description: |
-        web location provding
+        web location providing
         data for this product
     GCALZB:
       type: BigDecimal
