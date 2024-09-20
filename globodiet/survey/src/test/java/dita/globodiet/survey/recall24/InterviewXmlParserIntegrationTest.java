@@ -19,8 +19,6 @@
 package dita.globodiet.survey.recall24;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
@@ -31,12 +29,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.commons.collections.Can;
 
-import lombok.val;
-
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.util.XlsxUtils;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
@@ -84,19 +81,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 Aggregation.NONE);
         tabularReport.report(xlsxFile);
 
-        val pb = new ProcessBuilder();
-
-        pb.directory(new File("d:/tmp/_scratch"));
-        pb.command(List.of(
-                "C:/Program Files/LibreOffice/program/scalc.exe",
-                xlsxFile.getAbsolutePath()));
-        pb.inheritIO();
-
-        try {
-            pb.start().waitFor();
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
+        XlsxUtils.launchViewerAndWaitFor(xlsxFile);
 
 //        var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
 //        todoReporter.report(
