@@ -24,7 +24,7 @@ RUN tar -zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz && \
 # -- BUILD SCINDA 
   
 ENV revision 1.0.2  
-ENV SCINDA_HOME /opt/scinda
+ENV SCINDA_HOME /opt/nutridb
 ENV SCINDA_REVISION 1.0.0
 ENV SCINDA_SOURCE https://github.com/OpenNutritionScience/openscinda/archive/master.zip 
 
