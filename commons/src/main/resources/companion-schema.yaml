@@ -162,6 +162,12 @@ viewmodels:
       description: |
         Calcium
         [mg]
+    VA:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit A 
+        [µg]    
     VB12:
       type: BigDecimal
       required: true
@@ -174,17 +180,17 @@ viewmodels:
       description: |
         Vit B2
         [µg]
+    VC:
+      type: BigDecimal
+      required: true
+      description: |
+        Vit C
+        [µg]
     VD:
       type: BigDecimal
       required: true
       description: |
         Vit D
-        [µg]
-    VA:
-      type: BigDecimal
-      required: true
-      description: |
-        Vit A 
         [µg]
     VE:
       type: BigDecimal
@@ -211,5 +217,41 @@ viewmodels:
         Omega 3
         F.A.
         [mg]
+    MK:
+      type: java.math.BigDecimal
+      required: true
+      description: |
+        Kalium
+        [mg]
+    MP:
+      type: java.math.BigDecimal
+      required: true
+      description: |
+        Phosphor
+        [mg]
+    MMG:
+      type: java.math.BigDecimal
+      required: true
+      description: |
+        Magnesium
+        [mg]
+    VB9G:
+      type: java.math.BigDecimal
+      required: true
+      description: |
+        Vitamin B9 gesamte Folsäure
+        [µg]
+    MZN:
+      type: java.math.BigDecimal
+      required: true
+      description: |
+        Zink
+        [µg]
+    MJ:
+      type: java.math.BigDecimal
+      required: true
+      description: |
+        Iodid
+        [µg]
 entities:
 

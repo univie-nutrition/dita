@@ -131,6 +131,20 @@ class Dtos {
         return new FoodComposition(dto.foodId(), dto.concentrationUnit(), datapointMap);
     }
 
+    // -- FOOD COMPONENT CATALOG
+
+    public record FoodComponentCatalogDto(
+            Collection<FoodComponent> components) {
+        public String toYaml() {
+            return YamlUtils.toStringUtf8(this, yamlOptions());
+        }
+    }
+
+    FoodComponentCatalogDto toDto(final FoodComponentCatalog foodComponentCatalog) {
+        return new FoodComponentCatalogDto(
+                foodComponentCatalog.streamComponents().toList());
+    }
+
     // -- FOOD COMPOSITION REPOSITORY
 
     public record FoodCompositionRepositoryDto(
@@ -166,7 +180,9 @@ class Dtos {
     // -- HELPER
 
     private JacksonCustomizer yamlOptions() {
-        return JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+        var op1 = JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+        var op2 = JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
+        return op1.compose(op2)::apply;
     }
 
     private YamlLoadCustomizer yamlMillionCodePointsLimit(final int millions) {

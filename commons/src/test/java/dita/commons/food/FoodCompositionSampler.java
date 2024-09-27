@@ -33,6 +33,7 @@ import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 
 @UtilityClass
 class FoodCompositionSampler {
@@ -42,7 +43,8 @@ class FoodCompositionSampler {
     private FoodComponent blsZuckerGesamt = new FoodComponent(
             SemanticIdentifier.parse("de.bls/3.02", "comp/KMD"),
             MetricPrefix.MILLI,
-            ComponentUnit.GRAM);
+            ComponentUnit.GRAM,
+            SemanticIdentifierSet.empty());
 
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();

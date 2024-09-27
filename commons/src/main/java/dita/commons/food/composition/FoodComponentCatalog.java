@@ -46,6 +46,11 @@ public class FoodComponentCatalog {
         return internalMap.values().stream();
     }
 
+    // -- YAML
+
+    public String toYaml() {
+        return Dtos.toDto(this).toYaml();
+    }
 
     // -- LOOKUP
 

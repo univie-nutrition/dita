@@ -30,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.MetricUnits;
 import tech.units.indriya.AbstractUnit;
 import tech.units.indriya.quantity.Quantities;
@@ -43,7 +44,8 @@ import tech.units.indriya.unit.Units;
 public record FoodComponent(
         SemanticIdentifier componentId,
         MetricPrefix metricPrefix,
-        ComponentUnit componentUnit) {
+        ComponentUnit componentUnit,
+        SemanticIdentifierSet attributes) {
 
     @RequiredArgsConstructor
     public enum ComponentUnit {
