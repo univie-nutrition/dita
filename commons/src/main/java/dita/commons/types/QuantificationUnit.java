@@ -23,6 +23,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
+import dita.commons.util.NumberUtils;
+import tech.units.indriya.internal.function.Calculator;
+
 /**
  * Food components are quantified in units of parts, mass or volume
  * per {@link ReferenceUnit}.
@@ -38,4 +41,22 @@ public enum QuantificationUnit {
 
     private final String title;
     private final String symbol;
+
+    // -- FORMATTING
+
+    public String format(final Number amount) {
+        if(amount==null) return "?";
+        switch (this) {
+        case PARTS:
+            return NumberUtils.scientificFormat(amount) + " parts";
+        case MASS_IN_GRAM:
+            return NumberUtils.scientificFormat(amount) + " g";
+        case VOLUME_IN_MILLILITER:
+            return NumberUtils.scientificFormat(
+                    Calculator.of(amount).multiply(0.001).peek()) + " l";
+        default:
+            throw new IllegalArgumentException("unknown unit");
+        }
+    }
+
 }
