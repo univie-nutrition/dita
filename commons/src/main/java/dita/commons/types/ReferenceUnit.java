@@ -16,20 +16,28 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.product;
+package dita.commons.types;
+
+import java.util.Optional;
 
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
+
+import org.springframework.lang.Nullable;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-import dita.commons.types.MetricUnits;
 import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
 
+/**
+ * Food components are quantified in {@link QuantificationUnit} (units of parts, mass or volume)
+ * per <i>ReferenceUnit</i>.
+ * @see QuantificationUnit
+ */
 @Getter
 @Accessors(fluent = true)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -41,7 +49,18 @@ public enum ReferenceUnit {
     private final String title;
     private final Quantity<?> metricQuantity;
 
-    public static Quantity<?> toMetricQuantity(final ReferenceUnit quantificationUnit) {
-        return quantificationUnit != null ? quantificationUnit.metricQuantity() : null;
+    // -- UTILITY
+
+    @Deprecated
+    @Nullable
+    public static Quantity<?> toMetricQuantity(@Nullable final ReferenceUnit refUnit) {
+        return refUnit != null
+                ? refUnit.metricQuantity()
+                : null;
+    }
+
+    public static Optional<Quantity<?>> asMetricQuantity(@Nullable final ReferenceUnit refUnit) {
+        return Optional.ofNullable(refUnit)
+                .map(ReferenceUnit::metricQuantity);
     }
 }

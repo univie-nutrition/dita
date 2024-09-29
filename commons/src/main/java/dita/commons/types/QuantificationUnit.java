@@ -16,13 +16,18 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.product;
+package dita.commons.types;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
+/**
+ * Food components are quantified in units of parts, mass or volume
+ * per {@link ReferenceUnit}.
+ * @see ReferenceUnit
+ */
 @Getter
 @Accessors(fluent = true)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
