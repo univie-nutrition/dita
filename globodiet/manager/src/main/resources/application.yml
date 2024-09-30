@@ -33,7 +33,7 @@ causeway:
     meta-model:
       introspector:
         lock-after-full-introspection: true
-        policy: ANNOTATION_REQUIRED
+        policy: ENCAPSULATION_ENABLED
       validator:
         allow-deprecated: false
         no-params-only: true
