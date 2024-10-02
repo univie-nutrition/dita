@@ -23,6 +23,7 @@ import java.util.function.UnaryOperator;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.applib.annotation.Value;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.Builder;
@@ -43,7 +44,7 @@ import lombok.experimental.Accessors;
  * <p>
  * formats to -> SID[at.gd/2.0, food/00123]
  */
-@Builder
+@Builder @Value
 public record SemanticIdentifier (
         /**
          * Identifies the system of the referenced data object.
