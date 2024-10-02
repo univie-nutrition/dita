@@ -42,10 +42,18 @@ import tech.units.indriya.unit.Units;
 @Accessors(fluent = true)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum ReferenceUnit {
-    PER_PART("/part", Quantities.getQuantity(1., MetricUnits.PARTS.inverse())),
-    PER_100_GRAM("/100g", Quantities.getQuantity(0.01, Units.GRAM.inverse())),
-    PER_100_MILLILITER("/100ml", Quantities.getQuantity(0.01, MetricPrefix.MILLI(Units.LITRE).inverse()));
+    PER_PART("perPart", "/part", Quantities.getQuantity(1., MetricUnits.PARTS.inverse())),
+    PER_100_GRAM("per100Gram", "/100g", Quantities.getQuantity(0.01, Units.GRAM.inverse())),
+    PER_100_MILLILITER("per100Milliliter", "/100ml", Quantities.getQuantity(0.01, MetricPrefix.MILLI(Units.LITRE).inverse()));
 
+    /**
+     * for persistence use with
+     * <pre>
+        @Extension(vendorName="datanucleus", key="enum-value-getter", value="stringified")
+        @Extension(vendorName="datanucleus", key="enum-check-constraint", value="true")
+     * </pre>
+     */
+    private final String stringified;
     private final String title;
     private final Quantity<?> metricQuantity;
 

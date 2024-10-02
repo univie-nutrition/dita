@@ -35,10 +35,18 @@ import tech.units.indriya.internal.function.Calculator;
 @Accessors(fluent = true)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum QuantificationUnit {
-    PARTS("Parts", "parts"),
-    MASS_IN_GRAM("Mass [g]", "g"),
-    VOLUME_IN_MILLILITER("Volume [ml]", "ml");
+    PARTS("Parts", "Parts", "parts"),
+    MASS_IN_GRAM("MassInGram", "Mass [g]", "g"),
+    VOLUME_IN_MILLILITER("VolumeInMilliliter", "Volume [ml]", "ml");
 
+    /**
+     * for persistence use with
+     * <pre>
+        @Extension(vendorName="datanucleus", key="enum-value-getter", value="stringified")
+        @Extension(vendorName="datanucleus", key="enum-check-constraint", value="true")
+     * </pre>
+     */
+    private final String stringified;
     private final String title;
     private final String symbol;
 
