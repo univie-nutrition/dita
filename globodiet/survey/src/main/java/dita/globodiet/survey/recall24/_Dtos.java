@@ -209,7 +209,7 @@ class _Dtos {
             var root = ListEntryTreeNode.root();
             var current = new ListEntryTreeNode[] {null, null, null, null}; // 4 (tree) levels of placeholders
 
-            listEntries.forEach(IndexedConsumer.zeroBased((i, listEntry)->{
+            listEntries.forEach(IndexedConsumer.zeroBased((_, listEntry)->{
                 var listEntryType = listEntry.listEntryType();
                 switch (listEntryType) {
                 case FoodConsumptionOccasion:

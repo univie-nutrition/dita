@@ -29,15 +29,15 @@ import org.apache.causeway.commons.functional.Either;
 
 import lombok.NonNull;
 
+import dita.globodiet.params.classification.RecipeGrouping;
 import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;
 import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipeGroup;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.RecipeDeps.Recipe_dependentQuantificationMethodPathwayForRecipeMappedByRecipe;
 import dita.globodiet.params.recipe_list.RecipeGroup;
 import dita.globodiet.params.recipe_list.RecipeGroupDeps.RecipeGroup_dependentQuantificationMethodPathwayForRecipeGroupMappedByRecipeGroup;
-import dita.globodiet.params.services.grouping.GroupingHelperService;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
-import dita.globodiet.params.classification.RecipeGrouping;
+import dita.globodiet.params.services.grouping.GroupingHelperService;
 
 @Service
 public class RecipeQuantificationHelperService {
@@ -48,6 +48,7 @@ public class RecipeQuantificationHelperService {
     public List<QuantificationMethodPathwayForRecipeGroup> effectiveQuantificationMethodPathwayForRecipeClassification(
             final @NonNull RecipeGrouping recipeGrouping) {
         final @NonNull Either<RecipeGroup, RecipeSubgroup> recipeClassification = recipeGrouping.toEither();
+        @SuppressWarnings("unused")
         final List<QuantificationMethodPathwayForRecipeGroup> facetQuantificationMethodForRecipeGroup =
             recipeClassification
             .fold(
@@ -60,6 +61,7 @@ public class RecipeQuantificationHelperService {
         return facetQuantificationMethodForRecipeGroup;
     }
 
+    @SuppressWarnings("unused")
     public RecipeGroup effectiveGroupingUsedForQuantificationPathway(final Recipe recipe) {
         var recipeClassification = groupingHelperService.recipeClassification(recipe);
         return recipeClassification

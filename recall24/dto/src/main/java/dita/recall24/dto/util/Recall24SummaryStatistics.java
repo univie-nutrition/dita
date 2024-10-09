@@ -63,6 +63,7 @@ public record Recall24SummaryStatistics(
 
     // -- SUB TYPES
 
+    @SuppressWarnings("unused")
     public record Record24SummaryStatistics(
             LongAdder recordCount,
             LongAdder foodCount,

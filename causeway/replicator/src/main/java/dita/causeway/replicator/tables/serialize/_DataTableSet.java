@@ -171,7 +171,7 @@ class _DataTableSet {
     public TabularData toTabularData(
             final TabularData.Format formatOptions) {
         return new TabularData(dataTables.map(dataTable->
-            toTable(dataTable, formatOptions, (x, y)->StringNormalizer.IDENTITY)));
+            toTable(dataTable, formatOptions, (_, _)->StringNormalizer.IDENTITY)));
     }
 
     public TabularData toTabularData(

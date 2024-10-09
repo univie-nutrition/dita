@@ -151,7 +151,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     @PropertyLayout(navigable=Navigable.PARENT, hidden=Where.EVERYWHERE)
     public Object getParent() {
         return Optional.ofNullable(activeTreePath().getParentIfAny())
-                .<Object>map(parentPath->new SurveyVM(viewModelMemento.parent(), rootNode()))
+                .<Object>map(_->new SurveyVM(viewModelMemento.parent(), rootNode()))
                 .orElseGet(this::getCampaign);
     }
 
@@ -172,6 +172,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
         };
     }
 
+    @SuppressWarnings("unused")
     @ObjectSupport public FontAwesomeLayers iconFaLayers() {
         var node = activeNode();
         return FontAwesomeLayers.fromQuickNotation(
