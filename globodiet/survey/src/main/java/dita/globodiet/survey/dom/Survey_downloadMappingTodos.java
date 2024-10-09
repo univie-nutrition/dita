@@ -56,7 +56,6 @@ public class Survey_downloadMappingTodos {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
-    @SuppressWarnings({"unused"})
     private final Survey mixee;
 
     /**

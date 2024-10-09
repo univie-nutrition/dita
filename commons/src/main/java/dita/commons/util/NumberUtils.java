@@ -32,6 +32,7 @@ import org.springframework.lang.Nullable;
 import lombok.experimental.UtilityClass;
 
 import tech.units.indriya.function.DefaultNumberSystem;
+import tech.units.indriya.function.RationalNumber;
 import tech.units.indriya.internal.function.Calculator;
 
 @UtilityClass
@@ -131,6 +132,17 @@ public class NumberUtils {
 
     public int log10(final Number number) {
         return (int)(Math.log10(number.doubleValue()));
+    }
+
+
+    public String percentageFormat(@Nullable final RationalNumber x) {
+        if(x==null) return "??%";
+        var dec = new BigDecimal(x.getDividend()).scaleByPowerOfTen(2).divide(new BigDecimal(x.getDivisor()));
+        var df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(0);
+        df.setGroupingUsed(false);
+        return df.format(dec) + "%";
     }
 
 }
