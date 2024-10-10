@@ -29,8 +29,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.SemanticsOf;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
@@ -38,6 +40,8 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.format.FormatUtils;
+import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
+import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
 import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
@@ -60,6 +64,8 @@ public class Survey_generateReport {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
+    @Inject private FactoryService factoryService;
+
     private final Survey mixee;
 
     /**
@@ -68,7 +74,12 @@ public class Survey_generateReport {
     @MemberSupport
     public Blob act(
             final List<Campaign> campaigns,
-            @Parameter final Aggregation aggregation) {
+            @Parameter(optionality = Optionality.MANDATORY)
+            final RespondentFilter respondentFilter,
+            @Parameter
+            final ReportColumnDefinition reportColumnDefinition,
+            @Parameter
+            final Aggregation aggregation) {
         // see also Campaign_downloadMappingTodos
         var interviewSet = Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore);
         if(interviewSet.isEmpty()) {
@@ -93,6 +104,18 @@ public class Survey_generateReport {
                 aggregation.name(),
                 FormatUtils.isoDate(LocalDate.now()));
         return tabularReport.reportAsBlob(name);
+    }
+
+    @MemberSupport
+    public List<RespondentFilter> choicesRespondentFilter() {
+        return factoryService.mixin(Survey_dependentRespondentFilterMappedBySurvey.class, mixee)
+                .coll();
+    }
+
+    @MemberSupport
+    public List<ReportColumnDefinition> choicesReportColumnDefinition() {
+        return factoryService.mixin(Survey_dependentReportColumnDefinitionMappedBySurvey.class, mixee)
+                .coll();
     }
 
     @MemberSupport
