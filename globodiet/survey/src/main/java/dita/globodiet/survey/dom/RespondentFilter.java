@@ -60,31 +60,30 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * A campaign defines a part of a food consumption survey that contains several interviews.
- * Campaigns can be defined to be the whole study,
- * a seasonal part of a study, a regional part of a study etc.
+ * A respondent filter defines which respondents to include
+ * with an interview report.
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
-@Named("dita.globodiet.survey.dom.Campaign")
+@Named("dita.globodiet.survey.dom.RespondentFilter")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "A campaign defines a part of a food consumption survey that contains several interviews.\n"
-                        + "Campaigns can be defined to be the whole study,\n"
-                        + "a seasonal part of a study, a regional part of a study etc.",
-        cssClassFa = "solid users-viewfinder .campaign-color"
+        describedAs = "A respondent filter defines which respondents to include\n"
+                        + "with an interview report.",
+        cssClassFa = "solid user .respondentFilter-color,\n"
+                        + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
-        table = "CAMPAIGN"
+        table = "RespondentFilter"
 )
 @DatastoreIdentity(
         strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
         column = "id"
 )
 @Unique(
-        name = "SEC_KEY_UNQ_Campaign",
+        name = "SEC_KEY_UNQ_RespondentFilter",
         members = {"surveyCode", "code"}
 )
-public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> {
+public class RespondentFilter implements Cloneable<RespondentFilter>, HasSecondaryKey<RespondentFilter> {
     @Inject
     RepositoryService repositoryService;
 
@@ -113,7 +112,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     private String surveyCode;
 
     /**
-     * Unique (survey scoped) campaign identifier.
+     * Unique (survey scoped) filter identifier.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -121,7 +120,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) campaign identifier.",
+            describedAs = "Unique (survey scoped) filter identifier.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -134,7 +133,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     private String code;
 
     /**
-     * Descriptive campaign name.
+     * Descriptive filter name.
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -143,7 +142,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptive campaign name.",
+            describedAs = "Descriptive filter name.",
             hidden = Where.NOWHERE
     )
     @Column(
@@ -156,7 +155,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     private String name;
 
     /**
-     * Detailed information for this campaign.
+     * Detailed information for this filter.
      */
     @Property(
             optionality = Optionality.OPTIONAL,
@@ -165,7 +164,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Detailed information for this campaign.",
+            describedAs = "Detailed information for this filter.",
             hidden = Where.NOWHERE,
             multiLine = 4
     )
@@ -179,7 +178,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     private String description;
 
     /**
-     * Yaml formatted interview data corrections.
+     * Line by line defines an alias to include.
+     * (lines can be commented out with a leading #)
      */
     @Property(
             optionality = Optionality.OPTIONAL,
@@ -188,42 +188,42 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Yaml formatted interview data corrections.",
+            describedAs = "Line by line defines an alias to include.\n"
+                            + "(lines can be commented out with a leading #)",
             hidden = Where.ALL_TABLES,
             multiLine = 24
     )
     @Column(
-            name = "CORRECTION",
-            allowsNull = "true",
-            length = 4096
+            name = "ALIAS",
+            allowsNull = "true"
     )
     @Getter
     @Setter
-    private String correction;
+    private String aliasListing;
 
     @ObjectSupport
     public String title() {
-        return String.format("%s (code=%s|%s)", name, surveyCode, code);
+        return String.format("%s (%s)", name, surveyCode);
     }
 
     @Override
     public String toString() {
-        return "Campaign(" + "surveyCode=" + getSurveyCode() + ","
+        return "RespondentFilter(" + "surveyCode=" + getSurveyCode() + ","
          +"code=" + getCode() + ","
          +"name=" + getName() + ","
          +"description=" + getDescription() + ","
-         +"correction=" + getCorrection() + ")";
+         +"aliasListing=" + getAliasListing() + ")";
     }
 
     @Programmatic
     @Override
-    public Campaign copy() {
-        var copy = repositoryService.detachedEntity(new Campaign());
+    public RespondentFilter copy() {
+        var copy = repositoryService.detachedEntity(new RespondentFilter());
         copy.setSurveyCode(getSurveyCode());
         copy.setCode(getCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
-        copy.setCorrection(getCorrection());
+        copy.setAliasListing(getAliasListing());
         return copy;
     }
 
@@ -235,8 +235,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             navigable = Navigable.PARENT
     )
     @NotPersistent
-    public Campaign.Manager getNavigableParent() {
-        return new Campaign.Manager(searchService, "");
+    public RespondentFilter.Manager getNavigableParent() {
+        return new RespondentFilter.Manager(searchService, "");
     }
 
     @Programmatic
@@ -246,18 +246,18 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     }
 
     /**
-     * Manager Viewmodel for @{link Campaign}
+     * Manager Viewmodel for @{link RespondentFilter}
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
-    @Named("dita.globodiet.survey.dom.Campaign.Manager")
+    @Named("dita.globodiet.survey.dom.RespondentFilter.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            describedAs = "A campaign defines a part of a food consumption survey that contains several interviews.\n"
-                            + "Campaigns can be defined to be the whole study,\n"
-                            + "a seasonal part of a study, a regional part of a study etc.",
-            cssClassFa = "solid users-viewfinder .campaign-color"
+            describedAs = "A respondent filter defines which respondents to include\n"
+                            + "with an interview report.",
+            cssClassFa = "solid user .respondentFilter-color,\n"
+                            + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -276,12 +276,12 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
         @ObjectSupport
         public String title() {
-            return "Manage Campaign";
+            return "Manage Respondent Filter";
         }
 
         @Collection
-        public final List<Campaign> getListOfCampaign() {
-            return searchService.search(Campaign.class, Campaign::title, search);
+        public final List<RespondentFilter> getListOfRespondentFilter() {
+            return searchService.search(RespondentFilter.class, RespondentFilter::title, search);
         }
 
         @Override
@@ -291,12 +291,13 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     }
 
     /**
-     * Parameter model for @{link Campaign}
+     * Parameter model for @{link RespondentFilter}
      * @param survey Survey code
-     * @param code Unique (survey scoped) campaign identifier.
-     * @param name Descriptive campaign name.
-     * @param description Detailed information for this campaign.
-     * @param correction Yaml formatted interview data corrections.
+     * @param code Unique (survey scoped) filter identifier.
+     * @param name Descriptive filter name.
+     * @param description Detailed information for this filter.
+     * @param aliasListing Line by line defines an alias to include.
+     * (lines can be commented out with a leading #)
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
@@ -313,7 +314,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Unique (survey scoped) campaign identifier."
+                    describedAs = "Unique (survey scoped) filter identifier."
             )
             String code,
             @Parameter(
@@ -321,7 +322,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Descriptive campaign name."
+                    describedAs = "Descriptive filter name."
             )
             String name,
             @Parameter(
@@ -329,7 +330,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
-                    describedAs = "Detailed information for this campaign.",
+                    describedAs = "Detailed information for this filter.",
                     multiLine = 4
             )
             String description,
@@ -338,24 +339,25 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
-                    describedAs = "Yaml formatted interview data corrections.",
+                    describedAs = "Line by line defines an alias to include.\n"
+                                    + "(lines can be commented out with a leading #)",
                     multiLine = 24
             )
-            String correction) {
+            String aliasListing) {
     }
 
     /**
-     * SecondaryKey for @{link Campaign}
+     * SecondaryKey for @{link RespondentFilter}
      * @param surveyCode Survey code
-     * @param code Unique (survey scoped) campaign identifier.
+     * @param code Unique (survey scoped) filter identifier.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code) implements ISecondaryKey<Campaign> {
+            String code) implements ISecondaryKey<RespondentFilter> {
         @Override
-        public Class<Campaign> correspondingClass() {
-            return Campaign.class;
+        public Class<RespondentFilter> correspondingClass() {
+            return RespondentFilter.class;
         }
 
         @Override
@@ -367,20 +369,20 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link Campaign} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link RespondentFilter} in case of an unresolvable secondary key.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            named = "Unresolvable Campaign",
-            describedAs = "Unresolvable Campaign",
+            named = "Unresolvable RespondentFilter",
+            describedAs = "Unresolvable RespondentFilter",
             cssClassFa = "skull .unresolvable-color"
     )
-    @Named("dita.globodiet.survey.dom.Campaign.Unresolvable")
+    @Named("dita.globodiet.survey.dom.RespondentFilter.Unresolvable")
     @RequiredArgsConstructor
-    public static final class Unresolvable extends Campaign implements ViewModel {
+    public static final class Unresolvable extends RespondentFilter implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

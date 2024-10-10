@@ -30,14 +30,17 @@
 .recipe-color-em {
   color: olive;
 }
-.unresolvable-color {
-  color: red;
+.respondentFilter-color {
+  color: SteelBlue;
 }
 .supplement-color {
   color: MediumSlateBlue;
 }
 .survey-color {
   color: #ff7c30;
+}
+.unresolvable-color {
+  color: red;
 }
 .version-color-light {
   color: BlueViolet;

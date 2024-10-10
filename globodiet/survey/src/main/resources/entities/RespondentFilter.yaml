@@ -19,16 +19,17 @@
 
 entity: 
   namespace: survey.dom
-  table: CAMPAIGN
+  table: RespondentFilter
   secondaryKey: |
     SURVEY
     CODE
-  title: String.format("%s (code=%s|%s)", name, surveyCode, code)
-  icon: solid users-viewfinder .campaign-color
+  title: String.format("%s (%s)", name, surveyCode)
+  icon: |
+    solid user .respondentFilter-color,
+    solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55
   description: |
-    A campaign defines a part of a food consumption survey that contains several interviews.
-    Campaigns can be defined to be the whole study, 
-    a seasonal part of a study, a regional part of a study etc.
+    A respondent filter defines which respondents to include 
+    with an interview report.
   fields:
     surveyCode:
       column: SURVEY
@@ -45,14 +46,14 @@ entity:
       required: true
       unique: false
       description: |
-        Unique (survey scoped) campaign identifier.
+        Unique (survey scoped) filter identifier.
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Descriptive campaign name.
+        Descriptive filter name.
     description:
       column: DESCRIPTION
       column-type: nvarchar(240)
@@ -60,29 +61,14 @@ entity:
       unique: false
       multiLine: 4
       description: |
-        Detailed information for this campaign.
-#    sidSystemId:
-#      column: SYSID
-#      column-type: nvarchar(40)
-#      required: true
-#      unique: false
-#      description: |
-#        Semantic Identifiers (SIDs) come as pair of SystemId and ObjectId.
-#        This specifies the SystemId part (e.g. when generating data exports).
-#    nutMapPath:
-#      column: NUTMAPPATH
-#      column-type: nvarchar(120)
-#      required: true
-#      unique: false
-#      description: |
-#        Specifies the named path within the configured BlobStore, that points to the QualifiedMap data used for 
-#        food-consumtion to food-component resolution (nutrient mapping).
-    correction:
-      column: CORRECTION
-      column-type: nvarchar(64000)
+        Detailed information for this filter.
+    aliasListing:
+      column: ALIAS
+      column-type: clob
       required: false
       unique: false
       hiddenWhere: ALL_TABLES
       multiLine: 24
       description: |
-        Yaml formatted interview data corrections.
+        Line by line defines an alias to include.
+        (lines can be commented out with a leading #)

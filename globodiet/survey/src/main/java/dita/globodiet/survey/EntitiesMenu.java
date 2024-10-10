@@ -20,6 +20,7 @@
 package dita.globodiet.survey;
 
 import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.RespondentFilter;
 import dita.globodiet.survey.dom.Survey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
@@ -46,6 +47,15 @@ public class EntitiesMenu {
     )
     public Campaign.Manager manageCampaign() {
         return factoryService.viewModel(new Campaign.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid user .respondentFilter-color,\n"
+                            + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+    )
+    public RespondentFilter.Manager manageRespondentFilter() {
+        return factoryService.viewModel(new RespondentFilter.Manager(searchService, ""));
     }
 
     @Action
