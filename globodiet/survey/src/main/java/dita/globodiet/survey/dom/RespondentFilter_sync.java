@@ -55,7 +55,7 @@ public class RespondentFilter_sync {
     private final RespondentFilter mixee;
 
     @MemberSupport
-    public RespondentFilter act() {
+    public RespondentFilter act(final DataUtil.LineMergePolicy lineMergePolicy) {
 
         var survey = foreignKeyLookupService.unique(new Survey.SecondaryKey(mixee.getSurveyCode()));
         var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
@@ -70,8 +70,13 @@ public class RespondentFilter_sync {
             .map(DataUtil.Line::parse);
 
 
-        mixee.setAliasListing(DataUtil.Line.sync(allLines, currentLines).join("\n"));
+        mixee.setAliasListing(DataUtil.Line.sync(lineMergePolicy, allLines, currentLines).join("\n"));
         return mixee;
+    }
+
+    @MemberSupport
+    public DataUtil.LineMergePolicy defaultLineMergePolicy() {
+        return DataUtil.LineMergePolicy.ADD_NEW_AS_DISABLED;
     }
 
 }

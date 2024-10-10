@@ -94,7 +94,7 @@ public class Survey_addRespondentFilter {
         var dummy = factoryService.detachedEntity(new RespondentFilter());
         dummy.setSurveyCode(mixee.secondaryKey().code());
         return factoryService.mixin(RespondentFilter_sync.class, dummy)
-            .act()
+            .act(DataUtil.LineMergePolicy.ADD_NEW_AS_ENABLED)
             .getAliasListing();
     }
 

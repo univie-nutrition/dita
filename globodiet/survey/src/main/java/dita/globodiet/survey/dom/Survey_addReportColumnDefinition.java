@@ -94,7 +94,7 @@ public class Survey_addReportColumnDefinition {
         var dummy = factoryService.detachedEntity(new ReportColumnDefinition());
         dummy.setSurveyCode(mixee.secondaryKey().code());
         return factoryService.mixin(ReportColumnDefinition_sync.class, dummy)
-            .act()
+            .act(DataUtil.LineMergePolicy.ADD_NEW_AS_ENABLED)
             .getColumnListing();
     }
 
