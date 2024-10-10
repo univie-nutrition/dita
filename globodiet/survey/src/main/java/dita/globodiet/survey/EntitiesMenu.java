@@ -20,6 +20,7 @@
 package dita.globodiet.survey;
 
 import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.ReportColumnDefinition;
 import dita.globodiet.survey.dom.RespondentFilter;
 import dita.globodiet.survey.dom.Survey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
@@ -47,6 +48,14 @@ public class EntitiesMenu {
     )
     public Campaign.Manager manageCampaign() {
         return factoryService.viewModel(new Campaign.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid table-columns .reportColumnDefinition-color\n"
+    )
+    public ReportColumnDefinition.Manager manageReportColumnDefinition() {
+        return factoryService.viewModel(new ReportColumnDefinition.Manager(searchService, ""));
     }
 
     @Action

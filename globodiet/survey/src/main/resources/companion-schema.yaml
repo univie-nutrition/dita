@@ -73,6 +73,62 @@ entities:
       hiddenWhere: ALL_TABLES
       description: |
         Yaml formatted interview data corrections.
+- fqn: survey.dom.ReportColumnDefinition
+  name: ReportColumnDefinition
+  namespace: survey.dom
+  table: ReportColumnDefinition
+  secondaryKey: |
+    SURVEY
+    CODE
+  title: String.format("%s (%s)", name, surveyCode)
+  icon: |
+    solid table-columns .reportColumnDefinition-color
+    
+  description: |
+    A column-definition defines which columns to include 
+    with an interview report.
+  fields:
+    surveyCode:
+      column: SURVEY
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      foreignKeys: |
+        SURVEY.CODE
+      description: |
+        Survey code   
+    code:
+      column: CODE
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      description: |
+        Unique (survey scoped) column-definition identifier.
+    name:
+      column: NAME
+      column-type: nvarchar(120)
+      required: true
+      unique: false
+      description: |
+        Descriptive column-definition name.
+    description:
+      column: DESCRIPTION
+      column-type: nvarchar(240)
+      required: false
+      unique: false
+      multiLine: 4
+      description: |
+        Detailed information for this column-definition.
+    columnListing:
+      column: COLLISTING
+      column-type: clob
+      required: false
+      unique: false
+      multiLine: 24
+      hiddenWhere: ALL_TABLES
+      description: |
+        Line by line defines a column to include.
+        (lines can be commented out with a leading #)
 - fqn: survey.dom.RespondentFilter
   name: RespondentFilter
   namespace: survey.dom

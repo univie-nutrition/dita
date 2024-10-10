@@ -23,6 +23,10 @@ import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.CampaignDeps;
 import dita.globodiet.survey.dom.Campaign_delete;
 import dita.globodiet.survey.dom.Campaign_survey;
+import dita.globodiet.survey.dom.ReportColumnDefinition;
+import dita.globodiet.survey.dom.ReportColumnDefinitionDeps;
+import dita.globodiet.survey.dom.ReportColumnDefinition_delete;
+import dita.globodiet.survey.dom.ReportColumnDefinition_survey;
 import dita.globodiet.survey.dom.RespondentFilter;
 import dita.globodiet.survey.dom.RespondentFilterDeps;
 import dita.globodiet.survey.dom.RespondentFilter_delete;
@@ -50,17 +54,21 @@ import org.springframework.context.annotation.Import;
 
         // Entities
         Campaign.class,
+        ReportColumnDefinition.class,
         RespondentFilter.class,
         Survey.class,
 
         // Submodules
         CampaignDeps.class,
+        ReportColumnDefinitionDeps.class,
         RespondentFilterDeps.class,
         SurveyDeps.class,
 
         // Mixins
         Campaign_delete.class,
         Campaign_survey.class,
+        ReportColumnDefinition_delete.class,
+        ReportColumnDefinition_survey.class,
         RespondentFilter_delete.class,
         RespondentFilter_survey.class,
         Survey_delete.class,
@@ -74,6 +82,7 @@ public class DitaModuleGdSurvey {
 
     public static Can<Class<?>> entityClasses() {
         return Can.of(Campaign.class,
+        ReportColumnDefinition.class,
         RespondentFilter.class,
         Survey.class);
     }

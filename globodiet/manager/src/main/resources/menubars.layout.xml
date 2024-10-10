@@ -102,6 +102,11 @@
                 <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageCampaign"/>
             </mb:section>
             <mb:section>
+                <mb:named>Reporting</mb:named>
+                <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageReportColumnDefinition"/>
+                <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageRespondentFilter"/>
+            </mb:section>
+            <mb:section>
                 <mb:named>Versions</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.manager.VersionsMenu" id="parameterDataVersions"/>
             </mb:section>

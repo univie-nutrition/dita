@@ -37,6 +37,7 @@ import org.springframework.context.annotation.Configuration;
 public class SurveyDeps {
     public static Can<Class<?>> mixinClasses() {
         return Can.of(Survey_dependentCampaignMappedBySurvey.class,
+        Survey_dependentReportColumnDefinitionMappedBySurvey.class,
         Survey_dependentRespondentFilterMappedBySurvey.class);
     }
 
@@ -57,6 +58,27 @@ public class SurveyDeps {
                 Campaign.class,
                 Campaign_survey.class,
                 Campaign_survey::prop,
+                mixee);
+        }
+    }
+
+    @Collection
+    @CollectionLayout(
+            tableDecorator = CollectionTitleDecorator.class
+    )
+    @RequiredArgsConstructor
+    public static class Survey_dependentReportColumnDefinitionMappedBySurvey {
+        @Inject
+        DependantLookupService dependantLookup;
+
+        private final Survey mixee;
+
+        @MemberSupport
+        public List<ReportColumnDefinition> coll() {
+            return dependantLookup.findDependants(
+                ReportColumnDefinition.class,
+                ReportColumnDefinition_survey.class,
+                ReportColumnDefinition_survey::prop,
                 mixee);
         }
     }

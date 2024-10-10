@@ -39,13 +39,13 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
         semantics = SemanticsOf.IDEMPOTENT
 )
 @ActionLayout(
-        fieldSetId = "dependentRespondentFilterMappedBySurvey",
+        fieldSetId = "dependentReportColumnDefinitionMappedBySurvey",
         sequence = "1",
-        describedAs = "Adds a RespondentFilter to this Survey",
+        describedAs = "Adds a ReportColumnDefinition to this Survey",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class Survey_addRespondentFilter {
+public class Survey_addReportColumnDefinition {
 
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookup;
@@ -53,15 +53,15 @@ public class Survey_addRespondentFilter {
     private final Survey mixee;
 
     @MemberSupport
-    public Survey act(@ParameterTuple final RespondentFilter.Params p) {
+    public Survey act(@ParameterTuple final ReportColumnDefinition.Params p) {
 
-        val respondentFilter = repositoryService.detachedEntity(new RespondentFilter());
-        respondentFilter.setSurveyCode(mixee.secondaryKey().code());
-        respondentFilter.setCode(p.code());
-        respondentFilter.setName(p.name());
-        respondentFilter.setDescription(p.description());
+        val colDef = repositoryService.detachedEntity(new ReportColumnDefinition());
+        colDef.setSurveyCode(mixee.secondaryKey().code());
+        colDef.setCode(p.code());
+        colDef.setName(p.name());
+        colDef.setDescription(p.description());
 
-        repositoryService.persist(respondentFilter);
+        repositoryService.persist(colDef);
         foreignKeyLookup.clearCache(RespondentFilter.class);
         return mixee;
     }
@@ -84,7 +84,7 @@ public class Survey_addRespondentFilter {
 
     @MemberSupport
     public String defaultCode() {
-        return "FILTER_00";
+        return "COLDEF_00";
     }
 
 }
