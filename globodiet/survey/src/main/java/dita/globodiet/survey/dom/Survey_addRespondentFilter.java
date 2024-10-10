@@ -28,6 +28,7 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.annotation.SemanticsOf;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,7 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 @RequiredArgsConstructor
 public class Survey_addRespondentFilter {
 
+    @Inject private FactoryService factoryService;
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookup;
 
@@ -85,6 +87,15 @@ public class Survey_addRespondentFilter {
     @MemberSupport
     public String defaultCode() {
         return "FILTER_00";
+    }
+
+    @MemberSupport
+    public String defaultAliasListing(final RespondentFilter.Params p) {
+        var dummy = new RespondentFilter();
+        dummy.setSurveyCode(mixee.secondaryKey().code());
+        return factoryService.mixin(RespondentFilter_sync.class, dummy)
+            .act()
+            .getAliasListing();
     }
 
 }
