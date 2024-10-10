@@ -91,7 +91,7 @@ public class Survey_addRespondentFilter {
 
     @MemberSupport
     public String defaultAliasListing(final RespondentFilter.Params p) {
-        var dummy = new RespondentFilter();
+        var dummy = factoryService.detachedEntity(new RespondentFilter());
         dummy.setSurveyCode(mixee.secondaryKey().code());
         return factoryService.mixin(RespondentFilter_sync.class, dummy)
             .act()

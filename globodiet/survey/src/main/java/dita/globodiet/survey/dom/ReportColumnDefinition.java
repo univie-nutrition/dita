@@ -194,7 +194,8 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
     )
     @Column(
             name = "COLLISTING",
-            allowsNull = "true"
+            allowsNull = "true",
+            jdbcType = "CLOB"
     )
     @Getter
     @Setter

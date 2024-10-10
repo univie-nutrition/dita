@@ -91,7 +91,7 @@ public class Survey_addReportColumnDefinition {
 
     @MemberSupport
     public String defaultColumnListing(final ReportColumnDefinition.Params p) {
-        var dummy = new ReportColumnDefinition();
+        var dummy = factoryService.detachedEntity(new ReportColumnDefinition());
         dummy.setSurveyCode(mixee.secondaryKey().code());
         return factoryService.mixin(ReportColumnDefinition_sync.class, dummy)
             .act()

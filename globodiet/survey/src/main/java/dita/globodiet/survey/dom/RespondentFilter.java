@@ -195,7 +195,8 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
     )
     @Column(
             name = "ALIAS",
-            allowsNull = "true"
+            allowsNull = "true",
+            jdbcType = "CLOB"
     )
     @Getter
     @Setter
