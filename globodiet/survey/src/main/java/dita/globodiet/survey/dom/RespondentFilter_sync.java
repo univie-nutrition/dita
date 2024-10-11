@@ -28,13 +28,14 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.RequiredArgsConstructor;
 
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
-import dita.recall24.dto.Respondent24.Dto;
+import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.listing.Listing;
+import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action
@@ -55,28 +56,31 @@ public class RespondentFilter_sync {
     private final RespondentFilter mixee;
 
     @MemberSupport
-    public RespondentFilter act(final DataUtil.LineMergePolicy lineMergePolicy) {
+    public RespondentFilter act(final Listing.MergePolicy lineMergePolicy) {
 
         var survey = foreignKeyLookupService.unique(new Survey.SecondaryKey(mixee.getSurveyCode()));
         var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
             .coll();
 
-        var allLines = Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore)
-                .respondents()
-                .map(Dto::alias)
-                .map(DataUtil.Line::parse);
+        var listingHandler = new ListingHandler<Respondent24.Dto>(
+                Respondent24.Dto.class,
+                Respondent24.Dto::alias,
+                alias->new Respondent24.Dto(alias, null, null, null),
+                Respondent24.Dto::alias);
 
-        var currentLines = TextUtils.readLines(mixee.getAliasListing())
-            .map(DataUtil.Line::parse);
+        var allRespondents = listingHandler.createListing(
+                Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore)
+                .respondents());
 
+        var currentLines = listingHandler.parseListing(mixee.getAliasListing());
 
-        mixee.setAliasListing(DataUtil.Line.sync(lineMergePolicy, allLines, currentLines).join("\n"));
+        mixee.setAliasListing(currentLines.merge(lineMergePolicy, allRespondents).toString());
         return mixee;
     }
 
     @MemberSupport
-    public DataUtil.LineMergePolicy defaultLineMergePolicy() {
-        return DataUtil.LineMergePolicy.ADD_NEW_AS_DISABLED;
+    public Listing.MergePolicy defaultLineMergePolicy() {
+        return Listing.MergePolicy.ADD_NEW_AS_DISABLED;
     }
 
 }

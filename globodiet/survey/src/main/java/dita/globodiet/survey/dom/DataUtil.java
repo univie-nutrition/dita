@@ -18,77 +18,70 @@
  */
 package dita.globodiet.survey.dom;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.function.UnaryOperator;
+import java.util.Optional;
 
-import org.apache.causeway.commons.collections.Can;
+import javax.measure.MetricPrefix;
+
+import org.springframework.lang.Nullable;
+
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
+
+import dita.commons.food.composition.FoodComponent;
+import dita.commons.food.composition.FoodComponentCatalog;
+import dita.commons.sid.SemanticIdentifier;
 
 @UtilityClass
 class DataUtil {
 
-    enum LineMergePolicy {
-        ADD_NEW_AS_ENABLED,
-        ADD_NEW_AS_DISABLED
+
+    /**
+     * Stringify to a single line.
+     * @see FoodComponentCatalog#destringify(String)
+     */
+    String stringify(final FoodComponent foodComponent) {
+        var str = String.format("[%s] unit=%s%s attr=%s",
+                //1
+                foodComponent.componentId().toStringNoBox(),
+                //2
+                Optional.ofNullable(foodComponent.metricPrefix())
+                    .map(MetricPrefix::getSymbol)
+                    .orElse(""),
+                //3
+                _Strings.nullToEmpty(foodComponent.componentUnit().title()),
+                //4
+                Optional.ofNullable(foodComponent.attributes())
+                    .map(attr->attr.fullFormat(", "))
+                    .orElse(""));
+        return str;
     }
 
-    record Line(
-            String key,
-            String text,
-            boolean enabled) implements Comparable<Line>{
-        static Line parse(final String text) {
-            return parse(text, UnaryOperator.identity());
-        }
-        static Line parse(final String text, final UnaryOperator<String> keyExtractor) {
-            var trimmed = _Strings.blankToNullOrTrim(text);
-            if(trimmed==null) return null;
-            if(trimmed.startsWith("#")) {
-                trimmed = _Strings.blankToNullOrTrim(trimmed.substring(1));
-                if(trimmed==null) return null;
-                return new Line(keyExtractor.apply(trimmed), trimmed, false);
-            }
-            return new Line(keyExtractor.apply(trimmed), trimmed, true);
-        }
-        static Can<Line> sync(final LineMergePolicy lineMergePolicy, final Can<Line> allLines, final Can<Line> currentLines) {
-            var bMap = currentLines.toMap(Line::key);
-            var merged = new ArrayList<Line>();
-
-            // if in a but NOT in b -> add to merged (honor LineMergePolicy)
-            // if NOT in a but in b -> don't add to merged
-            // if in both a AND b -> add to merged (keep enabled-state as defined by b)
-            allLines.stream()
-            .forEach(a->{
-                Line b = bMap.get(a.text());
-                if(b!=null) {
-                    merged.add(b);
-                } else {
-                    if(LineMergePolicy.ADD_NEW_AS_ENABLED==lineMergePolicy) {
-                        merged.add(a);
-                    } else {
-                        merged.add(new Line(a.key(), a.text(), false));
-                    }
-                }
-            });
-            Collections.sort(merged, Line::compareTo);
-            return Can.ofCollection(merged);
-        }
-        @Override
-        public int compareTo(final Line o) {
-            return this.text.compareTo(o.text);
-        }
-        @Override
-        public final String toString() {
-            var str = Objects.equals(text, key)
-                    ? text
-                    : key + " " + text;
-            return enabled()
-                    ? str
-                    : "#" + str;
-        }
+    /**
+     * Destringify from a single line.
+     * @see FoodComponent#stringify()
+     */
+    Optional<FoodComponent> destringify(@NonNull final FoodComponentCatalog catalog, @Nullable final String input) {
+        if(input==null) Optional.empty();
+        var sid = extractKey(input);
+        if(sid==null) Optional.empty();
+        return Optional.of(new FoodComponent(sid, null, null, null));
     }
 
+    FoodComponent destringifyElseFail(@NonNull final FoodComponentCatalog catalog, @Nullable final String input) {
+        return destringify(catalog, input)
+                .map(fc->catalog.lookupEntryElseFail(fc.componentId()))
+                .orElseThrow(()->_Exceptions.illegalArgument("cannot parse FoodComponent from '%s'", input));
+    }
+
+    // -- HELPER
+
+    SemanticIdentifier extractKey(final String line) {
+        int p = line.indexOf("]");
+        if(p>0) return SemanticIdentifier.parse(line.substring(1, p));
+        System.err.printf("cannot find SID in %s%n", line);
+        return null;
+    }
 }

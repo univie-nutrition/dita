@@ -96,4 +96,5 @@ public record FoodComponent(
         }
 
     }
+
 }

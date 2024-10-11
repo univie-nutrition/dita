@@ -34,6 +34,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
+import io.github.causewaystuff.commons.base.listing.Listing;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action(
@@ -94,7 +95,7 @@ public class Survey_addReportColumnDefinition {
         var dummy = factoryService.detachedEntity(new ReportColumnDefinition());
         dummy.setSurveyCode(mixee.secondaryKey().code());
         return factoryService.mixin(ReportColumnDefinition_sync.class, dummy)
-            .act(DataUtil.LineMergePolicy.ADD_NEW_AS_ENABLED)
+            .act(Listing.MergePolicy.ADD_NEW_AS_ENABLED)
             .getColumnListing();
     }
 
