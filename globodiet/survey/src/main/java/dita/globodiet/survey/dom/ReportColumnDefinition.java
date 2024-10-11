@@ -185,7 +185,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
             editing = Editing.ENABLED
     )
     @PropertyLayout(
-            fieldSetId = "details",
+            fieldSetId = "listing",
             sequence = "5",
             describedAs = "Line by line defines a column to include.\n"
                             + "(lines can be commented out with a leading #)",

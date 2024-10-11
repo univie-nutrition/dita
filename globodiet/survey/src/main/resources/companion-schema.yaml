@@ -126,6 +126,7 @@ entities:
       unique: false
       multiLine: 24
       hiddenWhere: ALL_TABLES
+      fieldSet: listing
       description: |
         Line by line defines a column to include.
         (lines can be commented out with a leading #)
@@ -183,6 +184,7 @@ entities:
       unique: false
       multiLine: 24
       hiddenWhere: ALL_TABLES
+      fieldSet: listing
       description: |
         Line by line defines an alias to include.
         (lines can be commented out with a leading #)

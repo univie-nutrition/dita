@@ -67,6 +67,7 @@ entity:
       required: false
       unique: false
       hiddenWhere: ALL_TABLES
+      fieldSet: listing
       multiLine: 24
       description: |
         Line by line defines a column to include.

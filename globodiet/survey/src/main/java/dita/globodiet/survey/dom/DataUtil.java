@@ -20,6 +20,7 @@ package dita.globodiet.survey.dom;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 import org.apache.causeway.commons.collections.Can;
@@ -81,9 +82,12 @@ class DataUtil {
         }
         @Override
         public final String toString() {
+            var str = Objects.equals(text, key)
+                    ? text
+                    : key + " " + text;
             return enabled()
-                    ? text()
-                    : "#" + text();
+                    ? str
+                    : "#" + str;
         }
     }
 
