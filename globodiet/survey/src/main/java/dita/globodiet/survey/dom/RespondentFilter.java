@@ -185,7 +185,7 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
     )
     @PropertyLayout(
             cssClass = "listing",
-            fieldSetId = "details",
+            fieldSetId = "listing",
             sequence = "5",
             describedAs = "Line by line defines an alias to include.\n"
                             + "(lines can be commented out with a leading #)",
