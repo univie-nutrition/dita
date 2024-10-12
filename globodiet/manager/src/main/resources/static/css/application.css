@@ -131,3 +131,9 @@ table.frame-all{
 	border-width:1px;
 	border-color:var(--bs-border-color);
 }
+
+/* listing */
+.listing .scalarPlaceholder {
+  background-color: OldLace;
+  font-family: var(--bs-font-monospace);
+}
