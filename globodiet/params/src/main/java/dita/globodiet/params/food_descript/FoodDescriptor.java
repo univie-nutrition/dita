@@ -119,8 +119,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Descriptor code",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor code"
     )
     @Column(
             name = "DESCR_CODE",
@@ -141,8 +140,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptor name",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor name"
     )
     @Column(
             name = "DESCR_NAME",
@@ -169,8 +167,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             describedAs = "0=default without consequences in the algorithms regarding cooking\n"
                             + "1=raw (not cooked)\n"
                             + "2=asks the question 'fat used during cooking?'\n"
-                            + "3=found in austrian data for 'frittiert' - invalid enum constant?",
-            hidden = Where.NOWHERE
+                            + "3=found in austrian data for 'frittiert' - invalid enum constant?"
     )
     @Column(
             name = "DESC_COOK",
@@ -202,8 +199,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0=Multiple choice (allowed)\n"
-                            + "1=Single (exclusive) choice",
-            hidden = Where.NOWHERE
+                            + "1=Single (exclusive) choice"
     )
     @Column(
             name = "DESC_SINGLE",
@@ -235,8 +231,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0=Regular choice\n"
-                            + "1=Choice with additional text as provided by the interviewer (other: [...])",
-            hidden = Where.NOWHERE
+                            + "1=Choice with additional text as provided by the interviewer (other: [...])"
     )
     @Column(
             name = "DESC_OTHER",

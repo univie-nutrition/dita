@@ -85,8 +85,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Anthropometry variable (Height or Weight)",
-            hidden = Where.NOWHERE
+            describedAs = "Anthropometry variable (Height or Weight)"
     )
     @Column(
             name = "ANT_VAR",
@@ -107,8 +106,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Sex (1 for men, 2 for women, blank for both)",
-            hidden = Where.NOWHERE
+            describedAs = "Sex (1 for men, 2 for women, blank for both)"
     )
     @Column(
             name = "SEX",
@@ -128,8 +126,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Age minimum range",
-            hidden = Where.NOWHERE
+            describedAs = "Age minimum range"
     )
     @Column(
             name = "AGE_MIN",
@@ -149,8 +146,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Age maximum range",
-            hidden = Where.NOWHERE
+            describedAs = "Age maximum range"
     )
     @Column(
             name = "AGE_MAX",
@@ -170,8 +166,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Minimum value of height or weight",
-            hidden = Where.NOWHERE
+            describedAs = "Minimum value of height or weight"
     )
     @Column(
             name = "ANT_MIN",
@@ -191,8 +186,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Maximum value of height or weight",
-            hidden = Where.NOWHERE
+            describedAs = "Maximum value of height or weight"
     )
     @Column(
             name = "ANT_MAX",
@@ -212,8 +206,7 @@ public class AnthropometricAverage implements Cloneable<AnthropometricAverage> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Default value of height or weight",
-            hidden = Where.NOWHERE
+            describedAs = "Default value of height or weight"
     )
     @Column(
             name = "ANT_DEF",

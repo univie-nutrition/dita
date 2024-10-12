@@ -102,8 +102,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Unique code, that relates @{table NTR_VALUE}.",
-            hidden = Where.NOWHERE
+            describedAs = "Unique code, that relates @{table NTR_VALUE}."
     )
     @Column(
             name = "ITEM_SEQ",
@@ -131,8 +130,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
                             + "F=food,\n"
                             + "R=recipe,\n"
                             + "A2=fat attached,\n"
-                            + "A3=liquid attached",
-            hidden = Where.NOWHERE
+                            + "A3=liquid attached"
     )
     @Column(
             name = "TYPE",
@@ -247,8 +245,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Facet string",
-            hidden = Where.NOWHERE
+            describedAs = "Facet string"
     )
     @Column(
             name = "FACET_STR",
@@ -269,8 +266,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Brand name",
-            hidden = Where.NOWHERE
+            describedAs = "Brand name"
     )
     @Column(
             name = "BRANDNAME",
@@ -291,8 +287,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Priority order",
-            hidden = Where.NOWHERE
+            describedAs = "Priority order"
     )
     @Column(
             name = "PRIORITY",
@@ -312,8 +307,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "10",
-            describedAs = "Attached records: only for the Type=A2 & A3",
-            hidden = Where.NOWHERE
+            describedAs = "Attached records: only for the Type=A2 & A3"
     )
     @Column(
             name = "ITEM_SEQ_SEQ",
@@ -333,8 +327,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "11",
-            describedAs = "Comment",
-            hidden = Where.NOWHERE
+            describedAs = "Comment"
     )
     @Column(
             name = "COMMENT",

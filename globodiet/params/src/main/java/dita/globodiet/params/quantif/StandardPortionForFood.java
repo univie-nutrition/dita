@@ -87,8 +87,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Standard portion quantity",
-            hidden = Where.NOWHERE
+            describedAs = "Standard portion quantity"
     )
     @Column(
             name = "STDP_QUANT",
@@ -131,8 +130,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -165,8 +163,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -197,8 +194,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Comment attached to the standard portion",
-            hidden = Where.NOWHERE
+            describedAs = "Comment attached to the standard portion"
     )
     @Column(
             name = "COMMENT",
@@ -219,8 +215,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Standard portion code for the same food (0001, 0002, 0003)",
-            hidden = Where.NOWHERE
+            describedAs = "Standard portion code for the same food (0001, 0002, 0003)"
     )
     @Column(
             name = "PORT_CODE",
@@ -241,8 +236,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "G = in grams, V = in ml (volume)",
-            hidden = Where.NOWHERE
+            describedAs = "G = in grams, V = in ml (volume)"
     )
     @Column(
             name = "STDP_UNIT",
@@ -263,8 +257,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Order to display the standard portion",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the standard portion"
     )
     @Column(
             name = "D_ORDER",

@@ -273,8 +273,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "10",
-            describedAs = "Percentage of fat absorbed during cooking",
-            hidden = Where.NOWHERE
+            describedAs = "Percentage of fat absorbed during cooking"
     )
     @Column(
             name = "PCT_ABSOR",

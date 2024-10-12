@@ -116,8 +116,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
                             + "2 = ingredient substitutable\n"
                             + "3 = fat during cooking\n"
                             + "A2 = type of fat used\n"
-                            + "A3 = type of milk/liquid used",
-            hidden = Where.NOWHERE
+                            + "A3 = type of milk/liquid used"
     )
     @Column(
             name = "ING_TYPE",
@@ -148,8 +147,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Food type (GI or blank)",
-            hidden = Where.NOWHERE
+            describedAs = "Food type (GI or blank)"
     )
     @Column(
             name = "TYPE",
@@ -170,8 +168,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Description text (facet/descriptor text)",
-            hidden = Where.NOWHERE
+            describedAs = "Description text (facet/descriptor text)"
     )
     @Column(
             name = "TEXT",
@@ -192,8 +189,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Ingredient name",
-            hidden = Where.NOWHERE
+            describedAs = "Ingredient name"
     )
     @Column(
             name = "NAME",
@@ -277,8 +273,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Ingredient brand (if any)",
-            hidden = Where.NOWHERE
+            describedAs = "Ingredient brand (if any)"
     )
     @Column(
             name = "BRANDNAME",
@@ -324,8 +319,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "11",
             describedAs = "1 = ingredient described and quantified\n"
-                            + "2 = otherwise",
-            hidden = Where.NOWHERE
+                            + "2 = otherwise"
     )
     @Column(
             name = "STATUS",
@@ -356,8 +350,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "12",
-            describedAs = "Final quantity in g (with coefficient applied)",
-            hidden = Where.NOWHERE
+            describedAs = "Final quantity in g (with coefficient applied)"
     )
     @Column(
             name = "CONS_QTY",
@@ -377,8 +370,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "13",
-            describedAs = "Estimated quantity (before coefficient applied)",
-            hidden = Where.NOWHERE
+            describedAs = "Estimated quantity (before coefficient applied)"
     )
     @Column(
             name = "ESTIM_QTY",
@@ -402,8 +394,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             sequence = "14",
             describedAs = "Quantity Estimated Raw or Cooked\n"
                             + "1 = Raw\n"
-                            + "2 = Cooked or Not applicable",
-            hidden = Where.NOWHERE
+                            + "2 = Cooked or Not applicable"
     )
     @Column(
             name = "RAWCOOKED",
@@ -438,8 +429,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             sequence = "15",
             describedAs = "Quantity Consumed Raw or Cooked\n"
                             + "1 = Raw\n"
-                            + "2 = Cooked or Not applicable",
-            hidden = Where.NOWHERE
+                            + "2 = Cooked or Not applicable"
     )
     @Column(
             name = "CONSRAWCO",
@@ -470,8 +460,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "16",
-            describedAs = "Conversion factor raw->cooked",
-            hidden = Where.NOWHERE
+            describedAs = "Conversion factor raw->cooked"
     )
     @Column(
             name = "CONVER",
@@ -491,8 +480,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "17",
-            describedAs = "Quantity as estimated: 1=without un-edible part & 2=with un-edible part",
-            hidden = Where.NOWHERE
+            describedAs = "Quantity as estimated: 1=without un-edible part & 2=with un-edible part"
     )
     @Column(
             name = "EDIB",
@@ -523,8 +511,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "18",
-            describedAs = "Conversion factor for edible part",
-            hidden = Where.NOWHERE
+            describedAs = "Conversion factor for edible part"
     )
     @Column(
             name = "EDIB_CSTE",
@@ -544,8 +531,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "19",
-            describedAs = "Quantity in gram/volume attached to the selected Photo, HHM, STDU",
-            hidden = Where.NOWHERE
+            describedAs = "Quantity in gram/volume attached to the selected Photo, HHM, STDU"
     )
     @Column(
             name = "NGRAMS",
@@ -565,8 +551,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "20",
-            describedAs = "Proportion of Photo, HHM, STDU",
-            hidden = Where.NOWHERE
+            describedAs = "Proportion of Photo, HHM, STDU"
     )
     @Column(
             name = "PROPORT",
@@ -587,8 +572,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "21",
-            describedAs = "Type of quantification method",
-            hidden = Where.NOWHERE
+            describedAs = "Type of quantification method"
     )
     @Column(
             name = "Q_METHOD",
@@ -609,8 +593,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "22",
-            describedAs = "Quantification method code",
-            hidden = Where.NOWHERE
+            describedAs = "Quantification method code"
     )
     @Column(
             name = "QM_CODE",
@@ -631,8 +614,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "23",
-            describedAs = "Density Coefficient only for HHM",
-            hidden = Where.NOWHERE
+            describedAs = "Density Coefficient only for HHM"
     )
     @Column(
             name = "DENSITY",
@@ -652,8 +634,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "24",
-            describedAs = "Sequential Number for Ingredients within a Mixed Recipe",
-            hidden = Where.NOWHERE
+            describedAs = "Sequential Number for Ingredients within a Mixed Recipe"
     )
     @Column(
             name = "ING_NUM",
@@ -673,8 +654,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "25",
-            describedAs = "Fat Left-Over Percentage",
-            hidden = Where.NOWHERE
+            describedAs = "Fat Left-Over Percentage"
     )
     @Column(
             name = "FATL_PCT",
@@ -694,8 +674,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "26",
-            describedAs = "Fat Left-Over Code (F=False, T=True)",
-            hidden = Where.NOWHERE
+            describedAs = "Fat Left-Over Code (F=False, T=True)"
     )
     @Column(
             name = "FATLEFTO",
@@ -715,8 +694,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "27",
-            describedAs = "HHM Fraction",
-            hidden = Where.NOWHERE
+            describedAs = "HHM Fraction"
     )
     @Column(
             name = "HHMFRACT",
@@ -737,8 +715,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "28",
-            describedAs = "Consumed quantity in pound",
-            hidden = Where.NOWHERE
+            describedAs = "Consumed quantity in pound"
     )
     @Column(
             name = "POUND",
@@ -758,8 +735,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "29",
-            describedAs = "Consumed quantity in ounce",
-            hidden = Where.NOWHERE
+            describedAs = "Consumed quantity in ounce"
     )
     @Column(
             name = "OUNCE",
@@ -779,8 +755,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "30",
-            describedAs = "Consumed quantity in quart",
-            hidden = Where.NOWHERE
+            describedAs = "Consumed quantity in quart"
     )
     @Column(
             name = "QUART",
@@ -800,8 +775,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "31",
-            describedAs = "Consumed quantity in pint",
-            hidden = Where.NOWHERE
+            describedAs = "Consumed quantity in pint"
     )
     @Column(
             name = "PINT",
@@ -821,8 +795,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "32",
-            describedAs = "Consumed quantity in flounce",
-            hidden = Where.NOWHERE
+            describedAs = "Consumed quantity in flounce"
     )
     @Column(
             name = "FLOUNCE",
@@ -842,8 +815,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "33",
-            describedAs = "Sequential Number for Ingredients within a Sub-Recipe",
-            hidden = Where.NOWHERE
+            describedAs = "Sequential Number for Ingredients within a Sub-Recipe"
     )
     @Column(
             name = "S_ING_NUM",
@@ -863,8 +835,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "34",
-            describedAs = "Raw quantity without inedible (sans dechet)",
-            hidden = Where.NOWHERE
+            describedAs = "Raw quantity without inedible (sans dechet)"
     )
     @Column(
             name = "RAW_Q",
@@ -884,8 +855,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "35",
-            describedAs = "Percentage/Proportion as Estimated for Recipe Ingredients",
-            hidden = Where.NOWHERE
+            describedAs = "Percentage/Proportion as Estimated for Recipe Ingredients"
     )
     @Column(
             name = "PCT_ESTIM",
@@ -905,8 +875,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "36",
-            describedAs = "Percentage/Proportion as Consumed for Recipe Ingredients",
-            hidden = Where.NOWHERE
+            describedAs = "Percentage/Proportion as Consumed for Recipe Ingredients"
     )
     @Column(
             name = "PCT_CONS",
@@ -928,8 +897,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "37",
             describedAs = "1 = food\n"
-                            + "2 = recipe",
-            hidden = Where.NOWHERE
+                            + "2 = recipe"
     )
     @Column(
             name = "TYPE_IT",
@@ -980,8 +948,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "39",
-            describedAs = "Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)",
-            hidden = Where.NOWHERE
+            describedAs = "Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)"
     )
     @Column(
             name = "Q_UNIT",
@@ -1002,8 +969,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "40",
-            describedAs = "has no description",
-            hidden = Where.NOWHERE
+            describedAs = "has no description"
     )
     @Column(
             name = "PCT_RAW",

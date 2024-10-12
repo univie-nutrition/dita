@@ -98,8 +98,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)",
-            hidden = Where.NOWHERE
+            describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
     )
     @Column(
             name = "TH_CODE",
@@ -120,8 +119,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "has no description",
-            hidden = Where.NOWHERE
+            describedAs = "has no description"
     )
     @Column(
             name = "TH_THICK",
@@ -141,8 +139,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)",
-            hidden = Where.NOWHERE
+            describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
     )
     @Column(
             name = "TH_COMMENT",

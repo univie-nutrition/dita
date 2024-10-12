@@ -129,8 +129,7 @@ public class NutrientValue implements Cloneable<NutrientValue> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Nutrient value for the corresponding nutrient and food (or group).",
-            hidden = Where.NOWHERE
+            describedAs = "Nutrient value for the corresponding nutrient and food (or group)."
     )
     @Column(
             name = "VAL",

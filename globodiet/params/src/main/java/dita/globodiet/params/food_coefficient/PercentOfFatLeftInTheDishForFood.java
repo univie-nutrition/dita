@@ -147,8 +147,7 @@ public class PercentOfFatLeftInTheDishForFood implements Cloneable<PercentOfFatL
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Percentage of fat left in the dish",
-            hidden = Where.NOWHERE
+            describedAs = "Percentage of fat left in the dish"
     )
     @Column(
             name = "PCT_LEFT",

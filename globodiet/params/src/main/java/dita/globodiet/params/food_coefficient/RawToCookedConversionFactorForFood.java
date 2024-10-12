@@ -104,8 +104,7 @@ public class RawToCookedConversionFactorForFood implements Cloneable<RawToCooked
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Raw to cooked factor",
-            hidden = Where.NOWHERE
+            describedAs = "Raw to cooked factor"
     )
     @Column(
             name = "RC_FACTOR",
@@ -146,8 +145,7 @@ public class RawToCookedConversionFactorForFood implements Cloneable<RawToCooked
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Priority order",
-            hidden = Where.NOWHERE
+            describedAs = "Priority order"
     )
     @Column(
             name = "PRIORITY",

@@ -98,8 +98,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Food group code",
-            hidden = Where.NOWHERE
+            describedAs = "Food group code"
     )
     @Column(
             name = "GROUP",
@@ -120,8 +119,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Food group name",
-            hidden = Where.NOWHERE
+            describedAs = "Food group name"
     )
     @Column(
             name = "NAME",
@@ -142,8 +140,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Food group short name",
-            hidden = Where.NOWHERE
+            describedAs = "Food group short name"
     )
     @Column(
             name = "NAME_SHORT",

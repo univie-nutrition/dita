@@ -209,8 +209,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Default flag (if set to 'D' it is the default descriptor)",
-            hidden = Where.NOWHERE
+            describedAs = "Default flag (if set to 'D' it is the default descriptor)"
     )
     @Column(
             name = "DEFAULT",
@@ -231,8 +230,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Not in name flag",
-            hidden = Where.NOWHERE
+            describedAs = "Not in name flag"
     )
     @Column(
             name = "NOTINNAME",
@@ -253,8 +251,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Order to display the facets within a group/subgroup",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the facets within a group/subgroup"
     )
     @Column(
             name = "ORDER_FAC",
@@ -274,8 +271,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Order to display the descriptors within a group/subgroup and a facet",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the descriptors within a group/subgroup and a facet"
     )
     @Column(
             name = "ORDER_DESC",

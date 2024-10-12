@@ -84,8 +84,7 @@ public class Interviewer implements Cloneable<Interviewer> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Interviewer code",
-            hidden = Where.NOWHERE
+            describedAs = "Interviewer code"
     )
     @Column(
             name = "INTV_CODE",
@@ -106,8 +105,7 @@ public class Interviewer implements Cloneable<Interviewer> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Interviewer family name",
-            hidden = Where.NOWHERE
+            describedAs = "Interviewer family name"
     )
     @Column(
             name = "INTV_FNAME",
@@ -128,8 +126,7 @@ public class Interviewer implements Cloneable<Interviewer> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Interviewer name",
-            hidden = Where.NOWHERE
+            describedAs = "Interviewer name"
     )
     @Column(
             name = "INTV_NAME",

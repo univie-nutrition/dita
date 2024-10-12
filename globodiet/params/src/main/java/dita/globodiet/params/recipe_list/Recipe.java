@@ -128,8 +128,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Recipe ID number",
-            hidden = Where.NOWHERE
+            describedAs = "Recipe ID number"
     )
     @Column(
             name = "R_IDNUM",
@@ -192,8 +191,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Recipe name",
-            hidden = Where.NOWHERE
+            describedAs = "Recipe name"
     )
     @Column(
             name = "R_NAME",
@@ -230,8 +228,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
                             + "2.2=Closed with brand\n"
                             + "3.0=Commercial\n"
                             + "4.1=New – Known\n"
-                            + "4.2=New – Unknown",
-            hidden = Where.NOWHERE
+                            + "4.2=New – Unknown"
     )
     @Column(
             name = "R_TYPE",
@@ -262,8 +259,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Brand name for commercial recipe",
-            hidden = Where.NOWHERE
+            describedAs = "Brand name for commercial recipe"
     )
     @Column(
             name = "R_BRAND",
@@ -284,8 +280,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "whether is an alias (SH=shadow)",
-            hidden = Where.NOWHERE
+            describedAs = "whether is an alias (SH=shadow)"
     )
     @Column(
             name = "TYPE",
@@ -318,8 +313,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             fieldSetId = "details",
             sequence = "8",
             describedAs = "0=recipe without sub-recipe\n"
-                            + "1=recipe with sub-recipe",
-            hidden = Where.NOWHERE
+                            + "1=recipe with sub-recipe"
     )
     @Column(
             name = "R_SUB",
@@ -355,8 +349,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             describedAs = "1=finalized (enabled for interviews)\n"
                             + "2=with unknown quantity (disabled for interviews)\n"
                             + "3=to be completed (disabled for interviews)\n"
-                            + "4=empty (disabled for interviews)",
-            hidden = Where.NOWHERE
+                            + "4=empty (disabled for interviews)"
     )
     @Column(
             name = "STATUS",

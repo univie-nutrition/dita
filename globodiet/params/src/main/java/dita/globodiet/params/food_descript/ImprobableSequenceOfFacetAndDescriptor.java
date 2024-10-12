@@ -209,8 +209,7 @@ public class ImprobableSequenceOfFacetAndDescriptor implements Cloneable<Improba
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Facet string",
-            hidden = Where.NOWHERE
+            describedAs = "Facet string"
     )
     @Column(
             name = "FACET_STR",

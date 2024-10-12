@@ -104,8 +104,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
                             + "2.2=Closed with brand\n"
                             + "3.0=Commercial\n"
                             + "4.1=New – Known\n"
-                            + "4.2=New – Unknown",
-            hidden = Where.NOWHERE
+                            + "4.2=New – Unknown"
     )
     @Column(
             name = "R_TYPE",
@@ -138,8 +137,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             fieldSetId = "details",
             sequence = "2",
             describedAs = "0 = The ingredient window is not displayed\n"
-                            + "1 = The ingredient window is displayed",
-            hidden = Where.NOWHERE
+                            + "1 = The ingredient window is displayed"
     )
     @Column(
             name = "R_ING",
@@ -175,8 +173,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
                             + "1 = S - Substitute\n"
                             + "2 = SAD - Substitute, Add & Delete\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
-            hidden = Where.NOWHERE
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify"
     )
     @Column(
             name = "N_IFUNCTION",
@@ -212,8 +209,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
                             + "1 = S - Substitute\n"
                             + "2 = SAD - Substitute, Add & Delete\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify",
-            hidden = Where.NOWHERE
+                            + "3 = SADQ - Substitute, Add, Delete & Quantify"
     )
     @Column(
             name = "E_IFUNCTION",
@@ -249,8 +245,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             describedAs = "Display of the automatic note window:\n"
                             + "0 = No display of note window\n"
                             + "1 = Display of note window\n"
-                            + "2 = Display of note window only for Add & Delete functions",
-            hidden = Where.NOWHERE
+                            + "2 = Display of note window only for Add & Delete functions"
     )
     @Column(
             name = "D_NOTES",

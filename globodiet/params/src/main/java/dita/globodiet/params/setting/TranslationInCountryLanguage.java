@@ -83,8 +83,7 @@ public class TranslationInCountryLanguage implements Cloneable<TranslationInCoun
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Text name",
-            hidden = Where.NOWHERE
+            describedAs = "Text name"
     )
     @Column(
             name = "ARRAY_REF",
@@ -105,8 +104,7 @@ public class TranslationInCountryLanguage implements Cloneable<TranslationInCoun
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Text in specific Country language",
-            hidden = Where.NOWHERE
+            describedAs = "Text in specific Country language"
     )
     @Column(
             name = "TEXT",
@@ -127,8 +125,7 @@ public class TranslationInCountryLanguage implements Cloneable<TranslationInCoun
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Text in English",
-            hidden = Where.NOWHERE
+            describedAs = "Text in English"
     )
     @Column(
             name = "TEXT_ENG",
@@ -149,8 +146,7 @@ public class TranslationInCountryLanguage implements Cloneable<TranslationInCoun
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Data entry Text in specific Country language",
-            hidden = Where.NOWHERE
+            describedAs = "Data entry Text in specific Country language"
     )
     @Column(
             name = "DE_TEXT",
@@ -171,8 +167,7 @@ public class TranslationInCountryLanguage implements Cloneable<TranslationInCoun
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Data entry Text in English",
-            hidden = Where.NOWHERE
+            describedAs = "Data entry Text in English"
     )
     @Column(
             name = "DE_TEXT_ENG",

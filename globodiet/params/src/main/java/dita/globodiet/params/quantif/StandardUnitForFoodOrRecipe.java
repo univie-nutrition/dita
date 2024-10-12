@@ -87,8 +87,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Standard unit code, unique for referenced food/recipe (0001, 0002, ...)",
-            hidden = Where.NOWHERE
+            describedAs = "Standard unit code, unique for referenced food/recipe (0001, 0002, ...)"
     )
     @Column(
             name = "UNIT_CODE",
@@ -132,8 +131,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -166,8 +164,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -200,8 +197,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = STDU for food,\n"
-                            + "2 = STDU for recipe",
-            hidden = Where.NOWHERE
+                            + "2 = STDU for recipe"
     )
     @Column(
             name = "TYPE",
@@ -232,8 +228,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Comment attached to the standard unit",
-            hidden = Where.NOWHERE
+            describedAs = "Comment attached to the standard unit"
     )
     @Column(
             name = "COMMENT",
@@ -254,8 +249,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Standard unit quantity (amount)",
-            hidden = Where.NOWHERE
+            describedAs = "Standard unit quantity (amount)"
     )
     @Column(
             name = "STDU_QUANT",
@@ -277,8 +271,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "8",
             describedAs = "G = in Unit grams (mass)\n"
-                            + "V = in Unit milliliter (volume)",
-            hidden = Where.NOWHERE
+                            + "V = in Unit milliliter (volume)"
     )
     @Column(
             name = "STDU_UNIT",
@@ -309,8 +302,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Order to display the standard unit",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the standard unit"
     )
     @Column(
             name = "D_ORDER",

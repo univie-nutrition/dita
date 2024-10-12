@@ -98,8 +98,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Facet code for Dietary Supplement",
-            hidden = Where.NOWHERE
+            describedAs = "Facet code for Dietary Supplement"
     )
     @Column(
             name = "DSFACET_CODE",
@@ -120,8 +119,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Facet name for Dietary Supplement",
-            hidden = Where.NOWHERE
+            describedAs = "Facet name for Dietary Supplement"
     )
     @Column(
             name = "DSFACET_NAME",
@@ -144,8 +142,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
             fieldSetId = "details",
             sequence = "3",
             describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
-                            + "Only 1 facet (physical state) is used for quantification.",
-            hidden = Where.NOWHERE
+                            + "Only 1 facet (physical state) is used for quantification."
     )
     @Column(
             name = "DSFACET_QUANT",
@@ -179,8 +176,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
             sequence = "4",
             describedAs = "Facet with Mono or Multi selection of descriptors\n"
                             + "0=mono,\n"
-                            + "1=multi",
-            hidden = Where.NOWHERE
+                            + "1=multi"
     )
     @Column(
             name = "DSFACET_TYPE",
@@ -210,8 +206,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.",
-            hidden = Where.NOWHERE
+            describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
     )
     @Column(
             name = "DSFACET_MAIN",
@@ -241,8 +236,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Order to ask the facet (first, second...)",
-            hidden = Where.NOWHERE
+            describedAs = "Order to ask the facet (first, second...)"
     )
     @Column(
             name = "DSFACET_ORDER",
@@ -262,8 +256,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Label on how to ask the facet question",
-            hidden = Where.NOWHERE
+            describedAs = "Label on how to ask the facet question"
     )
     @Column(
             name = "DSFACET_QUEST",

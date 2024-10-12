@@ -127,8 +127,7 @@ public class RecipeBrand implements Cloneable<RecipeBrand> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "has no description",
-            hidden = Where.NOWHERE
+            describedAs = "has no description"
     )
     @Column(
             name = "RNAME",

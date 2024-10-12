@@ -119,8 +119,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Descriptor code for recipes",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor code for recipes"
     )
     @Column(
             name = "RDESCR_CODE",
@@ -141,8 +140,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptor name",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor name"
     )
     @Column(
             name = "RDESCR_NAME",
@@ -167,8 +165,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
             sequence = "4",
             describedAs = "Only for facet recipe production:\n"
                             + "0=not homemade descriptor\n"
-                            + "1=Homemade descriptor",
-            hidden = Where.NOWHERE
+                            + "1=Homemade descriptor"
     )
     @Column(
             name = "RDESCR_TYPE",
@@ -198,8 +195,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Only for facet known/unknown: 1=unknown 2=known",
-            hidden = Where.NOWHERE
+            describedAs = "Only for facet known/unknown: 1=unknown 2=known"
     )
     @Column(
             name = "RDESCR_KNOWN",
@@ -229,8 +225,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor with type='other' : 1=yes 0=no"
     )
     @Column(
             name = "RDESCR_OTHER",
@@ -262,8 +257,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
             fieldSetId = "details",
             sequence = "7",
             describedAs = "0=not single descriptor\n"
-                            + "1=single descriptor",
-            hidden = Where.NOWHERE
+                            + "1=single descriptor"
     )
     @Column(
             name = "RDESCR_SINGLE",

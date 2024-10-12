@@ -134,8 +134,7 @@ public class FacetDescriptorPathwayForFood implements Cloneable<FacetDescriptorP
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Order to display the facets for the referenced food (same order as ORDER_FAC in @{table GROUPFAC})",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the facets for the referenced food (same order as ORDER_FAC in @{table GROUPFAC})"
     )
     @Column(
             name = "ORDER_FAC",

@@ -96,8 +96,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Probing question code",
-            hidden = Where.NOWHERE
+            describedAs = "Probing question code"
     )
     @Column(
             name = "PQ_CODE",
@@ -118,8 +117,7 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Probing question label",
-            hidden = Where.NOWHERE
+            describedAs = "Probing question label"
     )
     @Column(
             name = "PQ_TEXT",

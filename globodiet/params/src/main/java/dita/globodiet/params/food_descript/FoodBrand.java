@@ -99,8 +99,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Name of brand",
-            hidden = Where.NOWHERE
+            describedAs = "Name of brand"
     )
     @Column(
             name = "NAME",

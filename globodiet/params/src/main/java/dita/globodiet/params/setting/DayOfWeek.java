@@ -83,8 +83,7 @@ public class DayOfWeek implements Cloneable<DayOfWeek> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Day number",
-            hidden = Where.NOWHERE
+            describedAs = "Day number"
     )
     @Column(
             name = "DAYOFWEEK",
@@ -105,8 +104,7 @@ public class DayOfWeek implements Cloneable<DayOfWeek> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Day name",
-            hidden = Where.NOWHERE
+            describedAs = "Day name"
     )
     @Column(
             name = "DAY",

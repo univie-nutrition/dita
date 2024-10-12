@@ -84,8 +84,7 @@ public class DietarySupplement implements Cloneable<DietarySupplement> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Vitamin/supplement code",
-            hidden = Where.NOWHERE
+            describedAs = "Vitamin/supplement code"
     )
     @Column(
             name = "CODE_VITA",
@@ -106,8 +105,7 @@ public class DietarySupplement implements Cloneable<DietarySupplement> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Vitamin/supplement name",
-            hidden = Where.NOWHERE
+            describedAs = "Vitamin/supplement name"
     )
     @Column(
             name = "NAME",
@@ -128,8 +126,7 @@ public class DietarySupplement implements Cloneable<DietarySupplement> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Blank or 'GI' for generic vitamin/supplement",
-            hidden = Where.NOWHERE
+            describedAs = "Blank or 'GI' for generic vitamin/supplement"
     )
     @Column(
             name = "TYPE",

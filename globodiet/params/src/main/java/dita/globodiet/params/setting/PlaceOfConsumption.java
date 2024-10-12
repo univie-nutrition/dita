@@ -97,8 +97,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Place of consumption code",
-            hidden = Where.NOWHERE
+            describedAs = "Place of consumption code"
     )
     @Column(
             name = "POC_CODE",
@@ -119,8 +118,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Place of consumption name",
-            hidden = Where.NOWHERE
+            describedAs = "Place of consumption name"
     )
     @Column(
             name = "POC_NAME",
@@ -143,8 +141,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
             fieldSetId = "details",
             sequence = "3",
             describedAs = "0=not a 'Other' place\n"
-                            + "1='Other' place",
-            hidden = Where.NOWHERE
+                            + "1='Other' place"
     )
     @Column(
             name = "POC_OTHER",

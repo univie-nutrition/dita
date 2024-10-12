@@ -98,8 +98,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Recipe Group code",
-            hidden = Where.NOWHERE
+            describedAs = "Recipe Group code"
     )
     @Column(
             name = "GROUP",
@@ -120,8 +119,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Name of the Recipe group",
-            hidden = Where.NOWHERE
+            describedAs = "Name of the Recipe group"
     )
     @Column(
             name = "NAME",
@@ -142,8 +140,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Short Name of the Recipe group",
-            hidden = Where.NOWHERE
+            describedAs = "Short Name of the Recipe group"
     )
     @Column(
             name = "NAMEG_SHORT",

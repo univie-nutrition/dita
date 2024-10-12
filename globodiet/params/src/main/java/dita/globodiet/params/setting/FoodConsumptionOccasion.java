@@ -97,8 +97,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Food Consumption Occasion code",
-            hidden = Where.NOWHERE
+            describedAs = "Food Consumption Occasion code"
     )
     @Column(
             name = "FCM_CODE",
@@ -119,8 +118,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "FCO long label (text displayed on screen)",
-            hidden = Where.NOWHERE
+            describedAs = "FCO long label (text displayed on screen)"
     )
     @Column(
             name = "FCM_NAME",
@@ -141,8 +139,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)",
-            hidden = Where.NOWHERE
+            describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
     )
     @Column(
             name = "FCM_MODE",
@@ -163,8 +160,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "FCO short label to identify easily the FCO",
-            hidden = Where.NOWHERE
+            describedAs = "FCO short label to identify easily the FCO"
     )
     @Column(
             name = "FCM_SNAME",
@@ -187,8 +183,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0=non main FCO\n"
-                            + "1=main FCO (to be displayed in nutrient check screen)",
-            hidden = Where.NOWHERE
+                            + "1=main FCO (to be displayed in nutrient check screen)"
     )
     @Column(
             name = "FCM_PRINCIPAL",

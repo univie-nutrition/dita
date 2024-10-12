@@ -67,8 +67,10 @@ entity:
       required: false
       unique: false
       hiddenWhere: ALL_TABLES
+      cssClass: listing
       fieldSet: listing
       multiLine: 24
+      labelPosition: NONE
       description: |
         Line by line defines a column to include.
         (lines can be commented out with a leading #)

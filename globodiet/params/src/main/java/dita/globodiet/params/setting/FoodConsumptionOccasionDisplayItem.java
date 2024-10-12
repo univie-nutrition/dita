@@ -111,8 +111,7 @@ public class FoodConsumptionOccasionDisplayItem implements Cloneable<FoodConsump
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Text representing Food.",
-            hidden = Where.NOWHERE
+            describedAs = "Text representing Food."
     )
     @Column(
             name = "TEXT",

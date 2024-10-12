@@ -90,8 +90,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Interview number",
-            hidden = Where.NOWHERE
+            describedAs = "Interview number"
     )
     @Column(
             name = "INT_NUM",
@@ -111,8 +110,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Subject birth date",
-            hidden = Where.NOWHERE
+            describedAs = "Subject birth date"
     )
     @Column(
             name = "PAT_BDATE",
@@ -132,8 +130,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Subject code",
-            hidden = Where.NOWHERE
+            describedAs = "Subject code"
     )
     @Column(
             name = "PAT_CODE",
@@ -154,8 +151,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Subject first name",
-            hidden = Where.NOWHERE
+            describedAs = "Subject first name"
     )
     @Column(
             name = "PAT_FNAME",
@@ -176,8 +172,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Subject height in cm",
-            hidden = Where.NOWHERE
+            describedAs = "Subject height in cm"
     )
     @Column(
             name = "PAT_HEIGHT",
@@ -197,8 +192,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Subject name",
-            hidden = Where.NOWHERE
+            describedAs = "Subject name"
     )
     @Column(
             name = "PAT_NAME",
@@ -219,8 +213,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Subject sex (1=man, 2=woman)",
-            hidden = Where.NOWHERE
+            describedAs = "Subject sex (1=man, 2=woman)"
     )
     @Column(
             name = "PAT_SEX",
@@ -251,8 +244,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Subject weight in kg",
-            hidden = Where.NOWHERE
+            describedAs = "Subject weight in kg"
     )
     @Column(
             name = "PAT_WEIGHT",
@@ -274,8 +266,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
             fieldSetId = "details",
             sequence = "9",
             describedAs = "0=interview to be done,\n"
-                            + "1=interview done",
-            hidden = Where.NOWHERE
+                            + "1=interview done"
     )
     @Column(
             name = "DONE",
@@ -347,8 +338,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "12",
-            describedAs = "Interviewer Country code",
-            hidden = Where.NOWHERE
+            describedAs = "Interviewer Country code"
     )
     @Column(
             name = "INTV_COUNTRY",
@@ -369,8 +359,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "13",
-            describedAs = "Interviewer Center code",
-            hidden = Where.NOWHERE
+            describedAs = "Interviewer Center code"
     )
     @Column(
             name = "INTV_CENTER",
@@ -391,8 +380,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "14",
-            describedAs = "Interviewer code",
-            hidden = Where.NOWHERE
+            describedAs = "Interviewer code"
     )
     @Column(
             name = "INTV_CODE",
@@ -413,8 +401,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "15",
-            describedAs = "Recall Date (mm/dd/yy)",
-            hidden = Where.NOWHERE
+            describedAs = "Recall Date (mm/dd/yy)"
     )
     @Column(
             name = "DATE_REC",

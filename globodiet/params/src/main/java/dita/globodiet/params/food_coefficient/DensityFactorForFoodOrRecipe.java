@@ -110,8 +110,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Density coefficient",
-            hidden = Where.NOWHERE
+            describedAs = "Density coefficient"
     )
     @Column(
             name = "D_FACTOR",
@@ -154,8 +153,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Priority order",
-            hidden = Where.NOWHERE
+            describedAs = "Priority order"
     )
     @Column(
             name = "PRIORITY",
@@ -178,8 +176,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -212,8 +209,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "details",
             sequence = "6",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAWCOOK",
@@ -246,8 +242,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "details",
             sequence = "7",
             describedAs = "1 = density for food/ingredient,\n"
-                            + "2 = density for recipe",
-            hidden = Where.NOWHERE
+                            + "2 = density for recipe"
     )
     @Column(
             name = "D_TYPE",

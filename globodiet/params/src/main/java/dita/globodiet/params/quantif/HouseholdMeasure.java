@@ -83,8 +83,7 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "HouseholdMeasure code",
-            hidden = Where.NOWHERE
+            describedAs = "HouseholdMeasure code"
     )
     @Column(
             name = "HHM_CODE",
@@ -105,8 +104,7 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "HouseholdMeasure volume in cm3.",
-            hidden = Where.NOWHERE
+            describedAs = "HouseholdMeasure volume in cm3."
     )
     @Column(
             name = "HHM_VOLUME",
@@ -128,8 +126,7 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
-                            + "The value of each expression will be evaluated as factor of the total volume",
-            hidden = Where.NOWHERE
+                            + "The value of each expression will be evaluated as factor of the total volume"
     )
     @Column(
             name = "HHM_FRACT",
@@ -150,8 +147,7 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Comment attached to the HouseholdMeasure",
-            hidden = Where.NOWHERE
+            describedAs = "Comment attached to the HouseholdMeasure"
     )
     @Column(
             name = "COMMENT",
@@ -172,8 +168,7 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Order to display the HouseholdMeasure",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the HouseholdMeasure"
     )
     @Column(
             name = "D_ORDER",

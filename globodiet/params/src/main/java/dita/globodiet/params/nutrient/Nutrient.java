@@ -97,8 +97,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Nutrient code",
-            hidden = Where.NOWHERE
+            describedAs = "Nutrient code"
     )
     @Column(
             name = "NTR_CODE",
@@ -118,8 +117,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Nutrient Name",
-            hidden = Where.NOWHERE
+            describedAs = "Nutrient Name"
     )
     @Column(
             name = "NTR_NAME",
@@ -140,8 +138,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Nutrient unit (e.g. kcal, g, mg…)",
-            hidden = Where.NOWHERE
+            describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
     )
     @Column(
             name = "NTR_UNIT",
@@ -164,8 +161,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=not displayed in the 'nutrient checks' screen\n"
-                            + "1=displayed in the 'nutrient checks' screen",
-            hidden = Where.NOWHERE
+                            + "1=displayed in the 'nutrient checks' screen"
     )
     @Column(
             name = "NTR_DISPLAY",
@@ -195,8 +191,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Comment on nutrient",
-            hidden = Where.NOWHERE
+            describedAs = "Comment on nutrient"
     )
     @Column(
             name = "COMMENT",

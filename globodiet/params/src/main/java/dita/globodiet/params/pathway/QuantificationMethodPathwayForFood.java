@@ -122,8 +122,7 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
                             + "'H' for HHM,\n"
                             + "'U' for stdu,\n"
                             + "'S' for standard portion,\n"
-                            + "'A' for shape",
-            hidden = Where.NOWHERE
+                            + "'A' for shape"
     )
     @Column(
             name = "METHOD",

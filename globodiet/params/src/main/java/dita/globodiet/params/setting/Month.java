@@ -83,8 +83,7 @@ public class Month implements Cloneable<Month> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Month number",
-            hidden = Where.NOWHERE
+            describedAs = "Month number"
     )
     @Column(
             name = "MONTH_NUM",
@@ -105,8 +104,7 @@ public class Month implements Cloneable<Month> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Month name",
-            hidden = Where.NOWHERE
+            describedAs = "Month name"
     )
     @Column(
             name = "MONTH",

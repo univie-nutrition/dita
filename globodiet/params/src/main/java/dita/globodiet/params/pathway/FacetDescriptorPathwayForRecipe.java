@@ -134,8 +134,7 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Order to display the facets for the referenced recipe.",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display the facets for the referenced recipe."
     )
     @Column(
             name = "ORDER_FAC",

@@ -86,8 +86,7 @@ public class NoteStatus implements Cloneable<NoteStatus> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Status code",
-            hidden = Where.NOWHERE
+            describedAs = "Status code"
     )
     @Column(
             name = "S_CODE",
@@ -108,8 +107,7 @@ public class NoteStatus implements Cloneable<NoteStatus> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Status label",
-            hidden = Where.NOWHERE
+            describedAs = "Status label"
     )
     @Column(
             name = "S_LABEL",
@@ -134,8 +132,7 @@ public class NoteStatus implements Cloneable<NoteStatus> {
             sequence = "3",
             describedAs = "Allow the possibility to display or not the note in the view note window:\n"
                             + "0=No hide,\n"
-                            + "1=Yes hide (e.g. 1=hide for status “action done”)",
-            hidden = Where.NOWHERE
+                            + "1=Yes hide (e.g. 1=hide for status “action done”)"
     )
     @Column(
             name = "S_HIDE",

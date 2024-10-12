@@ -190,8 +190,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             fieldSetId = "identity",
             sequence = "5",
             describedAs = "1=raw,\n"
-                            + "2=cooked (as Consumed)",
-            hidden = Where.NOWHERE
+                            + "2=cooked (as Consumed)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -231,8 +230,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
                             + "'H' for HHM,\n"
                             + "'U' for stdu,\n"
                             + "'S' for standard portion,\n"
-                            + "'A' for shape",
-            hidden = Where.NOWHERE
+                            + "'A' for shape"
     )
     @Column(
             name = "METHOD",
@@ -288,8 +286,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Comment",
-            hidden = Where.NOWHERE
+            describedAs = "Comment"
     )
     @Column(
             name = "COMMENT",

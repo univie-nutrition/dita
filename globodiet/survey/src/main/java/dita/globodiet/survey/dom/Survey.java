@@ -96,8 +96,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Unique (application scoped) survey identifier.",
-            hidden = Where.NOWHERE
+            describedAs = "Unique (application scoped) survey identifier."
     )
     @Column(
             name = "CODE",
@@ -118,8 +117,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Descriptive survey name.",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptive survey name."
     )
     @Column(
             name = "NAME",
@@ -142,8 +140,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "System ID part of semantic identifiers for this survey.\n"
-                            + "e.g. at.gd/2.0",
-            hidden = Where.NOWHERE
+                            + "e.g. at.gd/2.0"
     )
     @Column(
             name = "SYSID",

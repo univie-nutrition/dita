@@ -86,8 +86,7 @@ public class ComposedRecipeIngredient implements Cloneable<ComposedRecipeIngredi
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)",
-            hidden = Where.NOWHERE
+            describedAs = "Recipe identification number (FOODNUM in the FOODS.DBF file)"
     )
     @Column(
             name = "R_IDNUM",
@@ -133,8 +132,7 @@ public class ComposedRecipeIngredient implements Cloneable<ComposedRecipeIngredi
             fieldSetId = "details",
             sequence = "3",
             describedAs = "If type=1 ingredient from Food list,\n"
-                            + "If type=2 ingredient from Recipe list",
-            hidden = Where.NOWHERE
+                            + "If type=2 ingredient from Recipe list"
     )
     @Column(
             name = "TYPE",

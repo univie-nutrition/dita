@@ -83,8 +83,7 @@ public class SpecialDietPredefinedAnswer implements Cloneable<SpecialDietPredefi
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Special diet code",
-            hidden = Where.NOWHERE
+            describedAs = "Special diet code"
     )
     @Column(
             name = "SPD_CODE",
@@ -105,8 +104,7 @@ public class SpecialDietPredefinedAnswer implements Cloneable<SpecialDietPredefi
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Special diet label",
-            hidden = Where.NOWHERE
+            describedAs = "Special diet label"
     )
     @Column(
             name = "SPD_NAME",

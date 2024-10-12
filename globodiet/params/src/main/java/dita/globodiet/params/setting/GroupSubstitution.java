@@ -88,8 +88,7 @@ public class GroupSubstitution implements Cloneable<GroupSubstitution> {
             fieldSetId = "details",
             sequence = "1",
             describedAs = "0=Food classification\n"
-                            + "1=Recipe classification",
-            hidden = Where.NOWHERE
+                            + "1=Recipe classification"
     )
     @Column(
             name = "TYPE",

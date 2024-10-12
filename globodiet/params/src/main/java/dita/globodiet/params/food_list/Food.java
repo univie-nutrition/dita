@@ -92,8 +92,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias",
-            hidden = Where.NOWHERE
+            describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias"
     )
     @Column(
             name = "FOODNUM",
@@ -177,8 +176,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias",
-            hidden = Where.NOWHERE
+            describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias"
     )
     @Column(
             name = "NAME",
@@ -229,8 +227,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
                             + "- Lettuce\n"
                             + "- Tomato\n"
                             + "- Cucumber\n"
-                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)",
-            hidden = Where.NOWHERE
+                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
     )
     @Column(
             name = "TYPE",
@@ -263,8 +260,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "7",
             describedAs = "Auxiliary field to force an internal order within each subgroup\n"
-                            + "(if GI then 1 otherwise 2, this forces the GI at the top)",
-            hidden = Where.NOWHERE
+                            + "(if GI then 1 otherwise 2, this forces the GI at the top)"
     )
     @Column(
             name = "ORDER",
@@ -297,8 +293,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "8",
             describedAs = "0=food\n"
-                            + "1=dietary supplement",
-            hidden = Where.NOWHERE
+                            + "1=dietary supplement"
     )
     @Column(
             name = "SUPPL",

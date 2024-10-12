@@ -96,8 +96,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Center code",
-            hidden = Where.NOWHERE
+            describedAs = "Center code"
     )
     @Column(
             name = "CNTR_CODE",
@@ -139,8 +138,7 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Center name",
-            hidden = Where.NOWHERE
+            describedAs = "Center name"
     )
     @Column(
             name = "CNTR_NAME",

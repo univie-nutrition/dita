@@ -87,8 +87,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Name of nutrient",
-            hidden = Where.NOWHERE
+            describedAs = "Name of nutrient"
     )
     @Column(
             name = "NAME",
@@ -109,8 +108,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Minimum value",
-            hidden = Where.NOWHERE
+            describedAs = "Minimum value"
     )
     @Column(
             name = "MIN",
@@ -130,8 +128,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Maximum value",
-            hidden = Where.NOWHERE
+            describedAs = "Maximum value"
     )
     @Column(
             name = "MAX",
@@ -151,8 +148,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Unit (g, kcal or blank)",
-            hidden = Where.NOWHERE
+            describedAs = "Unit (g, kcal or blank)"
     )
     @Column(
             name = "UNIT",
@@ -185,8 +181,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1=Man,\n"
-                            + "2=Woman",
-            hidden = Where.NOWHERE
+                            + "2=Woman"
     )
     @Column(
             name = "SEX",
@@ -217,8 +212,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "PAL value",
-            hidden = Where.NOWHERE
+            describedAs = "PAL value"
     )
     @Column(
             name = "VAL",

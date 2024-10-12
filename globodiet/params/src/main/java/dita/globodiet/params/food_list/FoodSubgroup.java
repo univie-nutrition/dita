@@ -123,8 +123,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Food sub-group code",
-            hidden = Where.NOWHERE
+            describedAs = "Food sub-group code"
     )
     @Column(
             name = "SUBGROUP1",
@@ -144,8 +143,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "3",
-            describedAs = "Food sub-sub-group code",
-            hidden = Where.NOWHERE
+            describedAs = "Food sub-sub-group code"
     )
     @Column(
             name = "SUBGROUP2",
@@ -166,8 +164,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Name of the food (sub-)(sub-)group",
-            hidden = Where.NOWHERE
+            describedAs = "Name of the food (sub-)(sub-)group"
     )
     @Column(
             name = "NAME",
@@ -188,8 +185,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup",
-            hidden = Where.NOWHERE
+            describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
     )
     @Column(
             name = "SGRP_FSS",
@@ -222,8 +218,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0=non fat/sauce subgroup\n"
-                            + "1= fat/sauce subgroup that can be left over in the dish",
-            hidden = Where.NOWHERE
+                            + "1= fat/sauce subgroup that can be left over in the dish"
     )
     @Column(
             name = "SGRP_FLO",
@@ -256,8 +251,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             fieldSetId = "details",
             sequence = "7",
             describedAs = "0=non fat during cooking subgroup\n"
-                            + "1= fat during cooking subgroup",
-            hidden = Where.NOWHERE
+                            + "1= fat during cooking subgroup"
     )
     @Column(
             name = "SGRP_FDC",
@@ -288,8 +282,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Short Name of the food (sub-)(sub-)group",
-            hidden = Where.NOWHERE
+            describedAs = "Short Name of the food (sub-)(sub-)group"
     )
     @Column(
             name = "NAME_SHORT",

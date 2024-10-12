@@ -83,8 +83,7 @@ public class SpecialDayPredefinedAnswer implements Cloneable<SpecialDayPredefine
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Special day code",
-            hidden = Where.NOWHERE
+            describedAs = "Special day code"
     )
     @Column(
             name = "SPY_CODE",
@@ -105,8 +104,7 @@ public class SpecialDayPredefinedAnswer implements Cloneable<SpecialDayPredefine
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Special day label",
-            hidden = Where.NOWHERE
+            describedAs = "Special day label"
     )
     @Column(
             name = "SPY_NAME",

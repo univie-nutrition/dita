@@ -45,6 +45,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -119,8 +120,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) column-definition identifier.",
-            hidden = Where.NOWHERE
+            describedAs = "Unique (survey scoped) column-definition identifier."
     )
     @Column(
             name = "CODE",
@@ -141,8 +141,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptive column-definition name.",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptive column-definition name."
     )
     @Column(
             name = "NAME",
@@ -164,7 +163,6 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Detailed information for this column-definition.",
-            hidden = Where.NOWHERE,
             multiLine = 4
     )
     @Column(
@@ -185,12 +183,14 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
             editing = Editing.ENABLED
     )
     @PropertyLayout(
-            fieldSetId = "listing",
+            cssClass = "listing",
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Line by line defines a column to include.\n"
                             + "(lines can be commented out with a leading #)",
             hidden = Where.ALL_TABLES,
-            multiLine = 24
+            multiLine = 24,
+            labelPosition = LabelPosition.NONE
     )
     @Column(
             name = "COLLISTING",

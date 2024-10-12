@@ -96,8 +96,7 @@ public class CountryInvolved implements Cloneable<CountryInvolved>, HasSecondary
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Country code",
-            hidden = Where.NOWHERE
+            describedAs = "Country code"
     )
     @Column(
             name = "CTRYCODE",
@@ -118,8 +117,7 @@ public class CountryInvolved implements Cloneable<CountryInvolved>, HasSecondary
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Country name",
-            hidden = Where.NOWHERE
+            describedAs = "Country name"
     )
     @Column(
             name = "CTRY_NAME",

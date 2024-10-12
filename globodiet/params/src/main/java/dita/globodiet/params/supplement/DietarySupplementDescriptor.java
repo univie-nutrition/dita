@@ -88,8 +88,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Descriptor code",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor code"
     )
     @Column(
             name = "DSDESCR_CODE",
@@ -110,8 +109,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Descriptor name",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor name"
     )
     @Column(
             name = "DSDESCR_NAME",
@@ -155,8 +153,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Only for the facet with Dsfacet_type=1,\n"
-                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0",
-            hidden = Where.NOWHERE
+                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0"
     )
     @Column(
             name = "DSDESCR_HHM",
@@ -182,8 +179,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
             describedAs = "Default Descriptor.\n"
                             + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
                             + "1=default,\n"
-                            + "0=other",
-            hidden = Where.NOWHERE
+                            + "0=other"
     )
     @Column(
             name = "DSDESCR_DEFAULT",
@@ -213,8 +209,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "Descriptor with type='other' : 1=yes 0=no",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptor with type='other' : 1=yes 0=no"
     )
     @Column(
             name = "DSDESCR_OTHER",
@@ -244,8 +239,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "0=not single descriptor 1=single descriptor",
-            hidden = Where.NOWHERE
+            describedAs = "0=not single descriptor 1=single descriptor"
     )
     @Column(
             name = "DSDESCR_SINGLE",
@@ -275,8 +269,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "8",
-            describedAs = "Display order (1=first, 2=second, …)",
-            hidden = Where.NOWHERE
+            describedAs = "Display order (1=first, 2=second, …)"
     )
     @Column(
             name = "DSDESCR_ORDER",
@@ -296,8 +289,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Not in name flag",
-            hidden = Where.NOWHERE
+            describedAs = "Not in name flag"
     )
     @Column(
             name = "NOTINNAME",

@@ -97,8 +97,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Dietary Supplement classification code",
-            hidden = Where.NOWHERE
+            describedAs = "Dietary Supplement classification code"
     )
     @Column(
             name = "DS_CLASS",
@@ -119,8 +118,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Name of the food (sub-)(sub-)group",
-            hidden = Where.NOWHERE
+            describedAs = "Name of the food (sub-)(sub-)group"
     )
     @Column(
             name = "NAME",
@@ -141,8 +139,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Dietary Supplement classification code attached to (for subgroup)",
-            hidden = Where.NOWHERE
+            describedAs = "Dietary Supplement classification code attached to (for subgroup)"
     )
     @Column(
             name = "DS_DS_CLASS",

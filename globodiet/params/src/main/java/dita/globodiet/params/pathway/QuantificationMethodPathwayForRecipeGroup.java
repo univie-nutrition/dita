@@ -119,8 +119,7 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
                             + "'P' for photo,\n"
                             + "'H' for HHM,\n"
                             + "'U' for stdu,\n"
-                            + "'A' for shape",
-            hidden = Where.NOWHERE
+                            + "'A' for shape"
     )
     @Column(
             name = "METHOD",
@@ -176,8 +175,7 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Comment",
-            hidden = Where.NOWHERE
+            describedAs = "Comment"
     )
     @Column(
             name = "COMMENT",

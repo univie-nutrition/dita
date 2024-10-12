@@ -97,8 +97,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Shape code (e.g. S001,S002,S003,...)",
-            hidden = Where.NOWHERE
+            describedAs = "Shape code (e.g. S001,S002,S003,...)"
     )
     @Column(
             name = "SH_CODE",
@@ -119,8 +118,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible",
-            hidden = Where.NOWHERE
+            describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
     )
     @Column(
             name = "SH_SURFACE",
@@ -140,8 +138,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)",
-            hidden = Where.NOWHERE
+            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
     )
     @Column(
             name = "SH_COMMENT",
@@ -162,8 +159,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Order to display this shape",
-            hidden = Where.NOWHERE
+            describedAs = "Order to display this shape"
     )
     @Column(
             name = "SH_ORDER",

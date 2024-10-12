@@ -83,8 +83,7 @@ public class SelectedParameterForDataEntry implements Cloneable<SelectedParamete
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "1",
-            describedAs = "Parameter code for data entry",
-            hidden = Where.NOWHERE
+            describedAs = "Parameter code for data entry"
     )
     @Column(
             name = "PARAM_LAB",
@@ -105,8 +104,7 @@ public class SelectedParameterForDataEntry implements Cloneable<SelectedParamete
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Parameter value for data entry",
-            hidden = Where.NOWHERE
+            describedAs = "Parameter value for data entry"
     )
     @Column(
             name = "PARAM_LIB",

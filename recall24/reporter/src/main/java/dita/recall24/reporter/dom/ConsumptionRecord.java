@@ -29,7 +29,6 @@ import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.PropertyLayout;
-import org.apache.causeway.applib.annotation.Where;
 
 /**
  * Represents a single food consumption as flattened data,
@@ -98,8 +97,7 @@ public record ConsumptionRecord(
                 sequence = "1",
                 describedAs = "sequential\n"
                                 + "respondent\n"
-                                + "index",
-                hidden = Where.NOWHERE
+                                + "index"
         )
         int respondentOrdinal,
         @PropertyLayout(
@@ -108,16 +106,14 @@ public record ConsumptionRecord(
                 describedAs = "anonymized\n"
                                 + "respondent identifier,\n"
                                 + "unique to the\n"
-                                + "corresponding survey",
-                hidden = Where.NOWHERE
+                                + "corresponding survey"
         )
         String respondentAlias,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "3",
                 describedAs = "1=male\n"
-                                + "2=female",
-                hidden = Where.NOWHERE
+                                + "2=female"
         )
         int respondentSex,
         @PropertyLayout(
@@ -125,8 +121,7 @@ public record ConsumptionRecord(
                 sequence = "4",
                 describedAs = "age at first\n"
                                 + "consumption day\n"
-                                + "=ageInDays/365.2422",
-                hidden = Where.NOWHERE
+                                + "=ageInDays/365.2422"
         )
         BigDecimal respondentAge,
         @PropertyLayout(
@@ -134,16 +129,14 @@ public record ConsumptionRecord(
                 sequence = "5",
                 describedAs = "respondent's\n"
                                 + "n-th interview\n"
-                                + "(chronological)",
-                hidden = Where.NOWHERE
+                                + "(chronological)"
         )
         int interviewOrdinal,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "6",
                 describedAs = "date of\n"
-                                + "consumption",
-                hidden = Where.NOWHERE
+                                + "consumption"
         )
         LocalDate consumptionDate,
         @PropertyLayout(
@@ -151,8 +144,7 @@ public record ConsumptionRecord(
                 sequence = "7",
                 describedAs = "consumption\n"
                                 + "occasion\n"
-                                + "code",
-                hidden = Where.NOWHERE
+                                + "code"
         )
         String fco,
         @PropertyLayout(
@@ -160,16 +152,14 @@ public record ConsumptionRecord(
                 sequence = "8",
                 describedAs = "place of\n"
                                 + "consumption\n"
-                                + "code",
-                hidden = Where.NOWHERE
+                                + "code"
         )
         String poc,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "9",
                 describedAs = "meal happened\n"
-                                + "when and where",
-                hidden = Where.NOWHERE
+                                + "when and where"
         )
         String meal,
         @PropertyLayout(
@@ -177,24 +167,21 @@ public record ConsumptionRecord(
                 sequence = "10",
                 describedAs = "Dewey\n"
                                 + "decimal\n"
-                                + "order",
-                hidden = Where.NOWHERE
+                                + "order"
         )
         String mealOrdinal,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "11",
                 describedAs = "type of food\n"
-                                + "record",
-                hidden = Where.NOWHERE
+                                + "record"
         )
         String recordType,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "12",
                 describedAs = "name of consumed\n"
-                                + "food",
-                hidden = Where.NOWHERE
+                                + "food"
         )
         String food,
         @PropertyLayout(
@@ -202,8 +189,7 @@ public record ConsumptionRecord(
                 sequence = "13",
                 describedAs = "food or\n"
                                 + "composite\n"
-                                + "identifier",
-                hidden = Where.NOWHERE
+                                + "identifier"
         )
         String foodId,
         @PropertyLayout(
@@ -211,24 +197,21 @@ public record ConsumptionRecord(
                 sequence = "14",
                 describedAs = "food or\n"
                                 + "composite\n"
-                                + "group",
-                hidden = Where.NOWHERE
+                                + "group"
         )
         String groupId,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "15",
                 describedAs = "facet descriptor\n"
-                                + "identifiers",
-                hidden = Where.NOWHERE
+                                + "identifiers"
         )
         String facetIds,
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "16",
                 describedAs = "quantity\n"
-                                + "consumed [g]",
-                hidden = Where.NOWHERE
+                                + "consumed [g]"
         )
         BigDecimal quantity,
         @PropertyLayout(
@@ -236,8 +219,7 @@ public record ConsumptionRecord(
                 sequence = "17",
                 describedAs = "food composition\n"
                                 + "database identifier\n"
-                                + "(nutrient mapping)",
-                hidden = Where.NOWHERE
+                                + "(nutrient mapping)"
         )
         String fcdbId,
         @PropertyLayout(
@@ -245,8 +227,7 @@ public record ConsumptionRecord(
                 sequence = "18",
                 describedAs = "Energie\n"
                                 + "inkl. Ballaststoffen\n"
-                                + "[kcal]",
-                hidden = Where.NOWHERE
+                                + "[kcal]"
         )
         BigDecimal GCALZB) {
     @ObjectSupport

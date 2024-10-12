@@ -45,6 +45,7 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
+import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -120,8 +121,7 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) filter identifier.",
-            hidden = Where.NOWHERE
+            describedAs = "Unique (survey scoped) filter identifier."
     )
     @Column(
             name = "CODE",
@@ -142,8 +142,7 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptive filter name.",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptive filter name."
     )
     @Column(
             name = "NAME",
@@ -165,7 +164,6 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Detailed information for this filter.",
-            hidden = Where.NOWHERE,
             multiLine = 4
     )
     @Column(
@@ -186,12 +184,14 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
             editing = Editing.ENABLED
     )
     @PropertyLayout(
-            fieldSetId = "listing",
+            cssClass = "listing",
+            fieldSetId = "details",
             sequence = "5",
             describedAs = "Line by line defines an alias to include.\n"
                             + "(lines can be commented out with a leading #)",
             hidden = Where.ALL_TABLES,
-            multiLine = 24
+            multiLine = 24,
+            labelPosition = LabelPosition.NONE
     )
     @Column(
             name = "ALIAS",

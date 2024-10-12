@@ -148,8 +148,7 @@ public class MaximumValueForFoodOrGroup implements Cloneable<MaximumValueForFood
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Food code",
-            hidden = Where.NOWHERE
+            describedAs = "Food code"
     )
     @Column(
             name = "IDNUM",
@@ -170,8 +169,7 @@ public class MaximumValueForFoodOrGroup implements Cloneable<MaximumValueForFood
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "Maximum value",
-            hidden = Where.NOWHERE
+            describedAs = "Maximum value"
     )
     @Column(
             name = "MAXIMA",
@@ -212,8 +210,7 @@ public class MaximumValueForFoodOrGroup implements Cloneable<MaximumValueForFood
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Priority order",
-            hidden = Where.NOWHERE
+            describedAs = "Priority order"
     )
     @Column(
             name = "PRIORITY",

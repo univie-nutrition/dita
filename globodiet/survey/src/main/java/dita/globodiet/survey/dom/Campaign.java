@@ -121,8 +121,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) campaign identifier.",
-            hidden = Where.NOWHERE
+            describedAs = "Unique (survey scoped) campaign identifier."
     )
     @Column(
             name = "CODE",
@@ -143,8 +142,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptive campaign name.",
-            hidden = Where.NOWHERE
+            describedAs = "Descriptive campaign name."
     )
     @Column(
             name = "NAME",
@@ -166,7 +164,6 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Detailed information for this campaign.",
-            hidden = Where.NOWHERE,
             multiLine = 4
     )
     @Column(

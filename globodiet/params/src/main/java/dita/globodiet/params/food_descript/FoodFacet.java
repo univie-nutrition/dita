@@ -98,8 +98,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Facet code",
-            hidden = Where.NOWHERE
+            describedAs = "Facet code"
     )
     @Column(
             name = "FACET_CODE",
@@ -120,8 +119,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Facet name",
-            hidden = Where.NOWHERE
+            describedAs = "Facet name"
     )
     @Column(
             name = "FACET_NAME",
@@ -142,8 +140,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Facet text (text to show on the screen describing the facet)",
-            hidden = Where.NOWHERE
+            describedAs = "Facet text (text to show on the screen describing the facet)"
     )
     @Column(
             name = "FACET_TEXT",
@@ -170,8 +167,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             describedAs = "0=Standard facets with descriptors available in Descface table\n"
                             + "1=Facets with descriptors available in Brandnam table\n"
                             + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
-                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used",
-            hidden = Where.NOWHERE
+                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
     )
     @Column(
             name = "FACET_TYPE",
@@ -203,8 +199,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0 = facet with single-selection of descriptor\n"
-                            + "1 = facets with multi-selection of descriptors",
-            hidden = Where.NOWHERE
+                            + "1 = facets with multi-selection of descriptors"
     )
     @Column(
             name = "FACET_TYPE_S",
@@ -236,8 +231,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             fieldSetId = "details",
             sequence = "6",
             describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
-                            + "Comma is used as delimiter (e.g. 10,050701,050702)",
-            hidden = Where.NOWHERE
+                            + "Comma is used as delimiter (e.g. 10,050701,050702)"
     )
     @Column(
             name = "FACET_GRP",
@@ -258,8 +252,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "7",
-            describedAs = "Label on how to ask the facet question",
-            hidden = Where.NOWHERE
+            describedAs = "Label on how to ask the facet question"
     )
     @Column(
             name = "FACET_QUEST",

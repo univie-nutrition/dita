@@ -104,8 +104,7 @@ public class EdiblePartCoefficientForFood implements Cloneable<EdiblePartCoeffic
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "Edible part coefficient",
-            hidden = Where.NOWHERE
+            describedAs = "Edible part coefficient"
     )
     @Column(
             name = "EPC_FACT",
@@ -146,8 +145,7 @@ public class EdiblePartCoefficientForFood implements Cloneable<EdiblePartCoeffic
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Priority order",
-            hidden = Where.NOWHERE
+            describedAs = "Priority order"
     )
     @Column(
             name = "PRIORITY",

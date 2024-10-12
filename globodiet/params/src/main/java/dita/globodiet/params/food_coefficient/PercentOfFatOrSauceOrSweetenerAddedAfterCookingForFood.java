@@ -252,8 +252,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood implements C
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "9",
-            describedAs = "Percentage of fat sauce or sweetener (FSS) that had been added",
-            hidden = Where.NOWHERE
+            describedAs = "Percentage of fat sauce or sweetener (FSS) that had been added"
     )
     @Column(
             name = "PCT_ADDED",

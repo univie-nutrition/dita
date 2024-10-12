@@ -148,8 +148,7 @@ public class MaximumValueForRecipeOrGroup implements Cloneable<MaximumValueForRe
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Maximum value",
-            hidden = Where.NOWHERE
+            describedAs = "Maximum value"
     )
     @Column(
             name = "MAXIMA",

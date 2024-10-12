@@ -98,8 +98,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "1",
-            describedAs = "Photo series code (P001,P002,P003,...)",
-            hidden = Where.NOWHERE
+            describedAs = "Photo series code (P001,P002,P003,...)"
     )
     @Column(
             name = "PH_CODE",
@@ -120,8 +119,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "2",
-            describedAs = "List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)",
-            hidden = Where.NOWHERE
+            describedAs = "List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
     )
     @Column(
             name = "PH_QSTR",
@@ -144,8 +142,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -178,8 +175,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)",
-            hidden = Where.NOWHERE
+                            + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -212,8 +208,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             fieldSetId = "details",
             sequence = "5",
             describedAs = "G = in Unit grams (mass)\n"
-                            + "V = in Unit milliliter (volume)",
-            hidden = Where.NOWHERE
+                            + "V = in Unit milliliter (volume)"
     )
     @Column(
             name = "PH_UNIT",

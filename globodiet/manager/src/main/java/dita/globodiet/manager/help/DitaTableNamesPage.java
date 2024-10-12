@@ -26,7 +26,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 import org.asciidoctor.ast.Table;
-import io.github.causewaystuff.companion.codegen.model.Schema;
 
 import org.springframework.stereotype.Component;
 
@@ -48,6 +47,7 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.ta
 import lombok.val;
 
 import dita.globodiet.manager.DitaModuleGdManager;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 @Component
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaTableNamesPage")
@@ -103,7 +103,7 @@ public class DitaTableNamesPage implements HelpPage {
             cell(table, row, htmlPassThroughIconFor(logicalName));
             cell(table, row, "`" + t.name() + "`");
             cell(table, row, t.table());
-            cell(table, row, t.formatDescription("\n"));
+            cell(table, row, t.description().describedAs());
         });
 
     }
