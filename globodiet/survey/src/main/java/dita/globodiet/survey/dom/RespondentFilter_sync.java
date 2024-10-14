@@ -35,7 +35,6 @@ import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurv
 import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing;
-import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action
@@ -64,11 +63,8 @@ public class RespondentFilter_sync {
         var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
             .coll();
 
-        var listingHandler = new ListingHandler<Respondent24.Dto>(
-                Respondent24.Dto.class,
-                Respondent24.Dto::alias,
-                alias->new Respondent24.Dto(alias, null, null, null),
-                Respondent24.Dto::alias);
+        var listingHandler = DataUtil.listingHandlerForRespondents(
+                alias->new Respondent24.Dto(alias, null, null, null));
 
         var allRespondents = listingHandler.createListing(
                 Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore)

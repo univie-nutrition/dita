@@ -30,11 +30,9 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.food.composition.FoodComponent;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing;
-import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action
@@ -64,11 +62,9 @@ public class ReportColumnDefinition_sync {
         var componentCatalog = Campaigns.fcdb(campaigns.getFirst(), surveyBlobStore)
                 .componentCatalog();
 
-        var listingHandler = new ListingHandler<FoodComponent>(
-                FoodComponent.class,
-                DataUtil::stringify,
-                str->DataUtil.destringifyElseFail(componentCatalog, str),
-                FoodComponent::componentId);
+        var listingHandler = DataUtil.listingHandlerForFoodComponents(
+                str->DataUtil.destringifyElseFail(componentCatalog, str));
+
         var allComponents = listingHandler.createListing(componentCatalog.streamComponents());
         var currentComponents = listingHandler.parseListing(mixee.getColumnListing());
         mixee.setColumnListing(currentComponents.merge(lineMergePolicy, allComponents).toString());

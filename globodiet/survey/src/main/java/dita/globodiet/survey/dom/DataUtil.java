@@ -19,6 +19,7 @@
 package dita.globodiet.survey.dom;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import javax.measure.MetricPrefix;
 
@@ -33,6 +34,8 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
+import dita.recall24.dto.Respondent24;
+import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 
 @UtilityClass
 class DataUtil {
@@ -74,6 +77,26 @@ class DataUtil {
         return destringify(catalog, input)
                 .map(fc->catalog.lookupEntryElseFail(fc.componentId()))
                 .orElseThrow(()->_Exceptions.illegalArgument("cannot parse FoodComponent from '%s'", input));
+    }
+
+    // -- LISTINGS
+
+    ListingHandler<Respondent24.Dto> listingHandlerForRespondents(
+            final Function<String, Respondent24.Dto> factory) {
+        return new ListingHandler<Respondent24.Dto>(
+            Respondent24.Dto.class,
+            Respondent24.Dto::alias,
+            factory,
+            Respondent24.Dto::alias);
+    }
+
+    ListingHandler<FoodComponent> listingHandlerForFoodComponents(
+            final Function<String, FoodComponent> factory) {
+        return new ListingHandler<FoodComponent>(
+            FoodComponent.class,
+            DataUtil::stringify,
+            factory,
+            FoodComponent::componentId);
     }
 
     // -- HELPER

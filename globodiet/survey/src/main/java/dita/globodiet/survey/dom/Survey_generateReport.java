@@ -21,6 +21,7 @@ package dita.globodiet.survey.dom;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
@@ -43,6 +44,7 @@ import dita.commons.format.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
 import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.dto.Respondent24;
 import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -85,6 +87,16 @@ public class Survey_generateReport {
         if(interviewSet.isEmpty()) {
             return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
         }
+
+        // filter interviews
+        var enabledAliases = DataUtil.listingHandlerForRespondents(
+                alias->new Respondent24.Dto(alias, null, null, null))
+                .parseListing(respondentFilter.getAliasListing())
+                .streamEnabled()
+                .map(Respondent24.Dto::alias)
+                .collect(Collectors.toSet());
+
+        interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
 
         var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
         var fcoMapping = Campaigns.fcoMapping(campaigns.getFirst(), surveyBlobStore);

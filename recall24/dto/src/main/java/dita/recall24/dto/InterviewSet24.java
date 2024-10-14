@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -149,6 +150,12 @@ permits InterviewSet24.Dto {
         public InterviewSet24.Dto transform(
                 final @NonNull RecallNode24.Transfomer transformer) {
             return Recall24DtoUtils.transform(transformer).apply(this);
+        }
+
+        // -- FILTER
+
+        public InterviewSet24.Dto filter(final Predicate<Respondent24.Dto> respondentFilter) {
+            return InterviewSet24.Dto.of(this.respondents().filter(respondentFilter));
         }
 
         /**
