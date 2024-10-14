@@ -39,11 +39,13 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 
 @Action
 @ActionLayout(
-        sequence = "1",
-        associateWith = "columnListing",
+        sequence = "2",
+        associateWith = "listingView",
+        named = "sync ..",
         describedAs = "Synchronize this ReportColumnDefinition with the FCDB catalog "
                 + "as associtated with the corresponding survey.",
-        position = ActionLayout.Position.BELOW
+        cssClassFa = "solid arrows-rotate",
+        position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
 public class ReportColumnDefinition_sync {
@@ -77,7 +79,5 @@ public class ReportColumnDefinition_sync {
     public Listing.MergePolicy defaultLineMergePolicy() {
         return Listing.MergePolicy.ADD_NEW_AS_DISABLED;
     }
-
-
 
 }

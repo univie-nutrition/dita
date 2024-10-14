@@ -36,6 +36,9 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
+import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
+import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.experimental.UtilityClass;
 
@@ -121,6 +124,15 @@ public class FormatUtils {
                     .getValue()
                     .orElse("")
                 : "";
+    }
+
+    // -- ADOC
+
+    public AsciiDoc adocSourceBlock(final String sourceType, final String source) {
+        var adoc = new AsciiDocBuilder()
+                .append(doc->AsciiDocFactory.sourceBlock(doc, sourceType, source))
+                .buildAsValue();
+        return adoc;
     }
 
     // -- NULLABLE CONCAT

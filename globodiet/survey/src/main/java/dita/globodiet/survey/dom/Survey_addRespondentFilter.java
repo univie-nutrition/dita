@@ -62,6 +62,7 @@ public class Survey_addRespondentFilter {
         respondentFilter.setCode(p.code());
         respondentFilter.setName(p.name());
         respondentFilter.setDescription(p.description());
+        respondentFilter.setAliasListing(p.aliasListing());
 
         repositoryService.persist(respondentFilter);
         foreignKeyLookup.clearCache(RespondentFilter.class);

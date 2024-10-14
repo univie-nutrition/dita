@@ -40,11 +40,13 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 
 @Action
 @ActionLayout(
-        sequence = "1",
-        associateWith = "aliasListing",
+        sequence = "2",
+        associateWith = "listingView",
+        named = "sync ..",
         describedAs = "Synchronize this RespondentFilter with the list of respondents "
                 + "from the corresponding survey.",
-        position = ActionLayout.Position.BELOW
+        cssClassFa = "solid arrows-rotate",
+        position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
 public class RespondentFilter_sync {

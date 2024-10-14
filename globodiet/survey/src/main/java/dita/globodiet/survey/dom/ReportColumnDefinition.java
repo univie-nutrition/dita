@@ -188,7 +188,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
             sequence = "5",
             describedAs = "Line by line defines a column to include.\n"
                             + "(lines can be commented out with a leading #)",
-            hidden = Where.ALL_TABLES,
+            hidden = Where.EVERYWHERE,
             multiLine = 24,
             labelPosition = LabelPosition.NONE
     )

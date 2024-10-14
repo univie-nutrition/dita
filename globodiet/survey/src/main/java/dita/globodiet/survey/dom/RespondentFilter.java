@@ -189,7 +189,7 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
             sequence = "5",
             describedAs = "Line by line defines an alias to include.\n"
                             + "(lines can be commented out with a leading #)",
-            hidden = Where.ALL_TABLES,
+            hidden = Where.EVERYWHERE,
             multiLine = 24,
             labelPosition = LabelPosition.NONE
     )

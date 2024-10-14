@@ -67,7 +67,7 @@ entity:
       column-type: clob
       required: false
       unique: false
-      hiddenWhere: ALL_TABLES
+      hiddenWhere: EVERYWHERE
       cssClass: listing
       fieldSet: listing
       multiLine: 24

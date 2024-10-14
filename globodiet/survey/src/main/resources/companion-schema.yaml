@@ -127,7 +127,7 @@ entities:
       cssClass: listing
       fieldSet: listing
       multiLine: 24
-      hiddenWhere: ALL_TABLES
+      hiddenWhere: EVERYWHERE
       labelPosition: NONE
       description: |
         Line by line defines a column to include.
@@ -187,7 +187,7 @@ entities:
       cssClass: listing
       fieldSet: listing
       multiLine: 24
-      hiddenWhere: ALL_TABLES
+      hiddenWhere: EVERYWHERE
       labelPosition: NONE
       description: |
         Line by line defines an alias to include.

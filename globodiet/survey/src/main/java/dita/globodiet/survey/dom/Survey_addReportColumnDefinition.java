@@ -63,9 +63,10 @@ public class Survey_addReportColumnDefinition {
         colDef.setCode(p.code());
         colDef.setName(p.name());
         colDef.setDescription(p.description());
+        colDef.setColumnListing(p.columnListing());
 
         repositoryService.persist(colDef);
-        foreignKeyLookup.clearCache(RespondentFilter.class);
+        foreignKeyLookup.clearCache(ReportColumnDefinition.class);
         return mixee;
     }
 
