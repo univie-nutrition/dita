@@ -45,6 +45,7 @@ public class ReportColumnDefinition_edit {
     public ReportColumnDefinition act(
             @Parameter
             @ParameterLayout(
+                    cssClass = "listing",
                     describedAs = "Line by line defines a column to include.\n"
                                     + "(lines can be commented out with a leading #)",
                     multiLine = 24

@@ -45,6 +45,7 @@ public class RespondentFilter_edit {
     public RespondentFilter act(
             @Parameter
             @ParameterLayout(
+                    cssClass = "listing",
                     describedAs = "Line by line defines an alias to include.\n"
                                     + "(lines can be commented out with a leading #)",
                     multiLine = 24
