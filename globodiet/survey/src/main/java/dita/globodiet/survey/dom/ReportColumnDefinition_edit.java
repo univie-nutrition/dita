@@ -22,6 +22,7 @@ package dita.globodiet.survey.dom;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 
@@ -43,7 +44,7 @@ public class ReportColumnDefinition_edit {
 
     @MemberSupport
     public ReportColumnDefinition act(
-            @Parameter
+            @Parameter(optionality = Optionality.OPTIONAL)
             @ParameterLayout(
                     cssClass = "listing",
                     describedAs = "Line by line defines a column to include.\n"
@@ -52,6 +53,7 @@ public class ReportColumnDefinition_edit {
             )
             final String listing) {
 
+        mixee.setColumnListing(listing);
         return mixee;
     }
 

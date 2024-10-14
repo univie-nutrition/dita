@@ -128,9 +128,9 @@ public class FormatUtils {
 
     // -- ADOC
 
-    public AsciiDoc adocSourceBlock(final String sourceType, final String source) {
+    public AsciiDoc adocSourceBlock(@Nullable final String sourceType, @Nullable final String source) {
         var adoc = new AsciiDocBuilder()
-                .append(doc->AsciiDocFactory.sourceBlock(doc, sourceType, source))
+                .append(doc->AsciiDocFactory.sourceBlock(doc, sourceType, _Strings.nullToEmpty(source)))
                 .buildAsValue();
         return adoc;
     }
