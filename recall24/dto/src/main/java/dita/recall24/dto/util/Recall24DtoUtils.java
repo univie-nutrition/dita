@@ -122,7 +122,7 @@ public class Recall24DtoUtils {
     public GraphUtils.Graph<RecallNode24> asGraph(final InterviewSet24.Dto interviewSet) {
         final var stack = new int[4];
 
-        var gBuilder = GraphUtils.GraphBuilder.directed(RecallNode24.class);
+        var gBuilder = GraphBuilderAllowingDuplicates.directed(RecallNode24.class);
         gBuilder.addNode(interviewSet);
 
         interviewSet.respondents().forEach(resp->{

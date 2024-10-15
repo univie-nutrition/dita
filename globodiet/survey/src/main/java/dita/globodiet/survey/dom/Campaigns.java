@@ -191,7 +191,7 @@ public class Campaigns {
     public FoodDescriptionModel foodDescriptionModel(
             final Campaign campaign,
             final BlobStore blobStore) {
-        var fdmDataSource = blobStore.lookupBlob(DataSourceLocation.FDM.namedPath(campaign))
+        var fdmDataSource = blobStore.lookupBlobAndUncompress(DataSourceLocation.FDM.namedPath(campaign))
                 .orElseThrow()
                 .asDataSource();
         return FdmUtils.fromYaml(fdmDataSource);

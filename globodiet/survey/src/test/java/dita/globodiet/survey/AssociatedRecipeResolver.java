@@ -23,7 +23,6 @@ import java.util.Optional;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
-import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.RequiredArgsConstructor;
 
@@ -75,7 +74,9 @@ public class AssociatedRecipeResolver implements Transfomer {
                 System.err.printf("associatedRecipe=%s%n", associatedRecipe);
 
                 if(associatedRecipe==null) {
-                    throw _Exceptions.illegalArgument("failed to resolve %s", origFood.name());
+                    System.err.printf("failed to resolve assoc. recipe %s%n", origFood.name());
+                    //throw _Exceptions.illegalArgument("failed to resolve %s", origFood.name());
+                    return;
                 }
 
                 var recipeNameWithCode = NameWithCode.parseAssocFood(associatedRecipe.name());
