@@ -97,8 +97,7 @@ public sealed interface MemorizedFood24 extends RecallNode24 {
         @SuppressWarnings("unchecked")
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder()
-                    .name(name);
+            return Builder.of(this);
         }
     }
 
@@ -108,9 +107,18 @@ public sealed interface MemorizedFood24 extends RecallNode24 {
     public static class Builder implements Builder24<Dto> {
         String name;
         final List<Record24.Dto> topLevelRecords = new ArrayList<>();
+
+        static Builder of(final Dto dto) {
+            var builder = new Builder().name(dto.name);
+            dto.topLevelRecords.forEach(builder.topLevelRecords::add);
+            return builder;
+        }
+
         @Override
         public Dto build() {
-            return Dto.of(name, Can.ofCollection(topLevelRecords));
+            var dto = Dto.of(name, Can.ofCollection(topLevelRecords));
+            dto.topLevelRecords().forEach(child->child.parentMemorizedFoodRef().setValue(dto));
+            return dto;
         }
     }
 

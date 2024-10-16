@@ -207,9 +207,7 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            var builder = new Builder(type()).name(name).sid(sid).facetSids(facetSids);
-            annotations.values().forEach(builder.annotations()::add);
-            return builder;
+            return Record24.Builder.of(this);
         }
     }
 
@@ -273,11 +271,7 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            var builder = new Builder(type()).name(name).sid(sid).facetSids(facetSids)
-                    .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
-                    .rawPerCookedRatio(rawPerCookedRatio);
-            annotations.values().forEach(builder.annotations()::add);
-            return builder;
+            return Record24.Builder.of(this);
         }
     }
 
@@ -303,7 +297,7 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+            return Record24.Builder.of(this);
         }
     }
 
@@ -324,7 +318,7 @@ permits
             ) implements Record24.Dto {
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+            return Record24.Builder.of(this);
         }
 
         public Food parentFood() {
@@ -354,9 +348,7 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids)
-                    .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
-                    .rawPerCookedRatio(rawPerCookedRatio);
+            return Record24.Builder.of(this);
         }
     }
 
@@ -378,9 +370,7 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids)
-                    .amountConsumed(amountConsumed).consumptionUnit(consumptionUnit)
-                    .rawPerCookedRatio(rawPerCookedRatio);
+            return Record24.Builder.of(this);
         }
     }
 
@@ -400,7 +390,7 @@ permits
 
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder(type()).name(name).sid(sid).facetSids(facetSids);
+            return Record24.Builder.of(this);
         }
     }
 
@@ -566,9 +556,45 @@ permits
         final List<Record24.Dto> subRecords = new ArrayList<>();
         final List<Annotation> annotations = new ArrayList<>();
 
+        @SuppressWarnings("unused")
+        static Builder of(final Dto dto) {
+            var builder = new Builder(dto.type())
+                    .name(dto.name()).sid(dto.sid()).facetSids(dto.facetSids());
+
+            switch (dto) {
+                case Comment comment -> {}
+                case Composite composite -> {
+                    composite.subRecords().forEach(sr->builder.subRecords.add((Dto) sr));
+                }
+                case Food food -> {
+                    builder
+                        .amountConsumed(food.amountConsumed)
+                        .consumptionUnit(food.consumptionUnit)
+                        .rawPerCookedRatio(food.rawPerCookedRatio);
+                }
+                case FryingFat fryingFat -> {
+                    builder
+                        .amountConsumed(fryingFat.amountConsumed)
+                        .consumptionUnit(fryingFat.consumptionUnit)
+                        .rawPerCookedRatio(fryingFat.rawPerCookedRatio);
+                }
+                case Product product -> {
+                    builder
+                        .amountConsumed(product.amountConsumed)
+                        .consumptionUnit(product.consumptionUnit)
+                        .rawPerCookedRatio(product.rawPerCookedRatio);
+                }
+                case TypeOfFatUsed typeOfFatUsed -> {}
+                case TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed -> {}
+            }
+
+            dto.annotations().values().forEach(builder.annotations::add);
+            return builder;
+        }
+
         @Override
         public Dto build() {
-            return switch (type) {
+            var dto = switch (type) {
             case COMMENT -> comment(name, sid, facetSids, Can.ofCollection(annotations));
             case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords), Can.ofCollection(annotations));
             case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords), Can.ofCollection(annotations));
@@ -576,9 +602,21 @@ permits
             case PRODUCT -> product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
             case TYPE_OF_FAT_USED -> typeOfFatUsed(name, sid, facetSids);
             case TYPE_OF_MILK_OR_LIQUID_USED -> typeOfMilkOrLiquidUsed(name, sid, facetSids);
-            default -> throw new IllegalArgumentException("Unexpected value: " + type);
             };
+
+            switch (dto) {
+                case Record24.Composite composite -> {
+                    composite.subRecords().stream()
+                    .map(Record24.Dto.class::cast)
+                        .forEach(child->child.parentMemorizedFoodRef()
+                                .setValue(dto.parentMemorizedFood()));
+                }
+                default -> {}
+            }
+
+            return dto;
         }
+
     }
 
 }

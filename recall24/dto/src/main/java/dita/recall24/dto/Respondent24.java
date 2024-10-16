@@ -85,7 +85,7 @@ public sealed interface Respondent24 extends RecallNode24 {
         @SuppressWarnings("unchecked")
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder().alias(alias).dateOfBirth(dateOfBirth).sex(sex);
+            return Builder.of(this);
         }
 
     }
@@ -98,9 +98,18 @@ public sealed interface Respondent24 extends RecallNode24 {
         private LocalDate dateOfBirth;
         private Sex sex;
         private final List<Interview24.Dto> interviews = new ArrayList<>();
+
+        static Builder of(final Dto dto) {
+            var builder = new Builder().alias(dto.alias).dateOfBirth(dto.dateOfBirth).sex(dto.sex);
+            dto.interviews.forEach(builder.interviews::add);
+            return builder;
+        }
+
         @Override
         public Dto build() {
-            return new Dto(alias, dateOfBirth, sex, Can.ofCollection(interviews));
+            var dto = new Dto(alias, dateOfBirth, sex, Can.ofCollection(interviews));
+            dto.interviews().forEach(child->child.parentRespondentRef().setValue(dto));
+            return dto;
         }
     }
 

@@ -1,0 +1,2460 @@
+respondents:
+- alias: "0001"
+  dateOfBirth: "2000-01-01"
+  sex: "MALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "09:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Striezel"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Striezel {assocFood=2287}"
+          sid: "at.gd/2.0:recp/00398"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0300, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0598"
+          subRecords:
+          - type: "FOOD"
+            name: "Mehl, Weizen, normal"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 20.824655532836914
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Germ n.s."
+            sid: "at.gd/2.0:food/01534"
+            facetSids: ""
+            amountConsumed: 1.2494794130325317
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1502"
+          - type: "FOOD"
+            name: "Milch, normal"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0334, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 10.724698066711426
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050101"
+          - type: "FOOD"
+            name: "Butter, normal"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 3.3319449424743652
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1002"
+          - type: "FOOD"
+            name: "Zucker, Kristall"
+            sid: "at.gd/2.0:food/00992"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 3.3319449424743652
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/110101"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.041649311780929565
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0307"
+            amountConsumed: 4.24822998046875
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.85000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Rosinen"
+            sid: "at.gd/2.0:food/00183"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0307, at.gd/2.0:fd/0418, at.gd/2.0:fd/1200"
+            amountConsumed: 4.9979181289672852
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1.2000000476837158
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0401"
+          - type: "FOOD"
+            name: "Zucker, Hagel"
+            sid: "at.gd/2.0:food/00990"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 1.2494794130325317
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/110101"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0801"
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Knödel, Serviettenknödel"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Knödel, Serviettenknödel {assocFood=1967}"
+          sid: "at.gd/2.0:recp/00600"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0504"
+          subRecords:
+          - type: "FOOD"
+            name: "Semmel"
+            sid: "at.gd/2.0:food/00535"
+            facetSids: "at.gd/2.0:fd/0394, at.gd/2.0:fd/0410, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
+            amountConsumed: 67.533767700195312
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.89999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/060301"
+          - type: "FOOD"
+            name: "Butter, normal"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 15.007503509521484
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1002"
+          - type: "FOOD"
+            name: "Petersilie"
+            sid: "at.gd/2.0:food/01543"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499"
+            amountConsumed: 1.5007504224777222
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
+            amountConsumed: 27.013505935668945
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Milch, normal"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0394, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 38.644321441650391
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050101"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.1500750333070755
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Gewürzmischung"
+            sid: "at.gd/2.0:food/01538"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 0.07503751665353775
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Muskatnuss"
+            sid: "at.gd/2.0:food/01541"
+            facetSids: ""
+            amountConsumed: 0.07503751665353775
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0400"
+      - name: "Fleischklösschen, Suppe"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Fleischklösschen, Suppe {assocFood=2086}"
+          sid: "at.gd/2.0:recp/00556"
+          facetSids: "at.gd/2.0:rd/0000, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0503"
+          subRecords:
+          - type: "FOOD"
+            name: "Rindfleisch, faschiert"
+            sid: "at.gd/2.0:food/00669"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0410, at.gd/2.0:fd/0599, at.gd/2.0:fd/0699,\
+              \ at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
+            amountConsumed: 72.02587890625
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.64999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/070101"
+          - type: "FOOD"
+            name: "Stärke (Kartoffel, Mais, Weizen)"
+            sid: "at.gd/2.0:food/01809"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 13.297086715698242
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Semmelbrösel"
+            sid: "at.gd/2.0:food/00569"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 13.297086715698242
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/060302"
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0309"
+            amountConsumed: 15.956503868103027
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.89999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.75350165367126465
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Koriander"
+            sid: "at.gd/2.0:food/01926"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 1.4774540662765503
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Salz, Meer"
+            sid: "at.gd/2.0:food/01573"
+            facetSids: ""
+            amountConsumed: 1.6251994371414185
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.73872703313827515
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Chili (Gewürz)"
+            sid: "at.gd/2.0:food/00055"
+            facetSids: ""
+            amountConsumed: 0.073872700333595276
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Butter, normal"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 8.8647241592407227
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1002"
+          - type: "FOOD"
+            name: "Mehl, Weizen, normal"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 1.4774540662765503
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Wasser, Leitung"
+            sid: "at.gd/2.0:food/01399"
+            facetSids: ""
+            amountConsumed: 118.19632720947266
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1304"
+          - type: "FOOD"
+            name: "Pfefferminze"
+            sid: "at.gd/2.0:food/02142"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 1.4774540662765503
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Safran"
+            sid: "at.gd/2.0:food/02358"
+            facetSids: ""
+            amountConsumed: 0.73872703313827515
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/07"
+- alias: "0002"
+  dateOfBirth: "2000-01-01"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "09:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Rührei"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Rührei, mit Schinken"
+          sid: "at.gd/2.0:recp/00131"
+          facetSids: "at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0508"
+          subRecords:
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0309"
+            amountConsumed: 80.655731201171875
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.89999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Milch, normal"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0398, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 24.441131591796875
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050101"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.50919026136398315
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.040735218673944473
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Muskatnuss"
+            sid: "at.gd/2.0:food/01541"
+            facetSids: ""
+            amountConsumed: 0.040735218673944473
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Butter n.s."
+            sid: "at.gd/2.0:food/00945"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 2.0367610454559326
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1002"
+          - type: "FOOD"
+            name: "Schinken n.s."
+            sid: "at.gd/2.0:food/00808"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1400"
+            amountConsumed: 15.275707244873047
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.75
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0704"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/03"
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Canelloni"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Cannelloni, gefüllt"
+          sid: "at.gd/2.0:recp/00050"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0598"
+          subRecords:
+          - type: "FOOD"
+            name: "Teigwaren, Lasagne (nur Teig)"
+            sid: "at.gd/2.0:food/00447"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0418"
+            amountConsumed: 67.600013732910156
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 2.2999999523162842
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0602"
+          - type: "FOOD"
+            name: "Öl, Raps"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 1.8523937463760376
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1001"
+          - type: "FOOD"
+            name: "Rindfleisch, faschiert"
+            sid: "at.gd/2.0:food/00669"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
+            amountConsumed: 32.108158111572266
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.64999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/070101"
+          - type: "FOOD"
+            name: "Zwiebel"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
+            amountConsumed: 3.8900270462036133
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.14819151163101196
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Karotte"
+            sid: "at.gd/2.0:food/00073"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
+            amountConsumed: 12.151702880859375
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.81999999284744263
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0203"
+          - type: "FOOD"
+            name: "Sellerie"
+            sid: "at.gd/2.0:food/00077"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 11.139060974121094
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.81999999284744263
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0203"
+          - type: "FOOD"
+            name: "Petersilie"
+            sid: "at.gd/2.0:food/01543"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.49397164583206177
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Rosmarin"
+            sid: "at.gd/2.0:food/01545"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.49397164583206177
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Mehl, Weizen, normal"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 1.8523937463760376
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Tomate n.s."
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0309, at.gd/2.0:fd/0400, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 4.1678857803344727
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.75
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Tomate n.s."
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0216, at.gd/2.0:fd/0345, at.gd/2.0:fd/0401, at.gd/2.0:fd/0528,\
+              \ at.gd/2.0:fd/0904, at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
+            amountConsumed: 24.698583602905273
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.800000011920929
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.024698583409190178
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Paprikapulver"
+            sid: "at.gd/2.0:food/01803"
+            facetSids: ""
+            amountConsumed: 0.024698583409190178
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Sauerrahm"
+            sid: "at.gd/2.0:food/00353"
+            facetSids: "at.gd/2.0:fd/0408, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 19.758867263793945
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050701"
+          - type: "FOOD"
+            name: "Parmesan"
+            sid: "at.gd/2.0:food/00297"
+            facetSids: "at.gd/2.0:fd/0212, at.gd/2.0:fd/0398, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 8.95323657989502
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0505"
+          - type: "FOOD"
+            name: "Bouillon Konzentrat"
+            sid: "at.gd/2.0:food/01811"
+            facetSids: ""
+            amountConsumed: 0.61746460199356079
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Oregano"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.024698583409190178
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0401"
+    - hourOfDay: "18:00:00"
+      foodConsumptionOccasionId: "09"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Kebabsandwich"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Kebabsandwich (mit Lammfleisch)"
+          sid: "at.gd/2.0:recp/00074"
+          facetSids: "at.gd/2.0:rd/0105, at.gd/2.0:rd/0200, at.gd/2.0:rd/0598"
+          subRecords:
+          - type: "FOOD"
+            name: "Öl, Raps"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 2.0835933685302734
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1001"
+          - type: "FOOD"
+            name: "Salat, Kopf, grün"
+            sid: "at.gd/2.0:food/00041"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900, at.gd/2.0:fd/2800"
+            amountConsumed: 8.3343734741210938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0201"
+          - type: "FOOD"
+            name: "Tomate n.s."
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
+            amountConsumed: 8.3343734741210938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Gurke"
+            sid: "at.gd/2.0:food/00057"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1300, at.gd/2.0:fd/2800"
+            amountConsumed: 16.668746948242188
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Mayonnaise {assocRecp=327}"
+            sid: "at.gd/2.0:food/01529"
+            facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
+            amountConsumed: 4.1671867370605469
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/150102"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.20835933089256287
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.20835933089256287
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Brot, Fladen, Weizen"
+            sid: "at.gd/2.0:food/01982"
+            facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
+            amountConsumed: 62.507797241210938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/060301"
+          - type: "FOOD"
+            name: "Zwiebel"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
+            amountConsumed: 9.37617015838623
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Weißkraut"
+            sid: "at.gd/2.0:food/00088"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 4.1671867370605469
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0204"
+          - type: "FOOD"
+            name: "Pfefferoni, rot"
+            sid: "at.gd/2.0:food/00063"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
+            amountConsumed: 1.0417966842651367
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Topfen"
+            sid: "at.gd/2.0:food/00242"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200"
+            amountConsumed: 13.022458076477051
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0504"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.41671866178512573
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Lammfleisch n.s."
+            sid: "at.gd/2.0:food/00702"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/1000, at.gd/2.0:fd/1400"
+            amountConsumed: 36.462882995605469
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.699999988079071
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/070104"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0404"
+- alias: "0003"
+  dateOfBirth: "2000-01-01"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "08:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Rührei"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Rührei, mit Schinken"
+          sid: "at.gd/2.0:recp/00131"
+          facetSids: "at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0508"
+          subRecords:
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0309"
+            amountConsumed: 77.449508666992188
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.89999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Haferdrink"
+            sid: "at.gd/2.0:food/02397"
+            facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/1200"
+            amountConsumed: 23.469549179077148
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0502"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.48894894123077393
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.039115916937589645
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Muskatnuss"
+            sid: "at.gd/2.0:food/01541"
+            facetSids: ""
+            amountConsumed: 0.039115916937589645
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Butter n.s."
+            sid: "at.gd/2.0:food/00945"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 1.9557957649230957
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1002"
+          - type: "FOOD"
+            name: "Salami"
+            sid: "at.gd/2.0:food/00801"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 19.557956695556641
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0704"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/03"
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Canelloni"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Cannelloni, gefüllt"
+          sid: "at.gd/2.0:recp/00050"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0503"
+          subRecords:
+          - type: "FOOD"
+            name: "Teigwaren, Lasagne (nur Teig)"
+            sid: "at.gd/2.0:food/00447"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0418"
+            amountConsumed: 63.475326538085938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 2.2999999523162842
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0602"
+          - type: "FOOD"
+            name: "Öl, Raps"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 1.7393679618835449
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1001"
+          - type: "FOOD"
+            name: "Rindfleisch, faschiert"
+            sid: "at.gd/2.0:food/00669"
+            facetSids: "at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
+            amountConsumed: 30.149044036865234
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.64999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/070101"
+          - type: "FOOD"
+            name: "Zwiebel"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
+            amountConsumed: 3.6526730060577393
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.13914944231510162
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Karotte"
+            sid: "at.gd/2.0:food/00073"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
+            amountConsumed: 11.410253524780273
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.81999999284744263
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0203"
+          - type: "FOOD"
+            name: "Sellerie"
+            sid: "at.gd/2.0:food/00077"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 10.45939826965332
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.81999999284744263
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0203"
+          - type: "FOOD"
+            name: "Petersilie"
+            sid: "at.gd/2.0:food/01543"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.46383145451545715
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Rosmarin"
+            sid: "at.gd/2.0:food/01545"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.46383145451545715
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Mehl, Weizen, normal"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 1.7393679618835449
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Tomate n.s."
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0309, at.gd/2.0:fd/0400, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 3.9135777950286865
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.75
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Tomate n.s."
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0216, at.gd/2.0:fd/0345, at.gd/2.0:fd/0401, at.gd/2.0:fd/0528,\
+              \ at.gd/2.0:fd/0904, at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
+            amountConsumed: 23.191572189331055
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.800000011920929
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.023191573098301888
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Paprikapulver"
+            sid: "at.gd/2.0:food/01803"
+            facetSids: ""
+            amountConsumed: 0.023191573098301888
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Sauerrahm"
+            sid: "at.gd/2.0:food/00353"
+            facetSids: "at.gd/2.0:fd/0408, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 18.553256988525391
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050701"
+          - type: "FOOD"
+            name: "Bouillon Konzentrat"
+            sid: "at.gd/2.0:food/01811"
+            facetSids: ""
+            amountConsumed: 0.57978928089141846
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Oregano"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.023191573098301888
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Gouda"
+            sid: "at.gd/2.0:food/00277"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0398, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 20
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0505"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0401"
+    - hourOfDay: "18:00:00"
+      foodConsumptionOccasionId: "09"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Kebabsandwich"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Kebabsandwich (mit Hühnerfleisch)"
+          sid: "at.gd/2.0:recp/00074"
+          facetSids: "at.gd/2.0:rd/0105, at.gd/2.0:rd/0200, at.gd/2.0:rd/0598"
+          subRecords:
+          - type: "FOOD"
+            name: "Öl, Raps"
+            sid: "at.gd/2.0:food/00937"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 2.0835933685302734
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1001"
+          - type: "FOOD"
+            name: "Salat, Kopf, grün"
+            sid: "at.gd/2.0:food/00041"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900, at.gd/2.0:fd/2800"
+            amountConsumed: 8.3343734741210938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0201"
+          - type: "FOOD"
+            name: "Tomate n.s."
+            sid: "at.gd/2.0:food/00065"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
+            amountConsumed: 8.3343734741210938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Gurke"
+            sid: "at.gd/2.0:food/00057"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1300, at.gd/2.0:fd/2800"
+            amountConsumed: 16.668746948242188
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Mayonnaise {assocRecp=327}"
+            sid: "at.gd/2.0:food/01529"
+            facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
+            amountConsumed: 4.1671867370605469
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/150102"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.20835933089256287
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.20835933089256287
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Brot, Fladen, Weizen"
+            sid: "at.gd/2.0:food/01982"
+            facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
+            amountConsumed: 62.507797241210938
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/060301"
+          - type: "FOOD"
+            name: "Zwiebel"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0215, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/2800"
+            amountConsumed: 9.37617015838623
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Rotkraut"
+            sid: "at.gd/2.0:food/00086"
+            facetSids: "at.gd/2.0:fd/0221, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 4.1671867370605469
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0204"
+          - type: "FOOD"
+            name: "Pfefferoni, rot"
+            sid: "at.gd/2.0:food/00063"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
+            amountConsumed: 1.0417966842651367
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Topfen"
+            sid: "at.gd/2.0:food/00242"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1200"
+            amountConsumed: 13.022458076477051
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0504"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.41671866178512573
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Hühnchen, geschnetzelt (nur Fleisch)"
+            sid: "at.gd/2.0:food/00723"
+            facetSids: "at.gd/2.0:fd/0302, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1000"
+            amountConsumed: 36.462882995605469
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.699999988079071
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/070201"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0404"
+- alias: "0004"
+  dateOfBirth: "2000-01-01"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "08:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Brot, mit Butter und Marmelade, Erdbeere"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Brot, Roggen"
+          sid: "at.gd/2.0:food/00504"
+          facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
+          amountConsumed: 64.5
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/060301"
+        - type: "FOOD"
+          name: "Butter, normal"
+          sid: "at.gd/2.0:food/01887"
+          facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+          amountConsumed: 10
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/1002"
+        - type: "FOOD"
+          name: "Marmelade"
+          sid: "at.gd/2.0:food/02027"
+          facetSids: "at.gd/2.0:fd/0669, at.gd/2.0:fd/0702, at.gd/2.0:fd/1006, at.gd/2.0:fd/1200"
+          amountConsumed: 11
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/110102"
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Salat, Endivien mit Dressing und Hühnchen, Filet"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Salat, Endivien"
+          sid: "at.gd/2.0:food/00038"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
+          amountConsumed: 100
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/0201"
+        - type: "FOOD"
+          name: "Salatdressing Balsamico {assocRecp=381}"
+          sid: "at.gd/2.0:food/01522"
+          facetSids: "at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1002, at.gd/2.0:fd/1600"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/150102"
+        - type: "FOOD"
+          name: "Hühnchen, Filet"
+          sid: "at.gd/2.0:food/01902"
+          facetSids: "at.gd/2.0:fd/0328, at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1001"
+          amountConsumed: 137
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/070201"
+        - type: "FRYING_FAT"
+          name: "Öl, Raps"
+          sid: "at.gd/2.0:food/00937"
+          facetSids: "at.gd/2.0:fd/1200"
+          amountConsumed: 1.3700000047683716
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+    - hourOfDay: "18:00:00"
+      foodConsumptionOccasionId: "09"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Toast mit Schinken und Käse"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Toastbrot, Roggenmisch"
+          sid: "at.gd/2.0:food/02299"
+          facetSids: "at.gd/2.0:fd/0398, at.gd/2.0:fd/0410, at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
+          amountConsumed: 56.700000762939453
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/060301"
+        - type: "FOOD"
+          name: "Schinken, Bein"
+          sid: "at.gd/2.0:food/00810"
+          facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0398, at.gd/2.0:fd/0404, at.gd/2.0:fd/0410,\
+            \ at.gd/2.0:fd/0413, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200, at.gd/2.0:fd/1401"
+          amountConsumed: 40
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/0704"
+        - type: "FOOD"
+          name: "Gouda"
+          sid: "at.gd/2.0:food/00277"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0398, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+          amountConsumed: 20
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/0505"
+- alias: "0005"
+  dateOfBirth: "2000-01-02"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Pizza, Salami"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Pizza, Salami"
+          sid: "at.gd/2.0:recp/00255"
+          facetSids: "at.gd/2.0:rd/0105, at.gd/2.0:rd/0200, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0501"
+          subRecords:
+          - type: "FOOD"
+            name: "Teig, Pizza {assocRecp=544}"
+            sid: "at.gd/2.0:food/00644"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0301, at.gd/2.0:fd/0402, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
+            amountConsumed: 126.71975708007813
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.81999999284744263
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0605"
+          - type: "FOOD"
+            name: "Tomate, normal"
+            sid: "at.gd/2.0:food/02308"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0301, at.gd/2.0:fd/0400, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 13.908266067504883
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.800000011920929
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Parmesan"
+            sid: "at.gd/2.0:food/00297"
+            facetSids: "at.gd/2.0:fd/0212, at.gd/2.0:fd/0301, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 23.180444717407227
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0505"
+          - type: "FOOD"
+            name: "Salami"
+            sid: "at.gd/2.0:food/00801"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 15.453629493713379
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0704"
+          - type: "FOOD"
+            name: "Tomate, normal"
+            sid: "at.gd/2.0:food/02308"
+            facetSids: "at.gd/2.0:fd/0214, at.gd/2.0:fd/0301, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2800"
+            amountConsumed: 15.453629493713379
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.800000011920929
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0202"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.019317036494612694
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.038634072989225388
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Oregano"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 0.772681474685669
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Salami"
+            sid: "at.gd/2.0:food/00801"
+            facetSids: "at.gd/2.0:fd/0105, at.gd/2.0:fd/0499, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 15.453629493713379
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0704"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0405"
+- alias: "0006"
+  dateOfBirth: "2000-01-01"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "09:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Cappuccino"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Cappuccino, Koffein n.s. {assocRecp=483}"
+          sid: "at.gd/2.0:food/01330"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/1200"
+          amountConsumed: 176
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/130301"
+      - name: "Rührkuchen"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Rührkuchen {assocRecp=390}"
+          sid: "at.gd/2.0:food/01829"
+          facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/0801, at.gd/2.0:fd/1006"
+          amountConsumed: 80
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/1201"
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Sauce Bolognaise mit Spätzle"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Spätzle {assocRecp=602}"
+          sid: "at.gd/2.0:food/00440"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0303, at.gd/2.0:fd/0499"
+          amountConsumed: 171
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/0602"
+        - type: "FOOD"
+          name: "Sauce Bolognaise {assocRecp=326}"
+          sid: "at.gd/2.0:food/01517"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0401, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801,\
+            \ at.gd/2.0:fd/1006, at.gd/2.0:fd/1200"
+          amountConsumed: 182
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/150101"
+- alias: "0007"
+  dateOfBirth: "2000-10-10"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2024-05-27"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "00"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 60
+    meals:
+    - hourOfDay: "08:00:00"
+      foodConsumptionOccasionId: "02"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Cappuccino"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Cappuccino, Koffein n.s. {assocFood=1330}"
+          sid: "at.gd/2.0:recp/00483"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0400,\
+            \ at.gd/2.0:rd/0598"
+          subRecords:
+          - type: "FOOD"
+            name: "Espresso, Koffein n.s."
+            sid: "at.gd/2.0:food/01669"
+            facetSids: "at.gd/2.0:fd/0202, at.gd/2.0:fd/0699, at.gd/2.0:fd/0700, at.gd/2.0:fd/1200"
+            amountConsumed: 6.5625
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/130301"
+          - type: "FOOD"
+            name: "Milch, normal"
+            sid: "at.gd/2.0:food/00217"
+            facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0201, at.gd/2.0:fd/0315, at.gd/2.0:fd/0408,\
+              \ at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 96.5625
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050101"
+          - type: "FOOD"
+            name: "Wasser, Leitung"
+            sid: "at.gd/2.0:food/01399"
+            facetSids: ""
+            amountConsumed: 46.875
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1304"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/10"
+      - name: "Rührkuchen"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Rührkuchen {assocFood=1829}"
+          sid: "at.gd/2.0:recp/00390"
+          facetSids: "at.gd/2.0:rd/0103, at.gd/2.0:rd/0200, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0598"
+          subRecords:
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0307"
+            amountConsumed: 11.877729415893555
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.85000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Margarine"
+            sid: "at.gd/2.0:food/00953"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 12.22707462310791
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1003"
+          - type: "FOOD"
+            name: "Zucker, Kristall"
+            sid: "at.gd/2.0:food/00992"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 17.467248916625977
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/110101"
+          - type: "FOOD"
+            name: "Mehl, Weizen, normal"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 17.467248916625977
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Sauerrahm"
+            sid: "at.gd/2.0:food/00353"
+            facetSids: "at.gd/2.0:fd/0408, at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 17.467248916625977
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/050701"
+          - type: "FOOD"
+            name: "Kakaopulver"
+            sid: "at.gd/2.0:food/01017"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 0.87336242198944092
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/110203"
+          - type: "FOOD"
+            name: "Semmelbrösel"
+            sid: "at.gd/2.0:food/00569"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 2.3289666175842285
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/060302"
+          - type: "FOOD"
+            name: "Backpulver"
+            sid: "at.gd/2.0:food/01532"
+            facetSids: ""
+            amountConsumed: 0.29112082719802856
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1502"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0801"
+    - hourOfDay: "12:00:00"
+      foodConsumptionOccasionId: "05"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Sauce Bolognaise mit Spätzle"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Sauce Bolognaise {assocFood=1517}"
+          sid: "at.gd/2.0:recp/00326"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0301, at.gd/2.0:rd/0406,\
+            \ at.gd/2.0:rd/0503"
+          subRecords:
+          - type: "FOOD"
+            name: "Öl, Oliven"
+            sid: "at.gd/2.0:food/00935"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 6.5843954086303711
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1001"
+          - type: "FOOD"
+            name: "Zwiebel"
+            sid: "at.gd/2.0:food/00107"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/2800"
+            amountConsumed: 12.115287780761719
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Gemüsemischung n.s."
+            sid: "at.gd/2.0:food/00017"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1301, at.gd/2.0:fd/2800"
+            amountConsumed: 23.411184310913086
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.800000011920929
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0200"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499, at.gd/2.0:fd/0900,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.37311577796936035
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.60000002384185791
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Faschiertes n.s."
+            sid: "at.gd/2.0:food/00653"
+            facetSids: "at.gd/2.0:fd/0101, at.gd/2.0:fd/0105, at.gd/2.0:fd/0309, at.gd/2.0:fd/0499,\
+              \ at.gd/2.0:fd/0600, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
+            amountConsumed: 76.086349487304688
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 0.64999997615814209
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0700"
+          - type: "FOOD"
+            name: "Tomatensauce {assocRecp=325}"
+            sid: "at.gd/2.0:food/01519"
+            facetSids: "at.gd/2.0:fd/0224, at.gd/2.0:fd/0410, at.gd/2.0:fd/0600, at.gd/2.0:fd/0801,\
+              \ at.gd/2.0:fd/1000"
+            amountConsumed: 11.705592155456543
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/150101"
+          - type: "FOOD"
+            name: "Wein, rot"
+            sid: "at.gd/2.0:food/01427"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 14.631989479064941
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1401"
+          - type: "FOOD"
+            name: "Wasser, Leitung"
+            sid: "at.gd/2.0:food/01399"
+            facetSids: ""
+            amountConsumed: 36.579975128173828
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1304"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.14631989598274231
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Pfeffer"
+            sid: "at.gd/2.0:food/02136"
+            facetSids: ""
+            amountConsumed: 0.14631989598274231
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Oregano"
+            sid: "at.gd/2.0:food/01542"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 0.073159947991371155
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Rosmarin"
+            sid: "at.gd/2.0:food/01545"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 0.073159947991371155
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Basilikum"
+            sid: "at.gd/2.0:food/01536"
+            facetSids: "at.gd/2.0:fd/0203, at.gd/2.0:fd/0418"
+            amountConsumed: 0.073159947991371155
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/09"
+        - type: "COMPOSITE"
+          name: "Spätzle {assocFood=440}"
+          sid: "at.gd/2.0:recp/00602"
+          facetSids: "at.gd/2.0:rd/0001, at.gd/2.0:rd/0101, at.gd/2.0:rd/0399, at.gd/2.0:rd/0499,\
+            \ at.gd/2.0:rd/0503"
+          subRecords:
+          - type: "FOOD"
+            name: "Mehl, Weizen, normal"
+            sid: "at.gd/2.0:food/00394"
+            facetSids: "at.gd/2.0:fd/1200"
+            amountConsumed: 81.6618881225586
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0601"
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
+            amountConsumed: 19.598854064941406
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Wasser, Leitung"
+            sid: "at.gd/2.0:food/01399"
+            facetSids: ""
+            amountConsumed: 61.246417999267578
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1304"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.32664754986763
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          - type: "FOOD"
+            name: "Butter, normal"
+            sid: "at.gd/2.0:food/01887"
+            facetSids: "at.gd/2.0:fd/0801, at.gd/2.0:fd/1200"
+            amountConsumed: 8.1661891937255859
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1002"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/0401"

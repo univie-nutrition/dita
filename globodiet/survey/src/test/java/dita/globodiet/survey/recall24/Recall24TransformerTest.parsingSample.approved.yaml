@@ -1,0 +1,108 @@
+respondents:
+- alias: "01_01_SL_2"
+  dateOfBirth: "1933-03-17"
+  sex: "FEMALE"
+  interviews:
+  - interviewDate: "2021-04-06"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "99"
+      specialDayId: "00"
+      heightCM: 160
+      weightKG: 54.9
+    meals:
+    - hourOfDay: "07:00:00"
+      foodConsumptionOccasionId: "01"
+      foodConsumptionPlaceId: "01"
+      memorizedFood:
+      - name: "Kaffee"
+        topLevelRecords:
+        - type: "COMPOSITE"
+          name: "Eieraufstrich"
+          sid: "at.gd/2.0:recp/00232"
+          facetSids: "at.gd/2.0:rd/0103, at.gd/2.0:rd/0200, at.gd/2.0:rd/0317, at.gd/2.0:rd/0405"
+          subRecords:
+          - type: "FOOD"
+            name: "Mayonnaise"
+            sid: "at.gd/2.0:food/01529"
+            facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
+            amountConsumed: 6.7415728569030762
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/150102"
+          - type: "FOOD"
+            name: "Ei"
+            sid: "at.gd/2.0:food/00916"
+            facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
+            amountConsumed: 16.853933334350586
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0901"
+          - type: "FOOD"
+            name: "Schnittlauch"
+            sid: "at.gd/2.0:food/01547"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
+            amountConsumed: 0.93632960319519043
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1503"
+          - type: "FOOD"
+            name: "Knoblauch"
+            sid: "at.gd/2.0:food/00103"
+            facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499, at.gd/2.0:fd/0999,\
+              \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
+            amountConsumed: 0.37453183531761169
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/0207"
+          - type: "FOOD"
+            name: "Salz, Koch"
+            sid: "at.gd/2.0:food/01571"
+            facetSids: ""
+            amountConsumed: 0.093632958829402924
+            consumptionUnit: "GRAM"
+            rawPerCookedRatio: 1
+            typeOfFatUsedDuringCooking: null
+            typeOfMilkOrLiquidUsedDuringCooking: null
+            annotations:
+              group:
+                key: "group"
+                value: "at.gd/2.0:fg/1504"
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:rg/03"
+        - type: "FOOD"
+          name: "Kaffee, mit Koffein"
+          sid: "at.gd/2.0:food/01339"
+          facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1200"
+          amountConsumed: 125
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 1
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations:
+            group:
+              key: "group"
+              value: "at.gd/2.0:fg/130301"

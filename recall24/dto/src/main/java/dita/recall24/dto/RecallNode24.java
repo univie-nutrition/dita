@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.apache.causeway.commons.collections.Can;
@@ -43,7 +42,22 @@ permits
         T build();
     }
 
-    public interface Transfomer extends Consumer<RecallNode24.Builder24<?>> {
+    public interface Transfomer {
+        @Deprecated
+        void accept(RecallNode24.Builder24<?> x);
+
+        /**
+         * {@literal Filter Phase} walking the tree structure from its root to its leafs.
+         */
+        default <T extends RecallNode24> boolean filter(final T onPrepare) {return true;}
+        /**
+         * {@literal Transform Phase} walking the tree structure back from its leafs to its root.
+         */
+        default <T extends RecallNode24> T transform(final T node) {
+            var builder = node.asBuilder();
+            accept(builder);
+            return (T) builder.build();
+        }
     }
 
     // -- ANNOTATIONS

@@ -128,9 +128,7 @@ public sealed interface Meal24 extends RecallNode24 {
         @SuppressWarnings("unchecked")
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder().hourOfDay(hourOfDay)
-                    .foodConsumptionOccasionId(foodConsumptionOccasionId)
-                    .foodConsumptionPlaceId(foodConsumptionPlaceId);
+            return Builder.of(this);
         }
     }
 
@@ -142,9 +140,20 @@ public sealed interface Meal24 extends RecallNode24 {
         String foodConsumptionOccasionId;
         String foodConsumptionPlaceId;
         final List<MemorizedFood24.Dto> memorizedFood = new ArrayList<>();
+
+        static Builder of(final Dto dto) {
+            var builder =  new Builder().hourOfDay(dto.hourOfDay)
+                    .foodConsumptionOccasionId(dto.foodConsumptionOccasionId)
+                    .foodConsumptionPlaceId(dto.foodConsumptionPlaceId);
+            dto.memorizedFood.forEach(builder.memorizedFood::add);
+            return builder;
+        }
+
         @Override
         public Dto build() {
-            return Dto.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
+            var dto = Dto.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
+            dto.memorizedFood().forEach(child->child.parentMealRef().setValue(dto));
+            return dto;
         }
     }
 

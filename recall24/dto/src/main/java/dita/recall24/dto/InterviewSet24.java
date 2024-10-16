@@ -232,7 +232,7 @@ permits InterviewSet24.Dto {
         @SuppressWarnings("unchecked")
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder();
+            return Builder.of(this);
         }
 
         @JsonIgnore
@@ -247,10 +247,21 @@ permits InterviewSet24.Dto {
 
     @Getter @Setter @Accessors(fluent=true)
     public static class Builder implements Builder24<Dto> {
+        final List<Annotation> annotations = new ArrayList<>();
         final List<Respondent24.Dto> respondents = new ArrayList<>();
+        
+        static Builder of(Dto dto) {
+            var builder = new Builder();
+            dto.respondents().forEach(builder.respondents::add);
+            dto.annotations().values().forEach(builder.annotations::add);
+            return builder;
+        }
+        
         @Override
         public Dto build() {
-            return Dto.of(Can.ofCollection(respondents));
+            var dto = Dto.of(Can.ofCollection(respondents));
+            _NullSafe.stream(annotations).forEach(dto::annotate);
+            return dto.normalized();
         }
     }
 

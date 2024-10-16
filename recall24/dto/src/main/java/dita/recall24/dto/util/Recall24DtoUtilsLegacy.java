@@ -23,7 +23,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
-import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
@@ -31,6 +30,7 @@ import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.graph.GraphUtils;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
 import lombok.NonNull;
@@ -49,7 +49,7 @@ import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
 
 @UtilityClass
-public class Recall24DtoUtils {
+public class Recall24DtoUtilsLegacy {
 
     // -- WRAP
 
@@ -161,11 +161,6 @@ public class Recall24DtoUtils {
         return gBuilder.build();
     }
 
-    public UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
-        return correction24!=null
-                ? transform(correction24.asTransformer())
-                : UnaryOperator.identity();
-    }
 
     // -- TRANSFORM
 
@@ -175,83 +170,122 @@ public class Recall24DtoUtils {
      */
     public UnaryOperator<InterviewSet24.Dto> transform(
             final @NonNull RecallNode24.Transfomer transformer) {
-        return (final InterviewSet24.Dto interviewSet) ->
-            transform(interviewSet, transformer).findFirst().orElse(null);
+
+        return (final InterviewSet24.Dto interviewSet) -> {
+
+            var graph = asGraph(interviewSet).map(node->node.asBuilder());
+            var helper = new BuilderCastHelper(graph);
+
+            // apply the transformer
+            graph.nodes().forEach(node->transformer.accept(node));
+
+            final int interviewSetIndex = 0; // root
+
+            var setBuilder = helper.interviewSet(interviewSetIndex);
+            graph.kernel().streamNeighbors(interviewSetIndex).forEach(respIndex->{
+                var respBuilder = helper.respondent(respIndex);
+                graph.kernel().streamNeighbors(respIndex).forEach(intvIndex->{
+                    var intvBuilder = helper.interview(intvIndex);
+                    graph.kernel().streamNeighbors(intvIndex).forEach(mealIndex->{
+                        var mealBuilder = helper.meal(mealIndex);
+                        graph.kernel().streamNeighbors(mealIndex).forEach(memIndex->{
+                            var memBuilder = helper.memorizedFood(memIndex);
+                            graph.kernel().streamNeighbors(memIndex).forEach(topLevelRecordIndex->{
+                                var recBuilder0 = helper.record(topLevelRecordIndex);
+                                graph.kernel().streamNeighbors(topLevelRecordIndex).forEach(rec1->{
+                                    var recBuilder1 = helper.record(rec1);
+                                    graph.kernel().streamNeighbors(rec1).forEach(rec2->{
+                                        var recBuilder2 = helper.record(rec2);
+                                        _Assert.assertEquals(0L, graph.kernel().streamNeighbors(rec2).count(), ()->
+                                                "record nesting overflow");
+                                        recBuilder1.subRecords().add(helper.build(recBuilder2));
+                                    });
+                                    recBuilder0.subRecords().add(helper.build(recBuilder1));
+                                });
+                                memBuilder.topLevelRecords().add(helper.build(recBuilder0));
+                            });
+                            mealBuilder.memorizedFood().add(helper.build(memBuilder));
+                        });
+                        intvBuilder.meals().add(helper.build(mealBuilder));
+                    });
+                    respBuilder.interviews().add(helper.build(intvBuilder));
+                });
+                setBuilder.respondents().add(helper.build(respBuilder));
+            });
+
+            var transformedInterviewSet = helper.build(setBuilder);
+            return transformedInterviewSet;
+
+        };
+    }
+
+    public UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
+        return correction24!=null
+                ? transform(correction24.asTransformer())
+                : UnaryOperator.identity();
     }
 
     // -- HELPER
 
-    private Stream<InterviewSet24.Dto> transform(
-            final InterviewSet24.Dto input,
-            final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
-        var transformedSubNodes = input.respondents().stream()
-            .flatMap(subNode->transform(subNode, transformer))
-            .collect(Can.toCan());
-        var prepared = new InterviewSet24.Dto(transformedSubNodes, input.annotations());
-        var transformed = transformer.transform(prepared);
+    record BuilderCastHelper(
+            GraphUtils.Graph<RecallNode24.Builder24<RecallNode24>> builderGraph) {
 
-        var ref = Recall24DtoUtilsLegacy.transform(transformer)
-            .apply(input);
+        public InterviewSet24.Builder interviewSet(final int nodeIndex) {
+            return _Casts.uncheckedCast(builderGraph.nodes().getElseFail(nodeIndex));
+        }
+        public Respondent24.Builder respondent(final int nodeIndex) {
+            return _Casts.uncheckedCast(builderGraph.nodes().getElseFail(nodeIndex));
+        }
+        public Interview24.Builder interview(final int nodeIndex) {
+            return _Casts.uncheckedCast(builderGraph.nodes().getElseFail(nodeIndex));
+        }
+        public Meal24.Builder meal(final int nodeIndex) {
+            return _Casts.uncheckedCast(builderGraph.nodes().getElseFail(nodeIndex));
+        }
+        public MemorizedFood24.Builder memorizedFood(final int nodeIndex) {
+            return _Casts.uncheckedCast(builderGraph.nodes().getElseFail(nodeIndex));
+        }
+        public Record24.Builder record(final int nodeIndex) {
+            return _Casts.uncheckedCast(builderGraph.nodes().getElseFail(nodeIndex));
+        }
 
+        public InterviewSet24.Dto build(final InterviewSet24.Builder builder) {
+            var node = builder.build();
+            return node;
+        }
+        public Respondent24.Dto build(final Respondent24.Builder builder) {
+            var node = builder.build();
+            node.interviews().forEach(child->child.parentRespondentRef().setValue(node));
+            return node;
+        }
+        public Interview24.Dto build(final Interview24.Builder builder) {
+            var node = builder.build();
+            node.meals().forEach(child->child.parentInterviewRef().setValue(node));
+            return node;
+        }
+        public Meal24.Dto build(final Meal24.Builder builder) {
+            var node = builder.build();
+            node.memorizedFood().forEach(child->child.parentMealRef().setValue(node));
+            return node;
+        }
+        public MemorizedFood24.Dto build(final MemorizedFood24.Builder builder) {
+            var node = builder.build();
+            node.topLevelRecords().forEach(child->child.parentMemorizedFoodRef().setValue(node));
+            return node;
+        }
+        public Record24.Dto build(final Record24.Builder builder) {
+            var node = builder.build();
+            switch (node) {
+                case Record24.Composite composite -> {
+                    composite.subRecords().stream()
+                    .map(Record24.Dto.class::cast)
+                    .forEach(child->child.parentMemorizedFoodRef().setValue(node.parentMemorizedFood()));
+                }
+                default -> {}
+            }
+            return node;
+        }
 
-        _Assert.assertEquals(asGraph(ref).toString(), asGraph(transformed).toString());
-
-        return Stream.of(transformed);
-    }
-    private Stream<Respondent24.Dto> transform(
-            final Respondent24.Dto input,
-            final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
-        var transformedSubNodes = input.interviews().stream()
-                .flatMap(subNode->transform(subNode, transformer))
-                .toList();
-        var builder = (Respondent24.Builder)input.asBuilder();
-        builder.interviews().clear();
-        builder.interviews().addAll(transformedSubNodes);
-        return Stream.of(transformer.transform(builder.build()));
-    }
-    private Stream<Interview24.Dto> transform(
-            final Interview24.Dto input,
-            final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
-        var transformedSubNodes = input.meals().stream()
-                .flatMap(subNode->transform(subNode, transformer))
-                .toList();
-        var builder = (Interview24.Builder)input.asBuilder();
-        builder.meals().clear();
-        builder.meals().addAll(transformedSubNodes);
-        return Stream.of(transformer.transform(builder.build()));
-    }
-    private Stream<Meal24.Dto> transform(
-            final Meal24.Dto input,
-            final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
-        var transformedSubNodes = input.memorizedFood().stream()
-                .flatMap(subNode->transform(subNode, transformer))
-                .toList();
-        var builder = (Meal24.Builder)input.asBuilder();
-        builder.memorizedFood().clear();
-        builder.memorizedFood().addAll(transformedSubNodes);
-        return Stream.of(transformer.transform(builder.build()));
-    }
-    private Stream<MemorizedFood24.Dto> transform(
-            final MemorizedFood24.Dto input,
-            final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
-        var transformedSubNodes = input.topLevelRecords().stream()
-                .flatMap(subNode->transform(subNode, transformer))
-                .toList();
-        var builder = (MemorizedFood24.Builder)input.asBuilder();
-        builder.topLevelRecords().clear();
-        builder.topLevelRecords().addAll(transformedSubNodes);
-        return Stream.of(transformer.transform(builder.build()));
-    }
-    private Stream<Record24.Dto> transform(
-            final Record24.Dto input,
-            final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
-        return Stream.of(input);
     }
 
 }

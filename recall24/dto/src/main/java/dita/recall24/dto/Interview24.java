@@ -150,8 +150,7 @@ permits Interview24.Dto {
         @SuppressWarnings("unchecked")
         @Override
         public Builder24<Dto> asBuilder() {
-            return new Builder().respondent(parentRespondent()).interviewDate(interviewDate)
-                    .respondentSupplementaryData(respondentSupplementaryData);
+            return Builder.of(this);
         }
 
     }
@@ -164,9 +163,19 @@ permits Interview24.Dto {
         LocalDate interviewDate;
         RespondentSupplementaryData24.Dto respondentSupplementaryData;
         final List<Meal24.Dto> meals = new ArrayList<>();
+
+        static Builder of(final Dto dto) {
+            var builder = new Builder().respondent(dto.parentRespondent()).interviewDate(dto.interviewDate)
+                    .respondentSupplementaryData(dto.respondentSupplementaryData());
+            dto.meals.forEach(builder.meals::add);
+            return builder;
+        }
+
         @Override
         public Dto build() {
-            return Dto.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
+            var dto = Dto.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
+            dto.meals().forEach(child->child.parentInterviewRef().setValue(dto));
+            return dto;
         }
     }
 
