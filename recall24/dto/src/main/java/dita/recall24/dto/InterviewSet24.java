@@ -19,6 +19,8 @@
 package dita.recall24.dto;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,14 +69,30 @@ public record InterviewSet24(
 
     // -- FACTORIES
 
-    public static InterviewSet24 of(
+    public static InterviewSet24 empty() {
+        return new InterviewSet24(Can.empty(), Collections.emptyMap());
+    }
+
+    public static InterviewSet24 normalized(
             /** Respondents that belong to this survey. */
             final Can<Respondent24> respondents) {
         return new InterviewSet24(respondents, new HashMap<>());
     }
 
-    public static InterviewSet24 empty() {
-        return of(Can.empty());
+    // -- CANONICAL CONSTRUCTOR
+    
+    /**
+     * Respondents are sorted by respondent-alias.
+     * Interviews are sorted by interview-date.
+     * All ordinals are filled in.
+     */
+    public InterviewSet24(
+            Can<Respondent24> respondents,
+            Map<String, Annotation> annotations) {
+        this.respondents = respondents
+                .sorted(Comparator.comparing(Respondent24::alias))
+                .map(Respondent24::normalize);
+        this.annotations = annotations;
     }
 
     public Optional<Respondent24> lookupRespondent(
@@ -89,17 +107,6 @@ public record InterviewSet24(
         return lookupRespondent(respondentAlias)
                 .map(Respondent24::interviews)
                 .orElseGet(Can::empty);
-    }
-
-    /**
-     * Respondents are sorted by respondent-alias.
-     * Interviews are sorted by interview-date.
-     */
-    public InterviewSet24 normalized() {
-        var respondentsSorted = respondents
-            .sorted((a, b)->a.alias().compareTo(b.alias()))
-            .map(respondent->respondent.normalize());
-        return new InterviewSet24(respondentsSorted, copy(annotations));
     }
 
     public int interviewCount() {
@@ -132,7 +139,7 @@ public record InterviewSet24(
     // -- FILTER
 
     public InterviewSet24 filter(final Predicate<Respondent24> respondentFilter) {
-        return InterviewSet24.of(this.respondents().filter(respondentFilter));
+        return InterviewSet24.normalized(this.respondents().filter(respondentFilter));
     }
 
     /**
@@ -143,7 +150,7 @@ public record InterviewSet24(
      */
     public Can<InterviewSet24> split(final int partitionCountYield) {
         val respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
-        return respondentBiPartition.map(InterviewSet24::of);
+        return respondentBiPartition.map(InterviewSet24::normalized);
     }
 
     /**
@@ -200,11 +207,11 @@ public record InterviewSet24(
         return this;
     }
 
-    private Map<String, Annotation> copy(final Map<String, Annotation> map) {
-        var copy = new HashMap<String, Annotation>();
-        copy.putAll(map);
-        return copy;
-    }
+//    private Map<String, Annotation> copy(final Map<String, Annotation> map) {
+//        var copy = new HashMap<String, Annotation>();
+//        copy.putAll(map);
+//        return copy;
+//    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -227,18 +234,18 @@ public record InterviewSet24(
         final List<Annotation> annotations = new ArrayList<>();
         final List<Respondent24> respondents = new ArrayList<>();
 
-        static Builder of(final InterviewSet24 dto) {
+        static Builder of(final InterviewSet24 ivSet) {
             var builder = new Builder();
-            dto.respondents().forEach(builder.respondents::add);
-            dto.annotations().values().forEach(builder.annotations::add);
+            ivSet.respondents().forEach(builder.respondents::add);
+            ivSet.annotations().values().forEach(builder.annotations::add);
             return builder;
         }
 
         @Override
         public InterviewSet24 build() {
-            var dto = InterviewSet24.of(Can.ofCollection(respondents));
-            _NullSafe.stream(annotations).forEach(dto::annotate);
-            return dto.normalized();
+            var ivSet = InterviewSet24.normalized(Can.ofCollection(respondents));
+            _NullSafe.stream(annotations).forEach(ivSet::annotate);
+            return ivSet;
         }
     }
 

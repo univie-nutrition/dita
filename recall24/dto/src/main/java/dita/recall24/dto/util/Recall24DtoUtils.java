@@ -113,7 +113,7 @@ public class Recall24DtoUtils {
             })
             .collect(Can.toCan());
 
-        return InterviewSet24.of(respondents).normalized();
+        return InterviewSet24.normalized(respondents);
     }
 
     public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {

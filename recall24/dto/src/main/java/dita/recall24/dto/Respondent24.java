@@ -20,6 +20,7 @@ package dita.recall24.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.causeway.commons.collections.Can;
@@ -56,7 +57,7 @@ public record Respondent24(
      */
     Respondent24 normalize() {
         var interviewsSorted = interviews()
-                .sorted((a, b)->a.interviewDate().compareTo(b.interviewDate()));
+                .sorted(Comparator.comparing(Interview24::interviewDate));
 
         interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
             inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
