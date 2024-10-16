@@ -24,44 +24,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
-public interface RespondentSupplementaryData24 {
-
-    /**
-     * Parent interview.
-     */
-    Interview24 parentInterview();
-
-    /**
-     * Diet as practiced on the interview date.
-     */
-    String specialDietId();
-
-    /**
-     * Special day as practiced on the interview date.
-     */
-    String specialDayId();
-
-    /**
-     * Respondent's height in units of centimeter,
-     * as measured on the interview date.
-     */
-    BigDecimal heightCM();
-
-    /**
-     * Respondent's weight in units of kilogram,
-     * as measured on the interview date.
-     */
-    BigDecimal weightKG();
-
-    // -- DTO
-
-    public record Dto(
+public record RespondentSupplementaryData24(
 
             /**
              * Parent interview.
              */
             @JsonIgnore
-            ObjectRef<Interview24.Dto> parentInterviewRef,
+            ObjectRef<Interview24> parentInterviewRef,
 
             /**
              * Diet as practiced on the interview date.
@@ -85,12 +54,10 @@ public interface RespondentSupplementaryData24 {
              */
             BigDecimal weightKG
 
-            ) implements dita.recall24.dto.RespondentSupplementaryData24 {
+            ) {
 
-        @Override
-        public Interview24.Dto parentInterview() {
-            return parentInterviewRef.getValue();
-        }
+    public Interview24 parentInterview() {
+        return parentInterviewRef.getValue();
     }
 
 }

@@ -57,7 +57,7 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
     }
 
-    protected InterviewSet24.Dto loadInterviewSet() {
+    protected InterviewSet24 loadInterviewSet() {
         var fdm = loadFoodDescriptionModel();
         return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore)
                 .transform(new AssociatedRecipeResolver(fdm))

@@ -81,13 +81,13 @@ class DataUtil {
 
     // -- LISTINGS
 
-    ListingHandler<Respondent24.Dto> listingHandlerForRespondents(
-            final Function<String, Respondent24.Dto> factory) {
-        return new ListingHandler<Respondent24.Dto>(
-            Respondent24.Dto.class,
-            Respondent24.Dto::alias,
+    ListingHandler<Respondent24> listingHandlerForRespondents(
+            final Function<String, Respondent24> factory) {
+        return new ListingHandler<Respondent24>(
+            Respondent24.class,
+            Respondent24::alias,
             factory,
-            Respondent24.Dto::alias);
+            Respondent24::alias);
     }
 
     ListingHandler<FoodComponent> listingHandlerForFoodComponents(

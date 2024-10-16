@@ -112,7 +112,7 @@ public class Campaigns {
 
     // -- INTERVIEW SET
 
-    private InterviewSet24.Dto interviewSet(
+    private InterviewSet24 interviewSet(
             final Campaign campaign,
             final BlobStore blobStore,
             final MessageConsumer messageConsumer) {
@@ -131,7 +131,7 @@ public class Campaigns {
         return interviewSet;
     }
 
-    public InterviewSet24.Dto interviewSet(
+    public InterviewSet24 interviewSet(
             final Campaign campaign,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
@@ -140,11 +140,11 @@ public class Campaigns {
         return interviewSet;
     }
 
-    public InterviewSet24.Dto interviewSet(
+    public InterviewSet24 interviewSet(
             final Can<Campaign> campaigns,
             final BlobStore blobStore) {
         if(campaigns.isEmpty()) {
-            return InterviewSet24.Dto.empty();
+            return InterviewSet24.empty();
         }
         var messageConsumer = new MessageConsumer();
         var interviewSet = campaigns.stream()
@@ -217,7 +217,7 @@ public class Campaigns {
             return messages.toString();
         }
 
-        InterviewSet24.Dto annotate(final InterviewSet24.Dto interviewSet) {
+        InterviewSet24 annotate(final InterviewSet24 interviewSet) {
             return messages.isEmpty()
                     ? interviewSet
                     : interviewSet.annotate(toAnnotation());

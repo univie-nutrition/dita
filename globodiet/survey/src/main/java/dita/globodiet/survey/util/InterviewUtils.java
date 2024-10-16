@@ -70,7 +70,7 @@ public class InterviewUtils {
             .map(InterviewUtils::unzip);
     }
 
-    public InterviewSet24.Dto interviewSetFromBlobStore(
+    public InterviewSet24 interviewSetFromBlobStore(
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final SystemId systemId,
@@ -85,7 +85,7 @@ public class InterviewUtils {
                 .map(ds->InterviewXmlParser.parse(ds, systemId, messageConsumer))
                 .map(Recall24DtoUtils.correct(correction))
                 .reduce((a, b)->a.join(b, messageConsumer))
-                .map(InterviewSet24.Dto::normalized)
+                .map(InterviewSet24::normalized)
                 .orElseGet(InterviewSet24::empty);
 
         return interviewSet;

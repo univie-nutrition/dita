@@ -37,7 +37,7 @@ import dita.recall24.dto.Record24;
 public class TodoReporters {
 
     public record TodoReporter(
-            InterviewSet24.Dto interviewSet,
+            InterviewSet24 interviewSet,
             SystemId systemId,
             QualifiedMap nutMapping) {
 

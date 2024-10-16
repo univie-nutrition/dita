@@ -18,6 +18,14 @@
  */
 package dita.recall24.dto;
 
+import static dita.recall24.dto.Record24.comment;
+import static dita.recall24.dto.Record24.composite;
+import static dita.recall24.dto.Record24.food;
+import static dita.recall24.dto.Record24.fryingFat;
+import static dita.recall24.dto.Record24.product;
+import static dita.recall24.dto.Record24.typeOfFatUsed;
+import static dita.recall24.dto.Record24.typeOfMilkOrLiquidUsed;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +44,6 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -50,12 +57,29 @@ import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public sealed interface Record24 extends RecallNode24
 permits
-    Record24.Dto {
+    Record24.Comment,
+    Record24.Composite,
+    Record24.TypeOfFatUsed,
+    Record24.TypeOfMilkOrLiquidUsed,
+    Record24.Consumption {
+
+    default void visitDepthFirst(final int level, final IndexedConsumer<Record24> onRecord) {
+        onRecord.accept(level, this);
+    }
+
+    default QualifiedMapKey asQualifiedMapKey() {
+        return new QualifiedMapKey(sid(), facetSids());
+    }
 
     /**
      * Memorized food this record belongs to.
      */
-    MemorizedFood24 parentMemorizedFood();
+    default MemorizedFood24 parentMemorizedFood() {
+        return parentMemorizedFoodRef().getValue();
+    }
+
+    ObjectRef<MemorizedFood24> parentMemorizedFoodRef();
+
 
     /**
      * The type of this record.
@@ -143,44 +167,13 @@ permits
 
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    Builder24<Dto> asBuilder();
-
-    // -- DTOs
-
-    public sealed interface Dto extends Record24
-    permits
-        Record24.Comment,
-        Record24.Composite,
-        Record24.TypeOfFatUsed,
-        Record24.TypeOfMilkOrLiquidUsed,
-        Record24.Consumption {
-
-        ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef();
-
-        @Override
-        default MemorizedFood24.Dto parentMemorizedFood() {
-            return parentMemorizedFoodRef().getValue();
-        }
-
-        default void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
-            onRecord.accept(level, this);
-        }
-
-        default QualifiedMapKey asQualifiedMapKey() {
-            return new QualifiedMapKey(sid(), facetSids());
-        }
-
-    }
-
     /**
      * A composition of identified generic food or recipes.
      */
     public record Composite(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             Type type,
             String name,
             SemanticIdentifier sid,
@@ -192,26 +185,58 @@ permits
             Can<? extends Record24> subRecords,
             Map<String, Annotation> annotations
 
-            ) implements Record24.Dto {
+            ) implements Record24 {
 
         @Override
-        public void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
+        public void visitDepthFirst(final int level, final IndexedConsumer<Record24> onRecord) {
             onRecord.accept(level, this);
             subRecords.forEach(rec->{
                 switch (rec) {
-                case Dto dto -> dto.visitDepthFirst(level+1, onRecord);
+                case Composite composite -> composite.visitDepthFirst(level+1, onRecord);
                 default -> {}
                 }
             });
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
+        public Builder24<Composite> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<Composite> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+
+            final List<Record24> subRecords = new ArrayList<>();
+            final List<Annotation> annotations = new ArrayList<>();
+
+            static Builder of(final Composite composite) {
+                var builder = new Builder().type(composite.type)
+                        .name(composite.name()).sid(composite.sid()).facetSids(composite.facetSids());
+
+                composite.subRecords().forEach(sr->builder.subRecords.add(sr));
+                composite.annotations().values().forEach(builder.annotations::add);
+                return builder;
+            }
+
+            @Override
+            public Composite build() {
+                var composite = composite(name, sid, facetSids, Can.ofCollection(subRecords), Can.ofCollection(annotations));
+                composite.subRecords().stream()
+                    .map(Record24.class::cast)
+                    .forEach(child->child.parentMemorizedFoodRef()
+                            .setValue(composite.parentMemorizedFood()));
+                return composite;
+            }
         }
     }
 
-    public sealed interface Consumption extends Record24.Dto
+    public sealed interface Consumption extends Record24
     permits Food, FryingFat, Product {
 
         /**
@@ -249,7 +274,7 @@ permits
     public record Food(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             Type type,
             String name,
             SemanticIdentifier sid,
@@ -263,15 +288,48 @@ permits
             ) implements Consumption {
 
         @Override
-        public void visitDepthFirst(final int level, final IndexedConsumer<Dto> onRecord) {
+        public void visitDepthFirst(final int level, final IndexedConsumer<Record24> onRecord) {
             onRecord.accept(level, this);
             typeOfFatUsedDuringCooking.ifPresent(x->onRecord.accept(level + 1, x));
             typeOfMilkOrLiquidUsedDuringCooking.ifPresent(x->onRecord.accept(level + 1, x));
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
+        public Builder24<Food> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<Food> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+            private BigDecimal amountConsumed;
+            private ConsumptionUnit consumptionUnit;
+            private BigDecimal rawPerCookedRatio;
+
+            final List<Record24> subRecords = new ArrayList<>();
+            final List<Annotation> annotations = new ArrayList<>();
+
+
+            static Builder of(final Food food) {
+                var builder = new Builder().type(food.type)
+                    .name(food.name()).sid(food.sid()).facetSids(food.facetSids())
+                    .amountConsumed(food.amountConsumed)
+                    .consumptionUnit(food.consumptionUnit)
+                    .rawPerCookedRatio(food.rawPerCookedRatio);
+                food.annotations().values().forEach(builder.annotations::add);
+                return builder;
+            }
+
+            @Override
+            public Food build() {
+                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords), Can.ofCollection(annotations));
+                return food;
+            }
         }
     }
 
@@ -281,7 +339,7 @@ permits
     public record TypeOfFatUsed(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             /** Food this record belongs to. */
             @JsonIgnore
             ObjectRef<Food> parentFoodRef,
@@ -289,15 +347,37 @@ permits
             String name,
             SemanticIdentifier sid,
             SemanticIdentifierSet facetSids
-            ) implements Record24.Dto {
+            ) implements Record24 {
 
         public Food parentFood() {
             return parentFoodRef.getValue();
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
+        public Builder24<TypeOfFatUsed> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<TypeOfFatUsed> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+
+            static Builder of(final TypeOfFatUsed typeOfFatUsed) {
+                var builder = new Builder().type(typeOfFatUsed.type)
+                        .name(typeOfFatUsed.name()).sid(typeOfFatUsed.sid()).facetSids(typeOfFatUsed.facetSids());
+                return builder;
+            }
+
+            @Override
+            public TypeOfFatUsed build() {
+                var typeOfFatUsed = typeOfFatUsed(name, sid, facetSids);
+                return typeOfFatUsed;
+            }
         }
     }
 
@@ -307,7 +387,7 @@ permits
     public record TypeOfMilkOrLiquidUsed(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             /** Food this record belongs to. */
             @JsonIgnore
             ObjectRef<Food> parentFoodRef,
@@ -315,14 +395,37 @@ permits
             String name,
             SemanticIdentifier sid,
             SemanticIdentifierSet facetSids
-            ) implements Record24.Dto {
-        @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
-        }
+            ) implements Record24 {
 
         public Food parentFood() {
             return parentFoodRef.getValue();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Builder24<TypeOfMilkOrLiquidUsed> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<TypeOfMilkOrLiquidUsed> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+
+            static Builder of(final TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed) {
+                var builder = new Builder().type(typeOfMilkOrLiquidUsed.type)
+                        .name(typeOfMilkOrLiquidUsed.name()).sid(typeOfMilkOrLiquidUsed.sid()).facetSids(typeOfMilkOrLiquidUsed.facetSids());
+                return builder;
+            }
+
+            @Override
+            public TypeOfMilkOrLiquidUsed build() {
+                var typeOfMilkOrLiquidUsed = typeOfMilkOrLiquidUsed(name, sid, facetSids);
+                return typeOfMilkOrLiquidUsed;
+            }
         }
     }
 
@@ -332,7 +435,7 @@ permits
     public record FryingFat(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             Type type,
             String name,
             SemanticIdentifier sid,
@@ -346,9 +449,37 @@ permits
             _Assert.assertEquals(Type.FRYING_FAT, type);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
+        public Builder24<FryingFat> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<FryingFat> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+            private BigDecimal amountConsumed;
+            private ConsumptionUnit consumptionUnit;
+            private BigDecimal rawPerCookedRatio;
+
+            static Builder of(final FryingFat fryingFat) {
+                var builder = new Builder().type(fryingFat.type)
+                        .name(fryingFat.name()).sid(fryingFat.sid()).facetSids(fryingFat.facetSids())
+                        .amountConsumed(fryingFat.amountConsumed)
+                        .consumptionUnit(fryingFat.consumptionUnit)
+                        .rawPerCookedRatio(fryingFat.rawPerCookedRatio);
+                return builder;
+            }
+
+            @Override
+            public FryingFat build() {
+                var fryingFat = fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+                return fryingFat;
+            }
         }
     }
 
@@ -358,7 +489,7 @@ permits
     public record Product(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             Type type,
             String name,
             SemanticIdentifier sid,
@@ -368,9 +499,37 @@ permits
             BigDecimal rawPerCookedRatio
             ) implements Consumption {
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
+        public Builder24<Product> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<Product> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+            private BigDecimal amountConsumed;
+            private ConsumptionUnit consumptionUnit;
+            private BigDecimal rawPerCookedRatio;
+
+            static Builder of(final Product product) {
+                var builder = new Builder().type(product.type)
+                        .name(product.name()).sid(product.sid()).facetSids(product.facetSids())
+                        .amountConsumed(product.amountConsumed)
+                        .consumptionUnit(product.consumptionUnit)
+                        .rawPerCookedRatio(product.rawPerCookedRatio);
+                return builder;
+            }
+
+            @Override
+            public Product build() {
+                var product = product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+                return product;
+            }
         }
     }
 
@@ -380,17 +539,42 @@ permits
     public record Comment(
             /** Memorized food this record belongs to. */
             @JsonIgnore
-            ObjectRef<MemorizedFood24.Dto> parentMemorizedFoodRef,
+            ObjectRef<MemorizedFood24> parentMemorizedFoodRef,
             Type type,
             String name,
             SemanticIdentifier sid,
             SemanticIdentifierSet facetSids,
             Map<String, Annotation> annotations
-            ) implements Record24.Dto {
+            ) implements Record24 {
 
+        @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Dto> asBuilder() {
-            return Record24.Builder.of(this);
+        public Builder24<Comment> asBuilder() {
+            return Builder.of(this);
+        }
+
+        @Getter @Setter @Accessors(fluent=true)
+        public static class Builder implements Builder24<Comment> {
+            private @NonNull Record24.Type type;
+
+            private String name;
+            private SemanticIdentifier sid;
+            private SemanticIdentifierSet facetSids;
+
+            final List<Annotation> annotations = new ArrayList<>();
+
+            static Builder of(final Comment comment) {
+                var builder = new Builder().type(comment.type)
+                        .name(comment.name()).sid(comment.sid()).facetSids(comment.facetSids());
+                comment.annotations().values().forEach(builder.annotations::add);
+                return builder;
+            }
+
+            @Override
+            public Comment build() {
+                var comment = comment(name, sid, facetSids, Can.ofCollection(annotations));
+                return comment;
+            }
         }
     }
 
@@ -493,7 +677,7 @@ permits
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio,
-            final Can<Record24.Dto> usedDuringCooking,
+            final Can<Record24> usedDuringCooking,
             final Can<Annotation> annotations) {
 
         var typeOfFatUsed = usedDuringCooking.stream()
@@ -537,86 +721,6 @@ permits
         return new Record24.TypeOfMilkOrLiquidUsed(ObjectRef.empty(), ObjectRef.empty(),
                 Record24.Type.TYPE_OF_MILK_OR_LIQUID_USED,
                 name, sid, facetSids);
-    }
-
-    // -- BUILDER
-
-    @RequiredArgsConstructor
-    @Getter @Setter @Accessors(fluent=true)
-    public static class Builder implements Builder24<Dto> {
-        private @NonNull Record24.Type type;
-
-        private String name;
-        private SemanticIdentifier sid;
-        private SemanticIdentifierSet facetSids;
-        private BigDecimal amountConsumed;
-        private ConsumptionUnit consumptionUnit;
-        private BigDecimal rawPerCookedRatio;
-
-        final List<Record24.Dto> subRecords = new ArrayList<>();
-        final List<Annotation> annotations = new ArrayList<>();
-
-        @SuppressWarnings("unused")
-        static Builder of(final Dto dto) {
-            var builder = new Builder(dto.type())
-                    .name(dto.name()).sid(dto.sid()).facetSids(dto.facetSids());
-
-            switch (dto) {
-                case Comment comment -> {}
-                case Composite composite -> {
-                    composite.subRecords().forEach(sr->builder.subRecords.add((Dto) sr));
-                }
-                case Food food -> {
-                    builder
-                        .amountConsumed(food.amountConsumed)
-                        .consumptionUnit(food.consumptionUnit)
-                        .rawPerCookedRatio(food.rawPerCookedRatio);
-                }
-                case FryingFat fryingFat -> {
-                    builder
-                        .amountConsumed(fryingFat.amountConsumed)
-                        .consumptionUnit(fryingFat.consumptionUnit)
-                        .rawPerCookedRatio(fryingFat.rawPerCookedRatio);
-                }
-                case Product product -> {
-                    builder
-                        .amountConsumed(product.amountConsumed)
-                        .consumptionUnit(product.consumptionUnit)
-                        .rawPerCookedRatio(product.rawPerCookedRatio);
-                }
-                case TypeOfFatUsed typeOfFatUsed -> {}
-                case TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed -> {}
-            }
-
-            dto.annotations().values().forEach(builder.annotations::add);
-            return builder;
-        }
-
-        @Override
-        public Dto build() {
-            var dto = switch (type) {
-            case COMMENT -> comment(name, sid, facetSids, Can.ofCollection(annotations));
-            case COMPOSITE -> composite(name, sid, facetSids, Can.ofCollection(subRecords), Can.ofCollection(annotations));
-            case FOOD -> food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords), Can.ofCollection(annotations));
-            case FRYING_FAT -> fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
-            case PRODUCT -> product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
-            case TYPE_OF_FAT_USED -> typeOfFatUsed(name, sid, facetSids);
-            case TYPE_OF_MILK_OR_LIQUID_USED -> typeOfMilkOrLiquidUsed(name, sid, facetSids);
-            };
-
-            switch (dto) {
-                case Record24.Composite composite -> {
-                    composite.subRecords().stream()
-                    .map(Record24.Dto.class::cast)
-                        .forEach(child->child.parentMemorizedFoodRef()
-                                .setValue(dto.parentMemorizedFood()));
-                }
-                default -> {}
-            }
-
-            return dto;
-        }
-
     }
 
 }

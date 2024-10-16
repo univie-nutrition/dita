@@ -163,12 +163,12 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     @ObjectSupport public String title() {
         var node = activeNode();
         return switch (node) {
-        case InterviewSet24.Dto interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
-        case Respondent24.Dto respondent -> SurveyTreeNodeContentFactory.title(respondent);
-        case Interview24.Dto interview -> SurveyTreeNodeContentFactory.title(interview);
-        case Meal24.Dto meal -> SurveyTreeNodeContentFactory.title(meal);
-        case MemorizedFood24.Dto mem -> SurveyTreeNodeContentFactory.title(mem);
-        case Record24.Dto rec -> SurveyTreeNodeContentFactory.title(rec);
+        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
+        case Respondent24 respondent -> SurveyTreeNodeContentFactory.title(respondent);
+        case Interview24 interview -> SurveyTreeNodeContentFactory.title(interview);
+        case Meal24 meal -> SurveyTreeNodeContentFactory.title(meal);
+        case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.title(mem);
+        case Record24 rec -> SurveyTreeNodeContentFactory.title(rec);
         };
     }
 
@@ -177,12 +177,12 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
         var node = activeNode();
         return FontAwesomeLayers.fromQuickNotation(
             switch (node) {
-            case InterviewSet24.Dto interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
-            case Respondent24.Dto respondent -> SurveyTreeNodeContentFactory.icon(respondent);
-            case Interview24.Dto interview -> SurveyTreeNodeContentFactory.icon(interview);
-            case Meal24.Dto meal -> SurveyTreeNodeContentFactory.icon(meal);
-            case MemorizedFood24.Dto mem -> "regular lightbulb";
-            case Record24.Dto rec -> "regular file-lines";
+            case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
+            case Respondent24 respondent -> SurveyTreeNodeContentFactory.icon(respondent);
+            case Interview24 interview -> SurveyTreeNodeContentFactory.icon(interview);
+            case Meal24 meal -> SurveyTreeNodeContentFactory.icon(meal);
+            case MemorizedFood24 mem -> "regular lightbulb";
+            case Record24 rec -> "regular file-lines";
 //            case Ingredient24.Dto ingr -> "solid plate-wheat";
             });
     }
@@ -192,12 +192,12 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     public AsciiDoc getContent() {
         var node = activeNode();
         return switch (node) {
-        case InterviewSet24.Dto interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
-        case Respondent24.Dto respondent -> SurveyTreeNodeContentFactory.content(respondent);
-        case Interview24.Dto interview -> SurveyTreeNodeContentFactory.content(interview);
-        case Meal24.Dto meal -> SurveyTreeNodeContentFactory.content(meal);
-        case MemorizedFood24.Dto mem -> SurveyTreeNodeContentFactory.content(mem);
-        case Record24.Dto rec -> SurveyTreeNodeContentFactory.content(rec);
+        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
+        case Respondent24 respondent -> SurveyTreeNodeContentFactory.content(respondent);
+        case Interview24 interview -> SurveyTreeNodeContentFactory.content(interview);
+        case Meal24 meal -> SurveyTreeNodeContentFactory.content(meal);
+        case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.content(mem);
+        case Record24 rec -> SurveyTreeNodeContentFactory.content(rec);
         };
     }
 
@@ -205,7 +205,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
 
     @Override
     protected SurveyVM getViewModel(final RecallNode24 node, final SurveyVM parentNode, final int siblingIndex) {
-        return node instanceof InterviewSet24.Dto
+        return node instanceof InterviewSet24
                 ? SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode())
                 : SurveyVM.forTreePath(viewModelMemento.campaignSecondaryKey(), rootNode(),
                         parentNode.activeTreePath().append(siblingIndex));
@@ -214,22 +214,22 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     public static class SurveyTreeAdapter implements TreeAdapter<RecallNode24> {
         @Override public int childCountOf(final RecallNode24 node) {
             return switch (node) {
-            case InterviewSet24.Dto interviewSet -> interviewSet.respondents().size();
-            case Respondent24.Dto respondent -> respondent.interviews().size();
-            case Interview24.Dto interview -> interview.meals().size();
-            case Meal24.Dto meal -> meal.memorizedFood().size();
-            case MemorizedFood24.Dto mem -> mem.topLevelRecords().size();
+            case InterviewSet24 interviewSet -> interviewSet.respondents().size();
+            case Respondent24 respondent -> respondent.interviews().size();
+            case Interview24 interview -> interview.meals().size();
+            case Meal24 meal -> meal.memorizedFood().size();
+            case MemorizedFood24 mem -> mem.topLevelRecords().size();
             case Record24.Composite comp -> comp.subRecords().size();
             default -> 0;
             };
         }
         @Override public Stream<RecallNode24> childrenOf(final RecallNode24 node) {
             return switch (node) {
-            case InterviewSet24.Dto interviewSet -> interviewSet.respondents().stream().map(RecallNode24.class::cast);
-            case Respondent24.Dto respondent -> respondent.interviews().stream().map(RecallNode24.class::cast);
-            case Interview24.Dto interview -> interview.meals().stream().map(RecallNode24.class::cast);
-            case Meal24.Dto meal -> meal.memorizedFood().stream().map(RecallNode24.class::cast);
-            case MemorizedFood24.Dto mem -> mem.topLevelRecords().stream().map(RecallNode24.class::cast);
+            case InterviewSet24 interviewSet -> interviewSet.respondents().stream().map(RecallNode24.class::cast);
+            case Respondent24 respondent -> respondent.interviews().stream().map(RecallNode24.class::cast);
+            case Interview24 interview -> interview.meals().stream().map(RecallNode24.class::cast);
+            case Meal24 meal -> meal.memorizedFood().stream().map(RecallNode24.class::cast);
+            case MemorizedFood24 mem -> mem.topLevelRecords().stream().map(RecallNode24.class::cast);
             case Record24.Composite comp -> comp.subRecords().stream().map(RecallNode24.class::cast);
             default -> Stream.empty();
             };

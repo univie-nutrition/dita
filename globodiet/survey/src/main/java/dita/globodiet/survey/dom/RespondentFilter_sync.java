@@ -64,7 +64,7 @@ public class RespondentFilter_sync {
             .coll();
 
         var listingHandler = DataUtil.listingHandlerForRespondents(
-                alias->new Respondent24.Dto(alias, null, null, null));
+                alias->new Respondent24(alias, null, null, null));
 
         var allRespondents = listingHandler.createListing(
                 Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore)

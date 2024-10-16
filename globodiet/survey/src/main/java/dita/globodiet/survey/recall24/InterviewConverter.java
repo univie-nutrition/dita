@@ -56,7 +56,7 @@ record InterviewConverter(SystemId systemId) {
     /**
      * parented by an Respondent24 stub, that has no children (needs post-processing)
      */
-    Interview24.Dto toInterview24(final _Dtos.Interview iv) {
+    Interview24 toInterview24(final _Dtos.Interview iv) {
         final var tree = iv.asTree();
         var meals = tree.childNodes().stream()
             .map(fcoNode->{
@@ -81,10 +81,10 @@ record InterviewConverter(SystemId systemId) {
             })
             .collect(Can.toCan());
 
-        return Interview24.Dto.of(
+        return Interview24.of(
                 respondentStub(iv),
                 iv.getInterviewDate().toLocalDate(),
-                new RespondentSupplementaryData24.Dto(
+                new RespondentSupplementaryData24(
                         ObjectRef.empty(),
                         iv.getSpecialDietCode(),
                         iv.getSpecialDayCode(),
@@ -95,14 +95,14 @@ record InterviewConverter(SystemId systemId) {
 
     // -- MEM
 
-    private MemorizedFood24.Dto toMemorizedFood24(final ListEntry listEntry, final Can<Record24.Dto> topLevelRecords) {
+    private MemorizedFood24 toMemorizedFood24(final ListEntry listEntry, final Can<Record24> topLevelRecords) {
         _Assert.assertTrue(_Strings.isNullOrEmpty(listEntry.getName()));
-        return MemorizedFood24.Dto.of(listEntry.getLabel(), topLevelRecords);
+        return MemorizedFood24.of(listEntry.getLabel(), topLevelRecords);
     }
 
     // -- RECORDS
 
-    private Record24.Dto toTopLevelRecord24(final ListEntryTreeNode topLevelRecordNode) {
+    private Record24 toTopLevelRecord24(final ListEntryTreeNode topLevelRecordNode) {
         final List<ListEntryTreeNode> subEntries = topLevelRecordNode.childNodes().stream()
                 .filter(x->!ListEntryType.FatSauceOrSweeteners.equals(x.type()))
                 .toList();
@@ -126,11 +126,11 @@ record InterviewConverter(SystemId systemId) {
         };
     }
 
-    private Can<Record24.Dto> toRecords24(final List<ListEntryTreeNode> nodes) {
+    private Can<Record24> toRecords24(final List<ListEntryTreeNode> nodes) {
         return _NullSafe.stream(nodes).map(this::toRecord24).collect(Can.toCan());
     }
 
-    private Record24.Dto toRecord24(final ListEntryTreeNode node) {
+    private Record24 toRecord24(final ListEntryTreeNode node) {
         final List<ListEntryTreeNode> subEntries = node.childNodes().stream()
                 .filter(x->!ListEntryType.FatSauceOrSweeteners.equals(x.type()))
                 .toList();
@@ -142,8 +142,8 @@ record InterviewConverter(SystemId systemId) {
             // sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
             var usedDuringCooking = subRecordCount>0
                  ? toRecords24(subEntries)
-                 : Can.<Record24.Dto>empty();
-            usedDuringCooking.forEach((final Record24.Dto dto)->{
+                 : Can.<Record24>empty();
+            usedDuringCooking.forEach((final Record24 dto)->{
                 switch (dto.type()) {
                     case TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> { /* valid */}
                     default -> throw new IllegalArgumentException("Unexpected value: " + dto);
@@ -189,16 +189,16 @@ record InterviewConverter(SystemId systemId) {
 
     // -- MEALS
 
-    private Meal24.Dto toMeal24(final ListEntry listEntry, final Can<MemorizedFood24.Dto> memorizedFood) {
+    private Meal24 toMeal24(final ListEntry listEntry, final Can<MemorizedFood24> memorizedFood) {
         LocalTime hourOfDay = parseLocalTimeFrom4Digits(listEntry.getFoodConsumptionHourOfDay().trim());
-        return Meal24.Dto.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
+        return Meal24.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
     }
 
     /**
      * has no children
      */
-    private Respondent24.Dto respondentStub(final _Dtos.Interview iv) {
-        final Respondent24.Dto respondent = new Respondent24.Dto(
+    private Respondent24 respondentStub(final _Dtos.Interview iv) {
+        final Respondent24 respondent = new Respondent24(
                 iv.getSubjectCode(),
                 //subjectName + "|" + subjectFirstName,
                 iv.getSubjectBirthDate().toLocalDate(),

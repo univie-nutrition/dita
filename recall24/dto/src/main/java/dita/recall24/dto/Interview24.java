@@ -38,56 +38,13 @@ import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 /**
  * Represents a (single) 24h recall interview event.
  */
-public sealed interface Interview24 extends RecallNode24
-permits Interview24.Dto {
-
-    /**
-     * Interview date.
-     */
-    LocalDate interviewDate();
-
-    /**
-     *  Each respondent can have one ore more interviews within the context of a specific survey.
-     *  This ordinal denotes the n-th interview (when ordered by interview date).
-     */
-    int interviewOrdinal();
-
-    // -- PARENT / CHILD
-
-    /**
-     * Parent respondent of this interview.
-     */
-    Respondent24 parentRespondent();
-
-    /**
-     * Respondent supplementary data for this interview.
-     */
-    RespondentSupplementaryData24 respondentSupplementaryData();
-
-    /**
-     * The meals of this interview.
-     */
-    Can<? extends Meal24> meals();
-
-    // -- SHORTCUTS
-
-    /**
-     * Gets the respondent's alias.
-     * @see Respondent24#alias()
-     */
-    default String respondentAlias() {
-        return parentRespondent().alias();
-    }
-
-    // -- DTO
-
-    public record Dto(
+public record Interview24 (
 
             /**
              * Respondent of this interview.
              */
             @JsonIgnore
-            ObjectRef<Respondent24.Dto> parentRespondentRef,
+            ObjectRef<Respondent24> parentRespondentRef,
 
             /**
              * Interview date.
@@ -103,68 +60,74 @@ permits Interview24.Dto {
             /**
              * Respondent meta-data for this interview.
              */
-            RespondentSupplementaryData24.Dto respondentSupplementaryData,
+            RespondentSupplementaryData24 respondentSupplementaryData,
 
             /**
              * The meals of this interview.
              */
             @TreeSubNodes
-            Can<Meal24.Dto> meals
+            Can<Meal24> meals
 
-            ) implements Interview24 {
+            ) implements RecallNode24 {
 
-        public static Dto of(
-                final Respondent24.Dto respondent,
-                /**
-                 * Interview date.
-                 */
-                final LocalDate interviewDate,
-                /**
-                 * Respondent meta-data for this interview.
-                 */
-                final RespondentSupplementaryData24.Dto respondentSupplementaryData,
-                /**
-                 * The meals of this interview.
-                 */
-                final Can<Meal24.Dto> meals) {
-            var interview = new Dto(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentSupplementaryData, meals);
-            respondentSupplementaryData.parentInterviewRef().setValue(interview);
-            meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
-            return interview;
-        }
+    public static Interview24 of(
+            final Respondent24 respondent,
+            /**
+             * Interview date.
+             */
+            final LocalDate interviewDate,
+            /**
+             * Respondent meta-data for this interview.
+             */
+            final RespondentSupplementaryData24 respondentSupplementaryData,
+            /**
+             * The meals of this interview.
+             */
+            final Can<Meal24> meals) {
+        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentSupplementaryData, meals);
+        respondentSupplementaryData.parentInterviewRef().setValue(interview);
+        meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
+        return interview;
+    }
 
-        @Override
-        public Respondent24.Dto parentRespondent() {
-            return parentRespondentRef.getValue();
-        }
+    // -- SHORTCUTS
 
-        @Override
-        public int interviewOrdinal() {
-            return interviewOrdinalRef().getValue();
-        }
+    /**
+     * Gets the respondent's alias.
+     * @see Respondent24#alias()
+     */
+    public String respondentAlias() {
+        return parentRespondent().alias();
+    }
 
-        public boolean matchesRespondent(final Respondent24.Dto candidate) {
-            return Objects.equals(parentRespondent(), candidate);
-        }
+    public Respondent24 parentRespondent() {
+        return parentRespondentRef.getValue();
+    }
 
-        @SuppressWarnings("unchecked")
-        @Override
-        public Builder24<Dto> asBuilder() {
-            return Builder.of(this);
-        }
+    public int interviewOrdinal() {
+        return interviewOrdinalRef().getValue();
+    }
 
+    public boolean matchesRespondent(final Respondent24 candidate) {
+        return Objects.equals(parentRespondent(), candidate);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Builder24<Interview24> asBuilder() {
+        return Builder.of(this);
     }
 
     // -- BUILDER
 
     @Getter @Setter @Accessors(fluent=true)
-    public static class Builder implements Builder24<Dto> {
-        Respondent24.Dto respondent;
+    public static class Builder implements Builder24<Interview24> {
+        Respondent24 respondent;
         LocalDate interviewDate;
-        RespondentSupplementaryData24.Dto respondentSupplementaryData;
-        final List<Meal24.Dto> meals = new ArrayList<>();
+        RespondentSupplementaryData24 respondentSupplementaryData;
+        final List<Meal24> meals = new ArrayList<>();
 
-        static Builder of(final Dto dto) {
+        static Builder of(final Interview24 dto) {
             var builder = new Builder().respondent(dto.parentRespondent()).interviewDate(dto.interviewDate)
                     .respondentSupplementaryData(dto.respondentSupplementaryData());
             dto.meals.forEach(builder.meals::add);
@@ -172,8 +135,8 @@ permits Interview24.Dto {
         }
 
         @Override
-        public Dto build() {
-            var dto = Dto.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
+        public Interview24 build() {
+            var dto = Interview24.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
             dto.meals().forEach(child->child.parentInterviewRef().setValue(dto));
             return dto;
         }

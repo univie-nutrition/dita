@@ -47,7 +47,7 @@ public class InterviewXmlParser {
      * wrapped by a {@link Try}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public Try<InterviewSet24.Dto> tryParse(
+    public Try<InterviewSet24> tryParse(
             final @NonNull DataSource source,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
@@ -58,7 +58,7 @@ public class InterviewXmlParser {
      * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet24}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24.Dto parse(
+    public InterviewSet24 parse(
             final @NonNull DataSource source,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
@@ -75,7 +75,7 @@ public class InterviewXmlParser {
      * Parses GloboDiet XML Interview file from given {@link Clob} into a {@link InterviewSet24}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24.Dto parse(
+    public InterviewSet24 parse(
             final Clob interviewSource,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
@@ -90,7 +90,7 @@ public class InterviewXmlParser {
 
     // -- HELPER
 
-    private InterviewSet24.Dto createFromDto(
+    private InterviewSet24 createFromDto(
             final @NonNull _Dtos.Itv dto,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {

@@ -99,7 +99,7 @@ public class TabularReporters {
     }
 
     public record TabularReport(
-            InterviewSet24.Dto interviewSet,
+            InterviewSet24 interviewSet,
             SystemId systemId,
             QualifiedMap nutMapping,
             QualifiedMap fcoMapping,
@@ -192,7 +192,7 @@ public class TabularReporters {
             interviewSet.streamDepthFirst()
             .forEach((final RecallNode24 node)->{
                 switch(node) {
-                    case Interview24.Dto iv -> {
+                    case Interview24 iv -> {
                         rowFactory.respondentAlias(iv.parentRespondent().alias());
                         rowFactory.respondentSex(iv.parentRespondent().sex());
                         rowBuilder.interviewOrdinal(iv.interviewOrdinal());
@@ -204,7 +204,7 @@ public class TabularReporters {
                                             iv.interviewDate()));
                         }
                     }
-                    case Meal24.Dto meal -> {
+                    case Meal24 meal -> {
                         rowFactory.ordinalTracker.nextMeal();
                         var fcoCode = new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId()));
                         var pocCode = new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId()));

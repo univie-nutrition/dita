@@ -90,10 +90,10 @@ public class Survey_generateReport {
 
         // filter interviews
         var enabledAliases = DataUtil.listingHandlerForRespondents(
-                alias->new Respondent24.Dto(alias, null, null, null))
+                alias->new Respondent24(alias, null, null, null))
                 .parseListing(respondentFilter.getAliasListing())
                 .streamEnabled()
-                .map(Respondent24.Dto::alias)
+                .map(Respondent24::alias)
                 .collect(Collectors.toSet());
 
         interviewSet.filter(resp->enabledAliases.contains(resp.alias()));

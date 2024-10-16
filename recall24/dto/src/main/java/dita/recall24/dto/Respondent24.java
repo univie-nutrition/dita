@@ -32,25 +32,7 @@ import lombok.experimental.Accessors;
 import dita.commons.types.Sex;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public sealed interface Respondent24 extends RecallNode24 {
-
-    /**
-     * Anonymized respondent identifier, unique to the corresponding survey.
-     */
-    String alias();
-
-    LocalDate dateOfBirth();
-
-    Sex sex();
-
-    /**
-     * Interviews that this respondent was subject to.
-     */
-    Can<? extends Interview24> interviews();
-
-    // -- DTO
-
-    public record Dto(
+public record Respondent24(
             /**
              * Anonymized respondent identifier, unique to the corresponding survey.
              */
@@ -64,50 +46,48 @@ public sealed interface Respondent24 extends RecallNode24 {
              * Interviews that this respondent was subject to.
              */
             @TreeSubNodes
-            Can<Interview24.Dto> interviews
+            Can<Interview24> interviews
 
-            ) implements Respondent24 {
+            ) implements RecallNode24 {
 
-        /**
-         * Interviews are sorted by interview-date.
-         * All ordinals are filled in. //TODO
-         */
-        Dto normalize() {
-            var interviewsSorted = interviews()
-                    .sorted((a, b)->a.interviewDate().compareTo(b.interviewDate()));
+    /**
+     * Interviews are sorted by interview-date.
+     * All ordinals are filled in. //TODO
+     */
+    Respondent24 normalize() {
+        var interviewsSorted = interviews()
+                .sorted((a, b)->a.interviewDate().compareTo(b.interviewDate()));
 
-            interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
-                inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
+        interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
+            inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
 
-            return new Dto(alias, dateOfBirth, sex, interviewsSorted);
-        }
+        return new Respondent24(alias, dateOfBirth, sex, interviewsSorted);
+    }
 
-        @SuppressWarnings("unchecked")
-        @Override
-        public Builder24<Dto> asBuilder() {
-            return Builder.of(this);
-        }
-
+    @SuppressWarnings("unchecked")
+    @Override
+    public Builder24<Respondent24> asBuilder() {
+        return Builder.of(this);
     }
 
     // -- BUILDER
 
     @Getter @Setter @Accessors(fluent=true)
-    public static class Builder implements Builder24<Dto> {
+    public static class Builder implements Builder24<Respondent24> {
         private String alias;
         private LocalDate dateOfBirth;
         private Sex sex;
-        private final List<Interview24.Dto> interviews = new ArrayList<>();
+        private final List<Interview24> interviews = new ArrayList<>();
 
-        static Builder of(final Dto dto) {
+        static Builder of(final Respondent24 dto) {
             var builder = new Builder().alias(dto.alias).dateOfBirth(dto.dateOfBirth).sex(dto.sex);
             dto.interviews.forEach(builder.interviews::add);
             return builder;
         }
 
         @Override
-        public Dto build() {
-            var dto = new Dto(alias, dateOfBirth, sex, Can.ofCollection(interviews));
+        public Respondent24 build() {
+            var dto = new Respondent24(alias, dateOfBirth, sex, Can.ofCollection(interviews));
             dto.interviews().forEach(child->child.parentRespondentRef().setValue(dto));
             return dto;
         }

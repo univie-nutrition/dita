@@ -36,42 +36,13 @@ import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 /**
  * Meal of the day.
  */
-public sealed interface Meal24 extends RecallNode24 {
-
-    /**
-     * Parent interview.
-     */
-    Interview24 parentInterview();
-
-    /**
-     * Hour of day, when this meal took place.
-     */
-    LocalTime hourOfDay();
-
-    /**
-     * Identifying the occasion, when this meal took place.
-     */
-    String foodConsumptionOccasionId();
-
-    /**
-     * Identifying the place, where this meal took place.
-     */
-    String foodConsumptionPlaceId();
-
-    /**
-     * Memorized food for this meal.
-     */
-    Can<? extends MemorizedFood24> memorizedFood();
-
-    // -- DTO
-
-    public record Dto(
+public record Meal24(
 
             /**
              * Parent interview.
              */
             @JsonIgnore
-            ObjectRef<Interview24.Dto> parentInterviewRef,
+            ObjectRef<Interview24> parentInterviewRef,
 
             /**
              * Hour of day, when this meal took place.
@@ -92,56 +63,54 @@ public sealed interface Meal24 extends RecallNode24 {
              * Memorized food for this meal.
              */
             @TreeSubNodes
-            Can<MemorizedFood24.Dto> memorizedFood
+            Can<MemorizedFood24> memorizedFood
 
-            ) implements Meal24 {
+            ) implements RecallNode24 {
 
-        public static Dto of(
-                /**
-                 * Hour of day, when this meal took place.
-                 */
-                final LocalTime hourOfDay,
-                /**
-                 * Identifying the occasion, when this meal took place.
-                 */
-                final String foodConsumptionOccasionId,
-                /**
-                 * Identifying the place, where this meal took place.
-                 */
-                final String foodConsumptionPlaceId,
-                /**
-                 * Memorized food for this meal.
-                 */
-                final Can<MemorizedFood24.Dto> memorizedFood
-                ) {
-            var meal24 = new Dto(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId,
-                    foodConsumptionPlaceId, memorizedFood);
-            memorizedFood.forEach(mem->mem.parentMealRef().setValue(meal24));
-            return meal24;
-        }
+    public static Meal24 of(
+            /**
+             * Hour of day, when this meal took place.
+             */
+            final LocalTime hourOfDay,
+            /**
+             * Identifying the occasion, when this meal took place.
+             */
+            final String foodConsumptionOccasionId,
+            /**
+             * Identifying the place, where this meal took place.
+             */
+            final String foodConsumptionPlaceId,
+            /**
+             * Memorized food for this meal.
+             */
+            final Can<MemorizedFood24> memorizedFood
+            ) {
+        var meal24 = new Meal24(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId,
+                foodConsumptionPlaceId, memorizedFood);
+        memorizedFood.forEach(mem->mem.parentMealRef().setValue(meal24));
+        return meal24;
+    }
 
-        @Override
-        public Interview24.Dto parentInterview() {
-            return parentInterviewRef.getValue();
-        }
+    public Interview24 parentInterview() {
+        return parentInterviewRef.getValue();
+    }
 
-        @SuppressWarnings("unchecked")
-        @Override
-        public Builder24<Dto> asBuilder() {
-            return Builder.of(this);
-        }
+    @SuppressWarnings("unchecked")
+    @Override
+    public Builder24<Meal24> asBuilder() {
+        return Builder.of(this);
     }
 
     // -- BUILDER
 
     @Getter @Setter @Accessors(fluent=true)
-    public static class Builder implements Builder24<Dto> {
+    public static class Builder implements Builder24<Meal24> {
         LocalTime hourOfDay;
         String foodConsumptionOccasionId;
         String foodConsumptionPlaceId;
-        final List<MemorizedFood24.Dto> memorizedFood = new ArrayList<>();
+        final List<MemorizedFood24> memorizedFood = new ArrayList<>();
 
-        static Builder of(final Dto dto) {
+        static Builder of(final Meal24 dto) {
             var builder =  new Builder().hourOfDay(dto.hourOfDay)
                     .foodConsumptionOccasionId(dto.foodConsumptionOccasionId)
                     .foodConsumptionPlaceId(dto.foodConsumptionPlaceId);
@@ -150,8 +119,8 @@ public sealed interface Meal24 extends RecallNode24 {
         }
 
         @Override
-        public Dto build() {
-            var dto = Dto.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
+        public Meal24 build() {
+            var dto = Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
             dto.memorizedFood().forEach(child->child.parentMealRef().setValue(dto));
             return dto;
         }

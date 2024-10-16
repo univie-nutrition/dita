@@ -38,12 +38,12 @@ public interface Survey24 {
     /**
      * Respondents that belong to this survey.
      */
-    Can<Respondent24.Dto> respondents();
+    Can<Respondent24> respondents();
 
     /**
      * Interviews that belong to this survey.
      */
-    Can<Interview24.Dto> interviews();
+    Can<Interview24> interviews();
 
     // -- DTO
 
@@ -62,7 +62,7 @@ public interface Survey24 {
              */
             String name,
 
-            InterviewSet24.Dto interviewSet
+            InterviewSet24 interviewSet
 
             ) implements Survey24 {
 
@@ -74,17 +74,17 @@ public interface Survey24 {
         public static Dto of(
                 final String surveyKey,
                 final String surveyName,
-                final InterviewSet24.Dto interviewSet) {
+                final InterviewSet24 interviewSet) {
             return new Dto(surveyKey, surveyName, interviewSet);
         }
 
         @Override
-        public Can<Respondent24.Dto> respondents() {
+        public Can<Respondent24> respondents() {
             return interviewSet.respondents();
         }
 
         @Override
-        public Can<Interview24.Dto> interviews() {
+        public Can<Interview24> interviews() {
             return interviewSet.streamInterviews().collect(Can.toCan());
         }
 

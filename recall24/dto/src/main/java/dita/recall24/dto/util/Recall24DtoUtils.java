@@ -64,8 +64,8 @@ public class Recall24DtoUtils {
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24.Dto join(
-            final @Nullable Iterable<Interview24.Dto> iterable,
+    public InterviewSet24 join(
+            final @Nullable Iterable<Interview24> iterable,
             final @Nullable Consumer<Message> messageConsumer) {
 
         if(iterable==null) return InterviewSet24.empty();
@@ -74,12 +74,12 @@ public class Recall24DtoUtils {
                 String alias,
                 LocalDate dateOfBirth,
                 Sex sex) {
-            static Helper helper(final Interview24.Dto interview) {
+            static Helper helper(final Interview24 interview) {
                 var respondent = interview.parentRespondent();
                 return new Helper(respondent.alias(), respondent.dateOfBirth(), respondent.sex());
             }
-            Respondent24.Dto createRespondent(final Can<Interview24.Dto> interviews, final Consumer<Message> messageConsumer) {
-                var respondent = new Respondent24.Dto(alias, dateOfBirth, sex, interviews);
+            Respondent24 createRespondent(final Can<Interview24> interviews, final Consumer<Message> messageConsumer) {
+                var respondent = new Respondent24(alias, dateOfBirth, sex, interviews);
                 interviews.forEach(iv->{
                     _Assert.assertEquals(alias, iv.parentRespondent().alias()); // unexpected
                     if(!Objects.equals(dateOfBirth, iv.parentRespondent().dateOfBirth())) {
@@ -99,12 +99,12 @@ public class Recall24DtoUtils {
         var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
                 .orElseGet(Message::consumerWritingToSyserr);
 
-        var interviewsByRespondentAlias = _Multimaps.<String, Interview24.Dto>newListMultimap();
+        var interviewsByRespondentAlias = _Multimaps.<String, Interview24>newListMultimap();
         iterable.forEach(interview->
             interviewsByRespondentAlias
                     .putElement(interview.parentRespondent().alias(), interview));
 
-        final Can<Respondent24.Dto> respondents = interviewsByRespondentAlias.entrySet()
+        final Can<Respondent24> respondents = interviewsByRespondentAlias.entrySet()
             .stream()
             .map(entry->{
                 var interviews = entry.getValue();
@@ -114,12 +114,12 @@ public class Recall24DtoUtils {
             })
             .collect(Can.toCan());
 
-        return InterviewSet24.Dto.of(respondents).normalized();
+        return InterviewSet24.of(respondents).normalized();
     }
 
     // -- AS GRAPH
 
-    public GraphUtils.Graph<RecallNode24> asGraph(final InterviewSet24.Dto interviewSet) {
+    public GraphUtils.Graph<RecallNode24> asGraph(final InterviewSet24 interviewSet) {
         final var stack = new int[4];
 
         var gBuilder = GraphBuilderAllowingDuplicates.directed(RecallNode24.class);
@@ -161,7 +161,7 @@ public class Recall24DtoUtils {
         return gBuilder.build();
     }
 
-    public UnaryOperator<InterviewSet24.Dto> correct(final @Nullable Correction24 correction24) {
+    public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
                 ? transform(correction24.asTransformer())
                 : UnaryOperator.identity();
@@ -173,34 +173,27 @@ public class Recall24DtoUtils {
      * Returns a new tree with the transformed nodes.
      * @param transformer - transforms fields only (leave parent child relations untouched)
      */
-    public UnaryOperator<InterviewSet24.Dto> transform(
+    public UnaryOperator<InterviewSet24> transform(
             final @NonNull RecallNode24.Transfomer transformer) {
-        return (final InterviewSet24.Dto interviewSet) ->
+        return (final InterviewSet24 interviewSet) ->
             transform(interviewSet, transformer).findFirst().orElse(null);
     }
 
     // -- HELPER
 
-    private Stream<InterviewSet24.Dto> transform(
-            final InterviewSet24.Dto input,
+    private Stream<InterviewSet24> transform(
+            final InterviewSet24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         var transformedSubNodes = input.respondents().stream()
             .flatMap(subNode->transform(subNode, transformer))
             .collect(Can.toCan());
-        var prepared = new InterviewSet24.Dto(transformedSubNodes, input.annotations());
+        var prepared = new InterviewSet24(transformedSubNodes, input.annotations());
         var transformed = transformer.transform(prepared);
-
-        var ref = Recall24DtoUtilsLegacy.transform(transformer)
-            .apply(input);
-
-
-        _Assert.assertEquals(asGraph(ref).toString(), asGraph(transformed).toString());
-
         return Stream.of(transformed);
     }
-    private Stream<Respondent24.Dto> transform(
-            final Respondent24.Dto input,
+    private Stream<Respondent24> transform(
+            final Respondent24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         var transformedSubNodes = input.interviews().stream()
@@ -211,8 +204,8 @@ public class Recall24DtoUtils {
         builder.interviews().addAll(transformedSubNodes);
         return Stream.of(transformer.transform(builder.build()));
     }
-    private Stream<Interview24.Dto> transform(
-            final Interview24.Dto input,
+    private Stream<Interview24> transform(
+            final Interview24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         var transformedSubNodes = input.meals().stream()
@@ -223,8 +216,8 @@ public class Recall24DtoUtils {
         builder.meals().addAll(transformedSubNodes);
         return Stream.of(transformer.transform(builder.build()));
     }
-    private Stream<Meal24.Dto> transform(
-            final Meal24.Dto input,
+    private Stream<Meal24> transform(
+            final Meal24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         var transformedSubNodes = input.memorizedFood().stream()
@@ -235,8 +228,8 @@ public class Recall24DtoUtils {
         builder.memorizedFood().addAll(transformedSubNodes);
         return Stream.of(transformer.transform(builder.build()));
     }
-    private Stream<MemorizedFood24.Dto> transform(
-            final MemorizedFood24.Dto input,
+    private Stream<MemorizedFood24> transform(
+            final MemorizedFood24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         var transformedSubNodes = input.topLevelRecords().stream()
@@ -247,8 +240,8 @@ public class Recall24DtoUtils {
         builder.topLevelRecords().addAll(transformedSubNodes);
         return Stream.of(transformer.transform(builder.build()));
     }
-    private Stream<Record24.Dto> transform(
-            final Record24.Dto input,
+    private Stream<Record24> transform(
+            final Record24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         return Stream.of(input);

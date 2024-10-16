@@ -39,7 +39,7 @@ enum InterviewSamples {
     FAT_SOUCE_SWEETENERS("Ref_FatSouceSweetener_202405300942.7z");
     final String resourceName;
 
-    public InterviewSet24.Dto asInterviewSet(
+    public InterviewSet24 asInterviewSet(
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> onMsg) {
         var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(

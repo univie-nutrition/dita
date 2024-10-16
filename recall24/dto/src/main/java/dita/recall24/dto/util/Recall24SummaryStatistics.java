@@ -44,7 +44,7 @@ public record Recall24SummaryStatistics(
 
     public void accept(final RecallNode24 node24) {
         switch (node24) {
-        case Record24.Dto rec -> {
+        case Record24 rec -> {
             recordStats.accept(rec);
             if(rec instanceof Record24.Consumption consumption) {
                 consumptionStats.accept(consumption);
@@ -74,7 +74,7 @@ public record Recall24SummaryStatistics(
         public Record24SummaryStatistics() {
             this(nla(), nla(), nla(), nla(), nla(), nla());
         }
-        public void accept(final Record24.Dto rec) {
+        public void accept(final Record24 rec) {
             recordCount.increment();
             switch (rec) {
             case Record24.Product prod -> productCount.increment();

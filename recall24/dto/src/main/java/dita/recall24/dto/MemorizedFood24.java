@@ -32,32 +32,12 @@ import lombok.experimental.Accessors;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
-public sealed interface MemorizedFood24 extends RecallNode24 {
-
-    /**
-     * Meal this memorized food belongs to.
-     */
-    Meal24 parentMeal();
-
-    /**
-     * Free text, describing this memorized food.
-     */
-    String name();
-
-    /**
-     * Top level record(s) for this memorized food.
-     * Those may themselves have sub records.
-     */
-    Can<? extends Record24> topLevelRecords();
-
-    // -- DTO
-
-    public record Dto(
+public record MemorizedFood24(
             /**
              * Meal this memorized food belongs to.
              */
             @JsonIgnore
-            ObjectRef<Meal24.Dto> parentMealRef,
+            ObjectRef<Meal24> parentMealRef,
 
             /**
              * Free text, describing this memorized food.
@@ -69,54 +49,52 @@ public sealed interface MemorizedFood24 extends RecallNode24 {
              * Those may themselves have sub records.
              */
             @TreeSubNodes
-            Can<Record24.Dto> topLevelRecords
+            Can<Record24> topLevelRecords
 
-            ) implements MemorizedFood24 {
+            ) implements RecallNode24 {
 
-        public static Dto of(
-                /**
-                 * Free text, describing this memorized food.
-                 */
-                final String name,
-                /**
-                 * Top level record(s) for this memorized food.
-                 * Those may themselves have sub records.
-                 */
-                final Can<Record24.Dto> topLevelRecords) {
+    public static MemorizedFood24 of(
+            /**
+             * Free text, describing this memorized food.
+             */
+            final String name,
+            /**
+             * Top level record(s) for this memorized food.
+             * Those may themselves have sub records.
+             */
+            final Can<Record24> topLevelRecords) {
 
-            var memorizedFood24 = new Dto(ObjectRef.empty(), name, topLevelRecords);
-            topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
-            return memorizedFood24;
-        }
+        var memorizedFood24 = new MemorizedFood24(ObjectRef.empty(), name, topLevelRecords);
+        topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
+        return memorizedFood24;
+    }
 
-        @Override
-        public Meal24.Dto parentMeal() {
-            return parentMealRef.getValue();
-        }
+    public Meal24 parentMeal() {
+        return parentMealRef.getValue();
+    }
 
-        @SuppressWarnings("unchecked")
-        @Override
-        public Builder24<Dto> asBuilder() {
-            return Builder.of(this);
-        }
+    @SuppressWarnings("unchecked")
+    @Override
+    public Builder24<MemorizedFood24> asBuilder() {
+        return Builder.of(this);
     }
 
     // -- BUILDER
 
     @Getter @Setter @Accessors(fluent=true)
-    public static class Builder implements Builder24<Dto> {
+    public static class Builder implements Builder24<MemorizedFood24> {
         String name;
-        final List<Record24.Dto> topLevelRecords = new ArrayList<>();
+        final List<Record24> topLevelRecords = new ArrayList<>();
 
-        static Builder of(final Dto dto) {
+        static Builder of(final MemorizedFood24 dto) {
             var builder = new Builder().name(dto.name);
             dto.topLevelRecords.forEach(builder.topLevelRecords::add);
             return builder;
         }
 
         @Override
-        public Dto build() {
-            var dto = Dto.of(name, Can.ofCollection(topLevelRecords));
+        public MemorizedFood24 build() {
+            var dto = MemorizedFood24.of(name, Can.ofCollection(topLevelRecords));
             dto.topLevelRecords().forEach(child->child.parentMemorizedFoodRef().setValue(dto));
             return dto;
         }

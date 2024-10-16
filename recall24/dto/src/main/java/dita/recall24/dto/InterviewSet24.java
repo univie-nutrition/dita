@@ -52,214 +52,191 @@ import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
-public sealed interface InterviewSet24 extends RecallNode24
-permits InterviewSet24.Dto {
-
-    /**
-     * Respondents that belong to this survey.
-     */
-    Can<? extends Respondent24> respondents();
-
-    Optional<? extends Respondent24> lookupRespondent(String respondentAlias);
-    Can<? extends Interview24> lookupInterviews(String respondentAlias);
-
-    // -- FACTORIES
-
-    static InterviewSet24.Dto empty() {
-        return InterviewSet24.Dto.empty();
-    }
-
-
-    // -- DTO
-
-    /**
-     * Holds a collective of respondents and their individual 24h recall interviews.
-     */
-    public record Dto(
+public record InterviewSet24(
 
             /**
              * Respondents that belong to this survey.
              */
             @TreeSubNodes
-            Can<Respondent24.Dto> respondents,
+            Can<Respondent24> respondents,
 
             @JsonIgnore
             Map<String, Annotation> annotations
 
-            ) implements InterviewSet24 {
+            ) implements RecallNode24 {
 
-        public static Dto of(
-                /** Respondents that belong to this survey. */
-                final Can<Respondent24.Dto> respondents) {
-            return new Dto(respondents, new HashMap<>());
-        }
+    // -- FACTORIES
 
-        public static Dto empty() {
-            return of(Can.empty());
-        }
-
-        @Override
-        public Optional<Respondent24.Dto> lookupRespondent(
-                final String respondentAlias) {
-            return respondents.stream()
-                .filter(res->Objects.equals(res.alias(), respondentAlias))
-                .findFirst();
-        }
-
-        @Override
-        public Can<Interview24.Dto> lookupInterviews(
-                final String respondentAlias) {
-            return lookupRespondent(respondentAlias)
-                    .map(Respondent24.Dto::interviews)
-                    .orElseGet(Can::empty);
-        }
-
-        /**
-         * Respondents are sorted by respondent-alias.
-         * Interviews are sorted by interview-date.
-         */
-        public Dto normalized() {
-            var respondentsSorted = respondents
-                .sorted((a, b)->a.alias().compareTo(b.alias()))
-                .map(respondent->respondent.normalize());
-            return new Dto(respondentsSorted, copy(annotations));
-        }
-
-        public int interviewCount() {
-            return respondents().stream().mapToInt(resp->resp.interviews().size()).sum();
-        }
-
-        public Stream<Interview24.Dto> streamInterviews() {
-            return this.respondents().stream()
-                    .flatMap(resp->resp.interviews().stream());
-        }
-
-        /**
-         * @implNote requires Causewaystuff tree metamodel integration
-         */
-        public Stream<RecallNode24> streamDepthFirst() {
-            return Recall24DtoUtils.wrapAsTreeNode(this)
-                .streamDepthFirst()
-                .map(TreeNode::getValue);
-        }
-
-        /**
-         * Returns a new tree with the transformed nodes.
-         * @param transformer - transforms fields only (leave parent child relations untouched)
-         */
-        public InterviewSet24.Dto transform(
-                final @NonNull RecallNode24.Transfomer transformer) {
-            return Recall24DtoUtils.transform(transformer).apply(this);
-        }
-
-        // -- FILTER
-
-        public InterviewSet24.Dto filter(final Predicate<Respondent24.Dto> respondentFilter) {
-            return InterviewSet24.Dto.of(this.respondents().filter(respondentFilter));
-        }
-
-        /**
-         * Returns a split into partitionCountYield parts of the given model, if possible.
-         * This is, if there are at least partitionCountYield respondents.
-         * <p>
-         * Check the result's cardinality.
-         */
-        public Can<InterviewSet24.Dto> split(final int partitionCountYield) {
-            val respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
-            return respondentBiPartition.map(InterviewSet24.Dto::of);
-        }
-
-        /**
-         * Returns a joined model of the models passed in.
-         * @param messageConsumer join-algorithm might detect data inconsistencies
-         */
-        public InterviewSet24.Dto join(
-                final @Nullable InterviewSet24.Dto other,
-                final @Nullable Consumer<Message> messageConsumer) {
-
-            if(other==null) return this;
-
-            var interviews = Stream.concat(
-                    this.streamInterviews(),
-                    other.streamInterviews())
-                    .toList();
-
-            return Recall24DtoUtils.join(interviews, messageConsumer);
-        }
-
-        /**
-         * Returns a joined model of the models passed in.
-         * @param messageConsumer join-algorithm might detect data inconsistencies
-         */
-        public static InterviewSet24.Dto join(
-                final @Nullable Iterable<InterviewSet24.Dto> models,
-                final @Nullable Consumer<Message> messageConsumer) {
-            var interviews = _NullSafe.stream(models)
-                    .flatMap(InterviewSet24.Dto::streamInterviews)
-                    .toList();
-
-            return Recall24DtoUtils.join(interviews, messageConsumer);
-        }
-
-        public String toJson() {
-            return JsonUtils.toStringUtf8(this,
-                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter()),
-                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter()),
-                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()),
-                    JsonUtils::indentedOutput);
-        }
-
-        public String toYaml() {
-            return YamlUtils.toStringUtf8(this,
-                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter()),
-                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter()),
-                    JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
-        }
-
-        // -- ANNOTATIONS
-
-        public InterviewSet24.Dto annotate(final Annotation annotation) {
-            annotations.put(annotation.key(), annotation);
-            return this;
-        }
-
-        private Map<String, Annotation> copy(final Map<String, Annotation> map) {
-            var copy = new HashMap<String, Annotation>();
-            copy.putAll(map);
-            return copy;
-        }
-
-        @SuppressWarnings("unchecked")
-        @Override
-        public Builder24<Dto> asBuilder() {
-            return Builder.of(this);
-        }
-
-        @JsonIgnore
-        public boolean isEmpty() {
-            return respondents==null
-                    || respondents.isEmpty();
-        }
-
+    public static InterviewSet24 of(
+            /** Respondents that belong to this survey. */
+            final Can<Respondent24> respondents) {
+        return new InterviewSet24(respondents, new HashMap<>());
     }
+
+    public static InterviewSet24 empty() {
+        return of(Can.empty());
+    }
+
+    public Optional<Respondent24> lookupRespondent(
+            final String respondentAlias) {
+        return respondents.stream()
+            .filter(res->Objects.equals(res.alias(), respondentAlias))
+            .findFirst();
+    }
+
+    public Can<Interview24> lookupInterviews(
+            final String respondentAlias) {
+        return lookupRespondent(respondentAlias)
+                .map(Respondent24::interviews)
+                .orElseGet(Can::empty);
+    }
+
+    /**
+     * Respondents are sorted by respondent-alias.
+     * Interviews are sorted by interview-date.
+     */
+    public InterviewSet24 normalized() {
+        var respondentsSorted = respondents
+            .sorted((a, b)->a.alias().compareTo(b.alias()))
+            .map(respondent->respondent.normalize());
+        return new InterviewSet24(respondentsSorted, copy(annotations));
+    }
+
+    public int interviewCount() {
+        return respondents().stream().mapToInt(resp->resp.interviews().size()).sum();
+    }
+
+    public Stream<Interview24> streamInterviews() {
+        return this.respondents().stream()
+                .flatMap(resp->resp.interviews().stream());
+    }
+
+    /**
+     * @implNote requires Causewaystuff tree metamodel integration
+     */
+    public Stream<RecallNode24> streamDepthFirst() {
+        return Recall24DtoUtils.wrapAsTreeNode(this)
+            .streamDepthFirst()
+            .map(TreeNode::getValue);
+    }
+
+    /**
+     * Returns a new tree with the transformed nodes.
+     * @param transformer - transforms fields only (leave parent child relations untouched)
+     */
+    public InterviewSet24 transform(
+            final @NonNull RecallNode24.Transfomer transformer) {
+        return Recall24DtoUtils.transform(transformer).apply(this);
+    }
+
+    // -- FILTER
+
+    public InterviewSet24 filter(final Predicate<Respondent24> respondentFilter) {
+        return InterviewSet24.of(this.respondents().filter(respondentFilter));
+    }
+
+    /**
+     * Returns a split into partitionCountYield parts of the given model, if possible.
+     * This is, if there are at least partitionCountYield respondents.
+     * <p>
+     * Check the result's cardinality.
+     */
+    public Can<InterviewSet24> split(final int partitionCountYield) {
+        val respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
+        return respondentBiPartition.map(InterviewSet24::of);
+    }
+
+    /**
+     * Returns a joined model of the models passed in.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
+     */
+    public InterviewSet24 join(
+            final @Nullable InterviewSet24 other,
+            final @Nullable Consumer<Message> messageConsumer) {
+
+        if(other==null) return this;
+
+        var interviews = Stream.concat(
+                this.streamInterviews(),
+                other.streamInterviews())
+                .toList();
+
+        return Recall24DtoUtils.join(interviews, messageConsumer);
+    }
+
+    /**
+     * Returns a joined model of the models passed in.
+     * @param messageConsumer join-algorithm might detect data inconsistencies
+     */
+    public static InterviewSet24 join(
+            final @Nullable Iterable<InterviewSet24> models,
+            final @Nullable Consumer<Message> messageConsumer) {
+        var interviews = _NullSafe.stream(models)
+                .flatMap(InterviewSet24::streamInterviews)
+                .toList();
+
+        return Recall24DtoUtils.join(interviews, messageConsumer);
+    }
+
+    public String toJson() {
+        return JsonUtils.toStringUtf8(this,
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter()),
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter()),
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()),
+                JsonUtils::indentedOutput);
+    }
+
+    public String toYaml() {
+        return YamlUtils.toStringUtf8(this,
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter()),
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter()),
+                JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
+    }
+
+    // -- ANNOTATIONS
+
+    public InterviewSet24 annotate(final Annotation annotation) {
+        annotations.put(annotation.key(), annotation);
+        return this;
+    }
+
+    private Map<String, Annotation> copy(final Map<String, Annotation> map) {
+        var copy = new HashMap<String, Annotation>();
+        copy.putAll(map);
+        return copy;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Builder24<InterviewSet24> asBuilder() {
+        return Builder.of(this);
+    }
+
+    @JsonIgnore
+    public boolean isEmpty() {
+        return respondents==null
+                || respondents.isEmpty();
+    }
+
+
 
     // -- BUILDER
 
     @Getter @Setter @Accessors(fluent=true)
-    public static class Builder implements Builder24<Dto> {
+    public static class Builder implements Builder24<InterviewSet24> {
         final List<Annotation> annotations = new ArrayList<>();
-        final List<Respondent24.Dto> respondents = new ArrayList<>();
-        
-        static Builder of(Dto dto) {
+        final List<Respondent24> respondents = new ArrayList<>();
+
+        static Builder of(final InterviewSet24 dto) {
             var builder = new Builder();
             dto.respondents().forEach(builder.respondents::add);
             dto.annotations().values().forEach(builder.annotations::add);
             return builder;
         }
-        
+
         @Override
-        public Dto build() {
-            var dto = Dto.of(Can.ofCollection(respondents));
+        public InterviewSet24 build() {
+            var dto = InterviewSet24.of(Can.ofCollection(respondents));
             _NullSafe.stream(annotations).forEach(dto::annotate);
             return dto.normalized();
         }

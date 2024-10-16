@@ -102,7 +102,7 @@ public class AssociatedRecipeResolver implements Transfomer {
                 _NullSafe.stream(recipeIngredients)
                     .map(ingr->{
                         var food = foodDescriptionModel.foodBySid().get(ingr.foodSid());
-                        var foodBuilder = new Food.Builder(Record24.Type.FOOD)
+                        var foodBuilder = new Food.Builder()
                             .name(food.name())
                             .sid(ingr.foodSid())
                             .facetSids(SemanticIdentifierSet.empty())
