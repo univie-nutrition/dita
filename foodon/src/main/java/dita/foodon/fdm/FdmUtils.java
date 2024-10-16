@@ -30,12 +30,11 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.io.JaxbAdapters;
+import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.foodon.fdm.Dtos.FoodDescriptionModelDto;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
@@ -49,13 +48,13 @@ public class FdmUtils {
     // -- READING
 
     public static FoodDescriptionModel fromYaml(final String yaml) {
-        return YamlUtils.tryRead(FoodDescriptionModelDto.class, yaml, yamlOptions())
+        return YamlUtils.tryRead(FoodDescriptionModelDto.class, yaml, FormatUtils.yamlOptions())
             .mapSuccessWhenPresent(FdmUtils::fromDto)
             .valueAsNonNullElseFail();
     }
 
     public FoodDescriptionModel fromYaml(final DataSource ds) {
-        return YamlUtils.tryRead(FoodDescriptionModelDto.class, ds, yamlOptions())
+        return YamlUtils.tryRead(FoodDescriptionModelDto.class, ds, FormatUtils.yamlOptions())
             .mapSuccessWhenPresent(FdmUtils::fromDto)
             .valueAsNonNullElseFail();
     }
@@ -65,12 +64,12 @@ public class FdmUtils {
     public void toYaml(
             final FoodDescriptionModel fdm,
             final DataSink ds) {
-        YamlUtils.write(toDto(fdm), ds, yamlOptions());
+        YamlUtils.write(toDto(fdm), ds, FormatUtils.yamlOptions());
     }
 
     public String toYaml(
             final FoodDescriptionModel fdm) {
-        return YamlUtils.toStringUtf8(toDto(fdm), yamlOptions());
+        return YamlUtils.toStringUtf8(toDto(fdm), FormatUtils.yamlOptions());
     }
 
     public Stream<Food> streamFood(final FoodDescriptionModel fdm) {
@@ -149,10 +148,6 @@ public class FdmUtils {
 
 
     // -- HELPER
-
-    private JacksonCustomizer yamlOptions() {
-        return JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
-    }
 
     FoodDescriptionModelDto toDto(final FoodDescriptionModel fdm) {
         return new FoodDescriptionModelDto(

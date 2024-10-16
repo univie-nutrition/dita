@@ -29,7 +29,6 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.graph.GraphUtils;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
@@ -117,50 +116,6 @@ public class Recall24DtoUtils {
         return InterviewSet24.of(respondents).normalized();
     }
 
-    // -- AS GRAPH
-
-    public GraphUtils.Graph<RecallNode24> asGraph(final InterviewSet24 interviewSet) {
-        final var stack = new int[4];
-
-        var gBuilder = GraphBuilderAllowingDuplicates.directed(RecallNode24.class);
-        gBuilder.addNode(interviewSet);
-
-        interviewSet.respondents().forEach(resp->{
-            gBuilder.addNode(resp);
-            final int respIndex = gBuilder.nodeCount()-1;
-            gBuilder.addEdge(0, respIndex);
-
-            resp.interviews().forEach(intv->{
-                gBuilder.addNode(intv);
-                final int intvIndex = gBuilder.nodeCount()-1;
-                gBuilder.addEdge(respIndex, intvIndex);
-
-                intv.meals().forEach(meal->{
-                    gBuilder.addNode(meal);
-                    final int mealIndex = gBuilder.nodeCount()-1;
-                    gBuilder.addEdge(intvIndex, mealIndex);
-
-                    meal.memorizedFood().forEach(mem->{
-                        gBuilder.addNode(mem);
-                        final int memIndex = gBuilder.nodeCount()-1;
-                        gBuilder.addEdge(mealIndex, memIndex);
-                        stack[0] = memIndex;
-                        mem.topLevelRecords().forEach(topLevelRec->{
-                            topLevelRec.visitDepthFirst(0, (level, rec)->{
-                                gBuilder.addNode(rec);
-                                final int recIndex = gBuilder.nodeCount()-1;
-                                stack[level + 1] = recIndex;
-                                gBuilder.addEdge(stack[level], recIndex);
-                            });
-                        });
-                    });
-                });
-            });
-        });
-
-        return gBuilder.build();
-    }
-
     public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
                 ? transform(correction24.asTransformer())
@@ -244,6 +199,7 @@ public class Recall24DtoUtils {
             final Record24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
+        // not yet supporting transformation of sub records
         return Stream.of(input);
     }
 

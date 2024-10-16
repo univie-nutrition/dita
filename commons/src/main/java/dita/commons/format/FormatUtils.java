@@ -36,11 +36,15 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.io.JsonUtils;
+import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.experimental.UtilityClass;
+
+import dita.commons.io.JaxbAdapters;
 
 @UtilityClass
 public class FormatUtils {
@@ -126,6 +130,15 @@ public class FormatUtils {
                 : "";
     }
 
+    // -- JACKSON
+    
+    public JacksonCustomizer yamlOptions() {
+        var c1 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter());
+        var c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+        var c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
+        return c1.andThen(c2).andThen(c3)::apply;
+    }
+    
     // -- ADOC
 
     public AsciiDoc adocSourceBlock(@Nullable final String sourceType, @Nullable final String source) {

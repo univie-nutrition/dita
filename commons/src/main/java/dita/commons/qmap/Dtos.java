@@ -27,14 +27,13 @@ import org.springframework.lang.Nullable;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.io.JaxbAdapters;
+import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap.Policy;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
@@ -71,12 +70,12 @@ class Dtos {
     public record QualifiedMapDto(
             Collection<QualifiedMapEntryDto> qualifiedMapEntries) {
         public String toYaml() {
-            return YamlUtils.toStringUtf8(this, yamlOptions());
+            return YamlUtils.toStringUtf8(this, FormatUtils.yamlOptions());
         }
         public static Try<QualifiedMapDto> tryFromYaml(@Nullable final DataSource ds) {
             if(ds==null) return Try.failure(_Exceptions.noSuchElement("missing datasource"));
             return YamlUtils.tryReadCustomized(
-                    QualifiedMapDto.class, ds, yamlMillionCodePointsLimit(200), yamlOptions());
+                    QualifiedMapDto.class, ds, yamlMillionCodePointsLimit(200), FormatUtils.yamlOptions());
         }
     }
 
@@ -97,10 +96,6 @@ class Dtos {
     }
     
     // -- HELPER
-
-    private JacksonCustomizer yamlOptions() {
-        return JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
-    }
 
     private YamlLoadCustomizer yamlMillionCodePointsLimit(final int millions) {
         return loader->{

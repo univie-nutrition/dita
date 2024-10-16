@@ -21,7 +21,6 @@ package dita.globodiet.survey.view;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
@@ -31,7 +30,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 import lombok.val;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.io.JaxbAdapters;
+import dita.commons.format.FormatUtils;
 import dita.commons.types.Message;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
@@ -141,8 +140,7 @@ public class SurveyTreeNodeContentFactory {
             final String yamlBlockLabel,
             final Object details) {
 
-        var yaml = YamlUtils.toStringUtf8(details, JsonUtils.JacksonCustomizer
-                .wrapXmlAdapter(new JaxbAdapters.QuantityAdapter()));
+        var yaml = YamlUtils.toStringUtf8(details, FormatUtils.yamlOptions());
 
         return adoc(/*title, */yamlBlockLabel,
                 TextUtils.readLines(yaml)
