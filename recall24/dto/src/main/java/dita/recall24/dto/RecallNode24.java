@@ -43,9 +43,6 @@ permits
     }
 
     public interface Transfomer {
-        @Deprecated
-        void accept(RecallNode24.Builder24<?> x);
-
         /**
          * {@literal Filter Phase} walking the tree structure from its root to its leafs.
          */
@@ -53,11 +50,7 @@ permits
         /**
          * {@literal Transform Phase} walking the tree structure back from its leafs to its root.
          */
-        default <T extends RecallNode24> T transform(final T node) {
-            var builder = node.asBuilder();
-            accept(builder);
-            return (T) builder.build();
-        }
+        <T extends RecallNode24> T transform(final T node);
     }
 
     // -- ANNOTATIONS

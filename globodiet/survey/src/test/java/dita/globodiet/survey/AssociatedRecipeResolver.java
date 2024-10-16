@@ -31,10 +31,11 @@ import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Annotation;
-import dita.recall24.dto.RecallNode24.Builder24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
+import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
 
 @RequiredArgsConstructor
@@ -59,16 +60,17 @@ public class AssociatedRecipeResolver implements Transfomer {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void accept(final Builder24<?> builder) {
-        switch(builder) {
-            case Food.Builder recordBuilder -> {
-                var origFood = recordBuilder.build();
+    public <T extends RecallNode24> T transform(T node) {
+        return switch(node) {
+            case Food origFood -> {
+                
                 var foodNameWithCode = NameWithCode.parseAssocRecipe(origFood.name());
                 var associatedRecipeSid = Optional.ofNullable(foodNameWithCode.code())
                         .map(code->SidUtils.GdContext.RECIPE.sid(origFood.sid().systemId(), code))
                         .orElse(null);
-                if(associatedRecipeSid == null) return;
+                if(associatedRecipeSid == null) yield (T)origFood;
 
                 var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
                 System.err.printf("associatedRecipe=%s%n", associatedRecipe);
@@ -76,11 +78,13 @@ public class AssociatedRecipeResolver implements Transfomer {
                 if(associatedRecipe==null) {
                     System.err.printf("failed to resolve assoc. recipe %s%n", origFood.name());
                     //throw _Exceptions.illegalArgument("failed to resolve %s", origFood.name());
-                    return;
+                    yield (T)origFood;
                 }
 
                 var recipeNameWithCode = NameWithCode.parseAssocFood(associatedRecipe.name());
 
+                var recordBuilder = new Composite.Builder();
+                
                 //TODO[dita-globodiet-survey-24] replace the (proxy-) food node by its associated composite node
                 recordBuilder.type(Record24.Type.COMPOSITE);
                 recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
@@ -111,9 +115,11 @@ public class AssociatedRecipeResolver implements Transfomer {
                         return foodBuilder.build();
                     })
                     .forEach(recordBuilder.subRecords()::add);
+                yield (T)recordBuilder.build();
+                
             }
-            default -> {}
-        }
+            default -> node;
+        };
     }
 
 }

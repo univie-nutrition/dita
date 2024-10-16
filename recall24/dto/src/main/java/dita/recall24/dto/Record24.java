@@ -18,14 +18,6 @@
  */
 package dita.recall24.dto;
 
-import static dita.recall24.dto.Record24.comment;
-import static dita.recall24.dto.Record24.composite;
-import static dita.recall24.dto.Record24.food;
-import static dita.recall24.dto.Record24.fryingFat;
-import static dita.recall24.dto.Record24.product;
-import static dita.recall24.dto.Record24.typeOfFatUsed;
-import static dita.recall24.dto.Record24.typeOfMilkOrLiquidUsed;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

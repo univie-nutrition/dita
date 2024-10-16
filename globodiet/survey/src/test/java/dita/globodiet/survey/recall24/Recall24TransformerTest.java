@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.globodiet.survey.utils.ApprovalTestOptions;
-import dita.recall24.dto.RecallNode24.Builder24;
+import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 
 class Recall24TransformerTest {
@@ -34,7 +34,8 @@ class Recall24TransformerTest {
 
     record NoopTransformer() implements Transfomer {
         @Override
-        public void accept(final Builder24<?> x) {
+        public <T extends RecallNode24> T transform(T node) {
+            return node;
         }
     }
 

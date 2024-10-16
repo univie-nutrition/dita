@@ -34,6 +34,7 @@ import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 import dita.commons.types.Sex;
+import dita.recall24.dto.RecallNode24.Transfomer;
 
 /**
  * Models interview data corrections. WIP
@@ -68,10 +69,12 @@ public record Correction24(List<RespondentCorr> respondents) {
 
     public RecallNode24.Transfomer asTransformer() {
         record Helper(Map<String, RespondentCorr> respCorrByAlias) {
-            void correct(final Respondent24.Builder builder) {
-                var respCorr = respCorrByAlias.get(builder.alias());
-                if(respCorr==null) return;
+            Respondent24 correct(final Respondent24 resp) {
+                var respCorr = respCorrByAlias.get(resp.alias());
+                if(respCorr==null) return resp;
                 log.info("about to correct {}", respCorr);
+
+                var builder = (Respondent24.Builder) resp.asBuilder();
 
                 if(respCorr.newAlias()!=null) {
                     builder.alias(respCorr.newAlias());
@@ -82,15 +85,20 @@ public record Correction24(List<RespondentCorr> respondents) {
                 if(respCorr.sex()!=null) {
                     builder.sex(respCorr.sex());
                 }
+                return builder.build();
             }
         }
         var helper = new Helper(respondents.stream()
             .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
 
-        return (final RecallNode24.Builder24<?> builder) -> {
-            switch(builder) {
-                case Respondent24.Builder resp -> helper.correct(resp);
-                default -> {}
+        return new Transfomer() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public <T extends RecallNode24> T transform(final T node) {
+                return switch(node) {
+                    case Respondent24 resp -> (T)helper.correct(resp);
+                    default -> node;
+                };
             }
         };
     }
