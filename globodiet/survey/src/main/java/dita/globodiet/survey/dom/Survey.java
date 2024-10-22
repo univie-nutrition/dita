@@ -162,8 +162,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Yaml formatted interview data corrections.",
-            hidden = Where.ALL_TABLES,
-            multiLine = 24
+            hidden = Where.EVERYWHERE
     )
     @Column(
             name = "CORRECTION",
@@ -298,8 +297,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
                     optionality = Optionality.OPTIONAL
             )
             @ParameterLayout(
-                    describedAs = "Yaml formatted interview data corrections.",
-                    multiLine = 24
+                    describedAs = "Yaml formatted interview data corrections."
             )
             String correction) {
     }

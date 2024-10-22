@@ -54,7 +54,6 @@ entity:
       column-type: clob
       required: false
       unique: false
-      hiddenWhere: ALL_TABLES
-      multiLine: 24
+      hiddenWhere: EVERYWHERE
       description: |
         Yaml formatted interview data corrections.

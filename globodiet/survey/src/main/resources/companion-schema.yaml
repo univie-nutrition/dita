@@ -221,8 +221,7 @@ entities:
       column-type: clob
       required: false
       unique: false
-      multiLine: 24
-      hiddenWhere: ALL_TABLES
+      hiddenWhere: EVERYWHERE
       description: |
         Yaml formatted interview data corrections.
 
