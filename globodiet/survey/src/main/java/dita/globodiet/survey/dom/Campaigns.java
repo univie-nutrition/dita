@@ -45,6 +45,7 @@ import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.commons.base.util.RuntimeUtils;
 import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 @UtilityClass
@@ -110,6 +111,14 @@ public class Campaigns {
             .orElseGet(()->new SystemId("undefined"));
     }
 
+    // -- SURVEY
+
+    public Survey survey(final Campaign campaign) {
+        var factoryService = RuntimeUtils.getFactoryService();
+        return factoryService.mixin(Campaign_survey.class, campaign)
+                .prop();
+    }
+
     // -- INTERVIEW SET
 
     private InterviewSet24 interviewSet(
@@ -117,7 +126,7 @@ public class Campaigns {
             final BlobStore blobStore,
             final MessageConsumer messageConsumer) {
 
-        var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(campaign.getCorrection()))
+        var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(survey(campaign).getCorrection()))
             .valueAsNullableElseFail();
 
         var interviewSet = InterviewUtils

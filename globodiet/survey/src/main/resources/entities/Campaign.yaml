@@ -77,12 +77,3 @@ entity:
 #      description: |
 #        Specifies the named path within the configured BlobStore, that points to the QualifiedMap data used for 
 #        food-consumtion to food-component resolution (nutrient mapping).
-    correction:
-      column: CORRECTION
-      column-type: nvarchar(64000)
-      required: false
-      unique: false
-      hiddenWhere: ALL_TABLES
-      multiLine: 24
-      description: |
-        Yaml formatted interview data corrections.

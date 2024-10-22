@@ -29,6 +29,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.Survey;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
@@ -66,9 +67,9 @@ extends CausewayIntegrationTestAbstract {
     // -- HELPER
 
     private Campaign campaignForTesting() {
-        var campaign = new Campaign();
-        campaign.setCode("wave1");
-        campaign.setCorrection("""
+        var survey = new Survey();
+        survey.setCode("at-national-2026");
+        survey.setCorrection("""
                 respondents:
                 - alias: "EB0070"
                   newAlias: "EB_0070"
@@ -89,7 +90,10 @@ extends CausewayIntegrationTestAbstract {
                 - alias: "EB_0116"
                   dateOfBirth: "1998-01-26"
                 """);
-        campaign.setSurveyCode("at-national-2026");
+
+        var campaign = new Campaign();
+        campaign.setCode("wave1");
+        campaign.setSurveyCode(survey.getCode());
         return campaign;
     }
 
