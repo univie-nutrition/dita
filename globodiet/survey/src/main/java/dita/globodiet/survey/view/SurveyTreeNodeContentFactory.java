@@ -30,12 +30,10 @@ import lombok.experimental.UtilityClass;
 import dita.commons.format.FormatUtils;
 import dita.commons.types.Message;
 import dita.globodiet.survey.dom.Campaign;
-import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
-import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 
@@ -48,7 +46,7 @@ public class SurveyTreeNodeContentFactory {
         return "Campaign - " + campaign.title();
     }
 
-    String title(final Respondent24 respondent) {
+    String title(final Respondent24 respondent, Can<Message> messages) {
         final String interviewCountIndicator = switch (respondent.interviewCount()) {
             case 0 -> "⓿";
             case 1 -> "❶";
@@ -89,8 +87,11 @@ public class SurveyTreeNodeContentFactory {
         return "solid users-viewfinder";
     }
 
-    String icon(final Respondent24 respondent) {
-        return "user";
+    String icon(final Respondent24 respondent, Can<Message> messages) {
+        return DataUtil.findHighestMessageSeverityForRespondent(respondent, messages)
+            .map(severity->"solid user, solid triangle-exclamation .ov-size-80 .ov-right-55 .ov-bottom-55 .respondent-"
+                    + severity.name().toLowerCase())
+            .orElse("solid user");
     }
 
     String icon(final Interview24 interview) {
@@ -106,13 +107,10 @@ public class SurveyTreeNodeContentFactory {
     AsciiDoc content(final InterviewSet24 interviewSet, final Campaign campaign) {
         record Details(int respondentCount, int interviewCount, Can<Message> messages) {
             static Details of(final InterviewSet24 interviewSet) {
-                final Can<Message> messages = interviewSet.annotation(Campaigns.ANNOTATION_MESSAGES)
-                        .map(RecallNode24.Annotation.valueAsCan(Message.class))
-                        .orElseGet(Can::empty);
                 return new Details(
                         interviewSet.respondents().size(),
                         interviewSet.interviewCount(),
-                        messages);
+                        DataUtil.messages(interviewSet));
             }
         }
         return adoc("Details", Details.of(interviewSet));

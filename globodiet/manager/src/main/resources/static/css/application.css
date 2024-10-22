@@ -36,6 +36,12 @@
 .respondentFilter-color {
   color: SteelBlue;
 }
+.respondent-warning {
+  color: gold;
+}
+.respondent-error {
+  color: orangered;
+}
 .supplement-color {
   color: MediumSlateBlue;
 }

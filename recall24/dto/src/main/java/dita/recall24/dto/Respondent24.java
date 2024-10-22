@@ -58,7 +58,7 @@ public record Respondent24(
 
     /**
      * Interviews are sorted by interview-date.
-     * All ordinals are filled in. //TODO
+     * All ordinals are filled in.
      */
     Respondent24 normalize() {
         var interviewsSorted = interviews()

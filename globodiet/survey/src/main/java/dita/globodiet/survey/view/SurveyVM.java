@@ -160,11 +160,15 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     private final Campaign campaign = SurveyTreeHelperService.instance()
         .campaign(viewModelMemento.campaignSecondaryKey());
 
+    private InterviewSet24 interviewSet() {
+        return (InterviewSet24) rootNode();
+    }
+
     @ObjectSupport public String title() {
         var node = activeNode();
         return switch (node) {
         case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
-        case Respondent24 respondent -> SurveyTreeNodeContentFactory.title(respondent);
+        case Respondent24 respondent -> SurveyTreeNodeContentFactory.title(respondent, DataUtil.messages(interviewSet()));
         case Interview24 interview -> SurveyTreeNodeContentFactory.title(interview);
         case Meal24 meal -> SurveyTreeNodeContentFactory.title(meal);
         case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.title(mem);
@@ -178,7 +182,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
         return FontAwesomeLayers.fromQuickNotation(
             switch (node) {
             case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
-            case Respondent24 respondent -> SurveyTreeNodeContentFactory.icon(respondent);
+            case Respondent24 respondent -> SurveyTreeNodeContentFactory.icon(respondent, DataUtil.messages(interviewSet()));
             case Interview24 interview -> SurveyTreeNodeContentFactory.icon(interview);
             case Meal24 meal -> SurveyTreeNodeContentFactory.icon(meal);
             case MemorizedFood24 mem -> "regular lightbulb";
