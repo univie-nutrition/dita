@@ -131,20 +131,30 @@ public class FormatUtils {
     }
 
     // -- JACKSON
-    
+
     public JacksonCustomizer yamlOptions() {
         var c1 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter());
         var c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
         var c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
         return c1.andThen(c2).andThen(c3)::apply;
     }
-    
+
     // -- ADOC
 
     public AsciiDoc adocSourceBlock(@Nullable final String sourceType, @Nullable final String source) {
         var adoc = new AsciiDocBuilder()
-                .append(doc->AsciiDocFactory.sourceBlock(doc, sourceType, _Strings.nullToEmpty(source)))
-                .buildAsValue();
+            .append(doc->AsciiDocFactory.sourceBlock(doc, sourceType, _Strings.nullToEmpty(source)))
+            .buildAsValue();
+        return adoc;
+    }
+
+    public AsciiDoc adocSourceBlockWithTile(@Nullable final String blockTitle, @Nullable final String sourceType, @Nullable final String source) {
+        var adoc = new AsciiDocBuilder()
+            .append(doc->{
+                var sourceBlock = AsciiDocFactory.sourceBlock(doc, sourceType, _Strings.nullToEmpty(source));
+                _Strings.nonEmpty(blockTitle).ifPresent(sourceBlock::setTitle);
+            })
+            .buildAsValue();
         return adoc;
     }
 

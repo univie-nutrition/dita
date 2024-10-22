@@ -24,10 +24,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
-import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
-import lombok.val;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.format.FormatUtils;
@@ -52,7 +49,15 @@ public class SurveyTreeNodeContentFactory {
     }
 
     String title(final Respondent24 respondent) {
-        return respondent.alias();
+        final String interviewCountIndicator = switch (respondent.interviewCount()) {
+            case 0 -> "⓿";
+            case 1 -> "❶";
+            case 2 -> "❷";
+            case 3 -> "❸";
+            case 4 -> "❹";
+            default -> "(" + respondent.interviewCount() + ")";
+        };
+        return String.format("%s %s", respondent.alias(), interviewCountIndicator);
     }
 
     String title(final Interview24 interview) {
@@ -142,7 +147,7 @@ public class SurveyTreeNodeContentFactory {
 
         var yaml = YamlUtils.toStringUtf8(details, FormatUtils.yamlOptions());
 
-        return adoc(/*title, */yamlBlockLabel,
+        return FormatUtils.adocSourceBlockWithTile(yamlBlockLabel, "yaml",
                 TextUtils.readLines(yaml)
                     .stream()
                     .filter(line->
@@ -150,19 +155,6 @@ public class SurveyTreeNodeContentFactory {
                         && !line.contains("typeOfMilkOrLiquidUsedDuringCooking: null"))
                     .collect(Collectors.joining("\n"))
                 );
-    }
-
-    private static AsciiDoc adoc(
-            //final String title,
-            final String yamlBlockLabel,
-            final String yaml) {
-        val adoc = new AsciiDocBuilder();
-        //adoc.append(doc->doc.setTitle(title));
-        adoc.append(doc->{
-            val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yaml", yaml);
-            sourceBlock.setTitle(yamlBlockLabel);
-        });
-        return adoc.buildAsValue();
     }
 
 }

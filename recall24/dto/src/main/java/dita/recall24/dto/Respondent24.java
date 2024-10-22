@@ -27,6 +27,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -46,10 +47,14 @@ public record Respondent24(
             /**
              * Interviews that this respondent was subject to.
              */
-            @TreeSubNodes
+            @TreeSubNodes @NonNull
             Can<Interview24> interviews
 
             ) implements RecallNode24 {
+
+    public int interviewCount() {
+        return interviews.size();
+    }
 
     /**
      * Interviews are sorted by interview-date.
