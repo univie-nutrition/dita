@@ -151,6 +151,29 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     @Setter
     private String systemId;
 
+    /**
+     * Yaml formatted interview data corrections.
+     */
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "4",
+            describedAs = "Yaml formatted interview data corrections.",
+            hidden = Where.ALL_TABLES,
+            multiLine = 24
+    )
+    @Column(
+            name = "CORRECTION",
+            allowsNull = "true",
+            jdbcType = "CLOB"
+    )
+    @Getter
+    @Setter
+    private String correction;
+
     @ObjectSupport
     public String title() {
         return String.format("%s (code=%s)", name, code);
@@ -160,7 +183,8 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
     public String toString() {
         return "Survey(" + "code=" + getCode() + ","
          +"name=" + getName() + ","
-         +"systemId=" + getSystemId() + ")";
+         +"systemId=" + getSystemId() + ","
+         +"correction=" + getCorrection() + ")";
     }
 
     @Programmatic
@@ -170,6 +194,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
         copy.setCode(getCode());
         copy.setName(getName());
         copy.setSystemId(getSystemId());
+        copy.setCorrection(getCorrection());
         return copy;
     }
 
@@ -239,6 +264,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      * @param name Descriptive survey name.
      * @param systemId System ID part of semantic identifiers for this survey.
      * e.g. at.gd/2.0
+     * @param correction Yaml formatted interview data corrections.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
@@ -266,7 +292,16 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
                     describedAs = "System ID part of semantic identifiers for this survey.\n"
                                     + "e.g. at.gd/2.0"
             )
-            String systemId) {
+            String systemId,
+            @Parameter(
+                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
+                    optionality = Optionality.OPTIONAL
+            )
+            @ParameterLayout(
+                    describedAs = "Yaml formatted interview data corrections.",
+                    multiLine = 24
+            )
+            String correction) {
     }
 
     /**

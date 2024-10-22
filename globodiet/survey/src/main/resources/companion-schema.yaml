@@ -225,4 +225,13 @@ entities:
       description: |
         System ID part of semantic identifiers for this survey.
         e.g. at.gd/2.0
+    correction:
+      column: CORRECTION
+      column-type: clob
+      required: false
+      unique: false
+      multiLine: 24
+      hiddenWhere: ALL_TABLES
+      description: |
+        Yaml formatted interview data corrections.
 
