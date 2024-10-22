@@ -33,8 +33,8 @@ class Correction24Test {
     @Test
     void roundtripOnYaml() {
         var corr = new Correction24();
-        corr.respondents().add(new RespondentCorr("EB_0061", null, LocalDate.parse("1977-03-23"), null));
-        corr.respondents().add(new RespondentCorr("EB_0058", null, null, Sex.MALE));
+        corr.respondents().add(new RespondentCorr("EB_0061", null, LocalDate.parse("1977-03-23"), null, null));
+        corr.respondents().add(new RespondentCorr("EB_0058", null, null, Sex.MALE, null));
 
         // debug
         //System.err.printf("Correction24Test%n%s%n", corr.toYaml());

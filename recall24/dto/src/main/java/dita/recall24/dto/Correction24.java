@@ -46,7 +46,11 @@ public record Correction24(List<RespondentCorr> respondents) {
             @NonNull String alias,
             @Nullable String newAlias,
             @Nullable LocalDate dateOfBirth,
-            @Nullable Sex sex) {
+            @Nullable Sex sex,
+            /**
+             * Whether respondent has requested withdrawal from study.
+             */
+            @Nullable Boolean withdraw) {
     }
 
     // -- CONSTRUCTION
