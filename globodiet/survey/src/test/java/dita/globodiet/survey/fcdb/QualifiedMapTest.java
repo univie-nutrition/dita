@@ -39,6 +39,6 @@ class QualifiedMapTest extends DitaGdSurveyIntegrationTest {
     @Test
     void loading() throws IOException {
         var nutMapping = loadNutMapping();
-        assertEquals(39478, nutMapping.entryCount());
+        assertEquals(40457, nutMapping.entryCount());
     }
 }

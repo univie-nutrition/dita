@@ -119,32 +119,36 @@ public class Campaigns {
                 .prop();
     }
 
-    // -- INTERVIEW SET
+    // -- CORRECTION
 
-    private InterviewSet24 interviewSet(
-            final Campaign campaign,
-            final BlobStore blobStore,
-            final MessageConsumer messageConsumer) {
-
-        var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(survey(campaign).getCorrection()))
-            .valueAsNullableElseFail();
-
-        var interviewSet = InterviewUtils
-            .interviewSetFromBlobStore(
-                    DataSourceLocation.INTERVIEW.namedPath(campaign),
-                    blobStore,
-                    systemId(campaign),
-                    correction,
-                    messageConsumer);
-
-        return interviewSet;
+    public Correction24 correction(final Campaign campaign) {
+        return Correction24.tryFromYaml(_Strings.blankToNullOrTrim(survey(campaign).getCorrection()))
+                .valueAsNullableElseFail();
     }
+
+
+    // -- INTERVIEW SET
 
     public InterviewSet24 interviewSet(
             final Campaign campaign,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
-        var interviewSet = interviewSet(campaign, blobStore, messageConsumer);
+        var interviewSet = interviewSet(campaign, blobStore, correction(campaign), messageConsumer);
+        messageConsumer.annotate(interviewSet);
+        return interviewSet;
+    }
+
+    /**
+     * Variant for JUnit testing, with correction YAML as parameter.
+     */
+    public InterviewSet24 interviewSet(
+            final Campaign campaign,
+            final BlobStore blobStore,
+            final String correctionYaml) {
+        var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(correctionYaml))
+                .valueAsNullableElseFail();
+        var messageConsumer = new MessageConsumer();
+        var interviewSet = interviewSet(campaign, blobStore, correction, messageConsumer);
         messageConsumer.annotate(interviewSet);
         return interviewSet;
     }
@@ -157,7 +161,7 @@ public class Campaigns {
         }
         var messageConsumer = new MessageConsumer();
         var interviewSet = campaigns.stream()
-                .map(campaign->Campaigns.interviewSet(campaign, blobStore, messageConsumer))
+                .map(campaign->Campaigns.interviewSet(campaign, blobStore, correction(campaign), messageConsumer))
                 .reduce((a, b)->a.join(b, messageConsumer))
                 .orElse(null);
         messageConsumer.annotate(interviewSet);
@@ -253,6 +257,23 @@ public class Campaigns {
             default -> {}
         }
         return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
+    }
+
+    private InterviewSet24 interviewSet(
+            final Campaign campaign,
+            final BlobStore blobStore,
+            final Correction24 correction,
+            final MessageConsumer messageConsumer) {
+
+        var interviewSet = InterviewUtils
+            .interviewSetFromBlobStore(
+                    DataSourceLocation.INTERVIEW.namedPath(campaign),
+                    blobStore,
+                    systemId(campaign),
+                    correction,
+                    messageConsumer);
+
+        return interviewSet;
     }
 
 }
