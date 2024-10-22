@@ -33,8 +33,10 @@ import dita.commons.format.FormatUtils;
 @PropertyLayout(
         sequence = "9",
         fieldSetId = "details",
-        //labelPosition = LabelPosition.NONE,
-        hidden = Where.ALL_TABLES
+        named = "Correction",
+        hidden = Where.ALL_TABLES,
+        describedAs = "YAML formatted interview data corrections\n"
+                + "(alias typos, sex or data-of-birth mismatch, etc.)"
 )
 @RequiredArgsConstructor
 public class Survey_correctionView {

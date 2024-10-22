@@ -25,16 +25,18 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.recall24.dto.Correction24;
+
 @Action
 @ActionLayout(
-        sequence = "0.1",
-        associateWith = "correction",
+        sequence = "1",
+        associateWith = "correctionView",
         position = Position.PANEL,
-        named = "Correction",
-        describedAs = "Yaml formatted interview data corrections"
+        describedAs = "Edit YAML formatted interview data corrections"
 )
 @RequiredArgsConstructor
 public class Survey_editCorrection {
@@ -44,9 +46,24 @@ public class Survey_editCorrection {
     @MemberSupport
     public Survey act(
             @Parameter(optionality = Optionality.OPTIONAL)
+            @ParameterLayout(multiLine = 24)
             final String correction) {
         mixee.setCorrection(correction);
         return mixee;
+    }
+
+    @MemberSupport
+    public String defaultCorrection() {
+        return mixee.getCorrection();
+    }
+
+    @MemberSupport
+    public String validateCorrection(final String correction) {
+        return Correction24.tryFromYaml(correction)
+            .mapSuccessAsNullable(_->(String)null)
+            .mapFailureToSuccess(e->e.getMessage())
+            .getValue()
+            .orElse(null);
     }
 
 }
