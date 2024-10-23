@@ -35,6 +35,7 @@ import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -98,6 +99,7 @@ public class TabularReporters {
         FACETS
     }
 
+    @Builder
     public record TabularReport(
             InterviewSet24 interviewSet,
             SystemId systemId,

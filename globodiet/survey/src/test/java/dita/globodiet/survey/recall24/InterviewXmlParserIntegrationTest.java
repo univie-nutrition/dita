@@ -71,14 +71,20 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var stats = new Recall24SummaryStatistics();
         var recordProcessor = new RecordProcessor(stats, systemId, nutMapping);
 
-        //TODO flesh out reporting
+        //TODO[dita-globodiet-survey-24] flesh out reporting
         var xlsxFile = new File("d:/tmp/_scratch/report-no-aggregates.xlsx");
-        var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
-                nutMapping,
-                fcoMapping, SidUtils.languageQualifier("de"),
-                pocMapping, SidUtils.languageQualifier("de"),
-                foodCompositionRepo,
-                Aggregation.NONE);
+        var tabularReport = TabularReporters.TabularReport.builder()
+                .interviewSet(interviewSet)
+                .systemId(systemId)
+                .nutMapping(nutMapping)
+                .fcoMapping(fcoMapping)
+                .fcoQualifier(SidUtils.languageQualifier("de"))
+                .pocMapping(pocMapping)
+                .pocQualifier(SidUtils.languageQualifier("de"))
+                .foodCompositionRepo(foodCompositionRepo)
+                .aggregation(Aggregation.NONE)
+                .build();
+
         tabularReport.report(xlsxFile);
 
         XlsxUtils.launchViewerAndWaitFor(xlsxFile);

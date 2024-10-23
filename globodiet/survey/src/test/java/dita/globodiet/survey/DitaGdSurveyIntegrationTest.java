@@ -18,6 +18,8 @@
  */
 package dita.globodiet.survey;
 
+import java.nio.charset.StandardCharsets;
+
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +33,7 @@ import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 public abstract class DitaGdSurveyIntegrationTest
 extends CausewayIntegrationTestAbstract {
@@ -57,30 +60,17 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
     }
 
+    protected String loadCorrections() {
+        return surveyBlobStore.lookupBlob(NamedPath.of(
+                "surveys", campaignForTesting().getSurveyCode(), "corrections", "test-correction.yaml"))
+                .get()
+                .toClob(StandardCharsets.UTF_8)
+                .asString();
+    }
+
     protected InterviewSet24 loadInterviewSet() {
-        var fdm = loadFoodDescriptionModel();
-        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore, """
-                respondents:
-                - alias: "EB0070"
-                  newAlias: "EB_0070"
-                - alias: "EB:0029"
-                  newAlias: "EB_0029"
-                - alias: "EB_0061"
-                  dateOfBirth: "1977-04-24"
-                - alias: "EB_0058"
-                  dateOfBirth: "1992-08-28"
-                - alias: "EB_0038"
-                  dateOfBirth: "2002-09-21"
-                - alias: "EB_0093"
-                  sex: FEMALE
-                - alias: "EB_0088"
-                  dateOfBirth: "1967-06-09"
-                - alias: "EB_0032"
-                  dateOfBirth: "1999-03-04"
-                - alias: "EB_0116"
-                  dateOfBirth: "1998-01-26"
-                """)
-                .transform(new AssociatedRecipeResolver(fdm));
+        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore, loadCorrections())
+                .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()));
     }
 
     // -- HELPER
