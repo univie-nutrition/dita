@@ -29,7 +29,7 @@ import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
-import org.apache.causeway.core.metamodel.context.MetaModelContext;
+import org.apache.causeway.commons.internal.context._Context;
 
 import lombok.experimental.UtilityClass;
 
@@ -86,25 +86,18 @@ public class Campaigns {
      * System ID part of semantic identifiers for given campaign's survey.
      * e.g. {@code at.gd/2.0}
      */
-    public SystemId systemId(
-            final Campaign campaign) {
+    public SystemId systemId(final Campaign campaign) {
         if(systemIdBySurveyCode==null) {
             systemIdBySurveyCode = new ConcurrentHashMap<>();
         }
-        return systemIdBySurveyCode.computeIfAbsent(campaign.getSurveyCode(), surveyCode->{
-            return systemId(
-                    MetaModelContext.instanceElseFail()
-                        .getRepositoryService()
-                        .uniqueMatch(Survey.class, survey->surveyCode.equals(survey.getCode()))
-                        .orElse(null));
-        });
+        return systemIdBySurveyCode.computeIfAbsent(campaign.getSurveyCode(), _->systemId(survey(campaign)));
     }
 
     /**
      * System ID part of semantic identifiers for given survey.
      * e.g. {@code at.gd/2.0}
      */
-    public SystemId systemId(final @Nullable Survey survey) {
+    public SystemId systemId(@Nullable final Survey survey) {
         return Optional.ofNullable(survey)
             .map(Survey::getSystemId)
             .map(SystemId::parse)
@@ -115,8 +108,11 @@ public class Campaigns {
 
     public Survey survey(final Campaign campaign) {
         var factoryService = RuntimeUtils.getFactoryService();
-        return factoryService.mixin(Campaign_survey.class, campaign)
+        var survey = factoryService.mixin(Campaign_survey.class, campaign)
                 .prop();
+        return survey!=null
+                ? survey
+                : _Context.lookup(Survey.class).orElse(null); // JUnit support
     }
 
     // -- CORRECTION
@@ -138,21 +134,6 @@ public class Campaigns {
         return interviewSet;
     }
 
-    /**
-     * Variant for JUnit testing, with correction YAML as parameter.
-     */
-    public InterviewSet24 interviewSet(
-            final Campaign campaign,
-            final BlobStore blobStore,
-            final String correctionYaml) {
-        var correction = Correction24.tryFromYaml(_Strings.blankToNullOrTrim(correctionYaml))
-                .valueAsNullableElseFail();
-        var messageConsumer = new MessageConsumer();
-        var interviewSet = interviewSet(campaign, blobStore, correction, messageConsumer);
-        messageConsumer.annotate(interviewSet);
-        return interviewSet;
-    }
-
     public InterviewSet24 interviewSet(
             final Can<Campaign> campaigns,
             final BlobStore blobStore) {
@@ -163,7 +144,7 @@ public class Campaigns {
         var interviewSet = campaigns.stream()
                 .map(campaign->Campaigns.interviewSet(campaign, blobStore, correction(campaign), messageConsumer))
                 .reduce((a, b)->a.join(b, messageConsumer))
-                .orElse(null);
+                .orElse(null); // unreachable due to guard above
         messageConsumer.annotate(interviewSet);
         return interviewSet;
     }

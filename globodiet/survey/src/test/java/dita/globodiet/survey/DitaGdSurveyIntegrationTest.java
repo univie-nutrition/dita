@@ -24,6 +24,7 @@ import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import org.apache.causeway.commons.internal.context._Context;
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
 import dita.commons.food.composition.FoodCompositionRepository;
@@ -31,6 +32,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.Survey;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -60,25 +62,36 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
     }
 
-    protected String loadCorrections() {
+    protected String loadCorrections(String surveyCode) {
         return surveyBlobStore.lookupBlob(NamedPath.of(
-                "surveys", campaignForTesting().getSurveyCode(), "corrections", "test-correction.yaml"))
+                "surveys", surveyCode, "corrections", "test-correction.yaml"))
                 .get()
                 .toClob(StandardCharsets.UTF_8)
                 .asString();
     }
 
     protected InterviewSet24 loadInterviewSet() {
-        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore, loadCorrections())
+        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore)
                 .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()));
     }
 
     // -- HELPER
 
+    static String SURVEY_CODE = "at-national-2026";
+    static String CAMPAIGN_CODE = "wave1";
+    static String SYSTEM_ID = "at.gd/2.0";
+
     private Campaign campaignForTesting() {
+        _Context.computeIfAbsent(Survey.class, ()->{
+            var survey = new Survey();
+            survey.setCode(SURVEY_CODE);
+            survey.setSystemId(SYSTEM_ID);
+            survey.setCorrection(loadCorrections(SURVEY_CODE));
+            return survey;
+        });
         var campaign = new Campaign();
-        campaign.setCode("wave1");
-        campaign.setSurveyCode("at-national-2026");
+        campaign.setCode(CAMPAIGN_CODE);
+        campaign.setSurveyCode(SURVEY_CODE);
         return campaign;
     }
 

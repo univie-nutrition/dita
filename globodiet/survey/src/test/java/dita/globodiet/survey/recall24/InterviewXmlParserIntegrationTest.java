@@ -102,9 +102,9 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 }
             });
 
-        System.err.println("=== STATS ===");
-        System.err.println(stats.formatted());
-        System.err.println("=============");
+        System.out.println("=== STATS ===");
+        System.out.println(stats.formatted());
+        System.out.println("=============");
     }
 
     record RecordProcessor(
