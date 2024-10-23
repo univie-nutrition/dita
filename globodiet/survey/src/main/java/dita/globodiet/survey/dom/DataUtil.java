@@ -19,7 +19,9 @@
 package dita.globodiet.survey.dom;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.measure.MetricPrefix;
 
@@ -82,6 +84,14 @@ class DataUtil {
 
     // -- LISTINGS
 
+    Set<String> enabledAliasesInListing(final String aliasListing) {
+        return DataUtil.listingHandlerForRespondentProxy()
+            .parseListing(aliasListing)
+            .streamEnabled()
+            .map(Respondent24::alias)
+            .collect(Collectors.toSet());
+    }
+
     ListingHandler<Respondent24> listingHandlerForRespondentProxy() {
         return listingHandlerForRespondents(alias->new Respondent24(alias, null, null, Can.empty()));
     }
@@ -112,6 +122,5 @@ class DataUtil {
         System.err.printf("cannot find SID in %s%n", line);
         return null;
     }
-
 
 }

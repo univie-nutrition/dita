@@ -21,7 +21,6 @@ package dita.globodiet.survey.dom;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
@@ -44,7 +43,6 @@ import dita.commons.format.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
 import dita.globodiet.survey.util.SidUtils;
-import dita.recall24.dto.Respondent24;
 import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -89,11 +87,7 @@ public class Survey_generateReport {
         }
 
         // filter interviews
-        var enabledAliases = DataUtil.listingHandlerForRespondentProxy()
-                .parseListing(respondentFilter.getAliasListing())
-                .streamEnabled()
-                .map(Respondent24::alias)
-                .collect(Collectors.toSet());
+        var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
 
         interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
 
