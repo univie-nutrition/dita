@@ -32,7 +32,6 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.RequiredArgsConstructor;
 
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
-import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
@@ -63,8 +62,7 @@ public class RespondentFilter_sync {
         var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
             .coll();
 
-        var listingHandler = DataUtil.listingHandlerForRespondents(
-                alias->new Respondent24(alias, null, null, null));
+        var listingHandler = DataUtil.listingHandlerForRespondentProxy();
 
         var allRespondents = listingHandler.createListing(
                 Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore)

@@ -25,6 +25,7 @@ import javax.measure.MetricPrefix;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
@@ -81,6 +82,10 @@ class DataUtil {
 
     // -- LISTINGS
 
+    ListingHandler<Respondent24> listingHandlerForRespondentProxy() {
+        return listingHandlerForRespondents(alias->new Respondent24(alias, null, null, Can.empty()));
+    }
+
     ListingHandler<Respondent24> listingHandlerForRespondents(
             final Function<String, Respondent24> factory) {
         return new ListingHandler<Respondent24>(
@@ -107,4 +112,6 @@ class DataUtil {
         System.err.printf("cannot find SID in %s%n", line);
         return null;
     }
+
+
 }

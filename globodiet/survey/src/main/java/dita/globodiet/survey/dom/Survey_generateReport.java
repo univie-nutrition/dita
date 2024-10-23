@@ -89,8 +89,7 @@ public class Survey_generateReport {
         }
 
         // filter interviews
-        var enabledAliases = DataUtil.listingHandlerForRespondents(
-                alias->new Respondent24(alias, null, null, null))
+        var enabledAliases = DataUtil.listingHandlerForRespondentProxy()
                 .parseListing(respondentFilter.getAliasListing())
                 .streamEnabled()
                 .map(Respondent24::alias)
