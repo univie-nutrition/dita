@@ -46,7 +46,7 @@ permits
         /**
          * {@literal Filter Phase} walking the tree structure from its root to its leafs.
          */
-        default <T extends RecallNode24> boolean filter(final T onPrepare) {return true;}
+        default <T extends RecallNode24> boolean filter(final T node) { return true; }
         /**
          * {@literal Transform Phase} walking the tree structure back from its leafs to its root.
          */

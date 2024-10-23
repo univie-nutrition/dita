@@ -22,19 +22,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
+import lombok.Builder;
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 import dita.commons.types.Sex;
-import dita.recall24.dto.RecallNode24.Transfomer;
 
 /**
  * Models interview data corrections. WIP
@@ -42,15 +44,17 @@ import dita.recall24.dto.RecallNode24.Transfomer;
 @Log4j2
 public record Correction24(List<RespondentCorr> respondents) {
 
+    @Builder
     public record RespondentCorr(
             @NonNull String alias,
-            @Nullable String newAlias,
-            @Nullable LocalDate dateOfBirth,
-            @Nullable Sex sex,
             /**
              * Whether respondent has requested withdrawal from study.
              */
-            @Nullable Boolean withdraw) {
+            @Nullable Boolean withdraw,
+            @Nullable String newAlias,
+            @Nullable LocalDate dateOfBirth,
+            @Nullable Sex sex) {
+
     }
 
     // -- CONSTRUCTION
@@ -72,39 +76,70 @@ public record Correction24(List<RespondentCorr> respondents) {
     // -- CORRECTION APPLICATION
 
     public RecallNode24.Transfomer asTransformer() {
-        record Helper(Map<String, RespondentCorr> respCorrByAlias) {
-            Respondent24 correct(final Respondent24 resp) {
-                var respCorr = respCorrByAlias.get(resp.alias());
-                if(respCorr==null) return resp;
-                log.info("about to correct {}", respCorr);
+        return new CorrectionTranformer(respondents);
+    }
 
-                var builder = (Respondent24.Builder) resp.asBuilder();
+    // -- HELPER
 
-                if(respCorr.newAlias()!=null) {
-                    builder.alias(respCorr.newAlias());
-                }
-                if(respCorr.dateOfBirth()!=null) {
-                    builder.dateOfBirth(respCorr.dateOfBirth());
-                }
-                if(respCorr.sex()!=null) {
-                    builder.sex(respCorr.sex());
-                }
-                return builder.build();
-            }
+    private record CorrectionTranformer(
+            /**
+             * Aliases that are marked for withdrawal.
+             */
+            Set<String> withdrawnAliases,
+            Map<String, RespondentCorr> respCorrByAlias)
+        implements RecallNode24.Transfomer {
+
+        CorrectionTranformer(final List<RespondentCorr> respondentCorrs){
+            this(
+                    respondentCorrs.stream()
+                        .filter(corr->Boolean.TRUE.equals(corr.withdraw()))
+                        .map(RespondentCorr::alias)
+                        .collect(Collectors.toSet()),
+                    respondentCorrs
+                        .stream()
+                        .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
         }
-        var helper = new Helper(respondents.stream()
-            .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
 
-        return new Transfomer() {
-            @SuppressWarnings("unchecked")
-            @Override
-            public <T extends RecallNode24> T transform(final T node) {
-                return switch(node) {
-                    case Respondent24 resp -> (T)helper.correct(resp);
-                    default -> node;
-                };
-            }
-        };
+        @Override
+        public <T extends RecallNode24> boolean filter(final T node) {
+            return switch(node) {
+                case Respondent24 resp -> !withdrawnAliases().contains(resp.alias());
+                default -> true;
+            };
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T extends RecallNode24> T transform(final T node) {
+            return switch(node) {
+                case Respondent24 resp -> {
+                    var respCorr = respCorrByAlias.get(resp.alias());
+                    if(respCorr==null) yield node;
+
+                    var builder = (Respondent24.Builder) resp.asBuilder();
+
+                    log.info("about to correct {}", respCorr);
+
+                    if(Boolean.TRUE.equals(respCorr.withdraw())) {
+                        throw _Exceptions.illegalState("withdrawn respondents should already be filtered yet got %s",
+                                resp.alias());
+                    }
+
+                    if(respCorr.newAlias()!=null) {
+                        builder.alias(respCorr.newAlias());
+                    }
+                    if(respCorr.dateOfBirth()!=null) {
+                        builder.dateOfBirth(respCorr.dateOfBirth());
+                    }
+                    if(respCorr.sex()!=null) {
+                        builder.sex(respCorr.sex());
+                    }
+                    yield (T)builder.build();
+                }
+                default -> node;
+            };
+        }
+
     }
 
 }
