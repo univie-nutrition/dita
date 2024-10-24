@@ -14,6 +14,7 @@
                             <cpt:fieldSet name="Details" id="details">
                                 <cpt:property id="name" />
                                 <cpt:property id="creationTime" />
+                                <cpt:property id="systemId" />
                                 <cpt:property id="description" />
                                 <cpt:property id="sticky" />
                             </cpt:fieldSet>

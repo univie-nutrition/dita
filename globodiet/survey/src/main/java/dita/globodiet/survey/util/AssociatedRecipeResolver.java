@@ -92,12 +92,12 @@ public record AssociatedRecipeResolver(
                 //TODO[dita-globodiet-survey-24] what facets to put here?
                 recordBuilder.facetSids(SemanticIdentifierSet.wip());
 
-                fdmAdapter.ingredientsByRecipeSid(associatedRecipe.sid())
+                fdmAdapter.streamIngredientsOfRecipeSid(associatedRecipe.sid())
                     .map(ingr->{
                         var food = fdmAdapter.foodBySid(ingr.foodSid());
                         var foodBuilder = new Food.Builder()
                             .name(food.name())
-                            .sid(fdmAdapter.fullyQualified(ingr.foodSid()))
+                            .sid(ingr.foodSid())
                             .facetSids(SemanticIdentifierSet.empty()) //TODO[dita-globodiet-survey] missing ingredient facets
                             .amountConsumed(BigDecimal.ONE.negate()) //TODO[dita-globodiet-survey-24] fix actual amount
                             .consumptionUnit(ConsumptionUnit.GRAM);  //TODO[dita-globodiet-survey-24] fix actual unit
@@ -124,17 +124,16 @@ public record AssociatedRecipeResolver(
                 Can.ofCollection(origFood.annotations().values()));
     }
 
-    //TODO[dita-globodiet-survey-24] FDM currently has empty SystemId, perhaps migrate to fully qualified SID
     private record FDMAdapter(
             @NonNull SystemId systemId,
             @NonNull FoodDescriptionModel foodDescriptionModel) {
         FoodDescriptionModel.Food foodBySid(final SemanticIdentifier sid) {
-            return foodDescriptionModel.foodBySid().get(sid.withSystemId(SystemId.empty()));
+            return foodDescriptionModel.foodBySid().get(sid);
         }
 
-        Stream<FoodDescriptionModel.RecipeIngredient> ingredientsByRecipeSid(final SemanticIdentifier sid){
+        Stream<FoodDescriptionModel.RecipeIngredient> streamIngredientsOfRecipeSid(final SemanticIdentifier sid){
             return _NullSafe.stream(foodDescriptionModel.ingredientsByRecipeSid()
-                    .get(sid.withSystemId(SystemId.empty())));
+                    .get(sid));
         }
 
         /**
@@ -144,7 +143,7 @@ public record AssociatedRecipeResolver(
          * Fails if the recipe-code is present but cannot be resolved.
          */
         Optional<Recipe> associatedRecipe(@NonNull final NameWithCode nameWithCode) {
-            var associatedRecipeSid = nameWithCode.associatedRecipeSid(SystemId.empty()).orElse(null);
+            var associatedRecipeSid = nameWithCode.associatedRecipeSid(systemId).orElse(null);
             if(associatedRecipeSid == null) return Optional.empty();
             var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
             if(associatedRecipe==null) {
@@ -155,9 +154,6 @@ public record AssociatedRecipeResolver(
             return Optional.of(associatedRecipe);
         }
 
-        SemanticIdentifier fullyQualified(final SemanticIdentifier sid) {
-            return sid.withSystemId(systemId);
-        }
     }
 
     private record NameWithCode(String name, String code) {
