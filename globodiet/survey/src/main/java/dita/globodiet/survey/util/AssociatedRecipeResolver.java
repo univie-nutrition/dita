@@ -16,21 +16,21 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.survey;
+package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NonNull;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Transfomer;
@@ -38,34 +38,28 @@ import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
 
-@RequiredArgsConstructor
-public class AssociatedRecipeResolver implements Transfomer {
-
-    private final FoodDescriptionModel foodDescriptionModel;
-
-    record NameWithCode(String name, String code) {
-        static NameWithCode parseAssocFood(final String nameAndCode) {
-            return parse(nameAndCode, "{assocFood=");
-        }
-        static NameWithCode parseAssocRecipe(final String nameAndCode) {
-            return parse(nameAndCode, "{assocRecp=");
-        }
-        static NameWithCode parse(final String nameAndCode, final String magic) {
-            int c1 =nameAndCode.indexOf(magic);
-            if(c1==-1) return new NameWithCode(nameAndCode, null);
-            int c2 = nameAndCode.indexOf("}", c1);
-            return new NameWithCode(
-                    nameAndCode.substring(0, c1).trim(),
-                    FormatUtils.fillWithLeadingZeros(5, nameAndCode.substring(c1 + magic.length(), c2)));
-        }
-    }
+/**
+ * In 2024, the Austrian GloboDiet food description model introduced the concept of 'associated' food,
+ * that can be quickly entered during interviews,
+ * but requires a post-processing step later (before interview reporting),
+ * with which those reported food nodes are to be replaced by an associated recipe.
+ * <p>
+ * The association link between food and recipe is made via references in their name:
+ * <ul>
+ * <li>food reference their associated recipe via suffix {assocRecp=‹recipe-code›}</li>
+ * <li>recipes reference their associated food via suffix {assocFood=‹food-code›}</li>
+ * </ul>
+ */
+public record AssociatedRecipeResolver(
+        @NonNull FoodDescriptionModel foodDescriptionModel
+        ) implements Transfomer {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends RecallNode24> T transform(T node) {
+    public <T extends RecallNode24> T transform(final T node) {
         return switch(node) {
             case Food origFood -> {
-                
+
                 var foodNameWithCode = NameWithCode.parseAssocRecipe(origFood.name());
                 var associatedRecipeSid = Optional.ofNullable(foodNameWithCode.code())
                         .map(code->SidUtils.GdContext.RECIPE.sid(origFood.sid().systemId(), code))
@@ -73,18 +67,13 @@ public class AssociatedRecipeResolver implements Transfomer {
                 if(associatedRecipeSid == null) yield (T)origFood;
 
                 var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
-                System.err.printf("associatedRecipe=%s%n", associatedRecipe);
-
                 if(associatedRecipe==null) {
-                    System.err.printf("failed to resolve assoc. recipe %s%n", origFood.name());
-                    //throw _Exceptions.illegalArgument("failed to resolve %s", origFood.name());
-                    yield (T)origFood;
+                    throw _Exceptions.illegalArgument("failed to resolve recipe for %s", origFood.name());
                 }
-
                 var recipeNameWithCode = NameWithCode.parseAssocFood(associatedRecipe.name());
 
                 var recordBuilder = new Composite.Builder();
-                
+
                 //TODO[dita-globodiet-survey-24] replace the (proxy-) food node by its associated composite node
                 recordBuilder.type(Record24.Type.COMPOSITE);
                 recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
@@ -116,10 +105,29 @@ public class AssociatedRecipeResolver implements Transfomer {
                     })
                     .forEach(recordBuilder.subRecords()::add);
                 yield (T)recordBuilder.build();
-                
+
             }
             default -> node;
         };
+    }
+
+    // -- HELPER
+
+    record NameWithCode(String name, String code) {
+        static NameWithCode parseAssocFood(final String nameAndCode) {
+            return parse(nameAndCode, "{assocFood=");
+        }
+        static NameWithCode parseAssocRecipe(final String nameAndCode) {
+            return parse(nameAndCode, "{assocRecp=");
+        }
+        static NameWithCode parse(final String nameAndCode, final String magic) {
+            int c1 =nameAndCode.indexOf(magic);
+            if(c1==-1) return new NameWithCode(nameAndCode, null);
+            int c2 = nameAndCode.indexOf("}", c1);
+            return new NameWithCode(
+                    nameAndCode.substring(0, c1).trim(),
+                    FormatUtils.fillWithLeadingZeros(5, nameAndCode.substring(c1 + magic.length(), c2)));
+        }
     }
 
 }
