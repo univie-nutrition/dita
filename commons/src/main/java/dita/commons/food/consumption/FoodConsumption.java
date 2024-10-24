@@ -26,6 +26,7 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.types.QuantificationUnit;
 
 /**
  * Represents an amount of some food or product that was consumed.
@@ -40,6 +41,7 @@ public record FoodConsumption(
         ConsumptionUnit consumptionUnit,
         BigDecimal amountConsumed) {
 
+    //TODO[dita-commons] perhaps consolidate those 2 enums
     /**
      * Unit of amount consumed.
      */
@@ -48,15 +50,22 @@ public record FoodConsumption(
         /**
          * Amount consumed is given in gram.
          */
-        GRAM,
+        GRAM(QuantificationUnit.MASS_IN_GRAM),
         /**
          * Amount consumed is given in milliliter.
          */
-        MILLILITER,
+        MILLILITER(QuantificationUnit.VOLUME_IN_MILLILITER),
         /**
          * Amount consumed is given in parts (e.g. tablets).
          */
-        PART;
+        PART(QuantificationUnit.PARTS);
+        public final QuantificationUnit quantificationUnit;
+
+        // -- FORMATTING
+
+        public String format(final Number amount) {
+            return quantificationUnit.format(amount);
+        }
     }
 
     public QualifiedMap.QualifiedMapKey qualifiedMapKey() {

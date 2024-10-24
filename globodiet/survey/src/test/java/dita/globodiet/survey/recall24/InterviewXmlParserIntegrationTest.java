@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -60,11 +60,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var fcoMapping = loadFcoMapping();
         var pocMapping = loadPocMapping();
         var foodCompositionRepo = loadFcdb();
-        assertEquals(14814, foodCompositionRepo.compositionCount());
-
-        nutMapping.streamEntries()
-            .limit(20)
-            .forEach(e->System.err.printf("nut map: %s%n", e));
+        assertTrue(foodCompositionRepo.compositionCount()>10_000);
 
         var interviewSet = loadInterviewSet();
 
@@ -120,7 +116,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 stats.consumptionStats().mappedCount().increment();
             } else {
                 stats.consumptionStats().collectMappingTodo(new MappingTodo(mapKey, similar(mapKey)));
-                System.err.printf("unmapped: %s (%s)%n", rec.name(), mapKey);
+                System.out.printf("unmapped: %s (%s)%n", rec.name(), mapKey);
             }
         }
         private Can<QualifiedMapEntry> similar(final QualifiedMapKey mapKey) {

@@ -118,35 +118,35 @@ public class Recall24DtoUtils {
 
     public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
-                ? transform(correction24.asTransformer())
+                ? toOperator(correction24.asTransformer())
                 : UnaryOperator.identity();
     }
 
     // -- TRANSFORM
 
+    public UnaryOperator<InterviewSet24> toOperator(
+            final RecallNode24.Transfomer transformer) {
+        return input->transform(input, transformer).orElse(null);
+    }
+
     /**
      * Returns a new tree with the transformed nodes.
      * @param transformer - transforms fields only (leave parent child relations untouched)
      */
-    public UnaryOperator<InterviewSet24> transform(
-            final @NonNull RecallNode24.Transfomer transformer) {
-        return (final InterviewSet24 interviewSet) ->
-            transform(interviewSet, transformer).findFirst().orElse(null);
-    }
-
-    // -- HELPER
-
-    private Stream<InterviewSet24> transform(
+    public Optional<InterviewSet24> transform(
             final InterviewSet24 input,
             final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Stream.empty();
+        if(transformer.filter(input)==false) return Optional.empty();
         var transformedSubNodes = input.respondents().stream()
             .flatMap(subNode->transform(subNode, transformer))
             .collect(Can.toCan());
         var prepared = new InterviewSet24(transformedSubNodes, input.annotations());
         var transformed = transformer.transform(prepared);
-        return Stream.of(transformed);
+        return Optional.ofNullable(transformed);
     }
+
+    // -- HELPER
+
     private Stream<Respondent24> transform(
             final Respondent24 input,
             final RecallNode24.Transfomer transformer) {
@@ -199,8 +199,11 @@ public class Recall24DtoUtils {
             final Record24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
-        // not yet supporting transformation of sub records
-        return Stream.of(input);
+        // not yet supporting transformation of sub records, this is delegated to the transformer
+        var output = transformer.transform(input);
+        return output!=null
+                ? Stream.of(output)
+                : Stream.empty();
     }
 
 }

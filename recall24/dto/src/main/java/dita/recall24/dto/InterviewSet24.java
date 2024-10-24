@@ -80,15 +80,15 @@ public record InterviewSet24(
     }
 
     // -- CANONICAL CONSTRUCTOR
-    
+
     /**
      * Respondents are sorted by respondent-alias.
      * Interviews are sorted by interview-date.
      * All ordinals are filled in.
      */
     public InterviewSet24(
-            Can<Respondent24> respondents,
-            Map<String, Annotation> annotations) {
+            final Can<Respondent24> respondents,
+            final Map<String, Annotation> annotations) {
         this.respondents = respondents
                 .sorted(Comparator.comparing(Respondent24::alias))
                 .map(Respondent24::normalize);
@@ -133,7 +133,7 @@ public record InterviewSet24(
      */
     public InterviewSet24 transform(
             final @NonNull RecallNode24.Transfomer transformer) {
-        return Recall24DtoUtils.transform(transformer).apply(this);
+        return Recall24DtoUtils.transform(this, transformer).orElse(null);
     }
 
     // -- FILTER

@@ -20,6 +20,7 @@ package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -29,8 +30,11 @@ import lombok.NonNull;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.format.FormatUtils;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
+import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Transfomer;
@@ -57,53 +61,50 @@ public record AssociatedRecipeResolver(
     @SuppressWarnings("unchecked")
     @Override
     public <T extends RecallNode24> T transform(final T node) {
+
         return switch(node) {
             case Food origFood -> {
 
-                var foodNameWithCode = NameWithCode.parseAssocRecipe(origFood.name());
-                var associatedRecipeSid = Optional.ofNullable(foodNameWithCode.code())
-                        .map(code->SidUtils.GdContext.RECIPE.sid(origFood.sid().systemId(), code))
-                        .orElse(null);
-                if(associatedRecipeSid == null) yield (T)origFood;
+                var fdmAdapter = new FDMAdapter(origFood.sid().systemId(), foodDescriptionModel);
 
-                var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
-                if(associatedRecipe==null) {
-                    throw _Exceptions.illegalArgument("failed to resolve recipe for %s", origFood.name());
-                }
-                var recipeNameWithCode = NameWithCode.parseAssocFood(associatedRecipe.name());
+                var associatedRecipe = fdmAdapter
+                        .associatedRecipe(NameWithCode.parseAssocRecipe(origFood.name()))
+                        .orElse(null);
+                if(associatedRecipe==null) yield (T)origFood;
 
                 var recordBuilder = new Composite.Builder();
 
-                //TODO[dita-globodiet-survey-24] replace the (proxy-) food node by its associated composite node
-                recordBuilder.type(Record24.Type.COMPOSITE);
-                recordBuilder.name(recipeNameWithCode.name() + " {resolved}");
-                recordBuilder.sid(associatedRecipeSid);
-                recordBuilder.subRecords().add(Record24
-                        .comment(origFood.name(), origFood.sid(), origFood.facetSids(),
-                                Can.ofCollection(origFood.annotations().values())));
+                // replace the (proxy-) food node by its associated composite node ..
 
+                recordBuilder.type(Record24.Type.COMPOSITE);
+                recordBuilder.name(NameWithCode.parseAssocFood(associatedRecipe.name()).nameWithResolvedSuffix());
+                recordBuilder.sid(associatedRecipe.sid());
+                // keep the original food as comment
+                recordBuilder.subRecords().add(origFoodAsComment(origFood));
+
+                // store GloboDiet food description group data as annotation
                 recordBuilder.annotations().clear();
                 recordBuilder.annotations().add(new Annotation("group",
                         associatedRecipe.groupSid()
                             .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.RECIPE_GROUP.id()))
                         ));
 
+                //TODO[dita-globodiet-survey-24] what facets to put here?
                 recordBuilder.facetSids(SemanticIdentifierSet.wip());
 
-                var recipeIngredients = foodDescriptionModel.ingredientsByRecipeSid()
-                        .get(associatedRecipeSid);
-                _NullSafe.stream(recipeIngredients)
+                fdmAdapter.ingredientsByRecipeSid(associatedRecipe.sid())
                     .map(ingr->{
-                        var food = foodDescriptionModel.foodBySid().get(ingr.foodSid());
+                        var food = fdmAdapter.foodBySid(ingr.foodSid());
                         var foodBuilder = new Food.Builder()
                             .name(food.name())
-                            .sid(ingr.foodSid())
-                            .facetSids(SemanticIdentifierSet.empty())
+                            .sid(fdmAdapter.fullyQualified(ingr.foodSid()))
+                            .facetSids(SemanticIdentifierSet.empty()) //TODO[dita-globodiet-survey] missing ingredient facets
                             .amountConsumed(BigDecimal.ONE.negate()) //TODO[dita-globodiet-survey-24] fix actual amount
                             .consumptionUnit(ConsumptionUnit.GRAM);  //TODO[dita-globodiet-survey-24] fix actual unit
                         return foodBuilder.build();
                     })
                     .forEach(recordBuilder.subRecords()::add);
+
                 yield (T)recordBuilder.build();
 
             }
@@ -113,7 +114,53 @@ public record AssociatedRecipeResolver(
 
     // -- HELPER
 
-    record NameWithCode(String name, String code) {
+    Record24.Comment origFoodAsComment(final Food origFood) {
+        var name = "%s, amount=%s, raw/cooked=%s".formatted(
+                origFood.name().replace(" {", ", ").replace("}", ""),
+                origFood.consumptionUnit().format(origFood.amountConsumed()),
+                origFood.rawPerCookedRatio());
+
+        return Record24.comment(name, origFood.sid(), origFood.facetSids(),
+                Can.ofCollection(origFood.annotations().values()));
+    }
+
+    //TODO[dita-globodiet-survey-24] FDM currently has empty SystemId, perhaps migrate to fully qualified SID
+    private record FDMAdapter(
+            @NonNull SystemId systemId,
+            @NonNull FoodDescriptionModel foodDescriptionModel) {
+        FoodDescriptionModel.Food foodBySid(final SemanticIdentifier sid) {
+            return foodDescriptionModel.foodBySid().get(sid.withSystemId(SystemId.empty()));
+        }
+
+        Stream<FoodDescriptionModel.RecipeIngredient> ingredientsByRecipeSid(final SemanticIdentifier sid){
+            return _NullSafe.stream(foodDescriptionModel.ingredientsByRecipeSid()
+                    .get(sid.withSystemId(SystemId.empty())));
+        }
+
+        /**
+         * Optionally returns the associated {@link Recipe},
+         * based on whether a suffix {assocRecp=‹recipe-code›} is present.
+         * <p>
+         * Fails if the recipe-code is present but cannot be resolved.
+         */
+        Optional<Recipe> associatedRecipe(@NonNull final NameWithCode nameWithCode) {
+            var associatedRecipeSid = nameWithCode.associatedRecipeSid(SystemId.empty()).orElse(null);
+            if(associatedRecipeSid == null) return Optional.empty();
+            var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
+            if(associatedRecipe==null) {
+                throw _Exceptions.illegalArgument("failed to resolve recipe for %s using sid %s",
+                        nameWithCode.name(),
+                        associatedRecipeSid);
+            }
+            return Optional.of(associatedRecipe);
+        }
+
+        SemanticIdentifier fullyQualified(final SemanticIdentifier sid) {
+            return sid.withSystemId(systemId);
+        }
+    }
+
+    private record NameWithCode(String name, String code) {
         static NameWithCode parseAssocFood(final String nameAndCode) {
             return parse(nameAndCode, "{assocFood=");
         }
@@ -127,6 +174,13 @@ public record AssociatedRecipeResolver(
             return new NameWithCode(
                     nameAndCode.substring(0, c1).trim(),
                     FormatUtils.fillWithLeadingZeros(5, nameAndCode.substring(c1 + magic.length(), c2)));
+        }
+        String nameWithResolvedSuffix() {
+            return name() + " {resolved}";
+        }
+        private Optional<SemanticIdentifier> associatedRecipeSid(final SystemId systemId) {
+            return Optional.ofNullable(code())
+                    .map(code->SidUtils.GdContext.RECIPE.sid(systemId, code));
         }
     }
 
