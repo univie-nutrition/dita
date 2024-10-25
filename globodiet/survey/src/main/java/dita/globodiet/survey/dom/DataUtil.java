@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.dom;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -37,12 +38,36 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
+import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 
 @UtilityClass
 class DataUtil {
 
+    // -- INTERVIEW FILTERING
+
+    InterviewSet24 filteredInterviewSet(
+            @Nullable final Collection<Campaign> campaigns,
+            @Nullable final RespondentFilter respondentFilter,
+            @Nullable final BlobStore surveyBlobStore) {
+        if(campaigns==null
+                || campaigns.isEmpty()
+                || surveyBlobStore==null) {
+            return InterviewSet24.empty();
+        }
+        var interviewSet = Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore);
+        // filter interviews
+        if(!interviewSet.isEmpty()
+                && respondentFilter!=null) {
+            var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
+            interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
+        }
+        return interviewSet;
+    }
+
+    // -- FCDB
 
     /**
      * Stringify to a single line.
@@ -80,6 +105,15 @@ class DataUtil {
         return destringify(catalog, input)
                 .map(fc->catalog.lookupEntryElseFail(fc.componentId()))
                 .orElseThrow(()->_Exceptions.illegalArgument("cannot parse FoodComponent from '%s'", input));
+    }
+
+    Can<FoodComponent> foodComponents(
+            @NonNull final FoodComponentCatalog componentCatalog,
+            @NonNull final ReportColumnDefinition reportColumnDefinition) {
+        var listingHandler = DataUtil.listingHandlerForFoodComponents(
+                str->DataUtil.destringifyElseFail(componentCatalog, str));
+        var enabledFoodComponents = listingHandler.parseListing(reportColumnDefinition.getColumnListing());
+        return enabledFoodComponents.streamEnabled().collect(Can.toCan());
     }
 
     // -- LISTINGS

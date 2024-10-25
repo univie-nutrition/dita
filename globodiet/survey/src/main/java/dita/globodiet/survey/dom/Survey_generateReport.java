@@ -35,7 +35,6 @@ import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
 
@@ -68,28 +67,18 @@ public class Survey_generateReport {
 
     private final Survey mixee;
 
-    /**
-     * @see Campaign_generateReport
-     */
     @MemberSupport
     public Blob act(
             final List<Campaign> campaigns,
-            @Parameter(optionality = Optionality.MANDATORY)
+            @Parameter(optionality = Optionality.OPTIONAL)
             final RespondentFilter respondentFilter,
             @Parameter
             final ReportColumnDefinition reportColumnDefinition,
             @Parameter
             final Aggregation aggregation) {
         // see also Campaign_downloadMappingTodos
-        var interviewSet = Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore);
-        if(interviewSet.isEmpty()) {
-            return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
-        }
-
-        // filter interviews
-        var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
-
-        interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
+        var interviewSet = DataUtil.filteredInterviewSet(campaigns, respondentFilter, surveyBlobStore);
+        if(interviewSet.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
         var fcoMapping = Campaigns.fcoMapping(campaigns.getFirst(), surveyBlobStore);
@@ -102,6 +91,7 @@ public class Survey_generateReport {
                 fcoMapping, SidUtils.languageQualifier("de"),
                 pocMapping, SidUtils.languageQualifier("de"),
                 foodCompositionRepo,
+                DataUtil.foodComponents(foodCompositionRepo.componentCatalog(),reportColumnDefinition),
                 aggregation);
 
         var name = String.format("%s_%s_%s",

@@ -31,6 +31,7 @@ import java.util.Set;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
@@ -43,6 +44,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
+import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodCompositionRepository;
@@ -102,13 +104,14 @@ public class TabularReporters {
     @Builder
     public record TabularReport(
             InterviewSet24 interviewSet,
-            SystemId systemId,
+            SystemId systemId, //TODO[dita-recall24-reporter] required for fully qualified PoC and FCO (perhaps, transform earlier already)
             QualifiedMap nutMapping,
             QualifiedMap fcoMapping,
             SemanticIdentifierSet fcoQualifier,
             QualifiedMap pocMapping,
             SemanticIdentifierSet pocQualifier,
             FoodCompositionRepository foodCompositionRepo,
+            Can<FoodComponent> foodComponents,
             Aggregation aggregation) {
 
         @Setter
