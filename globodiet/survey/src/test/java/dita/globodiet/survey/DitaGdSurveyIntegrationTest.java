@@ -24,11 +24,17 @@ import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.context._Context;
+import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
+import dita.commons.food.composition.FoodComponent;
+import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
+import dita.foodon.bls.BLS302;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
@@ -63,12 +69,17 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
     }
 
-    protected String loadCorrections(String surveyCode) {
-        return surveyBlobStore.lookupBlob(NamedPath.of(
-                "surveys", surveyCode, "corrections", "test-correction.yaml"))
-                .get()
-                .toClob(StandardCharsets.UTF_8)
-                .asString();
+    protected Can<FoodComponent> loadEnabledFoodComponents(FoodComponentCatalog foodComponentCatalog) {
+        var colDef = TextUtils.readLines(loadColDef(SURVEY_CODE)).stream()
+                .map(String::trim)
+                .map(_Strings::emptyToNull)
+                .filter(s->s!=null && !s.startsWith("#"))
+                .map(s->TextUtils.cutter(s).keepBefore("\t").getValue())
+                .map(BLS302::componentSid)
+                .map(foodComponentCatalog::lookupEntry)
+                .map(opt->opt.orElse(null))
+                .collect(Can.toCan());
+        return colDef;
     }
 
     protected InterviewSet24 loadInterviewSet() {
@@ -94,6 +105,22 @@ extends CausewayIntegrationTestAbstract {
         campaign.setCode(CAMPAIGN_CODE);
         campaign.setSurveyCode(SURVEY_CODE);
         return campaign;
+    }
+
+    private String loadColDef(String surveyCode) {
+        return surveyBlobStore.lookupBlob(NamedPath.of(
+                "surveys", surveyCode, "integtest", "col-def.txt"))
+                .get()
+                .toClob(StandardCharsets.UTF_8)
+                .asString();
+    }
+
+    private String loadCorrections(String surveyCode) {
+        return surveyBlobStore.lookupBlob(NamedPath.of(
+                "surveys", surveyCode, "integtest", "corrections.yaml"))
+                .get()
+                .toClob(StandardCharsets.UTF_8)
+                .asString();
     }
 
 }
