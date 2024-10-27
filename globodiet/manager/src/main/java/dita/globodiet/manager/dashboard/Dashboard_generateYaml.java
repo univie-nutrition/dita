@@ -29,7 +29,7 @@ import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.value.Clob;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import dita.globodiet.manager.versions.VersionsExportService;
 import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
@@ -47,7 +47,7 @@ public class Dashboard_generateYaml {
     public Clob act(
             @Parameter final ExportFormat format,
             @Parameter final boolean rowSortingEnabled) {
-        val clob = versionsExportService.tablesAsYamlFromRepository(
+        var clob = versionsExportService.tablesAsYamlFromRepository(
                 VersionsExportService.paramsTableFilter(), format, rowSortingEnabled);
         return clob;
     }

@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
@@ -55,7 +55,7 @@ public class Survey_addCampaign {
     @MemberSupport
     public Survey act(@ParameterTuple final Campaign.Params p) {
 
-        val campaign = repositoryService.detachedEntity(new Campaign());
+        var campaign = repositoryService.detachedEntity(new Campaign());
         campaign.setSurveyCode(mixee.secondaryKey().code());
         campaign.setCode(p.code());
         campaign.setName(p.name());

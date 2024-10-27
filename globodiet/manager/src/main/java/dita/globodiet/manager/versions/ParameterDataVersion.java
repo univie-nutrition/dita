@@ -50,7 +50,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.val;
+
 
 import dita.globodiet.manager.DitaModuleGdManager;
 
@@ -66,8 +66,8 @@ public class ParameterDataVersion {
     // -- FACTORIES
 
     public static ParameterDataVersion fromDirectory(final @NonNull File dir) {
-        val dataSource = DataSource.ofFile(new File(dir, "manifest.yml"));
-        val paramDataVersion = YamlUtils.tryRead(ParameterDataVersion.class, dataSource)
+        var dataSource = DataSource.ofFile(new File(dir, "manifest.yml"));
+        var paramDataVersion = YamlUtils.tryRead(ParameterDataVersion.class, dataSource)
             .valueAsNonNullElseFail();
         return paramDataVersion;
     }
@@ -266,7 +266,7 @@ public class ParameterDataVersion {
 
     @Programmatic
     void writeManifest(final @NonNull File dir) {
-        val dataSink = DataSink.ofFile(new File(dir, "manifest.yml"));
+        var dataSink = DataSink.ofFile(new File(dir, "manifest.yml"));
         YamlUtils.write(this, dataSink);
     }
 

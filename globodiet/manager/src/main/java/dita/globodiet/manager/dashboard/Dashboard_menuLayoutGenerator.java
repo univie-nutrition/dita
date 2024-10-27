@@ -33,7 +33,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
@@ -45,27 +45,27 @@ public class Dashboard_menuLayoutGenerator {
     @MemberSupport
     public AsciiDoc act() {
 
-        val gdParamsSchema = dashboard.gdParamsSchema;
-        val entitiesWithoutRelations =  gdParamsSchema.findEntitiesWithoutRelations();
-        val interviewMenu =  gdParamsSchema.entities().values().stream()
+        var gdParamsSchema = dashboard.gdParamsSchema;
+        var entitiesWithoutRelations =  gdParamsSchema.findEntitiesWithoutRelations();
+        var interviewMenu =  gdParamsSchema.entities().values().stream()
                 .filter(e->e.namespace().equals("params.interview"))
                 .collect(Can.toCan());
-        val supplementMenu =  gdParamsSchema.entities().values().stream()
+        var supplementMenu =  gdParamsSchema.entities().values().stream()
                 .filter(e->e.namespace().equals("params.supplement"))
                 .collect(Can.toCan());
         //TODO needs 2 named sections: Food and Recipe
-        val pathwayMenu =  gdParamsSchema.entities().values().stream()
+        var pathwayMenu =  gdParamsSchema.entities().values().stream()
                 .filter(e->e.name().contains("Pathway"))
                 .sorted((a, b)->a.name().compareTo(b.name()))
                 .collect(Can.toCan());
-        val allManagersMenu =  gdParamsSchema.entities().values().stream()
+        var allManagersMenu =  gdParamsSchema.entities().values().stream()
                 .sorted((a, b)->a.name().compareTo(b.name()))
                 .collect(Can.toCan());
 
-        val adoc = new AsciiDocBuilder();
+        var adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Menu Entries"));
         adoc.append(doc->{
-            val sourceBlock = AsciiDocFactory.sourceBlock(doc, "xml", String.format(
+            var sourceBlock = AsciiDocFactory.sourceBlock(doc, "xml", String.format(
             """
             <mb:menu>
                 <mb:named>Interviews</mb:named>

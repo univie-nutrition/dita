@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT
@@ -53,7 +53,7 @@ public class SurveyManager_addSurvey {
     @MemberSupport
     public Survey.Manager act(@ParameterTuple final Survey.Params p) {
 
-        val survey = repositoryService.detachedEntity(new Survey());
+        var survey = repositoryService.detachedEntity(new Survey());
         survey.setCode(p.code());
         survey.setName(p.name());
 

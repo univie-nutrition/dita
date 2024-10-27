@@ -42,7 +42,7 @@ import org.apache.causeway.commons.io.FileUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 import lombok.experimental.Accessors;
 
 import dita.globodiet.manager.DitaModuleGdManager;
@@ -150,10 +150,10 @@ public class VersionsService {
         final int cloneId = getNextFreeVersionId();
         clone.set__id(cloneId);
 
-        val cloneDir = FileUtils.makeDir(new File(rootDirectory(), "" + cloneId));
+        var cloneDir = FileUtils.makeDir(new File(rootDirectory(), "" + cloneId));
         clone.writeManifest(cloneDir);
 
-        val masterDir = lookupVersionFolderElseFail(master);
+        var masterDir = lookupVersionFolderElseFail(master);
 
         FileUtils.copy(
                 new File(masterDir, "gd-params.yml.zip"),
@@ -185,7 +185,7 @@ public class VersionsService {
      * Resolves a file resource relative to the given version's blob-store sub-folder.
      */
     private DataSource resolveResource(final ParameterDataVersion parameterDataVersion, final String resourceName) {
-        val versionFolder = new File(rootDirectory(), "" + parameterDataVersion.get__id());
+        var versionFolder = new File(rootDirectory(), "" + parameterDataVersion.get__id());
         return DataSource.ofFile(new File(versionFolder, resourceName));
     }
 
@@ -221,7 +221,7 @@ public class VersionsService {
     }
 
     private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
-        val versionFolder = new File(rootDirectory(), "" + version.get__id());
+        var versionFolder = new File(rootDirectory(), "" + version.get__id());
         return FileUtils.existingDirectoryElseFail(versionFolder);
     }
 

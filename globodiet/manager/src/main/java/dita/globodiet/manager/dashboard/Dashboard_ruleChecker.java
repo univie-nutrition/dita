@@ -41,7 +41,7 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.li
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.listItem;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import dita.commons.services.rules.RuleChecker;
 import dita.commons.services.rules.RuleChecker.RuleViolation;
@@ -77,13 +77,13 @@ public class Dashboard_ruleChecker {
                             individual Entity""")
             final GroupBy groupBy) {
 
-        val checkersSorted = checkersSorted(checkers);
+        var checkersSorted = checkersSorted(checkers);
 
-        val adoc = new AsciiDocBuilder();
+        var adoc = new AsciiDocBuilder();
         adoc.append(doc->{
             doc.setTitle("Rule Checker Report");
             AsciiDocFactory.block(doc, "Selected Checkers:");
-            val list = AsciiDocFactory.list(doc);
+            var list = AsciiDocFactory.list(doc);
             checkersSorted.forEach(checker->{
                 AsciiDocFactory.listItem(list, String.format("%s: %s",
                         checker.title(),
@@ -103,13 +103,13 @@ public class Dashboard_ruleChecker {
                         var violations = checker.check(entityClass);
                         if(violations.isEmpty()) return;
 
-                        val sourceBlock = AsciiDocFactory.sourceBlock(checkerSection, "yaml",
+                        var sourceBlock = AsciiDocFactory.sourceBlock(checkerSection, "yaml",
                                 violations.stream()
                                 .map(RuleViolation::formatAsYaml)
                                 .collect(Collectors.joining("\n")));
                         sourceBlock.setTitle("Entity: " + entityClass.getSimpleName());
 
-                        val list = list(checkerSection);
+                        var list = list(checkerSection);
                         list.setTitle("Links");
                         violations.stream()
                             .map(RuleViolation::uris)
@@ -134,7 +134,7 @@ public class Dashboard_ruleChecker {
                         var violations = checker.check(entityClass);
                         if(violations.isEmpty()) return;
 
-                        val sourceBlock = AsciiDocFactory.sourceBlock(entitySection, "yaml",
+                        var sourceBlock = AsciiDocFactory.sourceBlock(entitySection, "yaml",
                                 violations.stream()
                                 .map(RuleViolation::formatAsYaml)
                                 .collect(Collectors.joining("\n")));
@@ -142,7 +142,7 @@ public class Dashboard_ruleChecker {
                                 checker.title(),
                                 checker.description()));
 
-                        val list = list(entitySection);
+                        var list = list(entitySection);
                         list.setTitle("Links");
                         violations.stream()
                             .map(RuleViolation::uris)

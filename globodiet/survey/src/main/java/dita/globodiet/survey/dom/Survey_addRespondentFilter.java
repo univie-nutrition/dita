@@ -32,7 +32,7 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import io.github.causewaystuff.commons.base.listing.Listing;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
@@ -57,7 +57,7 @@ public class Survey_addRespondentFilter {
     @MemberSupport
     public Survey act(@ParameterTuple final RespondentFilter.Params p) {
 
-        val respondentFilter = repositoryService.detachedEntity(new RespondentFilter());
+        var respondentFilter = repositoryService.detachedEntity(new RespondentFilter());
         respondentFilter.setSurveyCode(mixee.secondaryKey().code());
         respondentFilter.setCode(p.code());
         respondentFilter.setName(p.name());

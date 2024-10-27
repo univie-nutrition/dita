@@ -39,7 +39,7 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataTable.CellVisitor;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
@@ -72,7 +72,7 @@ public class RecipeManager_importRecipes {
         var recipeTable = DataTable.forDomainType(Recipe.class)
                 .populateEntities();
 
-        val yaml = new StringBuilder();
+        var yaml = new StringBuilder();
         yaml.append("rows").append("\n");
 
         recipeTable.visit(new CellVisitor() {

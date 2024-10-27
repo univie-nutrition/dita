@@ -32,7 +32,7 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import io.github.causewaystuff.commons.base.listing.Listing;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
@@ -58,7 +58,7 @@ public class Survey_addReportColumnDefinition {
     @MemberSupport
     public Survey act(@ParameterTuple final ReportColumnDefinition.Params p) {
 
-        val colDef = repositoryService.detachedEntity(new ReportColumnDefinition());
+        var colDef = repositoryService.detachedEntity(new ReportColumnDefinition());
         colDef.setSurveyCode(mixee.secondaryKey().code());
         colDef.setCode(p.code());
         colDef.setName(p.name());

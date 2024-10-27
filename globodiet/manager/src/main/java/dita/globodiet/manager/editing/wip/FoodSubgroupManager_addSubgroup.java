@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import dita.globodiet.params.food_list.FoodGroup;
@@ -53,7 +53,7 @@ public class FoodSubgroupManager_addSubgroup {
 
     @MemberSupport
     public FoodSubgroup act(@ParameterTuple final FoodSubgroup.Params p) {
-        val grp = repositoryService.detachedEntity(new FoodSubgroup());
+        var grp = repositoryService.detachedEntity(new FoodSubgroup());
 
         grp.setFatDuringCookingSubgroupQ(p.fatDuringCookingSubgroupQ());
         grp.setFatOrSauceSubgroupThatCanBeLeftOverInTheDishQ(p.fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ());

@@ -25,7 +25,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import lombok.SneakyThrows;
-import lombok.val;
+
 
 import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Sex;
@@ -38,12 +38,12 @@ class JaxbAdaptersTest {
     void roundtripOnQuantity() {
 
         var adapter = new JaxbAdapters.QuantityAdapter();
-        val quantity = Quantities.getQuantity(15.54, Units.GRAM);
+        var quantity = Quantities.getQuantity(15.54, Units.GRAM);
 
-        val stringified = adapter.marshal(quantity);
+        var stringified = adapter.marshal(quantity);
         assertEquals("15.54[g]", stringified);
 
-        val quantityAfterRoundTrip = adapter.unmarshal(stringified);
+        var quantityAfterRoundTrip = adapter.unmarshal(stringified);
         assertEquals(quantity, quantityAfterRoundTrip);
     }
 
@@ -53,8 +53,8 @@ class JaxbAdaptersTest {
 
         var adapter = new JaxbAdapters.SexAdapter();
 
-        val stringified = adapter.marshal(gender);
-        val genderAfterRoundTrip = adapter.unmarshal(stringified);
+        var stringified = adapter.marshal(gender);
+        var genderAfterRoundTrip = adapter.unmarshal(stringified);
         assertEquals(gender, genderAfterRoundTrip);
     }
 

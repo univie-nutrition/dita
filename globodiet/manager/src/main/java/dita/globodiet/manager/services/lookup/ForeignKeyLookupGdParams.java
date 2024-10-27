@@ -43,7 +43,7 @@ import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.functions._Predicates;
 
-import lombok.val;
+
 
 import dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe;
 import dita.globodiet.params.food_descript.FoodDescriptor;
@@ -126,7 +126,7 @@ implements ForeignKeyLookupService {
             return lookup;
         }
         public Optional<T> lookup(final ISecondaryKey<T> lookupKey, final BookmarkService bookmarkService) {
-            val bookmark = map().get(lookupKey);
+            var bookmark = map().get(lookupKey);
             return bookmarkService.lookup(bookmark, lookupKey.correspondingClass());
         }
     }

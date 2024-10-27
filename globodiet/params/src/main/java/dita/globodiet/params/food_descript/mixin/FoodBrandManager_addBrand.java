@@ -36,7 +36,7 @@ import dita.globodiet.params.food_descript.FoodBrand;
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 @Action
 @ActionLayout(fieldSetId="listOfFoodBrand", position = Position.PANEL)
@@ -51,7 +51,7 @@ public class FoodBrandManager_addBrand {
     @MemberSupport
     public FoodBrand.Manager act(@ParameterTuple final FoodBrand.Params p) {
 
-        val brandName = repositoryService.detachedEntity(new FoodBrand());
+        var brandName = repositoryService.detachedEntity(new FoodBrand());
         brandName.setNameOfBrand(p.nameOfBrand());
         brandName.setFoodGroupCode(Optional.ofNullable(p.foodGroup())
                 .map(x->x.getCode())

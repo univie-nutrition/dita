@@ -44,7 +44,7 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.he
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.row;
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.table;
 
-import lombok.val;
+
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import io.github.causewaystuff.companion.codegen.model.Schema;
@@ -63,7 +63,7 @@ public class DitaTableNamesPage implements HelpPage {
 
     @Override
     public AsciiDoc getContent() {
-        val adoc = new AsciiDocBuilder();
+        var adoc = new AsciiDocBuilder();
         var namespaces = gdParamsSchema.entities().values().stream()
             .map(e->e.namespace())
             .collect(Collectors.toCollection(TreeSet::new));

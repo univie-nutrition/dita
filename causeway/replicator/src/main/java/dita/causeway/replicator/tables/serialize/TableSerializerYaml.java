@@ -36,7 +36,7 @@ import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
-import lombok.val;
+
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableService;
@@ -53,7 +53,7 @@ public class TableSerializerYaml {
             final String name,
             final NameTransformer nameTransformer,
             final Can<DataTable> dataTables) {
-        val yaml = new _DataTableSet(dataTables)
+        var yaml = new _DataTableSet(dataTables)
                 .toTabularData(format())
                 .transform(nameTransformer)
                 .toYaml(format());
@@ -65,7 +65,7 @@ public class TableSerializerYaml {
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
             final boolean rowSortingEnabled) {
-        val yaml = dataTableSet(filter)
+        var yaml = dataTableSet(filter)
                 .populateFromDatabase()
                 .toTabularData(format())
                 .transform(nameTransformer)
@@ -84,7 +84,7 @@ public class TableSerializerYaml {
             final PersistenceManager pm,
             final StringNormalizerFactory stringNormalizerFactory,
             final boolean rowSortingEnabled) {
-        val yaml = dataTableSet(filter)
+        var yaml = dataTableSet(filter)
                 .populateFromSecondaryConnection(pm)
                 .toTabularData(format(), stringNormalizerFactory)
                 .transform(nameTransformer)
@@ -123,10 +123,10 @@ public class TableSerializerYaml {
 
         if(insertMode.isDoNothing()) return "Ignored";
 
-        val tabularData = TabularData.populateFromYaml(clob.asString(), format())
+        var tabularData = TabularData.populateFromYaml(clob.asString(), format())
                 .transform(nameTransformer);
 
-        val yaml = dataTableSet(filter)
+        var yaml = dataTableSet(filter)
                 .populateFromTabularData(tabularData, format())
                 .modifyObject(modifier)
                 .insertToDatabase(repositoryService, insertMode)
@@ -149,14 +149,14 @@ public class TableSerializerYaml {
 
         System.err.printf("replicate %s%n", "gen tabularData");
 
-        val tabularData = TabularData.populateFromYaml(clob.asString(), format())
+        var tabularData = TabularData.populateFromYaml(clob.asString(), format())
                 .transform(nameTransformer);
 
         System.err.printf("replicate %s%n", "start");
 
 
-        val sb = new StringBuilder();
-        val dataTableSet = dataTableSet(filter)
+        var sb = new StringBuilder();
+        var dataTableSet = dataTableSet(filter)
                 .populateFromTabularData(tabularData, format())
                 .replicateToDatabase(pm, sb);
 
@@ -168,7 +168,7 @@ public class TableSerializerYaml {
     // -- HELPER
 
     private _DataTableSet dataTableSet(final Predicate<ObjectSpecification> filter){
-        val dataTables = new _DataTableSet(
+        var dataTables = new _DataTableSet(
                 dataTableService.streamDataTables()
                     .filter(dataTable->filter.test(dataTable.getElementType()))
                     .collect(Can.toCan()));

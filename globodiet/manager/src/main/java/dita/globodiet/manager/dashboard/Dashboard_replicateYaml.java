@@ -36,7 +36,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+
 
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
@@ -69,7 +69,7 @@ public class Dashboard_replicateYaml {
             @ParameterLayout(named = "tableData")
             final Clob tableData) {
 
-        val adoc = new AsciiDocBuilder();
+        var adoc = new AsciiDocBuilder();
         adoc.append(doc->doc.setTitle("Table Replicate Result"));
 
         new SecondaryDataStore(dataTableService)
@@ -78,7 +78,7 @@ public class Dashboard_replicateYaml {
                 var pm = pmf.getPersistenceManager();
                 try {
                     adoc.append(doc->{
-                      val sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
+                      var sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
                               format==ExportFormat.ENTITY
                                   ? TabularData.NameTransformer.IDENTITY
                                   : table2entity, pm));

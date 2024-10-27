@@ -29,7 +29,7 @@ import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
 
-import lombok.val;
+
 
 import dita.commons.util.ObjectGraphTransformers;
 
@@ -47,7 +47,7 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
     @Override
     final protected boolean accept(final BeanSort beanSort, final LogicalType logicalType) {
         if(!beanSort.isEntity()) return false;
-        val ns = "" + logicalType.getNamespace();
+        var ns = "" + logicalType.getNamespace();
         return !ns.equals("causeway")
                 && !ns.startsWith("causeway.");
     }
@@ -98,18 +98,18 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
 
 //    @Override
 //    public AsciiDoc getContent() {
-//        val title = getTitle();
-//        val plantumlSource = entityTypesAsDiagram();
+//        var title = getTitle();
+//        var plantumlSource = entityTypesAsDiagram();
 //
-//        val doc = AsciiDocFactory.doc();
+//        var doc = AsciiDocFactory.doc();
 //        doc.setTitle(getTitle());
 //
 //        final String asciidocSource = AsciiDocWriter.toString(doc);
 //
-//        val diagramBlock = AsciiDocFactory
+//        var diagramBlock = AsciiDocFactory
 //                .diagramBlock(doc, "plantuml", Can.of(getTitle() ,"svg"), plantumlSource);
 //
-//        val adoc = AsciiDoc.valueOf(asciidocSource);
+//        var adoc = AsciiDoc.valueOf(asciidocSource);
 //        return adoc;
 //    }
 

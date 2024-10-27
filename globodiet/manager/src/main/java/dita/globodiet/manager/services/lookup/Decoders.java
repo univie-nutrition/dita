@@ -33,7 +33,7 @@ import dita.globodiet.params.food_list.FoodSubgroup;
 import dita.globodiet.params.recipe_list.RecipeGroup;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
 import lombok.NonNull;
-import lombok.val;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -57,11 +57,11 @@ class Decoders {
         _Assert.assertTrue(input.length()==2
                 || input.length()==4
                 || input.length()==6);
-        val d1 = input.substring(0, 2);
-        val d2 = input.length()>=4
+        var d1 = input.substring(0, 2);
+        var d2 = input.length()>=4
                 ? input.substring(2, 4)
                 : null;
-        val d3 = input.length()==6
+        var d3 = input.length()==6
                 ? input.substring(4)
                 : null;
         return input.length()>=4
@@ -75,8 +75,8 @@ class Decoders {
     Either<RecipeGroup.SecondaryKey, RecipeSubgroup.SecondaryKey> decodeRecipeGroupLookupKey(final @NonNull String input) {
         _Assert.assertTrue(input.length()==2
                 || input.length()==4);
-        val d1 = input.substring(0, 2);
-        val d2 = input.length()>=4
+        var d1 = input.substring(0, 2);
+        var d2 = input.length()>=4
                 ? input.substring(2, 4)
                 : null;
         return input.length()>=4

@@ -35,7 +35,7 @@ import dita.commons.types.MetricUnits;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.val;
+
 import lombok.experimental.Accessors;
 import tech.units.indriya.unit.Units;
 
@@ -58,7 +58,7 @@ class MetricUnitsTest {
             assertEquals(expectedFormat(), MetricUnits.formatted(quantity()));
         }
         void assertValidSerialization() {
-            val q = (Serializable)quantity();
+            var q = (Serializable)quantity();
             assertEquals(q, roundtrip(q));
         }
         void assertValidConversion() {
@@ -75,7 +75,7 @@ class MetricUnitsTest {
 
         @SneakyThrows
         private static <T extends Serializable> T roundtrip(final T object) {
-            val bytes = _Serializables.write(object);
+            var bytes = _Serializables.write(object);
             return _Casts.uncheckedCast(
                     _Serializables.read(object.getClass(), bytes));
         }

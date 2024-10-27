@@ -22,7 +22,7 @@ import java.io.File;
 import java.util.List;
 
 import lombok.SneakyThrows;
-import lombok.val;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -32,7 +32,7 @@ public class XlsxUtils {
 
     @SneakyThrows
     public Process launchViewer(final File xlsxFile) {
-        val pb = new ProcessBuilder();
+        var pb = new ProcessBuilder();
         pb.command(List.of(
                 EXECUTABLE,
                 xlsxFile.getAbsolutePath()));

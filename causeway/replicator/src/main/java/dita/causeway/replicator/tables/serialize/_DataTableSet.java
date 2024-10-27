@@ -44,7 +44,7 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.val;
+
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
@@ -99,16 +99,16 @@ class _DataTableSet {
         dataBase.dataTables()
         .forEach(tableEntry->{
 
-            val entityLogicalTypeName = tableEntry.key();
+            var entityLogicalTypeName = tableEntry.key();
 
-            val dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
+            var dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
                     .orElse(null);
             if(dataTable==null) {
                 return; // skip
             }
-            val entitySpec = dataTable.getElementType();
-            val entityClass = entitySpec.getCorrespondingClass();
-            val factoryService = entitySpec.getFactoryService();
+            var entitySpec = dataTable.getElementType();
+            var entityClass = entitySpec.getCorrespondingClass();
+            var factoryService = entitySpec.getFactoryService();
 
             final Can<String> colNames = tableEntry.columns().map(Column::name);
 
@@ -119,21 +119,21 @@ class _DataTableSet {
                     guardAgainstColumnsVsMetamodelMismatch(dataTable, colNames);
 
             //System.err.printf("  rows:%n");
-            val dataElements = tableEntry.rows()
+            var dataElements = tableEntry.rows()
                 .map(row->{
                     // create a new entity instance from each row
 
-                    val entityPojo = factoryService.detachedEntity(entityClass);
-                    val entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
+                    var entityPojo = factoryService.detachedEntity(entityClass);
+                    var entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
 
                     int colIndex = 0;
 
-                    for(val col : dataTable.getDataColumns()){
-                        val colMetamodel = col.getMetamodel();
-                        val valueSpec = colMetamodel.getElementType();
+                    for(var col : dataTable.getDataColumns()){
+                        var colMetamodel = col.getMetamodel();
+                        var valueSpec = colMetamodel.getElementType();
                         // assuming value
-                        val valueFacet = valueSpec.valueFacetElseFail();
-                        val cls = valueSpec.getCorrespondingClass();
+                        var valueFacet = valueSpec.valueFacetElseFail();
+                        var cls = valueSpec.getCorrespondingClass();
                         final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
 
                         // parse value
@@ -236,7 +236,7 @@ class _DataTableSet {
         // delete all existing entities
         if(insertMode.isDeleteAllThenAdd()) {
             dataTables.forEach(dataTable->{
-                val entityClass = dataTable.getElementType().getCorrespondingClass();
+                var entityClass = dataTable.getElementType().getCorrespondingClass();
                 repositoryService.removeAll(entityClass);
             });
         }
@@ -254,7 +254,7 @@ class _DataTableSet {
         // delete all existing entities
         dataTables.forEach(dataTable->{
             pm.currentTransaction().begin();
-            val entityClass = dataTable.getElementType().getCorrespondingClass();
+            var entityClass = dataTable.getElementType().getCorrespondingClass();
             Query<?> query = pm.newQuery(String.format("DELETE FROM %s", entityClass.getName()));
 
             //log
@@ -311,12 +311,12 @@ class _DataTableSet {
             final Can<String> colNames) {
 
         // sort for canonical comparison
-        val colNamesSorted = colNames
+        var colNamesSorted = colNames
                 .sorted((a, b)->_Strings.compareNullsFirst(
                         _Strings.asLowerCase.apply(a),
                         _Strings.asLowerCase.apply(b)));
         // sort for canonical comparison
-        val colFromMetamodelSorted = dataTable.getDataColumns().sorted(orderByColumnIdIgnoringCase());
+        var colFromMetamodelSorted = dataTable.getDataColumns().sorted(orderByColumnIdIgnoringCase());
 
         colNamesSorted.zip(colFromMetamodelSorted, (String colName, DataColumn col)->{
             // verify read in data matches meta-model
@@ -360,7 +360,7 @@ class _DataTableSet {
         var valueFacet = valueSpec.valueFacetElseFail();
 
         @SuppressWarnings("unchecked")
-        val stringifiedValue = formatOptions.encodeCellValue(
+        var stringifiedValue = formatOptions.encodeCellValue(
                 stringNormalizer.apply(
                         valueFacet.enstring(Format.JSON, cellValue.getPojo())));
         return stringifiedValue;

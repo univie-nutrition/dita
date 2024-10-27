@@ -25,7 +25,7 @@ import io.github.causewaystuff.companion.codegen.model.Schema.Entity;
 
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import lombok.val;
+
 
 import dita.commons.types.BiString;
 import dita.commons.types.TabularData.NameTransformer;
@@ -37,13 +37,13 @@ implements NameTransformer {
 
     @Override
     public String transformTable(final String tableName) {
-        val entity = lookupEntityElseFail(tableName);
+        var entity = lookupEntityElseFail(tableName);
         return String.format("%s.%s.%s", logicalNamespacePrefix, entity.namespace(), entity.name());
     }
 
     @Override
     public String transformColumn(final BiString columnName) {
-        val entity = lookupEntityElseFail(columnName.left());
+        var entity = lookupEntityElseFail(columnName.left());
         return entity.lookupFieldByColumnName(columnName.right())
                 .map(field->field.name())
                 .orElseThrow(()->_Exceptions.noSuchElement("column '%s' not found in schema",

@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import lombok.val;
+
 
 import dita.foodex.validate.service.EfsaCodeAnalyserService.Options;
 
@@ -40,7 +40,7 @@ class EfsaCodeAnalyserServiceTest {
         //GlobalUtil is a mess with its static initializers
         System.setProperty("workingDir", "N:\\dev\\EFSA-catalogues-browser-onlyapp-win-64bit");
 
-        val options = Options.builder()
+        var options = Options.builder()
                 .workingDir("N:\\dev\\EFSA-catalogues-browser-onlyapp-win-64bit")
                 .build();
 
@@ -50,13 +50,13 @@ class EfsaCodeAnalyserServiceTest {
 
     @Test
     void expectsNoWarning() {
-        val validation = analyser.validate("A01SP#F22.A07SS$F28.A07GT$F28.A07HS");
+        var validation = analyser.validate("A01SP#F22.A07SS$F28.A07GT$F28.A07HS");
         assertEquals("", validation);
     }
 
     @Test
     void expectsWarning() {
-        val validation = analyser.validate("A01SP#F04.A0EZM$F22.A07SS$F28.A07HS");
+        var validation = analyser.validate("A01SP#F04.A0EZM$F22.A07SS$F28.A07HS");
         assertEquals("BR12> The F04 ingredient facet can only be used as a minor ingredient "
                 + "to derivative or raw primary commodity terms.(A0EZM) ;LOW;LOW", validation);
     }

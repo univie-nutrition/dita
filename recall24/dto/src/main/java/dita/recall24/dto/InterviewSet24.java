@@ -43,7 +43,7 @@ import org.apache.causeway.commons.io.YamlUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.val;
+
 import lombok.experimental.Accessors;
 
 import dita.commons.io.JaxbAdapters;
@@ -149,7 +149,7 @@ public record InterviewSet24(
      * Check the result's cardinality.
      */
     public Can<InterviewSet24> split(final int partitionCountYield) {
-        val respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
+        var respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
         return respondentBiPartition.map(InterviewSet24::normalized);
     }
 

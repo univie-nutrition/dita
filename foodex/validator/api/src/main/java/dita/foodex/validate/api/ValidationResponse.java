@@ -28,7 +28,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.val;
+
 
 @Data @AllArgsConstructor(staticName = "of") @NoArgsConstructor
 public class ValidationResponse {
@@ -62,12 +62,12 @@ public class ValidationResponse {
             return empty();
         }
         
-        val messages = _Strings.splitThenStream(rawValidation, "|")
+        var messages = _Strings.splitThenStream(rawValidation, "|")
                 .map(String::trim)
                 .filter(_Strings::isNotEmpty)
                 .<Message>map(rawMessage->{
             
-                    val chunks = _Strings.splitThenStream(rawMessage, ";")
+                    var chunks = _Strings.splitThenStream(rawMessage, ";")
                             .map(String::trim)
                             .collect(Collectors.toList());
                     

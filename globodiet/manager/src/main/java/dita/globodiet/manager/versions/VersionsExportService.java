@@ -34,7 +34,7 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
-import lombok.val;
+
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.sid.SemanticIdentifier.SystemId;
@@ -113,7 +113,7 @@ public class VersionsExportService {
                 ? TabularData.NameTransformer.IDENTITY
                 : table2entity;
 
-        val tables = TabularData.populateFromYaml(
+        var tables = TabularData.populateFromYaml(
                 tableDataClob.asString(),
                 format())
             .transform(nameTransformer)
@@ -132,7 +132,7 @@ public class VersionsExportService {
             final Predicate<ObjectSpecification> tableFilter,
             final ExportFormat format,
             final boolean rowSortingEnabled) {
-        val clob = tableSerializer.clobFromRepository("gd-params",
+        var clob = tableSerializer.clobFromRepository("gd-params",
                 format==ExportFormat.ENTITY
                     ? TabularData.NameTransformer.IDENTITY
                     : entity2table,

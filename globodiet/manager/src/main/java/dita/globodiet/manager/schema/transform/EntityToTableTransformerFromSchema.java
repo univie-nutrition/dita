@@ -28,7 +28,7 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import lombok.val;
+
 
 import dita.commons.types.BiString;
 import dita.commons.types.TabularData.NameTransformer;
@@ -45,7 +45,7 @@ implements NameTransformer {
 
     @Override
     public String transformColumn(final BiString propertyName) {
-        val entity = lookupEntityElseFail(propertyName.left());
+        var entity = lookupEntityElseFail(propertyName.left());
         return entity.fields().stream()
                 .peek(field->{
 

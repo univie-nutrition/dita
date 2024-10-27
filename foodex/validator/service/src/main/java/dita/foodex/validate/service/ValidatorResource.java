@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dita.foodex.validate.api.ValidationRequest;
 import dita.foodex.validate.api.ValidationResponse;
-import lombok.val;
+
 
 @RestController
 public class ValidatorResource {
@@ -36,7 +36,7 @@ public class ValidatorResource {
 
     @RequestMapping(value="/validate", method = RequestMethod.POST)
     public ValidationResponse validate(@RequestBody final ValidationRequest request) {
-        val warnings = analyser.validate(request.getFullCode());
+        var warnings = analyser.validate(request.getFullCode());
         return ValidationResponse.parse(warnings, request.getFullCode());
     }
 }

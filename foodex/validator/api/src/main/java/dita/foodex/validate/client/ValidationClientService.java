@@ -33,7 +33,7 @@ import org.apache.causeway.viewer.restfulobjects.client.RestfulClientConfig;
 import dita.foodex.validate.api.ValidationResponse;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
+
 
 @Service
 public class ValidationClientService {
@@ -57,7 +57,7 @@ public class ValidationClientService {
         }
 
         if(verbose==null) {
-            val verboseString = System.getProperty(KEY_VALIDATOR_DEBUG);
+            var verboseString = System.getProperty(KEY_VALIDATOR_DEBUG);
             if(verboseString!=null) {
                 try {
                     verbose = Boolean.valueOf(verboseString);
@@ -70,7 +70,7 @@ public class ValidationClientService {
             verbose=false; // fallback
         }
 
-        val clientConfig = RestfulClientConfig.builder()
+        var clientConfig = RestfulClientConfig.builder()
         .restfulBaseUrl(validatorResourceUrl)
         .useRequestDebugLogging(verbose) //for debugging
         .build();

@@ -32,7 +32,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.TextUtils;
 
-import lombok.val;
+
 
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchema;
@@ -54,18 +54,18 @@ class TableDataRoundtripTest {
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail();
 
-        val dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
+        var dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
 
 
-        val schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/companion-schema.yaml")
+        var schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/companion-schema.yaml")
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
 
-        val t2eTransformer = new TableToEntityTransformerFromSchema("dita.globodiet", schema);
-        val dbHigh = dbLow.transform(t2eTransformer);
+        var t2eTransformer = new TableToEntityTransformerFromSchema("dita.globodiet", schema);
+        var dbHigh = dbLow.transform(t2eTransformer);
 
-        val e2tTransformer = new EntityToTableTransformerFromSchema("dita.globodiet", schema);
-        val dbLowAfterRoundtrip = dbHigh.transform(e2tTransformer);
+        var e2tTransformer = new EntityToTableTransformerFromSchema("dita.globodiet", schema);
+        var dbLowAfterRoundtrip = dbHigh.transform(e2tTransformer);
 
 // debug
 //        TextUtils.writeLinesToFile(TextUtils.readLines(dbLow.toYaml(TabularUtils.Format.defaults())),

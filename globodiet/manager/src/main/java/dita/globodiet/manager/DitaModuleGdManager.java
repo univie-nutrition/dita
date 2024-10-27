@@ -43,7 +43,7 @@ import org.apache.causeway.viewer.restfulobjects.jaxrsresteasy.CausewayModuleVie
 import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRestfulObjectsViewer;
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
-import lombok.val;
+
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
@@ -134,10 +134,10 @@ public class DitaModuleGdManager {
 
     @Bean
     public Schema.Domain gdSchema() {
-        val schema1 = Schema.Domain.fromYaml(DitaModuleGdParams.schemaSource()
+        var schema1 = Schema.Domain.fromYaml(DitaModuleGdParams.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
-        val schema2 = Schema.Domain.fromYaml(DitaModuleGdSurvey.schemaSource()
+        var schema2 = Schema.Domain.fromYaml(DitaModuleGdSurvey.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
         return schema1.concat(schema2);
@@ -167,7 +167,7 @@ public class DitaModuleGdManager {
                 final DitaEntityDiagramPage ditaEntityDiagramPage,
                 final DitaEntityDiagramPage2 ditaEntityDiagramPage2) {
 
-            val root = HelpTopic.root("Topics");
+            var root = HelpTopic.root("Topics");
 
             //root.addPage(welcomeHelpPage);
 

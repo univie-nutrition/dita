@@ -32,14 +32,14 @@ class Recall24UtilsTest {
     @Test
     void jaxbRoundtripOnInterviewSetDto() {
 
-        val interviewSet = sampler.asInterviewSet(sampler.survey());
+        var interviewSet = sampler.asInterviewSet(sampler.survey());
 
-        val dataPeer = DataPeer.inMemory();
+        var dataPeer = DataPeer.inMemory();
 
         Recall24DtoUtils.tryWriteSurvey(interviewSet, dataPeer)
             .ifFailureFail();
 
-        val survey24AfterRoundtrip = Recall24DtoUtils.tryReadSurvey(dataPeer)
+        var survey24AfterRoundtrip = Recall24DtoUtils.tryReadSurvey(dataPeer)
             .valueAsNonNullElseFail();
 
         assertEquals(interviewSet, survey24AfterRoundtrip);
@@ -48,15 +48,15 @@ class Recall24UtilsTest {
     @Test
     void roundtripOnZippedBlobOfInterviewSetDto() {
 
-        val blob = sampler.survey();
+        var blob = sampler.survey();
 
-        val interviewSet = Recall24DtoUtils.tryUnzip(blob)
+        var interviewSet = Recall24DtoUtils.tryUnzip(blob)
             .valueAsNonNullElseFail();
 
-        val blobAfterRoundtrip = Recall24DtoUtils.tryZip("interview-set", interviewSet)
+        var blobAfterRoundtrip = Recall24DtoUtils.tryZip("interview-set", interviewSet)
             .valueAsNonNullElseFail();
 
-        val interviewSetAfterRoundtrip = Recall24DtoUtils.tryUnzip(blobAfterRoundtrip)
+        var interviewSetAfterRoundtrip = Recall24DtoUtils.tryUnzip(blobAfterRoundtrip)
             .valueAsNonNullElseFail();
 
         assertEquals(interviewSet, interviewSetAfterRoundtrip);
@@ -64,22 +64,22 @@ class Recall24UtilsTest {
 
     @Test
     void roundtripOnDtoToModelConversion() {
-        val interviewSetDto = sampler.asInterviewSet(sampler.survey());
+        var interviewSetDto = sampler.asInterviewSet(sampler.survey());
         assertEquals(interviewSetDto,
                 Recall24DtoUtils.toDto(Recall24DtoUtils.fromDto(interviewSetDto)));
     }
 
     @Test
     void roundtripOnModelSplitAndJoin() {
-        val interviewSet24 = Recall24DtoUtils.fromDto(sampler.asInterviewSet(sampler.survey()))
+        var interviewSet24 = Recall24DtoUtils.fromDto(sampler.asInterviewSet(sampler.survey()))
                 .normalized();
-        val biPartition = interviewSet24.split(2);
+        var biPartition = interviewSet24.split(2);
 
         {
             // sanity checks
-            val partA = biPartition.getElseFail(0)
+            var partA = biPartition.getElseFail(0)
                     .normalized();
-            val partB = biPartition.getElseFail(1)
+            var partB = biPartition.getElseFail(1)
                     .normalized();
             assertEquals(interviewSet24.respondents().size(),
                     partA.respondents().size() + partB.respondents().size());
@@ -87,7 +87,7 @@ class Recall24UtilsTest {
                     partA.interviewCount() + partB.interviewCount());
         }
 
-        val joined = InterviewSet24.Dto.join(biPartition, null)
+        var joined = InterviewSet24.Dto.join(biPartition, null)
                 .normalized();
 
         {
