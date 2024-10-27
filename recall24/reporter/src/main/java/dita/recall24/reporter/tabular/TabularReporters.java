@@ -33,8 +33,6 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
-import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -281,10 +279,8 @@ public class TabularReporters {
                 }
             });
 
-            var dataTable = DataTable.forDomainType(ConsumptionRecord.class);
-            dataTable.setDataElementPojos(consumptions);
-
-            new CollectionContentsAsExcelExporter().createExport(dataTable, file);
+            var xlsxWriter = new XlsxWriter2<>(ConsumptionRecord.class);
+            xlsxWriter.write(consumptions, file);
         }
 
         @SneakyThrows

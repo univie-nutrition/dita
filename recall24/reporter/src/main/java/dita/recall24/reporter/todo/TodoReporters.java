@@ -23,7 +23,7 @@ import java.util.TreeSet;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 
-import lombok.val;
+
 import lombok.experimental.UtilityClass;
 
 import dita.commons.qmap.QualifiedMap;
@@ -43,7 +43,7 @@ public class TodoReporters {
 
         public void report(final DataSink dataSink) {
 
-            val unmapped = new TreeSet<QualifiedMapKey>();
+            var unmapped = new TreeSet<QualifiedMapKey>();
             interviewSet.streamDepthFirst()
                 .forEach((final RecallNode24 node)->{
                     switch(node) {
