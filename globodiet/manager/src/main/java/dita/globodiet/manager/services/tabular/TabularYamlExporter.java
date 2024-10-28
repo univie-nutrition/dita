@@ -20,19 +20,17 @@ package dita.globodiet.manager.services.tabular;
 
 import java.io.File;
 
-import org.springframework.stereotype.Component;
-
+import org.apache.causeway.applib.tabular.TabularExporter;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-import org.apache.causeway.core.metamodel.tabular.simple.CollectionContentsExporter;
-import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+import org.apache.causeway.commons.tabular.TabularModel;
 
-@Component
-public class CollectionContentsAsYamlExporter
-implements CollectionContentsExporter {
+//@Component disabled
+public class TabularYamlExporter
+implements TabularExporter {
 
     @Override
-    public void createExport(final DataTable dataTable, final File tempFile, final AccessMode accessMode) {
-        new YamlExporter(accessMode).accept(dataTable, tempFile);
+    public void export(final TabularModel.TabularSheet tabularSheet, final File tempFile) {
+        new YamlExporter().export(tabularSheet, tempFile);
     }
 
     @Override

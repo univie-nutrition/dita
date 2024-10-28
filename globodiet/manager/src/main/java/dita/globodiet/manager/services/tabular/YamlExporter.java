@@ -19,52 +19,45 @@
 package dita.globodiet.manager.services.tabular;
 
 import java.io.File;
-import java.util.function.BiConsumer;
 
 import jakarta.inject.Inject;
 
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.core.metamodel.spec.feature.MixedIn;
-import org.apache.causeway.core.metamodel.spec.feature.ObjectMember;
-import org.apache.causeway.core.metamodel.tabular.simple.CollectionContentsExporter.AccessMode;
-import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
+import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
-import dita.commons.types.TabularData;
 
 @RequiredArgsConstructor
-class YamlExporter implements BiConsumer<DataTable, File> {
+class YamlExporter {
 
     @Inject TableSerializerYaml tableSerializerYaml;
 
-    final AccessMode accessMode; // ignored for now
-
-    @Override @SneakyThrows
-    public void accept(final DataTable table, final File tempFile) {
+    @SneakyThrows
+    public void export(final TabularSheet tabularSheet, final File tempFile) {
 
         // self managed injection
-        table.getElementType().getServiceInjector().injectServicesInto(this);
+        MetaModelContext.instanceElseFail().getServiceInjector().injectServicesInto(this);
 
-        var persistentDataColumns = table.getElementType()
-                .streamProperties(MixedIn.EXCLUDED)
-                .filter(prop->prop.isIncludedWithSnapshots())
-                .sorted(ObjectMember.Comparators.byMemberOrderSequence(false))
-                .collect(Can.toCan());
-
-        var transformedTable = new DataTable(
-                table.getElementType(),
-                table.getTableFriendlyName(),
-                persistentDataColumns,
-                table.streamDataElements().collect(Can.toCan()));
-
-        var clob = tableSerializerYaml.clobFromDataTables(
-                table.getTableFriendlyName(),
-                TabularData.NameTransformer.IDENTITY,
-                Can.of(transformedTable));
-        clob.writeToUtf8(tempFile);
+//        var persistentDataColumns = tabularSheet.getElementType()
+//                .streamProperties(MixedIn.EXCLUDED)
+//                .filter(prop->prop.isIncludedWithSnapshots())
+//                .sorted(ObjectMember.Comparators.byMemberOrderSequence(false))
+//                .collect(Can.toCan());
+//
+//        var transformedTable = new DataTable(
+//                table.getElementType(),
+//                table.getTableFriendlyName(),
+//                persistentDataColumns,
+//                table.streamDataElements().collect(Can.toCan()));
+//
+//        var clob = tableSerializerYaml.clobFromDataTables(
+//                table.getTableFriendlyName(),
+//                TabularData.NameTransformer.IDENTITY,
+//                Can.of(transformedTable));
+//        clob.writeToUtf8(tempFile);
     }
 
 }

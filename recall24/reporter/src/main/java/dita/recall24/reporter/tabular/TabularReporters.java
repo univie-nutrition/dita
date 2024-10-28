@@ -279,7 +279,7 @@ public class TabularReporters {
                 }
             });
 
-            var xlsxWriter = new XlsxWriter2<>(ConsumptionRecord.class);
+            var xlsxWriter = new XlsxWriter<>(ConsumptionRecord.class);
             xlsxWriter.write(consumptions, file);
         }
 

@@ -21,7 +21,7 @@ package dita.recall24.reporter.tabular;
 import java.io.File;
 
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
-import org.apache.causeway.extensions.tabular.excel.exporter.CollectionContentsAsExcelExporter;
+import org.apache.causeway.extensions.tabular.excel.exporter.TabularExcelExporter;
 
 import lombok.NonNull;
 
@@ -31,7 +31,8 @@ record XlsxWriter<T>(
     public void write(final Iterable<T> elements, final File file) {
         var dataTable = DataTable.forDomainType(domainType);
         dataTable.setDataElementPojos(elements);
-        new CollectionContentsAsExcelExporter().createExport(dataTable, file);
+        new TabularExcelExporter()
+            .export(dataTable.toTabularSheet(DataTable.AccessMode.PASS_THROUGH), file);
     }
 
 }
