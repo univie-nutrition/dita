@@ -40,7 +40,6 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.RequiredArgsConstructor;
 
-
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.commons.util.AsciiDocUtils;

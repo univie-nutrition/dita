@@ -32,7 +32,6 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Action(
         semantics = SemanticsOf.IDEMPOTENT
 )

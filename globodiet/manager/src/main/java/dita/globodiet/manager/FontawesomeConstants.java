@@ -63,5 +63,4 @@ public class FontawesomeConstants {
     public final String ICON_VERSION = FA_FILE_CODE_REGULAR + " do-version";
     public final String ICON_VERSIONS = FA_CODE_BRANCH_SOLID + " do-version";
 
-
 }

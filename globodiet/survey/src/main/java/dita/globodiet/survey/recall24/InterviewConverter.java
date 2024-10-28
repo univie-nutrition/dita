@@ -186,7 +186,6 @@ record InterviewConverter(SystemId systemId) {
         };
     }
 
-
     // -- MEALS
 
     private Meal24 toMeal24(final ListEntry listEntry, final Can<MemorizedFood24> memorizedFood) {

@@ -34,7 +34,6 @@ import dita.foodex.validate.api.ValidationResponse;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Service
 public class ValidationClientService {
 
@@ -97,7 +96,6 @@ public class ValidationClientService {
         }
 
         return ValidationResponse.failure(fullCode, (Exception) digest.getFailure().get());
-
 
     }
 

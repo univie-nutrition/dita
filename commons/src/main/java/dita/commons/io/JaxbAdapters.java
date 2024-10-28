@@ -110,7 +110,6 @@ public class JaxbAdapters {
             return v.getValue().doubleValue() + "[" + formattedUnit + "]";
         }
 
-
         /**
          * TODO this should be handled by some upstream library<p>
          * Extension to String's default substring method, where start and end indexes are
@@ -138,6 +137,5 @@ public class JaxbAdapters {
             return x.substring(p, q);
         }
     }
-
 
 }

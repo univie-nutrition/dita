@@ -50,7 +50,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
-
 import dita.recall24.reporter.tabular.Tabular.Column;
 import dita.recall24.reporter.tabular.Tabular.Value;
 
@@ -102,7 +101,6 @@ record XlsxWriter2<T>(
         }
 
     }
-
 
     public void write(final Iterable<T> elements, final File file) {
 

@@ -122,7 +122,6 @@ public class Campaigns {
                 .valueAsNullableElseFail();
     }
 
-
     // -- INTERVIEW SET
 
     public InterviewSet24 interviewSet(

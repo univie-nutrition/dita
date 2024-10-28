@@ -41,7 +41,6 @@ public record QualifiedMapEntry(
          */
         SemanticIdentifier target) {
 
-
     public QualifiedMapEntry(
             final SemanticIdentifier source,
             final SemanticIdentifierSet qualifier,

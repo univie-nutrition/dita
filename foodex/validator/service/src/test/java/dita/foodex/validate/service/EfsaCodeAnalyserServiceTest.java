@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-
 import dita.foodex.validate.service.EfsaCodeAnalyserService.Options;
 
 //@Disabled("needs test resources")

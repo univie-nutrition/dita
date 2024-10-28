@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import lombok.SneakyThrows;
 
-
 import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Sex;
 import tech.units.indriya.quantity.Quantities;

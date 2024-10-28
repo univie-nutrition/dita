@@ -32,8 +32,6 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.TextUtils;
 
-
-
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchema;
@@ -55,7 +53,6 @@ class TableDataRoundtripTest {
                 .valueAsNonNullElseFail();
 
         var dbLow = TabularData.populateFromYaml(gdParamDataLowLevelYaml, TabularData.Format.defaults());
-
 
         var schema = Schema.Domain.fromYaml(DataSource.ofResource(DitaModuleGdSurvey.class, "/companion-schema.yaml")
                 .tryReadAsStringUtf8()
@@ -189,8 +186,6 @@ class TableDataRoundtripTest {
         return Optional.empty();
     }
 
-
-
     @DisabledIfSystemProperty(named = "isRunningWithSurefire", matches = "true")
     //@Test
     void genSortedChecklist() {
@@ -223,6 +218,5 @@ class TableDataRoundtripTest {
                 System.err.printf("- [ ] %s (%s)%n", t.name(), t.table());
             });
     }
-
 
 }

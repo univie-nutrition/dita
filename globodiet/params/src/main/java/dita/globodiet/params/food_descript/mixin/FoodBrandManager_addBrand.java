@@ -37,7 +37,6 @@ import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
 import lombok.RequiredArgsConstructor;
 
-
 @Action
 @ActionLayout(fieldSetId="listOfFoodBrand", position = Position.PANEL)
 @RequiredArgsConstructor
@@ -84,5 +83,3 @@ public class FoodBrandManager_addBrand {
     }
 
 }
-
-

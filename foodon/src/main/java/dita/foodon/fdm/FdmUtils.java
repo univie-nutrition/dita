@@ -146,7 +146,6 @@ public class FdmUtils {
         return map;
     }
 
-
     // -- HELPER
 
     FoodDescriptionModelDto toDto(final FoodDescriptionModel fdm) {

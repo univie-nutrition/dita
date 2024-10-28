@@ -150,5 +150,4 @@ implements RuleChecker {
         return Optional.empty();
     }
 
-
 }

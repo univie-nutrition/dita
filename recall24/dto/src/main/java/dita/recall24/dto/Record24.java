@@ -72,7 +72,6 @@ permits
 
     ObjectRef<MemorizedFood24> parentMemorizedFoodRef();
 
-
     /**
      * The type of this record.
      */
@@ -305,7 +304,6 @@ permits
 
             final List<Record24> subRecords = new ArrayList<>();
             final List<Annotation> annotations = new ArrayList<>();
-
 
             static Builder of(final Food food) {
                 var builder = new Builder().type(food.type)

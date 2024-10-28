@@ -28,8 +28,6 @@ import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-
-
 import dita.commons.types.BiString;
 import dita.commons.types.TabularData.NameTransformer;
 

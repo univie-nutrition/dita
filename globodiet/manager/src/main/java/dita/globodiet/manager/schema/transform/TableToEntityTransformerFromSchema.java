@@ -25,8 +25,6 @@ import io.github.causewaystuff.companion.codegen.model.Schema.Entity;
 
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-
-
 import dita.commons.types.BiString;
 import dita.commons.types.TabularData.NameTransformer;
 

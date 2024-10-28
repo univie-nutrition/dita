@@ -66,7 +66,6 @@ public interface Survey24 {
 
             ) implements Survey24 {
 
-
         /**
          * Factory for when the collective of respondents and their individual 24h recall interviews,
          * is made up of multiple {@link InterviewSet24}s.

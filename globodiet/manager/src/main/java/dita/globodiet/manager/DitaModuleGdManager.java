@@ -43,8 +43,6 @@ import org.apache.causeway.viewer.restfulobjects.jaxrsresteasy.CausewayModuleVie
 import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRestfulObjectsViewer;
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
-
-
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.dashboard.Dashboard;

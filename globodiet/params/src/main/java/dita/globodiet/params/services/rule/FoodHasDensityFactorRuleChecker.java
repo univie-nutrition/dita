@@ -78,5 +78,4 @@ implements RuleChecker {
                         .collect(Collectors.joining("\n"))));
     }
 
-
 }

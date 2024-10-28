@@ -42,7 +42,6 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.li
 
 import lombok.RequiredArgsConstructor;
 
-
 import dita.commons.services.rules.RuleChecker;
 import dita.commons.services.rules.RuleChecker.RuleViolation;
 import dita.globodiet.params.DitaModuleGdParams;

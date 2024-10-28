@@ -36,8 +36,6 @@ import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
-
-
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.commons.types.TabularData;
@@ -153,7 +151,6 @@ public class TableSerializerYaml {
                 .transform(nameTransformer);
 
         System.err.printf("replicate %s%n", "start");
-
 
         var sb = new StringBuilder();
         var dataTableSet = dataTableSet(filter)

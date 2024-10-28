@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import dita.foodex.validate.api.ValidationRequest;
 import dita.foodex.validate.api.ValidationResponse;
 
-
 @RestController
 public class ValidatorResource {
 

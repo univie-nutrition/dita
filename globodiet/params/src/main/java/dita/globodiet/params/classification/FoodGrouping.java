@@ -42,7 +42,6 @@ public interface FoodGrouping {
                 .fold(FoodGroup::title, FoodSubgroup::title);
     }
 
-
     public record FoodGroupingKey(
             String groupKey,
             String subgroupKey,

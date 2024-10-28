@@ -30,7 +30,6 @@ import org.apache.causeway.applib.value.Clob;
 
 import lombok.RequiredArgsConstructor;
 
-
 import dita.globodiet.manager.versions.VersionsExportService;
 import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 

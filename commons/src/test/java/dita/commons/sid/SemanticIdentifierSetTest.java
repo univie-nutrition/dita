@@ -38,7 +38,6 @@ class SemanticIdentifierSetTest {
     final static String COMPLEX_NAME_QUOT =
             "‹" + COMPLEX_NAME + "›";
 
-
     @RequiredArgsConstructor
     enum ValidScenario {
         EMPTY_SID(null, null, null, null,

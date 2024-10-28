@@ -32,7 +32,6 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
 
-
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action(

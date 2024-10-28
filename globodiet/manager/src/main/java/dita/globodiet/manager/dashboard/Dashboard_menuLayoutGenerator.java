@@ -34,7 +34,6 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor

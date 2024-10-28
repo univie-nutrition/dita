@@ -44,8 +44,6 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.he
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.row;
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.table;
 
-
-
 import dita.globodiet.manager.DitaModuleGdManager;
 import io.github.causewaystuff.companion.codegen.model.Schema;
 
@@ -150,4 +148,3 @@ public class DitaTableNamesPage implements HelpPage {
     }
 
 }
-

@@ -29,8 +29,6 @@ import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
 
-
-
 import dita.commons.util.ObjectGraphTransformers;
 
 abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
@@ -95,7 +93,6 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
         .transform(ObjectGraph.Transformers.relationMerger());
     }
 
-
 //    @Override
 //    public AsciiDoc getContent() {
 //        var title = getTitle();
@@ -113,6 +110,4 @@ abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
 //        return adoc;
 //    }
 
-
 }
-

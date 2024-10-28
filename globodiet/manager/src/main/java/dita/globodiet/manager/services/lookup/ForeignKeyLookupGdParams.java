@@ -43,8 +43,6 @@ import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.functions._Predicates;
 
-
-
 import dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_list.ComposedRecipeIngredient;

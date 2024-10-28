@@ -225,8 +225,6 @@ public record InterviewSet24(
                 || respondents.isEmpty();
     }
 
-
-
     // -- BUILDER
 
     @Getter @Setter @Accessors(fluent=true)

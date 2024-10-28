@@ -45,7 +45,6 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import lombok.Getter;
 import lombok.NonNull;
 
-
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizerFactory;
@@ -223,7 +222,6 @@ class _DataTableSet {
         });
         return this;
     }
-
 
     // -- WRITING TO DB
 

@@ -34,8 +34,6 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
-
-
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.TabularData;

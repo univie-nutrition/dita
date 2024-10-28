@@ -51,7 +51,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-
 import dita.globodiet.manager.DitaModuleGdManager;
 
 @DomainObject(nature=Nature.VIEW_MODEL)

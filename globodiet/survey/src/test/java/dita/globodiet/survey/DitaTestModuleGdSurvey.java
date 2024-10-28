@@ -23,7 +23,6 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
-
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @Import({

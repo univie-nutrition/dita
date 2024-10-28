@@ -74,5 +74,3 @@ public class FoodDescriptorManager_addDescriptor {
     }
 
 }
-
-

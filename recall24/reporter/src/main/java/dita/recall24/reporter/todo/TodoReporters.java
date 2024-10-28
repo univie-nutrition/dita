@@ -23,7 +23,6 @@ import java.util.TreeSet;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 
-
 import lombok.experimental.UtilityClass;
 
 import dita.commons.qmap.QualifiedMap;
