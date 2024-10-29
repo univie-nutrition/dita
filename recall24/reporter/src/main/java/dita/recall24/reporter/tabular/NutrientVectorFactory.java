@@ -20,11 +20,11 @@ package dita.recall24.reporter.tabular;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentQuantified;
@@ -38,10 +38,16 @@ record NutrientVectorFactory(Can<FoodComponent> foodComponents) {
     DecimalVector get(
             final FoodConsumption foodConsumption,
             @Nullable final FoodComposition compositionEntry) {
-        if(compositionEntry==null) return new DecimalVector(0, null);
+        if(compositionEntry==null) return DecimalVector.empty();
 
         var decimals = new BigDecimal[foodComponents.size()];
-        IntStream.range(0, foodComponents.size()).forEach(i->decimals[i] = BigDecimal.ONE);
+
+        foodComponents.forEach(IndexedConsumer.zeroBased((i, comp)->{
+            decimals[i] = compositionEntry.lookupDatapoint(comp.componentId())
+                .map(dp->dp.quantify(foodConsumption))
+                .map(FoodComponentQuantified::quantityValue)
+                .orElse(null);
+        }));
 
         return new DecimalVector(foodComponents.size(), decimals);
     }

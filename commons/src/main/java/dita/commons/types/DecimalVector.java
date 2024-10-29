@@ -26,4 +26,10 @@ public record DecimalVector(
          * Allows elements to be null.
          */
         BigDecimal[] decimals) {
+
+    final static DecimalVector EMPTY = new DecimalVector(0, null);
+
+    public static DecimalVector empty() {
+        return EMPTY;
+    }
 }

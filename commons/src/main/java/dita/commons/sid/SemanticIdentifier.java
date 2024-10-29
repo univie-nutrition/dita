@@ -162,7 +162,9 @@ public record SemanticIdentifier (
          */
         @RequiredArgsConstructor
         public enum Context {
+            @Deprecated
             LITERAL("literal", true),
+            @Deprecated
             LANGUAGE("language", true),
             BRAND("brand", true),
             COMPONENT("comp"),

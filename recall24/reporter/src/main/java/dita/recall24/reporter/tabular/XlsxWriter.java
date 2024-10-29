@@ -32,6 +32,7 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.extensions.tabular.excel.exporter.TabularExcelExporter;
 
 import dita.commons.food.composition.FoodComponent;
+import dita.commons.sid.SemanticIdentifier;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 
 record XlsxWriter(Can<FoodComponent> foodComponents) {
@@ -74,11 +75,22 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
                 dc.getColumnDescription().orElse(""));
     }
 
+    //de.literal:name/‹Energie inkl. Ballaststoffen›
+    final static SemanticIdentifier.SystemId literalDe = new SemanticIdentifier.SystemId("de.literal");
+
     private TabularModel.TabularColumn tabularColumn(final int index, final FoodComponent comp) {
+
+        var description = comp.attributes().elements().stream()
+                .filter(attr->attr.systemId().equals(literalDe))
+                .findFirst()
+                .map(attr->attr.objectId().objectSimpleId())
+                .orElse("no description");
+        var unit = "g"; //TODO[dita-recall24-reporter] use actual unit
+
         return new TabularModel.TabularColumn(
                 index,
                 comp.componentId().toStringNoBox(),
-                comp.attributes().toStringNoBox());
+                "%s\n[%s]".formatted(description, unit));
     }
 
     private TabularModel.TabularRow tabularRow(

@@ -39,6 +39,7 @@ import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 @UtilityClass
 public class SidUtils {
 
+    @Deprecated
     public SemanticIdentifierSet languageQualifier(final String languageId) {
         return SemanticIdentifierSet.ofCollection(List.of(
                 ObjectId.Context.LANGUAGE.sid(languageId)));
