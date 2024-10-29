@@ -48,7 +48,14 @@ viewmodel:
       description: |
         age at first
         consumption day 
-        =ageInDays/365.2422       
+        =ageInDays/365.2422
+    interviewCount:
+      type: int
+      description: |
+        respondent's total 
+        number of interviews
+        considered with
+        this report
     interviewOrdinal:
       type: int
       description: |
@@ -121,12 +128,6 @@ viewmodel:
         food composition 
         database identifier
         (nutrient mapping) 
-    #GCALZB:
-      #type: BigDecimal
-      #description: |
-        #Energie 
-        #inkl. Ballaststoffen
-        #[kcal]
     nutrients:
       type: dita.commons.types.DecimalVector
       
