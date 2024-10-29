@@ -61,4 +61,6 @@ record NutrientVectorFactory(Can<FoodComponent> foodComponents) {
             .map(FoodComponentQuantified::quantityValue)
             .orElse(null);
     }
+
+
 }

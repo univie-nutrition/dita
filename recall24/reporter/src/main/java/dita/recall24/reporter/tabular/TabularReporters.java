@@ -53,6 +53,7 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.types.DecimalVector;
 import dita.commons.types.Sex;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
@@ -129,7 +130,8 @@ public class TabularReporters {
                     .facetIds(comp.facetSids().toStringNoBox())
                     .quantity(null)
                     .fcdbId(null)
-                    .GCALZB(null)
+                    .nutrients(DecimalVector.empty())
+                    //.GCALZB(null)
                     .build();
             }
             // factory method for consumptions
@@ -147,7 +149,7 @@ public class TabularReporters {
                             .orElseGet(TabularReporters::wipSid)
                             .toStringNoBox())
                     .nutrients(nutrientVectorFactory.get(foodConsumption, compositionEntry.orElse(null)))
-                    .GCALZB(NutrientVectorFactory.gcalzb(foodConsumption, compositionEntry))
+                    //.GCALZB(NutrientVectorFactory.gcalzb(foodConsumption, compositionEntry))
                     .build();
             }
             // factory method for comments
@@ -161,7 +163,8 @@ public class TabularReporters {
                     .facetIds(comment.facetSids().toStringNoBox())
                     .quantity(null)
                     .fcdbId(null)
-                    .GCALZB(null)
+                    .nutrients(DecimalVector.empty())
+                    //.GCALZB(null)
                     .build();
             }
             void respondentAlias(final String respondentAlias) {

@@ -121,12 +121,12 @@ viewmodel:
         food composition 
         database identifier
         (nutrient mapping) 
-    GCALZB:
-      type: BigDecimal
-      description: |
-        Energie 
-        inkl. Ballaststoffen
-        [kcal]
+    #GCALZB:
+      #type: BigDecimal
+      #description: |
+        #Energie 
+        #inkl. Ballaststoffen
+        #[kcal]
     nutrients:
       type: dita.commons.types.DecimalVector
       

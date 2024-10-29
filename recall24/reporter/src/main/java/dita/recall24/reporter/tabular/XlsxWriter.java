@@ -75,7 +75,7 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
                 dc.getColumnDescription().orElse(""));
     }
 
-    //de.literal:name/‹Energie inkl. Ballaststoffen›
+    //de.literal:name/‹..›
     final static SemanticIdentifier.SystemId literalDe = new SemanticIdentifier.SystemId("de.literal");
 
     private TabularModel.TabularColumn tabularColumn(final int index, final FoodComponent comp) {
@@ -85,12 +85,11 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
                 .findFirst()
                 .map(attr->attr.objectId().objectSimpleId())
                 .orElse("no description");
-        var unit = "g"; //TODO[dita-recall24-reporter] use actual unit
 
         return new TabularModel.TabularColumn(
                 index,
                 comp.componentId().toStringNoBox(),
-                "%s\n[%s]".formatted(description, unit));
+                "%s\n[%s]".formatted(description, comp.componentUnit().symbol()));
     }
 
     private TabularModel.TabularRow tabularRow(
