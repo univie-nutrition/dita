@@ -148,5 +148,9 @@ viewmodels:
         Energie 
         inkl. Ballaststoffen
         [kcal]
+    nutrients:
+      type: dita.commons.types.NutrientVector
+      required: true
+      description:
 entities:
 

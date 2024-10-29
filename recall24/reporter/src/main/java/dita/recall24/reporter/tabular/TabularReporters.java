@@ -37,13 +37,13 @@ import org.apache.causeway.commons.io.DataSource;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponent;
-import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.food.consumption.FoodConsumption;
@@ -54,7 +54,6 @@ import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
-import dita.foodon.bls.BLS302;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
@@ -113,12 +112,14 @@ public class TabularReporters {
             Aggregation aggregation) {
 
         @Setter
+        @RequiredArgsConstructor
         private static class RowFactory {
             @Getter @Accessors(fluent=true)
             final ConsumptionRecordBuilder builder = ConsumptionRecord.builder();
             final Set<String> respondentAliasSeenBefore = new HashSet<>();
             private int respondentOrdinal;
-            private OrdinalTracker ordinalTracker = new OrdinalTracker();
+            private final OrdinalTracker ordinalTracker = new OrdinalTracker();
+            private final NutrientVectorFactory nutrientVectorFactory;
 
             // factory method for composites
             ConsumptionRecord compositeHeader(final Record24.Composite comp) {
@@ -145,11 +146,8 @@ public class TabularReporters {
                             .map(FoodComposition::foodId)
                             .orElseGet(TabularReporters::wipSid)
                             .toStringNoBox())
-                    .GCALZB(compositionEntry
-                            .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
-                            .map(dp->dp.quantify(foodConsumption))
-                            .map(FoodComponentQuantified::quantityValue)
-                            .orElse(null))
+                    .nutrients(nutrientVectorFactory.get(foodConsumption, compositionEntry.orElse(null)))
+                    .GCALZB(NutrientVectorFactory.gcalzb(foodConsumption, compositionEntry))
                     .build();
             }
             // factory method for comments
@@ -187,7 +185,7 @@ public class TabularReporters {
 
         public void report(final File file) {
 
-            var rowFactory = new RowFactory();
+            var rowFactory = new RowFactory(new NutrientVectorFactory(foodComponents));
             var rowBuilder = rowFactory.builder();
             var consumptions = new ArrayList<ConsumptionRecord>();
             var hourOfDayFormat = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
@@ -279,7 +277,7 @@ public class TabularReporters {
                 }
             });
 
-            var xlsxWriter = new XlsxWriter<>(ConsumptionRecord.class);
+            var xlsxWriter = new XlsxWriter(foodComponents);
             xlsxWriter.write(consumptions, file);
         }
 

@@ -78,7 +78,10 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                 .pocMapping(pocMapping)
                 .pocQualifier(SidUtils.languageQualifier("de"))
                 .foodCompositionRepo(foodCompositionRepo)
-                .foodComponents(loadEnabledFoodComponents(foodCompositionRepo.componentCatalog()))
+                .foodComponents(loadEnabledFoodComponents(foodCompositionRepo.componentCatalog())
+                        .stream()
+                        .limit(13)
+                        .collect(Can.toCan()))
                 .aggregation(Aggregation.NONE)
                 .build();
 

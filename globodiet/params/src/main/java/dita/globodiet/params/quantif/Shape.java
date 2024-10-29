@@ -129,7 +129,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     private double surfaceInCm2;
 
     /**
-     * Comment attached to the shape (e.g. ovar bread small or ovar bread medium or ovar bread large…)
+     * Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -138,7 +138,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Comment attached to the shape (e.g. ovar bread small or ovar bread medium or ovar bread large…)"
+            describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
     )
     @Column(
             name = "SH_COMMENT",
@@ -258,7 +258,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
      * Parameter model for @{link Shape}
      * @param code Shape code (e.g. S001,S002,S003,...)
      * @param surfaceInCm2 Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
-     * @param comment Comment attached to the shape (e.g. ovar bread small or ovar bread medium or ovar bread large…)
+     * @param comment Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
      * @param displayOrder Order to display this shape
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
@@ -284,7 +284,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
                     optionality = Optionality.MANDATORY
             )
             @ParameterLayout(
-                    describedAs = "Comment attached to the shape (e.g. ovar bread small or ovar bread medium or ovar bread large…)"
+                    describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
             )
             String comment,
             @Parameter(
