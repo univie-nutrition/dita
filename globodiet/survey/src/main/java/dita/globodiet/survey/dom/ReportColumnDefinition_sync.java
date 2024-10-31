@@ -39,7 +39,6 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 @ActionLayout(
         sequence = "2",
         associateWith = "listingView",
-        named = "sync ..",
         describedAs = "Synchronize this ReportColumnDefinition with the FCDB catalog "
                 + "as associtated with the corresponding survey.",
         cssClassFa = "solid arrows-rotate",

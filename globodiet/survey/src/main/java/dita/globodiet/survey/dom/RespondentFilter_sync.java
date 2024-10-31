@@ -40,7 +40,6 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 @ActionLayout(
         sequence = "2",
         associateWith = "listingView",
-        named = "sync ..",
         describedAs = "Synchronize this RespondentFilter with the list of respondents "
                 + "from the corresponding survey.",
         cssClassFa = "solid arrows-rotate",
