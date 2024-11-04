@@ -63,6 +63,7 @@ public record AssociatedRecipeResolver(
     public <T extends RecallNode24> T transform(final T node) {
 
         return switch(node) {
+            // we replace the original food by its associated recipe
             case Food origFood -> {
 
                 var fdmAdapter = new FDMAdapter(origFood.sid().systemId(), foodDescriptionModel);
@@ -84,14 +85,13 @@ public record AssociatedRecipeResolver(
 
                 // store GloboDiet food description group data as annotation
                 recordBuilder.annotations().clear();
-                recordBuilder.annotations().add(new Annotation("group",
-                        associatedRecipe.groupSid()
-                            .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.RECIPE_GROUP.id()))
-                        ));
+                recordBuilder.annotations().add(new Annotation("group", recipeGroupSid(associatedRecipe)));
 
                 //TODO[dita-globodiet-survey-24] what facets to put here?
                 recordBuilder.facetSids(SemanticIdentifierSet.wip());
 
+                // to the composite record we are building here,
+                // we add each recipe ingredient as sub-record
                 fdmAdapter.streamIngredientsOfRecipeSid(associatedRecipe.sid())
                     .map(ingr->{
                         var food = fdmAdapter.foodBySid(ingr.foodSid());
@@ -101,6 +101,7 @@ public record AssociatedRecipeResolver(
                             .facetSids(SemanticIdentifierSet.empty()) //TODO[dita-globodiet-survey] missing ingredient facets
                             .amountConsumed(BigDecimal.ONE.negate()) //TODO[dita-globodiet-survey-24] fix actual amount
                             .consumptionUnit(ConsumptionUnit.GRAM);  //TODO[dita-globodiet-survey-24] fix actual unit
+                        foodBuilder.annotations().add(new Annotation("group", foodGroupSid(food)));
                         return foodBuilder.build();
                     })
                     .forEach(recordBuilder.subRecords()::add);
@@ -114,7 +115,17 @@ public record AssociatedRecipeResolver(
 
     // -- HELPER
 
-    Record24.Comment origFoodAsComment(final Food origFood) {
+    private SemanticIdentifier foodGroupSid(final FoodDescriptionModel.Food food) {
+        return food.groupSid()
+                .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.FOOD_GROUP.id()));
+    }
+
+    private SemanticIdentifier recipeGroupSid(final FoodDescriptionModel.Recipe recipe) {
+        return recipe.groupSid()
+                .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.RECIPE_GROUP.id()));
+    }
+
+    private Record24.Comment origFoodAsComment(final Food origFood) {
         var name = "%s, amount=%s, raw/cooked=%s".formatted(
                 origFood.name().replace(" {", ", ").replace("}", ""),
                 origFood.consumptionUnit().format(origFood.amountConsumed()),
