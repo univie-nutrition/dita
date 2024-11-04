@@ -100,7 +100,7 @@ public record AssociatedRecipeResolver(
                         var foodBuilder = new Food.Builder()
                             .name(food.name())
                             .sid(ingr.foodSid())
-                            .facetSids(SemanticIdentifierSet.wip()) //TODO[dita-globodiet-survey] missing ingredient facets
+                            .facetSids(ingr.foodFacetSids())
                             .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
                             .consumptionUnit(ConsumptionUnit.GRAM); // for recipes this is always in GRAM
                         foodBuilder.annotations().add(new Annotation("group", foodGroupSid(food)));

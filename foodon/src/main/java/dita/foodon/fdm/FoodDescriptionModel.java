@@ -60,7 +60,7 @@ public record FoodDescriptionModel(
     public record RecipeIngredient(
             SemanticIdentifier recipeSid,
             SemanticIdentifier foodSid,
-            SemanticIdentifierSet foodFacets,
+            SemanticIdentifierSet foodFacetSids,
             /**
              * Amount consumed in gram.
              */
