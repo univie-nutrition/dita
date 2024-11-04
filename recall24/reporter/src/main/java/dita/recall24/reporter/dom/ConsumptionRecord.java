@@ -78,6 +78,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
  * group
  * @param facetIds facet descriptor
  * identifiers
+ * (comma separated)
  * @param quantity quantity
  * consumed [g]
  * @param fcdbId food composition
@@ -216,7 +217,8 @@ public record ConsumptionRecord(
                 fieldSetId = "details",
                 sequence = "16",
                 describedAs = "facet descriptor\n"
-                                + "identifiers"
+                                + "identifiers\n"
+                                + "(comma separated)"
         )
         String facetIds,
         @PropertyLayout(

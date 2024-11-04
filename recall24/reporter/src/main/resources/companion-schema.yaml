@@ -135,7 +135,8 @@ viewmodels:
       required: true
       description: |
         facet descriptor
-        identifiers                  
+        identifiers
+        (comma separated)                  
     quantity:
       type: BigDecimal
       required: true

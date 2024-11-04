@@ -201,7 +201,7 @@ public record SemanticIdentifier (
          * Placeholder for 'work in progress'.
          */
         public static ObjectId wip() {
-            return new ObjectId((String)null, null);
+            return new ObjectId((String)null, "WIP");
         }
 
         public static ObjectId parse(final @Nullable String objectIdStringified) {

@@ -20,6 +20,7 @@ package dita.commons.sid;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -78,6 +79,11 @@ class SemanticIdentifierSetTest {
     @EnumSource(ValidScenario.class)
     void parse(final ValidScenario scenario) {
         assertEquals(scenario.sidSet(), SemanticIdentifierSet.parse(scenario.stringified));
+    }
+
+    @Test
+    void wip() {
+        assertEquals(":WIP", SemanticIdentifierSet.wip().toStringNoBox());
     }
 
 }

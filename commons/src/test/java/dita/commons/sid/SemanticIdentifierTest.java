@@ -18,11 +18,13 @@
  */
 package dita.commons.sid;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import lombok.RequiredArgsConstructor;
@@ -120,6 +122,11 @@ class SemanticIdentifierTest {
     @ValueSource(strings = {",", "{", "[", "a\tb", "a\nb", "a\rb", "!", "'", "\""})
     void invalidCharacters(final String string) {
         assertThrows(IllegalArgumentException.class, ()->ParseFormatUtils.validate(string));
+    }
+
+    @Test
+    void wip() {
+        assertNotEquals(SemanticIdentifier.empty(), SemanticIdentifier.wip());
     }
 
 }

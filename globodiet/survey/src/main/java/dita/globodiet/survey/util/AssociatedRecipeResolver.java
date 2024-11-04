@@ -89,20 +89,20 @@ public record AssociatedRecipeResolver(
                 recordBuilder.facetSids(SemanticIdentifierSet.wip());
 
                 var origFoodConsumedOverRecipeMass = new BigDecimal(
-                        origFood.amountConsumed().doubleValue()
+                        origFood.amountConsumed().doubleValue() //TODO[dita-globodiet-survey] might not always be in GRAM
                         / foodDescriptionModel.sumAmountGramsForRecipe(associatedRecipe).doubleValue());
 
                 // to the composite record we are building here,
                 // we add each recipe ingredient as sub-record
                 foodDescriptionModel.streamIngredients(associatedRecipe)
                     .map(ingr->{
-                        var food = fdmAdapter.foodBySid(ingr.foodSid());
+                        var food = foodDescriptionModel.lookupFoodBySid(ingr.foodSid()).orElseThrow();
                         var foodBuilder = new Food.Builder()
                             .name(food.name())
                             .sid(ingr.foodSid())
                             .facetSids(SemanticIdentifierSet.wip()) //TODO[dita-globodiet-survey] missing ingredient facets
                             .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
-                            .consumptionUnit(ConsumptionUnit.GRAM);
+                            .consumptionUnit(ConsumptionUnit.GRAM); // for recipes this is always in GRAM
                         foodBuilder.annotations().add(new Annotation("group", foodGroupSid(food)));
                         return foodBuilder.build();
                     })
@@ -140,9 +140,6 @@ public record AssociatedRecipeResolver(
     private record FDMAdapter(
             @NonNull SystemId systemId,
             @NonNull FoodDescriptionModel foodDescriptionModel) {
-        FoodDescriptionModel.Food foodBySid(final SemanticIdentifier sid) {
-            return foodDescriptionModel.foodBySid().get(sid);
-        }
 
         /**
          * Optionally returns the associated {@link Recipe},
@@ -153,13 +150,13 @@ public record AssociatedRecipeResolver(
         Optional<Recipe> associatedRecipe(@NonNull final NameWithCode nameWithCode) {
             var associatedRecipeSid = nameWithCode.associatedRecipeSid(systemId).orElse(null);
             if(associatedRecipeSid == null) return Optional.empty();
-            var associatedRecipe = foodDescriptionModel.recipeBySid().get(associatedRecipeSid);
-            if(associatedRecipe==null) {
+            var associatedRecipe = foodDescriptionModel.lookupRecipeBySid(associatedRecipeSid);
+            if(associatedRecipe.isEmpty()) {
                 throw _Exceptions.illegalArgument("failed to resolve recipe for %s using sid %s",
                         nameWithCode.name(),
                         associatedRecipeSid);
             }
-            return Optional.of(associatedRecipe);
+            return associatedRecipe;
         }
 
     }

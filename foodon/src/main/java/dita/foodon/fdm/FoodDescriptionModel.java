@@ -22,11 +22,13 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.sid.SemanticIdentifier;
 
@@ -79,6 +81,28 @@ public record FoodDescriptionModel(
     }
 
     // -- UTIL
+
+    public Optional<Food> lookupFoodBySid(@Nullable final SemanticIdentifier sid) {
+        return sid!=null
+                ? Optional.ofNullable(foodBySid().get(sid))
+                : Optional.empty();
+    }
+
+    public Optional<Recipe> lookupRecipeBySid(@Nullable final SemanticIdentifier sid) {
+        return sid!=null
+                ? Optional.ofNullable(recipeBySid().get(sid))
+                : Optional.empty();
+    }
+
+    public Food lookupFoodBySidElseFail(@Nullable final SemanticIdentifier sid) {
+        return lookupFoodBySid(sid)
+                .orElseThrow(()->_Exceptions.illegalArgument("failed to resolve food for sid %s", sid));
+    }
+
+    public Recipe lookupRecipeBySidElseFail(@Nullable final SemanticIdentifier sid) {
+        return lookupRecipeBySid(sid)
+                .orElseThrow(()->_Exceptions.illegalArgument("failed to resolve recipe for sid %s", sid));
+    }
 
     /**
      * Streams all ingredients of given recipe.
