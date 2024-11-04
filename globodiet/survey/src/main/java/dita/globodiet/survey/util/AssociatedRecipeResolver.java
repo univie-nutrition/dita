@@ -85,8 +85,8 @@ public record AssociatedRecipeResolver(
                 recordBuilder.annotations().clear();
                 recordBuilder.annotations().add(new Annotation("group", recipeGroupSid(associatedRecipe)));
 
-                //TODO[dita-globodiet-survey-24] what facets to put here?
-                recordBuilder.facetSids(SemanticIdentifierSet.wip());
+                // there are no implicit recipe facets we could use here, hence empty
+                recordBuilder.facetSids(SemanticIdentifierSet.empty());
 
                 var origFoodConsumedOverRecipeMass = new BigDecimal(
                         origFood.amountConsumed().doubleValue() //TODO[dita-globodiet-survey] might not always be in GRAM

@@ -31,6 +31,7 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 
 /**
  * Provides a set of food ontologies,
@@ -59,6 +60,7 @@ public record FoodDescriptionModel(
     public record RecipeIngredient(
             SemanticIdentifier recipeSid,
             SemanticIdentifier foodSid,
+            SemanticIdentifierSet foodFacets,
             /**
              * Amount consumed in gram.
              */

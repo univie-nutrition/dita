@@ -26,11 +26,14 @@ import java.util.stream.Stream;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Streams;
 
 import dita.commons.format.FormatUtils;
+import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
 import dita.foodon.fdm.FdmUtils;
@@ -39,6 +42,7 @@ import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
+import dita.globodiet.survey.util.SidUtils;
 import dita.globodiet.survey.util.SidUtils.GdContext;
 
 record FdmFactory(
@@ -254,6 +258,8 @@ record FdmFactory(
         return new RecipeIngredient(
                 GdContext.RECIPE.sid(systemId, cellLiterals.get(34)),
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(39)),
+                SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(38), ",")
+                        .map(facetCodeAs4digits->SidUtils.GdContext.FOOD_DESCRIPTOR.sid(systemId, facetCodeAs4digits))),
                 new BigDecimal(cellLiterals.get(6))
                 );
     }

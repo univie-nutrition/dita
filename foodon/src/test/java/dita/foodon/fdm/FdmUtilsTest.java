@@ -20,6 +20,7 @@ package dita.foodon.fdm;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.approvaltests.Approvals;
 import org.approvaltests.reporters.DiffReporter;
@@ -29,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.Dtos.FoodDescriptionModelDto;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
@@ -61,6 +63,10 @@ class FdmUtilsTest {
                 .ingredients(List.of(
                         new RecipeIngredient(SemanticIdentifier.parse("test:recipe/0002"),
                                 SemanticIdentifier.parse("test:food/0002"),
+                                SemanticIdentifierSet.ofStream(
+                                        Stream.of(
+                                                SemanticIdentifier.parse("test:fd/1234"),
+                                                SemanticIdentifier.parse("test:fd/5678"))),
                                 new BigDecimal("0.123"))
                         ))
                 .build();
