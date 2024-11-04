@@ -20,10 +20,8 @@ package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.NonNull;
@@ -90,17 +88,21 @@ public record AssociatedRecipeResolver(
                 //TODO[dita-globodiet-survey-24] what facets to put here?
                 recordBuilder.facetSids(SemanticIdentifierSet.wip());
 
+                var origFoodConsumedOverRecipeMass = new BigDecimal(
+                        origFood.amountConsumed().doubleValue()
+                        / foodDescriptionModel.sumAmountGramsForRecipe(associatedRecipe).doubleValue());
+
                 // to the composite record we are building here,
                 // we add each recipe ingredient as sub-record
-                fdmAdapter.streamIngredientsOfRecipeSid(associatedRecipe.sid())
+                foodDescriptionModel.streamIngredients(associatedRecipe)
                     .map(ingr->{
                         var food = fdmAdapter.foodBySid(ingr.foodSid());
                         var foodBuilder = new Food.Builder()
                             .name(food.name())
                             .sid(ingr.foodSid())
-                            .facetSids(SemanticIdentifierSet.empty()) //TODO[dita-globodiet-survey] missing ingredient facets
-                            .amountConsumed(BigDecimal.ONE.negate()) //TODO[dita-globodiet-survey-24] fix actual amount
-                            .consumptionUnit(ConsumptionUnit.GRAM);  //TODO[dita-globodiet-survey-24] fix actual unit
+                            .facetSids(SemanticIdentifierSet.wip()) //TODO[dita-globodiet-survey] missing ingredient facets
+                            .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
+                            .consumptionUnit(ConsumptionUnit.GRAM);
                         foodBuilder.annotations().add(new Annotation("group", foodGroupSid(food)));
                         return foodBuilder.build();
                     })
@@ -140,11 +142,6 @@ public record AssociatedRecipeResolver(
             @NonNull FoodDescriptionModel foodDescriptionModel) {
         FoodDescriptionModel.Food foodBySid(final SemanticIdentifier sid) {
             return foodDescriptionModel.foodBySid().get(sid);
-        }
-
-        Stream<FoodDescriptionModel.RecipeIngredient> streamIngredientsOfRecipeSid(final SemanticIdentifier sid){
-            return _NullSafe.stream(foodDescriptionModel.ingredientsByRecipeSid()
-                    .get(sid));
         }
 
         /**

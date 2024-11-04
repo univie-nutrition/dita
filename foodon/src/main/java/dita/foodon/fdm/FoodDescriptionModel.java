@@ -22,6 +22,11 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
+
+import org.springframework.lang.Nullable;
+
+import org.apache.causeway.commons.internal.base._NullSafe;
 
 import dita.commons.sid.SemanticIdentifier;
 
@@ -52,6 +57,9 @@ public record FoodDescriptionModel(
     public record RecipeIngredient(
             SemanticIdentifier recipeSid,
             SemanticIdentifier foodSid,
+            /**
+             * Amount consumed in gram.
+             */
             BigDecimal amountGrams) {
     }
 
@@ -60,6 +68,8 @@ public record FoodDescriptionModel(
             String name) {
     }
 
+    // -- FACTORIES
+
     public static FoodDescriptionModel empty() {
         return new FoodDescriptionModel(
                 new HashMap<SemanticIdentifier, Food>(),
@@ -67,6 +77,28 @@ public record FoodDescriptionModel(
                 new HashMap<SemanticIdentifier, List<RecipeIngredient>>(),
                 new HashMap<SemanticIdentifier, ClassificationFacet>());
     }
+
+    // -- UTIL
+
+    /**
+     * Streams all ingredients of given recipe.
+     */
+    public Stream<RecipeIngredient> streamIngredients(@Nullable final Recipe recipe) {
+        return recipe!=null
+                ? _NullSafe.stream(ingredientsByRecipeSid.get(recipe.sid()))
+                : Stream.empty();
+    }
+
+    /**
+     * Returns sum of amount gram consumed over all ingredients of given recipe.
+     */
+    public BigDecimal sumAmountGramsForRecipe(@Nullable final Recipe recipe) {
+        return streamIngredients(recipe)
+            .map(RecipeIngredient::amountGrams)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    // -- IO
 
     public static FoodDescriptionModel fromYaml(final String yaml) {
         return FdmUtils.fromYaml(yaml);
