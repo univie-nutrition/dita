@@ -20,23 +20,13 @@ package dita.recall24.reporter.tabular;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.io.TextUtils;
-
-import dita.commons.food.composition.FoodComponent;
-import dita.commons.types.DecimalVector;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 
 record Aggregator(
-        Can<FoodComponent> foodComponents,
         Aggregation aggregation) {
 
     public Iterable<ConsumptionRecord> apply(final List<ConsumptionRecord> consumptions) {
@@ -44,69 +34,12 @@ record Aggregator(
         var consumptionStream = consumptions.stream().filter(this::canAggregate);
         return switch (aggregation) {
             case NONE -> consumptions; // identity operation
-            case MEAL -> meal(consumptionStream);
-            case INTERVIEW -> interview(consumptionStream);
+            case MEAL -> new AggregatorSumOverMeal().apply(consumptionStream);
+            case INTERVIEW -> new AggregatorSumOverInterview().apply(consumptionStream);
             case RESPONDENT_AVERAGE -> respondent(consumptionStream);
             default->
                 throw new IllegalArgumentException("Unexpected value: " + aggregation);
         };
-    }
-
-    // -- HELPER - MEAL
-
-    /**
-     * Sum grouped by primaryMealOrdinal.
-     */
-    private Iterable<ConsumptionRecord> meal(final Stream<ConsumptionRecord> consumptions) {
-        return consumptions
-            .collect(Collectors.groupingBy(this::parsePrimaryMealOrdinal, TreeMap::new, Collectors.toList()))
-            .entrySet().stream()
-            .map(e->sumOverMeals(e.getKey(), e.getValue()))
-            .flatMap(Optional::stream)
-            .toList();
-    }
-
-    private Optional<ConsumptionRecord> sumOverMeals(final int primaryMealOrdinal, final List<ConsumptionRecord> consumptions) {
-        if(consumptions.isEmpty()) return Optional.empty();
-        var builder = builder(consumptions.getFirst())
-                .mealOrdinal("" + primaryMealOrdinal);
-        if(consumptions.size()>1) {
-            consumptions.stream()
-                .skip(1)
-                .forEach(c->accumulateMealSum(builder, c));
-        }
-        return Optional.of(builder.build());
-    }
-
-    private void accumulateMealSum(final ConsumptionRecordBuilder builder, final ConsumptionRecord consumption) {
-        var acc = builder.build();
-        builder
-            .recordType("SUM")
-            .food(acc.food() + ", " + consumption.food())
-            .foodId(":sum")
-            .groupId(":sum")
-            .facetIds(":sum")
-            .quantity(acc.quantity().add(consumption.quantity()));
-
-        if(isNutMappingWorkInProress(acc)
-                || isNutMappingWorkInProress(consumption)) {
-            builder
-                .fcdbId(":WIP")
-                .nutrients(DecimalVector.empty());
-        } else {
-            builder
-                .fcdbId(":sum")
-                .nutrients(acc.nutrients().add(consumption.nutrients()));
-        }
-    }
-
-    // -- HELPER - INTERVIEW
-
-    private Iterable<ConsumptionRecord> interview(final Stream<ConsumptionRecord> consumptions) {
-        var aggr = new ArrayList<ConsumptionRecord>();
-
-        // TODO Auto-generated method stub
-        return aggr;
     }
 
     // -- HELPER - RESPONDENT
@@ -128,20 +61,15 @@ record Aggregator(
         };
     }
 
-    private int parsePrimaryMealOrdinal(final ConsumptionRecord consumption) {
-        _Assert.assertNotEmpty(consumption.mealOrdinal());
-        return Integer.valueOf(TextUtils.cutter(consumption.mealOrdinal()).keepBefore(".").getValue());
-    }
-
-    private boolean isNutMappingWorkInProress(final ConsumptionRecord consumption) {
+    static boolean isNutMappingWorkInProress(final ConsumptionRecord consumption) {
         return isWorkInProress(consumption.fcdbId());
     }
 
-    private boolean isWorkInProress(final String sid) {
+    static boolean isWorkInProress(final String sid) {
         return ":WIP".equals(sid);
     }
 
-    private ConsumptionRecordBuilder builder(final ConsumptionRecord consumption) {
+    static ConsumptionRecordBuilder builder(final ConsumptionRecord consumption) {
         var builder = ConsumptionRecord.builder()
             .respondentOrdinal(consumption.respondentOrdinal())
             .respondentAlias(consumption.respondentAlias())

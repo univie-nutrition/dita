@@ -281,7 +281,7 @@ public class TabularReporters {
                 }
             });
 
-            var aggregator = new Aggregator(foodComponents, aggregation);
+            var aggregator = new Aggregator(aggregation);
 
             var xlsxWriter = new XlsxWriter(foodComponents);
             xlsxWriter.write(aggregator.apply(consumptions), file);
