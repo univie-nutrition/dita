@@ -18,8 +18,8 @@
  */
 package dita.globodiet.survey.dom;
 
-import java.util.Collection;
 import java.util.Optional;
+import java.util.SequencedCollection;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -38,6 +38,7 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
+import dita.globodiet.survey.util.AssociatedRecipeResolver;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -49,7 +50,7 @@ class DataUtil {
     // -- INTERVIEW FILTERING
 
     InterviewSet24 filteredInterviewSet(
-            @Nullable final Collection<Campaign> campaigns,
+            @Nullable final SequencedCollection<Campaign> campaigns,
             @Nullable final RespondentFilter respondentFilter,
             @Nullable final BlobStore surveyBlobStore) {
         if(campaigns==null
@@ -64,7 +65,10 @@ class DataUtil {
             var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
             interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
         }
-        return interviewSet;
+
+        //TODO[dita-globodiet-survey] don't hardcode interview-set post-processors: make this a configuration concern
+        var fdm = Campaigns.foodDescriptionModel(campaigns.getFirst(), surveyBlobStore);
+        return interviewSet.transform(new AssociatedRecipeResolver(fdm));
     }
 
     // -- FCDB
