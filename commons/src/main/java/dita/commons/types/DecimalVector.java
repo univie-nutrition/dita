@@ -32,4 +32,12 @@ public record DecimalVector(
     public static DecimalVector empty() {
         return EMPTY;
     }
+
+    public DecimalVector add(final DecimalVector vector) {
+        final BigDecimal[] sum = new BigDecimal[cardinality];
+        for (int i = 0; i < sum.length; i++) {
+            sum[i] = decimals()[i].add(vector.decimals()[i]);
+        }
+        return new DecimalVector(cardinality, sum);
+    }
 }

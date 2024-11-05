@@ -82,7 +82,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                         .stream()
                         .limit(13)
                         .collect(Can.toCan()))
-                .aggregation(Aggregation.NONE)
+                .aggregation(Aggregation.MEAL)
                 .build();
 
         tabularReport.report(xlsxFile);
