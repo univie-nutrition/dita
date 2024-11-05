@@ -33,11 +33,23 @@ public record DecimalVector(
         return EMPTY;
     }
 
+    public boolean isEmpty() {
+        return cardinality == 0;
+    }
+
     public DecimalVector add(final DecimalVector vector) {
         final BigDecimal[] sum = new BigDecimal[cardinality];
         for (int i = 0; i < sum.length; i++) {
             sum[i] = decimals()[i].add(vector.decimals()[i]);
         }
         return new DecimalVector(cardinality, sum);
+    }
+
+    public DecimalVector multiply(final BigDecimal operand) {
+        final BigDecimal[] result = new BigDecimal[cardinality];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = decimals()[i].multiply(operand);
+        }
+        return new DecimalVector(cardinality, result);
     }
 }

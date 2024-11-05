@@ -55,6 +55,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
     @Test
     void parsingFromBlobStore() {
+        var aggregation = Aggregation.RESPONDENT_AVERAGE;
 
         var nutMapping = loadNutMapping();
         var fcoMapping = loadFcoMapping();
@@ -68,7 +69,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         var recordProcessor = new RecordProcessor(stats, systemId, nutMapping);
 
         //TODO[dita-globodiet-survey-24] flesh out reporting
-        var xlsxFile = new File("d:/tmp/_scratch/report-no-aggregates.xlsx");
+        var xlsxFile = new File("d:/tmp/_scratch/report-aggr-" + aggregation.name().toLowerCase() + ".xlsx");
         var tabularReport = TabularReporters.TabularReport.builder()
                 .interviewSet(interviewSet)
                 .systemId(systemId)
@@ -82,7 +83,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
                         .stream()
                         .limit(13)
                         .collect(Can.toCan()))
-                .aggregation(Aggregation.INTERVIEW)
+                .aggregation(aggregation)
                 .build();
 
         tabularReport.report(xlsxFile);

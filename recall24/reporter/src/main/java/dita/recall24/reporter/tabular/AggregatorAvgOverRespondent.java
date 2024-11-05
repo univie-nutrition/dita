@@ -18,54 +18,70 @@
  */
 package dita.recall24.reporter.tabular;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.io.TextUtils;
-
 import dita.commons.types.DecimalVector;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
-record AggregatorSumOverMeal() {
+record AggregatorAvgOverRespondent() {
 
     /**
-     * Sum over meal, grouped by primaryMealOrdinal.
+     * Takes output from {@link AggregatorSumOverInterview} and calculates averages, grouped by respondentOrdinal.
      */
-    List<ConsumptionRecord> apply(final Stream<ConsumptionRecord> consumptions) {
+    Iterable<ConsumptionRecord> apply(final Stream<ConsumptionRecord> consumptions) {
         return consumptions
-            .collect(Collectors.groupingBy(this::parsePrimaryMealOrdinal, TreeMap::new, Collectors.toList()))
+            .collect(Collectors.groupingBy(ConsumptionRecord::respondentOrdinal, TreeMap::new, Collectors.toList()))
             .entrySet().stream()
-            .map(e->sumOverMeals(e.getKey(), e.getValue()))
+            .map(e->avgOverInterviews(e.getKey(), e.getValue()))
             .flatMap(Optional::stream)
             .toList();
     }
 
     // -- HELPER
 
-    private Optional<ConsumptionRecord> sumOverMeals(final int primaryMealOrdinal, final List<ConsumptionRecord> consumptions) {
+    private Optional<ConsumptionRecord> avgOverInterviews(final int primaryMealOrdinal, final List<ConsumptionRecord> consumptions) {
         if(consumptions.isEmpty()) return Optional.empty();
-        var builder = Aggregator.builder(consumptions.getFirst())
-                .mealOrdinal("" + primaryMealOrdinal);
+        var builder = Aggregator.builder(consumptions.getFirst());
         if(consumptions.size()>1) {
+            // first sum all up
             consumptions.stream()
                 .skip(1)
-                .forEach(c->accumulateMealSum(builder, c));
+                .forEach(c->accumulateInterviewSum(builder, c));
+
+            // then divide by interview count
+            var fraction = BigDecimal.ONE.divide(new BigDecimal(consumptions.size()), RoundingMode.HALF_UP);
+
+            var acc = builder.build();
+            builder.quantity(acc.quantity().multiply(fraction));
+
+            if(!acc.nutrients().isEmpty()) {
+                builder
+                    .nutrients(acc.nutrients().multiply(fraction));
+            }
         }
         return Optional.of(builder.build());
     }
 
-    private void accumulateMealSum(final ConsumptionRecordBuilder builder, final ConsumptionRecord consumption) {
+    private void accumulateInterviewSum(final ConsumptionRecordBuilder builder, final ConsumptionRecord consumption) {
         var acc = builder.build();
         builder
-            .recordType("SUM")
-            .food(acc.food() + ", " + consumption.food())
-            .foodId(":sum")
-            .groupId(":sum")
-            .facetIds(":sum")
+            .interviewOrdinal(0)
+            .consumptionDate(acc.consumptionDate()) // keep first
+            .fco(":avg")
+            .poc(":avg")
+            .meal(":avg")
+            .mealOrdinal(":avg")
+            .recordType("AVG")
+            .food(":avg")
+            .foodId(":avg")
+            .groupId(":avg")
+            .facetIds(":avg")
             .quantity(acc.quantity().add(consumption.quantity()));
 
         if(Aggregator.isNutMappingWorkInProress(acc)
@@ -78,11 +94,6 @@ record AggregatorSumOverMeal() {
                 .fcdbId(":sum")
                 .nutrients(acc.nutrients().add(consumption.nutrients()));
         }
-    }
-
-    private int parsePrimaryMealOrdinal(final ConsumptionRecord consumption) {
-        _Assert.assertNotEmpty(consumption.mealOrdinal());
-        return Integer.valueOf(TextUtils.cutter(consumption.mealOrdinal()).keepBefore(".").getValue());
     }
 
 }

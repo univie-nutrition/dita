@@ -18,9 +18,7 @@
  */
 package dita.recall24.reporter.tabular;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
@@ -36,22 +34,14 @@ record Aggregator(
             case NONE -> consumptions; // identity operation
             case MEAL -> new AggregatorSumOverMeal().apply(consumptionStream);
             case INTERVIEW -> new AggregatorSumOverInterview().apply(consumptionStream);
-            case RESPONDENT_AVERAGE -> respondent(consumptionStream);
+            case RESPONDENT_AVERAGE -> new AggregatorAvgOverRespondent()
+                .apply(new AggregatorSumOverInterview().apply(consumptionStream).stream());
             default->
                 throw new IllegalArgumentException("Unexpected value: " + aggregation);
         };
     }
 
-    // -- HELPER - RESPONDENT
-
-    private Iterable<ConsumptionRecord> respondent(final Stream<ConsumptionRecord> consumptions) {
-        var aggr = new ArrayList<ConsumptionRecord>();
-
-        // TODO Auto-generated method stub
-        return aggr;
-    }
-
-    // -- OTHER
+    // -- HELPER
 
     private boolean canAggregate(final ConsumptionRecord consumption) {
         return switch(consumption.recordType()) {

@@ -32,7 +32,7 @@ record AggregatorSumOverInterview() {
     /**
      * Sum over interview, grouped by (respondentOrdinal<<6 + interviewOrdinal).
      */
-    Iterable<ConsumptionRecord> apply(final Stream<ConsumptionRecord> consumptions) {
+    List<ConsumptionRecord> apply(final Stream<ConsumptionRecord> consumptions) {
         return consumptions
             .collect(Collectors.groupingBy(this::distinctInterviewOrdinal, TreeMap::new, Collectors.toList()))
             .entrySet().stream()
@@ -45,8 +45,7 @@ record AggregatorSumOverInterview() {
 
     private Optional<ConsumptionRecord> sumOverInterviews(final int primaryMealOrdinal, final List<ConsumptionRecord> consumptions) {
         if(consumptions.isEmpty()) return Optional.empty();
-        var builder = Aggregator.builder(consumptions.getFirst())
-                .mealOrdinal("" + primaryMealOrdinal);
+        var builder = Aggregator.builder(consumptions.getFirst());
         if(consumptions.size()>1) {
             consumptions.stream()
                 .skip(1)
@@ -58,13 +57,6 @@ record AggregatorSumOverInterview() {
     private void accumulateInterviewSum(final ConsumptionRecordBuilder builder, final ConsumptionRecord consumption) {
         var acc = builder.build();
         builder
-//            .respondentOrdinal(consumption.respondentOrdinal())
-//            .respondentAlias(consumption.respondentAlias())
-//            .respondentSex(consumption.respondentSex())
-//            .respondentAge(consumption.respondentAge())
-//            .interviewCount(consumption.interviewCount())
-//            .interviewOrdinal(consumption.interviewOrdinal())
-//            .consumptionDate(consumption.consumptionDate())
             .fco(":sum")
             .poc(":sum")
             .meal(":sum")
