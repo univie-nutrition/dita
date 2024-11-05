@@ -19,7 +19,6 @@
 package dita.recall24.reporter.tabular;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -55,7 +54,7 @@ record AggregatorAvgOverRespondent() {
                 .forEach(c->accumulateInterviewSum(builder, c));
 
             // then divide by interview count
-            var fraction = BigDecimal.ONE.divide(new BigDecimal(consumptions.size()), RoundingMode.HALF_UP);
+            var fraction = new BigDecimal(1./consumptions.size());
 
             var acc = builder.build();
             builder.quantity(acc.quantity().multiply(fraction));
@@ -91,7 +90,7 @@ record AggregatorAvgOverRespondent() {
                 .nutrients(DecimalVector.empty());
         } else {
             builder
-                .fcdbId(":sum")
+                .fcdbId(":avg")
                 .nutrients(acc.nutrients().add(consumption.nutrients()));
         }
     }
