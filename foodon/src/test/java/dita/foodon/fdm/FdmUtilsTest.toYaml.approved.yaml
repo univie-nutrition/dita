@@ -12,7 +12,7 @@ recipes:
 ingredients:
 - recipeSid: "test:recipe/0002"
   foodSid: "test:food/0002"
-  foodFacets: "test:fd/1234, test:fd/5678"
+  foodFacetSids: "test:fd/1234, test:fd/5678"
   amountGrams: 0.123
 classificationFacets:
 - sid: "test:rg/01"
