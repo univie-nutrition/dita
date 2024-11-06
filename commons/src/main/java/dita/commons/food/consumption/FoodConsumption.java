@@ -28,7 +28,8 @@ import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
-import dita.commons.types.QuantificationUnit;
+import dita.commons.util.NumberUtils;
+import tech.units.indriya.internal.function.Calculator;
 
 /**
  * Represents an amount of some food or product that was consumed.
@@ -51,27 +52,31 @@ public record FoodConsumption(
         /**
          * Amount consumed is given in gram.
          */
-        GRAM("Mass [g]", "g", QuantificationUnit.MASS_IN_GRAM),
+        GRAM("Mass [g]", "g"),
         /**
          * Amount consumed is given in milliliter.
          */
-        MILLILITER("Volume [ml]", "ml", QuantificationUnit.VOLUME_IN_MILLILITER),
+        MILLILITER("Volume [ml]", "ml"),
         /**
          * Amount consumed is given in parts (e.g. tablets).
          */
-        PART("Parts", "parts", QuantificationUnit.PARTS);
+        PART("Parts", "parts");
 
         @Getter @Accessors(fluent = true) private final String title;
         @Getter @Accessors(fluent = true) private final String symbol;
 
-        @Deprecated
-        public final QuantificationUnit quantificationUnit;
-
         // -- FORMATTING
 
         public String format(final Number amount) {
-            return quantificationUnit.format(amount);
+            if(amount==null) return "?";
+            return switch (this) {
+                case PART->NumberUtils.scientificFormat(amount) + " parts";
+                case GRAM->NumberUtils.scientificFormat(amount, " ") + "g";
+                case MILLILITER->NumberUtils.scientificFormat(
+                            Calculator.of(amount).multiply(0.001).peek(), " ") + "l";
+            };
         }
+
     }
 
     public QualifiedMap.QualifiedMapKey qualifiedMapKey() {
