@@ -27,7 +27,7 @@ import dita.commons.sid.SemanticIdentifier.SystemId;
 @UtilityClass
 public class UnivieNutriDb {
 
-    public static final SystemId SYSTEM_ID = new SystemId("at.ndb", "1.0");
+    public static final SystemId SYSTEM_ID = new SystemId("at.univie.ndb", "1.0");
 
     public SemanticIdentifier foodSid(final String objectId) {
         return new SemanticIdentifier(SYSTEM_ID, new ObjectId(ObjectId.Context.FOOD, objectId));
