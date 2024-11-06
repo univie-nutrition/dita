@@ -23,16 +23,24 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import javax.measure.MetricPrefix;
+import javax.measure.Quantity;
+
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.internal.assertions._Assert;
 
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.types.MetricUnits;
+import tech.units.indriya.quantity.Quantities;
+import tech.units.indriya.unit.Units;
 
 public record FoodComposition(
         @NonNull SemanticIdentifier foodId,
@@ -47,23 +55,31 @@ public record FoodComposition(
         /**
          * Concentration values are given as per 100g (consumed).
          */
-        PER_100_GRAM(ConsumptionUnit.GRAM, -2),
+        PER_100_GRAM("/100g", ConsumptionUnit.GRAM, -2,
+                Quantities.getQuantity(0.01, Units.GRAM.inverse())),
         /**
          * Concentration values are given as per 100ml (consumed).
          */
-        PER_100_MILLILITER(ConsumptionUnit.MILLILITER, -2),
+        PER_100_MILLILITER("/100ml", ConsumptionUnit.MILLILITER, -2,
+                Quantities.getQuantity(0.01, MetricPrefix.MILLI(Units.LITRE).inverse())),
         /**
          * Concentration values are given as per part (consumed).
          * e.g. dietary supplement tablets
          */
-        PER_PART(ConsumptionUnit.PART, 0);
+        PER_PART("/part", ConsumptionUnit.PART, 0,
+                Quantities.getQuantity(1., MetricUnits.PARTS.inverse()));
+
+        @Getter @Accessors(fluent = true) private final String title;
 
         private final ConsumptionUnit expectedConsumptionQuantification;
+
         /**
          * When consumed amount is given in 'gram', then concentration data is given in 'per 100g'.
          * Likewise when 'ml' then 'per 100ml', or when 'part' then 'per part'.
          */
-        final int concentrationScale;
+        private final int concentrationScale;
+
+        @Getter @Accessors(fluent = true) private final Quantity<?> metricQuantity;
 
         /**
          * Whether given consumption has the expected metric unit for quantification to succeed.

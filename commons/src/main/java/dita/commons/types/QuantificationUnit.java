@@ -27,9 +27,7 @@ import dita.commons.util.NumberUtils;
 import tech.units.indriya.internal.function.Calculator;
 
 /**
- * Food components are quantified in units of parts, mass or volume
- * per {@link ReferenceUnit}.
- * @see ReferenceUnit
+ * Food components are quantified in units of parts, mass or volume.
  */
 @Getter
 @Accessors(fluent = true)

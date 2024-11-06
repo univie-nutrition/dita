@@ -20,7 +20,9 @@ package dita.commons.food.consumption;
 
 import java.math.BigDecimal;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
@@ -41,7 +43,6 @@ public record FoodConsumption(
         ConsumptionUnit consumptionUnit,
         BigDecimal amountConsumed) {
 
-    //TODO[dita-commons] perhaps consolidate those 2 enums
     /**
      * Unit of amount consumed.
      */
@@ -50,15 +51,20 @@ public record FoodConsumption(
         /**
          * Amount consumed is given in gram.
          */
-        GRAM(QuantificationUnit.MASS_IN_GRAM),
+        GRAM("Mass [g]", "g", QuantificationUnit.MASS_IN_GRAM),
         /**
          * Amount consumed is given in milliliter.
          */
-        MILLILITER(QuantificationUnit.VOLUME_IN_MILLILITER),
+        MILLILITER("Volume [ml]", "ml", QuantificationUnit.VOLUME_IN_MILLILITER),
         /**
          * Amount consumed is given in parts (e.g. tablets).
          */
-        PART(QuantificationUnit.PARTS);
+        PART("Parts", "parts", QuantificationUnit.PARTS);
+
+        @Getter @Accessors(fluent = true) private final String title;
+        @Getter @Accessors(fluent = true) private final String symbol;
+
+        @Deprecated
         public final QuantificationUnit quantificationUnit;
 
         // -- FORMATTING
