@@ -55,7 +55,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
     @Test
     void parsingFromBlobStore() {
-        var aggregation = Aggregation.RESPONDENT_AVERAGE;
+        var aggregation = Aggregation.NONE;
 
         var nutMapping = loadNutMapping();
         var fcoMapping = loadFcoMapping();

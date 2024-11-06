@@ -32,6 +32,7 @@ import java.util.Set;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
 
 import lombok.Builder;
@@ -270,8 +271,8 @@ public class TabularReporters {
                         if(mappingTarget.isPresent()) {
                             if(!compositionEntry.isPresent()) {
                                 //TODO[dita-recall24-reporter-24] unresolved food proxies - should be done by the interview reader, or a post processor
-//                                throw _Exceptions.noSuchElement("no compositionEntry for %s (%s)",
-//                                        cRec.name(), mappingTarget.get());
+                                throw _Exceptions.noSuchElement("no FCDB composition entry for '%s'->%s",
+                                        cRec.name(), mappingTarget.get());
                             }
                         }
                         consumptions.add(
