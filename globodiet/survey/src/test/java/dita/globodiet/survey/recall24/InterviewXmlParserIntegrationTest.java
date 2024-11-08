@@ -19,15 +19,16 @@
 package dita.globodiet.survey.recall24;
 
 import java.io.File;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.apache.causeway.commons.collections.Can;
+
+import lombok.extern.log4j.Log4j2;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
@@ -37,64 +38,40 @@ import dita.commons.util.XlsxUtils;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
 import dita.recall24.dto.util.Recall24SummaryStatistics.MappingTodo;
-import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
         })
 @PrivateDataTest
+@Log4j2
 class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
-    private SystemId systemId = new SystemId("at.gd", "2.0");
-
     @Test
-    void parsingFromBlobStore() {
+    void parsingFromBlobStore() throws InterruptedException, ExecutionException {
         var aggregation = Aggregation.NONE;
 
-        var nutMapping = loadNutMapping();
-        var fcoMapping = loadFcoMapping();
-        var pocMapping = loadPocMapping();
-        var foodCompositionRepo = loadFcdb();
-        assertTrue(foodCompositionRepo.compositionCount()>10_000);
+        var tabularReport = tabularReport(aggregation, 32);
 
-        var interviewSet = loadInterviewSet();
-
-        var stats = new Recall24SummaryStatistics();
-        var recordProcessor = new RecordProcessor(stats, systemId, nutMapping);
-
-        //TODO[dita-globodiet-survey-24] flesh out reporting
+        log.info("write report");
         var xlsxFile = new File("d:/tmp/_scratch/report-aggr-" + aggregation.name().toLowerCase() + ".xlsx");
-        var tabularReport = TabularReporters.TabularReport.builder()
-                .interviewSet(interviewSet)
-                .systemId(systemId)
-                .nutMapping(nutMapping)
-                .fcoMapping(fcoMapping)
-                .fcoQualifier(SidUtils.languageQualifier("de"))
-                .pocMapping(pocMapping)
-                .pocQualifier(SidUtils.languageQualifier("de"))
-                .foodCompositionRepo(foodCompositionRepo)
-                .foodComponents(loadEnabledFoodComponents(foodCompositionRepo.componentCatalog())
-                        .stream()
-                        .limit(13)
-                        .collect(Can.toCan()))
-                .aggregation(aggregation)
-                .build();
-
         tabularReport.report(xlsxFile);
 
         XlsxUtils.launchViewerAndWaitFor(xlsxFile);
 
-//        var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
-//        todoReporter.report(
-//                DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));
+//      var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
+//      todoReporter.report(
+//              DataSink.ofFile(new File("d:/tmp/_scratch/mapping-todos.txt")));
 
-        interviewSet.streamDepthFirst()
+        log.info("collect report stats");
+        var stats = new Recall24SummaryStatistics();
+        var recordProcessor = new RecordProcessor(stats, tabularReport.systemId(), tabularReport.nutMapping());
+
+        tabularReport.interviewSet().streamDepthFirst()
             .forEach((final RecallNode24 node)->{
                 stats.accept(node);
                 switch(node) {

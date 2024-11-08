@@ -132,7 +132,6 @@ public class TabularReporters {
                     .quantity(null)
                     .fcdbId(null)
                     .nutrients(DecimalVector.empty())
-                    //.GCALZB(null)
                     .build();
             }
             // factory method for consumptions
@@ -150,7 +149,6 @@ public class TabularReporters {
                             .orElseGet(TabularReporters::wipSid)
                             .toStringNoBox())
                     .nutrients(nutrientVectorFactory.get(foodConsumption, compositionEntry.orElse(null)))
-                    //.GCALZB(NutrientVectorFactory.gcalzb(foodConsumption, compositionEntry))
                     .build();
             }
             // factory method for comments
@@ -165,7 +163,6 @@ public class TabularReporters {
                     .quantity(null)
                     .fcdbId(null)
                     .nutrients(DecimalVector.empty())
-                    //.GCALZB(null)
                     .build();
             }
             void respondentAlias(final String respondentAlias) {
@@ -270,7 +267,6 @@ public class TabularReporters {
                                 .flatMap(foodCompositionRepo::lookupEntry);
                         if(mappingTarget.isPresent()) {
                             if(!compositionEntry.isPresent()) {
-                                //TODO[dita-recall24-reporter-24] unresolved food proxies - should be done by the interview reader, or a post processor
                                 throw _Exceptions.noSuchElement("no FCDB composition entry for '%s'->%s",
                                         cRec.name(), mappingTarget.get());
                             }

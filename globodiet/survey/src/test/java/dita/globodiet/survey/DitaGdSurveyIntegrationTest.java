@@ -19,8 +19,12 @@
 package dita.globodiet.survey;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import jakarta.inject.Inject;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -30,20 +34,29 @@ import org.apache.causeway.commons.internal.context._Context;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.testing.integtestsupport.applib.CausewayIntegrationTestAbstract;
 
+import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
+
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.foodon.bls.BLS302;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
+import dita.recall24.reporter.tabular.TabularReporters;
+import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
+import dita.recall24.reporter.tabular.TabularReporters.TabularReport;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
+@Log4j2
 public abstract class DitaGdSurveyIntegrationTest
 extends CausewayIntegrationTestAbstract {
 
@@ -69,7 +82,7 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
     }
 
-    protected Can<FoodComponent> loadEnabledFoodComponents(FoodComponentCatalog foodComponentCatalog) {
+    protected Can<FoodComponent> loadEnabledFoodComponents(final FoodComponentCatalog foodComponentCatalog) {
         var colDef = TextUtils.readLines(loadColDef(SURVEY_CODE)).stream()
                 .map(String::trim)
                 .map(_Strings::emptyToNull)
@@ -85,6 +98,41 @@ extends CausewayIntegrationTestAbstract {
     protected InterviewSet24 loadInterviewSet() {
         return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore)
                 .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()));
+    }
+
+    @SneakyThrows
+    protected TabularReport tabularReport(final Aggregation aggregation, final int maxNutrientColumns) {
+        var pool = Executors.newFixedThreadPool(5);
+        var nutMappingFuture = pool.submit(this::loadNutMapping);
+        var fcoMappingFuture = pool.submit(this::loadFcoMapping);
+        var pocMappingFuture = pool.submit(this::loadPocMapping);
+        var fcdbFuture = pool.submit(this::loadFcdb);
+        var interviewSetFuture = pool.submit(this::loadInterviewSet);
+        pool.shutdown();
+
+        log.info("await blobstore data");
+        pool.awaitTermination(20, TimeUnit.SECONDS);
+        log.info("data received");
+
+        var foodCompositionRepo = fcdbFuture.get();
+        assertTrue(foodCompositionRepo.compositionCount()>10_000);
+        var interviewSet = interviewSetFuture.get();
+
+        return TabularReporters.TabularReport.builder()
+                .systemId(SystemId.parse(SYSTEM_ID))
+                .nutMapping(nutMappingFuture.get())
+                .fcoMapping(fcoMappingFuture.get())
+                .fcoQualifier(SidUtils.languageQualifier("de"))
+                .pocMapping(pocMappingFuture.get())
+                .pocQualifier(SidUtils.languageQualifier("de"))
+                .foodCompositionRepo(foodCompositionRepo)
+                .foodComponents(loadEnabledFoodComponents(foodCompositionRepo.componentCatalog())
+                        .stream()
+                        .limit(maxNutrientColumns)
+                        .collect(Can.toCan()))
+                .interviewSet(interviewSet)
+                .aggregation(aggregation)
+                .build();
     }
 
     // -- HELPER
@@ -107,7 +155,7 @@ extends CausewayIntegrationTestAbstract {
         return campaign;
     }
 
-    private String loadColDef(String surveyCode) {
+    private String loadColDef(final String surveyCode) {
         return surveyBlobStore.lookupBlob(NamedPath.of(
                 "surveys", surveyCode, "integtest", "col-def.txt"))
                 .get()
@@ -115,7 +163,7 @@ extends CausewayIntegrationTestAbstract {
                 .asString();
     }
 
-    private String loadCorrections(String surveyCode) {
+    private String loadCorrections(final String surveyCode) {
         return surveyBlobStore.lookupBlob(NamedPath.of(
                 "surveys", surveyCode, "integtest", "corrections.yaml"))
                 .get()

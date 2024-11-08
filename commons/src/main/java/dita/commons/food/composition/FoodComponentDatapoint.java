@@ -84,4 +84,11 @@ public record FoodComponentDatapoint(
         return new FoodComponentQuantified(component, component.componentUnit().quantity(amount));
     }
 
+    public double quantifyAsDouble(
+            final @NonNull FoodConsumption consumption) {
+        return component.componentUnit().isInvariantWithRespectToAmountConusmed()
+                ? datapointValue.doubleValue()
+                : concentrationUnit.multiplyAsDouble(consumption, datapointValue);
+    }
+
 }

@@ -18,20 +18,15 @@
  */
 package dita.recall24.reporter.tabular;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 
 import dita.commons.food.composition.FoodComponent;
-import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.types.DecimalVector;
-import dita.foodon.bls.BLS302;
 
 record NutrientVectorFactory(Can<FoodComponent> foodComponents) {
 
@@ -40,27 +35,15 @@ record NutrientVectorFactory(Can<FoodComponent> foodComponents) {
             @Nullable final FoodComposition compositionEntry) {
         if(compositionEntry==null) return DecimalVector.empty();
 
-        var decimals = new BigDecimal[foodComponents.size()];
+        var decimals = new double[foodComponents.size()];
 
         foodComponents.forEach(IndexedConsumer.zeroBased((i, comp)->{
             decimals[i] = compositionEntry.lookupDatapoint(comp.componentId())
-                .map(dp->dp.quantify(foodConsumption))
-                .map(FoodComponentQuantified::quantityValue)
-                .orElse(null);
+                .map(dp->dp.quantifyAsDouble(foodConsumption))
+                .orElse(Double.NaN);
         }));
 
-        return new DecimalVector(foodComponents.size(), decimals);
+        return new DecimalVector(decimals);
     }
-
-    static BigDecimal gcalzb(
-            final FoodConsumption foodConsumption,
-            final Optional<FoodComposition> compositionEntry) {
-        return compositionEntry
-            .flatMap(e->e.lookupDatapoint(BLS302.Component.GCALZB.componentId()))
-            .map(dp->dp.quantify(foodConsumption))
-            .map(FoodComponentQuantified::quantityValue)
-            .orElse(null);
-    }
-
 
 }

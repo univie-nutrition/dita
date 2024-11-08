@@ -54,10 +54,10 @@ record AggregatorAvgOverRespondent() {
                 .forEach(c->accumulateInterviewSum(builder, c));
 
             // then divide by interview count
-            var fraction = new BigDecimal(1./consumptions.size());
+            var fraction = 1./consumptions.size();
 
             var acc = builder.build();
-            builder.quantity(acc.quantity().multiply(fraction));
+            builder.quantity(acc.quantity().multiply(new BigDecimal(fraction)));
 
             if(!acc.nutrients().isEmpty()) {
                 builder

@@ -24,11 +24,14 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.tabular.TabularModel;
+import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
+import org.apache.causeway.commons.tabular.TabularModel.TabularRow;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
 import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+import org.apache.causeway.extensions.tabular.excel.exporter.ExcelFileWriter;
 import org.apache.causeway.extensions.tabular.excel.exporter.TabularExcelExporter;
 
 import dita.commons.food.composition.FoodComponent;
@@ -44,10 +47,25 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
         var sheet = toTabularSheet(dataTable);
 
         new TabularExcelExporter()
-            .export(sheet, file);
+            .export(sheet, file, ExcelFileWriter.Options.builder()
+                    .cellStyleFunction(cell->isWip(cell)
+                            ? ExcelFileWriter.Options.CustomCellStyle.DANGER
+                            : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
+                    .rowStyleFunction(row->containsWip(row)
+                            ? ExcelFileWriter.Options.CustomCellStyle.WARNING
+                            : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
+                    .build());
     }
 
     // -- HELPER
+
+    private boolean isWip(final TabularCell cell) {
+        return ":WIP".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
+    }
+
+    private boolean containsWip(final TabularRow row) {
+        return row.cells().stream().anyMatch(this::isWip);
+    }
 
     private TabularModel.TabularSheet toTabularSheet(
             final DataTable dataTable) {

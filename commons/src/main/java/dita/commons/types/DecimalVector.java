@@ -18,38 +18,66 @@
  */
 package dita.commons.types;
 
-import java.math.BigDecimal;
+import org.springframework.lang.Nullable;
+
+import org.apache.causeway.commons.internal.assertions._Assert;
+
+import dita.commons.util.NumberUtils;
 
 public record DecimalVector(
-        int cardinality,
         /**
-         * Allows elements to be null.
+         * Allows elements to be Double.NaN.
          */
-        BigDecimal[] decimals) {
+        double[] decimals) {
 
-    final static DecimalVector EMPTY = new DecimalVector(0, null);
+    final static DecimalVector EMPTY = new DecimalVector(new double[0]);
+    public static DecimalVector empty() { return EMPTY; }
+    public boolean isEmpty() { return cardinality() == 0; }
 
-    public static DecimalVector empty() {
-        return EMPTY;
+    public int cardinality() {
+        return decimals.length;
     }
 
-    public boolean isEmpty() {
-        return cardinality == 0;
-    }
-
-    public DecimalVector add(final DecimalVector vector) {
-        final BigDecimal[] sum = new BigDecimal[cardinality];
+    /**
+     * Element-wise addition (supporting NaN and infinities).
+     * <p>
+     * Empty vectors are considered identity elements under addition.
+     */
+    public DecimalVector add(@Nullable final DecimalVector vector) {
+        if(vector==null || vector.isEmpty()) return this;
+        if(isEmpty()) return vector;
+        _Assert.assertEquals(cardinality(), vector.cardinality());
+        final double[] sum = new double[cardinality()];
         for (int i = 0; i < sum.length; i++) {
-            sum[i] = decimals()[i].add(vector.decimals()[i]);
+            sum[i] = decimals()[i] + vector.decimals()[i];
         }
-        return new DecimalVector(cardinality, sum);
+        return new DecimalVector(sum);
     }
 
-    public DecimalVector multiply(final BigDecimal operand) {
-        final BigDecimal[] result = new BigDecimal[cardinality];
+    /**
+     * Scalar multiplication (supporting NaN and infinities).
+     */
+    public DecimalVector multiply(final double operand) {
+        if(isEmpty()) return EMPTY;
+        final double[] result = new double[cardinality()];
         for (int i = 0; i < result.length; i++) {
-            result[i] = decimals()[i].multiply(operand);
+            result[i] = decimals()[i] * operand;
         }
-        return new DecimalVector(cardinality, result);
+        return new DecimalVector(result);
     }
+
+    /**
+     * Checks element-wise equality. (empty vectors are considered equal)
+     */
+    public boolean equals(@Nullable final DecimalVector vector, final double epsilon) {
+        if(vector==null || vector.isEmpty()) return this.isEmpty();
+        return NumberUtils.numberArrayEquals(decimals, vector.decimals, epsilon);
+    }
+
+    public static DecimalVector nullToEmpty(@Nullable final DecimalVector vector) {
+        return vector!=null
+                ? vector
+                : EMPTY;
+    }
+
 }

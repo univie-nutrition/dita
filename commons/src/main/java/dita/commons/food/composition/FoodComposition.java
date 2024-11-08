@@ -94,6 +94,13 @@ public record FoodComposition(
             return consumption.amountConsumed().multiply(datapointValue).scaleByPowerOfTen(concentrationScale);
         }
 
+        double multiplyAsDouble(final @NonNull FoodConsumption consumption, final @NonNull BigDecimal datapointValue) {
+            _Assert.assertEquals(expectedConsumptionQuantification, consumption.consumptionUnit(),
+                    ()->"consumption has incommensurable unit");
+            return consumption.amountConsumed().doubleValue()
+                    * datapointValue.scaleByPowerOfTen(concentrationScale).doubleValue();
+        }
+
     }
 
     public Optional<FoodComponentDatapoint> lookupDatapoint(final @Nullable SemanticIdentifier componentId) {

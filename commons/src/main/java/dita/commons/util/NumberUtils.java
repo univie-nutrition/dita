@@ -29,6 +29,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.commons.internal.assertions._Assert;
+
 import lombok.experimental.UtilityClass;
 
 import tech.units.indriya.function.DefaultNumberSystem;
@@ -36,6 +38,50 @@ import tech.units.indriya.internal.function.Calculator;
 
 @UtilityClass
 public class NumberUtils {
+
+    /**
+     * double equality by value relaxed by epsilon
+     * (also considering NaN and +/- Infinity)
+     */
+    public boolean numberEquals(final double a, final double b, final double epsilon) {
+        _Assert.assertTrue(Double.isFinite(epsilon));
+        _Assert.assertTrue(epsilon >= 0.0);
+
+        if(Double.isFinite(a)) {
+            if(Double.isFinite(b)) {
+                // abs(a-b) might actually overflow Double.MAX_VALUE, which results in Double.POSITIVE_INFINITY
+                return Math.abs(a - b) <= epsilon;
+            }
+            // as is finite, but b is not
+            return false;
+        }
+        // a is not finite, but b is
+        if(Double.isFinite(b)) return false;
+
+        // a and b are not finite
+        return Double.doubleToLongBits(a) == Double.doubleToLongBits(b);
+    }
+
+    /**
+     * Checks element-wise equality based on {@link #numberEquals(double, double, double)}.
+     * (empty arrays are considered equal)
+     */
+    public boolean numberArrayEquals(@Nullable final double[] a, @Nullable final double[] b, final double epsilon) {
+        if(a==null || a.length==0) {
+            if(b==null || b.length==0) {
+                return true;
+            }
+            // a is empty, but b is not
+            return false;
+        }
+        // a is not empty, but b is
+        if(b==null || b.length==0) return false;
+        if(a.length!=b.length) return false;
+        for (int i = 0; i < a.length; i++) {
+            if(!numberEquals(a[i], b[i], epsilon)) return false;
+        }
+        return true;
+    }
 
     // -- CONVERSION
 
