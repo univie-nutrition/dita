@@ -26,7 +26,7 @@ import dita.commons.util.NumberUtils;
 
 public record DecimalVector(
         /**
-         * Allows elements to be Double.NaN.
+         * Never null. Allows elements to be Double.NaN.
          */
         double[] decimals) {
 
@@ -34,8 +34,18 @@ public record DecimalVector(
     public static DecimalVector empty() { return EMPTY; }
     public boolean isEmpty() { return cardinality() == 0; }
 
+    public DecimalVector(@Nullable final double[] decimals) {
+        this.decimals = decimals!=null
+                ? decimals
+                : new double[0];
+    }
+
     public int cardinality() {
         return decimals.length;
+    }
+
+    public double get(final int index) {
+        return decimals[index];
     }
 
     /**
@@ -49,7 +59,7 @@ public record DecimalVector(
         _Assert.assertEquals(cardinality(), vector.cardinality());
         final double[] sum = new double[cardinality()];
         for (int i = 0; i < sum.length; i++) {
-            sum[i] = decimals()[i] + vector.decimals()[i];
+            sum[i] = decimals[i] + vector.decimals[i];
         }
         return new DecimalVector(sum);
     }
@@ -61,7 +71,7 @@ public record DecimalVector(
         if(isEmpty()) return EMPTY;
         final double[] result = new double[cardinality()];
         for (int i = 0; i < result.length; i++) {
-            result[i] = decimals()[i] * operand;
+            result[i] = decimals[i] * operand;
         }
         return new DecimalVector(result);
     }

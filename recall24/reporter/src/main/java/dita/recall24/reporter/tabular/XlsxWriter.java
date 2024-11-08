@@ -121,14 +121,14 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
         .toArrayList();
 
         var consumptionRecord = (ConsumptionRecord) dataRow.getRowElement().getPojo();
-        var nutrients = consumptionRecord.nutrients().decimals();
+        var nutrients = consumptionRecord.nutrients();
 
         // add nutrient cells
-        if(nutrients!=null) {
-            _Assert.assertEquals(foodComponents.size(), nutrients.length);
+        if(!nutrients.isEmpty()) {
+            _Assert.assertEquals(foodComponents.size(), nutrients.cardinality());
             foodComponents
                 .map(IndexedFunction.zeroBased((index, _)->
-                    TabularModel.TabularCell.single(nutrients[index])))
+                    TabularModel.TabularCell.single(nutrients.get(index))))
                 .forEach(cells::add);
         } else {
             foodComponents

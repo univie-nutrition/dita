@@ -40,7 +40,7 @@ record NutrientVectorFactory(Can<FoodComponent> foodComponents) {
         foodComponents.forEach(IndexedConsumer.zeroBased((i, comp)->{
             decimals[i] = compositionEntry.lookupDatapoint(comp.componentId())
                 .map(dp->dp.quantifyAsDouble(foodConsumption))
-                .orElse(Double.NaN);
+                .orElse(0.);
         }));
 
         return new DecimalVector(decimals);
