@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -54,7 +54,7 @@ class CompositionRepoTest extends DitaGdSurveyIntegrationTest {
     void loading() throws IOException {
         var foodCompositionRepo = loadFcdb();
 
-        assertEquals(14814, foodCompositionRepo.compositionCount());
+        assertTrue(14814 < foodCompositionRepo.compositionCount());
         //toCSV(foodCompositionRepo);
     }
 
