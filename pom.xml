@@ -34,6 +34,7 @@ additional
 
         <causeway.version>3.0.0-SNAPSHOT</causeway.version>
         <causewaystuff.version>1.0.0-SNAPSHOT</causewaystuff.version>
+        <datanucleus-core.version>6.0.10-SNAPSHOT</datanucleus-core.version>
 
         <indriya.version>2.2</indriya.version>
 
@@ -100,6 +101,14 @@ additional
                         <arg>-proc:full</arg>
                     </compilerArgs>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>9.7.1</version> <!-- in support of JDK23 as
+                        build JVM - overrides 9.6 from v3.13.0-->
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
