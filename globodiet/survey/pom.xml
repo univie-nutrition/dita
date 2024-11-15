@@ -47,12 +47,19 @@ additional
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <!-- overriding the default in support of JDK23 -->
+                    <dependency>
+                        <groupId>org.datanucleus</groupId>
+                        <artifactId>datanucleus-core</artifactId>
+                        <version>${datanucleus-core.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>at.ac.univie.nutrition.dita</groupId>
             <artifactId>dita-commons</artifactId>
