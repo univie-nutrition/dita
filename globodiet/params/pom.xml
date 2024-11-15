@@ -45,6 +45,14 @@
 						</goals>
 					</execution>
 				</executions>
+				<dependencies>
+				    <!-- overriding the default in support of JDK23 -->
+				    <dependency>
+				        <groupId>org.datanucleus</groupId>
+				        <artifactId>datanucleus-core</artifactId>
+				        <version>${datanucleus-core.version}</version>
+				    </dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
