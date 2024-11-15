@@ -27,7 +27,7 @@ additional
     <packaging>pom</packaging>
 
     <properties>
-        <maven.compiler.release>22</maven.compiler.release>
+        <maven.compiler.release>23</maven.compiler.release>
         <maven.compiler.arg>-parameters</maven.compiler.arg>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -38,7 +38,7 @@ additional
 
         <indriya.version>2.2</indriya.version>
         
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
 
         <mariadb-jdbc.version>3.3.2</mariadb-jdbc.version>
         <mssql-jdbc.version>12.4.2.jre11</mssql-jdbc.version>
