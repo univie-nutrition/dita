@@ -61,8 +61,8 @@ public record IngredientToRecipeResolver(
                         var recipe = foodDescriptionModel.lookupRecipeBySid(fcdbId)
                                 .orElse(null);
                         if(recipe!=null) {
-                            yield (T) foodToCompositeConverter.foodToRecipe(food, recipe)
-                                .build();
+                            var recordBuilder = foodToCompositeConverter.foodToRecipe(food, recipe, "recipe mapped by ingredient");
+                            yield (T) recordBuilder.build();
                         }
                     }                    
                 }

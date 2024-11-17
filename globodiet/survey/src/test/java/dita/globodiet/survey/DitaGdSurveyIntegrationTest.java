@@ -123,7 +123,8 @@ extends CausewayIntegrationTestAbstract {
         var interviewSet = interviewSetFuture.get()
                 .transform(new AssociatedRecipeResolver(fdmFuture.get()))
                 .transform(new QualifiedMappingResolver(nutMappingFuture.get()))
-                .transform(new IngredientToRecipeResolver(fdmFuture.get()));
+                .transform(new IngredientToRecipeResolver(fdmFuture.get()))
+                .transform(new QualifiedMappingResolver(nutMappingFuture.get())); // to handle ingredients from the previous transformer
 
         return TabularReporters.TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))

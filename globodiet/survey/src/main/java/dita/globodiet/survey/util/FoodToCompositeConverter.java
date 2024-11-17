@@ -38,29 +38,30 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
     
     public Record24.Composite.Builder foodToRecipe(
             Food origFood,
-            Recipe associatedRecipe) {
+            Recipe recipe,
+            String nameSuffix) {
         var recordBuilder = new Composite.Builder();
 
         recordBuilder.type(Record24.Type.COMPOSITE);
-        recordBuilder.sid(associatedRecipe.sid());
-        recordBuilder.name(associatedRecipe.name());
+        recordBuilder.sid(recipe.sid());
+        recordBuilder.name(NameWithCode.parseAssocFood(recipe.name()).name() + " {" + nameSuffix + "}");
         
         // there are no implicit recipe facets we could use here, hence empty
         recordBuilder.facetSids(SemanticIdentifierSet.empty());
         // store GloboDiet food description group data as annotation
         recordBuilder.annotations().clear();
-        recordBuilder.annotations().add(new Annotation("group", recipeGroupSid(associatedRecipe)));
+        recordBuilder.annotations().add(new Annotation("group", recipeGroupSid(recipe)));
         
         // keep the original food as comment
         recordBuilder.subRecords().add(origFoodAsComment(origFood));
         
         var origFoodConsumedOverRecipeMass = new BigDecimal(
                 origFood.amountConsumed().doubleValue() //TODO[dita-globodiet-survey] might not always be in GRAM
-                / foodDescriptionModel.sumAmountGramsForRecipe(associatedRecipe).doubleValue());
+                / foodDescriptionModel.sumAmountGramsForRecipe(recipe).doubleValue());
 
         // to the composite record we are building here,
         // we add each recipe ingredient as sub-record
-        foodDescriptionModel.streamIngredients(associatedRecipe)
+        foodDescriptionModel.streamIngredients(recipe)
             .map(ingr->{
                 var food = foodDescriptionModel.lookupFoodBySid(ingr.foodSid()).orElseThrow();
                 var foodBuilder = new Food.Builder()

@@ -41,10 +41,14 @@ public record QualifiedMappingResolver(
                 builder.replaceSubRecords(this::transform); // recursive
                 yield (T) builder.build();
             }
-            case Record24.Consumption consumption -> (T) nutMapping
-                .lookupTarget(consumption.asQualifiedMapKey())
-                .map(fcdbId->consumption.withAnnotationAdded(new Annotation("fcdbId", fcdbId)))
-                .orElse(consumption);
+            case Record24.Consumption consumption -> { 
+                yield consumption.annotation("fcdbId").isPresent() 
+                    ? (T) consumption
+                    : (T) nutMapping
+                        .lookupTarget(consumption.asQualifiedMapKey())
+                        .map(fcdbId->consumption.withAnnotationAdded(new Annotation("fcdbId", fcdbId)))
+                        .orElse(consumption);
+            }
             default -> node;
         };
     }

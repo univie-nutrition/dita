@@ -39,6 +39,7 @@ import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.IngredientToRecipeResolver;
 import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
@@ -72,7 +73,9 @@ class DataUtil {
         var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
         return interviewSet
                 .transform(new AssociatedRecipeResolver(fdm))
-                .transform(new QualifiedMappingResolver(nutMapping));
+                .transform(new QualifiedMappingResolver(nutMapping))
+                .transform(new IngredientToRecipeResolver(fdm))
+                .transform(new QualifiedMappingResolver(nutMapping)); // to handle ingredients from the previous transformer
     }
 
     // -- FCDB
