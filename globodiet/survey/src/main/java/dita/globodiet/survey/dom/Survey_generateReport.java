@@ -80,14 +80,12 @@ public class Survey_generateReport {
         var interviewSet = DataUtil.filteredInterviewSet(campaigns, respondentFilter, surveyBlobStore);
         if(interviewSet.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
-        var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
         var fcoMapping = Campaigns.fcoMapping(campaigns.getFirst(), surveyBlobStore);
         var pocMapping = Campaigns.pocMapping(campaigns.getFirst(), surveyBlobStore);
         var foodCompositionRepo = Campaigns.fcdb(campaigns.getFirst(), surveyBlobStore);
         var systemId = Campaigns.systemId(mixee);
 
         var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
-                nutMapping,
                 fcoMapping, SidUtils.languageQualifier("de"),
                 pocMapping, SidUtils.languageQualifier("de"),
                 foodCompositionRepo,

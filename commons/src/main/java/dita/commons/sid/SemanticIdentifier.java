@@ -165,6 +165,7 @@ public record SemanticIdentifier (
             LANGUAGE("language", true),
             BRAND("brand", true),
             COMPONENT("comp"),
+            RECIPE("recipe"),
             FOOD("food"),
             ;
             Context(final String id){ this(id, false); }
@@ -188,6 +189,17 @@ public record SemanticIdentifier (
                     if(context.id().equals(objectId.context())) return true;
                 }
                 return false;
+            }
+            public boolean matches(@Nullable String contextId) {
+                return id().equals(contextId);
+            }
+            public boolean matches(@Nullable ObjectId objecjId) {
+                return objecjId!=null
+                        && id().equals(objecjId.context());
+            }
+            public boolean matches(@Nullable SemanticIdentifier sid) {
+                return sid!=null
+                        && id().equals(sid.objectId().context());
             }
         }
 

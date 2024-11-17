@@ -104,7 +104,6 @@ public class TabularReporters {
     public record TabularReport(
             InterviewSet24 interviewSet,
             SystemId systemId, //TODO[dita-recall24-reporter] required for fully qualified PoC and FCO (perhaps, transform earlier already)
-            QualifiedMap nutMapping,
             QualifiedMap fcoMapping,
             SemanticIdentifierSet fcoQualifier,
             QualifiedMap pocMapping,
@@ -261,13 +260,15 @@ public class TabularReporters {
                                 .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
-                        var mappingTarget = nutMapping
-                                .lookupTarget(cRec.asQualifiedMapKey());
+                        var mappingTarget = cRec.annotation("fcdbId")
+                                .map(Annotation.valueAs(SemanticIdentifier.class));
                         var compositionEntry = mappingTarget
                                 .flatMap(foodCompositionRepo::lookupEntry);
                         if(mappingTarget.isPresent()) {
                             if(!compositionEntry.isPresent()) {
-                                throw _Exceptions.noSuchElement("no FCDB composition entry for '%s'->%s",
+                                if(ObjectId.Context.RECIPE.matches(mappingTarget.get())) {
+                                    
+                                } else throw _Exceptions.noSuchElement("no FCDB composition entry for '%s'->%s",
                                         cRec.name(), mappingTarget.get());
                             }
                         }

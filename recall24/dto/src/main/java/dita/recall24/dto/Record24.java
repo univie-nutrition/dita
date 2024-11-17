@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -214,6 +215,20 @@ permits
                 composite.annotations().values().forEach(builder.annotations::add);
                 return builder;
             }
+            
+            public Builder addAnnotation(Annotation annotation) {
+                annotations.add(annotation);
+                return this;
+            }
+            
+            public Builder replaceSubRecords(UnaryOperator<Record24> mapper) {
+                var replacedSubRecords = subRecords.stream()
+                    .map(mapper)
+                    .toList();
+                subRecords.clear();
+                subRecords.addAll(replacedSubRecords);
+                return this;
+            }
 
             @Override
             public Composite build() {
@@ -256,6 +271,8 @@ permits
                     Objects.requireNonNull(consumptionUnit()),
                     Objects.requireNonNull(amountConsumed()));
         }
+
+        Consumption withAnnotationAdded(@Nullable Annotation annotation);
     }
 
     /**
@@ -315,11 +332,25 @@ permits
                 return builder;
             }
 
+            public Builder addAnnotation(Annotation annotation) {
+                annotations.add(annotation);
+                return this;
+            }
+            
             @Override
             public Food build() {
-                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(subRecords), Can.ofCollection(annotations));
+                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, 
+                        Can.ofCollection(subRecords), Can.ofCollection(annotations));
                 return food;
             }
+        }
+
+        @Override
+        public Consumption withAnnotationAdded(@Nullable Annotation annotation) {
+            if(annotation==null) return this;
+            return ((Food.Builder)asBuilder())
+                    .addAnnotation(annotation)
+                    .build();
         }
     }
 
@@ -362,7 +393,7 @@ permits
                         .name(typeOfFatUsed.name()).sid(typeOfFatUsed.sid()).facetSids(typeOfFatUsed.facetSids());
                 return builder;
             }
-
+            
             @Override
             public TypeOfFatUsed build() {
                 var typeOfFatUsed = typeOfFatUsed(name, sid, facetSids);
@@ -432,7 +463,8 @@ permits
             SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
-            BigDecimal rawPerCookedRatio
+            BigDecimal rawPerCookedRatio,
+            Map<String, Annotation> annotations
             ) implements Consumption {
 
         public FryingFat {
@@ -455,6 +487,7 @@ permits
             private BigDecimal amountConsumed;
             private ConsumptionUnit consumptionUnit;
             private BigDecimal rawPerCookedRatio;
+            final List<Annotation> annotations = new ArrayList<>();
 
             static Builder of(final FryingFat fryingFat) {
                 var builder = new Builder().type(fryingFat.type)
@@ -462,14 +495,28 @@ permits
                         .amountConsumed(fryingFat.amountConsumed)
                         .consumptionUnit(fryingFat.consumptionUnit)
                         .rawPerCookedRatio(fryingFat.rawPerCookedRatio);
+                fryingFat.annotations().values().forEach(builder.annotations::add);
                 return builder;
             }
 
+            public Builder addAnnotation(Annotation annotation) {
+                annotations.add(annotation);
+                return this;
+            }
+            
             @Override
             public FryingFat build() {
-                var fryingFat = fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+                var fryingFat = fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(annotations));
                 return fryingFat;
             }
+        }
+
+        @Override
+        public Consumption withAnnotationAdded(@Nullable Annotation annotation) {
+            if(annotation==null) return this;
+            return ((FryingFat.Builder)asBuilder())
+                    .addAnnotation(annotation)
+                    .build();
         }
     }
 
@@ -486,7 +533,8 @@ permits
             SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
-            BigDecimal rawPerCookedRatio
+            BigDecimal rawPerCookedRatio,
+            Map<String, Annotation> annotations
             ) implements Consumption {
 
         @SuppressWarnings("unchecked")
@@ -505,6 +553,7 @@ permits
             private BigDecimal amountConsumed;
             private ConsumptionUnit consumptionUnit;
             private BigDecimal rawPerCookedRatio;
+            final List<Annotation> annotations = new ArrayList<>();
 
             static Builder of(final Product product) {
                 var builder = new Builder().type(product.type)
@@ -512,14 +561,28 @@ permits
                         .amountConsumed(product.amountConsumed)
                         .consumptionUnit(product.consumptionUnit)
                         .rawPerCookedRatio(product.rawPerCookedRatio);
+                product.annotations().values().forEach(builder.annotations::add);
                 return builder;
             }
 
+            public Builder addAnnotation(Annotation annotation) {
+                annotations.add(annotation);
+                return this;
+            }
+            
             @Override
             public Product build() {
-                var product = product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+                var product = product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(annotations));
                 return product;
             }
+        }
+
+        @Override
+        public Consumption withAnnotationAdded(Annotation annotation) {
+            if(annotation==null) return this;
+            return ((Product.Builder)asBuilder())
+                    .addAnnotation(annotation)
+                    .build();
         }
     }
 
@@ -560,6 +623,11 @@ permits
                 return builder;
             }
 
+            public Builder addAnnotation(Annotation annotation) {
+                annotations.add(annotation);
+                return this;
+            }
+            
             @Override
             public Comment build() {
                 var comment = comment(name, sid, facetSids, Can.ofCollection(annotations));
@@ -626,9 +694,10 @@ permits
             final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
-            final BigDecimal rawPerCookedRatio) {
+            final BigDecimal rawPerCookedRatio,
+            final Can<Annotation> annotations) {
         return new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, annotations.toMap(Annotation::key));
     }
 
     public static FryingFat fryingFat(
@@ -646,9 +715,10 @@ permits
             final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
-            final BigDecimal rawPerCookedRatio) {
+            final BigDecimal rawPerCookedRatio,
+            final Can<Annotation> annotations) {
         return new FryingFat(ObjectRef.empty(), Record24.Type.FRYING_FAT,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio);
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, annotations.toMap(Annotation::key));
     }
 
     public static Food food(

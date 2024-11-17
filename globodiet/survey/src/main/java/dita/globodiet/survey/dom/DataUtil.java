@@ -39,6 +39,7 @@ import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -68,7 +69,10 @@ class DataUtil {
 
         //TODO[dita-globodiet-survey] don't hardcode interview-set post-processors: make this a configuration concern
         var fdm = Campaigns.foodDescriptionModel(campaigns.getFirst(), surveyBlobStore);
-        return interviewSet.transform(new AssociatedRecipeResolver(fdm));
+        var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
+        return interviewSet
+                .transform(new AssociatedRecipeResolver(fdm))
+                .transform(new QualifiedMappingResolver(nutMapping));
     }
 
     // -- FCDB

@@ -55,12 +55,11 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     void parsingFromBlobStore() throws InterruptedException, ExecutionException {
         var aggregation = Aggregation.NONE;
 
-        var tabularReport = tabularReport(aggregation, 32);
+        var tabularReport = tabularReport(aggregation, 4);
 
         log.info("write report");
         var xlsxFile = new File("d:/tmp/_scratch/report-aggr-" + aggregation.name().toLowerCase() + ".xlsx");
         tabularReport.report(xlsxFile);
-
         XlsxUtils.launchViewerAndWaitFor(xlsxFile);
 
 //      var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);
@@ -69,15 +68,15 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
         log.info("collect report stats");
         var stats = new Recall24SummaryStatistics();
-        var recordProcessor = new RecordProcessor(stats, tabularReport.systemId(), tabularReport.nutMapping());
+        //var recordProcessor = new RecordProcessor(stats, tabularReport.systemId(), tabularReport.nutMapping());
 
         tabularReport.interviewSet().streamDepthFirst()
             .forEach((final RecallNode24 node)->{
                 stats.accept(node);
-                switch(node) {
-                    case Record24.Consumption cRec -> recordProcessor.accept(cRec);
-                    default -> {}
-                }
+//                switch(node) {
+//                    case Record24.Consumption cRec -> recordProcessor.accept(cRec);
+//                    default -> {}
+//                }
             });
 
         System.out.println("=== STATS ===");
@@ -85,27 +84,27 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
         System.out.println("=============");
     }
 
-    record RecordProcessor(
-            Recall24SummaryStatistics stats,
-            SystemId systemId,
-            QualifiedMap nutMapping)
-    implements Consumer<Record24.Consumption> {
-        @Override
-        public void accept(final Record24.Consumption rec) {
-            var mapKey = rec.asQualifiedMapKey();
-            var mapEntry = nutMapping.lookupEntry(mapKey);
-            if(mapEntry.isPresent()) {
-                stats.consumptionStats().mappedCount().increment();
-            } else {
-                stats.consumptionStats().collectMappingTodo(new MappingTodo(mapKey, similar(mapKey)));
-                System.out.printf("unmapped: %s (%s)%n", rec.name(), mapKey);
-            }
-        }
-        private Can<QualifiedMapEntry> similar(final QualifiedMapKey mapKey) {
-            return nutMapping.streamEntriesHavingSource(mapKey.source())
-                    .collect(Can.toCan())
-                    .distinct();
-        }
-    }
+//    record RecordProcessor(
+//            Recall24SummaryStatistics stats,
+//            SystemId systemId,
+//            QualifiedMap nutMapping)
+//    implements Consumer<Record24.Consumption> {
+//        @Override
+//        public void accept(final Record24.Consumption rec) {
+//            var mapKey = rec.asQualifiedMapKey();
+//            var mapEntry = nutMapping.lookupEntry(mapKey);
+//            if(mapEntry.isPresent()) {
+//                stats.consumptionStats().mappedCount().increment();
+//            } else {
+//                stats.consumptionStats().collectMappingTodo(new MappingTodo(mapKey, similar(mapKey)));
+//                System.out.printf("unmapped: %s (%s)%n", rec.name(), mapKey);
+//            }
+//        }
+//        private Can<QualifiedMapEntry> similar(final QualifiedMapKey mapKey) {
+//            return nutMapping.streamEntriesHavingSource(mapKey.source())
+//                    .collect(Can.toCan())
+//                    .distinct();
+//        }
+//    }
 
 }

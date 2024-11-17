@@ -159,13 +159,15 @@ record InterviewConverter(SystemId systemId) {
             _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
             yield Record24.fryingFat(
                 listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
+                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                Can.empty());
         }
         case DietarySupplement -> {
             _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
             yield Record24.product(
                 listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio());
+                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                Can.empty());
         }
         case FatSauceOrSweeteners -> null; // redundant: ignore
         case TypeOfFatUsedFacet -> {

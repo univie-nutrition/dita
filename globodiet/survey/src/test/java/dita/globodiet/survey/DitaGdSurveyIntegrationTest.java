@@ -48,6 +48,7 @@ import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.reporter.tabular.TabularReporters;
@@ -96,17 +97,19 @@ extends CausewayIntegrationTestAbstract {
     }
 
     protected InterviewSet24 loadInterviewSet() {
-        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore)
-                .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()));
+        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore);
+//                .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()))
+//                .transform(new QualifiedMappingResolver(loadNutMapping()));
     }
 
     @SneakyThrows
     protected TabularReport tabularReport(final Aggregation aggregation, final int maxNutrientColumns) {
-        var pool = Executors.newFixedThreadPool(5);
+        var pool = Executors.newFixedThreadPool(6);
         var nutMappingFuture = pool.submit(this::loadNutMapping);
         var fcoMappingFuture = pool.submit(this::loadFcoMapping);
         var pocMappingFuture = pool.submit(this::loadPocMapping);
         var fcdbFuture = pool.submit(this::loadFcdb);
+        var fdmFuture = pool.submit(this::loadFoodDescriptionModel);
         var interviewSetFuture = pool.submit(this::loadInterviewSet);
         pool.shutdown();
 
@@ -116,11 +119,13 @@ extends CausewayIntegrationTestAbstract {
 
         var foodCompositionRepo = fcdbFuture.get();
         assertTrue(foodCompositionRepo.compositionCount()>10_000);
-        var interviewSet = interviewSetFuture.get();
+        var interviewSet = interviewSetFuture.get()
+                .transform(new AssociatedRecipeResolver(fdmFuture.get()))
+                .transform(new QualifiedMappingResolver(nutMappingFuture.get()));
+        
 
         return TabularReporters.TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))
-                .nutMapping(nutMappingFuture.get())
                 .fcoMapping(fcoMappingFuture.get())
                 .fcoQualifier(SidUtils.languageQualifier("de"))
                 .pocMapping(pocMappingFuture.get())
