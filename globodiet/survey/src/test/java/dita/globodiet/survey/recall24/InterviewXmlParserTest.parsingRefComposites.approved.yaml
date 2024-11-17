@@ -1733,6 +1733,7 @@ respondents:
           amountConsumed: 1.3700000047683716
           consumptionUnit: "GRAM"
           rawPerCookedRatio: 1
+          annotations: {}
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
