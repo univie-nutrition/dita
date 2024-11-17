@@ -48,6 +48,7 @@ import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.IngredientToRecipeResolver;
 import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
@@ -121,8 +122,8 @@ extends CausewayIntegrationTestAbstract {
         assertTrue(foodCompositionRepo.compositionCount()>10_000);
         var interviewSet = interviewSetFuture.get()
                 .transform(new AssociatedRecipeResolver(fdmFuture.get()))
-                .transform(new QualifiedMappingResolver(nutMappingFuture.get()));
-        
+                .transform(new QualifiedMappingResolver(nutMappingFuture.get()))
+                .transform(new IngredientToRecipeResolver(fdmFuture.get()));
 
         return TabularReporters.TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))

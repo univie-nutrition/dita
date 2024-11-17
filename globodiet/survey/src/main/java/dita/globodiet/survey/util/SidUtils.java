@@ -51,7 +51,6 @@ public class SidUtils {
      */
     @RequiredArgsConstructor
     public enum GdContext {
-        RECIPE("recp"),
         FOOD_DESCRIPTOR("fd"),
         RECIPE_DESCRIPTOR("rd"),
         FOOD_GROUP("fg"),

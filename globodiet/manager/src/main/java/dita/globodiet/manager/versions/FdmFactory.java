@@ -206,7 +206,7 @@ record FdmFactory(
         var isAlias = "true".equals(cellLiterals.get(3));
         if(isAlias) return null;
         return new Recipe(
-                GdContext.RECIPE.sid(systemId, cellLiterals.get(8)),
+                ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(8)),
                 cellLiterals.get(0),
                 GdContext.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(6),
@@ -255,7 +255,7 @@ record FdmFactory(
     // 39 "foodOrRecipeCode: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
     private RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
         return new RecipeIngredient(
-                GdContext.RECIPE.sid(systemId, cellLiterals.get(34)),
+                ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(34)),
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(39)),
                 SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(38), ",")
                         .map(facetCodeAs4digits->SidUtils.GdContext.FOOD_DESCRIPTOR.sid(systemId, facetCodeAs4digits))),

@@ -18,26 +18,20 @@
  */
 package dita.globodiet.survey.util;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
-import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.NonNull;
 
-import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
-import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Transfomer;
-import dita.recall24.dto.Record24;
-import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
 
 /**
@@ -53,9 +47,14 @@ import dita.recall24.dto.Record24.Food;
  * </ul>
  */
 public record AssociatedRecipeResolver(
-        @NonNull FoodDescriptionModel foodDescriptionModel
+        @NonNull FoodDescriptionModel foodDescriptionModel,
+        @NonNull FoodToCompositeConverter foodToCompositeConverter
         ) implements Transfomer {
 
+    public AssociatedRecipeResolver(FoodDescriptionModel foodDescriptionModel) {
+        this(foodDescriptionModel, new FoodToCompositeConverter(foodDescriptionModel));
+    }
+    
     @SuppressWarnings("unchecked")
     @Override
     public <T extends RecallNode24> T transform(final T node) {
@@ -63,7 +62,6 @@ public record AssociatedRecipeResolver(
         return switch(node) {
             // we replace the original food by its associated recipe
             case Food origFood -> {
-
                 var fdmAdapter = new FDMAdapter(origFood.sid().systemId(), foodDescriptionModel);
 
                 var associatedRecipe = fdmAdapter
@@ -71,71 +69,16 @@ public record AssociatedRecipeResolver(
                         .orElse(null);
                 if(associatedRecipe==null) yield (T)origFood;
 
-                var recordBuilder = new Composite.Builder();
-
                 // replace the (proxy-) food node by its associated composite node ..
-
-                recordBuilder.type(Record24.Type.COMPOSITE);
+                var recordBuilder = foodToCompositeConverter.foodToRecipe(origFood, associatedRecipe);
                 recordBuilder.name(NameWithCode.parseAssocFood(associatedRecipe.name()).nameWithResolvedSuffix());
-                recordBuilder.sid(associatedRecipe.sid());
-                // keep the original food as comment
-                recordBuilder.subRecords().add(origFoodAsComment(origFood));
-
-                // store GloboDiet food description group data as annotation
-                recordBuilder.annotations().clear();
-                recordBuilder.annotations().add(new Annotation("group", recipeGroupSid(associatedRecipe)));
-
-                // there are no implicit recipe facets we could use here, hence empty
-                recordBuilder.facetSids(SemanticIdentifierSet.empty());
-
-                var origFoodConsumedOverRecipeMass = new BigDecimal(
-                        origFood.amountConsumed().doubleValue() //TODO[dita-globodiet-survey] might not always be in GRAM
-                        / foodDescriptionModel.sumAmountGramsForRecipe(associatedRecipe).doubleValue());
-
-                // to the composite record we are building here,
-                // we add each recipe ingredient as sub-record
-                foodDescriptionModel.streamIngredients(associatedRecipe)
-                    .map(ingr->{
-                        var food = foodDescriptionModel.lookupFoodBySid(ingr.foodSid()).orElseThrow();
-                        var foodBuilder = new Food.Builder()
-                            .name(food.name())
-                            .sid(ingr.foodSid())
-                            .facetSids(ingr.foodFacetSids())
-                            .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
-                            .consumptionUnit(ConsumptionUnit.GRAM); // for recipes this is always in GRAM
-                        foodBuilder.annotations().add(new Annotation("group", foodGroupSid(food)));
-                        return foodBuilder.build();
-                    })
-                    .forEach(recordBuilder.subRecords()::add);
-
                 yield (T)recordBuilder.build();
-
             }
             default -> node;
         };
     }
 
     // -- HELPER
-
-    private SemanticIdentifier foodGroupSid(final FoodDescriptionModel.Food food) {
-        return food.groupSid()
-                .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.FOOD_GROUP.id()));
-    }
-
-    private SemanticIdentifier recipeGroupSid(final FoodDescriptionModel.Recipe recipe) {
-        return recipe.groupSid()
-                .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.RECIPE_GROUP.id()));
-    }
-
-    private Record24.Comment origFoodAsComment(final Food origFood) {
-        var name = "%s, amount=%s, raw/cooked=%s".formatted(
-                origFood.name().replace(" {", ", ").replace("}", ""),
-                origFood.consumptionUnit().format(origFood.amountConsumed()),
-                origFood.rawPerCookedRatio());
-
-        return Record24.comment(name, origFood.sid(), origFood.facetSids(),
-                Can.ofCollection(origFood.annotations().values()));
-    }
 
     private record FDMAdapter(
             @NonNull SystemId systemId,
@@ -181,7 +124,7 @@ public record AssociatedRecipeResolver(
         }
         private Optional<SemanticIdentifier> associatedRecipeSid(final SystemId systemId) {
             return Optional.ofNullable(code())
-                    .map(code->SidUtils.GdContext.RECIPE.sid(systemId, code));
+                    .map(code->ObjectId.Context.RECIPE.sid(systemId, code));
         }
     }
 

@@ -165,7 +165,7 @@ public record SemanticIdentifier (
             LANGUAGE("language", true),
             BRAND("brand", true),
             COMPONENT("comp"),
-            RECIPE("recipe"),
+            RECIPE("recp"),
             FOOD("food"),
             ;
             Context(final String id){ this(id, false); }

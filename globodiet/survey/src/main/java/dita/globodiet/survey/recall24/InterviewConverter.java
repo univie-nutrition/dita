@@ -229,7 +229,7 @@ record InterviewConverter(SystemId systemId) {
     }
 
     private SemanticIdentifier recipeSid(final ListEntry listEntry) {
-        return SidUtils.GdContext.RECIPE.sid(systemId, listEntry.getFoodOrSimilarCode());
+        return ObjectId.Context.RECIPE.sid(systemId, listEntry.getFoodOrSimilarCode());
     }
 
     private SemanticIdentifierSet foodFacets(final ListEntry listEntry) {

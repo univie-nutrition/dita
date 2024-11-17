@@ -20,16 +20,27 @@ package dita.globodiet.survey.util;
 
 import lombok.NonNull;
 
-import dita.commons.qmap.QualifiedMap;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 
-public record QualifiedMappingResolver(
-        @NonNull QualifiedMap nutMapping
+/**
+ * If recipe ingredients are mapped to (nested) recipes,
+ * this transformer resolves those nodes.
+ */
+public record IngredientToRecipeResolver(
+        @NonNull FoodDescriptionModel foodDescriptionModel,
+        @NonNull FoodToCompositeConverter foodToCompositeConverter
         ) implements Transfomer {
+
+    public IngredientToRecipeResolver(FoodDescriptionModel foodDescriptionModel) {
+        this(foodDescriptionModel, new FoodToCompositeConverter(foodDescriptionModel));
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -41,10 +52,22 @@ public record QualifiedMappingResolver(
                 builder.replaceSubRecords(this::transform); // recursive
                 yield (T) builder.build();
             }
-            case Record24.Consumption consumption -> (T) nutMapping
-                .lookupTarget(consumption.asQualifiedMapKey())
-                .map(fcdbId->consumption.withAnnotationAdded(new Annotation("fcdbId", fcdbId)))
-                .orElse(consumption);
+            case Record24.Food food -> {
+                var fcdbId = food.annotation("fcdbId")
+                        .map(Annotation.valueAs(SemanticIdentifier.class))
+                        .orElse(null);
+                if(fcdbId!=null) {
+                    if(ObjectId.Context.RECIPE.matches(fcdbId)) {
+                        var recipe = foodDescriptionModel.lookupRecipeBySid(fcdbId)
+                                .orElse(null);
+                        if(recipe!=null) {
+                            yield (T) foodToCompositeConverter.foodToRecipe(food, recipe)
+                                .build();
+                        }
+                    }                    
+                }
+                yield (T) food;
+            }
             default -> node;
         };
     }
