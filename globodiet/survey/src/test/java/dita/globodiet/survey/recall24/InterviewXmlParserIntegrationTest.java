@@ -20,28 +20,19 @@ package dita.globodiet.survey.recall24;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
-import org.apache.causeway.commons.collections.Can;
-
 import lombok.extern.log4j.Log4j2;
 
-import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
-import dita.commons.qmap.QualifiedMapEntry;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.util.XlsxUtils;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
-import dita.recall24.dto.util.Recall24SummaryStatistics.MappingTodo;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 
 @SpringBootTest(classes = {
