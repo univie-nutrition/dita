@@ -50,7 +50,9 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
             .export(sheet, file, ExcelFileWriter.Options.builder()
                     .cellStyleFunction(cell->isWip(cell)
                             ? ExcelFileWriter.Options.CustomCellStyle.DANGER
-                            : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
+                            : isComposite(cell)
+                                ? ExcelFileWriter.Options.CustomCellStyle.INDIGO
+                                : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
                     .rowStyleFunction(row->containsWip(row)
                             ? ExcelFileWriter.Options.CustomCellStyle.WARNING
                             : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
@@ -61,6 +63,10 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
 
     private boolean isWip(final TabularCell cell) {
         return ":WIP".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
+    }
+
+    private boolean isComposite(final TabularCell cell) {
+        return "COMPOSITE".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
     }
 
     private boolean containsWip(final TabularRow row) {
