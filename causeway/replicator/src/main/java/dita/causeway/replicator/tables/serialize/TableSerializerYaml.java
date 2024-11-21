@@ -64,7 +64,7 @@ public class TableSerializerYaml {
             final Predicate<ObjectSpecification> filter,
             final boolean rowSortingEnabled) {
         var yaml = dataTableSet(filter)
-                .populateFromDatabase()
+                .withPopulateFromDatabase()
                 .toTabularData(format())
                 .transform(nameTransformer)
                 .toYaml(format().withRowSorting(rowSortingEnabled));
@@ -74,7 +74,7 @@ public class TableSerializerYaml {
     public interface StringNormalizerFactory {
         StringNormalizer stringNormalizer(final Class<?> entityClass, final String fieldId);
     }
-    
+
     public Clob clobFromSecondaryConnection(
             final String name,
             final NameTransformer nameTransformer,
@@ -83,7 +83,7 @@ public class TableSerializerYaml {
             final StringNormalizerFactory stringNormalizerFactory,
             final boolean rowSortingEnabled) {
         var yaml = dataTableSet(filter)
-                .populateFromSecondaryConnection(pm)
+                .withPopulateFromSecondaryConnection(pm)
                 .toTabularData(format(), stringNormalizerFactory)
                 .transform(nameTransformer)
                 .toYaml(format().withRowSorting(rowSortingEnabled));
@@ -98,12 +98,12 @@ public class TableSerializerYaml {
         public boolean isAdd() { return this == ADD;}
         public boolean isDeleteAllThenAdd() { return this == DELETE_ALL_THEN_ADD;}
     }
-    
+
     public enum StringNormalizer {
         IDENTITY{
-            @Override String apply(String in) { return in; }},
+            @Override String apply(final String in) { return in; }},
         EMPTY_TO_NULL{
-            @Override String apply(String in) { return _Strings.emptyToNull(in); }};
+            @Override String apply(final String in) { return _Strings.emptyToNull(in); }};
         abstract String apply(String in);
     }
 
@@ -125,7 +125,7 @@ public class TableSerializerYaml {
                 .transform(nameTransformer);
 
         var yaml = dataTableSet(filter)
-                .populateFromTabularData(tabularData, format())
+                .withPopulateFromTabularData(tabularData, format())
                 .modifyObject(modifier)
                 .insertToDatabase(repositoryService, insertMode)
                 .toTabularData(format())
@@ -154,7 +154,7 @@ public class TableSerializerYaml {
 
         var sb = new StringBuilder();
         var dataTableSet = dataTableSet(filter)
-                .populateFromTabularData(tabularData, format())
+                .withPopulateFromTabularData(tabularData, format())
                 .replicateToDatabase(pm, sb);
 
         System.err.printf("replicate (tables=%d) done.%n", dataTableSet.getDataTables().size());
@@ -167,7 +167,7 @@ public class TableSerializerYaml {
     private _DataTableSet dataTableSet(final Predicate<ObjectSpecification> filter){
         var dataTables = new _DataTableSet(
                 dataTableService.streamDataTables()
-                    .filter(dataTable->filter.test(dataTable.getElementType()))
+                    .filter(dataTable->filter.test(dataTable.elementType()))
                     .collect(Can.toCan()));
         return dataTables;
     }

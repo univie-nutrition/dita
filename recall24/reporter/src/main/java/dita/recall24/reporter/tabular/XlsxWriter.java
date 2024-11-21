@@ -41,8 +41,8 @@ import dita.recall24.reporter.dom.ConsumptionRecord;
 record XlsxWriter(Can<FoodComponent> foodComponents) {
 
     public void write(final Iterable<ConsumptionRecord> elements, final File file) {
-        var dataTable = DataTable.forDomainType(ConsumptionRecord.class);
-        dataTable.setDataElementPojos(elements);
+        var dataTable = DataTable.forDomainType(ConsumptionRecord.class)
+            .withDataElementPojos(elements);
 
         var sheet = toTabularSheet(dataTable);
 
@@ -76,8 +76,8 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
     private TabularModel.TabularSheet toTabularSheet(
             final DataTable dataTable) {
 
-        var dataColumnsFiltered = dataTable.getDataColumns()
-                .filter(col->!col.getColumnId().equals("nutrients"));
+        var dataColumnsFiltered = dataTable.dataColumns()
+                .filter(col->!col.columnId().equals("nutrients"));
 
         var columns = dataColumnsFiltered
                 .map(IndexedFunction.zeroBased(this::tabularColumn))
@@ -85,9 +85,9 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
         // add nutrient columns
         foodComponents.forEach(comp->columns.add(tabularColumn(columns.size(), comp)));
 
-        var rows = dataTable.getDataRows()
+        var rows = dataTable.dataRows()
                 .map(dr->tabularRow(dataColumnsFiltered, dr));
-        return new TabularModel.TabularSheet(dataTable.getTableFriendlyName(), Can.ofCollection(columns), rows);
+        return new TabularModel.TabularSheet(dataTable.tableFriendlyName(), Can.ofCollection(columns), rows);
     }
 
     // -- HELPER
@@ -95,8 +95,8 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
     private TabularModel.TabularColumn tabularColumn(final int index, final DataColumn dc) {
         return new TabularModel.TabularColumn(
                 index,
-                dc.getColumnFriendlyName(),
-                dc.getColumnDescription().orElse(""));
+                dc.columnFriendlyName(),
+                dc.columnDescription().orElse(""));
     }
 
     //de.literal:name/‹..›
@@ -126,7 +126,7 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
         })
         .toArrayList();
 
-        var consumptionRecord = (ConsumptionRecord) dataRow.getRowElement().getPojo();
+        var consumptionRecord = (ConsumptionRecord) dataRow.rowElement().getPojo();
         var nutrients = consumptionRecord.nutrients();
 
         // add nutrient cells

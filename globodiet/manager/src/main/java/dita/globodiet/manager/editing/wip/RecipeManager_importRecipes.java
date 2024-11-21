@@ -69,7 +69,7 @@ public class RecipeManager_importRecipes {
             final Clob recipeData) {
 
         var recipeTable = DataTable.forDomainType(Recipe.class)
-                .populateEntities();
+                .withEntities();
 
         var yaml = new StringBuilder();
         yaml.append("rows").append("\n");
@@ -80,7 +80,7 @@ public class RecipeManager_importRecipes {
                 yaml.append(" -rowNr: ").append(rowNr++).append("\n");
             }
             @Override public void onCell(final DataColumn column, final Can<ManagedObject> cellValues) {
-                yaml.append("  ").append(column.getColumnId()).append(": ");
+                yaml.append("  ").append(column.columnId()).append(": ");
                 cellValues
                     .forEach(ce->yaml.append(ce.getTitle()));
                 yaml.append("\n");

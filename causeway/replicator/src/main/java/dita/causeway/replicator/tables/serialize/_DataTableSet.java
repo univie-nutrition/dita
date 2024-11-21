@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -70,101 +71,106 @@ class _DataTableSet {
                 .toMap(DataTable::getLogicalName);
     }
 
-    // -- POPULATING
+    // -- MAP
 
-    public _DataTableSet populateFromDatabase() {
-        dataTables.forEach(DataTable::populateEntities);
-        return this;
+    public _DataTableSet map(@NonNull final UnaryOperator<DataTable> mapper) {
+        return new _DataTableSet(dataTables.map(mapper));
     }
 
-    public _DataTableSet populateFromSecondaryConnection(
+    // -- POPULATING
+
+    public _DataTableSet withPopulateFromDatabase() {
+        return map(DataTable::withEntities);
+    }
+
+    public _DataTableSet withPopulateFromSecondaryConnection(
             final PersistenceManager pm) {
-        dataTables.forEach(dataTable->{
-            final var entityClass = dataTable.getElementType().getCorrespondingClass();
+        return map(dataTable->{
+            final var entityClass = dataTable.elementType().getCorrespondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
 
             pm.currentTransaction().begin();
             List<?> allInstances = pm.newQuery(entityClass).executeResultList(entityClass);
-            dataTable.setDataElementPojos(allInstances);
+            var populated = dataTable.withDataElementPojos(allInstances);
             pm.currentTransaction().commit();
+            return populated;
         });
-        return this;
     }
 
-    public _DataTableSet populateFromTabularData(
+    public _DataTableSet withPopulateFromTabularData(
             final TabularData dataBase,
             final TabularData.Format formatOptions) {
+        return new _DataTableSet(dataBase.dataTables()
+            .map(tableEntry->populate(tableEntry, formatOptions)));
+    }
 
-        dataBase.dataTables()
-        .forEach(tableEntry->{
+    @Nullable
+    private DataTable populate(final Table tableEntry, final TabularData.Format formatOptions) {
+        var entityLogicalTypeName = tableEntry.key();
 
-            var entityLogicalTypeName = tableEntry.key();
+        var dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
+                .orElse(null);
+        if(dataTable==null) {
+            return null; // skip
+        }
+        var entitySpec = dataTable.elementType();
+        var entityClass = entitySpec.getCorrespondingClass();
+        var factoryService = entitySpec.getFactoryService();
 
-            var dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
-                    .orElse(null);
-            if(dataTable==null) {
-                return; // skip
-            }
-            var entitySpec = dataTable.getElementType();
-            var entityClass = entitySpec.getCorrespondingClass();
-            var factoryService = entitySpec.getFactoryService();
+        final Can<String> colNames = tableEntry.columns().map(Column::name);
 
-            final Can<String> colNames = tableEntry.columns().map(Column::name);
+        System.err.printf("read table %s | %s%n", entityLogicalTypeName, colNames);
+        //System.err.printf("  cols:%n");
 
-            System.err.printf("read table %s | %s%n", entityLogicalTypeName, colNames);
-            //System.err.printf("  cols:%n");
+        final int[] colIndexMapping =
+                guardAgainstColumnsVsMetamodelMismatch(dataTable, colNames);
 
-            final int[] colIndexMapping =
-                    guardAgainstColumnsVsMetamodelMismatch(dataTable, colNames);
+        //System.err.printf("  rows:%n");
+        var dataElements = tableEntry.rows()
+            .map(row->{
+                // create a new entity instance from each row
 
-            //System.err.printf("  rows:%n");
-            var dataElements = tableEntry.rows()
-                .map(row->{
-                    // create a new entity instance from each row
+                var entityPojo = factoryService.detachedEntity(entityClass);
+                var entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
 
-                    var entityPojo = factoryService.detachedEntity(entityClass);
-                    var entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
+                int colIndex = 0;
 
-                    int colIndex = 0;
+                for(var col : dataTable.dataColumns()){
+                    var colMetamodel = col.metamodel();
+                    var valueSpec = colMetamodel.getElementType();
+                    // assuming value
+                    var valueFacet = valueSpec.valueFacetElseFail();
+                    var cls = valueSpec.getCorrespondingClass();
+                    final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
 
-                    for(var col : dataTable.getDataColumns()){
-                        var colMetamodel = col.getMetamodel();
-                        var valueSpec = colMetamodel.getElementType();
-                        // assuming value
-                        var valueFacet = valueSpec.valueFacetElseFail();
-                        var cls = valueSpec.getCorrespondingClass();
-                        final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
+                    // parse value
+                    ManagedObject value = _EnumResolver.get(cls, "getMatchOn")
+                            .map(r->{
+                                var enumObj = r.resolve(valueStringified);
+                                return enumObj!=null
+                                        ? ManagedObject.adaptSingular(valueSpec, enumObj)
+                                        : ManagedObject.empty(valueSpec);
+                            })
+                            .orElseGet(()->
+                                valueStringified!=null
+                                        ? ManagedObject.adaptSingular(
+                                                valueSpec,
+                                                valueFacet.destring(Format.JSON, valueStringified))
+                                        : ManagedObject.empty(valueSpec));
 
-                        // parse value
-                        ManagedObject value = _EnumResolver.get(cls, "getMatchOn")
-                                .map(r->{
-                                    var enumObj = r.resolve(valueStringified);
-                                    return enumObj!=null
-                                            ? ManagedObject.adaptSingular(valueSpec, enumObj)
-                                            : ManagedObject.empty(valueSpec);
-                                })
-                                .orElseGet(()->
-                                    valueStringified!=null
-                                            ? ManagedObject.adaptSingular(
-                                                    valueSpec,
-                                                    valueFacet.destring(Format.JSON, valueStringified))
-                                            : ManagedObject.empty(valueSpec));
+                    // directly set entity property
+                    colMetamodel.getSpecialization()
+                    .left()
+                    .ifPresent(prop->prop.set(entity, value, InteractionInitiatedBy.PASS_THROUGH));
 
-                        // directly set entity property
-                        colMetamodel.getSpecialization()
-                        .left()
-                        .ifPresent(prop->prop.set(entity, value, InteractionInitiatedBy.PASS_THROUGH));
+                    colIndex++;
+                }
+                return entity;
+            });
 
-                        colIndex++;
-                    }
-                    return entity;
-                });
-
-            dataTable.setDataElements(dataElements);
-
-        });
-
-        return this;
+        //FIXME
+        var populated = dataTable.withDataElements(dataElements);
+        return populated;
     }
 
     public TabularData toTabularData(
@@ -185,31 +191,31 @@ class _DataTableSet {
             final TabularData.Format formatOptions,
             final StringNormalizerFactory stringNormalizerFactory) {
 
-        var rows = dataTable.getDataRows()
+        var rows = dataTable.dataRows()
                 .map(dataRow->new TabularData.Row(
-                    dataTable.getDataColumns()
+                    dataTable.dataColumns()
                         .stream()
-                        .map(column->stringify(column, dataRow, stringNormalizerFactory, formatOptions))
+                        .map(column->stringify(dataTable, column, dataRow, stringNormalizerFactory, formatOptions))
                         .toList()
                 ));
 
         return new Table(
-                dataTable.getElementType().getLogicalTypeName(),
-                dataTable.getDataColumns()
+                dataTable.elementType().getLogicalTypeName(),
+                dataTable.dataColumns()
                     .map(col->new TabularData.Column(
-                        col.getMetamodel().getId(),
-                        col.getColumnDescription())),
+                        col.metamodel().getId(),
+                        col.columnDescription())),
                 rows);
     }
 
     private String stringify(
+            final DataTable dataTable,
             final DataColumn column,
             final DataRow dataRow,
             final StringNormalizerFactory stringNormalizerFactory,
             final TabularData.Format formatOptions) {
-        final DataTable dataTable = dataRow.getParentTable();
-        var entityClass = dataTable.getElementType().getCorrespondingClass();
-        var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.getColumnId());
+        var entityClass = dataTable.elementType().getCorrespondingClass();
+        var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.columnId());
 
         var cells = dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH);
         var cellValue = cells.getSingleton().orElse(null); // assuming not multivalued
@@ -234,7 +240,7 @@ class _DataTableSet {
         // delete all existing entities
         if(insertMode.isDeleteAllThenAdd()) {
             dataTables.forEach(dataTable->{
-                var entityClass = dataTable.getElementType().getCorrespondingClass();
+                var entityClass = dataTable.elementType().getCorrespondingClass();
                 repositoryService.removeAll(entityClass);
             });
         }
@@ -252,7 +258,7 @@ class _DataTableSet {
         // delete all existing entities
         dataTables.forEach(dataTable->{
             pm.currentTransaction().begin();
-            var entityClass = dataTable.getElementType().getCorrespondingClass();
+            var entityClass = dataTable.elementType().getCorrespondingClass();
             Query<?> query = pm.newQuery(String.format("DELETE FROM %s", entityClass.getName()));
 
             //log
@@ -268,7 +274,7 @@ class _DataTableSet {
             var elementCount = dataTable.getElementCount();
             //log
             logAppend(log, String.format("copy %d from %s (%s)",
-                    elementCount, dataTable.getTableFriendlyName(), dataTable.getLogicalName()));
+                    elementCount, dataTable.tableFriendlyName(), dataTable.getLogicalName()));
 
             pm.currentTransaction().begin();
 
@@ -314,26 +320,26 @@ class _DataTableSet {
                         _Strings.asLowerCase.apply(a),
                         _Strings.asLowerCase.apply(b)));
         // sort for canonical comparison
-        var colFromMetamodelSorted = dataTable.getDataColumns().sorted(orderByColumnIdIgnoringCase());
+        var colFromMetamodelSorted = dataTable.dataColumns().sorted(orderByColumnIdIgnoringCase());
 
         colNamesSorted.zip(colFromMetamodelSorted, (String colName, DataColumn col)->{
             // verify read in data matches meta-model
-            _Assert.assertEquals(colName, col.getMetamodel().getId(), ()->
+            _Assert.assertEquals(colName, col.metamodel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
                             colNames,
                             dataTable.getLogicalName()));
         });
         colFromMetamodelSorted.zip(colNamesSorted, (DataColumn col, String colName)->{
              // verify read in data matches meta-model
-            _Assert.assertEquals(colName, col.getMetamodel().getId(), ()->
+            _Assert.assertEquals(colName, col.metamodel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
                             colNames,
                             dataTable.getLogicalName()));
         });
         final int[] colIndexMapping = new int[colNames.size()];
-        dataTable.getDataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
-            col.getMetamodel().getId();
-            colIndexMapping[index] = colNames.indexOf(col.getMetamodel().getId());
+        dataTable.dataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
+            col.metamodel().getId();
+            colIndexMapping[index] = colNames.indexOf(col.metamodel().getId());
         }));
         return colIndexMapping;
     }
@@ -369,8 +375,8 @@ class _DataTableSet {
      */
     public static Comparator<DataColumn> orderByColumnIdIgnoringCase() {
         return (o1, o2) -> _Strings.compareNullsFirst(
-                _Strings.asLowerCase.apply(o1.getColumnId()),
-                _Strings.asLowerCase.apply(o2.getColumnId()));
+                _Strings.asLowerCase.apply(o1.columnId()),
+                _Strings.asLowerCase.apply(o2.columnId()));
     }
 
     private void logAppend(final StringBuilder log, final String msg) {
