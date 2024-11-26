@@ -38,9 +38,7 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
-import dita.globodiet.survey.util.AssociatedRecipeResolver;
-import dita.globodiet.survey.util.IngredientToRecipeResolver;
-import dita.globodiet.survey.util.QualifiedMappingResolver;
+import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -68,14 +66,9 @@ class DataUtil {
             interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
         }
 
-        //TODO[dita-globodiet-survey] don't hardcode interview-set post-processors: make this a configuration concern
         var fdm = Campaigns.foodDescriptionModel(campaigns.getFirst(), surveyBlobStore);
         var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
-        return interviewSet
-                .transform(new AssociatedRecipeResolver(fdm))
-                .transform(new QualifiedMappingResolver(nutMapping))
-                .transform(new IngredientToRecipeResolver(fdm))
-                .transform(new QualifiedMappingResolver(nutMapping)); // to handle ingredients from the previous transformer
+        return InterviewUtils.applyDefaultTransformers(interviewSet, fdm, nutMapping);
     }
 
     // -- FCDB

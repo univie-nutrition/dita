@@ -139,7 +139,7 @@ class _DataTableSet {
                     var colMetamodel = col.metamodel();
                     var valueSpec = colMetamodel.getElementType();
                     // assuming value
-                    var valueFacet = valueSpec.valueFacetElseFail();
+                    var valueFacet = valueSpec.valueFacetElseFail(Object.class);
                     var cls = valueSpec.getCorrespondingClass();
                     final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
 
@@ -361,9 +361,8 @@ class _DataTableSet {
         }
 
         // assuming value
-        var valueFacet = valueSpec.valueFacetElseFail();
+        var valueFacet = valueSpec.valueFacetElseFail(Object.class);
 
-        @SuppressWarnings("unchecked")
         var stringifiedValue = formatOptions.encodeCellValue(
                 stringNormalizer.apply(
                         valueFacet.enstring(Format.JSON, cellValue.getPojo())));

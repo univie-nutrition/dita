@@ -31,8 +31,10 @@ import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
 
+import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
@@ -88,6 +90,19 @@ public class InterviewUtils {
                 .orElseGet(InterviewSet24::empty);
 
         return interviewSet;
+    }
+
+    //TODO[dita-globodiet-survey] don't hardcode interview-set post-processors: make this a configuration concern
+    public InterviewSet24 applyDefaultTransformers(
+        final InterviewSet24 interviewSet24,
+        final FoodDescriptionModel foodDescriptionModel,
+        final QualifiedMap nutMapping) {
+        return interviewSet24
+            .transform(new AssociatedRecipeResolver(foodDescriptionModel))
+            .transform(new QualifiedMappingResolver(nutMapping))
+            .transform(new IngredientToRecipeResolver(foodDescriptionModel))
+            // to handle ingredients from the previous transformer
+            .transform(new QualifiedMappingResolver(nutMapping));
     }
 
 }
