@@ -29,32 +29,32 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
-import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
+import dita.recall24.dto.RuntimeAnnotated;
 
 public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescriptionModel) {
-    
+
     public Record24.Composite.Builder foodToRecipe(
-            Food origFood,
-            Recipe recipe,
-            String nameSuffix) {
+            final Food origFood,
+            final Recipe recipe,
+            final String nameSuffix) {
         var recordBuilder = new Composite.Builder();
 
         recordBuilder.type(Record24.Type.COMPOSITE);
         recordBuilder.sid(recipe.sid());
         recordBuilder.name(NameWithCode.parseAssocFood(recipe.name()).name() + " {" + nameSuffix + "}");
-        
+
         // there are no implicit recipe facets we could use here, hence empty
         recordBuilder.facetSids(SemanticIdentifierSet.empty());
         // store GloboDiet food description group data as annotation
         recordBuilder.annotations().clear();
-        recordBuilder.annotations().add(new Annotation("group", recipeGroupSid(recipe)));
-        
+        recordBuilder.annotations().add(new RuntimeAnnotated.Annotation("group", recipeGroupSid(recipe)));
+
         // keep the original food as comment
         recordBuilder.subRecords().add(origFoodAsComment(origFood));
-        
+
         var origFoodConsumedOverRecipeMass = new BigDecimal(
                 origFood.amountConsumed().doubleValue() //TODO[dita-globodiet-survey] might not always be in GRAM
                 / foodDescriptionModel.sumAmountGramsForRecipe(recipe).doubleValue());
@@ -70,26 +70,26 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
                     .facetSids(ingr.foodFacetSids())
                     .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
                     .consumptionUnit(ConsumptionUnit.GRAM); // for recipes this is always in GRAM
-                foodBuilder.annotations().add(new Annotation("group", foodGroupSid(food)));
+                foodBuilder.annotations().add(new RuntimeAnnotated.Annotation("group", foodGroupSid(food)));
                 return foodBuilder.build();
             })
             .forEach(recordBuilder.subRecords()::add);
-        
+
         return recordBuilder;
     }
-    
+
     // -- HELPER
-    
+
     private SemanticIdentifier foodGroupSid(final FoodDescriptionModel.Food food) {
         return food.groupSid()
                 .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.FOOD_GROUP.id()));
     }
-    
+
     private SemanticIdentifier recipeGroupSid(final FoodDescriptionModel.Recipe recipe) {
         return recipe.groupSid()
                 .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.RECIPE_GROUP.id()));
     }
-    
+
     private Record24.Comment origFoodAsComment(final Food origFood) {
         var name = "%s, amount=%s, raw/cooked=%s".formatted(
                 origFood.name().replace(" {", ", ").replace("}", ""),

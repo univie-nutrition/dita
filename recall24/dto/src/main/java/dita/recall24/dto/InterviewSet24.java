@@ -43,7 +43,6 @@ import org.apache.causeway.commons.io.YamlUtils;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-
 import lombok.experimental.Accessors;
 
 import dita.commons.io.JaxbAdapters;
@@ -65,7 +64,7 @@ public record InterviewSet24(
             @JsonIgnore
             Map<String, Annotation> annotations
 
-            ) implements RecallNode24 {
+            ) implements RecallNode24, RuntimeAnnotated {
 
     // -- FACTORIES
 

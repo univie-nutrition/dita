@@ -68,7 +68,9 @@ public class InterviewXmlParser {
             warnEmptyDataSource(source, messageConsumer);
             return InterviewSet24.empty();
         }
-        return createFromDto(dto, systemId, messageConsumer);
+        var interviewSet = createFromDto(dto, systemId, messageConsumer);
+        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", source.getDescription()));
+        return interviewSet;
     }
 
     /**
@@ -85,7 +87,9 @@ public class InterviewXmlParser {
             warnEmptyDataSource(interviewSource, messageConsumer);
             return InterviewSet24.empty();
         }
-        return createFromDto(dto, systemId, messageConsumer);
+        var interviewSet = createFromDto(dto, systemId, messageConsumer);
+        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.getName()));
+        return interviewSet;
     }
 
     // -- HELPER

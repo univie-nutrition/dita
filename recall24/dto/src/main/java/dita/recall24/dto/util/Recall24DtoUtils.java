@@ -64,10 +64,10 @@ public class Recall24DtoUtils {
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
     public InterviewSet24 join(
-            final @Nullable Iterable<Interview24> iterable,
+            final @Nullable Iterable<Interview24> interviews,
             final @Nullable Consumer<Message> messageConsumer) {
 
-        if(iterable==null) return InterviewSet24.empty();
+        if(interviews==null) return InterviewSet24.empty();
 
         record Helper(
                 String alias,
@@ -99,16 +99,16 @@ public class Recall24DtoUtils {
                 .orElseGet(Message::consumerWritingToSyserr);
 
         var interviewsByRespondentAlias = _Multimaps.<String, Interview24>newListMultimap();
-        iterable.forEach(interview->
+        interviews.forEach(interview->
             interviewsByRespondentAlias
                     .putElement(interview.parentRespondent().alias(), interview));
 
         final Can<Respondent24> respondents = interviewsByRespondentAlias.entrySet()
             .stream()
             .map(entry->{
-                var interviews = entry.getValue();
-                var helper = Helper.helper(interviews.get(0));
-                var respondent = helper.createRespondent(Can.ofCollection(interviews), messageConsumerOrFallback);
+                var interviewList = entry.getValue();
+                var helper = Helper.helper(interviewList.get(0));
+                var respondent = helper.createRespondent(Can.ofCollection(interviewList), messageConsumerOrFallback);
                 return respondent;
             })
             .collect(Can.toCan());

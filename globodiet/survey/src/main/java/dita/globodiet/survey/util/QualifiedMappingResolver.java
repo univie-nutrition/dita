@@ -22,10 +22,10 @@ import lombok.NonNull;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
+import dita.recall24.dto.RuntimeAnnotated;
 
 public record QualifiedMappingResolver(
         @NonNull QualifiedMap nutMapping
@@ -41,12 +41,12 @@ public record QualifiedMappingResolver(
                 builder.replaceSubRecords(this::transform); // recursive
                 yield (T) builder.build();
             }
-            case Record24.Consumption consumption -> { 
-                yield consumption.annotation("fcdbId").isPresent() 
+            case Record24.Consumption consumption -> {
+                yield consumption.annotation("fcdbId").isPresent()
                     ? (T) consumption
                     : (T) nutMapping
                         .lookupTarget(consumption.asQualifiedMapKey())
-                        .map(fcdbId->consumption.withAnnotationAdded(new Annotation("fcdbId", fcdbId)))
+                        .map(fcdbId->consumption.withAnnotationAdded(new RuntimeAnnotated.Annotation("fcdbId", fcdbId)))
                         .orElse(consumption);
             }
             default -> node;

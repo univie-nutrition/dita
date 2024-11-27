@@ -18,6 +18,8 @@
  */
 package dita.globodiet.survey.view;
 
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.collections.Can;
@@ -29,6 +31,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.format.FormatUtils;
 import dita.commons.types.Message;
+import dita.commons.types.Sex;
 import dita.globodiet.survey.dom.Campaign;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
@@ -36,6 +39,7 @@ import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
+import dita.recall24.dto.RuntimeAnnotated;
 
 @UtilityClass
 public class SurveyTreeNodeContentFactory {
@@ -46,7 +50,7 @@ public class SurveyTreeNodeContentFactory {
         return "Campaign - " + campaign.title();
     }
 
-    String title(final Respondent24 respondent, Can<Message> messages) {
+    String title(final Respondent24 respondent, final Can<Message> messages) {
         final String interviewCountIndicator = switch (respondent.interviewCount()) {
             case 0 -> "⓿";
             case 1 -> "❶";
@@ -87,7 +91,7 @@ public class SurveyTreeNodeContentFactory {
         return "solid users-viewfinder";
     }
 
-    String icon(final Respondent24 respondent, Can<Message> messages) {
+    String icon(final Respondent24 respondent, final Can<Message> messages) {
         return DataUtil.findHighestMessageSeverityForRespondent(respondent, messages)
             .map(severity->"solid user, solid triangle-exclamation .ov-size-80 .ov-right-55 .ov-bottom-55 .respondent-"
                     + severity.name().toLowerCase())
@@ -116,8 +120,27 @@ public class SurveyTreeNodeContentFactory {
         return adoc("Details", Details.of(interviewSet));
     }
 
+    
+    record RespondentSummary(
+        String alias,
+        LocalDate dateOfBirth,
+        Sex sex,
+        Collection<InterviewSummary> interviews) {
+        RespondentSummary(Respondent24 respondent) {
+            this(respondent.alias(), respondent.dateOfBirth(), respondent.sex(), 
+                respondent.interviews().stream()
+                .map(iv->new InterviewSummary(title(iv), iv.annotations().values()))
+                .toList());
+        }
+    }
+    
+    record InterviewSummary(
+        String interview,
+        Collection<RuntimeAnnotated.Annotation> annotations) {
+    }
+
     AsciiDoc content(final Respondent24 respondent) {
-        return adoc("Details", respondent);
+        return adoc("Respondent Summary", new RespondentSummary(respondent));
     }
 
     AsciiDoc content(final Interview24 interview) {

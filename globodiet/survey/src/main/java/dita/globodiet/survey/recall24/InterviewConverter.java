@@ -45,10 +45,10 @@ import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
-import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
+import dita.recall24.dto.RuntimeAnnotated;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 record InterviewConverter(SystemId systemId) {
@@ -215,12 +215,12 @@ record InterviewConverter(SystemId systemId) {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-    private RecallNode24.Annotation group(final SidUtils.GdContext context, final ListEntry listEntry) {
+    private RuntimeAnnotated.Annotation group(final SidUtils.GdContext context, final ListEntry listEntry) {
         var groupSimpleId = FormatUtils.concat(
                 listEntry.getGroupCode(),
                 listEntry.getSubgroupCode(),
                 listEntry.getSubSubgroupCode());
-        return new RecallNode24.Annotation("group", context
+        return new RuntimeAnnotated.Annotation("group", context
                 .sid(systemId, groupSimpleId));
     }
 

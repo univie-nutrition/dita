@@ -29,8 +29,8 @@ import dita.commons.types.Message;
 import dita.commons.types.Message.Severity;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Respondent24;
+import dita.recall24.dto.RuntimeAnnotated;
 
 @UtilityClass
 class DataUtil {
@@ -38,7 +38,7 @@ class DataUtil {
     Can<Message> messages(
             @NonNull final InterviewSet24 interviewSet){
         final Can<Message> messages = interviewSet.annotation(Campaigns.ANNOTATION_MESSAGES)
-                .map(RecallNode24.Annotation.valueAsCan(Message.class))
+                .map(RuntimeAnnotated.Annotation.valueAsCan(Message.class))
                 .orElseGet(Can::empty);
         return messages;
     }

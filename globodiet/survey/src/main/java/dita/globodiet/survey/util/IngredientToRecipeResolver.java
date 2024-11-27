@@ -24,10 +24,10 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
+import dita.recall24.dto.RuntimeAnnotated;
 
 /**
  * If recipe ingredients are mapped to (nested) recipes,
@@ -38,7 +38,7 @@ public record IngredientToRecipeResolver(
         @NonNull FoodToCompositeConverter foodToCompositeConverter
         ) implements Transfomer {
 
-    public IngredientToRecipeResolver(FoodDescriptionModel foodDescriptionModel) {
+    public IngredientToRecipeResolver(final FoodDescriptionModel foodDescriptionModel) {
         this(foodDescriptionModel, new FoodToCompositeConverter(foodDescriptionModel));
     }
 
@@ -54,7 +54,7 @@ public record IngredientToRecipeResolver(
             }
             case Record24.Food food -> {
                 var fcdbId = food.annotation("fcdbId")
-                        .map(Annotation.valueAs(SemanticIdentifier.class))
+                        .map(RuntimeAnnotated.Annotation.valueAs(SemanticIdentifier.class))
                         .orElse(null);
                 if(fcdbId!=null) {
                     if(ObjectId.Context.RECIPE.matches(fcdbId)) {
@@ -64,7 +64,7 @@ public record IngredientToRecipeResolver(
                             var recordBuilder = foodToCompositeConverter.foodToRecipe(food, recipe, "recipe mapped by ingredient");
                             yield (T) recordBuilder.build();
                         }
-                    }                    
+                    }
                 }
                 yield (T) food;
             }

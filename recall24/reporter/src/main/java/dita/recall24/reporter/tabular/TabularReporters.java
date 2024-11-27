@@ -60,8 +60,8 @@ import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
-import dita.recall24.dto.RecallNode24.Annotation;
 import dita.recall24.dto.Record24;
+import dita.recall24.dto.RuntimeAnnotated;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
 
@@ -230,7 +230,7 @@ public class TabularReporters {
                         rowFactory.recordType(comment.type());
                         rowBuilder.groupId(
                                 comment.annotation("group")
-                                .map(Annotation::value)
+                                .map(RuntimeAnnotated.Annotation::value)
                                 .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
@@ -243,7 +243,7 @@ public class TabularReporters {
                         rowFactory.recordType(comp.type());
                         rowBuilder.groupId(
                                 comp.annotation("group")
-                                .map(Annotation::value)
+                                .map(RuntimeAnnotated.Annotation::value)
                                 .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
@@ -256,18 +256,18 @@ public class TabularReporters {
                         rowFactory.recordType(cRec.type());
                         rowBuilder.groupId(
                                 cRec.annotation("group")
-                                .map(Annotation::value)
+                                .map(RuntimeAnnotated.Annotation::value)
                                 .map(SemanticIdentifier.class::cast)
                                 .map(SemanticIdentifier::toStringNoBox)
                                 .orElse(""));
                         var mappingTarget = cRec.annotation("fcdbId")
-                                .map(Annotation.valueAs(SemanticIdentifier.class));
+                                .map(RuntimeAnnotated.Annotation.valueAs(SemanticIdentifier.class));
                         var compositionEntry = mappingTarget
                                 .flatMap(foodCompositionRepo::lookupEntry);
                         if(mappingTarget.isPresent()) {
                             if(!compositionEntry.isPresent()) {
                                 if(ObjectId.Context.RECIPE.matches(mappingTarget.get())) {
-                                    
+
                                 } else throw _Exceptions.noSuchElement("no FCDB composition entry for '%s'->%s",
                                         cRec.name(), mappingTarget.get());
                             }

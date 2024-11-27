@@ -20,7 +20,9 @@ package dita.recall24.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -66,9 +68,13 @@ public record Interview24 (
              * The meals of this interview.
              */
             @TreeSubNodes
-            Can<Meal24> meals
+            Can<Meal24> meals,
 
-            ) implements RecallNode24 {
+            /**
+             * mutable
+             */
+            Map<String, Annotation> annotations
+            ) implements RecallNode24, RuntimeAnnotated {
 
     public static Interview24 of(
             final Respondent24 respondent,
@@ -84,7 +90,8 @@ public record Interview24 (
              * The meals of this interview.
              */
             final Can<Meal24> meals) {
-        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1), respondentSupplementaryData, meals);
+        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1),
+            respondentSupplementaryData, meals, new HashMap<>());
         respondentSupplementaryData.parentInterviewRef().setValue(interview);
         meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
         return interview;
@@ -126,11 +133,13 @@ public record Interview24 (
         LocalDate interviewDate;
         RespondentSupplementaryData24 respondentSupplementaryData;
         final List<Meal24> meals = new ArrayList<>();
+        final List<Annotation> annotations = new ArrayList<>();
 
         static Builder of(final Interview24 dto) {
             var builder = new Builder().respondent(dto.parentRespondent()).interviewDate(dto.interviewDate)
                     .respondentSupplementaryData(dto.respondentSupplementaryData());
             dto.meals.forEach(builder.meals::add);
+            dto.annotations().values().forEach(builder.annotations::add);
             return builder;
         }
 
@@ -138,6 +147,7 @@ public record Interview24 (
         public Interview24 build() {
             var dto = Interview24.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
             dto.meals().forEach(child->child.parentInterviewRef().setValue(dto));
+            annotations.forEach(annot->dto.annotations().put(annot.key(), annot));
             return dto;
         }
     }

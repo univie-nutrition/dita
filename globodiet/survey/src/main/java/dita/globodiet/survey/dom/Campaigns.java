@@ -42,7 +42,7 @@ import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.RecallNode24;
+import dita.recall24.dto.RuntimeAnnotated;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.base.util.RuntimeUtils;
@@ -218,8 +218,8 @@ public class Campaigns {
                     : interviewSet.annotate(toAnnotation());
         }
 
-        private final RecallNode24.Annotation toAnnotation() {
-            return new RecallNode24.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
+        private final RuntimeAnnotated.Annotation toAnnotation() {
+            return new RuntimeAnnotated.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
         }
 
     }

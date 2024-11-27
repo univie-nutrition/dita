@@ -45,6 +45,7 @@ import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.recall24.dto.RuntimeAnnotated.Annotation;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
@@ -177,7 +178,7 @@ permits
             Can<? extends Record24> subRecords,
             Map<String, Annotation> annotations
 
-            ) implements Record24 {
+            ) implements Record24, RuntimeAnnotated {
 
         @Override
         public void visitDepthFirst(final int level, final IndexedConsumer<Record24> onRecord) {
@@ -215,13 +216,13 @@ permits
                 composite.annotations().values().forEach(builder.annotations::add);
                 return builder;
             }
-            
-            public Builder addAnnotation(Annotation annotation) {
+
+            public Builder addAnnotation(final Annotation annotation) {
                 annotations.add(annotation);
                 return this;
             }
-            
-            public Builder replaceSubRecords(UnaryOperator<Record24> mapper) {
+
+            public Builder replaceSubRecords(final UnaryOperator<Record24> mapper) {
                 var replacedSubRecords = subRecords.stream()
                     .map(mapper)
                     .toList();
@@ -242,7 +243,7 @@ permits
         }
     }
 
-    public sealed interface Consumption extends Record24
+    public sealed interface Consumption extends Record24, RuntimeAnnotated
     permits Food, FryingFat, Product {
 
         /**
@@ -332,21 +333,21 @@ permits
                 return builder;
             }
 
-            public Builder addAnnotation(Annotation annotation) {
+            public Builder addAnnotation(final Annotation annotation) {
                 annotations.add(annotation);
                 return this;
             }
-            
+
             @Override
             public Food build() {
-                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, 
+                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
                         Can.ofCollection(subRecords), Can.ofCollection(annotations));
                 return food;
             }
         }
 
         @Override
-        public Consumption withAnnotationAdded(@Nullable Annotation annotation) {
+        public Consumption withAnnotationAdded(@Nullable final Annotation annotation) {
             if(annotation==null) return this;
             return ((Food.Builder)asBuilder())
                     .addAnnotation(annotation)
@@ -393,7 +394,7 @@ permits
                         .name(typeOfFatUsed.name()).sid(typeOfFatUsed.sid()).facetSids(typeOfFatUsed.facetSids());
                 return builder;
             }
-            
+
             @Override
             public TypeOfFatUsed build() {
                 var typeOfFatUsed = typeOfFatUsed(name, sid, facetSids);
@@ -499,11 +500,11 @@ permits
                 return builder;
             }
 
-            public Builder addAnnotation(Annotation annotation) {
+            public Builder addAnnotation(final Annotation annotation) {
                 annotations.add(annotation);
                 return this;
             }
-            
+
             @Override
             public FryingFat build() {
                 var fryingFat = fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(annotations));
@@ -512,7 +513,7 @@ permits
         }
 
         @Override
-        public Consumption withAnnotationAdded(@Nullable Annotation annotation) {
+        public Consumption withAnnotationAdded(@Nullable final Annotation annotation) {
             if(annotation==null) return this;
             return ((FryingFat.Builder)asBuilder())
                     .addAnnotation(annotation)
@@ -565,11 +566,11 @@ permits
                 return builder;
             }
 
-            public Builder addAnnotation(Annotation annotation) {
+            public Builder addAnnotation(final Annotation annotation) {
                 annotations.add(annotation);
                 return this;
             }
-            
+
             @Override
             public Product build() {
                 var product = product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(annotations));
@@ -578,7 +579,7 @@ permits
         }
 
         @Override
-        public Consumption withAnnotationAdded(Annotation annotation) {
+        public Consumption withAnnotationAdded(final Annotation annotation) {
             if(annotation==null) return this;
             return ((Product.Builder)asBuilder())
                     .addAnnotation(annotation)
@@ -598,7 +599,7 @@ permits
             SemanticIdentifier sid,
             SemanticIdentifierSet facetSids,
             Map<String, Annotation> annotations
-            ) implements Record24 {
+            ) implements Record24, RuntimeAnnotated {
 
         @SuppressWarnings("unchecked")
         @Override
@@ -623,11 +624,11 @@ permits
                 return builder;
             }
 
-            public Builder addAnnotation(Annotation annotation) {
+            public Builder addAnnotation(final Annotation annotation) {
                 annotations.add(annotation);
                 return this;
             }
-            
+
             @Override
             public Comment build() {
                 var comment = comment(name, sid, facetSids, Can.ofCollection(annotations));
