@@ -63,7 +63,7 @@ public class Survey_downloadMappingTodos {
     @MemberSupport
     public Clob act(final Can<Campaign> campaigns) {
         // see also Campaign_downloadMappingTodos
-        var reportContext = ReportContext.load(campaigns, surveyBlobStore);
+        var reportContext = ReportContext.load(campaigns.map(Campaign::secondaryKey), surveyBlobStore);
         if(reportContext.isEmpty()) return Clob.of("empty", CommonMimeType.YAML, "");
 
         var yaml = new StringBuilder();

@@ -50,22 +50,25 @@ public record ReportContext(
             QualifiedMap.empty(), QualifiedMap.empty(), QualifiedMap.empty(), InterviewSet24.empty());
     }
 
-    public static ReportContext load(final Can<Campaign> campaigns, final BlobStore surveyBlobStore) {
-        return load(campaigns, surveyBlobStore, null);
+    public static ReportContext load(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore) {
+        return load(campaignKeys, surveyBlobStore, null);
     }
 
     @SneakyThrows
-    public static ReportContext load(final Can<Campaign> campaigns, final BlobStore surveyBlobStore,
+    public static ReportContext load(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore,
         @Nullable final RespondentFilter respondentFilter) {
-        if(campaigns==null
-            || campaigns.isEmpty()
+        if(campaignKeys==null
+            || campaignKeys.isEmpty()
             || surveyBlobStore==null) {
             return empty();
         }
-        var firstCampaign = campaigns.getFirstElseFail();
+        var firstCampaign = campaignKeys.getFirstElseFail();
+
+        var systemId = Campaigns.systemId(firstCampaign); // requires persistence
+        var correction = Campaigns.correction(firstCampaign); // requires persistence
 
         var pool = Executors.newFixedThreadPool(6);
-        var interviewSetCorrectedFuture = pool.submit(()->Campaigns.interviewSetCorrected(campaigns, surveyBlobStore));
+        var interviewSetCorrectedFuture = pool.submit(()->Campaigns.interviewSetCorrected(systemId, campaignKeys, correction, surveyBlobStore));
         var nutMappingFuture = pool.submit(()->Campaigns.nutMapping(firstCampaign, surveyBlobStore));
         var fcoMappingFuture = pool.submit(()->Campaigns.fcoMapping(firstCampaign, surveyBlobStore));
         var pocMappingFuture = pool.submit(()->Campaigns.pocMapping(firstCampaign, surveyBlobStore));

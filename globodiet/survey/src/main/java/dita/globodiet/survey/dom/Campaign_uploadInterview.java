@@ -97,7 +97,7 @@ public class Campaign_uploadInterview {
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
                 .getUser().getName();
         var blobDescriptor = new BlobDescriptor(
-                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee).add(xmlBlob.getName()),
+                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()).add(xmlBlob.getName()),
                 CommonMimeType.XML,
                 createdBy,
                 Instant.now(),

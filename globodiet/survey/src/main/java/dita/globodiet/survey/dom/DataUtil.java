@@ -37,11 +37,19 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
+import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Respondent24;
 import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 
 @UtilityClass
 class DataUtil {
+
+    // -- CORRECTION
+
+    Correction24 correction(final String correctionYaml) {
+        return Correction24.tryFromYaml(_Strings.blankToNullOrTrim(correctionYaml))
+            .valueAsNullableElseFail();
+    }
 
     // -- FCDB
 

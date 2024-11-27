@@ -45,7 +45,6 @@ import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.SidUtils;
-import dita.recall24.dto.InterviewSet24;
 import dita.recall24.reporter.tabular.TabularReporters;
 import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 import dita.recall24.reporter.tabular.TabularReporters.TabularReport;
@@ -59,23 +58,23 @@ extends CausewayIntegrationTestAbstract {
     @Inject @Qualifier("survey") protected BlobStore surveyBlobStore;
 
     protected FoodCompositionRepository loadFcdb() {
-        return Campaigns.fcdb(campaignForTesting(), surveyBlobStore);
+        return Campaigns.fcdb(campaignKeyForTesting(), surveyBlobStore);
     }
 
     protected QualifiedMap loadNutMapping() {
-        return Campaigns.nutMapping(campaignForTesting(), surveyBlobStore);
+        return Campaigns.nutMapping(campaignKeyForTesting(), surveyBlobStore);
     }
 
     protected QualifiedMap loadFcoMapping() {
-        return Campaigns.fcoMapping(campaignForTesting(), surveyBlobStore);
+        return Campaigns.fcoMapping(campaignKeyForTesting(), surveyBlobStore);
     }
 
     protected QualifiedMap loadPocMapping() {
-        return Campaigns.pocMapping(campaignForTesting(), surveyBlobStore);
+        return Campaigns.pocMapping(campaignKeyForTesting(), surveyBlobStore);
     }
 
     protected FoodDescriptionModel loadFoodDescriptionModel() {
-        return Campaigns.foodDescriptionModel(campaignForTesting(), surveyBlobStore);
+        return Campaigns.foodDescriptionModel(campaignKeyForTesting(), surveyBlobStore);
     }
 
     protected Can<FoodComponent> loadEnabledFoodComponents(final FoodComponentCatalog foodComponentCatalog) {
@@ -91,14 +90,10 @@ extends CausewayIntegrationTestAbstract {
         return colDef;
     }
 
-    protected InterviewSet24 loadInterviewSet() {
-        return Campaigns.interviewSetCorrected(campaignForTesting(), surveyBlobStore);
-    }
-
     @SneakyThrows
     protected TabularReport tabularReport(final Aggregation aggregation, final int maxNutrientColumns) {
 
-        var reportContext = ReportContext.load(Can.of(campaignForTesting()), surveyBlobStore);
+        var reportContext = ReportContext.load(Can.of(campaignKeyForTesting()), surveyBlobStore);
 
         return TabularReporters.TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))
@@ -122,7 +117,7 @@ extends CausewayIntegrationTestAbstract {
     static String CAMPAIGN_CODE = "wave1";
     static String SYSTEM_ID = "at.gd/2.0";
 
-    private Campaign campaignForTesting() {
+    private Campaign.SecondaryKey campaignKeyForTesting() {
         _Context.computeIfAbsent(Survey.class, ()->{
             var survey = new Survey();
             survey.setCode(SURVEY_CODE);
@@ -130,10 +125,7 @@ extends CausewayIntegrationTestAbstract {
             survey.setCorrection(loadCorrections(SURVEY_CODE));
             return survey;
         });
-        var campaign = new Campaign();
-        campaign.setCode(CAMPAIGN_CODE);
-        campaign.setSurveyCode(SURVEY_CODE);
-        return campaign;
+        return new Campaign.SecondaryKey(SURVEY_CODE, CAMPAIGN_CODE);
     }
 
     private String loadColDef(final String surveyCode) {

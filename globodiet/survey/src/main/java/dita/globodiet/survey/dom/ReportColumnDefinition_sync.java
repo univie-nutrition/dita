@@ -58,7 +58,7 @@ public class ReportColumnDefinition_sync {
         var survey = foreignKeyLookupService.unique(new Survey.SecondaryKey(mixee.getSurveyCode()));
         var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
             .coll();
-        var componentCatalog = Campaigns.fcdb(campaigns.getFirst(), surveyBlobStore)
+        var componentCatalog = Campaigns.fcdb(campaigns.getFirst().secondaryKey(), surveyBlobStore)
                 .componentCatalog();
 
         var listingHandler = DataUtil.listingHandlerForFoodComponents(

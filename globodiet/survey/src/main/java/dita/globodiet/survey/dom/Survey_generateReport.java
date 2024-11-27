@@ -78,7 +78,7 @@ public class Survey_generateReport {
             @Parameter
             final Aggregation aggregation) {
         // see also Campaign_downloadMappingTodos
-        var reportContext = ReportContext.load(campaigns, surveyBlobStore, respondentFilter);
+        var reportContext = ReportContext.load(campaigns.map(Campaign::secondaryKey), surveyBlobStore, respondentFilter);
         if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();

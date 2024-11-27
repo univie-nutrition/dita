@@ -58,13 +58,20 @@ public class RespondentFilter_sync {
     public RespondentFilter act(final Listing.MergePolicy lineMergePolicy) {
 
         var survey = foreignKeyLookupService.unique(new Survey.SecondaryKey(mixee.getSurveyCode()));
-        var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
-            .coll();
+        var campaignKeys = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
+            .coll()
+            .stream()
+            .map(Campaign::secondaryKey)
+            .collect(Can.toCan());
 
         var listingHandler = DataUtil.listingHandlerForRespondentProxy();
 
         var allRespondents = listingHandler.createListing(
-                Campaigns.interviewSetCorrected(Can.ofCollection(campaigns), surveyBlobStore)
+                Campaigns.interviewSetCorrected(
+                    Campaigns.systemId(survey),
+                    campaignKeys,
+                    DataUtil.correction(survey.getCorrection()),
+                    surveyBlobStore)
                 .respondents());
 
         var currentLines = listingHandler.parseListing(mixee.getAliasListing());

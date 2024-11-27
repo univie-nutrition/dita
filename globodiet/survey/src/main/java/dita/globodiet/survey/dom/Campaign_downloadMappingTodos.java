@@ -63,11 +63,11 @@ public class Campaign_downloadMappingTodos {
     @MemberSupport
     public Clob act() {
 
-        var reportContext = ReportContext.load(Can.of(mixee), surveyBlobStore);
+        var reportContext = ReportContext.load(Can.of(mixee).map(Campaign::secondaryKey), surveyBlobStore);
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporters.TodoReporter(
-            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.interviewSet(), Campaigns.systemId(mixee.secondaryKey()),
             reportContext.nutMapping());
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));

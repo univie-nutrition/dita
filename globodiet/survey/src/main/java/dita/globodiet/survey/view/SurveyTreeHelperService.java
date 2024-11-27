@@ -48,8 +48,12 @@ public class SurveyTreeHelperService {
     }
 
     public InterviewSet24 root(final Campaign.SecondaryKey campaignSecondaryKey) {
-        return cache.computeIfAbsent(campaignSecondaryKey, _->
-            Campaigns.interviewSetCorrected(campaign(campaignSecondaryKey), surveyBlobStore));
+        return cache.computeIfAbsent(campaignSecondaryKey, _ ->
+            Campaigns.interviewSetCorrected(
+                Campaigns.systemId(campaignSecondaryKey),
+                campaignSecondaryKey,
+                Campaigns.correction(campaignSecondaryKey),
+                surveyBlobStore));
     }
 
     public void invalidateCache(final Campaign.SecondaryKey campaignSecondaryKey) {

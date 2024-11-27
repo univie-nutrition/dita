@@ -60,15 +60,15 @@ public class Campaigns {
         QMAP_FCO,
         QMAP_POC,
         FDM;
-        NamedPath namedPath(final Campaign campaign) {
-            if(campaign==null
-                    || _Strings.isNullOrEmpty(campaign.getSurveyCode())
-                    || _Strings.isNullOrEmpty(campaign.getCode())) {
+        NamedPath namedPath(final Campaign.SecondaryKey campaignKey) {
+            if(campaignKey==null
+                    || _Strings.isNullOrEmpty(campaignKey.surveyCode())
+                    || _Strings.isNullOrEmpty(campaignKey.code())) {
                 return NamedPath.of("blackhole");
             }
-            var root = NamedPath.of("surveys", campaign.getSurveyCode().toLowerCase());
+            var root = NamedPath.of("surveys", campaignKey.surveyCode().toLowerCase());
             return switch(this) {
-                case INTERVIEW -> root.add("campaigns").add(NamedPath.of(campaign.getCode().toLowerCase()));
+                case INTERVIEW -> root.add("campaigns").add(NamedPath.of(campaignKey.code().toLowerCase()));
                 case FCDB -> root.add("fcdb").add("fcdb.yaml");
                 case QMAP_NUT -> root.add("qmap").add("nut.yaml");
                 case QMAP_FCO -> root.add("qmap").add("fco.yaml");
@@ -86,11 +86,11 @@ public class Campaigns {
      * System ID part of semantic identifiers for given campaign's survey.
      * e.g. {@code at.gd/2.0}
      */
-    public SystemId systemId(final Campaign campaign) {
+    public SystemId systemId(final Campaign.SecondaryKey campaignKey) {
         if(systemIdBySurveyCode==null) {
             systemIdBySurveyCode = new ConcurrentHashMap<>();
         }
-        return systemIdBySurveyCode.computeIfAbsent(campaign.getSurveyCode(), _->systemId(survey(campaign)));
+        return systemIdBySurveyCode.computeIfAbsent(campaignKey.surveyCode(), _->systemId(survey(campaignKey)));
     }
 
     /**
@@ -104,22 +104,17 @@ public class Campaigns {
             .orElseGet(()->new SystemId("undefined"));
     }
 
-    // -- SURVEY
-
-    public Survey survey(final Campaign campaign) {
-        var factoryService = RuntimeUtils.getFactoryService();
-        var survey = factoryService.mixin(Campaign_survey.class, campaign)
-                .prop();
-        return survey!=null
-                ? survey
-                : _Context.lookup(Survey.class).orElse(null); // JUnit support
-    }
-
     // -- CORRECTION
 
-    public Correction24 correction(final Campaign campaign) {
-        return Correction24.tryFromYaml(_Strings.blankToNullOrTrim(survey(campaign).getCorrection()))
-                .valueAsNullableElseFail();
+    public Correction24 correction(final Campaign.SecondaryKey campaignKey) {
+        return DataUtil.correction(survey(campaignKey).getCorrection());
+    }
+    private Survey survey(final Campaign.SecondaryKey campaignKey) {
+        var repo = RuntimeUtils.getRepositoryService();
+        var survey = repo.firstMatch(Survey.class, s->campaignKey.surveyCode().equals(s.getCode()));
+        return survey
+            // JUnit support
+            .orElseGet(()->_Context.lookup(Survey.class).orElse(null));
     }
 
     // -- INTERVIEW SET
@@ -128,10 +123,12 @@ public class Campaigns {
      * Returns interview-set from a single campaign. Just corrected, not prepared.
      */
     public InterviewSet24 interviewSetCorrected(
-            final Campaign campaign,
+            final SystemId systemId,
+            final Campaign.SecondaryKey campaignKey,
+            final Correction24 correction,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
-        var interviewSet = interviewSet(campaign, blobStore, correction(campaign), messageConsumer);
+        var interviewSet = interviewSet(systemId, campaignKey, blobStore, correction, messageConsumer);
         messageConsumer.annotate(interviewSet);
         return interviewSet;
     }
@@ -140,11 +137,13 @@ public class Campaigns {
      * Returns interview-set from a multiple campaigns. Just corrected, not prepared.
      */
     public InterviewSet24 interviewSetCorrected(
-            final Can<Campaign> campaigns,
+            final SystemId systemId,
+            final Can<Campaign.SecondaryKey> campaignKeys,
+            final Correction24 correction,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
-        var interviewSet = campaigns.stream()
-                .map(campaign->Campaigns.interviewSet(campaign, blobStore, correction(campaign), messageConsumer))
+        var interviewSet = campaignKeys.stream()
+                .map(campaignKey->Campaigns.interviewSet(systemId, campaignKey, blobStore, correction, messageConsumer))
                 .reduce((a, b)->a.join(b, messageConsumer))
                 .orElseGet(InterviewSet24::empty);
         messageConsumer.annotate(interviewSet);
@@ -154,9 +153,9 @@ public class Campaigns {
     // -- FCDB
 
     public FoodCompositionRepository fcdb(
-            final Campaign campaign,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
-        var fcdbDataSource = blobStore.lookupBlob(DataSourceLocation.FCDB.namedPath(campaign))
+        var fcdbDataSource = blobStore.lookupBlob(DataSourceLocation.FCDB.namedPath(campaignKey))
                 .orElseThrow()
                 .asDataSource();
         var foodCompositionRepo = FoodCompositionRepository.tryFromYaml(SevenZUtils.decompress(fcdbDataSource))
@@ -167,27 +166,27 @@ public class Campaigns {
     // -- Q-MAP
 
     public QualifiedMap nutMapping(
-            final Campaign campaign,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_NUT, campaign, blobStore);
+        return loadQmap(DataSourceLocation.QMAP_NUT, campaignKey, blobStore);
     }
 
     public QualifiedMap fcoMapping(
-            final Campaign campaign,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_FCO, campaign, blobStore);
+        return loadQmap(DataSourceLocation.QMAP_FCO, campaignKey, blobStore);
     }
 
     public QualifiedMap pocMapping(
-            final Campaign campaign,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_POC, campaign, blobStore);
+        return loadQmap(DataSourceLocation.QMAP_POC, campaignKey, blobStore);
     }
 
     public FoodDescriptionModel foodDescriptionModel(
-            final Campaign campaign,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
-        var fdmDataSource = blobStore.lookupBlobAndUncompress(DataSourceLocation.FDM.namedPath(campaign))
+        var fdmDataSource = blobStore.lookupBlobAndUncompress(DataSourceLocation.FDM.namedPath(campaignKey))
                 .orElseThrow()
                 .asDataSource();
         return FdmUtils.fromYaml(fdmDataSource);
@@ -227,11 +226,11 @@ public class Campaigns {
 
     private QualifiedMap loadQmap(
             final DataSourceLocation loc,
-            final Campaign campaign,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
         var mapDataSource =
                 blobStore
-                    .lookupBlob(loc.namedPath(campaign))
+                    .lookupBlob(loc.namedPath(campaignKey))
                     .orElseThrow()
                     .asDataSource();
         switch(loc) {
@@ -243,16 +242,17 @@ public class Campaigns {
     }
 
     private InterviewSet24 interviewSet(
-            final Campaign campaign,
+            final SystemId systemId,
+            final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore,
             final Correction24 correction,
             final MessageConsumer messageConsumer) {
 
         var interviewSet = InterviewUtils
             .interviewSetFromBlobStore(
-                    DataSourceLocation.INTERVIEW.namedPath(campaign),
+                    DataSourceLocation.INTERVIEW.namedPath(campaignKey),
                     blobStore,
-                    systemId(campaign),
+                    systemId,
                     correction,
                     messageConsumer);
 
