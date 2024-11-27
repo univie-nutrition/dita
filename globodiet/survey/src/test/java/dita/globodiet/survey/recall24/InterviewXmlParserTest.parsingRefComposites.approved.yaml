@@ -463,6 +463,10 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:rg/07"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0002"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -1044,6 +1048,10 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:rg/0404"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0003"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -1623,6 +1631,10 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:rg/0404"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0004"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -1780,6 +1792,10 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:fg/0505"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0005"
   dateOfBirth: "2000-01-02"
   sex: "FEMALE"
@@ -1929,6 +1945,10 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:rg/0405"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0006"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -2009,6 +2029,10 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:fg/150101"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0007"
   dateOfBirth: "2000-10-10"
   sex: "FEMALE"
@@ -2459,3 +2483,7 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:rg/0401"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"

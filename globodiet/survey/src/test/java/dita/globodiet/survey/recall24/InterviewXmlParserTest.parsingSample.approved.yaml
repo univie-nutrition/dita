@@ -106,3 +106,7 @@ respondents:
             group:
               key: "group"
               value: "at.gd/2.0:fg/130301"
+    annotations:
+      dataSource:
+        key: "dataSource"
+        value: "Byte-Resource[3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 ...]"
