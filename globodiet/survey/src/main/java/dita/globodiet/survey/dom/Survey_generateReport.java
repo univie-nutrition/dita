@@ -35,6 +35,7 @@ import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
 
@@ -69,7 +70,7 @@ public class Survey_generateReport {
 
     @MemberSupport
     public Blob act(
-            final List<Campaign> campaigns,
+            final Can<Campaign> campaigns,
             @Parameter(optionality = Optionality.OPTIONAL)
             final RespondentFilter respondentFilter,
             @Parameter
@@ -77,20 +78,18 @@ public class Survey_generateReport {
             @Parameter
             final Aggregation aggregation) {
         // see also Campaign_downloadMappingTodos
-        var interviewSet = DataUtil.filteredInterviewSet(campaigns, respondentFilter, surveyBlobStore);
-        if(interviewSet.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
+        var reportContext = ReportContext.load(campaigns, surveyBlobStore, respondentFilter);
+        if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
-        var fcoMapping = Campaigns.fcoMapping(campaigns.getFirst(), surveyBlobStore);
-        var pocMapping = Campaigns.pocMapping(campaigns.getFirst(), surveyBlobStore);
-        var foodCompositionRepo = Campaigns.fcdb(campaigns.getFirst(), surveyBlobStore);
-        var systemId = Campaigns.systemId(mixee);
+        var foodCompositionRepo = reportContext.foodCompositionRepository();
 
-        var tabularReport = new TabularReporters.TabularReport(interviewSet, systemId,
-                fcoMapping, SidUtils.languageQualifier("de"),
-                pocMapping, SidUtils.languageQualifier("de"),
-                foodCompositionRepo,
-                DataUtil.foodComponents(foodCompositionRepo.componentCatalog(),reportColumnDefinition),
-                aggregation);
+        var tabularReport = new TabularReporters.TabularReport(
+            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.fcoMapping(), SidUtils.languageQualifier("de"),
+            reportContext.pocMapping(), SidUtils.languageQualifier("de"),
+            foodCompositionRepo,
+            DataUtil.foodComponents(foodCompositionRepo.componentCatalog(),reportColumnDefinition),
+            aggregation);
 
         var name = String.format("%s_%s_%s",
                 mixee.getCode().toLowerCase(),

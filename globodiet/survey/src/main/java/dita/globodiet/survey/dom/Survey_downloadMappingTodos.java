@@ -20,7 +20,6 @@
 package dita.globodiet.survey.dom;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import jakarta.inject.Inject;
 
@@ -62,18 +61,15 @@ public class Survey_downloadMappingTodos {
      * @see Campaign_downloadMappingTodos
      */
     @MemberSupport
-    public Clob act(final List<Campaign> campaigns) {
+    public Clob act(final Can<Campaign> campaigns) {
         // see also Campaign_downloadMappingTodos
-        var interviewSet = Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore);
-        if(interviewSet.isEmpty()) {
-            return Clob.of("empty", CommonMimeType.YAML, "");
-        }
-
-        var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
-        var systemId = Campaigns.systemId(mixee);
+        var reportContext = ReportContext.load(campaigns, surveyBlobStore);
+        if(reportContext.isEmpty()) return Clob.of("empty", CommonMimeType.YAML, "");
 
         var yaml = new StringBuilder();
-        var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);
+        var todoReporter = new TodoReporters.TodoReporter(
+            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.nutMapping());
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));
 

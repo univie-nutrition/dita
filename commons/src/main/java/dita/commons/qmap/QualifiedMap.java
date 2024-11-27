@@ -134,6 +134,10 @@ public class QualifiedMap {
 
     // -- FACTORIES
 
+    public static QualifiedMap empty() {
+        return new QualifiedMap(Collections.emptyMap(), Policy.EMPTY_TARGET_ALLOWED);
+    }
+
     /**
      * Creates a {@link QualifiedMap} with entries that have no target. (A <i>todo</i> map.)
      */

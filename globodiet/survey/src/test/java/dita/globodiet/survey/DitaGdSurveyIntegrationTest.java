@@ -19,12 +19,8 @@
 package dita.globodiet.survey;
 
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import jakarta.inject.Inject;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -46,8 +42,8 @@ import dita.foodon.bls.BLS302;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
-import dita.globodiet.survey.util.InterviewUtils;
 import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.reporter.tabular.TabularReporters;
@@ -96,45 +92,26 @@ extends CausewayIntegrationTestAbstract {
     }
 
     protected InterviewSet24 loadInterviewSet() {
-        return Campaigns.interviewSet(campaignForTesting(), surveyBlobStore);
-//                .transform(new AssociatedRecipeResolver(loadFoodDescriptionModel()))
-//                .transform(new QualifiedMappingResolver(loadNutMapping()));
+        return Campaigns.interviewSetCorrected(campaignForTesting(), surveyBlobStore);
     }
 
     @SneakyThrows
     protected TabularReport tabularReport(final Aggregation aggregation, final int maxNutrientColumns) {
-        var pool = Executors.newFixedThreadPool(6);
-        var nutMappingFuture = pool.submit(this::loadNutMapping);
-        var fcoMappingFuture = pool.submit(this::loadFcoMapping);
-        var pocMappingFuture = pool.submit(this::loadPocMapping);
-        var fcdbFuture = pool.submit(this::loadFcdb);
-        var fdmFuture = pool.submit(this::loadFoodDescriptionModel);
-        var interviewSetFuture = pool.submit(this::loadInterviewSet);
-        pool.shutdown();
 
-        log.info("await blobstore data");
-        pool.awaitTermination(20, TimeUnit.SECONDS);
-        log.info("data received");
-
-        var foodCompositionRepo = fcdbFuture.get();
-        assertTrue(foodCompositionRepo.compositionCount()>10_000);
-        var interviewSet = InterviewUtils.applyDefaultTransformers(
-                interviewSetFuture.get(),
-                fdmFuture.get(),
-                nutMappingFuture.get());
+        var reportContext = ReportContext.load(Can.of(campaignForTesting()), surveyBlobStore);
 
         return TabularReporters.TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))
-                .fcoMapping(fcoMappingFuture.get())
+                .fcoMapping(reportContext.fcoMapping())
                 .fcoQualifier(SidUtils.languageQualifier("de"))
-                .pocMapping(pocMappingFuture.get())
+                .pocMapping(reportContext.pocMapping())
                 .pocQualifier(SidUtils.languageQualifier("de"))
-                .foodCompositionRepo(foodCompositionRepo)
-                .foodComponents(loadEnabledFoodComponents(foodCompositionRepo.componentCatalog())
+                .foodCompositionRepo(reportContext.foodCompositionRepository())
+                .foodComponents(loadEnabledFoodComponents(reportContext.foodCompositionRepository().componentCatalog())
                         .stream()
                         .limit(maxNutrientColumns)
                         .collect(Can.toCan()))
-                .interviewSet(interviewSet)
+                .interviewSet(reportContext.interviewSet())
                 .aggregation(aggregation)
                 .build();
     }

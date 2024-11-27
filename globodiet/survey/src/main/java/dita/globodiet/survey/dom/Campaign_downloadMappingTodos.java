@@ -32,6 +32,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSink;
 
 import lombok.RequiredArgsConstructor;
@@ -61,12 +62,13 @@ public class Campaign_downloadMappingTodos {
      */
     @MemberSupport
     public Clob act() {
-        var interviewSet = Campaigns.interviewSet(mixee, surveyBlobStore);
-        var nutMapping = Campaigns.nutMapping(mixee, surveyBlobStore);
-        var systemId = Campaigns.systemId(mixee);
+
+        var reportContext = ReportContext.load(Can.of(mixee), surveyBlobStore);
 
         var yaml = new StringBuilder();
-        var todoReporter = new TodoReporters.TodoReporter(interviewSet, systemId, nutMapping);
+        var todoReporter = new TodoReporters.TodoReporter(
+            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.nutMapping());
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));
 

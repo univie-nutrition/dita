@@ -64,7 +64,7 @@ public class RespondentFilter_sync {
         var listingHandler = DataUtil.listingHandlerForRespondentProxy();
 
         var allRespondents = listingHandler.createListing(
-                Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore)
+                Campaigns.interviewSetCorrected(Can.ofCollection(campaigns), surveyBlobStore)
                 .respondents());
 
         var currentLines = listingHandler.parseListing(mixee.getAliasListing());

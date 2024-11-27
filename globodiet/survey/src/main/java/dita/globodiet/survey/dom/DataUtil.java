@@ -19,7 +19,6 @@
 package dita.globodiet.survey.dom;
 
 import java.util.Optional;
-import java.util.SequencedCollection;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -38,38 +37,11 @@ import lombok.experimental.UtilityClass;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
-import dita.globodiet.survey.util.InterviewUtils;
-import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
-import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 
 @UtilityClass
 class DataUtil {
-
-    // -- INTERVIEW FILTERING
-
-    InterviewSet24 filteredInterviewSet(
-            @Nullable final SequencedCollection<Campaign> campaigns,
-            @Nullable final RespondentFilter respondentFilter,
-            @Nullable final BlobStore surveyBlobStore) {
-        if(campaigns==null
-                || campaigns.isEmpty()
-                || surveyBlobStore==null) {
-            return InterviewSet24.empty();
-        }
-        var interviewSet = Campaigns.interviewSet(Can.ofCollection(campaigns), surveyBlobStore);
-        // filter interviews
-        if(!interviewSet.isEmpty()
-                && respondentFilter!=null) {
-            var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
-            interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
-        }
-
-        var fdm = Campaigns.foodDescriptionModel(campaigns.getFirst(), surveyBlobStore);
-        var nutMapping = Campaigns.nutMapping(campaigns.getFirst(), surveyBlobStore);
-        return InterviewUtils.applyDefaultTransformers(interviewSet, fdm, nutMapping);
-    }
 
     // -- FCDB
 

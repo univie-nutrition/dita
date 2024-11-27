@@ -124,7 +124,10 @@ public class Campaigns {
 
     // -- INTERVIEW SET
 
-    public InterviewSet24 interviewSet(
+    /**
+     * Returns interview-set from a single campaign. Just corrected, not prepared.
+     */
+    public InterviewSet24 interviewSetCorrected(
             final Campaign campaign,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
@@ -133,17 +136,17 @@ public class Campaigns {
         return interviewSet;
     }
 
-    public InterviewSet24 interviewSet(
+    /**
+     * Returns interview-set from a multiple campaigns. Just corrected, not prepared.
+     */
+    public InterviewSet24 interviewSetCorrected(
             final Can<Campaign> campaigns,
             final BlobStore blobStore) {
-        if(campaigns.isEmpty()) {
-            return InterviewSet24.empty();
-        }
         var messageConsumer = new MessageConsumer();
         var interviewSet = campaigns.stream()
                 .map(campaign->Campaigns.interviewSet(campaign, blobStore, correction(campaign), messageConsumer))
                 .reduce((a, b)->a.join(b, messageConsumer))
-                .orElse(null); // unreachable due to guard above
+                .orElseGet(InterviewSet24::empty);
         messageConsumer.annotate(interviewSet);
         return interviewSet;
     }

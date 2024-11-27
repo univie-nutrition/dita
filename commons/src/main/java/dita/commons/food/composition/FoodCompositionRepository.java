@@ -43,6 +43,10 @@ public class FoodCompositionRepository {
     private final FoodComponentCatalog componentCatalog;
     private final Map<SemanticIdentifier, FoodComposition> internalMap;
 
+    public static FoodCompositionRepository empty() {
+        return new FoodCompositionRepository();
+    }
+
     public FoodCompositionRepository() {
         this.componentCatalog = new FoodComponentCatalog();
         this.internalMap = new ConcurrentHashMap<>();
