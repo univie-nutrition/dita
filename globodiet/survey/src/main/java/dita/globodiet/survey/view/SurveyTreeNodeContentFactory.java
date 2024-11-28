@@ -66,7 +66,7 @@ public class SurveyTreeNodeContentFactory {
         return String.format("%s #%s %s",
                 interview.respondentAlias(),
                 interview.interviewOrdinal(),
-                interview.interviewDate());
+                interview.consumptionDate());
     }
 
     String title(final Meal24 meal) {

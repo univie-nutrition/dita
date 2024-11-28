@@ -57,12 +57,12 @@ public record Respondent24(
     }
 
     /**
-     * Interviews are sorted by interview-date.
+     * Interviews are sorted by consumption-date.
      * All ordinals are filled in.
      */
     Respondent24 normalize() {
         var interviewsSorted = interviews()
-                .sorted(Comparator.comparing(Interview24::interviewDate));
+                .sorted(Comparator.comparing(Interview24::consumptionDate));
 
         interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
             inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal

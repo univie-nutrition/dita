@@ -205,7 +205,7 @@ public class TabularReporters {
                             rowFactory.respondentAge(
                                     ChronoUnit.DAYS.between(
                                             iv.parentRespondent().dateOfBirth(),
-                                            iv.interviewDate()));
+                                            iv.consumptionDate()));
                         }
                     }
                     case Meal24 meal -> {
