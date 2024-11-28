@@ -83,9 +83,8 @@ viewmodels:
       named: Dowoc
       description: |
         day of week
-        of 
-        consumption
-        Mo(1)..Su(7)
+        of consmpt.
+        Mo=1..Su=7
     fco:
       type: String
       required: true

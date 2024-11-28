@@ -56,9 +56,8 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
  * @param consumptionDate date of
  * consumption
  * @param consumptionDayOfWeek day of week
- * of
- * consumption
- * Mo(1)..Su(7)
+ * of consmpt.
+ * Mo=1..Su=7
  * @param fco consumption
  * occasion
  * code
@@ -161,9 +160,8 @@ public record ConsumptionRecord(
                 fieldSetId = "details",
                 sequence = "8",
                 describedAs = "day of week\n"
-                                + "of\n"
-                                + "consumption\n"
-                                + "Mo(1)..Su(7)"
+                                + "of consmpt.\n"
+                                + "Mo=1..Su=7"
         )
         int consumptionDayOfWeek,
         @PropertyLayout(
