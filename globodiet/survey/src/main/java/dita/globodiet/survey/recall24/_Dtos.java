@@ -100,10 +100,10 @@ class _Dtos {
         @XmlElement(name="ITV_Id")
         private String id;
 
-        /** Date when the interview occurred. */
+        /** Date when the consumptions occurred. */
         @XmlElement(name="ITV_RecallDate")
         @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
-        private LocalDateTime interviewDate;
+        private LocalDateTime consumptionDate;
 
         @XmlElement(name="CTR_Code")
         private String ctrCode;
@@ -131,10 +131,10 @@ class _Dtos {
         @XmlElement(name="ITG_Num")
         private String itgNum;
 
-        /** Date when the consumptions occurred. */
+        /** Date when the interview occurred. */
         @XmlElement(name="ITG_Date")
         @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalDateTimeToStringAdapter.class)
-        private LocalDateTime consumptionDate;
+        private LocalDateTime interviewDate;
 
         @XmlElement(name="ITG_SubjectHeight")
         private BigDecimal heightCM;
