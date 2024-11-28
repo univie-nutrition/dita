@@ -84,6 +84,7 @@ record InterviewConverter(SystemId systemId) {
         return Interview24.of(
                 respondentStub(iv),
                 iv.getInterviewDate().toLocalDate(),
+                iv.getConsumptionDate().toLocalDate(),
                 new RespondentSupplementaryData24(
                         ObjectRef.empty(),
                         iv.getSpecialDietCode(),

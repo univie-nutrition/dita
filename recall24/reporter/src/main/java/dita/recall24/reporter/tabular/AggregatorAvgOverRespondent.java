@@ -72,6 +72,7 @@ record AggregatorAvgOverRespondent() {
         builder
             .interviewOrdinal(0)
             .consumptionDate(acc.consumptionDate()) // keep first
+            .consumptionDayOfWeek(acc.consumptionDayOfWeek())
             .fco(":avg")
             .poc(":avg")
             .meal(":avg")

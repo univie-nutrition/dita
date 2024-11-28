@@ -67,6 +67,12 @@ viewmodel:
       description: |
         date of 
         consumption
+    consumptionDayOfWeek:
+      type: int
+      description: |
+        day of week
+        of consumption
+        Mo(1)..Su(7)
     fco:
       type: String
       description: |

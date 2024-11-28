@@ -197,7 +197,9 @@ public class TabularReporters {
                         rowFactory.respondentAlias(iv.parentRespondent().alias());
                         rowFactory.respondentSex(iv.parentRespondent().sex());
                         rowBuilder.interviewOrdinal(iv.interviewOrdinal());
-                        rowBuilder.consumptionDate(iv.interviewDate());
+                        rowBuilder.consumptionDate(iv.consumptionDate());
+                        rowBuilder.consumptionDayOfWeek(iv.consumptionDate().getDayOfWeek().getValue());
+
                         rowBuilder.interviewCount(iv.parentRespondent().interviewCount());
                         if(iv.interviewOrdinal()==1) {
                             rowFactory.respondentAge(

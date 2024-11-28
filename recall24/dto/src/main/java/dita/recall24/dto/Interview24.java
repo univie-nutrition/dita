@@ -54,6 +54,11 @@ public record Interview24 (
             LocalDate interviewDate,
 
             /**
+             * Date of food consumption. Typically one day before the interview.
+             */
+            LocalDate consumptionDate,
+
+            /**
              *  Each respondent can have one ore more interviews within the context of a specific survey.
              *  This ordinal denotes the n-th interview (when ordered by interview date).
              */
@@ -83,6 +88,10 @@ public record Interview24 (
              */
             final LocalDate interviewDate,
             /**
+             * Date of food consumption. Typically one day before the interview.
+             */
+            final LocalDate consumptionDate,
+            /**
              * Respondent meta-data for this interview.
              */
             final RespondentSupplementaryData24 respondentSupplementaryData,
@@ -90,7 +99,7 @@ public record Interview24 (
              * The meals of this interview.
              */
             final Can<Meal24> meals) {
-        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, IntRef.of(-1),
+        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, consumptionDate, IntRef.of(-1),
             respondentSupplementaryData, meals, new HashMap<>());
         respondentSupplementaryData.parentInterviewRef().setValue(interview);
         meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
@@ -131,13 +140,17 @@ public record Interview24 (
     public static class Builder implements Builder24<Interview24> {
         Respondent24 respondent;
         LocalDate interviewDate;
+        LocalDate consumptionDate;
         RespondentSupplementaryData24 respondentSupplementaryData;
         final List<Meal24> meals = new ArrayList<>();
         final List<Annotation> annotations = new ArrayList<>();
 
         static Builder of(final Interview24 dto) {
-            var builder = new Builder().respondent(dto.parentRespondent()).interviewDate(dto.interviewDate)
-                    .respondentSupplementaryData(dto.respondentSupplementaryData());
+            var builder = new Builder()
+                .respondent(dto.parentRespondent())
+                .interviewDate(dto.interviewDate)
+                .consumptionDate(dto.consumptionDate)
+                .respondentSupplementaryData(dto.respondentSupplementaryData());
             dto.meals.forEach(builder.meals::add);
             dto.annotations().values().forEach(builder.annotations::add);
             return builder;
@@ -145,7 +158,8 @@ public record Interview24 (
 
         @Override
         public Interview24 build() {
-            var dto = Interview24.of(respondent, interviewDate, respondentSupplementaryData, Can.ofCollection(meals));
+            var dto = Interview24.of(respondent, interviewDate, consumptionDate,
+                respondentSupplementaryData, Can.ofCollection(meals));
             dto.meals().forEach(child->child.parentInterviewRef().setValue(dto));
             annotations.forEach(annot->dto.annotations().put(annot.key(), annot));
             return dto;
