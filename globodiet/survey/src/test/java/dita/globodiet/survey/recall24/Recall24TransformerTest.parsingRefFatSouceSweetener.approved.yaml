@@ -3,7 +3,8 @@ respondents:
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-28"
+  - interviewDate: "2024-05-29"
+    consumptionDate: "2024-05-28"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:

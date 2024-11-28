@@ -3,7 +3,8 @@ respondents:
   dateOfBirth: "2000-01-01"
   sex: "MALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
@@ -471,7 +472,8 @@ respondents:
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
@@ -1056,7 +1058,8 @@ respondents:
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
@@ -1639,7 +1642,8 @@ respondents:
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
@@ -1800,7 +1804,8 @@ respondents:
   dateOfBirth: "2000-01-02"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
@@ -1953,7 +1958,8 @@ respondents:
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
@@ -2037,7 +2043,8 @@ respondents:
   dateOfBirth: "2000-10-10"
   sex: "FEMALE"
   interviews:
-  - interviewDate: "2024-05-27"
+  - interviewDate: "2024-05-28"
+    consumptionDate: "2024-05-27"
     interviewOrdinalRef:
       value: 1
     respondentSupplementaryData:
