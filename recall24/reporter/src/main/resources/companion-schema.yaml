@@ -80,9 +80,11 @@ viewmodels:
     consumptionDayOfWeek:
       type: int
       required: true
+      named: Dowoc
       description: |
         day of week
-        of consumption
+        of 
+        consumption
         Mo(1)..Su(7)
     fco:
       type: String
