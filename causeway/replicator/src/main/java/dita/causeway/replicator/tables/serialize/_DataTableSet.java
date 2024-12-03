@@ -34,6 +34,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Format;
@@ -200,7 +201,7 @@ class _DataTableSet {
                 ));
 
         return new Table(
-                dataTable.elementType().getLogicalTypeName(),
+                dataTable.elementType().logicalTypeName(),
                 dataTable.dataColumns()
                     .map(col->new TabularData.Column(
                         col.metamodel().getId(),
@@ -365,7 +366,7 @@ class _DataTableSet {
 
         var stringifiedValue = formatOptions.encodeCellValue(
                 stringNormalizer.apply(
-                        valueFacet.enstring(Format.JSON, cellValue.getPojo())));
+                        valueFacet.enstring(Format.JSON, _Casts.uncheckedCast(cellValue.getPojo()))));
         return stringifiedValue;
     }
 

@@ -142,7 +142,7 @@ public class VersionsExportService {
     // -- UTILITY
 
     public static Predicate<ObjectSpecification> paramsTableFilter() {
-        return entityType->entityType.getLogicalTypeName()
+        return entityType->entityType.logicalTypeName()
                 .startsWith("dita.globodiet.params.");
     }
 

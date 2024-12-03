@@ -29,6 +29,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.id.LogicalType;
+import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.specloader.SpecificationLoader;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
@@ -54,7 +55,7 @@ public class Persistable_schema {
     public AsciiDoc prop() {
 
         var entitySchema = specLoader.specForType(mixee.getClass())
-                .map(spec->spec.getLogicalType())
+                .map(ObjectSpecification::logicalType)
                 .map(logicalType->schema.entities().get(toLookupKeyIntoSchemaEntities(logicalType)))
                 .orElse(null);
 
