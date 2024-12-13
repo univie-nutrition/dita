@@ -34,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.lang.Nullable;
 
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -48,7 +49,6 @@ import lombok.experimental.Accessors;
 import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.recall24.dto.util.Recall24DtoUtils;
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
@@ -58,7 +58,7 @@ public record InterviewSet24(
             /**
              * Respondents that belong to this survey.
              */
-            @TreeSubNodes
+            @CollectionLayout(navigableSubtree = "1")
             Can<Respondent24> respondents,
 
             @JsonIgnore
@@ -123,7 +123,7 @@ public record InterviewSet24(
     public Stream<RecallNode24> streamDepthFirst() {
         return Recall24DtoUtils.wrapAsTreeNode(this)
             .streamDepthFirst()
-            .map(TreeNode::getValue);
+            .map(TreeNode::value);
     }
 
     /**

@@ -18,7 +18,6 @@
  */
 package dita.globodiet.survey.view;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import jakarta.inject.Inject;
@@ -105,7 +104,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
                     + "|" + _Strings.base64UrlEncode(treePath.stringify(PATH_DELIMITER));
         }
         public ViewModelMemento parent() {
-            return new ViewModelMemento(campaignSecondaryKey, treePath.getParentIfAny());
+            return new ViewModelMemento(campaignSecondaryKey, treePath.parent().orElse(null));
         }
     }
 
@@ -150,7 +149,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     @Property
     @PropertyLayout(navigable=Navigable.PARENT, hidden=Where.EVERYWHERE)
     public Object getParent() {
-        return Optional.ofNullable(activeTreePath().getParentIfAny())
+        return activeTreePath().parent()
                 .<Object>map(_->new SurveyVM(viewModelMemento.parent(), rootNode()))
                 .orElseGet(this::getCampaign);
     }

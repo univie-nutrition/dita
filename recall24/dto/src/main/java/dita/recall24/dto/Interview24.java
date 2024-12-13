@@ -27,6 +27,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.Getter;
@@ -35,7 +36,6 @@ import lombok.experimental.Accessors;
 
 import dita.commons.types.IntRef;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 /**
  * Represents a (single) 24h recall interview event.
@@ -72,7 +72,7 @@ public record Interview24 (
             /**
              * The meals of this interview.
              */
-            @TreeSubNodes
+            @CollectionLayout(navigableSubtree = "1")
             Can<Meal24> meals,
 
             /**

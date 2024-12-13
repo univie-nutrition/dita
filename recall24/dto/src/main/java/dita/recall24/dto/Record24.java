@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -47,7 +48,6 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.recall24.dto.RuntimeAnnotated.Annotation;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public sealed interface Record24 extends RecallNode24
 permits
@@ -174,7 +174,7 @@ permits
             /**
              * Nested records.
              */
-            @TreeSubNodes
+            @CollectionLayout(navigableSubtree = "1")
             Can<? extends Record24> subRecords,
             Map<String, Annotation> annotations
 

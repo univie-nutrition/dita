@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.Getter;
@@ -30,7 +31,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public record MemorizedFood24(
             /**
@@ -48,7 +48,7 @@ public record MemorizedFood24(
              * Top level record(s) for this memorized food.
              * Those may themselves have sub records.
              */
-            @TreeSubNodes
+            @CollectionLayout(navigableSubtree = "1")
             Can<Record24> topLevelRecords
 
             ) implements RecallNode24 {

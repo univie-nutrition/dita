@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 
@@ -32,7 +33,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import dita.commons.types.Sex;
-import io.github.causewaystuff.treeview.applib.annotations.TreeSubNodes;
 
 public record Respondent24(
             /**
@@ -47,7 +47,7 @@ public record Respondent24(
             /**
              * Interviews that this respondent was subject to.
              */
-            @TreeSubNodes @NonNull
+            @CollectionLayout(navigableSubtree = "1") @NonNull
             Can<Interview24> interviews
 
             ) implements RecallNode24 {
