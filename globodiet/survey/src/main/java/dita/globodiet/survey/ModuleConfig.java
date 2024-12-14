@@ -32,7 +32,6 @@ import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.blobstore.applib.BlobStoreFactory;
-import io.github.causewaystuff.treeview.metamodel.facets.TreeNodeFacetFactory;
 
 @Configuration
 @Import({
@@ -54,11 +53,6 @@ public class ModuleConfig {
             final BlobStoreFactory blobStoreFactory,
             final SurveyConfiguration surveyConfiguration) {
         return blobStoreFactory.createBlobStore(surveyConfiguration.blobstore());
-    }
-
-    @Bean
-    public TreeNodeFacetFactory treeNodeFacetFactory() {
-        return new TreeNodeFacetFactory(null);
     }
 
 }
