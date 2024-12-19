@@ -34,6 +34,7 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
+import org.apache.causeway.applib.graph.tree.MasterDetailTreeView;
 import org.apache.causeway.applib.graph.tree.TreeAdapter;
 import org.apache.causeway.applib.graph.tree.TreePath;
 import org.apache.causeway.commons.collections.Can;
@@ -52,7 +53,6 @@ import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
-import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
 
 @Named(DitaModuleGdSurvey.NAMESPACE + ".SurveyViewModel")
 @DomainObject(
@@ -60,7 +60,7 @@ import io.github.causewaystuff.treeview.applib.viewmodel.TreeNodeVm;
 @DomainObjectLayout(
         named = "Survey Introspection")
 //@Log4j2
-public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
+public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
 
     public final static String PATH_DELIMITER = ".";
 
@@ -207,7 +207,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     // -- TREENODE-VM STUFF
 
     @Override
-    protected SurveyVM getViewModel(final RecallNode24 node, final SurveyVM parentNode, final int siblingIndex) {
+    protected SurveyVM viewModel(final RecallNode24 node, final SurveyVM parentNode, final int siblingIndex) {
         return node instanceof InterviewSet24
                 ? SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode())
                 : SurveyVM.forTreePath(viewModelMemento.campaignSecondaryKey(), rootNode(),
@@ -240,7 +240,7 @@ public class SurveyVM extends TreeNodeVm<RecallNode24, SurveyVM> {
     }
 
     @Override
-    protected TreeAdapter<RecallNode24> getTreeAdapter() {
+    protected TreeAdapter<RecallNode24> treeAdapter() {
         return new SurveyTreeAdapter();
     }
 

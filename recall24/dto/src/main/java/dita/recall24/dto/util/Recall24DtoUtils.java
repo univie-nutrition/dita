@@ -45,7 +45,7 @@ import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
-import io.github.causewaystuff.treeview.applib.factories.TreeNodeFactory;
+import io.github.causewaystuff.commons.base.util.RuntimeUtils;
 
 @UtilityClass
 public class Recall24DtoUtils {
@@ -54,7 +54,7 @@ public class Recall24DtoUtils {
 
     public TreeNode<RecallNode24> wrapAsTreeNode(
             final @NonNull InterviewSet24 interviewSet24) {
-        return TreeNodeFactory.wrap(RecallNode24.class, interviewSet24);
+        return RuntimeUtils.getFactoryService().treeNode((RecallNode24)interviewSet24);
     }
 
     // -- DATA JOINING
