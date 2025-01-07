@@ -77,15 +77,6 @@ additional
             <artifactId>causewaystuff-companion-applib</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.github.causewaystuff</groupId>
-            <artifactId>causewaystuff-treeview-applib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.causewaystuff</groupId>
-            <artifactId>causewaystuff-treeview-metamodel</artifactId>
-        </dependency>
-
         <!-- PERSISTENCE -->
 
         <dependency>

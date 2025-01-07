@@ -46,11 +46,6 @@ additional
             <artifactId>causeway-applib</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.github.causewaystuff</groupId>
-            <artifactId>causewaystuff-treeview-applib</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>
