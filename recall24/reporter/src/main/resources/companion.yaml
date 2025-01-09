@@ -22,4 +22,4 @@ codegen:
   logicalNamespacePrefix: dita.recall24
   packageNamePrefix: dita.recall24
   entitiesModulePackageName: reporter
-  entitiesModuleClassSimpleName: DitaModuleR24Reporter
+  entitiesModuleClassSimpleName: DitaModuleRecall24Reporter

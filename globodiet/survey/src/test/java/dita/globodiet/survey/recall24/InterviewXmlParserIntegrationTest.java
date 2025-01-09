@@ -41,7 +41,7 @@ import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 @PrivateDataTest
 @Log4j2
 class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
-
+    
     @Test
     void parsingFromBlobStore() throws InterruptedException, ExecutionException {
         var aggregation = Aggregation.NONE;

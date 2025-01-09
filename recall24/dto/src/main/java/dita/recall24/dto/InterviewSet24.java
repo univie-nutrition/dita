@@ -35,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
+import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -53,6 +54,7 @@ import dita.recall24.dto.util.Recall24DtoUtils;
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
  */
+@DomainObject
 public record InterviewSet24(
 
             /**
@@ -117,9 +119,6 @@ public record InterviewSet24(
                 .flatMap(resp->resp.interviews().stream());
     }
 
-    /**
-     * @implNote requires Causewaystuff tree metamodel integration
-     */
     public Stream<RecallNode24> streamDepthFirst() {
         return Recall24DtoUtils.wrapAsTreeNode(this)
             .streamDepthFirst()

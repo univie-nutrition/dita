@@ -32,6 +32,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
+import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -163,6 +164,7 @@ permits
     /**
      * A composition of identified generic food or recipes.
      */
+    @DomainObject
     public record Composite(
             /** Memorized food this record belongs to. */
             @JsonIgnore
@@ -280,6 +282,7 @@ permits
      * Generic food, identified within the standard food description model (food-list)
      * or identified within eg. a recipe data base.
      */
+    @DomainObject
     public record Food(
             /** Memorized food this record belongs to. */
             @JsonIgnore
@@ -358,6 +361,7 @@ permits
     /**
      * Type of fat used during cooking.
      */
+    @DomainObject
     public record TypeOfFatUsed(
             /** Memorized food this record belongs to. */
             @JsonIgnore
@@ -406,6 +410,7 @@ permits
     /**
      * Type of milk or liquid used during cooking.
      */
+    @DomainObject
     public record TypeOfMilkOrLiquidUsed(
             /** Memorized food this record belongs to. */
             @JsonIgnore
@@ -454,6 +459,7 @@ permits
     /**
      * Fat consumed due to the fact that it was used for frying during cooking.
      */
+    @DomainObject
     public record FryingFat(
             /** Memorized food this record belongs to. */
             @JsonIgnore
@@ -524,6 +530,7 @@ permits
     /**
      * Product identified within a product data base.<p>e.g. supplements
      */
+    @DomainObject
     public record Product(
             /** Memorized food this record belongs to. */
             @JsonIgnore
@@ -590,6 +597,7 @@ permits
     /**
      * Type of fat used during cooking.
      */
+    @DomainObject
     public record Comment(
             /** Memorized food this record belongs to. */
             @JsonIgnore

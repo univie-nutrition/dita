@@ -30,6 +30,8 @@ import org.springframework.context.annotation.Import;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
+import dita.recall24.dto.DitaModuleRecall24Dto;
+import dita.recall24.reporter.DitaModuleRecall24Reporter;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.blobstore.applib.BlobStoreFactory;
 
@@ -38,6 +40,8 @@ import io.github.causewaystuff.blobstore.applib.BlobStoreFactory;
     SurveyVM.class,
     BlobStoreFactory.class,
     SurveyTreeHelperService.class,
+    DitaModuleRecall24Dto.class,
+    DitaModuleRecall24Reporter.class,
 })
 @EnableConfigurationProperties({ModuleConfig.SurveyConfiguration.class})
 @ComponentScan(basePackageClasses = Survey.class)

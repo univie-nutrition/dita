@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
+import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 
@@ -34,6 +35,7 @@ import lombok.experimental.Accessors;
 
 import dita.commons.types.Sex;
 
+@DomainObject
 public record Respondent24(
             /**
              * Anonymized respondent identifier, unique to the corresponding survey.

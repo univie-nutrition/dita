@@ -25,6 +25,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
+import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.Getter;
@@ -36,6 +37,7 @@ import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 /**
  * Meal of the day.
  */
+@DomainObject
 public record Meal24(
 
             /**

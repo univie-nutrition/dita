@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.globodiet.survey.utils.ApprovalTestOptions;
 
-class InterviewXmlParserTest {
+class InterviewXmlParserApprovalTest {
 
     private SystemId systemId = new SystemId("at.gd", "2.0");
 
