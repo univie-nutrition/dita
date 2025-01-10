@@ -35,17 +35,17 @@ additional
         <causeway.version>3.0.0-SNAPSHOT</causeway.version>
         <causewaystuff.version>1.0.0-SNAPSHOT</causewaystuff.version>
 
-        <indriya.version>2.2</indriya.version>
+        <indriya.version>2.2.2</indriya.version>
 
         <lombok.version>1.18.36</lombok.version>
 
-        <mariadb-jdbc.version>3.3.2</mariadb-jdbc.version>
-        <mssql-jdbc.version>12.4.2.jre11</mssql-jdbc.version>
+        <mariadb-jdbc.version>3.5.1</mariadb-jdbc.version>
+        <mssql-jdbc.version>12.8.1.jre11</mssql-jdbc.version>
 
-        <owlapi.version>5.5.0</owlapi.version>
+        <owlapi.version>5.5.1</owlapi.version>
 
         <!-- testing -->
-        <junit.version>5.11.0</junit.version>
+        <junit.version>5.11.4</junit.version>
         <surefire-plugin.argLine>-Xmx384m</surefire-plugin.argLine>
     </properties>
 
