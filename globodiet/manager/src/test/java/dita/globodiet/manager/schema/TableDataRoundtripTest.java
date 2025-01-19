@@ -37,8 +37,8 @@ import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchem
 import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchema;
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.survey.DitaModuleGdSurvey;
-import io.github.causewaystuff.companion.codegen.domgen.LicenseHeader;
 import io.github.causewaystuff.companion.codegen.model.Schema;
+import io.github.causewaystuff.companion.schema.LicenseHeader;
 
 class TableDataRoundtripTest {
 
