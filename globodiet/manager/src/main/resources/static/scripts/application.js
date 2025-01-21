@@ -9,6 +9,15 @@ function highlight_dependants() {
 	});
 }
 
-$(document).ready(
-	highlight_dependants
-);
+function bringSelectedTreeNodeIntoFocus() {
+    const selectedNode = document.querySelector('.tree-node-selected');
+    if (selectedNode) {
+        selectedNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    highlight_dependants();
+    bringSelectedTreeNodeIntoFocus();
+});
+
