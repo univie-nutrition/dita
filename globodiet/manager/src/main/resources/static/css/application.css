@@ -143,3 +143,8 @@ table.frame-all{
   background-color: OldLace;
   font-family: var(--bs-font-monospace);
 }
+
+.treeAttributePanel, .markupAttributePanel {
+    max-height: 80vh;
+    overflow-y: scroll;
+}

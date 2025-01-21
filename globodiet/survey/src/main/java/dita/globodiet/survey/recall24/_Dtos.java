@@ -231,6 +231,7 @@ class _Dtos {
                     current[2] = current[1].add(listEntry);
                     current[3] = null;
                     return;
+                case RecipeSelectedAsARecipeIngredient:
                 case FoodSelectedAsARecipeIngredient:
                 case FatDuringCookingForIngredient: {
                     var recipe = current[2];
@@ -279,9 +280,7 @@ class _Dtos {
                     }
                     return;
                 }
-                //case RecipeSelectedAsARecipeIngredient: //Not (yet) available (as stated in docs)
                 }
-
                 throw _Exceptions.unmatchedCase(listEntryType);
             }));
 
@@ -633,7 +632,7 @@ class _Dtos {
             QuickListItem("2"),
             QuickListItemForDietarySupplement("2S"),
             Recipe("3"),
-            //RecipeSelectedAsARecipeIngredient("3S"), //Not yet available (as stated in docs)
+            RecipeSelectedAsARecipeIngredient("3S"),
             Food("4"),
             FoodSelectedAsARecipeIngredient("5"),
 

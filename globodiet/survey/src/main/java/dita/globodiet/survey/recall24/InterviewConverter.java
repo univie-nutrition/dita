@@ -139,53 +139,62 @@ record InterviewConverter(SystemId systemId) {
         var listEntry = node.entry();
 
         return switch (listEntry.listEntryType()) {
-        case Food, FoodSelectedAsARecipeIngredient -> {
-            // sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
-            var usedDuringCooking = subRecordCount>0
-                 ? toRecords24(subEntries)
-                 : Can.<Record24>empty();
-            usedDuringCooking.forEach((final Record24 dto)->{
-                switch (dto.type()) {
-                    case TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> { /* valid */}
-                    default -> throw new IllegalArgumentException("Unexpected value: " + dto);
-                }
-            });
-            yield Record24.food(
-                listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
-                usedDuringCooking,
-                Can.of(group(SidUtils.GdContext.FOOD_GROUP, listEntry)));
-        }
-        case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
-            _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
-            yield Record24.fryingFat(
-                listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
-                Can.empty());
-        }
-        case DietarySupplement -> {
-            _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
-            yield Record24.product(
-                listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
-                Can.empty());
-        }
-        case FatSauceOrSweeteners -> null; // redundant: ignore
-        case TypeOfFatUsedFacet -> {
-            _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfFatUsedFacet' record is expected to have no sub-records");
-            yield Record24.typeOfFatUsed(
+            case RecipeSelectedAsARecipeIngredient -> {
+                yield Record24.composite(
                     listEntry.getName(),
-                    foodSid(listEntry),
-                    foodFacets(listEntry));
-        }
-        case TypeOfMilkOrLiquidUsedFacet -> {
-            _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfMilkOrLiquidUsedFacet' record is expected to have no sub-records");
-            yield Record24.typeOfMilkOrLiquidUsed(
-                    listEntry.getName(),
-                    foodSid(listEntry),
-                    foodFacets(listEntry));
-        }
-        default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
+                    recipeSid(listEntry),
+                    recipeFacets(listEntry),
+                    toRecords24(subEntries),
+                    Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry))
+                    );
+            }
+            case Food, FoodSelectedAsARecipeIngredient -> {
+                // sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
+                var usedDuringCooking = subRecordCount>0
+                     ? toRecords24(subEntries)
+                     : Can.<Record24>empty();
+                usedDuringCooking.forEach((final Record24 dto)->{
+                    switch (dto.type()) {
+                        case TYPE_OF_FAT_USED, TYPE_OF_MILK_OR_LIQUID_USED -> { /* valid */}
+                        default -> throw new IllegalArgumentException("Unexpected value: " + dto);
+                    }
+                });
+                yield Record24.food(
+                    listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
+                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                    usedDuringCooking,
+                    Can.of(group(SidUtils.GdContext.FOOD_GROUP, listEntry)));
+            }
+            case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
+                _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
+                yield Record24.fryingFat(
+                    listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
+                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                    Can.empty());
+            }
+            case DietarySupplement -> {
+                _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
+                yield Record24.product(
+                    listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
+                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                    Can.empty());
+            }
+            case FatSauceOrSweeteners -> null; // redundant: ignore
+            case TypeOfFatUsedFacet -> {
+                _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfFatUsedFacet' record is expected to have no sub-records");
+                yield Record24.typeOfFatUsed(
+                        listEntry.getName(),
+                        foodSid(listEntry),
+                        foodFacets(listEntry));
+            }
+            case TypeOfMilkOrLiquidUsedFacet -> {
+                _Assert.assertEquals(0, subRecordCount, ()->"'TypeOfMilkOrLiquidUsedFacet' record is expected to have no sub-records");
+                yield Record24.typeOfMilkOrLiquidUsed(
+                        listEntry.getName(),
+                        foodSid(listEntry),
+                        foodFacets(listEntry));
+            }
+            default -> throw new IllegalArgumentException("Unexpected value: " + listEntry.listEntryType());
         };
     }
 
