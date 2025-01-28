@@ -20,11 +20,11 @@ package dita.globodiet.survey.recall24;
 
 import java.util.function.Consumer;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.io.DataSource;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;

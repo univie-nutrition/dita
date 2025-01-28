@@ -18,7 +18,7 @@
  */
 package dita.globodiet.params.util;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
 

@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.util.StringUtils;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
@@ -38,7 +38,7 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
 
 import lombok.Getter;
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -201,7 +201,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<Composite> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;
@@ -314,7 +314,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<Food> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;
@@ -387,7 +387,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<TypeOfFatUsed> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;
@@ -436,7 +436,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<TypeOfMilkOrLiquidUsed> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;
@@ -486,7 +486,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<FryingFat> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;
@@ -553,7 +553,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<Product> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;
@@ -617,7 +617,7 @@ permits
 
         @Getter @Setter @Accessors(fluent=true)
         public static class Builder implements Builder24<Comment> {
-            private @NonNull Record24.Type type;
+            private Record24.@NonNull Type type;
 
             private String name;
             private SemanticIdentifier sid;

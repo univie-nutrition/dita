@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
@@ -45,7 +45,7 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
 import lombok.Getter;
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
@@ -347,7 +347,7 @@ class _DataTableSet {
 
     private static String stringify(
             final @Nullable ManagedObject cellValue,
-            final @NonNull TabularData.Format formatOptions,
+            final TabularData.@NonNull Format formatOptions,
             final @NonNull StringNormalizer stringNormalizer) {
 
         if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue)) {

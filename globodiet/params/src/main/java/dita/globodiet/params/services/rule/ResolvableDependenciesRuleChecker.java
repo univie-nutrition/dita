@@ -38,7 +38,7 @@ import org.apache.causeway.core.metamodel.spec.feature.MixedIn;
 import org.apache.causeway.core.metamodel.specloader.SpecificationLoader;
 import org.apache.causeway.core.metamodel.util.Facets;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.commons.services.rules.RuleChecker;
 

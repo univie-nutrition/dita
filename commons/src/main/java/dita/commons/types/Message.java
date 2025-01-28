@@ -21,13 +21,13 @@ package dita.commons.types;
 import java.io.Serializable;
 import java.util.function.Consumer;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.commons.format.FormatUtils;
 
-public record Message(@NonNull Message.Severity severity, @NonNull String text)
+public record Message(Message.@NonNull Severity severity, @NonNull String text)
 implements Serializable {
 
     public static enum Severity {

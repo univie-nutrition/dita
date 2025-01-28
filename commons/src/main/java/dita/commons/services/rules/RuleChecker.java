@@ -21,11 +21,11 @@ package dita.commons.services.rules;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 public interface RuleChecker {
 

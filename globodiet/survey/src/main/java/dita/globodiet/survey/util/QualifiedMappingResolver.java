@@ -18,7 +18,7 @@
  */
 package dita.globodiet.survey.util;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.commons.qmap.QualifiedMap;
 import dita.recall24.dto.RecallNode24;

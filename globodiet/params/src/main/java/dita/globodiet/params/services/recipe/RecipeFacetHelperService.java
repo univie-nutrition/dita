@@ -26,14 +26,14 @@ import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.collections._Lists;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipe;
 import dita.globodiet.params.pathway.FacetDescriptorPathwayForRecipeGroup;

@@ -20,7 +20,7 @@ package dita.globodiet.params.util;
 
 import org.apache.causeway.commons.internal.base._Strings;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.globodiet.params.food_list.Food;
@@ -60,7 +60,7 @@ public class GroupingUtils {
     /**
      * Whether given key represents a SubSubgroup (not a Subgroup).
      */
-    public boolean isSubSubgroup(final @NonNull FoodSubgroup.SecondaryKey key) {
+    public boolean isSubSubgroup(final FoodSubgroup.@NonNull SecondaryKey key) {
         return _Strings.isNotEmpty(key.foodSubSubgroupCode());
     }
 
@@ -68,7 +68,7 @@ public class GroupingUtils {
      * Blanks out the sub-sub-groupe code:
      * {@link dita.globodiet.params.food_list.FoodSubgroup.SecondaryKey#foodSubSubgroupCode()}.
      */
-    public FoodSubgroup.SecondaryKey maskSubSubgroup(final @NonNull FoodSubgroup.SecondaryKey key) {
+    public FoodSubgroup.SecondaryKey maskSubSubgroup(final FoodSubgroup.@NonNull SecondaryKey key) {
         if(GroupingUtils.isSubSubgroup(key)) {
             // convert secondary key
             var foodSubgroupKey = new FoodSubgroup.SecondaryKey(

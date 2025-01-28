@@ -37,7 +37,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.commons.services.rules.RuleChecker;
 import dita.globodiet.params.pathway.FacetDescriptorPathwayForFood;

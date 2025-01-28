@@ -20,7 +20,7 @@ package dita.commons.food.composition;
 
 import java.math.BigDecimal;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.food.composition.FoodComponent.ComponentUnit;

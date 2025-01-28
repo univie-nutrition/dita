@@ -37,7 +37,7 @@ import org.apache.causeway.commons.io.DataSource;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -178,7 +178,7 @@ public class TabularReporters {
                             .valueOf(Math.round(respondentAgeInDays/36.52422))
                             .scaleByPowerOfTen(-1));
             }
-            void recordType(@NonNull final Record24.Type type) {
+            void recordType(final Record24.@NonNull Type type) {
                 builder.recordType(type.name());
             }
         }

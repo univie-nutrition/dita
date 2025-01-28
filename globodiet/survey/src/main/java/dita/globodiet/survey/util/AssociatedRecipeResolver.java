@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.foodon.fdm.FoodDescriptionModel;

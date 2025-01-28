@@ -18,9 +18,9 @@
  */
 package dita.globodiet.params.util;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.globodiet.params.pathway.QuantificationMethodPathwayForFood;
 import dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup;

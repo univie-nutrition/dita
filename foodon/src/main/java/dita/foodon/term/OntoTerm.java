@@ -24,7 +24,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import dita.commons.sid.SemanticIdentifier;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;

@@ -22,12 +22,12 @@ import jakarta.inject.Inject;
 
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.commons.functional.Either;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.food_list.FoodGroup;

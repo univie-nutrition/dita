@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponentQuantified;

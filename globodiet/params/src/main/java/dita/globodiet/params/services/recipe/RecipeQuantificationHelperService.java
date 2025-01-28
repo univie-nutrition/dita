@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.functional.Either;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.globodiet.params.classification.RecipeGrouping;
 import dita.globodiet.params.pathway.QuantificationMethodPathwayForRecipe;

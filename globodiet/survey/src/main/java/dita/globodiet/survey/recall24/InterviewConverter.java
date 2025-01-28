@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -256,7 +256,7 @@ record InterviewConverter(SystemId systemId) {
      * includes brand name, if any
      */
     private static Stream<ObjectId> streamFacetObjectIds(
-            final @Nullable SidUtils.GdContext context,
+            final SidUtils.@Nullable GdContext context,
             final ListEntry listEntry) {
         return Stream.concat(
                 _Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")

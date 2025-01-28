@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
@@ -43,7 +43,7 @@ import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.Getter;
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -130,7 +130,7 @@ public record InterviewSet24(
      * @param transformer - transforms fields only (leave parent child relations untouched)
      */
     public InterviewSet24 transform(
-            final @NonNull RecallNode24.Transfomer transformer) {
+            final RecallNode24.@NonNull Transfomer transformer) {
         return Recall24DtoUtils.transform(this, transformer).orElse(null);
     }
 

@@ -28,7 +28,7 @@ import java.util.stream.IntStream;
 import jakarta.inject.Inject;
 
 import org.datanucleus.store.rdbms.query.ForwardQueryResult;
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
@@ -42,7 +42,7 @@ import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.params.util.FoodUtils;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.SneakyThrows;
 
 @Service

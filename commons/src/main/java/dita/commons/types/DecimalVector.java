@@ -18,7 +18,7 @@
  */
 package dita.commons.types;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.internal.assertions._Assert;
 

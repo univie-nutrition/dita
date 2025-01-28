@@ -21,14 +21,14 @@ package dita.globodiet.survey.recall24;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
@@ -95,7 +95,7 @@ public class InterviewXmlParser {
     // -- HELPER
 
     private InterviewSet24 createFromDto(
-            final @NonNull _Dtos.Itv dto,
+            final _Dtos.@NonNull Itv dto,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
 

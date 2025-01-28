@@ -29,7 +29,7 @@ import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.collections._Lists;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import dita.globodiet.params.classification.FoodGrouping;
 import dita.globodiet.params.food_list.Food;

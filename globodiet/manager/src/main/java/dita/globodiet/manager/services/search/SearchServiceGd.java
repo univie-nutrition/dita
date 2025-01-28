@@ -25,14 +25,14 @@ import jakarta.inject.Inject;
 
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 
 @Service
 public class SearchServiceGd

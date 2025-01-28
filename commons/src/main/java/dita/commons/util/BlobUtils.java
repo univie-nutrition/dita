@@ -24,14 +24,14 @@ import java.util.stream.Stream;
 
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.ZipUtils;
 import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

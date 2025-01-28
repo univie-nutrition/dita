@@ -20,7 +20,7 @@ package dita.globodiet.manager.services.iconfa;
 
 import io.github.causewaystuff.companion.applib.services.iconfa.IconFaService;
 
-import org.springframework.lang.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
