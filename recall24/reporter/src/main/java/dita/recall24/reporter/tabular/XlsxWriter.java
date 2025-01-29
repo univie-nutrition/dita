@@ -113,7 +113,7 @@ record XlsxWriter(Can<FoodComponent> foodComponents) {
         return new TabularModel.TabularColumn(
                 index,
                 comp.componentId().toStringNoBox(),
-                "%s\n[%s]".formatted(description, comp.componentUnit().symbol()));
+                "%s\n%s".formatted(description, comp.prefixedUnit()));
     }
 
     private TabularModel.TabularRow tabularRow(

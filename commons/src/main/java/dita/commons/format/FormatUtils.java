@@ -44,6 +44,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.experimental.UtilityClass;
 
+import dita.commons.food.composition.FoodComponent;
 import dita.commons.io.JaxbAdapters;
 
 @UtilityClass
@@ -208,6 +209,16 @@ public class FormatUtils {
             .filter(Objects::nonNull)
             .map(Helper::substring)
             .collect(Can.toCan());
+    }
+    
+    // -- PREFIXED UNIT
+    
+    public String prefixedUnit(final FoodComponent component) {
+        return "[%s%s]".formatted(
+                component.metricPrefix()!=null
+                    ? component.metricPrefix().getSymbol()
+                    : "",
+                component.componentUnit().symbol());
     }
 
 }

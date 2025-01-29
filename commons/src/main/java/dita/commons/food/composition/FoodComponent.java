@@ -29,6 +29,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
+import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.MetricUnits;
@@ -95,6 +96,10 @@ public record FoodComponent(
             return Quantities.getQuantity(amount, unit);
         }
 
+    }
+    
+    public String prefixedUnit() {
+        return FormatUtils.prefixedUnit(this);
     }
 
 }
