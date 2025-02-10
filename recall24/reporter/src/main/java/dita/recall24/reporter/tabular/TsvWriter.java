@@ -21,18 +21,29 @@ package dita.recall24.reporter.tabular;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
+import org.apache.causeway.commons.tabular.TabularModel.TabularColumn;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 
-record YamlWriter(TabularSheet sheet) {
+/**
+ * Writes a {@link TabularSheet} in tab-separated-values (TSV) format.
+ */
+record TsvWriter(TabularSheet sheet) {
 
     String write() {
         var sb = new StringBuilder();
-        //var columns = sheet.columns();
 
+        // primary header row
+        sb.append(sheet.columns().join(TabularColumn::columnName, "\t")).append("\n");
+
+        // secondary header row
+        sb.append(sheet.columns().join(col->col.columnDescription().replace('\n', ' '), "\t")).append("\n");
+
+        // data rows
         for(var row : sheet.rows()) {
-            var rowLiteral = row.cells().join(this::toCellLabel, "|");
-            sb.append(rowLiteral);
+            var rowLiteral = row.cells().join(this::toCellLabel, "\t");
+            sb.append(rowLiteral).append("\n");
         }
+
         return sb.toString();
     }
 

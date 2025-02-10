@@ -125,9 +125,9 @@ public record TabularReport(
         }
     }
 
-    public String reportYaml() {
+    public String reportTsv() {
         var sheet = new TabularFactory(foodComponents).toTabularSheet(aggregate());
-        return new YamlWriter(sheet).write();
+        return new TsvWriter(sheet).write();
     }
 
     // -- HELPER

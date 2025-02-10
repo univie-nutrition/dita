@@ -65,4 +65,18 @@ public class ApprovalTestOptions {
             .withExtension(".yaml");
     }
 
+    /**
+     * Note: WinMerge needs to play along, that is configure their default file encoding to UTF-8.
+     */
+    public Options tsvOptions() {
+        return new Options()
+            .withScrubber(s ->
+                // UNIX style line endings
+                TextUtils.streamLines(s)
+                    .collect(Collectors.joining("\n"))
+            )
+            .forFile()
+            .withExtension(".tsv");
+    }
+
 }

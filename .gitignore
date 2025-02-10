@@ -64,10 +64,16 @@ component/objectstore/xml/xml/objects/
 component/objectstore/xml/tmp/tests/
 
 # approval tests
+.approval_tests_temp
 *.json.bak
 *.yaml.bak
+*.csv.bak
+*.tsv.bak
 *.received.json
 *.received.yaml
+*.received.csv
+*.received.tsv
+Private*
 
 # log files
 *.log
