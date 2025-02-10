@@ -45,9 +45,8 @@ import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.SidUtils;
-import dita.recall24.reporter.tabular.TabularReporters;
-import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
-import dita.recall24.reporter.tabular.TabularReporters.TabularReport;
+import dita.recall24.reporter.tabular.TabularReport;
+import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -95,7 +94,7 @@ extends CausewayIntegrationTestAbstract {
 
         var reportContext = ReportContext.load(Can.of(campaignKeyForTesting()), surveyBlobStore);
 
-        return TabularReporters.TabularReport.builder()
+        return TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))
                 .fcoMapping(reportContext.fcoMapping())
                 .fcoQualifier(SidUtils.languageQualifier("de"))
@@ -106,7 +105,8 @@ extends CausewayIntegrationTestAbstract {
                         .stream()
                         .limit(maxNutrientColumns)
                         .collect(Can.toCan()))
-                .interviewSet(reportContext.interviewSet())
+                //.interviewSet(reportContext.interviewSet())
+                .interviewSet(reportContext.interviewSet().filter(resp->resp.alias().equals("EB_0357")))
                 .aggregation(aggregation)
                 .build();
     }
@@ -114,7 +114,7 @@ extends CausewayIntegrationTestAbstract {
     // -- HELPER
 
     static String SURVEY_CODE = "at-national-2026";
-    static String CAMPAIGN_CODE = "wave1";
+    static String CAMPAIGN_CODE = "wave2";
     static String SYSTEM_ID = "at.gd/2.0";
 
     private Campaign.SecondaryKey campaignKeyForTesting() {

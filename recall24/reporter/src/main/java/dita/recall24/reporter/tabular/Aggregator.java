@@ -22,7 +22,7 @@ import java.util.List;
 
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
-import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
+import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 
 record Aggregator(
         Aggregation aggregation) {

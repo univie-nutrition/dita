@@ -33,7 +33,7 @@ import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
-import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
+import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,
@@ -41,7 +41,7 @@ import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
 @PrivateDataTest
 @Log4j2
 class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
-    
+
     @Test
     void parsingFromBlobStore() throws InterruptedException, ExecutionException {
         var aggregation = Aggregation.NONE;

@@ -43,8 +43,8 @@ import dita.commons.format.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
 import dita.globodiet.survey.util.SidUtils;
-import dita.recall24.reporter.tabular.TabularReporters;
-import dita.recall24.reporter.tabular.TabularReporters.Aggregation;
+import dita.recall24.reporter.tabular.TabularReport;
+import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
@@ -83,7 +83,7 @@ public class Survey_generateReport {
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
-        var tabularReport = new TabularReporters.TabularReport(
+        var tabularReport = new TabularReport(
             reportContext.interviewSet(), Campaigns.systemId(mixee),
             reportContext.fcoMapping(), SidUtils.languageQualifier("de"),
             reportContext.pocMapping(), SidUtils.languageQualifier("de"),
