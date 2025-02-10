@@ -20,129 +20,24 @@ package dita.recall24.reporter.tabular;
 
 import java.io.File;
 
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.functional.IndexedFunction;
-import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.tabular.TabularModel;
-import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
-import org.apache.causeway.commons.tabular.TabularModel.TabularRow;
-import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
-import org.apache.causeway.core.metamodel.object.ManagedObject;
-import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
-import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
-import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 import org.apache.causeway.extensions.tabular.excel.exporter.ExcelFileWriter;
 import org.apache.causeway.extensions.tabular.excel.exporter.TabularExcelExporter;
 
-import dita.commons.food.composition.FoodComponent;
-import dita.commons.sid.SemanticIdentifier;
-import dita.recall24.reporter.dom.ConsumptionRecord;
+record XlsxWriter(TabularSheet sheet) {
 
-record XlsxWriter(Can<FoodComponent> foodComponents) {
-
-    public void write(final Iterable<ConsumptionRecord> elements, final File file) {
-        var dataTable = DataTable.forDomainType(ConsumptionRecord.class)
-            .withDataElementPojos(elements);
-
-        var sheet = toTabularSheet(dataTable);
-
+    public void write(final File file) {
         new TabularExcelExporter()
             .export(sheet, file, ExcelFileWriter.Options.builder()
-                    .cellStyleFunction(cell->isWip(cell)
+                    .cellStyleFunction(cell->TabularFactory.isWip(cell)
                             ? ExcelFileWriter.Options.CustomCellStyle.DANGER
-                            : isComposite(cell)
+                            : TabularFactory.isComposite(cell)
                                 ? ExcelFileWriter.Options.CustomCellStyle.INDIGO
                                 : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
-                    .rowStyleFunction(row->containsWip(row)
+                    .rowStyleFunction(row->TabularFactory.containsWip(row)
                             ? ExcelFileWriter.Options.CustomCellStyle.WARNING
                             : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
                     .build());
-    }
-
-    // -- HELPER
-
-    private boolean isWip(final TabularCell cell) {
-        return ":WIP".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
-    }
-
-    private boolean isComposite(final TabularCell cell) {
-        return "COMPOSITE".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
-    }
-
-    private boolean containsWip(final TabularRow row) {
-        return row.cells().stream().anyMatch(this::isWip);
-    }
-
-    private TabularModel.TabularSheet toTabularSheet(
-            final DataTable dataTable) {
-
-        var dataColumnsFiltered = dataTable.dataColumns()
-                .filter(col->!col.columnId().equals("nutrients"));
-
-        var columns = dataColumnsFiltered
-                .map(IndexedFunction.zeroBased(this::tabularColumn))
-                .toArrayList();
-        // add nutrient columns
-        foodComponents.forEach(comp->columns.add(tabularColumn(columns.size(), comp)));
-
-        var rows = dataTable.dataRows()
-                .map(dr->tabularRow(dataColumnsFiltered, dr));
-        return new TabularModel.TabularSheet(dataTable.tableFriendlyName(), Can.ofCollection(columns), rows);
-    }
-
-    // -- HELPER
-
-    private TabularModel.TabularColumn tabularColumn(final int index, final DataColumn dc) {
-        return new TabularModel.TabularColumn(
-                index,
-                dc.columnFriendlyName(),
-                dc.columnDescription().orElse(""));
-    }
-
-    //de.literal:name/‹..›
-    final static SemanticIdentifier.SystemId literalDe = new SemanticIdentifier.SystemId("de.literal");
-
-    private TabularModel.TabularColumn tabularColumn(final int index, final FoodComponent comp) {
-
-        var description = comp.attributes().elements().stream()
-                .filter(attr->attr.systemId().equals(literalDe))
-                .findFirst()
-                .map(attr->attr.objectId().objectSimpleId())
-                .orElse("no description");
-
-        return new TabularModel.TabularColumn(
-                index,
-                comp.componentId().toStringNoBox(),
-                "%s\n%s".formatted(description, comp.prefixedUnit()));
-    }
-
-    private TabularModel.TabularRow tabularRow(
-            final Can<DataColumn> dataColumns,
-            final DataRow dataRow) {
-
-        var cells = dataColumns.map(dataColumn->{
-            var cellElements = dataRow.getCellElements(dataColumn, InteractionInitiatedBy.PASS_THROUGH);
-            return TabularModel.TabularCell.single(cellElements.getFirst().map(ManagedObject::getPojo).orElse(null));
-        })
-        .toArrayList();
-
-        var consumptionRecord = (ConsumptionRecord) dataRow.rowElement().getPojo();
-        var nutrients = consumptionRecord.nutrients();
-
-        // add nutrient cells
-        if(!nutrients.isEmpty()) {
-            _Assert.assertEquals(foodComponents.size(), nutrients.cardinality());
-            foodComponents
-                .map(IndexedFunction.zeroBased((index, _)->
-                    TabularModel.TabularCell.single(nutrients.get(index))))
-                .forEach(cells::add);
-        } else {
-            foodComponents
-                .map(_->TabularModel.TabularCell.empty())
-                .forEach(cells::add);
-        }
-
-        return new TabularModel.TabularRow(Can.ofCollection(cells));
     }
 
 }

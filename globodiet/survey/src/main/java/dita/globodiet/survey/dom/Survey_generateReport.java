@@ -95,7 +95,7 @@ public class Survey_generateReport {
                 mixee.getCode().toLowerCase(),
                 aggregation.name(),
                 FormatUtils.isoDate(LocalDate.now()));
-        return tabularReport.reportAsBlob(name);
+        return tabularReport.reportXlsxAsBlob(name);
     }
 
     @MemberSupport

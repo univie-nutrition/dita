@@ -50,7 +50,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
         log.info("write report");
         var xlsxFile = new File("d:/tmp/_scratch/report-aggr-" + aggregation.name().toLowerCase() + ".xlsx");
-        tabularReport.report(xlsxFile);
+        tabularReport.reportXlsx(xlsxFile);
         XlsxUtils.launchViewerAndWaitFor(xlsxFile);
 
 //      var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);

@@ -109,6 +109,29 @@ public record TabularReport(
         FACETS
     }
 
+    public void reportXlsx(final File file) {
+        var sheet = new TabularFactory(foodComponents).toTabularSheet(aggregate());
+        new XlsxWriter(sheet).write(file);
+    }
+
+    @SneakyThrows
+    public Blob reportXlsxAsBlob(final String name) {
+        var tempFile = File.createTempFile(this.getClass().getCanonicalName(), name);
+        try {
+            this.reportXlsx(tempFile);
+            return Blob.of(name, CommonMimeType.XLSX, DataSource.ofFile(tempFile).bytes());
+        } finally {
+            Files.deleteIfExists(tempFile.toPath()); // cleanup
+        }
+    }
+
+    public String reportYaml() {
+        var sheet = new TabularFactory(foodComponents).toTabularSheet(aggregate());
+        return new YamlWriter(sheet).write();
+    }
+
+    // -- HELPER
+
     @Setter
     @RequiredArgsConstructor
     private static class RowFactory {
@@ -180,23 +203,7 @@ public record TabularReport(
         }
     }
 
-    public void report(final File file) {
-        var xlsxWriter = new XlsxWriter(foodComponents);
-        xlsxWriter.write(aggregate(), file);
-    }
-
-    @SneakyThrows
-    public Blob reportAsBlob(final String name) {
-        var tempFile = File.createTempFile(this.getClass().getCanonicalName(), name);
-        try {
-            this.report(tempFile);
-            return Blob.of(name, CommonMimeType.XLSX, DataSource.ofFile(tempFile).bytes());
-        } finally {
-            Files.deleteIfExists(tempFile.toPath()); // cleanup
-        }
-    }
-
-    public Iterable<ConsumptionRecord> aggregate() {
+    private Iterable<ConsumptionRecord> aggregate() {
 
         var rowFactory = new RowFactory(new NutrientVectorFactory(foodComponents));
         var rowBuilder = rowFactory.builder();
