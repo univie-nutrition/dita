@@ -1,0 +1,127 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package dita.globodiet.manager.editing.wip;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+import jakarta.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.apache.causeway.applib.annotation.Action;
+import org.apache.causeway.applib.annotation.ActionLayout;
+import org.apache.causeway.applib.annotation.ActionLayout.Position;
+import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.RestrictTo;
+import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
+
+import lombok.RequiredArgsConstructor;
+
+import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.types.Sex;
+import dita.foodon.fdm.FoodDescriptionModel;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
+import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Campaigns;
+import dita.recall24.dto.Interview24;
+import dita.recall24.dto.Meal24;
+import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.Record24;
+import dita.recall24.dto.Respondent24;
+import dita.recall24.dto.RespondentSupplementaryData24;
+import dita.recall24.dto.RuntimeAnnotated.Annotation;
+import dita.recall24.dto.util.Recall24DtoUtils;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+
+@Action(restrictTo = RestrictTo.PROTOTYPING)
+@ActionLayout(fieldSetName="listOfRecipe", position = Position.PANEL)
+@RequiredArgsConstructor
+public class RecipeManager_generateProtocolFromRecipes {
+
+    @Inject private RepositoryService repositoryService;
+    @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+
+    final Recipe.Manager recipeManager;
+
+    @MemberSupport
+    public Clob act(Campaign campaign) {
+        var foodDescriptionModel = Campaigns.foodDescriptionModel(campaign.secondaryKey(), surveyBlobStore);
+        var recordFactory = new RecordFactory(foodDescriptionModel);
+        var memorizedFoods = foodDescriptionModel.ingredientsByRecipeSid().entrySet().stream()
+            .map(entry->{
+                var recipeSid = entry.getKey();
+                var ingredients = entry.getValue();
+                return MemorizedFood24.of(
+                    "Example Consumption Record for Recipe " + recipeSid, 
+                    Can.of(recordFactory.toCompositeRecord(recipeSid, ingredients)));
+            })
+            .collect(Can.toCan());
+
+        var interview = Interview24.of(
+            new Respondent24("ALIAS", LocalDate.of(1975, 05, 05), Sex.MALE, Can.empty()), 
+            LocalDate.of(2025, 01, 02), 
+            LocalDate.of(2025, 01, 01), 
+            new RespondentSupplementaryData24(ObjectRef.empty(), "0", "0", new BigDecimal("175"), new BigDecimal("75")), 
+            Can.of(Meal24.of(LocalTime.of(8,0), "at.gd/2.0:fco/03", "at.gd/2.0:poc/02", memorizedFoods)));
+        var interviewSet = Recall24DtoUtils.join(List.of(interview), null);
+        return Clob.of("RecipesAsProtocol", CommonMimeType.YAML, interviewSet.toYaml());
+    }
+    
+    @MemberSupport
+    List<Campaign> choicesCampaign() {
+        return repositoryService.allInstances(Campaign.class);
+    }
+    
+    // -- HELPER
+    
+    private record RecordFactory(FoodDescriptionModel foodDescriptionModel) {
+        Record24.Composite toCompositeRecord(SemanticIdentifier recipeSid, List<RecipeIngredient> ingredients) {
+            var recipe = foodDescriptionModel.recipeBySid().get(recipeSid);
+            return Record24.composite(
+                recipe.name(), 
+                recipeSid,
+                SemanticIdentifierSet.empty(), //TODO missing recipe facets
+                ingredients.stream().map(this::toIngredientRecord).collect(Can.toCan()), 
+                Can.empty());
+        }
+        
+        Record24.Food toIngredientRecord(FoodDescriptionModel.RecipeIngredient ingredient) {
+            final SemanticIdentifier sid = ingredient.foodSid();
+            final String name = foodDescriptionModel.foodBySid().get(sid).name();
+            final SemanticIdentifierSet facetSids = ingredient.foodFacetSids();
+            final BigDecimal amountConsumed = ingredient.amountGrams();
+            final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;
+            final BigDecimal rawPerCookedRatio = BigDecimal.ONE.negate(); //TODO missing ratio
+            final Can<Record24> usedDuringCooking = Can.empty();
+            final Can<Annotation> annotations = Can.empty();
+            return Record24.food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, usedDuringCooking, annotations);
+        }
+    }
+
+}

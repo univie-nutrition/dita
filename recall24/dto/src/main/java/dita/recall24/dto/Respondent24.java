@@ -74,7 +74,7 @@ public record Respondent24(
 
     @SuppressWarnings("unchecked")
     @Override
-    public Builder24<Respondent24> asBuilder() {
+    public Respondent24.Builder asBuilder() {
         return Builder.of(this);
     }
 
