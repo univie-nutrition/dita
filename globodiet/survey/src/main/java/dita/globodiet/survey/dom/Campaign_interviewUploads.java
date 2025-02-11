@@ -46,7 +46,9 @@ public class Campaign_interviewUploads {
     public List<InterviewUpload> coll() {
         return surveyBlobStore.listDescriptors(Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()), true)
                 .stream()
-                .filter(desc->desc.mimeType().equals(CommonMimeType.XML))
+                .filter(desc->
+                    desc.mimeType().equals(CommonMimeType.XML)
+                    || desc.mimeType().equals(CommonMimeType.YAML))
                 .map(InterviewUpload::of)
                 .toList();
     }

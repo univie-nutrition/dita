@@ -43,6 +43,14 @@ public class BlobUtils {
                 : CommonMimeType.XML.matches(blob.getMimeType())
                     || blob.getMimeType().toString().contains("xml");
     }
+    
+    public boolean isYaml(final @Nullable Blob blob) {
+        return blob==null
+                ? false
+                : CommonMimeType.YAML.matches(blob.getMimeType())
+                    || blob.getName().endsWith(".yaml")
+                    || blob.getName().endsWith(".yml");
+    }
 
     public boolean isZipped(final @Nullable Blob blob) {
         return blob==null

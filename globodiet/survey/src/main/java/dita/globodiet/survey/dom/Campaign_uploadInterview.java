@@ -39,6 +39,7 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
+import lombok.extern.log4j.Log4j2;
 
 import dita.commons.util.BlobUtils;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
@@ -57,6 +58,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 )
 @RequiredArgsConstructor
 @ExtensionMethod({BlobUtils.class})
+@Log4j2
 public class Campaign_uploadInterview {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
@@ -68,16 +70,18 @@ public class Campaign_uploadInterview {
 
     @MemberSupport
     public Campaign act(
-            @Parameter(fileAccept = ".xml,.zip")
+            @Parameter(fileAccept = ".xml,.yaml,.zip")
             @ParameterLayout(
-                    describedAs = "Either a single interview xml file or multiple provided as a zip.")
+                    describedAs = "Either a single interview xml/yaml file or multiple provided as a zip.")
             final Blob interviewFileOrFiles) {
 
         if(interviewFileOrFiles.isZipped()) {
-            interviewFileOrFiles.unzipAsBlobStream(CommonMimeType.XML)
-                .forEach(this::uploadToBlobStore);
+            interviewFileOrFiles.unzipAsBlobStream(CommonMimeType.XML) //TODO needs mime autodetect
+                .forEach(blob->uploadToBlobStore(blob, CommonMimeType.XML)); //TODO needs mime autodetect
         } else if(interviewFileOrFiles.isXml()) {
-            uploadToBlobStore(interviewFileOrFiles);
+            uploadToBlobStore(interviewFileOrFiles, CommonMimeType.XML);
+        } else if(interviewFileOrFiles.isYaml()) {
+            uploadToBlobStore(interviewFileOrFiles, CommonMimeType.YAML);
         } else {
             throw new RecoverableException(String.format("unsupported mime %s%n",
                     interviewFileOrFiles.getMimeType().toString()));
@@ -88,23 +92,23 @@ public class Campaign_uploadInterview {
 
     // -- HELPER
 
-    private void uploadToBlobStore(final Blob xmlBlob) {
-        //TODO remove debug
-        System.err.printf("upload %s (%s)%n", xmlBlob.getName(), xmlBlob.sha256Hex());
+    private void uploadToBlobStore(final Blob blob, CommonMimeType commonMimeType) {
+        var sha = "" + blob.sha256Hex();
+        log.info("upload {} (sha256Hex={})", blob.getName(), sha);
 
-        var zippedBlob = xmlBlob.zip();
+        var zippedBlob = blob.zip();
 
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
                 .getUser().getName();
         var blobDescriptor = new BlobDescriptor(
-                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()).add(xmlBlob.getName()),
-                CommonMimeType.XML,
+                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()).add(blob.getName()),
+                commonMimeType,
                 createdBy,
                 Instant.now(),
                 (long)zippedBlob.getBytes().length,
                 Compression.ZIP,
-                Map.of("uncompressed-size", "" + xmlBlob.getBytes().length,
-                        "sha256", "" + xmlBlob.sha256Hex()));
+                Map.of("uncompressed-size", "" + blob.getBytes().length,
+                        "sha256", sha));
         surveyBlobStore.putBlob(blobDescriptor, zippedBlob);
     }
 
