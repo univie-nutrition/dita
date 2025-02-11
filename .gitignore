@@ -73,7 +73,7 @@ component/objectstore/xml/tmp/tests/
 *.received.yaml
 *.received.csv
 *.received.tsv
-Private*
+Private*approved*
 
 # log files
 *.log
