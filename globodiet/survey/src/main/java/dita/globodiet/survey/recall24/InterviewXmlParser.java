@@ -18,9 +18,9 @@
  */
 package dita.globodiet.survey.recall24;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.value.Clob;
@@ -28,11 +28,11 @@ import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JaxbUtils;
 
-import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
+import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 
@@ -65,7 +65,7 @@ public class InterviewXmlParser {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, source)
                 .valueAsNullableElseFail();
         if(dto==null) {
-            warnEmptyDataSource(source, messageConsumer);
+            InterviewUtils.warnEmptyDataSource(source, messageConsumer);
             return InterviewSet24.empty();
         }
         var interviewSet = createFromDto(dto, systemId, messageConsumer);
@@ -84,7 +84,7 @@ public class InterviewXmlParser {
         var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
                 .valueAsNullableElseFail();
         if(dto==null) {
-            warnEmptyDataSource(interviewSource, messageConsumer);
+            InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
             return InterviewSet24.empty();
         }
         var interviewSet = createFromDto(dto, systemId, messageConsumer);
@@ -106,19 +106,6 @@ public class InterviewXmlParser {
                     .map(interviewConverter::toInterview24)
                     .toList(),
                 messageConsumer);
-    }
-
-    private void warnEmptyDataSource(
-            final Object source,
-            final @Nullable Consumer<Message> messageConsumer) {
-        var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
-                .orElseGet(Message::consumerWritingToSyserr);
-        var sourceName = switch (source) {
-            case Clob clob -> clob.getName();
-            default -> source.getClass().getName();
-        };
-        messageConsumerOrFallback
-            .accept(Message.warn("empty interview data source detected: %s", sourceName));
     }
 
 }

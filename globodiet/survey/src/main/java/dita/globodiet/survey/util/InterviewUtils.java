@@ -23,10 +23,10 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import org.apache.causeway.applib.value.Blob;
+import org.jspecify.annotations.Nullable;
+
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
@@ -36,8 +36,8 @@ import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.util.InterviewSetYamlParser;
 import dita.recall24.dto.util.Recall24DtoUtils;
-import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -45,30 +45,31 @@ import io.github.causewaystuff.commons.base.types.NamedPath;
 @Log4j2
 public class InterviewUtils {
 
-    public Clob unzip(final Blob zippedInterviewSource) {
-        var unzippedBlob = zippedInterviewSource
-                .unZip(CommonMimeType.XML, ZipOptions.builder()
-                        .zipEntryCharset(StandardCharsets.ISO_8859_1)
-                        .zipEntryFilter(entry->{
-                            log.info(String.format("parsing Zip entry %s (%.2fKB)",
-                                    entry.getName(),
-                                    0.001*entry.getSize()));
-                            return true;
-                        })
-                        .build());
-        return unzippedBlob
-                .toClob(StandardCharsets.UTF_8);
-    }
+//    public Clob unzip(final Blob zippedInterviewSource, CommonMimeType mime) {
+//        var unzippedBlob = zippedInterviewSource
+//                .unZip(mime, ZipOptions.builder()
+//                        .zipEntryCharset(StandardCharsets.ISO_8859_1)
+//                        .zipEntryFilter(entry->{
+//                            log.info(String.format("parsing Zip entry %s (%.2fKB)",
+//                                    entry.getName(),
+//                                    0.001*entry.getSize()));
+//                            return true;
+//                        })
+//                        .build());
+//        return unzippedBlob
+//                .toClob(StandardCharsets.UTF_8);
+//    }
 
     public Stream<Clob> streamSources(final BlobStore surveyBlobStore, final NamedPath path, final boolean recursive) {
         return surveyBlobStore.listDescriptors(path, recursive)
             .stream()
             .filter(desc->desc.mimeType().equals(CommonMimeType.XML)
                 || desc.mimeType().equals(CommonMimeType.YAML))
-            .map(BlobDescriptor::path)
-            .map(surveyBlobStore::lookupBlob)
-            .map(Optional::orElseThrow)
-            .map(InterviewUtils::unzip);
+            .map(desc->{
+                return surveyBlobStore.lookupBlobAndUncompress(desc.path())
+                    .orElseThrow()
+                    .toClob(StandardCharsets.UTF_8);    
+            });
     }
 
     public InterviewSet24 interviewSetFromBlobStore(
@@ -93,10 +94,29 @@ public class InterviewUtils {
 
         return interviewSet;
     }
+    
+    public void warnEmptyDataSource(
+        final Object source,
+        final @Nullable Consumer<Message> messageConsumer) {
+        
+        var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
+            .orElseGet(Message::consumerWritingToSyserr);
+        var sourceName = switch (source) {
+            case Clob clob -> clob.getName();
+            default -> source.getClass().getName();
+        };
+        messageConsumerOrFallback
+            .accept(Message.warn("empty interview data source detected: %s", sourceName));
+    }
 
-    private InterviewSet24 parseYaml(Clob ds, SystemId systemId, Consumer<Message> messageConsumer) {
-        // TODO Auto-generated method stub
-        return null;
+    private InterviewSet24 parseYaml(Clob interviewSource, SystemId systemId, Consumer<Message> messageConsumer) {
+        var interviewSet = InterviewSetYamlParser.parseYaml(interviewSource.asString());
+        if(interviewSet==null) {
+            InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
+            return InterviewSet24.empty();
+        }
+        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.getName()));
+        return interviewSet;
     }
 
 }
