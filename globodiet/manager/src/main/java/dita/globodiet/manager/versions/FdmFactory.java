@@ -259,7 +259,8 @@ record FdmFactory(
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(39)),
                 SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(38), ",")
                         .map(facetCodeAs4digits->SidUtils.GdContext.FOOD_DESCRIPTOR.sid(systemId, facetCodeAs4digits))),
-                new BigDecimal(cellLiterals.get(6))
+                new BigDecimal(cellLiterals.get(6)),
+                new BigDecimal(cellLiterals.get(33))
                 );
     }
 

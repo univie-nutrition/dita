@@ -67,7 +67,8 @@ class FdmUtilsTest {
                                         Stream.of(
                                                 SemanticIdentifier.parse("test:fd/1234"),
                                                 SemanticIdentifier.parse("test:fd/5678"))),
-                                new BigDecimal("0.123"))
+                                new BigDecimal("0.123"),
+                                new BigDecimal("0.324"))
                         ))
                 .build();
         var fdm = FdmUtils.fromDto(dto);

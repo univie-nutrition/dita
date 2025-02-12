@@ -19,6 +19,7 @@
 package dita.globodiet.manager.editing.wip;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -45,10 +46,10 @@ import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
@@ -92,19 +93,23 @@ public class RecipeManager_generateProtocolFromRecipes {
     private record RecordFactory(FoodDescriptionModel foodDescriptionModel) {
         Record24.Composite toCompositeRecord(SemanticIdentifier recipeSid, List<RecipeIngredient> ingredients) {
             var recipe = foodDescriptionModel.recipeBySid().get(recipeSid);
+            
+            var recipeTotalGram = foodDescriptionModel.sumAmountGramsForRecipe(recipe);
+            var normativeFactor = new BigDecimal(100d/recipeTotalGram.doubleValue());
+            
             return Record24.composite(
                 recipe.name(), 
                 recipeSid,
                 SemanticIdentifierSet.empty(), //TODO missing recipe facets
-                ingredients.stream().map(this::toIngredientRecord).collect(Can.toCan()), 
+                ingredients.stream().map(ingr->toIngredientRecord(ingr, normativeFactor)).collect(Can.toCan()), 
                 Can.empty());
         }
         
-        Record24.Food toIngredientRecord(FoodDescriptionModel.RecipeIngredient ingredient) {
+        Record24.Food toIngredientRecord(FoodDescriptionModel.RecipeIngredient ingredient, BigDecimal normativeFactor) {
             final SemanticIdentifier sid = ingredient.foodSid();
             final String name = foodDescriptionModel.foodBySid().get(sid).name();
             final SemanticIdentifierSet facetSids = ingredient.foodFacetSids();
-            final BigDecimal amountConsumed = ingredient.amountGrams();
+            final BigDecimal amountConsumed = ingredient.amountGrams().multiply(normativeFactor).setScale(3, RoundingMode.HALF_UP);
             final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;
             final BigDecimal rawPerCookedRatio = BigDecimal.ONE.negate(); //TODO missing ratio
             final Can<Record24> usedDuringCooking = Can.empty();

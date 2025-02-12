@@ -64,7 +64,8 @@ public record FoodDescriptionModel(
             /**
              * Amount consumed in gram.
              */
-            BigDecimal amountGrams) {
+            BigDecimal amountGrams,
+            BigDecimal rawToCookedRatio) {
     }
 
     public record ClassificationFacet(

@@ -76,9 +76,9 @@ public class Persistable_schema {
     // -- HELPER
 
     private String toLookupKeyIntoSchemaEntities(final LogicalType logicalType) {
-        return logicalType.getNamespace().substring("dita.globodiet.".length())
+        return logicalType.namespace().substring("dita.globodiet.".length())
                 + "."
-                + logicalType.getLogicalTypeSimpleName();
+                + logicalType.logicalSimpleName();
     }
 
 }
