@@ -143,7 +143,7 @@ class ParseFormatUtils {
                         }
                         if(c2<c1) {
                             // skip ahead after c3
-                            return nextSetDelimiterIndex(c3+1);
+                            return nextSetDelimiterIndex(c3 + 1);
                         }
                     }
                 }
@@ -154,9 +154,9 @@ class ParseFormatUtils {
         helper.remainder = stringifiedSet;
         int nextSetDelimiterIndex = 0;
         var sids = new ArrayList<SemanticIdentifier>();
-        while((nextSetDelimiterIndex = helper.nextSetDelimiterIndex(nextSetDelimiterIndex)) > -1) {
+        while((nextSetDelimiterIndex = helper.nextSetDelimiterIndex(0)) > -1) {
             sids.add(parseSid(helper.remainder.substring(0, nextSetDelimiterIndex).trim()));
-            helper.remainder = helper.remainder.substring(nextSetDelimiterIndex + 1);
+            helper.remainder = helper.remainder.substring(nextSetDelimiterIndex + 1).stripLeading();
         }
         sids.add(parseSid(helper.remainder.trim()));
         return SemanticIdentifierSet.ofCollection(sids);

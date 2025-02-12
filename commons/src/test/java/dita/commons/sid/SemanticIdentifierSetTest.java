@@ -85,5 +85,20 @@ class SemanticIdentifierSetTest {
     void wip() {
         assertEquals(":WIP", SemanticIdentifierSet.wip().toStringNoBox());
     }
+    
+    @Test
+    void roundtrip() {
+        final SemanticIdentifierSet orig = SemanticIdentifierSet.ofCollection(List.of(
+            SemanticIdentifier.parse(":brand/ja_natürlich"),
+            SemanticIdentifier.parse("at.gd/2.0:fd/0204"),
+            SemanticIdentifier.parse("at.gd/2.0:fd/0301"),
+            SemanticIdentifier.parse("at.gd/2.0:fd/0499"),
+            SemanticIdentifier.parse("at.gd/2.0:fd/1201"),
+            SemanticIdentifier.parse("at.gd/2.0:fd/1302")));
+        
+        var roundTripped = SemanticIdentifierSet.parse(orig.toStringNoBox());
+        assertEquals(orig, roundTripped);
+    }
+    
 
 }
