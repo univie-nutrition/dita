@@ -78,6 +78,5 @@ public class ApprovalTestOptions {
             .forFile()
             .withExtension(".tsv");
     }
-   
 
 }

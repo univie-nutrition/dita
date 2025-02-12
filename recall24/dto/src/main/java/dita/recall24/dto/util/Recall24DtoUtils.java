@@ -21,6 +21,7 @@ package dita.recall24.dto.util;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -185,24 +186,29 @@ public class Recall24DtoUtils {
         return new MemorizedFood24(
             parser.string("name"),
             parser.collection("topLevelRecords").stream()
-                .map(Recall24DtoUtils::topLevelRecord)
+                .map(Recall24DtoUtils::record)
                 .collect(Can.toCan()));
     }
-    private Record24 topLevelRecord(Map<String, Object> map) {
+    private Record24 record(Map<String, Object> map) {
         var parser = new YamlParser(map);
         var recordType = Record24.Type.valueOf(parser.string("type"));
         
         return switch(recordType) {
-            
-            case FOOD -> new Record24.Food(ObjectRef.empty(), recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"), 
+            case COMPOSITE -> new Record24.Composite(ObjectRef.empty(),
+                recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"),
+                parser.collection("subRecords").stream()
+                    .map(Recall24DtoUtils::record)
+                    .collect(Can.toCan()),
+                new HashMap<>());
+            case FOOD -> new Record24.Food(ObjectRef.empty(), 
+                recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"), 
                 parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawPerCookedRatio"),
                 /*TODO not implemented
                 Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
                 Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking,
                 Map<String, Annotation> annotations*/    
-                Optional.empty(), Optional.empty(), Map.of());
+                Optional.empty(), Optional.empty(), new HashMap<>());
             case COMMENT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
-            case COMPOSITE -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
             case FRYING_FAT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
             case PRODUCT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
             case TYPE_OF_FAT_USED -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
