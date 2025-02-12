@@ -46,7 +46,7 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
     void parsingFromBlobStore() throws InterruptedException, ExecutionException {
         var aggregation = Aggregation.NONE;
 
-        var tabularReport = tabularReport(aggregation, 4);
+        var tabularReport = tabularReport(aggregation, _->true, _->true, 4);
 
         log.info("write report");
         var xlsxFile = new File("d:/tmp/_scratch/report-aggr-" + aggregation.name().toLowerCase() + ".xlsx");

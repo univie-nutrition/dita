@@ -34,6 +34,7 @@ import org.springframework.util.StringUtils;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
@@ -59,12 +60,19 @@ public class InterviewSetYamlParser {
 
     public InterviewSet24 parseYaml(@Nullable String yaml) {
         if(!StringUtils.hasLength(yaml)) return InterviewSet24.empty();
-        
         // put decimal values into quotes, so those are converted to type String and can be used with BigDecimal to full precision
         yaml = TextUtils.readLines(yaml).map(InterviewSetYamlParser::toQuotedDecimal).join("\n");
         
-        var rootMap = YamlUtils.tryRead(Map.class, yaml).valueAsNonNullElseFail();
-        var parser = new YamlParser(_Casts.uncheckedCast(rootMap));
+        var characterCount = yaml.length();
+        
+        var asMap = YamlUtils
+            .tryReadCustomized(LinkedHashMap.class, yaml, loader->{
+                loader.setCodePointLimit(characterCount);
+                return loader;
+            })
+            .valueAsNonNullElseFail();
+        
+        var parser = new YamlParser(_Casts.uncheckedCast(asMap));
         var interviewSet = new InterviewSet24(parser.collection("respondents").stream()
                 .map(InterviewSetYamlParser::respondent)
                 .collect(Can.toCan()),
@@ -74,11 +82,16 @@ public class InterviewSetYamlParser {
     
     // -- HELPER
     
-    private final List<String> PRECISE_DECIMALS = List.of("amountConsumed", "rawPerCookedRatio"); 
+    private final List<String> PRECISE_DECIMALS = List.of("amountConsumed", "heightCM", "weightKG", "rawPerCookedRatio"); 
     private String toQuotedDecimal(String line) {
         for(var key : PRECISE_DECIMALS) {
             if(line.trim().startsWith(key)) {
-                return _Strings.splitThenApplyRequireNonEmpty(line, ":", (lhs, rhs)-> lhs + ": \"" + rhs.trim() + "\"").orElseThrow();
+                return _Strings.splitThenApplyRequireNonEmpty(line, ":", (lhs, rhs)->{
+                    var value = rhs.trim();
+                    return "null".equals(value)
+                        ? lhs + ": " + value // don't quote <null>
+                        : lhs + ": \"" + value + "\"";
+                }).orElseThrow();
             }    
         }
         return line;
@@ -184,19 +197,41 @@ public class InterviewSetYamlParser {
             return "" + map.get(key);
         }
         LocalDate localDate(String key) {
-            return LocalDate.parse(string(key));
+            var value = map.get(key);
+            if(value==null) return null; // preserve null
+            return LocalDate.parse(value.toString());
         }
         LocalTime localTime(String key) {
-            return LocalTime.parse(string(key));
+            var value = map.get(key);
+            if(value==null) return null; // preserve null
+            return LocalTime.parse(value.toString());
         }
         BigDecimal decimal(String key) {
-            return new BigDecimal(string(key));
+            var value = map.get(key);
+            if(value==null) return null; // preserve null
+            return switch(value) {
+                case String s -> { 
+                        try { 
+                            yield new BigDecimal(s); 
+                        } catch (Exception e) {
+                            throw _Exceptions.illegalArgument(e, "not a decimal ‹%s› in key ‹%s›", value, key);
+                        }
+                    }
+                case Double d -> new BigDecimal(d);
+                case Integer i -> new BigDecimal(i);
+                case Long l -> new BigDecimal(l);
+                default -> throw new IllegalArgumentException("Unexpected decimal: " + value.getClass());
+            };
         }
         SemanticIdentifier sid(String key) {
-            return SemanticIdentifier.parse(string(key));
+            var value = map.get(key);
+            if(value==null) return null; // preserve null
+            return SemanticIdentifier.parse(value.toString());
         }
         SemanticIdentifierSet sids(String key) {
-            return SemanticIdentifierSet.parse(string(key));
+            var value = map.get(key);
+            if(value==null) return null; // preserve null
+            return SemanticIdentifierSet.parse(value.toString());
         }
         ConsumptionUnit consumptionUnit() {
             return ConsumptionUnit.valueOf(string("consumptionUnit"));

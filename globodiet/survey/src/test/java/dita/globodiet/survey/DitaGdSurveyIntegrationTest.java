@@ -19,6 +19,7 @@
 package dita.globodiet.survey;
 
 import java.nio.charset.StandardCharsets;
+import java.util.function.Predicate;
 
 import jakarta.inject.Inject;
 
@@ -45,6 +46,7 @@ import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.dto.Respondent24;
 import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -90,9 +92,13 @@ extends CausewayIntegrationTestAbstract {
     }
 
     @SneakyThrows
-    protected TabularReport tabularReport(final Aggregation aggregation, final int maxNutrientColumns) {
+    protected TabularReport tabularReport(
+        final Aggregation aggregation, 
+        Predicate<Campaign.SecondaryKey> campaignFilter,
+        Predicate<Respondent24> respondentFiler,
+        final int maxNutrientColumns) {
 
-        var reportContext = ReportContext.load(Can.of(campaignKeyForTesting()), surveyBlobStore);
+        var reportContext = ReportContext.load(campaignKeysForTesting().filter(campaignFilter), surveyBlobStore);
 
         return TabularReport.builder()
                 .systemId(SystemId.parse(SYSTEM_ID))
@@ -105,8 +111,7 @@ extends CausewayIntegrationTestAbstract {
                         .stream()
                         .limit(maxNutrientColumns)
                         .collect(Can.toCan()))
-                //.interviewSet(reportContext.interviewSet())
-                .interviewSet(reportContext.interviewSet().filter(resp->resp.alias().equals("EB_0357")))
+                .interviewSet(reportContext.interviewSet().filter(respondentFiler))
                 .aggregation(aggregation)
                 .build();
     }
@@ -114,10 +119,17 @@ extends CausewayIntegrationTestAbstract {
     // -- HELPER
 
     static String SURVEY_CODE = "at-national-2026";
-    static String CAMPAIGN_CODE = "wave2";
     static String SYSTEM_ID = "at.gd/2.0";
 
+    private Can<Campaign.SecondaryKey> campaignKeysForTesting() {
+        return Can.of(campaignKeyForTesting("wave1"), campaignKeyForTesting("wave2"), campaignKeyForTesting("wave3"));
+    }
+    
     private Campaign.SecondaryKey campaignKeyForTesting() {
+        return campaignKeyForTesting("wave1");
+    }
+    
+    private Campaign.SecondaryKey campaignKeyForTesting(String campaignId) {
         _Context.computeIfAbsent(Survey.class, ()->{
             var survey = new Survey();
             survey.setCode(SURVEY_CODE);
@@ -125,7 +137,7 @@ extends CausewayIntegrationTestAbstract {
             survey.setCorrection(loadCorrections(SURVEY_CODE));
             return survey;
         });
-        return new Campaign.SecondaryKey(SURVEY_CODE, CAMPAIGN_CODE);
+        return new Campaign.SecondaryKey(SURVEY_CODE, campaignId);
     }
 
     private String loadColDef(final String surveyCode) {

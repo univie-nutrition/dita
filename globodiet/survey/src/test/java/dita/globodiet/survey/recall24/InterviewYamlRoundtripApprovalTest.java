@@ -55,7 +55,7 @@ class InterviewYamlRoundtripApprovalTest {
     
     // -- HELPER
     
-    private InterviewSet24 rountrip(InterviewSet24 in) {
+    static InterviewSet24 rountrip(InterviewSet24 in) {
         return InterviewSetYamlParser.parseYaml(in.toYaml());
     }
 
