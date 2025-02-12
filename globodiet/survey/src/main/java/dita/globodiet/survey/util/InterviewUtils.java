@@ -63,7 +63,8 @@ public class InterviewUtils {
     public Stream<Clob> streamSources(final BlobStore surveyBlobStore, final NamedPath path, final boolean recursive) {
         return surveyBlobStore.listDescriptors(path, recursive)
             .stream()
-            .filter(desc->desc.mimeType().equals(CommonMimeType.XML))
+            .filter(desc->desc.mimeType().equals(CommonMimeType.XML)
+                || desc.mimeType().equals(CommonMimeType.YAML))
             .map(BlobDescriptor::path)
             .map(surveyBlobStore::lookupBlob)
             .map(Optional::orElseThrow)
@@ -82,12 +83,20 @@ public class InterviewUtils {
         var interviewSet = surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath, true)
-                .map(ds->InterviewXmlParser.parse(ds, systemId, messageConsumer))
+                .map(ds->CommonMimeType.YAML.matches(ds.getMimeType())
+                    ? parseYaml(ds, systemId, messageConsumer)
+                    : InterviewXmlParser.parse(ds, systemId, messageConsumer)   
+                )
                 .map(Recall24DtoUtils.correct(correction))
                 .reduce((a, b)->a.join(b, messageConsumer))
                 .orElseGet(InterviewSet24::empty);
 
         return interviewSet;
+    }
+
+    private InterviewSet24 parseYaml(Clob ds, SystemId systemId, Consumer<Message> messageConsumer) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

@@ -83,7 +83,37 @@ public record Interview24 (
             Map<String, Annotation> annotations
             ) implements RecallNode24, RuntimeAnnotated {
 
-    public static Interview24 of(
+    public Interview24(
+        LocalDate interviewDate,
+        LocalDate consumptionDate,
+        RespondentSupplementaryData24 respondentSupplementaryData,
+        Can<Meal24> meals) {
+        this(new ObjectRef<>(null), interviewDate, consumptionDate, IntRef.of(-1), respondentSupplementaryData, meals, new HashMap<>());
+    }
+    
+    /** canonical constructor */
+    public Interview24(
+        ObjectRef<Respondent24> parentRespondentRef,
+        LocalDate interviewDate,
+        LocalDate consumptionDate,
+        IntRef interviewOrdinalRef,
+        RespondentSupplementaryData24 respondentSupplementaryData,
+        Can<Meal24> meals,
+        Map<String, Annotation> annotations) {
+        
+        this.parentRespondentRef = parentRespondentRef;
+        this.interviewDate = interviewDate;
+        this.consumptionDate = consumptionDate;
+        this.interviewOrdinalRef = interviewOrdinalRef;
+        this.respondentSupplementaryData = respondentSupplementaryData;
+        this.meals = meals;
+        this.annotations = annotations;
+        this.respondentSupplementaryData.parentInterviewRef().setValue(this);
+        this.meals.forEach(meal24->meal24.parentInterviewRef().setValue(this));    
+    }
+    
+    @Deprecated
+    public static Interview24 of1(
             final Respondent24 respondent,
             /**
              * Interview date.
@@ -101,10 +131,8 @@ public record Interview24 (
              * The meals of this interview.
              */
             final Can<Meal24> meals) {
-        var interview = new Interview24(new ObjectRef<>(respondent), interviewDate, consumptionDate, IntRef.of(-1),
-            respondentSupplementaryData, meals, new HashMap<>());
-        respondentSupplementaryData.parentInterviewRef().setValue(interview);
-        meals.forEach(meal24->meal24.parentInterviewRef().setValue(interview));
+        var interview = new Interview24(interviewDate, consumptionDate, respondentSupplementaryData, meals);
+        interview.parentRespondentRef().setValue(respondent);
         return interview;
     }
 
@@ -160,9 +188,9 @@ public record Interview24 (
 
         @Override
         public Interview24 build() {
-            var dto = Interview24.of(respondent, interviewDate, consumptionDate,
+            var dto = new Interview24(interviewDate, consumptionDate,
                 respondentSupplementaryData, Can.ofCollection(meals));
-            dto.meals().forEach(child->child.parentInterviewRef().setValue(dto));
+            dto.parentRespondentRef().setValue(respondent);
             annotations.forEach(annot->dto.annotations().put(annot.key(), annot));
             return dto;
         }

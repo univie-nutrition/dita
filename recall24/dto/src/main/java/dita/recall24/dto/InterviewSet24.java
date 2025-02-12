@@ -74,7 +74,7 @@ public record InterviewSet24(
         return new InterviewSet24(Can.empty(), Collections.emptyMap());
     }
 
-    public static InterviewSet24 normalized(
+    public static InterviewSet24 of(
             /** Respondents that belong to this survey. */
             final Can<Respondent24> respondents) {
         return new InterviewSet24(respondents, new HashMap<>());
@@ -91,8 +91,7 @@ public record InterviewSet24(
             final Can<Respondent24> respondents,
             final Map<String, Annotation> annotations) {
         this.respondents = respondents
-                .sorted(Comparator.comparing(Respondent24::alias))
-                .map(Respondent24::normalize);
+                .sorted(Comparator.comparing(Respondent24::alias));
         this.annotations = annotations;
     }
 
@@ -137,7 +136,7 @@ public record InterviewSet24(
     // -- FILTER
 
     public InterviewSet24 filter(final Predicate<Respondent24> respondentFilter) {
-        return InterviewSet24.normalized(this.respondents().filter(respondentFilter));
+        return InterviewSet24.of(this.respondents().filter(respondentFilter));
     }
 
     /**
@@ -148,7 +147,7 @@ public record InterviewSet24(
      */
     public Can<InterviewSet24> split(final int partitionCountYield) {
         var respondentBiPartition = this.respondents().partitionOuterBound(partitionCountYield);
-        return respondentBiPartition.map(InterviewSet24::normalized);
+        return respondentBiPartition.map(InterviewSet24::of);
     }
 
     /**
@@ -239,7 +238,7 @@ public record InterviewSet24(
 
         @Override
         public InterviewSet24 build() {
-            var ivSet = InterviewSet24.normalized(Can.ofCollection(respondents));
+            var ivSet = InterviewSet24.of(Can.ofCollection(respondents));
             _NullSafe.stream(annotations).forEach(ivSet::annotate);
             return ivSet;
         }

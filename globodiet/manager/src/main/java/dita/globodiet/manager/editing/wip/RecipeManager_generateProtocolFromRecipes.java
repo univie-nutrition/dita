@@ -19,8 +19,6 @@
 package dita.globodiet.manager.editing.wip;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -42,22 +40,17 @@ import lombok.RequiredArgsConstructor;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
-import dita.commons.types.Sex;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
-import dita.recall24.dto.Interview24;
-import dita.recall24.dto.Meal24;
+import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.Respondent24;
-import dita.recall24.dto.RespondentSupplementaryData24;
 import dita.recall24.dto.RuntimeAnnotated.Annotation;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
-import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="listOfRecipe", position = Position.PANEL)
@@ -82,14 +75,10 @@ public class RecipeManager_generateProtocolFromRecipes {
                     Can.of(recordFactory.toCompositeRecord(recipeSid, ingredients)));
             })
             .collect(Can.toCan());
-
-        var interview = Interview24.of(
-            new Respondent24("ALIAS", LocalDate.of(1975, 05, 05), Sex.MALE, Can.empty()), 
-            LocalDate.of(2025, 01, 02), 
-            LocalDate.of(2025, 01, 01), 
-            new RespondentSupplementaryData24(ObjectRef.empty(), "0", "0", new BigDecimal("175"), new BigDecimal("75")), 
-            Can.of(Meal24.of(LocalTime.of(8,0), "at.gd/2.0:fco/03", "at.gd/2.0:poc/02", memorizedFoods)));
-        var interviewSet = Recall24DtoUtils.join(List.of(interview), null);
+        
+        var interview = Recall24DtoUtils.interviewSample(memorizedFoods);
+        var respondent = Recall24DtoUtils.respondentSample(interview);
+        var interviewSet = InterviewSet24.of(Can.of(respondent));
         return Clob.of("RecipesAsProtocol", CommonMimeType.YAML, interviewSet.toYaml());
     }
     

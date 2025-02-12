@@ -81,8 +81,7 @@ record InterviewConverter(SystemId systemId) {
             })
             .collect(Can.toCan());
 
-        return Interview24.of(
-                respondentStub(iv),
+        var interview = new Interview24(
                 iv.getInterviewDate().toLocalDate(),
                 iv.getConsumptionDate().toLocalDate(),
                 new RespondentSupplementaryData24(
@@ -92,6 +91,8 @@ record InterviewConverter(SystemId systemId) {
                         NumberUtils.roundToNDecimalPlaces(iv.getHeightCM(), 1),
                         NumberUtils.roundToNDecimalPlaces(iv.getWeightKG(), 1)),
                 meals);
+        interview.parentRespondentRef().setValue(respondentStub(iv));
+        return interview;
     }
 
     // -- MEM

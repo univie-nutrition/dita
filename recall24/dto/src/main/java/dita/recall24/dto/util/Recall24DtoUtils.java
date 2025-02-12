@@ -18,7 +18,10 @@
  */
 package dita.recall24.dto.util;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -45,6 +48,8 @@ import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
+import dita.recall24.dto.RespondentSupplementaryData24;
+import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 import io.github.causewaystuff.commons.base.util.RuntimeUtils;
 
 @UtilityClass
@@ -69,6 +74,7 @@ public class Recall24DtoUtils {
 
         if(interviews==null) return InterviewSet24.empty();
 
+        /** respondent proxy */
         record Helper(
                 String alias,
                 LocalDate dateOfBirth,
@@ -113,16 +119,39 @@ public class Recall24DtoUtils {
             })
             .collect(Can.toCan());
 
-        return InterviewSet24.normalized(respondents);
+        return InterviewSet24.of(respondents);
     }
 
+    // -- PARSE
+    
+    // -- SAMPLE
+    
+    public InterviewSet24 interviewSetSample(Can<MemorizedFood24> memorizedFoods) {
+        var interview = interviewSample(memorizedFoods);
+        var interviewSet = join(List.of(interview), null);
+        return interviewSet;
+    }
+    
+    public Interview24 interviewSample(Can<MemorizedFood24> memorizedFoods) {
+        var interview = new Interview24(
+            LocalDate.of(2025, 01, 02), 
+            LocalDate.of(2025, 01, 01), 
+            new RespondentSupplementaryData24(ObjectRef.empty(), "0", "0", new BigDecimal("175"), new BigDecimal("75")), 
+            Can.of(Meal24.of(LocalTime.of(8,0), "at.gd/2.0:fco/03", "at.gd/2.0:poc/02", memorizedFoods)));
+        return interview;
+    }
+    
+    public Respondent24 respondentSample(Interview24 interview) {
+        return new Respondent24("SAMPLE_MALE", LocalDate.of(1975, 05, 05), Sex.MALE, Can.of(interview));
+    }
+    
+    // -- TRANSFORM
+    
     public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
                 ? toOperator(correction24.asTransformer())
                 : UnaryOperator.identity();
     }
-
-    // -- TRANSFORM
 
     public UnaryOperator<InterviewSet24> toOperator(
             final RecallNode24.Transfomer transformer) {
@@ -154,7 +183,7 @@ public class Recall24DtoUtils {
         var transformedSubNodes = input.interviews().stream()
                 .flatMap(subNode->transform(subNode, transformer))
                 .toList();
-        var builder = (Respondent24.Builder)input.asBuilder();
+        var builder = input.asBuilder();
         builder.interviews().clear();
         builder.interviews().addAll(transformedSubNodes);
         return Stream.of(transformer.transform(builder.build()));

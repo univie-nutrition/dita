@@ -48,28 +48,33 @@ public record Respondent24(
 
             /**
              * Interviews that this respondent was subject to.
+             * @apiNote On construction, interviews are sorted by consumption-date, 
+             *      interview ordinals are filled in, interview parent references are filled in as well.
              */
             @CollectionLayout(navigableSubtree = "1") @NonNull
             Can<Interview24> interviews
 
             ) implements RecallNode24 {
 
+    public Respondent24(
+        String alias,
+        LocalDate dateOfBirth,
+        Sex sex,
+        @NonNull Can<Interview24> interviews) {
+            this.alias = alias;
+            this.dateOfBirth = dateOfBirth;
+            this.sex = sex;
+            // interviews are sorted by consumption-date
+            this.interviews = interviews.sorted(Comparator.comparing(Interview24::consumptionDate));
+            // fill in interviews' parent
+            this.interviews.forEach(intv->intv.parentRespondentRef().setValue(this));
+            // fill in interviews' ordinal
+            this.interviews.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
+                inv.interviewOrdinalRef().setValue(ordinal)));
+    }
+    
     public int interviewCount() {
         return interviews.size();
-    }
-
-    /**
-     * Interviews are sorted by consumption-date.
-     * All ordinals are filled in.
-     */
-    Respondent24 normalize() {
-        var interviewsSorted = interviews()
-                .sorted(Comparator.comparing(Interview24::consumptionDate));
-
-        interviewsSorted.forEach(IndexedConsumer.offset(1, (ordinal, inv)->
-            inv.interviewOrdinalRef().setValue(ordinal))); // fill in interview's ordinal
-
-        return new Respondent24(alias, dateOfBirth, sex, interviewsSorted);
     }
 
     @SuppressWarnings("unchecked")
@@ -95,9 +100,7 @@ public record Respondent24(
 
         @Override
         public Respondent24 build() {
-            var dto = new Respondent24(alias, dateOfBirth, sex, Can.ofCollection(interviews));
-            dto.interviews().forEach(child->child.parentRespondentRef().setValue(dto));
-            return dto;
+            return new Respondent24(alias, dateOfBirth, sex, Can.ofCollection(interviews));
         }
     }
 
