@@ -48,6 +48,8 @@ import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
+import dita.recall24.dto.Record24.TypeOfFatUsed;
+import dita.recall24.dto.Record24.TypeOfMilkOrLiquidUsed;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
@@ -99,7 +101,7 @@ public class InterviewSetYamlParser {
         var interview = new Interview24(
             parser.localDate("interviewDate"), 
             parser.localDate("consumptionDate"), 
-            respondentSupplementaryData(parser.property("respondentSupplementaryData")), 
+            respondentSupplementaryData(parser.property("respondentSupplementaryData").orElseThrow()), 
             parser.collection("meals").stream()
                 .map(InterviewSetYamlParser::meal)
                 .collect(Can.toCan()));
@@ -153,10 +155,8 @@ public class InterviewSetYamlParser {
             case FOOD -> new Record24.Food(ObjectRef.empty(), 
                 recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"), 
                 parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawPerCookedRatio"),
-                /*TODO not implemented
-                Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
-                Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking*/    
-                Optional.empty(), Optional.empty(), 
+                parser.property("typeOfFatUsedDuringCooking").map(InterviewSetYamlParser::typeOfFatUsed), 
+                parser.property("typeOfMilkOrLiquidUsedDuringCooking").map(InterviewSetYamlParser::typeOfMilkOrLiquidUsed), 
                 parser.annotations());
             
             case FRYING_FAT -> new Record24.FryingFat(ObjectRef.empty(), 
@@ -167,6 +167,16 @@ public class InterviewSetYamlParser {
             case TYPE_OF_FAT_USED -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
             case TYPE_OF_MILK_OR_LIQUID_USED -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
         };
+    }
+    
+    private TypeOfFatUsed typeOfFatUsed(Map<String, Object> map) {
+        var parser = new YamlParser(map);
+        return Record24.typeOfFatUsed(parser.string("name"), parser.sid("sid"), parser.sids("facetSids"));
+    }
+    
+    private TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed(Map<String, Object> map) {
+        var parser = new YamlParser(map);
+        return Record24.typeOfMilkOrLiquidUsed(parser.string("name"), parser.sid("sid"), parser.sids("facetSids"));
     }
     
     private record YamlParser(Map<String, Object> map) {
@@ -194,11 +204,11 @@ public class InterviewSetYamlParser {
         Sex sex() {
             return Sex.valueOf(string("sex"));
         }
-        Map<String, Object> property(String key) {
+        Optional<Map<String, Object>> property(String key) {
             var v = map.get(key);
             return v!=null 
-                ? _Casts.uncheckedCast(v)
-                : Map.of();
+                ? Optional.of(_Casts.uncheckedCast(v))
+                : Optional.empty();
         }
         List<Map<String, Object>> collection(String key) {
             var v = map.get(key);
@@ -208,7 +218,7 @@ public class InterviewSetYamlParser {
         }
         Map<String, Serializable> annotations() {
             var annotations = new LinkedHashMap<String, Serializable>();
-            property("annotations")
+            property("annotations").orElseGet(Map::of)
                 .forEach((k, v)->annotations.put(k, (Serializable)v));
             return annotations;
         }

@@ -29,9 +29,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/130301"
+            group: "at.gd/2.0:fg/130301"
         - type: "FOOD"
           name: "Zucker, Kristall"
           sid: "at.gd/2.0:food/00992"
@@ -42,9 +40,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/110101"
+            group: "at.gd/2.0:fg/110101"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -61,9 +57,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salat, Kopf n.s."
           sid: "at.gd/2.0:food/00040"
@@ -74,9 +68,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salat, Romana"
           sid: "at.gd/2.0:food/00031"
@@ -87,9 +79,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salatdressing, Essig/Öl {assocRecp=384}"
           sid: "at.gd/2.0:food/01527"
@@ -100,9 +90,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/150102"
+            group: "at.gd/2.0:fg/150102"
       - name: "Salat, gemischt mit Joghurtdressing (Rezept bekannt)"
         topLevelRecords:
         - type: "FOOD"
@@ -115,9 +103,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salat, Kopf n.s."
           sid: "at.gd/2.0:food/00040"
@@ -128,9 +114,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salat, Romana"
           sid: "at.gd/2.0:food/00031"
@@ -141,9 +125,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salatdressing, Jogurt {assocRecp=334}"
           sid: "at.gd/2.0:food/01525"
@@ -164,9 +146,7 @@ respondents:
             facetSids: "at.gd/2.0:fd/0102, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/0801,\
               \ at.gd/2.0:fd/1200"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/150102"
+            group: "at.gd/2.0:fg/150102"
       - name: "Salat, gemisch mit Joghurtdressing (zubereitet in Rest.)"
         topLevelRecords:
         - type: "FOOD"
@@ -179,9 +159,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salat, Kopf n.s."
           sid: "at.gd/2.0:food/00040"
@@ -192,9 +170,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salat, Romana"
           sid: "at.gd/2.0:food/00031"
@@ -205,9 +181,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salatdressing, Jogurt {assocRecp=334}"
           sid: "at.gd/2.0:food/01525"
@@ -219,9 +193,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/150102"
+            group: "at.gd/2.0:fg/150102"
       - name: "Pommes frites mit Ketchup"
         topLevelRecords:
         - type: "FOOD"
@@ -235,9 +207,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0101"
+            group: "at.gd/2.0:fg/0101"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -256,9 +226,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/150101"
+            group: "at.gd/2.0:fg/150101"
         - type: "FOOD"
           name: "Pommes frites"
           sid: "at.gd/2.0:food/00010"
@@ -270,9 +238,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0101"
+            group: "at.gd/2.0:fg/0101"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -292,9 +258,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0101"
+            group: "at.gd/2.0:fg/0101"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -314,9 +278,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0101"
+            group: "at.gd/2.0:fg/0101"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -336,9 +298,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0101"
+            group: "at.gd/2.0:fg/0101"
     - hourOfDay: "14:00:00"
       foodConsumptionOccasionId: "07"
       foodConsumptionPlaceId: "01"
@@ -356,9 +316,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1201"
+            group: "at.gd/2.0:fg/1201"
         - type: "FOOD"
           name: "Kuchen n.s. {assocRecp=638}"
           sid: "at.gd/2.0:food/01151"
@@ -369,9 +327,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1201"
+            group: "at.gd/2.0:fg/1201"
         - type: "FOOD"
           name: "Kuchen n.s. {assocRecp=638}"
           sid: "at.gd/2.0:food/01151"
@@ -382,9 +338,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1201"
+            group: "at.gd/2.0:fg/1201"
       - name: "Topfentorte"
         topLevelRecords:
         - type: "FOOD"
@@ -398,9 +352,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1201"
+            group: "at.gd/2.0:fg/1201"
         - type: "FOOD"
           name: "Topfentorte {assocRecp=434}"
           sid: "at.gd/2.0:food/01179"
@@ -411,9 +363,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1201"
+            group: "at.gd/2.0:fg/1201"
     - hourOfDay: "19:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
@@ -431,9 +381,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0801"
+            group: "at.gd/2.0:fg/0801"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -453,9 +401,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0801"
+            group: "at.gd/2.0:fg/0801"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -477,9 +423,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0200"
+            group: "at.gd/2.0:fg/0200"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -492,3 +436,4 @@ respondents:
       dataSource:
         key: "dataSource"
         value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+annotations: {}
