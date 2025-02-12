@@ -34,9 +34,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/150102"
+              group: "at.gd/2.0:fg/150102"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -47,9 +45,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Schnittlauch"
             sid: "at.gd/2.0:food/01547"
@@ -60,9 +56,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -74,9 +68,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -87,13 +79,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/03"
+            group: "at.gd/2.0:rg/03"
         - type: "FOOD"
           name: "Kaffee, mit Koffein"
           sid: "at.gd/2.0:food/01339"
@@ -104,10 +92,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/130301"
+            group: "at.gd/2.0:fg/130301"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 ...]"
+      dataSource: "Byte-Resource[3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e 3d 22 31 ...]"
+annotations: {}

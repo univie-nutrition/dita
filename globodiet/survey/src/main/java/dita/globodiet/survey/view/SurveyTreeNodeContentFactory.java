@@ -129,7 +129,7 @@ public class SurveyTreeNodeContentFactory {
         RespondentSummary(Respondent24 respondent) {
             this(respondent.alias(), respondent.dateOfBirth(), respondent.sex(), 
                 respondent.interviews().stream()
-                .map(iv->new InterviewSummary(title(iv), iv.annotations().values()))
+                .map(iv->new InterviewSummary(title(iv), iv.streamAnnotations().toList()))
                 .toList());
         }
     }

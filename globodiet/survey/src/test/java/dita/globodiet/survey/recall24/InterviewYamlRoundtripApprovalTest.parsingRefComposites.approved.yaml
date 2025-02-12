@@ -35,9 +35,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Germ n.s."
             sid: "at.gd/2.0:food/01534"
@@ -48,9 +46,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1502"
+              group: "at.gd/2.0:fg/1502"
           - type: "FOOD"
             name: "Milch, normal"
             sid: "at.gd/2.0:food/00217"
@@ -62,9 +58,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050101"
+              group: "at.gd/2.0:fg/050101"
           - type: "FOOD"
             name: "Butter, normal"
             sid: "at.gd/2.0:food/01887"
@@ -75,9 +69,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1002"
+              group: "at.gd/2.0:fg/1002"
           - type: "FOOD"
             name: "Zucker, Kristall"
             sid: "at.gd/2.0:food/00992"
@@ -88,9 +80,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/110101"
+              group: "at.gd/2.0:fg/110101"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -101,9 +91,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -114,9 +102,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Rosinen"
             sid: "at.gd/2.0:food/00183"
@@ -127,9 +113,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0401"
+              group: "at.gd/2.0:fg/0401"
           - type: "FOOD"
             name: "Zucker, Hagel"
             sid: "at.gd/2.0:food/00990"
@@ -140,13 +124,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/110101"
+              group: "at.gd/2.0:fg/110101"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0801"
+            group: "at.gd/2.0:rg/0801"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -169,9 +149,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/060301"
+              group: "at.gd/2.0:fg/060301"
           - type: "FOOD"
             name: "Butter, normal"
             sid: "at.gd/2.0:food/01887"
@@ -182,9 +160,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1002"
+              group: "at.gd/2.0:fg/1002"
           - type: "FOOD"
             name: "Petersilie"
             sid: "at.gd/2.0:food/01543"
@@ -195,9 +171,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -208,9 +182,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Milch, normal"
             sid: "at.gd/2.0:food/00217"
@@ -222,9 +194,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050101"
+              group: "at.gd/2.0:fg/050101"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -235,9 +205,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Gewürzmischung"
             sid: "at.gd/2.0:food/01538"
@@ -248,9 +216,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Muskatnuss"
             sid: "at.gd/2.0:food/01541"
@@ -261,13 +227,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0400"
+            group: "at.gd/2.0:rg/0400"
       - name: "Fleischklösschen, Suppe"
         topLevelRecords:
         - type: "COMPOSITE"
@@ -287,9 +249,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/070101"
+              group: "at.gd/2.0:fg/070101"
           - type: "FOOD"
             name: "Stärke (Kartoffel, Mais, Weizen)"
             sid: "at.gd/2.0:food/01809"
@@ -300,9 +260,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Semmelbrösel"
             sid: "at.gd/2.0:food/00569"
@@ -313,9 +271,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/060302"
+              group: "at.gd/2.0:fg/060302"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -326,9 +282,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -340,9 +294,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Koriander"
             sid: "at.gd/2.0:food/01926"
@@ -353,9 +305,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Salz, Meer"
             sid: "at.gd/2.0:food/01573"
@@ -366,9 +316,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -379,9 +327,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Chili (Gewürz)"
             sid: "at.gd/2.0:food/00055"
@@ -392,9 +338,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Butter, normal"
             sid: "at.gd/2.0:food/01887"
@@ -405,9 +349,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1002"
+              group: "at.gd/2.0:fg/1002"
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
             sid: "at.gd/2.0:food/00394"
@@ -418,9 +360,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Wasser, Leitung"
             sid: "at.gd/2.0:food/01399"
@@ -431,9 +371,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1304"
+              group: "at.gd/2.0:fg/1304"
           - type: "FOOD"
             name: "Pfefferminze"
             sid: "at.gd/2.0:food/02142"
@@ -444,9 +382,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Safran"
             sid: "at.gd/2.0:food/02358"
@@ -457,17 +393,11 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/07"
+            group: "at.gd/2.0:rg/07"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0002"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -503,9 +433,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Milch, normal"
             sid: "at.gd/2.0:food/00217"
@@ -517,9 +445,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050101"
+              group: "at.gd/2.0:fg/050101"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -530,9 +456,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -543,9 +467,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Muskatnuss"
             sid: "at.gd/2.0:food/01541"
@@ -556,9 +478,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Butter n.s."
             sid: "at.gd/2.0:food/00945"
@@ -569,9 +489,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1002"
+              group: "at.gd/2.0:fg/1002"
           - type: "FOOD"
             name: "Schinken n.s."
             sid: "at.gd/2.0:food/00808"
@@ -583,13 +501,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0704"
+              group: "at.gd/2.0:fg/0704"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/03"
+            group: "at.gd/2.0:rg/03"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -611,9 +525,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0602"
+              group: "at.gd/2.0:fg/0602"
           - type: "FOOD"
             name: "Öl, Raps"
             sid: "at.gd/2.0:food/00937"
@@ -624,9 +536,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1001"
+              group: "at.gd/2.0:fg/1001"
           - type: "FOOD"
             name: "Rindfleisch, faschiert"
             sid: "at.gd/2.0:food/00669"
@@ -638,9 +548,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/070101"
+              group: "at.gd/2.0:fg/070101"
           - type: "FOOD"
             name: "Zwiebel"
             sid: "at.gd/2.0:food/00107"
@@ -652,9 +560,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -666,9 +572,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Karotte"
             sid: "at.gd/2.0:food/00073"
@@ -680,9 +584,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0203"
+              group: "at.gd/2.0:fg/0203"
           - type: "FOOD"
             name: "Sellerie"
             sid: "at.gd/2.0:food/00077"
@@ -694,9 +596,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0203"
+              group: "at.gd/2.0:fg/0203"
           - type: "FOOD"
             name: "Petersilie"
             sid: "at.gd/2.0:food/01543"
@@ -707,9 +607,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Rosmarin"
             sid: "at.gd/2.0:food/01545"
@@ -720,9 +618,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
             sid: "at.gd/2.0:food/00394"
@@ -733,9 +629,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Tomate n.s."
             sid: "at.gd/2.0:food/00065"
@@ -747,9 +641,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Tomate n.s."
             sid: "at.gd/2.0:food/00065"
@@ -761,9 +653,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -774,9 +664,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Paprikapulver"
             sid: "at.gd/2.0:food/01803"
@@ -787,9 +675,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Sauerrahm"
             sid: "at.gd/2.0:food/00353"
@@ -800,9 +686,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050701"
+              group: "at.gd/2.0:fg/050701"
           - type: "FOOD"
             name: "Parmesan"
             sid: "at.gd/2.0:food/00297"
@@ -813,9 +697,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0505"
+              group: "at.gd/2.0:fg/0505"
           - type: "FOOD"
             name: "Bouillon Konzentrat"
             sid: "at.gd/2.0:food/01811"
@@ -826,9 +708,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Oregano"
             sid: "at.gd/2.0:food/01542"
@@ -839,13 +719,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0401"
+            group: "at.gd/2.0:rg/0401"
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
@@ -867,9 +743,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1001"
+              group: "at.gd/2.0:fg/1001"
           - type: "FOOD"
             name: "Salat, Kopf, grün"
             sid: "at.gd/2.0:food/00041"
@@ -880,9 +754,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0201"
+              group: "at.gd/2.0:fg/0201"
           - type: "FOOD"
             name: "Tomate n.s."
             sid: "at.gd/2.0:food/00065"
@@ -894,9 +766,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Gurke"
             sid: "at.gd/2.0:food/00057"
@@ -908,9 +778,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Mayonnaise {assocRecp=327}"
             sid: "at.gd/2.0:food/01529"
@@ -921,9 +789,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/150102"
+              group: "at.gd/2.0:fg/150102"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -934,9 +800,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -947,9 +811,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Brot, Fladen, Weizen"
             sid: "at.gd/2.0:food/01982"
@@ -960,9 +822,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/060301"
+              group: "at.gd/2.0:fg/060301"
           - type: "FOOD"
             name: "Zwiebel"
             sid: "at.gd/2.0:food/00107"
@@ -974,9 +834,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Weißkraut"
             sid: "at.gd/2.0:food/00088"
@@ -988,9 +846,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0204"
+              group: "at.gd/2.0:fg/0204"
           - type: "FOOD"
             name: "Pfefferoni, rot"
             sid: "at.gd/2.0:food/00063"
@@ -1002,9 +858,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Topfen"
             sid: "at.gd/2.0:food/00242"
@@ -1016,9 +870,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0504"
+              group: "at.gd/2.0:fg/0504"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -1030,9 +882,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Lammfleisch n.s."
             sid: "at.gd/2.0:food/00702"
@@ -1043,17 +893,11 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/070104"
+              group: "at.gd/2.0:fg/070104"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0404"
+            group: "at.gd/2.0:rg/0404"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0003"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -1089,9 +933,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Haferdrink"
             sid: "at.gd/2.0:food/02397"
@@ -1102,9 +944,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0502"
+              group: "at.gd/2.0:fg/0502"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -1115,9 +955,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -1128,9 +966,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Muskatnuss"
             sid: "at.gd/2.0:food/01541"
@@ -1141,9 +977,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Butter n.s."
             sid: "at.gd/2.0:food/00945"
@@ -1154,9 +988,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1002"
+              group: "at.gd/2.0:fg/1002"
           - type: "FOOD"
             name: "Salami"
             sid: "at.gd/2.0:food/00801"
@@ -1167,13 +999,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0704"
+              group: "at.gd/2.0:fg/0704"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/03"
+            group: "at.gd/2.0:rg/03"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -1195,9 +1023,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0602"
+              group: "at.gd/2.0:fg/0602"
           - type: "FOOD"
             name: "Öl, Raps"
             sid: "at.gd/2.0:food/00937"
@@ -1208,9 +1034,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1001"
+              group: "at.gd/2.0:fg/1001"
           - type: "FOOD"
             name: "Rindfleisch, faschiert"
             sid: "at.gd/2.0:food/00669"
@@ -1222,9 +1046,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/070101"
+              group: "at.gd/2.0:fg/070101"
           - type: "FOOD"
             name: "Zwiebel"
             sid: "at.gd/2.0:food/00107"
@@ -1236,9 +1058,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -1250,9 +1070,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Karotte"
             sid: "at.gd/2.0:food/00073"
@@ -1264,9 +1082,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0203"
+              group: "at.gd/2.0:fg/0203"
           - type: "FOOD"
             name: "Sellerie"
             sid: "at.gd/2.0:food/00077"
@@ -1278,9 +1094,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0203"
+              group: "at.gd/2.0:fg/0203"
           - type: "FOOD"
             name: "Petersilie"
             sid: "at.gd/2.0:food/01543"
@@ -1291,9 +1105,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Rosmarin"
             sid: "at.gd/2.0:food/01545"
@@ -1304,9 +1116,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
             sid: "at.gd/2.0:food/00394"
@@ -1317,9 +1127,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Tomate n.s."
             sid: "at.gd/2.0:food/00065"
@@ -1331,9 +1139,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Tomate n.s."
             sid: "at.gd/2.0:food/00065"
@@ -1345,9 +1151,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -1358,9 +1162,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Paprikapulver"
             sid: "at.gd/2.0:food/01803"
@@ -1371,9 +1173,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Sauerrahm"
             sid: "at.gd/2.0:food/00353"
@@ -1384,9 +1184,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050701"
+              group: "at.gd/2.0:fg/050701"
           - type: "FOOD"
             name: "Bouillon Konzentrat"
             sid: "at.gd/2.0:food/01811"
@@ -1397,9 +1195,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Oregano"
             sid: "at.gd/2.0:food/01542"
@@ -1410,9 +1206,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Gouda"
             sid: "at.gd/2.0:food/00277"
@@ -1423,13 +1217,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0505"
+              group: "at.gd/2.0:fg/0505"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0401"
+            group: "at.gd/2.0:rg/0401"
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
@@ -1451,9 +1241,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1001"
+              group: "at.gd/2.0:fg/1001"
           - type: "FOOD"
             name: "Salat, Kopf, grün"
             sid: "at.gd/2.0:food/00041"
@@ -1464,9 +1252,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0201"
+              group: "at.gd/2.0:fg/0201"
           - type: "FOOD"
             name: "Tomate n.s."
             sid: "at.gd/2.0:food/00065"
@@ -1478,9 +1264,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Gurke"
             sid: "at.gd/2.0:food/00057"
@@ -1492,9 +1276,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Mayonnaise {assocRecp=327}"
             sid: "at.gd/2.0:food/01529"
@@ -1505,9 +1287,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/150102"
+              group: "at.gd/2.0:fg/150102"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -1518,9 +1298,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -1531,9 +1309,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Brot, Fladen, Weizen"
             sid: "at.gd/2.0:food/01982"
@@ -1544,9 +1320,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/060301"
+              group: "at.gd/2.0:fg/060301"
           - type: "FOOD"
             name: "Zwiebel"
             sid: "at.gd/2.0:food/00107"
@@ -1558,9 +1332,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Rotkraut"
             sid: "at.gd/2.0:food/00086"
@@ -1572,9 +1344,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0204"
+              group: "at.gd/2.0:fg/0204"
           - type: "FOOD"
             name: "Pfefferoni, rot"
             sid: "at.gd/2.0:food/00063"
@@ -1586,9 +1356,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Topfen"
             sid: "at.gd/2.0:food/00242"
@@ -1600,9 +1368,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0504"
+              group: "at.gd/2.0:fg/0504"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -1614,9 +1380,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Hühnchen, geschnetzelt (nur Fleisch)"
             sid: "at.gd/2.0:food/00723"
@@ -1627,17 +1391,11 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/070201"
+              group: "at.gd/2.0:fg/070201"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0404"
+            group: "at.gd/2.0:rg/0404"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0004"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -1668,9 +1426,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/060301"
+            group: "at.gd/2.0:fg/060301"
         - type: "FOOD"
           name: "Butter, normal"
           sid: "at.gd/2.0:food/01887"
@@ -1681,9 +1437,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1002"
+            group: "at.gd/2.0:fg/1002"
         - type: "FOOD"
           name: "Marmelade"
           sid: "at.gd/2.0:food/02027"
@@ -1694,9 +1448,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/110102"
+            group: "at.gd/2.0:fg/110102"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -1713,9 +1465,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0201"
+            group: "at.gd/2.0:fg/0201"
         - type: "FOOD"
           name: "Salatdressing Balsamico {assocRecp=381}"
           sid: "at.gd/2.0:food/01522"
@@ -1726,9 +1476,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/150102"
+            group: "at.gd/2.0:fg/150102"
         - type: "FOOD"
           name: "Hühnchen, Filet"
           sid: "at.gd/2.0:food/01902"
@@ -1739,9 +1487,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/070201"
+            group: "at.gd/2.0:fg/070201"
         - type: "FRYING_FAT"
           name: "Öl, Raps"
           sid: "at.gd/2.0:food/00937"
@@ -1766,9 +1512,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/060301"
+            group: "at.gd/2.0:fg/060301"
         - type: "FOOD"
           name: "Schinken, Bein"
           sid: "at.gd/2.0:food/00810"
@@ -1780,9 +1524,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0704"
+            group: "at.gd/2.0:fg/0704"
         - type: "FOOD"
           name: "Gouda"
           sid: "at.gd/2.0:food/00277"
@@ -1793,13 +1535,9 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0505"
+            group: "at.gd/2.0:fg/0505"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0005"
   dateOfBirth: "2000-01-02"
   sex: "FEMALE"
@@ -1837,9 +1575,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0605"
+              group: "at.gd/2.0:fg/0605"
           - type: "FOOD"
             name: "Tomate, normal"
             sid: "at.gd/2.0:food/02308"
@@ -1851,9 +1587,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Parmesan"
             sid: "at.gd/2.0:food/00297"
@@ -1864,9 +1598,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0505"
+              group: "at.gd/2.0:fg/0505"
           - type: "FOOD"
             name: "Salami"
             sid: "at.gd/2.0:food/00801"
@@ -1877,9 +1609,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0704"
+              group: "at.gd/2.0:fg/0704"
           - type: "FOOD"
             name: "Tomate, normal"
             sid: "at.gd/2.0:food/02308"
@@ -1891,9 +1621,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0202"
+              group: "at.gd/2.0:fg/0202"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -1904,9 +1632,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -1917,9 +1643,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Oregano"
             sid: "at.gd/2.0:food/01542"
@@ -1930,9 +1654,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Salami"
             sid: "at.gd/2.0:food/00801"
@@ -1943,17 +1665,11 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0704"
+              group: "at.gd/2.0:fg/0704"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0405"
+            group: "at.gd/2.0:rg/0405"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0006"
   dateOfBirth: "2000-01-01"
   sex: "FEMALE"
@@ -1984,9 +1700,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/130301"
+            group: "at.gd/2.0:fg/130301"
       - name: "Rührkuchen"
         topLevelRecords:
         - type: "FOOD"
@@ -1999,9 +1713,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/1201"
+            group: "at.gd/2.0:fg/1201"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -2018,9 +1730,7 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/0602"
+            group: "at.gd/2.0:fg/0602"
         - type: "FOOD"
           name: "Sauce Bolognaise {assocRecp=326}"
           sid: "at.gd/2.0:food/01517"
@@ -2032,13 +1742,9 @@ respondents:
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:fg/150101"
+            group: "at.gd/2.0:fg/150101"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0007"
   dateOfBirth: "2000-10-10"
   sex: "FEMALE"
@@ -2075,9 +1781,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/130301"
+              group: "at.gd/2.0:fg/130301"
           - type: "FOOD"
             name: "Milch, normal"
             sid: "at.gd/2.0:food/00217"
@@ -2089,9 +1793,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050101"
+              group: "at.gd/2.0:fg/050101"
           - type: "FOOD"
             name: "Wasser, Leitung"
             sid: "at.gd/2.0:food/01399"
@@ -2102,13 +1804,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1304"
+              group: "at.gd/2.0:fg/1304"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/10"
+            group: "at.gd/2.0:rg/10"
       - name: "Rührkuchen"
         topLevelRecords:
         - type: "COMPOSITE"
@@ -2127,9 +1825,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Margarine"
             sid: "at.gd/2.0:food/00953"
@@ -2140,9 +1836,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1003"
+              group: "at.gd/2.0:fg/1003"
           - type: "FOOD"
             name: "Zucker, Kristall"
             sid: "at.gd/2.0:food/00992"
@@ -2153,9 +1847,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/110101"
+              group: "at.gd/2.0:fg/110101"
           - type: "FOOD"
             name: "Mehl, Weizen, normal"
             sid: "at.gd/2.0:food/00394"
@@ -2166,9 +1858,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Sauerrahm"
             sid: "at.gd/2.0:food/00353"
@@ -2179,9 +1869,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/050701"
+              group: "at.gd/2.0:fg/050701"
           - type: "FOOD"
             name: "Kakaopulver"
             sid: "at.gd/2.0:food/01017"
@@ -2192,9 +1880,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/110203"
+              group: "at.gd/2.0:fg/110203"
           - type: "FOOD"
             name: "Semmelbrösel"
             sid: "at.gd/2.0:food/00569"
@@ -2205,9 +1891,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/060302"
+              group: "at.gd/2.0:fg/060302"
           - type: "FOOD"
             name: "Backpulver"
             sid: "at.gd/2.0:food/01532"
@@ -2218,13 +1902,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1502"
+              group: "at.gd/2.0:fg/1502"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0801"
+            group: "at.gd/2.0:rg/0801"
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -2247,9 +1927,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1001"
+              group: "at.gd/2.0:fg/1001"
           - type: "FOOD"
             name: "Zwiebel"
             sid: "at.gd/2.0:food/00107"
@@ -2261,9 +1939,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Gemüsemischung n.s."
             sid: "at.gd/2.0:food/00017"
@@ -2275,9 +1951,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0200"
+              group: "at.gd/2.0:fg/0200"
           - type: "FOOD"
             name: "Knoblauch"
             sid: "at.gd/2.0:food/00103"
@@ -2289,9 +1963,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0207"
+              group: "at.gd/2.0:fg/0207"
           - type: "FOOD"
             name: "Faschiertes n.s."
             sid: "at.gd/2.0:food/00653"
@@ -2303,9 +1975,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0700"
+              group: "at.gd/2.0:fg/0700"
           - type: "FOOD"
             name: "Tomatensauce {assocRecp=325}"
             sid: "at.gd/2.0:food/01519"
@@ -2317,9 +1987,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/150101"
+              group: "at.gd/2.0:fg/150101"
           - type: "FOOD"
             name: "Wein, rot"
             sid: "at.gd/2.0:food/01427"
@@ -2330,9 +1998,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1401"
+              group: "at.gd/2.0:fg/1401"
           - type: "FOOD"
             name: "Wasser, Leitung"
             sid: "at.gd/2.0:food/01399"
@@ -2343,9 +2009,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1304"
+              group: "at.gd/2.0:fg/1304"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -2356,9 +2020,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Pfeffer"
             sid: "at.gd/2.0:food/02136"
@@ -2369,9 +2031,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Oregano"
             sid: "at.gd/2.0:food/01542"
@@ -2382,9 +2042,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Rosmarin"
             sid: "at.gd/2.0:food/01545"
@@ -2395,9 +2053,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           - type: "FOOD"
             name: "Basilikum"
             sid: "at.gd/2.0:food/01536"
@@ -2408,13 +2064,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1503"
+              group: "at.gd/2.0:fg/1503"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/09"
+            group: "at.gd/2.0:rg/09"
         - type: "COMPOSITE"
           name: "Spätzle {assocFood=440}"
           sid: "at.gd/2.0:recp/00602"
@@ -2431,9 +2083,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0601"
+              group: "at.gd/2.0:fg/0601"
           - type: "FOOD"
             name: "Ei"
             sid: "at.gd/2.0:food/00916"
@@ -2444,9 +2094,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/0901"
+              group: "at.gd/2.0:fg/0901"
           - type: "FOOD"
             name: "Wasser, Leitung"
             sid: "at.gd/2.0:food/01399"
@@ -2457,9 +2105,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1304"
+              group: "at.gd/2.0:fg/1304"
           - type: "FOOD"
             name: "Salz, Koch"
             sid: "at.gd/2.0:food/01571"
@@ -2470,9 +2116,7 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1504"
+              group: "at.gd/2.0:fg/1504"
           - type: "FOOD"
             name: "Butter, normal"
             sid: "at.gd/2.0:food/01887"
@@ -2483,14 +2127,9 @@ respondents:
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
-              group:
-                key: "group"
-                value: "at.gd/2.0:fg/1002"
+              group: "at.gd/2.0:fg/1002"
           annotations:
-            group:
-              key: "group"
-              value: "at.gd/2.0:rg/0401"
+            group: "at.gd/2.0:rg/0401"
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+annotations: {}

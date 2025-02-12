@@ -97,6 +97,6 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
                 origFood.rawPerCookedRatio());
 
         return Record24.comment(name, origFood.sid(), origFood.facetSids(),
-                Can.ofCollection(origFood.annotations().values()));
+                origFood.streamAnnotations().collect(Can.toCan()));
     }
 }

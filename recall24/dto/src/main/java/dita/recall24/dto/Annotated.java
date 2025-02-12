@@ -22,6 +22,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Stream;
+
+import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
@@ -37,14 +40,33 @@ public interface Annotated {
         }
     }
 
-    Map<String, Annotation> annotations();
+    Map<String, Serializable> annotations();
 
     default Optional<Annotation> lookupAnnotation(final String key) {
-        return Optional.ofNullable(annotations().get(key));
+        return Optional.ofNullable(annotations().get(key)).map(value->new Annotation(key, value));
     }
 
     /** replaces any previous mapping under this key */
     default void putAnnotation(final String key, final Serializable value) {
-        annotations().put(key, new Annotation(key, value));
+        annotations().put(key, value);
+    }
+    
+    default void putAnnotation(@Nullable Annotation annotation) {
+        if(annotation==null) return;
+        annotations().put(annotation.key(), annotation.value());
+    }
+    
+    default void putAnnotations(@Nullable Iterable<Annotation> annotations) {
+        if(annotations==null) return;
+        annotations.forEach(this::putAnnotation);
+    }
+    
+    default Stream<Annotation> streamAnnotations() {
+        var map = annotations();
+        if(map==null
+            || map.isEmpty()) {
+            return Stream.empty();
+        }
+        return map.entrySet().stream().map(entry->new Annotation(entry.getKey(), entry.getValue()));
     }
 }

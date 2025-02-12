@@ -18,8 +18,10 @@
  */
 package dita.recall24.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -28,7 +30,9 @@ import java.util.function.UnaryOperator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+
 import org.springframework.util.StringUtils;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
@@ -38,7 +42,6 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
 
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -178,8 +181,7 @@ permits
              */
             @CollectionLayout(navigableSubtree = "1")
             Can<? extends Record24> subRecords,
-            Map<String, Annotation> annotations
-
+            Map<String, Serializable> annotations
             ) implements Record24, Annotated {
 
         @Override
@@ -215,7 +217,7 @@ permits
                         .name(composite.name()).sid(composite.sid()).facetSids(composite.facetSids());
 
                 composite.subRecords().forEach(sr->builder.subRecords.add(sr));
-                composite.annotations().values().forEach(builder.annotations::add);
+                composite.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
 
@@ -296,7 +298,7 @@ permits
             BigDecimal rawPerCookedRatio,
             Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
             Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking,
-            Map<String, Annotation> annotations
+            Map<String, Serializable> annotations
             ) implements Consumption {
 
         @Override
@@ -332,7 +334,7 @@ permits
                     .amountConsumed(food.amountConsumed)
                     .consumptionUnit(food.consumptionUnit)
                     .rawPerCookedRatio(food.rawPerCookedRatio);
-                food.annotations().values().forEach(builder.annotations::add);
+                food.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
 
@@ -471,7 +473,7 @@ permits
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio,
-            Map<String, Annotation> annotations
+            Map<String, Serializable> annotations
             ) implements Consumption {
 
         public FryingFat {
@@ -502,7 +504,7 @@ permits
                         .amountConsumed(fryingFat.amountConsumed)
                         .consumptionUnit(fryingFat.consumptionUnit)
                         .rawPerCookedRatio(fryingFat.rawPerCookedRatio);
-                fryingFat.annotations().values().forEach(builder.annotations::add);
+                fryingFat.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
 
@@ -542,7 +544,7 @@ permits
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
             BigDecimal rawPerCookedRatio,
-            Map<String, Annotation> annotations
+            Map<String, Serializable> annotations
             ) implements Consumption {
 
         @SuppressWarnings("unchecked")
@@ -569,7 +571,7 @@ permits
                         .amountConsumed(product.amountConsumed)
                         .consumptionUnit(product.consumptionUnit)
                         .rawPerCookedRatio(product.rawPerCookedRatio);
-                product.annotations().values().forEach(builder.annotations::add);
+                product.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
 
@@ -606,7 +608,7 @@ permits
             String name,
             SemanticIdentifier sid,
             SemanticIdentifierSet facetSids,
-            Map<String, Annotation> annotations
+            Map<String, Serializable> annotations
             ) implements Record24, Annotated {
 
         @SuppressWarnings("unchecked")
@@ -628,7 +630,7 @@ permits
             static Builder of(final Comment comment) {
                 var builder = new Builder().type(comment.type)
                         .name(comment.name()).sid(comment.sid()).facetSids(comment.facetSids());
-                comment.annotations().values().forEach(builder.annotations::add);
+                comment.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
 
@@ -663,7 +665,8 @@ permits
             final SemanticIdentifierSet facetSids,
             final Can<Annotation> annotations) {
         var comment = new Comment(ObjectRef.empty(), Record24.Type.COMMENT,
-                name, sid, facetSids, annotations.toMap(Annotation::key));
+                name, sid, facetSids, new LinkedHashMap<>());
+        comment.putAnnotations(annotations);
         return comment;
     }
 
@@ -684,7 +687,8 @@ permits
             final Can<? extends Record24> subRecords,
             final Can<Annotation> annotations) {
         var composite = new Composite(ObjectRef.empty(), Record24.Type.COMPOSITE,
-                name, sid, facetSids, subRecords, annotations.toMap(Annotation::key));
+                name, sid, facetSids, subRecords, new LinkedHashMap<>());
+        composite.putAnnotations(annotations);
         return composite;
     }
 
@@ -705,8 +709,10 @@ permits
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio,
             final Can<Annotation> annotations) {
-        return new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, annotations.toMap(Annotation::key));
+        var product = new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, new LinkedHashMap<>());
+        product.putAnnotations(annotations);
+        return product;
     }
 
     public static FryingFat fryingFat(
@@ -726,8 +732,10 @@ permits
             final ConsumptionUnit consumptionUnit,
             final BigDecimal rawPerCookedRatio,
             final Can<Annotation> annotations) {
-        return new FryingFat(ObjectRef.empty(), Record24.Type.FRYING_FAT,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, annotations.toMap(Annotation::key));
+        var fryingFat =  new FryingFat(ObjectRef.empty(), Record24.Type.FRYING_FAT,
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, new LinkedHashMap<>());
+        fryingFat.putAnnotations(annotations);
+        return fryingFat;
     }
 
     public static Food food(
@@ -760,7 +768,8 @@ permits
 
         var food = new Food(ObjectRef.empty(), Record24.Type.FOOD,
                 name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
-                typeOfFatUsed, typeOfMilkOrLiquidUsed, annotations.toMap(Annotation::key));
+                typeOfFatUsed, typeOfMilkOrLiquidUsed, new LinkedHashMap<>());
+        food.putAnnotations(annotations);
 
         typeOfFatUsed.ifPresent(rec->rec.parentFoodRef().setValue(food));
         typeOfMilkOrLiquidUsed.ifPresent(rec->rec.parentFoodRef().setValue(food));

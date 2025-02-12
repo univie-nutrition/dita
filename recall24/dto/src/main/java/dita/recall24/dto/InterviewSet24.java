@@ -18,6 +18,7 @@
  */
 package dita.recall24.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -63,9 +64,8 @@ public record InterviewSet24(
             @CollectionLayout(navigableSubtree = "1")
             Can<Respondent24> respondents,
 
-            @JsonIgnore
-            Map<String, Annotation> annotations
-
+            Map<String, Serializable> annotations
+            
             ) implements RecallNode24, Annotated {
 
     // -- FACTORIES
@@ -89,7 +89,7 @@ public record InterviewSet24(
      */
     public InterviewSet24(
             final Can<Respondent24> respondents,
-            final Map<String, Annotation> annotations) {
+            final Map<String, Serializable> annotations) {
         this.respondents = respondents
                 .sorted(Comparator.comparing(Respondent24::alias));
         this.annotations = annotations;
@@ -226,7 +226,7 @@ public record InterviewSet24(
         static Builder of(final InterviewSet24 ivSet) {
             var builder = new Builder();
             ivSet.respondents().forEach(builder.respondents::add);
-            ivSet.annotations().values().forEach(builder.annotations::add);
+            ivSet.streamAnnotations().forEach(builder.annotations::add);
             return builder;
         }
 

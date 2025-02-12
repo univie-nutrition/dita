@@ -50,7 +50,6 @@ import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
-import dita.recall24.dto.Annotated.Annotation;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass
@@ -64,11 +63,11 @@ public class InterviewSetYamlParser {
         
         var rootMap = YamlUtils.tryRead(Map.class, yaml).valueAsNonNullElseFail();
         var parser = new YamlParser(_Casts.uncheckedCast(rootMap));
-        return new InterviewSet24(parser.collection("respondents").stream()
+        var interviewSet = new InterviewSet24(parser.collection("respondents").stream()
                 .map(InterviewSetYamlParser::respondent)
                 .collect(Can.toCan()),
-                parser.annotations()        
-            );
+                parser.annotations());
+        return interviewSet;
     }
     
     // -- HELPER
@@ -207,11 +206,10 @@ public class InterviewSetYamlParser {
                 ? _Casts.uncheckedCast(v)
                 : List.of();
         }
-        @SuppressWarnings("rawtypes")
-        Map<String, Annotation> annotations() {
-            var annotations = new LinkedHashMap<String, Annotation>();
+        Map<String, Serializable> annotations() {
+            var annotations = new LinkedHashMap<String, Serializable>();
             property("annotations")
-                .forEach((k, v)->annotations.put(k, new Annotation(k, (Serializable)((Map) v).get("value"))));
+                .forEach((k, v)->annotations.put(k, (Serializable)v));
             return annotations;
         }
     }

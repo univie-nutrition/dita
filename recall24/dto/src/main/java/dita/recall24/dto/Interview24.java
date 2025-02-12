@@ -18,6 +18,7 @@
  */
 package dita.recall24.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -80,16 +81,9 @@ public record Interview24 (
             /**
              * mutable
              */
-            Map<String, Annotation> annotations
+            Map<String, Serializable> annotations
             ) implements RecallNode24, Annotated {
 
-    public Interview24(
-        LocalDate interviewDate,
-        LocalDate consumptionDate,
-        RespondentSupplementaryData24 respondentSupplementaryData,
-        Can<Meal24> meals) {
-        this(new ObjectRef<>(null), interviewDate, consumptionDate, IntRef.of(-1), respondentSupplementaryData, meals, new LinkedHashMap<>());
-    }
     
     /** canonical constructor */
     public Interview24(
@@ -99,7 +93,7 @@ public record Interview24 (
         IntRef interviewOrdinalRef,
         RespondentSupplementaryData24 respondentSupplementaryData,
         Can<Meal24> meals,
-        Map<String, Annotation> annotations) {
+        Map<String, Serializable> annotations) {
         
         this.parentRespondentRef = parentRespondentRef;
         this.interviewDate = interviewDate;
@@ -112,28 +106,12 @@ public record Interview24 (
         this.meals.forEach(meal24->meal24.parentInterviewRef().setValue(this));    
     }
     
-    @Deprecated
-    public static Interview24 of1(
-            final Respondent24 respondent,
-            /**
-             * Interview date.
-             */
-            final LocalDate interviewDate,
-            /**
-             * Date of food consumption. Typically one day before the interview.
-             */
-            final LocalDate consumptionDate,
-            /**
-             * Respondent meta-data for this interview.
-             */
-            final RespondentSupplementaryData24 respondentSupplementaryData,
-            /**
-             * The meals of this interview.
-             */
-            final Can<Meal24> meals) {
-        var interview = new Interview24(interviewDate, consumptionDate, respondentSupplementaryData, meals);
-        interview.parentRespondentRef().setValue(respondent);
-        return interview;
+    public Interview24(
+        LocalDate interviewDate,
+        LocalDate consumptionDate,
+        RespondentSupplementaryData24 respondentSupplementaryData,
+        Can<Meal24> meals) {
+        this(new ObjectRef<>(null), interviewDate, consumptionDate, IntRef.of(-1), respondentSupplementaryData, meals, new LinkedHashMap<>());
     }
 
     // -- SHORTCUTS
@@ -182,7 +160,7 @@ public record Interview24 (
                 .consumptionDate(dto.consumptionDate)
                 .respondentSupplementaryData(dto.respondentSupplementaryData());
             dto.meals.forEach(builder.meals::add);
-            dto.annotations().values().forEach(builder.annotations::add);
+            dto.streamAnnotations().forEach(builder.annotations::add);
             return builder;
         }
 
