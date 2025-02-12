@@ -55,20 +55,21 @@ public record MemorizedFood24(
 
             ) implements RecallNode24 {
 
-    public static MemorizedFood24 of(
-            /**
-             * Free text, describing this memorized food.
-             */
+    /** canonical constructor */
+    public MemorizedFood24(
+        ObjectRef<Meal24> parentMealRef,
+        String name,
+        Can<Record24> topLevelRecords) {
+        this.parentMealRef = parentMealRef;
+        this.name = name;
+        this.topLevelRecords = topLevelRecords;
+        this.topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(this));
+    }
+    
+    public MemorizedFood24(
             final String name,
-            /**
-             * Top level record(s) for this memorized food.
-             * Those may themselves have sub records.
-             */
             final Can<Record24> topLevelRecords) {
-
-        var memorizedFood24 = new MemorizedFood24(ObjectRef.empty(), name, topLevelRecords);
-        topLevelRecords.forEach(rec->rec.parentMemorizedFoodRef().setValue(memorizedFood24));
-        return memorizedFood24;
+        this(ObjectRef.empty(), name, topLevelRecords);
     }
 
     public Meal24 parentMeal() {
@@ -96,9 +97,7 @@ public record MemorizedFood24(
 
         @Override
         public MemorizedFood24 build() {
-            var dto = MemorizedFood24.of(name, Can.ofCollection(topLevelRecords));
-            dto.topLevelRecords().forEach(child->child.parentMemorizedFoodRef().setValue(dto));
-            return dto;
+            return new MemorizedFood24(name, Can.ofCollection(topLevelRecords));
         }
     }
 

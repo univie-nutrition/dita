@@ -70,14 +70,14 @@ public class RecipeManager_generateProtocolFromRecipes {
             .map(entry->{
                 var recipeSid = entry.getKey();
                 var ingredients = entry.getValue();
-                return MemorizedFood24.of(
+                return new MemorizedFood24(
                     "Example Consumption Record for Recipe " + recipeSid, 
                     Can.of(recordFactory.toCompositeRecord(recipeSid, ingredients)));
             })
             .collect(Can.toCan());
         
         var interview = Recall24DtoUtils.interviewSample(memorizedFoods);
-        var respondent = Recall24DtoUtils.respondentSample(interview);
+        var respondent = Recall24DtoUtils.respondentSample(Can.of(interview));
         var interviewSet = InterviewSet24.of(Can.of(respondent));
         return Clob.of("RecipesAsProtocol", CommonMimeType.YAML, interviewSet.toYaml());
     }

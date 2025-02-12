@@ -24,9 +24,9 @@ import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
-import dita.globodiet.survey.utils.ApprovalTestOptions;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
+import dita.testing.ApprovalTestOptions;
 
 class Recall24TransformerTest {
 

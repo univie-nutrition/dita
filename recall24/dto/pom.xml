@@ -45,6 +45,14 @@ additional
             <groupId>org.apache.causeway.core</groupId>
             <artifactId>causeway-applib</artifactId>
         </dependency>
+        
+        <!-- TESTING -->
+        
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

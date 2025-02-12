@@ -36,7 +36,7 @@ import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
-import dita.foodon.utils.ApprovalTestOptions;
+import dita.testing.ApprovalTestOptions;
 
 class FdmUtilsTest {
 

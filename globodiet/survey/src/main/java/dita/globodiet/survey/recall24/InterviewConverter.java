@@ -99,7 +99,7 @@ record InterviewConverter(SystemId systemId) {
 
     private MemorizedFood24 toMemorizedFood24(final ListEntry listEntry, final Can<Record24> topLevelRecords) {
         _Assert.assertTrue(_Strings.isNullOrEmpty(listEntry.getName()));
-        return MemorizedFood24.of(listEntry.getLabel(), topLevelRecords);
+        return new MemorizedFood24(listEntry.getLabel(), topLevelRecords);
     }
 
     // -- RECORDS
@@ -203,7 +203,7 @@ record InterviewConverter(SystemId systemId) {
 
     private Meal24 toMeal24(final ListEntry listEntry, final Can<MemorizedFood24> memorizedFood) {
         LocalTime hourOfDay = parseLocalTimeFrom4Digits(listEntry.getFoodConsumptionHourOfDay().trim());
-        return Meal24.of(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
+        return new Meal24(hourOfDay, listEntry.getFoodConsumptionOccasionId(), listEntry.getFoodConsumptionPlaceId(), memorizedFood);
     }
 
     /**

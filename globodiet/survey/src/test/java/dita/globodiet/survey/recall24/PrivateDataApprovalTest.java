@@ -32,8 +32,8 @@ import lombok.extern.log4j.Log4j2;
 import dita.globodiet.survey.DitaGdSurveyIntegrationTest;
 import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
-import dita.globodiet.survey.utils.ApprovalTestOptions;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
+import dita.testing.ApprovalTestOptions;
 
 @SpringBootTest(classes = {
         DitaTestModuleGdSurvey.class,

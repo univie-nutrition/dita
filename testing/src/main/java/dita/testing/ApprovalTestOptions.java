@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.foodon.utils;
+package dita.testing;
 
 import java.util.stream.Collectors;
 
@@ -64,5 +64,20 @@ public class ApprovalTestOptions {
             .forFile()
             .withExtension(".yaml");
     }
+
+    /**
+     * Note: WinMerge needs to play along, that is configure their default file encoding to UTF-8.
+     */
+    public Options tsvOptions() {
+        return new Options()
+            .withScrubber(s ->
+                // UNIX style line endings
+                TextUtils.streamLines(s)
+                    .collect(Collectors.joining("\n"))
+            )
+            .forFile()
+            .withExtension(".tsv");
+    }
+   
 
 }

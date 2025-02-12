@@ -1,0 +1,32 @@
+respondents:
+- alias: "SAMPLE_MALE"
+  dateOfBirth: "1975-04-03"
+  sex: "MALE"
+  interviews:
+  - interviewDate: "2025-01-03"
+    consumptionDate: "2025-01-02"
+    interviewOrdinalRef:
+      value: 1
+    respondentSupplementaryData:
+      specialDietId: "01"
+      specialDayId: "02"
+      heightCM: 175
+      weightKG: 75
+    meals:
+    - hourOfDay: "08:00:00"
+      foodConsumptionOccasionId: "at.gd/2.0:fco/03"
+      foodConsumptionPlaceId: "at.gd/2.0:poc/02"
+      memorizedFood:
+      - name: "Example Consumption Record"
+        topLevelRecords:
+        - type: "FOOD"
+          name: "Zwiebel"
+          sid: "at.gd/2.0:food/00107"
+          facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499"
+          amountConsumed: 12
+          consumptionUnit: "GRAM"
+          rawPerCookedRatio: 0.8
+          typeOfFatUsedDuringCooking: null
+          typeOfMilkOrLiquidUsedDuringCooking: null
+          annotations: {}
+    annotations: {}

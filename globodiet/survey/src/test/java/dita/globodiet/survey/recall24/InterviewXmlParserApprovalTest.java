@@ -24,7 +24,7 @@ import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
-import dita.globodiet.survey.utils.ApprovalTestOptions;
+import dita.testing.ApprovalTestOptions;
 
 class InterviewXmlParserApprovalTest {
 

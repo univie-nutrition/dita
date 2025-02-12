@@ -104,6 +104,12 @@ additional
         <!-- TESTING -->
 
         <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-testing</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.causeway.testing</groupId>
             <artifactId>causeway-testing-integtestsupport-applib</artifactId>
             <scope>test</scope>
@@ -113,18 +119,6 @@ additional
             <groupId>io.github.causewaystuff</groupId>
             <artifactId>causewaystuff-blobstore-localfs</artifactId>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>

@@ -22,15 +22,13 @@ additional
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>dita-foodon</artifactId>
-    <name>Dita - Food Ontologies (Foodon)</name>
+    <artifactId>dita-testing</artifactId>
+    <name>Dita - Testing</name>
     <description>
-        Integrates https://foodon.org/
+        Dita Testing library. To be imported as test scoped.
     </description>
 
     <properties>
-        <jar-plugin.automaticModuleName>at.ac.univie.nutrition.dita.foodon</jar-plugin.automaticModuleName>
-        <git-plugin.propertiesDir>at/ac/univie/nutrition/dita/foodon</git-plugin.propertiesDir>
     </properties>
 
     <dependencies>
@@ -39,18 +37,36 @@ additional
             <groupId>at.ac.univie.nutrition.dita</groupId>
             <artifactId>dita-commons</artifactId>
         </dependency>
-        
+
         <dependency>
-            <groupId>net.sourceforge.owlapi</groupId>
-            <artifactId>owlapi-distribution</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.approvaltests</groupId>
+            <artifactId>approvaltests</artifactId>
+            <exclusions>
+                <exclusion>
+                    <!-- we use jakarta instead -->
+                    <groupId>com.sun.mail</groupId>
+                    <artifactId>javax.mail</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>compile</scope>
         </dependency>
         
-        <!-- TESTING -->
-        
         <dependency>
-            <groupId>at.ac.univie.nutrition.dita</groupId>
-            <artifactId>dita-testing</artifactId>
-            <scope>test</scope>
+            <!-- required by com.approvaltests:test
+                (version manged by spring boot) -->
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
         </dependency>
         
     </dependencies>

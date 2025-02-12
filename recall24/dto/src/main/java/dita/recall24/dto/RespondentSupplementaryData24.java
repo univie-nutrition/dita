@@ -55,6 +55,14 @@ public record RespondentSupplementaryData24(
             BigDecimal weightKG
 
             ) {
+    
+    public RespondentSupplementaryData24(
+        String specialDietId,
+        String specialDayId,
+        BigDecimal heightCM,
+        BigDecimal weightKG) {
+        this(new ObjectRef<>(null), specialDietId, specialDayId, heightCM, weightKG);
+    }
 
     public Interview24 parentInterview() {
         return parentInterviewRef.getValue();

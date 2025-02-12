@@ -68,29 +68,29 @@ public record Meal24(
             Can<MemorizedFood24> memorizedFood
 
             ) implements RecallNode24 {
-
-    public static Meal24 of(
-            /**
-             * Hour of day, when this meal took place.
-             */
-            final LocalTime hourOfDay,
-            /**
-             * Identifying the occasion, when this meal took place.
-             */
-            final String foodConsumptionOccasionId,
-            /**
-             * Identifying the place, where this meal took place.
-             */
-            final String foodConsumptionPlaceId,
-            /**
-             * Memorized food for this meal.
-             */
-            final Can<MemorizedFood24> memorizedFood
-            ) {
-        var meal24 = new Meal24(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId,
-                foodConsumptionPlaceId, memorizedFood);
-        memorizedFood.forEach(mem->mem.parentMealRef().setValue(meal24));
-        return meal24;
+    
+    /** canonical constructor */
+    public Meal24(
+        ObjectRef<Interview24> parentInterviewRef,
+        LocalTime hourOfDay,
+        String foodConsumptionOccasionId,
+        String foodConsumptionPlaceId,
+        Can<MemorizedFood24> memorizedFood) {
+        
+        this.parentInterviewRef = parentInterviewRef;
+        this.hourOfDay = hourOfDay;
+        this.foodConsumptionOccasionId = foodConsumptionOccasionId;
+        this.foodConsumptionPlaceId = foodConsumptionPlaceId;
+        this.memorizedFood = memorizedFood;
+        this.memorizedFood.forEach(child->child.parentMealRef().setValue(this));
+    }
+    
+    public Meal24(
+        LocalTime hourOfDay,
+        String foodConsumptionOccasionId,
+        String foodConsumptionPlaceId,
+        Can<MemorizedFood24> memorizedFood) {
+        this(ObjectRef.empty(), hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, memorizedFood);
     }
 
     public Interview24 parentInterview() {
@@ -122,9 +122,7 @@ public record Meal24(
 
         @Override
         public Meal24 build() {
-            var dto = Meal24.of(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
-            dto.memorizedFood().forEach(child->child.parentMealRef().setValue(dto));
-            return dto;
+            return new Meal24(hourOfDay, foodConsumptionOccasionId, foodConsumptionPlaceId, Can.ofCollection(memorizedFood));
         }
     }
 
