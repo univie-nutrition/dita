@@ -47,7 +47,7 @@ import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
-import dita.recall24.dto.RuntimeAnnotated.Annotation;
+import dita.recall24.dto.Annotated.Annotation;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 public sealed interface Record24 extends RecallNode24
@@ -180,7 +180,7 @@ permits
             Can<? extends Record24> subRecords,
             Map<String, Annotation> annotations
 
-            ) implements Record24, RuntimeAnnotated {
+            ) implements Record24, Annotated {
 
         @Override
         public void visitDepthFirst(final int level, final IndexedConsumer<Record24> onRecord) {
@@ -245,7 +245,7 @@ permits
         }
     }
 
-    public sealed interface Consumption extends Record24, RuntimeAnnotated
+    public sealed interface Consumption extends Record24, Annotated
     permits Food, FryingFat, Product {
 
         /**
@@ -607,7 +607,7 @@ permits
             SemanticIdentifier sid,
             SemanticIdentifierSet facetSids,
             Map<String, Annotation> annotations
-            ) implements Record24, RuntimeAnnotated {
+            ) implements Record24, Annotated {
 
         @SuppressWarnings("unchecked")
         @Override

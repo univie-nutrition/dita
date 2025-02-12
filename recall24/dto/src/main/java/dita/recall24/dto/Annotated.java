@@ -26,7 +26,7 @@ import java.util.function.Function;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 
-public interface RuntimeAnnotated {
+public interface Annotated {
 
     public record Annotation(String key, Serializable value) implements Serializable {
         public static <T extends Serializable> Function<Annotation, T> valueAs(final Class<T> requiredType) {
@@ -39,7 +39,7 @@ public interface RuntimeAnnotated {
 
     Map<String, Annotation> annotations();
 
-    default Optional<Annotation> annotation(final String key) {
+    default Optional<Annotation> lookupAnnotation(final String key) {
         return Optional.ofNullable(annotations().get(key));
     }
 

@@ -48,7 +48,7 @@ import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
-import dita.recall24.dto.RuntimeAnnotated;
+import dita.recall24.dto.Annotated;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 record InterviewConverter(SystemId systemId) {
@@ -226,12 +226,12 @@ record InterviewConverter(SystemId systemId) {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-    private RuntimeAnnotated.Annotation group(final SidUtils.GdContext context, final ListEntry listEntry) {
+    private Annotated.Annotation group(final SidUtils.GdContext context, final ListEntry listEntry) {
         var groupSimpleId = FormatUtils.concat(
                 listEntry.getGroupCode(),
                 listEntry.getSubgroupCode(),
                 listEntry.getSubSubgroupCode());
-        return new RuntimeAnnotated.Annotation("group", context
+        return new Annotated.Annotation("group", context
                 .sid(systemId, groupSimpleId));
     }
 

@@ -30,15 +30,15 @@ import dita.commons.types.Message.Severity;
 import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
-import dita.recall24.dto.RuntimeAnnotated;
+import dita.recall24.dto.Annotated;
 
 @UtilityClass
 class DataUtil {
 
     Can<Message> messages(
             @NonNull final InterviewSet24 interviewSet){
-        final Can<Message> messages = interviewSet.annotation(Campaigns.ANNOTATION_MESSAGES)
-                .map(RuntimeAnnotated.Annotation.valueAsCan(Message.class))
+        final Can<Message> messages = interviewSet.lookupAnnotation(Campaigns.ANNOTATION_MESSAGES)
+                .map(Annotated.Annotation.valueAsCan(Message.class))
                 .orElseGet(Can::empty);
         return messages;
     }

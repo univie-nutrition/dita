@@ -48,7 +48,7 @@ import dita.globodiet.survey.dom.Campaigns;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.RuntimeAnnotated.Annotation;
+import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 

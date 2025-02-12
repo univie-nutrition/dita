@@ -21,9 +21,7 @@ package dita.recall24.dto.util;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -33,20 +31,13 @@ import java.util.stream.Stream;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import org.springframework.util.StringUtils;
-
 import org.apache.causeway.applib.graph.tree.TreeNode;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
-import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.collections._Multimaps;
-import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
-import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
 import dita.recall24.dto.Correction24;
@@ -129,130 +120,6 @@ public class Recall24DtoUtils {
             .collect(Can.toCan());
 
         return InterviewSet24.of(respondents);
-    }
-
-    // -- PARSE
-    
-    public InterviewSet24 parseYaml(@Nullable String yaml) {
-        if(!StringUtils.hasLength(yaml)) return InterviewSet24.empty();
-        var rootMap = YamlUtils.tryRead(Map.class, yaml).valueAsNonNullElseFail();
-        var parser = new YamlParser(_Casts.uncheckedCast(rootMap));
-        return InterviewSet24.of(parser.collection("respondents").stream()
-            .map(Recall24DtoUtils::respondent)
-            .collect(Can.toCan()));
-    }
-    
-    private Respondent24 respondent(Map<String, Object> map) {
-        var parser = new YamlParser(map);
-        return new Respondent24(
-            parser.string("alias"), 
-            parser.localDate("dateOfBirth"), 
-            parser.sex(), 
-            parser.collection("interviews").stream()
-                .map(Recall24DtoUtils::interview)
-                .collect(Can.toCan())
-            );
-    }
-    private Interview24 interview(Map<String, Object> map) {
-        var parser = new YamlParser(map);
-        return new Interview24(
-            parser.localDate("interviewDate"), 
-            parser.localDate("consumptionDate"), 
-            respondentSupplementaryData(parser.property("respondentSupplementaryData")), 
-            parser.collection("meals").stream()
-                .map(Recall24DtoUtils::meal)
-                .collect(Can.toCan()));
-    }
-    private RespondentSupplementaryData24 respondentSupplementaryData(Map<String, Object> map) {
-        var parser = new YamlParser(map);
-        return new RespondentSupplementaryData24(
-            parser.string("specialDietId"), 
-            parser.string("specialDayId"), 
-            parser.decimal("heightCM"), 
-            parser.decimal("weightKG"));
-    }
-    private Meal24 meal(Map<String, Object> map) {
-        var parser = new YamlParser(map);
-        return new Meal24(
-            parser.localTime("hourOfDay"), 
-            parser.string("foodConsumptionOccasionId"), 
-            parser.string("foodConsumptionPlaceId"), 
-            parser.collection("memorizedFood").stream()
-                .map(Recall24DtoUtils::memorizedFood)
-                .collect(Can.toCan()));
-    }
-    private MemorizedFood24 memorizedFood(Map<String, Object> map) {
-        var parser = new YamlParser(map);
-        return new MemorizedFood24(
-            parser.string("name"),
-            parser.collection("topLevelRecords").stream()
-                .map(Recall24DtoUtils::record)
-                .collect(Can.toCan()));
-    }
-    private Record24 record(Map<String, Object> map) {
-        var parser = new YamlParser(map);
-        var recordType = Record24.Type.valueOf(parser.string("type"));
-        
-        return switch(recordType) {
-            case COMPOSITE -> new Record24.Composite(ObjectRef.empty(),
-                recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"),
-                parser.collection("subRecords").stream()
-                    .map(Recall24DtoUtils::record)
-                    .collect(Can.toCan()),
-                new HashMap<>());
-            case FOOD -> new Record24.Food(ObjectRef.empty(), 
-                recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"), 
-                parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawPerCookedRatio"),
-                /*TODO not implemented
-                Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
-                Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking,
-                Map<String, Annotation> annotations*/    
-                Optional.empty(), Optional.empty(), new HashMap<>());
-            case COMMENT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
-            case FRYING_FAT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
-            case PRODUCT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
-            case TYPE_OF_FAT_USED -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
-            case TYPE_OF_MILK_OR_LIQUID_USED -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
-        };
-    }
-    
-    private record YamlParser(Map<String, Object> map) {
-        String string(String key) {
-            return "" + map.get(key);
-        }
-        LocalDate localDate(String key) {
-            return LocalDate.parse(string(key));
-        }
-        LocalTime localTime(String key) {
-            return LocalTime.parse(string(key));
-        }
-        BigDecimal decimal(String key) {
-            return new BigDecimal(string(key));
-        }
-        SemanticIdentifier sid(String key) {
-            return SemanticIdentifier.parse(string(key));
-        }
-        SemanticIdentifierSet sids(String key) {
-            return SemanticIdentifierSet.parse(string(key));
-        }
-        ConsumptionUnit consumptionUnit() {
-            return ConsumptionUnit.valueOf(string("consumptionUnit"));
-        }
-        Sex sex() {
-            return Sex.valueOf(string("sex"));
-        }
-        Map<String, Object> property(String key) {
-            var v = map.get(key);
-            return v!=null 
-                ? _Casts.uncheckedCast(v)
-                : Map.of();
-        }
-        List<Map<String, Object>> collection(String key) {
-            var v = map.get(key);
-            return v!=null 
-                ? _Casts.uncheckedCast(v)
-                : List.of();
-        }
     }
     
     // -- SAMPLE

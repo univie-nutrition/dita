@@ -34,10 +34,10 @@ import dita.commons.sid.SemanticIdentifierSet;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.RuntimeAnnotated.Annotation;
+import dita.recall24.dto.Annotated.Annotation;
 import dita.testing.ApprovalTestOptions;
 
-class Recall24DtoUtilsTest {
+class InterviewSetYamlParserTest {
     
     private InterviewSet24 interviewSet; 
     
@@ -48,7 +48,7 @@ class Recall24DtoUtilsTest {
         final SemanticIdentifierSet facetSids = SemanticIdentifierSet.parse("at.gd/2.0:fd/0204, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499");
         final BigDecimal amountConsumed = new BigDecimal("12");
         final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;
-        final BigDecimal rawPerCookedRatio = new BigDecimal("0.8");
+        final BigDecimal rawPerCookedRatio = new BigDecimal("0.37453183531761169");
         final Can<Record24> usedDuringCooking = Can.empty();
         final Can<Annotation> annotations = Can.empty();
         var food = Record24.food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, usedDuringCooking, annotations);
@@ -62,8 +62,8 @@ class Recall24DtoUtilsTest {
     @UseReporter(DiffReporter.class)
     void yamlRoundtrip() {
         var originalYaml = interviewSet.toYaml();
-        System.err.printf("%s%n", originalYaml);
-        var interviewSetAfterRoundtrip = Recall24DtoUtils.parseYaml(originalYaml);
+        //debug System.err.printf("%s%n", originalYaml);
+        var interviewSetAfterRoundtrip = InterviewSetYamlParser.parseYaml(originalYaml);
         Approvals.verify(interviewSetAfterRoundtrip.toYaml(), ApprovalTestOptions.yamlOptions());
     }
 }

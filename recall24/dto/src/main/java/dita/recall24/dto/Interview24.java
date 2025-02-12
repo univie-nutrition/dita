@@ -20,7 +20,7 @@ package dita.recall24.dto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -81,14 +81,14 @@ public record Interview24 (
              * mutable
              */
             Map<String, Annotation> annotations
-            ) implements RecallNode24, RuntimeAnnotated {
+            ) implements RecallNode24, Annotated {
 
     public Interview24(
         LocalDate interviewDate,
         LocalDate consumptionDate,
         RespondentSupplementaryData24 respondentSupplementaryData,
         Can<Meal24> meals) {
-        this(new ObjectRef<>(null), interviewDate, consumptionDate, IntRef.of(-1), respondentSupplementaryData, meals, new HashMap<>());
+        this(new ObjectRef<>(null), interviewDate, consumptionDate, IntRef.of(-1), respondentSupplementaryData, meals, new LinkedHashMap<>());
     }
     
     /** canonical constructor */

@@ -21,7 +21,7 @@ package dita.recall24.dto;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -32,6 +32,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.annotation.CollectionLayout;
@@ -43,7 +44,6 @@ import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -66,7 +66,7 @@ public record InterviewSet24(
             @JsonIgnore
             Map<String, Annotation> annotations
 
-            ) implements RecallNode24, RuntimeAnnotated {
+            ) implements RecallNode24, Annotated {
 
     // -- FACTORIES
 
@@ -77,7 +77,7 @@ public record InterviewSet24(
     public static InterviewSet24 of(
             /** Respondents that belong to this survey. */
             final Can<Respondent24> respondents) {
-        return new InterviewSet24(respondents, new HashMap<>());
+        return new InterviewSet24(respondents, new LinkedHashMap<>());
     }
 
     // -- CANONICAL CONSTRUCTOR
@@ -203,12 +203,6 @@ public record InterviewSet24(
         annotations.put(annotation.key(), annotation);
         return this;
     }
-
-//    private Map<String, Annotation> copy(final Map<String, Annotation> map) {
-//        var copy = new HashMap<String, Annotation>();
-//        copy.putAll(map);
-//        return copy;
-//    }
 
     @SuppressWarnings("unchecked")
     @Override

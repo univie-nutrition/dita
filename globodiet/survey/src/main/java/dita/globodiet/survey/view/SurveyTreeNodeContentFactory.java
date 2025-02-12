@@ -39,7 +39,7 @@ import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
-import dita.recall24.dto.RuntimeAnnotated;
+import dita.recall24.dto.Annotated;
 
 @UtilityClass
 public class SurveyTreeNodeContentFactory {
@@ -136,7 +136,7 @@ public class SurveyTreeNodeContentFactory {
     
     record InterviewSummary(
         String interview,
-        Collection<RuntimeAnnotated.Annotation> annotations) {
+        Collection<Annotated.Annotation> annotations) {
     }
 
     AsciiDoc content(final Respondent24 respondent) {

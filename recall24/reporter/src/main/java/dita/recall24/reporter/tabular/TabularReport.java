@@ -61,7 +61,7 @@ import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.RuntimeAnnotated;
+import dita.recall24.dto.Annotated;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
 
@@ -251,8 +251,8 @@ public record TabularReport(
             case Record24.Comment comment -> {
                 rowFactory.recordType(comment.type());
                 rowBuilder.groupId(
-                        comment.annotation("group")
-                        .map(RuntimeAnnotated.Annotation::value)
+                        comment.lookupAnnotation("group")
+                        .map(Annotated.Annotation::value)
                         .map(SemanticIdentifier.class::cast)
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
@@ -264,8 +264,8 @@ public record TabularReport(
                 rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                 rowFactory.recordType(comp.type());
                 rowBuilder.groupId(
-                        comp.annotation("group")
-                        .map(RuntimeAnnotated.Annotation::value)
+                        comp.lookupAnnotation("group")
+                        .map(Annotated.Annotation::value)
                         .map(SemanticIdentifier.class::cast)
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
@@ -277,13 +277,13 @@ public record TabularReport(
                 rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                 rowFactory.recordType(cRec.type());
                 rowBuilder.groupId(
-                        cRec.annotation("group")
-                        .map(RuntimeAnnotated.Annotation::value)
+                        cRec.lookupAnnotation("group")
+                        .map(Annotated.Annotation::value)
                         .map(SemanticIdentifier.class::cast)
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
-                var mappingTarget = cRec.annotation("fcdbId")
-                        .map(RuntimeAnnotated.Annotation.valueAs(SemanticIdentifier.class));
+                var mappingTarget = cRec.lookupAnnotation("fcdbId")
+                        .map(Annotated.Annotation.valueAs(SemanticIdentifier.class));
                 var compositionEntry = mappingTarget
                         .flatMap(foodCompositionRepo::lookupEntry);
                 if(mappingTarget.isPresent()) {

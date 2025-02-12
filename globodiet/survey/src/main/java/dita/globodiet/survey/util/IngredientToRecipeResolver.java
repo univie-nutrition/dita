@@ -27,7 +27,7 @@ import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
-import dita.recall24.dto.RuntimeAnnotated;
+import dita.recall24.dto.Annotated;
 
 /**
  * If recipe ingredients are mapped to (nested) recipes,
@@ -53,8 +53,8 @@ public record IngredientToRecipeResolver(
                 yield (T) builder.build();
             }
             case Record24.Food food -> {
-                var fcdbId = food.annotation("fcdbId")
-                        .map(RuntimeAnnotated.Annotation.valueAs(SemanticIdentifier.class))
+                var fcdbId = food.lookupAnnotation("fcdbId")
+                        .map(Annotated.Annotation.valueAs(SemanticIdentifier.class))
                         .orElse(null);
                 if(fcdbId!=null) {
                     if(ObjectId.Context.RECIPE.matches(fcdbId)) {

@@ -32,7 +32,7 @@ import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
-import dita.recall24.dto.RuntimeAnnotated;
+import dita.recall24.dto.Annotated;
 
 public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescriptionModel) {
 
@@ -50,7 +50,7 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
         recordBuilder.facetSids(SemanticIdentifierSet.empty());
         // store GloboDiet food description group data as annotation
         recordBuilder.annotations().clear();
-        recordBuilder.annotations().add(new RuntimeAnnotated.Annotation("group", recipeGroupSid(recipe)));
+        recordBuilder.annotations().add(new Annotated.Annotation("group", recipeGroupSid(recipe)));
 
         // keep the original food as comment
         recordBuilder.subRecords().add(origFoodAsComment(origFood));
@@ -70,7 +70,7 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
                     .facetSids(ingr.foodFacetSids())
                     .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
                     .consumptionUnit(ConsumptionUnit.GRAM); // for recipes this is always in GRAM
-                foodBuilder.annotations().add(new RuntimeAnnotated.Annotation("group", foodGroupSid(food)));
+                foodBuilder.annotations().add(new Annotated.Annotation("group", foodGroupSid(food)));
                 return foodBuilder.build();
             })
             .forEach(recordBuilder.subRecords()::add);
