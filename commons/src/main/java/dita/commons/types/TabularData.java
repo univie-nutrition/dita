@@ -212,7 +212,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
     private static Column parseColumnFromStringified(final String colLiteral) {
         return
         _Strings.parseKeyValuePair(colLiteral, ':')
-            .map(pair->new Column(pair.getKey(), Optional.of(pair.getValue().trim())))
+            .map(pair->new Column(pair.key(), Optional.of(pair.value().trim())))
             .orElseGet(()->new Column(colLiteral, Optional.empty()));
 
     }
