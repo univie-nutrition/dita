@@ -98,7 +98,11 @@ class _Dtos {
     static class Interview {
         /** Empty not used (at least at time of writing)*/
         @XmlElement(name="ITV_Id")
-        private String id;
+        private String idUnused;
+
+        public String id() {
+            return "[%s]-%s".formatted(subjectCode, consumptionDate);
+        }
 
         /** Date when the consumptions occurred. */
         @XmlElement(name="ITV_RecallDate")
@@ -270,13 +274,21 @@ class _Dtos {
                     var foodOrRecipeOrSupplement = current[2];
                     var ingredient = current[3];
                     if(ingredient==null) {
-                        System.err.printf("ignored for food: %s %n  %s%n  %s%n", listEntryType, foodOrRecipeOrSupplement.entry(), listEntry);
+                        //System.err.printf("FSS for food: %s %n  %s%n  %s%n", listEntryType, foodOrRecipeOrSupplement.entry(), listEntry);
                         assertSharedOrdinals(foodOrRecipeOrSupplement.entry(), listEntry);
                         foodOrRecipeOrSupplement.add(listEntry); // leaf node
                     } else {
-                        System.err.printf("ignored for ingredient: %s %n  %s%n  %s%n", listEntryType, ingredient.entry(), listEntry);
-                        assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
-                        ingredient.add(listEntry); // leaf node
+                        //System.err.printf("FSS for ingredient: %s %n  %s%n  %s%n", listEntryType, ingredient.entry(), listEntry);
+                        try {
+                            assertSharedOrdinalsForIngredient(ingredient.entry(), listEntry);
+                            ingredient.add(listEntry); // leaf node
+                        } catch (AssertionError e) {
+                            //TODO[dita-globodiet-survey] hotfix
+                            System.err.printf("unmet SharedOrdinalsForIngredient in interview %s %s%n",
+                                    this.id(),
+                                    e.getMessage());
+                            ingredient.add(listEntry); // add anyway
+                        }
                     }
                     return;
                 }
