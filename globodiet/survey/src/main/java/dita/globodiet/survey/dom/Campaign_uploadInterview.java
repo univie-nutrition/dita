@@ -84,7 +84,7 @@ public class Campaign_uploadInterview {
             uploadToBlobStore(interviewFileOrFiles, CommonMimeType.YAML);
         } else {
             throw new RecoverableException(String.format("unsupported mime %s%n",
-                    interviewFileOrFiles.getMimeType().toString()));
+                    interviewFileOrFiles.mimeType().toString()));
         }
         surveyTreeRootNodeHelperService.invalidateCache(mixee.secondaryKey());
         return mixee;
@@ -94,20 +94,20 @@ public class Campaign_uploadInterview {
 
     private void uploadToBlobStore(final Blob blob, CommonMimeType commonMimeType) {
         var sha = "" + blob.sha256Hex();
-        log.info("upload {} (sha256Hex={})", blob.getName(), sha);
+        log.info("upload {} (sha256Hex={})", blob.name(), sha);
 
         var zippedBlob = blob.zip();
 
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
-                .getUser().getName();
+                .getUser().name();
         var blobDescriptor = new BlobDescriptor(
-                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()).add(blob.getName()),
+                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()).add(blob.name()),
                 commonMimeType,
                 createdBy,
                 Instant.now(),
-                (long)zippedBlob.getBytes().length,
+                (long)zippedBlob.bytes().length,
                 Compression.ZIP,
-                Map.of("uncompressed-size", "" + blob.getBytes().length,
+                Map.of("uncompressed-size", "" + blob.bytes().length,
                         "sha256", sha));
         surveyBlobStore.putBlob(blobDescriptor, zippedBlob);
     }
