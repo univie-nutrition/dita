@@ -24,6 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
+import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph.Object;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph.Transformers;
 
 import lombok.experimental.UtilityClass;
@@ -37,7 +38,7 @@ public class ObjectGraphTransformers {
     public ObjectGraph.Transformer packagePrefixRemover(final String prefix) {
         return Transformers.objectModifier(obj->
             obj.packageName().startsWith(prefix)
-                ? obj.withPackageName(obj.packageName().substring(prefix.length()))
+                ? obj.asBuilder().packageName(obj.packageName().substring(prefix.length())).build()
                 : obj);
     }
 
@@ -47,7 +48,7 @@ public class ObjectGraphTransformers {
     public ObjectGraph.Transformer relationNameNormalizer() {
         return g->{
             var newRels = g.relations().stream()
-            .map(rel->rel.withDescription(rel.description().replace("Code", "￪").replace("LookupKey", "￪￪")))
+            .map(rel->rel.asBuilder().description(rel.description().replace("Code", "￪").replace("LookupKey", "￪￪")).build())
             .toList();
             g.relations().clear();
             g.relations().addAll(newRels);
@@ -84,7 +85,7 @@ public class ObjectGraphTransformers {
             var transformed = new ObjectGraph();
 
             g.objects().stream()
-                .map(obj->obj.withId(obj.id())) // copy
+                .map(Object::copy)
                 .forEach(transformed.objects()::add);
 
             var fck = new ObjectGraph.Object("fck", "virtual", "FCK", Optional.empty(), Optional.of("Food Classifier Key"), List.of());
@@ -116,9 +117,10 @@ public class ObjectGraphTransformers {
                     var to = fckLabels.contains(rel.description())
                             ? fck
                             : objectById.get(rel.toId());
-                    return rel
-                        .withFrom(from)
-                        .withTo(to); // copy
+                    return rel.asBuilder()
+                        .from(from)
+                        .to(to)
+                        .build(); // copy
                 })
                 .forEach(transformed.relations()::add);
 
