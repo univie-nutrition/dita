@@ -74,6 +74,14 @@ extends CausewayIntegrationTestAbstract {
         return Campaigns.pocMapping(campaignKeyForTesting(), surveyBlobStore);
     }
 
+    protected QualifiedMap loadSpecialDayMapping() {
+        return Campaigns.specialDayMapping(campaignKeyForTesting(), surveyBlobStore);
+    }
+
+    protected QualifiedMap loadSpecialDietMapping() {
+        return Campaigns.specialDietMapping(campaignKeyForTesting(), surveyBlobStore);
+    }
+
     protected FoodDescriptionModel loadFoodDescriptionModel() {
         return Campaigns.foodDescriptionModel(campaignKeyForTesting(), surveyBlobStore);
     }
@@ -93,9 +101,9 @@ extends CausewayIntegrationTestAbstract {
 
     @SneakyThrows
     protected TabularReport tabularReport(
-        final Aggregation aggregation, 
-        Predicate<Campaign.SecondaryKey> campaignFilter,
-        Predicate<Respondent24> respondentFiler,
+        final Aggregation aggregation,
+        final Predicate<Campaign.SecondaryKey> campaignFilter,
+        final Predicate<Respondent24> respondentFiler,
         final int maxNutrientColumns) {
 
         var reportContext = ReportContext.load(campaignKeysForTesting().filter(campaignFilter), surveyBlobStore);
@@ -106,6 +114,10 @@ extends CausewayIntegrationTestAbstract {
                 .fcoQualifier(SidUtils.languageQualifier("de"))
                 .pocMapping(reportContext.pocMapping())
                 .pocQualifier(SidUtils.languageQualifier("de"))
+                .specialDayMapping(reportContext.specialDayMapping())
+                .specialDayQualifier(SidUtils.languageQualifier("de"))
+                .specialDietMapping(reportContext.specialDietMapping())
+                .specialDietQualifier(SidUtils.languageQualifier("de"))
                 .foodCompositionRepo(reportContext.foodCompositionRepository())
                 .foodComponents(loadEnabledFoodComponents(reportContext.foodCompositionRepository().componentCatalog())
                         .stream()
@@ -124,12 +136,12 @@ extends CausewayIntegrationTestAbstract {
     private Can<Campaign.SecondaryKey> campaignKeysForTesting() {
         return Can.of(campaignKeyForTesting("wave1"), campaignKeyForTesting("wave2"), campaignKeyForTesting("wave3"));
     }
-    
+
     private Campaign.SecondaryKey campaignKeyForTesting() {
         return campaignKeyForTesting("wave1");
     }
-    
-    private Campaign.SecondaryKey campaignKeyForTesting(String campaignId) {
+
+    private Campaign.SecondaryKey campaignKeyForTesting(final String campaignId) {
         _Context.computeIfAbsent(Survey.class, ()->{
             var survey = new Survey();
             survey.setCode(SURVEY_CODE);

@@ -58,6 +58,11 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
  * @param consumptionDayOfWeek day of week
  * of consmpt.
  * Mo=1..Su=7
+ * @param specialDay homeoffice,
+ * feast, etc.
+ * @param specialDiet diabetes,
+ * gluten-free
+ * etc.
  * @param fco consumption
  * occasion
  * code
@@ -167,6 +172,21 @@ public record ConsumptionRecord(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "9",
+                describedAs = "homeoffice,\n"
+                                + "feast, etc."
+        )
+        String specialDay,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "10",
+                describedAs = "diabetes,\n"
+                                + "gluten-free\n"
+                                + "etc."
+        )
+        String specialDiet,
+        @PropertyLayout(
+                fieldSetId = "details",
+                sequence = "11",
                 describedAs = "consumption\n"
                                 + "occasion\n"
                                 + "code"
@@ -174,7 +194,7 @@ public record ConsumptionRecord(
         String fco,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "10",
+                sequence = "12",
                 describedAs = "place of\n"
                                 + "consumption\n"
                                 + "code"
@@ -182,14 +202,14 @@ public record ConsumptionRecord(
         String poc,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "11",
+                sequence = "13",
                 describedAs = "meal happened\n"
                                 + "when and where"
         )
         String meal,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "12",
+                sequence = "14",
                 describedAs = "Dewey\n"
                                 + "decimal\n"
                                 + "order"
@@ -197,21 +217,21 @@ public record ConsumptionRecord(
         String mealOrdinal,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "13",
+                sequence = "15",
                 describedAs = "type of food\n"
                                 + "record"
         )
         String recordType,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "14",
+                sequence = "16",
                 describedAs = "name of consumed\n"
                                 + "food"
         )
         String food,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "15",
+                sequence = "17",
                 describedAs = "food or\n"
                                 + "composite\n"
                                 + "identifier"
@@ -219,7 +239,7 @@ public record ConsumptionRecord(
         String foodId,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "16",
+                sequence = "18",
                 describedAs = "food or\n"
                                 + "composite\n"
                                 + "group"
@@ -227,7 +247,7 @@ public record ConsumptionRecord(
         String groupId,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "17",
+                sequence = "19",
                 describedAs = "facet descriptor\n"
                                 + "identifiers\n"
                                 + "(comma separated)"
@@ -235,14 +255,14 @@ public record ConsumptionRecord(
         String facetIds,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "18",
+                sequence = "20",
                 describedAs = "quantity\n"
                                 + "consumed [g]"
         )
         BigDecimal quantity,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "19",
+                sequence = "21",
                 describedAs = "food composition\n"
                                 + "database identifier\n"
                                 + "(nutrient mapping)"
@@ -250,7 +270,7 @@ public record ConsumptionRecord(
         String fcdbId,
         @PropertyLayout(
                 fieldSetId = "details",
-                sequence = "20",
+                sequence = "22",
                 describedAs = "has no description"
         )
         DecimalVector nutrients) {

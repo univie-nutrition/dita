@@ -87,6 +87,8 @@ public class Survey_generateReport {
             reportContext.interviewSet(), Campaigns.systemId(mixee),
             reportContext.fcoMapping(), SidUtils.languageQualifier("de"),
             reportContext.pocMapping(), SidUtils.languageQualifier("de"),
+            reportContext.specialDayMapping(), SidUtils.languageQualifier("de"),
+            reportContext.specialDietMapping(), SidUtils.languageQualifier("de"),
             foodCompositionRepo,
             DataUtil.foodComponents(foodCompositionRepo.componentCatalog(),reportColumnDefinition),
             aggregation);

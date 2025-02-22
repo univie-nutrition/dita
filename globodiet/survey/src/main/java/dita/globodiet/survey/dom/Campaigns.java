@@ -40,9 +40,9 @@ import dita.commons.types.Message;
 import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.Annotated;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.base.util.RuntimeUtils;
@@ -59,6 +59,8 @@ public class Campaigns {
         QMAP_NUT,
         QMAP_FCO,
         QMAP_POC,
+        QMAP_SDAY,
+        QMAP_SDIET,
         FDM;
         NamedPath namedPath(final Campaign.SecondaryKey campaignKey) {
             if(campaignKey==null
@@ -73,6 +75,8 @@ public class Campaigns {
                 case QMAP_NUT -> root.add("qmap").add("nut.yaml");
                 case QMAP_FCO -> root.add("qmap").add("fco.yaml");
                 case QMAP_POC -> root.add("qmap").add("poc.yaml");
+                case QMAP_SDAY -> root.add("qmap").add("sday.yaml");
+                case QMAP_SDIET -> root.add("qmap").add("sdiet.yaml");
                 case FDM -> root.add("fdm").add("fdm.yaml");
             };
         }
@@ -181,6 +185,18 @@ public class Campaigns {
             final Campaign.SecondaryKey campaignKey,
             final BlobStore blobStore) {
         return loadQmap(DataSourceLocation.QMAP_POC, campaignKey, blobStore);
+    }
+
+    public QualifiedMap specialDayMapping(
+            final Campaign.SecondaryKey campaignKey,
+            final BlobStore blobStore) {
+        return loadQmap(DataSourceLocation.QMAP_SDAY, campaignKey, blobStore);
+    }
+
+    public QualifiedMap specialDietMapping(
+            final Campaign.SecondaryKey campaignKey,
+            final BlobStore blobStore) {
+        return loadQmap(DataSourceLocation.QMAP_SDIET, campaignKey, blobStore);
     }
 
     public FoodDescriptionModel foodDescriptionModel(

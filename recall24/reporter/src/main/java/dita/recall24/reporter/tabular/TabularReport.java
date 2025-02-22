@@ -69,10 +69,19 @@ import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
 public record TabularReport(
         InterviewSet24 interviewSet,
         SystemId systemId, //TODO[dita-recall24-reporter] required for fully qualified PoC and FCO (perhaps, transform earlier already)
+
         QualifiedMap fcoMapping,
         SemanticIdentifierSet fcoQualifier,
+
         QualifiedMap pocMapping,
         SemanticIdentifierSet pocQualifier,
+
+        QualifiedMap specialDayMapping,
+        SemanticIdentifierSet specialDayQualifier,
+
+        QualifiedMap specialDietMapping,
+        SemanticIdentifierSet specialDietQualifier,
+
         FoodCompositionRepository foodCompositionRepo,
         Can<FoodComponent> foodComponents,
         Aggregation aggregation) {

@@ -74,6 +74,17 @@ viewmodel:
         day of week
         of consmpt.
         Mo=1..Su=7
+    specialDay:    
+      type: String
+      description: |
+        homeoffice,
+        feast, etc.
+    specialDiet:    
+      type: String
+      description: |
+        diabetes,
+        gluten-free 
+        etc.      
     fco:
       type: String
       description: |

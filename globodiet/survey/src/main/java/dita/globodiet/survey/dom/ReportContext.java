@@ -43,11 +43,15 @@ public record ReportContext(
     QualifiedMap fcoMapping,
     QualifiedMap pocMapping,
     QualifiedMap nutMapping,
+    QualifiedMap specialDayMapping,
+    QualifiedMap specialDietMapping,
     InterviewSet24 interviewSet) {
 
     public static ReportContext empty() {
         return new ReportContext(FoodCompositionRepository.empty(), FoodDescriptionModel.empty(),
-            QualifiedMap.empty(), QualifiedMap.empty(), QualifiedMap.empty(), InterviewSet24.empty());
+            QualifiedMap.empty(), QualifiedMap.empty(), QualifiedMap.empty(),
+            QualifiedMap.empty(), QualifiedMap.empty(),
+            InterviewSet24.empty());
     }
 
     public static ReportContext load(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore) {
@@ -72,6 +76,8 @@ public record ReportContext(
         var nutMappingFuture = pool.submit(()->Campaigns.nutMapping(firstCampaign, surveyBlobStore));
         var fcoMappingFuture = pool.submit(()->Campaigns.fcoMapping(firstCampaign, surveyBlobStore));
         var pocMappingFuture = pool.submit(()->Campaigns.pocMapping(firstCampaign, surveyBlobStore));
+        var specialDayMappingFuture = pool.submit(()->Campaigns.specialDayMapping(firstCampaign, surveyBlobStore));
+        var specialDietMappingFuture = pool.submit(()->Campaigns.specialDietMapping(firstCampaign, surveyBlobStore));
         var fcdbFuture = pool.submit(()->Campaigns.fcdb(firstCampaign, surveyBlobStore));
         var fdmFuture = pool.submit(()->Campaigns.foodDescriptionModel(firstCampaign, surveyBlobStore));
         pool.shutdown();
@@ -101,7 +107,9 @@ public record ReportContext(
         }
 
         return new ReportContext(fcdbFuture.get(), fdmFuture.get(),
-            fcoMappingFuture.get(), pocMappingFuture.get(), nutMappingFuture.get(), interviewSet);
+            fcoMappingFuture.get(), pocMappingFuture.get(),
+            specialDayMappingFuture.get(), specialDietMappingFuture.get(),
+            nutMappingFuture.get(), interviewSet);
     }
 
     public boolean isEmpty() {
