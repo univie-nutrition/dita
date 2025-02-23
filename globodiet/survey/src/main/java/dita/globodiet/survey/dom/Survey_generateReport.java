@@ -83,14 +83,18 @@ public class Survey_generateReport {
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
+        System.err.printf("FIRST %s%n", reportContext.specialDietMapping());
+
         var tabularReport = new TabularReport(
             reportContext.interviewSet(), Campaigns.systemId(mixee),
-            reportContext.fcoMapping(), SidUtils.languageQualifier("de"),
-            reportContext.pocMapping(), SidUtils.languageQualifier("de"),
-            reportContext.specialDayMapping(), SidUtils.languageQualifier("de"),
-            reportContext.specialDietMapping(), SidUtils.languageQualifier("de"),
+            SidUtils.languageQualifier("de"),
+            reportContext.specialDayMapping(),
+            reportContext.specialDietMapping(),
+            reportContext.fcoMapping(),
+            reportContext.pocMapping(),
+            reportContext.foodDescriptionModel(),
             foodCompositionRepo,
-            DataUtil.foodComponents(foodCompositionRepo.componentCatalog(),reportColumnDefinition),
+            DataUtil.foodComponents(foodCompositionRepo.componentCatalog(), reportColumnDefinition),
             aggregation);
 
         var name = String.format("%s_%s_%s",

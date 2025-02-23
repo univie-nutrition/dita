@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
 
 import javax.measure.MetricPrefix;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponent;
@@ -136,9 +136,9 @@ class DataUtil {
 
     SemanticIdentifier extractKey(final String line) {
         int p = line.indexOf("]");
-        if(p>0) return SemanticIdentifier.parse(line.substring(1, p));
-        System.err.printf("cannot find SID in %s%n", line);
-        return null;
+        return p>0
+                ? SemanticIdentifier.parse(line.substring(1, p))
+                : null; // simply ignore listing entry if its not a SID
     }
 
 }

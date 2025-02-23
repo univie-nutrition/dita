@@ -36,8 +36,9 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
+import org.apache.causeway.commons.tabular.TabularModel;
+import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -49,38 +50,32 @@ import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.DecimalVector;
 import dita.commons.types.Sex;
+import dita.foodon.fdm.FoodDescriptionModel;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.Annotated;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 import dita.recall24.reporter.dom.ConsumptionRecord.ConsumptionRecordBuilder;
 
-@Builder
 public record TabularReport(
         InterviewSet24 interviewSet,
         SystemId systemId, //TODO[dita-recall24-reporter] required for fully qualified PoC and FCO (perhaps, transform earlier already)
 
-        QualifiedMap fcoMapping,
-        SemanticIdentifierSet fcoQualifier,
+        CodeHelper sdayHelper,
+        CodeHelper sdietHelper,
+        CodeHelper fcoHelper,
+        CodeHelper pocHelper,
 
-        QualifiedMap pocMapping,
-        SemanticIdentifierSet pocQualifier,
-
-        QualifiedMap specialDayMapping,
-        SemanticIdentifierSet specialDayQualifier,
-
-        QualifiedMap specialDietMapping,
-        SemanticIdentifierSet specialDietQualifier,
+        FoodDescriptionModel fdm,
 
         FoodCompositionRepository foodCompositionRepo,
         Can<FoodComponent> foodComponents,
@@ -118,9 +113,39 @@ public record TabularReport(
         FACETS
     }
 
+    public TabularReport(
+            final InterviewSet24 interviewSet,
+            final SystemId systemId,
+
+            final SemanticIdentifierSet languageQualifier,
+            final QualifiedMap specialDayMapping,
+            final QualifiedMap specialDietMapping,
+            final QualifiedMap fcoMapping,
+            final QualifiedMap pocMapping,
+            final FoodDescriptionModel fdm,
+
+            final FoodCompositionRepository foodCompositionRepo,
+            final Can<FoodComponent> foodComponents,
+            final Aggregation aggregation) {
+
+        this(interviewSet, systemId,
+                new CodeHelper(systemId, "sday", "Special Day", languageQualifier, specialDayMapping),
+                new CodeHelper(systemId, "sdiet", "Special Diet", languageQualifier, specialDietMapping),
+                new CodeHelper(systemId, "fco", "Food Consumption Occasion", languageQualifier, fcoMapping),
+                new CodeHelper(systemId, "poc", "Place of Consumption", languageQualifier, pocMapping),
+                fdm, foodCompositionRepo, foodComponents, aggregation);
+    }
+
     public void reportXlsx(final File file) {
-        var sheet = new TabularFactory(foodComponents).toTabularSheet(aggregate());
-        new XlsxWriter(sheet).write(file);
+        Can<TabularSheet> sheets = Can.of(
+                new TabularFactory(foodComponents).toTabularSheet(aggregate()),
+                sdayHelper.sheet(),
+                sdietHelper.sheet(),
+                fcoHelper.sheet(),
+                pocHelper.sheet(),
+                new FacetSheetFactory(fdm).facetSheet());
+
+        new XlsxWriter(new TabularModel(sheets)).write(file);
     }
 
     @SneakyThrows
@@ -213,7 +238,6 @@ public record TabularReport(
     }
 
     private Iterable<ConsumptionRecord> aggregate() {
-
         var rowFactory = new RowFactory(new NutrientVectorFactory(foodComponents));
         var rowBuilder = rowFactory.builder();
         var consumptions = new ArrayList<ConsumptionRecord>();
@@ -228,6 +252,10 @@ public record TabularReport(
                 rowBuilder.interviewOrdinal(iv.interviewOrdinal());
                 rowBuilder.consumptionDate(iv.consumptionDate());
                 rowBuilder.consumptionDayOfWeek(iv.consumptionDate().getDayOfWeek().getValue());
+                var sdayCodes = sdayHelper.codes(iv.respondentSupplementaryData().specialDayId());
+                var sdietCodes = sdietHelper.codes(iv.respondentSupplementaryData().specialDietId());
+                rowBuilder.specialDay(sdayCodes.toStringNoBox());
+                rowBuilder.specialDiet(sdietCodes.toStringNoBox());
 
                 rowBuilder.interviewCount(iv.parentRespondent().interviewCount());
                 if(iv.interviewOrdinal()==1) {
@@ -239,23 +267,14 @@ public record TabularReport(
             }
             case Meal24 meal -> {
                 rowFactory.ordinalTracker.nextMeal();
-                var fcoCode = new SemanticIdentifier(systemId, new ObjectId("fco", meal.foodConsumptionOccasionId()));
-                var pocCode = new SemanticIdentifier(systemId, new ObjectId("poc", meal.foodConsumptionPlaceId()));
+                var fcoCode = fcoHelper.code(meal.foodConsumptionOccasionId());
+                var pocCode = pocHelper.code(meal.foodConsumptionPlaceId());
                 rowBuilder.fco(fcoCode.toStringNoBox());
                 rowBuilder.poc(pocCode.toStringNoBox());
-                var fcoLabel = fcoMapping.lookupEntry(fcoCode, fcoQualifier)
-                        .map(QualifiedMapEntry::target)
-                        .map(SemanticIdentifier::objectId)
-                        .map(ObjectId::objectSimpleId)
-                        .orElse("?");
-                var pocLabel = pocMapping.lookupEntry(pocCode, pocQualifier)
-                        .map(QualifiedMapEntry::target)
-                        .map(SemanticIdentifier::objectId)
-                        .map(ObjectId::objectSimpleId)
-                        .orElse("?");
-                var timeOfDayLabel = meal.hourOfDay().format(hourOfDayFormat);
-                rowBuilder.meal(String.format("%s (%s) @ %s",
-                        fcoLabel, timeOfDayLabel, pocLabel));
+                rowBuilder.meal("%s (%s) @ %s".formatted(
+                        fcoHelper.label(fcoCode),
+                        meal.hourOfDay().format(hourOfDayFormat),
+                        pocHelper.label(pocCode)));
             }
             case Record24.Comment comment -> {
                 rowFactory.recordType(comment.type());

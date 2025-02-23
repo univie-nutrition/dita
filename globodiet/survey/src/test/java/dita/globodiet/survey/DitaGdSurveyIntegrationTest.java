@@ -39,6 +39,7 @@ import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.bls.BLS302;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.Campaign;
@@ -46,6 +47,7 @@ import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
@@ -108,24 +110,23 @@ extends CausewayIntegrationTestAbstract {
 
         var reportContext = ReportContext.load(campaignKeysForTesting().filter(campaignFilter), surveyBlobStore);
 
-        return TabularReport.builder()
-                .systemId(SystemId.parse(SYSTEM_ID))
-                .fcoMapping(reportContext.fcoMapping())
-                .fcoQualifier(SidUtils.languageQualifier("de"))
-                .pocMapping(reportContext.pocMapping())
-                .pocQualifier(SidUtils.languageQualifier("de"))
-                .specialDayMapping(reportContext.specialDayMapping())
-                .specialDayQualifier(SidUtils.languageQualifier("de"))
-                .specialDietMapping(reportContext.specialDietMapping())
-                .specialDietQualifier(SidUtils.languageQualifier("de"))
-                .foodCompositionRepo(reportContext.foodCompositionRepository())
-                .foodComponents(loadEnabledFoodComponents(reportContext.foodCompositionRepository().componentCatalog())
-                        .stream()
-                        .limit(maxNutrientColumns)
-                        .collect(Can.toCan()))
-                .interviewSet(reportContext.interviewSet().filter(respondentFiler))
-                .aggregation(aggregation)
-                .build();
+        final InterviewSet24 interviewSet= reportContext.interviewSet().filter(respondentFiler);
+        final SystemId systemId = SystemId.parse(SYSTEM_ID);
+        final SemanticIdentifierSet languageQualifier = SidUtils.languageQualifier("de");
+
+        final FoodCompositionRepository foodCompositionRepo = reportContext.foodCompositionRepository();
+        final Can<FoodComponent> foodComponents = loadEnabledFoodComponents(reportContext.foodCompositionRepository().componentCatalog())
+                .stream()
+                .limit(maxNutrientColumns)
+                .collect(Can.toCan());
+
+        return new TabularReport(interviewSet, systemId, languageQualifier,
+                reportContext.specialDayMapping(),
+                reportContext.specialDietMapping(),
+                reportContext.fcoMapping(),
+                reportContext.pocMapping(),
+                reportContext.foodDescriptionModel(),
+                foodCompositionRepo, foodComponents, aggregation);
     }
 
     // -- HELPER

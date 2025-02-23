@@ -71,6 +71,8 @@ record Aggregator(
             .consumptionDayOfWeek(consumption.consumptionDayOfWeek())
             .fco(consumption.fco())
             .poc(consumption.poc())
+            .specialDay(consumption.specialDay())
+            .specialDiet(consumption.specialDiet())
             .meal(consumption.meal())
             .mealOrdinal(consumption.mealOrdinal())
             .recordType(consumption.recordType())

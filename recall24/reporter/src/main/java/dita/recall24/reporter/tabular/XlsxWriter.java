@@ -20,24 +20,25 @@ package dita.recall24.reporter.tabular;
 
 import java.io.File;
 
-import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
+import org.apache.causeway.commons.tabular.TabularModel;
 import org.apache.causeway.extensions.tabular.excel.exporter.ExcelFileWriter;
-import org.apache.causeway.extensions.tabular.excel.exporter.TabularExcelExporter;
 
-record XlsxWriter(TabularSheet sheet) {
+record XlsxWriter(
+        TabularModel tabularModel) {
 
     public void write(final File file) {
-        new TabularExcelExporter()
-            .export(sheet, file, ExcelFileWriter.Options.builder()
-                    .cellStyleFunction(cell->TabularFactory.isWip(cell)
-                            ? ExcelFileWriter.Options.CustomCellStyle.DANGER
-                            : TabularFactory.isComposite(cell)
-                                ? ExcelFileWriter.Options.CustomCellStyle.INDIGO
-                                : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
-                    .rowStyleFunction(row->TabularFactory.containsWip(row)
-                            ? ExcelFileWriter.Options.CustomCellStyle.WARNING
+        var options = ExcelFileWriter.Options.builder()
+                .cellStyleFunction(cell->TabularFactory.isWip(cell)
+                        ? ExcelFileWriter.Options.CustomCellStyle.DANGER
+                        : TabularFactory.isComposite(cell)
+                            ? ExcelFileWriter.Options.CustomCellStyle.INDIGO
                             : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
-                    .build());
+                .rowStyleFunction(row->TabularFactory.containsWip(row)
+                        ? ExcelFileWriter.Options.CustomCellStyle.WARNING
+                        : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
+                .build();
+
+        new ExcelFileWriter(options).write(tabularModel, file);
     }
 
 }

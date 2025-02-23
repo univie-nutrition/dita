@@ -75,6 +75,8 @@ record AggregatorAvgOverRespondent() {
             .consumptionDayOfWeek(acc.consumptionDayOfWeek())
             .fco(":avg")
             .poc(":avg")
+            .specialDay(":avg")
+            .specialDiet(":avg")
             .meal(":avg")
             .mealOrdinal(":avg")
             .recordType("AVG")

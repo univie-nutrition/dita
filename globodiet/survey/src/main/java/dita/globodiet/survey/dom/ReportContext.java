@@ -40,11 +40,11 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 public record ReportContext(
     FoodCompositionRepository foodCompositionRepository,
     FoodDescriptionModel foodDescriptionModel,
+    QualifiedMap specialDayMapping,
+    QualifiedMap specialDietMapping,
     QualifiedMap fcoMapping,
     QualifiedMap pocMapping,
     QualifiedMap nutMapping,
-    QualifiedMap specialDayMapping,
-    QualifiedMap specialDietMapping,
     InterviewSet24 interviewSet) {
 
     public static ReportContext empty() {
@@ -107,8 +107,8 @@ public record ReportContext(
         }
 
         return new ReportContext(fcdbFuture.get(), fdmFuture.get(),
-            fcoMappingFuture.get(), pocMappingFuture.get(),
             specialDayMappingFuture.get(), specialDietMappingFuture.get(),
+            fcoMappingFuture.get(), pocMappingFuture.get(),
             nutMappingFuture.get(), interviewSet);
     }
 
