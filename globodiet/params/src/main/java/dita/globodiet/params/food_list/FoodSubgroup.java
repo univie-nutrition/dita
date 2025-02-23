@@ -300,9 +300,9 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     public String title() {
         return String.format("%s (code=%s|%s|%s)", 
          name, 
-         dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-         dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
-         dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
+         dita.commons.util.FormatUtils.emptyToDash(foodGroupCode), 
+         dita.commons.util.FormatUtils.emptyToDash(foodSubgroupCode), 
+         dita.commons.util.FormatUtils.emptyToDash(foodSubSubgroupCode))
         ;
     }
 

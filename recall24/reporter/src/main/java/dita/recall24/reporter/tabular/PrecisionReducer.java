@@ -16,37 +16,17 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.format;
+package dita.recall24.reporter.tabular;
 
-import java.util.stream.IntStream;
+import dita.recall24.reporter.dom.ConsumptionRecord;
 
-import org.junit.jupiter.api.Test;
+record PrecisionReducer(int digits) {
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+    ConsumptionRecord apply(final ConsumptionRecord in) {
 
-import org.apache.causeway.commons.collections.Can;
+        in.nutrients();
 
-import dita.commons.util.FormatUtils;
-
-class FormatUtilsTest {
-
-    @Test
-    void concat() {
-        assertEquals("12", FormatUtils.concat("", "1", null, "2"));
+        return in;
     }
 
-    @Test
-    void cut() {
-        assertEquals(Can.of("0", "01", "89", "9"), FormatUtils.cut(IntStream.of(
-                0, 1,
-                0, 2,
-                8, 10,
-                9, 10,
-                // all invalid ...
-                -1, 2,
-                0, 99,
-                3, 2,
-                99, 99),
-                "0123456789"));
-    }
 }

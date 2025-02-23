@@ -40,23 +40,23 @@ public class BlobUtils {
     public boolean isXml(final @Nullable Blob blob) {
         return blob==null
                 ? false
-                : CommonMimeType.XML.matches(blob.getMimeType())
-                    || blob.getMimeType().toString().contains("xml");
+                : CommonMimeType.XML.matches(blob.mimeType())
+                    || blob.mimeType().toString().contains("xml");
     }
-    
+
     public boolean isYaml(final @Nullable Blob blob) {
         return blob==null
                 ? false
-                : CommonMimeType.YAML.matches(blob.getMimeType())
-                    || blob.getName().endsWith(".yaml")
-                    || blob.getName().endsWith(".yml");
+                : CommonMimeType.YAML.matches(blob.mimeType())
+                    || blob.name().endsWith(".yaml")
+                    || blob.name().endsWith(".yml");
     }
 
     public boolean isZipped(final @Nullable Blob blob) {
         return blob==null
                 ? false
-                : CommonMimeType.ZIP.matches(blob.getMimeType())
-                    || blob.getMimeType().toString().contains("zip");
+                : CommonMimeType.ZIP.matches(blob.mimeType())
+                    || blob.mimeType().toString().contains("zip");
     }
 
     public Stream<Blob> unzipAsBlobStream(final @Nullable Blob blob,
@@ -76,7 +76,7 @@ public class BlobUtils {
     }
 
     public Stream<Blob> unzipAsBlobStream(final @Nullable Blob blob, final @NonNull CommonMimeType filter) {
-        return unzipAsBlobStream(blob, (ZipOptions.ZipOptionsBuilder opts)->
+        return unzipAsBlobStream(blob, (final ZipOptions.ZipOptionsBuilder opts)->
                 opts.zipEntryFilter(zipEntry->!zipEntry.isDirectory()
                         && zipEntry.getName().toLowerCase().endsWith(".xml")),
                 _->filter);

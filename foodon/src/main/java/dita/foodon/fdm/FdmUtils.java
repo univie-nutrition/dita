@@ -34,8 +34,8 @@ import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.util.FormatUtils;
 import dita.foodon.fdm.Dtos.FoodDescriptionModelDto;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;

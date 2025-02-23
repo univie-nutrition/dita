@@ -39,7 +39,7 @@ import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.format.FormatUtils;
+import dita.commons.util.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
 import dita.globodiet.survey.util.SidUtils;
@@ -82,8 +82,6 @@ public class Survey_generateReport {
         if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();
-
-        System.err.printf("FIRST %s%n", reportContext.specialDietMapping());
 
         var tabularReport = new TabularReport(
             reportContext.interviewSet(), Campaigns.systemId(mixee),

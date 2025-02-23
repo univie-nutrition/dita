@@ -99,8 +99,8 @@ implements RuleChecker {
         for(var entry : entries) {
             var foodGroupingPlusFacet = String.format("foodGrouping=%s|%s|%s, facetCode=%s",
                     entry.getFoodGroupCode(),
-                    dita.commons.format.FormatUtils.emptyToDash(entry.getFoodSubgroupCode()),
-                    dita.commons.format.FormatUtils.emptyToDash(entry.getFoodSubSubgroupCode()),
+                    dita.commons.util.FormatUtils.emptyToDash(entry.getFoodSubgroupCode()),
+                    dita.commons.util.FormatUtils.emptyToDash(entry.getFoodSubSubgroupCode()),
                     entry.getFoodFacetCode());
             displayOrdersByFacet1.putElement(foodGroupingPlusFacet, entry.getFacetDisplayOrder());
             displayOrdersByFacet2.putElement(foodGroupingPlusFacet, entry.getDescriptorDisplayOrder());

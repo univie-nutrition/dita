@@ -23,9 +23,9 @@ import java.util.function.Consumer;
 
 import org.jspecify.annotations.Nullable;
 
-import org.jspecify.annotations.NonNull;
+import dita.commons.util.FormatUtils;
 
-import dita.commons.format.FormatUtils;
+import org.jspecify.annotations.NonNull;
 
 public record Message(Message.@NonNull Severity severity, @NonNull String text)
 implements Serializable {

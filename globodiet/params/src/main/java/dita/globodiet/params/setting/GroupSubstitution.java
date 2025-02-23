@@ -218,11 +218,11 @@ public class GroupSubstitution implements Cloneable<GroupSubstitution> {
     public String title() {
         return String.format("For %s (code=%s|%s|%s)->(f:%s|r:%s)", 
          type.title(), 
-         dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-         dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
-         dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
-         dita.commons.format.FormatUtils.emptyToDash(applyToFoodGroupsLookupKey),
-         dita.commons.format.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
+         dita.commons.util.FormatUtils.emptyToDash(foodGroupCode), 
+         dita.commons.util.FormatUtils.emptyToDash(foodSubgroupCode), 
+         dita.commons.util.FormatUtils.emptyToDash(foodSubSubgroupCode),
+         dita.commons.util.FormatUtils.emptyToDash(applyToFoodGroupsLookupKey),
+         dita.commons.util.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
         ;
     }
 

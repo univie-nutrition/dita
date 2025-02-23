@@ -59,8 +59,6 @@ record AggregatorSumOverInterview() {
         builder
             .fco(":sum")
             .poc(":sum")
-            .specialDay(":sum")
-            .specialDiet(":sum")
             .meal(":sum")
             .mealOrdinal(":sum")
             .recordType("SUM")

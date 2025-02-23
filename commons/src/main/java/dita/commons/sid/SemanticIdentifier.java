@@ -306,6 +306,7 @@ public record SemanticIdentifier (
         return new SemanticIdentifier(SystemId.empty(), ObjectId.wip());
     }
 
+    @Deprecated // inconsistent with dita.recall24.reporter.tabular.TabularFactory#literalDe
     public static SemanticIdentifier literal(final String literal) {
         return ObjectId.Context.LITERAL.sid(literal);
     }

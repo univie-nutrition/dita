@@ -29,9 +29,9 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
+import dita.commons.util.FormatUtils;
 import dita.globodiet.survey.dom.Campaign;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;

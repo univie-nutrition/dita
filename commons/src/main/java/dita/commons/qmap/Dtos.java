@@ -33,10 +33,10 @@ import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.qmap.QualifiedMap.Policy;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.util.FormatUtils;
 
 @UtilityClass
 class Dtos {

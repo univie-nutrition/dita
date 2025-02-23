@@ -18,6 +18,8 @@
  */
 package dita.recall24.reporter.tabular;
 
+import java.math.BigDecimal;
+
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -33,6 +35,7 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.util.NumberUtils;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 
 record TabularFactory(Can<FoodComponent> foodComponents) {
@@ -111,8 +114,7 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
         if(!nutrients.isEmpty()) {
             _Assert.assertEquals(foodComponents.size(), nutrients.cardinality());
             foodComponents
-                .map(IndexedFunction.zeroBased((index, _)->
-                    TabularModel.TabularCell.single(nutrients.get(index))))
+                .map(IndexedFunction.zeroBased((index, _)->numericalCell(nutrients.get(index))))
                 .forEach(cells::add);
         } else {
             foodComponents
@@ -121,6 +123,11 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
         }
 
         return new TabularModel.TabularRow(Can.ofCollection(cells));
+    }
+
+    TabularModel.TabularCell numericalCell(final double value) {
+        // this conversion saves around 25% of resulting excel file size
+        return TabularModel.TabularCell.single(NumberUtils.reducedPrecision(new BigDecimal(value), 2));
     }
 
 }

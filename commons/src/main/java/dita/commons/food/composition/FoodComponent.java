@@ -29,10 +29,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.MetricUnits;
+import dita.commons.util.FormatUtils;
 import tech.units.indriya.AbstractUnit;
 import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;

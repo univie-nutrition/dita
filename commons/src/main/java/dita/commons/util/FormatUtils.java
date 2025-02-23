@@ -16,20 +16,16 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.format;
+package dita.commons.util;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.jspecify.annotations.Nullable;
+
 import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
@@ -50,30 +46,6 @@ import dita.commons.io.JaxbAdapters;
 @UtilityClass
 public class FormatUtils {
 
-    public String roundedToScaleNoTrailingZeros(
-            final double x, final int scale) {
-        return roundedToScaleNoTrailingZeros(x, scale, Optional.empty());
-    }
-
-    public String roundedToScaleNoTrailingZeros(
-            final double x, final int scale,
-            final Optional<Locale> locale) {
-
-        var decimal = BigDecimal.valueOf(x)
-                .setScale(scale, RoundingMode.HALF_UP);
-
-        final char decimalSeparator = locale
-                .map(DecimalFormatSymbols::new)
-                .map(DecimalFormatSymbols::getDecimalSeparator)
-                .orElse('.');
-
-        var plainString = decimal.stripTrailingZeros().toPlainString();
-
-        return decimalSeparator=='.'
-                ? plainString
-                : plainString.replace('.', decimalSeparator);
-    }
-
     public String emptyToDash(final @Nullable String input) {
         return StringUtils.hasLength(input)
                 ? input
@@ -81,9 +53,8 @@ public class FormatUtils {
     }
 
     public String noLeadingZeros(final @Nullable String input) {
-        if(!StringUtils.hasLength(input)) {
-            return input;
-        }
+        if(!StringUtils.hasLength(input)) return input;
+
         var result = input;
         while(result.length()>1
                 && result.startsWith("0")) {
@@ -103,9 +74,8 @@ public class FormatUtils {
             return fillString(stringLengthYield, '0');
         }
         final int gap = stringLengthYield - input.length();
-        if(gap<1) {
-            return input;
-        }
+        if(gap<1) return input;
+
         return fillString(gap, '0') + input;
     }
 
@@ -210,9 +180,9 @@ public class FormatUtils {
             .map(Helper::substring)
             .collect(Can.toCan());
     }
-    
+
     // -- PREFIXED UNIT
-    
+
     public String prefixedUnit(final FoodComponent component) {
         return "[%s%s]".formatted(
                 component.metricPrefix()!=null

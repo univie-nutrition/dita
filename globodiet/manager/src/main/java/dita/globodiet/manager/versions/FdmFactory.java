@@ -29,12 +29,12 @@ import org.jspecify.annotations.Nullable;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Streams;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
+import dita.commons.util.FormatUtils;
 import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;

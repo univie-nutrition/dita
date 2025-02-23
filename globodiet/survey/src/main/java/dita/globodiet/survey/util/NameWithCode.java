@@ -2,10 +2,10 @@ package dita.globodiet.survey.util;
 
 import java.util.Optional;
 
-import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.util.FormatUtils;
 
 record NameWithCode(String name, String code) {
     static NameWithCode parseAssocFood(final String nameAndCode) {

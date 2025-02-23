@@ -19,7 +19,6 @@
 package dita.globodiet.manager.editing.wip;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 import jakarta.inject.Inject;
@@ -41,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.util.NumberUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 import dita.globodiet.params.recipe_list.Recipe;
@@ -64,7 +64,7 @@ public class RecipeManager_generateProtocolFromRecipes {
     final Recipe.Manager recipeManager;
 
     @MemberSupport
-    public Clob act(Campaign campaign) {
+    public Clob act(final Campaign campaign) {
         var foodDescriptionModel = Campaigns.foodDescriptionModel(campaign.secondaryKey(), surveyBlobStore);
         var recordFactory = new RecordFactory(foodDescriptionModel);
         var memorizedFoods = foodDescriptionModel.ingredientsByRecipeSid().entrySet().stream()
@@ -72,44 +72,44 @@ public class RecipeManager_generateProtocolFromRecipes {
                 var recipeSid = entry.getKey();
                 var ingredients = entry.getValue();
                 return new MemorizedFood24(
-                    "Example Consumption Record for Recipe " + recipeSid, 
+                    "Example Consumption Record for Recipe " + recipeSid,
                     Can.of(recordFactory.toCompositeRecord(recipeSid, ingredients)));
             })
             .collect(Can.toCan());
-        
+
         var interview = Recall24DtoUtils.interviewSample(memorizedFoods);
         var respondent = Recall24DtoUtils.respondentSample(Can.of(interview));
         var interviewSet = InterviewSet24.of(Can.of(respondent));
         return Clob.of("RecipesAsProtocol", CommonMimeType.YAML, interviewSet.toYaml());
     }
-    
+
     @MemberSupport
     List<Campaign> choicesCampaign() {
         return repositoryService.allInstances(Campaign.class);
     }
-    
+
     // -- HELPER
-    
+
     private record RecordFactory(FoodDescriptionModel foodDescriptionModel) {
-        Record24.Composite toCompositeRecord(SemanticIdentifier recipeSid, List<RecipeIngredient> ingredients) {
+        Record24.Composite toCompositeRecord(final SemanticIdentifier recipeSid, final List<RecipeIngredient> ingredients) {
             var recipe = foodDescriptionModel.recipeBySid().get(recipeSid);
-            
+
             var recipeTotalGram = foodDescriptionModel.sumAmountGramsForRecipe(recipe);
             var normativeFactor = new BigDecimal(100d/recipeTotalGram.doubleValue());
-            
+
             return Record24.composite(
-                recipe.name(), 
+                recipe.name(),
                 recipeSid,
                 SemanticIdentifierSet.empty(), //TODO missing recipe facets
-                ingredients.stream().map(ingr->toIngredientRecord(ingr, normativeFactor)).collect(Can.toCan()), 
+                ingredients.stream().map(ingr->toIngredientRecord(ingr, normativeFactor)).collect(Can.toCan()),
                 Can.empty());
         }
-        
-        Record24.Food toIngredientRecord(FoodDescriptionModel.RecipeIngredient ingredient, BigDecimal normativeFactor) {
+
+        Record24.Food toIngredientRecord(final FoodDescriptionModel.RecipeIngredient ingredient, final BigDecimal normativeFactor) {
             final SemanticIdentifier sid = ingredient.foodSid();
             final String name = foodDescriptionModel.foodBySid().get(sid).name();
             final SemanticIdentifierSet facetSids = ingredient.foodFacetSids();
-            final BigDecimal amountConsumed = ingredient.amountGrams().multiply(normativeFactor).setScale(3, RoundingMode.HALF_UP);
+            final BigDecimal amountConsumed = NumberUtils.reducedPrecision(ingredient.amountGrams().multiply(normativeFactor), 3);
             final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;
             final BigDecimal rawPerCookedRatio = BigDecimal.ONE.negate(); //TODO missing ratio
             final Can<Record24> usedDuringCooking = Can.empty();

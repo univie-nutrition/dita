@@ -24,6 +24,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -68,9 +69,8 @@ public class NumberUtils {
      */
     public boolean numberArrayEquals(@Nullable final double[] a, @Nullable final double[] b, final double epsilon) {
         if(a==null || a.length==0) {
-            if(b==null || b.length==0) {
-                return true;
-            }
+            if(b==null || b.length==0) return true;
+
             // a is empty, but b is not
             return false;
         }
@@ -86,12 +86,8 @@ public class NumberUtils {
     // -- CONVERSION
 
     public BigDecimal toBigDecimal(final Number number) {
-        if(number instanceof BigDecimal) {
-            return (BigDecimal) number;
-        }
-        if(number instanceof BigInteger) {
-            return new BigDecimal((BigInteger) number);
-        }
+        if(number instanceof BigDecimal bigd) return bigd;
+        if(number instanceof BigInteger bigint) return new BigDecimal(bigint);
         if(number instanceof Long ||
                 number instanceof AtomicLong ||
                 number instanceof Integer ||
@@ -106,15 +102,64 @@ public class NumberUtils {
         throw new IllegalArgumentException("unsupported number type " + number.getClass());
     }
 
+    // -- ROUNDING
+
     /**
-     * Preserves {@code null}.
+     * For numbers that are between one and minus one, we at most keep decimalPlaces significant fractional decimal places.
+     * Preserves {@code null}
      */
+    public static BigDecimal reducedPrecision(BigDecimal decimal, final int decimalPlaces) {
+        if(decimal==null) return null;
+        decimal = decimal.stripTrailingZeros();
+
+        // If zero or positive, the scale is the number of digits to the right of the decimal point.
+        if(decimal.scale()<=decimalPlaces) return decimal;
+
+        var abs = decimal.abs();
+        if(BigDecimal.ONE.compareTo(abs)==1) {
+            // The precision is the number of digits in the unscaled value.
+            int stripableDigitCount = decimal.precision() - decimalPlaces;
+            return stripableDigitCount>0
+                ? decimal.setScale(decimal.scale() - stripableDigitCount, RoundingMode.HALF_UP)
+                : decimal;
+        }
+
+        return decimal.scale()>decimalPlaces
+                ? decimal.setScale(decimalPlaces, RoundingMode.HALF_UP)
+                : decimal;
+    }
+
+    /** Preserves {@code null} */
     public BigDecimal roundToNDecimalPlaces(final @Nullable BigDecimal value, final int decimalPlaces) {
         return value==null
                 ? null
-                : value.scale()>decimalPlaces
+                : value.scale()>decimalPlaces // If zero or positive, the scale is the number of digits to the right of the decimal point.
                     ? value.setScale(decimalPlaces, RoundingMode.HALF_UP)
                     : value;
+    }
+
+    public String roundedToScaleNoTrailingZeros(
+            final double x, final int scale) {
+        return roundedToScaleNoTrailingZeros(x, scale, Optional.empty());
+    }
+
+    public String roundedToScaleNoTrailingZeros(
+            final double x, final int scale,
+            final Optional<Locale> locale) {
+
+        var decimal = BigDecimal.valueOf(x)
+                .setScale(scale, RoundingMode.HALF_UP);
+
+        final char decimalSeparator = locale
+                .map(DecimalFormatSymbols::new)
+                .map(DecimalFormatSymbols::getDecimalSeparator)
+                .orElse('.');
+
+        var plainString = decimal.stripTrailingZeros().toPlainString();
+
+        return decimalSeparator=='.'
+                ? plainString
+                : plainString.replace('.', decimalSeparator);
     }
 
     // -- FORMATTING

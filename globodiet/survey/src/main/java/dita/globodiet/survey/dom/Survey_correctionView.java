@@ -27,7 +27,7 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.format.FormatUtils;
+import dita.commons.util.FormatUtils;
 
 @Property
 @PropertyLayout(

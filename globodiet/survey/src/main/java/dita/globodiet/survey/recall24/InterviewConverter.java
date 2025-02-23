@@ -31,12 +31,12 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
-import dita.commons.format.FormatUtils;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
+import dita.commons.util.FormatUtils;
 import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;

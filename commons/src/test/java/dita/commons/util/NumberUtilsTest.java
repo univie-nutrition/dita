@@ -29,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 
 class NumberUtilsTest {
 
+    // -- FORMAT
+
     @RequiredArgsConstructor
     enum Scenario {
         NULL(null, "null"),
@@ -45,8 +47,8 @@ class NumberUtilsTest {
         BIG_DEC_KILO(new BigDecimal("123456.789"), "123.457k"),
         BIG_DEC_MICRO(new BigDecimal("0.000123456789"), "123.457µ"),
         BIG_DEC_NEG_KILO(new BigDecimal("-123456.789"), "-123.457k"),
-        BIG_DEC_NEG_MICRO(new BigDecimal("-0.000123456789"), "-123.457µ"),
-        ;
+        BIG_DEC_NEG_MICRO(new BigDecimal("-0.000123456789"), "-123.457µ");
+
         final Number number;
         final String formatExpectation;
     }
@@ -56,4 +58,30 @@ class NumberUtilsTest {
     void scientificFormat(final Scenario scenario) {
         assertEquals(scenario.formatExpectation, NumberUtils.scientificFormat(scenario.number));
     }
+
+    // -- ROUNDING
+
+    @RequiredArgsConstructor
+    enum Scenario2 {
+        NULL(null, "null"),
+        A(new BigDecimal("123456.789"), "123456.79"),
+        B(new BigDecimal("-123456.789"), "-123456.79"),
+        C(new BigDecimal("0.000123456789"), "0.00012"),
+        D(new BigDecimal("-0.000123456789"), "-0.00012"),
+        E(new BigDecimal("1.23"), "1.23"),
+        F(new BigDecimal("0.23"), "0.23"),
+        G(new BigDecimal("1.00"), "1"),
+        H(new BigDecimal("0.20"), "0.2");
+
+        final BigDecimal number;
+        final String formatExpectation;
+    }
+
+
+    @ParameterizedTest
+    @EnumSource(Scenario2.class)
+    void reducedPrecision(final Scenario2 scenario) {
+        assertEquals(scenario.formatExpectation, "" + NumberUtils.reducedPrecision(scenario.number, 2));
+    }
+
 }

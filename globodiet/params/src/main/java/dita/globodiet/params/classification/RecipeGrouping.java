@@ -23,7 +23,7 @@ import org.apache.causeway.commons.functional.Either;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import dita.commons.format.FormatUtils;
+import dita.commons.util.FormatUtils;
 import dita.globodiet.params.recipe_list.RecipeGroup;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
 

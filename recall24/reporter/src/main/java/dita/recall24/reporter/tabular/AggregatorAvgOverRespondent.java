@@ -33,7 +33,7 @@ record AggregatorAvgOverRespondent() {
     /**
      * Takes output from {@link AggregatorSumOverInterview} and calculates averages, grouped by respondentOrdinal.
      */
-    Iterable<ConsumptionRecord> apply(final Stream<ConsumptionRecord> consumptions) {
+    List<ConsumptionRecord> apply(final Stream<ConsumptionRecord> consumptions) {
         return consumptions
             .collect(Collectors.groupingBy(ConsumptionRecord::respondentOrdinal, TreeMap::new, Collectors.toList()))
             .entrySet().stream()
@@ -72,11 +72,11 @@ record AggregatorAvgOverRespondent() {
         builder
             .interviewOrdinal(0)
             .consumptionDate(acc.consumptionDate()) // keep first
-            .consumptionDayOfWeek(acc.consumptionDayOfWeek())
-            .fco(":avg")
-            .poc(":avg")
+            .consumptionDayOfWeek(-1)
             .specialDay(":avg")
             .specialDiet(":avg")
+            .fco(":avg")
+            .poc(":avg")
             .meal(":avg")
             .mealOrdinal(":avg")
             .recordType("AVG")
