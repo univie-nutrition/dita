@@ -103,7 +103,11 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
 
         var cells = dataColumns.map(dataColumn->{
             var cellElements = dataRow.getCellElements(dataColumn, InteractionInitiatedBy.PASS_THROUGH);
-            return TabularModel.TabularCell.single(cellElements.getFirst().map(ManagedObject::getPojo).orElse(null));
+            var pojo = cellElements.getFirst().map(ManagedObject::getPojo).orElse(null);
+            return pojo instanceof BigDecimal bigd
+                        && dataColumn.columnId().equals("quantity")
+                    ? numericalCell(bigd)
+                    : TabularModel.TabularCell.single(pojo);
         })
         .toArrayList();
 
@@ -114,7 +118,7 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
         if(!nutrients.isEmpty()) {
             _Assert.assertEquals(foodComponents.size(), nutrients.cardinality());
             foodComponents
-                .map(IndexedFunction.zeroBased((index, _)->numericalCell(nutrients.get(index))))
+                .map(IndexedFunction.zeroBased((index, _)->numericalCell(new BigDecimal(nutrients.get(index)))))
                 .forEach(cells::add);
         } else {
             foodComponents
@@ -125,9 +129,9 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
         return new TabularModel.TabularRow(Can.ofCollection(cells));
     }
 
-    TabularModel.TabularCell numericalCell(final double value) {
+    TabularModel.TabularCell numericalCell(final BigDecimal decimal) {
         // this conversion saves around 25% of resulting excel file size
-        return TabularModel.TabularCell.single(NumberUtils.reducedPrecision(new BigDecimal(value), 2));
+        return TabularModel.TabularCell.single(NumberUtils.reducedPrecision(decimal, 2));
     }
 
 }
