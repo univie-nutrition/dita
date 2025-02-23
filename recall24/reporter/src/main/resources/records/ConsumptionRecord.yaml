@@ -65,8 +65,10 @@ viewmodel:
     consumptionDate:
       type: java.time.LocalDate
       description: |
-        date of 
-        consumption
+        date of consumption
+        (when aggregated
+        date is from 
+        first interview)
     consumptionDayOfWeek:
       type: int
       named: Dowoc

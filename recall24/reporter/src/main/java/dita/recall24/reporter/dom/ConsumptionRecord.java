@@ -53,8 +53,10 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
  * @param interviewOrdinal respondent's
  * n-th interview
  * (chronological)
- * @param consumptionDate date of
- * consumption
+ * @param consumptionDate date of consumption
+ * (when aggregated
+ * date is from
+ * first interview)
  * @param consumptionDayOfWeek day of week
  * of consmpt.
  * Mo=1..Su=7
@@ -156,8 +158,10 @@ public record ConsumptionRecord(
         @PropertyLayout(
                 fieldSetId = "details",
                 sequence = "7",
-                describedAs = "date of\n"
-                                + "consumption"
+                describedAs = "date of consumption\n"
+                                + "(when aggregated\n"
+                                + "date is from\n"
+                                + "first interview)"
         )
         LocalDate consumptionDate,
         @PropertyLayout(

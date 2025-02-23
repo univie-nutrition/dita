@@ -75,8 +75,10 @@ viewmodels:
       type: java.time.LocalDate
       required: true
       description: |
-        date of 
-        consumption
+        date of consumption
+        (when aggregated
+        date is from 
+        first interview)
     consumptionDayOfWeek:
       type: int
       required: true

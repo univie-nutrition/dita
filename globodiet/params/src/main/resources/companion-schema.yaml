@@ -986,9 +986,9 @@ entities:
   title: |
     String.format("%s (code=%s|%s|%s)", 
      name, 
-     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode))
+     dita.commons.util.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.util.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.util.FormatUtils.emptyToDash(foodSubSubgroupCode))
     
   icon: |
     solid utensils .food-color,
@@ -1563,8 +1563,8 @@ entities:
   title: |
     String.format("Pathway (group=%s|%s|%s, descriptor=%s|%s)",
         foodGroupCode, 
-        dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
-        dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
+        dita.commons.util.FormatUtils.emptyToDash(foodSubgroupCode), 
+        dita.commons.util.FormatUtils.emptyToDash(foodSubSubgroupCode),
         foodFacetCode, 
         foodDescriptorCode)
     
@@ -1706,7 +1706,7 @@ entities:
   title: |
     String.format("Pathway (group=%s|%s, descriptor=%s|%s)",
         recipeGroupCode, 
-        dita.commons.format.FormatUtils.emptyToDash(recipeSubgroupCode), 
+        dita.commons.util.FormatUtils.emptyToDash(recipeSubgroupCode), 
         recipeFacetCode, 
         recipeDescriptorCode)
     
@@ -3985,11 +3985,11 @@ entities:
   title: |
     String.format("For %s (code=%s|%s|%s)->(f:%s|r:%s)", 
      type.title(), 
-     dita.commons.format.FormatUtils.emptyToDash(foodGroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubgroupCode), 
-     dita.commons.format.FormatUtils.emptyToDash(foodSubSubgroupCode),
-     dita.commons.format.FormatUtils.emptyToDash(applyToFoodGroupsLookupKey),
-     dita.commons.format.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
+     dita.commons.util.FormatUtils.emptyToDash(foodGroupCode), 
+     dita.commons.util.FormatUtils.emptyToDash(foodSubgroupCode), 
+     dita.commons.util.FormatUtils.emptyToDash(foodSubSubgroupCode),
+     dita.commons.util.FormatUtils.emptyToDash(applyToFoodGroupsLookupKey),
+     dita.commons.util.FormatUtils.emptyToDash(applyToRecipeGroupsLookupKey))
     
   icon: null
   description: |
