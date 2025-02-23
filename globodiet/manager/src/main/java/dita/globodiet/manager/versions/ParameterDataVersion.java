@@ -25,6 +25,8 @@ import java.util.Optional;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
+import org.jspecify.annotations.NonNull;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -48,7 +50,6 @@ import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.NonNull;
 import lombok.Setter;
 
 import dita.globodiet.manager.DitaModuleGdManager;
@@ -221,12 +222,22 @@ public class ParameterDataVersion {
 
     @Action
     @ActionLayout(
-            sequence = "4",
+            sequence = "4.1",
             describedAs = "Food Description Model as YAML.",
             fieldSetName="Details",
             position = Position.PANEL)
     public Blob downloadFoodDescriptionModel() {
         return versionsExportService.getFoodDescriptionModelAsYaml(this);
+    }
+
+    @Action
+    @ActionLayout(
+            sequence = "4.2",
+            describedAs = "Zip file containing QMAPS as YAML.",
+            fieldSetName="Details",
+            position = Position.PANEL)
+    public Blob downloadSpecialDayAndOthers() {
+        return versionsExportService.getSpecialDayAndOthers(this);
     }
 
     // -- [5] BAK DOWNLOAD

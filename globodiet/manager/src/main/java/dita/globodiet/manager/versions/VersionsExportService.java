@@ -51,6 +51,11 @@ import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.RecipeGroup;
 import dita.globodiet.params.recipe_list.RecipeIngredient;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
+import dita.globodiet.params.setting.FoodConsumptionOccasion;
+import dita.globodiet.params.setting.PlaceOfConsumption;
+import dita.globodiet.params.setting.SpecialDayPredefinedAnswer;
+import dita.globodiet.params.setting.SpecialDietPredefinedAnswer;
+import dita.globodiet.survey.util.SidUtils;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsExportService")
@@ -76,8 +81,15 @@ public class VersionsExportService {
             RecipeDescriptor.class
             );
 
-    @Inject private VersionsService versionsService;
+    private static Can<Class<?>> QMAP_ENTITIES = Can.of(
+            FoodConsumptionOccasion.class,
+            PlaceOfConsumption.class,
+            SpecialDayPredefinedAnswer.class,
+            SpecialDietPredefinedAnswer.class
+            );
 
+
+    @Inject private VersionsService versionsService;
     @Inject private TableSerializerYaml tableSerializer;
 
     @Inject @Qualifier("entity2table") private TabularData.NameTransformer entity2table;
@@ -96,6 +108,20 @@ public class VersionsExportService {
         return Clob.of("fdm", CommonMimeType.YAML, yaml)
                 .toBlob(StandardCharsets.UTF_8)
                 .zip();
+    }
+
+    public Blob getSpecialDayAndOthers(final ParameterDataVersion parameterDataVersion) {
+        var yamlTabular = tablesAsYamlFromVersion(parameterDataVersion,
+                table->QMAP_ENTITIES.stream()
+                    .anyMatch(cls->table.key().endsWith("." + cls.getSimpleName())),
+                ExportFormat.ENTITY);
+
+        var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
+
+        var qMapFactory = new QMapFactory(SystemId.parse(parameterDataVersion.getSystemId()), SidUtils.languageQualifier("de"), tabularData);
+        var entryBuilder = qMapFactory.createZipOfYamls();
+
+        return Blob.of("qmaps-export", CommonMimeType.ZIP, entryBuilder.toBytes());
     }
 
     /**

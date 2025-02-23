@@ -21,6 +21,7 @@ package dita.commons.sid;
 import java.io.Serializable;
 import java.util.function.UnaryOperator;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.annotation.Value;
@@ -28,7 +29,6 @@ import org.apache.causeway.commons.internal.base._Strings;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -163,6 +163,7 @@ public record SemanticIdentifier (
         @RequiredArgsConstructor
         public enum Context {
             LANGUAGE("language", true),
+            LITERAL("literal", true),
             BRAND("brand", true),
             COMPONENT("comp"),
             RECIPE("recp"),
@@ -190,14 +191,14 @@ public record SemanticIdentifier (
                 }
                 return false;
             }
-            public boolean matches(@Nullable String contextId) {
+            public boolean matches(@Nullable final String contextId) {
                 return id().equals(contextId);
             }
-            public boolean matches(@Nullable ObjectId objecjId) {
+            public boolean matches(@Nullable final ObjectId objecjId) {
                 return objecjId!=null
                         && id().equals(objecjId.context());
             }
-            public boolean matches(@Nullable SemanticIdentifier sid) {
+            public boolean matches(@Nullable final SemanticIdentifier sid) {
                 return sid!=null
                         && id().equals(sid.objectId().context());
             }
@@ -296,16 +297,17 @@ public record SemanticIdentifier (
     // -- SID IMPL
 
     private static final SemanticIdentifier EMPTY = new SemanticIdentifier(SystemId.empty(), ObjectId.empty());
-
-    public static SemanticIdentifier empty() {
-        return EMPTY;
-    }
+    public static SemanticIdentifier empty() { return EMPTY; }
 
     /**
      * Placeholder for 'work in progress'.
      */
     public static SemanticIdentifier wip() {
         return new SemanticIdentifier(SystemId.empty(), ObjectId.wip());
+    }
+
+    public static SemanticIdentifier literal(final String literal) {
+        return ObjectId.Context.LITERAL.sid(literal);
     }
 
     public static SemanticIdentifier parse(final String systemId, final String objectId) {
