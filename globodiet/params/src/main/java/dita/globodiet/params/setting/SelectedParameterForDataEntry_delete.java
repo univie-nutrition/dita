@@ -61,8 +61,7 @@ public class SelectedParameterForDataEntry_delete {
     private final SelectedParameterForDataEntry mixee;
 
     @MemberSupport
-    public SelectedParameterForDataEntry.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public SelectedParameterForDataEntry.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new SelectedParameterForDataEntry.Manager(searchService, "");

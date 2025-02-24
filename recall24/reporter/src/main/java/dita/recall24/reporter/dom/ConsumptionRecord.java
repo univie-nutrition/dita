@@ -34,6 +34,7 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 /**
  * Represents a single food consumption as flattened data,
  * useful for tabular data exports.
+ *
  * @param respondentOrdinal sequential
  * respondent
  * index
@@ -102,182 +103,72 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
 @DomainObjectLayout(
         named = "Consumption",
         describedAs = "Represents a single food consumption as flattened data,\n"
-                        + "useful for tabular data exports."
+                + "useful for tabular data exports."
 )
 @Builder
 public record ConsumptionRecord(
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "1",
-                describedAs = "sequential\n"
-                                + "respondent\n"
-                                + "index"
-        )
-        int respondentOrdinal,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "2",
-                describedAs = "anonymized\n"
-                                + "respondent identifier,\n"
-                                + "unique to the\n"
-                                + "corresponding survey"
-        )
-        String respondentAlias,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "3",
-                describedAs = "1=male\n"
-                                + "2=female"
-        )
-        int respondentSex,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "4",
-                describedAs = "age at first\n"
-                                + "consumption day\n"
-                                + "=ageInDays/365.2422"
-        )
-        BigDecimal respondentAge,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "5",
-                describedAs = "respondent's total\n"
-                                + "number of interviews\n"
-                                + "considered with\n"
-                                + "this report"
-        )
-        int interviewCount,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "6",
-                describedAs = "respondent's\n"
-                                + "n-th interview\n"
-                                + "(chronological)"
-        )
-        int interviewOrdinal,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "7",
-                describedAs = "date of consumption\n"
-                                + "(when aggregated\n"
-                                + "date is from\n"
-                                + "first interview)"
-        )
-        LocalDate consumptionDate,
-        @PropertyLayout(
-                named = "Dowoc",
-                fieldSetId = "details",
-                sequence = "8",
-                describedAs = "day of week\n"
-                                + "of consmpt.\n"
-                                + "Mo=1..Su=7"
-        )
-        int consumptionDayOfWeek,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "9",
-                describedAs = "homeoffice,\n"
-                                + "feast, etc."
-        )
-        String specialDay,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "10",
-                describedAs = "diabetes,\n"
-                                + "gluten-free\n"
-                                + "etc."
-        )
-        String specialDiet,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "11",
-                describedAs = "consumption\n"
-                                + "occasion\n"
-                                + "code"
-        )
-        String fco,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "12",
-                describedAs = "place of\n"
-                                + "consumption\n"
-                                + "code"
-        )
-        String poc,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "13",
-                describedAs = "meal happened\n"
-                                + "when and where"
-        )
-        String meal,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "14",
-                describedAs = "Dewey\n"
-                                + "decimal\n"
-                                + "order"
-        )
-        String mealOrdinal,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "15",
-                describedAs = "type of food\n"
-                                + "record"
-        )
-        String recordType,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "16",
-                describedAs = "name of consumed\n"
-                                + "food"
-        )
-        String food,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "17",
-                describedAs = "food or\n"
-                                + "composite\n"
-                                + "identifier"
-        )
-        String foodId,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "18",
-                describedAs = "food or\n"
-                                + "composite\n"
-                                + "group"
-        )
-        String groupId,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "19",
-                describedAs = "facet descriptor\n"
-                                + "identifiers\n"
-                                + "(comma separated)"
-        )
-        String facetIds,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "20",
-                describedAs = "quantity\n"
-                                + "consumed [g]"
-        )
-        BigDecimal quantity,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "21",
-                describedAs = "food composition\n"
-                                + "database identifier\n"
-                                + "(nutrient mapping)"
-        )
-        String fcdbId,
-        @PropertyLayout(
-                fieldSetId = "details",
-                sequence = "22",
-                describedAs = "has no description"
-        )
-        DecimalVector nutrients) {
+        @PropertyLayout(fieldSetId = "details", sequence = "1", describedAs = "sequential\n"
+                        + "respondent\n"
+                        + "index") int respondentOrdinal,
+        @PropertyLayout(fieldSetId = "details", sequence = "2", describedAs = "anonymized\n"
+                        + "respondent identifier,\n"
+                        + "unique to the\n"
+                        + "corresponding survey") String respondentAlias,
+        @PropertyLayout(fieldSetId = "details", sequence = "3", describedAs = "1=male\n"
+                        + "2=female") int respondentSex,
+        @PropertyLayout(fieldSetId = "details", sequence = "4", describedAs = "age at first\n"
+                        + "consumption day\n"
+                        + "=ageInDays/365.2422") BigDecimal respondentAge,
+        @PropertyLayout(fieldSetId = "details", sequence = "5", describedAs = "respondent's total\n"
+                        + "number of interviews\n"
+                        + "considered with\n"
+                        + "this report") int interviewCount,
+        @PropertyLayout(fieldSetId = "details", sequence = "6", describedAs = "respondent's\n"
+                        + "n-th interview\n"
+                        + "(chronological)") int interviewOrdinal,
+        @PropertyLayout(fieldSetId = "details", sequence = "7", describedAs = "date of consumption\n"
+                        + "(when aggregated\n"
+                        + "date is from\n"
+                        + "first interview)") LocalDate consumptionDate,
+        @PropertyLayout(named = "Dowoc", fieldSetId = "details", sequence = "8", describedAs = "day of week\n"
+                        + "of consmpt.\n"
+                        + "Mo=1..Su=7") int consumptionDayOfWeek,
+        @PropertyLayout(fieldSetId = "details", sequence = "9", describedAs = "homeoffice,\n"
+                        + "feast, etc.") String specialDay,
+        @PropertyLayout(fieldSetId = "details", sequence = "10", describedAs = "diabetes,\n"
+                        + "gluten-free\n"
+                        + "etc.") String specialDiet,
+        @PropertyLayout(fieldSetId = "details", sequence = "11", describedAs = "consumption\n"
+                        + "occasion\n"
+                        + "code") String fco,
+        @PropertyLayout(fieldSetId = "details", sequence = "12", describedAs = "place of\n"
+                        + "consumption\n"
+                        + "code") String poc,
+        @PropertyLayout(fieldSetId = "details", sequence = "13", describedAs = "meal happened\n"
+                        + "when and where") String meal,
+        @PropertyLayout(fieldSetId = "details", sequence = "14", describedAs = "Dewey\n"
+                        + "decimal\n"
+                        + "order") String mealOrdinal,
+        @PropertyLayout(fieldSetId = "details", sequence = "15", describedAs = "type of food\n"
+                        + "record") String recordType,
+        @PropertyLayout(fieldSetId = "details", sequence = "16", describedAs = "name of consumed\n"
+                        + "food") String food,
+        @PropertyLayout(fieldSetId = "details", sequence = "17", describedAs = "food or\n"
+                        + "composite\n"
+                        + "identifier") String foodId,
+        @PropertyLayout(fieldSetId = "details", sequence = "18", describedAs = "food or\n"
+                        + "composite\n"
+                        + "group") String groupId,
+        @PropertyLayout(fieldSetId = "details", sequence = "19", describedAs = "facet descriptor\n"
+                        + "identifiers\n"
+                        + "(comma separated)") String facetIds,
+        @PropertyLayout(fieldSetId = "details", sequence = "20", describedAs = "quantity\n"
+                        + "consumed [g]") BigDecimal quantity,
+        @PropertyLayout(fieldSetId = "details", sequence = "21", describedAs = "food composition\n"
+                        + "database identifier\n"
+                        + "(nutrient mapping)") String fcdbId,
+        @PropertyLayout(fieldSetId = "details", sequence = "22", describedAs = "has no description") DecimalVector nutrients
+) {
     @ObjectSupport
     public String title() {
         return this.toString();

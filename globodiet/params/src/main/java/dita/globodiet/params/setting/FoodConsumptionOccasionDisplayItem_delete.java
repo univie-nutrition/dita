@@ -61,8 +61,7 @@ public class FoodConsumptionOccasionDisplayItem_delete {
     private final FoodConsumptionOccasionDisplayItem mixee;
 
     @MemberSupport
-    public FoodConsumptionOccasionDisplayItem.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public FoodConsumptionOccasionDisplayItem.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new FoodConsumptionOccasionDisplayItem.Manager(searchService, "");

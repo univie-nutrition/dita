@@ -61,8 +61,7 @@ public class DayOfWeek_delete {
     private final DayOfWeek mixee;
 
     @MemberSupport
-    public DayOfWeek.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public DayOfWeek.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new DayOfWeek.Manager(searchService, "");

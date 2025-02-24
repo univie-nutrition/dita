@@ -61,8 +61,7 @@ public class CountryInvolved_delete {
     private final CountryInvolved mixee;
 
     @MemberSupport
-    public CountryInvolved.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public CountryInvolved.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new CountryInvolved.Manager(searchService, "");

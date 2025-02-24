@@ -61,8 +61,7 @@ public class RecipeTypePathway_delete {
     private final RecipeTypePathway mixee;
 
     @MemberSupport
-    public RecipeTypePathway.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public RecipeTypePathway.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new RecipeTypePathway.Manager(searchService, "");

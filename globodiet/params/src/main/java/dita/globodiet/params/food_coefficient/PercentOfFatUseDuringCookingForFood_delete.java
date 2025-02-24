@@ -61,8 +61,7 @@ public class PercentOfFatUseDuringCookingForFood_delete {
     private final PercentOfFatUseDuringCookingForFood mixee;
 
     @MemberSupport
-    public PercentOfFatUseDuringCookingForFood.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public PercentOfFatUseDuringCookingForFood.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new PercentOfFatUseDuringCookingForFood.Manager(searchService, "");

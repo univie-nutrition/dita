@@ -68,7 +68,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Dietary supplement classification",
         cssClassFa = "solid tablets .supplement-color,\n"
-                        + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "DS_CLASSIF"
@@ -200,7 +200,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
     @DomainObjectLayout(
             describedAs = "Dietary supplement classification",
             cssClassFa = "solid tablets .supplement-color,\n"
-                            + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid layer-group .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -223,8 +223,7 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
         }
 
         @Collection
-        public final List<DietarySupplementClassification> getListOfDietarySupplementClassification(
-                ) {
+        public final List<DietarySupplementClassification> getListOfDietarySupplementClassification() {
             return searchService.search(DietarySupplementClassification.class, DietarySupplementClassification::title, search);
         }
 
@@ -236,45 +235,28 @@ public class DietarySupplementClassification implements Cloneable<DietarySupplem
 
     /**
      * Parameter model for @{link DietarySupplementClassification}
+     *
      * @param code Dietary Supplement classification code
      * @param name Name of the food (sub-)(sub-)group
      * @param attachedToCode Dietary Supplement classification code attached to (for subgroup)
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Dietary Supplement classification code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Name of the food (sub-)(sub-)group"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Dietary Supplement classification code attached to (for subgroup)"
-            )
-            String attachedToCode) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Dietary Supplement classification code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Name of the food (sub-)(sub-)group") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Dietary Supplement classification code attached to (for subgroup)") String attachedToCode
+    ) {
     }
 
     /**
      * SecondaryKey for @{link DietarySupplementClassification}
+     *
      * @param code Dietary Supplement classification code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
-            String code) implements ISecondaryKey<DietarySupplementClassification> {
+            String code
+    ) implements ISecondaryKey<DietarySupplementClassification> {
         @Override
         public Class<DietarySupplementClassification> correspondingClass() {
             return DietarySupplementClassification.class;

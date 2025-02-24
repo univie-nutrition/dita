@@ -61,8 +61,7 @@ public class HouseholdMeasure_delete {
     private final HouseholdMeasure mixee;
 
     @MemberSupport
-    public HouseholdMeasure.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public HouseholdMeasure.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new HouseholdMeasure.Manager(searchService, "");

@@ -126,7 +126,7 @@ public class HouseholdMeasure implements Cloneable<HouseholdMeasure> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "HouseholdMeasure fractions ( 1/4,2/3,...), specified in a text field separated by commas.\n"
-                            + "The value of each expression will be evaluated as factor of the total volume"
+                    + "The value of each expression will be evaluated as factor of the total volume"
     )
     @Column(
             name = "HHM_FRACT",

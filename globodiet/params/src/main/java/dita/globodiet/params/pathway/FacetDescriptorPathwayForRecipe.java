@@ -59,10 +59,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for individual recipe.\n"
-                        + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.",
+                + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.",
         cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                        + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                        + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "R_RCPFAEX"
@@ -111,8 +111,8 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
             fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe\n"
-                            + "(supersedes this Recipe's group pathway).\n"
-                            + "The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.",
+                    + "(supersedes this Recipe's group pathway).\n"
+                    + "The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -188,10 +188,10 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
     )
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for individual recipe.\n"
-                            + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.",
+                    + "Supersedes this Recipe's group facet/descriptor pathway from @{table R_GROUPFAC}.",
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                    + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                    + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -214,8 +214,7 @@ public class FacetDescriptorPathwayForRecipe implements Cloneable<FacetDescripto
         }
 
         @Collection
-        public final List<FacetDescriptorPathwayForRecipe> getListOfFacetDescriptorPathwayForRecipe(
-                ) {
+        public final List<FacetDescriptorPathwayForRecipe> getListOfFacetDescriptorPathwayForRecipe() {
             return searchService.search(FacetDescriptorPathwayForRecipe.class, FacetDescriptorPathwayForRecipe::title, search);
         }
 

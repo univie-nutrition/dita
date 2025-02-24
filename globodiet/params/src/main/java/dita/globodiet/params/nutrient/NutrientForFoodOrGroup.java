@@ -73,7 +73,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Cross reference between food (or food group) and nutrient values (usually multiple).",
         cssClassFa = "solid flask .nutrient-color,\n"
-                        + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "ITEMS_DEF"
@@ -127,10 +127,10 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             fieldSetId = "details",
             sequence = "2",
             describedAs = "Type of record:\n"
-                            + "F=food,\n"
-                            + "R=recipe,\n"
-                            + "A2=fat attached,\n"
-                            + "A3=liquid attached"
+                    + "F=food,\n"
+                    + "R=recipe,\n"
+                    + "A2=fat attached,\n"
+                    + "A3=liquid attached"
     )
     @Column(
             name = "TYPE",
@@ -395,21 +395,19 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
 
     @RequiredArgsConstructor
     public enum TypeOfRecord {
+
         /**
          * no description
          */
         FOOD("F", "Food"),
-
         /**
          * no description
          */
         RECIPE("R", "Recipe"),
-
         /**
          * no description
          */
         FAT_ATTACHED("A2", "Fat attached"),
-
         /**
          * no description
          */
@@ -436,7 +434,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
     @DomainObjectLayout(
             describedAs = "Cross reference between food (or food group) and nutrient values (usually multiple).",
             cssClassFa = "solid flask .nutrient-color,\n"
-                            + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -471,6 +469,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
 
     /**
      * Parameter model for @{link NutrientForFoodOrGroup}
+     *
      * @param code Unique code, that relates @{table NTR_VALUE}.
      * @param typeOfRecord Type of record:
      * F=food,
@@ -489,106 +488,33 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Unique code, that relates @{table NTR_VALUE}."
-            )
-            int code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Type of record:\n"
-                                    + "F=food,\n"
-                                    + "R=recipe,\n"
-                                    + "A2=fat attached,\n"
-                                    + "A3=liquid attached"
-            )
-            TypeOfRecord typeOfRecord,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food or recipe group"
-            )
-            FoodGroup foodOrRecipeGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food or recipe sub-group"
-            )
-            FoodSubgroup foodOrRecipeSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food sub-sub-group"
-            )
-            FoodSubgroup foodSubSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food or Recipe code"
-            )
-            Food foodOrRecipe,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Facet string"
-            )
-            String facetString,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Brand name"
-            )
-            String brandName,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Priority order"
-            )
-            int priority,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Attached records: only for the Type=A2 & A3"
-            )
-            Integer attachedRecords,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Comment"
-            )
-            String comment) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique code, that relates @{table NTR_VALUE}.") int code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Type of record:\n"
+                            + "F=food,\n"
+                            + "R=recipe,\n"
+                            + "A2=fat attached,\n"
+                            + "A3=liquid attached") TypeOfRecord typeOfRecord,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food or recipe group") FoodGroup foodOrRecipeGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food or recipe sub-group") FoodSubgroup foodOrRecipeSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food sub-sub-group") FoodSubgroup foodSubSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food or Recipe code") Food foodOrRecipe,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Facet string") String facetString,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Brand name") String brandName,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Priority order") int priority,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Attached records: only for the Type=A2 & A3") Integer attachedRecords,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Comment") String comment
+    ) {
     }
 
     /**
      * SecondaryKey for @{link NutrientForFoodOrGroup}
+     *
      * @param code Unique code, that relates @{table NTR_VALUE}.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(int code) implements ISecondaryKey<NutrientForFoodOrGroup> {
+    public final record SecondaryKey(
+            int code
+    ) implements ISecondaryKey<NutrientForFoodOrGroup> {
         @Override
         public Class<NutrientForFoodOrGroup> correspondingClass() {
             return NutrientForFoodOrGroup.class;

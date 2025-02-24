@@ -40,7 +40,7 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
         fieldSetId = "details",
         sequence = "2.1",
         describedAs = "Food (ingredient) Identification Code\n"
-                        + "either Foods.foodnum OR Mixedrec.r_idnum",
+                + "either Foods.foodnum OR Mixedrec.r_idnum",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

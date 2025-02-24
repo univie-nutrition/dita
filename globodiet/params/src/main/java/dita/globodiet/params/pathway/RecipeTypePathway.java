@@ -97,14 +97,14 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             fieldSetId = "details",
             sequence = "1",
             describedAs = "Type of recipe:\n"
-                            + "1.1=Open – Known\n"
-                            + "1.2=Open – Unknown\n"
-                            + "1.3=Open with brand\n"
-                            + "2.1=Closed\n"
-                            + "2.2=Closed with brand\n"
-                            + "3.0=Commercial\n"
-                            + "4.1=New – Known\n"
-                            + "4.2=New – Unknown"
+                    + "1.1=Open – Known\n"
+                    + "1.2=Open – Unknown\n"
+                    + "1.3=Open with brand\n"
+                    + "2.1=Closed\n"
+                    + "2.2=Closed with brand\n"
+                    + "3.0=Commercial\n"
+                    + "4.1=New – Known\n"
+                    + "4.2=New – Unknown"
     )
     @Column(
             name = "R_TYPE",
@@ -137,7 +137,7 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             fieldSetId = "details",
             sequence = "2",
             describedAs = "0 = The ingredient window is not displayed\n"
-                            + "1 = The ingredient window is displayed"
+                    + "1 = The ingredient window is displayed"
     )
     @Column(
             name = "R_ING",
@@ -171,9 +171,9 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "Functions allocated in NEW interview mode when the ingredient window is displayed (R_ING=1):\n"
-                            + "1 = S - Substitute\n"
-                            + "2 = SAD - Substitute, Add & Delete\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify"
+                    + "1 = S - Substitute\n"
+                    + "2 = SAD - Substitute, Add & Delete\n"
+                    + "3 = SADQ - Substitute, Add, Delete & Quantify"
     )
     @Column(
             name = "N_IFUNCTION",
@@ -207,9 +207,9 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Functions allocated in EDIT interview mode when the ingredient window is displayed (R_ING=1):\n"
-                            + "1 = S - Substitute\n"
-                            + "2 = SAD - Substitute, Add & Delete\n"
-                            + "3 = SADQ - Substitute, Add, Delete & Quantify"
+                    + "1 = S - Substitute\n"
+                    + "2 = SAD - Substitute, Add & Delete\n"
+                    + "3 = SADQ - Substitute, Add, Delete & Quantify"
     )
     @Column(
             name = "E_IFUNCTION",
@@ -243,9 +243,9 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "Display of the automatic note window:\n"
-                            + "0 = No display of note window\n"
-                            + "1 = Display of note window\n"
-                            + "2 = Display of note window only for Add & Delete functions"
+                    + "0 = No display of note window\n"
+                    + "1 = Display of note window\n"
+                    + "2 = Display of note window only for Add & Delete functions"
     )
     @Column(
             name = "D_NOTES",
@@ -305,41 +305,35 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
 
     @RequiredArgsConstructor
     public enum TypeOfRecipe {
+
         /**
          * no description
          */
         OPEN_KNOWN("1.1", "Open–Known"),
-
         /**
          * no description
          */
         OPEN_UNKNOWN("1.2", "Open–Unknown"),
-
         /**
          * no description
          */
         OPEN_WITH_BRAND("1.3", "Open with brand"),
-
         /**
          * no description
          */
         CLOSED("2.1", "Closed"),
-
         /**
          * no description
          */
         CLOSED_WITH_BRAND("2.2", "Closed with brand"),
-
         /**
          * no description
          */
         COMMERCIAL("3.0", "Commercial"),
-
         /**
          * no description
          */
         NEW_KNOWN("4.1", "New–Known"),
-
         /**
          * no description
          */
@@ -357,11 +351,11 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
 
     @RequiredArgsConstructor
     public enum IngredientWindowIsDisplayedQ {
+
         /**
          * The ingredient window is not displayed
          */
         HIDDEN(0, "hidden"),
-
         /**
          * The ingredient window is displayed
          */
@@ -379,16 +373,15 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
 
     @RequiredArgsConstructor
     public enum FunctionsAllocatedInNEWInterviewModeWhenTheIngredientWindowIsDisplayed {
+
         /**
          * Substitute
          */
         S(1, "S"),
-
         /**
          * Substitute, Add & Delete
          */
         SAD(2, "SAD"),
-
         /**
          * Substitute, Add, Delete & Quantify
          */
@@ -406,16 +399,15 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
 
     @RequiredArgsConstructor
     public enum FunctionsAllocatedInEDITInterviewModeWhenTheIngredientWindowIsDisplayed {
+
         /**
          * Substitute
          */
         S(1, "S"),
-
         /**
          * Substitute, Add & Delete
          */
         SAD(2, "SAD"),
-
         /**
          * Substitute, Add, Delete & Quantify
          */
@@ -433,16 +425,15 @@ public class RecipeTypePathway implements Cloneable<RecipeTypePathway> {
 
     @RequiredArgsConstructor
     public enum DisplayOfTheAutomaticNoteWindow {
+
         /**
          * No display of note window
          */
         HIDDEN(0, "hidden"),
-
         /**
          * Display of note window
          */
         DISPLAYED(1, "displayed"),
-
         /**
          * Display of note window only for Add & Delete functions
          */

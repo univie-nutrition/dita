@@ -88,7 +88,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "foreign",
             sequence = "1",
             describedAs = "Food identification number (FOODNUM)\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum",
+                    + "either Foods.foodnum OR Mixedrec.r_idnum",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -131,7 +131,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "Facet string\n"
-                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+                    + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -176,7 +176,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)"
+                    + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -209,7 +209,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "details",
             sequence = "6",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)"
+                    + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAWCOOK",
@@ -242,7 +242,7 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
             fieldSetId = "details",
             sequence = "7",
             describedAs = "1 = density for food/ingredient,\n"
-                            + "2 = density for recipe"
+                    + "2 = density for recipe"
     )
     @Column(
             name = "D_TYPE",
@@ -306,11 +306,11 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
 
     @RequiredArgsConstructor
     public enum WithUnediblePartQ {
+
         /**
          * without un-edible part,
          */
         UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
-
         /**
          * with un-edible (as estimated)
          */
@@ -328,11 +328,11 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
 
     @RequiredArgsConstructor
     public enum RawOrCooked {
+
         /**
          * no description
          */
         RAW("1", "raw"),
-
         /**
          *  as estimated
          */
@@ -350,11 +350,11 @@ public class DensityFactorForFoodOrRecipe implements Cloneable<DensityFactorForF
 
     @RequiredArgsConstructor
     public enum ForFoodOrRecipe {
+
         /**
          * density for food/ingredient,
          */
         FOOD(1, "Food"),
-
         /**
          * density for recipe
          */

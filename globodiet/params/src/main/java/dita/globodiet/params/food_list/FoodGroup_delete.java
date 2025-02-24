@@ -61,8 +61,7 @@ public class FoodGroup_delete {
     private final FoodGroup mixee;
 
     @MemberSupport
-    public FoodGroup.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public FoodGroup.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new FoodGroup.Manager(searchService, "");

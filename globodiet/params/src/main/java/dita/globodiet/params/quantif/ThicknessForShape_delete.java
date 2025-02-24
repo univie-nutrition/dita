@@ -61,8 +61,7 @@ public class ThicknessForShape_delete {
     private final ThicknessForShape mixee;
 
     @MemberSupport
-    public ThicknessForShape.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public ThicknessForShape.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new ThicknessForShape.Manager(searchService, "");

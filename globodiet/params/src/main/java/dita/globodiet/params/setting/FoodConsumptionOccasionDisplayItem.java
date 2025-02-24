@@ -61,9 +61,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "List of foods often eaten at each food consumption occasion.\n"
-                        + "During the quick list step, this list will appear as a reminder\n"
-                        + "or a help to the interviewer when a food consumption occasion (FCO) is proposed\n"
-                        + "(before choosing a FCO and after filling in a FCO quick list).",
+                + "During the quick list step, this list will appear as a reminder\n"
+                + "or a help to the interviewer when a food consumption occasion (FCO) is proposed\n"
+                + "(before choosing a FCO and after filling in a FCO quick list).",
         cssClassFa = "regular message"
 )
 @PersistenceCapable(
@@ -164,9 +164,9 @@ public class FoodConsumptionOccasionDisplayItem implements Cloneable<FoodConsump
     )
     @DomainObjectLayout(
             describedAs = "List of foods often eaten at each food consumption occasion.\n"
-                            + "During the quick list step, this list will appear as a reminder\n"
-                            + "or a help to the interviewer when a food consumption occasion (FCO) is proposed\n"
-                            + "(before choosing a FCO and after filling in a FCO quick list).",
+                    + "During the quick list step, this list will appear as a reminder\n"
+                    + "or a help to the interviewer when a food consumption occasion (FCO) is proposed\n"
+                    + "(before choosing a FCO and after filling in a FCO quick list).",
             cssClassFa = "regular message"
     )
     @AllArgsConstructor
@@ -190,8 +190,7 @@ public class FoodConsumptionOccasionDisplayItem implements Cloneable<FoodConsump
         }
 
         @Collection
-        public final List<FoodConsumptionOccasionDisplayItem> getListOfFoodConsumptionOccasionDisplayItem(
-                ) {
+        public final List<FoodConsumptionOccasionDisplayItem> getListOfFoodConsumptionOccasionDisplayItem() {
             return searchService.search(FoodConsumptionOccasionDisplayItem.class, FoodConsumptionOccasionDisplayItem::title, search);
         }
 

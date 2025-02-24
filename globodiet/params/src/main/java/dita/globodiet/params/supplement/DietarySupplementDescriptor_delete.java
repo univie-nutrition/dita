@@ -61,8 +61,7 @@ public class DietarySupplementDescriptor_delete {
     private final DietarySupplementDescriptor mixee;
 
     @MemberSupport
-    public DietarySupplementDescriptor.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public DietarySupplementDescriptor.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new DietarySupplementDescriptor.Manager(searchService, "");

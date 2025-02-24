@@ -69,8 +69,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "A campaign defines a part of a food consumption survey that contains several interviews.\n"
-                        + "Campaigns can be defined to be the whole study,\n"
-                        + "a seasonal part of a study, a regional part of a study etc.",
+                + "Campaigns can be defined to be the whole study,\n"
+                + "a seasonal part of a study, a regional part of a study etc.",
         cssClassFa = "solid users-viewfinder .campaign-color"
 )
 @PersistenceCapable(
@@ -227,8 +227,8 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
     )
     @DomainObjectLayout(
             describedAs = "A campaign defines a part of a food consumption survey that contains several interviews.\n"
-                            + "Campaigns can be defined to be the whole study,\n"
-                            + "a seasonal part of a study, a regional part of a study etc.",
+                    + "Campaigns can be defined to be the whole study,\n"
+                    + "a seasonal part of a study, a regional part of a study etc.",
             cssClassFa = "solid users-viewfinder .campaign-color"
     )
     @AllArgsConstructor
@@ -264,6 +264,7 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
 
     /**
      * Parameter model for @{link Campaign}
+     *
      * @param survey Survey code
      * @param code Unique (survey scoped) campaign identifier.
      * @param name Descriptive campaign name.
@@ -271,50 +272,24 @@ public class Campaign implements Cloneable<Campaign>, HasSecondaryKey<Campaign> 
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Survey code"
-            )
-            Survey survey,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Unique (survey scoped) campaign identifier."
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptive campaign name."
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Detailed information for this campaign.",
-                    multiLine = 4
-            )
-            String description) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) campaign identifier.") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive campaign name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed information for this campaign.", multiLine = 4) String description
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Campaign}
+     *
      * @param surveyCode Survey code
      * @param code Unique (survey scoped) campaign identifier.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code) implements ISecondaryKey<Campaign> {
+            String code
+    ) implements ISecondaryKey<Campaign> {
         @Override
         public Class<Campaign> correspondingClass() {
             return Campaign.class;

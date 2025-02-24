@@ -61,8 +61,7 @@ public class MaximumValueForRecipeOrGroup_delete {
     private final MaximumValueForRecipeOrGroup mixee;
 
     @MemberSupport
-    public MaximumValueForRecipeOrGroup.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public MaximumValueForRecipeOrGroup.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new MaximumValueForRecipeOrGroup.Manager(searchService, "");

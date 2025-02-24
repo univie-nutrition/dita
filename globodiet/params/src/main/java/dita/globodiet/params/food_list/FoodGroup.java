@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Food group",
         cssClassFa = "solid utensils .food-color,\n"
-                        + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "GROUPS"
@@ -201,7 +201,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
     @DomainObjectLayout(
             describedAs = "Food group",
             cssClassFa = "solid utensils .food-color,\n"
-                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -236,44 +236,28 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
 
     /**
      * Parameter model for @{link FoodGroup}
+     *
      * @param code Food group code
      * @param name Food group name
      * @param shortName Food group short name
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group short name"
-            )
-            String shortName) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group short name") String shortName
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FoodGroup}
+     *
      * @param code Food group code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<FoodGroup> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<FoodGroup> {
         @Override
         public Class<FoodGroup> correspondingClass() {
             return FoodGroup.class;

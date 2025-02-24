@@ -59,10 +59,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for individual food.\n"
-                        + "Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.",
+                + "Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.",
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                        + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                        + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "FOODFAEX"
@@ -111,8 +111,8 @@ public class FacetDescriptorPathwayForFood implements Cloneable<FacetDescriptorP
             fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food Facet codes that will appear in the sequence of facets corresponding to this Food\n"
-                            + "(supersedes this Food's group pathway).\n"
-                            + "The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.",
+                    + "(supersedes this Food's group pathway).\n"
+                    + "The list of descriptors will be the ones defined for the subgroup in @{table GROUPFAC}.",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -188,10 +188,10 @@ public class FacetDescriptorPathwayForFood implements Cloneable<FacetDescriptorP
     )
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for individual food.\n"
-                            + "Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.",
+                    + "Supersedes this food's group facet/descriptor pathway from @{table GROUPFAC}.",
             cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                    + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                    + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

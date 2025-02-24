@@ -61,8 +61,7 @@ public class RawToCookedConversionFactorForFood_delete {
     private final RawToCookedConversionFactorForFood mixee;
 
     @MemberSupport
-    public RawToCookedConversionFactorForFood.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public RawToCookedConversionFactorForFood.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new RawToCookedConversionFactorForFood.Manager(searchService, "");

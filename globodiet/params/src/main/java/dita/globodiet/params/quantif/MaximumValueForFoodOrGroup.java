@@ -59,7 +59,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Maximum quantity consumed that could be entered in the interview application for a given food\n"
-                        + "(or group) before the control message warns the interviewer of an implausible value."
+                + "(or group) before the control message warns the interviewer of an implausible value."
 )
 @PersistenceCapable(
         table = "MAXVAL"
@@ -273,7 +273,7 @@ public class MaximumValueForFoodOrGroup implements Cloneable<MaximumValueForFood
     )
     @DomainObjectLayout(
             describedAs = "Maximum quantity consumed that could be entered in the interview application for a given food\n"
-                            + "(or group) before the control message warns the interviewer of an implausible value."
+                    + "(or group) before the control message warns the interviewer of an implausible value."
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

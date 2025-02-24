@@ -62,7 +62,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Dietary supplement descriptor",
         cssClassFa = "solid tablets .supplement-color,\n"
-                        + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "DS_DESCFACE"
@@ -153,7 +153,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Only for the facet with Dsfacet_type=1,\n"
-                            + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0"
+                    + "for the supplement quantification If HHM=1 Then HHM method is proposed Else No HHM=0"
     )
     @Column(
             name = "DSDESCR_HHM",
@@ -177,9 +177,9 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
             fieldSetId = "details",
             sequence = "5",
             describedAs = "Default Descriptor.\n"
-                            + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
-                            + "1=default,\n"
-                            + "0=other"
+                    + "When this facet is displayed, the cursor has to be focussed on the default descriptor (only 1 defaulty):\n"
+                    + "1=default,\n"
+                    + "0=other"
     )
     @Column(
             name = "DSDESCR_DEFAULT",
@@ -347,11 +347,11 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
 
     @RequiredArgsConstructor
     public enum DefaultDescriptor {
+
         /**
          * no description
          */
         DEFAULT(1, "default"),
-
         /**
          * no description
          */
@@ -369,11 +369,11 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
 
     @RequiredArgsConstructor
     public enum OtherQ {
+
         /**
          * no description
          */
         NO(0, "no"),
-
         /**
          * no description
          */
@@ -391,11 +391,11 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
 
     @RequiredArgsConstructor
     public enum SingleDescriptorQ {
+
         /**
          * no description
          */
         NOT_SINGLE_DESCRIPTOR(0, "not single descriptor"),
-
         /**
          * no description
          */
@@ -422,7 +422,7 @@ public class DietarySupplementDescriptor implements Cloneable<DietarySupplementD
     @DomainObjectLayout(
             describedAs = "Dietary supplement descriptor",
             cssClassFa = "solid tablets .supplement-color,\n"
-                            + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid tag .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

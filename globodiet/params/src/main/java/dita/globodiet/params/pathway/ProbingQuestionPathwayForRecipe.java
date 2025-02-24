@@ -59,7 +59,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Probing question pathway for recipe.",
         cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                        + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "RPQPATH"
@@ -206,7 +206,7 @@ public class ProbingQuestionPathwayForRecipe implements Cloneable<ProbingQuestio
     @DomainObjectLayout(
             describedAs = "Probing question pathway for recipe.",
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid question .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -229,8 +229,7 @@ public class ProbingQuestionPathwayForRecipe implements Cloneable<ProbingQuestio
         }
 
         @Collection
-        public final List<ProbingQuestionPathwayForRecipe> getListOfProbingQuestionPathwayForRecipe(
-                ) {
+        public final List<ProbingQuestionPathwayForRecipe> getListOfProbingQuestionPathwayForRecipe() {
             return searchService.search(ProbingQuestionPathwayForRecipe.class, ProbingQuestionPathwayForRecipe::title, search);
         }
 

@@ -183,7 +183,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0=non main FCO\n"
-                            + "1=main FCO (to be displayed in nutrient check screen)"
+                    + "1=main FCO (to be displayed in nutrient check screen)"
     )
     @Column(
             name = "FCM_PRINCIPAL",
@@ -248,11 +248,11 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
 
     @RequiredArgsConstructor
     public enum DisplayInNutrientCheckScreenQ {
+
         /**
          * non main FCO
          */
         SECONDARY(0, "secondary"),
-
         /**
          * main FCO (to be displayed in nutrient check screen)
          */
@@ -313,6 +313,7 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
 
     /**
      * Parameter model for @{link FoodConsumptionOccasion}
+     *
      * @param code Food Consumption Occasion code
      * @param textDisplayedOnScreen FCO long label (text displayed on screen)
      * @param mode FCO type: if =1 the FCO can be selected several times (e.g. During morning)
@@ -322,56 +323,24 @@ public class FoodConsumptionOccasion implements Cloneable<FoodConsumptionOccasio
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food Consumption Occasion code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "FCO long label (text displayed on screen)"
-            )
-            String textDisplayedOnScreen,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)"
-            )
-            String mode,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "FCO short label to identify easily the FCO"
-            )
-            String shortLabelToIdentifyEasily,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=non main FCO\n"
-                                    + "1=main FCO (to be displayed in nutrient check screen)"
-            )
-            DisplayInNutrientCheckScreenQ displayInNutrientCheckScreenQ) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food Consumption Occasion code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "FCO long label (text displayed on screen)") String textDisplayedOnScreen,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "FCO type: if =1 the FCO can be selected several times (e.g. During morning)") String mode,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "FCO short label to identify easily the FCO") String shortLabelToIdentifyEasily,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=non main FCO\n"
+                            + "1=main FCO (to be displayed in nutrient check screen)") DisplayInNutrientCheckScreenQ displayInNutrientCheckScreenQ
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FoodConsumptionOccasion}
+     *
      * @param code Food Consumption Occasion code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
-            String code) implements ISecondaryKey<FoodConsumptionOccasion> {
+            String code
+    ) implements ISecondaryKey<FoodConsumptionOccasion> {
         @Override
         public Class<FoodConsumptionOccasion> correspondingClass() {
             return FoodConsumptionOccasion.class;

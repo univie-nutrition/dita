@@ -61,8 +61,7 @@ public class SpecialDietPredefinedAnswer_delete {
     private final SpecialDietPredefinedAnswer mixee;
 
     @MemberSupport
-    public SpecialDietPredefinedAnswer.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public SpecialDietPredefinedAnswer.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new SpecialDietPredefinedAnswer.Manager(searchService, "");

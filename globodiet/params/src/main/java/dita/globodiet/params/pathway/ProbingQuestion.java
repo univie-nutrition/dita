@@ -210,35 +210,26 @@ public class ProbingQuestion implements Cloneable<ProbingQuestion>, HasSecondary
 
     /**
      * Parameter model for @{link ProbingQuestion}
+     *
      * @param code Probing question code
      * @param label Probing question label
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Probing question code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Probing question label"
-            )
-            String label) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Probing question code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Probing question label") String label
+    ) {
     }
 
     /**
      * SecondaryKey for @{link ProbingQuestion}
+     *
      * @param code Probing question code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<ProbingQuestion> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<ProbingQuestion> {
         @Override
         public Class<ProbingQuestion> correspondingClass() {
             return ProbingQuestion.class;

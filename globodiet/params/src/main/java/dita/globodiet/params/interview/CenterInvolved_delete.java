@@ -61,8 +61,7 @@ public class CenterInvolved_delete {
     private final CenterInvolved mixee;
 
     @MemberSupport
-    public CenterInvolved.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public CenterInvolved.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new CenterInvolved.Manager(searchService, "");

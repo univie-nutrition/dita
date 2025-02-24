@@ -61,8 +61,7 @@ public class Interviewer_delete {
     private final Interviewer mixee;
 
     @MemberSupport
-    public Interviewer.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public Interviewer.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new Interviewer.Manager(searchService, "");

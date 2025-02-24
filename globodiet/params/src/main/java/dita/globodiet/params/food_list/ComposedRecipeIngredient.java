@@ -108,7 +108,7 @@ public class ComposedRecipeIngredient implements Cloneable<ComposedRecipeIngredi
             fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Food (ingredient) Identification Code\n"
-                            + "either Foods.foodnum OR Mixedrec.r_idnum",
+                    + "either Foods.foodnum OR Mixedrec.r_idnum",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -132,7 +132,7 @@ public class ComposedRecipeIngredient implements Cloneable<ComposedRecipeIngredi
             fieldSetId = "details",
             sequence = "3",
             describedAs = "If type=1 ingredient from Food list,\n"
-                            + "If type=2 ingredient from Recipe list"
+                    + "If type=2 ingredient from Recipe list"
     )
     @Column(
             name = "TYPE",
@@ -189,11 +189,11 @@ public class ComposedRecipeIngredient implements Cloneable<ComposedRecipeIngredi
 
     @RequiredArgsConstructor
     public enum Type {
+
         /**
          * ingredient from Food list
          */
         FOOD("1", "Food"),
-
         /**
          * ingredient from Recipe list
          */

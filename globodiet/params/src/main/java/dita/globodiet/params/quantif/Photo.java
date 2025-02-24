@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Photo and its quantities",
         cssClassFa = "solid image,\n"
-                        + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "M_PHOTOS"
@@ -142,7 +142,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)"
+                    + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -175,7 +175,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)"
+                    + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -208,7 +208,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
             fieldSetId = "details",
             sequence = "5",
             describedAs = "G = in Unit grams (mass)\n"
-                            + "V = in Unit milliliter (volume)"
+                    + "V = in Unit milliliter (volume)"
     )
     @Column(
             name = "PH_UNIT",
@@ -274,11 +274,11 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
 
     @RequiredArgsConstructor
     public enum RawOrCooked {
+
         /**
          * no description
          */
         RAW("1", "raw"),
-
         /**
          * as estimated
          */
@@ -296,11 +296,11 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
 
     @RequiredArgsConstructor
     public enum WithUnediblePartQ {
+
         /**
          * without un-edible part
          */
         UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
-
         /**
          * with un-edible (as estimated)
          */
@@ -318,11 +318,11 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
 
     @RequiredArgsConstructor
     public enum Unit {
+
         /**
          * in unit grams (mass)
          */
         GRAMS("G", "Grams"),
-
         /**
          * in unit milliliter (volume)
          */
@@ -349,7 +349,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
     @DomainObjectLayout(
             describedAs = "Photo and its quantities",
             cssClassFa = "solid image,\n"
-                            + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -384,6 +384,7 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
 
     /**
      * Parameter model for @{link Photo}
+     *
      * @param code Photo series code (P001,P002,P003,...)
      * @param quantificationList List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)
      * @param rawOrCooked 1 = raw,
@@ -395,57 +396,26 @@ public class Photo implements Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Ph
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Photo series code (P001,P002,P003,...)"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)"
-            )
-            String quantificationList,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "1 = raw,\n"
-                                    + "2 = cooked (as estimated)"
-            )
-            RawOrCooked rawOrCooked,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "1 = without un-edible part,\n"
-                                    + "2 = with un-edible (as estimated)"
-            )
-            WithUnediblePartQ withUnediblePartQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "G = in Unit grams (mass)\n"
-                                    + "V = in Unit milliliter (volume)"
-            )
-            Unit unit) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Photo series code (P001,P002,P003,...)") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "List that defines the quantities of each photo (e.g. 1-70,2-141,3-228,4-304,5-405,6-507)") String quantificationList,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "1 = raw,\n"
+                            + "2 = cooked (as estimated)") RawOrCooked rawOrCooked,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "1 = without un-edible part,\n"
+                            + "2 = with un-edible (as estimated)") WithUnediblePartQ withUnediblePartQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "G = in Unit grams (mass)\n"
+                            + "V = in Unit milliliter (volume)") Unit unit
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Photo}
+     *
      * @param code Photo series code (P001,P002,P003,...)
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<Photo> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<Photo> {
         @Override
         public Class<Photo> correspondingClass() {
             return Photo.class;

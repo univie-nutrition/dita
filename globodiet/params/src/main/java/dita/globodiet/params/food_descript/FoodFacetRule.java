@@ -107,9 +107,9 @@ public class FoodFacetRule implements Cloneable<FoodFacetRule> {
             fieldSetId = "foreign",
             sequence = "2",
             describedAs = "Facet code + Descriptor code that must exist in the current food description\n"
-                            + "to allow the facet (FACET_CODE) to be asked.\n"
-                            + "Additionally a group/subgroup code can be defined to force the food being described\n"
-                            + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
+                    + "to allow the facet (FACET_CODE) to be asked.\n"
+                    + "Additionally a group/subgroup code can be defined to force the food being described\n"
+                    + "to belong to a specific food group to allow the facet to be asked (leave it to blanks if not applicable).",
             hidden = Where.ALL_TABLES
     )
     @Column(

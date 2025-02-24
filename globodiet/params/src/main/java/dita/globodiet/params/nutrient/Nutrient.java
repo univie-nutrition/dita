@@ -161,7 +161,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=not displayed in the 'nutrient checks' screen\n"
-                            + "1=displayed in the 'nutrient checks' screen"
+                    + "1=displayed in the 'nutrient checks' screen"
     )
     @Column(
             name = "NTR_DISPLAY",
@@ -247,11 +247,11 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
 
     @RequiredArgsConstructor
     public enum DisplayInTheNutrientChecksScreen {
+
         /**
          * not displayed in the 'nutrient checks' screen
          */
         NO(0, "No"),
-
         /**
          * displayed in the 'nutrient checks' screen
          */
@@ -312,6 +312,7 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
 
     /**
      * Parameter model for @{link Nutrient}
+     *
      * @param nutrientCode Nutrient code
      * @param nutrientName Nutrient Name
      * @param nutrientUnit Nutrient unit (e.g. kcal, g, mg…)
@@ -321,55 +322,24 @@ public class Nutrient implements Cloneable<Nutrient>, HasSecondaryKey<Nutrient> 
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Nutrient code"
-            )
-            int nutrientCode,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Nutrient Name"
-            )
-            String nutrientName,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Nutrient unit (e.g. kcal, g, mg…)"
-            )
-            String nutrientUnit,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=not displayed in the 'nutrient checks' screen\n"
-                                    + "1=displayed in the 'nutrient checks' screen"
-            )
-            DisplayInTheNutrientChecksScreen displayInTheNutrientChecksScreen,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Comment on nutrient"
-            )
-            String commentOnNutrient) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Nutrient code") int nutrientCode,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Nutrient Name") String nutrientName,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Nutrient unit (e.g. kcal, g, mg…)") String nutrientUnit,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=not displayed in the 'nutrient checks' screen\n"
+                            + "1=displayed in the 'nutrient checks' screen") DisplayInTheNutrientChecksScreen displayInTheNutrientChecksScreen,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Comment on nutrient") String commentOnNutrient
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Nutrient}
+     *
      * @param nutrientCode Nutrient code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(int nutrientCode) implements ISecondaryKey<Nutrient> {
+    public final record SecondaryKey(
+            int nutrientCode
+    ) implements ISecondaryKey<Nutrient> {
         @Override
         public Class<Nutrient> correspondingClass() {
             return Nutrient.class;

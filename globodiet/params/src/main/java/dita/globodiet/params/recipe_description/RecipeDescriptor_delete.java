@@ -61,8 +61,7 @@ public class RecipeDescriptor_delete {
     private final RecipeDescriptor mixee;
 
     @MemberSupport
-    public RecipeDescriptor.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public RecipeDescriptor.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new RecipeDescriptor.Manager(searchService, "");

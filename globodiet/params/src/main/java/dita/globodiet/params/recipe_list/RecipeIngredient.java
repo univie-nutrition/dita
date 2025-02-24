@@ -113,10 +113,10 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "2",
             describedAs = "1 = ingredient fixed\n"
-                            + "2 = ingredient substitutable\n"
-                            + "3 = fat during cooking\n"
-                            + "A2 = type of fat used\n"
-                            + "A3 = type of milk/liquid used"
+                    + "2 = ingredient substitutable\n"
+                    + "3 = fat during cooking\n"
+                    + "A2 = type of fat used\n"
+                    + "A3 = type of milk/liquid used"
     )
     @Column(
             name = "ING_TYPE",
@@ -295,7 +295,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "foreign",
             sequence = "10",
             describedAs = "Facets-Descriptors codes used to describe the ingredient;\n"
-                            + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+                    + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -319,7 +319,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "11",
             describedAs = "1 = ingredient described and quantified\n"
-                            + "2 = otherwise"
+                    + "2 = otherwise"
     )
     @Column(
             name = "STATUS",
@@ -393,8 +393,8 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "14",
             describedAs = "Quantity Estimated Raw or Cooked\n"
-                            + "1 = Raw\n"
-                            + "2 = Cooked or Not applicable"
+                    + "1 = Raw\n"
+                    + "2 = Cooked or Not applicable"
     )
     @Column(
             name = "RAWCOOKED",
@@ -428,8 +428,8 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "15",
             describedAs = "Quantity Consumed Raw or Cooked\n"
-                            + "1 = Raw\n"
-                            + "2 = Cooked or Not applicable"
+                    + "1 = Raw\n"
+                    + "2 = Cooked or Not applicable"
     )
     @Column(
             name = "CONSRAWCO",
@@ -897,7 +897,7 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
             fieldSetId = "details",
             sequence = "37",
             describedAs = "1 = food\n"
-                            + "2 = recipe"
+                    + "2 = recipe"
     )
     @Column(
             name = "TYPE_IT",
@@ -1089,26 +1089,23 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
 
     @RequiredArgsConstructor
     public enum Substitutable {
+
         /**
          * no description
          */
         INGREDIENT_FIXED("1", "ingredient fixed"),
-
         /**
          * no description
          */
         INGREDIENT_SUBSTITUTABLE("2", "ingredient substitutable"),
-
         /**
          * no description
          */
         FAT_DURING_COOKING("3", "fat during cooking"),
-
         /**
          * no description
          */
         TYPE_OF_FAT_USED("A2", "type of fat used"),
-
         /**
          * no description
          */
@@ -1126,11 +1123,11 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
 
     @RequiredArgsConstructor
     public enum DescribedAndQuantifiedQ {
+
         /**
          * no description
          */
         INGREDIENT_DESCRIBED_AND_QUANTIFIED("1", "ingredient described and quantified"),
-
         /**
          * no description
          */
@@ -1148,11 +1145,11 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
 
     @RequiredArgsConstructor
     public enum QuantityEstimatedRawOrCooked {
+
         /**
          * no description
          */
         RAW("1", "Raw"),
-
         /**
          * no description
          */
@@ -1170,11 +1167,11 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
 
     @RequiredArgsConstructor
     public enum QuantityConsumedRawOrCooked {
+
         /**
          * no description
          */
         RAW("1", "Raw"),
-
         /**
          * no description
          */
@@ -1192,11 +1189,11 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
 
     @RequiredArgsConstructor
     public enum WithUnediblePartQ {
+
         /**
          * no description
          */
         UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
-
         /**
          * no description
          */
@@ -1214,11 +1211,11 @@ public class RecipeIngredient implements Cloneable<RecipeIngredient> {
 
     @RequiredArgsConstructor
     public enum TypeOfItem {
+
         /**
          * no description
          */
         FOOD(1, "Food"),
-
         /**
          * no description
          */

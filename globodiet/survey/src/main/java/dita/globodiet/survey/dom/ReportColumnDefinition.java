@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "A column-definition defines which columns to include\n"
-                        + "with an interview report.",
+                + "with an interview report.",
         cssClassFa = "solid table-columns .reportColumnDefinition-color\n"
 )
 @PersistenceCapable(
@@ -187,7 +187,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
             fieldSetId = "listing",
             sequence = "5",
             describedAs = "Line by line defines a column to include.\n"
-                            + "(lines can be commented out with a leading #)",
+                    + "(lines can be commented out with a leading #)",
             hidden = Where.EVERYWHERE,
             multiLine = 24,
             labelPosition = LabelPosition.NONE
@@ -255,7 +255,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
     )
     @DomainObjectLayout(
             describedAs = "A column-definition defines which columns to include\n"
-                            + "with an interview report.",
+                    + "with an interview report.",
             cssClassFa = "solid table-columns .reportColumnDefinition-color\n"
     )
     @AllArgsConstructor
@@ -291,6 +291,7 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
 
     /**
      * Parameter model for @{link ReportColumnDefinition}
+     *
      * @param survey Survey code
      * @param code Unique (survey scoped) column-definition identifier.
      * @param name Descriptive column-definition name.
@@ -300,60 +301,26 @@ public class ReportColumnDefinition implements Cloneable<ReportColumnDefinition>
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Survey code"
-            )
-            Survey survey,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Unique (survey scoped) column-definition identifier."
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptive column-definition name."
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Detailed information for this column-definition.",
-                    multiLine = 4
-            )
-            String description,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Line by line defines a column to include.\n"
-                                    + "(lines can be commented out with a leading #)",
-                    multiLine = 24
-            )
-            String columnListing) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) column-definition identifier.") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive column-definition name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed information for this column-definition.", multiLine = 4) String description,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Line by line defines a column to include.\n"
+                            + "(lines can be commented out with a leading #)", multiLine = 24) String columnListing
+    ) {
     }
 
     /**
      * SecondaryKey for @{link ReportColumnDefinition}
+     *
      * @param surveyCode Survey code
      * @param code Unique (survey scoped) column-definition identifier.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code) implements ISecondaryKey<ReportColumnDefinition> {
+            String code
+    ) implements ISecondaryKey<ReportColumnDefinition> {
         @Override
         public Class<ReportColumnDefinition> correspondingClass() {
             return ReportColumnDefinition.class;

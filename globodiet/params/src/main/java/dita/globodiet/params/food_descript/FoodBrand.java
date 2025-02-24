@@ -70,7 +70,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Brand names are used in the food description phase",
         cssClassFa = "solid utensils .food-color,\n"
-                        + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "BRANDNAM"
@@ -228,7 +228,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
     @DomainObjectLayout(
             describedAs = "Brand names are used in the food description phase",
             cssClassFa = "solid utensils .food-color,\n"
-                            + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -263,6 +263,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
 
     /**
      * Parameter model for @{link FoodBrand}
+     *
      * @param nameOfBrand Name of brand
      * @param foodGroup Food group code
      * @param foodSubgroup Food subgroup code
@@ -270,42 +271,16 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Name of brand"
-            )
-            String nameOfBrand,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group code"
-            )
-            FoodGroup foodGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food subgroup code"
-            )
-            FoodSubgroup foodSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food sub-subgroup code"
-            )
-            FoodSubgroup foodSubSubgroup) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Name of brand") String nameOfBrand,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group code") FoodGroup foodGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food subgroup code") FoodSubgroup foodSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food sub-subgroup code") FoodSubgroup foodSubSubgroup
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FoodBrand}
+     *
      * @param nameOfBrand Name of brand
      * @param foodGroupCode Food group code
      * @param foodSubgroupCode Food subgroup code
@@ -316,7 +291,8 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             String nameOfBrand,
             String foodGroupCode,
             String foodSubgroupCode,
-            String foodSubSubgroupCode) implements ISecondaryKey<FoodBrand> {
+            String foodSubSubgroupCode
+    ) implements ISecondaryKey<FoodBrand> {
         @Override
         public Class<FoodBrand> correspondingClass() {
             return FoodBrand.class;

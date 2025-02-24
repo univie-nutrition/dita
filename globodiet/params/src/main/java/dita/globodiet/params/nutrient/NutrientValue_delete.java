@@ -61,8 +61,7 @@ public class NutrientValue_delete {
     private final NutrientValue mixee;
 
     @MemberSupport
-    public NutrientValue.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public NutrientValue.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new NutrientValue.Manager(searchService, "");

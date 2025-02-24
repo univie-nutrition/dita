@@ -61,8 +61,7 @@ public class QuantificationMethodPathwayForFood_delete {
     private final QuantificationMethodPathwayForFood mixee;
 
     @MemberSupport
-    public QuantificationMethodPathwayForFood.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public QuantificationMethodPathwayForFood.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new QuantificationMethodPathwayForFood.Manager(searchService, "");

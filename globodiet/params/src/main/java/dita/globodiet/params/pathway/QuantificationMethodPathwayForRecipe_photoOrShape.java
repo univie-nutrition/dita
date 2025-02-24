@@ -41,8 +41,8 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
         fieldSetId = "details",
         sequence = "3.1",
         describedAs = "if method='P' Photo code\n"
-                        + "if method='A' Shape code\n"
-                        + "else empty",
+                + "if method='A' Shape code\n"
+                + "else empty",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

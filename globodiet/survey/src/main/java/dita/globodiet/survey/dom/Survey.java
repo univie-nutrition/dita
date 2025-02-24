@@ -140,7 +140,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "System ID part of semantic identifiers for this survey.\n"
-                            + "e.g. at.gd/2.0"
+                    + "e.g. at.gd/2.0"
     )
     @Column(
             name = "SYSID",
@@ -259,6 +259,7 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
 
     /**
      * Parameter model for @{link Survey}
+     *
      * @param code Unique (application scoped) survey identifier.
      * @param name Descriptive survey name.
      * @param systemId System ID part of semantic identifiers for this survey.
@@ -267,47 +268,23 @@ public class Survey implements Cloneable<Survey>, HasSecondaryKey<Survey> {
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Unique (application scoped) survey identifier."
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptive survey name."
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "System ID part of semantic identifiers for this survey.\n"
-                                    + "e.g. at.gd/2.0"
-            )
-            String systemId,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Yaml formatted interview data corrections."
-            )
-            String correction) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (application scoped) survey identifier.") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive survey name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "System ID part of semantic identifiers for this survey.\n"
+                            + "e.g. at.gd/2.0") String systemId,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Yaml formatted interview data corrections.") String correction
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Survey}
+     *
      * @param code Unique (application scoped) survey identifier.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<Survey> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<Survey> {
         @Override
         public Class<Survey> correspondingClass() {
             return Survey.class;

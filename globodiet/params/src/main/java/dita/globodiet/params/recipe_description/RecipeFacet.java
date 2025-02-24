@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Facet for Recipe",
         cssClassFa = "solid stroopwafel .recipe-color,\n"
-                        + "solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "R_FACET"
@@ -163,7 +163,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
-                            + "1=Facets with descriptors available in RBrand table"
+                    + "1=Facets with descriptors available in RBrand table"
     )
     @Column(
             name = "RFACET_TYPE",
@@ -195,7 +195,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0 = facet with single-selection of descriptor\n"
-                            + "1 = facets with multi-selection of descriptors"
+                    + "1 = facets with multi-selection of descriptors"
     )
     @Column(
             name = "RFACET_TYPE_S",
@@ -227,7 +227,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0 = standard facet\n"
-                            + "1 = Main facet (with non modified descriptor)"
+                    + "1 = Main facet (with non modified descriptor)"
     )
     @Column(
             name = "RFACET_MAIN",
@@ -317,11 +317,11 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
 
     @RequiredArgsConstructor
     public enum DescriptorsAvailableForRecipeOrBrandQ {
+
         /**
          * Standard facets with descriptors available in R_Descface table
          */
         STANDARD(0, "Standard"),
-
         /**
          * Facets with descriptors available in RBrand table
          */
@@ -339,11 +339,11 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
 
     @RequiredArgsConstructor
     public enum SingleOrMultiSelectDescriptorQ {
+
         /**
          * facet with single-selection of descriptor
          */
         SINGLE(0, "single"),
-
         /**
          * facets with multi-selection of descriptors
          */
@@ -361,11 +361,11 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
 
     @RequiredArgsConstructor
     public enum StandardOrMainFacetQ {
+
         /**
          * no description
          */
         STANDARD(0, "Standard"),
-
         /**
          *  facet (with non modified descriptor)
          */
@@ -392,7 +392,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
     @DomainObjectLayout(
             describedAs = "Facet for Recipe",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid swatchbook .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -427,6 +427,7 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
 
     /**
      * Parameter model for @{link RecipeFacet}
+     *
      * @param code Facet code for recipes
      * @param name Facet name
      * @param textToShowOnTheScreenDescribingTheFacet Facet text (text to show on the screen describing the facet)
@@ -440,73 +441,28 @@ public class RecipeFacet implements Cloneable<RecipeFacet>, HasSecondaryKey<Reci
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet code for recipes"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet text (text to show on the screen describing the facet)"
-            )
-            String textToShowOnTheScreenDescribingTheFacet,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
-                                    + "1=Facets with descriptors available in RBrand table"
-            )
-            DescriptorsAvailableForRecipeOrBrandQ descriptorsAvailableForRecipeOrBrandQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0 = facet with single-selection of descriptor\n"
-                                    + "1 = facets with multi-selection of descriptors"
-            )
-            SingleOrMultiSelectDescriptorQ singleOrMultiSelectDescriptorQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0 = standard facet\n"
-                                    + "1 = Main facet (with non modified descriptor)"
-            )
-            StandardOrMainFacetQ standardOrMainFacetQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Label on how to ask the facet question"
-            )
-            String labelOnHowToAskTheFacetQuestion) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet code for recipes") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet text (text to show on the screen describing the facet)") String textToShowOnTheScreenDescribingTheFacet,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=Standard facets with descriptors available in R_Descface table\n"
+                            + "1=Facets with descriptors available in RBrand table") DescriptorsAvailableForRecipeOrBrandQ descriptorsAvailableForRecipeOrBrandQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0 = facet with single-selection of descriptor\n"
+                            + "1 = facets with multi-selection of descriptors") SingleOrMultiSelectDescriptorQ singleOrMultiSelectDescriptorQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0 = standard facet\n"
+                            + "1 = Main facet (with non modified descriptor)") StandardOrMainFacetQ standardOrMainFacetQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Label on how to ask the facet question") String labelOnHowToAskTheFacetQuestion
+    ) {
     }
 
     /**
      * SecondaryKey for @{link RecipeFacet}
+     *
      * @param code Facet code for recipes
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<RecipeFacet> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<RecipeFacet> {
         @Override
         public Class<RecipeFacet> correspondingClass() {
             return RecipeFacet.class;

@@ -210,35 +210,26 @@ public class CountryInvolved implements Cloneable<CountryInvolved>, HasSecondary
 
     /**
      * Parameter model for @{link CountryInvolved}
+     *
      * @param countryCode Country code
      * @param countryName Country name
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Country code"
-            )
-            String countryCode,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Country name"
-            )
-            String countryName) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Country code") String countryCode,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Country name") String countryName
+    ) {
     }
 
     /**
      * SecondaryKey for @{link CountryInvolved}
+     *
      * @param countryCode Country code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String countryCode) implements ISecondaryKey<CountryInvolved> {
+    public final record SecondaryKey(
+            String countryCode
+    ) implements ISecondaryKey<CountryInvolved> {
         @Override
         public Class<CountryInvolved> correspondingClass() {
             return CountryInvolved.class;

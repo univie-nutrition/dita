@@ -141,7 +141,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
             fieldSetId = "details",
             sequence = "3",
             describedAs = "0=not a 'Other' place\n"
-                            + "1='Other' place"
+                    + "1='Other' place"
     )
     @Column(
             name = "POC_OTHER",
@@ -202,11 +202,11 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
 
     @RequiredArgsConstructor
     public enum OtherPlaceQ {
+
         /**
          * not a 'Other' place
          */
         SPECIFIC(0, "specific"),
-
         /**
          * 'Other' place
          */
@@ -267,6 +267,7 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
 
     /**
      * Parameter model for @{link PlaceOfConsumption}
+     *
      * @param code Place of consumption code
      * @param name Place of consumption name
      * @param otherPlaceQ 0=not a 'Other' place
@@ -274,39 +275,22 @@ public class PlaceOfConsumption implements Cloneable<PlaceOfConsumption>, HasSec
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Place of consumption code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Place of consumption name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=not a 'Other' place\n"
-                                    + "1='Other' place"
-            )
-            OtherPlaceQ otherPlaceQ) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Place of consumption code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Place of consumption name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=not a 'Other' place\n"
+                            + "1='Other' place") OtherPlaceQ otherPlaceQ
+    ) {
     }
 
     /**
      * SecondaryKey for @{link PlaceOfConsumption}
+     *
      * @param code Place of consumption code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<PlaceOfConsumption> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<PlaceOfConsumption> {
         @Override
         public Class<PlaceOfConsumption> correspondingClass() {
             return PlaceOfConsumption.class;

@@ -62,9 +62,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Quantification methods pathway for recipe group/subgroup.\n"
-                        + "Optionally can be superseded by @{table QM_RECIP}.",
+                + "Optionally can be superseded by @{table QM_RECIP}.",
         cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                        + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "QM_RCLAS"
@@ -116,10 +116,10 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
             fieldSetId = "details",
             sequence = "2",
             describedAs = "Quantification method code:\n"
-                            + "'P' for photo,\n"
-                            + "'H' for HHM,\n"
-                            + "'U' for stdu,\n"
-                            + "'A' for shape"
+                    + "'P' for photo,\n"
+                    + "'H' for HHM,\n"
+                    + "'U' for stdu,\n"
+                    + "'A' for shape"
     )
     @Column(
             name = "METHOD",
@@ -152,8 +152,8 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "if method='P' Photo code\n"
-                            + "if method='A' Shape code\n"
-                            + "else empty",
+                    + "if method='A' Shape code\n"
+                    + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -224,21 +224,19 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
 
     @RequiredArgsConstructor
     public enum QuantificationMethod {
+
         /**
          * no description
          */
         PHOTO("P", "Photo"),
-
         /**
          * no description
          */
         HOUSEHOLD_MEASURE("H", "Household Measure"),
-
         /**
          * no description
          */
         STANDARD_UNIT("U", "Standard Unit"),
-
         /**
          * no description
          */
@@ -264,9 +262,9 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
     )
     @DomainObjectLayout(
             describedAs = "Quantification methods pathway for recipe group/subgroup.\n"
-                            + "Optionally can be superseded by @{table QM_RECIP}.",
+                    + "Optionally can be superseded by @{table QM_RECIP}.",
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -289,8 +287,7 @@ public class QuantificationMethodPathwayForRecipeGroup implements Cloneable<Quan
         }
 
         @Collection
-        public final List<QuantificationMethodPathwayForRecipeGroup> getListOfQuantificationMethodPathwayForRecipeGroup(
-                ) {
+        public final List<QuantificationMethodPathwayForRecipeGroup> getListOfQuantificationMethodPathwayForRecipeGroup() {
             return searchService.search(QuantificationMethodPathwayForRecipeGroup.class, QuantificationMethodPathwayForRecipeGroup::title, search);
         }
 

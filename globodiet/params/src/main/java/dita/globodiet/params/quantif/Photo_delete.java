@@ -61,8 +61,7 @@ public class Photo_delete {
     private final Photo mixee;
 
     @MemberSupport
-    public Photo.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public Photo.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new Photo.Manager(searchService, "");

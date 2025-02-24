@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Descriptor per facet",
         cssClassFa = "solid stroopwafel .recipe-color,\n"
-                        + "solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "R_DESCFACE"
@@ -164,8 +164,8 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Only for facet recipe production:\n"
-                            + "0=not homemade descriptor\n"
-                            + "1=Homemade descriptor"
+                    + "0=not homemade descriptor\n"
+                    + "1=Homemade descriptor"
     )
     @Column(
             name = "RDESCR_TYPE",
@@ -257,7 +257,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
             fieldSetId = "details",
             sequence = "7",
             describedAs = "0=not single descriptor\n"
-                            + "1=single descriptor"
+                    + "1=single descriptor"
     )
     @Column(
             name = "RDESCR_SINGLE",
@@ -327,11 +327,11 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
 
     @RequiredArgsConstructor
     public enum HomemadeOrNot {
+
         /**
          * no description
          */
         NOT_HOMEMADE(0, "not homemade"),
-
         /**
          * no description
          */
@@ -349,16 +349,15 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
 
     @RequiredArgsConstructor
     public enum KnownOrUnknown {
+
         /**
          * Not a facet
          */
         DOES_NOT_APPLY(0, "does not apply"),
-
         /**
          * no description
          */
         FACET_UNKNOWN(1, "Facet unknown"),
-
         /**
          * no description
          */
@@ -376,11 +375,11 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
 
     @RequiredArgsConstructor
     public enum YesOrNo {
+
         /**
          * no description
          */
         NO(0, "no"),
-
         /**
          * no description
          */
@@ -398,11 +397,11 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
 
     @RequiredArgsConstructor
     public enum SingleOrNot {
+
         /**
          * no description
          */
         NOT_SINGLE_DESCRIPTOR(0, "not single descriptor"),
-
         /**
          * no description
          */
@@ -429,7 +428,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
     @DomainObjectLayout(
             describedAs = "Descriptor per facet",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid tag .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -464,6 +463,7 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
 
     /**
      * Parameter model for @{link RecipeDescriptor}
+     *
      * @param recipeFacet Facet code for recipes
      * @param code Descriptor code for recipes
      * @param name Descriptor name
@@ -477,76 +477,30 @@ public class RecipeDescriptor implements Cloneable<RecipeDescriptor>, HasSeconda
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet code for recipes"
-            )
-            RecipeFacet recipeFacet,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor code for recipes"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Only for facet recipe production:\n"
-                                    + "0=not homemade descriptor\n"
-                                    + "1=Homemade descriptor"
-            )
-            HomemadeOrNot homemadeOrNot,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Only for facet known/unknown: 1=unknown 2=known"
-            )
-            KnownOrUnknown knownOrUnknown,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor with type='other' : 1=yes 0=no"
-            )
-            YesOrNo yesOrNo,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=not single descriptor\n"
-                                    + "1=single descriptor"
-            )
-            SingleOrNot singleOrNot) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet code for recipes") RecipeFacet recipeFacet,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptor code for recipes") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptor name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Only for facet recipe production:\n"
+                            + "0=not homemade descriptor\n"
+                            + "1=Homemade descriptor") HomemadeOrNot homemadeOrNot,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Only for facet known/unknown: 1=unknown 2=known") KnownOrUnknown knownOrUnknown,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptor with type='other' : 1=yes 0=no") YesOrNo yesOrNo,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=not single descriptor\n"
+                            + "1=single descriptor") SingleOrNot singleOrNot
+    ) {
     }
 
     /**
      * SecondaryKey for @{link RecipeDescriptor}
+     *
      * @param recipeFacetCode Facet code for recipes
      * @param code Descriptor code for recipes
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String recipeFacetCode,
-            String code) implements ISecondaryKey<RecipeDescriptor> {
+            String code
+    ) implements ISecondaryKey<RecipeDescriptor> {
         @Override
         public Class<RecipeDescriptor> correspondingClass() {
             return RecipeDescriptor.class;

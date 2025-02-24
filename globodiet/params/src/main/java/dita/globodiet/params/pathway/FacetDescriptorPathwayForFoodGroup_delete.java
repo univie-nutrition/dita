@@ -61,8 +61,7 @@ public class FacetDescriptorPathwayForFoodGroup_delete {
     private final FacetDescriptorPathwayForFoodGroup mixee;
 
     @MemberSupport
-    public FacetDescriptorPathwayForFoodGroup.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public FacetDescriptorPathwayForFoodGroup.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new FacetDescriptorPathwayForFoodGroup.Manager(searchService, "");

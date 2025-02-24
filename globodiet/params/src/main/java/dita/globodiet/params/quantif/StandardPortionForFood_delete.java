@@ -61,8 +61,7 @@ public class StandardPortionForFood_delete {
     private final StandardPortionForFood mixee;
 
     @MemberSupport
-    public StandardPortionForFood.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public StandardPortionForFood.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new StandardPortionForFood.Manager(searchService, "");

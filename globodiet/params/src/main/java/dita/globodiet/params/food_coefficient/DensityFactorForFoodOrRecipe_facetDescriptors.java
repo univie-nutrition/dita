@@ -34,7 +34,7 @@ import org.apache.causeway.commons.collections.Can;
 @Collection
 @CollectionLayout(
         describedAs = "Facet string\n"
-                        + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
+                + "multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

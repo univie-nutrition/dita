@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Descriptor for food facets (not recipe facets)",
         cssClassFa = "solid utensils .food-color,\n"
-                        + "solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "DESCFACE"
@@ -165,9 +165,9 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=default without consequences in the algorithms regarding cooking\n"
-                            + "1=raw (not cooked)\n"
-                            + "2=asks the question 'fat used during cooking?'\n"
-                            + "3=found in austrian data for 'frittiert' - invalid enum constant?"
+                    + "1=raw (not cooked)\n"
+                    + "2=asks the question 'fat used during cooking?'\n"
+                    + "3=found in austrian data for 'frittiert' - invalid enum constant?"
     )
     @Column(
             name = "DESC_COOK",
@@ -199,7 +199,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0=Multiple choice (allowed)\n"
-                            + "1=Single (exclusive) choice"
+                    + "1=Single (exclusive) choice"
     )
     @Column(
             name = "DESC_SINGLE",
@@ -231,7 +231,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0=Regular choice\n"
-                            + "1=Choice with additional text as provided by the interviewer (other: [...])"
+                    + "1=Choice with additional text as provided by the interviewer (other: [...])"
     )
     @Column(
             name = "DESC_OTHER",
@@ -299,21 +299,19 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
 
     @RequiredArgsConstructor
     public enum Cooking {
+
         /**
          * without consequences in the algorithms regarding cooking
          */
         DEFAULT(0, "Default"),
-
         /**
          * not cooked
          */
         RAW(1, "Raw"),
-
         /**
          * Asks the question 'fat used during cooking?'
          */
         FATUSEDQ(2, "FatUsedQ"),
-
         /**
          * found in austrian data for 'frittiert' - invalid enum constant?
          */
@@ -331,11 +329,11 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
 
     @RequiredArgsConstructor
     public enum Choice {
+
         /**
          * Multiple choice (allowed)
          */
         MULTI(0, "Multi"),
-
         /**
          * Single (exclusive) choice
          */
@@ -353,11 +351,11 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
 
     @RequiredArgsConstructor
     public enum OtherQ {
+
         /**
          * Regular choice
          */
         REGULAR(0, "Regular"),
-
         /**
          * Choice with additional text as provided by the interviewer (other: [...])
          */
@@ -384,7 +382,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
     @DomainObjectLayout(
             describedAs = "Descriptor for food facets (not recipe facets)",
             cssClassFa = "solid utensils .food-color,\n"
-                            + "solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid tag .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -419,6 +417,7 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
 
     /**
      * Parameter model for @{link FoodDescriptor}
+     *
      * @param facet Facet code
      * @param code Descriptor code
      * @param name Descriptor name
@@ -433,70 +432,31 @@ public class FoodDescriptor implements Cloneable<FoodDescriptor>, HasSecondaryKe
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet code"
-            )
-            FoodFacet facet,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=default without consequences in the algorithms regarding cooking\n"
-                                    + "1=raw (not cooked)\n"
-                                    + "2=asks the question 'fat used during cooking?'\n"
-                                    + "3=found in austrian data for 'frittiert' - invalid enum constant?"
-            )
-            Cooking cooking,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=Multiple choice (allowed)\n"
-                                    + "1=Single (exclusive) choice"
-            )
-            Choice choice,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=Regular choice\n"
-                                    + "1=Choice with additional text as provided by the interviewer (other: [...])"
-            )
-            OtherQ otherQ) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet code") FoodFacet facet,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptor code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptor name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=default without consequences in the algorithms regarding cooking\n"
+                            + "1=raw (not cooked)\n"
+                            + "2=asks the question 'fat used during cooking?'\n"
+                            + "3=found in austrian data for 'frittiert' - invalid enum constant?") Cooking cooking,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=Multiple choice (allowed)\n"
+                            + "1=Single (exclusive) choice") Choice choice,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=Regular choice\n"
+                            + "1=Choice with additional text as provided by the interviewer (other: [...])") OtherQ otherQ
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FoodDescriptor}
+     *
      * @param facetCode Facet code
      * @param code Descriptor code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String facetCode,
-            String code) implements ISecondaryKey<FoodDescriptor> {
+            String code
+    ) implements ISecondaryKey<FoodDescriptor> {
         @Override
         public Class<FoodDescriptor> correspondingClass() {
             return FoodDescriptor.class;

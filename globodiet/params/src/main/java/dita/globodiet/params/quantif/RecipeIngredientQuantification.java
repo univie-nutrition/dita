@@ -404,8 +404,7 @@ public class RecipeIngredientQuantification implements Cloneable<RecipeIngredien
         }
 
         @Collection
-        public final List<RecipeIngredientQuantification> getListOfRecipeIngredientQuantification(
-                ) {
+        public final List<RecipeIngredientQuantification> getListOfRecipeIngredientQuantification() {
             return searchService.search(RecipeIngredientQuantification.class, RecipeIngredientQuantification::title, search);
         }
 

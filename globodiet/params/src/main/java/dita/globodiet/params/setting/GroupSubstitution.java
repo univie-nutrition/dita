@@ -88,7 +88,7 @@ public class GroupSubstitution implements Cloneable<GroupSubstitution> {
             fieldSetId = "details",
             sequence = "1",
             describedAs = "0=Food classification\n"
-                            + "1=Recipe classification"
+                    + "1=Recipe classification"
     )
     @Column(
             name = "TYPE",
@@ -263,11 +263,11 @@ public class GroupSubstitution implements Cloneable<GroupSubstitution> {
 
     @RequiredArgsConstructor
     public enum Type {
+
         /**
          * no description
          */
         FOOD("0", "Food"),
-
         /**
          * no description
          */

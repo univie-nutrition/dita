@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Dietary supplement facet",
         cssClassFa = "solid tablets .supplement-color,\n"
-                        + "solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "DS_FACET"
@@ -142,7 +142,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
             fieldSetId = "details",
             sequence = "3",
             describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
-                            + "Only 1 facet (physical state) is used for quantification."
+                    + "Only 1 facet (physical state) is used for quantification."
     )
     @Column(
             name = "DSFACET_QUANT",
@@ -175,8 +175,8 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
             fieldSetId = "details",
             sequence = "4",
             describedAs = "Facet with Mono or Multi selection of descriptors\n"
-                            + "0=mono,\n"
-                            + "1=multi"
+                    + "0=mono,\n"
+                    + "1=multi"
     )
     @Column(
             name = "DSFACET_TYPE",
@@ -316,11 +316,11 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
 
     @RequiredArgsConstructor
     public enum MandatoryFacetUsedForQuantificationQ {
+
         /**
          * no description
          */
         NO(0, "no"),
-
         /**
          * no description
          */
@@ -338,11 +338,11 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
 
     @RequiredArgsConstructor
     public enum SingleOrMultiSelectionOfDescriptorsQ {
+
         /**
          * no description
          */
         MONO(0, "mono"),
-
         /**
          * no description
          */
@@ -360,11 +360,11 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
 
     @RequiredArgsConstructor
     public enum AttributedToAllSupplementsQ {
+
         /**
          * no description
          */
         NO(0, "no"),
-
         /**
          * no description
          */
@@ -391,7 +391,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
     @DomainObjectLayout(
             describedAs = "Dietary supplement facet",
             cssClassFa = "solid tablets .supplement-color,\n"
-                            + "solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid swatchbook .supplement-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -426,6 +426,7 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
 
     /**
      * Parameter model for @{link DietarySupplementFacet}
+     *
      * @param code Facet code for Dietary Supplement
      * @param name Facet name for Dietary Supplement
      * @param mandatoryFacetUsedForQuantificationQ To identify the mandatory facet used for quantification: 1=yes, 0=no.
@@ -439,73 +440,28 @@ public class DietarySupplementFacet implements Cloneable<DietarySupplementFacet>
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet code for Dietary Supplement"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet name for Dietary Supplement"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
-                                    + "Only 1 facet (physical state) is used for quantification."
-            )
-            MandatoryFacetUsedForQuantificationQ mandatoryFacetUsedForQuantificationQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet with Mono or Multi selection of descriptors\n"
-                                    + "0=mono,\n"
-                                    + "1=multi"
-            )
-            SingleOrMultiSelectionOfDescriptorsQ singleOrMultiSelectionOfDescriptorsQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no."
-            )
-            AttributedToAllSupplementsQ attributedToAllSupplementsQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Order to ask the facet (first, second...)"
-            )
-            int orderToAsk,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Label on how to ask the facet question"
-            )
-            String labelOnHowToAskTheFacetQuestion) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet code for Dietary Supplement") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet name for Dietary Supplement") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "To identify the mandatory facet used for quantification: 1=yes, 0=no.\n"
+                            + "Only 1 facet (physical state) is used for quantification.") MandatoryFacetUsedForQuantificationQ mandatoryFacetUsedForQuantificationQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet with Mono or Multi selection of descriptors\n"
+                            + "0=mono,\n"
+                            + "1=multi") SingleOrMultiSelectionOfDescriptorsQ singleOrMultiSelectionOfDescriptorsQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "For maintenance: Main facets to be attributed to all supplements: 1=yes, 0=no.") AttributedToAllSupplementsQ attributedToAllSupplementsQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Order to ask the facet (first, second...)") int orderToAsk,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Label on how to ask the facet question") String labelOnHowToAskTheFacetQuestion
+    ) {
     }
 
     /**
      * SecondaryKey for @{link DietarySupplementFacet}
+     *
      * @param code Facet code for Dietary Supplement
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<DietarySupplementFacet> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<DietarySupplementFacet> {
         @Override
         public Class<DietarySupplementFacet> correspondingClass() {
             return DietarySupplementFacet.class;

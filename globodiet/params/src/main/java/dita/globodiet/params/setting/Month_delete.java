@@ -61,8 +61,7 @@ public class Month_delete {
     private final Month mixee;
 
     @MemberSupport
-    public Month.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public Month.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new Month.Manager(searchService, "");

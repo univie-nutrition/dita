@@ -72,9 +72,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for food group/subgroup.\n"
-                        + "Optionally can be superseded by @{table FOODFAEX}.",
+                + "Optionally can be superseded by @{table FOODFAEX}.",
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                        + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "GROUPFAC"
@@ -352,9 +352,9 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
     )
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for food group/subgroup.\n"
-                            + "Optionally can be superseded by @{table FOODFAEX}.",
+                    + "Optionally can be superseded by @{table FOODFAEX}.",
             cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -377,8 +377,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
         }
 
         @Collection
-        public final List<FacetDescriptorPathwayForFoodGroup> getListOfFacetDescriptorPathwayForFoodGroup(
-                ) {
+        public final List<FacetDescriptorPathwayForFoodGroup> getListOfFacetDescriptorPathwayForFoodGroup() {
             return searchService.search(FacetDescriptorPathwayForFoodGroup.class, FacetDescriptorPathwayForFoodGroup::title, search);
         }
 
@@ -390,6 +389,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
 
     /**
      * Parameter model for @{link FacetDescriptorPathwayForFoodGroup}
+     *
      * @param foodGroup Food group code
      * @param foodSubgroup Food Subgroup code
      * @param foodSubSubgroup Food Sub-subgroup code
@@ -402,82 +402,21 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group code"
-            )
-            FoodGroup foodGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food Subgroup code"
-            )
-            FoodSubgroup foodSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food Sub-subgroup code"
-            )
-            FoodSubgroup foodSubSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet code"
-            )
-            FoodFacet foodFacet,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor code"
-            )
-            FoodDescriptor foodDescriptor,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Default flag (if set to 'D' it is the default descriptor)"
-            )
-            String defaultFlag,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Not in name flag"
-            )
-            String notInNameFlag,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Order to display the facets within a group/subgroup"
-            )
-            int facetDisplayOrder,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Order to display the descriptors within a group/subgroup and a facet"
-            )
-            int descriptorDisplayOrder) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group code") FoodGroup foodGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food Subgroup code") FoodSubgroup foodSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food Sub-subgroup code") FoodSubgroup foodSubSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet code") FoodFacet foodFacet,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptor code") FoodDescriptor foodDescriptor,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Default flag (if set to 'D' it is the default descriptor)") String defaultFlag,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Not in name flag") String notInNameFlag,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Order to display the facets within a group/subgroup") int facetDisplayOrder,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Order to display the descriptors within a group/subgroup and a facet") int descriptorDisplayOrder
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FacetDescriptorPathwayForFoodGroup}
+     *
      * @param foodGroupCode Food group code
      * @param foodSubgroupCode Food Subgroup code
      * @param foodSubSubgroupCode Food Sub-subgroup code
@@ -490,7 +429,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             String foodSubgroupCode,
             String foodSubSubgroupCode,
             String foodFacetCode,
-            String foodDescriptorCode) implements ISecondaryKey<FacetDescriptorPathwayForFoodGroup> {
+            String foodDescriptorCode
+    ) implements ISecondaryKey<FacetDescriptorPathwayForFoodGroup> {
         @Override
         public Class<FacetDescriptorPathwayForFoodGroup> correspondingClass() {
             return FacetDescriptorPathwayForFoodGroup.class;

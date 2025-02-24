@@ -69,8 +69,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Recipe subgroup",
         cssClassFa = "solid stroopwafel .recipe-color,\n"
-                        + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
-                        + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "RSUBGR"
@@ -226,8 +226,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
     @DomainObjectLayout(
             describedAs = "Recipe subgroup",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
-                            + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                    + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                    + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -262,6 +262,7 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
 
     /**
      * Parameter model for @{link RecipeSubgroup}
+     *
      * @param recipeGroup Recipe group code
      * @param code Recipe sub-group code
      * @param name Name of the recipe (sub-)group
@@ -269,49 +270,24 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Recipe group code"
-            )
-            RecipeGroup recipeGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Recipe sub-group code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Name of the recipe (sub-)group"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Short Name of the recipe (sub-)group"
-            )
-            String shortName) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe group code") RecipeGroup recipeGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe sub-group code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Name of the recipe (sub-)group") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Short Name of the recipe (sub-)group") String shortName
+    ) {
     }
 
     /**
      * SecondaryKey for @{link RecipeSubgroup}
+     *
      * @param recipeGroupCode Recipe group code
      * @param code Recipe sub-group code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String recipeGroupCode,
-            String code) implements ISecondaryKey<RecipeSubgroup> {
+            String code
+    ) implements ISecondaryKey<RecipeSubgroup> {
         @Override
         public Class<RecipeSubgroup> correspondingClass() {
             return RecipeSubgroup.class;

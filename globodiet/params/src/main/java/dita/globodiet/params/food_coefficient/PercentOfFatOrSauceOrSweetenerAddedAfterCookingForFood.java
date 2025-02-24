@@ -341,8 +341,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood implements C
         }
 
         @Collection
-        public final List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> getListOfPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood(
-                ) {
+        public final List<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood> getListOfPercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood() {
             return searchService.search(PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood.class, PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood::title, search);
         }
 

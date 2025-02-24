@@ -61,8 +61,7 @@ public class PlaceOfConsumption_delete {
     private final PlaceOfConsumption mixee;
 
     @MemberSupport
-    public PlaceOfConsumption.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public PlaceOfConsumption.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new PlaceOfConsumption.Manager(searchService, "");

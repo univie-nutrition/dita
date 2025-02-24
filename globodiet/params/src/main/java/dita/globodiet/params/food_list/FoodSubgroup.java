@@ -72,8 +72,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
         cssClassFa = "solid utensils .food-color,\n"
-                        + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
-                        + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "SUBGROUP"
@@ -218,7 +218,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             fieldSetId = "details",
             sequence = "6",
             describedAs = "0=non fat/sauce subgroup\n"
-                            + "1= fat/sauce subgroup that can be left over in the dish"
+                    + "1= fat/sauce subgroup that can be left over in the dish"
     )
     @Column(
             name = "SGRP_FLO",
@@ -251,7 +251,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             fieldSetId = "details",
             sequence = "7",
             describedAs = "0=non fat during cooking subgroup\n"
-                            + "1= fat during cooking subgroup"
+                    + "1= fat during cooking subgroup"
     )
     @Column(
             name = "SGRP_FDC",
@@ -359,11 +359,11 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
 
     @RequiredArgsConstructor
     public enum FatOrSauceSweetenerSubgroupQ {
+
         /**
          * non fat/sauce/sweetener subgroup
          */
         NO("0", "no"),
-
         /**
          * fat/sauce/sweetener subgroup
          */
@@ -381,11 +381,11 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
 
     @RequiredArgsConstructor
     public enum FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ {
+
         /**
          * non fat/sauce subgroup
          */
         NO("0", "no"),
-
         /**
          * fat/sauce subgroup that can be left over in the dish
          */
@@ -403,11 +403,11 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
 
     @RequiredArgsConstructor
     public enum FatDuringCookingSubgroupQ {
+
         /**
          * non fat during cooking subgroup
          */
         NO("0", "no"),
-
         /**
          * fat during cooking subgroup
          */
@@ -434,8 +434,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     @DomainObjectLayout(
             describedAs = "Food groups further narrowed down by subgroups and optional sub-subgroups",
             cssClassFa = "solid utensils .food-color,\n"
-                            + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
-                            + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                    + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
+                    + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -470,6 +470,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
 
     /**
      * Parameter model for @{link FoodSubgroup}
+     *
      * @param foodGroup Food group code
      * @param foodSubgroupCode Food sub-group code
      * @param foodSubSubgroupCode Food sub-sub-group code
@@ -483,76 +484,22 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group code"
-            )
-            FoodGroup foodGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food sub-group code"
-            )
-            String foodSubgroupCode,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food sub-sub-group code"
-            )
-            String foodSubSubgroupCode,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Name of the food (sub-)(sub-)group"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
-            )
-            FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=non fat/sauce subgroup\n"
-                                    + "1= fat/sauce subgroup that can be left over in the dish"
-            )
-            FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=non fat during cooking subgroup\n"
-                                    + "1= fat during cooking subgroup"
-            )
-            FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Short Name of the food (sub-)(sub-)group"
-            )
-            String shortName) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group code") FoodGroup foodGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food sub-group code") String foodSubgroupCode,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food sub-sub-group code") String foodSubSubgroupCode,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Name of the food (sub-)(sub-)group") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup") FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=non fat/sauce subgroup\n"
+                            + "1= fat/sauce subgroup that can be left over in the dish") FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=non fat during cooking subgroup\n"
+                            + "1= fat during cooking subgroup") FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Short Name of the food (sub-)(sub-)group") String shortName
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FoodSubgroup}
+     *
      * @param foodGroupCode Food group code
      * @param foodSubgroupCode Food sub-group code
      * @param foodSubSubgroupCode Food sub-sub-group code
@@ -561,7 +508,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     public final record SecondaryKey(
             String foodGroupCode,
             String foodSubgroupCode,
-            String foodSubSubgroupCode) implements ISecondaryKey<FoodSubgroup> {
+            String foodSubSubgroupCode
+    ) implements ISecondaryKey<FoodSubgroup> {
         @Override
         public Class<FoodSubgroup> correspondingClass() {
             return FoodSubgroup.class;

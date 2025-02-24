@@ -294,8 +294,7 @@ public class ImprobableSequenceOfFacetAndDescriptor implements Cloneable<Improba
         }
 
         @Collection
-        public final List<ImprobableSequenceOfFacetAndDescriptor> getListOfImprobableSequenceOfFacetAndDescriptor(
-                ) {
+        public final List<ImprobableSequenceOfFacetAndDescriptor> getListOfImprobableSequenceOfFacetAndDescriptor() {
             return searchService.search(ImprobableSequenceOfFacetAndDescriptor.class, ImprobableSequenceOfFacetAndDescriptor::title, search);
         }
 

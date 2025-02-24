@@ -61,8 +61,7 @@ public class TranslationInCountryLanguage_delete {
     private final TranslationInCountryLanguage mixee;
 
     @MemberSupport
-    public TranslationInCountryLanguage.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public TranslationInCountryLanguage.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new TranslationInCountryLanguage.Manager(searchService, "");

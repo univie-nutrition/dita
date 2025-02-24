@@ -31,15 +31,15 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({
 
-        // Config Beans
-        ModuleConfig.class,
+// Config Beans
+ModuleConfig.class,
 
-        // Entities
+// Entities
 
-        // Submodules
+// Submodules
 
-        // Mixins
-        })
+// Mixins
+})
 public class DitaModuleRecall24Reporter {
     public static final String NAMESPACE = "dita.recall24.reporter";
 

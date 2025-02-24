@@ -46,33 +46,33 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @Import({
 
-        // Config Beans
-        ModuleConfig.class,
+// Config Beans
+ModuleConfig.class,
 
-        // Menu Entries
-        EntitiesMenu.class,
+// Menu Entries
+EntitiesMenu.class,
 
-        // Entities
-        Campaign.class,
-        ReportColumnDefinition.class,
-        RespondentFilter.class,
-        Survey.class,
+// Entities
+Campaign.class,
+ReportColumnDefinition.class,
+RespondentFilter.class,
+Survey.class,
 
-        // Submodules
-        CampaignDeps.class,
-        ReportColumnDefinitionDeps.class,
-        RespondentFilterDeps.class,
-        SurveyDeps.class,
+// Submodules
+CampaignDeps.class,
+ReportColumnDefinitionDeps.class,
+RespondentFilterDeps.class,
+SurveyDeps.class,
 
-        // Mixins
-        Campaign_delete.class,
-        Campaign_survey.class,
-        ReportColumnDefinition_delete.class,
-        ReportColumnDefinition_survey.class,
-        RespondentFilter_delete.class,
-        RespondentFilter_survey.class,
-        Survey_delete.class,
-        })
+// Mixins
+Campaign_delete.class,
+Campaign_survey.class,
+ReportColumnDefinition_delete.class,
+ReportColumnDefinition_survey.class,
+RespondentFilter_delete.class,
+RespondentFilter_survey.class,
+Survey_delete.class,
+})
 public class DitaModuleGdSurvey {
     public static final String NAMESPACE = "dita.globodiet.survey";
 

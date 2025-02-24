@@ -130,7 +130,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)"
+                    + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -163,7 +163,7 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)"
+                    + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -313,11 +313,11 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
 
     @RequiredArgsConstructor
     public enum RawOrCooked {
+
         /**
          * no description
          */
         RAW("1", "raw"),
-
         /**
          *  as estimated
          */
@@ -335,11 +335,11 @@ public class StandardPortionForFood implements Cloneable<StandardPortionForFood>
 
     @RequiredArgsConstructor
     public enum WithUnediblePartQ {
+
         /**
          * without un-edible part
          */
         UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
-
         /**
          * with un-edible (as estimated)
          */

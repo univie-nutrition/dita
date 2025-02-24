@@ -61,8 +61,7 @@ public class FoodFacetRule_delete {
     private final FoodFacetRule mixee;
 
     @MemberSupport
-    public FoodFacetRule.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public FoodFacetRule.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new FoodFacetRule.Manager(searchService, "");

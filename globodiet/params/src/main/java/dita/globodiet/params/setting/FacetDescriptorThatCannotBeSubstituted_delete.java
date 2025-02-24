@@ -61,8 +61,7 @@ public class FacetDescriptorThatCannotBeSubstituted_delete {
     private final FacetDescriptorThatCannotBeSubstituted mixee;
 
     @MemberSupport
-    public FacetDescriptorThatCannotBeSubstituted.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public FacetDescriptorThatCannotBeSubstituted.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new FacetDescriptorThatCannotBeSubstituted.Manager(searchService, "");

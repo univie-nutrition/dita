@@ -60,10 +60,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Nutrient value for nutrient-for-food-or-group.\n"
-                        + "The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},\n"
-                        + "which is cross-referencing food(-groups) with this table.",
+                + "The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},\n"
+                + "which is cross-referencing food(-groups) with this table.",
         cssClassFa = "solid flask .nutrient-color,\n"
-                        + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "NTR_VALUE"
@@ -183,10 +183,10 @@ public class NutrientValue implements Cloneable<NutrientValue> {
     )
     @DomainObjectLayout(
             describedAs = "Nutrient value for nutrient-for-food-or-group.\n"
-                            + "The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},\n"
-                            + "which is cross-referencing food(-groups) with this table.",
+                    + "The nutrient-for-food-or-group code origniates from @{table ITEMS_DEF},\n"
+                    + "which is cross-referencing food(-groups) with this table.",
             cssClassFa = "solid flask .nutrient-color,\n"
-                            + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid hashtag .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

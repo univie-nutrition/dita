@@ -61,8 +61,7 @@ public class DietarySupplementClassification_delete {
     private final DietarySupplementClassification mixee;
 
     @MemberSupport
-    public DietarySupplementClassification.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public DietarySupplementClassification.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new DietarySupplementClassification.Manager(searchService, "");

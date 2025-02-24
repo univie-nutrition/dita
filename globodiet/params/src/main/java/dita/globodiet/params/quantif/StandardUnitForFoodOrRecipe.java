@@ -131,7 +131,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "3",
             describedAs = "1 = raw,\n"
-                            + "2 = cooked (as estimated)"
+                    + "2 = cooked (as estimated)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -164,7 +164,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "4",
             describedAs = "1 = without un-edible part,\n"
-                            + "2 = with un-edible (as estimated)"
+                    + "2 = with un-edible (as estimated)"
     )
     @Column(
             name = "EDIB",
@@ -197,7 +197,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1 = STDU for food,\n"
-                            + "2 = STDU for recipe"
+                    + "2 = STDU for recipe"
     )
     @Column(
             name = "TYPE",
@@ -271,7 +271,7 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
             fieldSetId = "details",
             sequence = "8",
             describedAs = "G = in Unit grams (mass)\n"
-                            + "V = in Unit milliliter (volume)"
+                    + "V = in Unit milliliter (volume)"
     )
     @Column(
             name = "STDU_UNIT",
@@ -360,11 +360,11 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @RequiredArgsConstructor
     public enum RawOrCooked {
+
         /**
          * no description
          */
         RAW("1", "raw"),
-
         /**
          * cooked as estimated
          */
@@ -382,11 +382,11 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @RequiredArgsConstructor
     public enum WithUnediblePartQ {
+
         /**
          * without un-edible part
          */
         UN_EDIBLE_EXCLUDED("1", "un-edible excluded"),
-
         /**
          * with un-edible (as estimated)
          */
@@ -404,11 +404,11 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @RequiredArgsConstructor
     public enum Type {
+
         /**
          * no description
          */
         FOOD("1", "Food"),
-
         /**
          * no description
          */
@@ -426,11 +426,11 @@ public class StandardUnitForFoodOrRecipe implements Cloneable<StandardUnitForFoo
 
     @RequiredArgsConstructor
     public enum Unit {
+
         /**
          * in unit grams (mass)
          */
         GRAMS("G", "Grams"),
-
         /**
          * in unit milliliter (volume)
          */

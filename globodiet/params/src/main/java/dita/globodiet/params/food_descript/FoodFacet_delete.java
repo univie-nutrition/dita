@@ -61,8 +61,7 @@ public class FoodFacet_delete {
     private final FoodFacet mixee;
 
     @MemberSupport
-    public FoodFacet.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public FoodFacet.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new FoodFacet.Manager(searchService, "");

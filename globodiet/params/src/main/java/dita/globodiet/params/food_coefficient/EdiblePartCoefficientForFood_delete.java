@@ -61,8 +61,7 @@ public class EdiblePartCoefficientForFood_delete {
     private final EdiblePartCoefficientForFood mixee;
 
     @MemberSupport
-    public EdiblePartCoefficientForFood.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public EdiblePartCoefficientForFood.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new EdiblePartCoefficientForFood.Manager(searchService, "");

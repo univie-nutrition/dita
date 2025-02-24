@@ -266,7 +266,7 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
             fieldSetId = "details",
             sequence = "9",
             describedAs = "0=interview to be done,\n"
-                            + "1=interview done"
+                    + "1=interview done"
     )
     @Column(
             name = "DONE",
@@ -471,11 +471,11 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
 
     @RequiredArgsConstructor
     public enum SubjectSex {
+
         /**
          * no description
          */
         MALE("1", "male"),
-
         /**
          * no description
          */
@@ -493,11 +493,11 @@ public class SubjectToBeInterviewed implements Cloneable<SubjectToBeInterviewed>
 
     @RequiredArgsConstructor
     public enum DoneQ {
+
         /**
          * no description
          */
         PENDING(0, "pending"),
-
         /**
          * no description
          */

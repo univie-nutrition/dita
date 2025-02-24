@@ -224,8 +224,7 @@ public class RawToCookedConversionFactorForFood implements Cloneable<RawToCooked
         }
 
         @Collection
-        public final List<RawToCookedConversionFactorForFood> getListOfRawToCookedConversionFactorForFood(
-                ) {
+        public final List<RawToCookedConversionFactorForFood> getListOfRawToCookedConversionFactorForFood() {
             return searchService.search(RawToCookedConversionFactorForFood.class, RawToCookedConversionFactorForFood::title, search);
         }
 

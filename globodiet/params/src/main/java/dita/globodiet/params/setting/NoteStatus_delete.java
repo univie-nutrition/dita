@@ -61,8 +61,7 @@ public class NoteStatus_delete {
     private final NoteStatus mixee;
 
     @MemberSupport
-    public NoteStatus.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public NoteStatus.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new NoteStatus.Manager(searchService, "");

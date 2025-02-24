@@ -73,9 +73,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Quantification method pathway for food group/subgroup.\n"
-                        + "Optionally can be superseded by @{table QM_FOODS}.",
+                + "Optionally can be superseded by @{table QM_FOODS}.",
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                        + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
 )
 @PersistenceCapable(
         table = "QM_GROUP"
@@ -190,7 +190,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             fieldSetId = "identity",
             sequence = "5",
             describedAs = "1=raw,\n"
-                            + "2=cooked (as Consumed)"
+                    + "2=cooked (as Consumed)"
     )
     @Column(
             name = "RAW_COOKED",
@@ -226,11 +226,11 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             fieldSetId = "identity",
             sequence = "6",
             describedAs = "Quantification method code:\n"
-                            + "'P' for photo,\n"
-                            + "'H' for HHM,\n"
-                            + "'U' for stdu,\n"
-                            + "'S' for standard portion,\n"
-                            + "'A' for shape"
+                    + "'P' for photo,\n"
+                    + "'H' for HHM,\n"
+                    + "'U' for stdu,\n"
+                    + "'S' for standard portion,\n"
+                    + "'A' for shape"
     )
     @Column(
             name = "METHOD",
@@ -263,8 +263,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             fieldSetId = "identity",
             sequence = "7",
             describedAs = "if method='P' Photo code\n"
-                            + "if method='A' Shape code\n"
-                            + "else empty",
+                    + "if method='A' Shape code\n"
+                    + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -354,11 +354,11 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
 
     @RequiredArgsConstructor
     public enum RawOrCookedAsConsumed {
+
         /**
          * no description
          */
         RAW("1", "raw"),
-
         /**
          *  as Consumed
          */
@@ -376,26 +376,23 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
 
     @RequiredArgsConstructor
     public enum QuantificationMethod {
+
         /**
          * no description
          */
         PHOTO("P", "Photo"),
-
         /**
          * no description
          */
         HOUSEHOLD_MEASURE("H", "Household Measure"),
-
         /**
          * no description
          */
         STANDARD_UNIT("U", "Standard Unit"),
-
         /**
          * no description
          */
         STANDARD_PORTION("S", "Standard Portion"),
-
         /**
          * no description
          */
@@ -421,9 +418,9 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
     )
     @DomainObjectLayout(
             describedAs = "Quantification method pathway for food group/subgroup.\n"
-                            + "Optionally can be superseded by @{table QM_FOODS}.",
+                    + "Optionally can be superseded by @{table QM_FOODS}.",
             cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                    + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -446,8 +443,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
         }
 
         @Collection
-        public final List<QuantificationMethodPathwayForFoodGroup> getListOfQuantificationMethodPathwayForFoodGroup(
-                ) {
+        public final List<QuantificationMethodPathwayForFoodGroup> getListOfQuantificationMethodPathwayForFoodGroup() {
             return searchService.search(QuantificationMethodPathwayForFoodGroup.class, QuantificationMethodPathwayForFoodGroup::title, search);
         }
 
@@ -459,6 +455,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
 
     /**
      * Parameter model for @{link QuantificationMethodPathwayForFoodGroup}
+     *
      * @param foodGroup Food group code
      * @param foodSubgroup Food subgroup code
      * @param foodSubSubgroup Food sub-subgroup code
@@ -478,82 +475,28 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food group code"
-            )
-            FoodGroup foodGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Food subgroup code"
-            )
-            FoodSubgroup foodSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food sub-subgroup code"
-            )
-            FoodSubgroup foodSubSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)"
-            )
-            FoodDescriptor physicalStateFacetDescriptor,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "1=raw,\n"
-                                    + "2=cooked (as Consumed)"
-            )
-            RawOrCookedAsConsumed rawOrCookedAsConsumed,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Quantification method code:\n"
-                                    + "'P' for photo,\n"
-                                    + "'H' for HHM,\n"
-                                    + "'U' for stdu,\n"
-                                    + "'S' for standard portion,\n"
-                                    + "'A' for shape"
-            )
-            QuantificationMethod quantificationMethod,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "if method='P' Photo code\n"
-                                    + "if method='A' Shape code\n"
-                                    + "else empty"
-            )
-            Photo photoOrShape,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Comment"
-            )
-            String comment) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food group code") FoodGroup foodGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Food subgroup code") FoodSubgroup foodSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food sub-subgroup code") FoodSubgroup foodSubSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Descriptor code of Physical state facet descface.facet_code+descface.descr_code (e.g. 0205)") FoodDescriptor physicalStateFacetDescriptor,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "1=raw,\n"
+                            + "2=cooked (as Consumed)") RawOrCookedAsConsumed rawOrCookedAsConsumed,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Quantification method code:\n"
+                            + "'P' for photo,\n"
+                            + "'H' for HHM,\n"
+                            + "'U' for stdu,\n"
+                            + "'S' for standard portion,\n"
+                            + "'A' for shape") QuantificationMethod quantificationMethod,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "if method='P' Photo code\n"
+                            + "if method='A' Shape code\n"
+                            + "else empty") Photo photoOrShape,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Comment") String comment
+    ) {
     }
 
     /**
      * SecondaryKey for @{link QuantificationMethodPathwayForFoodGroup}
+     *
      * @param foodGroupCode Food group code
      * @param foodSubgroupCode Food subgroup code
      * @param foodSubSubgroupCode Food sub-subgroup code
@@ -578,7 +521,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             String physicalStateFacetDescriptorLookupKey,
             String rawOrCookedAsConsumed,
             String quantificationMethod,
-            String photoOrShapeCode) implements ISecondaryKey<QuantificationMethodPathwayForFoodGroup> {
+            String photoOrShapeCode
+    ) implements ISecondaryKey<QuantificationMethodPathwayForFoodGroup> {
         @Override
         public Class<QuantificationMethodPathwayForFoodGroup> correspondingClass() {
             return QuantificationMethodPathwayForFoodGroup.class;

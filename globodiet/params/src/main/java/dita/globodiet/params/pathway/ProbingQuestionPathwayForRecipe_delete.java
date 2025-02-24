@@ -61,8 +61,7 @@ public class ProbingQuestionPathwayForRecipe_delete {
     private final ProbingQuestionPathwayForRecipe mixee;
 
     @MemberSupport
-    public ProbingQuestionPathwayForRecipe.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public ProbingQuestionPathwayForRecipe.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new ProbingQuestionPathwayForRecipe.Manager(searchService, "");

@@ -61,8 +61,7 @@ public class RecipeBrand_delete {
     private final RecipeBrand mixee;
 
     @MemberSupport
-    public RecipeBrand.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public RecipeBrand.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new RecipeBrand.Manager(searchService, "");

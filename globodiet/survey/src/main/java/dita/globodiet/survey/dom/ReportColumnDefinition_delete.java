@@ -61,8 +61,7 @@ public class ReportColumnDefinition_delete {
     private final ReportColumnDefinition mixee;
 
     @MemberSupport
-    public ReportColumnDefinition.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public ReportColumnDefinition.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new ReportColumnDefinition.Manager(searchService, "");

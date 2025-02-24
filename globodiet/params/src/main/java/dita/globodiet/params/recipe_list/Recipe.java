@@ -85,24 +85,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Mixed (a priory) Recipe (not an on-the-fly one):\n"
-                        + "After preparation, the different ingredients cannot be identified\n"
-                        + "and quantified separately, as those are derived from cook books (for homemade and similar recipes),\n"
-                        + "internet or are based on information received from the industry (for commercial recipes).\n"
-                        + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level\n"
-                        + "prior to the commencement of the interviews.\n"
-                        + "The mixed recipe database may contain three types of recipes:\n"
-                        + "1) ‘open recipes’,\n"
-                        + "2) ‘closed recipes’ and\n"
-                        + "3) ‘strictly commercial with brand recipes’.\n"
-                        + "For each mixed recipe, information on the expected variation of ingredients\n"
-                        + "within the study population needs to be collected, too.\n"
-                        + "If the variation is found to be great, the recipe should be treated as an open recipe.\n"
-                        + "It is also possible to enter several standard variations of a recipe depending on regions.\n"
-                        + "If no variations are expected, a recipe should be treated as a closed recipe\n"
-                        + "or as a strictly commercial recipe.\n"
-                        + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
-                        + "When entering the recipe ingredients with RECIPE MANAGER,\n"
-                        + "the ingredients are described and quantified like in the food pathway.",
+                + "After preparation, the different ingredients cannot be identified\n"
+                + "and quantified separately, as those are derived from cook books (for homemade and similar recipes),\n"
+                + "internet or are based on information received from the industry (for commercial recipes).\n"
+                + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level\n"
+                + "prior to the commencement of the interviews.\n"
+                + "The mixed recipe database may contain three types of recipes:\n"
+                + "1) ‘open recipes’,\n"
+                + "2) ‘closed recipes’ and\n"
+                + "3) ‘strictly commercial with brand recipes’.\n"
+                + "For each mixed recipe, information on the expected variation of ingredients\n"
+                + "within the study population needs to be collected, too.\n"
+                + "If the variation is found to be great, the recipe should be treated as an open recipe.\n"
+                + "It is also possible to enter several standard variations of a recipe depending on regions.\n"
+                + "If no variations are expected, a recipe should be treated as a closed recipe\n"
+                + "or as a strictly commercial recipe.\n"
+                + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
+                + "When entering the recipe ingredients with RECIPE MANAGER,\n"
+                + "the ingredients are described and quantified like in the food pathway.",
         cssClassFa = "solid stroopwafel .recipe-color"
 )
 @PersistenceCapable(
@@ -221,14 +221,14 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "Type of recipe:\n"
-                            + "1.1=Open – Known\n"
-                            + "1.2=Open – Unknown\n"
-                            + "1.3=Open with brand\n"
-                            + "2.1=Closed\n"
-                            + "2.2=Closed with brand\n"
-                            + "3.0=Commercial\n"
-                            + "4.1=New – Known\n"
-                            + "4.2=New – Unknown"
+                    + "1.1=Open – Known\n"
+                    + "1.2=Open – Unknown\n"
+                    + "1.3=Open with brand\n"
+                    + "2.1=Closed\n"
+                    + "2.2=Closed with brand\n"
+                    + "3.0=Commercial\n"
+                    + "4.1=New – Known\n"
+                    + "4.2=New – Unknown"
     )
     @Column(
             name = "R_TYPE",
@@ -313,7 +313,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             fieldSetId = "details",
             sequence = "8",
             describedAs = "0=recipe without sub-recipe\n"
-                            + "1=recipe with sub-recipe"
+                    + "1=recipe with sub-recipe"
     )
     @Column(
             name = "R_SUB",
@@ -347,9 +347,9 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
             fieldSetId = "details",
             sequence = "9",
             describedAs = "1=finalized (enabled for interviews)\n"
-                            + "2=with unknown quantity (disabled for interviews)\n"
-                            + "3=to be completed (disabled for interviews)\n"
-                            + "4=empty (disabled for interviews)"
+                    + "2=with unknown quantity (disabled for interviews)\n"
+                    + "3=to be completed (disabled for interviews)\n"
+                    + "4=empty (disabled for interviews)"
     )
     @Column(
             name = "STATUS",
@@ -423,41 +423,35 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
 
     @RequiredArgsConstructor
     public enum RecipeType {
+
         /**
          * no description
          */
         OPEN_KNOWN("1.1", "Open – Known"),
-
         /**
          * no description
          */
         OPEN_UNKNOWN("1.2", "Open – Unknown"),
-
         /**
          * no description
          */
         OPEN_WITH_BRAND("1.3", "Open with brand"),
-
         /**
          * no description
          */
         CLOSED("2.1", "Closed"),
-
         /**
          * no description
          */
         CLOSED_WITH_BRAND("2.2", "Closed with brand"),
-
         /**
          * no description
          */
         COMMERCIAL("3.0", "Commercial"),
-
         /**
          * no description
          */
         NEW_KNOWN("4.1", "New – Known"),
-
         /**
          * no description
          */
@@ -475,11 +469,11 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
 
     @RequiredArgsConstructor
     public enum AliasQ {
+
         /**
          * is regular entry
          */
         REGULAR("", "regular"),
-
         /**
          * is alias entry
          */
@@ -497,11 +491,11 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
 
     @RequiredArgsConstructor
     public enum HasSubRecipeQ {
+
         /**
          * recipe without sub-recipe
          */
         SUB_RECIPE_EXCLUDED(0, "sub-recipe excluded"),
-
         /**
          * recipe with sub-recipe
          */
@@ -519,21 +513,19 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
 
     @RequiredArgsConstructor
     public enum Status {
+
         /**
          * enabled for interviews
          */
         FINALIZED("1", "finalized"),
-
         /**
          * with unknown quantity (disabled for interviews)
          */
         WITH_UNKNOWN_QUANTITY("2", "with unknown quantity"),
-
         /**
          * to be completed (disabled for interviews)
          */
         TO_BE_COMPLETED("3", "to be completed"),
-
         /**
          * empty (disabled for interviews)
          */
@@ -559,24 +551,24 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
     )
     @DomainObjectLayout(
             describedAs = "Mixed (a priory) Recipe (not an on-the-fly one):\n"
-                            + "After preparation, the different ingredients cannot be identified\n"
-                            + "and quantified separately, as those are derived from cook books (for homemade and similar recipes),\n"
-                            + "internet or are based on information received from the industry (for commercial recipes).\n"
-                            + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level\n"
-                            + "prior to the commencement of the interviews.\n"
-                            + "The mixed recipe database may contain three types of recipes:\n"
-                            + "1) ‘open recipes’,\n"
-                            + "2) ‘closed recipes’ and\n"
-                            + "3) ‘strictly commercial with brand recipes’.\n"
-                            + "For each mixed recipe, information on the expected variation of ingredients\n"
-                            + "within the study population needs to be collected, too.\n"
-                            + "If the variation is found to be great, the recipe should be treated as an open recipe.\n"
-                            + "It is also possible to enter several standard variations of a recipe depending on regions.\n"
-                            + "If no variations are expected, a recipe should be treated as a closed recipe\n"
-                            + "or as a strictly commercial recipe.\n"
-                            + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
-                            + "When entering the recipe ingredients with RECIPE MANAGER,\n"
-                            + "the ingredients are described and quantified like in the food pathway.",
+                    + "After preparation, the different ingredients cannot be identified\n"
+                    + "and quantified separately, as those are derived from cook books (for homemade and similar recipes),\n"
+                    + "internet or are based on information received from the industry (for commercial recipes).\n"
+                    + "They are entered as standard recipes with the RECIPE MANAGER and handled at the country level\n"
+                    + "prior to the commencement of the interviews.\n"
+                    + "The mixed recipe database may contain three types of recipes:\n"
+                    + "1) ‘open recipes’,\n"
+                    + "2) ‘closed recipes’ and\n"
+                    + "3) ‘strictly commercial with brand recipes’.\n"
+                    + "For each mixed recipe, information on the expected variation of ingredients\n"
+                    + "within the study population needs to be collected, too.\n"
+                    + "If the variation is found to be great, the recipe should be treated as an open recipe.\n"
+                    + "It is also possible to enter several standard variations of a recipe depending on regions.\n"
+                    + "If no variations are expected, a recipe should be treated as a closed recipe\n"
+                    + "or as a strictly commercial recipe.\n"
+                    + "Furthermore, it has to be decided if each ingredient is fixed or substitutable.\n"
+                    + "When entering the recipe ingredients with RECIPE MANAGER,\n"
+                    + "the ingredients are described and quantified like in the food pathway.",
             cssClassFa = "solid stroopwafel .recipe-color"
     )
     @AllArgsConstructor
@@ -612,6 +604,7 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
 
     /**
      * Parameter model for @{link Recipe}
+     *
      * @param code Recipe ID number
      * @param recipeGroup Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)
      * @param recipeSubgroup Subgroup code of the recipe classification
@@ -636,98 +629,39 @@ public class Recipe implements Cloneable<Recipe>, HasSecondaryKey<Recipe> {
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Recipe ID number"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)"
-            )
-            RecipeGroup recipeGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Subgroup code of the recipe classification"
-            )
-            RecipeSubgroup recipeSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Recipe name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Type of recipe:\n"
-                                    + "1.1=Open – Known\n"
-                                    + "1.2=Open – Unknown\n"
-                                    + "1.3=Open with brand\n"
-                                    + "2.1=Closed\n"
-                                    + "2.2=Closed with brand\n"
-                                    + "3.0=Commercial\n"
-                                    + "4.1=New – Known\n"
-                                    + "4.2=New – Unknown"
-            )
-            RecipeType recipeType,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Brand name for commercial recipe"
-            )
-            String brandNameForCommercialRecipe,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "whether is an alias (SH=shadow)"
-            )
-            AliasQ aliasQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=recipe without sub-recipe\n"
-                                    + "1=recipe with sub-recipe"
-            )
-            HasSubRecipeQ hasSubRecipeQ,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "1=finalized (enabled for interviews)\n"
-                                    + "2=with unknown quantity (disabled for interviews)\n"
-                                    + "3=to be completed (disabled for interviews)\n"
-                                    + "4=empty (disabled for interviews)"
-            )
-            Status status) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe ID number") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Group code of the recipe classification. (TODO for alias entries: not set, but perhaps could be)") RecipeGroup recipeGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Subgroup code of the recipe classification") RecipeSubgroup recipeSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Type of recipe:\n"
+                            + "1.1=Open – Known\n"
+                            + "1.2=Open – Unknown\n"
+                            + "1.3=Open with brand\n"
+                            + "2.1=Closed\n"
+                            + "2.2=Closed with brand\n"
+                            + "3.0=Commercial\n"
+                            + "4.1=New – Known\n"
+                            + "4.2=New – Unknown") RecipeType recipeType,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Brand name for commercial recipe") String brandNameForCommercialRecipe,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "whether is an alias (SH=shadow)") AliasQ aliasQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=recipe without sub-recipe\n"
+                            + "1=recipe with sub-recipe") HasSubRecipeQ hasSubRecipeQ,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "1=finalized (enabled for interviews)\n"
+                            + "2=with unknown quantity (disabled for interviews)\n"
+                            + "3=to be completed (disabled for interviews)\n"
+                            + "4=empty (disabled for interviews)") Status status
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Recipe}
+     *
      * @param code Recipe ID number
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<Recipe> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<Recipe> {
         @Override
         public Class<Recipe> correspondingClass() {
             return Recipe.class;

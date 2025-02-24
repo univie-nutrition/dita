@@ -38,8 +38,8 @@ import org.apache.causeway.applib.annotation.Where;
         fieldSetId = "details",
         sequence = "2.1",
         describedAs = "Recipe Facet codes that will appear in the sequence of facets corresponding to this Recipe\n"
-                        + "(supersedes this Recipe's group pathway).\n"
-                        + "The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.",
+                + "(supersedes this Recipe's group pathway).\n"
+                + "The list of descriptors will be the ones defined for the subgroup in @{table R_GROUPFAC}.",
         hidden = Where.REFERENCES_PARENT
 )
 @RequiredArgsConstructor

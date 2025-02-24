@@ -61,8 +61,7 @@ public class Shape_delete {
     private final Shape mixee;
 
     @MemberSupport
-    public Shape.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public Shape.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new Shape.Manager(searchService, "");

@@ -179,8 +179,7 @@ public class FacetDescriptorThatCannotBeSubstituted implements Cloneable<FacetDe
         }
 
         @Collection
-        public final List<FacetDescriptorThatCannotBeSubstituted> getListOfFacetDescriptorThatCannotBeSubstituted(
-                ) {
+        public final List<FacetDescriptorThatCannotBeSubstituted> getListOfFacetDescriptorThatCannotBeSubstituted() {
             return searchService.search(FacetDescriptorThatCannotBeSubstituted.class, FacetDescriptorThatCannotBeSubstituted::title, search);
         }
 

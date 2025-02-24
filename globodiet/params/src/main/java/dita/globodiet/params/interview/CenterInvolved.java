@@ -233,44 +233,28 @@ public class CenterInvolved implements Cloneable<CenterInvolved>, HasSecondaryKe
 
     /**
      * Parameter model for @{link CenterInvolved}
+     *
      * @param centerCode Center code
      * @param attachedCountry Attached Country code
      * @param centerName Center name
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Center code"
-            )
-            String centerCode,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Attached Country code"
-            )
-            CountryInvolved attachedCountry,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Center name"
-            )
-            String centerName) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Center code") String centerCode,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Attached Country code") CountryInvolved attachedCountry,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Center name") String centerName
+    ) {
     }
 
     /**
      * SecondaryKey for @{link CenterInvolved}
+     *
      * @param centerCode Center code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String centerCode) implements ISecondaryKey<CenterInvolved> {
+    public final record SecondaryKey(
+            String centerCode
+    ) implements ISecondaryKey<CenterInvolved> {
         @Override
         public Class<CenterInvolved> correspondingClass() {
             return CenterInvolved.class;

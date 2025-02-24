@@ -181,7 +181,7 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
             fieldSetId = "details",
             sequence = "5",
             describedAs = "1=Man,\n"
-                            + "2=Woman"
+                    + "2=Woman"
     )
     @Column(
             name = "SEX",
@@ -264,11 +264,11 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
 
     @RequiredArgsConstructor
     public enum Unit {
+
         /**
          * no description
          */
         GRAMS("g", "Grams"),
-
         /**
          * no description
          */
@@ -286,11 +286,11 @@ public class MacroNutrientLimit implements Cloneable<MacroNutrientLimit> {
 
     @RequiredArgsConstructor
     public enum Sex {
+
         /**
          * no description
          */
         MALE("1", "male"),
-
         /**
          * no description
          */

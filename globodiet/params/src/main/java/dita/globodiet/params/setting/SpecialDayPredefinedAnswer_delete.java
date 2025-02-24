@@ -61,8 +61,7 @@ public class SpecialDayPredefinedAnswer_delete {
     private final SpecialDayPredefinedAnswer mixee;
 
     @MemberSupport
-    public SpecialDayPredefinedAnswer.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public SpecialDayPredefinedAnswer.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new SpecialDayPredefinedAnswer.Manager(searchService, "");

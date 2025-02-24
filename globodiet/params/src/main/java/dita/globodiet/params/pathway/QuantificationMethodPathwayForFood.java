@@ -62,10 +62,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Quantification method pathway for individual food.\n"
-                        + "Supersedes this food's group quantification method pathway from @{table QM_GROUP}.",
+                + "Supersedes this food's group quantification method pathway from @{table QM_GROUP}.",
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                        + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                        + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "QM_FOODS"
@@ -118,11 +118,11 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
             fieldSetId = "details",
             sequence = "2",
             describedAs = "Quantification method code:\n"
-                            + "'P' for photo,\n"
-                            + "'H' for HHM,\n"
-                            + "'U' for stdu,\n"
-                            + "'S' for standard portion,\n"
-                            + "'A' for shape"
+                    + "'P' for photo,\n"
+                    + "'H' for HHM,\n"
+                    + "'U' for stdu,\n"
+                    + "'S' for standard portion,\n"
+                    + "'A' for shape"
     )
     @Column(
             name = "METHOD",
@@ -155,8 +155,8 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "if method='P' Photo code\n"
-                            + "if method='A' Shape code\n"
-                            + "else empty",
+                    + "if method='A' Shape code\n"
+                    + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -204,26 +204,23 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
 
     @RequiredArgsConstructor
     public enum QuantificationMethod {
+
         /**
          * no description
          */
         PHOTO("P", "Photo"),
-
         /**
          * no description
          */
         HOUSEHOLD_MEASURE("H", "Household Measure"),
-
         /**
          * no description
          */
         STANDARD_UNIT("U", "Standard Unit"),
-
         /**
          * no description
          */
         STANDARD_PORTION("S", "Standard Portion"),
-
         /**
          * no description
          */
@@ -249,10 +246,10 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
     )
     @DomainObjectLayout(
             describedAs = "Quantification method pathway for individual food.\n"
-                            + "Supersedes this food's group quantification method pathway from @{table QM_GROUP}.",
+                    + "Supersedes this food's group quantification method pathway from @{table QM_GROUP}.",
             cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                    + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                    + "solid exclamation-circle .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -275,8 +272,7 @@ public class QuantificationMethodPathwayForFood implements Cloneable<Quantificat
         }
 
         @Collection
-        public final List<QuantificationMethodPathwayForFood> getListOfQuantificationMethodPathwayForFood(
-                ) {
+        public final List<QuantificationMethodPathwayForFood> getListOfQuantificationMethodPathwayForFood() {
             return searchService.search(QuantificationMethodPathwayForFood.class, QuantificationMethodPathwayForFood::title, search);
         }
 

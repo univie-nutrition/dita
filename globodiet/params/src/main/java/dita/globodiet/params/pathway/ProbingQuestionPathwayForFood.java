@@ -59,7 +59,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Probing question pathway for food.",
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                        + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "PQPATH"
@@ -229,7 +229,7 @@ public class ProbingQuestionPathwayForFood implements Cloneable<ProbingQuestionP
     @DomainObjectLayout(
             describedAs = "Probing question pathway for food.",
             cssClassFa = "solid person-walking-arrow-right .food-color,\n"
-                            + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid question .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {

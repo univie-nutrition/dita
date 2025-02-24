@@ -59,9 +59,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Facet/descriptor pathway for recipe group/subgroup.\n"
-                        + "Optionally can be superseded by @{table R_RCPFAEX}.",
+                + "Optionally can be superseded by @{table R_RCPFAEX}.",
         cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                        + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "R_GROUPFAC"
@@ -302,9 +302,9 @@ public class FacetDescriptorPathwayForRecipeGroup implements Cloneable<FacetDesc
     )
     @DomainObjectLayout(
             describedAs = "Facet/descriptor pathway for recipe group/subgroup.\n"
-                            + "Optionally can be superseded by @{table R_RCPFAEX}.",
+                    + "Optionally can be superseded by @{table R_RCPFAEX}.",
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid tag .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -327,8 +327,7 @@ public class FacetDescriptorPathwayForRecipeGroup implements Cloneable<FacetDesc
         }
 
         @Collection
-        public final List<FacetDescriptorPathwayForRecipeGroup> getListOfFacetDescriptorPathwayForRecipeGroup(
-                ) {
+        public final List<FacetDescriptorPathwayForRecipeGroup> getListOfFacetDescriptorPathwayForRecipeGroup() {
             return searchService.search(FacetDescriptorPathwayForRecipeGroup.class, FacetDescriptorPathwayForRecipeGroup::title, search);
         }
 

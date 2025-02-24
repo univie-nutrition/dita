@@ -69,9 +69,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "A respondent filter defines which respondents to include\n"
-                        + "with an interview report.",
+                + "with an interview report.",
         cssClassFa = "solid user .respondentFilter-color,\n"
-                        + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+                + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "RespondentFilter"
@@ -188,7 +188,7 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
             fieldSetId = "listing",
             sequence = "5",
             describedAs = "Line by line defines an alias to include.\n"
-                            + "(lines can be commented out with a leading #)",
+                    + "(lines can be commented out with a leading #)",
             hidden = Where.EVERYWHERE,
             multiLine = 24,
             labelPosition = LabelPosition.NONE
@@ -256,9 +256,9 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
     )
     @DomainObjectLayout(
             describedAs = "A respondent filter defines which respondents to include\n"
-                            + "with an interview report.",
+                    + "with an interview report.",
             cssClassFa = "solid user .respondentFilter-color,\n"
-                            + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+                    + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -293,6 +293,7 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
 
     /**
      * Parameter model for @{link RespondentFilter}
+     *
      * @param survey Survey code
      * @param code Unique (survey scoped) filter identifier.
      * @param name Descriptive filter name.
@@ -302,60 +303,26 @@ public class RespondentFilter implements Cloneable<RespondentFilter>, HasSeconda
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Survey code"
-            )
-            Survey survey,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Unique (survey scoped) filter identifier."
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Descriptive filter name."
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Detailed information for this filter.",
-                    multiLine = 4
-            )
-            String description,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Line by line defines an alias to include.\n"
-                                    + "(lines can be commented out with a leading #)",
-                    multiLine = 24
-            )
-            String aliasListing) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) filter identifier.") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive filter name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed information for this filter.", multiLine = 4) String description,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Line by line defines an alias to include.\n"
+                            + "(lines can be commented out with a leading #)", multiLine = 24) String aliasListing
+    ) {
     }
 
     /**
      * SecondaryKey for @{link RespondentFilter}
+     *
      * @param surveyCode Survey code
      * @param code Unique (survey scoped) filter identifier.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code) implements ISecondaryKey<RespondentFilter> {
+            String code
+    ) implements ISecondaryKey<RespondentFilter> {
         @Override
         public Class<RespondentFilter> correspondingClass() {
             return RespondentFilter.class;

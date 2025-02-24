@@ -165,11 +165,11 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             fieldSetId = "foreign",
             sequence = "4",
             describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
-                            + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
-                            + "When this field is empty, that means that this thickness has always to be proposed\n"
-                            + "whatever the food classification.\n"
-                            + "Multiple subgroup.group and/or subgroup.subgroup1\n"
-                            + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)",
+                    + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
+                    + "When this field is empty, that means that this thickness has always to be proposed\n"
+                    + "whatever the food classification.\n"
+                    + "Multiple subgroup.group and/or subgroup.subgroup1\n"
+                    + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -195,10 +195,10 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             fieldSetId = "foreign",
             sequence = "5",
             describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
-                            + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
-                            + "When this field is empty, that means that this thickness has always to be proposed\n"
-                            + "whatever the recipe classification.\n"
-                            + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)",
+                    + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
+                    + "When this field is empty, that means that this thickness has always to be proposed\n"
+                    + "whatever the recipe classification.\n"
+                    + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -298,6 +298,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
 
     /**
      * Parameter model for @{link ThicknessForShape}
+     *
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      * @param thickness has no description
      * @param comment Comment attached to the thickness (e.g. small, medium, large…)
@@ -315,63 +316,32 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "has no description"
-            )
-            double thickness,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
-            )
-            String comment,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
-                                    + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
-                                    + "When this field is empty, that means that this thickness has always to be proposed\n"
-                                    + "whatever the food classification.\n"
-                                    + "Multiple subgroup.group and/or subgroup.subgroup1\n"
-                                    + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)"
-            )
-            FoodSubgroup foodGrouping,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
-                                    + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
-                                    + "When this field is empty, that means that this thickness has always to be proposed\n"
-                                    + "whatever the recipe classification.\n"
-                                    + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)"
-            )
-            RecipeSubgroup recipeGrouping) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "has no description") double thickness,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Comment attached to the thickness (e.g. small, medium, large…)") String comment,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "For the food items, the food (sub)groups for which this thickness has to be proposed.\n"
+                            + "These (sub)groups have to be separated with a comma (e.g. 0603,1002,1003,1101)\n"
+                            + "When this field is empty, that means that this thickness has always to be proposed\n"
+                            + "whatever the food classification.\n"
+                            + "Multiple subgroup.group and/or subgroup.subgroup1\n"
+                            + "and/or subgroup.subgroup2 comma-separated (e.g. 0603,10,1102)") FoodSubgroup foodGrouping,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
+                            + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
+                            + "When this field is empty, that means that this thickness has always to be proposed\n"
+                            + "whatever the recipe classification.\n"
+                            + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)") RecipeSubgroup recipeGrouping
+    ) {
     }
 
     /**
      * SecondaryKey for @{link ThicknessForShape}
+     *
      * @param code Thickness code (e.g. A,B,C,58_1,58_2...)
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<ThicknessForShape> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<ThicknessForShape> {
         @Override
         public Class<ThicknessForShape> correspondingClass() {
             return ThicknessForShape.class;

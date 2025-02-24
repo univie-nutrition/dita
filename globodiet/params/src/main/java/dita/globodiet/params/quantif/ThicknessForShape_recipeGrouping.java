@@ -34,10 +34,10 @@ import org.apache.causeway.commons.collections.Can;
 @Collection
 @CollectionLayout(
         describedAs = "For the recipe items, the recipe (sub)groups for which this thickness has to be proposed.\n"
-                        + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
-                        + "When this field is empty, that means that this thickness has always to be proposed\n"
-                        + "whatever the recipe classification.\n"
-                        + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)",
+                + "These (sub)groups have to be separated with a comma (e.g. 01,02,0301)\n"
+                + "When this field is empty, that means that this thickness has always to be proposed\n"
+                + "whatever the recipe classification.\n"
+                + "Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)",
         hidden = Where.NOWHERE
 )
 @RequiredArgsConstructor

@@ -61,8 +61,7 @@ public class StandardUnitForFoodOrRecipe_delete {
     private final StandardUnitForFoodOrRecipe mixee;
 
     @MemberSupport
-    public StandardUnitForFoodOrRecipe.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public StandardUnitForFoodOrRecipe.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new StandardUnitForFoodOrRecipe.Manager(searchService, "");

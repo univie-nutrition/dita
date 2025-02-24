@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Facet describing food (not recipe)",
         cssClassFa = "solid utensils .food-color,\n"
-                        + "solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "FACETS"
@@ -165,9 +165,9 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             fieldSetId = "details",
             sequence = "4",
             describedAs = "0=Standard facets with descriptors available in Descface table\n"
-                            + "1=Facets with descriptors available in Brandnam table\n"
-                            + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
-                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
+                    + "1=Facets with descriptors available in Brandnam table\n"
+                    + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
+                    + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
     )
     @Column(
             name = "FACET_TYPE",
@@ -199,7 +199,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             fieldSetId = "details",
             sequence = "5",
             describedAs = "0 = facet with single-selection of descriptor\n"
-                            + "1 = facets with multi-selection of descriptors"
+                    + "1 = facets with multi-selection of descriptors"
     )
     @Column(
             name = "FACET_TYPE_S",
@@ -231,7 +231,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
             fieldSetId = "details",
             sequence = "6",
             describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
-                            + "Comma is used as delimiter (e.g. 10,050701,050702)"
+                    + "Comma is used as delimiter (e.g. 10,050701,050702)"
     )
     @Column(
             name = "FACET_GRP",
@@ -312,21 +312,19 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
 
     @RequiredArgsConstructor
     public enum Type {
+
         /**
          *  facets with descriptors available in Descface table
          */
         STANDARD(0, "Standard"),
-
         /**
          * Facets with descriptors available in Brandnam table
          */
         BRAND(1, "Brand"),
-
         /**
          * Facets with descriptors available in Foods table - facet 15 type of fat
          */
         FAT(2, "Fat"),
-
         /**
          * Facets with descriptors available in Foods table - facet 16 type of milk/liquid used
          */
@@ -344,11 +342,11 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
 
     @RequiredArgsConstructor
     public enum TypeCardinality {
+
         /**
          * facet with single-selection of descriptor
          */
         SINGLE(0, "single"),
-
         /**
          * facets with multi-selection of descriptors
          */
@@ -375,7 +373,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
     @DomainObjectLayout(
             describedAs = "Facet describing food (not recipe)",
             cssClassFa = "solid utensils .food-color,\n"
-                            + "solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid swatchbook .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -410,6 +408,7 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
 
     /**
      * Parameter model for @{link FoodFacet}
+     *
      * @param code Facet code
      * @param name Facet name
      * @param text Facet text (text to show on the screen describing the facet)
@@ -425,75 +424,30 @@ public class FoodFacet implements Cloneable<FoodFacet>, HasSecondaryKey<FoodFace
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet name"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Facet text (text to show on the screen describing the facet)"
-            )
-            String text,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=Standard facets with descriptors available in Descface table\n"
-                                    + "1=Facets with descriptors available in Brandnam table\n"
-                                    + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
-                                    + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
-            )
-            Type type,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0 = facet with single-selection of descriptor\n"
-                                    + "1 = facets with multi-selection of descriptors"
-            )
-            TypeCardinality typeCardinality,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
-                                    + "Comma is used as delimiter (e.g. 10,050701,050702)"
-            )
-            String group,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Label on how to ask the facet question"
-            )
-            String labelOnHowToAskTheFacetQuestion) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet name") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Facet text (text to show on the screen describing the facet)") String text,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=Standard facets with descriptors available in Descface table\n"
+                            + "1=Facets with descriptors available in Brandnam table\n"
+                            + "2=Facets with descriptors available in Foods table - facet 15 type of fat\n"
+                            + "3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used") Type type,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0 = facet with single-selection of descriptor\n"
+                            + "1 = facets with multi-selection of descriptors") TypeCardinality typeCardinality,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.\n"
+                            + "Comma is used as delimiter (e.g. 10,050701,050702)") String group,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Label on how to ask the facet question") String labelOnHowToAskTheFacetQuestion
+    ) {
     }
 
     /**
      * SecondaryKey for @{link FoodFacet}
+     *
      * @param code Facet code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<FoodFacet> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<FoodFacet> {
         @Override
         public Class<FoodFacet> correspondingClass() {
             return FoodFacet.class;

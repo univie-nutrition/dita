@@ -61,8 +61,7 @@ public class ComposedRecipeIngredient_delete {
     private final ComposedRecipeIngredient mixee;
 
     @MemberSupport
-    public ComposedRecipeIngredient.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public ComposedRecipeIngredient.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new ComposedRecipeIngredient.Manager(searchService, "");

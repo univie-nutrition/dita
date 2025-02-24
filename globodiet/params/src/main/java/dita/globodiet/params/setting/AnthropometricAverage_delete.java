@@ -61,8 +61,7 @@ public class AnthropometricAverage_delete {
     private final AnthropometricAverage mixee;
 
     @MemberSupport
-    public AnthropometricAverage.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public AnthropometricAverage.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new AnthropometricAverage.Manager(searchService, "");

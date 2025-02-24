@@ -69,7 +69,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Recipe group",
         cssClassFa = "solid stroopwafel .recipe-color,\n"
-                        + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
 @PersistenceCapable(
         table = "RGROUPS"
@@ -201,7 +201,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
     @DomainObjectLayout(
             describedAs = "Recipe group",
             cssClassFa = "solid stroopwafel .recipe-color,\n"
-                            + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
+                    + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -236,44 +236,28 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
 
     /**
      * Parameter model for @{link RecipeGroup}
+     *
      * @param code Recipe Group code
      * @param name Name of the Recipe group
      * @param shortName Short Name of the Recipe group
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Recipe Group code"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Name of the Recipe group"
-            )
-            String name,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Short Name of the Recipe group"
-            )
-            String shortName) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe Group code") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Name of the Recipe group") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Short Name of the Recipe group") String shortName
+    ) {
     }
 
     /**
      * SecondaryKey for @{link RecipeGroup}
+     *
      * @param code Recipe Group code
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<RecipeGroup> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<RecipeGroup> {
         @Override
         public Class<RecipeGroup> correspondingClass() {
             return RecipeGroup.class;

@@ -61,8 +61,7 @@ public class RecipeIngredientQuantification_delete {
     private final RecipeIngredientQuantification mixee;
 
     @MemberSupport
-    public RecipeIngredientQuantification.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public RecipeIngredientQuantification.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new RecipeIngredientQuantification.Manager(searchService, "");

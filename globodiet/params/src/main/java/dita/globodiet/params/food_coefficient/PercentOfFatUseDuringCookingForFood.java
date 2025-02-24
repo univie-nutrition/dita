@@ -364,8 +364,7 @@ public class PercentOfFatUseDuringCookingForFood implements Cloneable<PercentOfF
         }
 
         @Collection
-        public final List<PercentOfFatUseDuringCookingForFood> getListOfPercentOfFatUseDuringCookingForFood(
-                ) {
+        public final List<PercentOfFatUseDuringCookingForFood> getListOfPercentOfFatUseDuringCookingForFood() {
             return searchService.search(PercentOfFatUseDuringCookingForFood.class, PercentOfFatUseDuringCookingForFood::title, search);
         }
 

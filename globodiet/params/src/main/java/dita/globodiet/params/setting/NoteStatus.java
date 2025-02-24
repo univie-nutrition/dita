@@ -131,8 +131,8 @@ public class NoteStatus implements Cloneable<NoteStatus> {
             fieldSetId = "details",
             sequence = "3",
             describedAs = "Allow the possibility to display or not the note in the view note window:\n"
-                            + "0=No hide,\n"
-                            + "1=Yes hide (e.g. 1=hide for status “action done”)"
+                    + "0=No hide,\n"
+                    + "1=Yes hide (e.g. 1=hide for status “action done”)"
     )
     @Column(
             name = "S_HIDE",
@@ -188,11 +188,11 @@ public class NoteStatus implements Cloneable<NoteStatus> {
 
     @RequiredArgsConstructor
     public enum DisplayNoteInTheViewNoteWindow {
+
         /**
          * don't hide hide
          */
         YES(0, "Yes"),
-
         /**
          * hide: e.g. 1=hide for status “action done”
          */

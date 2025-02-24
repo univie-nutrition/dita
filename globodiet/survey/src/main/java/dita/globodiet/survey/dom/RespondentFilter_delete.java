@@ -61,8 +61,7 @@ public class RespondentFilter_delete {
     private final RespondentFilter mixee;
 
     @MemberSupport
-    public RespondentFilter.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public RespondentFilter.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new RespondentFilter.Manager(searchService, "");

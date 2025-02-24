@@ -61,8 +61,7 @@ public class ProbingQuestion_delete {
     private final ProbingQuestion mixee;
 
     @MemberSupport
-    public ProbingQuestion.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public ProbingQuestion.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new ProbingQuestion.Manager(searchService, "");

@@ -61,8 +61,7 @@ public class DensityFactorForFoodOrRecipe_delete {
     private final DensityFactorForFoodOrRecipe mixee;
 
     @MemberSupport
-    public DensityFactorForFoodOrRecipe.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public DensityFactorForFoodOrRecipe.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new DensityFactorForFoodOrRecipe.Manager(searchService, "");

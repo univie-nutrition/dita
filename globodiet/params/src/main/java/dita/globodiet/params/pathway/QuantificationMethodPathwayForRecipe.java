@@ -62,10 +62,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObject
 @DomainObjectLayout(
         describedAs = "Quantification method pathway for individual recipe.\n"
-                        + "Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.",
+                + "Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.",
         cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                        + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                        + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "QM_RECIP"
@@ -117,10 +117,10 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
             fieldSetId = "details",
             sequence = "2",
             describedAs = "Quantification method code:\n"
-                            + "'P' for photo,\n"
-                            + "'H' for HHM,\n"
-                            + "'U' for stdu,\n"
-                            + "'A' Shape"
+                    + "'P' for photo,\n"
+                    + "'H' for HHM,\n"
+                    + "'U' for stdu,\n"
+                    + "'A' Shape"
     )
     @Column(
             name = "METHOD",
@@ -153,8 +153,8 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
             fieldSetId = "foreign",
             sequence = "3",
             describedAs = "if method='P' Photo code\n"
-                            + "if method='A' Shape code\n"
-                            + "else empty",
+                    + "if method='A' Shape code\n"
+                    + "else empty",
             hidden = Where.ALL_TABLES
     )
     @Column(
@@ -202,21 +202,19 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
 
     @RequiredArgsConstructor
     public enum QuantificationMethod {
+
         /**
          * no description
          */
         PHOTO("P", "Photo"),
-
         /**
          * no description
          */
         HOUSEHOLD_MEASURE("H", "Household Measure"),
-
         /**
          * no description
          */
         STANDARD_UNIT("U", "Standard Unit"),
-
         /**
          * no description
          */
@@ -242,10 +240,10 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
     )
     @DomainObjectLayout(
             describedAs = "Quantification method pathway for individual recipe.\n"
-                            + "Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.",
+                    + "Supersedes this recipe's group quantification method pathway from @{table QM_RCLAS}.",
             cssClassFa = "solid person-walking-arrow-right .recipe-color,\n"
-                            + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
-                            + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
+                    + "solid scale-balanced .recipe-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
+                    + "solid exclamation-circle .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -268,8 +266,7 @@ public class QuantificationMethodPathwayForRecipe implements Cloneable<Quantific
         }
 
         @Collection
-        public final List<QuantificationMethodPathwayForRecipe> getListOfQuantificationMethodPathwayForRecipe(
-                ) {
+        public final List<QuantificationMethodPathwayForRecipe> getListOfQuantificationMethodPathwayForRecipe() {
             return searchService.search(QuantificationMethodPathwayForRecipe.class, QuantificationMethodPathwayForRecipe::title, search);
         }
 

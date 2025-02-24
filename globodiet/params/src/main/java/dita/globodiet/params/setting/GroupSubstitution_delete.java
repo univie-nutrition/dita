@@ -61,8 +61,7 @@ public class GroupSubstitution_delete {
     private final GroupSubstitution mixee;
 
     @MemberSupport
-    public GroupSubstitution.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public GroupSubstitution.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new GroupSubstitution.Manager(searchService, "");

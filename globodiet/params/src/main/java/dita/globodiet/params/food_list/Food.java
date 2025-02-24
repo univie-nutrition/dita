@@ -213,21 +213,21 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "6",
             describedAs = "Type of item:\n"
-                            + "(none) -> Normal Food Item\n"
-                            + "GI -> Generic Food Item\n"
-                            + "SH -> Shadow Item\n"
-                            + "CR -> Composed Recipe (On-the-fly Recipe)\n"
-                            + "Definition: its different ingredients can be identified and\n"
-                            + "quantified separately after preparation\n"
-                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
-                            + "or just before mixing (e.g. coffee with milk).\n"
-                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
-                            + "They are made from items listed below/linked to a quick list item.\n"
-                            + "Example: Salad\n"
-                            + "- Lettuce\n"
-                            + "- Tomato\n"
-                            + "- Cucumber\n"
-                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
+                    + "(none) -> Normal Food Item\n"
+                    + "GI -> Generic Food Item\n"
+                    + "SH -> Shadow Item\n"
+                    + "CR -> Composed Recipe (On-the-fly Recipe)\n"
+                    + "Definition: its different ingredients can be identified and\n"
+                    + "quantified separately after preparation\n"
+                    + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
+                    + "or just before mixing (e.g. coffee with milk).\n"
+                    + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
+                    + "They are made from items listed below/linked to a quick list item.\n"
+                    + "Example: Salad\n"
+                    + "- Lettuce\n"
+                    + "- Tomato\n"
+                    + "- Cucumber\n"
+                    + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
     )
     @Column(
             name = "TYPE",
@@ -260,7 +260,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "7",
             describedAs = "Auxiliary field to force an internal order within each subgroup\n"
-                            + "(if GI then 1 otherwise 2, this forces the GI at the top)"
+                    + "(if GI then 1 otherwise 2, this forces the GI at the top)"
     )
     @Column(
             name = "ORDER",
@@ -293,7 +293,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
             fieldSetId = "details",
             sequence = "8",
             describedAs = "0=food\n"
-                            + "1=dietary supplement"
+                    + "1=dietary supplement"
     )
     @Column(
             name = "SUPPL",
@@ -364,21 +364,19 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
 
     @RequiredArgsConstructor
     public enum TypeOfItem {
+
         /**
          * no description
          */
         NORMAL_FOOD("", "Normal Food"),
-
         /**
          * no description
          */
         GENERIC_FOOD("GI", "Generic Food"),
-
         /**
          * Synonym
          */
         ALIAS("SH", "Alias"),
-
         /**
          * Recipe, built during the interview (on the fly)
          */
@@ -396,11 +394,11 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
 
     @RequiredArgsConstructor
     public enum GroupOrdinal {
+
         /**
          * first order, use for GI
          */
         FIRST("1", "first"),
-
         /**
          * second order, use for non GI
          */
@@ -418,11 +416,11 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
 
     @RequiredArgsConstructor
     public enum DietarySupplementQ {
+
         /**
          * not a Dietary Supplement
          */
         NO(0, "No"),
-
         /**
          * is a Dietary Supplement
          */
@@ -483,6 +481,7 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
 
     /**
      * Parameter model for @{link Food}
+     *
      * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
      * @param foodGroup Food Group code
      * @param foodSubgroup Food Subgroup code
@@ -511,95 +510,43 @@ public class Food implements Cloneable<Food>, HasSecondaryKey<Food> {
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food Group code"
-            )
-            FoodGroup foodGroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food Subgroup code"
-            )
-            FoodSubgroup foodSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.RESET,
-                    optionality = Optionality.OPTIONAL
-            )
-            @ParameterLayout(
-                    describedAs = "Food Sub(sub)group code"
-            )
-            FoodSubgroup foodSubSubgroup,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias"
-            )
-            String foodNativeName,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Type of item:\n"
-                                    + "(none) -> Normal Food Item\n"
-                                    + "GI -> Generic Food Item\n"
-                                    + "SH -> Shadow Item\n"
-                                    + "CR -> Composed Recipe (On-the-fly Recipe)\n"
-                                    + "Definition: its different ingredients can be identified and\n"
-                                    + "quantified separately after preparation\n"
-                                    + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
-                                    + "or just before mixing (e.g. coffee with milk).\n"
-                                    + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
-                                    + "They are made from items listed below/linked to a quick list item.\n"
-                                    + "Example: Salad\n"
-                                    + "- Lettuce\n"
-                                    + "- Tomato\n"
-                                    + "- Cucumber\n"
-                                    + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
-            )
-            TypeOfItem typeOfItem,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Auxiliary field to force an internal order within each subgroup\n"
-                                    + "(if GI then 1 otherwise 2, this forces the GI at the top)"
-            )
-            GroupOrdinal groupOrdinal,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "0=food\n"
-                                    + "1=dietary supplement"
-            )
-            DietarySupplementQ dietarySupplementQ) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Identification Code for Food, Product, On-the-fly Recipe or Alias") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food Group code") FoodGroup foodGroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food Subgroup code") FoodSubgroup foodSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.RESET, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Food Sub(sub)group code") FoodSubgroup foodSubSubgroup,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Native (localized) name of this Food, Product, On-the-fly Recipe or Alias") String foodNativeName,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Type of item:\n"
+                            + "(none) -> Normal Food Item\n"
+                            + "GI -> Generic Food Item\n"
+                            + "SH -> Shadow Item\n"
+                            + "CR -> Composed Recipe (On-the-fly Recipe)\n"
+                            + "Definition: its different ingredients can be identified and\n"
+                            + "quantified separately after preparation\n"
+                            + "(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)\n"
+                            + "or just before mixing (e.g. coffee with milk).\n"
+                            + "Composed recipes are built during the interview: there is no a priori list of composed recipes.\n"
+                            + "They are made from items listed below/linked to a quick list item.\n"
+                            + "Example: Salad\n"
+                            + "- Lettuce\n"
+                            + "- Tomato\n"
+                            + "- Cucumber\n"
+                            + "- Salad dressing (can be a recipe in some projects where all sauces are in recipes)") TypeOfItem typeOfItem,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Auxiliary field to force an internal order within each subgroup\n"
+                            + "(if GI then 1 otherwise 2, this forces the GI at the top)") GroupOrdinal groupOrdinal,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "0=food\n"
+                            + "1=dietary supplement") DietarySupplementQ dietarySupplementQ
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Food}
+     *
      * @param code Identification Code for Food, Product, On-the-fly Recipe or Alias
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<Food> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<Food> {
         @Override
         public Class<Food> correspondingClass() {
             return Food.class;

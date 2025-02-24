@@ -68,7 +68,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "Shape for quantity",
         cssClassFa = "solid circle-half-stroke,\n"
-                        + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
 @PersistenceCapable(
         table = "M_SHAPES"
@@ -221,7 +221,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
     @DomainObjectLayout(
             describedAs = "Shape for quantity",
             cssClassFa = "solid circle-half-stroke,\n"
-                            + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
+                    + "solid scale-balanced .ov-size-60 .ov-right-50 .ov-bottom-85\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -256,6 +256,7 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
 
     /**
      * Parameter model for @{link Shape}
+     *
      * @param code Shape code (e.g. S001,S002,S003,...)
      * @param surfaceInCm2 Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible
      * @param comment Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)
@@ -263,46 +264,22 @@ public class Shape implements Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Sh
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Shape code (e.g. S001,S002,S003,...)"
-            )
-            String code,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible"
-            )
-            double surfaceInCm2,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)"
-            )
-            String comment,
-            @Parameter(
-                    precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES,
-                    optionality = Optionality.MANDATORY
-            )
-            @ParameterLayout(
-                    describedAs = "Order to display this shape"
-            )
-            int displayOrder) {
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Shape code (e.g. S001,S002,S003,...)") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Shape surface in cm2 (e.g. 200cm2). 2 decimals can be possible") double surfaceInCm2,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Comment attached to the shape (e.g. oval bread small or oval bread medium or oval bread large…)") String comment,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Order to display this shape") int displayOrder
+    ) {
     }
 
     /**
      * SecondaryKey for @{link Shape}
+     *
      * @param code Shape code (e.g. S001,S002,S003,...)
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
-    public final record SecondaryKey(String code) implements ISecondaryKey<Shape> {
+    public final record SecondaryKey(
+            String code
+    ) implements ISecondaryKey<Shape> {
         @Override
         public Class<Shape> correspondingClass() {
             return Shape.class;

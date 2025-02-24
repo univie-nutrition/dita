@@ -61,8 +61,7 @@ public class ImprobableSequenceOfFacetAndDescriptor_delete {
     private final ImprobableSequenceOfFacetAndDescriptor mixee;
 
     @MemberSupport
-    public ImprobableSequenceOfFacetAndDescriptor.Manager act(
-            @ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
+    public ImprobableSequenceOfFacetAndDescriptor.Manager act(@ParameterLayout(labelPosition = LabelPosition.TOP, multiLine = 12) String dependants) {
         repositoryService.remove(mixee);
         foreignKeyLookup.clearCache(mixee.getClass());
         return new ImprobableSequenceOfFacetAndDescriptor.Manager(searchService, "");
