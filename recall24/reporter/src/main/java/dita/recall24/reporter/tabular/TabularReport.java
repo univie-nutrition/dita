@@ -98,14 +98,14 @@ public record TabularReport(
          * Average of nutrient values for each respondent per interview (averaged over all interviews available for a given respondent).
          */
         RESPONDENT_AVERAGE,
-        /**
-         * Variant that groups by food-group.
-         */
-        RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP,
-        /**
-         * Variant that groups by food-group and food-subgroup.
-         */
-        RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP
+//        /**
+//         * Variant that groups by food-group.
+//         */
+//        RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP,
+//        /**
+//         * Variant that groups by food-group and food-subgroup.
+//         */
+//        RESPONDENT_AVERAGE_GROUP_BY_FOOD_GROUP_AND_SUBGROUP
     }
 
     public enum Feature {

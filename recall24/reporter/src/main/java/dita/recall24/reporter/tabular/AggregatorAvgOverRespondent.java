@@ -72,9 +72,9 @@ record AggregatorAvgOverRespondent() {
         builder
             .interviewOrdinal(0)
             .consumptionDate(acc.consumptionDate()) // keep first
-            .consumptionDayOfWeek(-1)
-            .specialDay(":avg")
-            .specialDiet(":avg")
+            .consumptionDayOfWeek(sumConsumptionDayOfWeek(acc.consumptionDayOfWeek(), consumption.consumptionDayOfWeek()))
+            .specialDay(sumCodes(acc.specialDay(), consumption.specialDay()))
+            .specialDiet(sumCodes(acc.specialDiet(), consumption.specialDiet()))
             .fco(":avg")
             .poc(":avg")
             .meal(":avg")
@@ -96,6 +96,14 @@ record AggregatorAvgOverRespondent() {
                 .fcdbId(":avg")
                 .nutrients(acc.nutrients().add(consumption.nutrients()));
         }
+    }
+
+    static int sumConsumptionDayOfWeek(final int accumulator, final int operand) {
+        return accumulator == operand ? operand : accumulator*10 + operand;
+    }
+
+    static String sumCodes(final String accumulator, final String operand) {
+        return accumulator.equals(operand) ? operand : accumulator + "|" + operand;
     }
 
 }
