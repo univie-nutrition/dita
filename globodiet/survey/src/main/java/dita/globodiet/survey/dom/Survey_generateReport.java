@@ -31,6 +31,7 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
@@ -71,11 +72,11 @@ public class Survey_generateReport {
     @MemberSupport
     public Blob act(
             final Can<Campaign> campaigns,
-            @Parameter(optionality = Optionality.OPTIONAL)
+            @Parameter(optionality = Optionality.OPTIONAL, precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
             final RespondentFilter respondentFilter,
-            @Parameter
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
             final ReportColumnDefinition reportColumnDefinition,
-            @Parameter
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
             final Aggregation aggregation) {
         // see also Campaign_downloadMappingTodos
         var reportContext = ReportContext.load(campaigns.map(Campaign::secondaryKey), surveyBlobStore, respondentFilter);
