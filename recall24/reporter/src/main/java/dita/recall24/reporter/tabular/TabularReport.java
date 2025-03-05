@@ -18,9 +18,7 @@
  */
 package dita.recall24.reporter.tabular;
 
-import java.io.File;
 import java.math.BigDecimal;
-import java.nio.file.Files;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -31,18 +29,14 @@ import java.util.Set;
 
 import org.jspecify.annotations.NonNull;
 
-import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
-import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.tabular.TabularModel;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 
 import dita.commons.food.composition.FoodComponent;
@@ -136,32 +130,21 @@ public record TabularReport(
                 fdm, foodCompositionRepo, foodComponents, aggregation);
     }
 
-    public void reportXlsx(final File file) {
+    public TabularModel singleSheetTabularModel() {
         Can<TabularSheet> sheets = Can.of(
-                new TabularFactory(foodComponents).toTabularSheet(aggregate()),
-                sdayHelper.sheet(),
-                sdietHelper.sheet(),
-                fcoHelper.sheet(),
-                pocHelper.sheet(),
-                new FacetSheetFactory(fdm).facetSheet());
-
-        new XlsxWriter(new TabularModel(sheets)).write(file);
+            new TabularFactory(foodComponents).toTabularSheet(aggregate()));
+        return new TabularModel(sheets);
     }
 
-    @SneakyThrows
-    public Blob reportXlsxAsBlob(final String name) {
-        var tempFile = File.createTempFile(this.getClass().getCanonicalName(), name);
-        try {
-            this.reportXlsx(tempFile);
-            return Blob.of(name, CommonMimeType.XLSX, DataSource.ofFile(tempFile).bytes());
-        } finally {
-            Files.deleteIfExists(tempFile.toPath()); // cleanup
-        }
-    }
-
-    public String reportTsv() {
-        var sheet = new TabularFactory(foodComponents).toTabularSheet(aggregate());
-        return new TsvWriter(sheet).write();
+    public TabularModel multiSheetTabularModel() {
+        Can<TabularSheet> sheets = Can.of(
+            new TabularFactory(foodComponents).toTabularSheet(aggregate()),
+            sdayHelper.sheet(),
+            sdietHelper.sheet(),
+            fcoHelper.sheet(),
+            pocHelper.sheet(),
+            new FacetSheetFactory(fdm).facetSheet());
+        return new TabularModel(sheets);
     }
 
     // -- HELPER

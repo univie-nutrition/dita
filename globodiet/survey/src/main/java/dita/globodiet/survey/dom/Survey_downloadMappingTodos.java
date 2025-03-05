@@ -20,7 +20,7 @@
 package dita.globodiet.survey.dom;
 
 import java.nio.charset.StandardCharsets;
-
+import java.time.LocalDate;
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +28,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
@@ -35,7 +38,12 @@ import org.apache.causeway.commons.io.DataSink;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.recall24.reporter.todo.TodoReporters;
+import dita.commons.util.FormatUtils;
+import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.reporter.format.TodoFormat;
+import dita.recall24.reporter.tabular.TabularReport;
+import dita.recall24.reporter.tabular.TabularReport.Aggregation;
+import dita.recall24.reporter.todo.TodoReporter;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
@@ -61,19 +69,56 @@ public class Survey_downloadMappingTodos {
      * @see Campaign_downloadMappingTodos
      */
     @MemberSupport
-    public Clob act(final Can<Campaign> campaigns) {
+    public Clob act(
+        final Can<Campaign> campaigns,
+
+        @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
+        @ParameterLayout(describedAs = "use CSV Format (for debugging)")
+        final boolean useCSVFormat) {
+
         // see also Campaign_downloadMappingTodos
         var reportContext = ReportContext.load(campaigns.map(Campaign::secondaryKey), surveyBlobStore);
+        return useCSVFormat
+            ? csvFormat(reportContext)
+            : yamlFormat(reportContext);
+    }
+
+    // -- HELPER
+
+    private Clob yamlFormat(final ReportContext reportContext) {
         if(reportContext.isEmpty()) return Clob.of("empty", CommonMimeType.YAML, "");
 
         var yaml = new StringBuilder();
-        var todoReporter = new TodoReporters.TodoReporter(
+        var todoReporter = new TodoReporter(
             reportContext.interviewSet(), Campaigns.systemId(mixee),
             reportContext.nutMapping());
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));
 
         return Clob.of("mapping-todos", CommonMimeType.YAML, yaml.toString());
+    }
+
+    private Clob csvFormat(final ReportContext reportContext) {
+        if(reportContext.isEmpty()) return Clob.of("empty", CommonMimeType.CSV, "");
+
+        var foodCompositionRepo = reportContext.foodCompositionRepository();
+
+        var tabularReport = new TabularReport(
+            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            SidUtils.languageQualifier("de"),
+            reportContext.specialDayMapping(),
+            reportContext.specialDietMapping(),
+            reportContext.fcoMapping(),
+            reportContext.pocMapping(),
+            reportContext.foodDescriptionModel(),
+            foodCompositionRepo,
+            Can.empty(),
+            Aggregation.NONE);
+
+        var name = String.format("TODO_%s_%s",
+                mixee.getCode().toLowerCase(),
+                FormatUtils.isoDate(LocalDate.now()));
+        return new TodoFormat().writeClob(tabularReport.singleSheetTabularModel(), name);
     }
 
 }

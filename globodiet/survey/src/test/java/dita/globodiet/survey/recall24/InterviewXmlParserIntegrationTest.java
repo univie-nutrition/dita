@@ -33,6 +33,7 @@ import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.util.Recall24SummaryStatistics;
+import dita.recall24.reporter.format.XlsxFormat;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 
 @SpringBootTest(classes = {
@@ -50,7 +51,9 @@ class InterviewXmlParserIntegrationTest extends DitaGdSurveyIntegrationTest {
 
         log.info("write report");
         var xlsxFile = new File("d:/tmp/_scratch/report-aggr-" + aggregation.name().toLowerCase() + ".xlsx");
-        tabularReport.reportXlsx(xlsxFile);
+
+        new XlsxFormat().writeFile(tabularReport.singleSheetTabularModel(), xlsxFile);
+
         XlsxUtils.launchViewerAndWaitFor(xlsxFile);
 
 //      var todoReporter = new TodoReportUtils.TodoReporter(systemId, nutMapping, interviewSet);

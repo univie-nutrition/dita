@@ -44,6 +44,7 @@ import dita.commons.util.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
 import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.reporter.format.XlsxFormat;
 import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -100,7 +101,7 @@ public class Survey_generateReport {
                 mixee.getCode().toLowerCase(),
                 aggregation.name(),
                 FormatUtils.isoDate(LocalDate.now()));
-        return tabularReport.reportXlsxAsBlob(name);
+        return new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(), name);
     }
 
     @MemberSupport

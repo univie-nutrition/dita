@@ -37,7 +37,7 @@ import org.apache.causeway.commons.io.DataSink;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.recall24.reporter.todo.TodoReporters;
+import dita.recall24.reporter.todo.TodoReporter;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(
@@ -66,7 +66,7 @@ public class Campaign_downloadMappingTodos {
         var reportContext = ReportContext.load(Can.of(mixee).map(Campaign::secondaryKey), surveyBlobStore);
 
         var yaml = new StringBuilder();
-        var todoReporter = new TodoReporters.TodoReporter(
+        var todoReporter = new TodoReporter(
             reportContext.interviewSet(), Campaigns.systemId(mixee.secondaryKey()),
             reportContext.nutMapping());
         todoReporter.report(

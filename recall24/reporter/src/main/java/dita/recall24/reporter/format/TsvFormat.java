@@ -16,10 +16,11 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.recall24.reporter.tabular;
+package dita.recall24.reporter.format;
 
 import java.util.stream.Collectors;
 
+import org.apache.causeway.commons.tabular.TabularModel;
 import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
 import org.apache.causeway.commons.tabular.TabularModel.TabularColumn;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
@@ -27,9 +28,10 @@ import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 /**
  * Writes a {@link TabularSheet} in tab-separated-values (TSV) format.
  */
-record TsvWriter(TabularSheet sheet) {
+public record TsvFormat() {
 
-    String write() {
+    public String write(final TabularModel tabularModel) {
+        var sheet = tabularModel.sheets().getFirstElseFail();
         var sb = new StringBuilder();
 
         // primary header row

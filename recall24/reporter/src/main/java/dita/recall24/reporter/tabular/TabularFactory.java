@@ -24,8 +24,6 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedFunction;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.tabular.TabularModel;
-import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
-import org.apache.causeway.commons.tabular.TabularModel.TabularRow;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
@@ -57,18 +55,6 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
                 .map(dr->tabularRow(dataColumnsFiltered, dr));
 
         return new TabularModel.TabularSheet(dataTable.tableFriendlyName(), Can.ofCollection(columns), rows);
-    }
-
-    static boolean isWip(final TabularCell cell) {
-        return ":WIP".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
-    }
-
-    static boolean isComposite(final TabularCell cell) {
-        return "COMPOSITE".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
-    }
-
-    static boolean containsWip(final TabularRow row) {
-        return row.cells().stream().anyMatch(TabularFactory::isWip);
     }
 
     // -- HELPER

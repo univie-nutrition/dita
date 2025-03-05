@@ -34,6 +34,7 @@ import dita.globodiet.survey.DitaTestModuleGdSurvey;
 import dita.globodiet.survey.PrivateDataTest;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.InterviewSetYamlParser;
+import dita.recall24.reporter.format.TsvFormat;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import dita.testing.ApprovalTestOptions;
 
@@ -48,9 +49,11 @@ class PrivateDataApprovalTest extends DitaGdSurveyIntegrationTest {
     @UseReporter(DiffReporter.class)
     void parsingFromBlobStore() throws InterruptedException, ExecutionException {
         var tabularReport = tabularReport(Aggregation.NONE, cmp->cmp.code().equals("wave2"), resp->resp.alias().equals("EB_0357"), 4);
-        Approvals.verify(tabularReport.reportTsv(), ApprovalTestOptions.tsvOptions());
+        var reportTsv = new TsvFormat().write(tabularReport.singleSheetTabularModel());
+
+        Approvals.verify(reportTsv, ApprovalTestOptions.tsvOptions());
     }
-    
+
     @Test
     @UseReporter(DiffReporter.class)
     void canRoundtripOnYaml() throws InterruptedException, ExecutionException {
@@ -58,10 +61,10 @@ class PrivateDataApprovalTest extends DitaGdSurveyIntegrationTest {
         var interviewSet = tabularReport.interviewSet();
         Approvals.verify(rountrip(interviewSet).toYaml(), ApprovalTestOptions.yamlOptions());
     }
-    
+
     // -- HELPER
-    
-    static InterviewSet24 rountrip(InterviewSet24 in) {
+
+    static InterviewSet24 rountrip(final InterviewSet24 in) {
         return InterviewSetYamlParser.parseYaml(in.toYaml());
     }
 
