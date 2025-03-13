@@ -323,14 +323,14 @@ class _DataTableSet {
         // sort for canonical comparison
         var colFromMetamodelSorted = dataTable.dataColumns().sorted(orderByColumnIdIgnoringCase());
 
-        colNamesSorted.zip(colFromMetamodelSorted, (String colName, DataColumn col)->{
+        colNamesSorted.zip(colFromMetamodelSorted, (final String colName, final DataColumn col)->{
             // verify read in data matches meta-model
             _Assert.assertEquals(colName, col.metamodel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
                             colNames,
                             dataTable.getLogicalName()));
         });
-        colFromMetamodelSorted.zip(colNamesSorted, (DataColumn col, String colName)->{
+        colFromMetamodelSorted.zip(colNamesSorted, (final DataColumn col, final String colName)->{
              // verify read in data matches meta-model
             _Assert.assertEquals(colName, col.metamodel().getId(), ()->
                     String.format("Column specifications %s from %s do not match current meta-model.",
@@ -338,7 +338,7 @@ class _DataTableSet {
                             dataTable.getLogicalName()));
         });
         final int[] colIndexMapping = new int[colNames.size()];
-        dataTable.dataColumns().forEach(IndexedConsumer.zeroBased((int index, DataColumn col)->{
+        dataTable.dataColumns().forEach(IndexedConsumer.zeroBased((final int index, final DataColumn col)->{
             col.metamodel().getId();
             colIndexMapping[index] = colNames.indexOf(col.metamodel().getId());
         }));
@@ -354,7 +354,7 @@ class _DataTableSet {
             return formatOptions.nullSymbol();
         }
 
-        var valueSpec = cellValue.getSpecification();
+        var valueSpec = cellValue.objSpec();
 
         if(cellValue.getPojo() instanceof Enum enumeration) {
             // stringify Enum as uppercase name

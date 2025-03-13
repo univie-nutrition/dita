@@ -50,7 +50,7 @@ public class Dashboard_loadYaml {
 
     @Inject private TableSerializerYaml tableSerializer;
     @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
-    
+
     final Dashboard dashboard;
 
     @MemberSupport
@@ -68,7 +68,7 @@ public class Dashboard_loadYaml {
             VersionsExportService.paramsTableFilter(),
             InsertMode.DELETE_ALL_THEN_ADD,
             entity->{
-                if(entity.getSpecification().isAssignableFrom(Recipe.class)) {
+                if(entity.objSpec().isAssignableFrom(Recipe.class)) {
                     var recipe = (Recipe)entity.getPojo();
                     if(recipe.getAliasQ() == Recipe.AliasQ.ALIAS) {
                         recipe.setRecipeGroupCode("");
