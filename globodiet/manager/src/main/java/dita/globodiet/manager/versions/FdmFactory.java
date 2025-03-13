@@ -26,6 +26,8 @@ import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
 
+import org.springframework.util.StringUtils;
+
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Streams;
 
@@ -260,7 +262,7 @@ record FdmFactory(
                 SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(38), ",")
                         .map(facetCodeAs4digits->SidUtils.GdContext.FOOD_DESCRIPTOR.sid(systemId, facetCodeAs4digits))),
                 new BigDecimal(cellLiterals.get(6)),
-                new BigDecimal(cellLiterals.get(33))
+                bigdecElseDefault(cellLiterals.get(33), null)
                 );
     }
 
@@ -388,6 +390,12 @@ record FdmFactory(
                         cellLiterals.get(3))),
                 cellLiterals.get(0)
                 );
+    }
+
+    private static BigDecimal bigdecElseDefault(@Nullable final String value, final BigDecimal fallback) {
+        return StringUtils.hasLength(value)
+            ? new BigDecimal(value)
+            : fallback;
     }
 
 }
