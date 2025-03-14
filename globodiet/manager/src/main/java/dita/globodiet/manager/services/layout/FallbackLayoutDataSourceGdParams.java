@@ -20,8 +20,6 @@ package dita.globodiet.manager.services.layout;
 
 import jakarta.annotation.Priority;
 
-import org.datanucleus.enhancement.Persistable;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,8 @@ import org.apache.causeway.applib.annotation.PriorityPrecedence;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.metamodel.services.grid.bootstrap.GridSystemServiceBootstrap.FallbackLayoutDataSource;
+
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 
 @Service
 @Priority(PriorityPrecedence.EARLY)

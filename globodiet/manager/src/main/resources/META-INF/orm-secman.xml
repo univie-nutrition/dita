@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+      http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+	version="2.1">
+
+	<entity
+		class="org.apache.causeway.extensions.secman.jpa.permission.dom.ApplicationPermission">
+		<table name="ApplicationPermission" />
+	</entity>
+
+	<entity
+		class="org.apache.causeway.extensions.secman.jpa.role.dom.ApplicationRole">
+		<table name="ApplicationRole" />
+	</entity>
+
+	<entity
+		class="org.apache.causeway.extensions.secman.jpa.tenancy.dom.ApplicationTenancy">
+		<table name="ApplicationTenancy" />
+	</entity>
+
+	<entity
+		class="org.apache.causeway.extensions.secman.jpa.user.dom.ApplicationUser">
+		<table name="ApplicationUser" />
+		
+		<attributes>
+			<many-to-many name="roles">
+				<join-table name="ApplicationUserRoles">
+					<join-column name="userId" />
+					<inverse-join-column name="roleId" />
+				</join-table>
+			</many-to-many>
+		</attributes>
+	</entity>
+
+</entity-mappings>

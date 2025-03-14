@@ -25,9 +25,11 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
@@ -45,7 +47,6 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
@@ -85,17 +86,23 @@ class _DataTableSet {
     }
 
     public _DataTableSet withPopulateFromSecondaryConnection(
-            final PersistenceManager pm) {
+            final EntityManager em) {
         return map(dataTable->{
             final var entityClass = dataTable.elementType().getCorrespondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
 
-            pm.currentTransaction().begin();
-            List<?> allInstances = pm.newQuery(entityClass).executeResultList(entityClass);
+            em.getTransaction().begin();
+            List<?> allInstances = listAllInstances(em, entityClass);
             var populated = dataTable.withDataElementPojos(allInstances);
-            pm.currentTransaction().commit();
+            em.getTransaction().commit();
             return populated;
         });
+    }
+
+    private <T> List<T> listAllInstances(final EntityManager entityManager, final Class<T> entityClass) {
+        TypedQuery<T> query = entityManager.createQuery(
+            "SELECT e FROM %s e".formatted(entityClass.getSimpleName()), entityClass);
+        return query.getResultList();
     }
 
     public _DataTableSet withPopulateFromTabularData(
@@ -254,19 +261,20 @@ class _DataTableSet {
     }
 
     public _DataTableSet replicateToDatabase(
-            final PersistenceManager pm, final StringBuilder log) {
+            final EntityManager em, final StringBuilder log) {
 
         // delete all existing entities
         dataTables.forEach(dataTable->{
-            pm.currentTransaction().begin();
+
+            em.getTransaction().begin();
             var entityClass = dataTable.elementType().getCorrespondingClass();
-            Query<?> query = pm.newQuery(String.format("DELETE FROM %s", entityClass.getName()));
+            Query query = em.createQuery(String.format("DELETE FROM %s", entityClass.getName()));
 
             //log
             logAppend(log, String.format("DELETE FROM %s", entityClass.getName()));
 
-            query.execute();
-            pm.currentTransaction().commit();
+            query.executeUpdate();
+            em.getTransaction().commit();
         });
 
         // insert new entities
@@ -277,13 +285,13 @@ class _DataTableSet {
             logAppend(log, String.format("copy %d from %s (%s)",
                     elementCount, dataTable.tableFriendlyName(), dataTable.getLogicalName()));
 
-            pm.currentTransaction().begin();
+            em.getTransaction().begin();
 
             dataTable.streamDataElements()
                 .map(ManagedObject::getPojo)
                 .forEach(IndexedConsumer.offset(1, (index, pojo)->{
 
-                    pm.makePersistent(pojo);
+                    em.persist(pojo);
 
                     // report progress to console
                     int percent = 100*index/elementCount;
@@ -293,14 +301,7 @@ class _DataTableSet {
                     }
                 }));
 
-            pm.currentTransaction().commit();
-
-//            pm.currentTransaction().begin();
-//            pm.makePersistentAll(
-//                 dataTable.streamDataElements()
-//                     .map(ManagedObject::getPojo)
-//                     .toList());
-//            pm.currentTransaction().commit();
+            em.getTransaction().commit();
         });
         return this;
     }

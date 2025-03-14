@@ -22,8 +22,6 @@ import java.util.Map;
 
 import jakarta.inject.Inject;
 
-import org.datanucleus.enhancement.Persistable;
-
 import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
@@ -37,6 +35,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.RequiredArgsConstructor;
 
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.codegen.model.Schema;
 
 @Property

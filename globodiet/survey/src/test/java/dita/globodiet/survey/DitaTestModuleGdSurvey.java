@@ -3,21 +3,21 @@ package dita.globodiet.survey;
 import java.util.List;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
-import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
-import org.apache.causeway.persistence.jdo.datanucleus.CausewayModulePersistenceJdoDatanucleus;
+import org.apache.causeway.persistence.jpa.eclipselink.CausewayModulePersistenceJpaEclipselink;
 import org.apache.causeway.security.bypass.CausewayModuleSecurityBypass;
-
-import org.jspecify.annotations.NonNull;
 
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
@@ -29,7 +29,7 @@ import io.github.causewaystuff.companion.applib.services.search.SearchService;
     ModuleConfig.class,
     CausewayModuleCoreRuntimeServices.class,
     CausewayModuleSecurityBypass.class,
-    CausewayModulePersistenceJdoDatanucleus.class,
+    CausewayModulePersistenceJpaEclipselink.class,
 })
 @PropertySources({
     @PropertySource(CausewayPresets.H2InMemory_withUniqueSchema),
@@ -40,6 +40,7 @@ public class DitaTestModuleGdSurvey {
     @Bean
     public SearchService searchService() {
         return new SearchService() {
+            @Override
             public <T> List<T> search(
                     @NonNull final Class<T> entityType,
                     @NonNull final Function<T, String> searchOn,

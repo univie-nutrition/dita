@@ -21,6 +21,6 @@ codegen:
 - include: entities
   logicalNamespacePrefix: dita.globodiet
   packageNamePrefix: dita.globodiet
-  entitiesGenerator: jdo
+  entitiesGenerator: jpa
   entitiesModulePackageName: survey
   entitiesModuleClassSimpleName: DitaModuleGdSurvey

@@ -34,9 +34,9 @@ import org.apache.causeway.extensions.docgen.help.topics.domainobjects.CausewayE
 import org.apache.causeway.extensions.secman.encryption.spring.CausewayModuleExtSecmanEncryptionSpring;
 import org.apache.causeway.extensions.secman.integration.CausewayModuleExtSecmanIntegration;
 import org.apache.causeway.extensions.secman.integration.authenticator.AuthenticatorSecmanAutoConfiguration;
-import org.apache.causeway.extensions.secman.jdo.CausewayModuleExtSecmanPersistenceJdo;
+import org.apache.causeway.extensions.secman.jpa.CausewayModuleExtSecmanPersistenceJpa;
 import org.apache.causeway.extensions.tabular.excel.CausewayModuleExtTabularExcel;
-import org.apache.causeway.persistence.jdo.datanucleus.CausewayModulePersistenceJdoDatanucleus;
+import org.apache.causeway.persistence.jpa.eclipselink.CausewayModulePersistenceJpaEclipselink;
 import org.apache.causeway.valuetypes.asciidoc.metamodel.semantics.AsciiDocValueSemantics;
 import org.apache.causeway.valuetypes.asciidoc.ui.wkt.CausewayModuleValAsciidocUiWkt;
 import org.apache.causeway.viewer.restfulobjects.jaxrsresteasy.CausewayModuleViewerRestfulObjectsJaxrsResteasy;
@@ -76,7 +76,7 @@ import io.github.causewaystuff.companion.codegen.model.Schema;
 })
 @Import({
     CausewayModuleCoreRuntimeServices.class,
-    CausewayModulePersistenceJdoDatanucleus.class,
+    CausewayModulePersistenceJpaEclipselink.class,
     CausewayModuleViewerWicketViewer.class,
 
     // REST
@@ -85,7 +85,7 @@ import io.github.causewaystuff.companion.codegen.model.Schema;
 
     // Security Manager Extension
     CausewayModuleExtSecmanIntegration.class,
-    CausewayModuleExtSecmanPersistenceJdo.class,
+    CausewayModuleExtSecmanPersistenceJpa.class,
     CausewayModuleExtSecmanEncryptionSpring.class,
     AuthenticatorSecmanAutoConfiguration.class,
 

@@ -68,11 +68,11 @@ public class Dashboard_generateYamlFromRemote {
             @Parameter final Profile profile,
             @Parameter final ExportFormat format,
             @Parameter final boolean rowSortingEnabled) {
-        
+
         return new SecondaryDataStore(dataTableService)
-            .createPersistenceManagerFactory(profile.name())
-            .map(pmf->{
-                var pm = pmf.getPersistenceManager();
+            .createEntityManagerFactory(profile.name())
+            .map(emf->{
+                var em = emf.createEntityManager();
                 try {
                     var transformer = format==ExportFormat.ENTITY
                             ? TabularData.NameTransformer.IDENTITY
@@ -82,15 +82,15 @@ public class Dashboard_generateYamlFromRemote {
                             "gd-params-" + profile.name().toLowerCase(),
                             transformer,
                             VersionsExportService.paramsTableFilter(),
-                            pm,
+                            em,
                             this::stringNormalizer,
                             rowSortingEnabled);
 
                     return clob;
 
                 } finally {
-                    pm.close();
-                    pmf.close();
+                    em.close();
+                    emf.close();
                 }
             })
             .orElseThrow();
@@ -103,20 +103,20 @@ public class Dashboard_generateYamlFromRemote {
     public ExportFormat defaultFormat() {
         return ExportFormat.TABLE;
     }
-    
+
     // -- HELPER
-    
+
     StringNormalizer stringNormalizer(final Class<?> entityClass, final String fieldId) {
         if(Recipe.class.equals(entityClass)
                 && (
                         "brandNameForCommercialRecipe".equals(fieldId)
-                        || "recipeSubgroupCode".equals(fieldId))    
+                        || "recipeSubgroupCode".equals(fieldId))
                 ) {
             return StringNormalizer.EMPTY_TO_NULL;
         }
         return StringNormalizer.IDENTITY;
     }
-    
+
     <T> Consumer<T> entityNormalizer(final Class<T> entityClass) {
         if(Recipe.class.equals(entityClass)) {
             return t->{

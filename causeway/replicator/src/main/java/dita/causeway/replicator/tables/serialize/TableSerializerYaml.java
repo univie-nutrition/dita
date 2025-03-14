@@ -21,9 +21,8 @@ package dita.causeway.replicator.tables.serialize;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import javax.jdo.PersistenceManager;
-
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import org.springframework.stereotype.Service;
 
@@ -79,11 +78,11 @@ public class TableSerializerYaml {
             final String name,
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
-            final PersistenceManager pm,
+            final EntityManager em,
             final StringNormalizerFactory stringNormalizerFactory,
             final boolean rowSortingEnabled) {
         var yaml = dataTableSet(filter)
-                .withPopulateFromSecondaryConnection(pm)
+                .withPopulateFromSecondaryConnection(em)
                 .toTabularData(format(), stringNormalizerFactory)
                 .transform(nameTransformer)
                 .toYaml(format().withRowSorting(rowSortingEnabled));
@@ -143,7 +142,7 @@ public class TableSerializerYaml {
             final Clob clob,
             final NameTransformer nameTransformer,
             final Predicate<ObjectSpecification> filter,
-            final PersistenceManager pm) {
+            final EntityManager em) {
 
         System.err.printf("replicate %s%n", "gen tabularData");
 
@@ -155,7 +154,7 @@ public class TableSerializerYaml {
         var sb = new StringBuilder();
         var dataTableSet = dataTableSet(filter)
                 .withPopulateFromTabularData(tabularData, format())
-                .replicateToDatabase(pm, sb);
+                .replicateToDatabase(em, sb);
 
         System.err.printf("replicate (tables=%d) done.%n", dataTableSet.getDataTables().size());
 

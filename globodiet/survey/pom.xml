@@ -28,29 +28,6 @@ additional
         Globodiet Survey.
     </description>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.datanucleus</groupId>
-                <artifactId>datanucleus-maven-plugin</artifactId>
-                <version>6.0.0-release</version>
-                <configuration>
-                    <log4jConfiguration>${basedir}/logging-dn-enhance.properties</log4jConfiguration>
-                    <verbose>true</verbose>
-                    <fork>false</fork> <!-- solves windows line too long error -->
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>at.ac.univie.nutrition.dita</groupId>
@@ -81,11 +58,11 @@ additional
 
         <dependency>
             <groupId>org.apache.causeway.persistence</groupId>
-            <artifactId>causeway-persistence-jdo-applib</artifactId>
+            <artifactId>causeway-persistence-jpa-applib</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.causeway.persistence</groupId>
-            <artifactId>causeway-persistence-jdo-datanucleus</artifactId>
+            <artifactId>causeway-persistence-jpa-eclipselink</artifactId>
         </dependency>
 
         <dependency>

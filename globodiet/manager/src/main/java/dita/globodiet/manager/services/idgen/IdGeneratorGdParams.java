@@ -19,7 +19,6 @@
 package dita.globodiet.manager.services.idgen;
 
 import java.util.HashSet;
-import java.util.ListIterator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,14 +26,17 @@ import java.util.stream.IntStream;
 
 import jakarta.inject.Inject;
 
-import org.datanucleus.store.rdbms.query.ForwardQueryResult;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Casts;
-import org.apache.causeway.persistence.jdo.applib.services.JdoSupportService;
+import org.apache.causeway.persistence.jpa.applib.services.JpaSupportService;
+
+import lombok.SneakyThrows;
 
 import dita.commons.services.idgen.IdGeneratorService;
 import dita.globodiet.params.food_descript.FoodDescriptor;
@@ -42,14 +44,11 @@ import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.nutrient.NutrientForFoodOrGroup;
 import dita.globodiet.params.util.FoodUtils;
 
-import org.jspecify.annotations.NonNull;
-import lombok.SneakyThrows;
-
 @Service
 public class IdGeneratorGdParams
 implements IdGeneratorService {
 
-    @Inject JdoSupportService jdoSupport;
+    @Inject JpaSupportService jpaSupport;
     @Inject RepositoryService repositoryService;
 
     @SuppressWarnings("unchecked")
@@ -81,38 +80,29 @@ implements IdGeneratorService {
 
     // -- HELPER
 
+    @SuppressWarnings("unchecked")
     @SneakyThrows
     private String foodMax() {
-        var pm = jdoSupport.getPersistenceManager();
-
-        try(var query = pm.newQuery(
-                "javax.jdo.query.SQL",
-                "SELECT max(FOODNUM) FROM dita_gd_params.FOODS")){
-            return Optional.ofNullable(query.execute())
-                    .map(ForwardQueryResult.class::cast)
-                    .map(ForwardQueryResult::listIterator)
-                    .filter(ListIterator::hasNext)
-                    .map(ListIterator::next)
-                    .map(String.class::cast)
-                    .orElse(null);
-        }
+        var em = jpaSupport.getEntityManagerElseFail(Food.class);
+        var query = em.createNativeQuery("SELECT max(FOODNUM) FROM FOODS");
+        var list = query.getResultList();
+        var first = list.stream()
+                .findFirst()
+                .orElse(null);
+        return (String) first;
     }
 
+    @SuppressWarnings("unchecked")
     @SneakyThrows
     private int nutrientForFoodOrGroupMax() {
-        var pm = jdoSupport.getPersistenceManager();
+        var em = jpaSupport.getEntityManagerElseFail(NutrientForFoodOrGroup.class);
 
-        try(var query = pm.newQuery(
-                "javax.jdo.query.SQL",
-                "SELECT max(ITEM_SEQ) FROM dita_gd_params.ITEMS_DEF")){
-            return Optional.ofNullable(query.execute())
-                    .map(ForwardQueryResult.class::cast)
-                    .map(ForwardQueryResult::listIterator)
-                    .filter(ListIterator::hasNext)
-                    .map(ListIterator::next)
-                    .map(Integer.class::cast)
-                    .orElse(null);
-        }
+        var query = em.createNativeQuery("SELECT max(ITEM_SEQ) FROM ITEMS_DEF");
+        var list = query.getResultList();
+        var first = list.stream()
+                .findFirst()
+                .orElse(null);
+        return (Integer) first;
     }
 
     @SneakyThrows

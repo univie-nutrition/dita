@@ -105,21 +105,6 @@ causeway:
           data-tables-net:
             options: "info: false, pagingType: 'numbers'"
 
-# note that properties under 'datanucleus' must use camelCase rather than kebab-case
-datanucleus:
-  schema:
-    validateTables: true
-    validateConstraints: true
-
-  persistenceByReachabilityAtCommit: false
-  identifier:
-    case: MixedCase
-
-  cache:
-    level2:
-      type: none
-      mode: ENABLE_SELECTIVE
-
 resteasy:
   jaxrs:
     app:

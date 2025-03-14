@@ -83,7 +83,7 @@ public class RecipeManager_findFoodRecipeAssociations {
                         associatedFood.getCode(),
                         foodSimpleName,
                         foodExtendedName,
-                        String.format("%s(%s)", recipe.getStatus().name(), recipe.getStatus().getMatchOn()),
+                        String.format("%s(%s)", recipe.getStatus().name(), recipe.getStatus().code()),
                         coffeeFoodCodes.contains(associatedFoodCode)
                             ? "SHOWN(1)"
                             : "HIDDEN(!1)",

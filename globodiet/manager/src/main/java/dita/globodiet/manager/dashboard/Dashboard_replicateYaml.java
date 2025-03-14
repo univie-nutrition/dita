@@ -18,9 +18,8 @@
  */
 package dita.globodiet.manager.dashboard;
 
-import javax.jdo.PersistenceManager;
-
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -72,20 +71,20 @@ public class Dashboard_replicateYaml {
         adoc.append(doc->doc.setTitle("Table Replicate Result"));
 
         new SecondaryDataStore(dataTableService)
-        .createPersistenceManagerFactory("SQLSERVER", adoc)
-            .ifPresent(pmf->{
-                var pm = pmf.getPersistenceManager();
+        .createEntityManagerFactory("SQLSERVER", adoc)
+            .ifPresent(emf->{
+                var em = emf.createEntityManager();
                 try {
                     adoc.append(doc->{
                       var sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
                               format==ExportFormat.ENTITY
                                   ? TabularData.NameTransformer.IDENTITY
-                                  : table2entity, pm));
+                                  : table2entity, em));
                       sourceBlock.setTitle("Replication Result");
                   });
                 } finally {
-                    pm.close();
-                    pmf.close();
+                    em.close();
+                    emf.close();
                 }
             });
 
@@ -97,9 +96,9 @@ public class Dashboard_replicateYaml {
 
     // -- HELPER
 
-    private String replicate(final Clob tableData, final NameTransformer nameTransformer, final PersistenceManager pm) {
+    private String replicate(final Clob tableData, final NameTransformer nameTransformer, final EntityManager em) {
         return tableSerializer.replicate(tableData, nameTransformer,
-                VersionsExportService.paramsTableFilter(), pm);
+                VersionsExportService.paramsTableFilter(), em);
     }
 
 }
