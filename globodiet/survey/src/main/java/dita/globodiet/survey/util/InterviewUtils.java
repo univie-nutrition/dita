@@ -68,7 +68,7 @@ public class InterviewUtils {
             .map(desc->{
                 return surveyBlobStore.lookupBlobAndUncompress(desc.path())
                     .orElseThrow()
-                    .toClob(StandardCharsets.UTF_8);    
+                    .toClob(StandardCharsets.UTF_8);
             });
     }
 
@@ -84,9 +84,9 @@ public class InterviewUtils {
         var interviewSet = surveyBlobStore==null
             ? InterviewSet24.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath, true)
-                .map(ds->CommonMimeType.YAML.matches(ds.getMimeType())
+                .map(ds->CommonMimeType.YAML.matches(ds.mimeType())
                     ? parseYaml(ds, systemId, messageConsumer)
-                    : InterviewXmlParser.parse(ds, systemId, messageConsumer)   
+                    : InterviewXmlParser.parse(ds, systemId, messageConsumer)
                 )
                 .map(Recall24DtoUtils.correct(correction))
                 .reduce((a, b)->a.join(b, messageConsumer))
@@ -94,28 +94,28 @@ public class InterviewUtils {
 
         return interviewSet;
     }
-    
+
     public void warnEmptyDataSource(
         final Object source,
         final @Nullable Consumer<Message> messageConsumer) {
-        
+
         var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
             .orElseGet(Message::consumerWritingToSyserr);
         var sourceName = switch (source) {
-            case Clob clob -> clob.getName();
+            case Clob clob -> clob.name();
             default -> source.getClass().getName();
         };
         messageConsumerOrFallback
             .accept(Message.warn("empty interview data source detected: %s", sourceName));
     }
 
-    private InterviewSet24 parseYaml(Clob interviewSource, SystemId systemId, Consumer<Message> messageConsumer) {
+    private InterviewSet24 parseYaml(final Clob interviewSource, final SystemId systemId, final Consumer<Message> messageConsumer) {
         var interviewSet = InterviewSetYamlParser.parseYaml(interviewSource.asString());
         if(interviewSet==null) {
             InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
             return InterviewSet24.empty();
         }
-        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.getName()));
+        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
         return interviewSet;
     }
 

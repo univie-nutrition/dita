@@ -81,14 +81,14 @@ public class InterviewXmlParser {
             final Clob interviewSource,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
-        var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.getChars().toString())
+        var dto = JaxbUtils.tryRead(_Dtos.Itv.class, interviewSource.chars().toString())
                 .valueAsNullableElseFail();
         if(dto==null) {
             InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
             return InterviewSet24.empty();
         }
         var interviewSet = createFromDto(dto, systemId, messageConsumer);
-        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.getName()));
+        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
         return interviewSet;
     }
 
