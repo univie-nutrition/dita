@@ -37,6 +37,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Integer;
 import java.lang.Override;
@@ -80,7 +81,13 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "R_DESCFACE"
+        name = "R_DESCFACE",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {
+                        "recipeFacetCode",
+                        "code"
+                }
+        )
 )
 public class RecipeDescriptor implements Persistable, Cloneable<RecipeDescriptor>, HasSecondaryKey<RecipeDescriptor> {
     @Inject

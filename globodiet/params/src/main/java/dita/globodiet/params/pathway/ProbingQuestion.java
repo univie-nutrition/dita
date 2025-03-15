@@ -34,6 +34,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
@@ -75,7 +76,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "PROBQUE"
+        name = "PROBQUE",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = "code"
+        )
 )
 public class ProbingQuestion implements Persistable, Cloneable<ProbingQuestion>, HasSecondaryKey<ProbingQuestion> {
     @Inject

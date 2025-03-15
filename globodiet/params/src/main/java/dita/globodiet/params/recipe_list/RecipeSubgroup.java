@@ -35,6 +35,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
@@ -78,7 +79,13 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "RSUBGR"
+        name = "RSUBGR",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {
+                        "recipeGroupCode",
+                        "code"
+                }
+        )
 )
 public class RecipeSubgroup implements Persistable, Cloneable<RecipeSubgroup>, RecipeGrouping, HasSecondaryKey<RecipeSubgroup> {
     @Inject

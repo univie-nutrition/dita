@@ -34,6 +34,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
@@ -76,7 +77,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "M_SHAPES"
+        name = "M_SHAPES",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = "code"
+        )
 )
 public class Shape implements Persistable, Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Shape> {
     @Inject

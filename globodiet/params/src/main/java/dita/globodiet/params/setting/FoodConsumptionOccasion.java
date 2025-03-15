@@ -37,6 +37,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Integer;
 import java.lang.Override;
@@ -79,7 +80,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "FCO"
+        name = "FCO",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = "code"
+        )
 )
 public class FoodConsumptionOccasion implements Persistable, Cloneable<FoodConsumptionOccasion>, HasSecondaryKey<FoodConsumptionOccasion> {
     @Inject

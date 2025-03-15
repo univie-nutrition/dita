@@ -41,6 +41,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
@@ -85,7 +86,18 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "QM_GROUP"
+        name = "QM_GROUP",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {
+                        "foodGroupCode",
+                        "foodSubgroupCode",
+                        "foodSubSubgroupCode",
+                        "physicalStateFacetDescriptorLookupKey",
+                        "rawOrCookedAsConsumed",
+                        "quantificationMethod",
+                        "photoOrShapeCode"
+                }
+        )
 )
 public class QuantificationMethodPathwayForFoodGroup implements Persistable, Cloneable<QuantificationMethodPathwayForFoodGroup>, HasSecondaryKey<QuantificationMethodPathwayForFoodGroup> {
     @Inject

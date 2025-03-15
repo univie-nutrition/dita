@@ -38,6 +38,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.persistence.UniqueConstraint;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
@@ -82,7 +83,16 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "GROUPFAC"
+        name = "GROUPFAC",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {
+                        "foodGroupCode",
+                        "foodSubgroupCode",
+                        "foodSubSubgroupCode",
+                        "foodFacetCode",
+                        "foodDescriptorCode"
+                }
+        )
 )
 public class FacetDescriptorPathwayForFoodGroup implements Persistable, Cloneable<FacetDescriptorPathwayForFoodGroup>, HasSecondaryKey<FacetDescriptorPathwayForFoodGroup> {
     @Inject
