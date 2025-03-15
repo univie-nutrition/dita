@@ -83,7 +83,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "FACETS",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_FoodFacet",
+                columnNames = "`FACET_CODE`"
         )
 )
 public class FoodFacet implements Persistable, Cloneable<FoodFacet>, HasSecondaryKey<FoodFacet> {

@@ -78,7 +78,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "CENTERS",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "centerCode"
+                name = "SEC_KEY_UNQ_CenterInvolved",
+                columnNames = "`CNTR_CODE`"
         )
 )
 public class CenterInvolved implements Persistable, Cloneable<CenterInvolved>, HasSecondaryKey<CenterInvolved> {

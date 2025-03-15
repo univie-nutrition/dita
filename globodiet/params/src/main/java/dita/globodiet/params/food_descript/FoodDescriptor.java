@@ -83,9 +83,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "DESCFACE",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_FoodDescriptor",
                 columnNames = {
-                        "facetCode",
-                        "code"
+                        "`FACET_CODE`",
+                        "`DESCR_CODE`"
                 }
         )
 )

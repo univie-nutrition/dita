@@ -83,7 +83,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "R_FACET",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_RecipeFacet",
+                columnNames = "`RFACET_CODE`"
         )
 )
 public class RecipeFacet implements Persistable, Cloneable<RecipeFacet>, HasSecondaryKey<RecipeFacet> {

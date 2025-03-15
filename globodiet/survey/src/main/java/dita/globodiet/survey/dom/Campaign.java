@@ -82,9 +82,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "CAMPAIGN",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_Campaign",
                 columnNames = {
-                        "surveyCode",
-                        "code"
+                        "`SURVEY`",
+                        "`CODE`"
                 }
         )
 )

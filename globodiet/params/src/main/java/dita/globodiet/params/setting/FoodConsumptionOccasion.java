@@ -82,7 +82,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "FCO",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_FoodConsumptionOccasion",
+                columnNames = "`FCM_CODE`"
         )
 )
 public class FoodConsumptionOccasion implements Persistable, Cloneable<FoodConsumptionOccasion>, HasSecondaryKey<FoodConsumptionOccasion> {

@@ -79,7 +79,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "M_SHAPES",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_Shape",
+                columnNames = "`SH_CODE`"
         )
 )
 public class Shape implements Persistable, Cloneable<Shape>, PhotoOrShape, HasSecondaryKey<Shape> {

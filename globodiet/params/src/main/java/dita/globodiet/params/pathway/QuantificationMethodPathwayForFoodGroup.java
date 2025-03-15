@@ -88,14 +88,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "QM_GROUP",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_QuantificationMethodPathwayForFoodGroup",
                 columnNames = {
-                        "foodGroupCode",
-                        "foodSubgroupCode",
-                        "foodSubSubgroupCode",
-                        "physicalStateFacetDescriptorLookupKey",
-                        "rawOrCookedAsConsumed",
-                        "quantificationMethod",
-                        "photoOrShapeCode"
+                        "`GROUP`",
+                        "`SUBGROUP1`",
+                        "`SUBGROUP2`",
+                        "`PHYS_STATE`",
+                        "`RAW_COOKED`",
+                        "`METHOD`",
+                        "`METH_CODE`"
                 }
         )
 )

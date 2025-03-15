@@ -81,9 +81,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "ReportColumnDefinition",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_ReportColumnDefinition",
                 columnNames = {
-                        "surveyCode",
-                        "code"
+                        "`SURVEY`",
+                        "`CODE`"
                 }
         )
 )

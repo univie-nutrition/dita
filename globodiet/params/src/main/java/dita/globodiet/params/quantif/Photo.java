@@ -82,7 +82,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "M_PHOTOS",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_Photo",
+                columnNames = "`PH_CODE`"
         )
 )
 public class Photo implements Persistable, Cloneable<Photo>, PhotoOrShape, HasSecondaryKey<Photo> {

@@ -81,11 +81,12 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "BRANDNAM",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_FoodBrand",
                 columnNames = {
-                        "nameOfBrand",
-                        "foodGroupCode",
-                        "foodSubgroupCode",
-                        "foodSubSubgroupCode"
+                        "`NAME`",
+                        "`GROUP`",
+                        "`SUBGROUP1`",
+                        "`SUBGROUP2`"
                 }
         )
 )

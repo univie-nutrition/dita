@@ -79,7 +79,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "DS_CLASSIF",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_DietarySupplementClassification",
+                columnNames = "`DS_CLASS`"
         )
 )
 public class DietarySupplementClassification implements Persistable, Cloneable<DietarySupplementClassification>, HasSecondaryKey<DietarySupplementClassification> {

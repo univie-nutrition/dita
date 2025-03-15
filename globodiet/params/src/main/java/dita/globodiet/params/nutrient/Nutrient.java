@@ -82,7 +82,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "NUTRIENT",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "nutrientCode"
+                name = "SEC_KEY_UNQ_Nutrient",
+                columnNames = "`NTR_CODE`"
         )
 )
 public class Nutrient implements Persistable, Cloneable<Nutrient>, HasSecondaryKey<Nutrient> {

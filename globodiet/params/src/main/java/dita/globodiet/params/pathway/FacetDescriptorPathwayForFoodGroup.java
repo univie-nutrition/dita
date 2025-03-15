@@ -85,12 +85,13 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "GROUPFAC",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_FacetDescriptorPathwayForFoodGroup",
                 columnNames = {
-                        "foodGroupCode",
-                        "foodSubgroupCode",
-                        "foodSubSubgroupCode",
-                        "foodFacetCode",
-                        "foodDescriptorCode"
+                        "`GROUP`",
+                        "`SUBGROUP1`",
+                        "`SUBGROUP2`",
+                        "`FACET_CODE`",
+                        "`DESCR_CODE`"
                 }
         )
 )

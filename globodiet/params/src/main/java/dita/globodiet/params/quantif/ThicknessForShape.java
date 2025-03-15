@@ -80,7 +80,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "THICKNESS",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_ThicknessForShape",
+                columnNames = "`TH_CODE`"
         )
 )
 public class ThicknessForShape implements Persistable, Cloneable<ThicknessForShape>, HasSecondaryKey<ThicknessForShape> {

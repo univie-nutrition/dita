@@ -80,7 +80,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "RGROUPS",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_RecipeGroup",
+                columnNames = "`GROUP`"
         )
 )
 public class RecipeGroup implements Persistable, Cloneable<RecipeGroup>, RecipeGrouping, HasSecondaryKey<RecipeGroup> {

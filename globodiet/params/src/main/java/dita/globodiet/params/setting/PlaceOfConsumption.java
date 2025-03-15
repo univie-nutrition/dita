@@ -82,7 +82,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "POC",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_PlaceOfConsumption",
+                columnNames = "`POC_CODE`"
         )
 )
 public class PlaceOfConsumption implements Persistable, Cloneable<PlaceOfConsumption>, HasSecondaryKey<PlaceOfConsumption> {

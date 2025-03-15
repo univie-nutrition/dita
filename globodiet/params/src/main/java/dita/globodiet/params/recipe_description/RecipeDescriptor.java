@@ -83,9 +83,10 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "R_DESCFACE",
         uniqueConstraints = @UniqueConstraint(
+                name = "SEC_KEY_UNQ_RecipeDescriptor",
                 columnNames = {
-                        "recipeFacetCode",
-                        "code"
+                        "`RFACET_CODE`",
+                        "`RDESCR_CODE`"
                 }
         )
 )

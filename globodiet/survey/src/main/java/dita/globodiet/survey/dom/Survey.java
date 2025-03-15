@@ -78,7 +78,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "SURVEY",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "code"
+                name = "SEC_KEY_UNQ_Survey",
+                columnNames = "`CODE`"
         )
 )
 public class Survey implements Persistable, Cloneable<Survey>, HasSecondaryKey<Survey> {

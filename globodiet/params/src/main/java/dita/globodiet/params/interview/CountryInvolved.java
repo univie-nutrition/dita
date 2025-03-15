@@ -78,7 +78,8 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @Table(
         name = "COUNTRY",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = "countryCode"
+                name = "SEC_KEY_UNQ_CountryInvolved",
+                columnNames = "`CTRYCODE`"
         )
 )
 public class CountryInvolved implements Persistable, Cloneable<CountryInvolved>, HasSecondaryKey<CountryInvolved> {
