@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "SPECDAY",
-        catalog = "SPECDAY",
-        schema = "SPECDAY"
+        name = "SPECDAY"
 )
 public class SpecialDayPredefinedAnswer implements Persistable, Cloneable<SpecialDayPredefinedAnswer> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class SpecialDayPredefinedAnswer implements Persistable, Cloneable<Specia
             describedAs = "Special day code"
     )
     @Column(
-            name = "SPY_CODE",
+            name = "\"SPY_CODE\"",
             nullable = false,
             length = 2
     )
@@ -116,7 +116,7 @@ public class SpecialDayPredefinedAnswer implements Persistable, Cloneable<Specia
             describedAs = "Special day label"
     )
     @Column(
-            name = "SPY_NAME",
+            name = "\"SPY_NAME\"",
             nullable = false,
             length = 100
     )

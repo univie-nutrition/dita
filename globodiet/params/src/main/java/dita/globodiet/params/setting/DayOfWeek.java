@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "DAYOWEEK",
-        catalog = "DAYOWEEK",
-        schema = "DAYOWEEK"
+        name = "DAYOWEEK"
 )
 public class DayOfWeek implements Persistable, Cloneable<DayOfWeek> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class DayOfWeek implements Persistable, Cloneable<DayOfWeek> {
             describedAs = "Day number"
     )
     @Column(
-            name = "DAYOFWEEK",
+            name = "\"DAYOFWEEK\"",
             nullable = false,
             length = 1
     )
@@ -116,7 +116,7 @@ public class DayOfWeek implements Persistable, Cloneable<DayOfWeek> {
             describedAs = "Day name"
     )
     @Column(
-            name = "DAY",
+            name = "\"DAY\"",
             nullable = false,
             length = 20
     )

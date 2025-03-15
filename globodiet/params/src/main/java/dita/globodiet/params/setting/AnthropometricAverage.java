@@ -67,15 +67,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "ANTHROP",
-        catalog = "ANTHROP",
-        schema = "ANTHROP"
+        name = "ANTHROP"
 )
 public class AnthropometricAverage implements Persistable, Cloneable<AnthropometricAverage> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -97,7 +97,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Anthropometry variable (Height or Weight)"
     )
     @Column(
-            name = "ANT_VAR",
+            name = "\"ANT_VAR\"",
             nullable = false,
             length = 15
     )
@@ -118,7 +118,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Sex (1 for men, 2 for women, blank for both)"
     )
     @Column(
-            name = "SEX",
+            name = "\"SEX\"",
             nullable = true
     )
     @Getter
@@ -138,7 +138,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Age minimum range"
     )
     @Column(
-            name = "AGE_MIN",
+            name = "\"AGE_MIN\"",
             nullable = false
     )
     @Getter
@@ -158,7 +158,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Age maximum range"
     )
     @Column(
-            name = "AGE_MAX",
+            name = "\"AGE_MAX\"",
             nullable = false
     )
     @Getter
@@ -178,7 +178,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Minimum value of height or weight"
     )
     @Column(
-            name = "ANT_MIN",
+            name = "\"ANT_MIN\"",
             nullable = false
     )
     @Getter
@@ -198,7 +198,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Maximum value of height or weight"
     )
     @Column(
-            name = "ANT_MAX",
+            name = "\"ANT_MAX\"",
             nullable = false
     )
     @Getter
@@ -218,7 +218,7 @@ public class AnthropometricAverage implements Persistable, Cloneable<Anthropomet
             describedAs = "Default value of height or weight"
     )
     @Column(
-            name = "ANT_DEF",
+            name = "\"ANT_DEF\"",
             nullable = false
     )
     @Getter

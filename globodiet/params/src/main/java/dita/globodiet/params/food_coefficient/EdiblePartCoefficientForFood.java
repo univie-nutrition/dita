@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "EDIBLEP",
-        catalog = "EDIBLEP",
-        schema = "EDIBLEP"
+        name = "EDIBLEP"
 )
 public class EdiblePartCoefficientForFood implements Persistable, Cloneable<EdiblePartCoefficientForFood> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class EdiblePartCoefficientForFood implements Persistable, Cloneable<Edib
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "ID_NUM",
+            name = "\"ID_NUM\"",
             nullable = false,
             length = 5
     )
@@ -116,7 +116,7 @@ public class EdiblePartCoefficientForFood implements Persistable, Cloneable<Edib
             describedAs = "Edible part coefficient"
     )
     @Column(
-            name = "EPC_FACT",
+            name = "\"EPC_FACT\"",
             nullable = false
     )
     @Getter
@@ -136,7 +136,7 @@ public class EdiblePartCoefficientForFood implements Persistable, Cloneable<Edib
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "FACETS_STR",
+            name = "\"FACETS_STR\"",
             nullable = true,
             length = 100
     )
@@ -157,7 +157,7 @@ public class EdiblePartCoefficientForFood implements Persistable, Cloneable<Edib
             describedAs = "Priority order"
     )
     @Column(
-            name = "PRIORITY",
+            name = "\"PRIORITY\"",
             nullable = false,
             length = 2
     )

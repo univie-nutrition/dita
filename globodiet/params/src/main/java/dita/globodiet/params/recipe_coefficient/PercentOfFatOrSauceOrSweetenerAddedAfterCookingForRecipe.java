@@ -66,15 +66,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "SPFACORE",
-        catalog = "SPFACORE",
-        schema = "SPFACORE"
+        name = "SPFACORE"
 )
 public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements Persistable, Cloneable<PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -96,7 +96,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "RECI_GROUP",
+            name = "\"RECI_GROUP\"",
             nullable = true,
             length = 2
     )
@@ -117,7 +117,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "RECI_SUBGR",
+            name = "\"RECI_SUBGR\"",
             nullable = true,
             length = 2
     )
@@ -138,7 +138,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "RECI_IDNUM",
+            name = "\"RECI_IDNUM\"",
             nullable = true,
             length = 5
     )
@@ -159,7 +159,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "X_GROUP",
+            name = "\"X_GROUP\"",
             nullable = true,
             length = 2
     )
@@ -180,7 +180,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "X_SUBG1",
+            name = "\"X_SUBG1\"",
             nullable = true,
             length = 2
     )
@@ -201,7 +201,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "X_SUBG2",
+            name = "\"X_SUBG2\"",
             nullable = true,
             length = 2
     )
@@ -222,7 +222,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "X_IDNUM",
+            name = "\"X_IDNUM\"",
             nullable = true,
             length = 5
     )
@@ -243,7 +243,7 @@ public class PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe implements
             describedAs = "Percentage of fat sauce or sweetener (FSS) that had been added"
     )
     @Column(
-            name = "PCT_ADDED",
+            name = "\"PCT_ADDED\"",
             nullable = false
     )
     @Getter

@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "PARAM",
-        catalog = "PARAM",
-        schema = "PARAM"
+        name = "PARAM"
 )
 public class SelectedParameter implements Persistable, Cloneable<SelectedParameter> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class SelectedParameter implements Persistable, Cloneable<SelectedParamet
             describedAs = "Parameter code"
     )
     @Column(
-            name = "PARAM_LAB",
+            name = "\"PARAM_LAB\"",
             nullable = true,
             length = 40
     )
@@ -116,7 +116,7 @@ public class SelectedParameter implements Persistable, Cloneable<SelectedParamet
             describedAs = "Parameter value"
     )
     @Column(
-            name = "PARAM_LIB",
+            name = "\"PARAM_LIB\"",
             nullable = true,
             length = 100
     )

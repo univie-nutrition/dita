@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "EPICTEXT",
-        catalog = "EPICTEXT",
-        schema = "EPICTEXT"
+        name = "EPICTEXT"
 )
 public class TranslationInCountryLanguage implements Persistable, Cloneable<TranslationInCountryLanguage> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class TranslationInCountryLanguage implements Persistable, Cloneable<Tran
             describedAs = "Text name"
     )
     @Column(
-            name = "ARRAY_REF",
+            name = "\"ARRAY_REF\"",
             nullable = false,
             length = 19
     )
@@ -116,7 +116,7 @@ public class TranslationInCountryLanguage implements Persistable, Cloneable<Tran
             describedAs = "Text in specific Country language"
     )
     @Column(
-            name = "TEXT",
+            name = "\"TEXT\"",
             nullable = true,
             length = 100
     )
@@ -137,7 +137,7 @@ public class TranslationInCountryLanguage implements Persistable, Cloneable<Tran
             describedAs = "Text in English"
     )
     @Column(
-            name = "TEXT_ENG",
+            name = "\"TEXT_ENG\"",
             nullable = true,
             length = 100
     )
@@ -158,7 +158,7 @@ public class TranslationInCountryLanguage implements Persistable, Cloneable<Tran
             describedAs = "Data entry Text in specific Country language"
     )
     @Column(
-            name = "DE_TEXT",
+            name = "\"DE_TEXT\"",
             nullable = true,
             length = 100
     )
@@ -179,7 +179,7 @@ public class TranslationInCountryLanguage implements Persistable, Cloneable<Tran
             describedAs = "Data entry Text in English"
     )
     @Column(
-            name = "DE_TEXT_ENG",
+            name = "\"DE_TEXT_ENG\"",
             nullable = true,
             length = 100
     )

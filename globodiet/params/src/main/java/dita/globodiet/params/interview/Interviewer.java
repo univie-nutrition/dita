@@ -66,15 +66,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "INTVIEWR",
-        catalog = "INTVIEWR",
-        schema = "INTVIEWR"
+        name = "INTVIEWR"
 )
 public class Interviewer implements Persistable, Cloneable<Interviewer> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -96,7 +96,7 @@ public class Interviewer implements Persistable, Cloneable<Interviewer> {
             describedAs = "Interviewer code"
     )
     @Column(
-            name = "INTV_CODE",
+            name = "\"INTV_CODE\"",
             nullable = false,
             length = 20
     )
@@ -117,7 +117,7 @@ public class Interviewer implements Persistable, Cloneable<Interviewer> {
             describedAs = "Interviewer family name"
     )
     @Column(
-            name = "INTV_FNAME",
+            name = "\"INTV_FNAME\"",
             nullable = true,
             length = 100
     )
@@ -138,7 +138,7 @@ public class Interviewer implements Persistable, Cloneable<Interviewer> {
             describedAs = "Interviewer name"
     )
     @Column(
-            name = "INTV_NAME",
+            name = "\"INTV_NAME\"",
             nullable = false,
             length = 100
     )
@@ -159,7 +159,7 @@ public class Interviewer implements Persistable, Cloneable<Interviewer> {
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "COUNTRY",
+            name = "\"COUNTRY\"",
             nullable = false,
             length = 3
     )
@@ -180,7 +180,7 @@ public class Interviewer implements Persistable, Cloneable<Interviewer> {
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "CENTER",
+            name = "\"CENTER\"",
             nullable = false,
             length = 3
     )

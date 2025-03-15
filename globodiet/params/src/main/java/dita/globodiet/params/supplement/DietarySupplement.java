@@ -66,15 +66,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "SUPPLEMENTS",
-        catalog = "SUPPLEMENTS",
-        schema = "SUPPLEMENTS"
+        name = "SUPPLEMENTS"
 )
 public class DietarySupplement implements Persistable, Cloneable<DietarySupplement> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -96,7 +96,7 @@ public class DietarySupplement implements Persistable, Cloneable<DietarySuppleme
             describedAs = "Vitamin/supplement code"
     )
     @Column(
-            name = "CODE_VITA",
+            name = "\"CODE_VITA\"",
             nullable = false,
             length = 5
     )
@@ -117,7 +117,7 @@ public class DietarySupplement implements Persistable, Cloneable<DietarySuppleme
             describedAs = "Vitamin/supplement name"
     )
     @Column(
-            name = "NAME",
+            name = "\"NAME\"",
             nullable = false,
             length = 100
     )
@@ -138,7 +138,7 @@ public class DietarySupplement implements Persistable, Cloneable<DietarySuppleme
             describedAs = "Blank or 'GI' for generic vitamin/supplement"
     )
     @Column(
-            name = "TYPE",
+            name = "\"TYPE\"",
             nullable = true,
             length = 2
     )
@@ -159,7 +159,7 @@ public class DietarySupplement implements Persistable, Cloneable<DietarySuppleme
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "DS_CLASS",
+            name = "\"DS_CLASS\"",
             nullable = true,
             length = 20
     )
@@ -180,7 +180,7 @@ public class DietarySupplement implements Persistable, Cloneable<DietarySuppleme
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "DS_FACET",
+            name = "\"DS_FACET\"",
             nullable = false,
             length = 100
     )

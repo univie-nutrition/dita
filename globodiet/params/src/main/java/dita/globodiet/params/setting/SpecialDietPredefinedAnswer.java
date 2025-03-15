@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "SPECDIET",
-        catalog = "SPECDIET",
-        schema = "SPECDIET"
+        name = "SPECDIET"
 )
 public class SpecialDietPredefinedAnswer implements Persistable, Cloneable<SpecialDietPredefinedAnswer> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class SpecialDietPredefinedAnswer implements Persistable, Cloneable<Speci
             describedAs = "Special diet code"
     )
     @Column(
-            name = "SPD_CODE",
+            name = "\"SPD_CODE\"",
             nullable = false,
             length = 2
     )
@@ -116,7 +116,7 @@ public class SpecialDietPredefinedAnswer implements Persistable, Cloneable<Speci
             describedAs = "Special diet label"
     )
     @Column(
-            name = "SPD_NAME",
+            name = "\"SPD_NAME\"",
             nullable = false,
             length = 100
     )

@@ -65,15 +65,15 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 )
 @Entity
 @Table(
-        name = "MONTHS",
-        catalog = "MONTHS",
-        schema = "MONTHS"
+        name = "MONTHS"
 )
 public class Month implements Persistable, Cloneable<Month> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
 
     @Id
@@ -95,7 +95,7 @@ public class Month implements Persistable, Cloneable<Month> {
             describedAs = "Month number"
     )
     @Column(
-            name = "MONTH_NUM",
+            name = "\"MONTH_NUM\"",
             nullable = false,
             length = 2
     )
@@ -116,7 +116,7 @@ public class Month implements Persistable, Cloneable<Month> {
             describedAs = "Month name"
     )
     @Column(
-            name = "MONTH",
+            name = "\"MONTH\"",
             nullable = false,
             length = 20
     )
