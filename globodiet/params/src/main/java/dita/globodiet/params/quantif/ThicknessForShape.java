@@ -21,22 +21,26 @@ package dita.globodiet.params.quantif;
 
 import dita.globodiet.params.food_list.FoodSubgroup;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -71,23 +75,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         describedAs = "Thickness for shape method",
         cssClassFa = "solid ruler-horizontal"
 )
-@PersistenceCapable(
-        table = "THICKNESS"
+@Entity
+@Table(
+        name = "THICKNESS"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_ThicknessForShape",
-        members = {"code"}
-)
-public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecondaryKey<ThicknessForShape> {
+public class ThicknessForShape implements Persistable, Cloneable<ThicknessForShape>, HasSecondaryKey<ThicknessForShape> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Thickness code (e.g. A,B,C,58_1,58_2...)
@@ -101,8 +106,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             describedAs = "Thickness code (e.g. A,B,C,58_1,58_2...)"
     )
     @Column(
-            name = "TH_CODE",
-            allowsNull = "false",
+            name = "\"TH_CODE\"",
+            nullable = false,
             length = 10
     )
     @Getter
@@ -122,8 +127,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             describedAs = "has no description"
     )
     @Column(
-            name = "TH_THICK",
-            allowsNull = "false"
+            name = "\"TH_THICK\"",
+            nullable = false
     )
     @Getter
     @Setter
@@ -142,8 +147,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             describedAs = "Comment attached to the thickness (e.g. small, medium, large…)"
     )
     @Column(
-            name = "TH_COMMENT",
-            allowsNull = "false",
+            name = "\"TH_COMMENT\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -173,8 +178,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "TH_FDCLASS",
-            allowsNull = "false",
+            name = "\"TH_FDCLASS\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -202,8 +207,8 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "TH_RCPCLASS",
-            allowsNull = "true",
+            name = "\"TH_RCPCLASS\"",
+            nullable = true,
             length = 100
     )
     @Getter
@@ -243,7 +248,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public ThicknessForShape.Manager getNavigableParent() {
         return new ThicknessForShape.Manager(searchService, "");
     }
@@ -368,6 +373,7 @@ public class ThicknessForShape implements Cloneable<ThicknessForShape>, HasSecon
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.quantif.ThicknessForShape.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends ThicknessForShape implements ViewModel {
         @Getter(

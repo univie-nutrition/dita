@@ -20,22 +20,26 @@
 package dita.globodiet.params.recipe_list;
 
 import dita.globodiet.params.classification.RecipeGrouping;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -71,23 +75,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         cssClassFa = "solid stroopwafel .recipe-color,\n"
                 + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
-@PersistenceCapable(
-        table = "RGROUPS"
+@Entity
+@Table(
+        name = "RGROUPS"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_RecipeGroup",
-        members = {"code"}
-)
-public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasSecondaryKey<RecipeGroup> {
+public class RecipeGroup implements Persistable, Cloneable<RecipeGroup>, RecipeGrouping, HasSecondaryKey<RecipeGroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Recipe Group code
@@ -101,8 +106,8 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             describedAs = "Recipe Group code"
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -122,8 +127,8 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             describedAs = "Name of the Recipe group"
     )
     @Column(
-            name = "NAME",
-            allowsNull = "false",
+            name = "\"NAME\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -143,8 +148,8 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             describedAs = "Short Name of the Recipe group"
     )
     @Column(
-            name = "NAMEG_SHORT",
-            allowsNull = "false",
+            name = "\"NAMEG_SHORT\"",
+            nullable = false,
             length = 20
     )
     @Getter
@@ -180,7 +185,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public RecipeGroup.Manager getNavigableParent() {
         return new RecipeGroup.Manager(searchService, "");
     }
@@ -284,6 +289,7 @@ public class RecipeGroup implements Cloneable<RecipeGroup>, RecipeGrouping, HasS
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.recipe_list.RecipeGroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends RecipeGroup implements ViewModel {
         @Getter(

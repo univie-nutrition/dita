@@ -20,6 +20,9 @@
 package dita.globodiet.params.food_list;
 
 import dita.globodiet.params.classification.FoodGrouping;
+import io.github.causewaystuff.companion.applib.jpa.EnumConverter;
+import io.github.causewaystuff.companion.applib.jpa.EnumWithCode;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.iconfa.IconFaService;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
@@ -27,17 +30,20 @@ import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.Extension;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -75,23 +81,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
                 + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
                 + "solid circle-chevron-down .food-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
-@PersistenceCapable(
-        table = "SUBGROUP"
+@Entity
+@Table(
+        name = "SUBGROUP"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_FoodSubgroup",
-        members = {"foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode"}
-)
-public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasSecondaryKey<FoodSubgroup> {
+public class FoodSubgroup implements Persistable, Cloneable<FoodSubgroup>, FoodGrouping, HasSecondaryKey<FoodSubgroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Food group code
@@ -106,8 +113,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -126,8 +133,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             describedAs = "Food sub-group code"
     )
     @Column(
-            name = "SUBGROUP1",
-            allowsNull = "false",
+            name = "\"SUBGROUP1\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -146,8 +153,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             describedAs = "Food sub-sub-group code"
     )
     @Column(
-            name = "SUBGROUP2",
-            allowsNull = "true",
+            name = "\"SUBGROUP2\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -167,8 +174,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             describedAs = "Name of the food (sub-)(sub-)group"
     )
     @Column(
-            name = "NAME",
-            allowsNull = "false",
+            name = "\"NAME\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -188,21 +195,14 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             describedAs = "0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
     )
     @Column(
-            name = "SGRP_FSS",
-            allowsNull = "false",
+            name = "\"SGRP_FSS\"",
+            nullable = false,
             length = 1
     )
     @Getter
     @Setter
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-check-constraint",
-            value = "true"
-    )
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-value-getter",
-            value = "getMatchOn"
+    @Convert(
+            converter = FatOrSauceSweetenerSubgroupQ.Converter.class
     )
     private FatOrSauceSweetenerSubgroupQ fatOrSauceSweetenerSubgroupQ;
 
@@ -221,21 +221,14 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
                     + "1= fat/sauce subgroup that can be left over in the dish"
     )
     @Column(
-            name = "SGRP_FLO",
-            allowsNull = "false",
+            name = "\"SGRP_FLO\"",
+            nullable = false,
             length = 1
     )
     @Getter
     @Setter
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-check-constraint",
-            value = "true"
-    )
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-value-getter",
-            value = "getMatchOn"
+    @Convert(
+            converter = FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ.Converter.class
     )
     private FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ;
 
@@ -254,21 +247,14 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
                     + "1= fat during cooking subgroup"
     )
     @Column(
-            name = "SGRP_FDC",
-            allowsNull = "false",
+            name = "\"SGRP_FDC\"",
+            nullable = false,
             length = 1
     )
     @Getter
     @Setter
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-check-constraint",
-            value = "true"
-    )
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-value-getter",
-            value = "getMatchOn"
+    @Convert(
+            converter = FatDuringCookingSubgroupQ.Converter.class
     )
     private FatDuringCookingSubgroupQ fatDuringCookingSubgroupQ;
 
@@ -285,8 +271,8 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             describedAs = "Short Name of the food (sub-)(sub-)group"
     )
     @Column(
-            name = "NAME_SHORT",
-            allowsNull = "false",
+            name = "\"NAME_SHORT\"",
+            nullable = false,
             length = 20
     )
     @Getter
@@ -294,6 +280,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
     private String shortName;
 
     @Inject
+    @Transient
     IconFaService iconFaService;
 
     @ObjectSupport
@@ -340,7 +327,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public FoodSubgroup.Manager getNavigableParent() {
         return new FoodSubgroup.Manager(searchService, "");
     }
@@ -357,8 +344,12 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
         getFoodSubSubgroupCode());
     }
 
+    @Getter
+    @Accessors(
+            fluent = true
+    )
     @RequiredArgsConstructor
-    public enum FatOrSauceSweetenerSubgroupQ {
+    public enum FatOrSauceSweetenerSubgroupQ implements EnumWithCode<String> {
 
         /**
          * non fat/sauce/sweetener subgroup
@@ -369,18 +360,25 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
          */
         YES("1", "yes");
 
-        @Getter
-        private final String matchOn;
+        private final String code;
 
-        @Getter
-        @Accessors(
-                fluent = true
-        )
         private final String title;
+
+        @jakarta.persistence.Converter
+        public static final class Converter implements EnumConverter<FatOrSauceSweetenerSubgroupQ, String> {
+            @Override
+            public FatOrSauceSweetenerSubgroupQ[] values() {
+                return FatOrSauceSweetenerSubgroupQ.values();
+            }
+        }
     }
 
+    @Getter
+    @Accessors(
+            fluent = true
+    )
     @RequiredArgsConstructor
-    public enum FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ {
+    public enum FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ implements EnumWithCode<String> {
 
         /**
          * non fat/sauce subgroup
@@ -391,18 +389,25 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
          */
         YES("1", "yes");
 
-        @Getter
-        private final String matchOn;
+        private final String code;
 
-        @Getter
-        @Accessors(
-                fluent = true
-        )
         private final String title;
+
+        @jakarta.persistence.Converter
+        public static final class Converter implements EnumConverter<FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ, String> {
+            @Override
+            public FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ[] values() {
+                return FatOrSauceSubgroupThatCanBeLeftOverInTheDishQ.values();
+            }
+        }
     }
 
+    @Getter
+    @Accessors(
+            fluent = true
+    )
     @RequiredArgsConstructor
-    public enum FatDuringCookingSubgroupQ {
+    public enum FatDuringCookingSubgroupQ implements EnumWithCode<String> {
 
         /**
          * non fat during cooking subgroup
@@ -413,14 +418,17 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
          */
         YES("1", "yes");
 
-        @Getter
-        private final String matchOn;
+        private final String code;
 
-        @Getter
-        @Accessors(
-                fluent = true
-        )
         private final String title;
+
+        @jakarta.persistence.Converter
+        public static final class Converter implements EnumConverter<FatDuringCookingSubgroupQ, String> {
+            @Override
+            public FatDuringCookingSubgroupQ[] values() {
+                return FatDuringCookingSubgroupQ.values();
+            }
+        }
     }
 
     /**
@@ -536,6 +544,7 @@ public class FoodSubgroup implements Cloneable<FoodSubgroup>, FoodGrouping, HasS
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.food_list.FoodSubgroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends FoodSubgroup implements ViewModel {
         @Getter(

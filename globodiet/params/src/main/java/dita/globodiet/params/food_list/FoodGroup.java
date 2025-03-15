@@ -20,22 +20,26 @@
 package dita.globodiet.params.food_list;
 
 import dita.globodiet.params.classification.FoodGrouping;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -71,23 +75,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         cssClassFa = "solid utensils .food-color,\n"
                 + "solid layer-group .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
-@PersistenceCapable(
-        table = "GROUPS"
+@Entity
+@Table(
+        name = "GROUPS"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_FoodGroup",
-        members = {"code"}
-)
-public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSecondaryKey<FoodGroup> {
+public class FoodGroup implements Persistable, Cloneable<FoodGroup>, FoodGrouping, HasSecondaryKey<FoodGroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Food group code
@@ -101,8 +106,8 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
             describedAs = "Food group code"
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -122,8 +127,8 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
             describedAs = "Food group name"
     )
     @Column(
-            name = "NAME",
-            allowsNull = "false",
+            name = "\"NAME\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -143,8 +148,8 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
             describedAs = "Food group short name"
     )
     @Column(
-            name = "NAME_SHORT",
-            allowsNull = "false",
+            name = "\"NAME_SHORT\"",
+            nullable = false,
             length = 20
     )
     @Getter
@@ -180,7 +185,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public FoodGroup.Manager getNavigableParent() {
         return new FoodGroup.Manager(searchService, "");
     }
@@ -284,6 +289,7 @@ public class FoodGroup implements Cloneable<FoodGroup>, FoodGrouping, HasSeconda
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.food_list.FoodGroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends FoodGroup implements ViewModel {
         @Getter(

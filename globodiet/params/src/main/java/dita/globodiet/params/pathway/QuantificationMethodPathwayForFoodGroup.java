@@ -23,23 +23,29 @@ import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
 import dita.globodiet.params.quantif.Photo;
+import io.github.causewaystuff.companion.applib.jpa.EnumConverter;
+import io.github.causewaystuff.companion.applib.jpa.EnumWithCode;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.Extension;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -77,23 +83,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
                 + "solid scale-balanced .food-color .ov-size-60 .ov-right-50 .ov-bottom-85,\n"
 )
-@PersistenceCapable(
-        table = "QM_GROUP"
+@Entity
+@Table(
+        name = "QM_GROUP"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_QuantificationMethodPathwayForFoodGroup",
-        members = {"foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode", "physicalStateFacetDescriptorLookupKey", "rawOrCookedAsConsumed", "quantificationMethod", "photoOrShapeCode"}
-)
-public class QuantificationMethodPathwayForFoodGroup implements Cloneable<QuantificationMethodPathwayForFoodGroup>, HasSecondaryKey<QuantificationMethodPathwayForFoodGroup> {
+public class QuantificationMethodPathwayForFoodGroup implements Persistable, Cloneable<QuantificationMethodPathwayForFoodGroup>, HasSecondaryKey<QuantificationMethodPathwayForFoodGroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Food group code
@@ -108,8 +115,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -129,8 +136,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP1",
-            allowsNull = "false",
+            name = "\"SUBGROUP1\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -150,8 +157,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP2",
-            allowsNull = "true",
+            name = "\"SUBGROUP2\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -171,8 +178,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "PHYS_STATE",
-            allowsNull = "true",
+            name = "\"PHYS_STATE\"",
+            nullable = true,
             length = 4
     )
     @Getter
@@ -193,21 +200,14 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
                     + "2=cooked (as Consumed)"
     )
     @Column(
-            name = "RAW_COOKED",
-            allowsNull = "true",
+            name = "\"RAW_COOKED\"",
+            nullable = true,
             length = 1
     )
     @Getter
     @Setter
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-check-constraint",
-            value = "true"
-    )
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-value-getter",
-            value = "getMatchOn"
+    @Convert(
+            converter = RawOrCookedAsConsumed.Converter.class
     )
     private RawOrCookedAsConsumed rawOrCookedAsConsumed;
 
@@ -233,21 +233,14 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
                     + "'A' for shape"
     )
     @Column(
-            name = "METHOD",
-            allowsNull = "false",
+            name = "\"METHOD\"",
+            nullable = false,
             length = 1
     )
     @Getter
     @Setter
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-check-constraint",
-            value = "true"
-    )
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-value-getter",
-            value = "getMatchOn"
+    @Convert(
+            converter = QuantificationMethod.Converter.class
     )
     private QuantificationMethod quantificationMethod;
 
@@ -268,8 +261,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "METH_CODE",
-            allowsNull = "true",
+            name = "\"METH_CODE\"",
+            nullable = true,
             length = 4
     )
     @Getter
@@ -289,8 +282,8 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             describedAs = "Comment"
     )
     @Column(
-            name = "COMMENT",
-            allowsNull = "false",
+            name = "\"COMMENT\"",
+            nullable = false,
             length = 200
     )
     @Getter
@@ -336,7 +329,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public QuantificationMethodPathwayForFoodGroup.Manager getNavigableParent() {
         return new QuantificationMethodPathwayForFoodGroup.Manager(searchService, "");
     }
@@ -347,13 +340,17 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
         getFoodSubgroupCode(), 
         getFoodSubSubgroupCode(), 
         getPhysicalStateFacetDescriptorLookupKey(), 
-        getRawOrCookedAsConsumed()!=null ? getRawOrCookedAsConsumed().matchOn : null, 
-        getQuantificationMethod()!=null ? getQuantificationMethod().matchOn : null, 
+        getRawOrCookedAsConsumed()!=null ? getRawOrCookedAsConsumed().code : null, 
+        getQuantificationMethod()!=null ? getQuantificationMethod().code : null, 
         getPhotoOrShapeCode());
     }
 
+    @Getter
+    @Accessors(
+            fluent = true
+    )
     @RequiredArgsConstructor
-    public enum RawOrCookedAsConsumed {
+    public enum RawOrCookedAsConsumed implements EnumWithCode<String> {
 
         /**
          * no description
@@ -364,18 +361,25 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
          */
         COOKED("2", "cooked");
 
-        @Getter
-        private final String matchOn;
+        private final String code;
 
-        @Getter
-        @Accessors(
-                fluent = true
-        )
         private final String title;
+
+        @jakarta.persistence.Converter
+        public static final class Converter implements EnumConverter<RawOrCookedAsConsumed, String> {
+            @Override
+            public RawOrCookedAsConsumed[] values() {
+                return RawOrCookedAsConsumed.values();
+            }
+        }
     }
 
+    @Getter
+    @Accessors(
+            fluent = true
+    )
     @RequiredArgsConstructor
-    public enum QuantificationMethod {
+    public enum QuantificationMethod implements EnumWithCode<String> {
 
         /**
          * no description
@@ -398,14 +402,17 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
          */
         SHAPE("A", "Shape");
 
-        @Getter
-        private final String matchOn;
+        private final String code;
 
-        @Getter
-        @Accessors(
-                fluent = true
-        )
         private final String title;
+
+        @jakarta.persistence.Converter
+        public static final class Converter implements EnumConverter<QuantificationMethod, String> {
+            @Override
+            public QuantificationMethod[] values() {
+                return QuantificationMethod.values();
+            }
+        }
     }
 
     /**
@@ -549,6 +556,7 @@ public class QuantificationMethodPathwayForFoodGroup implements Cloneable<Quanti
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.pathway.QuantificationMethodPathwayForFoodGroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends QuantificationMethodPathwayForFoodGroup implements ViewModel {
         @Getter(

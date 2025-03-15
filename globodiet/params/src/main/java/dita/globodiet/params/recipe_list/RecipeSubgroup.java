@@ -20,22 +20,26 @@
 package dita.globodiet.params.recipe_list;
 
 import dita.globodiet.params.classification.RecipeGrouping;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -72,23 +76,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
                 + "solid layer-group .recipe-color .ov-size-80 .ov-right-55 .ov-bottom-55,\n"
                 + "solid circle-chevron-down .recipe-color-em .ov-size-60 .ov-left-50 .ov-bottom-85\n"
 )
-@PersistenceCapable(
-        table = "RSUBGR"
+@Entity
+@Table(
+        name = "RSUBGR"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_RecipeSubgroup",
-        members = {"recipeGroupCode", "code"}
-)
-public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping, HasSecondaryKey<RecipeSubgroup> {
+public class RecipeSubgroup implements Persistable, Cloneable<RecipeSubgroup>, RecipeGrouping, HasSecondaryKey<RecipeSubgroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Recipe group code
@@ -103,8 +108,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -123,8 +128,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
             describedAs = "Recipe sub-group code"
     )
     @Column(
-            name = "SUBGROUP",
-            allowsNull = "false",
+            name = "\"SUBGROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -144,8 +149,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
             describedAs = "Name of the recipe (sub-)group"
     )
     @Column(
-            name = "NAME",
-            allowsNull = "false",
+            name = "\"NAME\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -165,8 +170,8 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
             describedAs = "Short Name of the recipe (sub-)group"
     )
     @Column(
-            name = "NAMES_SHORT",
-            allowsNull = "false",
+            name = "\"NAMES_SHORT\"",
+            nullable = false,
             length = 20
     )
     @Getter
@@ -204,7 +209,7 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public RecipeSubgroup.Manager getNavigableParent() {
         return new RecipeSubgroup.Manager(searchService, "");
     }
@@ -314,6 +319,7 @@ public class RecipeSubgroup implements Cloneable<RecipeSubgroup>, RecipeGrouping
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.recipe_list.RecipeSubgroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends RecipeSubgroup implements ViewModel {
         @Getter(

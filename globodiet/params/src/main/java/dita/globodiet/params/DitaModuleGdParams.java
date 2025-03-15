@@ -376,6 +376,7 @@ import java.lang.String;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -747,6 +748,7 @@ ThicknessForShape_foodGrouping.class,
 ThicknessForShape_recipeGrouping.class,
 TranslationInCountryLanguage_delete.class,
 })
+@EntityScan
 public class DitaModuleGdParams {
     public static final String NAMESPACE = "dita.globodiet.params";
 

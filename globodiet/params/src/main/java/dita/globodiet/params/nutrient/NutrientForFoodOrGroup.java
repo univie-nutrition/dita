@@ -22,24 +22,30 @@ package dita.globodiet.params.nutrient;
 import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
+import io.github.causewaystuff.companion.applib.jpa.EnumConverter;
+import io.github.causewaystuff.companion.applib.jpa.EnumWithCode;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.Extension;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -75,23 +81,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         cssClassFa = "solid flask .nutrient-color,\n"
                 + "solid utensils .nutrient-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
-@PersistenceCapable(
-        table = "ITEMS_DEF"
+@Entity
+@Table(
+        name = "ITEMS_DEF"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_NutrientForFoodOrGroup",
-        members = {"code"}
-)
-public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>, HasSecondaryKey<NutrientForFoodOrGroup> {
+public class NutrientForFoodOrGroup implements Persistable, Cloneable<NutrientForFoodOrGroup>, HasSecondaryKey<NutrientForFoodOrGroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Unique code, that relates @{table NTR_VALUE}.
@@ -105,8 +112,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             describedAs = "Unique code, that relates @{table NTR_VALUE}."
     )
     @Column(
-            name = "ITEM_SEQ",
-            allowsNull = "false"
+            name = "\"ITEM_SEQ\"",
+            nullable = false
     )
     @Getter
     @Setter
@@ -133,21 +140,14 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
                     + "A3=liquid attached"
     )
     @Column(
-            name = "TYPE",
-            allowsNull = "false",
+            name = "\"TYPE\"",
+            nullable = false,
             length = 2
     )
     @Getter
     @Setter
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-check-constraint",
-            value = "true"
-    )
-    @Extension(
-            vendorName = "datanucleus",
-            key = "enum-value-getter",
-            value = "getMatchOn"
+    @Convert(
+            converter = TypeOfRecord.Converter.class
     )
     private TypeOfRecord typeOfRecord;
 
@@ -164,8 +164,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "true",
+            name = "\"GROUP\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -185,8 +185,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP1",
-            allowsNull = "true",
+            name = "\"SUBGROUP1\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -206,8 +206,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP2",
-            allowsNull = "true",
+            name = "\"SUBGROUP2\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -227,8 +227,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "ID_NUM",
-            allowsNull = "true",
+            name = "\"ID_NUM\"",
+            nullable = true,
             length = 5
     )
     @Getter
@@ -248,8 +248,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             describedAs = "Facet string"
     )
     @Column(
-            name = "FACET_STR",
-            allowsNull = "true",
+            name = "\"FACET_STR\"",
+            nullable = true,
             length = 100
     )
     @Getter
@@ -269,8 +269,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             describedAs = "Brand name"
     )
     @Column(
-            name = "BRANDNAME",
-            allowsNull = "true",
+            name = "\"BRANDNAME\"",
+            nullable = true,
             length = 100
     )
     @Getter
@@ -290,8 +290,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             describedAs = "Priority order"
     )
     @Column(
-            name = "PRIORITY",
-            allowsNull = "false"
+            name = "\"PRIORITY\"",
+            nullable = false
     )
     @Getter
     @Setter
@@ -310,8 +310,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             describedAs = "Attached records: only for the Type=A2 & A3"
     )
     @Column(
-            name = "ITEM_SEQ_SEQ",
-            allowsNull = "true"
+            name = "\"ITEM_SEQ_SEQ\"",
+            nullable = true
     )
     @Getter
     @Setter
@@ -330,8 +330,8 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             describedAs = "Comment"
     )
     @Column(
-            name = "COMMENT",
-            allowsNull = "true",
+            name = "\"COMMENT\"",
+            nullable = true,
             length = 4096
     )
     @Getter
@@ -383,7 +383,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public NutrientForFoodOrGroup.Manager getNavigableParent() {
         return new NutrientForFoodOrGroup.Manager(searchService, "");
     }
@@ -393,8 +393,12 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
         return new SecondaryKey(getCode());
     }
 
+    @Getter
+    @Accessors(
+            fluent = true
+    )
     @RequiredArgsConstructor
-    public enum TypeOfRecord {
+    public enum TypeOfRecord implements EnumWithCode<String> {
 
         /**
          * no description
@@ -413,14 +417,17 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
          */
         LIQUID_ATTACHED("A3", "Liquid attached");
 
-        @Getter
-        private final String matchOn;
+        private final String code;
 
-        @Getter
-        @Accessors(
-                fluent = true
-        )
         private final String title;
+
+        @jakarta.persistence.Converter
+        public static final class Converter implements EnumConverter<TypeOfRecord, String> {
+            @Override
+            public TypeOfRecord[] values() {
+                return TypeOfRecord.values();
+            }
+        }
     }
 
     /**
@@ -541,6 +548,7 @@ public class NutrientForFoodOrGroup implements Cloneable<NutrientForFoodOrGroup>
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.nutrient.NutrientForFoodOrGroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends NutrientForFoodOrGroup implements ViewModel {
         @Getter(

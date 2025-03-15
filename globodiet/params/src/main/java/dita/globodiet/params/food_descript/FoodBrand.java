@@ -21,22 +21,26 @@ package dita.globodiet.params.food_descript;
 
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -72,23 +76,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         cssClassFa = "solid utensils .food-color,\n"
                 + "brands shopify .food-color .ov-size-80 .ov-right-55 .ov-bottom-55\n"
 )
-@PersistenceCapable(
-        table = "BRANDNAM"
+@Entity
+@Table(
+        name = "BRANDNAM"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_FoodBrand",
-        members = {"nameOfBrand", "foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode"}
-)
-public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBrand> {
+public class FoodBrand implements Persistable, Cloneable<FoodBrand>, HasSecondaryKey<FoodBrand> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Name of brand
@@ -102,8 +107,8 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             describedAs = "Name of brand"
     )
     @Column(
-            name = "NAME",
-            allowsNull = "false",
+            name = "\"NAME\"",
+            nullable = false,
             length = 100
     )
     @Getter
@@ -123,8 +128,8 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -144,8 +149,8 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP1",
-            allowsNull = "true",
+            name = "\"SUBGROUP1\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -165,8 +170,8 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP2",
-            allowsNull = "true",
+            name = "\"SUBGROUP2\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -204,7 +209,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public FoodBrand.Manager getNavigableParent() {
         return new FoodBrand.Manager(searchService, "");
     }
@@ -319,6 +324,7 @@ public class FoodBrand implements Cloneable<FoodBrand>, HasSecondaryKey<FoodBran
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.food_descript.FoodBrand.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends FoodBrand implements ViewModel {
         @Getter(

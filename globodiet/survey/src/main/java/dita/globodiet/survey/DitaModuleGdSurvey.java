@@ -39,6 +39,7 @@ import java.lang.String;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -73,6 +74,7 @@ RespondentFilter_delete.class,
 RespondentFilter_survey.class,
 Survey_delete.class,
 })
+@EntityScan
 public class DitaModuleGdSurvey {
     public static final String NAMESPACE = "dita.globodiet.survey";
 

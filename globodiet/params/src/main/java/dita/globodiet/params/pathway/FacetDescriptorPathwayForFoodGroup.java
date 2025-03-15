@@ -23,22 +23,26 @@ import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_descript.FoodFacet;
 import dita.globodiet.params.food_list.FoodGroup;
 import dita.globodiet.params.food_list.FoodSubgroup;
+import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.lang.Class;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.DatastoreIdentity;
-import javax.jdo.annotations.NotPersistent;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Unique;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -76,23 +80,24 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
         cssClassFa = "solid person-walking-arrow-right .food-color,\n"
                 + "solid tag .food-color .ov-size-60 .ov-right-50 .ov-bottom-85\n"
 )
-@PersistenceCapable(
-        table = "GROUPFAC"
+@Entity
+@Table(
+        name = "GROUPFAC"
 )
-@DatastoreIdentity(
-        strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-        column = "id"
-)
-@Unique(
-        name = "SEC_KEY_UNQ_FacetDescriptorPathwayForFoodGroup",
-        members = {"foodGroupCode", "foodSubgroupCode", "foodSubSubgroupCode", "foodFacetCode", "foodDescriptorCode"}
-)
-public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescriptorPathwayForFoodGroup>, HasSecondaryKey<FacetDescriptorPathwayForFoodGroup> {
+public class FacetDescriptorPathwayForFoodGroup implements Persistable, Cloneable<FacetDescriptorPathwayForFoodGroup>, HasSecondaryKey<FacetDescriptorPathwayForFoodGroup> {
     @Inject
+    @Transient
     RepositoryService repositoryService;
 
     @Inject
+    @Transient
     SearchService searchService;
+
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
+    private long id;
 
     /**
      * Food group code
@@ -107,8 +112,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "GROUP",
-            allowsNull = "false",
+            name = "\"GROUP\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -128,8 +133,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP1",
-            allowsNull = "true",
+            name = "\"SUBGROUP1\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -149,8 +154,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "SUBGROUP2",
-            allowsNull = "true",
+            name = "\"SUBGROUP2\"",
+            nullable = true,
             length = 2
     )
     @Getter
@@ -170,8 +175,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "FACET_CODE",
-            allowsNull = "false",
+            name = "\"FACET_CODE\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -191,8 +196,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             hidden = Where.ALL_TABLES
     )
     @Column(
-            name = "DESCR_CODE",
-            allowsNull = "false",
+            name = "\"DESCR_CODE\"",
+            nullable = false,
             length = 2
     )
     @Getter
@@ -212,8 +217,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             describedAs = "Default flag (if set to 'D' it is the default descriptor)"
     )
     @Column(
-            name = "DEFAULT",
-            allowsNull = "true",
+            name = "\"DEFAULT\"",
+            nullable = true,
             length = 1
     )
     @Getter
@@ -233,8 +238,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             describedAs = "Not in name flag"
     )
     @Column(
-            name = "NOTINNAME",
-            allowsNull = "true",
+            name = "\"NOTINNAME\"",
+            nullable = true,
             length = 1
     )
     @Getter
@@ -254,8 +259,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             describedAs = "Order to display the facets within a group/subgroup"
     )
     @Column(
-            name = "ORDER_FAC",
-            allowsNull = "false"
+            name = "\"ORDER_FAC\"",
+            nullable = false
     )
     @Getter
     @Setter
@@ -274,8 +279,8 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             describedAs = "Order to display the descriptors within a group/subgroup and a facet"
     )
     @Column(
-            name = "ORDER_DESC",
-            allowsNull = "false"
+            name = "\"ORDER_DESC\"",
+            nullable = false
     )
     @Getter
     @Setter
@@ -328,7 +333,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             hidden = Where.EVERYWHERE,
             navigable = Navigable.PARENT
     )
-    @NotPersistent
+    @Transient
     public FacetDescriptorPathwayForFoodGroup.Manager getNavigableParent() {
         return new FacetDescriptorPathwayForFoodGroup.Manager(searchService, "");
     }
@@ -457,6 +462,7 @@ public class FacetDescriptorPathwayForFoodGroup implements Cloneable<FacetDescri
             cssClassFa = "skull .unresolvable-color"
     )
     @Named("dita.globodiet.params.pathway.FacetDescriptorPathwayForFoodGroup.Unresolvable")
+    @Embeddable
     @RequiredArgsConstructor
     public static final class Unresolvable extends FacetDescriptorPathwayForFoodGroup implements ViewModel {
         @Getter(
