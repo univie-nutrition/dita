@@ -64,6 +64,33 @@ public class Recall24DtoUtils {
 
     // -- DATA JOINING
 
+    private record RespondentJoiner(
+            String alias,
+            LocalDate dateOfBirth,
+            Sex sex) {
+        RespondentJoiner(final Respondent24 respondent) {
+            this(respondent.alias(), 
+                    respondent.dateOfBirth(), 
+                    respondent.sex());
+        }
+        Respondent24 createRespondent(final Can<Interview24> interviews, final Consumer<Message> messageConsumer) {
+            var respondent = new Respondent24(alias, dateOfBirth, sex, interviews);
+            interviews.forEach(iv->{
+                _Assert.assertEquals(alias, iv.parentRespondent().alias()); // unexpected
+                if(!Objects.equals(dateOfBirth, iv.parentRespondent().dateOfBirth())) {
+                    messageConsumer.accept(
+                            Message.error("dateOfBirth mismatch joining data for alias %s", alias));
+                }
+                if(!Objects.equals(sex, iv.parentRespondent().sex())) {
+                    messageConsumer.accept(
+                            Message.error("sex mismatch joining data for alias %s", alias));
+                }
+                iv.parentRespondentRef().setValue(respondent);
+            });
+            return respondent;
+        }
+    }
+    
     /**
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
@@ -73,33 +100,6 @@ public class Recall24DtoUtils {
             final @Nullable Consumer<Message> messageConsumer) {
 
         if(interviews==null) return InterviewSet24.empty();
-
-        /** respondent proxy */
-        record Helper(
-                String alias,
-                LocalDate dateOfBirth,
-                Sex sex) {
-            static Helper helper(final Interview24 interview) {
-                var respondent = interview.parentRespondent();
-                return new Helper(respondent.alias(), respondent.dateOfBirth(), respondent.sex());
-            }
-            Respondent24 createRespondent(final Can<Interview24> interviews, final Consumer<Message> messageConsumer) {
-                var respondent = new Respondent24(alias, dateOfBirth, sex, interviews);
-                interviews.forEach(iv->{
-                    _Assert.assertEquals(alias, iv.parentRespondent().alias()); // unexpected
-                    if(!Objects.equals(dateOfBirth, iv.parentRespondent().dateOfBirth())) {
-                        messageConsumer.accept(
-                                Message.error("dateOfBirth mismatch joining data for alias %s", alias));
-                    }
-                    if(!Objects.equals(sex, iv.parentRespondent().sex())) {
-                        messageConsumer.accept(
-                                Message.error("sex mismatch joining data for alias %s", alias));
-                    }
-                    iv.parentRespondentRef().setValue(respondent);
-                });
-                return respondent;
-            }
-        }
 
         var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
                 .orElseGet(Message::consumerWritingToSyserr);
@@ -113,8 +113,8 @@ public class Recall24DtoUtils {
             .stream()
             .map(entry->{
                 var interviewList = entry.getValue();
-                var helper = Helper.helper(interviewList.get(0));
-                var respondent = helper.createRespondent(Can.ofCollection(interviewList), messageConsumerOrFallback);
+                var joiner = new RespondentJoiner(interviewList.get(0).parentRespondent());
+                var respondent = joiner.createRespondent(Can.ofCollection(interviewList), messageConsumerOrFallback);
                 return respondent;
             })
             .collect(Can.toCan());

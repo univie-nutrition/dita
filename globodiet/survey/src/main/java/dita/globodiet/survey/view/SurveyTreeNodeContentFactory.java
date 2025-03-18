@@ -110,14 +110,13 @@ public class SurveyTreeNodeContentFactory {
 
     AsciiDoc content(final InterviewSet24 interviewSet, final Campaign campaign) {
         record Details(int respondentCount, int interviewCount, Can<Message> messages) {
-            static Details of(final InterviewSet24 interviewSet) {
-                return new Details(
-                        interviewSet.respondents().size(),
+            Details(final InterviewSet24 interviewSet) {
+                this(interviewSet.respondents().size(),
                         interviewSet.interviewCount(),
                         DataUtil.messages(interviewSet));
             }
         }
-        return adoc("Details", Details.of(interviewSet));
+        return adoc("Details", new Details(interviewSet));
     }
 
     
