@@ -62,8 +62,8 @@ additional
                 <configuration>
                     <from>
                         <!-- don't use slim variant, as excel export might fail w/ 
-                            Exception java.lang.UnsatisfiedLinkError: /usr/local/openjdk-23/lib/libfontmanager.so-->
-                        <image>openjdk:23-jdk-bookworm</image>
+                            Exception java.lang.UnsatisfiedLinkError: /usr/local/openjdk-24/lib/libfontmanager.so-->
+                        <image>openjdk:24-jdk-bookworm</image>
                     </from>
                 </configuration>
                 <!-- 3.4.4 requires newer asm 9.7 to support java 23 -->
