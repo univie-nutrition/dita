@@ -123,10 +123,10 @@ public record TabularReport(
             final Aggregation aggregation) {
 
         this(interviewSet, systemId,
-                new CodeHelper(systemId, "sday", "Special Day", languageQualifier, specialDayMapping),
-                new CodeHelper(systemId, "sdiet", "Special Diet", languageQualifier, specialDietMapping),
-                new CodeHelper(systemId, "fco", "Food Consumption Occasion", languageQualifier, fcoMapping),
-                new CodeHelper(systemId, "poc", "Place of Consumption", languageQualifier, pocMapping),
+                new CodeHelper(systemId, "sday", "Special Day (sday)", languageQualifier, specialDayMapping),
+                new CodeHelper(systemId, "sdiet", "Special Diet (sdiet)", languageQualifier, specialDietMapping),
+                new CodeHelper(systemId, "fco", "Food Consumption Occasion (fco)", languageQualifier, fcoMapping),
+                new CodeHelper(systemId, "poc", "Place of Consumption (poc)", languageQualifier, pocMapping),
                 fdm, foodCompositionRepo, foodComponents, aggregation);
     }
 

@@ -36,10 +36,9 @@ record FacetSheetFactory(FoodDescriptionModel fdm) {
     public TabularSheet facetSheet(final String sheetName, final Predicate<SemanticIdentifier> sidFilter) {
         Can<TabularColumn> columns = Can.of(
                 new TabularColumn(0, "Semantic Identifier", """
-                        fd..food descriptor
-                        fg..food group
-                        rd..recipe descriptor
-                        rg..recipe goup"""),
+                        systemId:objectId
+                        systemId..system/version
+                        objectId..context/identifier"""),
                 new TabularColumn(1, "Description", "Literal in native language"));
 
         Can<TabularRow> rows = fdm.classificationFacetBySid().values()
