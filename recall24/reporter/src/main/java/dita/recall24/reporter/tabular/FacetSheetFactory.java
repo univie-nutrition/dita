@@ -18,6 +18,8 @@
  */
 package dita.recall24.reporter.tabular;
 
+import java.util.function.Predicate;
+
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.tabular.TabularModel;
 import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
@@ -25,12 +27,13 @@ import org.apache.causeway.commons.tabular.TabularModel.TabularColumn;
 import org.apache.causeway.commons.tabular.TabularModel.TabularRow;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 
+import dita.commons.sid.SemanticIdentifier;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 
 record FacetSheetFactory(FoodDescriptionModel fdm) {
 
-    public TabularSheet facetSheet() {
+    public TabularSheet facetSheet(final String sheetName, final Predicate<SemanticIdentifier> sidFilter) {
         Can<TabularColumn> columns = Can.of(
                 new TabularColumn(0, "Semantic Identifier", """
                         fd..food descriptor
@@ -41,12 +44,13 @@ record FacetSheetFactory(FoodDescriptionModel fdm) {
 
         Can<TabularRow> rows = fdm.classificationFacetBySid().values()
                 .stream()
+                .filter(facet->sidFilter.test(facet.sid()))
                 .sorted((a, b)->a.sid().compareTo(b.sid()))
                 .map(this::toCells)
                 .map(TabularRow::new)
                 .collect(Can.toCan());
 
-        return new TabularModel.TabularSheet("Facets and Groups", columns, rows);
+        return new TabularModel.TabularSheet(sheetName, columns, rows);
     }
 
     private Can<TabularCell> toCells(final ClassificationFacet facet) {
