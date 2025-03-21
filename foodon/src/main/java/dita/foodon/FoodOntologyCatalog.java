@@ -18,12 +18,14 @@
  */
 package dita.foodon;
 
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.NonNull;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -31,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -44,7 +47,6 @@ import org.apache.causeway.commons.io.DataSource;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.extern.log4j.Log4j2;
@@ -194,11 +196,33 @@ public final class FoodOntologyCatalog {
 
     // -- HELPER
 
+    private record ReaderClosure(OWLOntologyManager manager, int totalEntitySizeLimit, int entityExpansionLimit) {
+        OWLOntology loadOntologyFromOntologyDocument(final InputStream inputStream) throws OWLOntologyCreationException {
+            // assuming, that while loading, no other thread is reading or writing this system property
+            // perhaps find another way to do this
+            var limitRestore = System.getProperty("jdk.xml.totalEntitySizeLimit");
+            try {
+                System.setProperty("jdk.xml.totalEntitySizeLimit", String.valueOf(totalEntitySizeLimit));
+
+                var conf = manager.getOntologyLoaderConfiguration();
+                conf.setEntityExpansionLimit(String.valueOf(entityExpansionLimit));
+
+                return manager.loadOntologyFromOntologyDocument(inputStream);
+            } finally {
+                if(limitRestore!=null) {
+                    System.setProperty("jdk.xml.totalEntitySizeLimit", limitRestore);
+                } else {
+                    System.clearProperty("jdk.xml.totalEntitySizeLimit");
+                }
+            }
+        }
+    }
+
     private static FoodOntologyCatalog load() {
         log.info("about to load 'foodon.owl' ontology");
         var ds = SevenZUtils.decompress(DataSource.ofResource(FoodOntologyCatalog.class, "/foodon.owl.7z"));
 
-        var manager = OWLManager.createOWLOntologyManager();
+        var manager = new ReaderClosure(OWLManager.createOWLOntologyManager(), 10_000_000, 10_000_000); // just a guess, increase if required
         var rootOntology = ds.tryReadAndApply(manager::loadOntologyFromOntologyDocument)
                 .valueAsNonNullElseFail();
 

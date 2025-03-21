@@ -85,7 +85,8 @@ class FoodOntologyCatalogTest {
 
         groups.forEach(group->{
 
-            System.err.printf("%s%n", group);
+            //debug
+            //System.err.printf("%s%n", group);
 
             var words = Can.ofStream(
                     _NullSafe.stream(new StringTokenizer(group).asIterator())
@@ -95,7 +96,8 @@ class FoodOntologyCatalogTest {
 
             var searchResult = foodOntologyCatalog.searchInAnnotationLabels("FOODON", words);
             searchResult.stream().limit(5).forEach(owlClassRec->{
-                System.err.printf("  %s%n", owlClassRec);
+                //debug
+                //System.err.printf("  %s%n", owlClassRec);
             });
 
         });
