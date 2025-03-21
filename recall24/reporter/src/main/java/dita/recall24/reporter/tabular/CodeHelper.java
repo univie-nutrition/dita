@@ -69,9 +69,8 @@ record CodeHelper(
         Can<TabularColumn> columns = Can.of(
                 new TabularColumn(0, friendlyName + " Code", """
                     Semantic Identifier
-                    systemId:objectId
-                    systemId..system/version
-                    objectId..context/identifier"""),
+                    [system]/[version]:
+                    [context]/[object-id]"""),
                 new TabularColumn(1, "Description", "Literal in native language"));
 
         Can<TabularRow> rows = qMap.streamEntries()
