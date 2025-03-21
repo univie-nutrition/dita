@@ -143,10 +143,10 @@ public record TabularReport(
             sdietHelper.sheet(),
             fcoHelper.sheet(),
             pocHelper.sheet(),
-            new FacetSheetFactory(fdm).facetSheet("Food Descriptors (fd)", sid->"fd".equals(sid.objectId().context())),
-            new FacetSheetFactory(fdm).facetSheet("Food Groups (fg)", sid->"fg".equals(sid.objectId().context())),
-            new FacetSheetFactory(fdm).facetSheet("Recipe Descriptors (rd)", sid->"rd".equals(sid.objectId().context())),
-            new FacetSheetFactory(fdm).facetSheet("Recipe Groups (rg)", sid->"rg".equals(sid.objectId().context())));
+            new FacetSheetFactory(fdm).facetSheet("Food Descriptor (fd)", sid->"fd".equals(sid.objectId().context())),
+            new FacetSheetFactory(fdm).facetSheet("Food Group (fg)", sid->"fg".equals(sid.objectId().context())),
+            new FacetSheetFactory(fdm).facetSheet("Recipe Descriptor (rd)", sid->"rd".equals(sid.objectId().context())),
+            new FacetSheetFactory(fdm).facetSheet("Recipe Group (rg)", sid->"rg".equals(sid.objectId().context())));
         return new TabularModel(sheets);
     }
 
