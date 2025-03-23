@@ -132,21 +132,6 @@ additional
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>Central Repository</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-        <!--        <repository>-->
-        <!--            <id>jitpack.io</id>-->
-        <!--            <url>https://jitpack.io</url>-->
-        <!--        </repository>-->
-    </repositories>
-
     <dependencyManagement>
         <dependencies>
 
