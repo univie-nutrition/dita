@@ -26,6 +26,9 @@
 		<table name="ApplicationUser" />
 		
 		<attributes>
+		    <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
 			<many-to-many name="roles">
 				<join-table name="ApplicationUserRoles">
 					<join-column name="userId" />
