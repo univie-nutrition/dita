@@ -32,7 +32,7 @@ additional
 
         <spring-boot.version>3.4.4</spring-boot.version>
 
-        <causeway.version>3.0.0-SNAPSHOT</causeway.version>
+        <causeway.version>3.4.0-SNAPSHOT</causeway.version>
         <causewaystuff.version>1.0.0-SNAPSHOT</causewaystuff.version>
 
         <indriya.version>2.2.2</indriya.version>
