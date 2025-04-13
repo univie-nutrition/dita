@@ -1,0 +1,68 @@
+= Recipe Management
+:includedir: includes
+
+In the following chapters we describe how recipes are modeled.
+
+== Recipe
+
+A _recipe_ is a composition of various quantified and described (faceted) food ingredients.
+
+Recipe facets are not predefined, but rather entered on the fly during interviews.
+
+
+== APPENDIX
+
+=== GloboDiet Recipe Rules 
+
+GloboDiet applies specific rules depending on recipe type.
+Those then apply during interviews. 
+
+[source]
+.Ingredient Rules
+----
+S .. ingredient substitution allowed
+A .. adding ingredients to recipe allowed
+D .. deleting ingredients from recipe allowed
+Q .. ingredient quantity is asked during interview
+----
+
+[source]
+.Recipe Types and their Rules
+----
+1.1 .. Open - known (SADQ)
+1.2 .. Open - unknown (SAD)
+1.3 .. Open - with brand (SAD)
+2.1 .. Closed (S) <.>
+2.2 .. Closed - (S) <1>
+3.0 .. Commercial ()
+4.1 .. New - known (SADQ)
+4.2 .. New - unknown (SADQ)
+----
+
+<.> requires _substitutable_ ingredient (substitution not allowed when ingredient is _fixed_)
+
+[source]
+.Ingredient Types
+----
+1 .. ingredient fixed
+2 .. ingredient substitutable
+3 .. fat during cooking
+A2 .. type of fat used
+A3 .. type of milk/liquid used
+----
+
+==== Open - known
+
+Recipe acts as a template for a homemade meal,
+where all the ingredients and their quantity 
+are known to the respondent.
+
+==== Open - unknown
+
+Like _Open - known_ but quantity 
+and facets are filled in by default. 
+
+==== Closed
+
+Recipe is less permissive to change during interview. 
+That is, only ingredient substitution is allowed

@@ -13,3 +13,4 @@
 ** xref:designdocs/ConsumptionReporting.adoc[Consumption Reporting]
 ** xref:designdocs/NutrientMapping.adoc[Nutrient Mapping (Draft)]
 ** xref:designdocs/OntologyTermAndAnnotations.adoc[Ontology Term And Annotations (Draft)]
+** xref:designdocs/RecipeManagement.adoc[Recipe Management]
