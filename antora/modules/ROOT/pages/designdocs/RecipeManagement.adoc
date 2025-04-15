@@ -7,10 +7,88 @@ In the following chapters we describe how recipes are modeled.
 
 A _recipe_ is a composition of various quantified and described (faceted) food ingredients.
 
-Recipe facets are not predefined, but rather entered on the fly during interviews.
+Recipe facets are not predefined, but rather entered (on the fly) during interviews.
 
+=== Raw to Cooked Ratio
+
+For recipes, ingredient quantities are usually given as raw amounts. 
+(And as a matter of detail with or without non-edible parts.)  
+
+When calculating food intake for recipes, we need to correct for
+
+. removal of non-edibel parts
+. raw to cooked loss
+
+Both these coefficients are scientifically determined on a per food basis 
+and may even depend on food facets. E.g. cooked in water or cooked with oil.  
+
+[plantuml,fig-ingredient-raw-to-cooked,svg]
+.Ingredient Raw to Cocked Ratio
+----
+@startuml
+
+map Coefficients {
+ R/C => Raw to Cocked Ratio
+ ED => Ediblepart Coefficent
+}
+
+object Recipe {
+}
+object Ingredient {
+}
+
+Recipe --> Ingredient : "Amount Consumed = Amount Raw * R/C * ED" 
+hide class method
+
+@enduml
+----
+
+=== Nesting
+
+It is sometimes useful to compose a recipe of one ore more reusable parts that are themselves recipes. We then say those are _nested_.
+E.g. Some _pizza_ may be made of a generic _pizza dough_ along other ingredients, 
+where our _pizza dough_ may itself be modeled as a recipe.
+
+[plantuml,fig-recipe-nesting,svg]
+.Recipe Nesting
+----
+@startuml
+
+object Pizza {
+}
+object Ingredient_1 {
+}
+object Ingredient_2 {
+}
+object "Pizza Dough" as Pizza_dough {
+}
+
+Pizza --> Ingredient_1
+Pizza --> Ingredient_2
+Pizza --> Pizza_dough : "nested recipe as ingredient"
+
+hide class method
+
+@enduml
+----
 
 == APPENDIX
+
+=== GloboDiet Recipe Nesting (Workaround)
+
+GloboDiet does not support recipe nesting, hence we introduced a workaround.
+
+For various recipes that we needed to be nested, we introduced regular food counterparts, 
+that can be used as recipe ingredients instead.
+
+During post-processing (report generation) those special ingredients 
+are then replaced with their recipe counterparts.
+
+To indicate this food <- -> recipe relation both food and recipe 
+that are related have the database id of their counterpart included in their name.
+
+E.g. `pizza dough {assocFood=1234}` or `pizza dough {assocRecipe=5678}`. 
+However, this is just an implementation detail. 
 
 === GloboDiet Recipe Rules 
 
@@ -55,14 +133,16 @@ A3 .. type of milk/liquid used
 
 Recipe acts as a template for a homemade meal,
 where all the ingredients and their quantity 
-are known to the respondent.
+are known to the respondent. 
+Hence ingredient quantities and facets are asked on the fly. 
 
 ==== Open - unknown
 
-Like _Open - known_ but quantity 
+Like _Open - known_ but ingredient quantities 
 and facets are filled in by default. 
 
 ==== Closed
 
 Recipe is less permissive to change during interview. 
-That is, only ingredient substitution is allowed
+That is, only ingredient substitution is allowed, 
+provided ingredient (of interest) is not marked as _fixed_.
