@@ -54,11 +54,6 @@ additional
             <groupId>org.apache.causeway.extensions</groupId>
             <artifactId>causeway-extensions-tabular-excel</artifactId>
         </dependency>
-        
-        <dependency>
-            <groupId>org.apache.causeway.extensions</groupId>
-            <artifactId>causeway-extensions-tabular-excel</artifactId>
-        </dependency>
 
     </dependencies>
 

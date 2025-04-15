@@ -66,6 +66,8 @@ public class RespondentFilter_sync {
 
         var listingHandler = DataUtil.listingHandlerForRespondentProxy();
 
+        //TODO this takes several seconds, dependent on survey size
+        //could be done faster if don't do the full blown interview transformations
         var allRespondents = listingHandler.createListing(
                 Campaigns.interviewSetCorrected(
                     Campaigns.systemId(survey),

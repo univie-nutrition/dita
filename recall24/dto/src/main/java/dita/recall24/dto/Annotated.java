@@ -31,6 +31,11 @@ import org.apache.causeway.commons.internal.base._Casts;
 
 public interface Annotated {
 
+
+
+    public static final String GROUP = "group";
+    public static final String FCDB_ID = "fcdbId";
+
     public record Annotation(String key, Serializable value) implements Serializable {
         public static <T extends Serializable> Function<Annotation, T> valueAs(final Class<T> requiredType) {
             return annot->_Casts.<T>uncheckedCast(annot.value());
@@ -50,17 +55,17 @@ public interface Annotated {
     default void putAnnotation(final String key, final Serializable value) {
         annotations().put(key, value);
     }
-    
-    default void putAnnotation(@Nullable Annotation annotation) {
+
+    default void putAnnotation(@Nullable final Annotation annotation) {
         if(annotation==null) return;
         annotations().put(annotation.key(), annotation.value());
     }
-    
-    default void putAnnotations(@Nullable Iterable<Annotation> annotations) {
+
+    default void putAnnotations(@Nullable final Iterable<Annotation> annotations) {
         if(annotations==null) return;
         annotations.forEach(this::putAnnotation);
     }
-    
+
     default Stream<Annotation> streamAnnotations() {
         var map = annotations();
         if(map==null

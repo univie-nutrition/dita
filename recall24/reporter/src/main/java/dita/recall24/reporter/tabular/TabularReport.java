@@ -265,7 +265,7 @@ public record TabularReport(
             case Record24.Comment comment -> {
                 rowFactory.recordType(comment.type());
                 rowBuilder.groupId(
-                        comment.lookupAnnotation("group")
+                        comment.lookupAnnotation(Annotated.GROUP)
                         .map(Annotated.Annotation::value)
                         .map(SemanticIdentifier.class::cast)
                         .map(SemanticIdentifier::toStringNoBox)
@@ -278,7 +278,7 @@ public record TabularReport(
                 rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                 rowFactory.recordType(comp.type());
                 rowBuilder.groupId(
-                        comp.lookupAnnotation("group")
+                        comp.lookupAnnotation(Annotated.GROUP)
                         .map(Annotated.Annotation::value)
                         .map(SemanticIdentifier.class::cast)
                         .map(SemanticIdentifier::toStringNoBox)
@@ -291,12 +291,12 @@ public record TabularReport(
                 rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                 rowFactory.recordType(cRec.type());
                 rowBuilder.groupId(
-                        cRec.lookupAnnotation("group")
+                        cRec.lookupAnnotation(Annotated.GROUP)
                         .map(Annotated.Annotation::value)
                         .map(SemanticIdentifier.class::cast)
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
-                var mappingTarget = cRec.lookupAnnotation("fcdbId")
+                var mappingTarget = cRec.lookupAnnotation(Annotated.FCDB_ID)
                         .map(Annotated.Annotation.valueAs(SemanticIdentifier.class));
                 var compositionEntry = mappingTarget
                         .flatMap(foodCompositionRepo::lookupEntry);
