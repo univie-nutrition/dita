@@ -88,18 +88,22 @@ class _DataTableSet {
 
     public _DataTableSet withPopulateFromSecondaryConnection(
             final EntityManager em) {
-        return map(dataTable->{
+        var dataSet = map(dataTable->{
             final var entityClass = dataTable.elementType().getCorrespondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
 
             em.getTransaction().begin();
             List<?> allInstances = listAllInstances(em, entityClass);
+            allInstances.forEach(em::detach);
             var populated = dataTable.withDataElementPojos(allInstances);
             em.getTransaction().commit();
             return populated;
         });
+        System.err.println("data set populated");
+        return dataSet;
     }
 
+    @SuppressWarnings("unchecked")
     private <T> List<T> listAllInstances(final EntityManager entityManager, final Class<T> entityClass) {
         var entityType = entityManager.getEntityManagerFactory().getMetamodel().entity(entityClass);
         var tableAnnotation = entityType.getJavaType().getAnnotation(jakarta.persistence.Table.class);
@@ -205,6 +209,8 @@ class _DataTableSet {
             final TabularData.Format formatOptions,
             final StringNormalizerFactory stringNormalizerFactory) {
 
+        System.err.printf("convert %s%n", dataTable.getLogicalName());
+        
         var rows = dataTable.dataRows()
                 .map(dataRow->new TabularData.Row(
                     dataTable.dataColumns()

@@ -81,11 +81,26 @@ public class TableSerializerYaml {
             final EntityManager em,
             final StringNormalizerFactory stringNormalizerFactory,
             final boolean rowSortingEnabled) {
-        var yaml = dataTableSet(filter)
-                .withPopulateFromSecondaryConnection(em)
-                .toTabularData(format(), stringNormalizerFactory)
-                .transform(nameTransformer)
-                .toYaml(format().withRowSorting(rowSortingEnabled));
+//        var yaml = dataTableSet(filter)
+//                .withPopulateFromSecondaryConnection(em)
+//                .toTabularData(format(), stringNormalizerFactory)
+//                .transform(nameTransformer)
+//                .toYaml(format().withRowSorting(rowSortingEnabled));
+        
+        
+        var dataSet = dataTableSet(filter)
+                .withPopulateFromSecondaryConnection(em);
+        System.err.println("dataset created");
+        
+        var tabular = dataSet.toTabularData(format(), stringNormalizerFactory);
+        System.err.println("dataset tabular");
+        
+        var transformed = tabular.transform(nameTransformer);
+        System.err.println("dataset transformed");
+        
+        var yaml = transformed.toYaml(format().withRowSorting(rowSortingEnabled));
+        System.err.println("dataset yaml");
+        
         return Clob.of(name, CommonMimeType.YAML, yaml);
     }
 
