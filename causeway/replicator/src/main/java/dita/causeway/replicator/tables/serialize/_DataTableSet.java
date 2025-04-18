@@ -29,6 +29,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
+import org.eclipse.persistence.queries.ReadAllQuery;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -100,9 +101,14 @@ class _DataTableSet {
     }
 
     private <T> List<T> listAllInstances(final EntityManager entityManager, final Class<T> entityClass) {
-        TypedQuery<T> query = entityManager.createQuery(
-            "SELECT e FROM %s e".formatted(entityClass.getSimpleName()), entityClass);
-        return query.getResultList();
+        var entityType = entityManager.getEntityManagerFactory().getMetamodel().entity(entityClass);
+        var tableAnnotation = entityType.getJavaType().getAnnotation(jakarta.persistence.Table.class);
+        var tableName = (tableAnnotation != null) ? tableAnnotation.name() : entityType.getName();
+        var sql = "SELECT 1 as [id], * FROM %s".formatted(tableName);
+        
+        jakarta.persistence.Query query = entityManager.createNativeQuery(sql, entityClass);
+        var list = query.getResultList();
+        return list;
     }
 
     public _DataTableSet withPopulateFromTabularData(
