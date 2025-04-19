@@ -27,25 +27,27 @@ import java.util.function.UnaryOperator;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 
-import org.eclipse.persistence.queries.ReadAllQuery;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import org.apache.causeway.applib.services.bookmark.Bookmark;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Casts;
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
+import org.apache.causeway.core.metamodel.facets.object.entity.EntityOrmMetadata.ColumnOrmMetadata;
 import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Format;
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.object.ManagedObjects;
 import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
 import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
+import org.apache.causeway.persistence.jpa.eclipselink.metamodel.EclipseLinkMetadataUtils;
 
 import lombok.Getter;
 
@@ -94,9 +96,17 @@ class _DataTableSet {
 
             em.getTransaction().begin();
             List<?> allInstances = listAllInstances(em, entityClass);
-            allInstances.forEach(em::detach);
-            var populated = dataTable.withDataElementPojos(allInstances);
             em.getTransaction().commit();
+            
+            allInstances.forEach(em::detach);
+
+            // uses lightweight ManagedObject
+            Can<ManagedObject> dataElements = _NullSafe.stream(allInstances)
+                    .map(pojo->ManagedObject.other(dataTable.elementType(), pojo))
+                    .collect(Can.toCan());
+            
+            var populated = dataTable.withDataElements(dataElements);
+            
             return populated;
         });
         System.err.println("data set populated");
@@ -105,10 +115,16 @@ class _DataTableSet {
 
     @SuppressWarnings("unchecked")
     private <T> List<T> listAllInstances(final EntityManager entityManager, final Class<T> entityClass) {
-        var entityType = entityManager.getEntityManagerFactory().getMetamodel().entity(entityClass);
-        var tableAnnotation = entityType.getJavaType().getAnnotation(jakarta.persistence.Table.class);
-        var tableName = (tableAnnotation != null) ? tableAnnotation.name() : entityType.getName();
-        var sql = "SELECT 1 as [id], * FROM %s".formatted(tableName);
+        
+        var entityMetadata = EclipseLinkMetadataUtils.ormMetadataFor(entityManager, entityClass);
+        var tableName = entityMetadata.table().orElseGet(()->entityClass.getSimpleName());
+        var firstColName = entityMetadata.columns().stream()
+                .map(ColumnOrmMetadata::name)
+                .filter(colName->!"id".equals(colName.toLowerCase()))
+                .findFirst()
+                .orElseThrow();
+        
+        var sql = "SELECT ROW_NUMBER() OVER (order by [%s]) as [id], * FROM %s".formatted(firstColName, tableName);
         
         jakarta.persistence.Query query = entityManager.createNativeQuery(sql, entityClass);
         var list = query.getResultList();
@@ -237,6 +253,11 @@ class _DataTableSet {
         var entityClass = dataTable.elementType().getCorrespondingClass();
         var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.columnId());
 
+//        var pojo = dataRow.rowElement().getPojo();
+//        var prop = column.metamodel().getSpecialization().leftIfAny();
+//        var entityFacet = dataTable.elementType().entityFacetElseFail();
+//        prop.get(dataRow.rowElement(), InteractionInitiatedBy.PASS_THROUGH);
+        
         var cells = dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH);
         var cellValue = cells.getSingleton().orElse(null); // assuming not multivalued
         return stringify(cellValue, formatOptions, stringNormalizer);
