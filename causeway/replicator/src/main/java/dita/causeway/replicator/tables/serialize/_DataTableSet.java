@@ -253,13 +253,8 @@ class _DataTableSet {
         var entityClass = dataTable.elementType().getCorrespondingClass();
         var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.columnId());
 
-//        var pojo = dataRow.rowElement().getPojo();
-//        var prop = column.metamodel().getSpecialization().leftIfAny();
-//        var entityFacet = dataTable.elementType().entityFacetElseFail();
-//        prop.get(dataRow.rowElement(), InteractionInitiatedBy.PASS_THROUGH);
-        
-        var cells = dataRow.getCellElements(column, InteractionInitiatedBy.PASS_THROUGH);
-        var cellValue = cells.getSingleton().orElse(null); // assuming not multivalued
+        var prop = column.metamodel().getSpecialization().leftIfAny();
+        var cellValue = prop.get(dataRow.rowElement(), InteractionInitiatedBy.PASS_THROUGH);
         return stringify(cellValue, formatOptions, stringNormalizer);
     }
 
