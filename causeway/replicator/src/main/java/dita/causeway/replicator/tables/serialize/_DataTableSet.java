@@ -178,7 +178,7 @@ class _DataTableSet {
                     final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
 
                     // parse value
-                    ManagedObject value = _EnumResolver.get(cls, "getMatchOn")
+                    ManagedObject value = _EnumResolver.get(cls, "code")
                             .map(r->{
                                 var enumObj = r.resolve(valueStringified);
                                 return enumObj!=null
