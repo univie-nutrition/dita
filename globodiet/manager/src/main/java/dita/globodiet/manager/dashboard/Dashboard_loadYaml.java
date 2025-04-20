@@ -28,7 +28,7 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
-import org.apache.causeway.applib.annotation.RestrictTo;
+import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
@@ -43,7 +43,9 @@ import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.Recipe.AliasQ;
 
-@Action(restrictTo = RestrictTo.PROTOTYPING)
+@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
+        //restrictTo = RestrictTo.PROTOTYPING
+        )
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
 public class Dashboard_loadYaml {
