@@ -275,7 +275,7 @@ record InterviewConverter(SystemId systemId) {
             //TODO[dita-globodiet-survey] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
             //exclude if brand-name is just a placeholder
             .filter(name->!name.equals("marke / produktname unbekannt"))
-            .map(name->name.replace(",", " "))
+            .map(name->name.replace(",", " ").replace("ß", "ss"))
             .map(name->_Strings.condenseWhitespaces(name, "_"));
     }
 
