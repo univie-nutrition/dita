@@ -8,6 +8,8 @@ include::{includedir}/SemanticIdentifier.adoc[leveloffset=1]
 == Classification and Description
 
 The _Food Description Model_ provides those building blocks, necessary to describe food intake. 
+Recipes are composed of ingredients, with each ingredient being quantified, described and having additional coefficients
+to account for non-edibel part losses and nutrient losses during the cooking process.     
 
 Food is _classified_ and _described_ by
 
