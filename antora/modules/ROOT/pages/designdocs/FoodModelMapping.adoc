@@ -6,60 +6,7 @@ And in particular matching _Food Consumption Data_ with _Food Composition Data_.
 
 == Generic Types
 
-=== Semantic Identifier
-
-A _Semantic Identifier_ (SID) references data objects across system boundaries.
-
-[plantuml,fig-sid,svg]
-.Semantic Identifier (SID)
-----
-@startuml
-
-class SystemId {
-    system: String
-    version: String
-}
-
-class ObjectId {
-    context: String
-    objectSimpleId: String
-}
-
-class SemanticIdentifier {
-}
-
-class SemanticIdentifierSet {
-}
-
-note right of SemanticIdentifier::systemId
-  identifies the system (and optionally system version) of the referenced data object
-end note
-note right of SemanticIdentifier::objectId
-  uniquely identifies the data object within the system
-end note
-
-SemanticIdentifier --> SystemId
-SemanticIdentifier --> ObjectId
-
-SemanticIdentifierSet -right-> "*" SemanticIdentifier : has many
-
-hide class method
-
-@enduml
-----
-
-Example use, referencing a food, product or facet.
-
-[source,java]
-.Java
-----
-// within BLS v3.02 represents 'Banana raw'
-var blsBanana = SemanticIdentifier.parse("de.bls/3.02", "food/F503100");
-var totalSuguar = SemanticIdentifier.parse("de.bls/3.02", "comp/KMD");
-
-// within LanguaL 2017 Facet Category - A (PRODUCT TYPE) represents 'Bananas' from GS1 ontology
-var gs1BananaId = new SemanticIdentifier("langual/2017:A1415"); 
-----
+include::{includedir}/SemanticIdentifier.adoc[leveloffset=2]
 
 === Qualified Map
 

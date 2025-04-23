@@ -1,0 +1,62 @@
+= Food Description Model
+:includedir: includes
+
+In the following chapters we lay out how food is _described_.
+
+include::{includedir}/SemanticIdentifier.adoc[leveloffset=1]
+
+== Classification and Description
+
+The _Food Description Model_ provides those building blocks, necessary to describe food intake. 
+
+Food is _classified_ and _described_ by
+
+* Food Groups, Subgroups and Sub-Subgroups
+* Food Facets and Descriptors footnote:id[as per interview (`Food` and `Recipe` have no descriptors per-se, as those are subject to intake surveying. Only `Ingredients` do have those.)]
+
+Recipes are _classified_ and _described_ by
+
+* Recipe Groups and Subgroups
+* Recipe Facets and Descriptors footnote:id[]
+* Ingredients
+
+[plantuml,fig-food-description-model,svg]
+.Food Description Model
+----
+@startuml
+
+class Food {
+    sid: SemanticIdentifier 
+    name: String
+}
+
+class Recipe {
+    sid: SemanticIdentifier
+    name: String
+}
+
+class RecipeIngredient {
+    amountGrams: BigDecimal 
+    rawToCookedRatio: BigDecimal
+}
+
+class ClassificationFacet {
+    sid: SemanticIdentifier 
+    name: String 
+}
+
+RecipeIngredient --> Recipe : recipeSid (parent)
+RecipeIngredient --> Food : foodSid
+Food --> ClassificationFacet : groupSid
+Recipe --> ClassificationFacet : groupSid
+RecipeIngredient --> "*" ClassificationFacet : foodFacetSids
+
+note right of ClassificationFacet
+  unifies groups 
+  and descriptors
+end note
+
+hide class method
+
+@enduml
+----
