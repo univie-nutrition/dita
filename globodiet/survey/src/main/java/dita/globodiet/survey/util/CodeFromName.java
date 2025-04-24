@@ -41,7 +41,7 @@ record CodeFromName(@Nullable String code) {
     private static CodeFromName parse(final String attributeName, final String nameAndCode) {
         return new CodeFromName(lookupAttribute(attributeName, nameAndCode)
                     .map(code->FormatUtils.fillWithLeadingZeros(5, code))
-                    .orElseGet(null));
+                    .orElse(null));
     }
     Optional<SemanticIdentifier> associatedRecipeSid(final SystemId systemId) {
         return Optional.ofNullable(code())
