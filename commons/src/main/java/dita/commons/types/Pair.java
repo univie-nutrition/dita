@@ -69,15 +69,11 @@ public record Pair<L, R>(L left, R right) {
     public static <L, R> Map<L, R> toMap(
             final @Nullable Iterable<Pair<L, R>> iterable,
             final @NonNull Supplier<Map<L, R>> mapFactory) {
-        if(iterable==null) return Collections.emptyMap();
-        Map<L, R> map = null;
-        for(var pair : iterable) {
-            if(map==null) map = mapFactory.get();
+        final Map<L, R> map = mapFactory.get();
+        if(iterable!=null) for(var pair : iterable) {
             map.put(pair.left(), pair.right());
         }
-        return map!=null
-            ? map
-            : Collections.emptyMap();
+        return map;
     }
 
     public static <L, R> Map<L, R> toUnmodifiableMap(
@@ -85,7 +81,7 @@ public record Pair<L, R>(L left, R right) {
             final @NonNull Supplier<Map<L, R>> mapFactory) {
         var map = toMap(iterable, mapFactory);
         return map.isEmpty()
-            ? Collections.emptyMap()
+            ? Collections.emptyMap() // allows the original map to be garbage collected
             : Collections.unmodifiableMap(map);
     }
 

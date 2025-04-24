@@ -246,7 +246,7 @@ record FdmFactory(
         map.computeIfPresent("assocRecp", (_, code)->ObjectId.Context.RECIPE.sid(
             systemId,
             FormatUtils.fillWithLeadingZeros(5, code)).toStringNoBox());
-        return  Collections.unmodifiableMap(map);
+        return Collections.unmodifiableMap(map);
     }
 
     // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
