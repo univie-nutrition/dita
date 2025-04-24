@@ -19,29 +19,14 @@
 package dita.globodiet.manager.dashboard;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.Set;
-
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.metamodel.Attribute;
-import jakarta.persistence.metamodel.SingularAttribute;
-
 import org.eclipse.persistence.config.PersistenceUnitProperties;
-import org.eclipse.persistence.descriptors.ClassDescriptor;
-import org.eclipse.persistence.internal.jpa.metamodel.EntityTypeImpl;
-import org.eclipse.persistence.internal.jpa.metamodel.IdentifiableTypeImpl;
-import org.eclipse.persistence.internal.jpa.metamodel.ManagedTypeImpl;
-
-import org.apache.causeway.commons.internal.reflection._Reflect;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
-
-import lombok.SneakyThrows;
 
 import dita.causeway.replicator.tables.model.DataTableService;
 
@@ -101,7 +86,7 @@ public record SecondaryDataStore(DataTableService dataTableService) {
         p.setProperty(PersistenceUnitProperties.JDBC_PASSWORD, configValue(conf, "spring.datasource.password"));
 
         final EntityManagerFactory emf = Persistence.createEntityManagerFactory("DitaModuleGdParams", p);
-        return postProcessDnMetaModel(emf);
+        return Optional.of(emf);
     }
 
     // -- HELPER
@@ -109,40 +94,5 @@ public record SecondaryDataStore(DataTableService dataTableService) {
     private String configValue(final Properties properties, final String key) {
         return properties.getProperty(key);
     }
-
-    private Optional<EntityManagerFactory> postProcessDnMetaModel(
-            final EntityManagerFactory emf) {
-//        try {
-//            dataTableService.streamEntities()
-//            .filter(VersionsExportService.paramsTableFilter()) //XXX reuse the filter from above, don't recreate
-//            .map(ObjectSpecification::getCorrespondingClass)
-//            .forEach(entityClass->toEntityWithNonDurableId(emf, entityClass));
-//        } catch (Exception e) {
-//            e.printStackTrace(); //XXX could report issues into adoc result
-//            return Optional.empty();
-//        }
-        return Optional.of(emf);
-    }
-
-  @SneakyThrows
-  private <T> void toEntityWithNonDurableId(final EntityManagerFactory emf, final Class<T> entityClass) {
-      var metaData = (EntityTypeImpl<T>)emf.getMetamodel().entity(entityClass);
-
-      var members = (Map<String, Attribute<T, ?>>) _Reflect.getFieldOn(ManagedTypeImpl.class.getDeclaredField("members"),
-              metaData);
-
-      var idAttributes = (Set<SingularAttribute<? super T, ?>>) _Reflect.getFieldOn(IdentifiableTypeImpl.class.getDeclaredField("idAttributes"),
-              metaData);
-
-      members.remove("id");
-      idAttributes.clear();
-
-      ClassDescriptor descriptor = metaData.getDescriptor();
-      descriptor.setPrimaryKeyFields(new ArrayList<>());
-      descriptor.addPrimaryKeyFieldName("name");
-
-      // debug
-      System.err.printf("metaData%n%s%n", metaData);
-  }
 
 }
