@@ -19,11 +19,16 @@
 package dita.commons.types;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+
+import org.apache.causeway.commons.internal.base._Strings;
 
 /// typed 2-tuple
 public record Pair<L, R>(L left, R right) {
@@ -34,7 +39,32 @@ public record Pair<L, R>(L left, R right) {
         return new Pair<>(left, right);
     }
 
+    public static Optional<Pair<String, String>> parseKeyAndValue(final @Nullable String input) {
+        return _Strings.splitThenApplyRequireNonEmpty(input, "=", Pair<String, String>::new);
+    }
+
     // -- UTILITY
+
+    /// looks for key/value pairs in literal `.., key=value,..`
+    public static List<Pair<String, String>> parseKeyAndValuePairs(final @Nullable String commaSeparatedKeyValuePairs) {
+        return _Strings.splitThenStream(commaSeparatedKeyValuePairs, ",")
+            .map(String::trim)
+            .map(Pair::parseKeyAndValue)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .toList();
+    }
+
+    /// looks for key/value pairs in literal `.., key=value,..`
+    public static Map<String, String> parseKeyAndValuePairsAsMap(final @Nullable String commaSeparatedKeyValuePairs) {
+        var kvPairs = _Strings.splitThenStream(commaSeparatedKeyValuePairs, ",")
+            .map(String::trim)
+            .map(Pair::parseKeyAndValue)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .toList();
+        return Pair.toUnmodifiableMap(kvPairs, LinkedHashMap::new);
+    }
 
     public static <L, R> Map<L, R> toMap(
             final @Nullable Iterable<Pair<L, R>> iterable,

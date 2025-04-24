@@ -19,6 +19,7 @@
 package dita.globodiet.manager.versions;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -197,7 +198,7 @@ record FdmFactory(
                         cellLiterals.get(4),
                         cellLiterals.get(5),
                         cellLiterals.get(6))),
-                attributesFromName(nameWithAttributes));
+                attributesFromName(systemId, nameWithAttributes));
     }
 
     // 0 "name: Recipe name"
@@ -221,7 +222,7 @@ record FdmFactory(
                 GdContext.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(6),
                         cellLiterals.get(7))),
-                    attributesFromName(nameWithAttributes));
+                    attributesFromName(systemId, nameWithAttributes));
     }
 
     /// Food or Recipe name may be suffixed with a curly-braced attribute list
@@ -231,24 +232,22 @@ record FdmFactory(
     }
 
     /// looks for key/value pairs in literal `.. {.., key=value,..}`
-    private Map<String, String> attributesFromName(final String curlybracedAttributeList) {
+    /// replaces simple associations with their fully qualified SID
+    private Map<String, String> attributesFromName(final SystemId systemId, final String curlybracedAttributeList) {
         final String commaSeparatedKeyValuePairs = TextUtils.cutter(curlybracedAttributeList)
             .keepAfter("{")
             .keepBeforeLast("}")
             .getValue();
-        var kvPairs = _Strings.splitThenStream(commaSeparatedKeyValuePairs, ",")
-            .map(String::trim)
-            .map(FdmFactory::parseKeyAndValue)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .toList();
-        return Pair.toUnmodifiableMap(kvPairs, LinkedHashMap::new);
+        var kvPairs = Pair.parseKeyAndValuePairs(commaSeparatedKeyValuePairs);
+        var map = Pair.toMap(kvPairs, LinkedHashMap::new);
+        map.computeIfPresent("assocFood", (_, code)->ObjectId.Context.FOOD.sid(
+            systemId,
+            FormatUtils.fillWithLeadingZeros(5, code)).toStringNoBox());
+        map.computeIfPresent("assocRecp", (_, code)->ObjectId.Context.RECIPE.sid(
+            systemId,
+            FormatUtils.fillWithLeadingZeros(5, code)).toStringNoBox());
+        return  Collections.unmodifiableMap(map);
     }
-
-    private static Optional<Pair<String, String>> parseKeyAndValue(final String input) {
-        return _Strings.splitThenApplyRequireNonEmpty(input, "=", Pair<String, String>::new);
-    }
-
 
     // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
     // 1 "foodType: Food type (GI or blank)"

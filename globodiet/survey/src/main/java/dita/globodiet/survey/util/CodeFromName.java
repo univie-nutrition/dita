@@ -22,14 +22,12 @@ import java.util.Optional;
 
 import org.jspecify.annotations.Nullable;
 
-import org.springframework.util.StringUtils;
-
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.io.TextUtils;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.types.Pair;
 import dita.commons.util.FormatUtils;
 
 record CodeFromName(@Nullable String code) {
@@ -41,13 +39,9 @@ record CodeFromName(@Nullable String code) {
         return parse("assocRecp", nameAndCode);
     }
     private static CodeFromName parse(final String attributeName, final String nameAndCode) {
-        int c1 = nameAndCode.indexOf("{");
-        return (c1==-1)
-            ? new CodeFromName(null)
-            : new CodeFromName(
-                lookupAttribute(attributeName, nameAndCode)
+        return new CodeFromName(lookupAttribute(attributeName, nameAndCode)
                     .map(code->FormatUtils.fillWithLeadingZeros(5, code))
-                    .orElse(null));
+                    .orElseGet(null));
     }
     Optional<SemanticIdentifier> associatedRecipeSid(final SystemId systemId) {
         return Optional.ofNullable(code())
@@ -60,13 +54,10 @@ record CodeFromName(@Nullable String code) {
             .keepAfter("{")
             .keepBeforeLast("}")
             .getValue();
-        final String pattern = attributeKey + "=";
-
-        return _Strings.splitThenStream(commaSeparatedKeyValuePairs, ",")
-            .map(String::trim)
-            .filter(kv->kv.startsWith(pattern))
-            .map(kv->kv.substring(pattern.length()))
-            .filter(StringUtils::hasLength)
+        var kvPairs = Pair.parseKeyAndValuePairs(commaSeparatedKeyValuePairs);
+        return kvPairs.stream()
+            .filter(pair->pair.left().equals(attributeKey))
+            .map(Pair::right)
             .findFirst();
     }
 
