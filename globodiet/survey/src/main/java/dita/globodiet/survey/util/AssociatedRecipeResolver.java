@@ -48,10 +48,10 @@ public record AssociatedRecipeResolver(
         @NonNull FoodToCompositeConverter foodToCompositeConverter
         ) implements Transfomer {
 
-    public AssociatedRecipeResolver(FoodDescriptionModel foodDescriptionModel) {
+    public AssociatedRecipeResolver(final FoodDescriptionModel foodDescriptionModel) {
         this(foodDescriptionModel, new FoodToCompositeConverter(foodDescriptionModel));
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public <T extends RecallNode24> T transform(final T node) {
@@ -61,8 +61,8 @@ public record AssociatedRecipeResolver(
             case Food origFood -> {
                 var fdmAdapter = new FDMAdapter(origFood.sid().systemId(), foodDescriptionModel);
 
-                var associatedRecipe = fdmAdapter
-                        .associatedRecipe(NameWithCode.parseAssocRecipe(origFood.name()))
+                FoodDescriptionModel.Recipe associatedRecipe = fdmAdapter
+                        .associatedRecipe(origFood, CodeFromName.parseAssocRecipe(origFood.name()))
                         .orElse(null);
                 if(associatedRecipe==null) yield (T)origFood;
 
@@ -86,13 +86,13 @@ public record AssociatedRecipeResolver(
          * <p>
          * Fails if the recipe-code is present but cannot be resolved.
          */
-        Optional<Recipe> associatedRecipe(@NonNull final NameWithCode nameWithCode) {
-            var associatedRecipeSid = nameWithCode.associatedRecipeSid(systemId).orElse(null);
+        Optional<Recipe> associatedRecipe(final @NonNull Food origFood, final @NonNull CodeFromName codeFromName) {
+            var associatedRecipeSid = codeFromName.associatedRecipeSid(systemId).orElse(null);
             if(associatedRecipeSid == null) return Optional.empty();
             var associatedRecipe = foodDescriptionModel.lookupRecipeBySid(associatedRecipeSid);
             if(associatedRecipe.isEmpty()) {
                 throw _Exceptions.illegalArgument("failed to resolve recipe for %s using sid %s",
-                        nameWithCode.name(),
+                        origFood.name(),
                         associatedRecipeSid);
             }
             return associatedRecipe;

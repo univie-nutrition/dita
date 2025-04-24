@@ -2,13 +2,19 @@ food:
 - sid: "test:food/0002"
   name: "Apple"
   groupSid: "test:fg/01"
+  attributes:
+    key: "value"
 - sid: "test:food/0001"
   name: "Banana"
   groupSid: "test:fg/01"
+  attributes:
+    key: "value"
 recipes:
 - sid: "test:recipe/0002"
   name: "Spaghetti"
   groupSid: "test:rg/01"
+  attributes:
+    key: "value"
 ingredients:
 - recipeSid: "test:recipe/0002"
   foodSid: "test:food/0002"

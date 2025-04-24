@@ -31,7 +31,6 @@ import jakarta.persistence.Query;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import org.apache.causeway.applib.services.bookmark.Bookmark;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
@@ -97,16 +96,16 @@ class _DataTableSet {
             em.getTransaction().begin();
             List<?> allInstances = listAllInstances(em, entityClass);
             em.getTransaction().commit();
-            
+
             allInstances.forEach(em::detach);
 
             // uses lightweight ManagedObject
             Can<ManagedObject> dataElements = _NullSafe.stream(allInstances)
                     .map(pojo->ManagedObject.other(dataTable.elementType(), pojo))
                     .collect(Can.toCan());
-            
+
             var populated = dataTable.withDataElements(dataElements);
-            
+
             return populated;
         });
         System.err.println("data set populated");
@@ -115,7 +114,7 @@ class _DataTableSet {
 
     @SuppressWarnings("unchecked")
     private <T> List<T> listAllInstances(final EntityManager entityManager, final Class<T> entityClass) {
-        
+
         var entityMetadata = EclipseLinkMetadataUtils.ormMetadataFor(entityManager, entityClass);
         var tableName = entityMetadata.table().orElseGet(()->entityClass.getSimpleName());
         var firstColName = entityMetadata.columns().stream()
@@ -123,9 +122,9 @@ class _DataTableSet {
                 .filter(colName->!"id".equals(colName.toLowerCase()))
                 .findFirst()
                 .orElseThrow();
-        
+
         var sql = "SELECT ROW_NUMBER() OVER (order by [%s]) as [id], * FROM %s".formatted(firstColName, tableName);
-        
+
         jakarta.persistence.Query query = entityManager.createNativeQuery(sql, entityClass);
         var list = query.getResultList();
         return list;
@@ -226,7 +225,7 @@ class _DataTableSet {
             final StringNormalizerFactory stringNormalizerFactory) {
 
         System.err.printf("convert %s%n", dataTable.getLogicalName());
-        
+
         var rows = dataTable.dataRows()
                 .map(dataRow->new TabularData.Row(
                     dataTable.dataColumns()

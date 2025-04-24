@@ -28,8 +28,8 @@ import java.util.stream.Stream;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
-
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -45,16 +45,27 @@ public record FoodDescriptionModel(
         Map<SemanticIdentifier, ClassificationFacet> classificationFacetBySid
         ) {
 
+    public sealed interface HasAttributes
+    permits FoodDescriptionModel.Food, FoodDescriptionModel.Recipe {
+        Map<String, String> attributes();
+        /// @returns optionally the attribute value corresponding to given attributeName
+        default Optional<String> attribute(final String attributeName) {
+            return _Strings.nonEmpty(attributes().get(attributeName));
+        }
+    }
+
     public record Food(
             SemanticIdentifier sid,
             String name,
-            SemanticIdentifier groupSid) {
+            SemanticIdentifier groupSid,
+            Map<String, String> attributes) implements HasAttributes {
     }
 
     public record Recipe(
             SemanticIdentifier sid,
             String name,
-            SemanticIdentifier groupSid) {
+            SemanticIdentifier groupSid,
+            Map<String, String> attributes) implements HasAttributes {
     }
 
     public record RecipeIngredient(

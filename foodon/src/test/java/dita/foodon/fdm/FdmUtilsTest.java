@@ -20,6 +20,7 @@ package dita.foodon.fdm;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.approvaltests.Approvals;
@@ -53,12 +54,12 @@ class FdmUtilsTest {
                         ))
                 .food(List.of(
                         new Food(SemanticIdentifier.parse("test:food/0001"), "Banana",
-                                SemanticIdentifier.parse("test:fg/01")),
+                                SemanticIdentifier.parse("test:fg/01"), Map.of("key", "value")),
                         new Food(SemanticIdentifier.parse("test:food/0002"), "Apple",
-                                SemanticIdentifier.parse("test:fg/01"))))
+                                SemanticIdentifier.parse("test:fg/01"), Map.of("key", "value"))))
                 .recipes(List.of(
                         new Recipe(SemanticIdentifier.parse("test:recipe/0002"), "Spaghetti",
-                                SemanticIdentifier.parse("test:rg/01"))
+                                SemanticIdentifier.parse("test:rg/01"), Map.of("key", "value"))
                         ))
                 .ingredients(List.of(
                         new RecipeIngredient(SemanticIdentifier.parse("test:recipe/0002"),

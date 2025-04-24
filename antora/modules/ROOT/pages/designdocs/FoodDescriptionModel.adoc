@@ -30,11 +30,13 @@ Recipes are _classified_ and _described_ by
 class Food {
     sid: SemanticIdentifier 
     name: String
+    attributes: Map<String, String>
 }
 
 class Recipe {
     sid: SemanticIdentifier
     name: String
+    attributes: Map<String, String>
 }
 
 class RecipeIngredient {

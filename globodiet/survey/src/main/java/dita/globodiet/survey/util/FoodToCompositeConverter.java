@@ -39,12 +39,12 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
     public Record24.Composite.Builder foodToRecipe(
             final Food origFood,
             final Recipe recipe,
-            final String nameSuffix) {
+            final String attributeList) {
         var recordBuilder = new Composite.Builder();
 
         recordBuilder.type(Record24.Type.COMPOSITE);
         recordBuilder.sid(recipe.sid());
-        recordBuilder.name(NameWithCode.parseAssocFood(recipe.name()).name() + " {" + nameSuffix + "}");
+        recordBuilder.name(recipe.name() + " {" + attributeList + "}");
 
         // there are no implicit recipe facets we could use here, hence empty
         recordBuilder.facetSids(SemanticIdentifierSet.empty());

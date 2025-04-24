@@ -19,7 +19,9 @@
 package dita.globodiet.manager.versions;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -30,10 +32,12 @@ import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Streams;
+import org.apache.causeway.commons.io.TextUtils;
 
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.types.Pair;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
 import dita.commons.util.FormatUtils;
@@ -185,13 +189,15 @@ record FdmFactory(
     private Food foodFromRowData(final List<String> cellLiterals) {
         var isAlias = "ALIAS".equals(cellLiterals.get(1));
         if(isAlias) return null;
+        var nameWithAttributes = cellLiterals.get(0);
         return new Food(
                 ObjectId.Context.FOOD.sid(systemId, cellLiterals.get(7)),
-                cellLiterals.get(0),
+                nameNoBraces(nameWithAttributes),
                 GdContext.FOOD_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(4),
                         cellLiterals.get(5),
-                        cellLiterals.get(6))));
+                        cellLiterals.get(6))),
+                attributesFromName(nameWithAttributes));
     }
 
     // 0 "name: Recipe name"
@@ -207,13 +213,42 @@ record FdmFactory(
     private Recipe recipeFromRowData(final List<String> cellLiterals) {
         var isAlias = "true".equals(cellLiterals.get(3));
         if(isAlias) return null;
+        var nameWithAttributes = cellLiterals.get(0);
+
         return new Recipe(
                 ObjectId.Context.RECIPE.sid(systemId, cellLiterals.get(8)),
-                cellLiterals.get(0),
+                nameNoBraces(nameWithAttributes),
                 GdContext.RECIPE_GROUP.sid(systemId, FormatUtils.concat(
                         cellLiterals.get(6),
-                        cellLiterals.get(7))));
+                        cellLiterals.get(7))),
+                    attributesFromName(nameWithAttributes));
     }
+
+    /// Food or Recipe name may be suffixed with a curly-braced attribute list
+    /// @returns the trimmed name with any curly-braced attribute list removed
+    private String nameNoBraces(final String nameWithAttributes) {
+        return TextUtils.cutter(nameWithAttributes).keepBefore("{").getValue().trim();
+    }
+
+    /// looks for key/value pairs in literal `.. {.., key=value,..}`
+    private Map<String, String> attributesFromName(final String curlybracedAttributeList) {
+        final String commaSeparatedKeyValuePairs = TextUtils.cutter(curlybracedAttributeList)
+            .keepAfter("{")
+            .keepBeforeLast("}")
+            .getValue();
+        var kvPairs = _Strings.splitThenStream(commaSeparatedKeyValuePairs, ",")
+            .map(String::trim)
+            .map(FdmFactory::parseKeyAndValue)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .toList();
+        return Pair.toUnmodifiableMap(kvPairs, LinkedHashMap::new);
+    }
+
+    private static Optional<Pair<String, String>> parseKeyAndValue(final String input) {
+        return _Strings.splitThenApplyRequireNonEmpty(input, "=", Pair<String, String>::new);
+    }
+
 
     // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
     // 1 "foodType: Food type (GI or blank)"

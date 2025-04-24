@@ -20,14 +20,10 @@ package dita.globodiet.manager.dashboard;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Vector;
-
-import javax.management.Descriptor;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -42,14 +38,12 @@ import org.eclipse.persistence.internal.jpa.metamodel.ManagedTypeImpl;
 
 import org.apache.causeway.commons.internal.reflection._Reflect;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocBuilder;
 import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.SneakyThrows;
 
 import dita.causeway.replicator.tables.model.DataTableService;
-import dita.globodiet.manager.versions.VersionsExportService;
 
 public record SecondaryDataStore(DataTableService dataTableService) {
 
@@ -85,7 +79,7 @@ public record SecondaryDataStore(DataTableService dataTableService) {
         p.setProperty(PersistenceUnitProperties.JDBC_DRIVER, configValue(conf, "spring.datasource.driver-class-name"));
         p.setProperty(PersistenceUnitProperties.JDBC_URL, configValue(conf, "spring.datasource.url"));
         p.setProperty(PersistenceUnitProperties.JDBC_USER, configValue(conf, "spring.datasource.username"));
-        
+
         p.setProperty("eclipselink.target-database", "sqlserver");
         p.setProperty("eclipselink.logging.level", "INFO");
         p.setProperty("eclipselink.ddl-generation", "none");
@@ -133,22 +127,22 @@ public record SecondaryDataStore(DataTableService dataTableService) {
   @SneakyThrows
   private <T> void toEntityWithNonDurableId(final EntityManagerFactory emf, final Class<T> entityClass) {
       var metaData = (EntityTypeImpl<T>)emf.getMetamodel().entity(entityClass);
-      
+
       var members = (Map<String, Attribute<T, ?>>) _Reflect.getFieldOn(ManagedTypeImpl.class.getDeclaredField("members"),
               metaData);
-      
+
       var idAttributes = (Set<SingularAttribute<? super T, ?>>) _Reflect.getFieldOn(IdentifiableTypeImpl.class.getDeclaredField("idAttributes"),
               metaData);
 
       members.remove("id");
       idAttributes.clear();
-      
+
       ClassDescriptor descriptor = metaData.getDescriptor();
       descriptor.setPrimaryKeyFields(new ArrayList<>());
       descriptor.addPrimaryKeyFieldName("name");
-      
+
       // debug
       System.err.printf("metaData%n%s%n", metaData);
   }
-    
+
 }
