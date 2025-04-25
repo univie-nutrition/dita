@@ -30,12 +30,12 @@ additional
         <maven.compiler.release>24</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring-boot.version>3.4.4</spring-boot.version>
+        <spring-boot.version>3.4.5</spring-boot.version>
 
         <causeway.version>3.4.0-SNAPSHOT</causeway.version>
         <causewaystuff.version>1.0.0-SNAPSHOT</causewaystuff.version>
 
-        <indriya.version>2.2.2</indriya.version>
+        <indriya.version>2.2.3</indriya.version>
 
         <lombok.version>1.18.38</lombok.version>
 
