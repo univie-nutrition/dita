@@ -19,7 +19,6 @@
 package dita.commons.types;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,17 +52,6 @@ public record Pair<L, R>(L left, R right) {
             .filter(Optional::isPresent)
             .map(Optional::get)
             .toList();
-    }
-
-    /// looks for key/value pairs in literal `.., key=value,..`
-    public static Map<String, String> parseKeyAndValuePairsAsMap(final @Nullable String commaSeparatedKeyValuePairs) {
-        var kvPairs = _Strings.splitThenStream(commaSeparatedKeyValuePairs, ",")
-            .map(String::trim)
-            .map(Pair::parseKeyAndValue)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .toList();
-        return Pair.toUnmodifiableMap(kvPairs, LinkedHashMap::new);
     }
 
     public static <L, R> Map<L, R> toMap(
