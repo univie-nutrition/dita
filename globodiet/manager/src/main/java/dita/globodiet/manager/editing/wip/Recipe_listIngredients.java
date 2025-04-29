@@ -28,7 +28,6 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Markup;
 
@@ -38,7 +37,7 @@ import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.RecipeDeps.Recipe_dependentRecipeIngredientMappedByRecipe;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
-@Action(restrictTo = RestrictTo.PROTOTYPING)
+@Action
 @ActionLayout(fieldSetName="listOfRecipe", position = Position.PANEL)
 @RequiredArgsConstructor
 public class Recipe_listIngredients {
