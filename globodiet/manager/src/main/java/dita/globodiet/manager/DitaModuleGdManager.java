@@ -47,6 +47,7 @@ import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.wip.FoodManager_addFood;
+import dita.globodiet.manager.editing.wip.Recipe_listIngredients;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
@@ -119,6 +120,7 @@ import io.github.causewaystuff.companion.codegen.model.Schema;
     Persistable_schema.class,
     // Manager Mixins
     FoodManager_addFood.class,
+    Recipe_listIngredients.class,
 
     // -- MODULES
     DitaModuleGdParams.class,
