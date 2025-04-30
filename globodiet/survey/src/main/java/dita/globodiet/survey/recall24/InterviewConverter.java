@@ -18,12 +18,16 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
+
+import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
@@ -42,22 +46,30 @@ import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import dita.globodiet.survey.util.SidUtils;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
-import dita.recall24.dto.Annotated;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 record InterviewConverter(SystemId systemId) {
+
+    record ContextForScanning(
+        String respondentId,
+        LocalDate interviewDate) {
+    }
 
     /**
      * parented by an Respondent24 stub, that has no children (needs post-processing)
      */
     Interview24 toInterview24(final _Dtos.Interview iv) {
         final var tree = iv.asTree();
+
+        var contextForScanning = new ContextForScanning(iv.getSubjectCode(), iv.getInterviewDate().toLocalDate());
+
         var meals = tree.childNodes().stream()
             .map(fcoNode->{
                 var fcoEntry = fcoNode.entry();
@@ -66,7 +78,7 @@ record InterviewConverter(SystemId systemId) {
                     var memEntry = memNode.entry();
                     var records = memNode.childNodes().stream()
                     .map(recordNode->{
-                        var record24 = toTopLevelRecord24(recordNode);
+                        var record24 = toTopLevelRecord24(contextForScanning, recordNode);
                         return record24;
                     })
                     .collect(Can.toCan());
@@ -104,7 +116,7 @@ record InterviewConverter(SystemId systemId) {
 
     // -- RECORDS
 
-    private Record24 toTopLevelRecord24(final ListEntryTreeNode topLevelRecordNode) {
+    private Record24 toTopLevelRecord24(final ContextForScanning contextForScanning, final ListEntryTreeNode topLevelRecordNode) {
         final List<ListEntryTreeNode> subEntries = topLevelRecordNode.childNodes().stream()
                 .filter(x->!ListEntryType.FatSauceOrSweeteners.equals(x.type()))
                 .toList();
@@ -120,19 +132,19 @@ record InterviewConverter(SystemId systemId) {
                 listEntry.getName(),
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
-                toRecords24(subEntries),
-                Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry))
+                toRecords24(contextForScanning, subEntries),
+                Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
                 );
         }
-        default -> toRecord24(topLevelRecordNode);
+        default -> toRecord24(contextForScanning, topLevelRecordNode);
         };
     }
 
-    private Can<Record24> toRecords24(final List<ListEntryTreeNode> nodes) {
-        return _NullSafe.stream(nodes).map(this::toRecord24).collect(Can.toCan());
+    private Can<Record24> toRecords24(final ContextForScanning contextForScanning, final List<ListEntryTreeNode> nodes) {
+        return _NullSafe.stream(nodes).map(node->toRecord24(contextForScanning, node)).collect(Can.toCan());
     }
 
-    private Record24 toRecord24(final ListEntryTreeNode node) {
+    private Record24 toRecord24(final ContextForScanning contextForScanning, final ListEntryTreeNode node) {
         final List<ListEntryTreeNode> subEntries = node.childNodes().stream()
                 .filter(x->!ListEntryType.FatSauceOrSweeteners.equals(x.type()))
                 .toList();
@@ -145,14 +157,14 @@ record InterviewConverter(SystemId systemId) {
                     listEntry.getName(),
                     recipeSid(listEntry),
                     recipeFacets(listEntry),
-                    toRecords24(subEntries),
-                    Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry))
+                    toRecords24(contextForScanning, subEntries),
+                    Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
                     );
             }
             case Food, FoodSelectedAsARecipeIngredient -> {
                 // sub-records allowed are TypeOfFatUsed and TypeOfMilkOrLiquidUsed
                 var usedDuringCooking = subRecordCount>0
-                     ? toRecords24(subEntries)
+                     ? toRecords24(contextForScanning, subEntries)
                      : Can.<Record24>empty();
                 usedDuringCooking.forEach((final Record24 dto)->{
                     switch (dto.type()) {
@@ -233,6 +245,52 @@ record InterviewConverter(SystemId systemId) {
                 listEntry.getSubSubgroupCode());
         return new Annotated.Annotation("group", context
                 .sid(systemId, groupSimpleId));
+    }
+
+    private static Set<String> recipeIdsOfInterest = Set.of(
+        "00536",
+        "00537",
+        "00539",
+        "00540",
+        "00469",
+        "00514",
+        "00472",
+        "00473",
+        "00474",
+        "00513",
+        "00477",
+        "00478",
+        "00470",
+        "00301",
+        "00515",
+        "00521",
+        "00362",
+        "00647",
+        "00512",
+        "00516",
+        "00510",
+        "00511",
+        "00466");
+
+    private Annotated.Annotation modification(final ContextForScanning contextForScanning, final ListEntry listEntry) {
+        var isModified =
+            (listEntry.getRecipeModificationType()
+            + listEntry.getIngredientModificationType())>0;
+
+        var id = listEntry.getFoodOrSimilarCode();
+        if(StringUtils.hasLength(id)) {
+            if(recipeIdsOfInterest.contains(id)) {
+                System.err.printf("%s type=%s, id=%s, modified=%b%n",
+                    contextForScanning, listEntry.listEntryType(), listEntry.getFoodOrSimilarCode(), isModified);
+            }
+        } else {
+            if(!"4.1".equals(listEntry.getRecipeType())
+                &&!"4.2".equals(listEntry.getRecipeType())) {
+                System.err.printf("missing-id: %s%n", listEntry);
+            }
+        }
+
+        return new Annotated.Annotation("isModified", isModified);
     }
 
     private SemanticIdentifier foodSid(final ListEntry listEntry) {

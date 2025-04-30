@@ -119,3 +119,15 @@ is to store the reporter's `Clob` results in a `BlobStore`.
 ====
 
 include::{includedir}/ConsumptionRecord.adoc[leveloffset=1]
+
+== Consumption Correction
+
+For surveys it is a typical scenario, that issues with e.g. recipes are only discovered after interviews were made. 
+So it is most likely that consumption data will need some correction mechanism, that is, on a per interview basis.
+
+Modeling corrections:
+
+. Consumption entries have no identifier per-se, so how to address a specific entry that needs correction?
+. Corrections are either adding a new consumption entry or deleting an existing consumption entry 
+or changing the amount of an existing consumption entry
+   
