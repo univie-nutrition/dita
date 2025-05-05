@@ -45,7 +45,7 @@
             </bs:row>
             <bs:row>
                 <bs:col span="12">
-                    <cpt:fieldSet name="" id="detail">
+                    <cpt:fieldSet name="Content" id="detail">
                     </cpt:fieldSet>
                 </bs:col>
             </bs:row>

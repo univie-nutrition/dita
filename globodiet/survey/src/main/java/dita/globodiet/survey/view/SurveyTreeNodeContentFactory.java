@@ -118,7 +118,6 @@ public class SurveyTreeNodeContentFactory {
         }
         return adoc("Details", new Details(interviewSet));
     }
-
     
     record RespondentSummary(
         String alias,
@@ -143,19 +142,19 @@ public class SurveyTreeNodeContentFactory {
     }
 
     AsciiDoc content(final Interview24 interview) {
-        return adoc("Details", interview);
+        return adoc("Interview", interview);
     }
 
     AsciiDoc content(final Meal24 meal) {
-        return adoc("Details", meal);
+        return adoc("Meal", meal);
     }
 
     AsciiDoc content(final MemorizedFood24 mem) {
-        return adoc("Details", mem);
+        return adoc("MemorizedFood", mem);
     }
 
     AsciiDoc content(final Record24 rec) {
-        return adoc("Details", rec);
+        return adoc("Record", rec);
     }
 
     // -- HELPER

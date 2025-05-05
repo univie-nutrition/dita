@@ -195,12 +195,12 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     public AsciiDoc getContent() {
         var node = activeNode();
         return switch (node) {
-        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
-        case Respondent24 respondent -> SurveyTreeNodeContentFactory.content(respondent);
-        case Interview24 interview -> SurveyTreeNodeContentFactory.content(interview);
-        case Meal24 meal -> SurveyTreeNodeContentFactory.content(meal);
-        case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.content(mem);
-        case Record24 rec -> SurveyTreeNodeContentFactory.content(rec);
+            case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
+            case Respondent24 respondent -> SurveyTreeNodeContentFactory.content(respondent);
+            case Interview24 interview -> SurveyTreeNodeContentFactory.content(interview);
+            case Meal24 meal -> SurveyTreeNodeContentFactory.content(meal);
+            case MemorizedFood24 mem -> SurveyTreeNodeContentFactory.content(mem);
+            case Record24 rec -> SurveyTreeNodeContentFactory.content(rec);
         };
     }
 
@@ -242,6 +242,10 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     @Override
     protected TreeAdapter<RecallNode24> treeAdapter() {
         return new SurveyTreeAdapter();
+    }
+    
+    RecallNode24 recallNode() {
+        return activeNode();
     }
 
 }
