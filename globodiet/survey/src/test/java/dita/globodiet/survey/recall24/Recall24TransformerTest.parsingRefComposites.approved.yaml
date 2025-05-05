@@ -127,6 +127,7 @@ respondents:
               group: "at.gd/2.0:fg/110101"
           annotations:
             group: "at.gd/2.0:rg/0801"
+            isModified: false
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -230,6 +231,7 @@ respondents:
               group: "at.gd/2.0:fg/1503"
           annotations:
             group: "at.gd/2.0:rg/0400"
+            isModified: false
       - name: "Fleischklösschen, Suppe"
         topLevelRecords:
         - type: "COMPOSITE"
@@ -396,6 +398,7 @@ respondents:
               group: "at.gd/2.0:fg/1503"
           annotations:
             group: "at.gd/2.0:rg/07"
+            isModified: false
     annotations:
       dataSource:
         key: "dataSource"
@@ -506,6 +509,7 @@ respondents:
               group: "at.gd/2.0:fg/0704"
           annotations:
             group: "at.gd/2.0:rg/03"
+            isModified: false
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -724,6 +728,7 @@ respondents:
               group: "at.gd/2.0:fg/1503"
           annotations:
             group: "at.gd/2.0:rg/0401"
+            isModified: false
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
@@ -898,6 +903,7 @@ respondents:
               group: "at.gd/2.0:fg/070104"
           annotations:
             group: "at.gd/2.0:rg/0404"
+            isModified: false
     annotations:
       dataSource:
         key: "dataSource"
@@ -1006,6 +1012,7 @@ respondents:
               group: "at.gd/2.0:fg/0704"
           annotations:
             group: "at.gd/2.0:rg/03"
+            isModified: true
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -1224,6 +1231,7 @@ respondents:
               group: "at.gd/2.0:fg/0505"
           annotations:
             group: "at.gd/2.0:rg/0401"
+            isModified: true
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
@@ -1398,6 +1406,7 @@ respondents:
               group: "at.gd/2.0:fg/070201"
           annotations:
             group: "at.gd/2.0:rg/0404"
+            isModified: true
     annotations:
       dataSource:
         key: "dataSource"
@@ -1676,6 +1685,7 @@ respondents:
               group: "at.gd/2.0:fg/0704"
           annotations:
             group: "at.gd/2.0:rg/0405"
+            isModified: false
     annotations:
       dataSource:
         key: "dataSource"
@@ -1819,6 +1829,7 @@ respondents:
               group: "at.gd/2.0:fg/1304"
           annotations:
             group: "at.gd/2.0:rg/10"
+            isModified: false
       - name: "Rührkuchen"
         topLevelRecords:
         - type: "COMPOSITE"
@@ -1917,6 +1928,7 @@ respondents:
               group: "at.gd/2.0:fg/1502"
           annotations:
             group: "at.gd/2.0:rg/0801"
+            isModified: false
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
       foodConsumptionPlaceId: "01"
@@ -2079,6 +2091,7 @@ respondents:
               group: "at.gd/2.0:fg/1503"
           annotations:
             group: "at.gd/2.0:rg/09"
+            isModified: false
         - type: "COMPOSITE"
           name: "Spätzle {assocFood=440}"
           sid: "at.gd/2.0:recp/00602"
@@ -2142,6 +2155,7 @@ respondents:
               group: "at.gd/2.0:fg/1002"
           annotations:
             group: "at.gd/2.0:rg/0401"
+            isModified: false
     annotations:
       dataSource:
         key: "dataSource"

@@ -82,6 +82,7 @@ respondents:
               group: "at.gd/2.0:fg/1504"
           annotations:
             group: "at.gd/2.0:rg/03"
+            isModified: true
         - type: "FOOD"
           name: "Kaffee, mit Koffein"
           sid: "at.gd/2.0:food/01339"
