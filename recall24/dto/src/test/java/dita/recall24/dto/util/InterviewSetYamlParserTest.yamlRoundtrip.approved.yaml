@@ -25,7 +25,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499"
           amountConsumed: 12
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 0.37453183531761169
+          rawToCookedCoefficient: 0.37453183531761169
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations: {}

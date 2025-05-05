@@ -82,7 +82,7 @@ public class InterviewSetYamlParser {
     
     // -- HELPER
     
-    private final List<String> PRECISE_DECIMALS = List.of("amountConsumed", "heightCM", "weightKG", "rawPerCookedRatio"); 
+    private final List<String> PRECISE_DECIMALS = List.of("amountConsumed", "heightCM", "weightKG", "rawToCookedCoefficient"); 
     private String toQuotedDecimal(String line) {
         for(var key : PRECISE_DECIMALS) {
             if(line.trim().startsWith(key)) {
@@ -167,14 +167,14 @@ public class InterviewSetYamlParser {
                 parser.annotations());
             case FOOD -> new Record24.Food(ObjectRef.empty(), 
                 recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"), 
-                parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawPerCookedRatio"),
+                parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawToCookedCoefficient"),
                 parser.property("typeOfFatUsedDuringCooking").map(InterviewSetYamlParser::typeOfFatUsed), 
                 parser.property("typeOfMilkOrLiquidUsedDuringCooking").map(InterviewSetYamlParser::typeOfMilkOrLiquidUsed), 
                 parser.annotations());
             
             case FRYING_FAT -> new Record24.FryingFat(ObjectRef.empty(), 
                 recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"),
-                parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawPerCookedRatio"), 
+                parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawToCookedCoefficient"), 
                 parser.annotations());
             case PRODUCT -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);
             case TYPE_OF_FAT_USED -> throw new UnsupportedOperationException("Unimplemented case: " + recordType);

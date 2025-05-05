@@ -48,10 +48,10 @@ class InterviewSetYamlParserTest {
         final SemanticIdentifierSet facetSids = SemanticIdentifierSet.parse("at.gd/2.0:fd/0204, at.gd/2.0:fd/0399, at.gd/2.0:fd/0499");
         final BigDecimal amountConsumed = new BigDecimal("12");
         final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;
-        final BigDecimal rawPerCookedRatio = new BigDecimal("0.37453183531761169");
+        final BigDecimal rawToCookedCoefficient = new BigDecimal("0.37453183531761169");
         final Can<Record24> usedDuringCooking = Can.empty();
         final Can<Annotation> annotations = Can.empty();
-        var food = Record24.food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, usedDuringCooking, annotations);
+        var food = Record24.food(name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient, usedDuringCooking, annotations);
         var mem = new MemorizedFood24("Example Consumption Record", Can.of(food));
         var interview = Recall24DtoUtils.interviewSample(Can.of(mem));
         var respondent = Recall24DtoUtils.respondentSample(Can.of(interview));

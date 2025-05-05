@@ -174,7 +174,7 @@ record InterviewConverter(SystemId systemId) {
                 });
                 yield Record24.food(
                     listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawToCookedCoefficient(),
                     usedDuringCooking,
                     Can.of(group(SidUtils.GdContext.FOOD_GROUP, listEntry)));
             }
@@ -182,14 +182,14 @@ record InterviewConverter(SystemId systemId) {
                 _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
                 yield Record24.fryingFat(
                     listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawToCookedCoefficient(),
                     Can.empty());
             }
             case DietarySupplement -> {
                 _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
                 yield Record24.product(
                     listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
-                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawPerCookedRatio(),
+                    listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawToCookedCoefficient(),
                     Can.empty());
             }
             case FatSauceOrSweeteners -> null; // redundant: ignore

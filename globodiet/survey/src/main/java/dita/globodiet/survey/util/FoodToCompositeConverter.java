@@ -91,10 +91,10 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
     }
 
     private Record24.Comment origFoodAsComment(final Food origFood) {
-        var name = "%s, amount=%s, raw/cooked=%s".formatted(
+        var name = "%s, amount=%s, cooked/raw=%s".formatted(
                 origFood.name().replace(" {", ", ").replace("}", ""),
                 origFood.consumptionUnit().format(origFood.amountConsumed()),
-                origFood.rawPerCookedRatio());
+                origFood.rawToCookedCoefficient());
 
         return Record24.comment(name, origFood.sid(), origFood.facetSids(),
                 origFood.streamAnnotations().collect(Can.toCan()));

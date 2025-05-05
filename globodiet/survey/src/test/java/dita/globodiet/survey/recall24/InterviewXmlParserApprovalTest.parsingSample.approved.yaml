@@ -30,7 +30,7 @@ respondents:
             facetSids: "at.gd/2.0:fd/0400, at.gd/2.0:fd/0699, at.gd/2.0:fd/0801, at.gd/2.0:fd/1000"
             amountConsumed: 6.7415728569030762
             consumptionUnit: "GRAM"
-            rawPerCookedRatio: 1
+            rawToCookedCoefficient: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
@@ -41,7 +41,7 @@ respondents:
             facetSids: "at.gd/2.0:fd/0107, at.gd/2.0:fd/0303"
             amountConsumed: 16.853933334350586
             consumptionUnit: "GRAM"
-            rawPerCookedRatio: 1
+            rawToCookedCoefficient: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
@@ -52,7 +52,7 @@ respondents:
             facetSids: "at.gd/2.0:fd/0205, at.gd/2.0:fd/0499"
             amountConsumed: 0.93632960319519043
             consumptionUnit: "GRAM"
-            rawPerCookedRatio: 1
+            rawToCookedCoefficient: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
@@ -64,7 +64,7 @@ respondents:
               \ at.gd/2.0:fd/1200, at.gd/2.0:fd/2800"
             amountConsumed: 0.37453183531761169
             consumptionUnit: "GRAM"
-            rawPerCookedRatio: 1
+            rawToCookedCoefficient: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
@@ -75,7 +75,7 @@ respondents:
             facetSids: ""
             amountConsumed: 0.093632958829402924
             consumptionUnit: "GRAM"
-            rawPerCookedRatio: 1
+            rawToCookedCoefficient: 1
             typeOfFatUsedDuringCooking: null
             typeOfMilkOrLiquidUsedDuringCooking: null
             annotations:
@@ -89,7 +89,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1200"
           amountConsumed: 125
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:

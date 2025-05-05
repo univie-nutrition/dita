@@ -535,7 +535,7 @@ class _Dtos {
         private int consumedRawOrCookedOrNotApplicable;
         /** Raw to Cooked Coefficient*/
         @XmlElement(name="ITL_Conver")
-        private BigDecimal rawPerCookedRatio;
+        private BigDecimal rawToCookedCoefficient;
 
         /** Variable indicating whether the quantity was estimated with/without inedible part:<br>
          * 1 = Without or not applicable<br>

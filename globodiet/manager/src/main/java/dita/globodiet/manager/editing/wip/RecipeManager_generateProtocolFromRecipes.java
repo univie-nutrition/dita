@@ -111,10 +111,10 @@ public class RecipeManager_generateProtocolFromRecipes {
             final SemanticIdentifierSet facetSids = ingredient.foodFacetSids();
             final BigDecimal amountConsumed = NumberUtils.reducedPrecision(ingredient.amountGrams().multiply(normativeFactor), 3);
             final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;
-            final BigDecimal rawPerCookedRatio = BigDecimal.ONE.negate(); //TODO missing ratio
+            final BigDecimal cookedPerRawRatio = BigDecimal.ONE.negate(); //TODO missing ratio
             final Can<Record24> usedDuringCooking = Can.empty();
             final Can<Annotation> annotations = Can.empty();
-            return Record24.food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, usedDuringCooking, annotations);
+            return Record24.food(name, sid, facetSids, amountConsumed, consumptionUnit, cookedPerRawRatio, usedDuringCooking, annotations);
         }
     }
 

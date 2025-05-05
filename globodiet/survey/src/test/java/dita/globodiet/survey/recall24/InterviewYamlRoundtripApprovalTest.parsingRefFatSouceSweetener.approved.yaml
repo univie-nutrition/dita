@@ -25,7 +25,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0201, at.gd/2.0:fd/0699, at.gd/2.0:fd/0701, at.gd/2.0:fd/1200"
           amountConsumed: 150
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -36,7 +36,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 7.5
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -53,7 +53,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -64,7 +64,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -75,7 +75,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -86,7 +86,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0499, at.gd/2.0:fd/0699, at.gd/2.0:fd/1009, at.gd/2.0:fd/1200"
           amountConsumed: 12
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -99,7 +99,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -110,7 +110,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -121,7 +121,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -133,7 +133,7 @@ respondents:
             \ at.gd/2.0:fd/1501, at.gd/2.0:fd/1601"
           amountConsumed: 12
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking:
             type: "TYPE_OF_FAT_USED"
             name: "Öl, Raps"
@@ -155,7 +155,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -166,7 +166,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -177,7 +177,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0204, at.gd/2.0:fd/0499, at.gd/2.0:fd/0910, at.gd/2.0:fd/2807"
           amountConsumed: 20
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -189,7 +189,7 @@ respondents:
             \ at.gd/2.0:fd/1200"
           amountConsumed: 12
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -203,7 +203,7 @@ respondents:
             \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -214,7 +214,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 25.560001373291016
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
         - type: "FOOD"
           name: "Ketchup"
@@ -222,7 +222,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/1200"
           amountConsumed: 28.399999618530273
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -234,7 +234,7 @@ respondents:
             \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -245,7 +245,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 11.359999656677246
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
         - type: "FOOD"
           name: "Pommes frites"
@@ -254,7 +254,7 @@ respondents:
             \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -265,7 +265,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 5.679999828338623
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
         - type: "FOOD"
           name: "Pommes frites"
@@ -274,7 +274,7 @@ respondents:
             \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -285,7 +285,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 11.359999656677246
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
         - type: "FOOD"
           name: "Pommes frites"
@@ -294,7 +294,7 @@ respondents:
             \ at.gd/2.0:fd/1200"
           amountConsumed: 142
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -312,7 +312,7 @@ respondents:
             \ at.gd/2.0:fd/1602"
           amountConsumed: 80
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -323,7 +323,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/0801, at.gd/2.0:fd/1006"
           amountConsumed: 80
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -334,7 +334,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/1009"
           amountConsumed: 80
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -348,7 +348,7 @@ respondents:
             \ at.gd/2.0:fd/1602"
           amountConsumed: 88
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -359,7 +359,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/0699, at.gd/2.0:fd/0702, at.gd/2.0:fd/0801, at.gd/2.0:fd/1006"
           amountConsumed: 88
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -377,7 +377,7 @@ respondents:
             \ at.gd/2.0:fd/1001, at.gd/2.0:fd/1301, at.gd/2.0:fd/2807"
           amountConsumed: 56.549999237060547
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -388,7 +388,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 1.6964999437332153
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
         - type: "FOOD"
           name: "Fisch, Lachs"
@@ -397,7 +397,7 @@ respondents:
             \ at.gd/2.0:fd/0905, at.gd/2.0:fd/1009, at.gd/2.0:fd/1301, at.gd/2.0:fd/2807"
           amountConsumed: 56.549999237060547
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -408,7 +408,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 2.8275001049041748
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
       - name: "Gemüse"
         topLevelRecords:
@@ -419,7 +419,7 @@ respondents:
             \ at.gd/2.0:fd/1200, at.gd/2.0:fd/1302, at.gd/2.0:fd/2807"
           amountConsumed: 79
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           typeOfFatUsedDuringCooking: null
           typeOfMilkOrLiquidUsedDuringCooking: null
           annotations:
@@ -430,7 +430,7 @@ respondents:
           facetSids: "at.gd/2.0:fd/1200"
           amountConsumed: 6.3199996948242188
           consumptionUnit: "GRAM"
-          rawPerCookedRatio: 1
+          rawToCookedCoefficient: 1
           annotations: {}
     annotations:
       dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"

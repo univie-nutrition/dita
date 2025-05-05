@@ -261,9 +261,9 @@ permits
         ConsumptionUnit consumptionUnit();
 
         /**
-         * Raw per cooked ratio, ranging from 0. to 1.
+         * Raw to cooked coefficient, typically ranging from 0. to 1.
          */
-        BigDecimal rawPerCookedRatio();
+        BigDecimal rawToCookedCoefficient();
 
         /**
          * Convert to a {@link FoodConsumption}.
@@ -295,7 +295,7 @@ permits
             SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
-            BigDecimal rawPerCookedRatio,
+            BigDecimal rawToCookedCoefficient,
             Optional<TypeOfFatUsed> typeOfFatUsedDuringCooking,
             Optional<TypeOfMilkOrLiquidUsed> typeOfMilkOrLiquidUsedDuringCooking,
             Map<String, Serializable> annotations
@@ -323,7 +323,7 @@ permits
             private SemanticIdentifierSet facetSids;
             private BigDecimal amountConsumed;
             private ConsumptionUnit consumptionUnit;
-            private BigDecimal rawPerCookedRatio;
+            private BigDecimal rawToCookedCoefficient;
 
             final List<Record24> subRecords = new ArrayList<>();
             final List<Annotation> annotations = new ArrayList<>();
@@ -333,7 +333,7 @@ permits
                     .name(food.name()).sid(food.sid()).facetSids(food.facetSids())
                     .amountConsumed(food.amountConsumed)
                     .consumptionUnit(food.consumptionUnit)
-                    .rawPerCookedRatio(food.rawPerCookedRatio);
+                    .rawToCookedCoefficient(food.rawToCookedCoefficient);
                 food.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
@@ -345,7 +345,7 @@ permits
 
             @Override
             public Food build() {
-                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
+                var food = food(name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient,
                         Can.ofCollection(subRecords), Can.ofCollection(annotations));
                 return food;
             }
@@ -472,7 +472,7 @@ permits
             SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
-            BigDecimal rawPerCookedRatio,
+            BigDecimal rawToCookedCoefficient,
             Map<String, Serializable> annotations
             ) implements Consumption {
 
@@ -495,7 +495,7 @@ permits
             private SemanticIdentifierSet facetSids;
             private BigDecimal amountConsumed;
             private ConsumptionUnit consumptionUnit;
-            private BigDecimal rawPerCookedRatio;
+            private BigDecimal rawToCookedCoefficient;
             final List<Annotation> annotations = new ArrayList<>();
 
             static Builder of(final FryingFat fryingFat) {
@@ -503,7 +503,7 @@ permits
                         .name(fryingFat.name()).sid(fryingFat.sid()).facetSids(fryingFat.facetSids())
                         .amountConsumed(fryingFat.amountConsumed)
                         .consumptionUnit(fryingFat.consumptionUnit)
-                        .rawPerCookedRatio(fryingFat.rawPerCookedRatio);
+                        .rawToCookedCoefficient(fryingFat.rawToCookedCoefficient);
                 fryingFat.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
@@ -515,7 +515,7 @@ permits
 
             @Override
             public FryingFat build() {
-                var fryingFat = fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(annotations));
+                var fryingFat = fryingFat(name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient, Can.ofCollection(annotations));
                 return fryingFat;
             }
         }
@@ -543,7 +543,7 @@ permits
             SemanticIdentifierSet facetSids,
             BigDecimal amountConsumed,
             ConsumptionUnit consumptionUnit,
-            BigDecimal rawPerCookedRatio,
+            BigDecimal rawToCookedCoefficient,
             Map<String, Serializable> annotations
             ) implements Consumption {
 
@@ -562,7 +562,7 @@ permits
             private SemanticIdentifierSet facetSids;
             private BigDecimal amountConsumed;
             private ConsumptionUnit consumptionUnit;
-            private BigDecimal rawPerCookedRatio;
+            private BigDecimal rawToCookedCoefficient;
             final List<Annotation> annotations = new ArrayList<>();
 
             static Builder of(final Product product) {
@@ -570,7 +570,7 @@ permits
                         .name(product.name()).sid(product.sid()).facetSids(product.facetSids())
                         .amountConsumed(product.amountConsumed)
                         .consumptionUnit(product.consumptionUnit)
-                        .rawPerCookedRatio(product.rawPerCookedRatio);
+                        .rawToCookedCoefficient(product.rawToCookedCoefficient);
                 product.streamAnnotations().forEach(builder.annotations::add);
                 return builder;
             }
@@ -582,7 +582,7 @@ permits
 
             @Override
             public Product build() {
-                var product = product(name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, Can.ofCollection(annotations));
+                var product = product(name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient, Can.ofCollection(annotations));
                 return product;
             }
         }
@@ -707,10 +707,10 @@ permits
             final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
-            final BigDecimal rawPerCookedRatio,
+            final BigDecimal rawToCookedCoefficient,
             final Can<Annotation> annotations) {
         var product = new Product(ObjectRef.empty(), Record24.Type.PRODUCT,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, new LinkedHashMap<>());
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient, new LinkedHashMap<>());
         product.putAnnotations(annotations);
         return product;
     }
@@ -730,10 +730,10 @@ permits
             final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
-            final BigDecimal rawPerCookedRatio,
+            final BigDecimal rawToCookedCoefficient,
             final Can<Annotation> annotations) {
         var fryingFat =  new FryingFat(ObjectRef.empty(), Record24.Type.FRYING_FAT,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio, new LinkedHashMap<>());
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient, new LinkedHashMap<>());
         fryingFat.putAnnotations(annotations);
         return fryingFat;
     }
@@ -753,7 +753,7 @@ permits
             final SemanticIdentifierSet facetSids,
             final BigDecimal amountConsumed,
             final ConsumptionUnit consumptionUnit,
-            final BigDecimal rawPerCookedRatio,
+            final BigDecimal rawToCookedCoefficient,
             final Can<Record24> usedDuringCooking,
             final Can<Annotation> annotations) {
 
@@ -767,7 +767,7 @@ permits
                 .map(TypeOfMilkOrLiquidUsed.class::cast);
 
         var food = new Food(ObjectRef.empty(), Record24.Type.FOOD,
-                name, sid, facetSids, amountConsumed, consumptionUnit, rawPerCookedRatio,
+                name, sid, facetSids, amountConsumed, consumptionUnit, rawToCookedCoefficient,
                 typeOfFatUsed, typeOfMilkOrLiquidUsed, new LinkedHashMap<>());
         food.putAnnotations(annotations);
 
