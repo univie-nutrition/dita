@@ -28,8 +28,8 @@ and may even depend on food facets. E.g. cooked in water or cooked with oil.
 @startuml
 
 map Coefficients {
- R/C => Raw to Cocked Ratio
- ED => Ediblepart Coefficent
+ C/R => Raw to Cocked
+ ED => Edible Part
 }
 
 object Recipe {
@@ -37,7 +37,7 @@ object Recipe {
 object Ingredient {
 }
 
-Recipe --> Ingredient : "Amount Consumed = Amount Raw * R/C * ED" 
+Recipe --> Ingredient : "Amount Consumed = Amount Raw * C/R * ED" 
 hide class method
 
 @enduml
