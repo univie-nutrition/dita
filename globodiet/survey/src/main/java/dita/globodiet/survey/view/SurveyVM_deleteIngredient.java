@@ -18,10 +18,6 @@
  */
 package dita.globodiet.survey.view;
 
-import java.util.List;
-
-import jakarta.inject.Inject;
-
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -29,50 +25,30 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.foodon.fdm.FoodDescriptionModel;
-import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.recall24.dto.RecallNode24;
 
 @Action
 @ActionLayout(
         associateWith = "content",
-        sequence = "1",
+        sequence = "2",
         position = Position.PANEL)
 @RequiredArgsConstructor
-public class SurveyVM_addIngredient {
-    
-    @Inject FoodDescriptionModel foodDescriptionModel;
+public class SurveyVM_deleteIngredient {
     
     private final SurveyVM mixee;
     
     @MemberSupport
-    public String act(
-            Food food,
-            double amount, 
-            String facetSidList
-            ) {
+    public String act() {
         return "TODO (%s)".formatted(recallNode().getClass());
     }
     
     @MemberSupport
     public boolean hidden() {
-        return !(recallNode() instanceof dita.recall24.dto.Record24.Composite);
+        return !(recallNode() instanceof dita.recall24.dto.Record24.Food);
     }
-    
-        
-    @MemberSupport
-    public List<Food> autoCompleteFood(String search) {
-        return foodDescriptionModel.foodBySid().values()
-            .stream()
-            .filter(food->food.name().contains(search))
-            .toList();
-    }
-
-    // -- HELPER
     
     RecallNode24 recallNode() {
         return mixee.recallNode();
     }
-
     
 }

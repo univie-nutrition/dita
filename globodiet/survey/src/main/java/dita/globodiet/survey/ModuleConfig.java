@@ -31,6 +31,7 @@ import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
 import dita.globodiet.survey.view.SurveyVM_addIngredient;
+import dita.globodiet.survey.view.SurveyVM_deleteIngredient;
 import dita.globodiet.survey.view.SurveyVM_editAmount;
 import dita.recall24.dto.DitaModuleRecall24Dto;
 import dita.recall24.reporter.DitaModuleRecall24Reporter;
@@ -42,6 +43,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStoreFactory;
     SurveyVM.class,
     SurveyVM_editAmount.class,
     SurveyVM_addIngredient.class,
+    SurveyVM_deleteIngredient.class,
     BlobStoreFactory.class,
     SurveyTreeHelperService.class,
     DitaModuleRecall24Dto.class,
