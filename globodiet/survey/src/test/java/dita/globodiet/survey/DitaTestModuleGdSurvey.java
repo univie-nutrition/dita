@@ -26,7 +26,7 @@ import io.github.causewaystuff.companion.applib.services.search.SearchService;
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @Import({
-    ModuleConfig.class,
+    DitaModuleGdSurvey.class,
     CausewayModuleCoreRuntimeServices.class,
     CausewayModuleSecurityBypass.class,
     CausewayModulePersistenceJpaEclipselink.class,

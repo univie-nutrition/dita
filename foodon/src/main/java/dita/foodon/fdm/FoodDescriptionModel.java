@@ -33,11 +33,9 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
-/**
- * Provides a set of food ontologies,
- * that allow to describe consumed food,
- * including categorization (grouping) and descriptive facets.
- */
+/// Provides a set of food ontologies,
+/// that allow to describe consumed food,
+/// including categorization (grouping) and descriptive facets.
 public record FoodDescriptionModel(
         Map<SemanticIdentifier, Food> foodBySid,
         Map<SemanticIdentifier, Recipe> recipeBySid,
@@ -76,7 +74,7 @@ public record FoodDescriptionModel(
              * Amount consumed in gram.
              */
             BigDecimal amountGrams,
-            BigDecimal rawToCookedRatio) {
+            BigDecimal rawToCookedCoefficient) {
     }
 
     public record ClassificationFacet(

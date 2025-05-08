@@ -36,9 +36,7 @@ import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 
-/**
- * Parses GloboDiet XML Interview files into recall24 data structures.
- */
+///Parses _GloboDiet's_ XML Interview files as {@link InterviewSet24}.
 @UtilityClass
 public class InterviewXmlParser {
 

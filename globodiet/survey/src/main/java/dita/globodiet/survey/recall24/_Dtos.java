@@ -51,6 +51,7 @@ import lombok.experimental.UtilityClass;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
+/// Nested this utility class defines various types for binding to _GloboDiet's_ interview XML.
 @UtilityClass
 class _Dtos {
 

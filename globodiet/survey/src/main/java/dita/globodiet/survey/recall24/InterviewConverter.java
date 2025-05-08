@@ -55,6 +55,7 @@ import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
+/// Converts from _GloboDiet's_ interview XML to {@link Interview24}.
 record InterviewConverter(SystemId systemId) {
 
     record ContextForScanning(

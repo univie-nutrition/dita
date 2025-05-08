@@ -20,7 +20,7 @@ ingredients:
   foodSid: "test:food/0002"
   foodFacetSids: "test:fd/1234, test:fd/5678"
   amountGrams: 0.123
-  rawToCookedRatio: 0.324
+  rawToCookedCoefficient: 0.324
 classificationFacets:
 - sid: "test:rg/01"
   name: "Common Recipes"
