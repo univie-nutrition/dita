@@ -30,6 +30,7 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.Surveys;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
@@ -48,12 +49,7 @@ public class SurveyTreeHelperService {
     }
 
     public InterviewSet24 root(final Campaign.SecondaryKey campaignSecondaryKey) {
-        return cache.computeIfAbsent(campaignSecondaryKey, _ ->
-            Campaigns.interviewSetCorrected(
-                Campaigns.systemId(campaignSecondaryKey),
-                campaignSecondaryKey,
-                Campaigns.correction(campaignSecondaryKey),
-                surveyBlobStore));
+        return cache.computeIfAbsent(campaignSecondaryKey, this::loadInterviewSet);
     }
 
     public void invalidateCache(final Campaign.SecondaryKey campaignSecondaryKey) {
@@ -64,6 +60,17 @@ public class SurveyTreeHelperService {
 
     static SurveyTreeHelperService instance() {
         return MetaModelContext.instanceElseFail().lookupServiceElseFail(SurveyTreeHelperService.class);
+    }
+
+    // -- HELPER
+
+    private InterviewSet24 loadInterviewSet(final Campaign.SecondaryKey campaignSecondaryKey) {
+        var surveySecondaryKey = Campaigns.surveySecondaryKey(campaignSecondaryKey);
+        return Campaigns.interviewSetCorrected(
+            Surveys.systemId(surveySecondaryKey),
+            campaignSecondaryKey,
+            Surveys.correction(surveySecondaryKey),
+            surveyBlobStore);
     }
 
 }

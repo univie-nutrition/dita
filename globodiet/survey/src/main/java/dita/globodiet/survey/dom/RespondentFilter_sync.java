@@ -70,7 +70,7 @@ public class RespondentFilter_sync {
         //could be done faster if don't do the full blown interview transformations
         var allRespondents = listingHandler.createListing(
                 Campaigns.interviewSetCorrected(
-                    Campaigns.systemId(survey),
+                    Surveys.systemId(survey),
                     campaignKeys,
                     DataUtil.correction(survey.getCorrection()),
                     surveyBlobStore)

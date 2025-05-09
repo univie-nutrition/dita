@@ -86,7 +86,7 @@ public class Survey_generateReport {
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
         var tabularReport = new TabularReport(
-            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.interviewSet(), Surveys.systemId(mixee),
             SidUtils.languageQualifier("de"),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),

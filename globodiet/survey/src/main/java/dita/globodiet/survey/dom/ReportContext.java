@@ -67,19 +67,20 @@ public record ReportContext(
             return empty();
         }
         var firstCampaign = campaignKeys.getFirstElseFail();
+        var surveyKey = new Survey.SecondaryKey(firstCampaign.surveyCode());
 
-        var systemId = Campaigns.systemId(firstCampaign); // requires persistence
-        var correction = Campaigns.correction(firstCampaign); // requires persistence
+        var systemId = Surveys.systemId(surveyKey); // requires persistence
+        var correction = Surveys.correction(surveyKey); // requires persistence
 
         var pool = Executors.newFixedThreadPool(6);
         var interviewSetCorrectedFuture = pool.submit(()->Campaigns.interviewSetCorrected(systemId, campaignKeys, correction, surveyBlobStore));
-        var nutMappingFuture = pool.submit(()->Campaigns.nutMapping(firstCampaign, surveyBlobStore));
-        var fcoMappingFuture = pool.submit(()->Campaigns.fcoMapping(firstCampaign, surveyBlobStore));
-        var pocMappingFuture = pool.submit(()->Campaigns.pocMapping(firstCampaign, surveyBlobStore));
-        var specialDayMappingFuture = pool.submit(()->Campaigns.specialDayMapping(firstCampaign, surveyBlobStore));
-        var specialDietMappingFuture = pool.submit(()->Campaigns.specialDietMapping(firstCampaign, surveyBlobStore));
-        var fcdbFuture = pool.submit(()->Campaigns.fcdb(firstCampaign, surveyBlobStore));
-        var fdmFuture = pool.submit(()->Campaigns.foodDescriptionModel(firstCampaign, surveyBlobStore));
+        var nutMappingFuture = pool.submit(()->Surveys.nutMapping(surveyKey, surveyBlobStore));
+        var fcoMappingFuture = pool.submit(()->Surveys.fcoMapping(surveyKey, surveyBlobStore));
+        var pocMappingFuture = pool.submit(()->Surveys.pocMapping(surveyKey, surveyBlobStore));
+        var specialDayMappingFuture = pool.submit(()->Surveys.specialDayMapping(surveyKey, surveyBlobStore));
+        var specialDietMappingFuture = pool.submit(()->Surveys.specialDietMapping(surveyKey, surveyBlobStore));
+        var fcdbFuture = pool.submit(()->Surveys.fcdb(surveyKey, surveyBlobStore));
+        var fdmFuture = pool.submit(()->Surveys.foodDescriptionModel(surveyKey, surveyBlobStore));
         pool.shutdown();
 
         log.info("await blobstore data");

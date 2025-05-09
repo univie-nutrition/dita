@@ -21,6 +21,7 @@ package dita.globodiet.survey.dom;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -65,9 +66,6 @@ public class Survey_downloadMappingTodos {
 
     private final Survey mixee;
 
-    /**
-     * @see Campaign_downloadMappingTodos
-     */
     @MemberSupport
     public Clob act(
         final Can<Campaign> campaigns,
@@ -90,7 +88,7 @@ public class Survey_downloadMappingTodos {
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporter(
-            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.interviewSet(), Surveys.systemId(mixee),
             reportContext.nutMapping());
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));
@@ -104,7 +102,7 @@ public class Survey_downloadMappingTodos {
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
         var tabularReport = new TabularReport(
-            reportContext.interviewSet(), Campaigns.systemId(mixee),
+            reportContext.interviewSet(), Surveys.systemId(mixee),
             SidUtils.languageQualifier("de"),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),

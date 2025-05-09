@@ -26,14 +26,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.services.factory.FactoryService;
-
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing;
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action
 @ActionLayout(
@@ -47,18 +43,14 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 @RequiredArgsConstructor
 public class ReportColumnDefinition_sync {
 
-    @Inject private FactoryService factoryService;
-    @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
     private final ReportColumnDefinition mixee;
 
     @MemberSupport
     public ReportColumnDefinition act(final Listing.MergePolicy lineMergePolicy) {
-        var survey = foreignKeyLookupService.unique(new Survey.SecondaryKey(mixee.getSurveyCode()));
-        var campaigns = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
-            .coll();
-        var componentCatalog = Campaigns.fcdb(campaigns.getFirst().secondaryKey(), surveyBlobStore)
+        var surveyKey = new Survey.SecondaryKey(mixee.getSurveyCode());
+        var componentCatalog = Surveys.fcdb(surveyKey, surveyBlobStore)
                 .componentCatalog();
 
         var listingHandler = DataUtil.listingHandlerForFoodComponents(

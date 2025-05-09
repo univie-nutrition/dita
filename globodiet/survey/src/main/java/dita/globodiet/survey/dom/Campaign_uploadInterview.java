@@ -92,7 +92,7 @@ public class Campaign_uploadInterview {
 
     // -- HELPER
 
-    private void uploadToBlobStore(final Blob blob, CommonMimeType commonMimeType) {
+    private void uploadToBlobStore(final Blob blob, final CommonMimeType commonMimeType) {
         var sha = "" + blob.sha256Hex();
         log.info("upload {} (sha256Hex={})", blob.name(), sha);
 
@@ -101,11 +101,11 @@ public class Campaign_uploadInterview {
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
                 .getUser().name();
         var blobDescriptor = new BlobDescriptor(
-                Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()).add(blob.name()),
+                Campaigns.interviewNamedPath(mixee.secondaryKey()).add(blob.name()),
                 commonMimeType,
                 createdBy,
                 Instant.now(),
-                (long)zippedBlob.bytes().length,
+                zippedBlob.bytes().length,
                 Compression.ZIP,
                 Map.of("uncompressed-size", "" + blob.bytes().length,
                         "sha256", sha));

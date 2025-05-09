@@ -20,105 +20,39 @@ package dita.globodiet.survey.dom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-
-import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
-import org.apache.causeway.commons.internal.context._Context;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
-import dita.foodon.fdm.FdmUtils;
-import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
-import io.github.causewaystuff.commons.base.util.RuntimeUtils;
-import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 @UtilityClass
 public class Campaigns {
 
     public static String ANNOTATION_MESSAGES = "messages";
 
-    enum DataSourceLocation {
-        INTERVIEW,
-        FCDB,
-        QMAP_NUT,
-        QMAP_FCO,
-        QMAP_POC,
-        QMAP_SDAY,
-        QMAP_SDIET,
-        FDM;
-        NamedPath namedPath(final Campaign.SecondaryKey campaignKey) {
-            if(campaignKey==null
-                    || _Strings.isNullOrEmpty(campaignKey.surveyCode())
-                    || _Strings.isNullOrEmpty(campaignKey.code())) {
-                return NamedPath.of("blackhole");
-            }
-            var root = NamedPath.of("surveys", campaignKey.surveyCode().toLowerCase());
-            return switch(this) {
-                case INTERVIEW -> root.add("campaigns").add(NamedPath.of(campaignKey.code().toLowerCase()));
-                case FCDB -> root.add("fcdb").add("fcdb.yaml");
-                case QMAP_NUT -> root.add("qmap").add("nut.yaml");
-                case QMAP_FCO -> root.add("qmap").add("fco.yaml");
-                case QMAP_POC -> root.add("qmap").add("poc.yaml");
-                case QMAP_SDAY -> root.add("qmap").add("sday.yaml");
-                case QMAP_SDIET -> root.add("qmap").add("sdiet.yaml");
-                case FDM -> root.add("fdm").add("fdm.yaml");
-            };
+    public Survey.SecondaryKey surveySecondaryKey(final Campaign.SecondaryKey campaignKey) {
+        return new Survey.SecondaryKey(campaignKey.surveyCode());
+    }
+
+    NamedPath interviewNamedPath(final Campaign.SecondaryKey campaignKey) {
+        if(campaignKey==null
+                || _Strings.isNullOrEmpty(campaignKey.surveyCode())
+                || _Strings.isNullOrEmpty(campaignKey.code())) {
+            return NamedPath.of("blackhole");
         }
-    }
-
-    // -- SYSTEM ID
-
-    private Map<String, SystemId> systemIdBySurveyCode;
-
-    /**
-     * System ID part of semantic identifiers for given campaign's survey.
-     * e.g. {@code at.gd/2.0}
-     */
-    public SystemId systemId(final Campaign.SecondaryKey campaignKey) {
-        if(systemIdBySurveyCode==null) {
-            systemIdBySurveyCode = new ConcurrentHashMap<>();
-        }
-        return systemIdBySurveyCode.computeIfAbsent(campaignKey.surveyCode(), _->systemId(survey(campaignKey)));
-    }
-
-    /**
-     * System ID part of semantic identifiers for given survey.
-     * e.g. {@code at.gd/2.0}
-     */
-    public SystemId systemId(@Nullable final Survey survey) {
-        return Optional.ofNullable(survey)
-            .map(Survey::getSystemId)
-            .map(SystemId::parse)
-            .orElseGet(()->new SystemId("undefined"));
-    }
-
-    // -- CORRECTION
-
-    public Correction24 correction(final Campaign.SecondaryKey campaignKey) {
-        return DataUtil.correction(survey(campaignKey).getCorrection());
-    }
-    private Survey survey(final Campaign.SecondaryKey campaignKey) {
-        var repo = RuntimeUtils.getRepositoryService();
-        var survey = repo.firstMatch(Survey.class, s->campaignKey.surveyCode().equals(s.getCode()));
-        return survey
-            // JUnit support
-            .orElseGet(()->_Context.lookup(Survey.class).orElse(null));
+        var root = NamedPath.of("surveys", campaignKey.surveyCode().toLowerCase());
+        return root.add("campaigns").add(NamedPath.of(campaignKey.code().toLowerCase()));
     }
 
     // -- INTERVIEW SET
@@ -154,60 +88,6 @@ public class Campaigns {
         return interviewSet;
     }
 
-    // -- FCDB
-
-    public FoodCompositionRepository fcdb(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        var fcdbDataSource = blobStore.lookupBlob(DataSourceLocation.FCDB.namedPath(campaignKey))
-                .orElseThrow()
-                .asDataSource();
-        var foodCompositionRepo = FoodCompositionRepository.tryFromYaml(SevenZUtils.decompress(fcdbDataSource))
-                .valueAsNonNullElseFail();
-        return foodCompositionRepo;
-    }
-
-    // -- Q-MAP
-
-    public QualifiedMap nutMapping(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_NUT, campaignKey, blobStore);
-    }
-
-    public QualifiedMap fcoMapping(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_FCO, campaignKey, blobStore);
-    }
-
-    public QualifiedMap pocMapping(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_POC, campaignKey, blobStore);
-    }
-
-    public QualifiedMap specialDayMapping(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_SDAY, campaignKey, blobStore);
-    }
-
-    public QualifiedMap specialDietMapping(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        return loadQmap(DataSourceLocation.QMAP_SDIET, campaignKey, blobStore);
-    }
-
-    public FoodDescriptionModel foodDescriptionModel(
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        var fdmDataSource = blobStore.lookupBlobAndUncompress(DataSourceLocation.FDM.namedPath(campaignKey))
-                .orElseThrow()
-                .asDataSource();
-        return FdmUtils.fromYaml(fdmDataSource);
-    }
-
     // -- HELPER
 
     /**
@@ -240,23 +120,6 @@ public class Campaigns {
 
     }
 
-    private QualifiedMap loadQmap(
-            final DataSourceLocation loc,
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore) {
-        var mapDataSource =
-                blobStore
-                    .lookupBlob(loc.namedPath(campaignKey))
-                    .orElseThrow()
-                    .asDataSource();
-        switch(loc) {
-            case QMAP_NUT ->
-                mapDataSource = SevenZUtils.decompress(mapDataSource);
-            default -> {}
-        }
-        return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
-    }
-
     private InterviewSet24 interviewSet(
             final SystemId systemId,
             final Campaign.SecondaryKey campaignKey,
@@ -266,11 +129,11 @@ public class Campaigns {
 
         var interviewSet = InterviewUtils
             .interviewSetFromBlobStore(
-                    DataSourceLocation.INTERVIEW.namedPath(campaignKey),
-                    blobStore,
-                    systemId,
-                    correction,
-                    messageConsumer);
+                interviewNamedPath(campaignKey),
+                blobStore,
+                systemId,
+                correction,
+                messageConsumer);
 
         return interviewSet;
     }

@@ -44,7 +44,7 @@ public class Campaign_interviewUploads {
 
     @MemberSupport
     public List<InterviewUpload> coll() {
-        return surveyBlobStore.listDescriptors(Campaigns.DataSourceLocation.INTERVIEW.namedPath(mixee.secondaryKey()), true)
+        return surveyBlobStore.listDescriptors(Campaigns.interviewNamedPath(mixee.secondaryKey()), true)
                 .stream()
                 .filter(desc->
                     desc.mimeType().equals(CommonMimeType.XML)

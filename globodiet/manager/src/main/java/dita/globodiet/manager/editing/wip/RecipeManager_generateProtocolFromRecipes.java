@@ -44,8 +44,8 @@ import dita.commons.util.NumberUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
 import dita.globodiet.params.recipe_list.Recipe;
-import dita.globodiet.survey.dom.Campaign;
-import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.Survey;
+import dita.globodiet.survey.dom.Surveys;
 import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.MemorizedFood24;
@@ -64,8 +64,8 @@ public class RecipeManager_generateProtocolFromRecipes {
     final Recipe.Manager recipeManager;
 
     @MemberSupport
-    public Clob act(final Campaign campaign) {
-        var foodDescriptionModel = Campaigns.foodDescriptionModel(campaign.secondaryKey(), surveyBlobStore);
+    public Clob act(final Survey survey) {
+        var foodDescriptionModel = Surveys.foodDescriptionModel(survey.secondaryKey(), surveyBlobStore);
         var recordFactory = new RecordFactory(foodDescriptionModel);
         var memorizedFoods = foodDescriptionModel.ingredientsByRecipeSid().entrySet().stream()
             .map(entry->{
@@ -84,8 +84,8 @@ public class RecipeManager_generateProtocolFromRecipes {
     }
 
     @MemberSupport
-    List<Campaign> choicesCampaign() {
-        return repositoryService.allInstances(Campaign.class);
+    List<Survey> choicesSurvey() {
+        return repositoryService.allInstances(Survey.class);
     }
 
     // -- HELPER

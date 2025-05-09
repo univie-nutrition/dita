@@ -4,6 +4,8 @@
 
 A _survey_ collects one or more campaigns.
 
+A survey uses a large set of configuration options (_survey settings_) that make up possible questions and answers for the interviews.
+
 [plantuml,fig-survey,svg]
 .Survey Model
 ----
@@ -16,6 +18,7 @@ class Survey {
     description: String
 }
 
+Survey "1..*" --> "1" "Survey Settings" : uses
 Survey o--> "1..*" Campaign : collects
 hide class method
 
@@ -27,8 +30,6 @@ hide class method
 == Campaign
 
 A _campaign_ defines a part of a food consumption survey that contains several interviews. Campaigns can be defined to be the whole study, a seasonal part of a study, a regional part of a study etc. 
-
-A campaign uses a large set of configuration options (_campaign settings_) that make up possible questions and answers for the interviews.
 
 [plantuml,fig-campaign,svg]
 .Campaign Model
@@ -44,8 +45,6 @@ class Campaign {
     endDate²: LocalDate
 }
 
-Campaign "1..*" --> "1" "Campaign Settings" : uses
-Interview "1..*" --> "1" "Campaign Settings" : uses
 Campaign "1" --> "0..n" Interview : collects
 hide class method
 
@@ -55,12 +54,12 @@ hide class method
 <.> objectId: immutable identifier to reference the _Campaign_ object
 <.> startDate, endDate: optional, for informal purpose
 
-== Campaign Settings
+== Survey Settings
 
-_Campaign Settings_ are created by taking a snapshot of the current state of the _Parameter Data Model_. The latter is subject to continuous improvements. In contrast, _Campaign Settings_ are fixated for the duration of a campaign run.
+_Survey Settings_ are created by taking a snapshot of the current state of the _Parameter Data Model_. The latter is subject to continuous improvements (likely during a running survey). 
 
-[plantuml,fig-campaign-settings,svg]
-.Campaign Settings Model
+[plantuml,fig-survey-settings,svg]
+.Survey Settings Model
 ----
 @startuml
 left to right direction
@@ -81,7 +80,7 @@ package "GloboDiet Parameter Data" <<Frame>> #DAE8FC {
 
 }
 
-class "Campaign Settings" {
+class "Survey Settings" {
     creationTimestamp¹: Instant
     name: String
     description: String
@@ -94,8 +93,8 @@ package "Blob Store" <<Database>> {
   }
 }
 
-"GloboDiet Parameter Data" .left.> "Campaign Settings" : snapshot
-"Campaign Settings" o--> Yaml : owns
+"GloboDiet Parameter Data" .left.> "Survey Settings" : snapshot
+"Survey Settings" o--> Yaml : owns
 hide class method
 
 @enduml
