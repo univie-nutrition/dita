@@ -75,7 +75,7 @@ public class Survey_generateReport {
             .map(Campaign::secondaryKey);
 
         // see also Survey_downloadMappingTodos
-        var reportContext = ReportContext.load(campaignKeys, surveyBlobStore, respondentFilter);
+        var reportContext = ReportContext.loadAndTransform(campaignKeys, surveyBlobStore, respondentFilter);
         if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();

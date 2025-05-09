@@ -32,8 +32,8 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
-import dita.globodiet.survey.dom.Surveys;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
@@ -69,16 +69,19 @@ public class SurveyTreeHelperService {
 
     // -- HELPER
 
+    /// basic corrections and filters applied, but no interview transformations
     private InterviewSet24 loadInterviewSet(final InspectionContext inspectionContext) {
         var survey = survey(inspectionContext).orElse(null);
         if(survey==null) return InterviewSet24.empty();
-        var campaignSecondaryKeys = Campaigns.listAll(factoryService, survey)
+
+        var respFilter = inspectionContext.respondentFilterSecondaryKey()
+            .map(foreignKeyLookupService::unique)
+            .orElse(null);
+
+        var campaignKeys = Campaigns.listAll(factoryService, survey)
             .map(Campaign::secondaryKey);
-        return Campaigns.interviewSetCorrected(
-            Surveys.systemId(survey),
-            campaignSecondaryKeys,
-            Surveys.correction(survey),
-            surveyBlobStore);
+        var reportContext = ReportContext.load(campaignKeys, surveyBlobStore, respFilter);
+        return reportContext.interviewSet();
     }
 
 }

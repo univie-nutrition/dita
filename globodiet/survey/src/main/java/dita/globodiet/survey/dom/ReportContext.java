@@ -20,6 +20,7 @@ package dita.globodiet.survey.dom;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.UnaryOperator;
 
 import org.jspecify.annotations.Nullable;
 
@@ -94,27 +95,44 @@ public record ReportContext(
             var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
             interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
         }
-        if(!interviewSet.isEmpty()) {
-
-            //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
-            var prepared = interviewSet
-                    .transform(new AssociatedRecipeResolver(fdmFuture.get()))
-                    .transform(new QualifiedMappingResolver(nutMappingFuture.get()))
-                    .transform(new IngredientToRecipeResolver(fdmFuture.get()))
-                    // to handle ingredients from the previous transformer
-                    .transform(new QualifiedMappingResolver(nutMappingFuture.get()));
-
-            interviewSet = prepared;
-        }
-
         return new ReportContext(fcdbFuture.get(), fdmFuture.get(),
             specialDayMappingFuture.get(), specialDietMappingFuture.get(),
             fcoMappingFuture.get(), pocMappingFuture.get(),
             nutMappingFuture.get(), interviewSet);
     }
 
+    //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
+    public ReportContext defaultTransform() {
+        return transform(in->
+            in.isEmpty()
+                ? in
+                : in
+                    .transform(new AssociatedRecipeResolver(foodDescriptionModel()))
+                    .transform(new QualifiedMappingResolver(nutMapping()))
+                    .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
+                    // to handle ingredients from the previous transformer
+                    .transform(new QualifiedMappingResolver(nutMapping())));
+    }
+
+    public ReportContext transform(final UnaryOperator<InterviewSet24> interviewTransformer) {
+        return new ReportContext(foodCompositionRepository, foodDescriptionModel,
+            specialDayMapping, specialDietMapping, fcoMapping, pocMapping, nutMapping,
+            interviewTransformer.apply(interviewSet));
+    }
+
     public boolean isEmpty() {
         return interviewSet.isEmpty();
+    }
+
+    // -- SHORTCUTS
+
+    public static ReportContext loadAndTransform(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore) {
+        return loadAndTransform(campaignKeys, surveyBlobStore, null);
+    }
+
+    public static ReportContext loadAndTransform(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore,
+        @Nullable final RespondentFilter respondentFilter) {
+        return load(campaignKeys, surveyBlobStore, respondentFilter).defaultTransform();
     }
 
 }
