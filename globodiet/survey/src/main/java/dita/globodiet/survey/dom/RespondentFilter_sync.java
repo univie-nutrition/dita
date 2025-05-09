@@ -27,11 +27,8 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import org.apache.causeway.commons.collections.Can;
-
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.listing.Listing;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
@@ -58,11 +55,8 @@ public class RespondentFilter_sync {
     public RespondentFilter act(final Listing.MergePolicy lineMergePolicy) {
 
         var survey = foreignKeyLookupService.unique(new Survey.SecondaryKey(mixee.getSurveyCode()));
-        var campaignKeys = factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
-            .coll()
-            .stream()
-            .map(Campaign::secondaryKey)
-            .collect(Can.toCan());
+        var campaignKeys = Campaigns.listAll(factoryService, survey)
+            .map(Campaign::secondaryKey);
 
         var listingHandler = DataUtil.listingHandlerForRespondentProxy();
 

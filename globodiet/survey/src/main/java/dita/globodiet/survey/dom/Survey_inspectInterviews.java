@@ -18,42 +18,60 @@
  */
 package dita.globodiet.survey.dom;
 
+import java.util.List;
+import java.util.Optional;
+
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
-import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.SemanticsOf;
+import org.apache.causeway.applib.services.factory.FactoryService;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
+import dita.globodiet.survey.view.InspectionContext;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
 import dita.globodiet.survey.view.SurveyVM;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
-@Action(semantics = SemanticsOf.NON_IDEMPOTENT)
+@Action(semantics = SemanticsOf.SAFE)
 @ActionLayout(
-        fieldSetId = "interviewUploads",
         sequence = "1",
-        position = Position.PANEL,
         cssClass = "btn-success",
         cssClassFa = "solid fa-binoculars",
         describedAs = "Inspect the content of uploaded interview files.")
 @RequiredArgsConstructor
-public class Campaign_inspectInterviews {
+public class Survey_inspectInterviews {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+    @Inject private FactoryService factoryService;
     @Inject private SurveyTreeHelperService surveyTreeRootNodeHelperService;
 
-    final Campaign mixee;
+    final Survey mixee;
 
     @MemberSupport
-    public SurveyVM act() {
-        surveyTreeRootNodeHelperService.invalidateCache(mixee.secondaryKey());
-        return SurveyVM.forRoot(mixee.secondaryKey(), surveyTreeRootNodeHelperService.root(mixee.secondaryKey()));
+    public SurveyVM act(
+            @Parameter(optionality = Optionality.OPTIONAL)
+            final RespondentFilter respondentFilter) {
+
+        surveyTreeRootNodeHelperService.invalidateCache();
+        var inspectionContext = InspectionContext.of(
+            mixee.secondaryKey(),
+            Optional.ofNullable(respondentFilter).map(RespondentFilter::secondaryKey));
+        return SurveyVM.forRoot(inspectionContext, surveyTreeRootNodeHelperService.root(inspectionContext));
+    }
+
+    @MemberSupport
+    public List<RespondentFilter> choicesRespondentFilter() {
+        return factoryService.mixin(Survey_dependentRespondentFilterMappedBySurvey.class, mixee)
+                .coll();
     }
 
 }

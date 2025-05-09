@@ -22,6 +22,8 @@ import java.util.List;
 
 import jakarta.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -32,6 +34,7 @@ import lombok.RequiredArgsConstructor;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.recall24.dto.RecallNode24;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action
 @ActionLayout(
@@ -40,39 +43,42 @@ import dita.recall24.dto.RecallNode24;
         position = Position.PANEL)
 @RequiredArgsConstructor
 public class SurveyVM_addIngredient {
-    
-    @Inject FoodDescriptionModel foodDescriptionModel;
-    
+
+    @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
     private final SurveyVM mixee;
-    
+
     @MemberSupport
     public String act(
-            Food food,
-            double amount, 
-            String facetSidList
+            final Food food,
+            final double amount,
+            final String facetSidList
             ) {
         return "TODO (%s)".formatted(recallNode().getClass());
     }
-    
+
     @MemberSupport
     public boolean hidden() {
         return !(recallNode() instanceof dita.recall24.dto.Record24.Composite);
     }
-    
-        
+
+
     @MemberSupport
-    public List<Food> autoCompleteFood(String search) {
-        return foodDescriptionModel.foodBySid().values()
+    public List<Food> autoCompleteFood(final String search) {
+        return foodDescriptionModel().foodBySid().values()
             .stream()
             .filter(food->food.name().contains(search))
             .toList();
     }
 
     // -- HELPER
-    
+
+    FoodDescriptionModel foodDescriptionModel() {
+        return null; //FIXME
+    }
+
     RecallNode24 recallNode() {
         return mixee.recallNode();
     }
 
-    
+
 }

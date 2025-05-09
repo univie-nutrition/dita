@@ -86,7 +86,7 @@ public class Campaign_uploadInterview {
             throw new RecoverableException(String.format("unsupported mime %s%n",
                     interviewFileOrFiles.mimeType().toString()));
         }
-        surveyTreeRootNodeHelperService.invalidateCache(mixee.secondaryKey());
+        surveyTreeRootNodeHelperService.invalidateCache();
         return mixee;
     }
 

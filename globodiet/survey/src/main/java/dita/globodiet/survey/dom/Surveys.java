@@ -95,7 +95,10 @@ public class Surveys {
     // -- CORRECTION
 
     public Correction24 correction(final Survey.SecondaryKey surveyKey) {
-        return DataUtil.correction(survey(surveyKey).getCorrection());
+        return correction(survey(surveyKey));
+    }
+    public Correction24 correction(final Survey survey) {
+        return DataUtil.correction(survey.getCorrection());
     }
     private Survey survey(final Survey.SecondaryKey surveyKey) {
         var repo = RuntimeUtils.getRepositoryService();

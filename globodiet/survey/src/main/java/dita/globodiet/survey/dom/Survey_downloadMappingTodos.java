@@ -31,7 +31,7 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
-import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
@@ -47,35 +47,33 @@ import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import dita.recall24.reporter.todo.TodoReporter;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
-@Action(
-        choicesFrom = "dependentCampaignMappedBySurvey"
-)
+@Action
 @ActionLayout(
-        fieldSetId = "dependentCampaignMappedBySurvey",
-        sequence = "1",
+        sequence = "3",
         cssClass = "btn-primary",
         cssClassFa = "solid list-check",
         describedAs = "Generates a mapping todo file (for selected campains), "
-                + "that can be processed by external systems.",
-        position = ActionLayout.Position.PANEL
+                + "that can be processed by external systems."
 )
 @RequiredArgsConstructor
 public class Survey_downloadMappingTodos {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+    @Inject private FactoryService factoryService;
 
     private final Survey mixee;
 
     @MemberSupport
     public Clob act(
-        final Can<Campaign> campaigns,
-
-        @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
+        @Parameter
         @ParameterLayout(describedAs = "use CSV Format (for debugging)")
         final boolean useCSVFormat) {
 
-        // see also Campaign_downloadMappingTodos
-        var reportContext = ReportContext.load(campaigns.map(Campaign::secondaryKey), surveyBlobStore);
+        var campaignKeys = Campaigns.listAll(factoryService, mixee)
+            .map(Campaign::secondaryKey);
+
+        // see also Survey_generateReport
+        var reportContext = ReportContext.load(campaignKeys, surveyBlobStore);
         return useCSVFormat
             ? csvFormat(reportContext)
             : yamlFormat(reportContext);

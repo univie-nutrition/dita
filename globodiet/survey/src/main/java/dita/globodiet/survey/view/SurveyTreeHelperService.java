@@ -19,6 +19,7 @@
 package dita.globodiet.survey.view;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.inject.Inject;
@@ -26,10 +27,12 @@ import jakarta.inject.Inject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.dom.Surveys;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -38,22 +41,24 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 @Service
 public class SurveyTreeHelperService {
 
-    @Inject private ForeignKeyLookupService foreignKeyLookupService;
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+    @Inject private FactoryService factoryService;
+    @Inject private ForeignKeyLookupService foreignKeyLookupService;
 
-    private final Map<Campaign.SecondaryKey, InterviewSet24> cache = new ConcurrentHashMap<>();
+    private final Map<InspectionContext, InterviewSet24> cache = new ConcurrentHashMap<>();
 
-    public Campaign campaign(final Campaign.SecondaryKey campaignSecondaryKey) {
-        var campaign = foreignKeyLookupService.unique(campaignSecondaryKey);
-        return campaign;
+    public Optional<Survey> survey(final InspectionContext inspectionContext) {
+        return inspectionContext.surveySecondaryKey()
+            .map(foreignKeyLookupService::unique);
     }
 
-    public InterviewSet24 root(final Campaign.SecondaryKey campaignSecondaryKey) {
-        return cache.computeIfAbsent(campaignSecondaryKey, this::loadInterviewSet);
+    public InterviewSet24 root(final InspectionContext inspectionContext) {
+        return cache.computeIfAbsent(inspectionContext, this::loadInterviewSet);
     }
 
-    public void invalidateCache(final Campaign.SecondaryKey campaignSecondaryKey) {
-        cache.remove(campaignSecondaryKey);
+    //TODO perhaps provide an invalidate button, for administrative purposes
+    public void invalidateCache() {
+        cache.clear();
     }
 
     // -- UTILITY
@@ -64,12 +69,15 @@ public class SurveyTreeHelperService {
 
     // -- HELPER
 
-    private InterviewSet24 loadInterviewSet(final Campaign.SecondaryKey campaignSecondaryKey) {
-        var surveySecondaryKey = Campaigns.surveySecondaryKey(campaignSecondaryKey);
+    private InterviewSet24 loadInterviewSet(final InspectionContext inspectionContext) {
+        var survey = survey(inspectionContext).orElse(null);
+        if(survey==null) return InterviewSet24.empty();
+        var campaignSecondaryKeys = Campaigns.listAll(factoryService, survey)
+            .map(Campaign::secondaryKey);
         return Campaigns.interviewSetCorrected(
-            Surveys.systemId(surveySecondaryKey),
-            campaignSecondaryKey,
-            Surveys.correction(surveySecondaryKey),
+            Surveys.systemId(survey),
+            campaignSecondaryKeys,
+            Surveys.correction(survey),
             surveyBlobStore);
     }
 

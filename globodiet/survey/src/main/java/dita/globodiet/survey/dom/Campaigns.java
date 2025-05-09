@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
@@ -29,6 +30,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
+import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
@@ -45,6 +47,15 @@ public class Campaigns {
         return new Survey.SecondaryKey(campaignKey.surveyCode());
     }
 
+    public Can<Campaign> listAll(
+            final FactoryService factoryService,
+            final Survey survey) {
+        return factoryService.mixin(Survey_dependentCampaignMappedBySurvey.class, survey)
+            .coll()
+            .stream()
+            .collect(Can.toCan());
+    }
+
     NamedPath interviewNamedPath(final Campaign.SecondaryKey campaignKey) {
         if(campaignKey==null
                 || _Strings.isNullOrEmpty(campaignKey.surveyCode())
@@ -56,20 +67,6 @@ public class Campaigns {
     }
 
     // -- INTERVIEW SET
-
-    /**
-     * Returns interview-set from a single campaign. Just corrected, not prepared.
-     */
-    public InterviewSet24 interviewSetCorrected(
-            final SystemId systemId,
-            final Campaign.SecondaryKey campaignKey,
-            final Correction24 correction,
-            final BlobStore blobStore) {
-        var messageConsumer = new MessageConsumer();
-        var interviewSet = interviewSet(systemId, campaignKey, blobStore, correction, messageConsumer);
-        messageConsumer.annotate(interviewSet);
-        return interviewSet;
-    }
 
     /**
      * Returns interview-set from a multiple campaigns. Just corrected, not prepared.

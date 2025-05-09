@@ -36,8 +36,6 @@ import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-import org.apache.causeway.commons.collections.Can;
-
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.util.FormatUtils;
@@ -49,38 +47,35 @@ import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
-@Action(
-        semantics = SemanticsOf.IDEMPOTENT,
-        choicesFrom = "dependentCampaignMappedBySurvey"
-)
+@Action(semantics = SemanticsOf.SAFE)
 @ActionLayout(
-        fieldSetId = "dependentCampaignMappedBySurvey",
         sequence = "2",
         cssClass = "btn-primary",
         cssClassFa = "solid file-export",
-        describedAs = "Generates an Interview Report (for selected campains).",
-        position = ActionLayout.Position.PANEL
+        describedAs = "Generates an Interview Report (for selected campains)."
 )
 @RequiredArgsConstructor
 public class Survey_generateReport {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
-
     @Inject private FactoryService factoryService;
 
     private final Survey mixee;
 
     @MemberSupport
     public Blob act(
-            final Can<Campaign> campaigns,
-            @Parameter(optionality = Optionality.OPTIONAL, precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
+            @Parameter(optionality = Optionality.OPTIONAL)
             final RespondentFilter respondentFilter,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
             final ReportColumnDefinition reportColumnDefinition,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
             final Aggregation aggregation) {
-        // see also Campaign_downloadMappingTodos
-        var reportContext = ReportContext.load(campaigns.map(Campaign::secondaryKey), surveyBlobStore, respondentFilter);
+
+        var campaignKeys = Campaigns.listAll(factoryService, mixee)
+            .map(Campaign::secondaryKey);
+
+        // see also Survey_downloadMappingTodos
+        var reportContext = ReportContext.load(campaignKeys, surveyBlobStore, respondentFilter);
         if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();

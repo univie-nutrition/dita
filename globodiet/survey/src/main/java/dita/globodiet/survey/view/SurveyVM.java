@@ -45,7 +45,7 @@ import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import lombok.Getter;
 
 import dita.globodiet.survey.DitaModuleGdSurvey;
-import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Survey;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
@@ -67,25 +67,25 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     // -- FACTORIES
 
     public static SurveyVM forRoot(
-            final Campaign.SecondaryKey campaignSecondaryKey,
+            final InspectionContext inspectionContext,
             final RecallNode24 rootNode) {
-        return forTreePath(campaignSecondaryKey, rootNode, TreePath.root());
+        return forTreePath(inspectionContext, rootNode, TreePath.root());
     }
 
     public static SurveyVM forTreePath(
-            final Campaign.SecondaryKey campaignSecondaryKey,
+        final InspectionContext inspectionContext,
             final RecallNode24 rootNode,
             final TreePath treePath) {
-        return new SurveyVM(new ViewModelMemento(campaignSecondaryKey, treePath), rootNode);
+        return new SurveyVM(new ViewModelMemento(inspectionContext, treePath), rootNode);
     }
 
     // -- RECONSTRUCTION
 
     private record ViewModelMemento(
-            Campaign.SecondaryKey campaignSecondaryKey,
+            InspectionContext inspectionContext,
             TreePath treePath) {
         static ViewModelMemento empty() {
-            return new ViewModelMemento(new Campaign.SecondaryKey("", ""), TreePath.root());
+            return new ViewModelMemento(InspectionContext.empty(), TreePath.root());
         }
         static ViewModelMemento parse(final String viewModelMemento) {
             var parts = _Strings.splitThenStream(viewModelMemento, "|")
@@ -95,16 +95,16 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
             }
             parts = parts.map(_Strings::base64UrlDecode); // might throw on encoding errors
             return new ViewModelMemento(
-                        new Campaign.SecondaryKey(parts.getElseFail(0), parts.getElseFail(1)),
+                        new InspectionContext(parts.getElseFail(0), parts.getElseFail(1)),
                         TreePath.parse(parts.getElseFail(2), PATH_DELIMITER));
         }
         String stringify() {
-            return _Strings.base64UrlEncode(campaignSecondaryKey.surveyCode())
-                    + "|" + _Strings.base64UrlEncode(campaignSecondaryKey.code())
+            return _Strings.base64UrlEncode(inspectionContext.surveyCode())
+                    + "|" + _Strings.base64UrlEncode(inspectionContext.respondentFilterCode())
                     + "|" + _Strings.base64UrlEncode(treePath.stringify(PATH_DELIMITER));
         }
         public ViewModelMemento parent() {
-            return new ViewModelMemento(campaignSecondaryKey, treePath.parent().orElse(null));
+            return new ViewModelMemento(inspectionContext, treePath.parent().orElse(null));
         }
     }
 
@@ -129,7 +129,7 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     SurveyVM(
             final SurveyTreeHelperService helper,
             final ViewModelMemento viewModelMemento) {
-        this(viewModelMemento, helper.root(viewModelMemento.campaignSecondaryKey()));
+        this(viewModelMemento, helper.root(viewModelMemento.inspectionContext()));
     }
 
     SurveyVM(final ViewModelMemento viewModelMemento, final RecallNode24 rootNode) {
@@ -151,13 +151,14 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     public Object getParent() {
         return activeTreePath().parent()
                 .<Object>map(_->new SurveyVM(viewModelMemento.parent(), rootNode()))
-                .orElseGet(this::getCampaign);
+                .orElseGet(this::getSurvey);
     }
 
     @PropertyLayout(hidden=Where.EVERYWHERE)
     @Getter(lazy = true)
-    private final Campaign campaign = SurveyTreeHelperService.instance()
-        .campaign(viewModelMemento.campaignSecondaryKey());
+    private final Survey survey = SurveyTreeHelperService.instance()
+        .survey(viewModelMemento.inspectionContext())
+        .orElse(null);
 
     private InterviewSet24 interviewSet() {
         return (InterviewSet24) rootNode();
@@ -166,7 +167,7 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     @ObjectSupport public String title() {
         var node = activeNode();
         return switch (node) {
-        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getCampaign());
+        case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.title(interviewSet, getSurvey());
         case Respondent24 respondent -> SurveyTreeNodeContentFactory.title(respondent, DataUtil.messages(interviewSet()));
         case Interview24 interview -> SurveyTreeNodeContentFactory.title(interview);
         case Meal24 meal -> SurveyTreeNodeContentFactory.title(meal);
@@ -195,7 +196,7 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     public AsciiDoc getContent() {
         var node = activeNode();
         return switch (node) {
-            case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getCampaign());
+            case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.content(interviewSet, getSurvey());
             case Respondent24 respondent -> SurveyTreeNodeContentFactory.content(respondent);
             case Interview24 interview -> SurveyTreeNodeContentFactory.content(interview);
             case Meal24 meal -> SurveyTreeNodeContentFactory.content(meal);
@@ -209,8 +210,8 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     @Override
     protected SurveyVM viewModel(final RecallNode24 node, final SurveyVM parentNode, final int siblingIndex) {
         return node instanceof InterviewSet24
-                ? SurveyVM.forRoot(viewModelMemento.campaignSecondaryKey(), rootNode())
-                : SurveyVM.forTreePath(viewModelMemento.campaignSecondaryKey(), rootNode(),
+                ? SurveyVM.forRoot(viewModelMemento.inspectionContext(), rootNode())
+                : SurveyVM.forTreePath(viewModelMemento.inspectionContext(), rootNode(),
                         parentNode.activeTreePath().append(siblingIndex));
     }
 
@@ -243,7 +244,7 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     protected TreeAdapter<RecallNode24> treeAdapter() {
         return new SurveyTreeAdapter();
     }
-    
+
     RecallNode24 recallNode() {
         return activeNode();
     }

@@ -32,22 +32,22 @@ import lombok.experimental.UtilityClass;
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
-import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Survey;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
-import dita.recall24.dto.Annotated;
 
 @UtilityClass
 public class SurveyTreeNodeContentFactory {
 
     // -- TITLE
 
-    String title(final InterviewSet24 interviewSet, final Campaign campaign) {
-        return "Campaign - " + campaign.title();
+    String title(final InterviewSet24 interviewSet, final Survey survey) {
+        return "Survey - " + survey.title();
     }
 
     String title(final Respondent24 respondent, final Can<Message> messages) {
@@ -108,7 +108,7 @@ public class SurveyTreeNodeContentFactory {
 
     // -- CONTENT
 
-    AsciiDoc content(final InterviewSet24 interviewSet, final Campaign campaign) {
+    AsciiDoc content(final InterviewSet24 interviewSet, final Survey survey) {
         record Details(int respondentCount, int interviewCount, Can<Message> messages) {
             Details(final InterviewSet24 interviewSet) {
                 this(interviewSet.respondents().size(),
@@ -118,20 +118,20 @@ public class SurveyTreeNodeContentFactory {
         }
         return adoc("Details", new Details(interviewSet));
     }
-    
+
     record RespondentSummary(
         String alias,
         LocalDate dateOfBirth,
         Sex sex,
         Collection<InterviewSummary> interviews) {
-        RespondentSummary(Respondent24 respondent) {
-            this(respondent.alias(), respondent.dateOfBirth(), respondent.sex(), 
+        RespondentSummary(final Respondent24 respondent) {
+            this(respondent.alias(), respondent.dateOfBirth(), respondent.sex(),
                 respondent.interviews().stream()
                 .map(iv->new InterviewSummary(title(iv), iv.streamAnnotations().toList()))
                 .toList());
         }
     }
-    
+
     record InterviewSummary(
         String interview,
         Collection<Annotated.Annotation> annotations) {
