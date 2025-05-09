@@ -111,7 +111,11 @@ public record ReportContext(
                     .transform(new QualifiedMappingResolver(nutMapping()))
                     .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
                     // to handle ingredients from the previous transformer
-                    .transform(new QualifiedMappingResolver(nutMapping())));
+                    .transform(new QualifiedMappingResolver(nutMapping()))
+                    .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
+                    // to handle ingredients from the previous transformer
+                    .transform(new QualifiedMappingResolver(nutMapping()))
+            );
     }
 
     public ReportContext transform(final UnaryOperator<InterviewSet24> interviewTransformer) {
