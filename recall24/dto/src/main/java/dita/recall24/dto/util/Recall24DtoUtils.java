@@ -164,10 +164,10 @@ public class Recall24DtoUtils {
             final InterviewSet24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Optional.empty();
-        var transformedSubNodes = input.respondents().stream()
-            .flatMap(subNode->transform(subNode, transformer))
+        var transformedRespondents = input.respondents().stream()
+            .flatMap(resp->transform(resp, transformer))
             .collect(Can.toCan());
-        var prepared = new InterviewSet24(transformedSubNodes, input.annotations());
+        var prepared = new InterviewSet24(transformedRespondents, input.annotations());
         var transformed = transformer.transform(prepared);
         return Optional.ofNullable(transformed);
     }
@@ -178,12 +178,12 @@ public class Recall24DtoUtils {
             final Respondent24 input,
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
-        var transformedSubNodes = input.interviews().stream()
-                .flatMap(subNode->transform(subNode, transformer))
+        var transformedInterviews = input.interviews().stream()
+                .flatMap(intv->transform(intv, transformer))
                 .toList();
         var builder = input.asBuilder();
         builder.interviews().clear();
-        builder.interviews().addAll(transformedSubNodes);
+        builder.interviews().addAll(transformedInterviews);
         return Stream.of(transformer.transform(builder.build()));
     }
     private Stream<Interview24> transform(
@@ -191,7 +191,7 @@ public class Recall24DtoUtils {
             final RecallNode24.Transfomer transformer) {
         if(transformer.filter(input)==false) return Stream.empty();
         var transformedSubNodes = input.meals().stream()
-                .flatMap(subNode->transform(subNode, transformer))
+                .flatMap(meal->transform(meal, transformer))
                 .toList();
         var builder = (Interview24.Builder)input.asBuilder();
         builder.meals().clear();

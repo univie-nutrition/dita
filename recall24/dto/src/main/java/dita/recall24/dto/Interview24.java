@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._NullSafe;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -169,7 +170,7 @@ public record Interview24 (
             var dto = new Interview24(interviewDate, consumptionDate,
                 respondentSupplementaryData, Can.ofCollection(meals));
             dto.parentRespondentRef().setValue(respondent);
-            annotations.forEach(annot->dto.annotations().put(annot.key(), annot));
+            _NullSafe.stream(annotations).forEach(dto::putAnnotation);
             return dto;
         }
     }

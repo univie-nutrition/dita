@@ -31,8 +31,6 @@ import org.apache.causeway.commons.internal.base._Casts;
 
 public interface Annotated {
 
-
-
     public static final String GROUP = "group";
     public static final String FCDB_ID = "fcdbId";
 
