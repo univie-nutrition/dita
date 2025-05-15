@@ -58,7 +58,6 @@ public class Survey_addRespondentFilter {
 
         var respondentFilter = repositoryService.detachedEntity(new RespondentFilter());
         respondentFilter.setSurveyCode(mixee.secondaryKey().code());
-        respondentFilter.setCode(p.code());
         respondentFilter.setName(p.name());
         respondentFilter.setDescription(p.description());
         respondentFilter.setAliasListing(p.aliasListing());
@@ -82,11 +81,6 @@ public class Survey_addRespondentFilter {
     @MemberSupport
     public boolean hideSurvey() {
         return true;
-    }
-
-    @MemberSupport
-    public String defaultCode() {
-        return "FILTER_00";
     }
 
     @MemberSupport

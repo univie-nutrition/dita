@@ -74,7 +74,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 @DomainObjectLayout(
         describedAs = "A consumption data cleaner references a specific food or composite by SID\n"
                 + "and describes what to clean up.",
-        cssClassFa = "solid users-viewfinder .campaign-color\n"
+        cssClassFa = "solid users-viewfinder .campaign-color,\n"
                 + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
 @Entity
@@ -238,7 +238,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     @DomainObjectLayout(
             describedAs = "A consumption data cleaner references a specific food or composite by SID\n"
                     + "and describes what to clean up.",
-            cssClassFa = "solid users-viewfinder .campaign-color\n"
+            cssClassFa = "solid users-viewfinder .campaign-color,\n"
                     + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor

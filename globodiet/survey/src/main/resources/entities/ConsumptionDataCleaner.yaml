@@ -25,7 +25,7 @@ entity:
     CODE
   title: String.format("%s (%s)", name, surveyCode)
   icon: |
-    solid users-viewfinder .campaign-color
+    solid users-viewfinder .campaign-color,
     solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
   description: |
     A consumption data cleaner references a specific food or composite by SID 

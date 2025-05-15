@@ -53,7 +53,7 @@ public class EntitiesMenu {
 
     @Action
     @ActionLayout(
-            cssClassFa = "solid users-viewfinder .campaign-color\n"
+            cssClassFa = "solid users-viewfinder .campaign-color,\n"
                     + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )
     public ConsumptionDataCleaner.Manager manageConsumptionDataCleaner() {

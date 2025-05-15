@@ -22,7 +22,7 @@ entity:
   table: RespondentFilter
   secondaryKey: |
     SURVEY
-    CODE
+    NAME
   title: String.format("%s (%s)", name, surveyCode)
   icon: |
     solid user .respondentFilter-color,
@@ -40,20 +40,13 @@ entity:
         SURVEY.CODE
       description: |
         Survey code   
-    code:
-      column: CODE
-      column-type: nvarchar(20)
-      required: true
-      unique: false
-      description: |
-        Unique (survey scoped) filter identifier.
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Descriptive filter name.
+        Descriptive filter name, unique within survey.
     description:
       column: DESCRIPTION
       column-type: nvarchar(240)

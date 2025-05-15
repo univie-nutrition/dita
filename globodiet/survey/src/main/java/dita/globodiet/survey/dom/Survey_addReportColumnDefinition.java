@@ -59,7 +59,6 @@ public class Survey_addReportColumnDefinition {
 
         var colDef = repositoryService.detachedEntity(new ReportColumnDefinition());
         colDef.setSurveyCode(mixee.secondaryKey().code());
-        colDef.setCode(p.code());
         colDef.setName(p.name());
         colDef.setDescription(p.description());
         colDef.setColumnListing(p.columnListing());
@@ -83,11 +82,6 @@ public class Survey_addReportColumnDefinition {
     @MemberSupport
     public boolean hideSurvey() {
         return true;
-    }
-
-    @MemberSupport
-    public String defaultCode() {
-        return "COLDEF_00";
     }
 
     @MemberSupport

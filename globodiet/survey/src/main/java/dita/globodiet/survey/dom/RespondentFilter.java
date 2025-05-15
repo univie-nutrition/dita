@@ -85,7 +85,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
                 name = "SEC_KEY_UNQ_RespondentFilter",
                 columnNames = {
                         "`SURVEY`",
-                        "`CODE`"
+                        "`NAME`"
                 }
         )
 )
@@ -126,7 +126,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     private String surveyCode;
 
     /**
-     * Unique (survey scoped) filter identifier.
+     * Descriptive filter name, unique within survey.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -134,28 +134,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) filter identifier."
-    )
-    @Column(
-            name = "\"CODE\"",
-            nullable = false,
-            length = 20
-    )
-    @Getter
-    @Setter
-    private String code;
-
-    /**
-     * Descriptive filter name.
-     */
-    @Property(
-            optionality = Optionality.MANDATORY,
-            editing = Editing.ENABLED
-    )
-    @PropertyLayout(
-            fieldSetId = "details",
-            sequence = "3",
-            describedAs = "Descriptive filter name."
+            describedAs = "Descriptive filter name, unique within survey."
     )
     @Column(
             name = "\"NAME\"",
@@ -175,7 +154,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     )
     @PropertyLayout(
             fieldSetId = "details",
-            sequence = "4",
+            sequence = "3",
             describedAs = "Detailed information for this filter.",
             multiLine = 4
     )
@@ -199,7 +178,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @PropertyLayout(
             cssClass = "listing",
             fieldSetId = "listing",
-            sequence = "5",
+            sequence = "4",
             describedAs = "Line by line defines an alias to include.\n"
                     + "(lines can be commented out with a leading #)",
             hidden = Where.EVERYWHERE,
@@ -222,7 +201,6 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @Override
     public String toString() {
         return "RespondentFilter(" + "surveyCode=" + getSurveyCode() + ","
-         +"code=" + getCode() + ","
          +"name=" + getName() + ","
          +"description=" + getDescription() + ","
          +"aliasListing=" + getAliasListing() + ")";
@@ -233,7 +211,6 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     public RespondentFilter copy() {
         var copy = repositoryService.detachedEntity(new RespondentFilter());
         copy.setSurveyCode(getSurveyCode());
-        copy.setCode(getCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
         copy.setAliasListing(getAliasListing());
@@ -255,7 +232,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getSurveyCode(), 
-        getCode());
+        getName());
     }
 
     /**
@@ -307,8 +284,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
      * Parameter model for @{link RespondentFilter}
      *
      * @param survey Survey code
-     * @param code Unique (survey scoped) filter identifier.
-     * @param name Descriptive filter name.
+     * @param name Descriptive filter name, unique within survey.
      * @param description Detailed information for this filter.
      * @param aliasListing Line by line defines an alias to include.
      * (lines can be commented out with a leading #)
@@ -316,8 +292,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) filter identifier.") String code,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive filter name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive filter name, unique within survey.") String name,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed information for this filter.", multiLine = 4) String description,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Line by line defines an alias to include.\n"
                             + "(lines can be commented out with a leading #)", multiLine = 24) String aliasListing
@@ -328,12 +303,12 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
      * SecondaryKey for @{link RespondentFilter}
      *
      * @param surveyCode Survey code
-     * @param code Unique (survey scoped) filter identifier.
+     * @param name Descriptive filter name, unique within survey.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code
+            String name
     ) implements ISecondaryKey<RespondentFilter> {
         @Override
         public Class<RespondentFilter> correspondingClass() {

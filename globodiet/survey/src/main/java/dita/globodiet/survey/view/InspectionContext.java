@@ -43,7 +43,7 @@ public record InspectionContext(
         return new InspectionContext(
             secondaryKey.code(),
             respFilterOptional
-                .map(RespondentFilter.SecondaryKey::code)
+                .map(RespondentFilter.SecondaryKey::name)
                 .orElse(""));
     }
 

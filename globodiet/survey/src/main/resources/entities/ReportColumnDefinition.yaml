@@ -22,7 +22,7 @@ entity:
   table: ReportColumnDefinition
   secondaryKey: |
     SURVEY
-    CODE
+    NAME
   title: String.format("%s (%s)", name, surveyCode)
   icon: |
     solid table-columns .reportColumnDefinition-color
@@ -39,20 +39,13 @@ entity:
         SURVEY.CODE
       description: |
         Survey code   
-    code:
-      column: CODE
-      column-type: nvarchar(20)
-      required: true
-      unique: false
-      description: |
-        Unique (survey scoped) column-definition identifier.
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Descriptive column-definition name.
+        Descriptive column-definition name, unique within survey.
     description:
       column: DESCRIPTION
       column-type: nvarchar(240)

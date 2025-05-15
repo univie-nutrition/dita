@@ -84,7 +84,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
                 name = "SEC_KEY_UNQ_ReportColumnDefinition",
                 columnNames = {
                         "`SURVEY`",
-                        "`CODE`"
+                        "`NAME`"
                 }
         )
 )
@@ -125,7 +125,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     private String surveyCode;
 
     /**
-     * Unique (survey scoped) column-definition identifier.
+     * Descriptive column-definition name, unique within survey.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -133,28 +133,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) column-definition identifier."
-    )
-    @Column(
-            name = "\"CODE\"",
-            nullable = false,
-            length = 20
-    )
-    @Getter
-    @Setter
-    private String code;
-
-    /**
-     * Descriptive column-definition name.
-     */
-    @Property(
-            optionality = Optionality.MANDATORY,
-            editing = Editing.ENABLED
-    )
-    @PropertyLayout(
-            fieldSetId = "details",
-            sequence = "3",
-            describedAs = "Descriptive column-definition name."
+            describedAs = "Descriptive column-definition name, unique within survey."
     )
     @Column(
             name = "\"NAME\"",
@@ -174,7 +153,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     )
     @PropertyLayout(
             fieldSetId = "details",
-            sequence = "4",
+            sequence = "3",
             describedAs = "Detailed information for this column-definition.",
             multiLine = 4
     )
@@ -198,7 +177,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     @PropertyLayout(
             cssClass = "listing",
             fieldSetId = "listing",
-            sequence = "5",
+            sequence = "4",
             describedAs = "Line by line defines a column to include.\n"
                     + "(lines can be commented out with a leading #)",
             hidden = Where.EVERYWHERE,
@@ -221,7 +200,6 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     @Override
     public String toString() {
         return "ReportColumnDefinition(" + "surveyCode=" + getSurveyCode() + ","
-         +"code=" + getCode() + ","
          +"name=" + getName() + ","
          +"description=" + getDescription() + ","
          +"columnListing=" + getColumnListing() + ")";
@@ -232,7 +210,6 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     public ReportColumnDefinition copy() {
         var copy = repositoryService.detachedEntity(new ReportColumnDefinition());
         copy.setSurveyCode(getSurveyCode());
-        copy.setCode(getCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
         copy.setColumnListing(getColumnListing());
@@ -254,7 +231,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getSurveyCode(), 
-        getCode());
+        getName());
     }
 
     /**
@@ -305,8 +282,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
      * Parameter model for @{link ReportColumnDefinition}
      *
      * @param survey Survey code
-     * @param code Unique (survey scoped) column-definition identifier.
-     * @param name Descriptive column-definition name.
+     * @param name Descriptive column-definition name, unique within survey.
      * @param description Detailed information for this column-definition.
      * @param columnListing Line by line defines a column to include.
      * (lines can be commented out with a leading #)
@@ -314,8 +290,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) column-definition identifier.") String code,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive column-definition name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive column-definition name, unique within survey.") String name,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed information for this column-definition.", multiLine = 4) String description,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Line by line defines a column to include.\n"
                             + "(lines can be commented out with a leading #)", multiLine = 24) String columnListing
@@ -326,12 +301,12 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
      * SecondaryKey for @{link ReportColumnDefinition}
      *
      * @param surveyCode Survey code
-     * @param code Unique (survey scoped) column-definition identifier.
+     * @param name Descriptive column-definition name, unique within survey.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code
+            String name
     ) implements ISecondaryKey<ReportColumnDefinition> {
         @Override
         public Class<ReportColumnDefinition> correspondingClass() {
