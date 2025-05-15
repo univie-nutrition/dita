@@ -63,7 +63,7 @@ entity:
         Detailed information for this column-definition.
     columnListing:
       column: COLLISTING
-      column-type: clob
+      column-type: mediumtext
       required: false
       unique: false
       hiddenWhere: EVERYWHERE

@@ -20,6 +20,7 @@
 package dita.globodiet.survey;
 
 import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.ConsumptionDataCleaner;
 import dita.globodiet.survey.dom.ReportColumnDefinition;
 import dita.globodiet.survey.dom.RespondentFilter;
 import dita.globodiet.survey.dom.Survey;
@@ -48,6 +49,15 @@ public class EntitiesMenu {
     )
     public Campaign.Manager manageCampaign() {
         return factoryService.viewModel(new Campaign.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid users-viewfinder .campaign-color\n"
+                    + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+    )
+    public ConsumptionDataCleaner.Manager manageConsumptionDataCleaner() {
+        return factoryService.viewModel(new ConsumptionDataCleaner.Manager(searchService, ""));
     }
 
     @Action

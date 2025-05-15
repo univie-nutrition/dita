@@ -23,6 +23,10 @@ import dita.globodiet.survey.dom.Campaign;
 import dita.globodiet.survey.dom.CampaignDeps;
 import dita.globodiet.survey.dom.Campaign_delete;
 import dita.globodiet.survey.dom.Campaign_survey;
+import dita.globodiet.survey.dom.ConsumptionDataCleaner;
+import dita.globodiet.survey.dom.ConsumptionDataCleanerDeps;
+import dita.globodiet.survey.dom.ConsumptionDataCleaner_delete;
+import dita.globodiet.survey.dom.ConsumptionDataCleaner_survey;
 import dita.globodiet.survey.dom.ReportColumnDefinition;
 import dita.globodiet.survey.dom.ReportColumnDefinitionDeps;
 import dita.globodiet.survey.dom.ReportColumnDefinition_delete;
@@ -55,12 +59,14 @@ EntitiesMenu.class,
 
 // Entities
 Campaign.class,
+ConsumptionDataCleaner.class,
 ReportColumnDefinition.class,
 RespondentFilter.class,
 Survey.class,
 
 // Submodules
 CampaignDeps.class,
+ConsumptionDataCleanerDeps.class,
 ReportColumnDefinitionDeps.class,
 RespondentFilterDeps.class,
 SurveyDeps.class,
@@ -68,6 +74,8 @@ SurveyDeps.class,
 // Mixins
 Campaign_delete.class,
 Campaign_survey.class,
+ConsumptionDataCleaner_delete.class,
+ConsumptionDataCleaner_survey.class,
 ReportColumnDefinition_delete.class,
 ReportColumnDefinition_survey.class,
 RespondentFilter_delete.class,
@@ -84,6 +92,7 @@ public class DitaModuleGdSurvey {
 
     public static Can<Class<?>> entityClasses() {
         return Can.of(Campaign.class,
+        ConsumptionDataCleaner.class,
         ReportColumnDefinition.class,
         RespondentFilter.class,
         Survey.class);

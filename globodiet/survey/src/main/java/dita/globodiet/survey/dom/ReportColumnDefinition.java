@@ -207,8 +207,7 @@ public class ReportColumnDefinition implements Persistable, Cloneable<ReportColu
     )
     @Column(
             name = "\"COLLISTING\"",
-            nullable = true,
-            columnDefinition = "CLOB"
+            nullable = true
     )
     @Getter
     @Setter

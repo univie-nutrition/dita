@@ -6,6 +6,7 @@
     <persistence-unit name="DitaModuleGdSurvey" transaction-type="RESOURCE_LOCAL">
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <class>dita.globodiet.survey.dom.Campaign</class>
+        <class>dita.globodiet.survey.dom.ConsumptionDataCleaner</class>
         <class>dita.globodiet.survey.dom.ReportColumnDefinition</class>
         <class>dita.globodiet.survey.dom.RespondentFilter</class>
         <class>dita.globodiet.survey.dom.Survey</class>

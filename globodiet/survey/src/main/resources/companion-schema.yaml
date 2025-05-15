@@ -64,6 +64,52 @@ entities:
       multiLine: 4
       description: |
         Detailed information for this campaign.
+- fqn: survey.dom.ConsumptionDataCleaner
+  name: ConsumptionDataCleaner
+  namespace: survey.dom
+  table: ConsumptionDataCleaner
+  secondaryKey: |
+    SURVEY
+    CODE
+  title: String.format("%s (%s)", name, surveyCode)
+  icon: |
+    solid users-viewfinder .campaign-color
+    solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
+    
+  description: |
+    A consumption data cleaner references a specific food or composite by SID 
+    and describes what to clean up.
+  fields:
+    surveyCode:
+      column: SURVEY
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      foreignKeys: |
+        SURVEY.CODE
+      description: |
+        Survey code   
+    code:
+      column: CODE
+      column-type: nvarchar(40)
+      required: true
+      unique: false
+      description: |
+        Unique (survey scoped) cleaner identifier.
+    name:
+      column: NAME
+      column-type: nvarchar(120)
+      required: true
+      unique: false
+      description: |
+        Descriptive cleaner name.
+    description:
+      column: DESCRIPTION
+      column-type: mediumtext
+      required: false
+      unique: false
+      description: |
+        Detailed decription for this cleaner.
 - fqn: survey.dom.ReportColumnDefinition
   name: ReportColumnDefinition
   namespace: survey.dom
@@ -112,7 +158,7 @@ entities:
         Detailed information for this column-definition.
     columnListing:
       column: COLLISTING
-      column-type: clob
+      column-type: mediumtext
       required: false
       unique: false
       cssClass: listing
@@ -172,7 +218,7 @@ entities:
         Detailed information for this filter.
     aliasListing:
       column: ALIAS
-      column-type: clob
+      column-type: mediumtext
       required: false
       unique: false
       cssClass: listing

@@ -19,17 +19,17 @@
 
 entity: 
   namespace: survey.dom
-  table: RespondentFilter
+  table: ConsumptionDataCleaner
   secondaryKey: |
     SURVEY
     CODE
   title: String.format("%s (%s)", name, surveyCode)
   icon: |
-    solid user .respondentFilter-color,
-    solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55
+    solid users-viewfinder .campaign-color
+    solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
   description: |
-    A respondent filter defines which respondents to include 
-    with an interview report.
+    A consumption data cleaner references a specific food or composite by SID 
+    and describes what to clean up.
   fields:
     surveyCode:
       column: SURVEY
@@ -42,36 +42,23 @@ entity:
         Survey code   
     code:
       column: CODE
-      column-type: nvarchar(20)
+      column-type: nvarchar(40)
       required: true
       unique: false
       description: |
-        Unique (survey scoped) filter identifier.
+        Unique (survey scoped) cleaner identifier.
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Descriptive filter name.
+        Descriptive cleaner name.
     description:
       column: DESCRIPTION
-      column-type: nvarchar(240)
-      required: false
-      unique: false
-      multiLine: 4
-      description: |
-        Detailed information for this filter.
-    aliasListing:
-      column: ALIAS
       column-type: mediumtext
+      typeFqn: org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc
       required: false
       unique: false
-      hiddenWhere: EVERYWHERE
-      cssClass: listing
-      fieldSet: listing
-      multiLine: 24
-      labelPosition: NONE
       description: |
-        Line by line defines an alias to include.
-        (lines can be commented out with a leading #)
+        Detailed decription for this cleaner.

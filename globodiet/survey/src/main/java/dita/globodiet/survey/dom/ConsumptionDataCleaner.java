@@ -50,7 +50,6 @@ import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.Editing;
-import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.Navigable;
 import org.apache.causeway.applib.annotation.ObjectSupport;
@@ -66,30 +65,30 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * A respondent filter defines which respondents to include
- * with an interview report.
+ * A consumption data cleaner references a specific food or composite by SID
+ * and describes what to clean up.
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
-@Named("dita.globodiet.survey.dom.RespondentFilter")
+@Named("dita.globodiet.survey.dom.ConsumptionDataCleaner")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "A respondent filter defines which respondents to include\n"
-                + "with an interview report.",
-        cssClassFa = "solid user .respondentFilter-color,\n"
-                + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+        describedAs = "A consumption data cleaner references a specific food or composite by SID\n"
+                + "and describes what to clean up.",
+        cssClassFa = "solid users-viewfinder .campaign-color\n"
+                + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
 @Entity
 @Table(
-        name = "RespondentFilter",
+        name = "ConsumptionDataCleaner",
         uniqueConstraints = @UniqueConstraint(
-                name = "SEC_KEY_UNQ_RespondentFilter",
+                name = "SEC_KEY_UNQ_ConsumptionDataCleaner",
                 columnNames = {
                         "`SURVEY`",
                         "`CODE`"
                 }
         )
 )
-public class RespondentFilter implements Persistable, Cloneable<RespondentFilter>, HasSecondaryKey<RespondentFilter> {
+public class ConsumptionDataCleaner implements Persistable, Cloneable<ConsumptionDataCleaner>, HasSecondaryKey<ConsumptionDataCleaner> {
     @Inject
     @Transient
     RepositoryService repositoryService;
@@ -126,7 +125,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     private String surveyCode;
 
     /**
-     * Unique (survey scoped) filter identifier.
+     * Unique (survey scoped) cleaner identifier.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -134,19 +133,19 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) filter identifier."
+            describedAs = "Unique (survey scoped) cleaner identifier."
     )
     @Column(
             name = "\"CODE\"",
             nullable = false,
-            length = 20
+            length = 40
     )
     @Getter
     @Setter
     private String code;
 
     /**
-     * Descriptive filter name.
+     * Descriptive cleaner name.
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -155,7 +154,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "3",
-            describedAs = "Descriptive filter name."
+            describedAs = "Descriptive cleaner name."
     )
     @Column(
             name = "\"NAME\"",
@@ -167,7 +166,7 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     private String name;
 
     /**
-     * Detailed information for this filter.
+     * Detailed decription for this cleaner.
      */
     @Property(
             optionality = Optionality.OPTIONAL,
@@ -176,43 +175,15 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Detailed information for this filter.",
-            multiLine = 4
+            describedAs = "Detailed decription for this cleaner."
     )
     @Column(
             name = "\"DESCRIPTION\"",
-            nullable = true,
-            length = 240
-    )
-    @Getter
-    @Setter
-    private String description;
-
-    /**
-     * Line by line defines an alias to include.
-     * (lines can be commented out with a leading #)
-     */
-    @Property(
-            optionality = Optionality.OPTIONAL,
-            editing = Editing.ENABLED
-    )
-    @PropertyLayout(
-            cssClass = "listing",
-            fieldSetId = "listing",
-            sequence = "5",
-            describedAs = "Line by line defines an alias to include.\n"
-                    + "(lines can be commented out with a leading #)",
-            hidden = Where.EVERYWHERE,
-            multiLine = 24,
-            labelPosition = LabelPosition.NONE
-    )
-    @Column(
-            name = "\"ALIAS\"",
             nullable = true
     )
     @Getter
     @Setter
-    private String aliasListing;
+    private String description;
 
     @ObjectSupport
     public String title() {
@@ -221,22 +192,20 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
 
     @Override
     public String toString() {
-        return "RespondentFilter(" + "surveyCode=" + getSurveyCode() + ","
+        return "ConsumptionDataCleaner(" + "surveyCode=" + getSurveyCode() + ","
          +"code=" + getCode() + ","
          +"name=" + getName() + ","
-         +"description=" + getDescription() + ","
-         +"aliasListing=" + getAliasListing() + ")";
+         +"description=" + getDescription() + ")";
     }
 
     @Programmatic
     @Override
-    public RespondentFilter copy() {
-        var copy = repositoryService.detachedEntity(new RespondentFilter());
+    public ConsumptionDataCleaner copy() {
+        var copy = repositoryService.detachedEntity(new ConsumptionDataCleaner());
         copy.setSurveyCode(getSurveyCode());
         copy.setCode(getCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
-        copy.setAliasListing(getAliasListing());
         return copy;
     }
 
@@ -248,8 +217,8 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
             navigable = Navigable.PARENT
     )
     @Transient
-    public RespondentFilter.Manager getNavigableParent() {
-        return new RespondentFilter.Manager(searchService, "");
+    public ConsumptionDataCleaner.Manager getNavigableParent() {
+        return new ConsumptionDataCleaner.Manager(searchService, "");
     }
 
     @Programmatic
@@ -259,18 +228,18 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     }
 
     /**
-     * Manager Viewmodel for @{link RespondentFilter}
+     * Manager Viewmodel for @{link ConsumptionDataCleaner}
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
-    @Named("dita.globodiet.survey.dom.RespondentFilter.Manager")
+    @Named("dita.globodiet.survey.dom.ConsumptionDataCleaner.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            describedAs = "A respondent filter defines which respondents to include\n"
-                    + "with an interview report.",
-            cssClassFa = "solid user .respondentFilter-color,\n"
-                    + "solid filter .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+            describedAs = "A consumption data cleaner references a specific food or composite by SID\n"
+                    + "and describes what to clean up.",
+            cssClassFa = "solid users-viewfinder .campaign-color\n"
+                    + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -289,12 +258,12 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
 
         @ObjectSupport
         public String title() {
-            return "Manage Respondent Filter";
+            return "Manage Consumption Data Cleaner";
         }
 
         @Collection
-        public final List<RespondentFilter> getListOfRespondentFilter() {
-            return searchService.search(RespondentFilter.class, RespondentFilter::title, search);
+        public final List<ConsumptionDataCleaner> getListOfConsumptionDataCleaner() {
+            return searchService.search(ConsumptionDataCleaner.class, ConsumptionDataCleaner::title, search);
         }
 
         @Override
@@ -304,40 +273,36 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     }
 
     /**
-     * Parameter model for @{link RespondentFilter}
+     * Parameter model for @{link ConsumptionDataCleaner}
      *
      * @param survey Survey code
-     * @param code Unique (survey scoped) filter identifier.
-     * @param name Descriptive filter name.
-     * @param description Detailed information for this filter.
-     * @param aliasListing Line by line defines an alias to include.
-     * (lines can be commented out with a leading #)
+     * @param code Unique (survey scoped) cleaner identifier.
+     * @param name Descriptive cleaner name.
+     * @param description Detailed decription for this cleaner.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) filter identifier.") String code,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive filter name.") String name,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed information for this filter.", multiLine = 4) String description,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Line by line defines an alias to include.\n"
-                            + "(lines can be commented out with a leading #)", multiLine = 24) String aliasListing
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) cleaner identifier.") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive cleaner name.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed decription for this cleaner.") String description
     ) {
     }
 
     /**
-     * SecondaryKey for @{link RespondentFilter}
+     * SecondaryKey for @{link ConsumptionDataCleaner}
      *
      * @param surveyCode Survey code
-     * @param code Unique (survey scoped) filter identifier.
+     * @param code Unique (survey scoped) cleaner identifier.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
             String code
-    ) implements ISecondaryKey<RespondentFilter> {
+    ) implements ISecondaryKey<ConsumptionDataCleaner> {
         @Override
-        public Class<RespondentFilter> correspondingClass() {
-            return RespondentFilter.class;
+        public Class<ConsumptionDataCleaner> correspondingClass() {
+            return ConsumptionDataCleaner.class;
         }
 
         @Override
@@ -349,21 +314,21 @@ public class RespondentFilter implements Persistable, Cloneable<RespondentFilter
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link RespondentFilter} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link ConsumptionDataCleaner} in case of an unresolvable secondary key.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            named = "Unresolvable RespondentFilter",
-            describedAs = "Unresolvable RespondentFilter",
+            named = "Unresolvable ConsumptionDataCleaner",
+            describedAs = "Unresolvable ConsumptionDataCleaner",
             cssClassFa = "skull .unresolvable-color"
     )
-    @Named("dita.globodiet.survey.dom.RespondentFilter.Unresolvable")
+    @Named("dita.globodiet.survey.dom.ConsumptionDataCleaner.Unresolvable")
     @Embeddable
     @RequiredArgsConstructor
-    public static final class Unresolvable extends RespondentFilter implements ViewModel {
+    public static final class Unresolvable extends ConsumptionDataCleaner implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )
