@@ -22,7 +22,7 @@ entity:
   table: ConsumptionDataCleaner
   secondaryKey: |
     SURVEY
-    CODE
+    R_IDNUM
   title: String.format("%s (%s)", name, surveyCode)
   icon: |
     solid users-viewfinder .campaign-color,
@@ -39,14 +39,16 @@ entity:
       foreignKeys: |
         SURVEY.CODE
       description: |
-        Survey code   
-    code:
-      column: CODE
-      column-type: nvarchar(40)
+        Survey code
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
       required: true
       unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
       description: |
-        Unique (survey scoped) cleaner identifier.
+        Recipe ID number this cleaner references
     name:
       column: NAME
       column-type: nvarchar(120)

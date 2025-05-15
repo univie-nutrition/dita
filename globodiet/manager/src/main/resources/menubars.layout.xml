@@ -102,6 +102,10 @@
                 <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageCampaign"/>
             </mb:section>
             <mb:section>
+                <mb:named>Cleaning</mb:named>
+                <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageConsumptionDataCleaner"/>
+            </mb:section>
+            <mb:section>
                 <mb:named>Reporting</mb:named>
                 <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageReportColumnDefinition"/>
                 <mb:serviceAction objectType="dita.globodiet.survey.EntitiesMenu" id="manageRespondentFilter"/>
