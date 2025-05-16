@@ -20,6 +20,8 @@ package dita.globodiet.manager.dashboard;
 
 import java.util.stream.Collectors;
 
+import jakarta.inject.Inject;
+
 import io.github.causewaystuff.companion.codegen.model.Schema;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -34,17 +36,21 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.globodiet.manager.metadata.EntitySchemaProvider;
+
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL)
 @RequiredArgsConstructor
 public class Dashboard_menuLayoutGenerator {
+
+    @Inject EntitySchemaProvider entitySchemaProvider;
 
     final Dashboard dashboard;
 
     @MemberSupport
     public AsciiDoc act() {
 
-        var gdParamsSchema = dashboard.gdParamsSchema;
+        var gdParamsSchema = entitySchemaProvider.asDomain();
         var entitiesWithoutRelations =  gdParamsSchema.findEntitiesWithoutRelations();
         var interviewMenu =  gdParamsSchema.entities().values().stream()
                 .filter(e->e.namespace().equals("params.interview"))

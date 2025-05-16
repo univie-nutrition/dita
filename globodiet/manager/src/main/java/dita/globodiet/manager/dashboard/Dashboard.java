@@ -25,8 +25,6 @@ import java.util.Optional;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import io.github.causewaystuff.companion.codegen.model.Schema;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.info.BuildProperties;
 
@@ -51,7 +49,6 @@ public class Dashboard {
     @Inject TableSerializerYaml tableSerializer;
     @Inject @Qualifier("entity2table") TabularData.NameTransformer entity2table;
     @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
-    @Inject Schema.Domain gdParamsSchema;
 
     @ObjectSupport
     public String title() {
