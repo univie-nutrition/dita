@@ -18,10 +18,10 @@
 # -----------------------------------------------------------
 
 viewmodels:
-- fqn: reporter.dom.ConsumptionRecord
+- fqn: dom.ConsumptionRecord
   generator: record
   name: ConsumptionRecord
-  namespace: reporter.dom
+  namespace: dom
   icon: null
   named: Consumption
   description: |

@@ -24,6 +24,7 @@ import java.lang.String;
 import javax.annotation.processing.Generated;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSource;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -40,6 +41,7 @@ ModuleConfig.class,
 
 // Mixins
 })
+@EntityScan
 public class DitaModuleRecall24Reporter {
     public static final String NAMESPACE = "dita.recall24.reporter";
 

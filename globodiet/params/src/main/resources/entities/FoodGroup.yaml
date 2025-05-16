@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.food_list
+  namespace: food_list
   table: GROUPS
-  superType: params.classification.FoodGrouping 
+  superType: classification.FoodGrouping 
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)

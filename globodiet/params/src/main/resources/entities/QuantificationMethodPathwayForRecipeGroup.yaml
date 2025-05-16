@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.pathway
+  namespace: pathway
   table: QM_RCLAS
   secondaryKey:
   title: null

@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.interview
+  namespace: interview
   table: INTVIEWR
   secondaryKey:
   title: String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode)

@@ -17,10 +17,5 @@
 # under the License.
 # -----------------------------------------------------------
 
-codegen:
-- include: entities
-  logicalNamespacePrefix: dita.globodiet
-  packageNamePrefix: dita.globodiet
-  entitiesGenerator: jpa
-  entitiesModulePackageName: survey
-  entitiesModuleClassSimpleName: DitaModuleGdSurvey
+license: ASF_V2
+persistence: JPA

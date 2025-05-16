@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.supplement
+  namespace: supplement
   table: DS_CLASSIF
   secondaryKey: |
     DS_CLASS

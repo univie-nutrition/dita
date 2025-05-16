@@ -17,28 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-entity:
-  namespace: pathway
-  table: PROBQUE
-  secondaryKey: |
-    PQ_CODE
-  title: String.format("%s (code=%s)", label, code)
-  icon: solid circle-question
-  description: |
-    Probing question
-  fields:
-    code:
-      column: PQ_CODE
-      column-type: nvarchar(3)
-      required: true
-      unique: true
-      description: |
-        Probing question code
-    label:
-      column: PQ_TEXT
-      column-type: nvarchar(100)
-      required: true
-      unique: true
-      description: |
-        Probing question label
-
+namespace: dita.globodiet.survey
+moduleClassSimpleName: DitaModuleGdSurvey
+fragments: [entities]
+imports: [dita.globodiet.params]

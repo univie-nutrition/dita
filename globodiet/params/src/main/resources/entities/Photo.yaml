@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.quantif
+  namespace: quantif
   table: M_PHOTOS
-  superType: params.quantif.PhotoOrShape
+  superType: quantif.PhotoOrShape
   secondaryKey: |
     PH_CODE
   title: String.format("Photo (code=%s,unit=%s)", code, unit)

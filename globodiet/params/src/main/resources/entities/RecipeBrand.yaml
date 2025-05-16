@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.recipe_description
+  namespace: recipe_description
   table: R_BRAND
   secondaryKey:
   title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)

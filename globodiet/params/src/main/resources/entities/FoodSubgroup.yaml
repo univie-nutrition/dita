@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.food_list
+  namespace: food_list
   table: SUBGROUP
-  superType: params.classification.FoodGrouping
+  superType: classification.FoodGrouping
   secondaryKey: |
     GROUP
     SUBGROUP1

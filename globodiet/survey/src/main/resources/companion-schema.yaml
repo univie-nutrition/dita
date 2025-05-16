@@ -19,9 +19,9 @@
 
 viewmodels:
 entities:
-- fqn: survey.dom.Campaign
+- fqn: dom.Campaign
   name: Campaign
-  namespace: survey.dom
+  namespace: dom
   table: CAMPAIGN
   secondaryKey: |
     SURVEY
@@ -64,13 +64,13 @@ entities:
       multiLine: 4
       description: |
         Detailed information for this campaign.
-- fqn: survey.dom.ConsumptionDataCleaner
+- fqn: dom.ConsumptionDataCleaner
   name: ConsumptionDataCleaner
-  namespace: survey.dom
+  namespace: dom
   table: ConsumptionDataCleaner
   secondaryKey: |
     SURVEY
-    CODE
+    R_IDNUM
   title: String.format("%s (%s)", name, surveyCode)
   icon: |
     solid users-viewfinder .campaign-color,
@@ -88,14 +88,14 @@ entities:
       foreignKeys: |
         SURVEY.CODE
       description: |
-        Survey code   
-    code:
-      column: CODE
-      column-type: nvarchar(40)
+        Survey code
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
       required: true
       unique: false
       description: |
-        Unique (survey scoped) cleaner identifier.
+        Recipe ID number this cleaner references
     name:
       column: NAME
       column-type: nvarchar(120)
@@ -110,9 +110,9 @@ entities:
       unique: false
       description: |
         Detailed decription for this cleaner.
-- fqn: survey.dom.ReportColumnDefinition
+- fqn: dom.ReportColumnDefinition
   name: ReportColumnDefinition
-  namespace: survey.dom
+  namespace: dom
   table: ReportColumnDefinition
   secondaryKey: |
     SURVEY
@@ -162,9 +162,9 @@ entities:
       description: |
         Line by line defines a column to include.
         (lines can be commented out with a leading #)
-- fqn: survey.dom.RespondentFilter
+- fqn: dom.RespondentFilter
   name: RespondentFilter
-  namespace: survey.dom
+  namespace: dom
   table: RespondentFilter
   secondaryKey: |
     SURVEY
@@ -215,9 +215,9 @@ entities:
       description: |
         Line by line defines an alias to include.
         (lines can be commented out with a leading #)
-- fqn: survey.dom.Survey
+- fqn: dom.Survey
   name: Survey
-  namespace: survey.dom
+  namespace: dom
   table: SURVEY
   secondaryKey: |
     CODE

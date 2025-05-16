@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.nutrient
+  namespace: nutrient
   table: NUTRIENT
   secondaryKey: |
     NTR_CODE

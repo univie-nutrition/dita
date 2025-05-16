@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.supplement
+  namespace: supplement
   table: DS_DESCFACE
   secondaryKey:
   title: String.format("%s (code=%s)", name, code)

@@ -84,7 +84,7 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
                 name = "SEC_KEY_UNQ_ConsumptionDataCleaner",
                 columnNames = {
                         "`SURVEY`",
-                        "`CODE`"
+                        "`R_IDNUM`"
                 }
         )
 )
@@ -125,7 +125,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     private String surveyCode;
 
     /**
-     * Unique (survey scoped) cleaner identifier.
+     * Recipe ID number this cleaner references
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -133,16 +133,16 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "2",
-            describedAs = "Unique (survey scoped) cleaner identifier."
+            describedAs = "Recipe ID number this cleaner references"
     )
     @Column(
-            name = "\"CODE\"",
+            name = "\"R_IDNUM\"",
             nullable = false,
-            length = 40
+            length = 5
     )
     @Getter
     @Setter
-    private String code;
+    private String recipeCode;
 
     /**
      * Descriptive cleaner name.
@@ -193,7 +193,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     @Override
     public String toString() {
         return "ConsumptionDataCleaner(" + "surveyCode=" + getSurveyCode() + ","
-         +"code=" + getCode() + ","
+         +"recipeCode=" + getRecipeCode() + ","
          +"name=" + getName() + ","
          +"description=" + getDescription() + ")";
     }
@@ -203,7 +203,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     public ConsumptionDataCleaner copy() {
         var copy = repositoryService.detachedEntity(new ConsumptionDataCleaner());
         copy.setSurveyCode(getSurveyCode());
-        copy.setCode(getCode());
+        copy.setRecipeCode(getRecipeCode());
         copy.setName(getName());
         copy.setDescription(getDescription());
         return copy;
@@ -224,7 +224,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getSurveyCode(), 
-        getCode());
+        getRecipeCode());
     }
 
     /**
@@ -276,14 +276,14 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
      * Parameter model for @{link ConsumptionDataCleaner}
      *
      * @param survey Survey code
-     * @param code Unique (survey scoped) cleaner identifier.
+     * @param recipeCode Recipe ID number this cleaner references
      * @param name Descriptive cleaner name.
      * @param description Detailed decription for this cleaner.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Unique (survey scoped) cleaner identifier.") String code,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe ID number this cleaner references") String recipeCode,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive cleaner name.") String name,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed decription for this cleaner.") String description
     ) {
@@ -293,12 +293,12 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
      * SecondaryKey for @{link ConsumptionDataCleaner}
      *
      * @param surveyCode Survey code
-     * @param code Unique (survey scoped) cleaner identifier.
+     * @param recipeCode Recipe ID number this cleaner references
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
-            String code
+            String recipeCode
     ) implements ISecondaryKey<ConsumptionDataCleaner> {
         @Override
         public Class<ConsumptionDataCleaner> correspondingClass() {

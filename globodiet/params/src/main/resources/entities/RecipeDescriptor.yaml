@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.recipe_description
+  namespace: recipe_description
   table: R_DESCFACE
   secondaryKey: |
     RFACET_CODE

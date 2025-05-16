@@ -19,7 +19,7 @@
 
 viewmodel:
   generator: record
-  namespace: reporter.dom
+  namespace: dom
   named: Consumption
   description: |
     Represents a single food consumption as flattened data,

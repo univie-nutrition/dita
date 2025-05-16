@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: DENSITY
   secondaryKey:
   title: String.format("%f (for %s)", densityCoefficient, forFoodOrRecipe)

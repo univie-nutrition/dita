@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.quantif
+  namespace: quantif
   table: M_SHAPES
-  superType: params.quantif.PhotoOrShape
+  superType: quantif.PhotoOrShape
   secondaryKey: |
     SH_CODE
   title: String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2)

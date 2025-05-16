@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: RSUBGR
-  superType: params.classification.RecipeGrouping
+  superType: classification.RecipeGrouping
   secondaryKey: |
     GROUP
     SUBGROUP

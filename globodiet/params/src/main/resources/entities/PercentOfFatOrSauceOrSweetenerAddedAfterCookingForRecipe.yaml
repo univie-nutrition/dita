@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.recipe_coefficient
+  namespace: recipe_coefficient
   table: SPFACORE
   secondaryKey:
   title: null

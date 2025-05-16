@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.pathway
+  namespace: pathway
   table: RCP_PATH
   secondaryKey:
   title: null

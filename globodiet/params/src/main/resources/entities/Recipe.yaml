@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: MIXEDREC
   secondaryKey: |
     R_IDNUM

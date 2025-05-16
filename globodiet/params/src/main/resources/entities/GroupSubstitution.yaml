@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.setting
+  namespace: setting
   table: SUBSTIT
   secondaryKey:
   title: |
@@ -82,7 +82,7 @@ entity:
       required: false
       unique: false
       plural: true
-      elementType: params.classification.FoodGrouping
+      elementType: classification.FoodGrouping
       foreignKeys: |
         SUBGROUP.GROUP
         SUBGROUP.SUBGROUP1
@@ -95,7 +95,7 @@ entity:
       required: false
       unique: false
       plural: true
-      elementType: params.classification.RecipeGrouping
+      elementType: classification.RecipeGrouping
       foreignKeys: |
         RSUBGR.GROUP
         RSUBGR.SUBGROUP

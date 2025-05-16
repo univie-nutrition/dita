@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.supplement
+  namespace: supplement
   table: SUPPLEMENTS
   secondaryKey:
   title: String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode)

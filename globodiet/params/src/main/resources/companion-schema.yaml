@@ -19,9 +19,9 @@
 
 viewmodels:
 entities:
-- fqn: params.food_coefficient.DensityFactorForFoodOrRecipe
+- fqn: food_coefficient.DensityFactorForFoodOrRecipe
   name: DensityFactorForFoodOrRecipe
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: DENSITY
   secondaryKey:
   title: String.format("%f (for %s)", densityCoefficient, forFoodOrRecipe)
@@ -99,9 +99,9 @@ entities:
       description: |
         1 = density for food/ingredient,
         2 = density for recipe
-- fqn: params.food_coefficient.EdiblePartCoefficientForFood
+- fqn: food_coefficient.EdiblePartCoefficientForFood
   name: EdiblePartCoefficientForFood
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: EDIBLEP
   secondaryKey:
   title: null
@@ -142,9 +142,9 @@ entities:
       unique: false
       description: |
         Priority order
-- fqn: params.food_coefficient.PercentOfFatLeftInTheDishForFood
+- fqn: food_coefficient.PercentOfFatLeftInTheDishForFood
   name: PercentOfFatLeftInTheDishForFood
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: FATLEFTO
   secondaryKey:
   title: null
@@ -191,9 +191,9 @@ entities:
       unique: false
       description: |
         Percentage of fat left in the dish
-- fqn: params.food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood
+- fqn: food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood
   name: PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: SPFACOOK
   secondaryKey:
   title: null
@@ -290,9 +290,9 @@ entities:
       unique: false
       description: |
         Percentage of fat sauce or sweetener (FSS) that had been added
-- fqn: params.food_coefficient.PercentOfFatUseDuringCookingForFood
+- fqn: food_coefficient.PercentOfFatUseDuringCookingForFood
   name: PercentOfFatUseDuringCookingForFood
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: SPFDCOOK
   secondaryKey:
   title: null
@@ -399,9 +399,9 @@ entities:
       unique: false
       description: |
         Percentage of fat absorbed during cooking
-- fqn: params.food_coefficient.RawToCookedConversionFactorForFood
+- fqn: food_coefficient.RawToCookedConversionFactorForFood
   name: RawToCookedConversionFactorForFood
-  namespace: params.food_coefficient
+  namespace: food_coefficient
   table: RAWCOOK
   secondaryKey:
   title: null
@@ -443,9 +443,9 @@ entities:
       unique: false
       description: |
         Priority order
-- fqn: params.food_descript.FoodBrand
+- fqn: food_descript.FoodBrand
   name: FoodBrand
-  namespace: params.food_descript
+  namespace: food_descript
   table: BRANDNAM
   secondaryKey: |
     NAME
@@ -499,9 +499,9 @@ entities:
         SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
-- fqn: params.food_descript.FoodDescriptor
+- fqn: food_descript.FoodDescriptor
   name: FoodDescriptor
-  namespace: params.food_descript
+  namespace: food_descript
   table: DESCFACE
   secondaryKey: |
     FACET_CODE
@@ -574,9 +574,9 @@ entities:
       description: |
         0=Regular choice
         1=Choice with additional text as provided by the interviewer (other: [...])
-- fqn: params.food_descript.FoodFacet
+- fqn: food_descript.FoodFacet
   name: FoodFacet
-  namespace: params.food_descript
+  namespace: food_descript
   table: FACETS
   secondaryKey: |
     FACET_CODE
@@ -650,9 +650,9 @@ entities:
       unique: true
       description: |
         Label on how to ask the facet question
-- fqn: params.food_descript.FoodFacetRule
+- fqn: food_descript.FoodFacetRule
   name: FoodFacetRule
-  namespace: params.food_descript
+  namespace: food_descript
   table: FACETRUL
   secondaryKey:
   title: null
@@ -714,9 +714,9 @@ entities:
         SUBGROUP.SUBGROUP2
       description: |
         Sub-subgroup code
-- fqn: params.food_descript.ImprobableSequenceOfFacetAndDescriptor
+- fqn: food_descript.ImprobableSequenceOfFacetAndDescriptor
   name: ImprobableSequenceOfFacetAndDescriptor
-  namespace: params.food_descript
+  namespace: food_descript
   table: DESC_IMP
   secondaryKey:
   title: null
@@ -792,9 +792,9 @@ entities:
       unique: false
       description: |
         Facet string
-- fqn: params.food_list.ComposedRecipeIngredient
+- fqn: food_list.ComposedRecipeIngredient
   name: ComposedRecipeIngredient
-  namespace: params.food_list
+  namespace: food_list
   table: CRING
   secondaryKey:
   title: null
@@ -831,9 +831,9 @@ entities:
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list
-- fqn: params.food_list.Food
+- fqn: food_list.Food
   name: Food
-  namespace: params.food_list
+  namespace: food_list
   table: FOODS
   secondaryKey: |
     FOODNUM
@@ -938,11 +938,11 @@ entities:
       description: |
         0=food 
         1=dietary supplement
-- fqn: params.food_list.FoodGroup
+- fqn: food_list.FoodGroup
   name: FoodGroup
-  namespace: params.food_list
+  namespace: food_list
   table: GROUPS
-  superType: params.classification.FoodGrouping
+  superType: classification.FoodGrouping
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
@@ -974,11 +974,11 @@ entities:
       unique: true
       description: |
         Food group short name
-- fqn: params.food_list.FoodSubgroup
+- fqn: food_list.FoodSubgroup
   name: FoodSubgroup
-  namespace: params.food_list
+  namespace: food_list
   table: SUBGROUP
-  superType: params.classification.FoodGrouping
+  superType: classification.FoodGrouping
   secondaryKey: |
     GROUP
     SUBGROUP1
@@ -1068,9 +1068,9 @@ entities:
       unique: true
       description: |
         Short Name of the food (sub-)(sub-)group
-- fqn: params.interview.CenterInvolved
+- fqn: interview.CenterInvolved
   name: CenterInvolved
-  namespace: params.interview
+  namespace: interview
   table: CENTERS
   secondaryKey: |
     CNTR_CODE
@@ -1102,9 +1102,9 @@ entities:
       unique: true
       description: |
         Center name
-- fqn: params.interview.CountryInvolved
+- fqn: interview.CountryInvolved
   name: CountryInvolved
-  namespace: params.interview
+  namespace: interview
   table: COUNTRY
   secondaryKey: |
     CTRYCODE
@@ -1127,9 +1127,9 @@ entities:
       unique: true
       description: |
         Country name
-- fqn: params.interview.Interviewer
+- fqn: interview.Interviewer
   name: Interviewer
-  namespace: params.interview
+  namespace: interview
   table: INTVIEWR
   secondaryKey:
   title: String.format("%s, %s (code=%s)", interviewerFamilyName, interviewerName, interviewerCode)
@@ -1176,9 +1176,9 @@ entities:
         CENTERS.CNTR_CODE
       description: |
         Center code
-- fqn: params.interview.SubjectToBeInterviewed
+- fqn: interview.SubjectToBeInterviewed
   name: SubjectToBeInterviewed
-  namespace: params.interview
+  namespace: interview
   table: SUBJECTS
   secondaryKey:
   title: String.format("%s, %s (code=%s)", subjectName, subjectFirstName, subjectCode)
@@ -1302,9 +1302,9 @@ entities:
       unique: true
       description: |
         Recall Date (mm/dd/yy)
-- fqn: params.nutrient.Nutrient
+- fqn: nutrient.Nutrient
   name: Nutrient
-  namespace: params.nutrient
+  namespace: nutrient
   table: NUTRIENT
   secondaryKey: |
     NTR_CODE
@@ -1352,9 +1352,9 @@ entities:
       unique: true
       description: |
         Comment on nutrient
-- fqn: params.nutrient.NutrientForFoodOrGroup
+- fqn: nutrient.NutrientForFoodOrGroup
   name: NutrientForFoodOrGroup
-  namespace: params.nutrient
+  namespace: nutrient
   table: ITEMS_DEF
   secondaryKey: |
     ITEM_SEQ
@@ -1468,9 +1468,9 @@ entities:
       unique: true
       description: |
         Comment
-- fqn: params.nutrient.NutrientValue
+- fqn: nutrient.NutrientValue
   name: NutrientValue
-  namespace: params.nutrient
+  namespace: nutrient
   table: NTR_VALUE
   secondaryKey:
   title: String.format("%s (nutrientCode=%d)", value, nutrientCode)
@@ -1508,9 +1508,9 @@ entities:
       unique: false
       description: |
         Nutrient value for the corresponding nutrient and food (or group).
-- fqn: params.pathway.FacetDescriptorPathwayForFood
+- fqn: pathway.FacetDescriptorPathwayForFood
   name: FacetDescriptorPathwayForFood
-  namespace: params.pathway
+  namespace: pathway
   table: FOODFAEX
   secondaryKey:
   title: null
@@ -1550,9 +1550,9 @@ entities:
       unique: false
       description: |
         Order to display the facets for the referenced food (same order as ORDER_FAC in @{table GROUPFAC})
-- fqn: params.pathway.FacetDescriptorPathwayForFoodGroup
+- fqn: pathway.FacetDescriptorPathwayForFoodGroup
   name: FacetDescriptorPathwayForFoodGroup
-  namespace: params.pathway
+  namespace: pathway
   table: GROUPFAC
   secondaryKey: |
     GROUP
@@ -1656,9 +1656,9 @@ entities:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
-- fqn: params.pathway.FacetDescriptorPathwayForRecipe
+- fqn: pathway.FacetDescriptorPathwayForRecipe
   name: FacetDescriptorPathwayForRecipe
-  namespace: params.pathway
+  namespace: pathway
   table: R_RCPFAEX
   secondaryKey:
   title: null
@@ -1698,9 +1698,9 @@ entities:
       unique: false
       description: |
         Order to display the facets for the referenced recipe.
-- fqn: params.pathway.FacetDescriptorPathwayForRecipeGroup
+- fqn: pathway.FacetDescriptorPathwayForRecipeGroup
   name: FacetDescriptorPathwayForRecipeGroup
-  namespace: params.pathway
+  namespace: pathway
   table: R_GROUPFAC
   secondaryKey:
   title: |
@@ -1786,9 +1786,9 @@ entities:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
-- fqn: params.pathway.ProbingQuestion
+- fqn: pathway.ProbingQuestion
   name: ProbingQuestion
-  namespace: params.pathway
+  namespace: pathway
   table: PROBQUE
   secondaryKey: |
     PQ_CODE
@@ -1811,9 +1811,9 @@ entities:
       unique: true
       description: |
         Probing question label
-- fqn: params.pathway.ProbingQuestionPathwayForFood
+- fqn: pathway.ProbingQuestionPathwayForFood
   name: ProbingQuestionPathwayForFood
-  namespace: params.pathway
+  namespace: pathway
   table: PQPATH
   secondaryKey:
   title: null
@@ -1874,9 +1874,9 @@ entities:
         FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
-- fqn: params.pathway.ProbingQuestionPathwayForRecipe
+- fqn: pathway.ProbingQuestionPathwayForRecipe
   name: ProbingQuestionPathwayForRecipe
-  namespace: params.pathway
+  namespace: pathway
   table: RPQPATH
   secondaryKey:
   title: null
@@ -1925,9 +1925,9 @@ entities:
         MIXEDREC.R_IDNUM
       description: |
         Recipe identification number (R_ IDNUM)
-- fqn: params.pathway.QuantificationMethodPathwayForFood
+- fqn: pathway.QuantificationMethodPathwayForFood
   name: QuantificationMethodPathwayForFood
-  namespace: params.pathway
+  namespace: pathway
   table: QM_FOODS
   secondaryKey:
   title: null
@@ -1979,9 +1979,9 @@ entities:
         if method='P' Photo code
         if method='A' Shape code
         else empty
-- fqn: params.pathway.QuantificationMethodPathwayForFoodGroup
+- fqn: pathway.QuantificationMethodPathwayForFoodGroup
   name: QuantificationMethodPathwayForFoodGroup
-  namespace: params.pathway
+  namespace: pathway
   table: QM_GROUP
   secondaryKey: |
     GROUP
@@ -2090,9 +2090,9 @@ entities:
       unique: false
       description: |
         Comment
-- fqn: params.pathway.QuantificationMethodPathwayForRecipe
+- fqn: pathway.QuantificationMethodPathwayForRecipe
   name: QuantificationMethodPathwayForRecipe
-  namespace: params.pathway
+  namespace: pathway
   table: QM_RECIP
   secondaryKey:
   title: null
@@ -2142,9 +2142,9 @@ entities:
         if method='P' Photo code
         if method='A' Shape code
         else empty
-- fqn: params.pathway.QuantificationMethodPathwayForRecipeGroup
+- fqn: pathway.QuantificationMethodPathwayForRecipeGroup
   name: QuantificationMethodPathwayForRecipeGroup
-  namespace: params.pathway
+  namespace: pathway
   table: QM_RCLAS
   secondaryKey:
   title: null
@@ -2200,9 +2200,9 @@ entities:
       unique: false
       description: |
         Comment
-- fqn: params.pathway.RecipeTypePathway
+- fqn: pathway.RecipeTypePathway
   name: RecipeTypePathway
-  namespace: params.pathway
+  namespace: pathway
   table: RCP_PATH
   secondaryKey:
   title: null
@@ -2287,9 +2287,9 @@ entities:
         0 = No display of note window 
         1 = Display of note window 
         2 = Display of note window only for Add & Delete functions
-- fqn: params.quantif.HouseholdMeasure
+- fqn: quantif.HouseholdMeasure
   name: HouseholdMeasure
-  namespace: params.quantif
+  namespace: quantif
   table: M_HHM
   secondaryKey:
   title: null
@@ -2333,9 +2333,9 @@ entities:
       unique: true
       description: |
         Order to display the HouseholdMeasure
-- fqn: params.quantif.MaximumValueForFoodOrGroup
+- fqn: quantif.MaximumValueForFoodOrGroup
   name: MaximumValueForFoodOrGroup
-  namespace: params.quantif
+  namespace: quantif
   table: MAXVAL
   secondaryKey:
   title: null
@@ -2407,9 +2407,9 @@ entities:
       unique: false
       description: |
         Priority order
-- fqn: params.quantif.MaximumValueForRecipeOrGroup
+- fqn: quantif.MaximumValueForRecipeOrGroup
   name: MaximumValueForRecipeOrGroup
-  namespace: params.quantif
+  namespace: quantif
   table: MAXRVAL
   secondaryKey:
   title: null
@@ -2454,11 +2454,11 @@ entities:
       unique: false
       description: |
         Maximum value
-- fqn: params.quantif.Photo
+- fqn: quantif.Photo
   name: Photo
-  namespace: params.quantif
+  namespace: quantif
   table: M_PHOTOS
-  superType: params.quantif.PhotoOrShape
+  superType: quantif.PhotoOrShape
   secondaryKey: |
     PH_CODE
   title: String.format("Photo (code=%s,unit=%s)", code, unit)
@@ -2516,9 +2516,9 @@ entities:
       description: |
         G = in Unit grams (mass)
         V = in Unit milliliter (volume)
-- fqn: params.quantif.RecipeIngredientQuantification
+- fqn: quantif.RecipeIngredientQuantification
   name: RecipeIngredientQuantification
-  namespace: params.quantif
+  namespace: quantif
   table: MIXEDING_QT
   secondaryKey:
   title: null
@@ -2620,11 +2620,11 @@ entities:
       unique: true
       description: |
         Sequential Number for Ingredients within a Sub-Recipe
-- fqn: params.quantif.Shape
+- fqn: quantif.Shape
   name: Shape
-  namespace: params.quantif
+  namespace: quantif
   table: M_SHAPES
-  superType: params.quantif.PhotoOrShape
+  superType: quantif.PhotoOrShape
   secondaryKey: |
     SH_CODE
   title: String.format("Shape (code=%s,surface=%.2fcm2)", code, surfaceInCm2)
@@ -2663,9 +2663,9 @@ entities:
       unique: true
       description: |
         Order to display this shape
-- fqn: params.quantif.StandardPortionForFood
+- fqn: quantif.StandardPortionForFood
   name: StandardPortionForFood
-  namespace: params.quantif
+  namespace: quantif
   table: M_STDPOR
   secondaryKey:
   title: String.format("%s (foodCode=%s, quantity=%.3f, unit=%s, comment=%s)", code, foodCode, quantity, unit, comment)
@@ -2739,9 +2739,9 @@ entities:
       unique: false
       description: |
         Order to display the standard portion
-- fqn: params.quantif.StandardUnitForFoodOrRecipe
+- fqn: quantif.StandardUnitForFoodOrRecipe
   name: StandardUnitForFoodOrRecipe
-  namespace: params.quantif
+  namespace: quantif
   table: M_STDUTS
   secondaryKey:
   title: String.format("%s (quantity=%.3f, comment=%s)", code, quantity, comment)
@@ -2831,9 +2831,9 @@ entities:
       unique: false
       description: |
         Order to display the standard unit
-- fqn: params.quantif.ThicknessForShape
+- fqn: quantif.ThicknessForShape
   name: ThicknessForShape
-  namespace: params.quantif
+  namespace: quantif
   table: THICKNESS
   secondaryKey: |
     TH_CODE
@@ -2894,9 +2894,9 @@ entities:
         When this field is empty, that means that this thickness has always to be proposed 
         whatever the recipe classification. 
         Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
-- fqn: params.recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe
+- fqn: recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe
   name: PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe
-  namespace: params.recipe_coefficient
+  namespace: recipe_coefficient
   table: SPFACORE
   secondaryKey:
   title: null
@@ -2981,9 +2981,9 @@ entities:
       unique: false
       description: |
         Percentage of fat sauce or sweetener (FSS) that had been added
-- fqn: params.recipe_description.RecipeBrand
+- fqn: recipe_description.RecipeBrand
   name: RecipeBrand
-  namespace: params.recipe_description
+  namespace: recipe_description
   table: R_BRAND
   secondaryKey:
   title: String.format("%s (code=%s|%s)", recipeName, recipeGroupCode, recipeSubgroupCode)
@@ -3020,9 +3020,9 @@ entities:
       required: true
       unique: false
       description:
-- fqn: params.recipe_description.RecipeDescriptor
+- fqn: recipe_description.RecipeDescriptor
   name: RecipeDescriptor
-  namespace: params.recipe_description
+  namespace: recipe_description
   table: R_DESCFACE
   secondaryKey: |
     RFACET_CODE
@@ -3102,9 +3102,9 @@ entities:
       description: |
         0=not single descriptor
         1=single descriptor          
-- fqn: params.recipe_description.RecipeFacet
+- fqn: recipe_description.RecipeFacet
   name: RecipeFacet
-  namespace: params.recipe_description
+  namespace: recipe_description
   table: R_FACET
   secondaryKey: |
     RFACET_CODE
@@ -3177,9 +3177,9 @@ entities:
       unique: true
       description: |
         Label on how to ask the facet question    
-- fqn: params.recipe_description.RecipeFacetRule
+- fqn: recipe_description.RecipeFacetRule
   name: RecipeFacetRule
-  namespace: params.recipe_description
+  namespace: recipe_description
   table: R_FACETRUL
   secondaryKey:
   title: null
@@ -3228,9 +3228,9 @@ entities:
         RSUBGR.SUBGROUP
       description: |
         Recipe Subgroup code
-- fqn: params.recipe_list.Recipe
+- fqn: recipe_list.Recipe
   name: Recipe
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: MIXEDREC
   secondaryKey: |
     R_IDNUM
@@ -3359,11 +3359,11 @@ entities:
         2=with unknown quantity (disabled for interviews)
         3=to be completed (disabled for interviews)
         4=empty (disabled for interviews)
-- fqn: params.recipe_list.RecipeGroup
+- fqn: recipe_list.RecipeGroup
   name: RecipeGroup
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: RGROUPS
-  superType: params.classification.RecipeGrouping
+  superType: classification.RecipeGrouping
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)
@@ -3395,9 +3395,9 @@ entities:
       unique: true
       description: |
         Short Name of the Recipe group
-- fqn: params.recipe_list.RecipeIngredient
+- fqn: recipe_list.RecipeIngredient
   name: RecipeIngredient
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: MIXEDING
   secondaryKey:
   title: null
@@ -3738,11 +3738,11 @@ entities:
       required: false
       unique: true
       description:
-- fqn: params.recipe_list.RecipeSubgroup
+- fqn: recipe_list.RecipeSubgroup
   name: RecipeSubgroup
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: RSUBGR
-  superType: params.classification.RecipeGrouping
+  superType: classification.RecipeGrouping
   secondaryKey: |
     GROUP
     SUBGROUP
@@ -3785,9 +3785,9 @@ entities:
       unique: true
       description: |
         Short Name of the recipe (sub-)group
-- fqn: params.setting.AnthropometricAverage
+- fqn: setting.AnthropometricAverage
   name: AnthropometricAverage
-  namespace: params.setting
+  namespace: setting
   table: ANTHROP
   secondaryKey:
   title: null
@@ -3844,9 +3844,9 @@ entities:
       unique: false
       description: |
         Default value of height or weight
-- fqn: params.setting.DayOfWeek
+- fqn: setting.DayOfWeek
   name: DayOfWeek
-  namespace: params.setting
+  namespace: setting
   table: DAYOWEEK
   secondaryKey:
   title: null
@@ -3868,9 +3868,9 @@ entities:
       unique: true
       description: |
         Day name
-- fqn: params.setting.FacetDescriptorThatCannotBeSubstituted
+- fqn: setting.FacetDescriptorThatCannotBeSubstituted
   name: FacetDescriptorThatCannotBeSubstituted
-  namespace: params.setting
+  namespace: setting
   table: DESCSUBS
   secondaryKey:
   title: null
@@ -3898,9 +3898,9 @@ entities:
         DESCFACE.DESCR_CODE
       description: |
         Descriptor code
-- fqn: params.setting.FoodConsumptionOccasion
+- fqn: setting.FoodConsumptionOccasion
   name: FoodConsumptionOccasion
-  namespace: params.setting
+  namespace: setting
   table: FCO
   secondaryKey: |
     FCM_CODE
@@ -3948,9 +3948,9 @@ entities:
       description: |
         0=non main FCO
         1=main FCO (to be displayed in nutrient check screen)
-- fqn: params.setting.FoodConsumptionOccasionDisplayItem
+- fqn: setting.FoodConsumptionOccasionDisplayItem
   name: FoodConsumptionOccasionDisplayItem
-  namespace: params.setting
+  namespace: setting
   table: CHKLIST
   secondaryKey:
   title: String.format("%s", text)
@@ -3977,9 +3977,9 @@ entities:
       unique: false
       description: |
         Text representing Food.
-- fqn: params.setting.GroupSubstitution
+- fqn: setting.GroupSubstitution
   name: GroupSubstitution
-  namespace: params.setting
+  namespace: setting
   table: SUBSTIT
   secondaryKey:
   title: |
@@ -4044,7 +4044,7 @@ entities:
       required: false
       unique: false
       plural: true
-      elementType: params.classification.FoodGrouping
+      elementType: classification.FoodGrouping
       foreignKeys: |
         SUBGROUP.GROUP
         SUBGROUP.SUBGROUP1
@@ -4057,15 +4057,15 @@ entities:
       required: false
       unique: false
       plural: true
-      elementType: params.classification.RecipeGrouping
+      elementType: classification.RecipeGrouping
       foreignKeys: |
         RSUBGR.GROUP
         RSUBGR.SUBGROUP
       description: |
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
-- fqn: params.setting.MacroNutrientLimit
+- fqn: setting.MacroNutrientLimit
   name: MacroNutrientLimit
-  namespace: params.setting
+  namespace: setting
   table: NUTLIMIT
   secondaryKey:
   title: null
@@ -4122,9 +4122,9 @@ entities:
       unique: false
       description: |
         PAL value
-- fqn: params.setting.Month
+- fqn: setting.Month
   name: Month
-  namespace: params.setting
+  namespace: setting
   table: MONTHS
   secondaryKey:
   title: null
@@ -4145,9 +4145,9 @@ entities:
       unique: true
       description: |
         Month name
-- fqn: params.setting.NoteStatus
+- fqn: setting.NoteStatus
   name: NoteStatus
-  namespace: params.setting
+  namespace: setting
   table: STATUS
   secondaryKey:
   title: null
@@ -4181,9 +4181,9 @@ entities:
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 
         1=Yes hide (e.g. 1=hide for status “action done”)
-- fqn: params.setting.PlaceOfConsumption
+- fqn: setting.PlaceOfConsumption
   name: PlaceOfConsumption
-  namespace: params.setting
+  namespace: setting
   table: POC
   secondaryKey: |
     POC_CODE
@@ -4217,9 +4217,9 @@ entities:
       description: |
         0=not a 'Other' place 
         1='Other' place
-- fqn: params.setting.SelectedParameter
+- fqn: setting.SelectedParameter
   name: SelectedParameter
-  namespace: params.setting
+  namespace: setting
   table: PARAM
   secondaryKey:
   title: null
@@ -4241,9 +4241,9 @@ entities:
       unique: false
       description: |
         Parameter value
-- fqn: params.setting.SelectedParameterForDataEntry
+- fqn: setting.SelectedParameterForDataEntry
   name: SelectedParameterForDataEntry
-  namespace: params.setting
+  namespace: setting
   table: PARAMDE
   secondaryKey:
   title: null
@@ -4265,9 +4265,9 @@ entities:
       unique: false
       description: |
         Parameter value for data entry
-- fqn: params.setting.SpecialDayPredefinedAnswer
+- fqn: setting.SpecialDayPredefinedAnswer
   name: SpecialDayPredefinedAnswer
-  namespace: params.setting
+  namespace: setting
   table: SPECDAY
   secondaryKey:
   title: null
@@ -4289,9 +4289,9 @@ entities:
       unique: true
       description: |
         Special day label
-- fqn: params.setting.SpecialDietPredefinedAnswer
+- fqn: setting.SpecialDietPredefinedAnswer
   name: SpecialDietPredefinedAnswer
-  namespace: params.setting
+  namespace: setting
   table: SPECDIET
   secondaryKey:
   title: null
@@ -4313,9 +4313,9 @@ entities:
       unique: true
       description: |
         Special diet label
-- fqn: params.setting.TranslationInCountryLanguage
+- fqn: setting.TranslationInCountryLanguage
   name: TranslationInCountryLanguage
-  namespace: params.setting
+  namespace: setting
   table: EPICTEXT
   secondaryKey:
   title: null
@@ -4358,9 +4358,9 @@ entities:
       unique: false
       description: |
         Data entry Text in English
-- fqn: params.supplement.DietarySupplement
+- fqn: supplement.DietarySupplement
   name: DietarySupplement
-  namespace: params.supplement
+  namespace: supplement
   table: SUPPLEMENTS
   secondaryKey:
   title: String.format("%s (code=%s)", vitaminOrSupplementName, vitaminOrSupplementCode)
@@ -4407,9 +4407,9 @@ entities:
         DS_FACET.DSFACET_CODE
       description: |
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
-- fqn: params.supplement.DietarySupplementClassification
+- fqn: supplement.DietarySupplementClassification
   name: DietarySupplementClassification
-  namespace: params.supplement
+  namespace: supplement
   table: DS_CLASSIF
   secondaryKey: |
     DS_CLASS
@@ -4442,9 +4442,9 @@ entities:
       unique: true
       description: |
         Dietary Supplement classification code attached to (for subgroup)
-- fqn: params.supplement.DietarySupplementDescriptor
+- fqn: supplement.DietarySupplementDescriptor
   name: DietarySupplementDescriptor
-  namespace: params.supplement
+  namespace: supplement
   table: DS_DESCFACE
   secondaryKey:
   title: String.format("%s (code=%s)", name, code)
@@ -4533,9 +4533,9 @@ entities:
       unique: false
       description: |
         Not in name flag
-- fqn: params.supplement.DietarySupplementFacet
+- fqn: supplement.DietarySupplementFacet
   name: DietarySupplementFacet
-  namespace: params.supplement
+  namespace: supplement
   table: DS_FACET
   secondaryKey: |
     DSFACET_CODE

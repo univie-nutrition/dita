@@ -17,9 +17,6 @@
 # under the License.
 # -----------------------------------------------------------
 
-codegen:
-- include: records
-  logicalNamespacePrefix: dita.recall24
-  packageNamePrefix: dita.recall24
-  entitiesModulePackageName: reporter
-  entitiesModuleClassSimpleName: DitaModuleRecall24Reporter
+namespace: dita.globodiet.params
+moduleClassSimpleName: DitaModuleGdParams
+fragments: [entities]

@@ -17,10 +17,6 @@
 # under the License.
 # -----------------------------------------------------------
 
-codegen:
-- include: entities
-  logicalNamespacePrefix: dita.globodiet
-  packageNamePrefix: dita.globodiet
-  entitiesGenerator: jpa
-  entitiesModulePackageName: params
-  entitiesModuleClassSimpleName: DitaModuleGdParams
+namespace: dita.recall24.reporter
+moduleClassSimpleName: DitaModuleRecall24Reporter
+fragments: [records]

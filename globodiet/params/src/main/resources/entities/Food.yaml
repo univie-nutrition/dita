@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.food_list
+  namespace: food_list
   table: FOODS
   secondaryKey: |
     FOODNUM

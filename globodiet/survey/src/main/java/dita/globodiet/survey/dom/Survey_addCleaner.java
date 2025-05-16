@@ -57,7 +57,7 @@ public class Survey_addCleaner {
 
         var cleaner = repositoryService.detachedEntity(new ConsumptionDataCleaner());
         cleaner.setSurveyCode(mixee.secondaryKey().code());
-        cleaner.setCode(p.code());
+        //cleaner.setCode(p.code());
         cleaner.setName(p.name());
         cleaner.setDescription(p.description());
 

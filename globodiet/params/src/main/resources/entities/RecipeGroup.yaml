@@ -18,9 +18,9 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.recipe_list
+  namespace: recipe_list
   table: RGROUPS
-  superType: params.classification.RecipeGrouping
+  superType: classification.RecipeGrouping
   secondaryKey: |
     GROUP
   title: String.format("%s (code=%s)", name, code)

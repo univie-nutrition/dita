@@ -18,7 +18,7 @@
 # -----------------------------------------------------------
 
 entity:
-  namespace: params.quantif
+  namespace: quantif
   table: M_STDPOR
   secondaryKey:
   title: String.format("%s (foodCode=%s, quantity=%.3f, unit=%s, comment=%s)", code, foodCode, quantity, unit, comment)
