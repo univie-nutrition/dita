@@ -18,8 +18,6 @@
  */
 package dita.globodiet.manager.metadata;
 
-import java.util.Map;
-
 import jakarta.inject.Inject;
 
 import org.apache.causeway.applib.annotation.LabelPosition;
@@ -35,7 +33,6 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 import lombok.RequiredArgsConstructor;
 
 import io.github.causewaystuff.companion.applib.jpa.Persistable;
-import io.github.causewaystuff.companion.codegen.model.Schema;
 
 @Property
 @PropertyLayout(
@@ -61,14 +58,8 @@ public class Persistable_schema {
             return AsciiDoc.valueOf("no metadata available");
         }
 
-        var naming = entitySchema.domain().naming();
-        var subSchema = new Schema.Domain(
-            naming,
-            Map.of(),
-            Map.of(entitySchema.id(), entitySchema));
-
         return new AsciiDocBuilder()
-                .append(doc->AsciiDocFactory.sourceBlock(doc, "yaml", subSchema.toYaml()))
+                .append(doc->AsciiDocFactory.sourceBlock(doc, "yaml", entitySchema.toYaml()))
                 .buildAsValue();
     }
 
