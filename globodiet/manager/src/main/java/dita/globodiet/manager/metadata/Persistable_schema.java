@@ -37,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 
 import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.codegen.model.Schema;
+import io.github.causewaystuff.companion.codegen.model.Schema.ModuleNaming;
 
 @Property
 @PropertyLayout(
@@ -63,8 +64,9 @@ public class Persistable_schema {
         }
 
         var subSchema = new Schema.Domain(
+                new ModuleNaming("", ""),
                 Map.of(),
-                Map.of(entitySchema.fqn(), entitySchema));
+                Map.of(entitySchema.id(), entitySchema));
         subSchema.toYaml();
 
         return new AsciiDocBuilder()

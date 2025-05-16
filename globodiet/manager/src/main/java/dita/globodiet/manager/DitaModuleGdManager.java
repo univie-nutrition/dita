@@ -134,10 +134,16 @@ public class DitaModuleGdManager {
 
     @Bean
     public Schema.Domain gdSchema() {
-        var schema1 = Schema.Domain.fromYaml(DitaModuleGdParams.schemaSource()
+        var naming = new Schema.ModuleNaming("", "");
+
+        var schema1 = Schema.Domain.fromYaml(
+            naming,
+            DitaModuleGdParams.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
-        var schema2 = Schema.Domain.fromYaml(DitaModuleGdSurvey.schemaSource()
+        var schema2 = Schema.Domain.fromYaml(
+            naming,
+            DitaModuleGdSurvey.schemaSource()
                 .tryReadAsStringUtf8()
                 .valueAsNonNullElseFail());
         return schema1.concat(schema2);

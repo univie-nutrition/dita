@@ -33,6 +33,11 @@ additional
             <groupId>at.ac.univie.nutrition.dita</groupId>
             <artifactId>dita-commons</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-globodiet-params</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>at.ac.univie.nutrition.dita</groupId>

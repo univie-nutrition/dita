@@ -94,6 +94,8 @@ entities:
       column-type: nvarchar(5)
       required: true
       unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
       description: |
         Recipe ID number this cleaner references
     name:
