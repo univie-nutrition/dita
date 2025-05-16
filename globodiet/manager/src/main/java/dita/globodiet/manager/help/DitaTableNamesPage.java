@@ -45,13 +45,13 @@ import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.ro
 import static org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory.table;
 
 import dita.globodiet.manager.DitaModuleGdManager;
-import io.github.causewaystuff.companion.codegen.model.Schema;
+import dita.globodiet.manager.metadata.EntitySchemaProvider;
 
 @Component
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaTableNamesPage")
 public class DitaTableNamesPage implements HelpPage {
 
-    @Inject Schema.Domain gdParamsSchema;
+    @Inject EntitySchemaProvider entitySchemaProvider;
     @Inject MetaModelContext mmc;
 
     @Override
@@ -62,7 +62,7 @@ public class DitaTableNamesPage implements HelpPage {
     @Override
     public AsciiDoc getContent() {
         var adoc = new AsciiDocBuilder();
-        var namespaces = gdParamsSchema.entities().values().stream()
+        var namespaces = entitySchemaProvider.entitiesByLogicalName().values().stream()
             .map(e->e.namespace())
             .collect(Collectors.toCollection(TreeSet::new));
 
@@ -92,17 +92,17 @@ public class DitaTableNamesPage implements HelpPage {
             cell(table, row, "");
         }
 
-        gdParamsSchema.entities().values().stream()
-        .filter(e->e.namespace().equalsIgnoreCase(namespace))
-        .sorted((a, b)->a.name().compareTo(b.name()))
-        .forEach(t->{
-            var row = row(table);
-            var logicalName = "dita.globodiet."  + t.namespace() + "." + t.name();
-            cell(table, row, htmlPassThroughIconFor(logicalName));
-            cell(table, row, "`" + t.name() + "`");
-            cell(table, row, t.table());
-            cell(table, row, t.description().describedAs());
-        });
+        entitySchemaProvider.entitiesByLogicalName().values().stream()
+            .filter(e->e.namespace().equalsIgnoreCase(namespace))
+            .sorted((a, b)->a.name().compareTo(b.name()))
+            .forEach(t->{
+                var row = row(table);
+                var logicalName = "dita.globodiet."  + t.namespace() + "." + t.name();
+                cell(table, row, htmlPassThroughIconFor(logicalName));
+                cell(table, row, "`" + t.name() + "`");
+                cell(table, row, t.table());
+                cell(table, row, t.description().describedAs());
+            });
 
     }
 

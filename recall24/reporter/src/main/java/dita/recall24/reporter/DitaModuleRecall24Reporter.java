@@ -46,7 +46,7 @@ public class DitaModuleRecall24Reporter {
     public static final String NAMESPACE = "dita.recall24.reporter";
 
     public static DataSource schemaSource() {
-        return DataSource.ofResource(dita.recall24.reporter.DitaModuleRecall24Reporter.class, "/companion-schema.yaml");
+        return DataSource.ofResource(dita.recall24.reporter.DitaModuleRecall24Reporter.class, "companion-schema.yaml");
     }
 
     public static Can<Class<?>> entityClasses() {

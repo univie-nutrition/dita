@@ -21,8 +21,6 @@ package dita.globodiet.manager.help;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import io.github.causewaystuff.companion.codegen.model.Schema;
-
 import org.apache.causeway.applib.id.LogicalType;
 import org.apache.causeway.applib.services.metamodel.BeanSort;
 import org.apache.causeway.applib.services.metamodel.MetaModelService;
@@ -30,16 +28,18 @@ import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 import org.apache.causeway.extensions.docgen.help.topics.domainobjects.EntityDiagramPageAbstract;
 
 import dita.commons.util.ObjectGraphTransformers;
+import dita.globodiet.manager.metadata.EntitySchemaProvider;
+import io.github.causewaystuff.companion.codegen.model.Schema;
 
 abstract class DitaEntityDiagramPageAbstract extends EntityDiagramPageAbstract {
 
     private final Schema.Domain gdParamsSchema;
 
     protected DitaEntityDiagramPageAbstract(
-            final Schema.Domain gdParamsSchema,
+            final EntitySchemaProvider entitySchemaProvider,
             final MetaModelService metaModelService) {
         super(metaModelService);
-        this.gdParamsSchema = gdParamsSchema;
+        this.gdParamsSchema = entitySchemaProvider.asDomain();
     }
 
     @Override

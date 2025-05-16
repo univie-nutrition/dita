@@ -17,9 +17,12 @@
 # under the License.
 # -----------------------------------------------------------
 
+module:
+  namespace: dita.globodiet.survey
+  package: dita.globodiet.survey
 viewmodels:
 entities:
-- fqn: dom.Campaign
+- id: dom.Campaign
   name: Campaign
   namespace: dom
   table: CAMPAIGN
@@ -64,7 +67,7 @@ entities:
       multiLine: 4
       description: |
         Detailed information for this campaign.
-- fqn: dom.ConsumptionDataCleaner
+- id: dom.ConsumptionDataCleaner
   name: ConsumptionDataCleaner
   namespace: dom
   table: ConsumptionDataCleaner
@@ -111,8 +114,8 @@ entities:
       required: false
       unique: false
       description: |
-        Detailed decription for this cleaner.
-- fqn: dom.ReportColumnDefinition
+        Detailed description for this cleaner.
+- id: dom.ReportColumnDefinition
   name: ReportColumnDefinition
   namespace: dom
   table: ReportColumnDefinition
@@ -164,7 +167,7 @@ entities:
       description: |
         Line by line defines a column to include.
         (lines can be commented out with a leading #)
-- fqn: dom.RespondentFilter
+- id: dom.RespondentFilter
   name: RespondentFilter
   namespace: dom
   table: RespondentFilter
@@ -217,7 +220,7 @@ entities:
       description: |
         Line by line defines an alias to include.
         (lines can be commented out with a leading #)
-- fqn: dom.Survey
+- id: dom.Survey
   name: Survey
   namespace: dom
   table: SURVEY

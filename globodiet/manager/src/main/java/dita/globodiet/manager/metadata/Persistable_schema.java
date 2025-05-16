@@ -26,7 +26,6 @@ import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.id.LogicalType;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.specloader.SpecificationLoader;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
@@ -37,7 +36,6 @@ import lombok.RequiredArgsConstructor;
 
 import io.github.causewaystuff.companion.applib.jpa.Persistable;
 import io.github.causewaystuff.companion.codegen.model.Schema;
-import io.github.causewaystuff.companion.codegen.model.Schema.ModuleNaming;
 
 @Property
 @PropertyLayout(
@@ -47,7 +45,7 @@ import io.github.causewaystuff.companion.codegen.model.Schema.ModuleNaming;
 @RequiredArgsConstructor
 public class Persistable_schema {
 
-    @Inject Schema.Domain schema;
+    @Inject EntitySchemaProvider entitySchemaProvider;
     @Inject SpecificationLoader specLoader;
 
     final Persistable mixee;
@@ -56,30 +54,22 @@ public class Persistable_schema {
 
         var entitySchema = specLoader.specForType(mixee.getClass())
                 .map(ObjectSpecification::logicalType)
-                .map(logicalType->schema.entities().get(toLookupKeyIntoSchemaEntities(logicalType)))
+                .map(logicalType->entitySchemaProvider.get(logicalType))
                 .orElse(null);
 
         if(entitySchema==null) {
             return AsciiDoc.valueOf("no metadata available");
         }
 
+        var naming = entitySchema.domain().naming();
         var subSchema = new Schema.Domain(
-                new ModuleNaming("", ""),
-                Map.of(),
-                Map.of(entitySchema.id(), entitySchema));
-        subSchema.toYaml();
+            naming,
+            Map.of(),
+            Map.of(entitySchema.id(), entitySchema));
 
         return new AsciiDocBuilder()
                 .append(doc->AsciiDocFactory.sourceBlock(doc, "yaml", subSchema.toYaml()))
                 .buildAsValue();
-    }
-
-    // -- HELPER
-
-    private String toLookupKeyIntoSchemaEntities(final LogicalType logicalType) {
-        return logicalType.namespace().substring("dita.globodiet.".length())
-                + "."
-                + logicalType.logicalSimpleName();
     }
 
 }

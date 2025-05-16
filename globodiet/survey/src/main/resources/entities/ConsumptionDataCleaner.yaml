@@ -63,4 +63,4 @@ entity:
       required: false
       unique: false
       description: |
-        Detailed decription for this cleaner.
+        Detailed description for this cleaner.

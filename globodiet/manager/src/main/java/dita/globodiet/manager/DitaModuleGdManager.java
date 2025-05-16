@@ -18,6 +18,11 @@
  */
 package dita.globodiet.manager;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +31,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
+import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.config.presets.CausewayPresets;
 import org.apache.causeway.core.runtimeservices.CausewayModuleCoreRuntimeServices;
 import org.apache.causeway.extensions.docgen.help.CausewayModuleExtDocgenHelp;
@@ -51,6 +58,7 @@ import dita.globodiet.manager.editing.wip.Recipe_listIngredients;
 import dita.globodiet.manager.help.DitaEntityDiagramPage;
 import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
+import dita.globodiet.manager.metadata.EntitySchemaProvider;
 import dita.globodiet.manager.metadata.Persistable_schema;
 import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchema;
@@ -65,6 +73,7 @@ import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import io.github.causewaystuff.companion.codegen.model.Schema;
+import io.github.causewaystuff.companion.codegen.model.Schema.Domain;
 
 /**
  * Makes the integral parts of the web application.
@@ -133,30 +142,32 @@ public class DitaModuleGdManager {
     public final static String NAMESPACE = "dita.globodiet.manager";
 
     @Bean
-    public Schema.Domain gdSchema() {
-        var naming = new Schema.ModuleNaming("", "");
+    public EntitySchemaProvider entitySchemaProvider() {
 
-        var schema1 = Schema.Domain.fromYaml(
-            naming,
-            DitaModuleGdParams.schemaSource()
-                .tryReadAsStringUtf8()
-                .valueAsNonNullElseFail());
-        var schema2 = Schema.Domain.fromYaml(
-            naming,
-            DitaModuleGdSurvey.schemaSource()
-                .tryReadAsStringUtf8()
-                .valueAsNonNullElseFail());
-        return schema1.concat(schema2);
+        var map = new HashMap<String, Schema.Entity>();
+
+        Stream.<DataSource>of(
+                DitaModuleGdParams.schemaSource(),
+                DitaModuleGdSurvey.schemaSource())
+            .map(DataSource::tryReadAsStringUtf8)
+            .map(Try::valueAsNonNullElseFail)
+            .map(Schema.Domain::fromYaml)
+            .map(Domain::entities)
+            .map(Map::values)
+            .flatMap(Collection::stream)
+            .forEach(entity->map.put(entity.namespaceResolved() + "." + entity.name(), entity));
+
+        return new EntitySchemaProvider(map);
     }
 
     @Bean @Qualifier("entity2table")
-    public TabularData.NameTransformer entity2table(final Schema.Domain gdParamsSchema) {
-        return new EntityToTableTransformerFromSchema("dita.globodiet", gdParamsSchema);
+    public TabularData.NameTransformer entity2table(final EntitySchemaProvider entitySchemaProvider) {
+        return new EntityToTableTransformerFromSchema("dita.globodiet", entitySchemaProvider.asDomain());
     }
 
     @Bean @Qualifier("table2entity")
-    public TabularData.NameTransformer table2entity(final Schema.Domain gdParamsSchema) {
-        return new TableToEntityTransformerFromSchema("dita.globodiet", gdParamsSchema);
+    public TabularData.NameTransformer table2entity(final EntitySchemaProvider entitySchemaProvider) {
+        return new TableToEntityTransformerFromSchema("dita.globodiet", entitySchemaProvider.asDomain());
     }
 
     @Configuration

@@ -168,7 +168,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     private String name;
 
     /**
-     * Detailed decription for this cleaner.
+     * Detailed description for this cleaner.
      */
     @Property(
             optionality = Optionality.OPTIONAL,
@@ -177,7 +177,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "4",
-            describedAs = "Detailed decription for this cleaner."
+            describedAs = "Detailed description for this cleaner."
     )
     @Column(
             name = "\"DESCRIPTION\"",
@@ -280,14 +280,14 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
      * @param survey Survey code
      * @param recipe Recipe ID number this cleaner references
      * @param name Descriptive cleaner name.
-     * @param description Detailed decription for this cleaner.
+     * @param description Detailed description for this cleaner.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe ID number this cleaner references") Recipe recipe,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Descriptive cleaner name.") String name,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed decription for this cleaner.") String description
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "Detailed description for this cleaner.") String description
     ) {
     }
 

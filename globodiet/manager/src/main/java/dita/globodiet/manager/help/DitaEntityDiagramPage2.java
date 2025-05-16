@@ -21,14 +21,13 @@ package dita.globodiet.manager.help;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import io.github.causewaystuff.companion.codegen.model.Schema;
-
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.services.metamodel.MetaModelService;
 import org.apache.causeway.applib.services.metamodel.objgraph.ObjectGraph;
 
 import dita.globodiet.manager.DitaModuleGdManager;
+import dita.globodiet.manager.metadata.EntitySchemaProvider;
 
 @Component
 @Named(DitaModuleGdManager.NAMESPACE + ".DitaEntityDiagramPage2")
@@ -36,9 +35,9 @@ public class DitaEntityDiagramPage2 extends DitaEntityDiagramPageAbstract {
 
     @Inject
     public DitaEntityDiagramPage2(
-            final Schema.Domain gdParamsSchema,
+            final EntitySchemaProvider entitySchemaProvider,
             final MetaModelService metaModelService) {
-        super(gdParamsSchema, metaModelService);
+        super(entitySchemaProvider, metaModelService);
     }
 
     @Override

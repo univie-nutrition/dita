@@ -89,7 +89,7 @@ public class DitaModuleGdSurvey {
     public static final String NAMESPACE = "dita.globodiet.survey";
 
     public static DataSource schemaSource() {
-        return DataSource.ofResource(dita.globodiet.survey.DitaModuleGdSurvey.class, "/companion-schema.yaml");
+        return DataSource.ofResource(dita.globodiet.survey.DitaModuleGdSurvey.class, "companion-schema.yaml");
     }
 
     public static Can<Class<?>> entityClasses() {

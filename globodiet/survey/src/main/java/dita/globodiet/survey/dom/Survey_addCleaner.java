@@ -26,6 +26,7 @@ import jakarta.inject.Inject;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.MinLength;
 import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
@@ -33,7 +34,9 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
 
+import dita.globodiet.params.recipe_list.Recipe;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT)
@@ -46,6 +49,7 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 @RequiredArgsConstructor
 public class Survey_addCleaner {
 
+    @Inject private SearchService searchService;
     @Inject private FactoryService factoryService;
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookup;
@@ -57,7 +61,7 @@ public class Survey_addCleaner {
 
         var cleaner = repositoryService.detachedEntity(new ConsumptionDataCleaner());
         cleaner.setSurveyCode(mixee.secondaryKey().code());
-        //cleaner.setCode(p.code());
+        cleaner.setRecipeCode(p.recipe().secondaryKey().code());
         cleaner.setName(p.name());
         cleaner.setDescription(p.description());
 
@@ -71,20 +75,18 @@ public class Survey_addCleaner {
     public List<Survey> choicesSurvey() {
         return List.of();
     }
-
     @MemberSupport
     public Survey defaultSurvey() {
         return mixee;
     }
-
     @MemberSupport
     public boolean hideSurvey() {
         return true;
     }
 
     @MemberSupport
-    public String defaultCode() {
-        return "TODO_00";
+    public List<Recipe> autoCompleteRecipe(@MinLength(3) final String search) {
+        return searchService.search(Recipe.class, Recipe::title, search);
     }
 
 }

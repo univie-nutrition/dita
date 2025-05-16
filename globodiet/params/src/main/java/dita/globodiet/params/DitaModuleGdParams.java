@@ -753,7 +753,7 @@ public class DitaModuleGdParams {
     public static final String NAMESPACE = "dita.globodiet.params";
 
     public static DataSource schemaSource() {
-        return DataSource.ofResource(dita.globodiet.params.DitaModuleGdParams.class, "/companion-schema.yaml");
+        return DataSource.ofResource(dita.globodiet.params.DitaModuleGdParams.class, "companion-schema.yaml");
     }
 
     public static Can<Class<?>> entityClasses() {

@@ -17,9 +17,12 @@
 # under the License.
 # -----------------------------------------------------------
 
+module:
+  namespace: dita.globodiet.params
+  package: dita.globodiet.params
 viewmodels:
 entities:
-- fqn: food_coefficient.DensityFactorForFoodOrRecipe
+- id: food_coefficient.DensityFactorForFoodOrRecipe
   name: DensityFactorForFoodOrRecipe
   namespace: food_coefficient
   table: DENSITY
@@ -99,7 +102,7 @@ entities:
       description: |
         1 = density for food/ingredient,
         2 = density for recipe
-- fqn: food_coefficient.EdiblePartCoefficientForFood
+- id: food_coefficient.EdiblePartCoefficientForFood
   name: EdiblePartCoefficientForFood
   namespace: food_coefficient
   table: EDIBLEP
@@ -142,7 +145,7 @@ entities:
       unique: false
       description: |
         Priority order
-- fqn: food_coefficient.PercentOfFatLeftInTheDishForFood
+- id: food_coefficient.PercentOfFatLeftInTheDishForFood
   name: PercentOfFatLeftInTheDishForFood
   namespace: food_coefficient
   table: FATLEFTO
@@ -191,7 +194,7 @@ entities:
       unique: false
       description: |
         Percentage of fat left in the dish
-- fqn: food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood
+- id: food_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood
   name: PercentOfFatOrSauceOrSweetenerAddedAfterCookingForFood
   namespace: food_coefficient
   table: SPFACOOK
@@ -290,7 +293,7 @@ entities:
       unique: false
       description: |
         Percentage of fat sauce or sweetener (FSS) that had been added
-- fqn: food_coefficient.PercentOfFatUseDuringCookingForFood
+- id: food_coefficient.PercentOfFatUseDuringCookingForFood
   name: PercentOfFatUseDuringCookingForFood
   namespace: food_coefficient
   table: SPFDCOOK
@@ -399,7 +402,7 @@ entities:
       unique: false
       description: |
         Percentage of fat absorbed during cooking
-- fqn: food_coefficient.RawToCookedConversionFactorForFood
+- id: food_coefficient.RawToCookedConversionFactorForFood
   name: RawToCookedConversionFactorForFood
   namespace: food_coefficient
   table: RAWCOOK
@@ -443,7 +446,7 @@ entities:
       unique: false
       description: |
         Priority order
-- fqn: food_descript.FoodBrand
+- id: food_descript.FoodBrand
   name: FoodBrand
   namespace: food_descript
   table: BRANDNAM
@@ -499,7 +502,7 @@ entities:
         SUBGROUP.SUBGROUP2
       description: |
         Food sub-subgroup code
-- fqn: food_descript.FoodDescriptor
+- id: food_descript.FoodDescriptor
   name: FoodDescriptor
   namespace: food_descript
   table: DESCFACE
@@ -574,7 +577,7 @@ entities:
       description: |
         0=Regular choice
         1=Choice with additional text as provided by the interviewer (other: [...])
-- fqn: food_descript.FoodFacet
+- id: food_descript.FoodFacet
   name: FoodFacet
   namespace: food_descript
   table: FACETS
@@ -650,7 +653,7 @@ entities:
       unique: true
       description: |
         Label on how to ask the facet question
-- fqn: food_descript.FoodFacetRule
+- id: food_descript.FoodFacetRule
   name: FoodFacetRule
   namespace: food_descript
   table: FACETRUL
@@ -714,7 +717,7 @@ entities:
         SUBGROUP.SUBGROUP2
       description: |
         Sub-subgroup code
-- fqn: food_descript.ImprobableSequenceOfFacetAndDescriptor
+- id: food_descript.ImprobableSequenceOfFacetAndDescriptor
   name: ImprobableSequenceOfFacetAndDescriptor
   namespace: food_descript
   table: DESC_IMP
@@ -792,7 +795,7 @@ entities:
       unique: false
       description: |
         Facet string
-- fqn: food_list.ComposedRecipeIngredient
+- id: food_list.ComposedRecipeIngredient
   name: ComposedRecipeIngredient
   namespace: food_list
   table: CRING
@@ -831,7 +834,7 @@ entities:
       description: |
         If type=1 ingredient from Food list, 
         If type=2 ingredient from Recipe list
-- fqn: food_list.Food
+- id: food_list.Food
   name: Food
   namespace: food_list
   table: FOODS
@@ -938,7 +941,7 @@ entities:
       description: |
         0=food 
         1=dietary supplement
-- fqn: food_list.FoodGroup
+- id: food_list.FoodGroup
   name: FoodGroup
   namespace: food_list
   table: GROUPS
@@ -974,7 +977,7 @@ entities:
       unique: true
       description: |
         Food group short name
-- fqn: food_list.FoodSubgroup
+- id: food_list.FoodSubgroup
   name: FoodSubgroup
   namespace: food_list
   table: SUBGROUP
@@ -1068,7 +1071,7 @@ entities:
       unique: true
       description: |
         Short Name of the food (sub-)(sub-)group
-- fqn: interview.CenterInvolved
+- id: interview.CenterInvolved
   name: CenterInvolved
   namespace: interview
   table: CENTERS
@@ -1102,7 +1105,7 @@ entities:
       unique: true
       description: |
         Center name
-- fqn: interview.CountryInvolved
+- id: interview.CountryInvolved
   name: CountryInvolved
   namespace: interview
   table: COUNTRY
@@ -1127,7 +1130,7 @@ entities:
       unique: true
       description: |
         Country name
-- fqn: interview.Interviewer
+- id: interview.Interviewer
   name: Interviewer
   namespace: interview
   table: INTVIEWR
@@ -1176,7 +1179,7 @@ entities:
         CENTERS.CNTR_CODE
       description: |
         Center code
-- fqn: interview.SubjectToBeInterviewed
+- id: interview.SubjectToBeInterviewed
   name: SubjectToBeInterviewed
   namespace: interview
   table: SUBJECTS
@@ -1302,7 +1305,7 @@ entities:
       unique: true
       description: |
         Recall Date (mm/dd/yy)
-- fqn: nutrient.Nutrient
+- id: nutrient.Nutrient
   name: Nutrient
   namespace: nutrient
   table: NUTRIENT
@@ -1352,7 +1355,7 @@ entities:
       unique: true
       description: |
         Comment on nutrient
-- fqn: nutrient.NutrientForFoodOrGroup
+- id: nutrient.NutrientForFoodOrGroup
   name: NutrientForFoodOrGroup
   namespace: nutrient
   table: ITEMS_DEF
@@ -1468,7 +1471,7 @@ entities:
       unique: true
       description: |
         Comment
-- fqn: nutrient.NutrientValue
+- id: nutrient.NutrientValue
   name: NutrientValue
   namespace: nutrient
   table: NTR_VALUE
@@ -1508,7 +1511,7 @@ entities:
       unique: false
       description: |
         Nutrient value for the corresponding nutrient and food (or group).
-- fqn: pathway.FacetDescriptorPathwayForFood
+- id: pathway.FacetDescriptorPathwayForFood
   name: FacetDescriptorPathwayForFood
   namespace: pathway
   table: FOODFAEX
@@ -1550,7 +1553,7 @@ entities:
       unique: false
       description: |
         Order to display the facets for the referenced food (same order as ORDER_FAC in @{table GROUPFAC})
-- fqn: pathway.FacetDescriptorPathwayForFoodGroup
+- id: pathway.FacetDescriptorPathwayForFoodGroup
   name: FacetDescriptorPathwayForFoodGroup
   namespace: pathway
   table: GROUPFAC
@@ -1656,7 +1659,7 @@ entities:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
-- fqn: pathway.FacetDescriptorPathwayForRecipe
+- id: pathway.FacetDescriptorPathwayForRecipe
   name: FacetDescriptorPathwayForRecipe
   namespace: pathway
   table: R_RCPFAEX
@@ -1698,7 +1701,7 @@ entities:
       unique: false
       description: |
         Order to display the facets for the referenced recipe.
-- fqn: pathway.FacetDescriptorPathwayForRecipeGroup
+- id: pathway.FacetDescriptorPathwayForRecipeGroup
   name: FacetDescriptorPathwayForRecipeGroup
   namespace: pathway
   table: R_GROUPFAC
@@ -1786,7 +1789,7 @@ entities:
       unique: false
       description: |
         Order to display the descriptors within a group/subgroup and a facet
-- fqn: pathway.ProbingQuestion
+- id: pathway.ProbingQuestion
   name: ProbingQuestion
   namespace: pathway
   table: PROBQUE
@@ -1811,7 +1814,7 @@ entities:
       unique: true
       description: |
         Probing question label
-- fqn: pathway.ProbingQuestionPathwayForFood
+- id: pathway.ProbingQuestionPathwayForFood
   name: ProbingQuestionPathwayForFood
   namespace: pathway
   table: PQPATH
@@ -1874,7 +1877,7 @@ entities:
         FOODS.FOODNUM
       description: |
         Food identification number (FOODNUM)
-- fqn: pathway.ProbingQuestionPathwayForRecipe
+- id: pathway.ProbingQuestionPathwayForRecipe
   name: ProbingQuestionPathwayForRecipe
   namespace: pathway
   table: RPQPATH
@@ -1925,7 +1928,7 @@ entities:
         MIXEDREC.R_IDNUM
       description: |
         Recipe identification number (R_ IDNUM)
-- fqn: pathway.QuantificationMethodPathwayForFood
+- id: pathway.QuantificationMethodPathwayForFood
   name: QuantificationMethodPathwayForFood
   namespace: pathway
   table: QM_FOODS
@@ -1979,7 +1982,7 @@ entities:
         if method='P' Photo code
         if method='A' Shape code
         else empty
-- fqn: pathway.QuantificationMethodPathwayForFoodGroup
+- id: pathway.QuantificationMethodPathwayForFoodGroup
   name: QuantificationMethodPathwayForFoodGroup
   namespace: pathway
   table: QM_GROUP
@@ -2090,7 +2093,7 @@ entities:
       unique: false
       description: |
         Comment
-- fqn: pathway.QuantificationMethodPathwayForRecipe
+- id: pathway.QuantificationMethodPathwayForRecipe
   name: QuantificationMethodPathwayForRecipe
   namespace: pathway
   table: QM_RECIP
@@ -2142,7 +2145,7 @@ entities:
         if method='P' Photo code
         if method='A' Shape code
         else empty
-- fqn: pathway.QuantificationMethodPathwayForRecipeGroup
+- id: pathway.QuantificationMethodPathwayForRecipeGroup
   name: QuantificationMethodPathwayForRecipeGroup
   namespace: pathway
   table: QM_RCLAS
@@ -2200,7 +2203,7 @@ entities:
       unique: false
       description: |
         Comment
-- fqn: pathway.RecipeTypePathway
+- id: pathway.RecipeTypePathway
   name: RecipeTypePathway
   namespace: pathway
   table: RCP_PATH
@@ -2287,7 +2290,7 @@ entities:
         0 = No display of note window 
         1 = Display of note window 
         2 = Display of note window only for Add & Delete functions
-- fqn: quantif.HouseholdMeasure
+- id: quantif.HouseholdMeasure
   name: HouseholdMeasure
   namespace: quantif
   table: M_HHM
@@ -2333,7 +2336,7 @@ entities:
       unique: true
       description: |
         Order to display the HouseholdMeasure
-- fqn: quantif.MaximumValueForFoodOrGroup
+- id: quantif.MaximumValueForFoodOrGroup
   name: MaximumValueForFoodOrGroup
   namespace: quantif
   table: MAXVAL
@@ -2407,7 +2410,7 @@ entities:
       unique: false
       description: |
         Priority order
-- fqn: quantif.MaximumValueForRecipeOrGroup
+- id: quantif.MaximumValueForRecipeOrGroup
   name: MaximumValueForRecipeOrGroup
   namespace: quantif
   table: MAXRVAL
@@ -2454,7 +2457,7 @@ entities:
       unique: false
       description: |
         Maximum value
-- fqn: quantif.Photo
+- id: quantif.Photo
   name: Photo
   namespace: quantif
   table: M_PHOTOS
@@ -2516,7 +2519,7 @@ entities:
       description: |
         G = in Unit grams (mass)
         V = in Unit milliliter (volume)
-- fqn: quantif.RecipeIngredientQuantification
+- id: quantif.RecipeIngredientQuantification
   name: RecipeIngredientQuantification
   namespace: quantif
   table: MIXEDING_QT
@@ -2620,7 +2623,7 @@ entities:
       unique: true
       description: |
         Sequential Number for Ingredients within a Sub-Recipe
-- fqn: quantif.Shape
+- id: quantif.Shape
   name: Shape
   namespace: quantif
   table: M_SHAPES
@@ -2663,7 +2666,7 @@ entities:
       unique: true
       description: |
         Order to display this shape
-- fqn: quantif.StandardPortionForFood
+- id: quantif.StandardPortionForFood
   name: StandardPortionForFood
   namespace: quantif
   table: M_STDPOR
@@ -2739,7 +2742,7 @@ entities:
       unique: false
       description: |
         Order to display the standard portion
-- fqn: quantif.StandardUnitForFoodOrRecipe
+- id: quantif.StandardUnitForFoodOrRecipe
   name: StandardUnitForFoodOrRecipe
   namespace: quantif
   table: M_STDUTS
@@ -2831,7 +2834,7 @@ entities:
       unique: false
       description: |
         Order to display the standard unit
-- fqn: quantif.ThicknessForShape
+- id: quantif.ThicknessForShape
   name: ThicknessForShape
   namespace: quantif
   table: THICKNESS
@@ -2894,7 +2897,7 @@ entities:
         When this field is empty, that means that this thickness has always to be proposed 
         whatever the recipe classification. 
         Muliple rsubgr.group and/or rsubgr.subgroup comma-separated (e.g. 01,0601)
-- fqn: recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe
+- id: recipe_coefficient.PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe
   name: PercentOfFatOrSauceOrSweetenerAddedAfterCookingForRecipe
   namespace: recipe_coefficient
   table: SPFACORE
@@ -2981,7 +2984,7 @@ entities:
       unique: false
       description: |
         Percentage of fat sauce or sweetener (FSS) that had been added
-- fqn: recipe_description.RecipeBrand
+- id: recipe_description.RecipeBrand
   name: RecipeBrand
   namespace: recipe_description
   table: R_BRAND
@@ -3020,7 +3023,7 @@ entities:
       required: true
       unique: false
       description:
-- fqn: recipe_description.RecipeDescriptor
+- id: recipe_description.RecipeDescriptor
   name: RecipeDescriptor
   namespace: recipe_description
   table: R_DESCFACE
@@ -3102,7 +3105,7 @@ entities:
       description: |
         0=not single descriptor
         1=single descriptor          
-- fqn: recipe_description.RecipeFacet
+- id: recipe_description.RecipeFacet
   name: RecipeFacet
   namespace: recipe_description
   table: R_FACET
@@ -3177,7 +3180,7 @@ entities:
       unique: true
       description: |
         Label on how to ask the facet question    
-- fqn: recipe_description.RecipeFacetRule
+- id: recipe_description.RecipeFacetRule
   name: RecipeFacetRule
   namespace: recipe_description
   table: R_FACETRUL
@@ -3228,7 +3231,7 @@ entities:
         RSUBGR.SUBGROUP
       description: |
         Recipe Subgroup code
-- fqn: recipe_list.Recipe
+- id: recipe_list.Recipe
   name: Recipe
   namespace: recipe_list
   table: MIXEDREC
@@ -3359,7 +3362,7 @@ entities:
         2=with unknown quantity (disabled for interviews)
         3=to be completed (disabled for interviews)
         4=empty (disabled for interviews)
-- fqn: recipe_list.RecipeGroup
+- id: recipe_list.RecipeGroup
   name: RecipeGroup
   namespace: recipe_list
   table: RGROUPS
@@ -3395,7 +3398,7 @@ entities:
       unique: true
       description: |
         Short Name of the Recipe group
-- fqn: recipe_list.RecipeIngredient
+- id: recipe_list.RecipeIngredient
   name: RecipeIngredient
   namespace: recipe_list
   table: MIXEDING
@@ -3738,7 +3741,7 @@ entities:
       required: false
       unique: true
       description:
-- fqn: recipe_list.RecipeSubgroup
+- id: recipe_list.RecipeSubgroup
   name: RecipeSubgroup
   namespace: recipe_list
   table: RSUBGR
@@ -3785,7 +3788,7 @@ entities:
       unique: true
       description: |
         Short Name of the recipe (sub-)group
-- fqn: setting.AnthropometricAverage
+- id: setting.AnthropometricAverage
   name: AnthropometricAverage
   namespace: setting
   table: ANTHROP
@@ -3844,7 +3847,7 @@ entities:
       unique: false
       description: |
         Default value of height or weight
-- fqn: setting.DayOfWeek
+- id: setting.DayOfWeek
   name: DayOfWeek
   namespace: setting
   table: DAYOWEEK
@@ -3868,7 +3871,7 @@ entities:
       unique: true
       description: |
         Day name
-- fqn: setting.FacetDescriptorThatCannotBeSubstituted
+- id: setting.FacetDescriptorThatCannotBeSubstituted
   name: FacetDescriptorThatCannotBeSubstituted
   namespace: setting
   table: DESCSUBS
@@ -3898,7 +3901,7 @@ entities:
         DESCFACE.DESCR_CODE
       description: |
         Descriptor code
-- fqn: setting.FoodConsumptionOccasion
+- id: setting.FoodConsumptionOccasion
   name: FoodConsumptionOccasion
   namespace: setting
   table: FCO
@@ -3948,7 +3951,7 @@ entities:
       description: |
         0=non main FCO
         1=main FCO (to be displayed in nutrient check screen)
-- fqn: setting.FoodConsumptionOccasionDisplayItem
+- id: setting.FoodConsumptionOccasionDisplayItem
   name: FoodConsumptionOccasionDisplayItem
   namespace: setting
   table: CHKLIST
@@ -3977,7 +3980,7 @@ entities:
       unique: false
       description: |
         Text representing Food.
-- fqn: setting.GroupSubstitution
+- id: setting.GroupSubstitution
   name: GroupSubstitution
   namespace: setting
   table: SUBSTIT
@@ -4063,7 +4066,7 @@ entities:
         RSUBGR.SUBGROUP
       description: |
         List of recipe groups/subgroups to apply the substitution (e.g. “01”, “02, 0403, 0702”)
-- fqn: setting.MacroNutrientLimit
+- id: setting.MacroNutrientLimit
   name: MacroNutrientLimit
   namespace: setting
   table: NUTLIMIT
@@ -4122,7 +4125,7 @@ entities:
       unique: false
       description: |
         PAL value
-- fqn: setting.Month
+- id: setting.Month
   name: Month
   namespace: setting
   table: MONTHS
@@ -4145,7 +4148,7 @@ entities:
       unique: true
       description: |
         Month name
-- fqn: setting.NoteStatus
+- id: setting.NoteStatus
   name: NoteStatus
   namespace: setting
   table: STATUS
@@ -4181,7 +4184,7 @@ entities:
         Allow the possibility to display or not the note in the view note window: 
         0=No hide, 
         1=Yes hide (e.g. 1=hide for status “action done”)
-- fqn: setting.PlaceOfConsumption
+- id: setting.PlaceOfConsumption
   name: PlaceOfConsumption
   namespace: setting
   table: POC
@@ -4217,7 +4220,7 @@ entities:
       description: |
         0=not a 'Other' place 
         1='Other' place
-- fqn: setting.SelectedParameter
+- id: setting.SelectedParameter
   name: SelectedParameter
   namespace: setting
   table: PARAM
@@ -4241,7 +4244,7 @@ entities:
       unique: false
       description: |
         Parameter value
-- fqn: setting.SelectedParameterForDataEntry
+- id: setting.SelectedParameterForDataEntry
   name: SelectedParameterForDataEntry
   namespace: setting
   table: PARAMDE
@@ -4265,7 +4268,7 @@ entities:
       unique: false
       description: |
         Parameter value for data entry
-- fqn: setting.SpecialDayPredefinedAnswer
+- id: setting.SpecialDayPredefinedAnswer
   name: SpecialDayPredefinedAnswer
   namespace: setting
   table: SPECDAY
@@ -4289,7 +4292,7 @@ entities:
       unique: true
       description: |
         Special day label
-- fqn: setting.SpecialDietPredefinedAnswer
+- id: setting.SpecialDietPredefinedAnswer
   name: SpecialDietPredefinedAnswer
   namespace: setting
   table: SPECDIET
@@ -4313,7 +4316,7 @@ entities:
       unique: true
       description: |
         Special diet label
-- fqn: setting.TranslationInCountryLanguage
+- id: setting.TranslationInCountryLanguage
   name: TranslationInCountryLanguage
   namespace: setting
   table: EPICTEXT
@@ -4358,7 +4361,7 @@ entities:
       unique: false
       description: |
         Data entry Text in English
-- fqn: supplement.DietarySupplement
+- id: supplement.DietarySupplement
   name: DietarySupplement
   namespace: supplement
   table: SUPPLEMENTS
@@ -4407,7 +4410,7 @@ entities:
         DS_FACET.DSFACET_CODE
       description: |
         Sequence of facet codes that indicates the facets to be displayed for this supplement (e.g. 03,04,01)
-- fqn: supplement.DietarySupplementClassification
+- id: supplement.DietarySupplementClassification
   name: DietarySupplementClassification
   namespace: supplement
   table: DS_CLASSIF
@@ -4442,7 +4445,7 @@ entities:
       unique: true
       description: |
         Dietary Supplement classification code attached to (for subgroup)
-- fqn: supplement.DietarySupplementDescriptor
+- id: supplement.DietarySupplementDescriptor
   name: DietarySupplementDescriptor
   namespace: supplement
   table: DS_DESCFACE
@@ -4533,7 +4536,7 @@ entities:
       unique: false
       description: |
         Not in name flag
-- fqn: supplement.DietarySupplementFacet
+- id: supplement.DietarySupplementFacet
   name: DietarySupplementFacet
   namespace: supplement
   table: DS_FACET
