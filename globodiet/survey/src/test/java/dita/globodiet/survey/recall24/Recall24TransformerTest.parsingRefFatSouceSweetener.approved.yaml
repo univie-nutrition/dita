@@ -433,7 +433,5 @@ respondents:
           rawToCookedCoefficient: 1
           annotations: {}
     annotations:
-      dataSource:
-        key: "dataSource"
-        value: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
+      dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 annotations: {}
