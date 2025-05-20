@@ -67,54 +67,6 @@ entities:
       multiLine: 4
       description: |
         Detailed information for this campaign.
-- id: dom.ConsumptionDataCleaner
-  name: ConsumptionDataCleaner
-  namespace: dom
-  table: ConsumptionDataCleaner
-  secondaryKey: |
-    SURVEY
-    R_IDNUM
-  title: String.format("%s (%s)", name, surveyCode)
-  icon: |
-    solid users-viewfinder .campaign-color,
-    solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
-    
-  description: |
-    A consumption data cleaner references a specific food or composite by SID 
-    and describes what to clean up.
-  fields:
-    surveyCode:
-      column: SURVEY
-      column-type: nvarchar(20)
-      required: true
-      unique: false
-      foreignKeys: |
-        SURVEY.CODE
-      description: |
-        Survey code
-    recipeCode:
-      column: R_IDNUM
-      column-type: nvarchar(5)
-      required: true
-      unique: false
-      foreignKeys: |
-        MIXEDREC.R_IDNUM
-      description: |
-        Recipe ID number this cleaner references
-    name:
-      column: NAME
-      column-type: nvarchar(120)
-      required: true
-      unique: false
-      description: |
-        Descriptive cleaner name.
-    description:
-      column: DESCRIPTION
-      column-type: mediumtext
-      required: false
-      unique: false
-      description: |
-        Detailed description for this cleaner.
 - id: dom.ReportColumnDefinition
   name: ReportColumnDefinition
   namespace: dom

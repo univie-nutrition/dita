@@ -88,6 +88,10 @@ additional
             <groupId>at.ac.univie.nutrition.dita</groupId>
             <artifactId>dita-globodiet-survey</artifactId>
         </dependency>
+        <dependency>
+            <groupId>at.ac.univie.nutrition.dita</groupId>
+            <artifactId>dita-globodiet-cleaner</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>at.ac.univie.nutrition.dita</groupId>

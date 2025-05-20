@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor
-	license agreements. See the NOTICE file distributed with this work for additional
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more
+contributor
+	license agreements. See the NOTICE file distributed with this work for
+additional
 	information regarding copyright ownership. The ASF licenses this file to
 	you under the Apache License, Version 2.0 (the "License"); you may not use
 	this file except in compliance with the License. You may obtain a copy of
@@ -10,28 +12,29 @@
 	OF ANY KIND, either express or implied. See the License for the specific
 	language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>at.ac.univie.nutrition.dita</groupId>
-		<artifactId>dita-bom</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
-	
-	<artifactId>dita-globodiet</artifactId>
-	<name>Dita - Globodiet</name>
-	<description>
-		Globodiet integration.
-	</description>
-	
-	<packaging>pom</packaging>
-	
-	<modules>
-		<module>params</module>
-		<module>manager</module>
-		<module>survey</module>
-	</modules>
-    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>at.ac.univie.nutrition.dita</groupId>
+        <artifactId>dita-bom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>dita-globodiet</artifactId>
+    <name>Dita - Globodiet</name>
+    <description>
+        Globodiet integration.
+    </description>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>cleaner</module>
+        <module>params</module>
+        <module>manager</module>
+        <module>survey</module>
+    </modules>
+
 </project>

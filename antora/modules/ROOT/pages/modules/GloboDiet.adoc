@@ -14,19 +14,10 @@ GloboDiet integration.
 | dita-globodiet-survey
 | Survey and Campaign Management Entities
 
+| dita-globodiet-cleaner
+| Survey Data Cleaning
+
 | dita-globodiet-manager
 | Web Application / User Interface
-
-|===
-
-== Connectors
-
-Connectors to external systems.
-
-[cols="1m,5a"]
-|===
-
-| dita-globodiet-connectors-nutridb
-| NutriDb integration.
 
 |===

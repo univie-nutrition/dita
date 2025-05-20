@@ -17,7 +17,7 @@
 # under the License.
 # -----------------------------------------------------------
 
-namespace: dita.globodiet.survey
-moduleClassSimpleName: DitaModuleGdSurvey
+namespace: dita.globodiet.cleaner
+moduleClassSimpleName: DitaModuleGdCleaner
 fragments: [entities]
-imports: []
+imports: [dita.globodiet.params, dita.globodiet.survey]
