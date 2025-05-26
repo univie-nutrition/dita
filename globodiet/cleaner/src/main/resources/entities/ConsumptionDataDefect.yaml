@@ -19,19 +19,19 @@
 
 entity: 
   namespace: dom
-  table: ConsumptionDataCleaner
+  table: ConsumptionDataDefect
   secondaryKey: |
     SURVEY
     R_IDNUM
     VERSION
-    PROTOCOL
-    MEAL_ORDINAL
+  title: String.format("%s (%s)", name, surveyCode)
   icon: |
     solid users-viewfinder .campaign-color,
-    solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
+    solid circle-exclamation .consumptionDataDefect-color .ov-size-60 .ov-right-55 .ov-bottom-55
   description: |
-    A consumption data cleaner task references a specific food or composite consumption within a survey, 
-    marked for correction.
+    A consumption data defect references a specific composite 
+    and describes specifically what needs to be cleaned up.
+    (e.g. due to recent recipe changes or corrections)
   fields:
     surveyCode:
       column: SURVEY
@@ -57,35 +57,27 @@ entity:
       required: true
       unique: false
       description: |
-        Version of this cleaner. Newer (higher) versions override older ones.
-    protocol:
-      column: PROTOCOL
+        Version of this defect. Newer (higher) versions override older ones.
+    name:
+      column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Interview protocol of this cleaner task.
-    mealOrdinal:
-      column: MEAL_ORDINAL
-      column-type: nvarchar(20)
-      required: true
+        A short name that appears as title for this defect.
+    description:
+      column: DESCRIPTION
+      column-type: mediumtext
+      required: false
+      unique: false
+      propertyLayout:
+        multiline: 5
+      description: |
+        A short summary that describes what needs to be cleaned up.
+    instruction:
+      column: INSTRUCTION
+      column-type: mediumtext
+      required: false
       unique: false
       description: |
-        Dewey ordinal referenced the meal within the interview protocol of this cleaner task.
-#    cleanerCode:
-#      column: CLEANER_OID
-#      column-type: bigint(20)
-#      required: true
-#      unique: true
-#      foreignKeys: |
-#        ConsumptionDataCleaner.ID
-#      description: |
-#        Cleaner this task was created from
-    state:
-      column: STATE
-      column-type: nvarchar(120)
-      required: true
-      unique: false
-      description: |
-        State of this cleaner task.
-    
+        YAML formatted instructions for the interview postprocessing logic.

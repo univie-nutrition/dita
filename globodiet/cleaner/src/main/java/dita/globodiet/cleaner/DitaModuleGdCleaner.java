@@ -24,6 +24,11 @@ import dita.globodiet.cleaner.dom.ConsumptionDataCleanerDeps;
 import dita.globodiet.cleaner.dom.ConsumptionDataCleaner_delete;
 import dita.globodiet.cleaner.dom.ConsumptionDataCleaner_recipe;
 import dita.globodiet.cleaner.dom.ConsumptionDataCleaner_survey;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefectDeps;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect_delete;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect_recipe;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect_survey;
 import java.lang.Class;
 import java.lang.String;
 import javax.annotation.processing.Generated;
@@ -45,14 +50,19 @@ EntitiesMenu.class,
 
 // Entities
 ConsumptionDataCleaner.class,
+ConsumptionDataDefect.class,
 
 // Submodules
 ConsumptionDataCleanerDeps.class,
+ConsumptionDataDefectDeps.class,
 
 // Mixins
 ConsumptionDataCleaner_delete.class,
 ConsumptionDataCleaner_recipe.class,
 ConsumptionDataCleaner_survey.class,
+ConsumptionDataDefect_delete.class,
+ConsumptionDataDefect_recipe.class,
+ConsumptionDataDefect_survey.class,
 })
 @EntityScan
 public class DitaModuleGdCleaner {
@@ -63,6 +73,7 @@ public class DitaModuleGdCleaner {
     }
 
     public static Can<Class<?>> entityClasses() {
-        return Can.of(ConsumptionDataCleaner.class);
+        return Can.of(ConsumptionDataCleaner.class,
+        ConsumptionDataDefect.class);
     }
 }

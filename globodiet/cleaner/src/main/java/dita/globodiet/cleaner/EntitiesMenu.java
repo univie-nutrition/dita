@@ -20,6 +20,7 @@
 package dita.globodiet.cleaner;
 
 import dita.globodiet.cleaner.dom.ConsumptionDataCleaner;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -46,5 +47,14 @@ public class EntitiesMenu {
     )
     public ConsumptionDataCleaner.Manager manageConsumptionDataCleaner() {
         return factoryService.viewModel(new ConsumptionDataCleaner.Manager(searchService, ""));
+    }
+
+    @Action
+    @ActionLayout(
+            cssClassFa = "solid users-viewfinder .campaign-color,\n"
+                    + "solid circle-exclamation .consumptionDataDefect-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+    )
+    public ConsumptionDataDefect.Manager manageConsumptionDataDefect() {
+        return factoryService.viewModel(new ConsumptionDataDefect.Manager(searchService, ""));
     }
 }

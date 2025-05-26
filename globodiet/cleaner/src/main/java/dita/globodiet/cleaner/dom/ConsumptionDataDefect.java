@@ -67,33 +67,33 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * A consumption data cleaner task references a specific food or composite consumption within a survey,
- * marked for correction.
+ * A consumption data defect references a specific composite
+ * and describes specifically what needs to be cleaned up.
+ * (e.g. due to recent recipe changes or corrections)
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
-@Named("dita.globodiet.cleaner.dom.ConsumptionDataCleaner")
+@Named("dita.globodiet.cleaner.dom.ConsumptionDataDefect")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "A consumption data cleaner task references a specific food or composite consumption within a survey,\n"
-                + "marked for correction.",
+        describedAs = "A consumption data defect references a specific composite\n"
+                + "and describes specifically what needs to be cleaned up.\n"
+                + "(e.g. due to recent recipe changes or corrections)",
         cssClassFa = "solid users-viewfinder .campaign-color,\n"
-                + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+                + "solid circle-exclamation .consumptionDataDefect-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
 @Entity
 @Table(
-        name = "ConsumptionDataCleaner",
+        name = "ConsumptionDataDefect",
         uniqueConstraints = @UniqueConstraint(
-                name = "SEC_KEY_UNQ_ConsumptionDataCleaner",
+                name = "SEC_KEY_UNQ_ConsumptionDataDefect",
                 columnNames = {
                         "`SURVEY`",
                         "`R_IDNUM`",
-                        "`VERSION`",
-                        "`PROTOCOL`",
-                        "`MEAL_ORDINAL`"
+                        "`VERSION`"
                 }
         )
 )
-public class ConsumptionDataCleaner implements Persistable, Cloneable<ConsumptionDataCleaner>, HasSecondaryKey<ConsumptionDataCleaner> {
+public class ConsumptionDataDefect implements Persistable, Cloneable<ConsumptionDataDefect>, HasSecondaryKey<ConsumptionDataDefect> {
     @Inject
     @Transient
     RepositoryService repositoryService;
@@ -151,7 +151,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     private String recipeCode;
 
     /**
-     * Version of this cleaner. Newer (higher) versions override older ones.
+     * Version of this defect. Newer (higher) versions override older ones.
      */
     @Property(
             optionality = Optionality.MANDATORY
@@ -159,7 +159,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     @PropertyLayout(
             fieldSetId = "identity",
             sequence = "3",
-            describedAs = "Version of this cleaner. Newer (higher) versions override older ones."
+            describedAs = "Version of this defect. Newer (higher) versions override older ones."
     )
     @Column(
             name = "\"VERSION\"",
@@ -170,47 +170,7 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     private int version;
 
     /**
-     * Interview protocol of this cleaner task.
-     */
-    @Property(
-            optionality = Optionality.MANDATORY
-    )
-    @PropertyLayout(
-            fieldSetId = "identity",
-            sequence = "4",
-            describedAs = "Interview protocol of this cleaner task."
-    )
-    @Column(
-            name = "\"PROTOCOL\"",
-            nullable = false,
-            length = 120
-    )
-    @Getter
-    @Setter
-    private String protocol;
-
-    /**
-     * Dewey ordinal referenced the meal within the interview protocol of this cleaner task.
-     */
-    @Property(
-            optionality = Optionality.MANDATORY
-    )
-    @PropertyLayout(
-            fieldSetId = "identity",
-            sequence = "5",
-            describedAs = "Dewey ordinal referenced the meal within the interview protocol of this cleaner task."
-    )
-    @Column(
-            name = "\"MEAL_ORDINAL\"",
-            nullable = false,
-            length = 20
-    )
-    @Getter
-    @Setter
-    private String mealOrdinal;
-
-    /**
-     * State of this cleaner task.
+     * A short name that appears as title for this defect.
      */
     @Property(
             optionality = Optionality.MANDATORY,
@@ -218,43 +178,83 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     )
     @PropertyLayout(
             fieldSetId = "details",
-            sequence = "6",
-            describedAs = "State of this cleaner task."
+            sequence = "4",
+            describedAs = "A short name that appears as title for this defect."
     )
     @Column(
-            name = "\"STATE\"",
+            name = "\"NAME\"",
             nullable = false,
             length = 120
     )
     @Getter
     @Setter
-    private String state;
+    private String name;
+
+    /**
+     * A short summary that describes what needs to be cleaned up.
+     */
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "5",
+            describedAs = "A short summary that describes what needs to be cleaned up."
+    )
+    @Column(
+            name = "\"DESCRIPTION\"",
+            nullable = true
+    )
+    @Getter
+    @Setter
+    private String description;
+
+    /**
+     * YAML formatted instructions for the interview postprocessing logic.
+     */
+    @Property(
+            optionality = Optionality.OPTIONAL,
+            editing = Editing.ENABLED
+    )
+    @PropertyLayout(
+            fieldSetId = "details",
+            sequence = "6",
+            describedAs = "YAML formatted instructions for the interview postprocessing logic."
+    )
+    @Column(
+            name = "\"INSTRUCTION\"",
+            nullable = true
+    )
+    @Getter
+    @Setter
+    private String instruction;
 
     @ObjectSupport
     public String title() {
-        return this.toString();
+        return String.format("%s (%s)", name, surveyCode);
     }
 
     @Override
     public String toString() {
-        return "ConsumptionDataCleaner(" + "surveyCode=" + getSurveyCode() + ","
+        return "ConsumptionDataDefect(" + "surveyCode=" + getSurveyCode() + ","
          +"recipeCode=" + getRecipeCode() + ","
          +"version=" + getVersion() + ","
-         +"protocol=" + getProtocol() + ","
-         +"mealOrdinal=" + getMealOrdinal() + ","
-         +"state=" + getState() + ")";
+         +"name=" + getName() + ","
+         +"description=" + getDescription() + ","
+         +"instruction=" + getInstruction() + ")";
     }
 
     @Programmatic
     @Override
-    public ConsumptionDataCleaner copy() {
-        var copy = repositoryService.detachedEntity(new ConsumptionDataCleaner());
+    public ConsumptionDataDefect copy() {
+        var copy = repositoryService.detachedEntity(new ConsumptionDataDefect());
         copy.setSurveyCode(getSurveyCode());
         copy.setRecipeCode(getRecipeCode());
         copy.setVersion(getVersion());
-        copy.setProtocol(getProtocol());
-        copy.setMealOrdinal(getMealOrdinal());
-        copy.setState(getState());
+        copy.setName(getName());
+        copy.setDescription(getDescription());
+        copy.setInstruction(getInstruction());
         return copy;
     }
 
@@ -266,32 +266,31 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
             navigable = Navigable.PARENT
     )
     @Transient
-    public ConsumptionDataCleaner.Manager getNavigableParent() {
-        return new ConsumptionDataCleaner.Manager(searchService, "");
+    public ConsumptionDataDefect.Manager getNavigableParent() {
+        return new ConsumptionDataDefect.Manager(searchService, "");
     }
 
     @Programmatic
     public SecondaryKey secondaryKey() {
         return new SecondaryKey(getSurveyCode(), 
         getRecipeCode(), 
-        getVersion(), 
-        getProtocol(), 
-        getMealOrdinal());
+        getVersion());
     }
 
     /**
-     * Manager Viewmodel for @{link ConsumptionDataCleaner}
+     * Manager Viewmodel for @{link ConsumptionDataDefect}
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Manager")
-    @Named("dita.globodiet.cleaner.dom.ConsumptionDataCleaner.Manager")
+    @Named("dita.globodiet.cleaner.dom.ConsumptionDataDefect.Manager")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            describedAs = "A consumption data cleaner task references a specific food or composite consumption within a survey,\n"
-                    + "marked for correction.",
+            describedAs = "A consumption data defect references a specific composite\n"
+                    + "and describes specifically what needs to be cleaned up.\n"
+                    + "(e.g. due to recent recipe changes or corrections)",
             cssClassFa = "solid users-viewfinder .campaign-color,\n"
-                    + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+                    + "solid circle-exclamation .consumptionDataDefect-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )
     @AllArgsConstructor
     public static final class Manager implements ViewModel {
@@ -310,12 +309,12 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
 
         @ObjectSupport
         public String title() {
-            return "Manage Consumption Data Cleaner";
+            return "Manage Consumption Data Defect";
         }
 
         @Collection
-        public final List<ConsumptionDataCleaner> getListOfConsumptionDataCleaner() {
-            return searchService.search(ConsumptionDataCleaner.class, ConsumptionDataCleaner::title, search);
+        public final List<ConsumptionDataDefect> getListOfConsumptionDataDefect() {
+            return searchService.search(ConsumptionDataDefect.class, ConsumptionDataDefect::title, search);
         }
 
         @Override
@@ -325,46 +324,42 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     }
 
     /**
-     * Parameter model for @{link ConsumptionDataCleaner}
+     * Parameter model for @{link ConsumptionDataDefect}
      *
      * @param survey Survey code
      * @param recipe Recipe ID number this cleaner references
-     * @param version Version of this cleaner. Newer (higher) versions override older ones.
-     * @param protocol Interview protocol of this cleaner task.
-     * @param mealOrdinal Dewey ordinal referenced the meal within the interview protocol of this cleaner task.
-     * @param state State of this cleaner task.
+     * @param version Version of this defect. Newer (higher) versions override older ones.
+     * @param name A short name that appears as title for this defect.
+     * @param description A short summary that describes what needs to be cleaned up.
+     * @param instruction YAML formatted instructions for the interview postprocessing logic.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
     public final record Params(
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Survey code") Survey survey,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe ID number this cleaner references") Recipe recipe,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Version of this cleaner. Newer (higher) versions override older ones.") int version,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Interview protocol of this cleaner task.") String protocol,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Dewey ordinal referenced the meal within the interview protocol of this cleaner task.") String mealOrdinal,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "State of this cleaner task.") String state
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Version of this defect. Newer (higher) versions override older ones.") int version,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "A short name that appears as title for this defect.") String name,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "A short summary that describes what needs to be cleaned up.") String description,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "YAML formatted instructions for the interview postprocessing logic.") String instruction
     ) {
     }
 
     /**
-     * SecondaryKey for @{link ConsumptionDataCleaner}
+     * SecondaryKey for @{link ConsumptionDataDefect}
      *
      * @param surveyCode Survey code
      * @param recipeCode Recipe ID number this cleaner references
-     * @param version Version of this cleaner. Newer (higher) versions override older ones.
-     * @param protocol Interview protocol of this cleaner task.
-     * @param mealOrdinal Dewey ordinal referenced the meal within the interview protocol of this cleaner task.
+     * @param version Version of this defect. Newer (higher) versions override older ones.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_SecondaryKey")
     public final record SecondaryKey(
             String surveyCode,
             String recipeCode,
-            int version,
-            String protocol,
-            String mealOrdinal
-    ) implements ISecondaryKey<ConsumptionDataCleaner> {
+            int version
+    ) implements ISecondaryKey<ConsumptionDataDefect> {
         @Override
-        public Class<ConsumptionDataCleaner> correspondingClass() {
-            return ConsumptionDataCleaner.class;
+        public Class<ConsumptionDataDefect> correspondingClass() {
+            return ConsumptionDataDefect.class;
         }
 
         @Override
@@ -376,21 +371,21 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
     }
 
     /**
-     * Placeholder @{link ViewModel} for @{link ConsumptionDataCleaner} in case of an unresolvable secondary key.
+     * Placeholder @{link ViewModel} for @{link ConsumptionDataDefect} in case of an unresolvable secondary key.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Unresolvable")
     @DomainObject(
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            named = "Unresolvable ConsumptionDataCleaner",
-            describedAs = "Unresolvable ConsumptionDataCleaner",
+            named = "Unresolvable ConsumptionDataDefect",
+            describedAs = "Unresolvable ConsumptionDataDefect",
             cssClassFa = "skull .unresolvable-color"
     )
-    @Named("dita.globodiet.cleaner.dom.ConsumptionDataCleaner.Unresolvable")
+    @Named("dita.globodiet.cleaner.dom.ConsumptionDataDefect.Unresolvable")
     @Embeddable
     @RequiredArgsConstructor
-    public static final class Unresolvable extends ConsumptionDataCleaner implements ViewModel {
+    public static final class Unresolvable extends ConsumptionDataDefect implements ViewModel {
         @Getter(
                 onMethod_ = {@Override}
         )

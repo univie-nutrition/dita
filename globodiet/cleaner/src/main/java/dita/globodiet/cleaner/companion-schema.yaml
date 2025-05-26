@@ -29,14 +29,17 @@ entities:
   secondaryKey: |
     SURVEY
     R_IDNUM
-  title: String.format("%s (%s)", name, surveyCode)
+    VERSION
+    PROTOCOL
+    MEAL_ORDINAL
+  title: null
   icon: |
     solid users-viewfinder .campaign-color,
     solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
     
   description: |
-    A consumption data cleaner references a specific food or composite by SID 
-    and describes what to clean up.
+    A consumption data cleaner task references a specific food or composite consumption within a survey, 
+    marked for correction.
   fields:
     surveyCode:
       column: SURVEY
@@ -56,18 +59,96 @@ entities:
         MIXEDREC.R_IDNUM
       description: |
         Recipe ID number this cleaner references
+    version:
+      column: VERSION
+      column-type: tinyint
+      required: true
+      unique: false
+      description: |
+        Version of this cleaner. Newer (higher) versions override older ones.
+    protocol:
+      column: PROTOCOL
+      column-type: nvarchar(120)
+      required: true
+      unique: false
+      description: |
+        Interview protocol of this cleaner task.
+    mealOrdinal:
+      column: MEAL_ORDINAL
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      description: |
+        Dewey ordinal referenced the meal within the interview protocol of this cleaner task.
+    state:
+      column: STATE
+      column-type: nvarchar(120)
+      required: true
+      unique: false
+      description: |
+        State of this cleaner task.
+- id: dom.ConsumptionDataDefect
+  name: ConsumptionDataDefect
+  namespace: dom
+  table: ConsumptionDataDefect
+  secondaryKey: |
+    SURVEY
+    R_IDNUM
+    VERSION
+  title: String.format("%s (%s)", name, surveyCode)
+  icon: |
+    solid users-viewfinder .campaign-color,
+    solid circle-exclamation .consumptionDataDefect-color .ov-size-60 .ov-right-55 .ov-bottom-55
+    
+  description: |
+    A consumption data defect references a specific composite 
+    and describes specifically what needs to be cleaned up.
+    (e.g. due to recent recipe changes or corrections)
+  fields:
+    surveyCode:
+      column: SURVEY
+      column-type: nvarchar(20)
+      required: true
+      unique: false
+      foreignKeys: |
+        SURVEY.CODE
+      description: |
+        Survey code
+    recipeCode:
+      column: R_IDNUM
+      column-type: nvarchar(5)
+      required: true
+      unique: false
+      foreignKeys: |
+        MIXEDREC.R_IDNUM
+      description: |
+        Recipe ID number this cleaner references
+    version:
+      column: VERSION
+      column-type: tinyint
+      required: true
+      unique: false
+      description: |
+        Version of this defect. Newer (higher) versions override older ones.
     name:
       column: NAME
       column-type: nvarchar(120)
       required: true
       unique: false
       description: |
-        Descriptive cleaner name.
+        A short name that appears as title for this defect.
     description:
       column: DESCRIPTION
       column-type: mediumtext
       required: false
       unique: false
       description: |
-        Detailed description for this cleaner.
+        A short summary that describes what needs to be cleaned up.
+    instruction:
+      column: INSTRUCTION
+      column-type: mediumtext
+      required: false
+      unique: false
+      description: |
+        YAML formatted instructions for the interview postprocessing logic.
 

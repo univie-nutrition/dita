@@ -9,8 +9,11 @@
 .campaign-color {
   color: #ff7c30;  
 }
+.consumptionDataDefect-color {
+  color: red;
+}
 .consumptionDataCleaner-color {
-  color: cornflowerblue;
+  color: green;
 }
 .dashboard-color {
   color: SteelBlue;

@@ -114,6 +114,7 @@
         <mb:menu>
             <mb:named>Cleaning</mb:named>
             <mb:section>
+                <mb:serviceAction objectType="dita.globodiet.cleaner.EntitiesMenu" id="manageConsumptionDataDefect"/>
                 <mb:serviceAction objectType="dita.globodiet.cleaner.EntitiesMenu" id="manageConsumptionDataCleaner"/>
             </mb:section>
         </mb:menu>

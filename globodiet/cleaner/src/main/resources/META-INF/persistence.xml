@@ -6,5 +6,6 @@
     <persistence-unit name="DitaModuleGdCleaner" transaction-type="RESOURCE_LOCAL">
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <class>dita.globodiet.cleaner.dom.ConsumptionDataCleaner</class>
+        <class>dita.globodiet.cleaner.dom.ConsumptionDataDefect</class>
     </persistence-unit>
 </persistence>

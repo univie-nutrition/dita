@@ -45,12 +45,12 @@ import io.github.causewaystuff.companion.applib.services.search.SearchService;
 @ActionLayout(
         fieldSetId = "dependentConsumptionDataCleanerMappedBySurvey",
         sequence = "1",
-        describedAs = "Adds a Consumption Data Cleaner to this Survey",
+        describedAs = "Adds a Consumption Data Defect to this Survey",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
 @Deprecated // no longer used
-public class Survey_addCleaner {
+public class Survey_addDefect {
 
     @Inject private SearchService searchService;
     @Inject private FactoryService factoryService;
@@ -60,9 +60,9 @@ public class Survey_addCleaner {
     private final Survey mixee;
 
     @MemberSupport
-    public Survey act(@ParameterTuple final ConsumptionDataCleaner.Params p) {
+    public Survey act(@ParameterTuple final ConsumptionDataDefect.Params p) {
 
-        var cleaner = repositoryService.detachedEntity(new ConsumptionDataCleaner());
+        var cleaner = repositoryService.detachedEntity(new ConsumptionDataDefect());
         cleaner.setSurveyCode(mixee.secondaryKey().code());
         cleaner.setRecipeCode(p.recipe().secondaryKey().code());
         cleaner.setName(p.name());

@@ -20,21 +20,25 @@
 package dita.globodiet.cleaner.dom;
 
 import java.util.List;
-
 import jakarta.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.MinLength;
-import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.annotation.SemanticsOf;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 import lombok.RequiredArgsConstructor;
 
-import dita.globodiet.params.recipe_list.Recipe;
+import dita.globodiet.survey.dom.Campaign;
+import dita.globodiet.survey.dom.Campaigns;
+import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
+import dita.globodiet.survey.view.SurveyTreeHelperService;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
@@ -43,40 +47,38 @@ import io.github.causewaystuff.companion.applib.services.search.SearchService;
 @ActionLayout(
         fieldSetId = "listOfConsumptionDataCleaner",
         sequence = "1",
-        describedAs = "Adds a new Consumption Data Cleaner to a Survey",
+        describedAs = "Looks into all interviews of a given survey "
+            + "and creates a cleaner for each defect and matching consumption, "
+            + "not overriding any existing cleaner of the same version",
         position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
-public class Manager_addCleaner {
+public class ConsumptionDataCleanerManager_createCleaner {
 
     @Inject private SearchService searchService;
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookup;
+    @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
+    @Inject private FactoryService factoryService;
+    @Inject private SurveyTreeHelperService surveyTreeRootNodeHelperService;
+
 
     private final ConsumptionDataCleaner.Manager mixee;
 
     @MemberSupport
-    public ConsumptionDataCleaner.Manager act(@ParameterTuple final ConsumptionDataCleaner.Params p) {
+    public ConsumptionDataCleaner.Manager act(final Survey survey) {
 
-        var cleaner = repositoryService.detachedEntity(new ConsumptionDataCleaner());
-        cleaner.setSurveyCode(p.survey().secondaryKey().code());
-        cleaner.setRecipeCode(p.recipe().secondaryKey().code());
-        cleaner.setName(p.name());
-        cleaner.setDescription(p.description());
+        var campaignKeys = Campaigns.listAll(factoryService, survey)
+            .map(Campaign::secondaryKey);
+        var reportContext = ReportContext.load(campaignKeys, surveyBlobStore, null);
+        var interviewSet = reportContext.interviewSet();
 
-        repositoryService.persist(cleaner);
-        foreignKeyLookup.clearCache(ConsumptionDataCleaner.class);
         return mixee;
     }
 
     @MemberSupport
     public List<Survey> choicesSurvey() {
         return repositoryService.allInstances(Survey.class);
-    }
-
-    @MemberSupport
-    public List<Recipe> autoCompleteRecipe(@MinLength(3) final String search) {
-        return searchService.search(Recipe.class, Recipe::title, search);
     }
 
 }
