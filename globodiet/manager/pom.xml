@@ -16,8 +16,6 @@ additional
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <packaging>jar</packaging>
-
     <parent>
         <groupId>at.ac.univie.nutrition.dita</groupId>
         <artifactId>dita-globodiet</artifactId>
@@ -29,6 +27,8 @@ additional
     <description>
         Globodiet Data Management Application.
     </description>
+    
+    <packaging>jar</packaging>
 
     <properties>
     </properties>
@@ -101,9 +101,18 @@ additional
         <!-- WEB STACK -->
 
         <dependency>
-            <groupId>org.apache.causeway.mavendeps</groupId>
-            <artifactId>causeway-mavendeps-webapp</artifactId>
-            <type>pom</type>
+            <groupId>org.apache.causeway.core</groupId>
+            <artifactId>causeway-schema</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.causeway.core</groupId>
+            <artifactId>causeway-core-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.causeway.core</groupId>
+            <artifactId>causeway-core-runtimeservices</artifactId>
         </dependency>
 
         <dependency>
@@ -143,7 +152,7 @@ additional
                 </exclusion>
             </exclusions>
         </dependency>
-        
+
         <dependency>
             <groupId>org.apache.causeway.extensions</groupId>
             <artifactId>causeway-extensions-pdfjs-wicket-ui</artifactId>

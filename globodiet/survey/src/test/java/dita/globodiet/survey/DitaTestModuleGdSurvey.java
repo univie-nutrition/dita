@@ -32,8 +32,7 @@ import io.github.causewaystuff.companion.applib.services.search.SearchService;
     CausewayModulePersistenceJpaEclipselink.class,
 })
 @PropertySources({
-    @PropertySource(CausewayPresets.H2InMemory_withUniqueSchema),
-    @PropertySource(CausewayPresets.UseLog4j2Test),
+    @PropertySource(CausewayPresets.H2InMemory_withUniqueSchema)
 })
 public class DitaTestModuleGdSurvey {
 
