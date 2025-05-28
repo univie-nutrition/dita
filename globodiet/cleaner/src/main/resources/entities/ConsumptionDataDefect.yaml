@@ -70,14 +70,15 @@ entity:
       column-type: mediumtext
       required: false
       unique: false
-      propertyLayout:
-        multiline: 5
+      multiLine: 5
       description: |
-        A short summary that describes what needs to be cleaned up.
+        A summary describing what needs to be cleaned up.
     instruction:
       column: INSTRUCTION
       column-type: mediumtext
+      hiddenWhere: EVERYWHERE
       required: false
       unique: false
+      multiLine: 5
       description: |
-        YAML formatted instructions for the interview postprocessing logic.
+        YAML formatted instructions for the interview postprocessing logic.  

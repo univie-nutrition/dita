@@ -20,6 +20,7 @@
 package dita.globodiet.cleaner.dom;
 
 import java.util.List;
+
 import jakarta.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +31,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +40,10 @@ import dita.globodiet.survey.dom.Campaigns;
 import dita.globodiet.survey.dom.ReportContext;
 import dita.globodiet.survey.dom.Survey;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
+import dita.recall24.dto.Interview24;
+import dita.recall24.dto.Meal24;
+import dita.recall24.dto.MemorizedFood24;
+import dita.recall24.dto.Record24.Composite;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
@@ -72,6 +78,27 @@ public class ConsumptionDataCleanerManager_createCleaner {
             .map(Campaign::secondaryKey);
         var reportContext = ReportContext.load(campaignKeys, surveyBlobStore, null);
         var interviewSet = reportContext.interviewSet();
+
+        System.err.printf("--- %s%n", "START");
+
+        interviewSet.streamInterviews()
+            .map(Interview24::meals)
+            .flatMap(Can::stream)
+            .map(Meal24::memorizedFood)
+            .flatMap(Can::stream)
+            .map(MemorizedFood24::topLevelRecords)
+            .flatMap(Can::stream)
+            .forEach(topLevelRecord->{
+                if(topLevelRecord instanceof Composite composite) {
+                    //System.err.printf("- rec %s%n", topLevelRecord.sid());
+                    if("00473".equals(composite.sid().objectId().objectSimpleId())) {
+                        System.err.printf("potential match %s%n", composite);
+                    }
+                }
+            });
+
+        System.err.printf("--- %s%n", "END");
+
 
         return mixee;
     }

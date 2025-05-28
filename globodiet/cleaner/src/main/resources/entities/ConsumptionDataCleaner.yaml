@@ -30,8 +30,8 @@ entity:
     solid users-viewfinder .campaign-color,
     solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
   description: |
-    A consumption data cleaner task references a specific food or composite consumption within a survey, 
-    marked for correction.
+    A consumption data cleaner references a specific composite consumption within a survey, 
+    which needs correction.
   fields:
     surveyCode:
       column: SURVEY

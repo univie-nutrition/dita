@@ -67,15 +67,15 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
- * A consumption data cleaner task references a specific food or composite consumption within a survey,
- * marked for correction.
+ * A consumption data cleaner references a specific composite consumption within a survey,
+ * which needs correction.
  */
 @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity")
 @Named("dita.globodiet.cleaner.dom.ConsumptionDataCleaner")
 @DomainObject
 @DomainObjectLayout(
-        describedAs = "A consumption data cleaner task references a specific food or composite consumption within a survey,\n"
-                + "marked for correction.",
+        describedAs = "A consumption data cleaner references a specific composite consumption within a survey,\n"
+                + "which needs correction.",
         cssClassFa = "solid users-viewfinder .campaign-color,\n"
                 + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
 )
@@ -288,8 +288,8 @@ public class ConsumptionDataCleaner implements Persistable, Cloneable<Consumptio
             nature = Nature.VIEW_MODEL
     )
     @DomainObjectLayout(
-            describedAs = "A consumption data cleaner task references a specific food or composite consumption within a survey,\n"
-                    + "marked for correction.",
+            describedAs = "A consumption data cleaner references a specific composite consumption within a survey,\n"
+                    + "which needs correction.",
             cssClassFa = "solid users-viewfinder .campaign-color,\n"
                     + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
     )

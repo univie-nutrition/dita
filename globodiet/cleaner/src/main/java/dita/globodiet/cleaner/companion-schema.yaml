@@ -38,8 +38,8 @@ entities:
     solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55
     
   description: |
-    A consumption data cleaner task references a specific food or composite consumption within a survey, 
-    marked for correction.
+    A consumption data cleaner references a specific composite consumption within a survey, 
+    which needs correction.
   fields:
     surveyCode:
       column: SURVEY
@@ -142,13 +142,16 @@ entities:
       column-type: mediumtext
       required: false
       unique: false
+      multiLine: 5
       description: |
-        A short summary that describes what needs to be cleaned up.
+        A summary describing what needs to be cleaned up.
     instruction:
       column: INSTRUCTION
       column-type: mediumtext
       required: false
       unique: false
+      multiLine: 5
+      hiddenWhere: EVERYWHERE
       description: |
-        YAML formatted instructions for the interview postprocessing logic.
+        YAML formatted instructions for the interview postprocessing logic.  
 

@@ -24,11 +24,15 @@ import org.springframework.context.annotation.Import;
 
 import dita.globodiet.cleaner.dom.ConsumptionDataCleanerManager_createCleaner;
 import dita.globodiet.cleaner.dom.ConsumptionDataDefectManager_addDefect;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect_editInstruction;
+import dita.globodiet.cleaner.dom.ConsumptionDataDefect_instructionView;
 
 @Configuration
 @Import({
     ConsumptionDataDefectManager_addDefect.class,
     ConsumptionDataCleanerManager_createCleaner.class,
+    ConsumptionDataDefect_instructionView.class,
+    ConsumptionDataDefect_editInstruction.class,
 })
 public class ModuleConfig {
 }

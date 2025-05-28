@@ -191,7 +191,7 @@ public class ConsumptionDataDefect implements Persistable, Cloneable<Consumption
     private String name;
 
     /**
-     * A short summary that describes what needs to be cleaned up.
+     * A summary describing what needs to be cleaned up.
      */
     @Property(
             optionality = Optionality.OPTIONAL,
@@ -200,7 +200,8 @@ public class ConsumptionDataDefect implements Persistable, Cloneable<Consumption
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "5",
-            describedAs = "A short summary that describes what needs to be cleaned up."
+            describedAs = "A summary describing what needs to be cleaned up.",
+            multiLine = 5
     )
     @Column(
             name = "\"DESCRIPTION\"",
@@ -220,7 +221,9 @@ public class ConsumptionDataDefect implements Persistable, Cloneable<Consumption
     @PropertyLayout(
             fieldSetId = "details",
             sequence = "6",
-            describedAs = "YAML formatted instructions for the interview postprocessing logic."
+            describedAs = "YAML formatted instructions for the interview postprocessing logic.",
+            hidden = Where.EVERYWHERE,
+            multiLine = 5
     )
     @Column(
             name = "\"INSTRUCTION\"",
@@ -330,7 +333,7 @@ public class ConsumptionDataDefect implements Persistable, Cloneable<Consumption
      * @param recipe Recipe ID number this cleaner references
      * @param version Version of this defect. Newer (higher) versions override older ones.
      * @param name A short name that appears as title for this defect.
-     * @param description A short summary that describes what needs to be cleaned up.
+     * @param description A summary describing what needs to be cleaned up.
      * @param instruction YAML formatted instructions for the interview postprocessing logic.
      */
     @Generated("io.github.causewaystuff.companion.codegen.domgen._GenEntity_Params")
@@ -339,8 +342,8 @@ public class ConsumptionDataDefect implements Persistable, Cloneable<Consumption
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Recipe ID number this cleaner references") Recipe recipe,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "Version of this defect. Newer (higher) versions override older ones.") int version,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY) @ParameterLayout(describedAs = "A short name that appears as title for this defect.") String name,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "A short summary that describes what needs to be cleaned up.") String description,
-            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "YAML formatted instructions for the interview postprocessing logic.") String instruction
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "A summary describing what needs to be cleaned up.", multiLine = 5) String description,
+            @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.OPTIONAL) @ParameterLayout(describedAs = "YAML formatted instructions for the interview postprocessing logic.", multiLine = 5) String instruction
     ) {
     }
 
