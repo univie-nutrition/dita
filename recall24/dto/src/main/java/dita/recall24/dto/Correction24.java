@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
@@ -33,15 +34,14 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.Builder;
-import org.jspecify.annotations.NonNull;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.types.Sex;
 
 /**
  * Models interview data corrections. WIP
  */
-@Log4j2
+@Slf4j
 public record Correction24(List<RespondentCorr> respondents) {
 
     @Builder
@@ -116,7 +116,7 @@ public record Correction24(List<RespondentCorr> respondents) {
                     var respCorr = respCorrByAlias.get(resp.alias());
                     if(respCorr==null) yield node;
 
-                    var builder = (Respondent24.Builder) resp.asBuilder();
+                    var builder = resp.asBuilder();
 
                     log.info("about to correct {}", respCorr);
 

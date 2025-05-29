@@ -39,7 +39,7 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.util.BlobUtils;
 import dita.globodiet.survey.view.SurveyTreeHelperService;
@@ -58,7 +58,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 )
 @RequiredArgsConstructor
 @ExtensionMethod({BlobUtils.class})
-@Log4j2
+@Slf4j
 public class Campaign_uploadInterview {
 
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;

@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 
+import org.jspecify.annotations.NonNull;
+
 import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
@@ -30,17 +32,16 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.collections._Maps;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import org.jspecify.annotations.NonNull;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.services.rules.RuleChecker;
+import dita.globodiet.params.classification.FoodGrouping.FoodGroupingKey;
 import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.params.services.food.FoodFacetHelperService;
-import dita.globodiet.params.classification.FoodGrouping.FoodGroupingKey;
 
 @Component
-@Log4j2
+@Slf4j
 public class FacetDescriptorPathwayForFoodSelectionExistsRuleChecker
 implements RuleChecker {
 

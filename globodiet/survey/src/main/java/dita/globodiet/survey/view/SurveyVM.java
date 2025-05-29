@@ -59,7 +59,6 @@ import dita.recall24.dto.Respondent24;
         nature=Nature.VIEW_MODEL)
 @DomainObjectLayout(
         named = "Survey Introspection")
-//@Log4j2
 public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
 
     public final static String PATH_DELIMITER = ".";

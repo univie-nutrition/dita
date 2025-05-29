@@ -27,7 +27,7 @@ import org.jspecify.annotations.Nullable;
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.SneakyThrows;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
@@ -37,7 +37,7 @@ import dita.globodiet.survey.util.IngredientToRecipeResolver;
 import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
-@Log4j2
+@Slf4j
 public record ReportContext(
     FoodCompositionRepository foodCompositionRepository,
     FoodDescriptionModel foodDescriptionModel,

@@ -29,7 +29,7 @@ import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 
 import lombok.experimental.UtilityClass;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
@@ -42,7 +42,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @UtilityClass
-@Log4j2
+@Slf4j
 public class InterviewUtils {
 
 //    public Clob unzip(final Blob zippedInterviewSource, CommonMimeType mime) {

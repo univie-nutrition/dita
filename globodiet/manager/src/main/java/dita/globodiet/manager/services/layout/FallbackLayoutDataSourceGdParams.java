@@ -33,7 +33,6 @@ import io.github.causewaystuff.companion.applib.jpa.Persistable;
 @Service
 @Priority(PriorityPrecedence.EARLY)
 @Qualifier("Dita")
-//@Log4j2
 public class FallbackLayoutDataSourceGdParams implements FallbackLayoutDataSource {
 
     @Override

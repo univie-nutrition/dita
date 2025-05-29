@@ -49,7 +49,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import io.github.causewaystuff.commons.compression.SevenZUtils;
 
@@ -57,7 +57,7 @@ import io.github.causewaystuff.commons.compression.SevenZUtils;
  * @see <a href="https://owlapi.sourceforge.net/owled2011_tutorial.pdf">Tutorial</a>
  */
 @RequiredArgsConstructor
-@Log4j2
+@Slf4j
 public final class FoodOntologyCatalog {
 
     @Getter @Accessors(fluent=true)
