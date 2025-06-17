@@ -69,12 +69,12 @@ public class Recall24DtoUtils {
             LocalDate dateOfBirth,
             Sex sex) {
         RespondentJoiner(final Respondent24 respondent) {
-            this(respondent.alias(), 
-                    respondent.dateOfBirth(), 
+            this(respondent.alias(),
+                    respondent.dateOfBirth(),
                     respondent.sex());
         }
         Respondent24 createRespondent(final Can<Interview24> interviews, final Consumer<Message> messageConsumer) {
-            var respondent = new Respondent24(alias, dateOfBirth, sex, interviews);
+            // check data consistency pre merge
             interviews.forEach(iv->{
                 _Assert.assertEquals(alias, iv.parentRespondent().alias()); // unexpected
                 if(!Objects.equals(dateOfBirth, iv.parentRespondent().dateOfBirth())) {
@@ -85,21 +85,21 @@ public class Recall24DtoUtils {
                     messageConsumer.accept(
                             Message.error("sex mismatch joining data for alias %s", alias));
                 }
-                iv.parentRespondentRef().setValue(respondent);
             });
-            return respondent;
+            return new Respondent24(alias, dateOfBirth, sex, interviews); // has side effects on the passed in interviews
         }
     }
-    
+
     /**
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
     public InterviewSet24 join(
-            final @Nullable Iterable<Interview24> interviews,
+            final @Nullable List<Interview24> interviews,
             final @Nullable Consumer<Message> messageConsumer) {
 
-        if(interviews==null) return InterviewSet24.empty();
+        if(interviews==null
+            || interviews.isEmpty()) return InterviewSet24.empty();
 
         var messageConsumerOrFallback = Optional.ofNullable(messageConsumer)
                 .orElseGet(Message::consumerWritingToSyserr);
@@ -112,39 +112,51 @@ public class Recall24DtoUtils {
         final Can<Respondent24> respondents = interviewsByRespondentAlias.entrySet()
             .stream()
             .map(entry->{
-                var interviewList = entry.getValue();
-                var joiner = new RespondentJoiner(interviewList.get(0).parentRespondent());
-                var respondent = joiner.createRespondent(Can.ofCollection(interviewList), messageConsumerOrFallback);
+                var interviewList = Can.ofCollection(entry.getValue());
+                var respondent = new RespondentJoiner(interviewList.getFirstElseFail().parentRespondent())
+                    .createRespondent(interviewList, messageConsumerOrFallback);
+                _Assert.assertEquals(respondent.alias(), entry.getKey());
                 return respondent;
             })
             .collect(Can.toCan());
 
         return InterviewSet24.of(respondents);
     }
-    
+
+    public InterviewSet24 joinSets(
+            final @Nullable List<InterviewSet24> interviewSets,
+            final @Nullable Consumer<Message> messageConsumer) {
+
+        var interviews = interviewSets.stream()
+            .flatMap(InterviewSet24::streamInterviews)
+            .toList();
+
+        return join(interviews, messageConsumer);
+    }
+
     // -- SAMPLE
-    
-    public InterviewSet24 interviewSetSample(Can<MemorizedFood24> memorizedFoods) {
+
+    public InterviewSet24 interviewSetSample(final Can<MemorizedFood24> memorizedFoods) {
         var interview = interviewSample(memorizedFoods);
         var interviewSet = join(List.of(interview), null);
         return interviewSet;
     }
-    
-    public Interview24 interviewSample(Can<MemorizedFood24> memorizedFoods) {
+
+    public Interview24 interviewSample(final Can<MemorizedFood24> memorizedFoods) {
         var interview = new Interview24(
-            LocalDate.of(2025, 01, 03), 
-            LocalDate.of(2025, 01, 02), 
-            new RespondentSupplementaryData24(ObjectRef.empty(), "01", "02", new BigDecimal("175"), new BigDecimal("75")), 
+            LocalDate.of(2025, 01, 03),
+            LocalDate.of(2025, 01, 02),
+            new RespondentSupplementaryData24(ObjectRef.empty(), "01", "02", new BigDecimal("175"), new BigDecimal("75")),
             Can.of(new Meal24(LocalTime.of(8,0), "at.gd/2.0:fco/03", "at.gd/2.0:poc/02", memorizedFoods)));
         return interview;
     }
-    
-    public Respondent24 respondentSample(Can<Interview24> interviews) {
+
+    public Respondent24 respondentSample(final Can<Interview24> interviews) {
         return new Respondent24("SAMPLE_MALE", LocalDate.of(1975, 04, 03), Sex.MALE, interviews);
     }
-    
+
     // -- TRANSFORM
-    
+
     public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24) {
         return correction24!=null
                 ? toOperator(correction24.asTransformer())

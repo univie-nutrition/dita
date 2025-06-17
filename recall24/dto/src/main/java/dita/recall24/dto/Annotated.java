@@ -28,6 +28,7 @@ import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 public interface Annotated {
 
@@ -39,7 +40,17 @@ public interface Annotated {
             return annot->_Casts.<T>uncheckedCast(annot.value());
         }
         public static <E extends Serializable> Function<Annotation, Can<E>> valueAsCan(final Class<E> requiredElementType) {
-            return annot->_Casts.<Can<E>>uncheckedCast(annot.value());
+            return annot->(annot.value() instanceof Can can)
+                ? _Casts.<Can<E>>uncheckedCast(can)
+                : notACan(requiredElementType, annot.value());
+        }
+        @Deprecated // workaround bug in recall transformations
+        private static <E extends Serializable> Can<E> notACan(final Class<E> requiredElementType, final Serializable value) {
+            if(value instanceof Annotation annot) {
+                System.err.printf("dita.recall24.dto.Annotated: notACan detected %s%n", value);
+                return valueAsCan(requiredElementType).apply(annot);
+            }
+            throw _Exceptions.unrecoverable("unexpected recall annotation");
         }
     }
 

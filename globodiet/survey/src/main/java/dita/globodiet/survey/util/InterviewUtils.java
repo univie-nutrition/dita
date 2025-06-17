@@ -72,7 +72,7 @@ public class InterviewUtils {
             });
     }
 
-    public InterviewSet24 interviewSetFromBlobStore(
+    public Stream<InterviewSet24> streamInterviewsFromBlobStore(
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final SystemId systemId,
@@ -81,18 +81,14 @@ public class InterviewUtils {
 
         log.info("load from namedPath: {}", namedPath);
 
-        var interviewSet = surveyBlobStore==null
-            ? InterviewSet24.empty()
+        return surveyBlobStore==null
+            ? Stream.empty()
             : InterviewUtils.streamSources(surveyBlobStore, namedPath, true)
                 .map(ds->CommonMimeType.YAML.matches(ds.mimeType())
                     ? parseYaml(ds, systemId, messageConsumer)
                     : InterviewXmlParser.parse(ds, systemId, messageConsumer)
                 )
-                .map(Recall24DtoUtils.correct(correction))
-                .reduce((a, b)->a.join(b, messageConsumer))
-                .orElseGet(InterviewSet24::empty);
-
-        return interviewSet;
+                .map(Recall24DtoUtils.correct(correction));
     }
 
     public void warnEmptyDataSource(

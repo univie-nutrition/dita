@@ -35,6 +35,7 @@ import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -77,10 +78,17 @@ public class Campaigns {
             final Correction24 correction,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
-        var interviewSet = campaignKeys.stream()
-                .map(campaignKey->Campaigns.interviewSet(systemId, campaignKey, blobStore, correction, messageConsumer))
-                .reduce((a, b)->a.join(b, messageConsumer))
-                .orElseGet(InterviewSet24::empty);
+        var interviewSets = campaignKeys.stream()
+                .flatMap(campaignKey->InterviewUtils
+                    .streamInterviewsFromBlobStore(
+                        interviewNamedPath(campaignKey),
+                        blobStore,
+                        systemId,
+                        correction,
+                        messageConsumer)
+                )
+                .toList();
+        var interviewSet = Recall24DtoUtils.joinSets(interviewSets, messageConsumer);
         messageConsumer.annotate(interviewSet);
         return interviewSet;
     }
@@ -115,24 +123,6 @@ public class Campaigns {
             return new Annotated.Annotation(Campaigns.ANNOTATION_MESSAGES, Can.ofCollection(messages));
         }
 
-    }
-
-    private InterviewSet24 interviewSet(
-            final SystemId systemId,
-            final Campaign.SecondaryKey campaignKey,
-            final BlobStore blobStore,
-            final Correction24 correction,
-            final MessageConsumer messageConsumer) {
-
-        var interviewSet = InterviewUtils
-            .interviewSetFromBlobStore(
-                interviewNamedPath(campaignKey),
-                blobStore,
-                systemId,
-                correction,
-                messageConsumer);
-
-        return interviewSet;
     }
 
 }
