@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
@@ -33,8 +34,8 @@ import lombok.experimental.UtilityClass;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.globodiet.survey.util.InterviewUtils;
+import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.util.Recall24DtoUtils;
 
 ///Parses _GloboDiet's_ XML Interview files as {@link InterviewSet24}.
 @UtilityClass
@@ -45,7 +46,7 @@ public class InterviewXmlParser {
      * wrapped by a {@link Try}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public Try<InterviewSet24> tryParse(
+    public Try<List<Interview24>> tryParse(
             final @NonNull DataSource source,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
@@ -56,7 +57,7 @@ public class InterviewXmlParser {
      * Parses GloboDiet XML Interview file from given {@link DataSource} into a {@link InterviewSet24}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24 parse(
+    public List<Interview24> parse(
             final @NonNull DataSource source,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
@@ -64,18 +65,18 @@ public class InterviewXmlParser {
                 .valueAsNullableElseFail();
         if(dto==null) {
             InterviewUtils.warnEmptyDataSource(source, messageConsumer);
-            return InterviewSet24.empty();
+            return List.of();
         }
-        var interviewSet = createFromDto(dto, systemId, messageConsumer);
-        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", source.getDescription()));
-        return interviewSet;
+        var interviewList = createFromDto(dto, systemId);
+        interviewList.forEach(iv->iv.putAnnotation("dataSource", source.getDescription()));
+        return interviewList;
     }
 
     /**
      * Parses GloboDiet XML Interview file from given {@link Clob} into a {@link InterviewSet24}.
      * @param messageConsumer join-algorithm might detect data inconsistencies
      */
-    public InterviewSet24 parse(
+    public List<Interview24> parse(
             final Clob interviewSource,
             final @NonNull SystemId systemId,
             final @Nullable Consumer<Message> messageConsumer) {
@@ -83,27 +84,22 @@ public class InterviewXmlParser {
                 .valueAsNullableElseFail();
         if(dto==null) {
             InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
-            return InterviewSet24.empty();
+            List.of();
         }
-        var interviewSet = createFromDto(dto, systemId, messageConsumer);
-        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
-        return interviewSet;
+        var interviewList = createFromDto(dto, systemId);
+        interviewList.forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
+        return interviewList;
     }
 
     // -- HELPER
 
-    private InterviewSet24 createFromDto(
-            final _Dtos.@NonNull Itv dto,
-            final @NonNull SystemId systemId,
-            final @Nullable Consumer<Message> messageConsumer) {
-
+    private List<Interview24> createFromDto(
+        final _Dtos.@NonNull Itv dto,
+        final @NonNull SystemId systemId) {
         var interviewConverter = new InterviewConverter(systemId);
-        return Recall24DtoUtils
-            .join(
-                dto.getInterviews().stream()
+        return dto.getInterviews().stream()
                     .map(interviewConverter::toInterview24)
-                    .toList(),
-                messageConsumer);
+                    .toList();
     }
 
 }

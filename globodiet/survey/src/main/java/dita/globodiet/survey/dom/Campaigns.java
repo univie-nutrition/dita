@@ -78,7 +78,7 @@ public class Campaigns {
             final Correction24 correction,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
-        var interviewSets = campaignKeys.stream()
+        var interviewList = campaignKeys.stream()
                 .flatMap(campaignKey->InterviewUtils
                     .streamInterviewsFromBlobStore(
                         interviewNamedPath(campaignKey),
@@ -88,7 +88,7 @@ public class Campaigns {
                         messageConsumer)
                 )
                 .toList();
-        var interviewSet = Recall24DtoUtils.joinSets(interviewSets, messageConsumer);
+        var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
         return interviewSet;
     }

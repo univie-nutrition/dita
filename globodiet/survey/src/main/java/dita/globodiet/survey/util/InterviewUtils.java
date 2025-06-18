@@ -19,6 +19,8 @@
 package dita.globodiet.survey.util;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -27,6 +29,7 @@ import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +38,9 @@ import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.dto.Correction24;
+import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.util.InterviewSetYamlParser;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -44,21 +49,6 @@ import io.github.causewaystuff.commons.base.types.NamedPath;
 @UtilityClass
 @Slf4j
 public class InterviewUtils {
-
-//    public Clob unzip(final Blob zippedInterviewSource, CommonMimeType mime) {
-//        var unzippedBlob = zippedInterviewSource
-//                .unZip(mime, ZipOptions.builder()
-//                        .zipEntryCharset(StandardCharsets.ISO_8859_1)
-//                        .zipEntryFilter(entry->{
-//                            log.info(String.format("parsing Zip entry %s (%.2fKB)",
-//                                    entry.getName(),
-//                                    0.001*entry.getSize()));
-//                            return true;
-//                        })
-//                        .build());
-//        return unzippedBlob
-//                .toClob(StandardCharsets.UTF_8);
-//    }
 
     public Stream<Clob> streamSources(final BlobStore surveyBlobStore, final NamedPath path, final boolean recursive) {
         return surveyBlobStore.listDescriptors(path, recursive)
@@ -72,7 +62,7 @@ public class InterviewUtils {
             });
     }
 
-    public Stream<InterviewSet24> streamInterviewsFromBlobStore(
+    public Stream<Interview24> streamInterviewsFromBlobStore(
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final SystemId systemId,
@@ -88,7 +78,16 @@ public class InterviewUtils {
                     ? parseYaml(ds, systemId, messageConsumer)
                     : InterviewXmlParser.parse(ds, systemId, messageConsumer)
                 )
-                .map(Recall24DtoUtils.correct(correction));
+                .flatMap(List::stream)
+                .map(InterviewUtils::toInterviewSet)
+                .map(Recall24DtoUtils.correct(correction))
+                .flatMap(InterviewSet24::streamInterviews);
+    }
+
+    private static InterviewSet24 toInterviewSet(final Interview24 interview) {
+        var respondentStub = interview.parentRespondent();
+        var respondent = new Respondent24(respondentStub.alias(), respondentStub.dateOfBirth(), respondentStub.sex(), Can.of(interview));
+        return new InterviewSet24(Can.of(respondent), Collections.emptyMap());
     }
 
     public void warnEmptyDataSource(
@@ -105,14 +104,15 @@ public class InterviewUtils {
             .accept(Message.warn("empty interview data source detected: %s", sourceName));
     }
 
-    private InterviewSet24 parseYaml(final Clob interviewSource, final SystemId systemId, final Consumer<Message> messageConsumer) {
+    private List<Interview24> parseYaml(final Clob interviewSource, final SystemId systemId, final Consumer<Message> messageConsumer) {
         var interviewSet = InterviewSetYamlParser.parseYaml(interviewSource.asString());
         if(interviewSet==null) {
             InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
-            return InterviewSet24.empty();
+            return List.of();
         }
-        interviewSet.streamInterviews().forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
-        return interviewSet;
+        var interviewList = interviewSet.streamInterviews().toList();
+        interviewList.forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
+        return interviewList;
     }
 
 }

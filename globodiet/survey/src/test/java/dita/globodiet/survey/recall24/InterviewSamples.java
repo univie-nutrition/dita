@@ -30,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.recall24.dto.InterviewSet24;
+import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.commons.compression.SevenZUtils;
 
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ enum InterviewSamples {
             final @Nullable Consumer<Message> onMsg) {
         var ds = SevenZUtils.decompress(DataSource.ofInputStreamEagerly(
                 InterviewSamples.class.getResourceAsStream(resourceName)));
-        var interviewSet24 = InterviewXmlParser.parse(ds, systemId, onMsg);
-        return interviewSet24;
+        var interviewList = InterviewXmlParser.parse(ds, systemId, onMsg);
+        return Recall24DtoUtils.join(interviewList, onMsg);
     }
 }
