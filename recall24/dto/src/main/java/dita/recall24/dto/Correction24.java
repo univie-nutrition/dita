@@ -30,6 +30,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
@@ -127,11 +128,22 @@ public record Correction24(List<RespondentCorr> respondents) {
 
                     if(respCorr.newAlias()!=null) {
                         builder.alias(respCorr.newAlias());
+                        var associatedCorr = respCorrByAlias.get(respCorr.newAlias());
+                        if(associatedCorr!=null) {
+                            if(associatedCorr.dateOfBirth()!=null) {
+                                builder.dateOfBirth(associatedCorr.dateOfBirth());
+                            }
+                            if(associatedCorr.sex()!=null) {
+                                builder.sex(associatedCorr.sex());
+                            }
+                        }
                     }
                     if(respCorr.dateOfBirth()!=null) {
+                        _Assert.assertNull(respCorr.newAlias(), ()->"dateOfBirth correction not allowed on node that has newAlias");
                         builder.dateOfBirth(respCorr.dateOfBirth());
                     }
                     if(respCorr.sex()!=null) {
+                        _Assert.assertNull(respCorr.newAlias(), ()->"sex correction not allowed on node that has newAlias");
                         builder.sex(respCorr.sex());
                     }
                     yield (T)builder.build();
