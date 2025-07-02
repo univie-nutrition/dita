@@ -20,7 +20,6 @@ package dita.globodiet.manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 
@@ -43,9 +42,6 @@ public class DitaGdManagerApp extends SpringBootServletInitializer {
 
         //SpringProfileUtil.addActiveProfile("SQLSERVER");
         //SpringProfileUtil.addActiveProfile("H2");
-
-        org.springframework.boot.web.servlet.server.ServletWebServerFactory x;
-        TomcatServletWebServerFactory y;
 
         SpringApplication.run(new Class[] { DitaGdManagerApp.class }, args);
     }
