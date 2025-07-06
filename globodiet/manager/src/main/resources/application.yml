@@ -77,6 +77,8 @@ causeway:
         - url:  https://github.com/univie-nutrition/dita
           image: images/credit/github-mark.svg
           name: Dita Project (Github)
+    restfulobjects:
+      basePath: /restful
     wicket:
       basePath: /w/
       css: css/application.css
@@ -104,12 +106,6 @@ causeway:
         decoration:
           data-tables-net:
             options: "info: false, pagingType: 'numbers'"
-
-resteasy:
-  jaxrs:
-    app:
-      registration: beans
-    defaultPath: "/restful"
 
 server:
   max-http-header-size: 16KB

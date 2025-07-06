@@ -138,7 +138,7 @@ additional
         </dependency>
         <dependency>
             <groupId>org.apache.causeway.viewer</groupId>
-            <artifactId>causeway-viewer-restfulobjects-jaxrsresteasy</artifactId>
+            <artifactId>causeway-viewer-restfulobjects-viewer</artifactId>
         </dependency>
 
         <dependency>
