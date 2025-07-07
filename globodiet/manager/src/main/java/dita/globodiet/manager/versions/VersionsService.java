@@ -24,13 +24,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import javax.inject.Inject;
-
 import jakarta.inject.Named;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.value.Blob;
@@ -40,9 +41,7 @@ import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.FileUtils;
 
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
-
 import lombok.experimental.Accessors;
 
 import dita.globodiet.manager.DitaModuleGdManager;
@@ -61,7 +60,7 @@ public class VersionsService {
     @Getter(lazy = true) @Accessors(fluent=true)
     private final File rootDirectory = new File(new File(blobStoreRoot), "versions");
 
-    @Inject @Qualifier("survey")
+    @Autowired @Qualifier("survey")
     private BlobStore blobStore;
 
     @RequiredArgsConstructor
