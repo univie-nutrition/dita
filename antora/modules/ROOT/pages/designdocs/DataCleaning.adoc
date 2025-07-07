@@ -1,0 +1,110 @@
+= Data Cleaning (Draft)
+:includedir: includes
+
+Typically with surveys, some issues with e.g. recipes are discovered only *after* interviews were made. 
+It is likely that consumption data will need some correction as post processing step.
+
+== Consumption Cleaning
+
+A `ConsumptionDataDefect` references a specific composite 
+and describes specifically what needs to be cleaned up.
+(e.g. due to recent recipe changes or corrections).
+
+A `ConsumptionDataCleaner` references a specific composite consumption within a survey, 
+which needs correction.
+
+[plantuml,fig-consumption-cleaning,svg]
+.Consumption Cleaning
+----
+@startuml
+
+class Survey {
+}
+
+class Recipe {
+}
+
+class Meal {
+}
+
+class ConsumptionDataDefect {
+    version: int
+    .. Version of this defect. Newer (higher) versions override older ones.
+    --
+    name: String
+    .. A short name that appears as title for this defect.
+    --
+    description: String
+    .. A summary describing what needs to be cleaned up.
+    --
+    instruction: String
+    .. YAML formatted instructions for the interview postprocessing logic.  
+}
+
+class ConsumptionDataCleaner {
+    version: int
+    .. Version of this cleaner. Newer (higher) versions override older ones.
+    --
+}
+
+enum CleanerState {
+    OPEN
+    CLOSED
+}
+
+ConsumptionDataDefect --> Survey : survey
+ConsumptionDataDefect --> Recipe : recipe
+
+ConsumptionDataCleaner --> Survey : survey
+ConsumptionDataCleaner --> Recipe : recipe
+ConsumptionDataCleaner --> Meal : meal\n (ref. via protocol-source \nand meal ordinal)
+ConsumptionDataCleaner --> CleanerState : state
+
+@enduml
+----
+
+== Consumption Identification
+
+Consumption entries have no identifier per-se, so we need to address specific entries that need corrections
+using 2 steps:
+
+. Given a respondent alias and a consumption date, a specific interview file can be identified.
+. Given a specific interview file we can locate a contained consumption record using its ordinal within the interview.
+
+On creation of such a `ConsumptionFileAddress` we should also track the interview file version using a hash (e.g. SHA256),
+such that we can protect against upstream changes of the file in question.
+
+Corrections are either adding a new consumption entry or deleting an existing consumption entry 
+or changing the amount of an existing consumption entry.
+
+[plantuml,fig-cons-corr,svg]
+.Consumption Correction
+----
+@startuml
+
+class ConsumptionFileAddress << (R,orchid) >> {
+    respondentId: String 
+    consumptionDate: LocalDate
+    sha256: String
+}
+
+class ConsumptionRecordAddress << (R,orchid) >> {
+    consumptionOrdinal: int
+}
+
+class ConsumptionCorrection << (R,orchid) >> {
+    change: String
+}
+
+enum TypeOfChange {
+    UPDATE_AMOUNT
+    ADD
+    DELETE
+}
+
+ConsumptionRecordAddress -> ConsumptionFileAddress : fileAddress
+ConsumptionCorrection --> ConsumptionRecordAddress : recordAddress
+ConsumptionCorrection -> TypeOfChange : typeOfChange
+
+@enduml
+----
