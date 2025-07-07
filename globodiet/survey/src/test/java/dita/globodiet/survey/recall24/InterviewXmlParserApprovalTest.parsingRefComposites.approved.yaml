@@ -12,6 +12,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "06:00:00"
+      wakeupTimeOnDayAfterConsumption: "06:00:00"
     meals:
     - hourOfDay: "09:00:00"
       foodConsumptionOccasionId: "02"
@@ -414,6 +416,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "08:00:00"
+      wakeupTimeOnDayAfterConsumption: "08:00:00"
     meals:
     - hourOfDay: "09:00:00"
       foodConsumptionOccasionId: "02"
@@ -917,6 +921,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "08:00:00"
+      wakeupTimeOnDayAfterConsumption: "08:00:00"
     meals:
     - hourOfDay: "08:00:00"
       foodConsumptionOccasionId: "02"
@@ -1418,6 +1424,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "08:00:00"
+      wakeupTimeOnDayAfterConsumption: "08:00:00"
     meals:
     - hourOfDay: "08:00:00"
       foodConsumptionOccasionId: "02"
@@ -1560,6 +1568,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "08:00:00"
+      wakeupTimeOnDayAfterConsumption: "08:00:00"
     meals:
     - hourOfDay: "12:00:00"
       foodConsumptionOccasionId: "05"
@@ -1693,6 +1703,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "08:00:00"
+      wakeupTimeOnDayAfterConsumption: "08:00:00"
     meals:
     - hourOfDay: "09:00:00"
       foodConsumptionOccasionId: "02"
@@ -1768,6 +1780,8 @@ respondents:
       specialDayId: "00"
       heightCM: 160
       weightKG: 60
+      wakeupTimeOnDayOfConsumption: "08:00:00"
+      wakeupTimeOnDayAfterConsumption: "08:00:00"
     meals:
     - hourOfDay: "08:00:00"
       foodConsumptionOccasionId: "02"
