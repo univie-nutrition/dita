@@ -90,6 +90,14 @@ viewmodels:
         day of week
         of consmpt.
         Mo=1..Su=7
+    wakeUpTime:
+      type: String
+      required: true
+      description: |
+        wakeup time
+        on day 
+        of consumption
+        hh:mm
     specialDay:
       type: String
       required: true

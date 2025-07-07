@@ -61,6 +61,10 @@ import org.apache.causeway.applib.annotation.PropertyLayout;
  * @param consumptionDayOfWeek day of week
  * of consmpt.
  * Mo=1..Su=7
+ * @param wakeUpTime wakeup time
+ * on day
+ * of consumption
+ * hh:mm
  * @param specialDay homeoffice,
  * feast, etc.
  * @param specialDiet diabetes,
@@ -133,41 +137,45 @@ public record ConsumptionRecord(
         @PropertyLayout(named = "Dowoc", fieldSetId = "details", sequence = "8", describedAs = "day of week\n"
                         + "of consmpt.\n"
                         + "Mo=1..Su=7") int consumptionDayOfWeek,
-        @PropertyLayout(fieldSetId = "details", sequence = "9", describedAs = "homeoffice,\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "9", describedAs = "wakeup time\n"
+                        + "on day\n"
+                        + "of consumption\n"
+                        + "hh:mm") String wakeUpTime,
+        @PropertyLayout(fieldSetId = "details", sequence = "10", describedAs = "homeoffice,\n"
                         + "feast, etc.") String specialDay,
-        @PropertyLayout(fieldSetId = "details", sequence = "10", describedAs = "diabetes,\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "11", describedAs = "diabetes,\n"
                         + "gluten-free\n"
                         + "etc.") String specialDiet,
-        @PropertyLayout(fieldSetId = "details", sequence = "11", describedAs = "consumption\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "12", describedAs = "consumption\n"
                         + "occasion\n"
                         + "code") String fco,
-        @PropertyLayout(fieldSetId = "details", sequence = "12", describedAs = "place of\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "13", describedAs = "place of\n"
                         + "consumption\n"
                         + "code") String poc,
-        @PropertyLayout(fieldSetId = "details", sequence = "13", describedAs = "meal happened\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "14", describedAs = "meal happened\n"
                         + "when and where") String meal,
-        @PropertyLayout(fieldSetId = "details", sequence = "14", describedAs = "Dewey\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "15", describedAs = "Dewey\n"
                         + "decimal\n"
                         + "order") String mealOrdinal,
-        @PropertyLayout(fieldSetId = "details", sequence = "15", describedAs = "type of food\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "16", describedAs = "type of food\n"
                         + "record") String recordType,
-        @PropertyLayout(fieldSetId = "details", sequence = "16", describedAs = "name of consumed\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "17", describedAs = "name of consumed\n"
                         + "food") String food,
-        @PropertyLayout(fieldSetId = "details", sequence = "17", describedAs = "food or\n"
-                        + "composite\n"
-                        + "identifier") String foodId,
         @PropertyLayout(fieldSetId = "details", sequence = "18", describedAs = "food or\n"
                         + "composite\n"
+                        + "identifier") String foodId,
+        @PropertyLayout(fieldSetId = "details", sequence = "19", describedAs = "food or\n"
+                        + "composite\n"
                         + "group") String groupId,
-        @PropertyLayout(fieldSetId = "details", sequence = "19", describedAs = "facet descriptor\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "20", describedAs = "facet descriptor\n"
                         + "identifiers\n"
                         + "(comma separated)") String facetIds,
-        @PropertyLayout(fieldSetId = "details", sequence = "20", describedAs = "quantity\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "21", describedAs = "quantity\n"
                         + "consumed [g]") BigDecimal quantity,
-        @PropertyLayout(fieldSetId = "details", sequence = "21", describedAs = "food composition\n"
+        @PropertyLayout(fieldSetId = "details", sequence = "22", describedAs = "food composition\n"
                         + "database identifier\n"
                         + "(nutrient mapping)") String fcdbId,
-        @PropertyLayout(fieldSetId = "details", sequence = "22", describedAs = "has no description") DecimalVector nutrients
+        @PropertyLayout(fieldSetId = "details", sequence = "23", describedAs = "has no description") DecimalVector nutrients
 ) {
     @ObjectSupport
     public String title() {

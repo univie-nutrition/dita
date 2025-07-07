@@ -12,6 +12,8 @@ respondents:
       specialDayId: "02"
       heightCM: 175
       weightKG: 75
+      wakeupTimeOnDayOfConsumption: "06:30:00"
+      wakeupTimeOnDayAfterConsumption: "07:45:00"
     meals:
     - hourOfDay: "08:00:00"
       foodConsumptionOccasionId: "at.gd/2.0:fco/03"

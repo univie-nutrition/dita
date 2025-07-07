@@ -56,17 +56,17 @@ public record RespondentSupplementaryData24(
             BigDecimal weightKG,
 
             /**
-             * Wake-up time on recall day.
+             * Wake-up time on day of consumption.
              * Marks the starting time of reported consumption data.
              */
-            LocalTime wakeupOnRecallDay,
+            LocalTime wakeupTimeOnDayOfConsumption,
 
             /**
              * Wake-up time on next day.
              * Marks the end 'hour' of reported consumption data,
-             * on the day after the recall day.
+             * on the day after the day of consumption.
              */
-            LocalTime wakeupOnNextDay
+            LocalTime wakeupTimeOnDayAfterConsumption
 
             ) {
 

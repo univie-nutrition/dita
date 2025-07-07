@@ -238,6 +238,7 @@ public record TabularReport(
                 rowBuilder.interviewOrdinal(iv.interviewOrdinal());
                 rowBuilder.consumptionDate(iv.consumptionDate());
                 rowBuilder.consumptionDayOfWeek(iv.consumptionDate().getDayOfWeek().getValue());
+                rowBuilder.wakeUpTime(iv.respondentSupplementaryData().wakeupTimeOnDayOfConsumption().format(hourOfDayFormat));
                 var sdayCodes = sdayHelper.codes(iv.respondentSupplementaryData().specialDayId());
                 var sdietCodes = sdietHelper.codes(iv.respondentSupplementaryData().specialDietId());
                 rowBuilder.specialDay(sdayCodes.toStringNoBox());

@@ -129,8 +129,8 @@ public class InterviewSetYamlParser {
             parser.string("specialDayId"),
             parser.decimal("heightCM"),
             parser.decimal("weightKG"),
-            parser.localTime("wakeupOnRecallDay"),
-            parser.localTime("wakeupOnNextDay"));
+            parser.localTime("wakeupTimeOnDayOfConsumption"),
+            parser.localTime("wakeupTimeOnDayAfterConsumption"));
     }
 
     private Meal24 meal(final Map<String, Object> map) {

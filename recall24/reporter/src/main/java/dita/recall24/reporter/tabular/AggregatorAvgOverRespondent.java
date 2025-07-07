@@ -73,6 +73,7 @@ record AggregatorAvgOverRespondent() {
             .interviewOrdinal(0)
             .consumptionDate(acc.consumptionDate()) // keep first
             .consumptionDayOfWeek(sumConsumptionDayOfWeek(acc.consumptionDayOfWeek(), consumption.consumptionDayOfWeek()))
+            .wakeUpTime(":avg")
             .specialDay(sumCodes(acc.specialDay(), consumption.specialDay()))
             .specialDiet(sumCodes(acc.specialDiet(), consumption.specialDiet()))
             .fco(":avg")

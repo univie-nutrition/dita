@@ -69,6 +69,7 @@ record Aggregator(
             .interviewOrdinal(consumption.interviewOrdinal())
             .consumptionDate(consumption.consumptionDate())
             .consumptionDayOfWeek(consumption.consumptionDayOfWeek())
+            .wakeUpTime(consumption.wakeUpTime())
             .fco(consumption.fco())
             .poc(consumption.poc())
             .specialDay(consumption.specialDay())
