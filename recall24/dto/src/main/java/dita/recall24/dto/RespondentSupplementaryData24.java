@@ -19,6 +19,7 @@
 package dita.recall24.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -52,16 +53,31 @@ public record RespondentSupplementaryData24(
              * Respondent's weight in units of kilogram,
              * as measured on the interview date.
              */
-            BigDecimal weightKG
+            BigDecimal weightKG,
+
+            /**
+             * Wake-up time on recall day.
+             * Marks the starting time of reported consumption data.
+             */
+            LocalTime wakeupOnRecallDay,
+
+            /**
+             * Wake-up time on next day.
+             * Marks the end 'hour' of reported consumption data,
+             * on the day after the recall day.
+             */
+            LocalTime wakeupOnNextDay
 
             ) {
-    
+
     public RespondentSupplementaryData24(
-        String specialDietId,
-        String specialDayId,
-        BigDecimal heightCM,
-        BigDecimal weightKG) {
-        this(new ObjectRef<>(null), specialDietId, specialDayId, heightCM, weightKG);
+        final String specialDietId,
+        final String specialDayId,
+        final BigDecimal heightCM,
+        final BigDecimal weightKG,
+        final LocalTime wakeupOnRecallDay,
+        final LocalTime wakeupOnNextDay) {
+        this(new ObjectRef<>(null), specialDietId, specialDayId, heightCM, weightKG, wakeupOnRecallDay, wakeupOnNextDay);
     }
 
     public Interview24 parentInterview() {

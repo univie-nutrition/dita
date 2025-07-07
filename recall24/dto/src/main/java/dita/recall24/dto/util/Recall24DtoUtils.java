@@ -146,7 +146,10 @@ public class Recall24DtoUtils {
         var interview = new Interview24(
             LocalDate.of(2025, 01, 03),
             LocalDate.of(2025, 01, 02),
-            new RespondentSupplementaryData24(ObjectRef.empty(), "01", "02", new BigDecimal("175"), new BigDecimal("75")),
+            new RespondentSupplementaryData24(
+                    ObjectRef.empty(), "01", "02", new BigDecimal("175"), new BigDecimal("75"),
+                    LocalTime.of(6, 30),
+                    LocalTime.of(7, 45)),
             Can.of(new Meal24(LocalTime.of(8,0), "at.gd/2.0:fco/03", "at.gd/2.0:poc/02", memorizedFoods)));
         return interview;
     }

@@ -21,6 +21,7 @@ package dita.globodiet.survey.recall24;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.LongAdder;
@@ -145,10 +146,23 @@ class _Dtos {
         private BigDecimal heightCM;
         @XmlElement(name="ITG_SubjectWeight")
         private BigDecimal weightKG;
+
+        /**
+         * Wake-up hour of recall day (hh:mm).
+         * Marks the starting 'hour' of reported consumption data.
+         */
         @XmlElement(name="ITG_VURecall")
-        private String itgVURecall;
+        @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalTimeToStringAdapter.class)
+        private LocalTime wakeupOnRecallDay;
+        /**
+         * Wake-up hour of next day (hh:mm)
+         * Marks the end 'hour' of reported consumption data,
+         * on the day after the recall day.
+         */
         @XmlElement(name="ITG_VUNextRecall")
-        private String itgVUNextRecall;
+        @XmlJavaTypeAdapter(value=JavaTimeJaxbAdapters.LocalTimeToStringAdapter.class)
+        private LocalTime wakeupOnNextDay;
+
         @XmlElement(name="ITG_EnergyRequirement")
         private String itgEnergyRequirement;
         @XmlElement(name="ITG_EnergyCalculated")

@@ -41,7 +41,7 @@ class ConsumptionDataDefect {
     .. YAML formatted instructions for the interview postprocessing logic.  
 }
 
-class ConsumptionDataCleaner {
+class ConsumptionDataCleaningTodo {
     version: int
     .. Version of this cleaner. Newer (higher) versions override older ones.
     --
@@ -55,13 +55,23 @@ enum CleanerState {
 ConsumptionDataDefect --> Survey : survey
 ConsumptionDataDefect --> Recipe : recipe
 
-ConsumptionDataCleaner --> Survey : survey
-ConsumptionDataCleaner --> Recipe : recipe
-ConsumptionDataCleaner --> Meal : meal\n (ref. via protocol-source \nand meal ordinal)
-ConsumptionDataCleaner --> CleanerState : state
+ConsumptionDataCleaningTodo --> Survey : survey
+ConsumptionDataCleaningTodo --> Recipe : recipe
+ConsumptionDataCleaningTodo --> Meal : meal\n (ref. via protocol-source \nand meal ordinal)
+ConsumptionDataCleaningTodo --> CleanerState : state
 
 @enduml
 ----
+
+[NOTE]
+====
+* ConsumptionDataCleaner needs a link to the _Consumption Record_.
+* Cleaning Tasks:
+** `UPDATE_AMOUNT` (changes the total amount)
+** `ADD_INGREDIENT` (keep total amount the same, and lookup facets from corrected recipe)
+** `DELETE_INGREDIENT` (keep total amount the same)
+** `REPLACE_INGREDIENT` (keep total amount the same, replace n by m)
+====
 
 == Consumption Identification
 
@@ -98,8 +108,8 @@ class ConsumptionCorrection << (R,orchid) >> {
 
 enum TypeOfChange {
     UPDATE_AMOUNT
-    ADD
-    DELETE
+    ADD_INGREDIENT
+    DELETE_INGREDIENT
 }
 
 ConsumptionRecordAddress -> ConsumptionFileAddress : fileAddress

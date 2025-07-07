@@ -102,7 +102,9 @@ record InterviewConverter(SystemId systemId) {
                         iv.getSpecialDietCode(),
                         iv.getSpecialDayCode(),
                         NumberUtils.roundToNDecimalPlaces(iv.getHeightCM(), 1),
-                        NumberUtils.roundToNDecimalPlaces(iv.getWeightKG(), 1)),
+                        NumberUtils.roundToNDecimalPlaces(iv.getWeightKG(), 1),
+                        iv.getWakeupOnRecallDay(),
+                        iv.getWakeupOnNextDay()),
                 meals);
         interview.parentRespondentRef().setValue(respondentStub(iv));
         return interview;
