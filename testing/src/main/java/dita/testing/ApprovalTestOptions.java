@@ -18,12 +18,14 @@
  */
 package dita.testing;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.approvaltests.core.Options;
+import org.approvaltests.reporters.GenericDiffReporter;
 
 import org.apache.causeway.commons.io.TextUtils;
 
@@ -69,6 +71,7 @@ public class ApprovalTestOptions {
      * Note: WinMerge needs to play along, that is configure their default file encoding to UTF-8.
      */
     public Options tsvOptions() {
+        installTsvSupport();
         return new Options()
             .withScrubber(s ->
                 // UNIX style line endings
@@ -77,6 +80,12 @@ public class ApprovalTestOptions {
             )
             .forFile()
             .withExtension(".tsv");
+    }
+
+    private void installTsvSupport() {
+        if(GenericDiffReporter.TEXT_FILE_EXTENSIONS.contains(".tsv")) return;
+        GenericDiffReporter.TEXT_FILE_EXTENSIONS = new ArrayList<>(GenericDiffReporter.TEXT_FILE_EXTENSIONS);
+        GenericDiffReporter.TEXT_FILE_EXTENSIONS.add(".tsv");
     }
 
 }
