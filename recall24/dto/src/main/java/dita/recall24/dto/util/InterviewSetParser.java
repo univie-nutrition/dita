@@ -35,6 +35,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
 
@@ -56,12 +57,22 @@ import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 @UtilityClass
-public class InterviewSetYamlParser {
+public class InterviewSetParser {
+
+    public InterviewSet24 parseJson(@Nullable final String json) {
+        if(!StringUtils.hasLength(json)) return InterviewSet24.empty();
+
+        var asMap = JsonUtils
+            .tryRead(LinkedHashMap.class, json)
+            .valueAsNonNullElseFail();
+
+        return parse(_Casts.uncheckedCast(asMap));
+    }
 
     public InterviewSet24 parseYaml(@Nullable String yaml) {
         if(!StringUtils.hasLength(yaml)) return InterviewSet24.empty();
         // put decimal values into quotes, so those are converted to type String and can be used with BigDecimal to full precision
-        yaml = TextUtils.readLines(yaml).map(InterviewSetYamlParser::toQuotedDecimal).join("\n");
+        yaml = TextUtils.readLines(yaml).map(InterviewSetParser::toQuotedDecimal).join("\n");
 
         var characterCount = yaml.length();
 
@@ -72,11 +83,19 @@ public class InterviewSetYamlParser {
             })
             .valueAsNonNullElseFail();
 
-        var parser = new YamlParser(_Casts.uncheckedCast(asMap));
-        var interviewSet = new InterviewSet24(parser.collection("respondents").stream()
-                .map(InterviewSetYamlParser::respondent)
+        return parse(_Casts.uncheckedCast(asMap));
+    }
+
+    public InterviewSet24 parse(@Nullable final Map<String, Object> map) {
+        if(map==null || map.isEmpty()) return InterviewSet24.empty();
+        var parser = new MapHolder(map);
+        var interviewSet = new InterviewSet24(
+            parser
+                .collection("respondents")
+                .parallelStream()
+                .map(InterviewSetParser::respondent)
                 .collect(Can.toCan()),
-                parser.annotations());
+            parser.annotations());
         return interviewSet;
     }
 
@@ -98,32 +117,32 @@ public class InterviewSetYamlParser {
     }
 
     private Respondent24 respondent(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         return new Respondent24(
             parser.string("alias"),
             parser.localDate("dateOfBirth"),
             parser.sex(),
             parser.collection("interviews").stream()
-                .map(InterviewSetYamlParser::interview)
+                .map(InterviewSetParser::interview)
                 .collect(Can.toCan())
             );
     }
 
     private Interview24 interview(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         var interview = new Interview24(
             parser.localDate("interviewDate"),
             parser.localDate("consumptionDate"),
             respondentSupplementaryData(parser.property("respondentSupplementaryData").orElseThrow()),
             parser.collection("meals").stream()
-                .map(InterviewSetYamlParser::meal)
+                .map(InterviewSetParser::meal)
                 .collect(Can.toCan()));
         parser.annotations().forEach(interview::putAnnotation);
         return interview;
     }
 
     private RespondentSupplementaryData24 respondentSupplementaryData(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         return new RespondentSupplementaryData24(
             parser.string("specialDietId"),
             parser.string("specialDayId"),
@@ -134,27 +153,27 @@ public class InterviewSetYamlParser {
     }
 
     private Meal24 meal(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         return new Meal24(
             parser.localTime("hourOfDay"),
             parser.string("foodConsumptionOccasionId"),
             parser.string("foodConsumptionPlaceId"),
             parser.collection("memorizedFood").stream()
-                .map(InterviewSetYamlParser::memorizedFood)
+                .map(InterviewSetParser::memorizedFood)
                 .collect(Can.toCan()));
     }
 
     private MemorizedFood24 memorizedFood(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         return new MemorizedFood24(
             parser.string("name"),
             parser.collection("topLevelRecords").stream()
-                .map(InterviewSetYamlParser::record)
+                .map(InterviewSetParser::record)
                 .collect(Can.toCan()));
     }
 
     private Record24 record(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         var recordType = Record24.Type.valueOf(parser.string("type"));
 
         return switch(recordType) {
@@ -164,14 +183,14 @@ public class InterviewSetYamlParser {
             case COMPOSITE -> new Record24.Composite(ObjectRef.empty(),
                 recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"),
                 parser.collection("subRecords").stream()
-                    .map(InterviewSetYamlParser::record)
+                    .map(InterviewSetParser::record)
                     .collect(Can.toCan()),
                 parser.annotations());
             case FOOD -> new Record24.Food(ObjectRef.empty(),
                 recordType, parser.string("name"), parser.sid("sid"), parser.sids("facetSids"),
                 parser.decimal("amountConsumed"), parser.consumptionUnit(), parser.decimal("rawToCookedCoefficient"),
-                parser.property("typeOfFatUsedDuringCooking").map(InterviewSetYamlParser::typeOfFatUsed),
-                parser.property("typeOfMilkOrLiquidUsedDuringCooking").map(InterviewSetYamlParser::typeOfMilkOrLiquidUsed),
+                parser.property("typeOfFatUsedDuringCooking").map(InterviewSetParser::typeOfFatUsed),
+                parser.property("typeOfMilkOrLiquidUsedDuringCooking").map(InterviewSetParser::typeOfMilkOrLiquidUsed),
                 parser.annotations());
 
             case FRYING_FAT -> new Record24.FryingFat(ObjectRef.empty(),
@@ -185,16 +204,16 @@ public class InterviewSetYamlParser {
     }
 
     private TypeOfFatUsed typeOfFatUsed(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         return Record24.typeOfFatUsed(parser.string("name"), parser.sid("sid"), parser.sids("facetSids"));
     }
 
     private TypeOfMilkOrLiquidUsed typeOfMilkOrLiquidUsed(final Map<String, Object> map) {
-        var parser = new YamlParser(map);
+        var parser = new MapHolder(map);
         return Record24.typeOfMilkOrLiquidUsed(parser.string("name"), parser.sid("sid"), parser.sids("facetSids"));
     }
 
-    private record YamlParser(Map<String, Object> map) {
+    private record MapHolder(Map<String, Object> map) {
         String string(final String key) {
             return "" + map.get(key);
         }

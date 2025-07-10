@@ -63,7 +63,7 @@ class InterviewSetYamlParserTest {
     void yamlRoundtrip() {
         var originalYaml = interviewSet.toYaml();
         //debug System.err.printf("%s%n", originalYaml);
-        var interviewSetAfterRoundtrip = InterviewSetYamlParser.parseYaml(originalYaml);
+        var interviewSetAfterRoundtrip = InterviewSetParser.parseYaml(originalYaml);
         Approvals.verify(interviewSetAfterRoundtrip.toYaml(), ApprovalTestOptions.yamlOptions());
     }
 }

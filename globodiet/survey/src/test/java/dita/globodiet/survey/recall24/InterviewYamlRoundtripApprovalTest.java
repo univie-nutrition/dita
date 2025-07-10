@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.recall24.dto.InterviewSet24;
-import dita.recall24.dto.util.InterviewSetYamlParser;
+import dita.recall24.dto.util.InterviewSetParser;
 import dita.testing.ApprovalTestOptions;
 
 class InterviewYamlRoundtripApprovalTest {
@@ -56,7 +56,7 @@ class InterviewYamlRoundtripApprovalTest {
     // -- HELPER
     
     static InterviewSet24 rountrip(InterviewSet24 in) {
-        return InterviewSetYamlParser.parseYaml(in.toYaml());
+        return InterviewSetParser.parseYaml(in.toYaml());
     }
 
 }

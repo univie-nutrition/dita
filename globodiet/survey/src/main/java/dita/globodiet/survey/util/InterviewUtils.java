@@ -18,8 +18,10 @@
  */
 package dita.globodiet.survey.util;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -27,9 +29,13 @@ import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
 
+import org.springframework.util.function.ThrowingSupplier;
+
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._Casts;
+import org.apache.causeway.commons.io.JsonUtils;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -41,10 +47,12 @@ import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Respondent24;
-import dita.recall24.dto.util.InterviewSetYamlParser;
+import dita.recall24.dto.util.InterviewSetParser;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.commons.base.cache.CachableAggregate;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import io.github.causewaystuff.commons.compression.SevenZCacheHandler;
 
 @UtilityClass
 @Slf4j
@@ -90,6 +98,23 @@ public class InterviewUtils {
         return new InterviewSet24(Can.of(respondent), Collections.emptyMap());
     }
 
+
+    public CachableAggregate<InterviewSet24> cachableInterviewSet(
+        final File zipFile,
+        final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
+        return new CachableAggregate<InterviewSet24>(costlySupplier, new SevenZCacheHandler<>(zipFile,
+            // reader
+            dataSource->{
+                var asMap = JsonUtils
+                    .tryRead(LinkedHashMap.class, dataSource)
+                    .valueAsNonNullElseFail();
+                return InterviewSetParser.parse(_Casts.uncheckedCast(asMap));
+            },
+            // writer
+            interviewSet->
+                interviewSet.toJson().getBytes(StandardCharsets.UTF_8)));
+    }
+
     public void warnEmptyDataSource(
         final Object source,
         final @Nullable Consumer<Message> messageConsumer) {
@@ -105,7 +130,7 @@ public class InterviewUtils {
     }
 
     private List<Interview24> parseYaml(final Clob interviewSource, final SystemId systemId, final Consumer<Message> messageConsumer) {
-        var interviewSet = InterviewSetYamlParser.parseYaml(interviewSource.asString());
+        var interviewSet = InterviewSetParser.parseYaml(interviewSource.asString());
         if(interviewSet==null) {
             InterviewUtils.warnEmptyDataSource(interviewSource, messageConsumer);
             return List.of();

@@ -150,24 +150,6 @@ public record InterviewSet24(
         return respondentBiPartition.map(InterviewSet24::of);
     }
 
-//    /**
-//     * Returns a joined model of the models passed in.
-//     * @param messageConsumer join-algorithm might detect data inconsistencies
-//     */
-//    public InterviewSet24 join2(
-//            final @Nullable InterviewSet24 other,
-//            final @Nullable Consumer<Message> messageConsumer) {
-//
-//        if(other==null) return this;
-//
-//        var interviews = Stream.concat(
-//                this.streamInterviews(),
-//                other.streamInterviews())
-//                .toList();
-//
-//        return Recall24DtoUtils.join(interviews, messageConsumer);
-//    }
-
     /**
      * Returns a joined model of the models passed in.
      * @param messageConsumer join-algorithm might detect data inconsistencies
