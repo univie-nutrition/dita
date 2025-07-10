@@ -21,7 +21,6 @@ package dita.globodiet.survey.util;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -34,8 +33,6 @@ import org.springframework.util.function.ThrowingSupplier;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.base._Casts;
-import org.apache.causeway.commons.io.JsonUtils;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -98,18 +95,12 @@ public class InterviewUtils {
         return new InterviewSet24(Can.of(respondent), Collections.emptyMap());
     }
 
-
     public CachableAggregate<InterviewSet24> cachableInterviewSet(
         final File zipFile,
         final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
         return new CachableAggregate<InterviewSet24>(costlySupplier, new SevenZCacheHandler<>(zipFile,
-            // reader
-            dataSource->{
-                var asMap = JsonUtils
-                    .tryRead(LinkedHashMap.class, dataSource)
-                    .valueAsNonNullElseFail();
-                return InterviewSetParser.parse(_Casts.uncheckedCast(asMap));
-            },
+            //reader
+            InterviewSetParser::parseJson,
             // writer
             interviewSet->
                 interviewSet.toJson().getBytes(StandardCharsets.UTF_8)));

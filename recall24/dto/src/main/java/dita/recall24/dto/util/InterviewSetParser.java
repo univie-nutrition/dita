@@ -35,6 +35,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.TextUtils;
 import org.apache.causeway.commons.io.YamlUtils;
@@ -59,14 +60,20 @@ import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 @UtilityClass
 public class InterviewSetParser {
 
+    public InterviewSet24 parseJson(@Nullable final DataSource ds) {
+        if(ds==null) return InterviewSet24.empty();
+        var asMap = JsonUtils
+            .tryRead(LinkedHashMap.class, ds)
+            .valueAsNonNullElseFail();
+        return parseMap(_Casts.uncheckedCast(asMap));
+    }
+
     public InterviewSet24 parseJson(@Nullable final String json) {
         if(!StringUtils.hasLength(json)) return InterviewSet24.empty();
-
         var asMap = JsonUtils
             .tryRead(LinkedHashMap.class, json)
             .valueAsNonNullElseFail();
-
-        return parse(_Casts.uncheckedCast(asMap));
+        return parseMap(_Casts.uncheckedCast(asMap));
     }
 
     public InterviewSet24 parseYaml(@Nullable String yaml) {
@@ -83,10 +90,12 @@ public class InterviewSetParser {
             })
             .valueAsNonNullElseFail();
 
-        return parse(_Casts.uncheckedCast(asMap));
+        return parseMap(_Casts.uncheckedCast(asMap));
     }
 
-    public InterviewSet24 parse(@Nullable final Map<String, Object> map) {
+    // -- HELPER
+
+    private InterviewSet24 parseMap(@Nullable final Map<String, Object> map) {
         if(map==null || map.isEmpty()) return InterviewSet24.empty();
         var parser = new MapHolder(map);
         var interviewSet = new InterviewSet24(
@@ -98,8 +107,6 @@ public class InterviewSetParser {
             parser.annotations());
         return interviewSet;
     }
-
-    // -- HELPER
 
     private final List<String> PRECISE_DECIMALS = List.of("amountConsumed", "heightCM", "weightKG", "rawToCookedCoefficient");
     private String toQuotedDecimal(final String line) {
