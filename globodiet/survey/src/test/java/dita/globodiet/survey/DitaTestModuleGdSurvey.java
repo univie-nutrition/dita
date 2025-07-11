@@ -6,9 +6,9 @@ import java.util.function.Function;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
@@ -23,7 +23,7 @@ import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookup
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
 import io.github.causewaystuff.companion.applib.services.search.SearchService;
 
-@SpringBootConfiguration
+@Configuration
 @EnableAutoConfiguration
 @Import({
     DitaModuleGdSurvey.class,
