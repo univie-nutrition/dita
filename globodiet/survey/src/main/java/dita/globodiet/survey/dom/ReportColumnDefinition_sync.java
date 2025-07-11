@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+
 import lombok.RequiredArgsConstructor;
 
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -50,7 +51,8 @@ public class ReportColumnDefinition_sync {
     @MemberSupport
     public ReportColumnDefinition act(final Listing.MergePolicy lineMergePolicy) {
         var surveyKey = new Survey.SecondaryKey(mixee.getSurveyCode());
-        var componentCatalog = Surveys.fcdb(surveyKey, surveyBlobStore)
+        var client = new BlobStoreClient(surveyKey, surveyBlobStore);
+        var componentCatalog = client.fcdb()
                 .componentCatalog();
 
         var listingHandler = DataUtil.listingHandlerForFoodComponents(

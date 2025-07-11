@@ -58,6 +58,10 @@ public record Correction24(List<RespondentCorr> respondents) {
 
     }
 
+    public static Correction24 empty() {
+        return new Correction24(List.of());
+    }
+
     // -- CONSTRUCTION
 
     public Correction24() {
@@ -153,5 +157,7 @@ public record Correction24(List<RespondentCorr> respondents) {
         }
 
     }
+
+
 
 }

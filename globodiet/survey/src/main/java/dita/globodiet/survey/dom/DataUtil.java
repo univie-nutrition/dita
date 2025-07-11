@@ -28,6 +28,8 @@ import javax.measure.MetricPrefix;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import org.springframework.util.StringUtils;
+
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
@@ -47,8 +49,11 @@ class DataUtil {
     // -- CORRECTION
 
     Correction24 correction(final String correctionYaml) {
-        return Correction24.tryFromYaml(_Strings.blankToNullOrTrim(correctionYaml))
-            .valueAsNullableElseFail();
+        var yaml = _Strings.blankToNullOrTrim(correctionYaml);
+        return StringUtils.hasLength(yaml)
+                ? Correction24.tryFromYaml(yaml)
+                        .valueAsNonNullElseFail()
+                : Correction24.empty();
     }
 
     // -- FCDB

@@ -27,6 +27,7 @@ import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.services.factory.FactoryService;
+
 import lombok.RequiredArgsConstructor;
 
 import io.github.causewaystuff.blobstore.applib.BlobStore;
@@ -60,19 +61,17 @@ public class RespondentFilter_sync {
 
         var listingHandler = DataUtil.listingHandlerForRespondentProxy();
 
-        //TODO this takes several seconds, dependent on survey size
-        //could be done faster if don't do the full blown interview transformations
-        var allRespondents = listingHandler.createListing(
-                Campaigns.interviewSetCorrected(
-                    Surveys.systemId(survey),
-                    campaignKeys,
-                    DataUtil.correction(survey.getCorrection()),
-                    surveyBlobStore)
-                .respondents());
+        var client = new BlobStoreClient(survey.secondaryKey(), surveyBlobStore);
+
+        var allRespondents = client.cachableInterviewsCorrected(Surveys.systemId(survey), campaignKeys)
+            .get()
+            .respondents();
+
+        var allRespondentsListing = listingHandler.createListing(allRespondents);
 
         var currentLines = listingHandler.parseListing(mixee.getAliasListing());
 
-        mixee.setAliasListing(currentLines.merge(lineMergePolicy, allRespondents).toString());
+        mixee.setAliasListing(currentLines.merge(lineMergePolicy, allRespondentsListing).toString());
         return mixee;
     }
 

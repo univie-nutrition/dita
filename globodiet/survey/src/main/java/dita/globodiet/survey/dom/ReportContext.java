@@ -18,8 +18,6 @@
  */
 package dita.globodiet.survey.dom;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.function.UnaryOperator;
 
 import org.jspecify.annotations.Nullable;
@@ -55,50 +53,25 @@ public record ReportContext(
             InterviewSet24.empty());
     }
 
-    public static ReportContext load(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore) {
-        return load(campaignKeys, surveyBlobStore, null);
+    public static ReportContext load(
+            final BlobStore surveyBlobStore,
+            final Can<Campaign.SecondaryKey> campaignKeys) {
+        return load(surveyBlobStore, campaignKeys, null);
     }
 
     @SneakyThrows
-    public static ReportContext load(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore,
-        @Nullable final RespondentFilter respondentFilter) {
-        if(campaignKeys==null
-            || campaignKeys.isEmpty()
-            || surveyBlobStore==null) {
-            return empty();
-        }
+    public static ReportContext load(
+            final BlobStore surveyBlobStore,
+            final Can<Campaign.SecondaryKey> campaignKeys,
+            @Nullable final RespondentFilter respondentFilter) {
+
         var firstCampaign = campaignKeys.getFirstElseFail();
         var surveyKey = new Survey.SecondaryKey(firstCampaign.surveyCode());
-
         var systemId = Surveys.systemId(surveyKey); // requires persistence
-        var correction = Surveys.correction(surveyKey); // requires persistence
 
-        var pool = Executors.newFixedThreadPool(6);
-        var interviewSetCorrectedFuture = pool.submit(()->Campaigns.interviewSetCorrected(systemId, campaignKeys, correction, surveyBlobStore));
-        var nutMappingFuture = pool.submit(()->Surveys.nutMapping(surveyKey, surveyBlobStore));
-        var fcoMappingFuture = pool.submit(()->Surveys.fcoMapping(surveyKey, surveyBlobStore));
-        var pocMappingFuture = pool.submit(()->Surveys.pocMapping(surveyKey, surveyBlobStore));
-        var specialDayMappingFuture = pool.submit(()->Surveys.specialDayMapping(surveyKey, surveyBlobStore));
-        var specialDietMappingFuture = pool.submit(()->Surveys.specialDietMapping(surveyKey, surveyBlobStore));
-        var fcdbFuture = pool.submit(()->Surveys.fcdb(surveyKey, surveyBlobStore));
-        var fdmFuture = pool.submit(()->Surveys.foodDescriptionModel(surveyKey, surveyBlobStore));
-        pool.shutdown();
+        return new ReportContextFactory(systemId, surveyBlobStore, campaignKeys)
+                .load(respondentFilter);
 
-        log.info("await blobstore data");
-        pool.awaitTermination(20, TimeUnit.SECONDS);
-        log.info("data received");
-
-        var interviewSet = interviewSetCorrectedFuture.get();
-        // filter interviews
-        if(!interviewSet.isEmpty()
-            && respondentFilter!=null) {
-            var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
-            interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
-        }
-        return new ReportContext(fcdbFuture.get(), fdmFuture.get(),
-            specialDayMappingFuture.get(), specialDietMappingFuture.get(),
-            fcoMappingFuture.get(), pocMappingFuture.get(),
-            nutMappingFuture.get(), interviewSet);
     }
 
     //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
@@ -136,7 +109,7 @@ public record ReportContext(
 
     public static ReportContext loadAndTransform(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore,
         @Nullable final RespondentFilter respondentFilter) {
-        return load(campaignKeys, surveyBlobStore, respondentFilter).defaultTransform();
+        return load(surveyBlobStore, campaignKeys, respondentFilter).defaultTransform();
     }
 
 }
