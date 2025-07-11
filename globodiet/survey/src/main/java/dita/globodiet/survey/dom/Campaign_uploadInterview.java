@@ -64,8 +64,6 @@ public class Campaign_uploadInterview {
     @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
     @Inject private SurveyTreeHelperService surveyTreeRootNodeHelperService;
 
-    //private InterviewXmlParser parser = new InterviewXmlParser();
-
     private final Campaign mixee;
 
     @MemberSupport
@@ -87,6 +85,8 @@ public class Campaign_uploadInterview {
                     interviewFileOrFiles.mimeType().toString()));
         }
         surveyTreeRootNodeHelperService.invalidateCache();
+        var client = new BlobStoreClient(new Survey.SecondaryKey(mixee.secondaryKey().surveyCode()), surveyBlobStore);
+        client.invalidateAllInterviewCaches();
         return mixee;
     }
 

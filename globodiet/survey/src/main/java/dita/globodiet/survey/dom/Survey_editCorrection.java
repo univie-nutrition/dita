@@ -56,6 +56,7 @@ public class Survey_editCorrection {
             final String correction) {
         var client = new BlobStoreClient(mixee.secondaryKey(), blobStore);
         client.putCorrection(correction);
+        client.invalidateAllInterviewCaches();
         return mixee;
     }
 

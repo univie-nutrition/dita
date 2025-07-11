@@ -128,6 +128,11 @@ public record BlobStoreClient(
         return Campaigns.interviewSetCorrected(systemId, campaignKeys, DataUtil.correction(respondentCorrectionYaml()), blobStore);
     }
 
+    public void invalidateAllInterviewCaches() {
+        blobStore.deleteBlob(DataSourceLocation.INTERVIEWS_CORRECTED.namedPath(surveyPath()));
+    }
+
+
     // -- FCDB
 
     public FoodCompositionRepository fcdb() {
