@@ -31,11 +31,12 @@ record ToQuotedDecimalRewriter(
     String rewriteJson(final String line) {
         for(var key : keys) {
 
+            // bit of optimization here: quickly check if the key is part of the line, if not continue with next key
             int p = line.indexOf(key);
-            if(p<0) return line;
-            if(line.indexOf("\""+key+"\"", p-1)<0) return line;
+            if(p<0) continue;
+            if(line.indexOf("\""+key+"\"", p-1)<0) continue;
             p += key.length() + 1;
-            if(line.indexOf("null", p)>-1) return line; // don't quote <null>
+            if(line.indexOf("null", p)>-1) continue; // don't quote <null>
 
             return _Strings.splitThenApplyRequireNonEmpty(line, ":", (lhs, rhs)->{
                 var value = rhs.trim();
@@ -47,6 +48,7 @@ record ToQuotedDecimalRewriter(
                 return hasColon
                         ? rewritten+","
                         : rewritten;
+
             }).orElseThrow();
 
         }
