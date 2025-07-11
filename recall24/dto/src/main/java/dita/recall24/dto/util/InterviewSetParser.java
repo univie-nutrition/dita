@@ -46,6 +46,7 @@ import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.Meal24;
@@ -270,9 +271,17 @@ public class InterviewSetParser {
         Map<String, Serializable> annotations() {
             var annotations = new LinkedHashMap<String, Serializable>();
             property("annotations").orElseGet(Map::of)
-                .forEach((k, v)->annotations.put(k, (Serializable)v));
+                .forEach((k, v)->annotations.put(k, restoreAnnotationValueFromString(k, v)));
             return annotations;
         }
+        Serializable restoreAnnotationValueFromString(final String key, final Object value) {
+            return switch (key) {
+                case Annotated.GROUP->SemanticIdentifier.parse((String)value);
+                case Annotated.FCDB_ID->SemanticIdentifier.parse((String)value);
+                default -> (Serializable)value;
+            };
+        }
+
     }
 
 }
