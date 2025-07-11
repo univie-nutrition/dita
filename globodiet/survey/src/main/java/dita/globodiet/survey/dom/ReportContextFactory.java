@@ -37,6 +37,10 @@ public record ReportContextFactory(
         BlobStore surveyBlobStore,
         Can<Campaign.SecondaryKey> campaignKeys) {
 
+    public ReportContext load() {
+        return load(null);
+    }
+
     @SneakyThrows
     public ReportContext load(
             @Nullable final RespondentFilter respondentFilter) {
@@ -80,6 +84,5 @@ public record ReportContextFactory(
             fcoMappingFuture.get(), pocMappingFuture.get(),
             nutMappingFuture.get(), interviewSet);
     }
-
 
 }

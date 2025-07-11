@@ -36,6 +36,7 @@ import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.util.FormatUtils;
@@ -75,7 +76,9 @@ public class Survey_generateReport {
             .map(Campaign::secondaryKey);
 
         // see also Survey_downloadMappingTodos
-        var reportContext = ReportContext.loadAndTransform(campaignKeys, surveyBlobStore, respondentFilter);
+        var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
+                .load(respondentFilter)
+                .defaultTransform();
         if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();

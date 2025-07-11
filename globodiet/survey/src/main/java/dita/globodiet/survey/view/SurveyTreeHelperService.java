@@ -80,7 +80,8 @@ public class SurveyTreeHelperService {
 
         var campaignKeys = Campaigns.listAll(factoryService, survey)
             .map(Campaign::secondaryKey);
-        var reportContext = ReportContext.load(surveyBlobStore, campaignKeys, respFilter);
+        var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
+                .load(respFilter); // untransformed
         return reportContext.interviewSet();
     }
 

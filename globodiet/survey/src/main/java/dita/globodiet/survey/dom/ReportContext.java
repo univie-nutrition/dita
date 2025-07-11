@@ -20,15 +20,13 @@ package dita.globodiet.survey.dom;
 
 import java.util.function.UnaryOperator;
 
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.commons.collections.Can;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.qmap.QualifiedMap;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
 import dita.globodiet.survey.util.IngredientToRecipeResolver;
@@ -53,25 +51,21 @@ public record ReportContext(
             InterviewSet24.empty());
     }
 
-    public static ReportContext load(
+    public static ReportContextFactory factory(
+            final SystemId systemId,
             final BlobStore surveyBlobStore,
             final Can<Campaign.SecondaryKey> campaignKeys) {
-        return load(surveyBlobStore, campaignKeys, null);
+        return new ReportContextFactory(systemId, surveyBlobStore, campaignKeys);
     }
 
-    @SneakyThrows
-    public static ReportContext load(
+    /** requires persistence to get the systemId */
+    public static ReportContextFactory factory(
             final BlobStore surveyBlobStore,
-            final Can<Campaign.SecondaryKey> campaignKeys,
-            @Nullable final RespondentFilter respondentFilter) {
-
+            final Can<Campaign.SecondaryKey> campaignKeys) {
         var firstCampaign = campaignKeys.getFirstElseFail();
         var surveyKey = new Survey.SecondaryKey(firstCampaign.surveyCode());
         var systemId = Surveys.systemId(surveyKey); // requires persistence
-
-        return new ReportContextFactory(systemId, surveyBlobStore, campaignKeys)
-                .load(respondentFilter);
-
+        return factory(systemId, surveyBlobStore, campaignKeys);
     }
 
     //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
@@ -99,17 +93,6 @@ public record ReportContext(
 
     public boolean isEmpty() {
         return interviewSet.isEmpty();
-    }
-
-    // -- SHORTCUTS
-
-    public static ReportContext loadAndTransform(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore) {
-        return loadAndTransform(campaignKeys, surveyBlobStore, null);
-    }
-
-    public static ReportContext loadAndTransform(final Can<Campaign.SecondaryKey> campaignKeys, final BlobStore surveyBlobStore,
-        @Nullable final RespondentFilter respondentFilter) {
-        return load(surveyBlobStore, campaignKeys, respondentFilter).defaultTransform();
     }
 
 }

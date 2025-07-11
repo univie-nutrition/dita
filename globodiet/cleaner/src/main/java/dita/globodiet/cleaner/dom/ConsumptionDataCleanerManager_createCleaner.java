@@ -76,7 +76,8 @@ public class ConsumptionDataCleanerManager_createCleaner {
 
         var campaignKeys = Campaigns.listAll(factoryService, survey)
             .map(Campaign::secondaryKey);
-        var reportContext = ReportContext.load(surveyBlobStore, campaignKeys);
+        var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
+            .load();
         var interviewSet = reportContext.interviewSet();
 
         System.err.printf("--- %s%n", "START");

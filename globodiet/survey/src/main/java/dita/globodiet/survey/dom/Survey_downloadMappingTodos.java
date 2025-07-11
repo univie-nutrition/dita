@@ -73,7 +73,9 @@ public class Survey_downloadMappingTodos {
             .map(Campaign::secondaryKey);
 
         // see also Survey_generateReport
-        var reportContext = ReportContext.loadAndTransform(campaignKeys, surveyBlobStore);
+        var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
+            .load()
+            .defaultTransform();
         return useCSVFormat
             ? csvFormat(reportContext)
             : yamlFormat(reportContext);
