@@ -34,6 +34,7 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -106,6 +107,17 @@ public class InterviewUtils {
             // writer
             interviewSet->
                 interviewSet.toJson().getBytes(StandardCharsets.UTF_8)));
+    }
+
+    public CachableAggregate<InterviewSet24> cachableInterviewSetYaml(
+            final File zipFile,
+            final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
+        return new CachableAggregate<InterviewSet24>(costlySupplier, new SevenZCacheHandler<>(zipFile,
+            //reader
+            ds->InterviewSetParser.parseYaml(new String(ds.bytes(), StandardCharsets.UTF_8)),
+            // writer
+            interviewSet->
+                interviewSet.toYaml().getBytes(StandardCharsets.UTF_8)));
     }
 
     public CachableAggregate<InterviewSet24> cachableInterviewSet(

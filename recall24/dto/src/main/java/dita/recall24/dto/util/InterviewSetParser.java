@@ -20,6 +20,7 @@ package dita.recall24.dto.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.LinkedHashMap;
@@ -33,7 +34,6 @@ import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
-import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.JsonUtils;
@@ -62,14 +62,14 @@ public class InterviewSetParser {
 
     public InterviewSet24 parseJson(@Nullable final DataSource ds) {
         if(ds==null) return InterviewSet24.empty();
-        var asMap = JsonUtils
-            .tryRead(LinkedHashMap.class, ds)
-            .valueAsNonNullElseFail();
-        return parseMap(_Casts.uncheckedCast(asMap));
+        return parseJson(new String(ds.bytes(), StandardCharsets.UTF_8));
     }
 
-    public InterviewSet24 parseJson(@Nullable final String json) {
+    public InterviewSet24 parseJson(@Nullable String json) {
         if(!StringUtils.hasLength(json)) return InterviewSet24.empty();
+        // put decimal values into quotes, so those are converted to type String and can be used with BigDecimal to full precision
+        json = TextUtils.readLines(json).map(toQuotedDecimalRewriter::rewriteJson).join("\n");
+
         var asMap = JsonUtils
             .tryRead(LinkedHashMap.class, json)
             .valueAsNonNullElseFail();
@@ -79,7 +79,7 @@ public class InterviewSetParser {
     public InterviewSet24 parseYaml(@Nullable String yaml) {
         if(!StringUtils.hasLength(yaml)) return InterviewSet24.empty();
         // put decimal values into quotes, so those are converted to type String and can be used with BigDecimal to full precision
-        yaml = TextUtils.readLines(yaml).map(InterviewSetParser::toQuotedDecimal).join("\n");
+        yaml = TextUtils.readLines(yaml).map(toQuotedDecimalRewriter::rewriteYaml).join("\n");
 
         var characterCount = yaml.length();
 
@@ -95,6 +95,9 @@ public class InterviewSetParser {
 
     // -- HELPER
 
+    private final ToQuotedDecimalRewriter toQuotedDecimalRewriter = new ToQuotedDecimalRewriter(
+            List.of("amountConsumed", "heightCM", "weightKG", "rawToCookedCoefficient"));
+
     private InterviewSet24 parseMap(@Nullable final Map<String, Object> map) {
         if(map==null || map.isEmpty()) return InterviewSet24.empty();
         var parser = new MapHolder(map);
@@ -106,21 +109,6 @@ public class InterviewSetParser {
                 .collect(Can.toCan()),
             parser.annotations());
         return interviewSet;
-    }
-
-    private final List<String> PRECISE_DECIMALS = List.of("amountConsumed", "heightCM", "weightKG", "rawToCookedCoefficient");
-    private String toQuotedDecimal(final String line) {
-        for(var key : PRECISE_DECIMALS) {
-            if(line.trim().startsWith(key)) {
-                return _Strings.splitThenApplyRequireNonEmpty(line, ":", (lhs, rhs)->{
-                    var value = rhs.trim();
-                    return "null".equals(value)
-                        ? lhs + ": " + value // don't quote <null>
-                        : lhs + ": \"" + value + "\"";
-                }).orElseThrow();
-            }
-        }
-        return line;
     }
 
     private Respondent24 respondent(final Map<String, Object> map) {

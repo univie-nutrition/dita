@@ -118,7 +118,14 @@ public record BlobStoreClient(
         return InterviewUtils.cachableInterviewSet(
                 DataSourceLocation.INTERVIEWS_CORRECTED.blobDescriptor(surveyPath()),
                 blobStore,
-                ()->Campaigns.interviewSetCorrected(systemId, campaignKeys, DataUtil.correction(respondentCorrectionYaml()), blobStore));
+                ()->interviewsCorrected(systemId, campaignKeys));
+    }
+
+    /** bypasses caching */
+    public InterviewSet24 interviewsCorrected(
+            final SystemId systemId,
+            final Can<Campaign.SecondaryKey> campaignKeys) {
+        return Campaigns.interviewSetCorrected(systemId, campaignKeys, DataUtil.correction(respondentCorrectionYaml()), blobStore);
     }
 
     // -- FCDB
