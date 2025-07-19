@@ -29,6 +29,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -49,7 +50,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import dita.commons.io.JaxbAdapters;
+import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.Message;
+import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.util.Recall24DtoUtils;
 
 /**
@@ -124,6 +127,8 @@ public record InterviewSet24(
             .map(TreeNode::value);
     }
 
+    // -- TRANSFORM
+
     /**
      * Returns a new tree with the transformed nodes.
      * @param transformer - transforms fields only (leave parent child relations untouched)
@@ -131,6 +136,35 @@ public record InterviewSet24(
     public InterviewSet24 transform(
             final RecallNode24.@NonNull Transfomer transformer) {
         return Recall24DtoUtils.transform(this, transformer).orElse(null);
+    }
+
+    public record CompositeTransformer(UnaryOperator<Composite> operator) implements RecallNode24.Transfomer {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T extends RecallNode24> T transform(final T node) {
+            return switch(node) {
+                case Composite composite -> (T)operator.apply(composite);
+                default -> node;
+            };
+        }
+    }
+    public InterviewSet24 transform(final UnaryOperator<Composite> operator) {
+        return transform(new CompositeTransformer(operator));
+    }
+    public InterviewSet24 transformFirstMatching(final Iterable<? extends ConditionalCompositeTransformer> candidates) {
+        return transform(new CompositeTransformer(in->{
+            for(var op : candidates) {
+                if(op.test(in.sid())) return op.apply(in);
+            }
+            return in;
+        }));
+    }
+
+    /**
+     * Transforms when condition is met.
+     */
+    public interface ConditionalCompositeTransformer extends Predicate<SemanticIdentifier>,  UnaryOperator<Composite> {
+
     }
 
     // -- FILTER
