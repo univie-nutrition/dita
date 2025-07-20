@@ -47,8 +47,11 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
+import dita.commons.util.NumberUtils;
 import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.Record24.Composite;
+import dita.recall24.dto.Record24.Consumption;
+import dita.recall24.dto.Record24.Food;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 /**
@@ -264,7 +267,32 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
                         builder.addAnnotation(new Annotation(Annotated.NOTES, notesModifiable));
                     }
 
-                    //TODO re-calc so total amount consumed stays the same
+                    // re-calc so total amount consumed stays the same
+
+                    var origAmountConsumed = composite.subRecords().stream()
+                        .filter(Consumption.class::isInstance)
+                        .map(Consumption.class::cast)
+                        .map(Consumption::amountConsumed)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    var newAmountConsumed = builder.subRecords().stream()
+                        .filter(Consumption.class::isInstance)
+                        .map(Consumption.class::cast)
+                        .map(Consumption::amountConsumed)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    if(origAmountConsumed.compareTo(newAmountConsumed)!=0) {
+                        var correctionFactor = BigDecimal.valueOf(origAmountConsumed.doubleValue() / newAmountConsumed.doubleValue());
+                        builder.replaceSubRecords(sr->{
+                            if(sr instanceof Consumption consumption) {
+                                var foodBuilder = (Food.Builder)((Food)consumption).asBuilder();
+                                var amountConsumed = NumberUtils.reducedPrecision(foodBuilder.amountConsumed().multiply(correctionFactor), 2);
+                                foodBuilder.amountConsumed(amountConsumed);
+                                return (Record24) foodBuilder.build();
+                            }
+                            return sr;
+                        });
+                    }
 
                     yield (T)builder.build();
                 }
