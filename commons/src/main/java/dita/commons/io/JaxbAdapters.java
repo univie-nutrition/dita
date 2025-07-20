@@ -31,6 +31,7 @@ import lombok.experimental.UtilityClass;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 import tech.units.indriya.format.SimpleUnitFormat;
 import tech.units.indriya.quantity.Quantities;
 
@@ -135,6 +136,22 @@ public class JaxbAdapters {
             if(q==-1)
                 return x.substring(p); // suffix not found
             return x.substring(p, q);
+        }
+    }
+
+    public static final class NamedPathAdapter extends XmlAdapter<String, NamedPath>{
+        @Override public NamedPath unmarshal(final String v) throws Exception {
+            try {
+                return NamedPath.parse(v, "/");
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
+        }
+        @Override public String marshal(final NamedPath v) throws Exception {
+            return v!=null
+                    ? v.toString("/")
+                    : null;
         }
     }
 

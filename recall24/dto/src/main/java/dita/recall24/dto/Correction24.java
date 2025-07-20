@@ -18,8 +18,11 @@
  */
 package dita.recall24.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,15 +38,20 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
 import lombok.Builder;
+import lombok.Singular;
 import lombok.extern.slf4j.Slf4j;
 
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
+import dita.commons.util.FormatUtils;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 /**
  * Models interview data corrections. WIP
  */
 @Slf4j
-public record Correction24(List<RespondentCorr> respondents) {
+public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr> composites) {
 
     @Builder
     public record RespondentCorr(
@@ -55,27 +63,63 @@ public record Correction24(List<RespondentCorr> respondents) {
             @Nullable String newAlias,
             @Nullable LocalDate dateOfBirth,
             @Nullable Sex sex) {
+    }
 
+    @Builder
+    public record CompositeCorr(
+            @NonNull Coordinates coordinates,
+            @Singular @NonNull List<Addition> additions,
+            @Singular @NonNull List<Deletion> deletions
+            ) {
+        public record Coordinates(
+                SemanticIdentifier sid,
+                String respondentId,
+                int interviewOrdinal,
+                LocalTime mealHourOfDay,
+                NamedPath source) implements Comparable<Coordinates>{
+
+            private static Comparator<Coordinates> COMPARATOR = Comparator.comparing(Coordinates::sid)
+                    .thenComparing(Coordinates::respondentId)
+                    .thenComparing(Coordinates::interviewOrdinal)
+                    .thenComparing(Coordinates::mealHourOfDay)
+                    .thenComparing(Coordinates::source, NamedPath.comparator());
+
+            @Override
+            public int compareTo(final Coordinates other) {
+                return COMPARATOR.compare(this, other);
+            }
+        }
+        public record Addition(SemanticIdentifier sid, BigDecimal amountGrams, SemanticIdentifierSet facets) {
+        }
+        public record Deletion(SemanticIdentifier sid) {
+        }
     }
 
     public static Correction24 empty() {
-        return new Correction24(List.of());
+        return new Correction24(List.of(), List.of());
     }
 
     // -- CONSTRUCTION
 
     public Correction24() {
-        this(new ArrayList<>());
+        this(new ArrayList<>(), new ArrayList<>());
+    }
+
+    private Correction24 sort() {
+        respondents().sort((a, b)->a.alias().compareTo(b.alias()));
+        composites().sort((a, b)->a.coordinates().compareTo(b.coordinates()));
+        return this;
     }
 
     // -- SERIALIZATION
 
     public String toYaml() {
-        return YamlUtils.toStringUtf8(this);
+        return YamlUtils.toStringUtf8(this.sort(), FormatUtils.yamlOptions());
     }
 
     public static Try<Correction24> tryFromYaml(final String yaml) {
-        return YamlUtils.tryRead(Correction24.class, yaml);
+        return YamlUtils.tryRead(Correction24.class, yaml, FormatUtils.yamlOptions())
+                .mapSuccessAsNullable(corr->corr!=null?corr.sort():null);
     }
 
     // -- CORRECTION APPLICATION

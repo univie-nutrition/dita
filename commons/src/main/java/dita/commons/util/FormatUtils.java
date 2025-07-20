@@ -107,7 +107,8 @@ public class FormatUtils {
         var c1 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter());
         var c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
         var c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
-        return c1.andThen(c2).andThen(c3)::apply;
+        var c4 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
+        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(JsonUtils::onlyIncludeNonNull)::apply;
     }
 
     // -- ADOC
