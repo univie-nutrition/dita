@@ -63,11 +63,12 @@ class Correction24Test {
         corr.composites().add(CompositeCorr.builder()
             .coordinates(new Coordinates(recipe("00301"), "EB_0077", 1, LocalTime.of(19, 30), NamedPath.of("path", "sample.xml")))
             .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets()))
+            .addition(new Addition(food("01234"), new BigDecimal("1.1"), facets("0133", "0266")))
             .deletion(new Deletion(food("01617")))
             .build());
 
         // debug
-        System.err.printf("Correction24Test%n%s%n", corr.toYaml());
+        //System.err.printf("Correction24Test%n%s%n", corr.toYaml());
 
         assertEquals(corr, Correction24.tryFromYaml(corr.toYaml()).valueAsNonNullElseFail());
     }
