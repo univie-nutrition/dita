@@ -1234,6 +1234,10 @@ respondents:
           annotations:
             group: "at.gd/2.0:rg/0401"
             isModified: true
+            notes:
+            - "Offenes (Rezept) Hinzufügen (Zutat) [Gouda] Standardeinheiten 0014\
+              \ [ 20 g x 1 x 1 (D) ]"
+            - "Offenes (Rezept) Löschen (Zutat) [Parmesan]"
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"
@@ -1409,6 +1413,10 @@ respondents:
           annotations:
             group: "at.gd/2.0:rg/0404"
             isModified: true
+            notes:
+            - "Offenes (Rezept) Löschen (Zutat) [Mayonnaise]"
+            - "Offenes (Rezept) Löschen (Zutat) [Topfen]"
+            - "Offenes (Rezept) Löschen (Zutat) [Gurke]"
     annotations:
       dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 - alias: "0004"
@@ -1832,6 +1840,8 @@ respondents:
           annotations:
             group: "at.gd/2.0:rg/10"
             isModified: false
+            notes:
+            - "ÜBERSCHRITTENE MENGE"
       - name: "Rührkuchen"
         topLevelRecords:
         - type: "COMPOSITE"
