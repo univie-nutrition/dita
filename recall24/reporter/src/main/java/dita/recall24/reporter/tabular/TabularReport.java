@@ -19,11 +19,9 @@
 package dita.recall24.reporter.tabular;
 
 import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -50,6 +48,7 @@ import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.DecimalVector;
 import dita.commons.types.Sex;
+import dita.commons.util.FormatUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
@@ -227,7 +226,6 @@ public record TabularReport(
         var rowFactory = new RowFactory(new NutrientVectorFactory(foodComponents));
         var rowBuilder = rowFactory.builder();
         var consumptions = new ArrayList<ConsumptionRecord>();
-        var hourOfDayFormat = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
 
         interviewSet.streamDepthFirst()
         .forEach((final RecallNode24 node)->{
@@ -238,7 +236,7 @@ public record TabularReport(
                 rowBuilder.interviewOrdinal(iv.interviewOrdinal());
                 rowBuilder.consumptionDate(iv.consumptionDate());
                 rowBuilder.consumptionDayOfWeek(iv.consumptionDate().getDayOfWeek().getValue());
-                rowBuilder.wakeUpTime(iv.respondentSupplementaryData().wakeupTimeOnDayOfConsumption().format(hourOfDayFormat));
+                rowBuilder.wakeUpTime(FormatUtils.hourOfDay(iv.respondentSupplementaryData().wakeupTimeOnDayOfConsumption()));
                 var sdayCodes = sdayHelper.codes(iv.respondentSupplementaryData().specialDayId());
                 var sdietCodes = sdietHelper.codes(iv.respondentSupplementaryData().specialDietId());
                 rowBuilder.specialDay(sdayCodes.toStringNoBox());
@@ -260,7 +258,7 @@ public record TabularReport(
                 rowBuilder.poc(pocCode.toStringNoBox());
                 rowBuilder.meal("%s (%s) @ %s".formatted(
                         fcoHelper.label(fcoCode),
-                        meal.hourOfDay().format(hourOfDayFormat),
+                        FormatUtils.hourOfDay(meal.hourOfDay()),
                         pocHelper.label(pocCode)));
             }
             case Record24.Comment comment -> {

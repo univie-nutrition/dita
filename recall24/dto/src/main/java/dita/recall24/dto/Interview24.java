@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,6 +39,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import dita.commons.types.IntRef;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 /**
@@ -85,17 +87,17 @@ public record Interview24 (
             Map<String, Serializable> annotations
             ) implements RecallNode24, Annotated {
 
-    
+
     /** canonical constructor */
     public Interview24(
-        ObjectRef<Respondent24> parentRespondentRef,
-        LocalDate interviewDate,
-        LocalDate consumptionDate,
-        IntRef interviewOrdinalRef,
-        RespondentSupplementaryData24 respondentSupplementaryData,
-        Can<Meal24> meals,
-        Map<String, Serializable> annotations) {
-        
+        final ObjectRef<Respondent24> parentRespondentRef,
+        final LocalDate interviewDate,
+        final LocalDate consumptionDate,
+        final IntRef interviewOrdinalRef,
+        final RespondentSupplementaryData24 respondentSupplementaryData,
+        final Can<Meal24> meals,
+        final Map<String, Serializable> annotations) {
+
         this.parentRespondentRef = parentRespondentRef;
         this.interviewDate = interviewDate;
         this.consumptionDate = consumptionDate;
@@ -104,14 +106,14 @@ public record Interview24 (
         this.meals = meals;
         this.annotations = annotations;
         this.respondentSupplementaryData.parentInterviewRef().setValue(this);
-        this.meals.forEach(meal24->meal24.parentInterviewRef().setValue(this));    
+        this.meals.forEach(meal24->meal24.parentInterviewRef().setValue(this));
     }
-    
+
     public Interview24(
-        LocalDate interviewDate,
-        LocalDate consumptionDate,
-        RespondentSupplementaryData24 respondentSupplementaryData,
-        Can<Meal24> meals) {
+        final LocalDate interviewDate,
+        final LocalDate consumptionDate,
+        final RespondentSupplementaryData24 respondentSupplementaryData,
+        final Can<Meal24> meals) {
         this(new ObjectRef<>(null), interviewDate, consumptionDate, IntRef.of(-1), respondentSupplementaryData, meals, new LinkedHashMap<>());
     }
 
@@ -131,6 +133,16 @@ public record Interview24 (
 
     public int interviewOrdinal() {
         return interviewOrdinalRef().getValue();
+    }
+
+    public Interview24 withDataSource(final NamedPath namedPath) {
+        putAnnotation(Annotated.DATASOURCE, namedPath);
+        return this;
+    }
+
+    public Optional<NamedPath> dataSource() {
+        return Optional.ofNullable(annotations().get(Annotated.DATASOURCE))
+            .map(NamedPath.class::cast);
     }
 
     public boolean matchesRespondent(final Respondent24 candidate) {

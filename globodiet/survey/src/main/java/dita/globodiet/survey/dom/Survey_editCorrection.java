@@ -63,7 +63,7 @@ public class Survey_editCorrection {
     @MemberSupport
     public String defaultCorrection() {
         var client = new BlobStoreClient(mixee.secondaryKey(), blobStore);
-        return client.respondentCorrectionYaml();
+        return client.correctionYaml();
     }
 
     @MemberSupport

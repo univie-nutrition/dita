@@ -229,9 +229,9 @@ permits
             public Builder replaceSubRecords(final UnaryOperator<Record24> mapper) {
                 var replacedSubRecords = subRecords.stream()
                     .map(mapper)
-                    .toList();
+                    .collect(Can.toCan());
                 subRecords.clear();
-                subRecords.addAll(replacedSubRecords);
+                subRecords.addAll(replacedSubRecords.toList());
                 return this;
             }
 

@@ -30,6 +30,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Annotated;
@@ -71,11 +72,13 @@ public class Campaigns {
 
     /**
      * Returns interview-set from a multiple campaigns. Just corrected, not prepared.
+     * @param foodDescriptionModel
      */
     public InterviewSet24 interviewSetCorrected(
             final SystemId systemId,
             final Can<Campaign.SecondaryKey> campaignKeys,
             final Correction24 correction,
+            final FoodDescriptionModel foodDescriptionModel,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
         var interviewList = campaignKeys.stream()
@@ -84,6 +87,7 @@ public class Campaigns {
                         interviewNamedPath(campaignKey),
                         blobStore,
                         systemId,
+                        foodDescriptionModel,
                         correction,
                         messageConsumer)
                 )

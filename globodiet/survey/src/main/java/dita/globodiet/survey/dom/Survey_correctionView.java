@@ -52,7 +52,7 @@ public class Survey_correctionView {
     @MemberSupport
     public AsciiDoc prop() {
         var client = new BlobStoreClient(mixee.secondaryKey(), blobStore);
-        return FormatUtils.adocSourceBlock("yaml", client.respondentCorrectionYaml());
+        return FormatUtils.adocSourceBlock("yaml", client.correctionYaml());
     }
 
 }

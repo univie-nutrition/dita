@@ -19,8 +19,10 @@
 package dita.commons.util;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -80,10 +82,23 @@ public class FormatUtils {
     }
 
     // -- TEMPORAL
-    private static DateTimeFormatter ISO_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private static final DateTimeFormatter ISO_DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ROOT);
+
+    @Nullable
     public String isoDate(final @Nullable LocalDate localDate) {
-        return ISO_DATE.format(localDate);
+        return localDate!=null
+            ? ISO_DATE.format(localDate)
+            : null;
+    }
+
+    private static final DateTimeFormatter HOUR_OF_DAY = DateTimeFormatter.ofPattern("HH:mm", Locale.ROOT);
+
+    @Nullable
+    public String hourOfDay(final @Nullable LocalTime time) {
+        return time!=null
+            ? HOUR_OF_DAY.format(time)
+            : null;
     }
 
     // -- JAVA UTIL FORMAT

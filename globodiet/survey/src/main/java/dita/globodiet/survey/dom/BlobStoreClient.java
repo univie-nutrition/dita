@@ -62,8 +62,8 @@ public record BlobStoreClient(
                 root->root.add("qmap").add("sdiet.yaml")),
         FDM(CommonMimeType.YAML, Compression.SEVEN_ZIP,
                 root->root.add("fdm").add("fdm.yaml")),
-        RESPONDENT_CORRECTIONS(CommonMimeType.YAML, Compression.NONE,
-                root->root.add("corrections").add("respondent-corrections.yaml")),
+        CORRECTIONS(CommonMimeType.YAML, Compression.NONE,
+                root->root.add("corrections").add("corrections.yaml")),
         INTERVIEWS_CORRECTED(CommonMimeType.JSON, Compression.SEVEN_ZIP,
                 root->root.add("caches").add("interviews-corrected.json"));
 
@@ -94,8 +94,8 @@ public record BlobStoreClient(
 
     // -- CORRECTIONS
 
-    public String respondentCorrectionYaml() {
-        var yaml = lookupBlobAndUncompress(DataSourceLocation.RESPONDENT_CORRECTIONS)
+    public String correctionYaml() {
+        var yaml = lookupBlobAndUncompress(DataSourceLocation.CORRECTIONS)
                 .map(Blob::toClobUtf8)
                 .map(Clob::asString)
                 .orElse("");
@@ -103,7 +103,7 @@ public record BlobStoreClient(
     }
 
     public void putCorrection(final String correctionYaml) {
-        var desc = DataSourceLocation.RESPONDENT_CORRECTIONS.blobDescriptor(surveyPath());
+        var desc = DataSourceLocation.CORRECTIONS.blobDescriptor(surveyPath());
         blobStore.putBlob(desc,
                 Blob.of(desc.path().lastNameElseFail(),
                         desc.mimeType(),
@@ -125,7 +125,7 @@ public record BlobStoreClient(
     public InterviewSet24 interviewsCorrected(
             final SystemId systemId,
             final Can<Campaign.SecondaryKey> campaignKeys) {
-        return Campaigns.interviewSetCorrected(systemId, campaignKeys, DataUtil.correction(respondentCorrectionYaml()), blobStore);
+        return Campaigns.interviewSetCorrected(systemId, campaignKeys, DataUtil.correction(correctionYaml()), foodDescriptionModel(), blobStore);
     }
 
     public void invalidateAllInterviewCaches() {

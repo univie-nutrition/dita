@@ -26,6 +26,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -41,10 +42,13 @@ import lombok.Builder;
 import lombok.Singular;
 import lombok.extern.slf4j.Slf4j;
 
+import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
+import dita.recall24.dto.Annotated.Annotation;
+import dita.recall24.dto.Record24.Composite;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 /**
@@ -71,6 +75,8 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
             @Singular @NonNull List<Addition> additions,
             @Singular @NonNull List<Deletion> deletions
             ) {
+        /// Assumes that a composite consumption can be uniquely found by its {@link SemanticIdentifier} within a specific {@link Meal24}.
+        /// In other words: we assume there are no duplicated composite consumptions per meal
         public record Coordinates(
                 SemanticIdentifier sid,
                 String respondentId,
@@ -87,6 +93,19 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
             @Override
             public int compareTo(final Coordinates other) {
                 return COMPARATOR.compare(this, other);
+            }
+
+            public static Coordinates of(final Composite composite) {
+                var mem = composite.parentMemorizedFood();
+                var meal = mem.parentMeal();
+                var iv = meal.parentInterview();
+                var resp = iv.parentRespondent();
+                return new CompositeCorr.Coordinates(
+                        composite.sid(),
+                        resp.alias(),
+                        iv.interviewOrdinal(),
+                        meal.hourOfDay(),
+                        iv.dataSource().orElseThrow());
             }
         }
         public record Addition(SemanticIdentifier sid, BigDecimal amountGrams, SemanticIdentifierSet facets) {
@@ -124,8 +143,8 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
 
     // -- CORRECTION APPLICATION
 
-    public RecallNode24.Transfomer asTransformer() {
-        return new CorrectionTranformer(respondents);
+    public RecallNode24.Transfomer asTransformer(final Function<SemanticIdentifier, String> nameBySidLookup) {
+        return new CorrectionTranformer(respondents, composites, nameBySidLookup);
     }
 
     // -- HELPER
@@ -135,10 +154,12 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
              * Aliases that are marked for withdrawal.
              */
             Set<String> withdrawnAliases,
-            Map<String, RespondentCorr> respCorrByAlias)
+            Map<String, RespondentCorr> respCorrByAlias,
+            Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
+            Function<SemanticIdentifier, String> nameBySidLookup)
         implements RecallNode24.Transfomer {
 
-        CorrectionTranformer(final List<RespondentCorr> respondentCorrs){
+        CorrectionTranformer(final List<RespondentCorr> respondentCorrs, final List<CompositeCorr> composites, final Function<SemanticIdentifier, String> nameBySidLookup){
             this(
                     respondentCorrs.stream()
                         .filter(corr->Boolean.TRUE.equals(corr.withdraw()))
@@ -146,7 +167,11 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
                         .collect(Collectors.toSet()),
                     respondentCorrs
                         .stream()
-                        .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
+                        .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())),
+                    composites
+                        .stream()
+                        .collect(Collectors.toMap(CompositeCorr::coordinates, UnaryOperator.identity())),
+                    nameBySidLookup);
         }
 
         @Override
@@ -196,12 +221,81 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
                     }
                     yield (T)builder.build();
                 }
+
+                case Composite composite -> {
+                    var compCorr = compCorrByCoors.get(CompositeCorr.Coordinates.of(composite));
+                    if(compCorr==null) yield node;
+
+                    var builder = (Composite.Builder)composite.asBuilder();
+
+                    log.info("about to correct {}", compCorr);
+
+                    var notesModifiable = builder.annotations().stream()
+                            .filter(annot->annot.key().equals(Annotated.NOTES))
+                            .map(annot->(List<String>)annot.value())
+                            .findFirst()
+                            .map(ArrayList::new)
+                            .orElseGet(ArrayList::new);
+
+                    builder.replaceSubRecords(new SubRecordDeleter(compCorr, nameBySidLookup, notesModifiable));
+                    new SubRecordAdder(compCorr, nameBySidLookup, notesModifiable).addTo(builder.subRecords());
+
+                    if(!notesModifiable.isEmpty()) {
+                        builder.addAnnotation(new Annotation(Annotated.NOTES, notesModifiable));
+                    }
+
+                    //TODO re-calc so total amount consumed stays the same
+
+                    yield (T)builder.build();
+                }
+
                 default -> node;
             };
         }
 
     }
 
+    /// deletes composite sub records (ingredient consumptions) based on correction
+    private record SubRecordDeleter(CompositeCorr compCorr, Function<SemanticIdentifier, String> nameBySidLookup, List<String> notesModifiable) implements UnaryOperator<Record24> {
 
+        @Override
+        public Record24 apply(final Record24 orig) {
+            for(var deletion : compCorr.deletions()) {
+                if(deletion.sid().equals(orig.sid())) {
+                    notesModifiable.add("CORR DELETED: %s (%s)".formatted(
+                            deletion.sid().objectId(),
+                            nameBySidLookup.apply(deletion.sid())));
+                    return null;
+                }
+            }
+            return orig;
+        }
+
+    }
+
+    /// adds composite sub records (ingredient consumptions) based on correction
+    private record SubRecordAdder(CompositeCorr compCorr, Function<SemanticIdentifier, String> nameBySidLookup, List<String> notesModifiable) {
+
+        public void addTo(final List<Record24> list) {
+            for(var addition : compCorr.additions()) {
+                var subRecord = new Record24.Food.Builder()
+                    .type(Record24.Type.FOOD)
+                    .name(nameBySidLookup.apply(addition.sid()))
+                    .sid(addition.sid())
+                    .facetSids(addition.facets())
+                    .amountConsumed(addition.amountGrams())
+                    .consumptionUnit(ConsumptionUnit.GRAM)
+                    .rawToCookedCoefficient(BigDecimal.ONE) //TODO provide via addition model
+                    .build();
+
+                notesModifiable.add("CORR ADDED: %s (%s)".formatted(
+                        addition.sid().objectId(),
+                        nameBySidLookup.apply(addition.sid())));
+
+                list.add(subRecord);
+            }
+        }
+
+    }
 
 }

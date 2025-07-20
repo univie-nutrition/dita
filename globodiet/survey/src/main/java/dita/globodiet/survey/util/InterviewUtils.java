@@ -40,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
@@ -75,6 +76,7 @@ public class InterviewUtils {
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final SystemId systemId,
+            final FoodDescriptionModel foodDescriptionModel,
             final Correction24 correction,
             final Consumer<Message> messageConsumer) {
 
@@ -90,16 +92,15 @@ public class InterviewUtils {
                 .flatMap(List::stream)
                 .map(iv->prependPathToDataSourceAnnotation(namedPath, iv))
                 .map(InterviewUtils::toInterviewSet)
-                .map(Recall24DtoUtils.correct(correction))
+                .map(Recall24DtoUtils.correct(correction, sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()))
                 .flatMap(InterviewSet24::streamInterviews);
     }
 
     private static Interview24 prependPathToDataSourceAnnotation(
         final NamedPath namedPath,
         final Interview24 iv) {
-        iv.lookupAnnotation(Annotated.DATASOURCE)
-            .ifPresent(annot->iv.putAnnotation(Annotated.DATASOURCE,
-                    namedPath.lastNameElseFail()+"/"+annot.value()));
+        iv.dataSource()
+            .ifPresent(path->iv.withDataSource(NamedPath.of(namedPath.lastNameElseFail()).add(path)));
         return iv;
     }
 
