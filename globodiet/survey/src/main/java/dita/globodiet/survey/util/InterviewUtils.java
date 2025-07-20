@@ -41,6 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
@@ -87,9 +88,19 @@ public class InterviewUtils {
                     : InterviewXmlParser.parse(ds, systemId, messageConsumer)
                 )
                 .flatMap(List::stream)
+                .map(iv->prependPathToDataSourceAnnotation(namedPath, iv))
                 .map(InterviewUtils::toInterviewSet)
                 .map(Recall24DtoUtils.correct(correction))
                 .flatMap(InterviewSet24::streamInterviews);
+    }
+
+    private static Interview24 prependPathToDataSourceAnnotation(
+        final NamedPath namedPath,
+        final Interview24 iv) {
+        iv.lookupAnnotation(Annotated.DATASOURCE)
+            .ifPresent(annot->iv.putAnnotation(Annotated.DATASOURCE,
+                    namedPath.lastNameElseFail()+"/"+annot.value()));
+        return iv;
     }
 
     private static InterviewSet24 toInterviewSet(final Interview24 interview) {
@@ -157,7 +168,7 @@ public class InterviewUtils {
             return List.of();
         }
         var interviewList = interviewSet.streamInterviews().toList();
-        interviewList.forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
+        interviewList.forEach(iv->iv.putAnnotation(Annotated.DATASOURCE, interviewSource.name()));
         return interviewList;
     }
 

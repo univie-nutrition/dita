@@ -34,6 +34,7 @@ import lombok.experimental.UtilityClass;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.globodiet.survey.util.InterviewUtils;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
 
@@ -68,7 +69,7 @@ public class InterviewXmlParser {
             return List.of();
         }
         var interviewList = createFromDto(dto, systemId);
-        interviewList.forEach(iv->iv.putAnnotation("dataSource", source.getDescription()));
+        interviewList.forEach(iv->iv.putAnnotation(Annotated.DATASOURCE, source.getDescription()));
         return interviewList;
     }
 
@@ -87,7 +88,7 @@ public class InterviewXmlParser {
             List.of();
         }
         var interviewList = createFromDto(dto, systemId);
-        interviewList.forEach(iv->iv.putAnnotation("dataSource", interviewSource.name()));
+        interviewList.forEach(iv->iv.putAnnotation(Annotated.DATASOURCE, interviewSource.name()));
         return interviewList;
     }
 

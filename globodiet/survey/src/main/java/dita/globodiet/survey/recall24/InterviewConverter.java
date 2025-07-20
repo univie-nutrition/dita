@@ -18,6 +18,7 @@
  */
 package dita.globodiet.survey.recall24;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -33,6 +34,7 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.io.TextUtils;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
@@ -45,6 +47,7 @@ import dita.commons.util.NumberUtils;
 import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
+import dita.globodiet.survey.recall24._Dtos.Note;
 import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
@@ -131,17 +134,45 @@ record InterviewConverter(SystemId systemId) {
         case Recipe -> {
             _Assert.assertTrue(subRecordCount>0, ()->"'recipe' record is expected to have at least one sub-record");
 
-            yield Record24.composite(
+            var composite = Record24.composite(
                 listEntry.getName(),
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
                 toRecords24(contextForScanning, subEntries),
                 Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
                 );
+
+            var notesAsLines = notes(listEntry);
+            if(!notesAsLines.isEmpty()) {
+                composite.putAnnotation(Annotated.NOTES, (Serializable) notesAsLines);
+            }
+            yield composite;
         }
         default -> toRecord24(contextForScanning, topLevelRecordNode);
         };
     }
+
+    /**
+     * Gathers all memo lines from all notes as attached to given {@code listEntry}.
+     */
+    private List<String> notes(final ListEntry listEntry) {
+         if(_NullSafe.isEmpty(listEntry.getNotes())) return List.of();
+         var notes = listEntry.getNotes();
+         return notes.stream()
+             .map(Note::getMemo)
+             .flatMap(this::parseNoteMemo)
+             .toList();
+     }
+
+    /**
+     * There are potentially multiple notes per memo.
+     * @return Stream of parsed memo 'lines'
+     */
+    private Stream<String> parseNoteMemo(final String memo) {
+        return _Strings.splitThenStream(memo, "•••●")
+            .filter(x->x.contains("●•••"))
+            .map(x->TextUtils.cutter(x).keepBefore("●•••").getValue());
+     }
 
     private Can<Record24> toRecords24(final ContextForScanning contextForScanning, final List<ListEntryTreeNode> nodes) {
         return _NullSafe.stream(nodes).map(node->toRecord24(contextForScanning, node)).collect(Can.toCan());

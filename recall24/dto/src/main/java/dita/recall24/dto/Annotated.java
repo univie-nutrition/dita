@@ -34,6 +34,8 @@ public interface Annotated {
 
     public static final String GROUP = "group";
     public static final String FCDB_ID = "fcdbId";
+    public static final String DATASOURCE = "dataSource";
+    public static final String NOTES = "notes";
 
     public record Annotation(String key, Serializable value) implements Serializable {
         public static <T extends Serializable> Function<Annotation, T> valueAs(final Class<T> requiredType) {
