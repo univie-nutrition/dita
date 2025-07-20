@@ -87,14 +87,16 @@ public class Campaigns {
                         interviewNamedPath(campaignKey),
                         blobStore,
                         systemId,
-                        foodDescriptionModel,
                         correction,
                         messageConsumer)
                 )
                 .toList();
         var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
-        return interviewSet;
+
+        var compositesCorrected = interviewSet.transform(
+                correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
+        return compositesCorrected;
     }
 
     // -- HELPER

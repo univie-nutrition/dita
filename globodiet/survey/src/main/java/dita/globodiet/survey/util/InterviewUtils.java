@@ -40,7 +40,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
-import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.recall24.InterviewXmlParser;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
@@ -72,11 +71,11 @@ public class InterviewUtils {
             });
     }
 
+    /// applies respondent correction and filtering
     public Stream<Interview24> streamInterviewsFromBlobStore(
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final SystemId systemId,
-            final FoodDescriptionModel foodDescriptionModel,
             final Correction24 correction,
             final Consumer<Message> messageConsumer) {
 
@@ -92,7 +91,7 @@ public class InterviewUtils {
                 .flatMap(List::stream)
                 .map(iv->prependPathToDataSourceAnnotation(namedPath, iv))
                 .map(InterviewUtils::toInterviewSet)
-                .map(Recall24DtoUtils.correct(correction, sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()))
+                .map(Recall24DtoUtils.correctRespondents(correction))
                 .flatMap(InterviewSet24::streamInterviews);
     }
 

@@ -45,6 +45,13 @@ class Correction24Test {
     private SystemId systemId = new SystemId("at.gd", "2.0");
 
     @Test
+    void coordinateEquality() {
+        assertEquals(sampleCoors(), sampleCoors());
+        assertEquals(0, sampleCoors().compareTo(sampleCoors()));
+        assertEquals(sampleCoors().hashCode(), sampleCoors().hashCode());
+    }
+
+    @Test
     void roundtripOnYaml() {
         var corr = new Correction24();
         corr.respondents().add(RespondentCorr.builder()
@@ -61,7 +68,7 @@ class Correction24Test {
             .build());
 
         corr.composites().add(CompositeCorr.builder()
-            .coordinates(new Coordinates(recipe("00301"), "EB_0077", 1, LocalTime.of(19, 30), NamedPath.of("path", "sample.xml")))
+            .coordinates(sampleCoors())
             .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets()))
             .addition(new Addition(food("01234"), new BigDecimal("1.1"), facets("0133", "0266")))
             .deletion(new Deletion(food("01617")))
@@ -74,6 +81,10 @@ class Correction24Test {
     }
 
     // -- HELPER
+
+    private Coordinates sampleCoors() {
+        return new Coordinates(recipe("00301"), "EB_0077", 1, LocalTime.of(19, 30), NamedPath.of("path", "sample.xml"));
+    }
 
     private SemanticIdentifier recipe(final String objSimpleId) {
         return SemanticIdentifier.ObjectId.Context.RECIPE.sid(systemId, objSimpleId);

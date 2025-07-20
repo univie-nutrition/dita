@@ -143,23 +143,25 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
 
     // -- CORRECTION APPLICATION
 
-    public RecallNode24.Transfomer asTransformer(final Function<SemanticIdentifier, String> nameBySidLookup) {
-        return new CorrectionTranformer(respondents, composites, nameBySidLookup);
+    public RecallNode24.Transfomer asRespondentTransformer() {
+        return new RespondentCorrectionTranformer(respondents);
+    }
+
+    public RecallNode24.Transfomer asCompositeTransformer(final Function<SemanticIdentifier, String> nameBySidLookup) {
+        return new CompositeCorrectionTranformer(composites, nameBySidLookup);
     }
 
     // -- HELPER
 
-    private record CorrectionTranformer(
+    private record RespondentCorrectionTranformer(
             /**
              * Aliases that are marked for withdrawal.
              */
             Set<String> withdrawnAliases,
-            Map<String, RespondentCorr> respCorrByAlias,
-            Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
-            Function<SemanticIdentifier, String> nameBySidLookup)
+            Map<String, RespondentCorr> respCorrByAlias)
         implements RecallNode24.Transfomer {
 
-        CorrectionTranformer(final List<RespondentCorr> respondentCorrs, final List<CompositeCorr> composites, final Function<SemanticIdentifier, String> nameBySidLookup){
+        RespondentCorrectionTranformer(final List<RespondentCorr> respondentCorrs){
             this(
                     respondentCorrs.stream()
                         .filter(corr->Boolean.TRUE.equals(corr.withdraw()))
@@ -167,11 +169,7 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
                         .collect(Collectors.toSet()),
                     respondentCorrs
                         .stream()
-                        .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())),
-                    composites
-                        .stream()
-                        .collect(Collectors.toMap(CompositeCorr::coordinates, UnaryOperator.identity())),
-                    nameBySidLookup);
+                        .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
         }
 
         @Override
@@ -221,7 +219,29 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
                     }
                     yield (T)builder.build();
                 }
+                default -> node;
+            };
+        }
 
+    }
+
+    private record CompositeCorrectionTranformer(
+            Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
+            Function<SemanticIdentifier, String> nameBySidLookup)
+        implements RecallNode24.Transfomer {
+
+        CompositeCorrectionTranformer(final List<CompositeCorr> composites, final Function<SemanticIdentifier, String> nameBySidLookup){
+            this(
+                composites
+                    .stream()
+                    .collect(Collectors.toMap(CompositeCorr::coordinates, UnaryOperator.identity())),
+                nameBySidLookup);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T extends RecallNode24> T transform(final T node) {
+            return switch(node) {
                 case Composite composite -> {
                     var compCorr = compCorrByCoors.get(CompositeCorr.Coordinates.of(composite));
                     if(compCorr==null) yield node;

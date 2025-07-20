@@ -125,17 +125,6 @@ public class Recall24DtoUtils {
         return InterviewSet24.of(respondents);
     }
 
-    public InterviewSet24 joinSets(
-            final @Nullable List<InterviewSet24> interviewSets,
-            final @Nullable Consumer<Message> messageConsumer) {
-
-        var interviews = interviewSets.stream()
-            .flatMap(InterviewSet24::streamInterviews)
-            .toList();
-
-        return join(interviews, messageConsumer);
-    }
-
     // -- SAMPLE
 
     public InterviewSet24 interviewSetSample(final Can<MemorizedFood24> memorizedFoods) {
@@ -162,15 +151,21 @@ public class Recall24DtoUtils {
 
     // -- TRANSFORM
 
-    public UnaryOperator<InterviewSet24> correct(final @Nullable Correction24 correction24, final Function<SemanticIdentifier, String> nameBySidLookup) {
+    public UnaryOperator<InterviewSet24> correctRespondents(final @Nullable Correction24 correction24) {
         return correction24!=null
-                ? toOperator(correction24.asTransformer(nameBySidLookup))
+                ? toOperator(correction24.asRespondentTransformer())
+                : UnaryOperator.identity();
+    }
+
+    public UnaryOperator<InterviewSet24> correctComposites(final @Nullable Correction24 correction24, final Function<SemanticIdentifier, String> nameBySidLookup) {
+        return correction24!=null
+                ? toOperator(correction24.asCompositeTransformer(nameBySidLookup))
                 : UnaryOperator.identity();
     }
 
     public UnaryOperator<InterviewSet24> toOperator(
             final RecallNode24.Transfomer transformer) {
-        return input->transform(input, transformer).orElse(null);
+        return set->transform(set, transformer).orElse(null);
     }
 
     /**
