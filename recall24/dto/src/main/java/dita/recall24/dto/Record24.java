@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -226,6 +227,23 @@ permits
                 return this;
             }
 
+            public Builder modifyNotes(final Consumer<List<String>> notesModifier) {
+                @SuppressWarnings("unchecked")
+                var notesModifiable = annotations().stream()
+                        .filter(annot->annot.key().equals(Annotated.NOTES))
+                        .map(annot->(List<String>)annot.value())
+                        .findFirst()
+                        .map(ArrayList::new)
+                        .orElseGet(ArrayList::new);
+                notesModifier.accept(notesModifiable);
+
+                annotations().removeIf(annot->annot.key().equals(Annotated.NOTES));
+                if(!notesModifiable.isEmpty()) {
+                    addAnnotation(new Annotation(Annotated.NOTES, notesModifiable));
+                }
+                return this;
+            }
+
             public Builder replaceSubRecords(final UnaryOperator<Record24> mapper) {
                 var replacedSubRecords = subRecords.stream()
                     .map(mapper)
@@ -340,6 +358,23 @@ permits
 
             public Builder addAnnotation(final Annotation annotation) {
                 annotations.add(annotation);
+                return this;
+            }
+
+            public Builder modifyNotes(final Consumer<List<String>> notesModifier) {
+                @SuppressWarnings("unchecked")
+                var notesModifiable = annotations().stream()
+                        .filter(annot->annot.key().equals(Annotated.NOTES))
+                        .map(annot->(List<String>)annot.value())
+                        .findFirst()
+                        .map(ArrayList::new)
+                        .orElseGet(ArrayList::new);
+                notesModifier.accept(notesModifiable);
+
+                annotations().removeIf(annot->annot.key().equals(Annotated.NOTES));
+                if(!notesModifiable.isEmpty()) {
+                    addAnnotation(new Annotation(Annotated.NOTES, notesModifiable));
+                }
                 return this;
             }
 

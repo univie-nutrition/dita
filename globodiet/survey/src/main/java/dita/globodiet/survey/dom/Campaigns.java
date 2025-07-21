@@ -94,8 +94,9 @@ public class Campaigns {
         var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
 
-        var compositesCorrected = interviewSet.transform(
-                correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
+        var compositesCorrected = interviewSet
+            .transform(correction.asFoodByNameTransformer())
+            .transform(correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
         return compositesCorrected;
     }
 

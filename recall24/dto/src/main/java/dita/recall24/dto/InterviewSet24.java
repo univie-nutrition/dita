@@ -52,6 +52,7 @@ import lombok.experimental.Accessors;
 import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.recall24.dto.Record24.Composite;
+import dita.recall24.dto.Record24.Food;
 import dita.recall24.dto.util.Recall24DtoUtils;
 
 /**
@@ -135,6 +136,20 @@ public record InterviewSet24(
     public InterviewSet24 transform(
             final RecallNode24.@NonNull Transfomer transformer) {
         return Recall24DtoUtils.transform(this, transformer).orElse(null);
+    }
+
+    public record TopLevelFoodTransformer(UnaryOperator<Food> operator) implements RecallNode24.Transfomer {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T extends RecallNode24> T transform(final T node) {
+            return switch(node) {
+                case Food food -> (T)operator.apply(food);
+                default -> node;
+            };
+        }
+    }
+    public InterviewSet24 transformTopLevelFood(final UnaryOperator<Food> operator) {
+        return transform(new TopLevelFoodTransformer(operator));
     }
 
     public record CompositeTransformer(UnaryOperator<Composite> operator) implements RecallNode24.Transfomer {

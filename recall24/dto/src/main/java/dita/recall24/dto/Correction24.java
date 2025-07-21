@@ -48,7 +48,6 @@ import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
 import dita.commons.util.NumberUtils;
-import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Consumption;
 import dita.recall24.dto.Record24.Food;
@@ -58,7 +57,10 @@ import io.github.causewaystuff.commons.base.types.NamedPath;
  * Models interview data corrections. WIP
  */
 @Slf4j
-public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr> composites) {
+public record Correction24(
+        List<RespondentCorr> respondents,
+        List<FoodByNameCorr> foodByName,
+        List<CompositeCorr> composites) {
 
     @Builder
     public record RespondentCorr(
@@ -70,6 +72,12 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
             @Nullable String newAlias,
             @Nullable LocalDate dateOfBirth,
             @Nullable Sex sex) {
+    }
+
+    @Builder
+    public record FoodByNameCorr(
+        @NonNull String name,
+        SemanticIdentifier sid) {
     }
 
     @Builder
@@ -118,13 +126,13 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
     }
 
     public static Correction24 empty() {
-        return new Correction24(List.of(), List.of());
+        return new Correction24(List.of(), List.of(), List.of());
     }
 
     // -- CONSTRUCTION
 
     public Correction24() {
-        this(new ArrayList<>(), new ArrayList<>());
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     private Correction24 sort() {
@@ -147,16 +155,20 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
     // -- CORRECTION APPLICATION
 
     public RecallNode24.Transfomer asRespondentTransformer() {
-        return new RespondentCorrectionTranformer(respondents);
+        return new RespondentCorrectionTransformer(respondents);
+    }
+
+    public RecallNode24.Transfomer asFoodByNameTransformer() {
+        return new FoodByNameCorrectionTransformer(foodByName);
     }
 
     public RecallNode24.Transfomer asCompositeTransformer(final Function<SemanticIdentifier, String> nameBySidLookup) {
-        return new CompositeCorrectionTranformer(composites, nameBySidLookup);
+        return new CompositeCorrectionTransformer(composites, nameBySidLookup);
     }
 
     // -- HELPER
 
-    private record RespondentCorrectionTranformer(
+    private record RespondentCorrectionTransformer(
             /**
              * Aliases that are marked for withdrawal.
              */
@@ -164,7 +176,7 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
             Map<String, RespondentCorr> respCorrByAlias)
         implements RecallNode24.Transfomer {
 
-        RespondentCorrectionTranformer(final List<RespondentCorr> respondentCorrs){
+        RespondentCorrectionTransformer(final List<RespondentCorr> respondentCorrs){
             this(
                     respondentCorrs.stream()
                         .filter(corr->Boolean.TRUE.equals(corr.withdraw()))
@@ -228,12 +240,51 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
 
     }
 
-    private record CompositeCorrectionTranformer(
+    private record FoodByNameCorrectionTransformer(
+            Map<String, FoodByNameCorr> foodByNameCorrs)
+        implements RecallNode24.Transfomer {
+
+        public FoodByNameCorrectionTransformer(final List<FoodByNameCorr> foodByName) {
+            this(
+                foodByName
+                    .stream()
+                    .collect(Collectors.toMap(FoodByNameCorr::name, UnaryOperator.identity())));
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T extends RecallNode24> T transform(final T node) {
+            return switch(node) {
+                case Food food -> {
+                    var foodByNameCorr = foodByNameCorrs.get(food.name());
+                    if(foodByNameCorr==null) yield node;
+
+                    var builder = (Food.Builder)food.asBuilder();
+
+                    log.info("about to correct {}", foodByNameCorr);
+
+                    builder.modifyNotes(notesModifiable->{
+                        notesModifiable.add("CORR REPLACE SID: %s %s".formatted(
+                                food.sid().toStringNoBox(),
+                                foodByNameCorr.sid().toStringNoBox()));
+                    });
+
+                    builder.sid(foodByNameCorr.sid());
+
+                    yield (T)builder.build();
+                }
+                default -> node;
+            };
+        }
+
+    }
+
+    private record CompositeCorrectionTransformer(
             Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
             Function<SemanticIdentifier, String> nameBySidLookup)
         implements RecallNode24.Transfomer {
 
-        CompositeCorrectionTranformer(final List<CompositeCorr> composites, final Function<SemanticIdentifier, String> nameBySidLookup){
+        CompositeCorrectionTransformer(final List<CompositeCorr> composites, final Function<SemanticIdentifier, String> nameBySidLookup){
             this(
                 composites
                     .stream()
@@ -253,19 +304,10 @@ public record Correction24(List<RespondentCorr> respondents, List<CompositeCorr>
 
                     log.info("about to correct {}", compCorr);
 
-                    var notesModifiable = builder.annotations().stream()
-                            .filter(annot->annot.key().equals(Annotated.NOTES))
-                            .map(annot->(List<String>)annot.value())
-                            .findFirst()
-                            .map(ArrayList::new)
-                            .orElseGet(ArrayList::new);
-
-                    builder.replaceSubRecords(new SubRecordDeleter(compCorr, nameBySidLookup, notesModifiable));
-                    new SubRecordAdder(compCorr, nameBySidLookup, notesModifiable).addTo(builder.subRecords());
-
-                    if(!notesModifiable.isEmpty()) {
-                        builder.addAnnotation(new Annotation(Annotated.NOTES, notesModifiable));
-                    }
+                    builder.modifyNotes(notesModifiable->{
+                        builder.replaceSubRecords(new SubRecordDeleter(compCorr, nameBySidLookup, notesModifiable));
+                        new SubRecordAdder(compCorr, nameBySidLookup, notesModifiable).addTo(builder.subRecords());
+                    });
 
                     // re-calc so total amount consumed stays the same
 

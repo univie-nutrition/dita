@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
@@ -39,7 +38,6 @@ import org.apache.causeway.commons.internal.collections._Multimaps;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
 import dita.recall24.dto.Correction24;
@@ -154,12 +152,6 @@ public class Recall24DtoUtils {
     public UnaryOperator<InterviewSet24> correctRespondents(final @Nullable Correction24 correction24) {
         return correction24!=null
                 ? toOperator(correction24.asRespondentTransformer())
-                : UnaryOperator.identity();
-    }
-
-    public UnaryOperator<InterviewSet24> correctComposites(final @Nullable Correction24 correction24, final Function<SemanticIdentifier, String> nameBySidLookup) {
-        return correction24!=null
-                ? toOperator(correction24.asCompositeTransformer(nameBySidLookup))
                 : UnaryOperator.identity();
     }
 
