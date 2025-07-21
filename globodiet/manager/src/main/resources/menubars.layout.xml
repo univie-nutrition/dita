@@ -111,13 +111,6 @@
                 <mb:serviceAction objectType="dita.globodiet.manager.VersionsMenu" id="parameterDataVersions"/>
             </mb:section>
         </mb:menu>
-        <mb:menu>
-            <mb:named>Cleaning</mb:named>
-            <mb:section>
-                <mb:serviceAction objectType="dita.globodiet.cleaner.EntitiesMenu" id="manageConsumptionDataDefect"/>
-                <mb:serviceAction objectType="dita.globodiet.cleaner.EntitiesMenu" id="manageConsumptionDataCleaner"/>
-            </mb:section>
-        </mb:menu>
         <mb:menu unreferencedActions="true">
             <mb:named>Others</mb:named>
         </mb:menu>

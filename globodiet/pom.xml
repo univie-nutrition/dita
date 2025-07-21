@@ -31,7 +31,6 @@ additional
     <packaging>pom</packaging>
 
     <modules>
-        <module>cleaner</module>
         <module>params</module>
         <module>manager</module>
         <module>survey</module>
