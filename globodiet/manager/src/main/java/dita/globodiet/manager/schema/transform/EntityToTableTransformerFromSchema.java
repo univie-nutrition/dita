@@ -20,9 +20,6 @@ package dita.globodiet.manager.schema.transform;
 
 import java.util.Optional;
 
-import io.github.causewaystuff.companion.codegen.model.Schema;
-import io.github.causewaystuff.companion.codegen.model.Schema.Entity;
-
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -30,6 +27,8 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.types.BiString;
 import dita.commons.types.TabularData.NameTransformer;
+import io.github.causewaystuff.companion.codegen.model.Schema;
+import io.github.causewaystuff.companion.codegen.model.Schema.Entity;
 
 public record EntityToTableTransformerFromSchema(
         String logicalNamespacePrefix,
@@ -45,32 +44,43 @@ implements NameTransformer {
     public String transformColumn(final BiString propertyName) {
         var entity = lookupEntityElseFail(propertyName.left());
         return entity.fields().stream()
-                .peek(field->{
+            .peek(field->{
 
-                    _Assert.assertTrue(
-                            Character.isLowerCase(field.name().charAt(0)), field.name());
+                _Assert.assertTrue(
+                        Character.isLowerCase(field.name().charAt(0)), field.name());
 
-                })
-                .filter(field->field.name().equalsIgnoreCase(propertyName.right()))
-                .findFirst()
-                .map(field->field.column())
-                .orElseThrow(()->_Exceptions.noSuchElement("property '%s' not found in schema",
-                        propertyName));
+            })
+            .filter(field->field.name().equalsIgnoreCase(propertyName.right()))
+            .findFirst()
+            .map(field->field.column())
+            .orElseThrow(()->_Exceptions.noSuchElement("property '%s' not found in schema",
+                    propertyName));
     }
 
     // -- HELPER
 
     private Optional<Entity> lookupEntity(final String logicalTypeName) {
-        String simpleName = _Strings.splitThenStream(logicalTypeName, ".")
-                .collect(Can.toCan())
-                .getLastElseFail();
-        return Optional.ofNullable(schema.entities().get(logicalTypeName.substring(logicalNamespacePrefix.length() + 1)))
-                .or(()->Optional.ofNullable(schema.entities().get(simpleName)));
+        return Optional.ofNullable(schema.entities().get(logicalTypeName))
+                .or(()->Optional.ofNullable(schema.entities().get(partialKey(logicalTypeName))))
+                .or(()->Optional.ofNullable(schema.entities().get(simpleKey(logicalTypeName))));
     }
 
     private Entity lookupEntityElseFail(final String logicalTypeName) {
         return lookupEntity(logicalTypeName)
-            .orElseThrow(()->_Exceptions.noSuchElement("entity '%s' not found in schema\n%s",
-                    logicalTypeName, schema.entities().keySet()));
+            .orElseThrow(()->_Exceptions.noSuchElement("entity '%s' also using keys '%s' and '%s' not found in schema\n%s",
+                    logicalTypeName,
+                    partialKey(logicalTypeName),
+                    simpleKey(logicalTypeName),
+                    schema.entities().keySet()));
     }
+
+    private String partialKey(final String logicalTypeName) {
+        return logicalTypeName.substring(logicalNamespacePrefix.length() + 1);
+    }
+    private String simpleKey(final String logicalTypeName) {
+        return _Strings.splitThenStream(logicalTypeName, ".")
+            .collect(Can.toCan())
+            .getLastElseFail();
+    }
+
 }

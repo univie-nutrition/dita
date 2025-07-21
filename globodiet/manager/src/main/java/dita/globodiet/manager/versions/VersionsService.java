@@ -93,7 +93,7 @@ public class VersionsService {
         return rootDirectory().exists()
                 ? Can.ofArray(
                     rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
-                            && new File(dir, "manifest.yml").exists()))
+                            && new File(dir, "manifest.yaml").exists()))
                     .map(ParameterDataVersion::fromDirectory)
                     .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
                 : Can.empty();
@@ -106,7 +106,7 @@ public class VersionsService {
         return rootDirectory().exists()
                 ? Can.ofArray(
                     rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
-                            && new File(dir, "manifest.yml").exists()))
+                            && new File(dir, "manifest.yaml").exists()))
                     .map(ParameterDataVersion::fromDirectory)
                     .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
                 : Can.empty();
@@ -140,7 +140,7 @@ public class VersionsService {
      * <ol>
      * <li>generate the clone's directory</li>
      * <li>write the clone's manifest</li>
-     * <li>copy the 'gd-params.yml.zip' file from master to clone directory</li>
+     * <li>copy the 'gd-params.yaml.zip' file from master to clone directory</li>
      * </ol>
      * @param master - the version to generate a clone from
      * @param clone - __id is auto generated - so can be left zero
@@ -155,8 +155,8 @@ public class VersionsService {
         var masterDir = lookupVersionFolderElseFail(master);
 
         FileUtils.copy(
-                new File(masterDir, "gd-params.yml.zip"),
-                new File(cloneDir, "gd-params.yml.zip"));
+                new File(masterDir, "gd-params.yaml.zip"),
+                new File(cloneDir, "gd-params.yaml.zip"));
     }
 
     /**

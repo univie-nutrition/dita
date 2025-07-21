@@ -66,7 +66,7 @@ public class ParameterDataVersion {
     // -- FACTORIES
 
     public static ParameterDataVersion fromDirectory(final @NonNull File dir) {
-        var dataSource = DataSource.ofFile(new File(dir, "manifest.yml"));
+        var dataSource = DataSource.ofFile(new File(dir, "manifest.yaml"));
         var paramDataVersion = YamlUtils.tryRead(ParameterDataVersion.class, dataSource)
             .valueAsNonNullElseFail();
         return paramDataVersion;
@@ -276,7 +276,7 @@ public class ParameterDataVersion {
 
     @Programmatic
     void writeManifest(final @NonNull File dir) {
-        var dataSink = DataSink.ofFile(new File(dir, "manifest.yml"));
+        var dataSink = DataSink.ofFile(new File(dir, "manifest.yaml"));
         YamlUtils.write(this, dataSink);
     }
 

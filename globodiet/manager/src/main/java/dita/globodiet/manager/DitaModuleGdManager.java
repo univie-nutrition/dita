@@ -162,12 +162,12 @@ public class DitaModuleGdManager {
 
     @Bean @Qualifier("entity2table")
     public TabularData.NameTransformer entity2table(final EntitySchemaProvider entitySchemaProvider) {
-        return new EntityToTableTransformerFromSchema("dita.globodiet", entitySchemaProvider.asDomain());
+        return new EntityToTableTransformerFromSchema("dita.globodiet.params", entitySchemaProvider.asDomain());
     }
 
     @Bean @Qualifier("table2entity")
     public TabularData.NameTransformer table2entity(final EntitySchemaProvider entitySchemaProvider) {
-        return new TableToEntityTransformerFromSchema("dita.globodiet", entitySchemaProvider.asDomain());
+        return new TableToEntityTransformerFromSchema("dita.globodiet.params", entitySchemaProvider.asDomain());
     }
 
     @Configuration

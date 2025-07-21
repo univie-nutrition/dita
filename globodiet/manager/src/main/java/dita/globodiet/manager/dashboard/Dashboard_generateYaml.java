@@ -26,7 +26,7 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.RestrictTo;
-import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.applib.value.Blob;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,12 +43,14 @@ public class Dashboard_generateYaml {
     final Dashboard dashboard;
 
     @MemberSupport
-    public Clob act(
+    public Blob act(
             @Parameter final ExportFormat format,
             @Parameter final boolean rowSortingEnabled) {
         var clob = versionsExportService.tablesAsYamlFromRepository(
                 VersionsExportService.paramsTableFilter(), format, rowSortingEnabled);
-        return clob;
+        return clob
+                .toBlobUtf8()
+                .zip();
     }
 
 }

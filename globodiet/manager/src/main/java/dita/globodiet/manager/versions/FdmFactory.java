@@ -57,19 +57,6 @@ record FdmFactory(
 
     // -- FACTORIES
 
-//    public static FdmFactory fromZippedYaml(
-//            final SystemId systemId,
-//            final DataSource ds) {
-//        var yaml = Blob.tryRead("fdm", CommonMimeType.ZIP, ds)
-//                .valueAsNonNullElseFail()
-//                .unZip(CommonMimeType.YAML)
-//                .toClob(StandardCharsets.UTF_8)
-//                .asString();
-//
-//        var tabularData = TabularData.populateFromYaml(yaml, TabularData.Format.defaults());
-//        return new FdmFactory(systemId, tabularData);
-//    }
-
     public FoodDescriptionModel createFoodDescriptionModel() {
         return new FoodDescriptionModel(
                 FdmUtils.collectFoodBySid(streamFood()),

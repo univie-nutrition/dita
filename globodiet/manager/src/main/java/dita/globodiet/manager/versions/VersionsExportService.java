@@ -106,7 +106,7 @@ public class VersionsExportService {
         var yaml = FdmUtils.toYaml(fdmFactory.createFoodDescriptionModel());
 
         return Clob.of("fdm", CommonMimeType.YAML, yaml)
-                .toBlob(StandardCharsets.UTF_8)
+                .toBlobUtf8()
                 .zip();
     }
 
@@ -175,7 +175,7 @@ public class VersionsExportService {
     // -- HELPER
 
     private Clob getTableData(final ParameterDataVersion parameterDataVersion) {
-        return versionsService.resolveZippedResource(parameterDataVersion, "gd-params.yml", Optional.empty())
+        return versionsService.resolveZippedResource(parameterDataVersion, "gd-params.yaml", Optional.empty())
                 .unZip(CommonMimeType.YAML)
                 .toClob(StandardCharsets.UTF_8);
     }
