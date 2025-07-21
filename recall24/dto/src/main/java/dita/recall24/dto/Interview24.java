@@ -142,7 +142,7 @@ public record Interview24 (
 
     public Optional<NamedPath> dataSource() {
         return Optional.ofNullable(annotations().get(Annotated.DATASOURCE))
-            .map(NamedPath.class::cast);
+            .map(v->v instanceof NamedPath namedPath ? namedPath : NamedPath.parse((String)v, "/"));
     }
 
     public boolean matchesRespondent(final Respondent24 candidate) {
