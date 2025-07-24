@@ -21,6 +21,7 @@ package dita.recall24.model.corr;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -53,26 +54,27 @@ class Correction24Test {
 
     @Test
     void roundtripOnYaml() {
-        var corr = new Correction24();
-        corr.respondents().add(RespondentCorr.builder()
-            .alias("EB_0061")
-            .dateOfBirth(LocalDate.parse("1977-03-23"))
-            .build());
-        corr.respondents().add(RespondentCorr.builder()
-            .alias("EB_0058")
-            .sex(Sex.MALE)
-            .build());
-        corr.respondents().add(RespondentCorr.builder()
-            .alias("EB_00XX")
-            .withdraw(true)
-            .build());
-
-        corr.composites().add(CompositeCorr.builder()
-            .coordinates(sampleCoors())
-            .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets()))
-            .addition(new Addition(food("01234"), new BigDecimal("1.1"), facets("0133", "0266")))
-            .deletion(new Deletion(food("01617")))
-            .build());
+        var corr = new Correction24(
+                List.of(RespondentCorr.builder()
+                        .alias("EB_0061")
+                        .dateOfBirth(LocalDate.parse("1977-03-23"))
+                        .build(),
+                        RespondentCorr.builder()
+                        .alias("EB_0058")
+                        .sex(Sex.MALE)
+                        .build(),
+                        RespondentCorr.builder()
+                        .alias("EB_00XX")
+                        .withdraw(true)
+                        .build()),
+                List.of(),
+                List.of(CompositeCorr.builder()
+                        .coordinates(sampleCoors())
+                        .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets()))
+                        .addition(new Addition(food("01234"), new BigDecimal("1.1"), facets("0133", "0266")))
+                        .deletion(new Deletion(food("01617")))
+                        .build())
+                );
 
         // debug
         //System.err.printf("Correction24Test%n%s%n", corr.toYaml());

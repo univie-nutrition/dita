@@ -21,7 +21,6 @@ package dita.recall24.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -139,27 +138,21 @@ public record Correction24(
                 && composites().isEmpty();
     }
 
-    // -- CONSTRUCTION
-
-    public Correction24() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    }
-
-    private Correction24 sort() {
-        respondents().sort((a, b)->a.alias().compareTo(b.alias()));
-        composites().sort((a, b)->a.coordinates().compareTo(b.coordinates()));
-        return this;
-    }
-
     // -- SERIALIZATION
 
     public String toYaml() {
-        return YamlUtils.toStringUtf8(this.sort(), FormatUtils.yamlOptions());
+        return YamlUtils.toStringUtf8(this, FormatUtils.yamlOptions());
     }
 
     public static Try<Correction24> tryFromYaml(final String yaml) {
         return YamlUtils.tryRead(Correction24.class, yaml, FormatUtils.yamlOptions())
-                .mapSuccessAsNullable(corr->corr!=null?corr.sort():null);
+                .mapSuccessAsNullable(corr->corr!=null
+                    ? corr.sorted()
+                    : null);
+    }
+
+    private Correction24 sorted() {
+        return join(Correction24.empty());
     }
 
     // -- JOIN
@@ -169,9 +162,9 @@ public record Correction24(
         if(this.isEmpty()) return other;
 
         return new Correction24(
-                JoinUtils.joinUnique(this.respondents(), other.respondents(), Comparator.comparing(RespondentCorr::alias)),
-                JoinUtils.joinUnique(this.foodByName(), other.foodByName(), Comparator.comparing(FoodByNameCorr::name)),
-                JoinUtils.joinUnique(this.composites(), other.composites(), Comparator.comparing(CompositeCorr::coordinates)));
+                JoinUtils.joinAndSortFailOnDuplicates(this.respondents(), other.respondents(), Comparator.comparing(RespondentCorr::alias)),
+                JoinUtils.joinAndSortFailOnDuplicates(this.foodByName(), other.foodByName(), Comparator.comparing(FoodByNameCorr::name)),
+                JoinUtils.joinAndSortFailOnDuplicates(this.composites(), other.composites(), Comparator.comparing(CompositeCorr::coordinates)));
     }
 
     // -- CORRECTION APPLICATION
