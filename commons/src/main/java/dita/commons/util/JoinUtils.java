@@ -18,7 +18,6 @@
  */
 package dita.commons.util;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
@@ -31,26 +30,20 @@ import lombok.experimental.UtilityClass;
 public class JoinUtils {
 
     public <T> List<T> joinUnique(final @Nullable List<T> list1, final @Nullable List<T> list2, final Comparator<T> comparator) {
-        if(list2.isEmpty()) return list1;
-        if(list1.isEmpty()) return list2;
+        if(list1==null || list1.isEmpty()) return list2!=null ? list2 : List.of();
+        if(list2==null || list2.isEmpty()) return list1!=null ? list1 : List.of();
 
         final var seen = new TreeSet<T>(comparator);
-        final var result = new ArrayList<T>();
 
         for (T item : list1) {
-            if (!seen.add(item)) {
+            if (!seen.add(item))
                 throw new IllegalArgumentException("Duplicate found in first list: " + item);
-            }
-            result.add(item);
         }
-
         for (T item : list2) {
-            if (!seen.add(item)) {
+            if (!seen.add(item))
                 throw new IllegalArgumentException("Duplicate found across lists: " + item);
-            }
-            result.add(item);
         }
 
-        return result;
+        return seen.stream().toList();
     }
 }
