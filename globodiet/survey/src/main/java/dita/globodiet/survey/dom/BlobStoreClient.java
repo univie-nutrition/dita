@@ -18,7 +18,7 @@
  */
 package dita.globodiet.survey.dom;
 
-import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -35,6 +35,7 @@ import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
+import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
@@ -63,7 +64,7 @@ public record BlobStoreClient(
         FDM(CommonMimeType.YAML, Compression.SEVEN_ZIP,
                 root->root.add("fdm").add("fdm.yaml")),
         CORRECTIONS(CommonMimeType.YAML, Compression.NONE,
-                root->root.add("corrections").add("corrections.yaml")),
+                root->root.add("corrections")),
         INTERVIEWS_CORRECTED(CommonMimeType.JSON, Compression.SEVEN_ZIP,
                 root->root.add("caches").add("interviews-corrected.json"));
 
@@ -94,20 +95,28 @@ public record BlobStoreClient(
 
     // -- CORRECTIONS
 
-    public String correctionYaml() {
-        var yaml = lookupBlobAndUncompress(DataSourceLocation.CORRECTIONS)
+    public Correction24 correction() {
+        return correctionUploads().stream()
+            .map(this::correctionYaml)
+            .map(DataUtil::correction)
+            .reduce(Correction24.empty(), Correction24::join);
+    }
+
+    public List<CorrectionUpload> correctionUploads() {
+        return blobStore.listDescriptors(DataSourceLocation.CORRECTIONS.namedPath(surveyPath()), false)
+            .stream()
+            .filter(desc->CommonMimeType.YAML.equals(desc.mimeType()))
+            .map(desc->CorrectionUpload.of(desc, surveyKey))
+            .toList();
+    }
+
+    public String correctionYaml(final CorrectionUpload correctionUpload) {
+        var yaml = blobStore.lookupBlobAndUncompress(DataSourceLocation.CORRECTIONS.namedPath(surveyPath())
+                    .add(correctionUpload.namedPath().lastNameElseFail()))
                 .map(Blob::toClobUtf8)
                 .map(Clob::asString)
                 .orElse("");
         return yaml;
-    }
-
-    public void putCorrection(final String correctionYaml) {
-        var desc = DataSourceLocation.CORRECTIONS.blobDescriptor(surveyPath());
-        blobStore.putBlob(desc,
-                Blob.of(desc.path().lastNameElseFail(),
-                        desc.mimeType(),
-                        correctionYaml.getBytes(StandardCharsets.UTF_8)));
     }
 
     // -- INTERVIEW CACHE
@@ -125,7 +134,7 @@ public record BlobStoreClient(
     public InterviewSet24 interviewsCorrected(
             final SystemId systemId,
             final Can<Campaign.SecondaryKey> campaignKeys) {
-        return Campaigns.interviewSetCorrected(systemId, campaignKeys, DataUtil.correction(correctionYaml()), foodDescriptionModel(), blobStore);
+        return Campaigns.interviewSetCorrected(systemId, campaignKeys, correction(), foodDescriptionModel(), blobStore);
     }
 
     public void invalidateAllInterviewCaches() {
@@ -181,5 +190,7 @@ public record BlobStoreClient(
                 .asDataSource();
         return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
     }
+
+
 
 }

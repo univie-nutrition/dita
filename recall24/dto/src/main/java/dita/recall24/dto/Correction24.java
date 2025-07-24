@@ -47,6 +47,7 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
+import dita.commons.util.JoinUtils;
 import dita.commons.util.NumberUtils;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Consumption;
@@ -129,6 +130,12 @@ public record Correction24(
         return new Correction24(List.of(), List.of(), List.of());
     }
 
+    public boolean isEmpty() {
+        return respondents().isEmpty()
+                && foodByName().isEmpty()
+                && composites().isEmpty();
+    }
+
     // -- CONSTRUCTION
 
     public Correction24() {
@@ -150,6 +157,18 @@ public record Correction24(
     public static Try<Correction24> tryFromYaml(final String yaml) {
         return YamlUtils.tryRead(Correction24.class, yaml, FormatUtils.yamlOptions())
                 .mapSuccessAsNullable(corr->corr!=null?corr.sort():null);
+    }
+
+    // -- JOIN
+
+    public Correction24 join(final Correction24 other) {
+        if(other.isEmpty()) return this;
+        if(this.isEmpty()) return other;
+
+        return new Correction24(
+                JoinUtils.joinUnique(this.respondents(), other.respondents(), Comparator.comparing(RespondentCorr::alias)),
+                JoinUtils.joinUnique(this.foodByName(), other.foodByName(), Comparator.comparing(FoodByNameCorr::name)),
+                JoinUtils.joinUnique(this.composites(), other.composites(), Comparator.comparing(CompositeCorr::coordinates)));
     }
 
     // -- CORRECTION APPLICATION

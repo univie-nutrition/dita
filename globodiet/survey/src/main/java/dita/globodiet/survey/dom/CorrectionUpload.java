@@ -20,30 +20,42 @@ package dita.globodiet.survey.dom;
 
 import java.io.Serializable;
 
+import jakarta.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
+import org.apache.causeway.core.metamodel.context.MetaModelContext;
+import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
+import dita.commons.util.FormatUtils;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @DomainObjectLayout(
-        describedAs = "GloboDiet exported interview XML file.",
-        cssClassFa = "solid file .survey-color,\n"
-                        + "solid user .survey-color .ov-size-60 .ov-right-55 .ov-bottom-55\n"
+        describedAs = "Interview correction YAML file.",
+        cssClassFa = "solid users-viewfinder .campaign-color,\n"
+                + "solid broom .consumptionDataCleaner-color .ov-size-60 .ov-right-55 .ov-bottom-55"
 )
-public record InterviewUpload(
+public record CorrectionUpload(
         @PropertyLayout(hidden = Where.EVERYWHERE)
         NamedPath namedPath,
         @PropertyLayout(sequence = "2")
-        String sha256
+        String sha256,
+        @PropertyLayout(hidden = Where.EVERYWHERE)
+        Survey.SecondaryKey surveyKey
         ) implements Serializable {
 
-    static InterviewUpload of(final BlobDescriptor blobDescriptor) {
-        return new InterviewUpload(
+    static CorrectionUpload of(final BlobDescriptor blobDescriptor, final Survey.SecondaryKey surveyKey) {
+        return new CorrectionUpload(
                 blobDescriptor.path(),
-                blobDescriptor.attributes().getOrDefault("sha256", "n/a"));
+                blobDescriptor.attributes().getOrDefault("sha256", "n/a"),
+                surveyKey);
     }
 
     @ObjectSupport
@@ -54,6 +66,23 @@ public record InterviewUpload(
     @PropertyLayout(sequence = "1")
     public String getPath() {
         return namedPath.subPath(3).toString("/");
+    }
+
+    @PropertyLayout(sequence = "3", hidden = Where.ALL_TABLES)
+    public AsciiDoc getContent() {
+        return FormatUtils.adocSourceBlock("yaml", readYamlContent());
+    }
+
+    @Programmatic
+    public String readYamlContent() {
+        var surveyBlobStore = MetaModelContext.instanceElseFail().getServiceInjector().injectServicesInto(new BlobStoreHolder())
+                .surveyBlobStore;
+        var client = new BlobStoreClient(surveyKey, surveyBlobStore);
+        return client.correctionYaml(this);
+    }
+
+    static class BlobStoreHolder {
+        @Inject @Qualifier("survey") BlobStore surveyBlobStore;
     }
 
 }

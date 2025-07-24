@@ -21,9 +21,9 @@ package dita.commons.util;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
 
-import io.github.causewaystuff.commons.base.types.NamedPath;
-
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.value.Blob;
@@ -31,8 +31,9 @@ import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.ZipUtils;
 import org.apache.causeway.commons.io.ZipUtils.ZipOptions;
 
-import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
+
+import io.github.causewaystuff.commons.base.types.NamedPath;
 
 @UtilityClass
 public class BlobUtils {
@@ -75,11 +76,16 @@ public class BlobUtils {
                     });
     }
 
-    public Stream<Blob> unzipAsBlobStream(final @Nullable Blob blob, final @NonNull CommonMimeType filter) {
+    public Stream<Blob> unzipAsBlobStream(final @Nullable Blob blob, final @NonNull CommonMimeType mime) {
         return unzipAsBlobStream(blob, (final ZipOptions.ZipOptionsBuilder opts)->
                 opts.zipEntryFilter(zipEntry->!zipEntry.isDirectory()
-                        && zipEntry.getName().toLowerCase().endsWith(".xml")),
-                _->filter);
+                        && matches(zipEntry, mime)),
+                _->mime);
+    }
+
+    private boolean matches(final ZipEntry zipEntry, final CommonMimeType mime) {
+        return mime.getProposedFileExtensions().stream()
+                .anyMatch(zipEntry.getName().toLowerCase()::endsWith);
     }
 
 }
