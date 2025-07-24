@@ -18,9 +18,11 @@
  */
 package dita.commons.util;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.jspecify.annotations.Nullable;
 
@@ -29,9 +31,10 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JoinUtils {
 
+    /// always returns a new {@link ArrayList} (non-null)
     public <T> List<T> joinUnique(final @Nullable List<T> list1, final @Nullable List<T> list2, final Comparator<T> comparator) {
-        if(list1==null || list1.isEmpty()) return list2!=null ? list2 : List.of();
-        if(list2==null || list2.isEmpty()) return list1!=null ? list1 : List.of();
+        if(list1==null || list1.isEmpty()) return list2!=null ? new ArrayList<>(list2) : new ArrayList<>();
+        if(list2==null || list2.isEmpty()) return list1!=null ? new ArrayList<>(list1) : new ArrayList<>();
 
         final var seen = new TreeSet<T>(comparator);
 
@@ -44,6 +47,6 @@ public class JoinUtils {
                 throw new IllegalArgumentException("Duplicate found across lists: " + item);
         }
 
-        return seen.stream().toList();
+        return seen.stream().collect(Collectors.toCollection(ArrayList::new));
     }
 }
