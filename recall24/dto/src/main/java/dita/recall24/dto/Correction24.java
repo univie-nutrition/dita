@@ -30,6 +30,8 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -130,6 +132,7 @@ public record Correction24(
         return new Correction24(List.of(), List.of(), List.of());
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return respondents().isEmpty()
                 && foodByName().isEmpty()
