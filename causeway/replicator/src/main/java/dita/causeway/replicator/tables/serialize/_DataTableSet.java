@@ -319,7 +319,7 @@ class _DataTableSet {
                 .forEach(IndexedConsumer.offset(1, (index, pojo)->{
 
                     //TODO this will fail with a "Error preallocating sequence numbers.  The sequence table information is not complete."
-                    //This magically worked with JDO but no  longer with JAP, since we have id fields on our entities, but the target DB does not.
+                    //This magically worked with JDO but no longer with JPA, since we have id fields on our entities, but the target DB does not.
                     em.persist(pojo);
 
                     // report progress to console
