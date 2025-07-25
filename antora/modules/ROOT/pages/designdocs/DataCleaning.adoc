@@ -5,8 +5,8 @@ Typically with surveys, data will be entered incorrectly by interviewers
 or issues with recipes are discovered only *after* interviews had been conducted.
 Hence it is likely that respondent and consumption data will need correction as a post processing step.
 
-Dita implements an interview-set transformer, that corrects interview data based on uploaded correction files.
-Those correction files have following basic structure:
+_Dita_ implements an interview-set transformer, that corrects interview data based on uploaded correction files.
+Those correction files have following structure:
 
 [plantuml,fig-corr-overview,svg]
 .Correction24
@@ -70,17 +70,24 @@ CompositeCorr --> "*" Deletion: deletions
 ----
 
 [source,yaml]
-.Correction YAML
+.Correction YAML basic structure
 ----
 respondents:
 - alias: "EB_9999"
   #...
+# and so on ...  
 foodByName:
 - name: "Maiswaffeln"
   sid: "at.gd/2.0:food/02423"
+# and so on ...  
 composites:
-- sid: "EB_9999"
-  #...
+- coordinates:
+    #...
+  deletions:
+    #...
+  additions:
+    #...
+# and so on ...    
 ----
 
 == Respondent Correction
