@@ -7,7 +7,7 @@
 ** xref:designdocs/CampaignManager.adoc[Campaign Manager]
 ** xref:designdocs/ConsumptionReporting.adoc[Consumption Reporting]
 ** xref:designdocs/NutrientMapping.adoc[Nutrient Mapping (Draft)]
-** xref:designdocs/DataCleaning.adoc[DataCleaning (Draft)]
+** xref:designdocs/DataCleaning.adoc[DataCleaning]
 ** xref:designdocs/OntologyTermAndAnnotations.adoc[Ontology Term And Annotations (Draft)]
 * xref:Modules.adoc[Modules]
 ** xref:modules/Commons.adoc[Commons]

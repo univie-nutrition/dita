@@ -1,120 +1,268 @@
-= Data Cleaning (Draft)
+= Data Cleaning
 :includedir: includes
 
-Typically with surveys, some issues with e.g. recipes are discovered only *after* interviews were made. 
-It is likely that consumption data will need some correction as post processing step.
+Typically with surveys, data will be entered incorrectly by interviewers 
+or issues with recipes are discovered only *after* interviews had been conducted.
+Hence it is likely that respondent and consumption data will need correction as a post processing step.
 
-== Consumption Cleaning
+Dita implements an interview-set transformer, that corrects interview data based on uploaded correction files.
+Those correction files have following basic structure:
 
-A `ConsumptionDataDefect` references a specific composite 
-and describes specifically what needs to be cleaned up.
-(e.g. due to recent recipe changes or corrections).
-
-A `ConsumptionDataCleaner` references a specific composite consumption within a survey, 
-which needs correction.
-
-[plantuml,fig-consumption-cleaning,svg]
-.Consumption Cleaning
+[plantuml,fig-corr-overview,svg]
+.Correction files
 ----
 @startuml
 
-class Survey {
+class Correction24 << (R,orchid) >> {
 }
 
-class Recipe {
+
+class RespondentCorr << (R,orchid) >> {
+    alias: String
+    withdraw: boolean
+    newAlias: String
+    dateOfBirth: LocalDate
+    sex: Sex
 }
 
-class Meal {
+enum Sex {
+    UNCLASSIFIED
+    MALE
+    FEMALE
 }
 
-class ConsumptionDataDefect {
-    version: int
-    .. Version of this defect. Newer (higher) versions override older ones.
-    --
+RespondentCorr --> Sex : sex
+
+class FoodByNameCorr << (R,orchid) >> {
     name: String
-    .. A short name that appears as title for this defect.
-    --
-    description: String
-    .. A summary describing what needs to be cleaned up.
-    --
-    instruction: String
-    .. YAML formatted instructions for the interview postprocessing logic.  
+    sid: SemanticIdentifier
 }
 
-class ConsumptionDataCleaningTodo {
-    version: int
-    .. Version of this cleaner. Newer (higher) versions override older ones.
-    --
+class CompositeCorr << (R,orchid) >> {
 }
 
-enum CleanerState {
-    OPEN
-    CLOSED
+class Coordinates << (R,orchid) >> {
+    sid: SemanticIdentifier
+    respondentId: String
+    interviewOrdinal: int
+    mealHourOfDay: LocalTime
+    source: NamedPath 
 }
 
-ConsumptionDataDefect --> Survey : survey
-ConsumptionDataDefect --> Recipe : recipe
+class Addition << (R,orchid) >> {
+    sid: SemanticIdentifier
+    amountGrams: BigDecimal
+    facets: SemanticIdentifierSet
+}
 
-ConsumptionDataCleaningTodo --> Survey : survey
-ConsumptionDataCleaningTodo --> Recipe : recipe
-ConsumptionDataCleaningTodo --> Meal : meal\n (ref. via protocol-source \nand meal ordinal)
-ConsumptionDataCleaningTodo --> CleanerState : state
+class Deletion << (R,orchid) >> {
+    sid: SemanticIdentifier
+}
+
+Correction24 --> "*" RespondentCorr: respondents
+Correction24 --> "*" FoodByNameCorr: foodByName
+Correction24 --> "*" CompositeCorr: composites
+CompositeCorr --> "1" Coordinates: coordinates
+CompositeCorr --> "*" Addition: additions
+CompositeCorr --> "*" Deletion: deletions
 
 @enduml
 ----
 
-[NOTE]
-====
-* ConsumptionDataCleaner needs a link to the _Consumption Record_.
-* Cleaning Tasks:
-** `UPDATE_AMOUNT` (changes the total amount)
-** `ADD_INGREDIENT` (keep total amount the same, and lookup facets from corrected recipe)
-** `DELETE_INGREDIENT` (keep total amount the same)
-** `REPLACE_INGREDIENT` (keep total amount the same, replace n by m)
-====
+[source,yaml]
+.Correction YAML
+----
+respondents:
+- alias: "EB_9999"
+  #...
+foodByName:
+- name: "Maiswaffeln"
+  sid: "at.gd/2.0:food/02423"
+composites:
+- sid: "EB_9999"
+  #...
+----
+
+== Respondent Correction
+
+Allows to correct defect data entered during interview such as the _Respondent-Id_, _Sex_ or _Date of Birth_.
+Also allows to remove interviews from respondents, that later wished to withdraw from the survey.
+
+[plantuml,fig-corr-resp,svg]
+.Correction files
+----
+@startuml
+
+class RespondentCorr << (R,orchid) >> {
+    alias: String
+    withdraw: boolean
+    newAlias: String
+    dateOfBirth: LocalDate
+    sex: Sex
+}
+
+enum Sex {
+    UNCLASSIFIED
+    MALE
+    FEMALE
+}
+
+RespondentCorr -> Sex : sex
+
+@enduml
+----
+
+Some examples:  
+
+[source,yaml]
+.Fixing respondent-id typo
+----
+respondents:
+- alias: "EB9999"
+  newAlias: "EB_9999"
+----
+
+[source,yaml]
+.Fixing respondent-data
+----
+respondents:
+- alias: "EB_9999"
+  dateOfBirth: 1999-11-22
+  sex: MALE
+----
+
+[source,yaml]
+.Respondent withdrawal
+----
+respondents:
+- alias: "EB_9999"
+  withdraw: true
+----
+
+== Consumption Correction
+
+=== Food
+
+Correcting food consumptions, that have no identifier, only a name.
+
+[plantuml,fig-corr-foodbyname,svg]
+.Food by name
+----
+@startuml
+
+class FoodByNameCorr << (R,orchid) >> {
+    name: String
+    sid: SemanticIdentifier
+}
+
+@enduml
+----
+
+[source,yaml]
+.Fixes food with missing identifier (having a name but no sid)
+----
+foodByName:
+- name: "Maiswaffeln"
+  sid: "at.gd/2.0:food/02423"
+----
+
+=== Composite
+
+Correction of composite consumptions fundamentally supports 2 changes:
+
+* *ADD* Ingredient: 
+** requires identifier (`sid`) of food to add
+** requires `amountGrams` of food to add
+** requires `facets` of food to add
+* *DELETE* Ingredient: 
+** requires identifier (_sid_) of food to remove
+
+After those changes are applied, all the ingredient amounts are recalculated 
+such that the composite's total amount consumed stays the same (as compared to before the correction). 
+
+[plantuml,fig-corr-comp,svg]
+.Composites
+----
+@startuml
+
+class CompositeCorr << (R,orchid) >> {
+}
+
+class Coordinates << (R,orchid) >> {
+    sid: SemanticIdentifier
+    respondentId: String
+    interviewOrdinal: int
+    mealHourOfDay: LocalTime
+    source: NamedPath 
+}
+
+class Addition << (R,orchid) >> {
+    sid: SemanticIdentifier
+    amountGrams: BigDecimal
+    facets: SemanticIdentifierSet
+}
+
+class Deletion << (R,orchid) >> {
+    sid: SemanticIdentifier
+}
+
+CompositeCorr --> "1" Coordinates: coordinates
+CompositeCorr --> "*" Addition: additions
+CompositeCorr --> "*" Deletion: deletions
+
+@enduml
+----
+
+[source,yaml]
+.Fixes a composite consumption by deleting and adding specific ingredients
+----
+composites:
+- coordinates: 
+    sid: "at.gd/2.0:recp/00514"
+    respondentId: "EB_9999"
+    interviewOrdinal: 1
+    mealHourOfDay: "13:00:00"
+    source: "wave1/Interview-12345.xml"
+  deletions: 
+    # DELETE    food/02280 Fond, Fleisch {assocRecp=465} 413.56g (82.71%)
+  - sid: SID[at.gd/2.0:food/02280]
+  additions: 
+    # ADD food/01399 Wasser, Leitung 302,72g
+  - sid: "at.gd/2.0:food/01399"
+    amountGrams:  302.72
+    facets: ""
+    # ADD food/01581 Streuwürze 6,05g
+  - sid: "at.gd/2.0:food/01581"
+    amountGrams:  6.05
+    facets: ""
+----
 
 == Consumption Identification
 
-Consumption entries have no identifier per-se, so we need to address specific entries that need corrections
-using 2 steps:
-
-. Given a respondent alias and a consumption date, a specific interview file can be identified.
-. Given a specific interview file we can locate a contained consumption record using its ordinal within the interview.
-
-On creation of such a `ConsumptionFileAddress` we should also track the interview file version using a hash (e.g. SHA256),
-such that we can protect against upstream changes of the file in question.
-
-Corrections are either adding a new consumption entry or deleting an existing consumption entry 
-or changing the amount of an existing consumption entry.
-
-[plantuml,fig-cons-corr,svg]
-.Consumption Correction
+[plantuml,fig-corr-coors,svg]
+.Coordinates
 ----
 @startuml
 
-class ConsumptionFileAddress << (R,orchid) >> {
-    respondentId: String 
-    consumptionDate: LocalDate
-    sha256: String
+class Coordinates << (R,orchid) >> {
+    sid: SemanticIdentifier
+    respondentId: String
+    interviewOrdinal: int
+    mealHourOfDay: LocalTime
+    source: NamedPath 
 }
-
-class ConsumptionRecordAddress << (R,orchid) >> {
-    consumptionOrdinal: int
-}
-
-class ConsumptionCorrection << (R,orchid) >> {
-    change: String
-}
-
-enum TypeOfChange {
-    UPDATE_AMOUNT
-    ADD_INGREDIENT
-    DELETE_INGREDIENT
-}
-
-ConsumptionRecordAddress -> ConsumptionFileAddress : fileAddress
-ConsumptionCorrection --> ConsumptionRecordAddress : recordAddress
-ConsumptionCorrection -> TypeOfChange : typeOfChange
 
 @enduml
 ----
+
+Consumption entries have no identifier per-se, so we use multiple *coordinates* to narrow down specific entries:
+
+* `sid`: SemanticIdentifier of the recipe in question
+* `respondentId`
+* `interviewOrdinal`
+* `mealHourOfDay`
+* `source`: path of the interview source file in question
+
+NOTE: Special care needs to be taken when uploading new interview data, 
+as this may render those coordinates invalid. It may also render any of the above corrections invalid!
+
