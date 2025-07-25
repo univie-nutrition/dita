@@ -9,7 +9,7 @@ Dita implements an interview-set transformer, that corrects interview data based
 Those correction files have following basic structure:
 
 [plantuml,fig-corr-overview,svg]
-.Correction files
+.Correction24
 ----
 @startuml
 
@@ -89,7 +89,7 @@ Allows to correct defect data entered during interview such as the _Respondent-I
 Also allows to remove interviews from respondents, that later wished to withdraw from the survey.
 
 [plantuml,fig-corr-resp,svg]
-.Correction files
+.Respondent correction
 ----
 @startuml
 
@@ -146,7 +146,7 @@ respondents:
 Correcting food consumptions, that have no identifier, only a name.
 
 [plantuml,fig-corr-foodbyname,svg]
-.Food by name
+.Food by name correction
 ----
 @startuml
 
@@ -181,7 +181,7 @@ After those changes are applied, all the ingredient amounts are recalculated
 such that the composite's total amount consumed stays the same (as compared to before the correction). 
 
 [plantuml,fig-corr-comp,svg]
-.Composites
+.Composite correction
 ----
 @startuml
 
@@ -240,7 +240,7 @@ composites:
 == Consumption Identification
 
 [plantuml,fig-corr-coors,svg]
-.Coordinates
+.Composite coordinates
 ----
 @startuml
 
@@ -266,3 +266,36 @@ Consumption entries have no identifier per-se, so we use multiple *coordinates* 
 NOTE: Special care needs to be taken when uploading new interview data, 
 as this may render those coordinates invalid. It may also render any of the above corrections invalid!
 
+== Working with multiple Correction Files
+
+Multiple correction files can be uploaded each representing a `Correction24` data structure. 
+_Dita_ automatically collects these into a single `Correction24` object for interview data post processing.
+
+Here are some templates:
+
+[source,yaml]
+.only correcting respondents
+----
+respondents:
+- alias: "EB_9999"
+  #...
+# and so on ...
+foodByName: []
+composites: []
+----
+
+[source,yaml]
+.only correcting composite consumptions
+----
+respondents: []
+foodByName: []
+composites:
+- coordinates:
+    #...
+  deletions:
+    #...
+  additions:
+    #...
+# and so on ...     
+----
+  
