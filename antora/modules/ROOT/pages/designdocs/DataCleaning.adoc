@@ -13,16 +13,17 @@ Those correction files have following structure:
 ----
 @startuml
 
+hide empty fields
+hide empty methods
+
 class Correction24 << (R,orchid) >> {
 }
-
 
 class RespondentCorr << (R,orchid) >> {
     alias: String
     withdraw: boolean
     newAlias: String
     dateOfBirth: LocalDate
-    sex: Sex
 }
 
 enum Sex {
@@ -100,12 +101,14 @@ Also allows to remove interviews from respondents, that later wished to withdraw
 ----
 @startuml
 
+hide empty fields
+hide empty methods
+
 class RespondentCorr << (R,orchid) >> {
     alias: String
     withdraw: boolean
     newAlias: String
     dateOfBirth: LocalDate
-    sex: Sex
 }
 
 enum Sex {
@@ -157,6 +160,9 @@ Correcting food consumptions, that have no identifier, only a name.
 ----
 @startuml
 
+hide empty fields
+hide empty methods
+
 class FoodByNameCorr << (R,orchid) >> {
     name: String
     sid: SemanticIdentifier
@@ -191,6 +197,9 @@ such that the composite's total amount consumed stays the same (as compared to b
 .Composite correction
 ----
 @startuml
+
+hide empty fields
+hide empty methods
 
 class CompositeCorr << (R,orchid) >> {
 }
@@ -250,6 +259,9 @@ composites:
 .Composite coordinates
 ----
 @startuml
+
+hide empty fields
+hide empty methods
 
 class Coordinates << (R,orchid) >> {
     sid: SemanticIdentifier
