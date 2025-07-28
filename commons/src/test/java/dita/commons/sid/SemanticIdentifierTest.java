@@ -42,7 +42,7 @@ class SemanticIdentifierTest {
                 "SID[global:none]"),
         FULL_SID("de.bls", "3.02", "component", "GCAL",
                 "SID[de.bls/3.02:component/GCAL]"),
-        BRAND("global", null, "brand",
+        BRAND("", null, "brand",
                 """
                 &^?zu`rüc'k "zu",/ karlovačko!""",
                 "SID[:brand/"

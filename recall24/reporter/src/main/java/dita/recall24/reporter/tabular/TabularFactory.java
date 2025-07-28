@@ -66,13 +66,14 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
                 dc.columnDescription().orElse(""));
     }
 
-    //de.literal:name/‹..›
-    private final static SemanticIdentifier.SystemId literalDe = new SemanticIdentifier.SystemId("de.literal");
+    //de:literal/‹..›
+    private final static SemanticIdentifier.SystemId systemDe = new SemanticIdentifier.SystemId("de");
 
     private TabularModel.TabularColumn tabularColumn(final int index, final FoodComponent comp) {
 
         var description = comp.attributes().elements().stream()
-                .filter(attr->attr.systemId().equals(literalDe))
+                .filter(attr->attr.systemId().equals(systemDe)
+                        && attr.objectId().context().equals("literal"))
                 .findFirst()
                 .map(attr->attr.objectId().objectSimpleId())
                 .orElse("no description");

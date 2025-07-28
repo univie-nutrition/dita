@@ -36,6 +36,7 @@ import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.types.LanguageId;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
 import dita.foodon.fdm.FdmUtils;
@@ -55,7 +56,6 @@ import dita.globodiet.params.setting.FoodConsumptionOccasion;
 import dita.globodiet.params.setting.PlaceOfConsumption;
 import dita.globodiet.params.setting.SpecialDayPredefinedAnswer;
 import dita.globodiet.params.setting.SpecialDietPredefinedAnswer;
-import dita.globodiet.survey.util.SidUtils;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsExportService")
@@ -118,7 +118,7 @@ public class VersionsExportService {
 
         var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
 
-        var qMapFactory = new QMapFactory(SystemId.parse(parameterDataVersion.getSystemId()), SidUtils.languageQualifier("de"), tabularData);
+        var qMapFactory = new DMapFactory(SystemId.parse(parameterDataVersion.getSystemId()), LanguageId.DE, tabularData);
         var entryBuilder = qMapFactory.createZipOfYamls();
 
         return Blob.of("qmaps-export", CommonMimeType.ZIP, entryBuilder.toBytes());

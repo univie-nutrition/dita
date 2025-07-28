@@ -30,8 +30,9 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.dmap.DirectMap;
+import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
@@ -52,15 +53,15 @@ public record BlobStoreClient(
         FCDB(CommonMimeType.YAML, Compression.SEVEN_ZIP,
                 root->root.add("fcdb").add("fcdb.yaml")),
         QMAP_NUT(CommonMimeType.YAML, Compression.SEVEN_ZIP,
-                root->root.add("qmap").add("nut.yaml")),
-        QMAP_FCO(CommonMimeType.YAML, Compression.NONE,
-                root->root.add("qmap").add("fco.yaml")),
-        QMAP_POC(CommonMimeType.YAML, Compression.NONE,
-                root->root.add("qmap").add("poc.yaml")),
-        QMAP_SDAY(CommonMimeType.YAML, Compression.NONE,
-                root->root.add("qmap").add("sday.yaml")),
-        QMAP_SDIET(CommonMimeType.YAML, Compression.NONE,
-                root->root.add("qmap").add("sdiet.yaml")),
+                root->root.add("maps").add("nut.yaml")),
+        DMAP_FCO(CommonMimeType.YAML, Compression.NONE,
+                root->root.add("maps").add("fco.yaml")),
+        DMAP_POC(CommonMimeType.YAML, Compression.NONE,
+                root->root.add("maps").add("poc.yaml")),
+        DMAP_SDAY(CommonMimeType.YAML, Compression.NONE,
+                root->root.add("maps").add("sday.yaml")),
+        DMAP_SDIET(CommonMimeType.YAML, Compression.NONE,
+                root->root.add("maps").add("sdiet.yaml")),
         FDM(CommonMimeType.YAML, Compression.SEVEN_ZIP,
                 root->root.add("fdm").add("fdm.yaml")),
         CORRECTIONS(CommonMimeType.YAML, Compression.NONE,
@@ -159,20 +160,20 @@ public record BlobStoreClient(
         return loadQmap(DataSourceLocation.QMAP_NUT);
     }
 
-    public QualifiedMap fcoMapping() {
-        return loadQmap(DataSourceLocation.QMAP_FCO);
+    public DirectMap fcoMapping() {
+        return loadDmap(DataSourceLocation.DMAP_FCO);
     }
 
-    public QualifiedMap pocMapping() {
-        return loadQmap(DataSourceLocation.QMAP_POC);
+    public DirectMap pocMapping() {
+        return loadDmap(DataSourceLocation.DMAP_POC);
     }
 
-    public QualifiedMap specialDayMapping() {
-        return loadQmap(DataSourceLocation.QMAP_SDAY);
+    public DirectMap specialDayMapping() {
+        return loadDmap(DataSourceLocation.DMAP_SDAY);
     }
 
-    public QualifiedMap specialDietMapping() {
-        return loadQmap(DataSourceLocation.QMAP_SDIET);
+    public DirectMap specialDietMapping() {
+        return loadDmap(DataSourceLocation.DMAP_SDIET);
     }
 
     public FoodDescriptionModel foodDescriptionModel() {
@@ -184,13 +185,18 @@ public record BlobStoreClient(
 
     // -- HELPER
 
+    private DirectMap loadDmap(final DataSourceLocation loc) {
+        var mapDataSource = lookupBlobAndUncompress(loc)
+                .orElseThrow()
+                .asDataSource();
+        return DirectMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
+    }
+
     private QualifiedMap loadQmap(final DataSourceLocation loc) {
         var mapDataSource = lookupBlobAndUncompress(loc)
                 .orElseThrow()
                 .asDataSource();
         return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
     }
-
-
 
 }

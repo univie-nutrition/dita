@@ -40,7 +40,6 @@ import org.apache.causeway.commons.io.DataSink;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.util.FormatUtils;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.reporter.format.TodoFormat;
 import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
@@ -103,7 +102,6 @@ public class Survey_downloadMappingTodos {
 
         var tabularReport = new TabularReport(
             reportContext.interviewSet(), Surveys.systemId(mixee),
-            SidUtils.languageQualifier("de"),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),
             reportContext.fcoMapping(),

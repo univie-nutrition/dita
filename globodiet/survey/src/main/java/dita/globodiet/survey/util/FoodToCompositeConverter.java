@@ -20,19 +20,20 @@ package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
 
-import org.apache.causeway.commons.collections.Can;
-
 import org.jspecify.annotations.NonNull;
+
+import org.apache.causeway.commons.collections.Can;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
-import dita.recall24.dto.Annotated;
 
 public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescriptionModel) {
 
@@ -82,12 +83,12 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
 
     private SemanticIdentifier foodGroupSid(final FoodDescriptionModel.Food food) {
         return food.groupSid()
-                .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.FOOD_GROUP.id()));
+                .mapObjectId(o->o.mapContext(_->ObjectId.Context.FOOD_GROUP.id()));
     }
 
     private SemanticIdentifier recipeGroupSid(final FoodDescriptionModel.Recipe recipe) {
         return recipe.groupSid()
-                .mapObjectId(o->o.mapContext(_->SidUtils.GdContext.RECIPE_GROUP.id()));
+                .mapObjectId(o->o.mapContext(_->ObjectId.Context.RECIPE_GROUP.id()));
     }
 
     private Record24.Comment origFoodAsComment(final Food origFood) {

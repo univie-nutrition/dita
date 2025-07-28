@@ -29,27 +29,26 @@ import org.apache.causeway.commons.tabular.TabularModel.TabularColumn;
 import org.apache.causeway.commons.tabular.TabularModel.TabularRow;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
 
-import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.dmap.DirectMap;
+import dita.commons.sid.dmap.DirectMapEntry;
 
 record CodeHelper(
         SystemId systemId,
         String context,
         String friendlyName,
-        SemanticIdentifierSet languageQualifier,
-        QualifiedMap qMap) {
+        DirectMap dMap) {
 
     public SemanticIdentifier code(final String nativeCode) {
         return new SemanticIdentifier(systemId, new ObjectId(context, nativeCode));
     }
 
     public Object label(final SemanticIdentifier code) {
-        return qMap.lookupEntry(code, languageQualifier)
-                .map(QualifiedMapEntry::target)
+        return dMap.lookupEntry(code)
+                .map(DirectMapEntry::target)
                 .map(SemanticIdentifier::objectId)
                 .map(ObjectId::objectSimpleId)
                 .orElse("?");
@@ -73,7 +72,7 @@ record CodeHelper(
                     [context]/[object-id]"""),
                 new TabularColumn(1, "Description", "Literal in native language"));
 
-        Can<TabularRow> rows = qMap.streamEntries()
+        Can<TabularRow> rows = dMap.streamEntries()
                 .sorted((a, b)->a.source().compareTo(b.source()))
                 .map(this::toCells)
                 .map(TabularRow::new)
@@ -82,10 +81,10 @@ record CodeHelper(
         return new TabularModel.TabularSheet(friendlyName, columns, rows);
     }
 
-    private Can<TabularCell> toCells(final QualifiedMapEntry qMapEntry) {
+    private Can<TabularCell> toCells(final DirectMapEntry dMapEntry) {
         return Can.of(
-                TabularCell.single(qMapEntry.source().toStringNoBox()),
-                TabularCell.single(qMapEntry.target().objectId().objectSimpleId()));
+                TabularCell.single(dMapEntry.source().toStringNoBox()),
+                TabularCell.single(dMapEntry.target().objectId().objectSimpleId()));
     }
 
 }

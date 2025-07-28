@@ -25,8 +25,9 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.dmap.DirectMap;
+import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
 import dita.globodiet.survey.util.IngredientToRecipeResolver;
@@ -37,17 +38,17 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 public record ReportContext(
     FoodCompositionRepository foodCompositionRepository,
     FoodDescriptionModel foodDescriptionModel,
-    QualifiedMap specialDayMapping,
-    QualifiedMap specialDietMapping,
-    QualifiedMap fcoMapping,
-    QualifiedMap pocMapping,
+    DirectMap specialDayMapping,
+    DirectMap specialDietMapping,
+    DirectMap fcoMapping,
+    DirectMap pocMapping,
     QualifiedMap nutMapping,
     InterviewSet24 interviewSet) {
 
     public static ReportContext empty() {
         return new ReportContext(FoodCompositionRepository.empty(), FoodDescriptionModel.empty(),
-            QualifiedMap.empty(), QualifiedMap.empty(), QualifiedMap.empty(),
-            QualifiedMap.empty(), QualifiedMap.empty(),
+            DirectMap.empty(), DirectMap.empty(), DirectMap.empty(),
+            DirectMap.empty(), QualifiedMap.empty(),
             InterviewSet24.empty());
     }
 

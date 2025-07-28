@@ -16,13 +16,13 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.qmap;
+package dita.commons.sid.qmap;
 
 import java.util.function.UnaryOperator;
 
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 
 /**
  * A Qualified Map Entry relates a data object from one system to another,

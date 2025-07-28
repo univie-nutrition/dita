@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.qmap;
+package dita.commons.sid.qmap;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -35,9 +35,9 @@ import org.apache.causeway.commons.io.DataSource;
 import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import dita.commons.qmap.Dtos.QualifiedMapDto;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.Dtos.QualifiedMapDto;
 
 /**
  * A Qualified Map relates data objects from one system to another,

@@ -48,9 +48,9 @@ import lombok.experimental.Accessors;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.recall24.dto.Annotated.Annotation;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 

@@ -157,23 +157,20 @@ public record SemanticIdentifier (
 
         /**
          * Some predefined contexts.
-         * @implSpec system-agnostic come first, that allows for optimization of
-         *      {@link Context#isSystemAgnostic(ObjectId)}
          */
         @RequiredArgsConstructor
         public enum Context {
-            LANGUAGE("language", true),
-            LITERAL("literal", true),
-            BRAND("brand", true),
+            BRAND("brand"),
             COMPONENT("comp"),
             RECIPE("recp"),
             FOOD("food"),
-            ;
-            Context(final String id){ this(id, false); }
+            FOOD_DESCRIPTOR("fd"),
+            RECIPE_DESCRIPTOR("rd"),
+            FOOD_GROUP("fg"),
+            RECIPE_GROUP("rg");
+
             @Getter @Accessors(fluent=true)
             final String id;
-            @Getter
-            final boolean systemAgnostic;
             // -- FACTORIES
             public ObjectId objectId(final String objectSimpleId) {
                 return new ObjectId(id(), objectSimpleId);
@@ -183,13 +180,6 @@ public record SemanticIdentifier (
             }
             public SemanticIdentifier sid(final SystemId systemId, final String objectSimpleId) {
                 return new SemanticIdentifier(systemId, objectId(objectSimpleId));
-            }
-            static boolean isSystemAgnostic(@NonNull final ObjectId objectId) {
-                for(var context : Context.values()) {
-                    if(!context.isSystemAgnostic()) return false;
-                    if(context.id().equals(objectId.context())) return true;
-                }
-                return false;
             }
             public boolean matches(@Nullable final String contextId) {
                 return id().equals(contextId);
@@ -306,11 +296,6 @@ public record SemanticIdentifier (
         return new SemanticIdentifier(SystemId.empty(), ObjectId.wip());
     }
 
-    @Deprecated // inconsistent with dita.recall24.reporter.tabular.TabularFactory#literalDe
-    public static SemanticIdentifier literal(final String literal) {
-        return ObjectId.Context.LITERAL.sid(literal);
-    }
-
     public static SemanticIdentifier parse(final String systemId, final String objectId) {
         return new SemanticIdentifier(SystemId.parse(systemId), ObjectId.parse(objectId));
     }
@@ -330,9 +315,7 @@ public record SemanticIdentifier (
     public SemanticIdentifier(
             @NonNull final SystemId systemId,
             @NonNull final ObjectId objectId) {
-        this.systemId = ObjectId.Context.isSystemAgnostic(objectId)
-                ? SystemId.empty()
-                : systemId;
+        this.systemId = systemId;
         this.objectId = objectId;
     }
 

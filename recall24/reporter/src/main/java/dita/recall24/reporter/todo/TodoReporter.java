@@ -5,9 +5,9 @@ import java.util.TreeSet;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 
-import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.qmap.QualifiedMap;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;

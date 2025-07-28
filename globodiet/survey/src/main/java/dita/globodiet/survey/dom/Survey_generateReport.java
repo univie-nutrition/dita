@@ -42,7 +42,6 @@ import lombok.RequiredArgsConstructor;
 import dita.commons.util.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.reporter.format.XlsxFormat;
 import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
@@ -85,7 +84,6 @@ public class Survey_generateReport {
 
         var tabularReport = new TabularReport(
             reportContext.interviewSet(), Surveys.systemId(mixee),
-            SidUtils.languageQualifier("de"),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),
             reportContext.fcoMapping(),

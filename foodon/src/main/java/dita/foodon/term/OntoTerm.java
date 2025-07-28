@@ -49,10 +49,10 @@ public record OntoTerm(
             @Nullable final OntoTerm parent,
             final SemanticIdentifier termId,
             final String name) {
-        this(   termId,
-                parent!=null ? ObjectRef.of(parent) : ObjectRef.empty(),
-                new ArrayList<>(),
-                name);
+        this(termId,
+            parent!=null ? ObjectRef.of(parent) : ObjectRef.empty(),
+            new ArrayList<>(),
+            name);
         if(parent!=null) {
             parent.narrowed.add(this);
         }

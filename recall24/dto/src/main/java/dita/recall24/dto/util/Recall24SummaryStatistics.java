@@ -27,10 +27,10 @@ import java.util.stream.Stream;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
-import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMapEntry;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 

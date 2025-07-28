@@ -36,10 +36,10 @@ import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.food.consumption.FoodConsumptionWithComposition;
-import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMapEntry;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMap;
+import dita.commons.sid.qmap.QualifiedMapEntry;
 
 class FoodTest {
 

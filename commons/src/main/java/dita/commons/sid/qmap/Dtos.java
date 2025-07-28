@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.commons.qmap;
+package dita.commons.sid.qmap;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,9 +33,9 @@ import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
-import dita.commons.qmap.QualifiedMap.Policy;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMap.Policy;
 import dita.commons.util.FormatUtils;
 
 @UtilityClass

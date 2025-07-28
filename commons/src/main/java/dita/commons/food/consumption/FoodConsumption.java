@@ -24,10 +24,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-import dita.commons.qmap.QualifiedMap;
-import dita.commons.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMap;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.util.NumberUtils;
 import tech.units.indriya.internal.function.Calculator;
 

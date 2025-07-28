@@ -20,11 +20,11 @@ package dita.globodiet.survey.util;
 
 import org.jspecify.annotations.NonNull;
 
-import dita.commons.qmap.QualifiedMap;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
+import dita.commons.sid.qmap.QualifiedMap;
 import dita.recall24.dto.Annotated;
 
 public record QualifiedMappingResolver(

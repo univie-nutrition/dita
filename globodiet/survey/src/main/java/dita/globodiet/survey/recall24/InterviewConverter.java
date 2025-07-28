@@ -23,7 +23,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -48,7 +47,6 @@ import dita.globodiet.survey.recall24._Dtos.Interview.ListEntryTreeNode;
 import dita.globodiet.survey.recall24._Dtos.ListEntry;
 import dita.globodiet.survey.recall24._Dtos.ListEntry.ListEntryType;
 import dita.globodiet.survey.recall24._Dtos.Note;
-import dita.globodiet.survey.util.SidUtils;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.Meal24;
@@ -139,7 +137,7 @@ record InterviewConverter(SystemId systemId) {
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
                 toRecords24(contextForScanning, subEntries),
-                Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
+                Can.of(group(ObjectId.Context.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
                 );
 
             var notesAsLines = notes(listEntry);
@@ -192,7 +190,7 @@ record InterviewConverter(SystemId systemId) {
                     recipeSid(listEntry),
                     recipeFacets(listEntry),
                     toRecords24(contextForScanning, subEntries),
-                    Can.of(group(SidUtils.GdContext.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
+                    Can.of(group(ObjectId.Context.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
                     );
             }
             case Food, FoodSelectedAsARecipeIngredient -> {
@@ -210,7 +208,7 @@ record InterviewConverter(SystemId systemId) {
                     listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                     listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawToCookedCoefficient(),
                     usedDuringCooking,
-                    Can.of(group(SidUtils.GdContext.FOOD_GROUP, listEntry)));
+                    Can.of(group(ObjectId.Context.FOOD_GROUP, listEntry)));
             }
             case FatDuringCookingForFood, FatDuringCookingForIngredient -> {
                 _Assert.assertEquals(0, subRecordCount, ()->"'fryingFat' record is expected to have no sub-records");
@@ -272,7 +270,7 @@ record InterviewConverter(SystemId systemId) {
         return LocalTime.of(Integer.parseInt(hh), Integer.parseInt(mm));
     }
 
-    private Annotated.Annotation group(final SidUtils.GdContext context, final ListEntry listEntry) {
+    private Annotated.Annotation group(final ObjectId.Context context, final ListEntry listEntry) {
         var groupSimpleId = FormatUtils.concat(
                 listEntry.getGroupCode(),
                 listEntry.getSubgroupCode(),
@@ -281,31 +279,6 @@ record InterviewConverter(SystemId systemId) {
                 .sid(systemId, groupSimpleId));
     }
 
-    private static Set<String> recipeIdsOfInterest = Set.of(
-        "00536",
-        "00537",
-        "00539",
-        "00540",
-        "00469",
-        "00514",
-        "00472",
-        "00473",
-        "00474",
-        "00513",
-        "00477",
-        "00478",
-        "00470",
-        "00301",
-        "00515",
-        "00521",
-        "00362",
-        "00647",
-        "00512",
-        "00516",
-        "00510",
-        "00511",
-        "00466");
-
     private Annotated.Annotation modification(final ContextForScanning contextForScanning, final ListEntry listEntry) {
         var isModified =
             (listEntry.getRecipeModificationType()
@@ -313,10 +286,7 @@ record InterviewConverter(SystemId systemId) {
 
         var id = listEntry.getFoodOrSimilarCode();
         if(StringUtils.hasLength(id)) {
-            if(recipeIdsOfInterest.contains(id)) {
-                System.err.printf("%s type=%s, id=%s, modified=%b%n",
-                    contextForScanning, listEntry.listEntryType(), listEntry.getFoodOrSimilarCode(), isModified);
-            }
+
         } else {
             if(!"4.1".equals(listEntry.getRecipeType())
                 &&!"4.2".equals(listEntry.getRecipeType())) {
@@ -336,12 +306,12 @@ record InterviewConverter(SystemId systemId) {
     }
 
     private SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
-        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(SidUtils.GdContext.FOOD_DESCRIPTOR, listEntry)
+        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.FOOD_DESCRIPTOR, listEntry)
                 .map(objectId->new SemanticIdentifier(systemId, objectId)));
     }
 
     private SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
-        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(SidUtils.GdContext.RECIPE_DESCRIPTOR, listEntry)
+        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.RECIPE_DESCRIPTOR, listEntry)
                 .map(objectId->new SemanticIdentifier(systemId, objectId)));
     }
 
@@ -349,7 +319,7 @@ record InterviewConverter(SystemId systemId) {
      * includes brand name, if any
      */
     private static Stream<ObjectId> streamFacetObjectIds(
-            final SidUtils.@Nullable GdContext context,
+            final ObjectId.@Nullable Context context,
             final ListEntry listEntry) {
         return Stream.concat(
                 _Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")

@@ -41,11 +41,10 @@ import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.food.consumption.FoodConsumption;
-import dita.commons.qmap.QualifiedMap;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
-import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.dmap.DirectMap;
 import dita.commons.types.DecimalVector;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
@@ -110,11 +109,10 @@ public record TabularReport(
             final InterviewSet24 interviewSet,
             final SystemId systemId,
 
-            final SemanticIdentifierSet languageQualifier,
-            final QualifiedMap specialDayMapping,
-            final QualifiedMap specialDietMapping,
-            final QualifiedMap fcoMapping,
-            final QualifiedMap pocMapping,
+            final DirectMap specialDayMapping,
+            final DirectMap specialDietMapping,
+            final DirectMap fcoMapping,
+            final DirectMap pocMapping,
             final FoodDescriptionModel fdm,
 
             final FoodCompositionRepository foodCompositionRepo,
@@ -122,10 +120,10 @@ public record TabularReport(
             final Aggregation aggregation) {
 
         this(interviewSet, systemId,
-                new CodeHelper(systemId, "sday", "Special Day (sday)", languageQualifier, specialDayMapping),
-                new CodeHelper(systemId, "sdiet", "Special Diet (sdiet)", languageQualifier, specialDietMapping),
-                new CodeHelper(systemId, "fco", "Food Consumption Occasion (fco)", languageQualifier, fcoMapping),
-                new CodeHelper(systemId, "poc", "Place of Consumption (poc)", languageQualifier, pocMapping),
+                new CodeHelper(systemId, "sday", "Special Day (sday)", specialDayMapping),
+                new CodeHelper(systemId, "sdiet", "Special Diet (sdiet)", specialDietMapping),
+                new CodeHelper(systemId, "fco", "Food Consumption Occasion (fco)", fcoMapping),
+                new CodeHelper(systemId, "poc", "Place of Consumption (poc)", pocMapping),
                 fdm, foodCompositionRepo, foodComponents, aggregation);
     }
 
