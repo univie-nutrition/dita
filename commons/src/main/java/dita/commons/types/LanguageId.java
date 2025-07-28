@@ -18,6 +18,10 @@
  */
 package dita.commons.types;
 
+import java.util.Optional;
+
+import org.apache.causeway.commons.internal.base._NullSafe;
+
 public enum LanguageId {
     DE,
     EN;
@@ -25,4 +29,13 @@ public enum LanguageId {
     public String lowerCase() {
         return name().toLowerCase();
     }
+
+    public static Optional<LanguageId> parse(final String input) {
+        if(_NullSafe.size(input)!=2) return Optional.empty();
+        for(var id : LanguageId.values()) {
+            if(input.equalsIgnoreCase(id.name())) return Optional.of(id);
+        }
+        return Optional.empty();
+    }
+
 }

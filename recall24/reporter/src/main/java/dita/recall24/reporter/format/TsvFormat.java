@@ -18,12 +18,15 @@
  */
 package dita.recall24.reporter.format;
 
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.tabular.TabularModel;
 import org.apache.causeway.commons.tabular.TabularModel.TabularCell;
 import org.apache.causeway.commons.tabular.TabularModel.TabularColumn;
 import org.apache.causeway.commons.tabular.TabularModel.TabularSheet;
+
+import dita.commons.util.NumberUtils;
 
 /**
  * Writes a {@link TabularSheet} in tab-separated-values (TSV) format.
@@ -58,8 +61,13 @@ public record TsvFormat() {
         }
         return cell.eitherValueOrLabelSupplier()
             .fold(
-                obj->"" + obj,
+                obj->format(obj),
                 labels-> labels.get().collect(Collectors.joining("~")));
+    }
+
+    private String format(final Object obj) {
+        if(obj instanceof BigDecimal decimal) return NumberUtils.reducedPrecision(decimal, 3).toString();
+        return "" + obj;
     }
 
 }

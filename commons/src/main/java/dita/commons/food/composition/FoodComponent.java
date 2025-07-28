@@ -97,7 +97,7 @@ public record FoodComponent(
         }
 
     }
-    
+
     public String prefixedUnit() {
         return FormatUtils.prefixedUnit(this);
     }

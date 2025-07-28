@@ -19,10 +19,13 @@
 package dita.commons.sid;
 
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+
+import org.springframework.util.StringUtils;
 
 import org.apache.causeway.applib.annotation.Value;
 import org.apache.causeway.commons.internal.base._Strings;
@@ -31,6 +34,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+
+import dita.commons.types.LanguageId;
 
 /**
  * A Semantic Identifier references data objects across system boundaries.
@@ -109,6 +114,14 @@ public record SemanticIdentifier (
         }
         public SystemId mapVersion(final UnaryOperator<String> versionMapper) {
             return withVersion(versionMapper.apply(version()));
+        }
+
+        // -- LANGUAGE
+
+        public Optional<LanguageId> languageId() {
+            return StringUtils.hasLength(version())
+                ? Optional.empty()
+                : LanguageId.parse(system());
         }
 
         // -- CONTRACT

@@ -18,6 +18,10 @@
  */
 package dita.commons.sid;
 
+import java.util.Optional;
+
+import org.springframework.util.StringUtils;
+
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.LanguageId;
@@ -28,14 +32,15 @@ public record SidFactory(SystemId systemId) {
         return new SemanticIdentifier(systemId, objectId);
     }
 
-    /// `de:language`
-    public static SemanticIdentifier language(final LanguageId languageId) {
-        return new SemanticIdentifier(new SystemId(languageId.lowerCase(), null), new ObjectId("language"));
+    /// `de:Gurke`
+    public static Optional<SemanticIdentifier> literal(final LanguageId languageId, final String literal) {
+        return literal(languageId, null, literal);
     }
 
-    /// `de:literal/Gurke`
-    public static SemanticIdentifier literal(final LanguageId languageId, final String literal) {
-        return new SemanticIdentifier(new SystemId(languageId.lowerCase(), null), new ObjectId("literal", literal));
+    /// `de:name/Gurke`
+    public static Optional<SemanticIdentifier> literal(final LanguageId languageId, final String name, final String literal) {
+        if(!StringUtils.hasLength(literal)) return Optional.empty();
+        return Optional.of(new SemanticIdentifier(new SystemId(languageId.lowerCase(), null), new ObjectId(name, literal)));
     }
 
     public static SemanticIdentifier brand(final String objectSimpleId) {

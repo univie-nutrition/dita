@@ -82,7 +82,7 @@ record DMapFactory(
     private DirectMapEntry foodConsumptionOccasionFromRowData(final List<String> cellLiterals) {
         return new DirectMapEntry(
                 new SemanticIdentifier(systemId(), new ObjectId("fco", cellLiterals.get(4))),
-                SidFactory.literal(languageId, cellLiterals.get(0)));
+                SidFactory.literal(languageId, cellLiterals.get(0)).orElseThrow());
     }
 
     //    - dita.globodiet.params.setting.PlaceOfConsumption:
@@ -97,7 +97,7 @@ record DMapFactory(
     private DirectMapEntry placeOfConsumptionFromRowData(final List<String> cellLiterals) {
         return new DirectMapEntry(
                 new SemanticIdentifier(systemId(), new ObjectId("poc", cellLiterals.get(2))),
-                SidFactory.literal(languageId, cellLiterals.get(0)));
+                SidFactory.literal(languageId, cellLiterals.get(0)).orElseThrow());
     }
 
     //    - dita.globodiet.params.setting.SpecialDayPredefinedAnswer:
@@ -111,7 +111,7 @@ record DMapFactory(
     private DirectMapEntry specialDayPredefinedAnswerFromRowData(final List<String> cellLiterals) {
         return new DirectMapEntry(
                 new SemanticIdentifier(systemId(), new ObjectId("sday", cellLiterals.get(0))),
-                SidFactory.literal(languageId, cellLiterals.get(1)));
+                SidFactory.literal(languageId, cellLiterals.get(1)).orElseThrow());
     }
 
     //    - dita.globodiet.params.setting.SpecialDietPredefinedAnswer:
@@ -125,7 +125,7 @@ record DMapFactory(
     private DirectMapEntry specialDietPredefinedAnswerFromRowData(final List<String> cellLiterals) {
         return new DirectMapEntry(
                 new SemanticIdentifier(systemId(), new ObjectId("sdiet", cellLiterals.get(0))),
-                SidFactory.literal(languageId, cellLiterals.get(1)));
+                SidFactory.literal(languageId, cellLiterals.get(1)).orElseThrow());
     }
 
 }

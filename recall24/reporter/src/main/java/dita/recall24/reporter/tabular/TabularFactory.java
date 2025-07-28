@@ -32,7 +32,6 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 
 import dita.commons.food.composition.FoodComponent;
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.util.NumberUtils;
 import dita.recall24.reporter.dom.ConsumptionRecord;
 
@@ -66,14 +65,11 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
                 dc.columnDescription().orElse(""));
     }
 
-    //de:literal/‹..›
-    private final static SemanticIdentifier.SystemId systemDe = new SemanticIdentifier.SystemId("de");
-
     private TabularModel.TabularColumn tabularColumn(final int index, final FoodComponent comp) {
 
         var description = comp.attributes().elements().stream()
-                .filter(attr->attr.systemId().equals(systemDe)
-                        && attr.objectId().context().equals("literal"))
+                .filter(attr->attr.systemId().languageId().isPresent()
+                        && attr.objectId().context().equals("name"))
                 .findFirst()
                 .map(attr->attr.objectId().objectSimpleId())
                 .orElse("no description");
