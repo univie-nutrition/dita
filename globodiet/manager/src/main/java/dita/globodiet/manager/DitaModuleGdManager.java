@@ -51,7 +51,6 @@ import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
-import dita.globodiet.cleaner.DitaModuleGdCleaner;
 import dita.globodiet.manager.dashboard.Dashboard;
 import dita.globodiet.manager.editing.wip.FoodManager_addFood;
 import dita.globodiet.manager.editing.wip.Recipe_listIngredients;
@@ -133,7 +132,6 @@ import io.github.causewaystuff.companion.codegen.model.Schema.Domain;
     // -- MODULES
     DitaModuleGdParams.class,
     DitaModuleGdSurvey.class,
-    DitaModuleGdCleaner.class,
     DitaModuleDatabaseReplicator.class,
 
 })
