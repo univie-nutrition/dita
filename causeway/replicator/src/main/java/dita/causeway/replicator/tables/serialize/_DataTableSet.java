@@ -312,25 +312,36 @@ class _DataTableSet {
             logAppend(log, String.format("copy %d from %s (%s)",
                     elementCount, dataTable.tableFriendlyName(), dataTable.getLogicalName()));
 
-            em.getTransaction().begin();
+            var tableName = dataTable.getLogicalName();
 
-            dataTable.streamDataElements()
-                .map(ManagedObject::getPojo)
-                .forEach(IndexedConsumer.offset(1, (index, pojo)->{
+//            em.getTransaction().begin();
 
-                    //TODO this will fail with a "Error preallocating sequence numbers.  The sequence table information is not complete."
-                    //This magically worked with JDO but no longer with JPA, since we have id fields on our entities, but the target DB does not.
-                    em.persist(pojo);
+            String sql = "INSERT INTO %s (name, age) VALUES (?, ?)".formatted(tableName);
+            System.out.println("sql: " + sql);
 
-                    // report progress to console
-                    int percent = 100*index/elementCount;
-                    if(elementCount>100
-                            && (index%100) == 0) {
-                        System.err.printf("\t%d%%%n", percent);
-                    }
-                }));
+//            dataTable.streamDataElements()
+//                .map(ManagedObject::getPojo)
+//                .forEach(IndexedConsumer.offset(1, (index, pojo)->{
+//
+//                    //TODO this will fail with a "Error preallocating sequence numbers.  The sequence table information is not complete."
+//                    //This magically worked with JDO but no longer with JPA, since we have id fields on our entities, but the target DB does not.
+//                    //em.persist(pojo);
+//
+////                    em.createNativeQuery(sql)
+////                         .setParameter(1, name)
+////                         .setParameter(2, age)
+////                         .executeUpdate();
+//
+//
+//                    // report progress to console
+//                    int percent = 100*index/elementCount;
+//                    if(elementCount>100
+//                            && (index%100) == 0) {
+//                        System.err.printf("\t%d%%%n", percent);
+//                    }
+//                }));
 
-            em.getTransaction().commit();
+//            em.getTransaction().commit();
         });
         return this;
     }

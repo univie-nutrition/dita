@@ -19,8 +19,6 @@
 package dita.globodiet.manager.dashboard;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -39,9 +37,6 @@ import lombok.RequiredArgsConstructor;
 import dita.causeway.replicator.tables.model.DataTableService;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
-import dita.commons.types.TabularData.NameTransformer;
-import dita.globodiet.manager.versions.VersionsExportService;
-import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 
 @Action//(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL,
@@ -62,8 +57,6 @@ public class Dashboard_replicateYaml {
     @MemberSupport
     public AsciiDoc act(
             @Parameter
-            final ExportFormat format,
-            @Parameter
             @ParameterLayout(named = "tableData")
             final Clob tableData) {
 
@@ -76,10 +69,7 @@ public class Dashboard_replicateYaml {
                 var em = emf.createEntityManager();
                 try {
                     adoc.append(doc->{
-                      var sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", replicate(tableData,
-                              format==ExportFormat.ENTITY
-                                  ? TabularData.NameTransformer.IDENTITY
-                                  : table2entity, em));
+                      var sourceBlock = AsciiDocFactory.sourceBlock(doc, "yml", tableSerializer.nativeReplicate(tableData, table2entity, em));
                       sourceBlock.setTitle("Replication Result");
                   });
                 } finally {
@@ -92,13 +82,6 @@ public class Dashboard_replicateYaml {
         // BACKUP DATABASE GloboDiet TO DISK = '/var/opt/mssql/backup/dita/GloboDiet2024.bak'
 
         return adoc.buildAsValue();
-    }
-
-    // -- HELPER
-
-    private String replicate(final Clob tableData, final NameTransformer nameTransformer, final EntityManager em) {
-        return tableSerializer.replicate(tableData, nameTransformer,
-                VersionsExportService.paramsTableFilter(), em);
     }
 
 }
