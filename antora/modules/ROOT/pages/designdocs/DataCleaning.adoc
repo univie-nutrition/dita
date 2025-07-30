@@ -244,8 +244,8 @@ composites:
     mealHourOfDay: "13:00:00"
     source: "wave1/Interview-12345.xml"
   deletions: 
-    # DELETE    food/02280 Fond, Fleisch {assocRecp=465} 413.56g (82.71%)
-  - sid: SID[at.gd/2.0:food/02280]
+    # DELETE food/02280 Fond, Fleisch {assocRecp=465} 413.56g (82.71%)
+  - sid: "at.gd/2.0:food/02280"
   additions: 
     # ADD food/01399 Wasser, Leitung 302,72g
   - sid: "at.gd/2.0:food/01399"
