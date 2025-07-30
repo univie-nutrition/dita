@@ -18,16 +18,22 @@
  */
 package dita.globodiet.survey.dom;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
+import org.apache.causeway.applib.exceptions.UnrecoverableException;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.sid.SemanticIdentifier.SystemId;
@@ -44,6 +50,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.cache.CachableAggregate;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
+@Slf4j
 public record BlobStoreClient(
         Survey.SecondaryKey surveyKey,
         BlobStore blobStore) {
@@ -94,6 +101,12 @@ public record BlobStoreClient(
         return blobStore.lookupBlobAndUncompress(loc.namedPath(surveyPath()));
     }
 
+    // -- UPLOAD
+
+    public void uploadToBlobStore(@NonNull final BlobDescriptor blobDescriptor, final @NonNull Blob blob) {
+        blobStore.putBlob(blobDescriptor, blob);
+    }
+
     // -- CORRECTIONS
 
     public Correction24 correction() {
@@ -118,6 +131,23 @@ public record BlobStoreClient(
                 .map(Clob::asString)
                 .orElse("");
         return yaml;
+    }
+
+    /// validation is performed before uploading (on failure throws before any upload)
+    public void uploadCorrectionYaml(final String createdBy, final Iterable<Blob> blobs) {
+
+        blobs.forEach(blob->{
+            var correctionYaml = blob.toClobUtf8().asString();
+            // validate
+            Correction24.tryFromYaml(correctionYaml)
+                .mapFailure(ex->new UnrecoverableException("failed to validate %s; hence upload was cancelled".formatted(blob.name()), ex))
+                .ifFailureFail();
+        });
+
+        blobs.forEach(blob->{
+            log.info("upload {} ({} bytes)", blob.name(), blob.bytes().length);
+            uploadToBlobStore(correctionYamlBlobDescriptorForBlob(createdBy, blob), blob);
+        });
     }
 
     // -- INTERVIEW CACHE
@@ -198,5 +228,19 @@ public record BlobStoreClient(
                 .asDataSource();
         return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
     }
+
+    private BlobDescriptor correctionYamlBlobDescriptorForBlob(final String createdBy, final Blob blob) {
+        var blobDescriptor = new BlobDescriptor(
+            DataSourceLocation.CORRECTIONS.namedPath(surveyPath()).add(blob.name()),
+            CommonMimeType.YAML,
+            createdBy,
+            Instant.now(),
+            blob.bytes().length,
+            Compression.NONE,
+            Map.of("uncompressed-size", "" + blob.bytes().length,
+                    "sha256", blob.sha256Hex()));
+        return blobDescriptor;
+    }
+
 
 }

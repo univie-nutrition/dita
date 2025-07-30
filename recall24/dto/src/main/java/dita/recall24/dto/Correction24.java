@@ -36,6 +36,7 @@ import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
 
@@ -85,6 +86,7 @@ public record Correction24(
     @Builder
     public record CompositeCorr(
             @NonNull Coordinates coordinates,
+            @Nullable String rename,
             @Singular @NonNull List<Addition> additions,
             @Singular @NonNull List<Deletion> deletions
             ) {
@@ -320,6 +322,7 @@ public record Correction24(
                     log.info("about to correct {}", compCorr);
 
                     builder.modifyNotes(notesModifiable->{
+                        builder.name(new CompositeRenamer(compCorr, notesModifiable).apply(composite.name()));
                         builder.replaceSubRecords(new SubRecordDeleter(compCorr, nameBySidLookup, notesModifiable));
                         new SubRecordAdder(compCorr, nameBySidLookup, notesModifiable).addTo(builder.subRecords());
                     });
@@ -358,6 +361,16 @@ public record Correction24(
             };
         }
 
+    }
+
+    private record CompositeRenamer(CompositeCorr compCorr, List<String> notesModifiable) implements UnaryOperator<String> {
+        @Override
+        public String apply(final String origName) {
+            var rename = _Strings.blankToNullOrTrim(compCorr.rename());
+            if(rename==null) return origName;
+            notesModifiable.add("RENAME %s -> %s".formatted(origName, rename));
+            return rename;
+        }
     }
 
     /// deletes composite sub records (ingredient consumptions) based on correction
