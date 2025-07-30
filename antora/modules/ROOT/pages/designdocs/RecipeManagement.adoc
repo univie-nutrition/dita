@@ -28,14 +28,14 @@ NutExpert -> Dita : get latest BAK\nfrom Dita Versions
 NutExpert <- Dita
 NutExpert -> RecipeManager : restore latest BAK
 NutExpert -> RecipeManager : apply changes to recipes
-NutExpert -> RecipeManager : creates a recipe XML export
+NutExpert -> RecipeManager : create a recipe XML export
 NutExpert <- RecipeManager
-NutExpert -> SysAdmin : sends recipe XML export
-SysAdmin  -> RefDB : imports recipes
-SysAdmin  -> Dita : issues database replication
+NutExpert -> SysAdmin : send recipe XML export
+SysAdmin  -> RefDB : import recipes
+SysAdmin  -> Dita : issue database replication
 Dita      --> RefDB: table data request
 Dita      <- RefDB : table data response
-SysAdmin  -> Dita : creates new Version\nwith new BAK
+SysAdmin  -> Dita : create new Version\nwith new BAK
 
 @enduml
 ----
