@@ -18,10 +18,10 @@ and provides a new _GloboDiet_ database backup file for download.
 ----
 @startuml
 
-boundary    Dita
 actor       NutExpert as "Nutrition\nExpert" 
-participant RecipeManager as "GloboDiet Recipe Manager"
+boundary    RecipeManager as "GloboDiet\nRecipe Manager"
 actor       SysAdmin as "System\nAdmin"
+boundary    Dita
 database    RefDB as "Reference\nMS SQL"
 
 NutExpert -> Dita : get latest BAK\nfrom Dita Versions
@@ -32,10 +32,10 @@ NutExpert -> RecipeManager : creates a recipe XML export
 NutExpert <- RecipeManager
 NutExpert -> SysAdmin : sends recipe XML export
 SysAdmin  -> RefDB : imports recipes
-SysAdmin  -> Dita : issue database replication
+SysAdmin  -> Dita : issues database replication
 Dita      --> RefDB: table data request
 Dita      <- RefDB : table data response
-SysAdmin  -> Dita : creates new Version with new BAK
+SysAdmin  -> Dita : creates new Version\nwith new BAK
 
 @enduml
 ----
