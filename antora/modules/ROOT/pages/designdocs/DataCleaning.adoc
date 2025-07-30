@@ -183,8 +183,9 @@ foodByName:
 
 === Composite
 
-Correction of composite consumptions fundamentally supports 2 changes:
+Correction of composite consumptions supports 3 basic changes:
 
+* Renaming of the composite consumption entry 
 * *ADD* Ingredient: 
 ** requires identifier (`sid`) of food to add
 ** requires `amountGrams` of food to add
@@ -204,6 +205,7 @@ hide empty fields
 hide empty methods
 
 class CompositeCorr << (R,orchid) >> {
+    rename: String
 }
 
 class Coordinates << (R,orchid) >> {
