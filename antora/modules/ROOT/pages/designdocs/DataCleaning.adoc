@@ -40,6 +40,7 @@ class FoodByNameCorr << (R,orchid) >> {
 }
 
 class CompositeCorr << (R,orchid) >> {
+    rename: String
 }
 
 class Coordinates << (R,orchid) >> {
@@ -84,6 +85,7 @@ foodByName:
 composites:
 - coordinates:
     #...
+  rename: # optional: new name or empty or omitted
   deletions:
     #...
   additions:
@@ -253,6 +255,21 @@ composites:
     facets: ""
 ----
 
+[source,yaml]
+.Changes a composite consumption name
+----
+composites:
+- coordinates: 
+    sid: "at.gd/2.0:recp/00514"
+    respondentId: "EB_9999"
+    interviewOrdinal: 1
+    mealHourOfDay: "13:00:00"
+    source: "wave1/Interview-12345.xml"
+  rename: "New Name"
+  deletions: [] 
+  additions: []
+----
+
 == Consumption Identification
 
 [plantuml,fig-corr-coors,svg]
@@ -311,6 +328,7 @@ foodByName: []
 composites:
 - coordinates:
     #...
+  rename: # optional: new name or empty or omitted
   deletions:
     #...
   additions:
