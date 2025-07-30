@@ -1,148 +1,41 @@
 = Recipe Management
 :includedir: includes
 
-In the following chapters we describe how recipes are modeled.
+Recipes are managed with _GloboDiet Recipe Manager_. The process involves several steps:
 
-== Recipe
+. Nutrition expert uses _GloboDiet_ to restore the most recent database backup, 
+that can be downloaded from the _Dita_ `Versions` menu.
+. Nutrition expert applies desired changes to recipes within _GloboDiet Recipe Manager_.
+. Nutrition expert creates a recipe XML export and sends it to the system administrator.
+. System administrator imports the recipe XML into reference MS SQL server.
+. System administrator replicates database from reference MS SQL server into _Dita_.
+. System administrator creates a new `Version` in _Dita_ 
+that documents changes 
+and provides a new _GloboDiet_ database backup file for download.
 
-A _recipe_ is a composition of various quantified and described (faceted) food ingredients.
-
-Recipe facets are not predefined, but rather entered (on the fly) during interviews.
-
-=== Raw to Cooked Ratio
-
-For recipes, ingredient quantities are usually given as raw amounts. 
-(And as a matter of detail with or without non-edible parts.)  
-
-When calculating food intake for recipes, we need to correct for
-
-. removal of non-edibel parts
-. raw to cooked loss
-
-Both these coefficients are scientifically determined on a per food basis 
-and may even depend on food facets. E.g. cooked in water or cooked with oil.  
-
-[plantuml,fig-ingredient-raw-to-cooked,svg]
-.Ingredient Raw to Cocked Ratio
+[plantuml,fig-recipe-exchange,svg]
+.Recipe data exchange
 ----
 @startuml
 
-map Coefficients {
- C/R => Raw to Cocked
- ED => Edible Part
-}
+boundary    Dita
+actor       NutExpert as "Nutrition\nExpert" 
+participant RecipeManager as "GloboDiet Recipe Manager"
+actor       SysAdmin as "System\nAdmin"
+database    RefDB as "Reference\nMS SQL"
 
-object Recipe {
-}
-object Ingredient {
-}
-
-Recipe --> Ingredient : "Amount Consumed = Amount Raw * C/R * ED" 
-hide class method
-
-@enduml
-----
-
-=== Nesting
-
-It is sometimes useful to compose a recipe of one ore more reusable parts that are themselves recipes. We then say those are _nested_.
-E.g. Some _pizza_ may be made of a generic _pizza dough_ along other ingredients, 
-where our _pizza dough_ may itself be modeled as a recipe.
-
-[plantuml,fig-recipe-nesting,svg]
-.Recipe Nesting
-----
-@startuml
-
-object Pizza {
-}
-object Ingredient_1 {
-}
-object Ingredient_2 {
-}
-object "Pizza Dough" as Pizza_dough {
-}
-
-Pizza --> Ingredient_1
-Pizza --> Ingredient_2
-Pizza --> Pizza_dough : "nested recipe as ingredient"
-
-hide class method
+NutExpert -> Dita : get latest BAK\nfrom Dita Versions
+NutExpert <- Dita
+NutExpert -> RecipeManager : restore latest BAK
+NutExpert -> RecipeManager : apply changes to recipes
+NutExpert -> RecipeManager : creates a recipe XML export
+NutExpert <- RecipeManager
+NutExpert -> SysAdmin : sends recipe XML export
+SysAdmin  -> RefDB : imports recipes
+SysAdmin  -> Dita : issue database replication
+Dita      --> RefDB: table data request
+Dita      <- RefDB : table data response
+SysAdmin  -> Dita : creates new Version with new BAK
 
 @enduml
 ----
-
-== APPENDIX
-
-=== GloboDiet Recipe Nesting (Workaround)
-
-GloboDiet does not support recipe nesting, hence we introduced a workaround.
-
-For various recipes that we needed to be nested, we introduced regular food counterparts, 
-that can be used as recipe ingredients instead.
-
-During post-processing (report generation) those special ingredients 
-are then replaced with their recipe counterparts.
-
-To indicate this food <- -> recipe relation both food and recipe 
-that are related have the database id of their counterpart included in their name.
-
-E.g. `pizza dough {assocFood=1234}` or `pizza dough {assocRecipe=5678}`. 
-However, this is just an implementation detail. 
-
-=== GloboDiet Recipe Rules 
-
-GloboDiet applies specific rules depending on recipe type.
-Those then apply during interviews. 
-
-[source]
-.Ingredient Rules
-----
-S .. ingredient substitution allowed
-A .. adding ingredients to recipe allowed
-D .. deleting ingredients from recipe allowed
-Q .. ingredient quantity is asked during interview
-----
-
-[source]
-.Recipe Types and their Rules
-----
-1.1 .. Open - known (SADQ)
-1.2 .. Open - unknown (SAD)
-1.3 .. Open - with brand (SAD)
-2.1 .. Closed (S) <.>
-2.2 .. Closed - with brand (S) <1>
-3.0 .. Commercial ()
-4.1 .. New - known (SADQ)
-4.2 .. New - unknown (SADQ)
-----
-
-<.> requires _substitutable_ ingredient (substitution not allowed when ingredient is _fixed_)
-
-[source]
-.Ingredient Types
-----
-1 .. ingredient fixed
-2 .. ingredient substitutable
-3 .. fat during cooking
-A2 .. type of fat used
-A3 .. type of milk/liquid used
-----
-
-==== Open - known
-
-Recipe acts as a template for a homemade meal,
-where all the ingredients and their quantity 
-are known to the respondent. 
-Hence ingredient quantities and facets are asked on the fly. 
-
-==== Open - unknown
-
-Like _Open - known_ but ingredient quantities 
-and facets are filled in by default. 
-
-==== Closed
-
-Recipe is less permissive to change during interview. 
-That is, only ingredient substitution is allowed, 
-provided ingredient (of interest) is not marked as _fixed_.
