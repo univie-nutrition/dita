@@ -58,7 +58,7 @@ additional
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.5</version>
+                <version>3.4.6</version>
                 <configuration>
                     <from>
                         <!-- don't use slim variant, as excel export might fail w/ 
