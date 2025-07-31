@@ -125,9 +125,22 @@ public record Correction24(
                         iv.dataSource().orElseThrow());
             }
         }
-        public record Addition(SemanticIdentifier sid, BigDecimal amountGrams, SemanticIdentifierSet facets) {
+        public record Addition(
+            @NonNull SemanticIdentifier sid,
+            @NonNull BigDecimal amountGrams,
+            @NonNull SemanticIdentifierSet facets) {
+            // canonical constructor
+            public Addition(
+                @NonNull final SemanticIdentifier sid,
+                @NonNull final BigDecimal amountGrams,
+                @Nullable final SemanticIdentifierSet facets) {
+                this.sid = sid;
+                this.amountGrams = amountGrams;
+                this.facets = facets!=null ? facets : SemanticIdentifierSet.empty();
+            }
         }
-        public record Deletion(SemanticIdentifier sid) {
+        public record Deletion(
+            @NonNull SemanticIdentifier sid) {
         }
     }
 
