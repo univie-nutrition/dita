@@ -54,6 +54,8 @@ import dita.commons.util.NumberUtils;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Consumption;
 import dita.recall24.dto.Record24.Food;
+import dita.recall24.dto.Record24.FryingFat;
+import dita.recall24.dto.Record24.Product;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 /**
@@ -345,10 +347,26 @@ public record Correction24(
                         var correctionFactor = BigDecimal.valueOf(origAmountConsumed.doubleValue() / newAmountConsumed.doubleValue());
                         builder.replaceSubRecords(sr->{
                             if(sr instanceof Consumption consumption) {
-                                var foodBuilder = (Food.Builder)((Food)consumption).asBuilder();
-                                var amountConsumed = NumberUtils.reducedPrecision(foodBuilder.amountConsumed().multiply(correctionFactor), 2);
-                                foodBuilder.amountConsumed(amountConsumed);
-                                return (Record24) foodBuilder.build();
+                                return switch (consumption) {
+                                    case Food food -> {
+                                        var foodBuilder = (Food.Builder)(food.asBuilder());
+                                        var amountConsumed = NumberUtils.reducedPrecision(foodBuilder.amountConsumed().multiply(correctionFactor), 2);
+                                        foodBuilder.amountConsumed(amountConsumed);
+                                        yield foodBuilder.build();
+                                    }
+                                    case FryingFat fryingFat -> {
+                                        var fryingFatBuilder = (FryingFat.Builder)(fryingFat.asBuilder());
+                                        var amountConsumed = NumberUtils.reducedPrecision(fryingFatBuilder.amountConsumed().multiply(correctionFactor), 2);
+                                        fryingFatBuilder.amountConsumed(amountConsumed);
+                                        yield fryingFatBuilder.build();
+                                    }
+                                    case Product product -> {
+                                        var productBuilder = (Product.Builder)(product.asBuilder());
+                                        var amountConsumed = NumberUtils.reducedPrecision(productBuilder.amountConsumed().multiply(correctionFactor), 2);
+                                        productBuilder.amountConsumed(amountConsumed);
+                                        yield productBuilder.build();
+                                    }
+                                };
                             }
                             return sr;
                         });
