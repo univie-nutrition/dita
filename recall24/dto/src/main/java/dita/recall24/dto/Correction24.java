@@ -378,7 +378,7 @@ public record Correction24(
 
         @Override
         public Record24 apply(final Record24 orig) {
-            for(var deletion : compCorr.deletions()) {
+            if(compCorr.deletions()!=null) for(var deletion : compCorr.deletions()) {
                 if(deletion.sid().equals(orig.sid())) {
                     notesModifiable.add("CORR DELETED: %s (%s)".formatted(
                             deletion.sid().objectId(),
@@ -395,7 +395,7 @@ public record Correction24(
     private record SubRecordAdder(CompositeCorr compCorr, Function<SemanticIdentifier, String> nameBySidLookup, List<String> notesModifiable) {
 
         public void addTo(final List<Record24> list) {
-            for(var addition : compCorr.additions()) {
+            if(compCorr.additions()!=null) for(var addition : compCorr.additions()) {
                 var subRecord = new Record24.Food.Builder()
                     .type(Record24.Type.FOOD)
                     .name(nameBySidLookup.apply(addition.sid()))
