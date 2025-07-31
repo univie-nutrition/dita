@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.util.StringUtils;
@@ -306,13 +305,13 @@ record InterviewConverter(SidFactory sidFactory) {
     private SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
         return SemanticIdentifierSet.ofStream(Stream.concat(
             streamObjectSimpleIds(listEntry).map(sidFactory()::foodDescriptor),
-            canonicalBrandName(listEntry).stream().map(SidFactory::brand)));
+            streamCanonicalBrandName(listEntry).map(SidFactory::brand)));
     }
 
     private SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
         return SemanticIdentifierSet.ofStream(Stream.concat(
             streamObjectSimpleIds(listEntry).map(sidFactory()::recipeDescriptor),
-            canonicalBrandName(listEntry).stream().map(SidFactory::brand)));
+            streamCanonicalBrandName(listEntry).map(SidFactory::brand)));
     }
 
     /**
@@ -324,14 +323,15 @@ record InterviewConverter(SidFactory sidFactory) {
                     .filter(_Strings::isNotEmpty);
     }
 
-    private static Optional<String> canonicalBrandName(final ListEntry listEntry){
+    private static Stream<String> streamCanonicalBrandName(final ListEntry listEntry){
         return  _Strings.nonEmpty(listEntry.getBrandName())
             .map(String::toLowerCase)
             //TODO[dita-globodiet-survey] externalize as configuration; perhaps can auto-detect based on first descriptor in facet type = BRAND
             //exclude if brand-name is just a placeholder
             .filter(name->!name.equals("marke / produktname unbekannt"))
             .map(name->name.replace(",", " ").replace("ß", "ss"))
-            .map(name->_Strings.condenseWhitespaces(name, "_"));
+            .map(name->_Strings.condenseWhitespaces(name, "_"))
+            .stream();
     }
 
 }
