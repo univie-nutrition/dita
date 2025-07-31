@@ -32,6 +32,7 @@ import org.apache.causeway.commons.io.JaxbUtils;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.SidFactory;
 import dita.commons.types.Message;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Interview24;
@@ -97,7 +98,7 @@ public class InterviewXmlParser {
     private List<Interview24> createFromDto(
         final _Dtos.@NonNull Itv dto,
         final @NonNull SystemId systemId) {
-        var interviewConverter = new InterviewConverter(systemId);
+        var interviewConverter = new InterviewConverter(new SidFactory(systemId));
         return dto.getInterviews().stream()
                     .map(interviewConverter::toInterview24)
                     .toList();

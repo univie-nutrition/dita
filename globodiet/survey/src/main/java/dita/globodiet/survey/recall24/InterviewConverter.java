@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
-
 import org.springframework.util.StringUtils;
 
 import org.apache.causeway.commons.collections.Can;
@@ -38,8 +36,8 @@ import org.apache.causeway.commons.io.TextUtils;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.SidFactory;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
 import dita.commons.util.NumberUtils;
@@ -57,7 +55,7 @@ import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
 
 /// Converts from _GloboDiet's_ interview XML to {@link Interview24}.
-record InterviewConverter(SystemId systemId) {
+record InterviewConverter(SidFactory sidFactory) {
 
     record ContextForScanning(
         String respondentId,
@@ -276,7 +274,7 @@ record InterviewConverter(SystemId systemId) {
                 listEntry.getSubgroupCode(),
                 listEntry.getSubSubgroupCode());
         return new Annotated.Annotation("group", context
-                .sid(systemId, groupSimpleId));
+                .sid(sidFactory().systemId(), groupSimpleId));
     }
 
     private Annotated.Annotation modification(final ContextForScanning contextForScanning, final ListEntry listEntry) {
@@ -298,37 +296,32 @@ record InterviewConverter(SystemId systemId) {
     }
 
     private SemanticIdentifier foodSid(final ListEntry listEntry) {
-        return ObjectId.Context.FOOD.sid(systemId, listEntry.getFoodOrSimilarCode());
+        return sidFactory().food(listEntry.getFoodOrSimilarCode());
     }
 
     private SemanticIdentifier recipeSid(final ListEntry listEntry) {
-        return ObjectId.Context.RECIPE.sid(systemId, listEntry.getFoodOrSimilarCode());
+        return sidFactory().recipe(listEntry.getFoodOrSimilarCode());
     }
 
     private SemanticIdentifierSet foodFacets(final ListEntry listEntry) {
-        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.FOOD_DESCRIPTOR, listEntry)
-                .map(objectId->new SemanticIdentifier(systemId, objectId)));
+        return SemanticIdentifierSet.ofStream(Stream.concat(
+            streamObjectSimpleIds(listEntry).map(sidFactory()::foodDescriptor),
+            canonicalBrandName(listEntry).stream().map(SidFactory::brand)));
     }
 
     private SemanticIdentifierSet recipeFacets(final ListEntry listEntry) {
-        return SemanticIdentifierSet.ofStream(streamFacetObjectIds(ObjectId.Context.RECIPE_DESCRIPTOR, listEntry)
-                .map(objectId->new SemanticIdentifier(systemId, objectId)));
+        return SemanticIdentifierSet.ofStream(Stream.concat(
+            streamObjectSimpleIds(listEntry).map(sidFactory()::recipeDescriptor),
+            canonicalBrandName(listEntry).stream().map(SidFactory::brand)));
     }
 
     /**
      * includes brand name, if any
      */
-    private static Stream<ObjectId> streamFacetObjectIds(
-            final ObjectId.@Nullable Context context,
+    private static Stream<String> streamObjectSimpleIds(
             final ListEntry listEntry) {
-        return Stream.concat(
-                _Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")
-                    .filter(_Strings::isNotEmpty)
-                    .map(objSimpleId->context.objectId(objSimpleId)),
-                canonicalBrandName(listEntry)
-                    .map(ObjectId.Context.BRAND::objectId)
-                    .stream()
-                );
+        return _Strings.splitThenStream(listEntry.getFacetDescriptorCodes(), ",")
+                    .filter(_Strings::isNotEmpty);
     }
 
     private static Optional<String> canonicalBrandName(final ListEntry listEntry){

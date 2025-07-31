@@ -9,7 +9,9 @@ that can be downloaded from the _Dita_ `Versions` menu.
 . Nutrition expert creates a recipe XML export and sends it to the system administrator.
 . System administrator imports the recipe XML into reference MS SQL server.
 . System administrator replicates database from reference MS SQL server into _Dita_.
-. System administrator creates a new `Version` in _Dita_ 
+. System administrator creates a new `Version` in _Dita_
+. System administrator export _Food Description Model_ (FDM) from new Version and copies it to Dita's blob-store
+. System administrator restarts _Dita_ 
 that documents changes 
 and provides a new _GloboDiet_ database backup file for download.
 
@@ -36,6 +38,8 @@ SysAdmin  -> Dita : issue database replication
 Dita      --> RefDB: table data request
 Dita      <- RefDB : table data response
 SysAdmin  -> Dita : create new Version\nwith new BAK
+SysAdmin  -> Dita : export FDM from new Version\nand copy to Dita's blob-store
+SysAdmin  --> Dita : restart
 
 @enduml
 ----
