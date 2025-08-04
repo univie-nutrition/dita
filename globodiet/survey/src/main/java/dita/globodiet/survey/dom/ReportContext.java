@@ -25,7 +25,6 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.extern.slf4j.Slf4j;
 
 import dita.commons.food.composition.FoodCompositionRepository;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.dmap.DirectMap;
 import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
@@ -36,6 +35,7 @@ import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 @Slf4j
 public record ReportContext(
+    SurveyConfig surveyConfig,
     FoodCompositionRepository foodCompositionRepository,
     FoodDescriptionModel foodDescriptionModel,
     DirectMap specialDayMapping,
@@ -46,27 +46,18 @@ public record ReportContext(
     InterviewSet24 interviewSet) {
 
     public static ReportContext empty() {
-        return new ReportContext(FoodCompositionRepository.empty(), FoodDescriptionModel.empty(),
+        return new ReportContext(
+            SurveyConfig.empty(),
+            FoodCompositionRepository.empty(), FoodDescriptionModel.empty(),
             DirectMap.empty(), DirectMap.empty(), DirectMap.empty(),
             DirectMap.empty(), QualifiedMap.empty(),
             InterviewSet24.empty());
     }
 
     public static ReportContextFactory factory(
-            final SystemId systemId,
             final BlobStore surveyBlobStore,
             final Can<Campaign.SecondaryKey> campaignKeys) {
-        return new ReportContextFactory(systemId, surveyBlobStore, campaignKeys);
-    }
-
-    /** requires persistence to get the systemId */
-    public static ReportContextFactory factory(
-            final BlobStore surveyBlobStore,
-            final Can<Campaign.SecondaryKey> campaignKeys) {
-        var firstCampaign = campaignKeys.getFirstElseFail();
-        var surveyKey = new Survey.SecondaryKey(firstCampaign.surveyCode());
-        var systemId = Surveys.systemId(surveyKey); // requires persistence
-        return factory(systemId, surveyBlobStore, campaignKeys);
+        return new ReportContextFactory(surveyBlobStore, campaignKeys);
     }
 
     //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
@@ -87,7 +78,7 @@ public record ReportContext(
     }
 
     public ReportContext transform(final UnaryOperator<InterviewSet24> interviewTransformer) {
-        return new ReportContext(foodCompositionRepository, foodDescriptionModel,
+        return new ReportContext(surveyConfig, foodCompositionRepository, foodDescriptionModel,
             specialDayMapping, specialDietMapping, fcoMapping, pocMapping, nutMapping,
             interviewTransformer.apply(interviewSet));
     }

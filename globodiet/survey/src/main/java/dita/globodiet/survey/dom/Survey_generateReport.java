@@ -83,7 +83,8 @@ public class Survey_generateReport {
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
         var tabularReport = new TabularReport(
-            reportContext.interviewSet(), Surveys.systemId(mixee),
+            reportContext.interviewSet(),
+            reportContext.surveyConfig().systemId(),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),
             reportContext.fcoMapping(),
@@ -97,7 +98,7 @@ public class Survey_generateReport {
                 mixee.getCode().toLowerCase(),
                 aggregation.name(),
                 FormatUtils.isoDate(LocalDate.now()));
-        return new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(), name);
+        return new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(factoryService), name);
     }
 
     @MemberSupport

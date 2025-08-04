@@ -40,6 +40,7 @@ import org.jspecify.annotations.Nullable;
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
@@ -121,8 +122,8 @@ public record InterviewSet24(
                 .flatMap(resp->resp.interviews().stream());
     }
 
-    public Stream<RecallNode24> streamDepthFirst() {
-        return Recall24DtoUtils.wrapAsTreeNode(this)
+    public Stream<RecallNode24> streamDepthFirst(@NonNull final FactoryService factoryService) {
+        return Recall24DtoUtils.wrapAsTreeNode(factoryService, this)
             .streamDepthFirst()
             .map(TreeNode::value);
     }

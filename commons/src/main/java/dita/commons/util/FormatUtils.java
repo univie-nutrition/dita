@@ -120,10 +120,11 @@ public class FormatUtils {
 
     public JacksonCustomizer yamlOptions() {
         var c1 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter());
-        var c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
-        var c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
-        var c4 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
-        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(JsonUtils::onlyIncludeNonNull)::apply;
+        var c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SystemIdAdapter());
+        var c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+        var c4 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
+        var c5 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
+        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(c5).andThen(JsonUtils::onlyIncludeNonNull)::apply;
     }
 
     // -- ADOC

@@ -57,6 +57,8 @@ public record BlobStoreClient(
 
     @RequiredArgsConstructor
     public enum DataSourceLocation {
+        SURVEY_CONFIG(CommonMimeType.YAML, Compression.NONE,
+            root->root.add("config.yaml")),
         FCDB(CommonMimeType.YAML, Compression.SEVEN_ZIP,
                 root->root.add("fcdb").add("fcdb.yaml")),
         QMAP_NUT(CommonMimeType.YAML, Compression.SEVEN_ZIP,
@@ -105,6 +107,16 @@ public record BlobStoreClient(
 
     public void uploadToBlobStore(@NonNull final BlobDescriptor blobDescriptor, final @NonNull Blob blob) {
         blobStore.putBlob(blobDescriptor, blob);
+    }
+
+    // -- SURVEY CONFIG
+
+    public SurveyConfig surveyConfig() {
+        var yaml = lookupBlobAndUncompress(DataSourceLocation.SURVEY_CONFIG)
+                .orElseThrow()
+                .toClobUtf8()
+                .asString();
+        return SurveyConfig.fromYaml(yaml);
     }
 
     // -- CORRECTIONS
@@ -241,6 +253,5 @@ public record BlobStoreClient(
                     "sha256", blob.sha256Hex()));
         return blobDescriptor;
     }
-
 
 }

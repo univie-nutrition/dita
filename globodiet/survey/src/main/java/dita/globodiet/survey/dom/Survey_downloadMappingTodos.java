@@ -87,10 +87,10 @@ public class Survey_downloadMappingTodos {
 
         var yaml = new StringBuilder();
         var todoReporter = new TodoReporter(
-            reportContext.interviewSet(), Surveys.systemId(mixee),
+            reportContext.interviewSet(), reportContext.surveyConfig().systemId(),
             reportContext.nutMapping());
         todoReporter.report(
-                DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8));
+                DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8), factoryService);
 
         return Clob.of("mapping-todos", CommonMimeType.YAML, yaml.toString());
     }
@@ -101,7 +101,7 @@ public class Survey_downloadMappingTodos {
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
         var tabularReport = new TabularReport(
-            reportContext.interviewSet(), Surveys.systemId(mixee),
+            reportContext.interviewSet(), reportContext.surveyConfig().systemId(),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),
             reportContext.fcoMapping(),
@@ -114,7 +114,7 @@ public class Survey_downloadMappingTodos {
         var name = String.format("TODO_%s_%s",
                 mixee.getCode().toLowerCase(),
                 FormatUtils.isoDate(LocalDate.now()));
-        return new TodoFormat().writeClob(tabularReport.singleSheetTabularModel(), name);
+        return new TodoFormat().writeClob(tabularReport.singleSheetTabularModel(factoryService), name);
     }
 
 }

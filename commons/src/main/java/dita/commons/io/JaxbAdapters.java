@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -37,6 +38,23 @@ import tech.units.indriya.quantity.Quantities;
 
 @UtilityClass
 public class JaxbAdapters {
+
+    public static final class SystemIdAdapter extends XmlAdapter<String, SystemId>{
+        @Override public SystemId unmarshal(final String v) throws Exception {
+            try {
+                return SystemId.parse(v);
+            } catch (Exception e) {
+                e.printStackTrace(); // might be swallowed otherwise
+                throw e;
+            }
+        }
+        @Override public String marshal(final SystemId v) throws Exception {
+            return v!=null
+                    ? v.toString()
+                    : null;
+        }
+    }
+
 
     public static final class SemanticIdentifierAdapter extends XmlAdapter<String, SemanticIdentifier>{
         @Override public SemanticIdentifier unmarshal(final String v) throws Exception {

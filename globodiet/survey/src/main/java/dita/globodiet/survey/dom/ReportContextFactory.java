@@ -28,12 +28,10 @@ import org.apache.causeway.commons.collections.Can;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Slf4j
 public record ReportContextFactory(
-        SystemId systemId,
         BlobStore surveyBlobStore,
         Can<Campaign.SecondaryKey> campaignKeys) {
 
@@ -53,9 +51,10 @@ public record ReportContextFactory(
         var surveyKey = new Survey.SecondaryKey(firstCampaign.surveyCode());
 
         var client = new BlobStoreClient(surveyKey, surveyBlobStore);
+        var surveyConfig = client.surveyConfig();
 
         //TODO share this instance
-        var cachableInterviewSetCorrected = client.cachableInterviewsCorrected(systemId, campaignKeys);
+        var cachableInterviewSetCorrected = client.cachableInterviewsCorrected(surveyConfig.systemId(), campaignKeys);
 
         var pool = Executors.newFixedThreadPool(6);
         var interviewSetCorrectedFuture = pool.submit(cachableInterviewSetCorrected::get);
@@ -79,7 +78,9 @@ public record ReportContextFactory(
             var enabledAliases = DataUtil.enabledAliasesInListing(respondentFilter.getAliasListing());
             interviewSet = interviewSet.filter(resp->enabledAliases.contains(resp.alias()));
         }
-        return new ReportContext(fcdbFuture.get(), fdmFuture.get(),
+        return new ReportContext(
+            surveyConfig,
+            fcdbFuture.get(), fdmFuture.get(),
             specialDayMappingFuture.get(), specialDietMappingFuture.get(),
             fcoMappingFuture.get(), pocMappingFuture.get(),
             nutMappingFuture.get(), interviewSet);

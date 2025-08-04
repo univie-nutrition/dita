@@ -63,7 +63,7 @@ public class RespondentFilter_sync {
 
         var client = new BlobStoreClient(survey.secondaryKey(), surveyBlobStore);
 
-        var allRespondents = client.cachableInterviewsCorrected(Surveys.systemId(survey), campaignKeys)
+        var allRespondents = client.cachableInterviewsCorrected(client.surveyConfig().systemId(), campaignKeys)
             .get()
             .respondents();
 

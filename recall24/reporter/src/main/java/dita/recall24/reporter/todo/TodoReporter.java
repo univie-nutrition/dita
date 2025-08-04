@@ -2,6 +2,9 @@ package dita.recall24.reporter.todo;
 
 import java.util.TreeSet;
 
+import org.jspecify.annotations.NonNull;
+
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 
@@ -17,10 +20,10 @@ public record TodoReporter(
         SystemId systemId,
         QualifiedMap nutMapping) {
 
-    public void report(final DataSink dataSink) {
+    public void report(final DataSink dataSink, @NonNull final FactoryService factoryService) {
 
         var unmapped = new TreeSet<QualifiedMapKey>();
-        interviewSet.streamDepthFirst()
+        interviewSet.streamDepthFirst(factoryService)
             .forEach((final RecallNode24 node)->{
                 switch(node) {
                     case Record24.Consumption cRec -> {

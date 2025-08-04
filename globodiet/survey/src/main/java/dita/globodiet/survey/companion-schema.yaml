@@ -197,20 +197,4 @@ entities:
       unique: false
       description: |
         Descriptive survey name.
-    systemId:
-      column: SYSID
-      column-type: nvarchar(20)
-      required: true
-      unique: false
-      description: |
-        System ID part of semantic identifiers for this survey.
-        e.g. at.gd/2.0
-    correction:
-      column: CORRECTION
-      column-type: clob
-      required: false
-      unique: false
-      hiddenWhere: EVERYWHERE
-      description: |
-        Yaml formatted interview data corrections.
 

@@ -27,6 +27,7 @@ import java.util.Set;
 
 import org.jspecify.annotations.NonNull;
 
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.tabular.TabularModel;
@@ -127,15 +128,15 @@ public record TabularReport(
                 fdm, foodCompositionRepo, foodComponents, aggregation);
     }
 
-    public TabularModel singleSheetTabularModel() {
+    public TabularModel singleSheetTabularModel(@NonNull final FactoryService factoryService) {
         Can<TabularSheet> sheets = Can.of(
-            new TabularFactory(foodComponents).toTabularSheet(aggregate()));
+            new TabularFactory(foodComponents).toTabularSheet(aggregate(factoryService)));
         return new TabularModel(sheets);
     }
 
-    public TabularModel multiSheetTabularModel() {
+    public TabularModel multiSheetTabularModel(@NonNull final FactoryService factoryService) {
         Can<TabularSheet> sheets = Can.of(
-            new TabularFactory(foodComponents).toTabularSheet(aggregate()),
+            new TabularFactory(foodComponents).toTabularSheet(aggregate(factoryService)),
             sdayHelper.sheet(),
             sdietHelper.sheet(),
             fcoHelper.sheet(),
@@ -220,12 +221,12 @@ public record TabularReport(
         }
     }
 
-    private Iterable<ConsumptionRecord> aggregate() {
+    private Iterable<ConsumptionRecord> aggregate(@NonNull final FactoryService factoryService) {
         var rowFactory = new RowFactory(new NutrientVectorFactory(foodComponents));
         var rowBuilder = rowFactory.builder();
         var consumptions = new ArrayList<ConsumptionRecord>();
 
-        interviewSet.streamDepthFirst()
+        interviewSet.streamDepthFirst(factoryService)
         .forEach((final RecallNode24 node)->{
             switch(node) {
             case Interview24 iv -> {

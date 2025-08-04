@@ -32,6 +32,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.applib.graph.tree.TreeNode;
+import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.collections._Multimaps;
@@ -50,7 +51,6 @@ import dita.recall24.dto.Record24;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
-import io.github.causewaystuff.commons.base.util.RuntimeUtils;
 
 @UtilityClass
 public class Recall24DtoUtils {
@@ -58,8 +58,9 @@ public class Recall24DtoUtils {
     // -- WRAP
 
     public TreeNode<RecallNode24> wrapAsTreeNode(
+            final @NonNull FactoryService factoryService,
             final @NonNull InterviewSet24 interviewSet24) {
-        return RuntimeUtils.getFactoryService().treeNode((RecallNode24)interviewSet24);
+        return factoryService.treeNode((RecallNode24)interviewSet24);
     }
 
     // -- DATA JOINING
