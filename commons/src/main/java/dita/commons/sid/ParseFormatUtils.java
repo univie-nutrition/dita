@@ -111,7 +111,7 @@ class ParseFormatUtils {
      * Parses both boxed and un-boxed formats.
      */
     SemanticIdentifier parseSid(final @Nullable String stringified) {
-        if(_Strings.isEmpty(stringified)) return SemanticIdentifier.empty();
+        if(_Strings.isEmpty(stringified) || stringified.equals("-")) return SemanticIdentifier.empty();
         var sid = stringified;
         if(stringified.startsWith(BOX_START)) {
             if(!stringified.endsWith(BOX_END)) {

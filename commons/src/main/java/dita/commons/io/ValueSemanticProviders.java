@@ -74,11 +74,13 @@ public class ValueSemanticProviders {
 
         @Override
         public String htmlPresentation(final ValueSemanticsProvider.Context context, final SemanticIdentifier value) {
-            return renderHtml(value, v->toHtmlLink(v));
+            return renderHtml(value, this::toHtmlLink);
         }
 
         private String toHtmlLink(final SemanticIdentifier sid) {
-            return String.format("<i>%s</i>", sid.toStringNoBox(), sid.toStringNoBox());
+            return """
+                <span title="%s" class="badge rounded-pill bg-light">%s</span>"""
+                    .formatted(sid.toStringNoBox(), sid.objectId());
         }
 
         // -- PARSER
