@@ -55,7 +55,6 @@ public class JaxbAdapters {
         }
     }
 
-
     public static final class SemanticIdentifierAdapter extends XmlAdapter<String, SemanticIdentifier>{
         @Override public SemanticIdentifier unmarshal(final String v) throws Exception {
             try {
