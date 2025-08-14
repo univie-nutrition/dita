@@ -19,18 +19,20 @@
 package dita.commons.sid;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+
 import org.springframework.util.StringUtils;
 import org.springframework.util.function.ThrowingFunction;
 
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
-import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier.ObjectId;
@@ -127,8 +129,8 @@ class ParseFormatUtils {
                 _->{throw _Exceptions.illegalArgument("cannot parse '%s' as SemanticIdentifier", stringified);});
     }
 
-    SemanticIdentifierSet parseSidSet(final @Nullable String stringifiedSet) {
-        if(_Strings.isEmpty(stringifiedSet)) return SemanticIdentifierSet.empty();
+    List<SemanticIdentifier> parseSidList(final @Nullable String stringifiedSet) {
+        if(_Strings.isEmpty(stringifiedSet)) return List.of();
         // inner class
         class Helper {
             String remainder;
@@ -159,7 +161,11 @@ class ParseFormatUtils {
             helper.remainder = helper.remainder.substring(nextSetDelimiterIndex + 1).stripLeading();
         }
         sids.add(parseSid(helper.remainder.trim()));
-        return SemanticIdentifierSet.ofCollection(sids);
+        return sids;
+    }
+
+    SemanticIdentifierSet parseSidSet(final @Nullable String stringifiedSet) {
+        return SemanticIdentifierSet.ofCollection(parseSidList(stringifiedSet));
     }
 
     // -- VALIDATE

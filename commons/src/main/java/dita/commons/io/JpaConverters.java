@@ -25,6 +25,7 @@ import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.SidFactory;
 import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 
 @UtilityClass
@@ -79,10 +80,7 @@ public class JpaConverters {
         @Override
         public QualifiedMapKey convertToEntityAttribute(final String v) {
             try {
-                var elements = SemanticIdentifierSet.parse(v).elements();
-                return elements.getFirst()
-                    .map(source->new QualifiedMapKey(source, new SemanticIdentifierSet(elements.remove(0))))
-                    .orElse(null);
+                return SidFactory.parseQualifiedMapKey(v);
             } catch (Exception e) {
                 e.printStackTrace(); // might be swallowed otherwise
                 throw e;

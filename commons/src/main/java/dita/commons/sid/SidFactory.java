@@ -24,6 +24,7 @@ import org.springframework.util.StringUtils;
 
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.types.LanguageId;
 
 public record SidFactory(SystemId systemId) {
@@ -73,6 +74,21 @@ public record SidFactory(SystemId systemId) {
 
     public SemanticIdentifier recipeGroup(final String objectSimpleId) {
         return ObjectId.Context.RECIPE_GROUP.sid(systemId, objectSimpleId);
+    }
+
+    /**
+     * The reverse of {@code QualifiedMapKey.fullFormat(",", ",")}
+     */
+    public static QualifiedMapKey parseQualifiedMapKey(final String v) {
+        try {
+            var elements = ParseFormatUtils.parseSidList(v);
+            return elements.isEmpty()
+                ? null
+                : new QualifiedMapKey(elements.getFirst(), SemanticIdentifierSet.ofStream(elements.stream().skip(1)));
+        } catch (Exception e) {
+            e.printStackTrace(); // might be swallowed otherwise
+            throw e;
+        }
     }
 
 }
