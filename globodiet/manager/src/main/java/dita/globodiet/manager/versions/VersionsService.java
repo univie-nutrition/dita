@@ -196,7 +196,7 @@ public class VersionsService {
             final String resourceName,
             final Optional<String> filenameOverride) {
         return new Blob(filenameOverride.orElse(resourceName),
-                CommonMimeType._7Z.getMimeType(),
+                CommonMimeType._7Z.mimeType(),
                 resolveResource(parameterDataVersion, resourceName + ".7z").bytes());
     }
 
@@ -205,7 +205,7 @@ public class VersionsService {
             final String resourceName,
             final Optional<String> filenameOverride) {
         return new Blob(filenameOverride.orElse(resourceName),
-                CommonMimeType.ZIP.getMimeType(),
+                CommonMimeType.ZIP.mimeType(),
                 resolveResource(parameterDataVersion, resourceName + ".zip").bytes());
     }
 

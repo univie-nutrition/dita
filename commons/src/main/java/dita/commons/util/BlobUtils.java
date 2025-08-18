@@ -84,7 +84,7 @@ public class BlobUtils {
     }
 
     private boolean matches(final ZipEntry zipEntry, final CommonMimeType mime) {
-        return mime.getProposedFileExtensions().stream()
+        return mime.proposedFileExtensions().stream()
                 .anyMatch(zipEntry.getName().toLowerCase()::endsWith);
     }
 
