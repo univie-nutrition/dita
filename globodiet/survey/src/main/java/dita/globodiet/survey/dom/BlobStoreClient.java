@@ -18,9 +18,7 @@
  */
 package dita.globodiet.survey.dom;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -44,7 +42,6 @@ import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
-import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.cache.CachableAggregate;
@@ -82,14 +79,6 @@ public record BlobStoreClient(
         public final Compression compression;
         final Function<NamedPath, NamedPath> bdf;
 
-        public BlobDescriptor blobDescriptor(final NamedPath root) {
-            return BlobDescriptor.builder()
-                    .mimeType(mime)
-                    .compression(compression)
-                    .path(namedPath(root))
-                    .build();
-        }
-
         public NamedPath namedPath(final NamedPath root) {
             return bdf.apply(root);
         }
@@ -105,8 +94,11 @@ public record BlobStoreClient(
 
     // -- UPLOAD
 
-    public void uploadToBlobStore(@NonNull final BlobDescriptor blobDescriptor, final @NonNull Blob blob) {
-        blobStore.putBlob(blobDescriptor, blob);
+    public void uploadToBlobStore(
+        @NonNull final NamedPath path,
+        @NonNull final Compression compression,
+        @NonNull final Blob blob) {
+        blobStore.putBlob(path, blob, desc->desc.withCompression(compression));
     }
 
     // -- SURVEY CONFIG
@@ -158,7 +150,8 @@ public record BlobStoreClient(
 
         blobs.forEach(blob->{
             log.info("upload {} ({} bytes)", blob.name(), blob.bytes().length);
-            uploadToBlobStore(correctionYamlBlobDescriptorForBlob(createdBy, blob), blob);
+            var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath());
+            uploadToBlobStore(path, Compression.NONE, blob);
         });
     }
 
@@ -168,7 +161,8 @@ public record BlobStoreClient(
             final SystemId systemId,
             final Can<Campaign.SecondaryKey> campaignKeys){
         return InterviewUtils.cachableInterviewSet(
-                DataSourceLocation.INTERVIEWS_CORRECTED.blobDescriptor(surveyPath()),
+                DataSourceLocation.INTERVIEWS_CORRECTED.namedPath(surveyPath()),
+                DataSourceLocation.INTERVIEWS_CORRECTED.compression,
                 blobStore,
                 ()->interviewsCorrected(systemId, campaignKeys));
     }
@@ -239,19 +233,6 @@ public record BlobStoreClient(
                 .orElseThrow()
                 .asDataSource();
         return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
-    }
-
-    private BlobDescriptor correctionYamlBlobDescriptorForBlob(final String createdBy, final Blob blob) {
-        var blobDescriptor = new BlobDescriptor(
-            DataSourceLocation.CORRECTIONS.namedPath(surveyPath()).add(blob.name()),
-            CommonMimeType.YAML,
-            createdBy,
-            Instant.now(),
-            blob.bytes().length,
-            Compression.NONE,
-            Map.of("uncompressed-size", "" + blob.bytes().length,
-                    "sha256", blob.sha256Hex()));
-        return blobDescriptor;
     }
 
 }

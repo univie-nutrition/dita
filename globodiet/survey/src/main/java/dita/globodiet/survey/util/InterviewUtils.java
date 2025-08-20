@@ -49,8 +49,8 @@ import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.util.InterviewSetParser;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobCacheHandler;
-import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
 import io.github.causewaystuff.commons.base.cache.CachableAggregate;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.compression.SevenZCacheHandler;
@@ -132,17 +132,19 @@ public class InterviewUtils {
     }
 
     public CachableAggregate<InterviewSet24> cachableInterviewSet(
-            final BlobDescriptor blobDescriptor,
+            final NamedPath path,
+            final Compression compression,
             final BlobStore blobStore,
             final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
         return new CachableAggregate<InterviewSet24>(costlySupplier, new BlobCacheHandler<>(
-            blobDescriptor,
+            path,
+            compression,
             blobStore,
             //reader
             blob->InterviewSetParser.parseJson(blob.asDataSource()),
             // writer
             interviewSet->Blob.of(
-                blobDescriptor.path().lastNameElseFail(),
+                path.lastNameElseFail(),
                 CommonMimeType.JSON,
                 interviewSet.toJson().getBytes(StandardCharsets.UTF_8))));
     }
