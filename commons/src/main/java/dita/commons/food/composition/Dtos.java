@@ -195,20 +195,20 @@ class Dtos {
 
     private record ComponentLookup(
             FoodComponentCatalog componentCatalog,
-            List<SemanticIdentifier> sortedComponentIds) {
+            List<FoodComponent> sortedComponents) {
         static ComponentLookup of(final FoodComponentCatalog componentCatalog) {
-            var sortedComponentIds = componentCatalog.streamComponents()
-                .map(FoodComponent::componentId)
-                .sorted()
+            var sortedComponents = componentCatalog.streamComponents()
+                .sorted((a, b)->a.componentId().compareTo(b.componentId()))
                 .toList();
-            return new ComponentLookup(componentCatalog, sortedComponentIds);
+            return new ComponentLookup(componentCatalog, sortedComponents);
         }
         int indexFor(final FoodComponent component) {
-            return sortedComponentIds.indexOf(component.componentId());
+            int index = sortedComponents.indexOf(component);
+            _Assert.assertTrue(index>=0);
+            return index;
         }
         FoodComponent componentFor(final int index) {
-            return componentCatalog.lookupEntry(sortedComponentIds.get(index))
-                .orElseThrow();
+            return sortedComponents.get(index);
         }
     }
 
