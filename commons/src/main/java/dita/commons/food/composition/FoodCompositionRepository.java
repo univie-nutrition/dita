@@ -19,6 +19,7 @@
 package dita.commons.food.composition;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
@@ -96,6 +97,16 @@ public class FoodCompositionRepository {
     public Map<SemanticIdentifier, FoodComponentDatapoint> lookupElseFail(
             @Nullable final SemanticIdentifier foodId){
         return lookupEntryElseFail(foodId).datapoints();
+    }
+
+    // -- EQUALITY
+
+    @Override
+    public boolean equals(final Object obj) {
+        return obj instanceof FoodCompositionRepository other
+            ? Objects.equals(this.componentCatalog, other.componentCatalog)
+                && Objects.equals(this.internalMap, other.internalMap)
+            : false;
     }
 
     // -- SERIALIZE

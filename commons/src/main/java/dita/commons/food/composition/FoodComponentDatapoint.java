@@ -40,13 +40,13 @@ public record FoodComponentDatapoint(
          */
         ConcentrationUnit concentrationUnit,
         /**
-         * Nature of how to the datapoint is interpreted (as-is or as upper-bound).
+         * Nature of how the datapoint is interpreted (as-is or as upper-bound).
          */
         DatapointSemantic datapointSemantic,
         BigDecimal datapointValue) {
 
     /**
-     * How to the datapoint is interpreted (as-is or as upper-bound).
+     * How the datapoint is interpreted (as-is or as upper-bound).
      */
     @RequiredArgsConstructor
     public enum DatapointSemantic {

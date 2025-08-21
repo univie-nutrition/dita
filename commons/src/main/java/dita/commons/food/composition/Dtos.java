@@ -22,8 +22,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.collections.Can;
@@ -36,7 +38,6 @@ import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.commons.io.YamlUtils.YamlLoadCustomizer;
 
-import org.jspecify.annotations.NonNull;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
@@ -49,58 +50,51 @@ class Dtos {
 
     // -- DATAPOINT
 
-    /** tiny packed format, to save space */
-    public record FoodComponentDatapointDto(String dp) {
-
-    }
-
     public record FoodComponentDatapointProxy(
-            @NonNull SemanticIdentifier componentId,
+            int componentIndex,
             @NonNull DatapointSemantic datapointSemantic,
             @NonNull BigDecimal datapointValue) {
-        FoodComponentDatapointDto pack(){
-          return new FoodComponentDatapointDto(
-              componentId.systemId().toString()
-              + "," + componentId.objectId().toString()
-              + "," + (datapointSemantic == DatapointSemantic.UPPER_BOUND
-                  ? "<"
-                  : "")
-              + "," + datapointValue.unscaledValue()
-              + "," + datapointValue.scale());
+        String pack(){
+            return
+                  componentIndex
+                  + "," + (datapointSemantic == DatapointSemantic.UPPER_BOUND
+                      ? "<"
+                      : "")
+                  + "," + datapointValue.unscaledValue()
+                  + "," + datapointValue.scale();
         }
-        static FoodComponentDatapointProxy unpack(final FoodComponentDatapointDto dto){
-            var parts = _Strings.splitThenStream(dto.dp(), ",")
+        static FoodComponentDatapointProxy unpack(final String dpAsPackedString){
+            var parts = _Strings.splitThenStream(dpAsPackedString, ",")
                     .collect(Can.toCan());
-            _Assert.assertEquals(5, parts.size());
-            var systemId = _Strings.emptyToNull(parts.getElseFail(0));
-            var objectId = _Strings.emptyToNull(parts.getElseFail(1));
-            var datapointSemantic = "<".equals(parts.getElseFail(2))
+            _Assert.assertEquals(4, parts.size());
+            var index = parts.getElseFail(0);
+            var datapointSemantic = "<".equals(parts.getElseFail(1))
                     ? DatapointSemantic.UPPER_BOUND
                     : DatapointSemantic.AS_IS;
-            var unscaledVal = parts.getElseFail(3);
-            var scale = parts.getElseFail(4);
+            var unscaledVal = parts.getElseFail(2);
+            var scale = parts.getElseFail(3);
             return new FoodComponentDatapointProxy(
-                    SemanticIdentifier.parse(systemId, objectId),
+                    Integer.parseInt(index),
                     datapointSemantic,
                     new BigDecimal(new BigInteger(unscaledVal), Integer.valueOf(scale)));
         }
     }
 
-    FoodComponentDatapointDto toDto(final FoodComponentDatapoint datapoint) {
+    String toDto(final int componentIndex, final FoodComponentDatapoint datapoint) {
         return new FoodComponentDatapointProxy(
-                datapoint.component().componentId(),
+                componentIndex,
                 datapoint.datapointSemantic(),
                 datapoint.datapointValue())
                 .pack();
     }
 
     FoodComponentDatapoint fromDto(
-            final FoodComponentDatapointDto dto,
+            final String dpPackedAsString,
             final ConcentrationUnit compositionQuantification,
-            final FoodComponentCatalog componentCatalog) {
-        var proxy = FoodComponentDatapointProxy.unpack(dto);
+            final ComponentLookup lookup) {
+        var proxy = FoodComponentDatapointProxy.unpack(dpPackedAsString);
         return new FoodComponentDatapoint(
-                componentCatalog.lookupEntryElseFail(proxy.componentId()),
+                lookup.componentFor(proxy.componentIndex()),
                 compositionQuantification,
                 proxy.datapointSemantic(),
                 proxy.datapointValue());
@@ -109,26 +103,30 @@ class Dtos {
     // -- FOOD COMPOSITION
 
     public record FoodCompositionDto(
-            @NonNull SemanticIdentifier foodId,
-            @NonNull ConcentrationUnit concentrationUnit,
-            @NonNull Collection<FoodComponentDatapointDto> datapoints) {
+        @NonNull SemanticIdentifier foodId,
+        @NonNull ConcentrationUnit concentrationUnit,
+        @NonNull Collection<String> datapoints) {
     }
 
-    FoodCompositionDto toDto(final FoodComposition composition) {
+    FoodCompositionDto toDto(
+        final ComponentLookup lookup,
+        final FoodComposition composition) {
         return new FoodCompositionDto(
                 composition.foodId(),
                 composition.concentrationUnit(),
-                composition.streamDatapoints().map(Dtos::toDto).toList());
+                composition.streamDatapoints()
+                    .map(dp->Dtos.toDto(lookup.indexFor(dp.component()), dp))
+                    .toList());
     }
 
     FoodComposition fromDto(
-            final FoodCompositionDto dto,
-            final FoodComponentCatalog componentCatalog) {
+            final FoodCompositionDto comp,
+            final ComponentLookup lookup) {
         var datapointMap = new HashMap<SemanticIdentifier, FoodComponentDatapoint>();
-        dto.datapoints().stream()
-            .map(d->Dtos.fromDto(d, dto.concentrationUnit(), componentCatalog))
+        comp.datapoints().stream()
+            .map(d->Dtos.fromDto(d, comp.concentrationUnit(), lookup))
             .forEach(dp->datapointMap.put(dp.componentId(), dp));
-        return new FoodComposition(dto.foodId(), dto.concentrationUnit(), datapointMap);
+        return new FoodComposition(comp.foodId(), comp.concentrationUnit(), datapointMap);
     }
 
     // -- FOOD COMPONENT CATALOG
@@ -162,17 +160,20 @@ class Dtos {
     }
 
     FoodCompositionRepositoryDto toDto(final FoodCompositionRepository repo) {
+        var lookup = ComponentLookup.of(repo.componentCatalog());
         return new FoodCompositionRepositoryDto(
                 repo.componentCatalog().streamComponents().toList(),
-                repo.streamCompositions().map(Dtos::toDto).toList());
+                repo.streamCompositions().map(composition->toDto(lookup, composition)).toList());
     }
 
     FoodCompositionRepository fromDto(@Nullable final FoodCompositionRepositoryDto dto) {
         if(dto==null) return null;
         var componentCatalog = new FoodComponentCatalog();
-        var internalMap = new ConcurrentHashMap<SemanticIdentifier, FoodComposition>();
         dto.components().forEach(componentCatalog::put);
-        dto.compositions().forEach(comp->internalMap.put(comp.foodId(), Dtos.fromDto(comp, componentCatalog)));
+
+        var internalMap = new ConcurrentHashMap<SemanticIdentifier, FoodComposition>();
+        var lookup = ComponentLookup.of(componentCatalog); // create only after catalog was populated
+        dto.compositions().forEach(comp->internalMap.put(comp.foodId(), Dtos.fromDto(comp, lookup)));
         var repo = new FoodCompositionRepository(componentCatalog, internalMap);
         return repo;
     }
@@ -190,6 +191,25 @@ class Dtos {
             loader.setCodePointLimit(millions * 1_000_000);
             return loader;
         };
+    }
+
+    private record ComponentLookup(
+            FoodComponentCatalog componentCatalog,
+            List<SemanticIdentifier> sortedComponentIds) {
+        static ComponentLookup of(final FoodComponentCatalog componentCatalog) {
+            var sortedComponentIds = componentCatalog.streamComponents()
+                .map(FoodComponent::componentId)
+                .sorted()
+                .toList();
+            return new ComponentLookup(componentCatalog, sortedComponentIds);
+        }
+        int indexFor(final FoodComponent component) {
+            return sortedComponentIds.indexOf(component.componentId());
+        }
+        FoodComponent componentFor(final int index) {
+            return componentCatalog.lookupEntry(sortedComponentIds.get(index))
+                .orElseThrow();
+        }
     }
 
 }

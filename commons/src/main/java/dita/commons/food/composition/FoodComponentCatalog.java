@@ -19,6 +19,7 @@
 package dita.commons.food.composition;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
@@ -65,6 +66,15 @@ public class FoodComponentCatalog {
         return lookupEntry(componentId)
                 .orElseThrow(()->_Exceptions.noSuchElement("map has no entry for componentId=%s",
                         componentId));
+    }
+
+    // -- EQUALITY
+
+    @Override
+    public boolean equals(final Object obj) {
+        return obj instanceof FoodComponentCatalog other
+            ? Objects.equals(this.internalMap, other.internalMap)
+            : false;
     }
 
 }
