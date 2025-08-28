@@ -80,10 +80,10 @@ public class ParameterDataVersion {
     }
 
     @ObjectSupport
-    public FontAwesomeLayers iconFaLayers() {
-        return isSticky()
-                ? FontAwesomeLayers.fromQuickNotation("file-shield .version-color-dark")
-                : FontAwesomeLayers.fromQuickNotation("file-pen .version-color-light");
+    public ObjectSupport.IconResource icon(final ObjectSupport.IconWhere iconWhere) {
+        return new ObjectSupport.FontAwesomeIconResource(isSticky()
+            ? FontAwesomeLayers.fromQuickNotation("file-shield .version-color-dark")
+            : FontAwesomeLayers.fromQuickNotation("file-pen .version-color-light"));
     }
 
     @Property

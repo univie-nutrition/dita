@@ -18,25 +18,28 @@
  */
 package dita.globodiet.manager.services.iconfa;
 
-import io.github.causewaystuff.companion.applib.services.iconfa.IconFaService;
-
 import org.jspecify.annotations.Nullable;
+
 import org.springframework.stereotype.Service;
 
+import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.ObjectSupport.IconResource;
+import org.apache.causeway.applib.annotation.ObjectSupport.IconWhere;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 
 import dita.globodiet.params.food_list.FoodSubgroup;
+import io.github.causewaystuff.companion.applib.services.icon.IconService;
 
 @Service
 public class IconFaServiceGdParams
-implements IconFaService {
+implements IconService {
 
     @Override
-    public FontAwesomeLayers iconFaLayers(final @Nullable Object entity) {
-        if(entity instanceof FoodSubgroup foodSubgroup) {
-            return icon(foodSubgroup);
-        }
-        return FontAwesomeLayers.singleIcon("fa-cube");
+    public IconResource icon(@Nullable final Object entity, final IconWhere iconWhere) {
+        var fa = entity instanceof FoodSubgroup foodSubgroup
+            ? icon(foodSubgroup)
+            : FontAwesomeLayers.singleIcon("fa-cube");
+        return new ObjectSupport.FontAwesomeIconResource(fa);
     }
 
     // -- HELPER
@@ -52,4 +55,6 @@ implements IconFaService {
                 + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-45,"
                 + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-85");
     }
+
+
 }

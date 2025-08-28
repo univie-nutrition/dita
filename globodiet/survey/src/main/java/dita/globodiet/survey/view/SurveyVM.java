@@ -176,9 +176,9 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     }
 
     @SuppressWarnings("unused")
-    @ObjectSupport public FontAwesomeLayers iconFaLayers() {
+    @ObjectSupport public ObjectSupport.IconResource icon(final ObjectSupport.IconWhere iconWhere) {
         var node = activeNode();
-        return FontAwesomeLayers.fromQuickNotation(
+        var fa = FontAwesomeLayers.fromQuickNotation(
             switch (node) {
             case InterviewSet24 interviewSet -> SurveyTreeNodeContentFactory.icon(interviewSet);
             case Respondent24 respondent -> SurveyTreeNodeContentFactory.icon(respondent, DataUtil.messages(interviewSet()));
@@ -188,6 +188,7 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
             case Record24 rec -> "regular file-lines";
 //            case Ingredient24.Dto ingr -> "solid plate-wheat";
             });
+        return new ObjectSupport.FontAwesomeIconResource(fa);
     }
 
     @Property

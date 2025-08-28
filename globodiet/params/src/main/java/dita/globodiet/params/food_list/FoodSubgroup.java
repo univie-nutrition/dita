@@ -23,7 +23,7 @@ import dita.globodiet.params.classification.FoodGrouping;
 import io.github.causewaystuff.companion.applib.jpa.EnumConverter;
 import io.github.causewaystuff.companion.applib.jpa.EnumWithCode;
 import io.github.causewaystuff.companion.applib.jpa.Persistable;
-import io.github.causewaystuff.companion.applib.services.iconfa.IconFaService;
+import io.github.causewaystuff.companion.applib.services.icon.IconService;
 import io.github.causewaystuff.companion.applib.services.lookup.Cloneable;
 import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
 import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
@@ -67,7 +67,6 @@ import org.apache.causeway.applib.annotation.Property;
 import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Snapshot;
 import org.apache.causeway.applib.annotation.Where;
-import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 
 /**
@@ -290,7 +289,7 @@ public class FoodSubgroup implements Persistable, Cloneable<FoodSubgroup>, FoodG
 
     @Inject
     @Transient
-    IconFaService iconFaService;
+    IconService iconService;
 
     @ObjectSupport
     public String title() {
@@ -342,8 +341,8 @@ public class FoodSubgroup implements Persistable, Cloneable<FoodSubgroup>, FoodG
     }
 
     @ObjectSupport
-    public FontAwesomeLayers iconFaLayers() {
-        return iconFaService.iconFaLayers(this);
+    public ObjectSupport.IconResource icon(ObjectSupport.IconWhere iconWhere) {
+        return iconService.icon(this, iconWhere);
     }
 
     @Programmatic
