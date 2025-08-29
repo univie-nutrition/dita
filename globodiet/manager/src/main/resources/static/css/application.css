@@ -27,6 +27,15 @@
 .food-color-em2 {
   color: IndianRed;
 }
+.job-cancelled-color {
+  color: darkred;
+}
+.job-running-color {
+  color: grey;
+}
+.job-done-color {
+  color: green;
+}
 .nutrient-color {
   color: Teal;
 }

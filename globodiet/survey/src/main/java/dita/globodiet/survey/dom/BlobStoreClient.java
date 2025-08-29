@@ -21,6 +21,7 @@ package dita.globodiet.survey.dom;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
 
@@ -29,6 +30,7 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.base._NullSafe;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,9 +41,11 @@ import dita.commons.sid.dmap.DirectMap;
 import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FdmUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
+import dita.globodiet.survey.dom.ReportJob.JobState;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.InterviewSet24;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.cache.CachableAggregate;
@@ -72,6 +76,8 @@ public record BlobStoreClient(
                 root->root.add("fdm").add("fdm.yaml")),
         CORRECTIONS(CommonMimeType.YAML, Compression.NONE,
                 root->root.add("corrections")),
+        REPORTS(CommonMimeType.XLSX, Compression.NONE,
+            root->root.add("reports")),
         INTERVIEWS_CORRECTED(CommonMimeType.JSON, Compression.SEVEN_ZIP,
                 root->root.add("caches").add("interviews-corrected.json"));
 
@@ -94,11 +100,11 @@ public record BlobStoreClient(
 
     // -- UPLOAD
 
-    public void uploadToBlobStore(
+    public BlobDescriptor uploadToBlobStore(
         @NonNull final NamedPath path,
         @NonNull final Compression compression,
         @NonNull final Blob blob) {
-        blobStore.putBlob(path, blob, desc->desc.withCompression(compression));
+        return blobStore.putBlob(path, blob, desc->desc.withCompression(compression));
     }
 
     // -- SURVEY CONFIG
@@ -153,6 +159,46 @@ public record BlobStoreClient(
             var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath());
             uploadToBlobStore(path, Compression.NONE, blob);
         });
+    }
+
+    // -- REPORT JOBS
+
+    private static ReportJobExecutor JOB_EXECUTOR = new ReportJobExecutor();
+
+    public ReportJob runReportJob(final String name, final Supplier<Blob> blobSupplier) {
+        var uploadPath = DataSourceLocation.REPORTS.namedPath(surveyPath()).add(name + ".xlsx");
+
+        JOB_EXECUTOR.run(uploadPath, ()->
+            uploadToBlobStore(uploadPath, Compression.NONE, blobSupplier.get()));
+
+        return new ReportJob(uploadPath, surveyKey);
+    }
+
+    public JobState jobState(final ReportJob reportJob) {
+        if(JOB_EXECUTOR.runningJobs().contains(reportJob.namedPath()))
+            return JobState.RUNNING;
+        if(blobStore.lookupBlob(reportJob.namedPath()).isPresent())
+            return JobState.DONE;
+        return JobState.CANCELLED;
+    }
+
+    public Blob download(final ReportJob reportJob) {
+        return blobStore.lookupBlob(reportJob.namedPath())
+            .orElse(null);
+    }
+
+    public List<ReportJob> reportJobs() {
+        return blobStore.listDescriptors(DataSourceLocation.REPORTS.namedPath(surveyPath()), false)
+            .stream()
+            .filter(desc->CommonMimeType.XLSX.equals(desc.mimeType()))
+            .map(desc->new ReportJob(desc.path(), surveyKey))
+            .toList();
+    }
+
+    public void deleteJobs(final List<ReportJob> jobs) {
+        _NullSafe.stream(jobs)
+            .forEach(job->
+                blobStore.deleteBlob(job.namedPath()));
     }
 
     // -- INTERVIEW CACHE

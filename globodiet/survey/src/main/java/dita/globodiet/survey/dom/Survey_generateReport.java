@@ -34,9 +34,6 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
-import org.apache.causeway.applib.value.Blob;
-import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
-
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.util.FormatUtils;
@@ -49,10 +46,12 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Action(semantics = SemanticsOf.SAFE)
 @ActionLayout(
-        sequence = "2",
+        fieldSetId = "reportJobs",
+        sequence = "1",
         cssClass = "btn-primary",
         cssClassFa = "solid file-export",
-        describedAs = "Generates an Interview Report (for selected campains)."
+        describedAs = "Generates an Interview Report (for selected campains).",
+        position = ActionLayout.Position.PANEL
 )
 @RequiredArgsConstructor
 public class Survey_generateReport {
@@ -63,7 +62,7 @@ public class Survey_generateReport {
     private final Survey mixee;
 
     @MemberSupport
-    public Blob act(
+    public ReportJob act(
             @Parameter(optionality = Optionality.OPTIONAL)
             final RespondentFilter respondentFilter,
             @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES)
@@ -78,7 +77,7 @@ public class Survey_generateReport {
         var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
                 .load(respondentFilter)
                 .defaultTransform();
-        if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
+        if(reportContext.isEmpty()) return null;//Blob.of("empty", CommonMimeType.TXT, new byte[0]);
 
         var foodCompositionRepo = reportContext.foodCompositionRepository();
 
@@ -98,7 +97,10 @@ public class Survey_generateReport {
                 mixee.getCode().toLowerCase(),
                 aggregation.name(),
                 FormatUtils.isoDate(LocalDate.now()));
-        return new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(factoryService), name);
+
+        var client = new BlobStoreClient(mixee.secondaryKey(), surveyBlobStore);
+        return client.runReportJob(name, ()->
+            new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(factoryService), name));
     }
 
     @MemberSupport
