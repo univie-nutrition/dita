@@ -21,6 +21,7 @@ package dita.globodiet.survey.dom;
 import java.io.Serializable;
 
 import jakarta.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
@@ -43,7 +44,9 @@ import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @DomainObjectLayout(
-        describedAs = "Report Job.",
+        describedAs = "Report Jobs are execetuded in background to typically run a few minutes."
+                + " On completion they change their state from RUNNING to DONE and "
+                + "the finisished report becomes available for download.",
         cssClassFa = "solid spinner .job-running-color"
 )
 public record ReportJob(

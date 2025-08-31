@@ -48,7 +48,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 )
 @ActionLayout(
         fieldSetId = "correctionUploads",
-        sequence = "1",
+        sequence = "2",
         describedAs = "Uploads an interview correction YAML file.",
         position = ActionLayout.Position.PANEL
 )

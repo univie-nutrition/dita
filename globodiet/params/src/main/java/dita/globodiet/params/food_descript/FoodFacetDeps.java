@@ -55,6 +55,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.0",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -76,6 +77,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.1",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -97,6 +99,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.2",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -118,6 +121,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.3",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -139,6 +143,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.4",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -160,6 +165,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.5",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -181,6 +187,7 @@ public class FoodFacetDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.6",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor

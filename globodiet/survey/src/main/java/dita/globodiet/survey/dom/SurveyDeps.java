@@ -43,6 +43,7 @@ public class SurveyDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.0",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -64,6 +65,7 @@ public class SurveyDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.1",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -85,6 +87,7 @@ public class SurveyDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.2",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor

@@ -41,6 +41,7 @@ public class DietarySupplementClassificationDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.0",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor

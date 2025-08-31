@@ -72,6 +72,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.0",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -93,6 +94,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.1",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -114,6 +116,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.2",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -135,6 +138,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.3",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -156,6 +160,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.4",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -177,6 +182,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.5",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -198,6 +204,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.6",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -219,6 +226,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.7",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -240,6 +248,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.8",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -261,6 +270,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.9",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -282,6 +292,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.10",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -303,6 +314,7 @@ public class RecipeDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.11",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor

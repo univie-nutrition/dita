@@ -43,6 +43,7 @@ public class RecipeDescriptorDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.0",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor

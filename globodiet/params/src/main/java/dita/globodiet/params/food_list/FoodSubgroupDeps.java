@@ -125,6 +125,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.0",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -146,6 +147,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.1",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -167,6 +169,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.2",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -188,6 +191,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.3",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -209,6 +213,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.4",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -230,6 +235,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.5",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -251,6 +257,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.6",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -272,6 +279,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.7",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -293,6 +301,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.8",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -314,6 +323,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.9",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -335,6 +345,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.10",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -356,6 +367,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.11",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -377,6 +389,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.12",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -398,6 +411,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.13",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -419,6 +433,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.14",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -440,6 +455,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.15",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -461,6 +477,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.16",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -482,6 +499,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.17",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -503,6 +521,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.18",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -524,6 +543,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.19",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -545,6 +565,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.20",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -566,6 +587,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.21",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -587,6 +609,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.22",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -608,6 +631,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.23",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -629,6 +653,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.24",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -650,6 +675,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.25",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -671,6 +697,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.26",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -692,6 +719,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.27",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -713,6 +741,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.28",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -734,6 +763,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.29",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -755,6 +785,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.30",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -776,6 +807,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.31",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -797,6 +829,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.32",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -818,6 +851,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.33",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -839,6 +873,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.34",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor
@@ -860,6 +895,7 @@ public class FoodSubgroupDeps {
 
     @Collection
     @CollectionLayout(
+            sequence = "1.35",
             tableDecorator = CollectionTitleDecorator.class
     )
     @RequiredArgsConstructor

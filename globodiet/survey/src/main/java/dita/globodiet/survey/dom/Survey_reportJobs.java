@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
 @Collection
-@CollectionLayout(sequence = "0")
+@CollectionLayout(sequence = "0.1")
 @RequiredArgsConstructor
 public class Survey_reportJobs {
 
