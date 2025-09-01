@@ -156,7 +156,8 @@ public record BlobStoreClient(
 
         blobs.forEach(blob->{
             log.info("upload {} ({} bytes)", blob.name(), blob.bytes().length);
-            var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath());
+            var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath())
+                .add(blob.name());
             uploadToBlobStore(path, Compression.NONE, blob);
         });
     }
