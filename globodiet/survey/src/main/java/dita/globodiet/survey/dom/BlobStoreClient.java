@@ -129,6 +129,7 @@ public record BlobStoreClient(
     public List<CorrectionUpload> correctionUploads() {
         return blobStore.listDescriptors(DataSourceLocation.CORRECTIONS.namedPath(surveyPath()), false)
             .stream()
+            .peek(x->System.err.printf("%s%n", x))
             .filter(desc->CommonMimeType.YAML.equals(desc.mimeType()))
             .map(desc->CorrectionUpload.of(desc, surveyKey))
             .toList();
@@ -158,7 +159,9 @@ public record BlobStoreClient(
             log.info("upload {} ({} bytes)", blob.name(), blob.bytes().length);
             var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath())
                 .add(blob.name());
-            uploadToBlobStore(path, Compression.NONE, blob);
+
+            var blobAsYaml = Blob.of(blob.name(), CommonMimeType.YAML, blob.bytes());
+            uploadToBlobStore(path, Compression.NONE, blobAsYaml);
         });
     }
 

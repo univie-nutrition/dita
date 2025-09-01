@@ -63,24 +63,24 @@ public class Survey_uploadCorrection {
 
     @MemberSupport
     public Survey act(
-            @Parameter(fileAccept = ".yaml,.zip")
+            @Parameter(fileAccept = ".yml,.yaml,.zip")
             @ParameterLayout(
-                    describedAs = "Either a single interview correction yaml file or multiple provided as a zip.")
-            final Blob interviewFileOrFiles) {
+                    describedAs = "Either a single correction correction yaml file or multiple provided as a zip.")
+            final Blob correctionFileOrFiles) {
 
         var client = new BlobStoreClient(mixee.secondaryKey(), surveyBlobStore);
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
             .getUser().name();
 
-        if(interviewFileOrFiles.isZipped()) {
+        if(correctionFileOrFiles.isZipped()) {
             client.uploadCorrectionYaml(createdBy,
-                interviewFileOrFiles.unzipAsBlobStream(CommonMimeType.YAML)
+                correctionFileOrFiles.unzipAsBlobStream(CommonMimeType.YAML)
                     .toList());
-        } else if(interviewFileOrFiles.isYaml()) {
-            client.uploadCorrectionYaml(createdBy, List.of(interviewFileOrFiles));
+        } else if(correctionFileOrFiles.isYaml()) {
+            client.uploadCorrectionYaml(createdBy, List.of(correctionFileOrFiles));
         } else {
             throw new RecoverableException(String.format("unsupported mime %s%n",
-                    interviewFileOrFiles.mimeType().toString()));
+                    correctionFileOrFiles.mimeType().toString()));
         }
         surveyTreeRootNodeHelperService.invalidateCache();
         client.invalidateAllInterviewCaches();
