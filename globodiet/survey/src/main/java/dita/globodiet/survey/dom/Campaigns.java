@@ -94,8 +94,15 @@ public class Campaigns {
         var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
 
+        var compositeAmbiguityCheckingTransformer = correction.asCompositeAmbiguityCheckingTransformer();
+
         var compositesCorrected = interviewSet
             .transform(correction.asFoodByNameTransformer())
+            .transform(compositeAmbiguityCheckingTransformer);
+
+        compositeAmbiguityCheckingTransformer.validate();
+
+        compositesCorrected = compositesCorrected
             .transform(correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
         return compositesCorrected;
     }

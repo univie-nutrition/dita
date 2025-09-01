@@ -85,7 +85,7 @@ class Correction24Test {
     // -- HELPER
 
     private Coordinates sampleCoors() {
-        return new Coordinates(recipe("00301"), "EB_0077", 1, LocalTime.of(19, 30), NamedPath.of("path", "sample.xml"));
+        return new Coordinates(recipe("00301"), "EB_0077", 1, LocalTime.of(19, 30), null, NamedPath.of("path", "sample.xml"));
     }
 
     private SemanticIdentifier recipe(final String objSimpleId) {

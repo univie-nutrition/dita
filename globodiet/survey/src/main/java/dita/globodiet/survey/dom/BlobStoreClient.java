@@ -214,14 +214,16 @@ public record BlobStoreClient(
                 DataSourceLocation.INTERVIEWS_CORRECTED.namedPath(surveyPath()),
                 DataSourceLocation.INTERVIEWS_CORRECTED.compression,
                 blobStore,
-                ()->interviewsCorrected(systemId, campaignKeys));
+                ()->interviewsCorrected(systemId, campaignKeys, correction()));
     }
 
-    /** bypasses caching */
+    /** bypasses caching
+     * @param correction */
     public InterviewSet24 interviewsCorrected(
             final SystemId systemId,
-            final Can<Campaign.SecondaryKey> campaignKeys) {
-        return Campaigns.interviewSetCorrected(systemId, campaignKeys, correction(), foodDescriptionModel(), blobStore);
+            final Can<Campaign.SecondaryKey> campaignKeys,
+            final Correction24 correction) {
+        return Campaigns.interviewSetCorrected(systemId, campaignKeys, correction, foodDescriptionModel(), blobStore);
     }
 
     public void invalidateAllInterviewCaches() {

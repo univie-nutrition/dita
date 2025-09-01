@@ -21,9 +21,11 @@ package dita.recall24.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
@@ -36,6 +38,7 @@ import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
@@ -99,12 +102,14 @@ public record Correction24(
                 String respondentId,
                 int interviewOrdinal,
                 LocalTime mealHourOfDay,
+                @Nullable String name,
                 NamedPath source) implements Comparable<Coordinates>{
 
             private static Comparator<Coordinates> COMPARATOR = Comparator.comparing(Coordinates::sid)
                     .thenComparing(Coordinates::respondentId)
                     .thenComparing(Coordinates::interviewOrdinal)
                     .thenComparing(Coordinates::mealHourOfDay)
+                    .thenComparing((a, b)->_Strings.compareNullsFirst(a.name(), b.name()))
                     .thenComparing(Coordinates::source, NamedPath.comparator());
 
             @Override
@@ -118,11 +123,25 @@ public record Correction24(
                 var iv = meal.parentInterview();
                 var resp = iv.parentRespondent();
                 return new CompositeCorr.Coordinates(
-                        composite.sid(),
-                        resp.alias(),
-                        iv.interviewOrdinal(),
-                        meal.hourOfDay(),
-                        iv.dataSource().orElseThrow());
+                    composite.sid(),
+                    resp.alias(),
+                    iv.interviewOrdinal(),
+                    meal.hourOfDay(),
+                    composite.name(),
+                    iv.dataSource().orElseThrow());
+            }
+            public static Coordinates ofRelaxed(final Composite composite) {
+                var mem = composite.parentMemorizedFood();
+                var meal = mem.parentMeal();
+                var iv = meal.parentInterview();
+                var resp = iv.parentRespondent();
+                return new CompositeCorr.Coordinates(
+                    composite.sid(),
+                    resp.alias(),
+                    iv.interviewOrdinal(),
+                    meal.hourOfDay(),
+                    null, // is used as a wildcard
+                    iv.dataSource().orElseThrow());
             }
         }
         public record Addition(
@@ -192,6 +211,10 @@ public record Correction24(
 
     public RecallNode24.Transfomer asFoodByNameTransformer() {
         return new FoodByNameCorrectionTransformer(foodByName);
+    }
+
+    public CompositeCorrectionAmbiguityChecker asCompositeAmbiguityCheckingTransformer() {
+        return new CompositeCorrectionAmbiguityChecker(composites);
     }
 
     public RecallNode24.Transfomer asCompositeTransformer(final Function<SemanticIdentifier, String> nameBySidLookup) {
@@ -311,6 +334,76 @@ public record Correction24(
 
     }
 
+    public record CompositeCorrectionAmbiguity(
+        CompositeCorr.Coordinates releaxedCoors,
+        List<Record24.Composite> candidates) {
+
+        @Override public final String toString() {
+            return "%s {%s}".formatted(
+                releaxedCoors.toString(),
+                candidates.stream()
+                    .map(composite->{
+                        var trueCoors = CompositeCorr.Coordinates.of(composite);
+                        return "%s(%d)".formatted(composite.name(), trueCoors.name());
+                    })
+                    .collect(Collectors.joining("|")));
+        }
+    }
+
+    public record CompositeCorrectionAmbiguityChecker(
+        Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
+        List<CompositeCorrectionAmbiguity> ambiguities)
+    implements RecallNode24.Transfomer {
+
+        CompositeCorrectionAmbiguityChecker(final List<CompositeCorr> composites){
+            this(
+                _NullSafe.stream(composites)
+                    .collect(Collectors.toMap(CompositeCorr::coordinates, UnaryOperator.identity())),
+                new ArrayList<>());
+        }
+
+        @Override
+        public <T extends RecallNode24> T transform(final T node) {
+            if(node instanceof Composite composite) {
+                Optional.ofNullable(compCorrByCoors.get(CompositeCorr.Coordinates.of(composite)))
+                .orElseGet(()->{
+                    var releaxedCoors = CompositeCorr.Coordinates.ofRelaxed(composite);
+                    var relaxedMatch = compCorrByCoors.get(CompositeCorr.Coordinates.ofRelaxed(composite));
+                    // we only allow this, if there is no ambiguity, that is the meal this composite belongs to
+                    // must only have a single memorized food entry
+                    if(relaxedMatch!=null) {
+                        var mem = composite.parentMemorizedFood();
+                        var meal = mem.parentMeal();
+                        var composites = collectComposites(meal, composite.sid());
+                        if(composites.size()!=1) {
+                            ambiguities.add(new CompositeCorrectionAmbiguity(releaxedCoors, composites));
+                        }
+                    }
+                    return relaxedMatch;
+                });
+            }
+            return node;
+        }
+
+        private List<Record24.Composite> collectComposites(final Meal24 meal, final SemanticIdentifier sid) {
+            return meal.memorizedFood().stream()
+                .flatMap(mem->mem.topLevelRecords().stream())
+                .filter(rec->rec instanceof Composite)
+                .map(Composite.class::cast)
+                .filter(composite->composite.sid().equals(sid))
+                .toList();
+        }
+
+        public void validate() {
+            _Assert.assertEquals(0, ambiguities.size(),
+                ()->"memorized food ambiguity at coordintates\n"
+                    + ambiguities.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining("\n")));
+        }
+
+    }
+
     private record CompositeCorrectionTransformer(
             Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
             Function<SemanticIdentifier, String> nameBySidLookup)
@@ -329,7 +422,8 @@ public record Correction24(
         public <T extends RecallNode24> T transform(final T node) {
             return switch(node) {
                 case Composite composite -> {
-                    var compCorr = compCorrByCoors.get(CompositeCorr.Coordinates.of(composite));
+                    var compCorr = Optional.ofNullable(compCorrByCoors.get(CompositeCorr.Coordinates.of(composite)))
+                        .orElseGet(()->compCorrByCoors.get(CompositeCorr.Coordinates.ofRelaxed(composite)));
                     if(compCorr==null) yield node;
 
                     var builder = (Composite.Builder)composite.asBuilder();
