@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,16 +21,23 @@ package dita.globodiet.survey.dom;
 
 import jakarta.inject.Inject;
 
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.ParameterTuple;
+import org.apache.causeway.applib.annotation.Optionality;
+import org.apache.causeway.applib.annotation.Parameter;
+import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.repository.RepositoryService;
-
 import lombok.RequiredArgsConstructor;
+
+import dita.commons.sid.SemanticIdentifier.SystemId;
 
 @Action(
         semantics = SemanticsOf.IDEMPOTENT
@@ -46,19 +53,44 @@ public class SurveyManager_addSurvey {
 
     @Inject private RepositoryService repositoryService;
     @Inject private ForeignKeyLookupService foreignKeyLookup;
+    @Inject @Qualifier("survey") private BlobStore surveyBlobStore;
 
     private final Survey.Manager mixee;
 
     @MemberSupport
-    public Survey.Manager act(@ParameterTuple final Survey.Params p) {
+    public Survey.Manager act(
+        @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
+        @ParameterLayout(describedAs = "Unique (application scoped) survey identifier.") final
+        String code,
+        @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
+        @ParameterLayout(describedAs = "Descriptive survey name.") final
+        String name,
+        @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
+        @ParameterLayout(describedAs = "Default Semantic Identifier System Id for this survey (e.g. 'at.gd:2.0'.") final
+        String systemId
+
+        ) {
 
         var survey = repositoryService.detachedEntity(new Survey());
-        survey.setCode(p.code());
-        survey.setName(p.name());
+        survey.setCode(code);
+        survey.setName(name);
+
+        var client = new BlobStoreClient(survey.secondaryKey(), surveyBlobStore);
+        client.putSurveyConfig(new SurveyConfig(SystemId.parse(systemId)));
 
         repositoryService.persist(survey);
         foreignKeyLookup.clearCache(Survey.class);
         return mixee;
+    }
+
+    @MemberSupport
+    public String validateSystemId(final String systemId) {
+        try{
+            SystemId.parse(systemId);
+            return null;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
 }

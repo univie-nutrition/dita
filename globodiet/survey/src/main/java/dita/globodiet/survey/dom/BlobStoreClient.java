@@ -109,6 +109,15 @@ public record BlobStoreClient(
 
     // -- SURVEY CONFIG
 
+    public void putSurveyConfig(final SurveyConfig surveyConfig) {
+        if(lookupBlobAndUncompress(DataSourceLocation.SURVEY_CONFIG).isEmpty()) {
+            var path = DataSourceLocation.SURVEY_CONFIG.namedPath(surveyPath());
+            var blob = Clob.of(path.lastNameElseFail(), CommonMimeType.YAML, surveyConfig.toYaml())
+                .toBlobUtf8();
+            blobStore.putBlob(path, blob);
+        }
+    }
+
     public SurveyConfig surveyConfig() {
         var yaml = lookupBlobAndUncompress(DataSourceLocation.SURVEY_CONFIG)
                 .orElseThrow()
