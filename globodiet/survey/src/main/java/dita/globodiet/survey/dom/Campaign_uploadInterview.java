@@ -74,8 +74,8 @@ public class Campaign_uploadInterview {
                 .forEach(this::uploadToBlobStore);
         } else if(interviewFileOrFiles.isXml()) {
             uploadToBlobStore(interviewFileOrFiles);
-        } else if(interviewFileOrFiles.isYaml()) {
-            uploadToBlobStore(interviewFileOrFiles);
+//        } else if(interviewFileOrFiles.isYaml()) {
+//            uploadToBlobStore(interviewFileOrFiles);
         } else {
             throw new RecoverableException(String.format("unsupported mime %s%n",
                     interviewFileOrFiles.mimeType().toString()));
@@ -88,10 +88,13 @@ public class Campaign_uploadInterview {
 
     // -- HELPER
 
-    private void uploadToBlobStore(final Blob blob) {
+    private void uploadToBlobStore(Blob blob) {
         var createdBy = MetaModelContext.instanceElseFail().getInteractionService().currentInteractionContextElseFail()
                 .getUser().name();
-        var path = Campaigns.interviewNamedPath(mixee.secondaryKey());
+        var path = Campaigns.interviewNamedPath(mixee.secondaryKey())
+            .add(blob.name());
+
+        blob = Blob.of(blob.name(), CommonMimeType.XML, blob.bytes()); // mime type fix
 
         surveyBlobStore.putBlob(path, blob, desc->desc
             .withCreatedBy(createdBy)

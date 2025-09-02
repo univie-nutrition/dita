@@ -66,7 +66,9 @@ public class SurveyManager_addSurvey {
         @ParameterLayout(describedAs = "Descriptive survey name.")
         final String name,
         @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
-        @ParameterLayout(describedAs = "Default Semantic Identifier System Id for this survey. e.g. at.gd/2.0")
+        @ParameterLayout(describedAs = "Default Semantic Identifier System Id for this survey. e.g. at.gd/2.0"
+            + "\n\nWARNING a new survey also needs to be initialzed by an administrator, "
+            + "that is, it needs a FCDB, a FDM and other mapping data!")
         final String systemId) {
 
         var survey = repositoryService.detachedEntity(new Survey());
