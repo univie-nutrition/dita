@@ -60,16 +60,14 @@ public class SurveyManager_addSurvey {
     @MemberSupport
     public Survey.Manager act(
         @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
-        @ParameterLayout(describedAs = "Unique (application scoped) survey identifier.") final
-        String code,
+        @ParameterLayout(describedAs = "Unique (application scoped) survey identifier.")
+        final String code,
         @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
-        @ParameterLayout(describedAs = "Descriptive survey name.") final
-        String name,
+        @ParameterLayout(describedAs = "Descriptive survey name.")
+        final String name,
         @Parameter(precedingParamsPolicy = PrecedingParamsPolicy.PRESERVE_CHANGES, optionality = Optionality.MANDATORY)
-        @ParameterLayout(describedAs = "Default Semantic Identifier System Id for this survey (e.g. 'at.gd:2.0'.") final
-        String systemId
-
-        ) {
+        @ParameterLayout(describedAs = "Default Semantic Identifier System Id for this survey. e.g. at.gd/2.0")
+        final String systemId) {
 
         var survey = repositoryService.detachedEntity(new Survey());
         survey.setCode(code);
