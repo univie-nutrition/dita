@@ -34,8 +34,13 @@ import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.PrecedingParamsPolicy;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.applib.value.Blob;
+import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
+import org.apache.causeway.commons.collections.Can;
+
 import lombok.RequiredArgsConstructor;
 
+import dita.commons.food.composition.FoodComponent;
 import dita.commons.util.FormatUtils;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentReportColumnDefinitionMappedBySurvey;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentRespondentFilterMappedBySurvey;
@@ -73,34 +78,25 @@ public class Survey_generateReport {
         var campaignKeys = Campaigns.listAll(factoryService, mixee)
             .map(Campaign::secondaryKey);
 
-        // see also Survey_downloadMappingTodos
-        var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
-                .load(respondentFilter)
-                .defaultTransform();
-        if(reportContext.isEmpty()) return null;//Blob.of("empty", CommonMimeType.TXT, new byte[0]);
-
-        var foodCompositionRepo = reportContext.foodCompositionRepository();
-
-        var tabularReport = new TabularReport(
-            reportContext.interviewSet(),
-            reportContext.surveyConfig().systemId(),
-            reportContext.specialDayMapping(),
-            reportContext.specialDietMapping(),
-            reportContext.fcoMapping(),
-            reportContext.pocMapping(),
-            reportContext.foodDescriptionModel(),
-            foodCompositionRepo,
-            DataUtil.foodComponents(foodCompositionRepo.componentCatalog(), reportColumnDefinition),
-            aggregation);
-
         var name = String.format("%s_%s_%s",
                 mixee.getCode().toLowerCase(),
                 aggregation.name(),
                 FormatUtils.isoDate(LocalDate.now()));
 
         var client = new BlobStoreClient(mixee.secondaryKey(), surveyBlobStore);
-        return client.runReportJob(name, ()->
-            new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(factoryService), name));
+        return client.runReportJob(name, ()->{
+            // see also Survey_downloadMappingTodos
+            var reportContext = ReportContext.factory(surveyBlobStore, campaignKeys)
+                    .load(respondentFilter)
+                    .defaultTransform();
+            if(reportContext.isEmpty()) return Blob.of("empty", CommonMimeType.TXT, new byte[0]);
+
+            var foodComponents =
+                DataUtil.foodComponents(reportContext.foodCompositionRepository().componentCatalog(), reportColumnDefinition);
+
+            var tabularReport = tabularReport(reportContext, foodComponents, aggregation);
+            return new XlsxFormat().writeBlob(tabularReport.multiSheetTabularModel(factoryService), name);
+        });
     }
 
     @MemberSupport
@@ -118,6 +114,27 @@ public class Survey_generateReport {
     @MemberSupport
     public Aggregation defaultAggregation() {
         return Aggregation.NONE;
+    }
+
+    private TabularReport tabularReport(
+        final ReportContext reportContext,
+        final Can<FoodComponent> foodComponents,
+        final Aggregation aggregation) {
+
+        var foodCompositionRepo = reportContext.foodCompositionRepository();
+
+        var tabularReport = new TabularReport(
+            reportContext.interviewSet(),
+            reportContext.surveyConfig().systemId(),
+            reportContext.specialDayMapping(),
+            reportContext.specialDietMapping(),
+            reportContext.fcoMapping(),
+            reportContext.pocMapping(),
+            reportContext.foodDescriptionModel(),
+            foodCompositionRepo,
+            foodComponents,
+            aggregation);
+        return tabularReport;
     }
 
 }
