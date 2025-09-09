@@ -37,7 +37,7 @@ additional
 
         <indriya.version>2.2.3</indriya.version>
 
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.40</lombok.version>
 
         <mariadb.version>3.5.3</mariadb.version>
         <mssql-jdbc.version>12.10.0.jre11</mssql-jdbc.version>
