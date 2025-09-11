@@ -29,6 +29,8 @@ import dita.commons.sid.dmap.DirectMap;
 import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.FryingFatDeduplicator1;
+import dita.globodiet.survey.util.FryingFatDeduplicator2;
 import dita.globodiet.survey.util.IngredientToRecipeResolver;
 import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.recall24.dto.InterviewSet24;
@@ -62,6 +64,7 @@ public record ReportContext(
 
     //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
     public ReportContext defaultTransform() {
+        var fryingFatDeduplicator1 = new FryingFatDeduplicator1();
         return transform(in->
             in.isEmpty()
                 ? in
@@ -72,6 +75,8 @@ public record ReportContext(
                     // to handle ingredients from the previous transformer
                     .transform(new QualifiedMappingResolver(nutMapping()))
                     .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
+                    .transform(fryingFatDeduplicator1)
+                    .transform(new FryingFatDeduplicator2(fryingFatDeduplicator1.fryingFatHandlersAsMap()))
                     // to handle ingredients from the previous transformer
                     .transform(new QualifiedMappingResolver(nutMapping()))
             );
