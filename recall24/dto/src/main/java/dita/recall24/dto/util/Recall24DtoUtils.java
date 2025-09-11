@@ -36,6 +36,7 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.collections._Multimaps;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.experimental.UtilityClass;
 
@@ -48,6 +49,9 @@ import dita.recall24.dto.Meal24;
 import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
+import dita.recall24.dto.Record24.Composite;
+import dita.recall24.dto.Record24.Food;
+import dita.recall24.dto.Record24.FryingFat;
 import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.RespondentSupplementaryData24;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
@@ -168,13 +172,79 @@ public class Recall24DtoUtils {
     public Optional<InterviewSet24> transform(
             final InterviewSet24 input,
             final RecallNode24.Transfomer transformer) {
-        if(transformer.filter(input)==false) return Optional.empty();
+        if(transformer.filter(input)==false) {
+            transformer.finish();
+            return Optional.empty();
+        }
         var transformedRespondents = input.respondents().stream()
             .flatMap(resp->transform(resp, transformer))
             .collect(Can.toCan());
         var prepared = new InterviewSet24(transformedRespondents, input.annotations());
         var transformed = transformer.transform(prepared);
+        transformer.finish();
         return Optional.ofNullable(transformed);
+    }
+
+    // -- MISC
+
+    public boolean isTopLevelFood(final Food food) {
+        return food.parentMemorizedFood()
+            .topLevelRecords()
+            .contains(food);
+    }
+
+    /**
+     * frying fat - if any - is always the next sibling node of a food or ingredient node
+     *
+     * <p>variant to use for top level food
+     */
+    public Optional<FryingFat> fryingFat(final Food food) {
+        return fryingFat(null, food);
+    }
+
+    /**
+     * frying fat - if any - is always the next sibling node of a food or ingredient node
+     *
+     * <p>if composite is present, food must be and ingredient of that composite,
+     * otherwise the food is considered top levelS
+     */
+    public Optional<FryingFat> fryingFat(final @Nullable Composite composite, final Food food) {
+        var siblings = composite!=null
+            ? composite.subRecords()
+            : food.parentMemorizedFood().topLevelRecords();
+        var siblingIndex = siblings.indexOf(food);
+        if(siblingIndex==-1) {
+            if(composite!=null) {
+                // composite is not the parent of food
+                throw _Exceptions.illegalArgument("given composite %s is not the parent of given food %s",
+                    composite.name(), food.name());
+            } else {
+                throw _Exceptions.illegalArgument("given food %s is not a top level record",
+                    food.name());
+            }
+        }
+        var fryingFat = siblings.get(siblingIndex + 1)
+            .filter(FryingFat.class::isInstance)
+            .map(FryingFat.class::cast);
+        return fryingFat;
+    }
+
+    public Record24 recordForFryingFat(final @Nullable Composite composite, final FryingFat fryingFat) {
+        var siblings = composite!=null
+            ? composite.subRecords()
+            : fryingFat.parentMemorizedFood().topLevelRecords();
+        var siblingIndex = siblings.indexOf(fryingFat);
+        if(siblingIndex==-1) {
+            if(composite!=null) {
+                // composite is not the parent of food
+                throw _Exceptions.illegalArgument("given composite %s is not the parent of given fryingFat %s",
+                    composite.name(), fryingFat.name());
+            } else {
+                throw _Exceptions.illegalArgument("given fryingFat %s is not a top level record",
+                    fryingFat.name());
+            }
+        }
+        return siblings.getElseFail(siblingIndex - 1);
     }
 
     // -- HELPER

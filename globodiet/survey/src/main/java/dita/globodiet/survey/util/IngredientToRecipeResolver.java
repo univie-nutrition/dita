@@ -18,25 +18,22 @@
  */
 package dita.globodiet.survey.util;
 
-import org.jspecify.annotations.NonNull;
-
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.foodon.fdm.FoodDescriptionModel;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
-import dita.recall24.dto.Annotated;
 
 /**
  * If recipe ingredients are mapped to (nested) recipes,
  * this transformer resolves those nodes.
  */
 public record IngredientToRecipeResolver(
-        @NonNull FoodDescriptionModel foodDescriptionModel,
-        @NonNull FoodToCompositeConverter foodToCompositeConverter
-        ) implements Transfomer {
+        FoodDescriptionModel foodDescriptionModel,
+        FoodToCompositeConverter foodToCompositeConverter) implements Transfomer {
 
     public IngredientToRecipeResolver(final FoodDescriptionModel foodDescriptionModel) {
         this(foodDescriptionModel, new FoodToCompositeConverter(foodDescriptionModel));
@@ -49,8 +46,9 @@ public record IngredientToRecipeResolver(
         return switch(node) {
             case Record24.Composite composite -> {
                 var builder = (Composite.Builder) composite.asBuilder();
-                builder.replaceSubRecords(this::transform); // recursive
-                yield (T) builder.build();
+                var newComposite = builder.replaceSubRecords(this::transform) // recursive
+                    .build();
+                yield (T) newComposite;
             }
             case Record24.Food food -> {
                 var fcdbId = food.lookupAnnotation("fcdbId")
@@ -61,8 +59,9 @@ public record IngredientToRecipeResolver(
                         var recipe = foodDescriptionModel.lookupRecipeBySid(fcdbId)
                                 .orElse(null);
                         if(recipe!=null) {
-                            var recordBuilder = foodToCompositeConverter.foodToRecipe(food, recipe, "recipe mapped by ingredient");
-                            yield (T) recordBuilder.build();
+                            var composite = foodToCompositeConverter.foodToRecipe(food, recipe, "recipe mapped by ingredient")
+                                .build();
+                            yield (T) composite;
                         }
                     }
                 }

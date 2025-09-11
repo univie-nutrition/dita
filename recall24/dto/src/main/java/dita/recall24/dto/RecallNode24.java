@@ -42,6 +42,10 @@ permits
          * {@literal Transform Phase} walking the tree structure back from its leafs to its root.
          */
         <T extends RecallNode24> T transform(final T node);
+        /**
+         * called after {@literal Transform Phase}
+         */
+        default void finish() {}
     }
 
 }

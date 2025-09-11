@@ -181,7 +181,7 @@ permits
              * Nested records.
              */
             @CollectionLayout(navigableSubtree = "1")
-            Can<? extends Record24> subRecords,
+            Can<Record24> subRecords,
             Map<String, Serializable> annotations
             ) implements Record24, Annotated {
 
@@ -719,7 +719,7 @@ permits
              * ordered (by some natural order).
              */
             final SemanticIdentifierSet facetSids,
-            final Can<? extends Record24> subRecords,
+            final Can<Record24> subRecords,
             final Can<Annotation> annotations) {
         var composite = new Composite(ObjectRef.empty(), Record24.Type.COMPOSITE,
                 name, sid, facetSids, subRecords, new LinkedHashMap<>());

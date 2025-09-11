@@ -66,9 +66,12 @@ public record AssociatedRecipeResolver(
                         .orElse(null);
                 if(associatedRecipe==null) yield (T)origFood;
 
-                // replace the (proxy-) food node by its associated composite node ..
-                var recordBuilder = foodToCompositeConverter.foodToRecipe(origFood, associatedRecipe, "recipe associated by food");
-                yield (T) recordBuilder.build();
+                // replace the food node by its associated composite node ..
+                var composite = foodToCompositeConverter
+                    .foodToRecipe(origFood, associatedRecipe, "recipe associated by food")
+                    .build();
+
+                yield (T) composite;
             }
             default -> node;
         };

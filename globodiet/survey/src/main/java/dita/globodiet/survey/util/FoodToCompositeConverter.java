@@ -19,11 +19,9 @@
 package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
-
 import org.jspecify.annotations.NonNull;
 
 import org.apache.causeway.commons.collections.Can;
-
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
@@ -41,6 +39,7 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
             final Food origFood,
             final Recipe recipe,
             final String attributeList) {
+
         var recordBuilder = new Composite.Builder();
 
         recordBuilder.type(Record24.Type.COMPOSITE);
