@@ -20,14 +20,19 @@ package dita.globodiet.survey.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.collections.Can;
-import dita.commons.sid.SemanticIdentifier;
+
+import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
 import dita.recall24.dto.Record24.FryingFat;
+import dita.recall24.dto.util.Recall24DtoUtils;
 
 public record FryingFatHandler(
     Composite composite,
@@ -37,18 +42,34 @@ public record FryingFatHandler(
     FryingFat fryingFat,
     List<Food> handledIngredients) {
 
-    public FryingFatHandler(
+    //TODO externalize hardcoded recipe ids as config
+    // recp/00566, recp/00549, recp/00663, recp/00664, recp/00665, recp/00666
+    private final static Set<ObjectId> RECIPE_IDS_ENABLED = List.of("00566", "00549", "00663", "00664", "00665", "00666")
+        .stream()
+        .map(ObjectId.Context.RECIPE::objectId)
+        .collect(Collectors.toSet());
+
+    static Optional<FryingFatHandler> of(
+            final Composite composite,
+            final FryingFat fryingFat) {
+        return RECIPE_IDS_ENABLED.contains(composite.sid().objectId())
+            ? Optional.of(new FryingFatHandler(composite, fryingFat))
+            : Optional.empty();
+    }
+
+    private FryingFatHandler(
             final Composite composite,
             final FryingFat fryingFat) {
         this(composite, fryingFat, new ArrayList<>());
     }
 
-    Record24 handleIngredient(final Food newIngredient, final SemanticIdentifier foodGroupSid) {
+    Record24 handleIngredient(final Food origFood) {
+        var foodGroupSid = Recall24DtoUtils.groupSid(origFood).orElseThrow();
         if(foodGroupSid.objectId().objectSimpleId().startsWith("10")) { //TODO externalize hardcoded fat group '10' as config
-            handledIngredients.add(newIngredient);
-            return origFattyFoodAsComment(newIngredient);
+            handledIngredients.add(origFood);
+            return origFattyFoodAsComment(origFood);
         }
-        return newIngredient;
+        return origFood;
     }
 
     void print() {

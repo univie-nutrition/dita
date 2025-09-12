@@ -25,7 +25,6 @@ import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
-import dita.recall24.dto.util.Recall24DtoUtils;
 
 /**
  * Prevents FRYING FAT from being reported twice.
@@ -46,7 +45,7 @@ public record FryingFatDeduplicator2(
                 var builder = (Composite.Builder) composite.asBuilder();
                 var newComposite = builder.replaceSubRecords(rec->
                     (rec instanceof Food food)
-                        ? handler.handleIngredient(food, Recall24DtoUtils.groupSid(food).orElseThrow())
+                        ? handler.handleIngredient(food)
                         : rec)
                     .build();
                 yield (T) newComposite;

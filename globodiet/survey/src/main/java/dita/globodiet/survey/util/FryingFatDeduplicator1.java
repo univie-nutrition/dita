@@ -63,7 +63,8 @@ public record FryingFatDeduplicator1(
                 // (we ignore cases when associates with regular food)
                 var record24 = Recall24DtoUtils.recordForFryingFat(currentComposite().orElse(null), fryingFat);
                 if(record24 instanceof Composite composite) {
-                    fryingFatHandlers.add(new FryingFatHandler(composite, fryingFat));
+                    FryingFatHandler.of(composite, fryingFat)
+                        .ifPresent(fryingFatHandlers::add);
                 }
                 yield (T) fryingFat;
             }
