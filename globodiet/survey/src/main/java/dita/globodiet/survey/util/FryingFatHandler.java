@@ -97,8 +97,9 @@ public record FryingFatHandler(
     // -- HELPER
 
     private Record24.Comment origFattyFoodAsComment(final Food origFood) {
-        var name = "original fatty recipe ingredient %s, amount=%s\n"
-            + "overruled by frying fat data below".formatted(
+        var name = """
+            original fatty recipe ingredient %s, amount=%s
+            overruled by frying fat data below""".formatted(
                 origFood.name().replace(" {", ", ").replace("}", ""),
                 origFood.consumptionUnit().format(origFood.amountConsumed()));
 
