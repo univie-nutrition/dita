@@ -44,7 +44,8 @@ public record FryingFatHandler(
 
     //TODO externalize hardcoded recipe ids as config
     // recp/00566, recp/00549, recp/00663, recp/00664, recp/00665, recp/00666
-    private final static Set<ObjectId> RECIPE_IDS_ENABLED = List.of("00566", "00549", "00663", "00664", "00665", "00666")
+    private final static Set<ObjectId> RECIPE_IDS_ENABLED =
+            List.of("00566", "00549", "00663", "00664", "00665", "00666")
         .stream()
         .map(ObjectId.Context.RECIPE::objectId)
         .collect(Collectors.toSet());

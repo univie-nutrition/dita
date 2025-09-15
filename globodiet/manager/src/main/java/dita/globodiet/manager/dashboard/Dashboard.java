@@ -66,7 +66,12 @@ public class Dashboard {
     public LocalDate getBuildDate() {
         return buildProperties
                     .map(props->LocalDate.ofInstant(props.getTime(), ZoneOffset.UTC))
-                    .orElse(null);
+                    .orElseGet(()->LocalDate.of(2025, 9, 15));
+    }
+
+    @PropertyLayout(named="Latest Changes", fieldSetName="About", sequence = "3")
+    public String getLatestChanges() {
+        return "Frying Fat Deduplicator";
     }
 
 }

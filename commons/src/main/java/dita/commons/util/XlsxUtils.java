@@ -20,22 +20,38 @@ package dita.commons.util;
 
 import java.io.File;
 import java.util.List;
+import java.util.stream.Stream;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class XlsxUtils {
 
-    public String EXECUTABLE = "C:/Program Files/LibreOffice/program/scalc.exe";
+    //public String EXECUTABLE = "C:/Program Files/LibreOffice/program/scalc.exe";
+    public String EXECUTABLE = "/usr/bin/libreoffice";
+
+    @RequiredArgsConstructor
+    private enum Executable {
+        LINUX(List.of("/usr/bin/libreoffice", "--calc")),
+        WIN(List.of("C:/Program Files/LibreOffice/program/scalc.exe"));
+        final List<String> args;
+        static List<String> get(final String additionalArg) {
+            for(var executable : values()) {
+                if(new File(executable.args.get(0)).exists()) {
+                    return Stream.concat(executable.args.stream(), Stream.of(additionalArg))
+                            .toList();
+                }
+            }
+            return List.of();
+        }
+    }
 
     @SneakyThrows
     public Process launchViewer(final File xlsxFile) {
         var pb = new ProcessBuilder();
-        pb.command(List.of(
-                EXECUTABLE,
-                xlsxFile.getAbsolutePath()));
+        pb.command(Executable.get(xlsxFile.getAbsolutePath()));
         pb.inheritIO();
         return pb.start();
     }
