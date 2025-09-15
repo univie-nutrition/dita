@@ -18,48 +18,35 @@
  */
 package dita.globodiet.survey.util;
 
-import java.util.Map;
+import java.util.concurrent.atomic.LongAdder;
 
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
-import dita.recall24.dto.Record24.Food;
 
 /**
- * Prevents FRYING FAT from being reported twice.
+ * Adds a composite number of occurrence.
  *
  * <p>Phase 2 processes all the candidates as collected from phase 1.
  */
-public record FryingFatDeduplicator2(
-    Map<Integer, FryingFatHandler> fryingFatHandlers) implements Transfomer {
+public record CompositeDebugRenamer() implements Transfomer {
+
+    private static final LongAdder c = new LongAdder();
 
     @SuppressWarnings("unchecked")
     @Override
     public <T extends RecallNode24> T transform(final T node) {
         return switch (node) {
             case Record24.Composite composite -> {
-                var builder = (Composite.Builder) composite.asBuilder();
+                c.increment();
+                var builder = ((Composite.Builder) composite.asBuilder())
+                        .name(composite.name() + "(" + c.longValue() + ")");
                 builder.replaceSubRecords(this::transform); // recursive
-
-                var handler = fryingFatHandlers.get(System.identityHashCode(composite));
-                if(handler!=null) {
-                    builder.replaceSubRecords(rec->(rec instanceof Food food)
-                      ? handler.handleIngredient(food)
-                      : rec);
-                }
                 yield (T) builder.build();
             }
-
             default -> node;
         };
-    }
-
-    @Override
-    public void finish() {
-        fryingFatHandlers.values().stream()
-            .sorted((a, b)->a.composite().name().compareTo(b.composite().name()))
-            .forEach(FryingFatHandler::print);
     }
 
 }

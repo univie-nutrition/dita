@@ -75,7 +75,7 @@ public record FryingFatHandler(
 
     void print() {
         if(handledIngredients.size()==0) return;
-
+        if(composite.parentMemorizedFood()==null) return;
         var coors = Correction24.CompositeCorr.Coordinates.of(composite);
         System.err.printf("COMPOSITE: %s%n", composite.name());
         System.err.printf("  coors: '%s %s #%s %s %s'%n",
