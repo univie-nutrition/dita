@@ -263,9 +263,7 @@ public record TabularReport(
             case Record24.Comment comment -> {
                 rowFactory.recordType(comment.type());
                 rowBuilder.groupId(
-                        comment.lookupAnnotation(Annotated.GROUP)
-                        .map(Annotated.Annotation::value)
-                        .map(SemanticIdentifier.class::cast)
+                        comment.groupSid()
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
                 consumptions.add(
@@ -276,9 +274,7 @@ public record TabularReport(
                 rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                 rowFactory.recordType(comp.type());
                 rowBuilder.groupId(
-                        comp.lookupAnnotation(Annotated.GROUP)
-                        .map(Annotated.Annotation::value)
-                        .map(SemanticIdentifier.class::cast)
+                        comp.groupSid()
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
                 consumptions.add(
@@ -289,9 +285,7 @@ public record TabularReport(
                 rowBuilder.mealOrdinal(rowFactory.ordinalTracker.deweyOrdinal());
                 rowFactory.recordType(cRec.type());
                 rowBuilder.groupId(
-                        cRec.lookupAnnotation(Annotated.GROUP)
-                        .map(Annotated.Annotation::value)
-                        .map(SemanticIdentifier.class::cast)
+                        cRec.groupSid()
                         .map(SemanticIdentifier::toStringNoBox)
                         .orElse(""));
                 var mappingTarget = cRec.lookupAnnotation(Annotated.FCDB_ID)

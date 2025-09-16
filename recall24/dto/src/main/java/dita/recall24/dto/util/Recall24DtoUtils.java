@@ -40,10 +40,8 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import lombok.experimental.UtilityClass;
 
-import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.Message;
 import dita.commons.types.Sex;
-import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Interview24;
 import dita.recall24.dto.InterviewSet24;
@@ -247,14 +245,6 @@ public class Recall24DtoUtils {
             }
         }
         return siblings.getElseFail(siblingIndex - 1);
-    }
-
-    public Optional<SemanticIdentifier> groupSid(final @Nullable Food food) {
-        return Optional.ofNullable(food)
-            .flatMap(_food->_food.lookupAnnotation("group"))
-            .map(Annotation::value)
-            .filter(SemanticIdentifier.class::isInstance)
-            .map(SemanticIdentifier.class::cast);
     }
 
     // -- HELPER

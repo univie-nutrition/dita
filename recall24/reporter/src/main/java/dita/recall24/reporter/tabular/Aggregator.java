@@ -45,8 +45,7 @@ record Aggregator(
 
     private boolean canAggregate(final ConsumptionRecord consumption) {
         return switch(consumption.recordType()) {
-            case "COMPOSITE" -> false;
-            case "COMMENT" -> false;
+            case "COMPOSITE", "COMMENT" -> false;
             default -> true;
         };
     }

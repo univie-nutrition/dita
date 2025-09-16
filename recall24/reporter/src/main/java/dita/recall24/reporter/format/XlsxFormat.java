@@ -50,9 +50,13 @@ public record XlsxFormat(HighlightingPredicates highlighting) {
         var options = ExcelFileWriter.Options.builder()
             .cellStyleFunction(cell->highlighting.isWip(cell)
                     ? ExcelFileWriter.Options.CustomCellStyle.DANGER
-                    : highlighting.isComposite(cell)
-                        ? ExcelFileWriter.Options.CustomCellStyle.INDIGO
-                        : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
+                    : highlighting.isComment(cell)
+                        ? ExcelFileWriter.Options.CustomCellStyle.GRAY
+                        : highlighting.isComposite(cell)
+                            ? ExcelFileWriter.Options.CustomCellStyle.INDIGO
+                            : highlighting.isFryingFat(cell)
+                                ? ExcelFileWriter.Options.CustomCellStyle.MINT
+                                : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)
             .rowStyleFunction(row->highlighting.containsWip(row)
                     ? ExcelFileWriter.Options.CustomCellStyle.WARNING
                     : ExcelFileWriter.Options.CustomCellStyle.DEFAULT)

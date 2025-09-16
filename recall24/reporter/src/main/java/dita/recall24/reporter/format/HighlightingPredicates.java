@@ -30,7 +30,19 @@ public interface HighlightingPredicates {
         return "COMPOSITE".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
     }
 
+    default boolean isFryingFat(final TabularCell cell) {
+        return "FRYING_FAT".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
+    }
+
+    default boolean isComment(final TabularCell cell) {
+        return "COMMENT".equals(cell.eitherValueOrLabelSupplier().leftIfAny());
+    }
+
     default boolean containsWip(final TabularRow row) {
         return row.cells().stream().anyMatch(this::isWip);
+    }
+    
+    default boolean containsComment(final TabularRow row) {
+        return row.cells().stream().anyMatch(this::isComment);
     }
 }

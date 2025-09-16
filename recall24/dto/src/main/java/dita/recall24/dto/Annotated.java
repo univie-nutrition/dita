@@ -30,6 +30,8 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
+import dita.commons.sid.SemanticIdentifier;
+
 public interface Annotated {
 
     public static final String GROUP = "group";
@@ -85,4 +87,12 @@ public interface Annotated {
         }
         return map.entrySet().stream().map(entry->new Annotation(entry.getKey(), entry.getValue()));
     }
+
+    default Optional<SemanticIdentifier> groupSid() {
+        return lookupAnnotation(Annotated.GROUP)
+            .map(Annotation::value)
+            .filter(SemanticIdentifier.class::isInstance)
+            .map(SemanticIdentifier.class::cast);
+    }
+
 }

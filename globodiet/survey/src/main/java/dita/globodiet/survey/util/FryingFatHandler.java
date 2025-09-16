@@ -32,7 +32,6 @@ import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
 import dita.recall24.dto.Record24.FryingFat;
-import dita.recall24.dto.util.Recall24DtoUtils;
 
 public record FryingFatHandler(
     Composite composite,
@@ -65,7 +64,7 @@ public record FryingFatHandler(
     }
 
     Record24 handleIngredient(final Food origFood) {
-        var foodGroupSid = Recall24DtoUtils.groupSid(origFood).orElseThrow();
+        var foodGroupSid = origFood.groupSid().orElseThrow();
         if(foodGroupSid.objectId().objectSimpleId().startsWith("10")) { //TODO externalize hardcoded fat group '10' as config
             handledIngredients.add(origFood);
             return origFattyFoodAsComment(origFood);

@@ -19,9 +19,11 @@
 package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
+
 import org.jspecify.annotations.NonNull;
 
 import org.apache.causeway.commons.collections.Can;
+
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
@@ -50,7 +52,7 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
         recordBuilder.facetSids(SemanticIdentifierSet.empty());
         // store GloboDiet food description group data as annotation
         recordBuilder.annotations().clear();
-        recordBuilder.annotations().add(new Annotated.Annotation("group", recipeGroupSid(recipe)));
+        recordBuilder.annotations().add(new Annotated.Annotation(Annotated.GROUP, recipeGroupSid(recipe)));
 
         // keep the original food as comment
         recordBuilder.subRecords().add(origFoodAsComment(origFood));
@@ -70,7 +72,7 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
                     .facetSids(ingr.foodFacetSids())
                     .amountConsumed(ingr.amountGrams().multiply(origFoodConsumedOverRecipeMass))
                     .consumptionUnit(ConsumptionUnit.GRAM); // for recipes this is always in GRAM
-                foodBuilder.annotations().add(new Annotated.Annotation("group", foodGroupSid(food)));
+                foodBuilder.annotations().add(new Annotated.Annotation(Annotated.GROUP, foodGroupSid(food)));
                 return foodBuilder.build();
             })
             .forEach(recordBuilder.subRecords()::add);

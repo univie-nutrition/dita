@@ -212,7 +212,7 @@ record InterviewConverter(SidFactory sidFactory) {
                 yield Record24.fryingFat(
                     listEntry.getName(), foodSid(listEntry), foodFacets(listEntry),
                     listEntry.getConsumedQuantity(), ConsumptionUnit.GRAM, listEntry.getRawToCookedCoefficient(),
-                    Can.empty());
+                    Can.of(group(ObjectId.Context.FOOD_GROUP, listEntry)));
             }
             case DietarySupplement -> {
                 _Assert.assertEquals(0, subRecordCount, ()->"'supplement' record is expected to have no sub-records");
@@ -272,7 +272,7 @@ record InterviewConverter(SidFactory sidFactory) {
                 listEntry.getGroupCode(),
                 listEntry.getSubgroupCode(),
                 listEntry.getSubSubgroupCode());
-        return new Annotated.Annotation("group", context
+        return new Annotated.Annotation(Annotated.GROUP, context
                 .sid(sidFactory().systemId(), groupSimpleId));
     }
 
