@@ -1520,7 +1520,8 @@ respondents:
           amountConsumed: 1.3700000047683716
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
     - hourOfDay: "18:00:00"
       foodConsumptionOccasionId: "09"
       foodConsumptionPlaceId: "01"

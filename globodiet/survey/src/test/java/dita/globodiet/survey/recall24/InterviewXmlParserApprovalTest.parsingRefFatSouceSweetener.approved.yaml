@@ -217,7 +217,8 @@ respondents:
           amountConsumed: 25.560001373291016
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
         - type: "FOOD"
           name: "Ketchup"
           sid: "at.gd/2.0:food/01515"
@@ -248,7 +249,8 @@ respondents:
           amountConsumed: 11.359999656677246
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
         - type: "FOOD"
           name: "Pommes frites"
           sid: "at.gd/2.0:food/00010"
@@ -268,7 +270,8 @@ respondents:
           amountConsumed: 5.679999828338623
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
         - type: "FOOD"
           name: "Pommes frites"
           sid: "at.gd/2.0:food/00010"
@@ -288,7 +291,8 @@ respondents:
           amountConsumed: 11.359999656677246
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
         - type: "FOOD"
           name: "Pommes frites"
           sid: "at.gd/2.0:food/00010"
@@ -391,7 +395,8 @@ respondents:
           amountConsumed: 1.6964999437332153
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
         - type: "FOOD"
           name: "Fisch, Lachs"
           sid: "at.gd/2.0:food/00872"
@@ -411,7 +416,8 @@ respondents:
           amountConsumed: 2.8275001049041748
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
       - name: "Gemüse"
         topLevelRecords:
         - type: "FOOD"
@@ -433,7 +439,8 @@ respondents:
           amountConsumed: 6.3199996948242188
           consumptionUnit: "GRAM"
           rawToCookedCoefficient: 1
-          annotations: {}
+          annotations:
+            group: "at.gd/2.0:fg/1001"
     annotations:
       dataSource: "Byte-Resource[ef bb bf 3c 3f 78 6d 6c 20 76 65 72 73 69 6f 6e ...]"
 annotations: {}
