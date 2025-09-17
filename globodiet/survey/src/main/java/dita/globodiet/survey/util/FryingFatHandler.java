@@ -56,7 +56,7 @@ public record FryingFatHandler(
     // Spätzle: recp/00602'
     private final static Set<ObjectId> RECIPE_IDS_ENABLED =
             List.of("00566", "00549", "00663", "00664", "00665", "00666",
-                "00564", "00551", "00523", "00648", "00632", "00636",
+                "00564", "00551", "00523", "00648", "00552", "00632", "00636",
                 "00565", "00634", "00631", "00602")
         .stream()
         .map(ObjectId.Context.RECIPE::objectId)
