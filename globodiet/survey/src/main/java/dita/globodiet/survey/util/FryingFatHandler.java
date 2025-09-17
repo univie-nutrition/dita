@@ -43,8 +43,21 @@ public record FryingFatHandler(
 
     //TODO externalize hardcoded recipe ids as config
     // recp/00566, recp/00549, recp/00663, recp/00664, recp/00665, recp/00666
+    // Burgerlaibchen, vegetarisch: recp/00564
+    // Chicken Nuggets: recp/00551
+    // Falafel (Bällchen): recp/00523
+    // Fischstäbchen: recp/00648
+    // Hamburgerlaibchen: recp/00552
+    // Kartoffelpuffer: recp/00632
+    // Kroketten: recp/00636
+    // Nuggets, vegetarisch: recp/00565
+    // Rösti: recp/00634
+    // Schupfnudeln: recp/00631
+    // Spätzle: recp/00602'
     private final static Set<ObjectId> RECIPE_IDS_ENABLED =
-            List.of("00566", "00549", "00663", "00664", "00665", "00666")
+            List.of("00566", "00549", "00663", "00664", "00665", "00666",
+                "00564", "00551", "00523", "00648", "00632", "00636",
+                "00565", "00634", "00631", "00602")
         .stream()
         .map(ObjectId.Context.RECIPE::objectId)
         .collect(Collectors.toSet());
