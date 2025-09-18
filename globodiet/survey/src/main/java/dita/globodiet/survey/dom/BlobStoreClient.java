@@ -138,7 +138,6 @@ public record BlobStoreClient(
     public List<CorrectionUpload> correctionUploads() {
         return blobStore.listDescriptors(DataSourceLocation.CORRECTIONS.namedPath(surveyPath()), false)
             .stream()
-            .peek(x->System.err.printf("%s%n", x))
             .filter(desc->CommonMimeType.YAML.equals(desc.mimeType()))
             .map(desc->CorrectionUpload.of(desc, surveyKey))
             .toList();
