@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.annotation.ObjectSupport;
 import org.apache.causeway.applib.annotation.ObjectSupport.IconResource;
-import org.apache.causeway.applib.annotation.ObjectSupport.IconWhere;
+import org.apache.causeway.applib.annotation.ObjectSupport.IconSize;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 
 import dita.globodiet.params.food_list.FoodSubgroup;
@@ -35,7 +35,7 @@ public class IconFaServiceGdParams
 implements IconService {
 
     @Override
-    public IconResource icon(@Nullable final Object entity, final IconWhere iconWhere) {
+    public IconResource icon(@Nullable final Object entity, final IconSize iconSize) {
         var fa = entity instanceof FoodSubgroup foodSubgroup
             ? icon(foodSubgroup)
             : FontAwesomeLayers.singleIcon("fa-cube");

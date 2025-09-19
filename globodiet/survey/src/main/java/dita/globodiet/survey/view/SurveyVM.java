@@ -176,7 +176,7 @@ public class SurveyVM extends MasterDetailTreeView<RecallNode24, SurveyVM> {
     }
 
     @SuppressWarnings("unused")
-    @ObjectSupport public ObjectSupport.IconResource icon(final ObjectSupport.IconWhere iconWhere) {
+    @ObjectSupport public ObjectSupport.IconResource icon(final ObjectSupport.IconSize iconSize) {
         var node = activeNode();
         var fa = FontAwesomeLayers.fromQuickNotation(
             switch (node) {

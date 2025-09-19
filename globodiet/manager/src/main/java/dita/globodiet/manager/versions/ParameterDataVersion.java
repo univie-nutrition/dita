@@ -80,7 +80,7 @@ public class ParameterDataVersion {
     }
 
     @ObjectSupport
-    public ObjectSupport.IconResource icon(final ObjectSupport.IconWhere iconWhere) {
+    public ObjectSupport.IconResource icon(final ObjectSupport.IconSize iconSize) {
         return new ObjectSupport.FontAwesomeIconResource(isSticky()
             ? FontAwesomeLayers.fromQuickNotation("file-shield .version-color-dark")
             : FontAwesomeLayers.fromQuickNotation("file-pen .version-color-light"));

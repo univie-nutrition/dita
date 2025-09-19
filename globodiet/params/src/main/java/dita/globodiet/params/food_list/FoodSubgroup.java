@@ -341,8 +341,8 @@ public class FoodSubgroup implements Persistable, Cloneable<FoodSubgroup>, FoodG
     }
 
     @ObjectSupport
-    public ObjectSupport.IconResource icon(ObjectSupport.IconWhere iconWhere) {
-        return iconService.icon(this, iconWhere);
+    public ObjectSupport.IconResource icon(ObjectSupport.IconSize iconSize) {
+        return iconService.icon(this, iconSize);
     }
 
     @Programmatic

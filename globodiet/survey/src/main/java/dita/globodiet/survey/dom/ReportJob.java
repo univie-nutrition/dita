@@ -70,7 +70,7 @@ public record ReportJob(
     }
 
     @ObjectSupport
-    public ObjectSupport.IconResource icon(final ObjectSupport.IconWhere iconWhere) {
+    public ObjectSupport.IconResource icon(final ObjectSupport.IconSize iconSize) {
         return new ObjectSupport.FontAwesomeIconResource(FontAwesomeLayers.fromQuickNotation(getState().fa));
     }
 
