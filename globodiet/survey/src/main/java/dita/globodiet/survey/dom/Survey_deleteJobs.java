@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
+import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import lombok.RequiredArgsConstructor;
 
@@ -39,7 +40,7 @@ import io.github.causewaystuff.blobstore.applib.BlobStore;
 @ActionLayout(
     fieldSetId = "reportJobs",
     sequence = "2",
-    describedAs = "Deletes selected Reports.",
+    describedAs = "Deletes all reports associated with selected jobs.",
     position = ActionLayout.Position.PANEL)
 @RequiredArgsConstructor
 public class Survey_deleteJobs {
@@ -50,10 +51,11 @@ public class Survey_deleteJobs {
 
     @MemberSupport
     public Survey act(
-            final List<ReportJob> respondentFilter) {
+            @ParameterLayout(describedAs = "Job objects that have finished reports to be deleted.")
+            final List<ReportJob> reportJobs) {
 
         var client = new BlobStoreClient(mixee.secondaryKey(), surveyBlobStore);
-        client.deleteJobs(respondentFilter);
+        client.deleteJobs(reportJobs);
         return mixee;
     }
 
