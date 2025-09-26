@@ -27,7 +27,7 @@ additional
     <packaging>pom</packaging>
 
     <properties>
-        <maven.compiler.release>24</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <spring-boot.version>4.0.0-M3</spring-boot.version>
@@ -37,7 +37,7 @@ additional
 
         <indriya.version>2.2.3</indriya.version>
 
-        <lombok.version>1.18.40</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
 
         <mariadb.version>3.5.6</mariadb.version>
         <mssql-jdbc.version>12.10.0.jre11</mssql-jdbc.version>
@@ -45,7 +45,7 @@ additional
         <owlapi.version>5.5.1</owlapi.version>
 
         <!-- testing -->
-        <junit.version>5.13.4</junit.version>
+        <junit.version>6.0.0-RC3</junit.version>
         <surefire-plugin.argLine>-Xmx384m</surefire-plugin.argLine>
     </properties>
 
