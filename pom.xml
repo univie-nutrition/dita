@@ -45,7 +45,7 @@ additional
         <owlapi.version>5.5.1</owlapi.version>
 
         <!-- testing -->
-        <junit.version>6.0.0-RC3</junit.version>
+        <junit.version>6.0.0</junit.version>
         <surefire-plugin.argLine>-Xmx384m</surefire-plugin.argLine>
     </properties>
 
