@@ -238,7 +238,6 @@ public record BlobStoreClient(
         blobStore.deleteBlob(DataSourceLocation.INTERVIEWS_CORRECTED.namedPath(surveyPath()));
     }
 
-
     // -- FCDB
 
     public FoodCompositionRepository fcdb() {

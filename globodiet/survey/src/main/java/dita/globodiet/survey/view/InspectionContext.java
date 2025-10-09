@@ -62,5 +62,4 @@ public record InspectionContext(
             : Optional.empty();
     }
 
-
 }
