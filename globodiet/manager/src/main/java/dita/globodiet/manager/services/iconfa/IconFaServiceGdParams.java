@@ -56,5 +56,4 @@ implements IconService {
                 + "solid circle-chevron-down .food-color-em2 .ov-size-60 .ov-left-50 .ov-bottom-85");
     }
 
-
 }

@@ -77,7 +77,6 @@ class NumberUtilsTest {
         final String formatExpectation;
     }
 
-
     @ParameterizedTest
     @EnumSource(Scenario2.class)
     void reducedPrecision(final Scenario2 scenario) {

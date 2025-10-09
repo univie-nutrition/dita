@@ -195,7 +195,6 @@ public class TableSerializerYaml {
         var sb = new StringBuilder();
         var specLoader = MetaModelContext.instanceElseFail().getSpecificationLoader();
 
-
         tabularData.dataTables().forEach(table->{
             var entityLogicalName = tableToEntity.transformTable(table.key());
             var entitySpec = specLoader

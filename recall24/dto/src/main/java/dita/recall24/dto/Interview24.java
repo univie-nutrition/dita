@@ -87,7 +87,6 @@ public record Interview24 (
             Map<String, Serializable> annotations
             ) implements RecallNode24, Annotated {
 
-
     /** canonical constructor */
     public Interview24(
         final ObjectRef<Respondent24> parentRespondentRef,

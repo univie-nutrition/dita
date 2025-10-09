@@ -100,5 +100,4 @@ class SemanticIdentifierSetTest {
         assertEquals(orig, roundTripped);
     }
     
-
 }

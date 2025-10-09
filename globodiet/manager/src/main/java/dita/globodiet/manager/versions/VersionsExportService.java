@@ -88,7 +88,6 @@ public class VersionsExportService {
             SpecialDietPredefinedAnswer.class
             );
 
-
     @Inject private VersionsService versionsService;
     @Inject private TableSerializerYaml tableSerializer;
 
