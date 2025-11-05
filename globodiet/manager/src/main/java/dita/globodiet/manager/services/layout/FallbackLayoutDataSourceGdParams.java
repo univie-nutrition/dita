@@ -20,23 +20,35 @@ package dita.globodiet.manager.services.layout;
 
 import jakarta.annotation.Priority;
 
+import org.jspecify.annotations.NonNull;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.annotation.PriorityPrecedence;
+import org.apache.causeway.applib.layout.resource.LayoutResource;
+import org.apache.causeway.applib.layout.resource.LayoutResourceLoader;
+import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.core.metamodel.services.grid.bootstrap.GridSystemServiceBootstrap.FallbackLayoutDataSource;
 
 import io.github.causewaystuff.companion.applib.jpa.Persistable;
 
 @Service
-@Priority(PriorityPrecedence.EARLY)
+@Priority(PriorityPrecedence.LATE)
 @Qualifier("Dita")
-public class FallbackLayoutDataSourceGdParams implements FallbackLayoutDataSource {
+public class FallbackLayoutDataSourceGdParams implements LayoutResourceLoader {
 
     @Override
-    public Try<String> tryLoadAsStringUtf8(final Class<?> domainClass) {
+    public Try<LayoutResource> tryLoadLayoutResource(
+        @NonNull final Class<?> domainClass,
+        @NonNull final String candidateResourceName) {
+
+        return tryLoadAsStringUtf8(domainClass)
+            .mapSuccessWhenPresent(content->new LayoutResource(domainClass.getSimpleName(), CommonMimeType.XML, content));
+    }
+
+    private Try<String> tryLoadAsStringUtf8(final Class<?> domainClass) {
         if(domainClass.getSimpleName().endsWith("Manager")) {
             return DataSource.ofResource(getClass(), "ManagerLayout.xml").tryReadAsStringUtf8();
         }

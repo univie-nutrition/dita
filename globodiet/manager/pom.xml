@@ -63,7 +63,7 @@ additional
                     <from>
                         <!-- don't use slim variant, as excel export might fail w/ 
                             Exception java.lang.UnsatisfiedLinkError: /usr/local/openjdk-24/lib/libfontmanager.so-->
-                        <image>openjdk:25-jdk-trixie</image>
+                        <image>eclipse-temurin:25-jdk</image>
                     </from>
                 </configuration>
                 <dependencies>
@@ -110,6 +110,10 @@ additional
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
 <!--            <scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator-autoconfigure</artifactId>
         </dependency>
 
         <dependency>
