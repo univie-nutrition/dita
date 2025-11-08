@@ -87,7 +87,7 @@ public class DitaTableNamesPage implements HelpPage {
         { // section header within table
             var row = row(table);
             cell(table, row, "");
-            cell(table, row, namespace.substring("params".length() + 1).toUpperCase());
+            cell(table, row, namespace.toUpperCase());
             cell(table, row, "");
             cell(table, row, "");
         }
