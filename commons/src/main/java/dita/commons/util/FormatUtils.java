@@ -119,12 +119,14 @@ public class FormatUtils {
     // -- JACKSON
 
     public JacksonCustomizer yamlOptions() {
-        var c1 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter());
-        var c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SystemIdAdapter());
-        var c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
-        var c4 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
-        var c5 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
-        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(c5).andThen(JsonUtils::onlyIncludeNonNull)::apply;
+    	JacksonCustomizer c1 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.QuantityAdapter());
+    	JacksonCustomizer c2 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SystemIdAdapter());
+    	JacksonCustomizer c3 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
+    	JacksonCustomizer c4 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
+    	JacksonCustomizer c5 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
+    	JacksonCustomizer c6 = JsonUtils::onlyIncludeNonNull;
+    	
+        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(c5).andThen(c6)::apply;
     }
 
     // -- ADOC

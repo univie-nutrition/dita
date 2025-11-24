@@ -21,15 +21,14 @@ package dita.testing;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.GenericDiffReporter;
 
 import org.apache.causeway.commons.io.TextUtils;
 
 import lombok.experimental.UtilityClass;
+
+import tools.jackson.databind.ObjectMapper;
 
 @UtilityClass
 public class ApprovalTestOptions {
@@ -41,13 +40,9 @@ public class ApprovalTestOptions {
         var objectMapper = new ObjectMapper();
         return new Options()
             .withScrubber(s -> {
-                try {
-                    String prettyJson = objectMapper.writerWithDefaultPrettyPrinter()
-                            .writeValueAsString(objectMapper.readTree(s));
-                    return prettyJson;
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
+                String prettyJson = objectMapper.writerWithDefaultPrettyPrinter()
+                        .writeValueAsString(objectMapper.readTree(s));
+                return prettyJson;
             })
             .forFile()
             .withExtension(".json");
