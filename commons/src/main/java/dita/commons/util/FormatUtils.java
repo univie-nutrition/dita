@@ -126,7 +126,7 @@ public class FormatUtils {
     	JacksonCustomizer c5 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
     	JacksonCustomizer c6 = JsonUtils::onlyIncludeNonNull;
     	
-        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(c5).andThen(c6)::apply;
+        return c1.andThen(c2).andThen(c3).andThen(c4).andThen(c5).andThen(c6)::accept;
     }
 
     // -- ADOC

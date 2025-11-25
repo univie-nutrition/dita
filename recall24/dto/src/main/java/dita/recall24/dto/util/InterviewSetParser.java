@@ -87,7 +87,6 @@ public class InterviewSetParser {
         var asMap = YamlUtils
             .tryReadCustomized(LinkedHashMap.class, yaml, loader->{
                 loader.setCodePointLimit(characterCount);
-                return loader;
             })
             .valueAsNonNullElseFail();
 

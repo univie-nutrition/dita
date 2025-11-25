@@ -183,13 +183,12 @@ class Dtos {
     private JacksonCustomizer yamlOptions() {
         var op1 = JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierAdapter());
         var op2 = JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
-        return op1.compose(op2)::apply;
+        return op1.andThen(op2)::accept;
     }
 
     private YamlLoadCustomizer yamlMillionCodePointsLimit(final int millions) {
         return loader->{
             loader.setCodePointLimit(millions * 1_000_000);
-            return loader;
         };
     }
 

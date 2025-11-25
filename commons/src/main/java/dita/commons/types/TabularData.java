@@ -134,7 +134,6 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         var asMap = YamlUtils
                 .tryReadCustomized(HashMap.class, tableDataSerializedAsYaml, loader->{
                     loader.setCodePointLimit(6 * 1024 * 1024); // 6MB
-                    return loader;
                 })
                 .valueAsNonNullElseFail();
 

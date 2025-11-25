@@ -100,7 +100,6 @@ class Dtos {
     private YamlLoadCustomizer yamlMillionCodePointsLimit(final int millions) {
         return loader->{
             loader.setCodePointLimit(millions * 1_000_000);
-            return loader;
         };
     }
 
