@@ -21,12 +21,14 @@ package dita.commons.food.composition;
 import java.math.BigDecimal;
 
 import org.jspecify.annotations.NonNull;
+
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.util.NumberUtils;
 
 /**
  * Represents a measured or calculated value for the relative amount of a chemical substance
@@ -44,6 +46,10 @@ public record FoodComponentDatapoint(
          */
         DatapointSemantic datapointSemantic,
         BigDecimal datapointValue) {
+
+	public FoodComponentDatapoint {
+		datapointValue = NumberUtils.stripTrailingZeros(datapointValue);
+	}
 
     /**
      * How the datapoint is interpreted (as-is or as upper-bound).

@@ -21,7 +21,8 @@ package dita.commons.food.composition;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.TreeMap;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -50,7 +51,7 @@ public class FoodCompositionRepository {
 
     public FoodCompositionRepository() {
         this.componentCatalog = new FoodComponentCatalog();
-        this.internalMap = new ConcurrentHashMap<>();
+        this.internalMap = new TreeMap<>();
     }
 
     public FoodCompositionRepository put(
@@ -97,6 +98,21 @@ public class FoodCompositionRepository {
     public Map<SemanticIdentifier, FoodComponentDatapoint> lookupElseFail(
             @Nullable final SemanticIdentifier foodId){
         return lookupEntryElseFail(foodId).datapoints();
+    }
+
+    // -- TRANSFORM
+
+    /**
+     * if filter is a noop, generates a copy
+     */
+    public FoodCompositionRepository filter(final Predicate<FoodComposition> compFilter, final boolean keepCatalog) {
+    	var foodCompositionRepo = keepCatalog
+    			? new FoodCompositionRepository(componentCatalog, new TreeMap<>())
+				: new FoodCompositionRepository();
+    	streamCompositions()
+    		.filter(compFilter)
+	    	.forEach(foodCompositionRepo::put);
+		return foodCompositionRepo;
     }
 
     // -- EQUALITY

@@ -21,9 +21,8 @@ package dita.commons.food.composition;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.TreeMap;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -122,7 +121,7 @@ class Dtos {
     FoodComposition fromDto(
             final FoodCompositionDto comp,
             final ComponentLookup lookup) {
-        var datapointMap = new HashMap<SemanticIdentifier, FoodComponentDatapoint>();
+        var datapointMap = new TreeMap<SemanticIdentifier, FoodComponentDatapoint>();
         comp.datapoints().stream()
             .map(d->Dtos.fromDto(d, comp.concentrationUnit(), lookup))
             .forEach(dp->datapointMap.put(dp.componentId(), dp));
@@ -171,7 +170,7 @@ class Dtos {
         var componentCatalog = new FoodComponentCatalog();
         dto.components().forEach(componentCatalog::put);
 
-        var internalMap = new ConcurrentHashMap<SemanticIdentifier, FoodComposition>();
+        var internalMap = new TreeMap<SemanticIdentifier, FoodComposition>();
         var lookup = ComponentLookup.of(componentCatalog); // create only after catalog was populated
         dto.compositions().forEach(comp->internalMap.put(comp.foodId(), Dtos.fromDto(comp, lookup)));
         var repo = new FoodCompositionRepository(componentCatalog, internalMap);
@@ -197,7 +196,7 @@ class Dtos {
             List<FoodComponent> sortedComponents) {
         static ComponentLookup of(final FoodComponentCatalog componentCatalog) {
             var sortedComponents = componentCatalog.streamComponents()
-                .sorted((a, b)->a.componentId().compareTo(b.componentId()))
+                //.sorted((a, b)->a.componentId().compareTo(b.componentId())) //already sorted
                 .toList();
             return new ComponentLookup(componentCatalog, sortedComponents);
         }

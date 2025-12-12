@@ -21,7 +21,7 @@ package dita.commons.food.composition;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -33,7 +33,7 @@ import dita.commons.sid.SemanticIdentifier;
 
 public class FoodComponentCatalog {
 
-    private final Map<SemanticIdentifier, FoodComponent> internalMap = new ConcurrentHashMap<>();
+    private final Map<SemanticIdentifier, FoodComponent> internalMap = new TreeMap<>();
 
     public FoodComponentCatalog put(
             @Nullable final FoodComponent component) {

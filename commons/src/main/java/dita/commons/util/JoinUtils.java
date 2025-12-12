@@ -20,7 +20,14 @@ package dita.commons.util;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.jspecify.annotations.Nullable;
 
@@ -32,10 +39,14 @@ public class JoinUtils {
     /// always returns an immutable list (non-null)
     /// fails on duplicate detection
     public <T> List<T> joinAndSortFailOnDuplicates(@Nullable List<T> list1, @Nullable List<T> list2, final Comparator<T> comparator) {
-        if(list1==null) list1 = List.of();
-        if(list2==null) list2 = List.of();
+        if(list1==null) {
+			list1 = List.of();
+		}
+        if(list2==null) {
+			list2 = List.of();
+		}
 
-        final var seen = new TreeSet<T>(comparator);
+        final var seen = new TreeSet<>(comparator);
 
         for (T item : list1) {
             if (!seen.add(item))
@@ -47,5 +58,20 @@ public class JoinUtils {
         }
 
         return seen.stream().toList();
+    }
+
+    public <T, K>
+    Collector<T, ?, Map<K,T>> toTreeMap(final Function<? super T, ? extends K> keyMapper) {
+    	return Collectors.toMap(keyMapper, UnaryOperator.identity(), uniqueKeysMapMerger(), TreeMap::new);
+    }
+
+    public <T, K, U>
+    Collector<T, ?, Map<K,U>> toTreeMap(final Function<? super T, ? extends K> keyMapper,
+                                    final Function<? super T, ? extends U> valueMapper) {
+        return Collectors.toMap(keyMapper, valueMapper, uniqueKeysMapMerger(), TreeMap::new);
+    }
+
+    public <T> BinaryOperator<T> uniqueKeysMapMerger() {
+		return (a, b)-> {throw new IllegalStateException("Duplicate key attempted merging values %s and %s".formatted(a, b)); };
     }
 }

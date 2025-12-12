@@ -49,10 +49,9 @@ public class NumberUtils {
         _Assert.assertTrue(epsilon >= 0.0);
 
         if(Double.isFinite(a)) {
-            if(Double.isFinite(b)) {
-                // abs(a-b) might actually overflow Double.MAX_VALUE, which results in Double.POSITIVE_INFINITY
+            if(Double.isFinite(b))
+				// abs(a-b) might actually overflow Double.MAX_VALUE, which results in Double.POSITIVE_INFINITY
                 return Math.abs(a - b) <= epsilon;
-            }
             // as is finite, but b is not
             return false;
         }
@@ -93,12 +92,10 @@ public class NumberUtils {
                 number instanceof Integer ||
                 number instanceof AtomicInteger ||
                 number instanceof Short ||
-                number instanceof Byte) {
-            return BigDecimal.valueOf(number.longValue());
-        }
-        if(number instanceof Double || number instanceof Float) {
-            return BigDecimal.valueOf(number.doubleValue());
-        }
+                number instanceof Byte)
+			return BigDecimal.valueOf(number.longValue());
+        if(number instanceof Double || number instanceof Float)
+			return BigDecimal.valueOf(number.doubleValue());
         throw new IllegalArgumentException("unsupported number type " + number.getClass());
     }
 
@@ -136,6 +133,13 @@ public class NumberUtils {
                 : value.scale()>decimalPlaces // If zero or positive, the scale is the number of digits to the right of the decimal point.
                     ? value.setScale(decimalPlaces, RoundingMode.HALF_UP)
                     : value;
+    }
+
+    /** Preserves {@code null} */
+    public BigDecimal stripTrailingZeros(final @Nullable BigDecimal value) {
+        return value!=null
+                ? value.stripTrailingZeros()
+                : null;
     }
 
     public String roundedToScaleNoTrailingZeros(

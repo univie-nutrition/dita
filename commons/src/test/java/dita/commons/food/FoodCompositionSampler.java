@@ -46,11 +46,25 @@ class FoodCompositionSampler {
             ComponentUnit.GRAM,
             SemanticIdentifierSet.empty());
 
+    private FoodComponent c1 = new FoodComponent(
+            SemanticIdentifier.parse("de.bls/3.02", "comp/C1"),
+            MetricPrefix.MILLI,
+            ComponentUnit.GRAM,
+            SemanticIdentifierSet.empty());
+
+    private FoodComponent c2 = new FoodComponent(
+            SemanticIdentifier.parse("de.bls/3.02", "comp/C2"),
+            MetricPrefix.MILLI,
+            ComponentUnit.GRAM,
+            SemanticIdentifierSet.empty());
+
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();
         var bananaComposition = new FoodComposition(blsBananaId, ConcentrationUnit.PER_100_GRAM, Map.of(
-                blsZuckerGesamt.componentId(),
-                datapointPer100gAsIs(blsZuckerGesamt, new BigDecimal("17.267"))));
+                blsZuckerGesamt.componentId(), datapointPer100gAsIs(blsZuckerGesamt, new BigDecimal("17.267")),
+                c1.componentId(), datapointPer100gAsIs(c1, new BigDecimal("102000")),
+                c2.componentId(), datapointPer100gAsIs(c2, new BigDecimal("0.00204000"))
+        		));
         foodCompositionRepo.put(bananaComposition);
         return foodCompositionRepo;
     }
