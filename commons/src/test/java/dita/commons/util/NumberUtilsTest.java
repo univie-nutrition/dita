@@ -19,11 +19,14 @@
 package dita.commons.util;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import lombok.RequiredArgsConstructor;
 
@@ -81,6 +84,29 @@ class NumberUtilsTest {
     @EnumSource(Scenario2.class)
     void reducedPrecision(final Scenario2 scenario) {
         assertEquals(scenario.formatExpectation, "" + NumberUtils.reducedPrecision(scenario.number, 2));
+    }
+
+    // -- COMPRESSION
+
+    @Test
+    void reducedBits() {
+    	var b = new BigDecimal("11636363.6363636348");
+
+    	var limit = BigInteger.valueOf((1L<<52)-1);
+    	var adjustedValue = NumberUtils.roundToFitUnscaledLimit(b, limit);
+    	assertEquals(b.doubleValue(), adjustedValue.doubleValue(), 1E-8);
+    	assertTrue(adjustedValue.unscaledValue().longValueExact()<=limit.longValueExact());
+    }
+
+    @Test
+    void reducedBitsSmall() {
+    	var b = new BigDecimal("0.014285714365541935");
+
+    	var limit = BigInteger.valueOf((1L<<52)-1);
+    	var adjustedValue = NumberUtils.roundToFitUnscaledLimit(b, limit);
+    	assertEquals(b.doubleValue(), adjustedValue.doubleValue(), 1E-8);
+    	assertTrue(adjustedValue.unscaledValue().longValueExact()<=limit.longValueExact());
+
     }
 
 }

@@ -126,6 +126,18 @@ public class NumberUtils {
                 : decimal;
     }
 
+
+    /** Preserves {@code null} */
+    public BigDecimal roundToFitUnscaledLimit(final @Nullable BigDecimal value, final BigInteger unscaledUpperLimit) {
+        if(value==null)
+        	return null;
+        if(value.signum()<0)
+        	throw new IllegalArgumentException("not implemented for negative values");
+        return value.unscaledValue().compareTo(unscaledUpperLimit)>0
+                    ? roundToFitUnscaledLimit(value.setScale(value.scale() - 1, RoundingMode.HALF_UP), unscaledUpperLimit)
+                    : value;
+    }
+
     /** Preserves {@code null} */
     public BigDecimal roundToNDecimalPlaces(final @Nullable BigDecimal value, final int decimalPlaces) {
         return value==null
