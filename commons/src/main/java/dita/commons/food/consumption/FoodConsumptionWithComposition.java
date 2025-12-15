@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import org.jspecify.annotations.Nullable;
 
 import dita.commons.food.composition.FoodComponent;
+import dita.commons.food.composition.FoodComponentDatapoint;
 import dita.commons.food.composition.FoodComponentQuantified;
 import dita.commons.food.composition.FoodComposition;
 import dita.commons.sid.SemanticIdentifier;
@@ -35,9 +36,9 @@ public record FoodConsumptionWithComposition(
 
     public Map<SemanticIdentifier, FoodComponentQuantified> quantifiedComponents() {
         return composition.datapoints()
-                .entrySet()
+        		.values()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e->e.getValue().quantify(consumption)));
+                .collect(Collectors.toMap(FoodComponentDatapoint::componentId, dp->dp.quantify(consumption)));
     }
 
     public Optional<FoodComponentQuantified> quantifiedComponent(@Nullable final SemanticIdentifier componentId) {

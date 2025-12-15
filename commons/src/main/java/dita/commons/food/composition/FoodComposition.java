@@ -19,19 +19,18 @@
 package dita.commons.food.composition;
 
 import java.math.BigDecimal;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.internal.assertions._Assert;
 
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -45,7 +44,7 @@ import tech.units.indriya.unit.Units;
 public record FoodComposition(
         @NonNull SemanticIdentifier foodId,
         @NonNull ConcentrationUnit concentrationUnit,
-        @NonNull Map<SemanticIdentifier, FoodComponentDatapoint> datapoints) {
+        @NonNull DatapointMap datapoints) {
 
     /**
      * Unit in which concentration values are given.
@@ -105,7 +104,7 @@ public record FoodComposition(
 
     public Optional<FoodComponentDatapoint> lookupDatapoint(final @Nullable SemanticIdentifier componentId) {
         return Optional.ofNullable(componentId)
-                .map(datapoints::get);
+                .flatMap(datapoints::lookup);
     }
 
     public Stream<FoodComponentDatapoint> streamDatapoints() {

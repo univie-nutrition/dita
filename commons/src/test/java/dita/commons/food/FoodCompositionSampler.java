@@ -19,12 +19,13 @@
 package dita.commons.food;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 import javax.measure.MetricPrefix;
 
 import lombok.experimental.UtilityClass;
 
+import dita.commons.food.composition.DatapointMap;
 import dita.commons.food.composition.FoodComponent;
 import dita.commons.food.composition.FoodComponent.ComponentUnit;
 import dita.commons.food.composition.FoodComponentDatapoint;
@@ -60,12 +61,12 @@ class FoodCompositionSampler {
 
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();
-        var bananaComposition = new FoodComposition(blsBananaId, ConcentrationUnit.PER_100_GRAM, Map.of(
-                blsZuckerGesamt.componentId(), datapointPer100gAsIs(blsZuckerGesamt, new BigDecimal("17.267"))
+        var bananaComposition = new FoodComposition(blsBananaId, ConcentrationUnit.PER_100_GRAM, DatapointMap.of(List.of(
+                datapointPer100gAsIs(blsZuckerGesamt, new BigDecimal("17.267"))
                 //for debugging sort order
                 //c1.componentId(), datapointPer100gAsIs(c1, new BigDecimal("102000")),
                 //c2.componentId(), datapointPer100gAsIs(c2, new BigDecimal("0.00204000"))
-        		));
+        		)));
         foodCompositionRepo.put(bananaComposition);
         return foodCompositionRepo;
     }

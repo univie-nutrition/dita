@@ -89,13 +89,13 @@ public class FoodCompositionRepository {
                         foodId));
     }
 
-    public Optional<Map<SemanticIdentifier, FoodComponentDatapoint>> lookup(
+    public Optional<DatapointMap> lookup(
             @Nullable final SemanticIdentifier foodId){
         return lookupEntry(foodId)
                 .map(FoodComposition::datapoints);
     }
 
-    public Map<SemanticIdentifier, FoodComponentDatapoint> lookupElseFail(
+    public DatapointMap lookupElseFail(
             @Nullable final SemanticIdentifier foodId){
         return lookupEntryElseFail(foodId).datapoints();
     }

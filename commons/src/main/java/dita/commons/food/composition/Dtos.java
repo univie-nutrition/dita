@@ -121,10 +121,10 @@ class Dtos {
     FoodComposition fromDto(
             final FoodCompositionDto comp,
             final ComponentLookup lookup) {
-        var datapointMap = new TreeMap<SemanticIdentifier, FoodComponentDatapoint>();
+        var datapointMap = new DatapointMap();
         comp.datapoints().stream()
             .map(d->Dtos.fromDto(d, comp.concentrationUnit(), lookup))
-            .forEach(dp->datapointMap.put(dp.componentId(), dp));
+            .forEach(datapointMap::put);
         return new FoodComposition(comp.foodId(), comp.concentrationUnit(), datapointMap);
     }
 
