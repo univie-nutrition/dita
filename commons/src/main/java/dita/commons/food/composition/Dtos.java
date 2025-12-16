@@ -121,10 +121,9 @@ class Dtos {
     FoodComposition fromDto(
             final FoodCompositionDto comp,
             final ComponentLookup lookup) {
-        var datapointMap = new DatapointMap();
-        comp.datapoints().stream()
+        var datapointMap = comp.datapoints().stream()
             .map(d->Dtos.fromDto(d, comp.concentrationUnit(), lookup))
-            .forEach(datapointMap::put);
+            .collect(DatapointMap.collector());
         return new FoodComposition(comp.foodId(), comp.concentrationUnit(), datapointMap);
     }
 

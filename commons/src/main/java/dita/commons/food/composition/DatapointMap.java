@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -30,86 +31,97 @@ import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
+import java.util.stream.IntStream;
 
 import org.jspecify.annotations.NonNull;
 
+import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
+
+import lombok.RequiredArgsConstructor;
 
 import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.util.NumberUtils;
 
-public class DatapointMap {
+@RequiredArgsConstructor
+public final class DatapointMap {
+
+	public static @NonNull DatapointMap empty() {
+		return new DatapointMap(null, null, Collections.emptyMap());
+	}
 
 	public static @NonNull DatapointMap of(final Collection<FoodComponentDatapoint> datapoints) {
-		var dpm = new DatapointMap();
-		if(datapoints!=null) {
-			datapoints.forEach(dpm::put);
-		}
-		return dpm;
+		return datapoints!=null
+			? datapoints.stream().collect(DatapointMap.collector())
+			: DatapointMap.empty();
 	}
+
 	public static Collector<FoodComponentDatapoint, ?, DatapointMap> collector() {
-		return new Collector<FoodComponentDatapoint, DatapointMap, DatapointMap>(){
-			@Override public Supplier<DatapointMap> supplier() {
-				return DatapointMap::new;
-			}
-			@Override public BiConsumer<DatapointMap, FoodComponentDatapoint> accumulator() {
-				return DatapointMap::put;
-			}
-			@Override public BinaryOperator<DatapointMap> combiner() {
-				return (a, b) -> (a.size()>b.size() ? a.join(b) : b.join(a));
-			}
-			@Override public Function<DatapointMap, DatapointMap> finisher() {
-				return UnaryOperator.identity();
-			}
-			@Override public Set<Characteristics> characteristics() {
-				return Set.of(Characteristics.UNORDERED);
-			}
-		};
+		return new DatapointCollector();
 	}
 
-	public DatapointMap join(final DatapointMap other) {
-		if(other==null || other.size()==0) return this;
-		other.values().forEach(this::put);
-		return this;
-	}
-
-	private record FoodComponentDatapointCompressed(
-			//FoodComponentDatapoint orig,
-	        FoodComponent component,
-	        /// bit 63: DatapointSemantic
-	        /// bit 61..62: ConcentrationUnit
-	        /// bit 60: scale sign (1=negative)
-	        /// bit 56..59: unsigned scale (4 bit)
-	        /// bit 55: value sign (1=negative)
-	        /// bit 0..54: unsigned value (55 bit)
-	        long packedSemanticUnitAndScale) {
-
-		static FoodComponentDatapointCompressed compress(final FoodComponentDatapoint dp) {
-			return new FoodComponentDatapointCompressed( //dp,
-					dp.component(),
-	                pack(dp.concentrationUnit())
-	                | pack(dp.datapointSemantic())
-	                | pack(dp.datapointValue())
-	                );
+	private record DatapointCollector()
+	implements Collector<FoodComponentDatapoint, Map<SemanticIdentifier, FoodComponentDatapoint>, DatapointMap> {
+		@Override public Supplier<Map<SemanticIdentifier, FoodComponentDatapoint>> supplier() {
+			return TreeMap::new;
 		}
-		FoodComponentDatapoint uncompress() {
-			var res =  new FoodComponentDatapoint(component,
+		@Override public BiConsumer<Map<SemanticIdentifier, FoodComponentDatapoint>, FoodComponentDatapoint> accumulator() {
+			return (map, dp) -> map.put(dp.componentId(), dp);
+		}
+		@Override public BinaryOperator<Map<SemanticIdentifier, FoodComponentDatapoint>> combiner() {
+			return (a, b) -> {
+				if(a.size()>b.size()) {
+					a.putAll(b); return a;
+				} else {
+					b.putAll(a); return b;
+				}};
+		}
+		@Override public Function<Map<SemanticIdentifier, FoodComponentDatapoint>, DatapointMap> finisher() {
+			return map -> {
+				var comps = new FoodComponent[map.size()];
+				var data = new long[map.size()];
+				final Map<SemanticIdentifier, Integer> toIndex = new TreeMap<>();
+				map.values().forEach(IndexedConsumer.zeroBased((i, dp)->{
+					comps[i] = dp.component();
+					data[i] = FoodComponentDatapointCompressor.compress(dp);
+					toIndex.put(dp.componentId(), i);
+				}));
+				return new DatapointMap(comps, data, toIndex);
+			};
+		}
+		@Override public Set<Characteristics> characteristics() {
+			return Set.of(Characteristics.UNORDERED);
+		}
+	}
+
+	private record FoodComponentDatapointCompressor() {
+
+        /// bit 63: DatapointSemantic
+        /// bit 61..62: ConcentrationUnit
+        /// bit 60: scale sign (1=negative)
+        /// bit 56..59: unsigned scale (4 bit)
+        /// bit 55: value sign (1=negative)
+        /// bit 0..54: unsigned value (55 bit)
+		static long compress(final FoodComponentDatapoint dp) {
+			return pack(dp.concentrationUnit())
+	                | pack(dp.datapointSemantic())
+	                | pack(dp.datapointValue());
+		}
+		static FoodComponentDatapoint uncompress(final FoodComponent component, final long packedSemanticUnitAndScale) {
+			return new FoodComponentDatapoint(component,
 					unpackConcentrationUnit(packedSemanticUnitAndScale),
 					unpackDatapointSemantic(packedSemanticUnitAndScale),
 					unpackValue(packedSemanticUnitAndScale));
+		}
 //			_Assert.assertEquals(orig.component(), res.component());
 //			_Assert.assertEquals(orig.concentrationUnit(), res.concentrationUnit());
 //			_Assert.assertEquals(orig.datapointSemantic(), res.datapointSemantic());
 //			_Assert.assertNumberEquals(orig.datapointValue().doubleValue(), res.datapointValue().doubleValue(), 1E-3, ()->"%d:%d"
 //				.formatted(orig.datapointValue().scale(),
 //						res.datapointValue().scale()));
-
-			return res;
-		}
 	    private static long pack(final DatapointSemantic sem) {
 	        return (1L & sem.ordinal()) << 63;
 	    }
@@ -157,24 +169,22 @@ public class DatapointMap {
 		}
 	}
 
-	private final Map<SemanticIdentifier, FoodComponentDatapointCompressed> delegate = new TreeMap<>();
+	private final FoodComponent[] foodComponents;
+	private final long[] data;
+	private final Map<SemanticIdentifier, Integer> toIndex;
 
 	public int size() {
-		return delegate.size();
+		return toIndex.size();
 	}
 
 	public Optional<FoodComponentDatapoint> lookup(final SemanticIdentifier componentId) {
-		return Optional.ofNullable(delegate.get(componentId))
-				.map(FoodComponentDatapointCompressed::uncompress);
-	}
-
-	public void put(final FoodComponentDatapoint value) {
-		delegate.put(value.componentId(), FoodComponentDatapointCompressed.compress(value));
+		return Optional.ofNullable(toIndex.get(componentId))
+				.map(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]));
 	}
 
 	public Collection<FoodComponentDatapoint> values() {
-		return delegate.values().stream()
-				.map(FoodComponentDatapointCompressed::uncompress)
+		return IntStream.range(0, size())
+				.mapToObj(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]))
 				.toList();
 	}
 
