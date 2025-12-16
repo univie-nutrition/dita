@@ -98,7 +98,6 @@ public final class DatapointMap {
 	}
 
 	private record FoodComponentDatapointCompressor() {
-
         /// bit 63: DatapointSemantic
         /// bit 61..62: ConcentrationUnit
         /// bit 60: scale sign (1=negative)
@@ -137,21 +136,24 @@ public final class DatapointMap {
 	    private final static long VALUE_MASK = (1L<<55)-1L;
 	    private final static BigInteger UNSCALED_LIMIT = BigInteger.valueOf((VALUE_MASK));
 	    private static long pack(final BigDecimal value) {
-	    	if(value.signum()==0) return 0L;
-	    	var adjustedValue = NumberUtils.roundToFitUnscaledLimit(value.abs(), UNSCALED_LIMIT);
+	    	int signum = value.signum();
+	    	if(signum==0) return 0L;
+	    	var abs = value.abs();
+	    	var adjustedValue = NumberUtils.roundToFitUnscaledLimit(abs, UNSCALED_LIMIT);
 	    	if(adjustedValue.scale()>15) {
 				adjustedValue = adjustedValue.setScale(15, RoundingMode.HALF_UP);
 			} else if(adjustedValue.scale() < -15) {
 				adjustedValue = adjustedValue.setScale(-15, RoundingMode.HALF_UP);
 			}
+	    	_Assert.assertTrue(Math.abs(adjustedValue.scale())<16, ()->"scale overflow");
+	    	_Assert.assertNumberEquals(adjustedValue.doubleValue(), abs.doubleValue(), 1E-8, ()->"failed to compress datapoint value");
 			long mask= adjustedValue.unscaledValue().longValueExact();
-			if(value.signum()<0) {
+			if(signum<0) {
 				mask|=1L<<55; // sign bit
 			}
 			if(adjustedValue.scale()<0) {
 				mask|= 1L<<60;
 			}
-			_Assert.assertTrue(Math.abs(adjustedValue.scale())<16, ()->"scale overflow");
 			mask|= (0xfL & Math.abs(adjustedValue.scale()))<<56;
 			return mask;
 	    }
