@@ -105,9 +105,9 @@ public final class DatapointMap {
         /// bit 55: value sign (1=negative)
         /// bit 0..54: unsigned value (55 bit)
 		static long compress(final FoodComponentDatapoint dp) {
-			return pack(dp.concentrationUnit())
+			return assertEquals(dp, pack(dp.concentrationUnit())
 	                | pack(dp.datapointSemantic())
-	                | pack(dp.datapointValue());
+	                | pack(dp.datapointValue()));
 		}
 		static FoodComponentDatapoint uncompress(final FoodComponent component, final long packedSemanticUnitAndScale) {
 			return new FoodComponentDatapoint(component,
@@ -115,12 +115,18 @@ public final class DatapointMap {
 					unpackDatapointSemantic(packedSemanticUnitAndScale),
 					unpackValue(packedSemanticUnitAndScale));
 		}
-//			_Assert.assertEquals(orig.component(), res.component());
-//			_Assert.assertEquals(orig.concentrationUnit(), res.concentrationUnit());
-//			_Assert.assertEquals(orig.datapointSemantic(), res.datapointSemantic());
-//			_Assert.assertNumberEquals(orig.datapointValue().doubleValue(), res.datapointValue().doubleValue(), 1E-3, ()->"%d:%d"
-//				.formatted(orig.datapointValue().scale(),
-//						res.datapointValue().scale()));
+
+		// -- HELPER
+
+		private static long assertEquals(final FoodComponentDatapoint dp, final long packedSemanticUnitAndScale) {
+			var roundtripped = uncompress(dp.component(), packedSemanticUnitAndScale);
+			_Assert.assertEquals(dp.concentrationUnit(), roundtripped.concentrationUnit());
+			_Assert.assertEquals(dp.datapointSemantic(), roundtripped.datapointSemantic());
+			_Assert.assertNumberEquals(dp.datapointValue().doubleValue(), roundtripped.datapointValue().doubleValue(), 1E-8, ()->"%d:%d"
+				.formatted(dp.datapointValue().scale(),
+						roundtripped.datapointValue().scale()));
+			return packedSemanticUnitAndScale;
+		}
 	    private static long pack(final DatapointSemantic sem) {
 	        return (1L & sem.ordinal()) << 63;
 	    }
