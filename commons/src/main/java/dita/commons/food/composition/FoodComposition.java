@@ -108,7 +108,7 @@ public record FoodComposition(
     }
 
     public Stream<FoodComponentDatapoint> streamDatapoints() {
-        return datapoints.values().stream();
+        return datapoints.values();
     }
 
 }

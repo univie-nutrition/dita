@@ -33,6 +33,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.jspecify.annotations.NonNull;
 
@@ -190,10 +191,9 @@ public final class DatapointMap {
 				.map(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]));
 	}
 
-	public Collection<FoodComponentDatapoint> values() {
+	public Stream<FoodComponentDatapoint> values() {
 		return IntStream.range(0, size())
-				.mapToObj(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]))
-				.toList();
+				.mapToObj(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]));
 	}
 
 }

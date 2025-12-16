@@ -37,7 +37,6 @@ public record FoodConsumptionWithComposition(
     public Map<SemanticIdentifier, FoodComponentQuantified> quantifiedComponents() {
         return composition.datapoints()
         		.values()
-                .stream()
                 .collect(Collectors.toMap(FoodComponentDatapoint::componentId, dp->dp.quantify(consumption)));
     }
 
