@@ -154,9 +154,10 @@ public class Recall24DtoUtils {
 
     // -- TRANSFORM
 
-    public UnaryOperator<InterviewSet24> correctRespondents(final @Nullable Correction24 correction24) {
-        return correction24!=null
-                ? toOperator(correction24.asRespondentTransformer())
+    public UnaryOperator<InterviewSet24> correctRespondents(final List<Correction24> corrections) {
+        return corrections!=null
+                && corrections.size()>0
+                ? toOperator(corrections.getFirst().asRespondentTransformer()) //TODO assumes all respondent corrections are in first step
                 : UnaryOperator.identity();
     }
 
@@ -214,14 +215,13 @@ public class Recall24DtoUtils {
             : food.parentMemorizedFood().topLevelRecords();
         var siblingIndex = siblings.indexOf(food);
         if(siblingIndex==-1) {
-            if(composite!=null) {
+            if(composite!=null)
                 // composite is not the parent of food
                 throw _Exceptions.illegalArgument("given composite %s is not the parent of given food %s",
                     composite.name(), food.name());
-            } else {
+            else
                 throw _Exceptions.illegalArgument("given food %s is not a top level record",
                     food.name());
-            }
         }
         var fryingFat = siblings.get(siblingIndex + 1)
             .filter(FryingFat.class::isInstance)
@@ -235,14 +235,13 @@ public class Recall24DtoUtils {
             : fryingFat.parentMemorizedFood().topLevelRecords();
         var siblingIndex = siblings.indexOf(fryingFat);
         if(siblingIndex==-1) {
-            if(composite!=null) {
+            if(composite!=null)
                 // composite is not the parent of food
                 throw _Exceptions.illegalArgument("given composite %s is not the parent of given fryingFat %s",
                     composite.name(), fryingFat.name());
-            } else {
+            else
                 throw _Exceptions.illegalArgument("given fryingFat %s is not a top level record",
                     fryingFat.name());
-            }
         }
         return siblings.getElseFail(siblingIndex - 1);
     }

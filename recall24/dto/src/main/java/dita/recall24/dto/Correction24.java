@@ -198,9 +198,16 @@ public record Correction24(
         if(this.isEmpty()) return other;
 
         return new Correction24(
-                JoinUtils.joinAndSortFailOnDuplicates(this.respondents(), other.respondents(), Comparator.comparing(RespondentCorr::alias)),
-                JoinUtils.joinAndSortFailOnDuplicates(this.foodByName(), other.foodByName(), Comparator.comparing(FoodByNameCorr::name)),
-                JoinUtils.joinAndSortFailOnDuplicates(this.composites(), other.composites(), Comparator.comparing(CompositeCorr::coordinates)));
+                JoinUtils.joinAndSortFailOnDuplicates(this.respondents(), other.respondents(), Comparator.comparing(RespondentCorr::alias), Object::toString),
+                JoinUtils.joinAndSortFailOnDuplicates(this.foodByName(), other.foodByName(), Comparator.comparing(FoodByNameCorr::name), Object::toString),
+                JoinUtils.joinAndSortFailOnDuplicates(this.composites(), other.composites(), Comparator.comparing(CompositeCorr::coordinates), Object::toString));
+    }
+
+    public void checkDuplicatesOnSelf() {
+        if(this.isEmpty()) return;
+        JoinUtils.joinAndSortFailOnDuplicates(this.respondents(), null, Comparator.comparing(RespondentCorr::alias), Object::toString);
+        JoinUtils.joinAndSortFailOnDuplicates(this.foodByName(), null, Comparator.comparing(FoodByNameCorr::name), Object::toString);
+        JoinUtils.joinAndSortFailOnDuplicates(this.composites(), null, Comparator.comparing(CompositeCorr::coordinates), Object::toString);
     }
 
     // -- CORRECTION APPLICATION
@@ -256,16 +263,15 @@ public record Correction24(
             return switch(node) {
                 case Respondent24 resp -> {
                     var respCorr = respCorrByAlias.get(resp.alias());
-                    if(respCorr==null) yield node;
+                    if(respCorr==null){yield node;}
 
                     var builder = resp.asBuilder();
 
                     log.info("about to correct {}", respCorr);
 
-                    if(Boolean.TRUE.equals(respCorr.withdraw())) {
+                    if(Boolean.TRUE.equals(respCorr.withdraw()))
                         throw _Exceptions.illegalState("withdrawn respondents should already be filtered yet got %s",
                                 resp.alias());
-                    }
 
                     if(respCorr.newAlias()!=null) {
                         builder.alias(respCorr.newAlias());
@@ -312,7 +318,7 @@ public record Correction24(
             return switch(node) {
                 case Food food -> {
                     var foodByNameCorr = foodByNameCorrs.get(food.name());
-                    if(foodByNameCorr==null) yield node;
+                    if(foodByNameCorr==null){yield node;}
 
                     var builder = (Food.Builder)food.asBuilder();
 
@@ -388,7 +394,7 @@ public record Correction24(
         private List<Record24.Composite> collectComposites(final Meal24 meal, final SemanticIdentifier sid) {
             return meal.memorizedFood().stream()
                 .flatMap(mem->mem.topLevelRecords().stream())
-                .filter(rec->rec instanceof Composite)
+                .filter(Composite.class::isInstance)
                 .map(Composite.class::cast)
                 .filter(composite->composite.sid().equals(sid))
                 .toList();
@@ -424,7 +430,7 @@ public record Correction24(
                 case Composite composite -> {
                     var compCorr = Optional.ofNullable(compCorrByCoors.get(CompositeCorr.Coordinates.of(composite)))
                         .orElseGet(()->compCorrByCoors.get(CompositeCorr.Coordinates.ofRelaxed(composite)));
-                    if(compCorr==null) yield node;
+                    if(compCorr==null){yield node;}
 
                     var builder = (Composite.Builder)composite.asBuilder();
 
@@ -453,7 +459,7 @@ public record Correction24(
                     if(origAmountConsumed.compareTo(newAmountConsumed)!=0) {
                         var correctionFactor = BigDecimal.valueOf(origAmountConsumed.doubleValue() / newAmountConsumed.doubleValue());
                         builder.replaceSubRecords(sr->{
-                            if(sr instanceof Consumption consumption) {
+                            if(sr instanceof Consumption consumption)
                                 return switch (consumption) {
                                     case Food food -> {
                                         var foodBuilder = (Food.Builder)(food.asBuilder());
@@ -474,7 +480,6 @@ public record Correction24(
                                         yield productBuilder.build();
                                     }
                                 };
-                            }
                             return sr;
                         });
                     }
@@ -503,12 +508,14 @@ public record Correction24(
 
         @Override
         public Record24 apply(final Record24 orig) {
-            if(compCorr.deletions()!=null) for(var deletion : compCorr.deletions()) {
-                if(deletion.sid().equals(orig.sid())) {
-                    notesModifiable.add("CORR DELETED: %s (%s)".formatted(
-                            deletion.sid().objectId(),
-                            nameBySidLookup.apply(deletion.sid())));
-                    return null;
+            if(compCorr.deletions()!=null) {
+                for(var deletion : compCorr.deletions()) {
+                    if(deletion.sid().equals(orig.sid())) {
+                        notesModifiable.add("CORR DELETED: %s (%s)".formatted(
+                                deletion.sid().objectId(),
+                                nameBySidLookup.apply(deletion.sid())));
+                        return null;
+                    }
                 }
             }
             return orig;
@@ -520,22 +527,24 @@ public record Correction24(
     private record SubRecordAdder(CompositeCorr compCorr, Function<SemanticIdentifier, String> nameBySidLookup, List<String> notesModifiable) {
 
         public void addTo(final List<Record24> list) {
-            if(compCorr.additions()!=null) for(var addition : compCorr.additions()) {
-                var subRecord = new Record24.Food.Builder()
-                    .type(Record24.Type.FOOD)
-                    .name(nameBySidLookup.apply(addition.sid()))
-                    .sid(addition.sid())
-                    .facetSids(addition.facets())
-                    .amountConsumed(addition.amountGrams())
-                    .consumptionUnit(ConsumptionUnit.GRAM)
-                    .rawToCookedCoefficient(BigDecimal.ONE) //TODO provide via addition model
-                    .build();
+            if(compCorr.additions()!=null) {
+                for(var addition : compCorr.additions()) {
+                    var subRecord = new Record24.Food.Builder()
+                        .type(Record24.Type.FOOD)
+                        .name(nameBySidLookup.apply(addition.sid()))
+                        .sid(addition.sid())
+                        .facetSids(addition.facets())
+                        .amountConsumed(addition.amountGrams())
+                        .consumptionUnit(ConsumptionUnit.GRAM)
+                        .rawToCookedCoefficient(BigDecimal.ONE) //TODO provide via addition model
+                        .build();
 
-                notesModifiable.add("CORR ADDED: %s (%s)".formatted(
-                        addition.sid().objectId(),
-                        nameBySidLookup.apply(addition.sid())));
+                    notesModifiable.add("CORR ADDED: %s (%s)".formatted(
+                            addition.sid().objectId(),
+                            nameBySidLookup.apply(addition.sid())));
 
-                list.add(subRecord);
+                    list.add(subRecord);
+                }
             }
         }
 

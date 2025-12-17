@@ -61,9 +61,8 @@ public class Campaigns {
     NamedPath interviewNamedPath(final Campaign.SecondaryKey campaignKey) {
         if(campaignKey==null
                 || _Strings.isNullOrEmpty(campaignKey.surveyCode())
-                || _Strings.isNullOrEmpty(campaignKey.code())) {
+                || _Strings.isNullOrEmpty(campaignKey.code()))
             return NamedPath.of("blackhole");
-        }
         var root = NamedPath.of("surveys", campaignKey.surveyCode().toLowerCase());
         return root.add("campaigns").add(NamedPath.of(campaignKey.code().toLowerCase()));
     }
@@ -77,7 +76,7 @@ public class Campaigns {
     public InterviewSet24 interviewSetCorrected(
             final SystemId systemId,
             final Can<Campaign.SecondaryKey> campaignKeys,
-            final Correction24 correction,
+            final List<Correction24> corrections,
             final FoodDescriptionModel foodDescriptionModel,
             final BlobStore blobStore) {
         var messageConsumer = new MessageConsumer();
@@ -87,23 +86,29 @@ public class Campaigns {
                         interviewNamedPath(campaignKey),
                         blobStore,
                         systemId,
-                        correction,
+                        corrections, // used for respondent correction
                         messageConsumer)
                 )
                 .toList();
         var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
 
-        var compositeAmbiguityCheckingTransformer = correction.asCompositeAmbiguityCheckingTransformer();
+        var firstCorrection = corrections.getFirst();
+
+        //TODO assumes we only have to do this it the first step
+        var compositeAmbiguityCheckingTransformer = firstCorrection.asCompositeAmbiguityCheckingTransformer();
 
         var compositesCorrected = interviewSet
-            .transform(correction.asFoodByNameTransformer())
+            .transform(firstCorrection.asFoodByNameTransformer()) //TODO assumes all food name corrections are in first step
             .transform(compositeAmbiguityCheckingTransformer);
 
         compositeAmbiguityCheckingTransformer.validate();
 
-        compositesCorrected = compositesCorrected
-            .transform(correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
+        for(Correction24 correction : corrections) {
+            compositesCorrected = compositesCorrected
+                    .transform(correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
+        }
+
         return compositesCorrected;
     }
 

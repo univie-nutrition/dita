@@ -49,8 +49,8 @@ import dita.recall24.dto.Respondent24;
 import dita.recall24.dto.util.InterviewSetParser;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobCacheHandler;
-import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
+import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.cache.CachableAggregate;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 import io.github.causewaystuff.commons.compression.SevenZCacheHandler;
@@ -64,11 +64,9 @@ public class InterviewUtils {
             .stream()
             .filter(desc->desc.mimeType().equals(CommonMimeType.XML)
                 || desc.mimeType().equals(CommonMimeType.YAML))
-            .map(desc->{
-                return surveyBlobStore.lookupBlobAndUncompress(desc.path())
-                    .orElseThrow()
-                    .toClob(StandardCharsets.UTF_8);
-            });
+            .map(desc -> surveyBlobStore.lookupBlobAndUncompress(desc.path())
+                .orElseThrow()
+                .toClob(StandardCharsets.UTF_8));
     }
 
     /// applies respondent correction and filtering
@@ -76,7 +74,7 @@ public class InterviewUtils {
             final NamedPath namedPath,
             final BlobStore surveyBlobStore,
             final SystemId systemId,
-            final Correction24 correction,
+            final List<Correction24> corrections,
             final Consumer<Message> messageConsumer) {
 
         log.info("load from namedPath: {}", namedPath);
@@ -91,7 +89,7 @@ public class InterviewUtils {
                 .flatMap(List::stream)
                 .map(iv->prependPathToDataSourceAnnotation(namedPath, iv))
                 .map(InterviewUtils::toInterviewSet)
-                .map(Recall24DtoUtils.correctRespondents(correction))
+                .map(Recall24DtoUtils.correctRespondents(corrections))
                 .flatMap(InterviewSet24::streamInterviews);
     }
 
@@ -112,7 +110,7 @@ public class InterviewUtils {
     public CachableAggregate<InterviewSet24> cachableInterviewSet(
             final File zipFile,
             final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
-        return new CachableAggregate<InterviewSet24>(costlySupplier, new SevenZCacheHandler<>(zipFile,
+        return new CachableAggregate<>(costlySupplier, new SevenZCacheHandler<>(zipFile,
             //reader
             InterviewSetParser::parseJson,
             // writer
@@ -123,7 +121,7 @@ public class InterviewUtils {
     public CachableAggregate<InterviewSet24> cachableInterviewSetYaml(
             final File zipFile,
             final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
-        return new CachableAggregate<InterviewSet24>(costlySupplier, new SevenZCacheHandler<>(zipFile,
+        return new CachableAggregate<>(costlySupplier, new SevenZCacheHandler<>(zipFile,
             //reader
             ds->InterviewSetParser.parseYaml(new String(ds.bytes(), StandardCharsets.UTF_8)),
             // writer
@@ -136,7 +134,7 @@ public class InterviewUtils {
             final Compression compression,
             final BlobStore blobStore,
             final ThrowingSupplier<? extends InterviewSet24> costlySupplier) {
-        return new CachableAggregate<InterviewSet24>(costlySupplier, new BlobCacheHandler<>(
+        return new CachableAggregate<>(costlySupplier, new BlobCacheHandler<>(
             path,
             compression,
             blobStore,

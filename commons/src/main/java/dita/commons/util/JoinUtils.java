@@ -38,7 +38,9 @@ public class JoinUtils {
 
     /// always returns an immutable list (non-null)
     /// fails on duplicate detection
-    public <T> List<T> joinAndSortFailOnDuplicates(@Nullable List<T> list1, @Nullable List<T> list2, final Comparator<T> comparator) {
+    /// @param itemFormatter is used to format the offending items for exception messages
+    public <T> List<T> joinAndSortFailOnDuplicates(@Nullable List<T> list1, @Nullable List<T> list2,
+            final Comparator<T> comparator, final Function<T, String> itemFormatter) {
         if(list1==null) {
 			list1 = List.of();
 		}
@@ -49,12 +51,20 @@ public class JoinUtils {
         final var seen = new TreeSet<>(comparator);
 
         for (T item : list1) {
-            if (!seen.add(item))
-                throw new IllegalArgumentException("Duplicate found in first list: " + item);
+            if (!seen.add(item)) {
+                var duplicate = seen.stream().filter(it->comparator.compare(it, item)==0)
+                        .findFirst().orElseThrow();
+                throw new IllegalArgumentException("Duplicate found in first list. Offending items:\n  %s\n  %s\n"
+                        .formatted(itemFormatter.apply(duplicate), itemFormatter.apply(item)));
+            }
         }
         for (T item : list2) {
-            if (!seen.add(item))
-                throw new IllegalArgumentException("Duplicate found across lists: " + item);
+            if (!seen.add(item)) {
+                var duplicate = seen.stream().filter(it->comparator.compare(it, item)==0)
+                        .findFirst().orElseThrow();
+                throw new IllegalArgumentException("Duplicate found across lists Offending items:\n  %s\n  %s\n"
+                        .formatted(itemFormatter.apply(duplicate), itemFormatter.apply(item)));
+            }
         }
 
         return seen.stream().toList();

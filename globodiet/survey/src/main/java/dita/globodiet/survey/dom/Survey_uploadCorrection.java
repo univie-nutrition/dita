@@ -63,6 +63,9 @@ public class Survey_uploadCorrection {
 
     @MemberSupport
     public Survey act(
+            @ParameterLayout(
+                    describedAs = "Target step ordinal. Correction is done in a sequence of multiple steps.")
+            final int stepOrdinal,
             @Parameter(fileAccept = ".yml,.yaml,.zip")
             @ParameterLayout(
                     describedAs = "Either a single correction correction yaml file or multiple provided as a zip.")
@@ -74,14 +77,13 @@ public class Survey_uploadCorrection {
 
         if(correctionFileOrFiles.isZipped()) {
             client.uploadCorrectionYaml(createdBy,
-                correctionFileOrFiles.unzipAsBlobStream(CommonMimeType.YAML)
+                stepOrdinal, correctionFileOrFiles.unzipAsBlobStream(CommonMimeType.YAML)
                     .toList());
         } else if(correctionFileOrFiles.isYaml()) {
-            client.uploadCorrectionYaml(createdBy, List.of(correctionFileOrFiles));
-        } else {
+            client.uploadCorrectionYaml(createdBy, stepOrdinal, List.of(correctionFileOrFiles));
+        } else
             throw new RecoverableException(String.format("unsupported mime %s%n",
                     correctionFileOrFiles.mimeType().toString()));
-        }
         surveyTreeRootNodeHelperService.invalidateCache();
         client.invalidateAllInterviewCaches();
         return mixee;

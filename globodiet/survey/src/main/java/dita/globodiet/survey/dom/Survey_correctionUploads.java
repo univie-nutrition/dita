@@ -41,9 +41,9 @@ public class Survey_correctionUploads {
     private final Survey mixee;
 
     @MemberSupport
-    public List<CorrectionUpload> coll() {
+    public List<CorrectionStep> coll() {
         var client = new BlobStoreClient(mixee.secondaryKey(), surveyBlobStore);
-        return client.correctionUploads();
+        return client.correctionSteps();
     }
 
 }

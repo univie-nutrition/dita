@@ -18,8 +18,11 @@
  */
 package dita.globodiet.survey.dom;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -31,6 +34,8 @@ import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.collections._Multimaps;
+import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -88,6 +93,9 @@ public record BlobStoreClient(
         public NamedPath namedPath(final NamedPath root) {
             return bdf.apply(root);
         }
+        public NamedPath namedPath(final NamedPath root, final int stepOrdinal) {
+            return namedPath(root).add("step"+stepOrdinal);
+        }
     }
 
     public NamedPath surveyPath() {
@@ -128,23 +136,33 @@ public record BlobStoreClient(
 
     // -- CORRECTIONS
 
-    public Correction24 correction() {
-        return correctionUploads().stream()
-            .map(this::correctionYaml)
-            .map(DataUtil::correction)
-            .reduce(Correction24.empty(), Correction24::join);
+    /**
+     * In sequence honoring step ordinals.
+     */
+    public List<Correction24> corrections() {
+        return correctionSteps().stream()
+            .map(CorrectionStep::correctionUploads)
+            .map(this::correction24)
+            .toList();
     }
 
-    public List<CorrectionUpload> correctionUploads() {
-        return blobStore.listDescriptors(DataSourceLocation.CORRECTIONS.namedPath(surveyPath()), false)
+    public List<CorrectionStep> correctionSteps() {
+        final ListMultimap<Integer, CorrectionUpload> map =
+                _Multimaps.<Integer, CorrectionUpload>newListMultimap(TreeMap::new, ArrayList::new);
+
+        blobStore.listDescriptors(DataSourceLocation.CORRECTIONS.namedPath(surveyPath()), true)
             .stream()
             .filter(desc->CommonMimeType.YAML.equals(desc.mimeType()))
             .map(desc->CorrectionUpload.of(desc, surveyKey))
+            .forEach(upload->map.putElement(upload.stepOrdinal(), upload));
+
+        return map.entrySet().stream()
+            .map(e->new CorrectionStep(e.getKey(), e.getValue()))
             .toList();
     }
 
     public String correctionYaml(final CorrectionUpload correctionUpload) {
-        var yaml = blobStore.lookupBlobAndUncompress(DataSourceLocation.CORRECTIONS.namedPath(surveyPath())
+        var yaml = blobStore.lookupBlobAndUncompress(DataSourceLocation.CORRECTIONS.namedPath(surveyPath(), correctionUpload.stepOrdinal())
                     .add(correctionUpload.namedPath().lastNameElseFail()))
                 .map(Blob::toClobUtf8)
                 .map(Clob::asString)
@@ -153,19 +171,25 @@ public record BlobStoreClient(
     }
 
     /// validation is performed before uploading (on failure throws before any upload)
-    public void uploadCorrectionYaml(final String createdBy, final Iterable<Blob> blobs) {
+    public void uploadCorrectionYaml(final String createdBy, final int stepOrdinal, final Collection<Blob> blobs) {
 
-        blobs.forEach(blob->{
+        var corr24 = blobs.stream().map(blob->{
             var correctionYaml = blob.toClobUtf8().asString();
             // validate
-            Correction24.tryFromYaml(correctionYaml)
+            var corr =Correction24.tryFromYaml(correctionYaml)
                 .mapFailure(ex->new UnrecoverableException("failed to validate %s; hence upload was cancelled".formatted(blob.name()), ex))
-                .ifFailureFail();
-        });
+                .valueAsNonNullElseFail();
+            corr.checkDuplicatesOnSelf(); // verify no duplicates in single blob
+            return corr;
+        })
+        .reduce(Correction24.empty(), Correction24::join); // verify we pass duplicate checks
+
+        if(corr24.isEmpty())
+            return;
 
         blobs.forEach(blob->{
             log.info("upload {} ({} bytes)", blob.name(), blob.bytes().length);
-            var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath())
+            var path = DataSourceLocation.CORRECTIONS.namedPath(surveyPath(), stepOrdinal)
                 .add(blob.name());
 
             var blobAsYaml = Blob.of(blob.name(), CommonMimeType.YAML, blob.bytes());
@@ -222,7 +246,7 @@ public record BlobStoreClient(
                 DataSourceLocation.INTERVIEWS_CORRECTED.namedPath(surveyPath()),
                 DataSourceLocation.INTERVIEWS_CORRECTED.compression,
                 blobStore,
-                ()->interviewsCorrected(systemId, campaignKeys, correction()));
+                ()->interviewsCorrected(systemId, campaignKeys, corrections()));
     }
 
     /** bypasses caching
@@ -230,8 +254,8 @@ public record BlobStoreClient(
     public InterviewSet24 interviewsCorrected(
             final SystemId systemId,
             final Can<Campaign.SecondaryKey> campaignKeys,
-            final Correction24 correction) {
-        return Campaigns.interviewSetCorrected(systemId, campaignKeys, correction, foodDescriptionModel(), blobStore);
+            final List<Correction24> corrections) {
+        return Campaigns.interviewSetCorrected(systemId, campaignKeys, corrections, foodDescriptionModel(), blobStore);
     }
 
     public void invalidateAllInterviewCaches() {
@@ -292,6 +316,13 @@ public record BlobStoreClient(
                 .orElseThrow()
                 .asDataSource();
         return QualifiedMap.tryFromYaml(mapDataSource).valueAsNonNullElseFail();
+    }
+
+    private Correction24 correction24(final List<CorrectionUpload> correctionUploads) {
+        return correctionUploads.stream()
+            .map(this::correctionYaml)
+            .map(DataUtil::correction)
+            .reduce(Correction24.empty(), Correction24::join);
     }
 
 }

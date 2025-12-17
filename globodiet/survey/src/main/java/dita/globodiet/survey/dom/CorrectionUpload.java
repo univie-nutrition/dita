@@ -81,6 +81,11 @@ public record CorrectionUpload(
         return client.correctionYaml(this);
     }
 
+    @Programmatic
+    public int stepOrdinal() {
+        return Integer.parseInt(namedPath.parentElseFail().lastNameElseFail().substring("step".length()));
+    }
+
     static class BlobStoreHolder {
         @Inject @Qualifier("survey") BlobStore surveyBlobStore;
     }
