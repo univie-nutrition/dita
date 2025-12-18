@@ -37,6 +37,7 @@ import lombok.experimental.Accessors;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.MetricUnits;
 import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
@@ -44,6 +45,7 @@ import tech.units.indriya.unit.Units;
 public record FoodComposition(
         @NonNull SemanticIdentifier foodId,
         @NonNull ConcentrationUnit concentrationUnit,
+        @NonNull SemanticIdentifierSet attributes,
         @NonNull DatapointMap datapoints) {
 
     /**

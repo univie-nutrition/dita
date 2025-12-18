@@ -48,6 +48,12 @@ public record FoodComponent(
         ComponentUnit componentUnit,
         SemanticIdentifierSet attributes) {
 
+    public FoodComponent {
+        attributes = attributes!=null
+                ? attributes
+                : SemanticIdentifierSet.empty();
+    }
+
     @RequiredArgsConstructor
     public enum ComponentUnit {
         ONE("𝟙", AbstractUnit.ONE),
@@ -59,18 +65,16 @@ public record FoodComponent(
         BREAD_EXCHANGE("BE", MetricUnits.BREAD_EXCHANGE);
 
         public static ComponentUnit parse(final String symbol){
-            switch (symbol) {
-            case "BE": return BREAD_EXCHANGE;
-            case "cal": return CALORIES;
-            case "J": return JOUL;
-            case "g": return GRAM;
-            case "𝟙":
-            case "1": return ONE;
-            case "⅟₁":
-            case "/": return RATIO;
-            case "%": return PERCENT;
-            default: throw new IllegalArgumentException("Unknown component unit symbol: " + symbol);
-            }
+            return switch (symbol) {
+            case "BE" -> BREAD_EXCHANGE;
+            case "cal" -> CALORIES;
+            case "J" -> JOUL;
+            case "g" -> GRAM;
+            case "𝟙", "1" -> ONE;
+            case "⅟₁", "/" -> RATIO;
+            case "%" -> PERCENT;
+            default -> throw new IllegalArgumentException("Unknown component unit symbol: " + symbol);
+            };
         }
 
         @Getter @Accessors(fluent=true)

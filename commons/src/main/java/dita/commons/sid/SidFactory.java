@@ -91,4 +91,17 @@ public record SidFactory(SystemId systemId) {
         }
     }
 
+    public static Optional<String> parseLiteral(final SemanticIdentifier sid, final LanguageId languageId, final String name) {
+        if(sid==null
+                || languageId ==null
+                || !StringUtils.hasLength(name))
+            return Optional.empty();
+        if(!LanguageId.parse(sid.systemId().system()).map(lid->lid==languageId).orElse(false))
+            return Optional.empty();
+
+        return sid.objectId().context().equals(name)
+                ? Optional.of(sid.objectId().objectSimpleId())
+                : Optional.empty();
+    }
+
 }

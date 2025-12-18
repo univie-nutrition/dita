@@ -79,8 +79,9 @@ public class ValueSemanticProviders {
 
         private String toHtmlLink(final SemanticIdentifier sid) {
             return """
-                <span title="%s" class="badge rounded-pill bg-light">%s</span>"""
-                    .formatted(sid.toStringNoBox(), sid.objectId());
+                    <span class="badge rounded-pill bg-light" style="color: #976140;">%s</span>
+                    <span class="badge rounded-pill bg-light">%s</span>"""
+                        .formatted(sid.systemId(), sid.objectId());
         }
 
         // -- PARSER

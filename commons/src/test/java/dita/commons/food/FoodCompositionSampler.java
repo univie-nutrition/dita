@@ -61,7 +61,9 @@ class FoodCompositionSampler {
 
     FoodCompositionRepository createFoodCompositionRepository() {
         var foodCompositionRepo = new FoodCompositionRepository();
-        var bananaComposition = new FoodComposition(blsBananaId, ConcentrationUnit.PER_100_GRAM, DatapointMap.of(List.of(
+        var bananaComposition = new FoodComposition(blsBananaId, ConcentrationUnit.PER_100_GRAM,
+                null,
+                DatapointMap.of(List.of(
                 datapointPer100gAsIs(blsZuckerGesamt, new BigDecimal("17.267"))
                 //for debugging sort order
                 //c1.componentId(), datapointPer100gAsIs(c1, new BigDecimal("102000")),

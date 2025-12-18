@@ -43,6 +43,7 @@ import dita.commons.food.composition.FoodComponentDatapoint.DatapointSemantic;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.io.JaxbAdapters;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 
 @UtilityClass
 class Dtos {
@@ -104,6 +105,7 @@ class Dtos {
     public record FoodCompositionDto(
         @NonNull SemanticIdentifier foodId,
         @NonNull ConcentrationUnit concentrationUnit,
+        @NonNull SemanticIdentifierSet attributes,
         @NonNull Collection<String> datapoints) {
     }
 
@@ -113,9 +115,11 @@ class Dtos {
         return new FoodCompositionDto(
                 composition.foodId(),
                 composition.concentrationUnit(),
+                composition.attributes(),
                 composition.streamDatapoints()
                     .map(dp->Dtos.toDto(lookup.indexFor(dp.component()), dp))
-                    .toList());
+                    .toList()
+                );
     }
 
     FoodComposition fromDto(
@@ -124,7 +128,7 @@ class Dtos {
         var datapointMap = comp.datapoints().stream()
             .map(d->Dtos.fromDto(d, comp.concentrationUnit(), lookup))
             .collect(DatapointMap.collector());
-        return new FoodComposition(comp.foodId(), comp.concentrationUnit(), datapointMap);
+        return new FoodComposition(comp.foodId(), comp.concentrationUnit(), comp.attributes(), datapointMap);
     }
 
     // -- FOOD COMPONENT CATALOG
