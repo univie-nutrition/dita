@@ -287,6 +287,7 @@ class Coordinates << (R,orchid) >> {
     respondentId: String
     interviewOrdinal: int
     mealHourOfDay: LocalTime
+    name: String
     source: NamedPath 
 }
 
@@ -299,6 +300,7 @@ Consumption entries have no identifier per-se, so we use multiple *coordinates* 
 * `respondentId`
 * `interviewOrdinal`
 * `mealHourOfDay`
+* `name` : optional name of the composite entry, in case of ad-hoc or modified composite food entries
 * `source`: path of the interview source file in question
 
 NOTE: Special care needs to be taken when uploading new interview data, 
@@ -337,4 +339,10 @@ composites:
     #...
 # and so on ...     
 ----
-  
+
+== Working with multiple Correction Steps
+
+A (single) `Correction24` may not contain any coordinate duplicates, 
+because correction application targeted for the same composite coordinates say,
+is *not commutative*, meaning application order matters. 
+Hence _Dita_ allows for a sequence of `Correction24` *steps* to be applied in order.  
