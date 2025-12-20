@@ -170,6 +170,13 @@ public class QualifiedMap {
         return this;
     }
 
+    public QualifiedMap putAll(final Iterable<QualifiedMapEntry> entries) {
+        if(entries==null) return this;
+        entries.forEach(this::put);
+        return this;
+    }
+
+
     public boolean isEmpty() {
         return internalMap.isEmpty();
     }
