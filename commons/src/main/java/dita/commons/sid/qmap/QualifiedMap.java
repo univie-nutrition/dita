@@ -23,16 +23,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.DataSource;
 
-import org.jspecify.annotations.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import dita.commons.sid.SemanticIdentifier;
@@ -240,6 +241,20 @@ public class QualifiedMap {
             @Nullable final SemanticIdentifier source,
             @Nullable final SemanticIdentifierSet qualifier){
         return lookupEntryElseFail(source, qualifier).target();
+    }
+
+    // -- TRANSFORMATIONS
+
+    public QualifiedMap filter(final Predicate<QualifiedMapEntry> filter) {
+        var transformed = new QualifiedMap(new LinkedHashMap<>(), policy);
+        streamEntries()
+            .filter(filter)
+            .forEach(transformed::put);
+        return transformed;
+    }
+
+    public QualifiedMap unmodifiable() {
+        return new QualifiedMap(Map.copyOf(internalMap), policy);
     }
 
     // -- SERIALIZE
