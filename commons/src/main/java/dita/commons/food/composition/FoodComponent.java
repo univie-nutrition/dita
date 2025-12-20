@@ -19,6 +19,7 @@
 package dita.commons.food.composition;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
@@ -31,6 +32,8 @@ import lombok.experimental.Accessors;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.SidFactory;
+import dita.commons.types.LanguageId;
 import dita.commons.types.MetricUnits;
 import dita.commons.util.FormatUtils;
 import tech.units.indriya.AbstractUnit;
@@ -99,11 +102,27 @@ public record FoodComponent(
         public Quantity<?> quantity(final BigDecimal amount) {
             return Quantities.getQuantity(amount, unit);
         }
-
     }
 
-    public String prefixedUnit() {
-        return FormatUtils.prefixedUnit(this);
+    public String prefixedUnitBoxed() {
+        return "[" + FormatUtils.prefixedUnit(this) + "]";
+    }
+
+    // -- LITERALS
+
+    public Optional<String> literal(final LanguageId languageId, final String literalName) {
+        return attributes().elements()
+            .stream()
+            .map(attribute->SidFactory.parseLiteral(attribute, languageId, literalName))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .findFirst();
+    }
+    public Optional<String> name(final LanguageId languageId) {
+        return literal(languageId, "name");
+    }
+    public Optional<String> description(final LanguageId languageId) {
+        return literal(languageId, "description");
     }
 
 }

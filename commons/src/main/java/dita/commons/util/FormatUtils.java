@@ -43,6 +43,7 @@ import org.apache.causeway.valuetypes.asciidoc.builder.AsciiDocFactory;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.food.composition.FoodComponent;
+import dita.commons.food.composition.FoodComponentDatapoint;
 import dita.commons.io.JaxbAdapters;
 
 @UtilityClass
@@ -72,9 +73,8 @@ public class FormatUtils {
     }
 
     public String fillWithLeadingZeros(final int stringLengthYield, final @Nullable String input) {
-        if(!StringUtils.hasLength(input)) {
+        if(!StringUtils.hasLength(input))
             return fillString(stringLengthYield, '0');
-        }
         final int gap = stringLengthYield - input.length();
         if(gap<1) return input;
 
@@ -125,7 +125,7 @@ public class FormatUtils {
     	JacksonCustomizer c4 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.SemanticIdentifierSetAdapter());
     	JacksonCustomizer c5 = JsonUtils.JacksonCustomizer.wrapXmlAdapter(new JaxbAdapters.NamedPathAdapter());
     	JacksonCustomizer c6 = JsonUtils::onlyIncludeNonNull;
-    	
+
         return c1.andThen(c2).andThen(c3).andThen(c4).andThen(c5).andThen(c6)::accept;
     }
 
@@ -164,9 +164,8 @@ public class FormatUtils {
 
     public Can<String> cut(final @Nullable IntStream indexes, final @Nullable String input){
         if(indexes==null
-                || _Strings.isEmpty(input)) {
+                || _Strings.isEmpty(input))
             return Can.empty();
-        }
         class Helper {
             int count;
             int startIncl;
@@ -186,9 +185,8 @@ public class FormatUtils {
                         || startIncl<0
                         || endExcl<=startIncl
                         || startIncl>=input.length()
-                        || endExcl>input.length()) {
+                        || endExcl>input.length())
                     return null;
-                }
                 return input.substring(startIncl, endExcl);
             }
         }
@@ -203,11 +201,22 @@ public class FormatUtils {
     // -- PREFIXED UNIT
 
     public String prefixedUnit(final FoodComponent component) {
-        return "[%s%s]".formatted(
+        return "%s%s".formatted(
                 component.metricPrefix()!=null
                     ? component.metricPrefix().getSymbol()
                     : "",
                 component.componentUnit().symbol());
+    }
+
+    // -- DATA POINTS
+
+    public String datapointValue(final FoodComponentDatapoint dp) {
+        return "%s [%s%s]".formatted(
+                dp.datapointValue()!=null
+                    ? dp.datapointValue().toPlainString()
+                    : "-",
+                prefixedUnit(dp.component()),
+                dp.concentrationUnit().title());
     }
 
 }

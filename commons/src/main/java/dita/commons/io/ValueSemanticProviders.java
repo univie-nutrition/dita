@@ -18,6 +18,10 @@
  */
 package dita.commons.io;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.apache.causeway.applib.value.semantics.Parser;
 import org.apache.causeway.applib.value.semantics.Renderer;
 import org.apache.causeway.applib.value.semantics.ValueDecomposition;
@@ -38,6 +42,13 @@ public class ValueSemanticProviders {
     implements
         Parser<SemanticIdentifier>,
         Renderer<SemanticIdentifier> {
+
+        // SPI for badge coloring
+        public interface SidSystemCssProvider {
+            String css(SemanticIdentifier.SystemId systemId);
+        }
+
+        @Autowired(required = false) SidSystemCssProvider sidSystemCssProvider;
 
         @Override
         public Class<SemanticIdentifier> getCorrespondingClass() {
@@ -79,9 +90,15 @@ public class ValueSemanticProviders {
 
         private String toHtmlLink(final SemanticIdentifier sid) {
             return """
-                    <span class="badge rounded-pill bg-light" style="color: #976140;">%s</span>
+                    <span class="badge rounded-pill %s">%s</span>
                     <span class="badge rounded-pill bg-light">%s</span>"""
-                        .formatted(sid.systemId(), sid.objectId());
+                        .formatted(style(sid.systemId()), sid.systemId(), sid.objectId());
+        }
+
+        private String style(final SemanticIdentifier.SystemId objectId) {
+            return Optional.ofNullable(sidSystemCssProvider)
+                .map(it->it.css(objectId))
+                .orElse("bg-light");
         }
 
         // -- PARSER

@@ -38,6 +38,8 @@ import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.SidFactory;
+import dita.commons.types.LanguageId;
 import dita.commons.types.MetricUnits;
 import tech.units.indriya.quantity.Quantities;
 import tech.units.indriya.unit.Units;
@@ -47,6 +49,12 @@ public record FoodComposition(
         @NonNull ConcentrationUnit concentrationUnit,
         @NonNull SemanticIdentifierSet attributes,
         @NonNull DatapointMap datapoints) {
+
+    public FoodComposition {
+        attributes = attributes!=null
+                ? attributes
+                : SemanticIdentifierSet.empty();
+    }
 
     /**
      * Unit in which concentration values are given.
@@ -111,6 +119,26 @@ public record FoodComposition(
 
     public Stream<FoodComponentDatapoint> streamDatapoints() {
         return datapoints.values();
+    }
+
+    // -- LITERALS
+
+    public Optional<String> literal(final LanguageId languageId, final String literalName) {
+        return attributes().elements()
+            .stream()
+            .map(attribute->SidFactory.parseLiteral(attribute, languageId, literalName))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .findFirst();
+    }
+    public Optional<String> name(final LanguageId languageId) {
+        return literal(languageId, "name");
+    }
+    public Optional<String> description(final LanguageId languageId) {
+        return literal(languageId, "description");
+    }
+    public Optional<String> brand(final LanguageId languageId) {
+        return literal(languageId, "brand");
     }
 
 }

@@ -47,10 +47,6 @@ public record FoodComponentDatapoint(
         DatapointSemantic datapointSemantic,
         BigDecimal datapointValue) {
 
-	public FoodComponentDatapoint {
-		datapointValue = NumberUtils.stripTrailingZeros(datapointValue);
-	}
-
     /**
      * How the datapoint is interpreted (as-is or as upper-bound).
      */
@@ -64,6 +60,10 @@ public record FoodComponentDatapoint(
          * The datapoint is an upper bound for the real value.
          */
         UPPER_BOUND;
+    }
+
+    public FoodComponentDatapoint {
+        datapointValue = NumberUtils.stripTrailingZeros(datapointValue);
     }
 
     public SemanticIdentifier componentId() {

@@ -77,7 +77,7 @@ record TabularFactory(Can<FoodComponent> foodComponents) {
         return new TabularModel.TabularColumn(
                 index,
                 comp.componentId().toStringNoBox(),
-                "%s\n%s".formatted(description, comp.prefixedUnit()));
+                "%s\n%s".formatted(description, comp.prefixedUnitBoxed()));
     }
 
     private TabularModel.TabularRow tabularRow(
