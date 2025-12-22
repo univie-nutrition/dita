@@ -19,8 +19,12 @@
 package dita.commons.food.composition;
 
 import java.math.BigDecimal;
+import java.util.Objects;
+
+import javax.measure.MetricPrefix;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +32,7 @@ import dita.commons.food.composition.FoodComponent.ComponentUnit;
 import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.types.MetricUnits;
 import dita.commons.util.NumberUtils;
 
 /**
@@ -75,6 +80,16 @@ public record FoodComponentDatapoint(
         return component.componentUnit().isInvariantWithRespectToAmountConusmed()
                 ? true
                 : concentrationUnit.isCommensurable(consumption);
+    }
+
+    /// convert to other metric prefix
+    /// @param metricPrefix when null, then means no prefix (aka ONE)
+    public BigDecimal datapointValue(final @Nullable MetricPrefix metricPrefix) {
+        return Objects.equals(this.component().metricPrefix(), metricPrefix)
+            ? datapointValue
+            : datapointValue.scaleByPowerOfTen(
+                    MetricUnits.exponentOf(this.component().metricPrefix())
+                    - MetricUnits.exponentOf(metricPrefix));
     }
 
     /**
