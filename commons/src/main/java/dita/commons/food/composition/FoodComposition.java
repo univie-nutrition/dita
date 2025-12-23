@@ -19,6 +19,7 @@
 package dita.commons.food.composition;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -119,6 +120,15 @@ public record FoodComposition(
 
     public Stream<FoodComponentDatapoint> streamDatapoints() {
         return datapoints.values();
+    }
+
+    public FoodComposition withAdditionalDatapoints(
+            final Collection<FoodComponentDatapoint> additionalDatapoints) {
+        var datapoints = Stream.concat(
+                    datapoints().values(),
+                    additionalDatapoints.stream())
+                .collect(DatapointMap.collector());
+        return new FoodComposition(foodId(), concentrationUnit(), attributes(), datapoints);
     }
 
     // -- LITERALS
