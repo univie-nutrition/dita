@@ -84,6 +84,10 @@ public record SemanticIdentifier (
             return ParseFormatUtils.parseSystemId(systemIdStringified);
         }
 
+        public SemanticIdentifier sid(final ObjectId objectId) {
+            return new SemanticIdentifier(this, objectId);
+        }
+
         // -- CONSTRUCTION
 
         public SystemId(final String system, final String version) {
@@ -153,7 +157,6 @@ public record SemanticIdentifier (
                 // TODO should use DEWEY compare here
                 : _Strings.compareNullsFirst(a.version(), b.version());
         }
-
     }
 
     // -- OBJECT ID

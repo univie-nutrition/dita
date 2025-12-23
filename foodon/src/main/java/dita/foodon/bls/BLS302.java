@@ -28,16 +28,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifier.ObjectId;
-import dita.commons.sid.SemanticIdentifier.SystemId;
+import dita.foodon.systems.FcdbSystem;
 
 /**
  * German's Bundeslebenmittelschlüssel (BLS 3.02).
  */
 @UtilityClass
 public class BLS302 {
-
-    public static final SystemId SYSTEM_ID = new SystemId("de.bls", "3.02");
 
     @RequiredArgsConstructor
     public enum DietaryDataCategory {
@@ -65,30 +62,23 @@ public class BLS302 {
         final String blsCode;
 
         public static DietaryDataCategory parse(final String blsCode){
-            if(StringUtils.hasLength(blsCode)) switch (blsCode) {
-            case "E": return AMINO_ACIDS;
-            case "F": return FATTY_ACIDS;
-            case "G": return SUMMARY_NUMBERS;
-            case "K0": return CARBOHYDRATES;
-            case "K1": return FIBERS;
-            case "M0": return MINERAL_NUTRIENTS;
-            case "M1": return MICRO_NUTRIENTS;
-            case "S": return DIETARY_SUPPLEMENTS;
-            case "V": return VITAMINS;
-            case "Z": return COMPOSITION;
-            default:
+            if(StringUtils.hasLength(blsCode)) {
+                switch (blsCode) {
+                case "E": return AMINO_ACIDS;
+                case "F": return FATTY_ACIDS;
+                case "G": return SUMMARY_NUMBERS;
+                case "K0": return CARBOHYDRATES;
+                case "K1": return FIBERS;
+                case "M0": return MINERAL_NUTRIENTS;
+                case "M1": return MICRO_NUTRIENTS;
+                case "S": return DIETARY_SUPPLEMENTS;
+                case "V": return VITAMINS;
+                case "Z": return COMPOSITION;
+                default:
+                }
             }
             throw _Exceptions.illegalArgument("Unknown dietary data category blsCode '%s'", blsCode);
         }
-
-    }
-
-    public SemanticIdentifier foodSid(final String objectId) {
-        return new SemanticIdentifier(SYSTEM_ID, new ObjectId(ObjectId.Context.FOOD, objectId));
-    }
-
-    public SemanticIdentifier componentSid(final String objectId) {
-        return new SemanticIdentifier(SYSTEM_ID, new ObjectId(ObjectId.Context.COMPONENT, objectId));
     }
 
     public static Stream<Component> streamComponents(){
@@ -104,7 +94,7 @@ public class BLS302 {
         F241, FU, F162, F164, F182, F183, F184, F193, F202, F203, F204, F205, F222, F223, F224, F225, F226, FP, FK, FM, FL,
         FO3, FO6, FG, FC, GFPS, GKB, GMKO, GP;
         public SemanticIdentifier componentId() {
-            return BLS302.componentSid(name());
+            return FcdbSystem.BLS302.component(name());
         }
     }
 

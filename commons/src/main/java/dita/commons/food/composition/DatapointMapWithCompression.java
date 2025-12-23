@@ -47,20 +47,24 @@ import dita.commons.food.composition.FoodComposition.ConcentrationUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.util.NumberUtils;
 
+@Deprecated // experimental
 @RequiredArgsConstructor
 public final class DatapointMapWithCompression {
 
-	public static @NonNull DatapointMapWithCompression empty() {
+	@Deprecated
+    public static @NonNull DatapointMapWithCompression empty() {
 		return new DatapointMapWithCompression(null, null, Collections.emptyMap());
 	}
 
-	public static @NonNull DatapointMapWithCompression of(final Collection<FoodComponentDatapoint> datapoints) {
+	@Deprecated
+    public static @NonNull DatapointMapWithCompression of(final Collection<FoodComponentDatapoint> datapoints) {
 		return datapoints!=null
 			? datapoints.stream().collect(DatapointMapWithCompression.collector())
 			: DatapointMapWithCompression.empty();
 	}
 
-	public static Collector<FoodComponentDatapoint, ?, DatapointMapWithCompression> collector() {
+	@Deprecated
+    public static Collector<FoodComponentDatapoint, ?, DatapointMapWithCompression> collector() {
 		return new DatapointCollector();
 	}
 
@@ -182,16 +186,19 @@ public final class DatapointMapWithCompression {
 	private final long[] data;
 	private final Map<SemanticIdentifier, Integer> toIndex;
 
-	public int size() {
+	@Deprecated
+    public int size() {
 		return toIndex.size();
 	}
 
-	public Optional<FoodComponentDatapoint> lookup(final SemanticIdentifier componentId) {
+	@Deprecated
+    public Optional<FoodComponentDatapoint> lookup(final SemanticIdentifier componentId) {
 		return Optional.ofNullable(toIndex.get(componentId))
 				.map(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]));
 	}
 
-	public Stream<FoodComponentDatapoint> values() {
+	@Deprecated
+    public Stream<FoodComponentDatapoint> values() {
 		return IntStream.range(0, size())
 				.mapToObj(i->FoodComponentDatapointCompressor.uncompress(foodComponents[i], data[i]));
 	}

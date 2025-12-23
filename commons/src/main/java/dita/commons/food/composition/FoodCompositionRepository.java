@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -106,13 +107,21 @@ public class FoodCompositionRepository {
      * if filter is a noop, generates a copy
      */
     public FoodCompositionRepository filter(final Predicate<FoodComposition> compFilter, final boolean keepCatalog) {
-    	var foodCompositionRepo = keepCatalog
-    			? new FoodCompositionRepository(componentCatalog, new TreeMap<>())
-				: new FoodCompositionRepository();
-    	streamCompositions()
-    		.filter(compFilter)
-	    	.forEach(foodCompositionRepo::put);
-		return foodCompositionRepo;
+		return transform(it->compFilter.test(it) ? it : null, keepCatalog);
+    }
+
+    /**
+     * if transformer is identity, generates a copy; transformer acts as a filter, when returning <code>null</code>
+     */
+    public FoodCompositionRepository transform(final UnaryOperator<FoodComposition> transformer, final boolean keepCatalog) {
+        var foodCompositionRepo = keepCatalog
+                ? new FoodCompositionRepository(componentCatalog, new TreeMap<>())
+                : new FoodCompositionRepository();
+        streamCompositions()
+            .map(transformer)
+            .filter(Objects::nonNull)
+            .forEach(foodCompositionRepo::put);
+        return foodCompositionRepo;
     }
 
     // -- EQUALITY
