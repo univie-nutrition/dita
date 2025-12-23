@@ -19,6 +19,7 @@
 package dita.commons.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -98,6 +99,15 @@ public class FormatUtils {
     public String hourOfDay(final @Nullable LocalTime time) {
         return time!=null
             ? HOUR_OF_DAY.format(time)
+            : null;
+    }
+
+    private static final DateTimeFormatter ISO_DATE_WITH_HOUR_AND_MINUTE = DateTimeFormatter.ofPattern("yyyy-MM-dd(HH-mm)", Locale.ROOT);
+
+    @Nullable
+    public String isoDateWithHourAndMinute(final @Nullable LocalDateTime localDateTime) {
+        return localDateTime!=null
+            ? ISO_DATE_WITH_HOUR_AND_MINUTE.format(localDateTime)
             : null;
     }
 
