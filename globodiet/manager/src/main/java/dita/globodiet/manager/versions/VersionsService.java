@@ -115,7 +115,7 @@ public class VersionsService {
     public Optional<ParameterDataVersion> lookupVersion(final int versionId) {
         return getVersions()
                 .stream()
-                .filter(v->v.get__id() == versionId)
+                .filter(v->v.getId() == versionId)
                 .findFirst();
     }
 
@@ -147,7 +147,7 @@ public class VersionsService {
      */
     public void clone(final ParameterDataVersion master, final ParameterDataVersion clone) {
         final int cloneId = getNextFreeVersionId();
-        clone.set__id(cloneId);
+        clone.setId(cloneId);
 
         var cloneDir = FileUtils.makeDir(new File(rootDirectory(), "" + cloneId));
         clone.writeManifest(cloneDir);
@@ -172,9 +172,8 @@ public class VersionsService {
     // -- UTILITY
 
     public void writeManifest(final @Nullable ParameterDataVersion version) {
-        if(version==null) {
+        if(version==null)
             return;
-        }
         version.writeManifest(lookupVersionFolderElseFail(version));
     }
 
@@ -184,7 +183,7 @@ public class VersionsService {
      * Resolves a file resource relative to the given version's blob-store sub-folder.
      */
     private DataSource resolveResource(final ParameterDataVersion parameterDataVersion, final String resourceName) {
-        var versionFolder = new File(rootDirectory(), "" + parameterDataVersion.get__id());
+        var versionFolder = new File(rootDirectory(), "" + parameterDataVersion.getId());
         return DataSource.ofFile(new File(versionFolder, resourceName));
     }
 
@@ -214,13 +213,13 @@ public class VersionsService {
      */
     private int getNextFreeVersionId() {
         return 1 + getVersions().stream()
-                .mapToInt(ParameterDataVersion::get__id)
+                .mapToInt(ParameterDataVersion::getId)
                 .max()
                 .orElse(10001);
     }
 
     private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
-        var versionFolder = new File(rootDirectory(), "" + version.get__id());
+        var versionFolder = new File(rootDirectory(), "" + version.getId());
         return FileUtils.existingDirectoryElseFail(versionFolder);
     }
 
