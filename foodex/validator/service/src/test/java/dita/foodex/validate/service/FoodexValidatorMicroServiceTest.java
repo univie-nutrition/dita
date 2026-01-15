@@ -24,9 +24,6 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation.Builder;
 import jakarta.ws.rs.core.Response;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -51,7 +48,7 @@ class FoodexValidatorMicroServiceTest {
     }
 
     @Test @Disabled("needs a backend service spinup")
-    void test() throws JsonParseException, JsonMappingException, IOException {
+    void test() throws IOException {
 
         RestfulClientConfig clientConfig = RestfulClientConfig.builder()
         .restfulBaseUrl("http://localhost:8080/")
