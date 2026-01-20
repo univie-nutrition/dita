@@ -50,6 +50,7 @@ import lombok.extern.slf4j.Slf4j;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
+import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.commons.types.Sex;
 import dita.commons.util.FormatUtils;
 import dita.commons.util.JoinUtils;
@@ -156,6 +157,9 @@ public record Correction24(
                 this.sid = sid;
                 this.amountGrams = amountGrams;
                 this.facets = facets!=null ? facets : SemanticIdentifierSet.empty();
+            }
+            public QualifiedMapKey asQualifiedMapKey() {
+                return new QualifiedMapKey(sid, facets);
             }
         }
         public record Deletion(
