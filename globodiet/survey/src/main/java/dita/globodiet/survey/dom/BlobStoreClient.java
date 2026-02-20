@@ -34,6 +34,7 @@ import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
 
@@ -228,6 +229,7 @@ public record BlobStoreClient(
             .stream()
             .filter(desc->CommonMimeType.XLSX.equals(desc.mimeType()))
             .map(desc->new ReportJob(desc.path(), surveyKey))
+            .sorted((a, b)->_Strings.compareNullsFirst(b.getPath(), a.getPath()))
             .toList();
     }
 
