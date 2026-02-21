@@ -182,42 +182,52 @@ record FdmFactory(
                 .findFirst();
     }
 
+    // dita.globodiet.params.food_list.Food == FOODS
+    // 0 -7 "FOODNUM: Identification Code for Food, Product, On-the-fly Recipe or Alias"
+    // 1 -4 "GROUP: Food Group code"
+    // 2 -5 "SUBGROUP1: Food Subgroup code"
+    // 3 -6 "SUBGROUP2: Food Sub(sub)group code"
+    // 4 -0 "NAME: Native (localized) name of this Food, Product, On-the-fly Recipe or Alias"
+    // 5 -1 "TYPE: Type of item:|(none) -> Normal Food Item|GI -> Generic Food Item|SH -> Shadow Item|CR -> Composed Recipe (On-the-fly Recipe)|Definition: its different ingredients can be identified and|quantified separately after preparation|(e.g. meat balls in sauce, rice with sauce, couscous dish, mixed salad)|or just before mixing (e.g. coffee with milk).|Composed recipes are built during the interview: there is no a priori list of composed recipes.|They are made from items listed below/linked to a quick list item.|Example: Salad|- Lettuce|- Tomato|- Cucumber|- Salad dressing (can be a recipe in some projects where all sauces are in recipes)"
+    // 6 -2 "ORDER: Auxiliary field to force an internal order within each subgroup|(if GI then 1 otherwise 2, this forces the GI at the top)"
+    // 7 -3 "SUPPL: 0=food|1=dietary supplement"
     @Nullable
     private Food foodFromRowData(final List<String> cellLiterals) {
-        var isAlias = "ALIAS".equals(cellLiterals.get(1));
+        var isAlias = "ALIAS".equals(cellLiterals.get(5));
         if(isAlias) return null;
-        var nameWithAttributes = cellLiterals.get(0);
+        var nameWithAttributes = cellLiterals.get(4);
         return new Food(
-                sidFactory().food(cellLiterals.get(7)),
+                sidFactory().food(cellLiterals.get(0)),
                 nameNoBraces(nameWithAttributes),
                 sidFactory.foodGroup(FormatUtils.concat(
-                        cellLiterals.get(4),
-                        cellLiterals.get(5),
-                        cellLiterals.get(6))),
+                        cellLiterals.get(1),
+                        cellLiterals.get(2),
+                        cellLiterals.get(3))),
                 attributesFromName(systemId(), nameWithAttributes));
     }
 
-    // 0 "name: Recipe name"
-    // 1 "recipeType: Type of recipe:|1.1=Open – Known|1.2=Open – Unknown|1.3=Open with brand|2.1=Closed|2.2=Closed with brand|3.0=Commercial|4.1=New – Known|4.2=New – Unknown"
-    // 2 "brandNameForCommercialRecipe: Brand name for commercial recipe"
-    // 3 "aliasQ: whether is an alias (SH=shadow)"
-    // 4 "hasSubRecipeQ: 0=recipe without sub-recipe|1=recipe with sub-recipe"
-    // 5 "status: 1=finalized (enabled for interviews)|2=with unknown quantity (disabled for interviews)|3=to be completed (disabled for interviews)|4=empty (disabled for interviews)"
-    // 6 "recipeGroupCode: Group code of the recipe classification."
-    // 7 "recipeSubgroupCode: Subgroup code of the recipe classification"
-    // 8 "code: Recipe ID number"
+    // dita.globodiet.params.recipe_list.Recipe == MIXEDREC
+    // 0 "R_IDNUM: Recipe ID number"
+    // 1 "R_GROUP: Group code of the recipe classification. (for alias entries: not set, but perhaps could be)"
+    // 2 "R_SUBGROUP: Subgroup code of the recipe classification"
+    // 3 "R_NAME: Recipe name"
+    // 4 "R_TYPE: Type of recipe:|1.1=Open – Known|1.2=Open – Unknown|1.3=Open with brand|2.1=Closed|2.2=Closed with brand|3.0=Commercial|4.1=New – Known|4.2=New – Unknown"
+    // 5 "R_BRAND: Brand name for commercial recipe"
+    // 6 "TYPE: whether is an alias (SH=shadow)"
+    // 7 "R_SUB: 0=recipe without sub-recipe|1=recipe with sub-recipe"
+    // 8 "STATUS: 1=finalized (enabled for interviews)|2=with unknown quantity (disabled for interviews)|3=to be completed (disabled for interviews)|4=empty (disabled for interviews)"
     @Nullable
     private Recipe recipeFromRowData(final List<String> cellLiterals) {
-        var isAlias = "true".equals(cellLiterals.get(3));
+        var isAlias = "true".equals(cellLiterals.get(6));
         if(isAlias) return null;
-        var nameWithAttributes = cellLiterals.get(0);
+        var nameWithAttributes = cellLiterals.get(3);
 
         return new Recipe(
-                sidFactory().recipe(cellLiterals.get(8)),
+                sidFactory().recipe(cellLiterals.get(0)),
                 nameNoBraces(nameWithAttributes),
                 sidFactory().recipeGroup(FormatUtils.concat(
-                        cellLiterals.get(6),
-                        cellLiterals.get(7))),
+                        cellLiterals.get(1),
+                        cellLiterals.get(2))),
                     attributesFromName(systemId(), nameWithAttributes));
     }
 
@@ -245,180 +255,190 @@ record FdmFactory(
         return Collections.unmodifiableMap(map);
     }
 
-    // 0 "substitutable: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
-    // 1 "foodType: Food type (GI or blank)"
-    // 2 "descriptionText: Description text (facet/descriptor text)"
-    // 3 "name: Ingredient name"
-    // 4 "brandName: Ingredient brand (if any)"
-    // 5 "describedAndQuantifiedQ: 1 = ingredient described and quantified|2 = otherwise"
-    // 6 "finalQuantityInG: Final quantity in g (with coefficient applied)"
-    // 7 "estimatedQuantityBeforeCoefficientApplied: Estimated quantity (before coefficient applied)"
-    // 8 "quantityEstimatedRawOrCooked: Quantity Estimated Raw or Cooked|1 = Raw|2 = Cooked or Not applicable"
-    // 9 "quantityConsumedRawOrCooked: Quantity Consumed Raw or Cooked|1 = Raw|2 = Cooked or Not applicable"
-    // 10 "conversionFactorRawToCooked: Conversion factor raw->cooked"
-    // 11 "withUnediblePartQ: Quantity as estimated: 1=without un-edible part & 2=with un-edible part"
-    // 12 "conversionFactorForEdiblePart: Conversion factor for edible part"
-    // 13 "quantityInGramPerVolumeAttachedToTheSelectedPhotoOrHHMOrSTDU: Quantity in gram/volume attached to the selected Photo, HHM, STDU"
-    // 14 "proportionOfPhotoHHMSTDU: Proportion of Photo, HHM, STDU"
-    // 15 "typeOfQuantificationMethod: Type of quantification method"
-    // 16 "quantificationMethodCode: Quantification method code"
-    // 17 "densityCoefficientOnlyForHHM: Density Coefficient only for HHM"
-    // 18 "sequentialNumberForIngredientsWithinARecipe: Sequential Number for Ingredients within a Mixed Recipe"
-    // 19 "fatLeftOverPercentage: Fat Left-Over Percentage"
-    // 20 "fatLeftOverQ: Fat Left-Over Code (F=False, T=True)"
-    // 21 "hhmFraction: HHM Fraction"
-    // 22 "consumedQuantityInPound: Consumed quantity in pound"
-    // 23 "consumedQuantityInOunce: Consumed quantity in ounce"
-    // 24 "consumedQuantityInQuart: Consumed quantity in quart"
-    // 25 "consumedQuantityInPint: Consumed quantity in pint"
-    // 26 "consumedQuantityInFlounce: Consumed quantity in flounce"
-    // 27 "sequentialNumberForIngredientsWithinASubRecipe: Sequential Number for Ingredients within a Sub-Recipe"
-    // 28 "rawQuantityWithoutInedible: Raw quantity without inedible (sans dechet)"
-    // 29 "percentageOrProportionAsEstimatedForRecipeIngredients: Percentage/Proportion as Estimated for Recipe Ingredients"
-    // 30 "percentageOrProportionAsConsumedForRecipeIngredients: Percentage/Proportion as Consumed for Recipe Ingredients"
-    // 31 "typeOfItem: 1 = food|2 = recipe"
-    // 32 "unitOfSelectedQuantityForMethod: Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)"
-    // 33 "percentageRaw: has no description"
-    // 34 "recipeCode: Recipe ID number the ingredient belongs to"
-    // 35 "foodOrRecipeGroupCode: Ingredient food or recipe group"
-    // 36 "foodOrRecipeSubgroupCode: Ingredient food or recipe subgroup"
-    // 37 "foodSubSubgroupCode: Ingredient food sub-subgroup"
-    // 38 "facetDescriptorsLookupKey: Facets-Descriptors codes used to describe the ingredient;|multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
-    // 39 "foodOrRecipeCode: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
+    // dita.globodiet.params.recipe_list.RecipeIngredient = MIXEDING
+    // 0  -34 "R_IDNUM: Recipe ID number the ingredient belongs to"
+    // 1  - "GROUP: Ingredient food or recipe group"
+    // 2  - "SUBGROUP1: Ingredient food or recipe subgroup"
+    // 3  - "SUBGROUP2: Ingredient food sub-subgroup"
+    // 4  -38 "FACETS_STR: Facets-Descriptors codes used to describe the ingredient;|multiple (descface.facet_code + descface.descr_code) comma separated (e.g. 0401,0203,051)"
+    // 5  -39 "IDNUM: Ingredient Food or Recipe ID number; either Foods.foodnum OR Mixedrec.r_idnum"
+    // 6  - "ING_TYPE: 1 = ingredient fixed|2 = ingredient substitutable|3 = fat during cooking|A2 = type of fat used|A3 = type of milk/liquid used"
+    // 7  - "TYPE: Food type (GI or blank)"
+    // 8  - "TEXT: Description text (facet/descriptor text)"
+    // 9  - "NAME: Ingredient name"
+    // 10 - "BRANDNAME: Ingredient brand (if any)"
+    // 11 - "STATUS: 1 = ingredient described and quantified|2 = otherwise"
+    // 12 -6 "CONS_QTY: Final quantity in g (with coefficient applied)"
+    // 13 - "ESTIM_QTY: Estimated quantity (before coefficient applied)"
+    // 14 - "RAWCOOKED: Quantity Estimated Raw or Cooked|1 = Raw|2 = Cooked or Not applicable"
+    // 15 - "CONSRAWCO: Quantity Consumed Raw or Cooked|1 = Raw|2 = Cooked or Not applicable"
+    // 16 - "CONVER: Conversion factor raw->cooked"
+    // 17 - "EDIB: Quantity as estimated: 1=without un-edible part & 2=with un-edible part"
+    // 18 - "EDIB_CSTE: Conversion factor for edible part"
+    // 19 - "NGRAMS: Quantity in gram/volume attached to the selected Photo, HHM, STDU"
+    // 20 - "PROPORT: Proportion of Photo, HHM, STDU"
+    // 21 - "Q_METHOD: Type of quantification method"
+    // 22 - "QM_CODE: Quantification method code"
+    // 23 - "DENSITY: Density Coefficient only for HHM"
+    // 24 - "ING_NUM: Sequential Number for Ingredients within a Mixed Recipe"
+    // 25 - "FATL_PCT: Fat Left-Over Percentage"
+    // 26 - "FATLEFTO: Fat Left-Over Code (F=False, T=True)"
+    // 27 - "HHMFRACT: HHM Fraction"
+    // 28 - "POUND: Consumed quantity in pound"
+    // 29 - "OUNCE: Consumed quantity in ounce"
+    // 30 - "QUART: Consumed quantity in quart"
+    // 31 - "PINT: Consumed quantity in pint"
+    // 32 - "FLOUNCE: Consumed quantity in flounce"
+    // 33 - "S_ING_NUM: Sequential Number for Ingredients within a Sub-Recipe"
+    // 34 - "RAW_Q: Raw quantity without inedible (sans dechet)"
+    // 35 - "PCT_ESTIM: Percentage/Proportion as Estimated for Recipe Ingredients"
+    // 36 - "PCT_CONS: Percentage/Proportion as Consumed for Recipe Ingredients"
+    // 37 - "TYPE_IT: 1 = food|2 = recipe"
+    // 38 - "Q_UNIT: Unit of selected quantity for method Photo, std U, std P (G=gram, V=volum)"
+    // 39 -33 "PCT_RAW: has no description"
     private RecipeIngredient recipeIngredientFromRowData(final List<String> cellLiterals) {
         return new RecipeIngredient(
-                sidFactory().recipe(cellLiterals.get(34)),
-                sidFactory().food(cellLiterals.get(39)),
-                SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(38), ",")
+                sidFactory().recipe(cellLiterals.get(0)),
+                sidFactory().food(cellLiterals.get(5)),
+                SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(4), ",")
                         .map(sidFactory()::foodDescriptor)),
-                new BigDecimal(cellLiterals.get(6)),
-                bigdecElseDefault(cellLiterals.get(33), null)
+                new BigDecimal(cellLiterals.get(12)),
+                bigdecElseDefault(cellLiterals.get(39), null)
                 );
     }
 
-    // 0 "name: Facet name"
-    // 1 "text: Facet text (text to show on the screen describing the facet)"
-    // 2 "type: 0=Standard facets with descriptors available in Descface table|1=Facets with descriptors available in Brandnam table|2=Facets with descriptors available in Foods table - facet 15 type of fat|3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
-    // 3 "typeCardinality: 0 = facet with single-selection of descriptor|1 = facets with multi-selection of descriptors"
-    // 4 "group: If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.|Comma is used as delimiter (e.g. 10,050701,050702)"
-    // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
-    // 6 "code: Facet code"
+    // dita.globodiet.params.food_descript.FoodFacet = FACETS
+    // 0 -6 "FACET_CODE: Facet code"
+    // 1 -0 "FACET_NAME: Facet name"
+    // 2 - "FACET_TEXT: Facet text (text to show on the screen describing the facet)"
+    // 3 - "FACET_TYPE: 0=Standard facets with descriptors available in Descface table|1=Facets with descriptors available in Brandnam table|2=Facets with descriptors available in Foods table - facet 15 type of fat|3=Facets with descriptors available in Foods table - facet 16 type of milk/liquid used"
+    // 4 - "FACET_TYPE_S: 0 = facet with single-selection of descriptor|1 = facets with multi-selection of descriptors"
+    // 5 - "FACET_GRP: If Facet_type=2, series of groups/subgroups used to display the foods from the Foods table.|Comma is used as delimiter (e.g. 10,050701,050702)"
+    // 6 - "FACET_QUEST: Label on how to ask the facet question"
     private ClassificationFacet foodFacetFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
-                context.sid(systemId(), cellLiterals.get(6)),
-                cellLiterals.get(0)
+                context.sid(systemId(), cellLiterals.get(0)),
+                cellLiterals.get(1)
                 );
     }
 
-    // 0 "name: Descriptor name"
-    // 1 "cooking: 0=default without consequences in the algorithms regarding cooking|1=raw (not cooked)|2=asks the question 'fat used during cooking?'|3=found in austrian data for 'frittiert' - invalid enum constant?"
-    // 2 "choice: 0=Multiple choice (allowed)|1=Single (exclusive) choice"
-    // 3 "otherQ: 0=Regular choice|1=Choice with additional text as provided by the interviewer (other: [...])"
-    // 4 "facetCode: Facet code"
-    // 5 "code: Descriptor code"
+    // dita.globodiet.params.recipe_description.RecipeDescriptor == R_DESCFACE
+    // 0 -4 "RFACET_CODE: Facet code for recipes"
+    // 1 -5 "RDESCR_CODE: Descriptor code for recipes"
+    // 2 -0 "RDESCR_NAME: Descriptor name"
+    // 3 - "RDESCR_TYPE: Only for facet recipe production:|0=not homemade descriptor|1=Homemade descriptor"
+    // 4 - "RDESCR_KNOWN: Only for facet known/unknown: 1=unknown 2=known"
+    // 5 - "RDESCR_OTHER: Descriptor with type='other' : 1=yes 0=no"
+    // 6 - "RDESCR_SINGLE: 0=not single descriptor|1=single descriptor"
     private ClassificationFacet foodDescriptorFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId(), FormatUtils.concat(
-                        cellLiterals.get(4),
-                        cellLiterals.get(5))),
-                cellLiterals.get(0)
+                        cellLiterals.get(0),
+                        cellLiterals.get(1))),
+                cellLiterals.get(2)
                 );
     }
 
-    // 0 "name: Facet name"
-    // 1 "textToShowOnTheScreenDescribingTheFacet: Facet text (text to show on the screen describing the facet)"
-    // 2 "descriptorsAvailableForRecipeOrBrandQ: 0=Standard facets with descriptors available in R_Descface table|1=Facets with descriptors available in RBrand table"
-    // 3 "singleOrMultiSelectDescriptorQ: 0 = facet with single-selection of descriptor|1 = facets with multi-selection of descriptors"
-    // 4 "standardOrMainFacetQ: 0 = standard facet|1 = Main facet (with non modified descriptor)"
-    // 5 "labelOnHowToAskTheFacetQuestion: Label on how to ask the facet question"
-    // 6 "code: Facet code for recipes"
+    // dita.globodiet.params.recipe_description.RecipeFacet == R_FACET
+    // 0 -6 "RFACET_CODE: Facet code for recipes"
+    // 1 -0 "RFACET_NAME: Facet name"
+    // 2 - "RFACET_TEXT: Facet text (text to show on the screen describing the facet)"
+    // 3 - "RFACET_TYPE: 0=Standard facets with descriptors available in R_Descface table|1=Facets with descriptors available in RBrand table"
+    // 4 - "RFACET_TYPE_S: 0 = facet with single-selection of descriptor|1 = facets with multi-selection of descriptors"
+    // 5 - "RFACET_MAIN: 0 = standard facet|1 = Main facet (with non modified descriptor)"
+    // 6 - "RFACET_QUEST: Label on how to ask the facet question"
     private ClassificationFacet recipeFacetFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
-                context.sid(systemId(), cellLiterals.get(6)),
-                cellLiterals.get(0)
+                context.sid(systemId(), cellLiterals.get(0)),
+                cellLiterals.get(1)
                 );
     }
 
-    // 0 "name: Descriptor name"
-    // 1 "homemadeOrNot: Only for facet recipe production:|0=not homemade descriptor|1=Homemade descriptor"
-    // 2 "knownOrUnknown: Only for facet known/unknown: 1=unknown 2=known"
-    // 3 "yesOrNo: Descriptor with type='other' : 1=yes 0=no"
-    // 4 "singleOrNot: 0=not single descriptor|1=single descriptor"
-    // 5 "recipeFacetCode: Facet code for recipes"
-    // 6 "code: Descriptor code for recipes"
+    // dita.globodiet.params.recipe_description.RecipeDescriptor == R_DESCFACE
+    // 0 -5 "RFACET_CODE: Facet code for recipes"
+    // 1 -6 "RDESCR_CODE: Descriptor code for recipes"
+    // 2 -0 "RDESCR_NAME: Descriptor name"
+    // 3 - "RDESCR_TYPE: Only for facet recipe production:|0=not homemade descriptor|1=Homemade descriptor"
+    // 4 - "RDESCR_KNOWN: Only for facet known/unknown: 1=unknown 2=known"
+    // 5 - "RDESCR_OTHER: Descriptor with type='other' : 1=yes 0=no"
+    // 6 - "RDESCR_SINGLE: 0=not single descriptor|1=single descriptor"
     private ClassificationFacet recipeDescriptorFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId(), FormatUtils.concat(
-                        cellLiterals.get(5),
-                        cellLiterals.get(6))),
-                cellLiterals.get(0)
+                        cellLiterals.get(0),
+                        cellLiterals.get(1))),
+                cellLiterals.get(2)
                 );
     }
 
-    // 0 "name: Food group name"
-    // 1 "shortName: Food group short name"
-    // 2 "code: Food group code"
+    // dita.globodiet.params.food_list.FoodGroup == GROUPS
+    // 0 -2 "GROUP: Food group code"
+    // 1 -0 "NAME: Food group name"
+    // 2 - "NAME_SHORT: Food group short name"
     private ClassificationFacet foodGroupFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
-                context.sid(systemId(), cellLiterals.get(2)),
-                cellLiterals.get(0)
+                context.sid(systemId(), cellLiterals.get(0)),
+                cellLiterals.get(1)
                 );
     }
 
-    // 0 "name: Name of the food (sub-)(sub-)group"
-    // 1 "fatOrSauceSweetenerSubgroupQ: 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
-    // 2 "fatOrSauceSubgroupThatCanBeLeftOverInTheDishQ: 0=non fat/sauce subgroup|1= fat/sauce subgroup that can be left over in the dish"
-    // 3 "fatDuringCookingSubgroupQ: 0=non fat during cooking subgroup|1= fat during cooking subgroup"
-    // 4 "shortName: Short Name of the food (sub-)(sub-)group"
-    // 5 "foodGroupCode: Food group code"
-    // 6 "foodSubgroupCode: Food sub-group code"
-    // 7 "foodSubSubgroupCode: Food sub-sub-group code"
+    // dita.globodiet.params.food_list.FoodSubgroup == SUBGROUP
+    // 0 -5 "GROUP: Food group code"
+    // 1 -6 "SUBGROUP1: Food sub-group code"
+    // 2 -7 "SUBGROUP2: Food sub-sub-group code"
+    // 3 -0 "NAME: Name of the food (sub-)(sub-)group"
+    // 4 - "SGRP_FSS: 0=non fat/sauce/sweetener subgroup 1= fat/sauce/sweetener subgroup"
+    // 5 - "SGRP_FLO: 0=non fat/sauce subgroup|1= fat/sauce subgroup that can be left over in the dish"
+    // 6 - "SGRP_FDC: 0=non fat during cooking subgroup|1= fat during cooking subgroup"
+    // 7 - "NAME_SHORT: Short Name of the food (sub-)(sub-)group"
     private ClassificationFacet foodSubgroupFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId(), FormatUtils.concat(
-                        cellLiterals.get(5),
-                        cellLiterals.get(6),
-                        cellLiterals.get(7))),
-                cellLiterals.get(0)
+                        cellLiterals.get(0),
+                        cellLiterals.get(1),
+                        cellLiterals.get(2))),
+                cellLiterals.get(3)
                 );
     }
 
-    // 0 "name: Name of the Recipe group"
-    // 1 "shortName: Short Name of the Recipe group"
-    // 2 "code: Recipe Group code"
+    // dita.globodiet.params.recipe_list.RecipeGroup == RGROUPS
+    // 0 -2 "GROUP: Recipe Group code"
+    // 1 -0 "NAME: Name of the Recipe group"
+    // 2 - "NAMEG_SHORT: Short Name of the Recipe group"
     private ClassificationFacet recipeGroupFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
-                context.sid(systemId(), cellLiterals.get(2)),
-                cellLiterals.get(0)
+                context.sid(systemId(), cellLiterals.get(0)),
+                cellLiterals.get(1)
                 );
     }
 
-    // 0 "name: Name of the recipe (sub-)group"
-    // 1 "shortName: Short Name of the recipe (sub-)group"
-    // 2 "recipeGroupCode: Recipe group code"
-    // 3 "code: Recipe sub-group code"
+    // dita.globodiet.params.recipe_list.RecipeSubgroup == RSUBGR
+    // 0 -2 "GROUP: Recipe group code"
+    // 1 -3 "SUBGROUP: Recipe sub-group code"
+    // 2 -0 "NAME: Name of the recipe (sub-)group"
+    // 3 - "NAMES_SHORT: Short Name of the recipe (sub-)group"
     private ClassificationFacet recipeSubgroupFromRowData(
             final ObjectId.Context context,
             final List<String> cellLiterals) {
         return new ClassificationFacet(
                 context.sid(systemId(), FormatUtils.concat(
-                        cellLiterals.get(2),
-                        cellLiterals.get(3))),
-                cellLiterals.get(0)
+                        cellLiterals.get(0),
+                        cellLiterals.get(1))),
+                cellLiterals.get(2)
                 );
     }
 
