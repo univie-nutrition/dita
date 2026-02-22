@@ -106,7 +106,9 @@ public class Campaigns {
 
         for(Correction24 correction : corrections) {
             compositesCorrected = compositesCorrected
-                    .transform(correction.asCompositeTransformer(sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name()));
+                    .transform(correction.asCompositeTransformer(
+                    		sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name(),
+                    		sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).groupSid()));
         }
 
         return compositesCorrected;

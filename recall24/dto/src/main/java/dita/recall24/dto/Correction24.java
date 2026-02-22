@@ -228,8 +228,10 @@ public record Correction24(
         return new CompositeCorrectionAmbiguityChecker(composites);
     }
 
-    public RecallNode24.Transfomer asCompositeTransformer(final Function<SemanticIdentifier, String> nameBySidLookup) {
-        return new CompositeCorrectionTransformer(composites, nameBySidLookup);
+    public RecallNode24.Transfomer asCompositeTransformer(
+    		final Function<SemanticIdentifier, String> nameBySidLookup,
+    		final UnaryOperator<SemanticIdentifier> foodGroupBySidLookup) {
+        return new CompositeCorrectionTransformer(composites, nameBySidLookup, foodGroupBySidLookup);
     }
 
     // -- HELPER
@@ -416,15 +418,20 @@ public record Correction24(
 
     private record CompositeCorrectionTransformer(
             Map<CompositeCorr.Coordinates, CompositeCorr> compCorrByCoors,
-            Function<SemanticIdentifier, String> nameBySidLookup)
+            Function<SemanticIdentifier, String> nameBySidLookup,
+            UnaryOperator<SemanticIdentifier> foodGroupBySidLookup)
         implements RecallNode24.Transfomer {
 
-        CompositeCorrectionTransformer(final List<CompositeCorr> composites, final Function<SemanticIdentifier, String> nameBySidLookup){
+        CompositeCorrectionTransformer(
+        		final List<CompositeCorr> composites, 
+        		final Function<SemanticIdentifier, String> nameBySidLookup,
+        		final UnaryOperator<SemanticIdentifier> foodGroupBySidLookup){
             this(
                 composites
                     .stream()
                     .collect(Collectors.toMap(CompositeCorr::coordinates, UnaryOperator.identity())),
-                nameBySidLookup);
+                nameBySidLookup,
+                foodGroupBySidLookup);
         }
 
         @SuppressWarnings("unchecked")
@@ -443,7 +450,7 @@ public record Correction24(
                     builder.modifyNotes(notesModifiable->{
                         builder.name(new CompositeRenamer(compCorr, notesModifiable).apply(composite.name()));
                         builder.replaceSubRecords(new SubRecordDeleter(compCorr, nameBySidLookup, notesModifiable));
-                        new SubRecordAdder(compCorr, nameBySidLookup, notesModifiable).addTo(builder.subRecords());
+                        new SubRecordAdder(compCorr, nameBySidLookup, foodGroupBySidLookup, notesModifiable).addTo(builder.subRecords());
                     });
 
                     // re-calc so total amount consumed stays the same
@@ -528,7 +535,11 @@ public record Correction24(
     }
 
     /// adds composite sub records (ingredient consumptions) based on correction
-    private record SubRecordAdder(CompositeCorr compCorr, Function<SemanticIdentifier, String> nameBySidLookup, List<String> notesModifiable) {
+    private record SubRecordAdder(
+    		CompositeCorr compCorr, 
+    		Function<SemanticIdentifier, String> nameBySidLookup,
+    		UnaryOperator<SemanticIdentifier> foodGroupBySidLookup,
+    		List<String> notesModifiable) {
 
         public void addTo(final List<Record24> list) {
             if(compCorr.additions()!=null) {
@@ -541,6 +552,7 @@ public record Correction24(
                         .amountConsumed(addition.amountGrams())
                         .consumptionUnit(ConsumptionUnit.GRAM)
                         .rawToCookedCoefficient(BigDecimal.ONE) //TODO provide via addition model
+                        .addAnnotation(new Annotated.Annotation(Annotated.GROUP, foodGroupBySidLookup.apply(addition.sid())))
                         .build();
 
                     notesModifiable.add("CORR ADDED: %s (%s)".formatted(
