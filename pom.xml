@@ -37,7 +37,7 @@ additional
 
         <indriya.version>2.2.3</indriya.version>
 
-        <lombok.version>1.18.42</lombok.version>
+        <lombok.version>1.18.44</lombok.version>
 
         <mariadb.version>3.5.6</mariadb.version>
         <mssql-jdbc.version>13.2.1.jre11</mssql-jdbc.version>
@@ -83,7 +83,7 @@ additional
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.1</version>
+                <version>3.15.0</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
                     <compilerArgs>
