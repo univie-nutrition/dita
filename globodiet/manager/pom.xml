@@ -58,12 +58,13 @@ additional
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.6</version>
+                <version>3.5.1</version>
                 <configuration>
                     <from>
                         <!-- don't use slim variant, as excel export might fail w/ 
                             Exception java.lang.UnsatisfiedLinkError: /usr/local/openjdk-24/lib/libfontmanager.so-->
-                        <image>eclipse-temurin:25-jdk</image>
+<!--                    <image>eclipse-temurin:26-jdk</image>-->
+                        <image>ahuber/maven:4.0.0-rc5-jdk26</image>
                     </from>
                 </configuration>
                 <dependencies>
