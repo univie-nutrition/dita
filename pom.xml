@@ -27,7 +27,7 @@ additional
     <packaging>pom</packaging>
 
     <properties>
-        <maven.compiler.release>26</maven.compiler.release>
+        <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <spring-boot.version>4.0.3</spring-boot.version>
