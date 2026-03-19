@@ -63,8 +63,8 @@ additional
                     <from>
                         <!-- don't use slim variant, as excel export might fail w/ 
                             Exception java.lang.UnsatisfiedLinkError: /usr/local/openjdk-24/lib/libfontmanager.so-->
-                    <image>eclipse-temurin:25-jdk</image>
-<!--                        <image>ahuber/maven:4.0.0-rc5-jdk26</image>-->
+                    <image>sapmachine:26-jdk-ubuntu-noble</image>
+<!--                    <image>eclipse-temurin:25-jdk</image>-->
                     </from>
                 </configuration>
                 <dependencies>
