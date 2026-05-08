@@ -20,6 +20,7 @@ package dita.globodiet.survey.dom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
@@ -70,7 +71,7 @@ public class Campaigns {
     // -- INTERVIEW SET
 
     /**
-     * Returns interview-set from a multiple campaigns. Just corrected, not prepared.
+     * Returns interview-set from multiple campaigns. Just corrected, not prepared.
      * @param foodDescriptionModel
      */
     public InterviewSet24 interviewSetCorrected(
@@ -93,9 +94,10 @@ public class Campaigns {
         var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
 
-        var firstCorrection = corrections.getFirst();
+        var firstCorrection = Optional.ofNullable(corrections.getFirst())
+               .orElseGet(Correction24::empty);
 
-        //TODO assumes we only have to do this it the first step
+        //TODO assumes we only have to do this in the first step
         var compositeAmbiguityCheckingTransformer = firstCorrection.asCompositeAmbiguityCheckingTransformer();
 
         var compositesCorrected = interviewSet
