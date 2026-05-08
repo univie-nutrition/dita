@@ -34,7 +34,7 @@ jobs:
       run: npm i antora asciidoctor-kroki
       
     - name: Start Kroki
-      uses: docker://plantuml/kroki:latest
+      uses: docker://yuzutech/kroki:latest
       with:
         args: -d -p 8000:8000
     - name: Wait for Kroki
