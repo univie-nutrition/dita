@@ -35,14 +35,11 @@ jobs:
       
     - name: Check Kroki
       run: |
-        # set URL to your Kroki endpoint; change if using env var or self-hosted
         KROKI_URL=${{ env.KROKI_URL || 'https://kroki.io' }}
         echo "Checking $KROKI_URL ..."
-        # Try a small, valid PlantUML render to verify service is up
-        STATUS=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 10 \
-          -H "Content-Type: text/plain" \
-          --data-binary $'@startuml\nAlice -> Bob: hi\n@enduml' \
-          "$KROKI_URL/plantuml/svg")
+        BODY='@startuml\nAlice -> Bob: hi\n@enduml'
+        STATUS=$(printf "%b" "$BODY" | curl -sS -o /dev/null -w '%{http_code}' --max-time 10 \
+          -H "Content-Type: text/plain" --data-binary @- "$KROKI_URL/plantuml/svg")
         if [ "$STATUS" != "200" ]; then
           echo "::error::Kroki check failed (HTTP $STATUS) — skipping site build."
           exit 1
