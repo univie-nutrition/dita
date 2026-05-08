@@ -216,6 +216,13 @@ additional
             <artifactId>causewaystuff-companion-codegen</artifactId>
         </dependency>
 
+        <!-- LOMBOK (add to runtime class-path, as we were seeing arbitrary runtime issues around May 2026)-->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
