@@ -21,20 +21,42 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
+      
     - name: Configure Pages
       uses: actions/configure-pages@v6
+      
     - name: Install Node.js
       uses: actions/setup-node@v6
       with:
         node-version: '24'
+        
     - name: Install Antora
       run: npm i antora asciidoctor-kroki
+      
+    - name: Check Kroki
+      run: |
+        # set URL to your Kroki endpoint; change if using env var or self-hosted
+        KROKI_URL=${{ env.KROKI_URL || 'https://kroki.io' }}
+        echo "Checking $KROKI_URL ..."
+        # Try a small, valid PlantUML render to verify service is up
+        STATUS=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 10 \
+          -H "Content-Type: text/plain" \
+          --data-binary $'@startuml\nAlice -> Bob: hi\n@enduml' \
+          "$KROKI_URL/plantuml/svg")
+        if [ "$STATUS" != "200" ]; then
+          echo "::error::Kroki check failed (HTTP $STATUS) — skipping site build."
+          exit 1
+        fi
+        echo "Kroki is reachable (HTTP $STATUS)."
+      
     - name: Generate Site
       run: npx antora antora-playbook.yml
+      
     - name: Upload Artifacts
       uses: actions/upload-pages-artifact@v5
       with:
         path: build/site
+        
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v5
