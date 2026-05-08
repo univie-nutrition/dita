@@ -18,7 +18,20 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    services:
+      kroki:
+        image: yuzutech/kroki:latest
+        ports:
+          - 8000:8000
+        options: >-
+          --health-cmd="curl -f http://localhost:8000/plantuml/svg || exit 1"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=12
     steps:
+    - name: Set KROKI_URL
+      run: echo "KROKI_URL=http://localhost:8000" >> $GITHUB_ENV
+      
     - name: Checkout repository
       uses: actions/checkout@v6
       
@@ -33,15 +46,9 @@ jobs:
     - name: Install Antora
       run: npm i antora asciidoctor-kroki
       
-    - name: Start Kroki
-      uses: docker://yuzutech/kroki:latest
-      with:
-        args: -d -p 8000:8000
     - name: Wait for Kroki
       run: |
         until curl -sSf http://localhost:8000/plantuml/svg >/dev/null 2>&1; do sleep 1; done
-    - name: Set KROKI_URL
-      run: echo "KROKI_URL=http://localhost:8000" >> $GITHUB_ENV
               
     - name: Check Kroki
       run: |
