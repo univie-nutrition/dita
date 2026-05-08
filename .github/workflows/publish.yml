@@ -18,6 +18,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+      KROKI_URL: http://localhost:8000
     services:
       kroki:
         image: yuzutech/kroki:latest
@@ -29,9 +30,6 @@ jobs:
           --health-timeout=2s
           --health-retries=12
     steps:
-    - name: Set KROKI_URL
-      run: echo "KROKI_URL=http://localhost:8000" >> $GITHUB_ENV
-      
     - name: Checkout repository
       uses: actions/checkout@v6
       
@@ -60,7 +58,7 @@ jobs:
         echo "Kroki is reachable (HTTP $STATUS)."
       
     - name: Generate Site
-      run: npx antora antora-playbook.yml
+      run: npx antora antora-playbook.yml --attribute kroki-server-url=http://localhost:8000
       
     - name: Upload Artifacts
       uses: actions/upload-pages-artifact@v5
