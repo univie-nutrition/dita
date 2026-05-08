@@ -20,7 +20,6 @@ package dita.globodiet.survey.dom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import org.apache.causeway.applib.services.factory.FactoryService;
@@ -94,8 +93,9 @@ public class Campaigns {
         var interviewSet = Recall24DtoUtils.join(interviewList, messageConsumer);
         messageConsumer.annotate(interviewSet);
 
-        var firstCorrection = Optional.ofNullable(corrections.getFirst())
-               .orElseGet(Correction24::empty);
+        var firstCorrection = corrections.isEmpty()
+                ? Correction24.empty()
+                : corrections.getFirst();
 
         //TODO assumes we only have to do this in the first step
         var compositeAmbiguityCheckingTransformer = firstCorrection.asCompositeAmbiguityCheckingTransformer();
