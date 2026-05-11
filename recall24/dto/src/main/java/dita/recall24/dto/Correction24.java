@@ -93,6 +93,7 @@ public record Correction24(
     public record CompositeCorr(
             @NonNull Coordinates coordinates,
             @Nullable String rename,
+            @Nullable SemanticIdentifier groupSid,
             @Singular @NonNull List<Addition> additions,
             @Singular @NonNull List<Deletion> deletions
             ) {
@@ -423,7 +424,7 @@ public record Correction24(
         implements RecallNode24.Transfomer {
 
         CompositeCorrectionTransformer(
-        		final List<CompositeCorr> composites, 
+        		final List<CompositeCorr> composites,
         		final Function<SemanticIdentifier, String> nameBySidLookup,
         		final UnaryOperator<SemanticIdentifier> foodGroupBySidLookup){
             this(
@@ -536,7 +537,7 @@ public record Correction24(
 
     /// adds composite sub records (ingredient consumptions) based on correction
     private record SubRecordAdder(
-    		CompositeCorr compCorr, 
+    		CompositeCorr compCorr,
     		Function<SemanticIdentifier, String> nameBySidLookup,
     		UnaryOperator<SemanticIdentifier> foodGroupBySidLookup,
     		List<String> notesModifiable) {

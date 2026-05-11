@@ -41,6 +41,7 @@ class FoodByNameCorr << (R,orchid) >> {
 
 class CompositeCorr << (R,orchid) >> {
     rename: String
+    groupSid: SemanticIdentifier
 }
 
 class Coordinates << (R,orchid) >> {
@@ -86,6 +87,7 @@ composites:
 - coordinates:
     #...
   rename: # optional: new name or empty or omitted
+  groupSid: # optional: new name or empty or omitted
   deletions:
     #...
   additions:
@@ -206,6 +208,7 @@ hide empty methods
 
 class CompositeCorr << (R,orchid) >> {
     rename: String
+    groupSid: SemanticIdentifier
 }
 
 class Coordinates << (R,orchid) >> {
@@ -333,6 +336,7 @@ composites:
 - coordinates:
     #...
   rename: # optional: new name or empty or omitted
+  groupSid: # optional: new name or empty or omitted
   deletions:
     #...
   additions:
