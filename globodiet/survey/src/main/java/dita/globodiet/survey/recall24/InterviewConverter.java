@@ -134,7 +134,9 @@ record InterviewConverter(SidFactory sidFactory) {
                 recipeSid(listEntry),
                 recipeFacets(listEntry),
                 toRecords24(contextForScanning, subEntries),
-                Can.of(group(ObjectId.Context.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
+                Can.of(
+                        group(ObjectId.Context.RECIPE_GROUP, listEntry),
+                        modification(contextForScanning, listEntry))
                 );
 
             var notesAsLines = notes(listEntry);
@@ -187,7 +189,9 @@ record InterviewConverter(SidFactory sidFactory) {
                     recipeSid(listEntry),
                     recipeFacets(listEntry),
                     toRecords24(contextForScanning, subEntries),
-                    Can.of(group(ObjectId.Context.RECIPE_GROUP, listEntry), modification(contextForScanning, listEntry))
+                    Can.of(
+                            group(ObjectId.Context.RECIPE_GROUP, listEntry),
+                            modification(contextForScanning, listEntry))
                     );
             }
             case Food, FoodSelectedAsARecipeIngredient -> {

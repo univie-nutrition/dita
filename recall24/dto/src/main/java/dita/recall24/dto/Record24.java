@@ -227,6 +227,12 @@ permits
                 return this;
             }
 
+            public Builder setGroup(final SemanticIdentifier groupSid) {
+                annotations().removeIf(annot->annot.key().equals(Annotated.GROUP));
+                addAnnotation(new Annotation(Annotated.GROUP, groupSid));
+                return this;
+            }
+
             public Builder modifyNotes(final Consumer<List<String>> notesModifier) {
                 @SuppressWarnings("unchecked")
                 var notesModifiable = annotations().stream()

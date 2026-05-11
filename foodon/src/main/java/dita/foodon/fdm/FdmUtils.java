@@ -20,6 +20,7 @@ package dita.foodon.fdm;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,8 +97,9 @@ public class FdmUtils {
     }
     public Map<SemanticIdentifier, Food> collectFoodBySid(
             final @Nullable Stream<Food> foodStream) {
-        final Map<SemanticIdentifier, Food> map = new HashMap<>();
-        if(foodStream==null) return map;
+        if(foodStream==null)
+            return Collections.emptyMap();
+        var map = new HashMap<SemanticIdentifier, Food>();
         foodStream.forEach(food->map.put(food.sid(), food));
         return map;
     }
@@ -108,9 +110,11 @@ public class FdmUtils {
     }
     public Map<SemanticIdentifier, Recipe> collectRecipeBySid(
             final @Nullable Stream<Recipe> recipeStream) {
-        final Map<SemanticIdentifier, Recipe> map = new HashMap<>();
-        if(recipeStream==null) return map;
-        recipeStream.forEach(recipe->map.put(recipe.sid(), recipe));
+        if(recipeStream==null)
+            return Collections.emptyMap();
+        var map = new HashMap<SemanticIdentifier, Recipe>();
+        recipeStream
+            .forEach(recipe->map.put(recipe.sid(), recipe));
         return map;
     }
 

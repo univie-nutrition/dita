@@ -111,7 +111,8 @@ record FdmFactory(
     public Stream<Recipe> streamRecipe() {
         return lookupTableByKey("dita.globodiet.params.recipe_list.Recipe").stream()
             .flatMap(dataTable->dataTable.rows().stream())
-            .map(row->recipeFromRowData(row.cellLiterals()));
+            .map(row->recipeFromRowData(row.cellLiterals()))
+            .filter(recipe->recipe!=null);
     }
 
     public Stream<FoodDescriptionModel.ClassificationFacet> streamRecipeGroups() {
@@ -218,7 +219,7 @@ record FdmFactory(
     // 8 "STATUS: 1=finalized (enabled for interviews)|2=with unknown quantity (disabled for interviews)|3=to be completed (disabled for interviews)|4=empty (disabled for interviews)"
     @Nullable
     private Recipe recipeFromRowData(final List<String> cellLiterals) {
-        var isAlias = "true".equals(cellLiterals.get(6));
+        var isAlias = "ALIAS".equals(cellLiterals.get(6));
         if(isAlias) return null;
         var nameWithAttributes = cellLiterals.get(3);
 
