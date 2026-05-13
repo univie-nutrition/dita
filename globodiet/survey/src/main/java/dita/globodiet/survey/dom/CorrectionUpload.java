@@ -33,6 +33,7 @@ import org.apache.causeway.core.metamodel.context.MetaModelContext;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
 import dita.commons.util.FormatUtils;
+import dita.recall24.dto.Correction24;
 import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
@@ -68,7 +69,13 @@ public record CorrectionUpload(
         return namedPath.subPath(3).toString("/");
     }
 
-    @PropertyLayout(sequence = "3", hidden = Where.ALL_TABLES)
+    @PropertyLayout(sequence = "3")
+    public AsciiDoc getCorrectionStats() {
+        var corr = Correction24.tryFromYaml(readYamlContent()).valueAsNonNullElseFail();
+        return FormatUtils.adocSourceBlock("yaml", corr.stats().toYaml());
+    }
+
+    @PropertyLayout(sequence = "4", hidden = Where.ALL_TABLES)
     public AsciiDoc getContent() {
         return FormatUtils.adocSourceBlock("yaml", readYamlContent());
     }

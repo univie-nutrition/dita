@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 import org.approvaltests.core.Options;
 import org.approvaltests.reporters.GenericDiffReporter;
+import org.approvaltests.reporters.linux.ReportWithMeldMergeLinux;
 
 import org.apache.causeway.commons.io.TextUtils;
 
@@ -38,7 +39,7 @@ public class ApprovalTestOptions {
      */
     public Options jsonOptions() {
         var objectMapper = new ObjectMapper();
-        return new Options()
+        return defaultOptions()
             .withScrubber(s -> {
                 String prettyJson = objectMapper.writerWithDefaultPrettyPrinter()
                         .writeValueAsString(objectMapper.readTree(s));
@@ -52,7 +53,7 @@ public class ApprovalTestOptions {
      * Note: WinMerge needs to play along, that is configure their default file encoding to UTF-8.
      */
     public Options yamlOptions() {
-        return new Options()
+        return defaultOptions()
             .withScrubber(s ->
                 // UNIX style line endings
                 TextUtils.streamLines(s)
@@ -67,7 +68,7 @@ public class ApprovalTestOptions {
      */
     public Options tsvOptions() {
         installTsvSupport();
-        return new Options()
+        return defaultOptions()
             .withScrubber(s ->
                 // UNIX style line endings
                 TextUtils.streamLines(s)
@@ -81,6 +82,15 @@ public class ApprovalTestOptions {
         if(GenericDiffReporter.TEXT_FILE_EXTENSIONS.contains(".tsv")) return;
         GenericDiffReporter.TEXT_FILE_EXTENSIONS = new ArrayList<>(GenericDiffReporter.TEXT_FILE_EXTENSIONS);
         GenericDiffReporter.TEXT_FILE_EXTENSIONS.add(".tsv");
+    }
+
+    private static Options defaultOptions() {
+        var opts = new Options();
+        // on Linux, at time of writing, the default reporter find mechanism throws an exception while evaluating Windows Diff Reporters;
+        // this is a workaround, provided you are on Linux and have Meld installed
+        return ReportWithMeldMergeLinux.INSTANCE.checkFileExists()
+            ? opts.withReporter(ReportWithMeldMergeLinux.INSTANCE)
+            : opts;
     }
 
 }

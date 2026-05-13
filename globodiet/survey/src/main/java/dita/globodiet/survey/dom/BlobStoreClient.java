@@ -147,6 +147,15 @@ public record BlobStoreClient(
             .toList();
     }
 
+    public CorrectionStep correctionStep(final int ordinal) {
+        var uploads = blobStore.listDescriptors(DataSourceLocation.CORRECTIONS.namedPath(surveyPath(), ordinal), true)
+            .stream()
+            .filter(desc->CommonMimeType.YAML.equals(desc.mimeType()))
+            .map(desc->CorrectionUpload.of(desc, surveyKey))
+            .toList();
+        return new CorrectionStep(surveyKey, ordinal, uploads);
+    }
+
     public List<CorrectionStep> correctionSteps() {
         final ListMultimap<Integer, CorrectionUpload> map =
                 _Multimaps.<Integer, CorrectionUpload>newListMultimap(TreeMap::new, ArrayList::new);
@@ -158,7 +167,7 @@ public record BlobStoreClient(
             .forEach(upload->map.putElement(upload.stepOrdinal(), upload));
 
         return map.entrySet().stream()
-            .map(e->new CorrectionStep(e.getKey(), e.getValue()))
+            .map(e->new CorrectionStep(surveyKey, e.getKey(), e.getValue()))
             .toList();
     }
 
@@ -177,7 +186,7 @@ public record BlobStoreClient(
         var corr24 = blobs.stream().map(blob->{
             var correctionYaml = blob.toClobUtf8().asString();
             // validate
-            var corr =Correction24.tryFromYaml(correctionYaml)
+            var corr = Correction24.tryFromYaml(correctionYaml)
                 .mapFailure(ex->new UnrecoverableException("failed to validate %s; hence upload was cancelled".formatted(blob.name()), ex))
                 .valueAsNonNullElseFail();
             corr.checkDuplicatesOnSelf(); // verify no duplicates in single blob

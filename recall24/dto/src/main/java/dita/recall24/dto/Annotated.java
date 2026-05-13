@@ -82,17 +82,22 @@ public interface Annotated {
     default Stream<Annotation> streamAnnotations() {
         var map = annotations();
         if(map==null
-            || map.isEmpty()) {
+            || map.isEmpty())
             return Stream.empty();
-        }
         return map.entrySet().stream().map(entry->new Annotation(entry.getKey(), entry.getValue()));
     }
 
-    default Optional<SemanticIdentifier> groupSid() {
-        return lookupAnnotation(Annotated.GROUP)
+    default <T> Optional<T> lookupAnnotationValue(final String key, final Class<T> type) {
+        return lookupAnnotation(key)
             .map(Annotation::value)
-            .filter(SemanticIdentifier.class::isInstance)
-            .map(SemanticIdentifier.class::cast);
+            .filter(type::isInstance)
+            .map(type::cast);
+    }
+
+    // -- SHORTCUTS
+
+    default Optional<SemanticIdentifier> groupSid() {
+        return lookupAnnotationValue(Annotated.GROUP, SemanticIdentifier.class);
     }
 
 }

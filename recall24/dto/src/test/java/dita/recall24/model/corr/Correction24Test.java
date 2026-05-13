@@ -24,6 +24,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.approvaltests.Approvals;
+import org.approvaltests.reporters.DiffReporter;
+import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,6 +42,7 @@ import dita.recall24.dto.Correction24.CompositeCorr.Addition;
 import dita.recall24.dto.Correction24.CompositeCorr.Coordinates;
 import dita.recall24.dto.Correction24.CompositeCorr.Deletion;
 import dita.recall24.dto.Correction24.RespondentCorr;
+import dita.testing.ApprovalTestOptions;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 class Correction24Test {
@@ -53,8 +57,23 @@ class Correction24Test {
     }
 
     @Test
+    @UseReporter(DiffReporter.class)
     void roundtripOnYaml() {
-        var corr = new Correction24(
+        var corr = sampleCorrection();
+        var originalYaml = corr.toYaml();
+
+        // debug
+        //System.err.printf("Correction24Test%n%s%n", corr.toYaml());
+
+        assertEquals(corr, Correction24.tryFromYaml(originalYaml).valueAsNonNullElseFail());
+        Approvals.verify(originalYaml, ApprovalTestOptions.yamlOptions());
+    }
+
+
+    // -- HELPER
+
+    private Correction24 sampleCorrection() {
+        return new Correction24(
                 List.of(RespondentCorr.builder()
                         .alias("EB_0061")
                         .dateOfBirth(LocalDate.parse("1977-03-23"))
@@ -73,16 +92,17 @@ class Correction24Test {
                         .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets()))
                         .addition(new Addition(food("01234"), new BigDecimal("1.1"), facets("0133", "0266")))
                         .deletion(new Deletion(food("01617")))
+                        .build(),
+                        CompositeCorr.builder()
+                        .coordinates(sampleCoors())
+                        .rename("Hello World!")
+                        .build(),
+                        CompositeCorr.builder()
+                        .coordinates(sampleCoors())
+                        .groupSid(SemanticIdentifier.parse("at.gd/2.0:recp/00059"))
                         .build())
                 );
-
-        // debug
-        //System.err.printf("Correction24Test%n%s%n", corr.toYaml());
-
-        assertEquals(corr, Correction24.tryFromYaml(corr.toYaml()).valueAsNonNullElseFail());
     }
-
-    // -- HELPER
 
     private Coordinates sampleCoors() {
         return new Coordinates(recipe("00301"), "EB_0077", 1, LocalTime.of(19, 30), null, NamedPath.of("path", "sample.xml"));

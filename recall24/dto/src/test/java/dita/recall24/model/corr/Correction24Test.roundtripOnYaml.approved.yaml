@@ -1,0 +1,42 @@
+respondents:
+- alias: "EB_0061"
+  dateOfBirth: "1977-03-23"
+- alias: "EB_0058"
+  sex: "MALE"
+- alias: "EB_00XX"
+  withdraw: true
+foodByName: []
+composites:
+- coordinates:
+    sid: "at.gd/2.0:recp/00301"
+    respondentId: "EB_0077"
+    interviewOrdinal: 1
+    mealHourOfDay: "19:30:00"
+    source: "path/sample.xml"
+  additions:
+  - sid: "at.gd/2.0:food/01581"
+    amountGrams: 2.5
+    facets: ""
+  - sid: "at.gd/2.0:food/01234"
+    amountGrams: 1.1
+    facets: "at.gd/2.0:fd/0133, at.gd/2.0:fd/0266"
+  deletions:
+  - sid: "at.gd/2.0:food/01617"
+- coordinates:
+    sid: "at.gd/2.0:recp/00301"
+    respondentId: "EB_0077"
+    interviewOrdinal: 1
+    mealHourOfDay: "19:30:00"
+    source: "path/sample.xml"
+  rename: "Hello World!"
+  additions: []
+  deletions: []
+- coordinates:
+    sid: "at.gd/2.0:recp/00301"
+    respondentId: "EB_0077"
+    interviewOrdinal: 1
+    mealHourOfDay: "19:30:00"
+    source: "path/sample.xml"
+  groupSid: "at.gd/2.0:recp/00059"
+  additions: []
+  deletions: []

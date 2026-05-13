@@ -235,6 +235,29 @@ public record Correction24(
         return new CompositeCorrectionTransformer(composites, nameBySidLookup, foodGroupBySidLookup);
     }
 
+    // -- STATS
+
+    public CorrectionsStats stats() {
+        return new CorrectionsStats(this);
+    }
+
+    public record CorrectionsStats(
+            int respondentCorrections,
+            int foodByNameCorrections,
+            int compositeCorrections) {
+
+        CorrectionsStats(final Correction24 corr) {
+            int respondentCorrections = _NullSafe.size(corr.respondents());
+            int foodByNameCorrections = _NullSafe.size(corr.foodByName());
+            int compositeCorrections = _NullSafe.size(corr.composites());
+            this(respondentCorrections, foodByNameCorrections, compositeCorrections);
+        }
+
+        public String toYaml() {
+            return YamlUtils.toStringUtf8(this);
+        }
+    }
+
     // -- HELPER
 
     private record RespondentCorrectionTransformer(
@@ -450,6 +473,7 @@ public record Correction24(
 
                     builder.modifyNotes(notesModifiable->{
                         builder.name(new CompositeRenamer(compCorr, notesModifiable).apply(composite.name()));
+                        builder.setGroup(new CompositeGroupUpdater(compCorr, notesModifiable).apply(composite.groupSid().orElse(null)));
                         builder.replaceSubRecords(new SubRecordDeleter(compCorr, nameBySidLookup, notesModifiable));
                         new SubRecordAdder(compCorr, nameBySidLookup, foodGroupBySidLookup, notesModifiable).addTo(builder.subRecords());
                     });
@@ -512,6 +536,17 @@ public record Correction24(
             if(rename==null) return origName;
             notesModifiable.add("RENAME %s -> %s".formatted(origName, rename));
             return rename;
+        }
+    }
+
+    private record CompositeGroupUpdater(CompositeCorr compCorr, List<String> notesModifiable) implements UnaryOperator<SemanticIdentifier> {
+        @Override
+        public SemanticIdentifier apply(final SemanticIdentifier origGroup) {
+            var newGroup = compCorr.groupSid();
+            if(newGroup==null) return origGroup;
+            notesModifiable.add("GROUP CHANGE %s -> %s"
+                    .formatted(origGroup!=null ? origGroup.toStringNoBox() : "∅", newGroup.toStringNoBox()));
+            return newGroup;
         }
     }
 
