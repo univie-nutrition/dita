@@ -87,7 +87,7 @@ composites:
 - coordinates:
     #...
   rename: # optional: new name or empty or omitted
-  groupSid: # optional: new name or empty or omitted
+  groupSid: # optional: new group or empty or omitted
   deletions:
     #...
   additions:
@@ -185,9 +185,10 @@ foodByName:
 
 === Composite
 
-Correction of composite consumptions supports 3 basic changes:
+Correction of composite consumptions supports 4 basic changes:
 
-* Renaming of the composite consumption entry 
+* Renaming of the composite consumption entry
+* Update of the composite's group (membership)
 * *ADD* Ingredient: 
 ** requires identifier (`sid`) of food to add
 ** requires `amountGrams` of food to add
@@ -306,6 +307,9 @@ Consumption entries have no identifier per-se, so we use multiple *coordinates* 
 * `name` : optional name of the composite entry, in case of ad-hoc or modified composite food entries
 * `source`: path of the interview source file in question
 
+WARNING: This might still not be enough information to nail down the exact consumption entry. In which case
+corrections will be applied to *all* entries that match the coordinates. 
+
 NOTE: Special care needs to be taken when uploading new interview data, 
 as this may render those coordinates invalid. It may also render any of the above corrections invalid!
 
@@ -336,7 +340,7 @@ composites:
 - coordinates:
     #...
   rename: # optional: new name or empty or omitted
-  groupSid: # optional: new name or empty or omitted
+  groupSid: # optional: new group or empty or omitted
   deletions:
     #...
   additions:
