@@ -30,10 +30,10 @@ import org.apache.causeway.applib.annotation.ParameterTuple;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
+import org.apache.causeway.applib.util.Listing;
 
 import lombok.RequiredArgsConstructor;
 
-import io.github.causewaystuff.commons.base.listing.Listing;
 import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
 
 @Action(

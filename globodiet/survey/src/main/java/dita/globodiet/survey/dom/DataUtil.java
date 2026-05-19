@@ -30,6 +30,8 @@ import org.jspecify.annotations.Nullable;
 
 import org.springframework.util.StringUtils;
 
+import org.apache.causeway.applib.util.Listing;
+import org.apache.causeway.applib.util.Listing.LineAdapter;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
@@ -41,7 +43,6 @@ import dita.commons.food.composition.FoodComponentCatalog;
 import dita.commons.sid.SemanticIdentifier;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Respondent24;
-import io.github.causewaystuff.commons.base.listing.Listing.ListingHandler;
 
 @UtilityClass
 class DataUtil {
@@ -84,9 +85,13 @@ class DataUtil {
      * @see FoodComponent#stringify()
      */
     Optional<FoodComponent> destringify(@NonNull final FoodComponentCatalog catalog, @Nullable final String input) {
-        if(input==null) Optional.empty();
+        if(input==null) {
+			Optional.empty();
+		}
         var sid = extractKey(input);
-        if(sid==null) Optional.empty();
+        if(sid==null) {
+			Optional.empty();
+		}
         return Optional.of(new FoodComponent(sid, null, null, null));
     }
 
@@ -115,22 +120,22 @@ class DataUtil {
             .collect(Collectors.toSet());
     }
 
-    ListingHandler<Respondent24> listingHandlerForRespondentProxy() {
+    LineAdapter<Respondent24> listingHandlerForRespondentProxy() {
         return listingHandlerForRespondents(alias->new Respondent24(alias, null, null, Can.empty()));
     }
 
-    ListingHandler<Respondent24> listingHandlerForRespondents(
+    LineAdapter<Respondent24> listingHandlerForRespondents(
             final Function<String, Respondent24> factory) {
-        return new ListingHandler<Respondent24>(
+        return Listing.lineAdapter(
             Respondent24.class,
             Respondent24::alias,
             factory,
             Respondent24::alias);
     }
 
-    ListingHandler<FoodComponent> listingHandlerForFoodComponents(
+    LineAdapter<FoodComponent> listingHandlerForFoodComponents(
             final Function<String, FoodComponent> factory) {
-        return new ListingHandler<FoodComponent>(
+        return Listing.lineAdapter(
             FoodComponent.class,
             DataUtil::stringify,
             factory,
