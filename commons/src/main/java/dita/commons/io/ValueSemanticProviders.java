@@ -85,7 +85,7 @@ public class ValueSemanticProviders {
 
         @Override
         public String htmlPresentation(final ValueSemanticsProvider.Context context, final SemanticIdentifier value) {
-            return renderHtml(value, this::toHtmlLink, super::toMonospace);
+            return renderHtml(value, pipe(this::toHtmlLink, super::toMonospace));
         }
 
         private String toHtmlLink(final SemanticIdentifier sid) {
