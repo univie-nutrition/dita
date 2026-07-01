@@ -30,7 +30,7 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 import lombok.RequiredArgsConstructor;
 
 @Action
-@ActionLayout(associateWith = "description")
+@ActionLayout(associateWith = "descriptionView")
 @RequiredArgsConstructor
 public class ParameterDataVersion_updateDescription {
 
@@ -41,7 +41,9 @@ public class ParameterDataVersion_updateDescription {
     @MemberSupport
     public ParameterDataVersion act(
             @Parameter(optionality = Optionality.OPTIONAL)
-            @ParameterLayout(multiLine = 4)
+            @ParameterLayout(
+                    multiLine = 4,
+                    describedAs = "Markdown syntax")
             final String description) {
 
         version.setDescription(description);

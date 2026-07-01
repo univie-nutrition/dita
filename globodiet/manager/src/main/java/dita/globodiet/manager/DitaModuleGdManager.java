@@ -46,6 +46,8 @@ import org.apache.causeway.extensions.tabular.excel.CausewayModuleExtTabularExce
 import org.apache.causeway.persistence.jpa.eclipselink.CausewayModulePersistenceJpaEclipselink;
 import org.apache.causeway.valuetypes.asciidoc.metamodel.semantics.AsciiDocValueSemantics;
 import org.apache.causeway.valuetypes.asciidoc.ui.wkt.CausewayModuleValAsciidocUiWkt;
+import org.apache.causeway.valuetypes.markdown.metamodel.semantics.MarkdownValueSemantics;
+import org.apache.causeway.valuetypes.markdown.ui.wkt.CausewayModuleValMarkdownUiWkt;
 import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRestfulObjectsViewer;
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
 
@@ -99,6 +101,8 @@ import io.github.causewaystuff.companion.codegen.model.Schema.Domain;
 
     AsciiDocValueSemantics.class,
     CausewayModuleValAsciidocUiWkt.class,
+    MarkdownValueSemantics.class,
+    CausewayModuleValMarkdownUiWkt.class,
     CausewayModuleExtTabularExcel.class, // allows for collection download as excel
 
     // Help Pages

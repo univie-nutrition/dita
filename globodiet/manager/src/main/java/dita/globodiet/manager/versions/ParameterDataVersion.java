@@ -47,6 +47,7 @@ import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.apache.causeway.valuetypes.markdown.applib.value.Markdown;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -97,9 +98,15 @@ public class ParameterDataVersion {
     private String name;
 
     @Property
-    @PropertyLayout(multiLine = 4)
+    @PropertyLayout(multiLine = 4, hidden = Where.EVERYWHERE)
     @Getter @Setter
     private String description;
+
+    @Property(snapshot = Snapshot.EXCLUDED)
+    @PropertyLayout(hidden = Where.NOWHERE, named = "Description")
+    public Markdown getDescriptionView() {
+        return Markdown.valueOf(description);
+    }
 
     @Property
     @PropertyLayout(describedAs = "Creation Timestamp")

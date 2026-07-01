@@ -27,7 +27,7 @@ additional
     <description>
         Globodiet Data Management Application.
     </description>
-    
+
     <packaging>jar</packaging>
 
     <properties>
@@ -61,10 +61,12 @@ additional
                 <version>3.5.1</version>
                 <configuration>
                     <from>
-                        <!-- don't use slim variant, as excel export might fail w/ 
-                            Exception java.lang.UnsatisfiedLinkError: /usr/local/openjdk-24/lib/libfontmanager.so-->
-<!--                    <image>sapmachine:26-jdk-ubuntu-noble</image>-->
-                    <image>eclipse-temurin:25-jdk</image>
+                        <!-- don't use slim variant, as excel export might fail
+                        w/ 
+                            Exception java.lang.UnsatisfiedLinkError:
+                        /usr/local/openjdk-24/lib/libfontmanager.so-->
+                        <!--                    <image>sapmachine:26-jdk-ubuntu-noble</image>-->
+                        <image>eclipse-temurin:25-jdk</image>
                     </from>
                 </configuration>
                 <dependencies>
@@ -110,7 +112,7 @@ additional
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -157,6 +159,21 @@ additional
         <dependency>
             <groupId>org.apache.causeway.valuetypes</groupId>
             <artifactId>causeway-valuetypes-asciidoc-ui-wkt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.causeway.valuetypes</groupId>
+            <artifactId>causeway-valuetypes-markdown-applib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.causeway.valuetypes</groupId>
+            <artifactId>
+                causeway-valuetypes-markdown-metamodel
+            </artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.causeway.valuetypes</groupId>
+            <artifactId>causeway-valuetypes-markdown-ui-wkt</artifactId>
         </dependency>
 
         <dependency>
@@ -216,7 +233,8 @@ additional
             <artifactId>causewaystuff-companion-codegen</artifactId>
         </dependency>
 
-        <!-- LOMBOK (add to runtime class-path, as we were seeing arbitrary runtime issues around May 2026)-->
+        <!-- LOMBOK (add to runtime class-path, as we were seeing arbitrary
+        runtime issues around May 2026)-->
 
         <dependency>
             <groupId>org.projectlombok</groupId>
