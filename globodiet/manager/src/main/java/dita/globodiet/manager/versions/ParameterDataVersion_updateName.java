@@ -20,17 +20,15 @@ package dita.globodiet.manager.versions;
 
 import jakarta.inject.Inject;
 
-import org.apache.causeway.applib.annotation.Action;
-import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 
 import lombok.RequiredArgsConstructor;
 
-@Action
-@ActionLayout(associateWith = "name")
+//@Action
+//@ActionLayout(associateWith = "name")
 @RequiredArgsConstructor
-public class ParameterDataVersion_updateName {
+class ParameterDataVersion_updateName {
 
     @Inject VersionsService versionsService;
 
@@ -41,7 +39,7 @@ public class ParameterDataVersion_updateName {
             @Parameter
             final String name) {
 
-        version.setName(name);
+        //version.setName(name);
         versionsService.writeManifest(version);
         return version;
     }
@@ -53,7 +51,7 @@ public class ParameterDataVersion_updateName {
     }
 
     @MemberSupport public String defaultName() {
-        return version.getName();
+        return version.name();
     }
 
 }

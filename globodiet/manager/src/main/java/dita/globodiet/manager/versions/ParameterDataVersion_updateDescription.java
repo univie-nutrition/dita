@@ -20,8 +20,6 @@ package dita.globodiet.manager.versions;
 
 import jakarta.inject.Inject;
 
-import org.apache.causeway.applib.annotation.Action;
-import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Optionality;
 import org.apache.causeway.applib.annotation.Parameter;
@@ -29,10 +27,10 @@ import org.apache.causeway.applib.annotation.ParameterLayout;
 
 import lombok.RequiredArgsConstructor;
 
-@Action
-@ActionLayout(associateWith = "descriptionView")
+//@Action
+//@ActionLayout(associateWith = "descriptionView")
 @RequiredArgsConstructor
-public class ParameterDataVersion_updateDescription {
+class ParameterDataVersion_updateDescription {
 
     @Inject VersionsService versionsService;
 
@@ -46,7 +44,7 @@ public class ParameterDataVersion_updateDescription {
                     describedAs = "Markdown syntax")
             final String description) {
 
-        version.setDescription(description);
+        //version.setDescription(description);
         versionsService.writeManifest(version);
         return version;
     }
@@ -58,6 +56,6 @@ public class ParameterDataVersion_updateDescription {
     }
 
     @MemberSupport public String defaultDescription() {
-        return version.getDescription();
+        return version.description();
     }
 }

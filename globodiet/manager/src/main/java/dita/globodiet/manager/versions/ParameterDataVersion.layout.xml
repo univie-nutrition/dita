@@ -12,6 +12,8 @@
                     <bs:row>
                         <bs:col span="12">
                             <cpt:fieldSet name="Details" id="details">
+                            	<cpt:property id="id" />
+                            	<cpt:property id="parent" />
                                 <cpt:property id="name" />
                                 <cpt:property id="creationTime" />
                                 <cpt:property id="systemId" />

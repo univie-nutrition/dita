@@ -65,7 +65,7 @@ public class VersionsService {
 
     @RequiredArgsConstructor
     public enum VersionFilter implements Predicate<ParameterDataVersion> {
-        NOT_DELETED(version->!version.isDeleted())
+        NOT_DELETED(version->!version.deleted())
         ;
         final Predicate<ParameterDataVersion> predicate;
         @Override public boolean test(final ParameterDataVersion version) {
@@ -95,7 +95,7 @@ public class VersionsService {
                     rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
                             && new File(dir, "manifest.yaml").exists()))
                     .map(ParameterDataVersion::fromDirectory)
-                    .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
+                    .sorted((a, b)->b.creationTime().compareTo(a.creationTime()))
                 : Can.empty();
     }
 
@@ -108,63 +108,63 @@ public class VersionsService {
                     rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
                             && new File(dir, "manifest.yaml").exists()))
                     .map(ParameterDataVersion::fromDirectory)
-                    .sorted((a, b)->b.getCreationTime().compareTo(a.getCreationTime()))
+                    .sorted((a, b)->b.creationTime().compareTo(a.creationTime()))
                 : Can.empty();
     }
 
     public Optional<ParameterDataVersion> lookupVersion(final int versionId) {
         return getVersions()
                 .stream()
-                .filter(v->v.getId() == versionId)
+                .filter(v->v.id() == versionId)
                 .findFirst();
     }
 
-    /**
-     * Does not actually delete from blob-store,
-     * just changes the manifest, such that given version no longer appears in the UI.
-     */
-    public void delete(final ParameterDataVersion version) {
-        version.setDeleted(true);
-        writeManifest(version);
-    }
+//    /**
+//     * Does not actually delete from blob-store,
+//     * just changes the manifest, such that given version no longer appears in the UI.
+//     */
+//    public void delete(final ParameterDataVersion version) {
+//        version.setDeleted(true);
+//        writeManifest(version);
+//    }
+//
+//    /**
+//     * Restores a previously deleted version.
+//     */
+//    public void restore(final ParameterDataVersion version) {
+//        version.setDeleted(false);
+//        writeManifest(version);
+//    }
 
-    /**
-     * Restores a previously deleted version.
-     */
-    public void restore(final ParameterDataVersion version) {
-        version.setDeleted(false);
-        writeManifest(version);
-    }
-
-    /**
-     * <ol>
-     * <li>generate the clone's directory</li>
-     * <li>write the clone's manifest</li>
-     * <li>copy the 'gd-params.yaml.zip' file from master to clone directory</li>
-     * </ol>
-     * @param master - the version to generate a clone from
-     * @param clone - __id is auto generated - so can be left zero
-     */
-    public void clone(final ParameterDataVersion master, final ParameterDataVersion clone) {
-        final int cloneId = getNextFreeVersionId();
-        clone.setId(cloneId);
-
-        var cloneDir = FileUtils.makeDir(new File(rootDirectory(), "" + cloneId));
-        clone.writeManifest(cloneDir);
-
-        var masterDir = lookupVersionFolderElseFail(master);
-
-        FileUtils.copy(
-                new File(masterDir, "gd-params.yaml.zip"),
-                new File(cloneDir, "gd-params.yaml.zip"));
-    }
+//    /**
+//     * <ol>
+//     * <li>generate the clone's directory</li>
+//     * <li>write the clone's manifest</li>
+//     * <li>copy the 'gd-params.yaml.zip' file from master to clone directory</li>
+//     * </ol>
+//     * @param master - the version to generate a clone from
+//     * @param clone - __id is auto generated - so can be left zero
+//     */
+//    public void clone(final ParameterDataVersion master, final ParameterDataVersion clone) {
+//        final int cloneId = getNextFreeVersionId();
+//        clone.setId(cloneId);
+//
+//        var cloneDir = FileUtils.makeDir(new File(rootDirectory(), "" + cloneId));
+//        clone.writeManifest(cloneDir);
+//
+//        var masterDir = lookupVersionFolderElseFail(master);
+//
+//        FileUtils.copy(
+//                new File(masterDir, "gd-params.yaml.zip"),
+//                new File(cloneDir, "gd-params.yaml.zip"));
+//    }
 
     /**
      * MS-SQL Server backup file that can be imported with the <i>GloboDiet</i> client application.
      */
     public Blob getBAK(final ParameterDataVersion parameterDataVersion) {
         var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd--HH-mm");
-        var timestamp = formatter.format(parameterDataVersion.getCreationTime());
+        var timestamp = formatter.format(parameterDataVersion.creationTime());
         var resultingFileName = String.format("GloboDiet-%s.7z", timestamp);
         return resolve7ZippedResource(parameterDataVersion, "GloboDiet", Optional.of(resultingFileName));
     }
@@ -183,7 +183,7 @@ public class VersionsService {
      * Resolves a file resource relative to the given version's blob-store sub-folder.
      */
     private DataSource resolveResource(final ParameterDataVersion parameterDataVersion, final String resourceName) {
-        var versionFolder = new File(rootDirectory(), "" + parameterDataVersion.getId());
+        var versionFolder = new File(rootDirectory(), "" + parameterDataVersion.id());
         return DataSource.ofFile(new File(versionFolder, resourceName));
     }
 
@@ -213,13 +213,13 @@ public class VersionsService {
      */
     private int getNextFreeVersionId() {
         return 1 + getVersions().stream()
-                .mapToInt(ParameterDataVersion::getId)
+                .mapToInt(ParameterDataVersion::id)
                 .max()
                 .orElse(10001);
     }
 
     private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
-        var versionFolder = new File(rootDirectory(), "" + version.getId());
+        var versionFolder = new File(rootDirectory(), "" + version.id());
         return FileUtils.existingDirectoryElseFail(versionFolder);
     }
 

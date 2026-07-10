@@ -101,7 +101,7 @@ public class VersionsExportService {
                 ExportFormat.ENTITY);
 
         var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
-        var fdmFactory = new FdmFactory(SystemId.parse(parameterDataVersion.getSystemId()), tabularData);
+        var fdmFactory = new FdmFactory(SystemId.parse(parameterDataVersion.systemId()), tabularData);
         var yaml = FdmUtils.toYaml(fdmFactory.createFoodDescriptionModel());
 
         return Clob.of("fdm", CommonMimeType.YAML, yaml)
@@ -117,7 +117,7 @@ public class VersionsExportService {
 
         var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
 
-        var qMapFactory = new DMapFactory(SystemId.parse(parameterDataVersion.getSystemId()), LanguageId.DE, tabularData);
+        var qMapFactory = new DMapFactory(SystemId.parse(parameterDataVersion.systemId()), LanguageId.DE, tabularData);
         var entryBuilder = qMapFactory.createZipOfYamls();
 
         return Blob.of("qmaps-export", CommonMimeType.ZIP, entryBuilder.toBytes());

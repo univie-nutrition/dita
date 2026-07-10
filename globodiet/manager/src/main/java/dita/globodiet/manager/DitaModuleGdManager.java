@@ -69,8 +69,6 @@ import dita.globodiet.manager.services.layout.FallbackLayoutDataSourceGdParams;
 import dita.globodiet.manager.services.lookup.DependantLookupGdParams;
 import dita.globodiet.manager.services.lookup.ForeignKeyLookupGdParams;
 import dita.globodiet.manager.services.search.SearchServiceGd;
-import dita.globodiet.manager.versions.ParameterDataVersion_updateDescription;
-import dita.globodiet.manager.versions.ParameterDataVersion_updateName;
 import dita.globodiet.params.DitaModuleGdParams;
 import dita.globodiet.survey.DitaModuleGdSurvey;
 import io.github.causewaystuff.companion.codegen.model.Schema;
@@ -126,8 +124,8 @@ import io.github.causewaystuff.companion.codegen.model.Schema.Domain;
     IconFaServiceGdParams.class,
 
     // Mixins
-    ParameterDataVersion_updateName.class,
-    ParameterDataVersion_updateDescription.class,
+    //ParameterDataVersion_updateName.class,
+    //ParameterDataVersion_updateDescription.class,
     Persistable_schema.class,
     // Manager Mixins
     FoodManager_addFood.class,
