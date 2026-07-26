@@ -24,9 +24,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import org.apache.causeway.applib.annotation.Action;
+import org.apache.causeway.applib.annotation.ActionLayout;
+import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
-import org.apache.causeway.applib.annotation.Property;
-import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 
@@ -36,24 +37,22 @@ import dita.commons.util.FormatUtils;
 import dita.recall24.dto.Correction24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 
-@Property
-@PropertyLayout(
-        sequence = "9",
-        fieldSetId = "details",
-        named = "Correction",
-        hidden = Where.ALL_TABLES,
-        describedAs = "YAML formatted interview data corrections\n"
-                + "(alias typos, sex or data-of-birth mismatch, etc.)"
-)
+@Action
+@ActionLayout(
+		fieldSetId = "details",
+		position = Position.PANEL,
+		hidden = Where.ALL_TABLES,
+		describedAs = "YAML formatted interview data corrections\n"
+				+ "(alias typos, sex or data-of-birth mismatch, etc.)")
 @RequiredArgsConstructor
-public class Survey_correctionView {
+public class Survey_effectiveCorrection {
 
     @Autowired @Qualifier("survey") BlobStore blobStore;
 
     private final Survey mixee;
 
     @MemberSupport
-    public AsciiDoc prop() {
+    public AsciiDoc act() {
         var client = new BlobStoreClient(mixee.secondaryKey(), blobStore);
         return FormatUtils.adocSourceBlock("yaml", client.corrections().stream()
                 .map(Correction24::toYaml)
