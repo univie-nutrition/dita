@@ -24,11 +24,10 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.jspecify.annotations.Nullable;
 
 import dita.commons.sid.SemanticIdentifier;
 
@@ -54,7 +53,7 @@ public interface Annotated {
                 System.err.printf("dita.recall24.dto.Annotated: notACan detected %s%n", value);
                 return valueAsCan(requiredElementType).apply(annot);
             }
-            throw _Exceptions.unrecoverable("unexpected recall annotation");
+            throw _Exceptions.unrecoverable("unexpected recall annotation: " + value);
         }
     }
 
