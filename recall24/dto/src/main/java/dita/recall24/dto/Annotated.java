@@ -54,7 +54,10 @@ public interface Annotated {
                 return valueAsCan(requiredElementType).apply(annot);
             if(value==null)
             	return Can.empty();
-            throw _Exceptions.unrecoverable("unexpected recall annotation of type: " + value.getClass().getName());
+            if(value instanceof Map map
+            		&& map.size() == 1)
+				return notACan(requiredElementType, (Serializable) map.values().iterator().next());
+            throw _Exceptions.unrecoverable("unexpected recall annotation of type: " + value.getClass().getName() + "\n" + value);
         }
     }
 
