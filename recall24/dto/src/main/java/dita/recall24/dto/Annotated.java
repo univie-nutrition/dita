@@ -49,11 +49,12 @@ public interface Annotated {
         }
         @Deprecated // workaround bug in recall transformations
         private static <E extends Serializable> Can<E> notACan(final Class<E> requiredElementType, final Serializable value) {
-            if(value instanceof Annotation annot) {
-                System.err.printf("dita.recall24.dto.Annotated: notACan detected %s%n", value);
+            if(value instanceof Annotation annot)
+				//System.err.printf("dita.recall24.dto.Annotated: notACan detected %s%n", value);
                 return valueAsCan(requiredElementType).apply(annot);
-            }
-            throw _Exceptions.unrecoverable("unexpected recall annotation: " + value);
+            if(value==null)
+            	return Can.empty();
+            throw _Exceptions.unrecoverable("unexpected recall annotation of type: " + value.getClass().getName());
         }
     }
 
