@@ -32,11 +32,6 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.graph.tree.TreeNode;
@@ -45,16 +40,19 @@ import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.JsonUtils;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import dita.commons.io.JaxbAdapters;
 import dita.commons.types.Message;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Food;
 import dita.recall24.dto.util.Recall24DtoUtils;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Holds a collective of respondents and their individual 24h recall interviews.
@@ -218,7 +216,7 @@ public record InterviewSet24(
     // -- ANNOTATIONS
 
     public InterviewSet24 annotate(final Annotation annotation) {
-        annotations.put(annotation.key(), annotation);
+        annotations.put(annotation.key(), annotation.value());
         return this;
     }
 
