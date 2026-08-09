@@ -19,6 +19,7 @@
 package dita.recall24.dto;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -30,6 +31,8 @@ import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.jspecify.annotations.Nullable;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.types.Message;
+import dita.commons.types.Message.Severity;
 
 public interface Annotated {
 
@@ -47,11 +50,21 @@ public interface Annotated {
                 ? _Casts.<Can<E>>uncheckedCast(can)
                 : notACan(requiredElementType, annot.value());
         }
-        @Deprecated // workaround bug in recall transformations
+        @Deprecated // workaround bug in recall transformations or serialization
         private static <E extends Serializable> Can<E> notACan(final Class<E> requiredElementType, final Serializable value) {
             if(value instanceof Annotation annot) {
 				System.err.printf("dita.recall24.dto.Annotated: notACan detected %s%n", value);
                 return valueAsCan(requiredElementType).apply(annot);
+            }
+            if(requiredElementType.equals(Message.class)
+            		&& value instanceof List list) {
+            	var messages = list.stream()
+            		.filter(Map.class::isInstance)
+            		.map(it->{
+            			Map<String, String> map = (Map<String, String>) it;
+            			return new Message(Severity.valueOf(map.get("severity")), map.get("text"));})
+            		.collect(Can.toCan());
+				return _Casts.<Can<E>>uncheckedCast(messages);
             }
             throw _Exceptions.unrecoverable("unexpected recall annotation of type: " + value.getClass().getName() + "\n" + value);
         }
