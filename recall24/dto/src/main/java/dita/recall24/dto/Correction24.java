@@ -69,6 +69,18 @@ public record Correction24(
         List<FoodByNameCorr> foodByName,
         List<CompositeCorr> composites) {
 
+	public Correction24 {
+		respondents = respondents!=null
+				? respondents
+				: List.of();
+		foodByName = foodByName!=null
+				? foodByName
+				: List.of();
+		composites = composites!=null
+				? composites
+				: List.of();
+	}
+
     @Builder
     public record RespondentCorr(
             @NonNull String alias,
