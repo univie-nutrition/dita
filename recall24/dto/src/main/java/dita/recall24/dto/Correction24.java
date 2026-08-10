@@ -31,21 +31,16 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import lombok.Builder;
-import lombok.Singular;
-import lombok.extern.slf4j.Slf4j;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
@@ -61,6 +56,9 @@ import dita.recall24.dto.Record24.Food;
 import dita.recall24.dto.Record24.FryingFat;
 import dita.recall24.dto.Record24.Product;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import lombok.Builder;
+import lombok.Singular;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Models interview data corrections. WIP
@@ -268,14 +266,13 @@ public record Correction24(
             Map<String, RespondentCorr> respCorrByAlias)
         implements RecallNode24.Transfomer {
 
-        RespondentCorrectionTransformer(final List<RespondentCorr> respondentCorrs){
+        RespondentCorrectionTransformer(final @Nullable List<RespondentCorr> respondentCorrs){
             this(
-                    respondentCorrs.stream()
+                    _NullSafe.stream(respondentCorrs)
                         .filter(corr->Boolean.TRUE.equals(corr.withdraw()))
                         .map(RespondentCorr::alias)
                         .collect(Collectors.toSet()),
-                    respondentCorrs
-                        .stream()
+                    _NullSafe.stream(respondentCorrs)
                         .collect(Collectors.toMap(RespondentCorr::alias, UnaryOperator.identity())));
         }
 
@@ -335,10 +332,9 @@ public record Correction24(
             Map<String, FoodByNameCorr> foodByNameCorrs)
         implements RecallNode24.Transfomer {
 
-        public FoodByNameCorrectionTransformer(final List<FoodByNameCorr> foodByName) {
+        public FoodByNameCorrectionTransformer(final @Nullable List<FoodByNameCorr> foodByName) {
             this(
-                foodByName
-                    .stream()
+                _NullSafe.stream(foodByName)
                     .collect(Collectors.toMap(FoodByNameCorr::name, UnaryOperator.identity())));
         }
 
@@ -447,12 +443,11 @@ public record Correction24(
         implements RecallNode24.Transfomer {
 
         CompositeCorrectionTransformer(
-        		final List<CompositeCorr> composites,
+        		final @Nullable List<CompositeCorr> composites,
         		final Function<SemanticIdentifier, String> nameBySidLookup,
         		final UnaryOperator<SemanticIdentifier> foodGroupBySidLookup){
             this(
-                composites
-                    .stream()
+                _NullSafe.stream(composites)
                     .collect(Collectors.toMap(CompositeCorr::coordinates, UnaryOperator.identity())),
                 nameBySidLookup,
                 foodGroupBySidLookup);
