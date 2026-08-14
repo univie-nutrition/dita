@@ -29,22 +29,16 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
-import org.springframework.util.StringUtils;
-
 import org.apache.causeway.applib.annotation.CollectionLayout;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import org.springframework.util.StringUtils;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import dita.commons.food.consumption.FoodConsumption;
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
@@ -53,6 +47,9 @@ import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.sid.qmap.QualifiedMap.QualifiedMapKey;
 import dita.recall24.dto.Annotated.Annotation;
 import io.github.causewaystuff.commons.base.types.internal.ObjectRef;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 public sealed interface Record24 extends RecallNode24
 permits
@@ -380,6 +377,20 @@ permits
                 annotations().removeIf(annot->annot.key().equals(Annotated.NOTES));
                 if(!notesModifiable.isEmpty()) {
                     addAnnotation(new Annotation(Annotated.NOTES, notesModifiable));
+                }
+                return this;
+            }
+
+            public Builder modifyGroup(final UnaryOperator<SemanticIdentifier> groupModifier) {
+                var oldGroupSid = annotations().stream()
+                        .filter(annot->annot.key().equals(Annotated.GROUP))
+                        .map(annot->(SemanticIdentifier)annot.value())
+                        .findFirst()
+                        .orElse(null);
+                var newGroupSid = groupModifier.apply(oldGroupSid);
+                annotations().removeIf(annot->annot.key().equals(Annotated.GROUP));
+                if(newGroupSid!=null) {
+                    addAnnotation(new Annotation(Annotated.GROUP, newGroupSid));
                 }
                 return this;
             }

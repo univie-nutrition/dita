@@ -22,19 +22,19 @@ import java.util.function.UnaryOperator;
 
 import org.apache.causeway.commons.collections.Can;
 
-import lombok.extern.slf4j.Slf4j;
-
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.sid.dmap.DirectMap;
 import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.FoodGroupReplacerBasedOnFDM;
 import dita.globodiet.survey.util.FryingFatDeduplicator1;
 import dita.globodiet.survey.util.FryingFatDeduplicator2;
 import dita.globodiet.survey.util.IngredientToRecipeResolver;
 import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public record ReportContext(
     SurveyConfig surveyConfig,
@@ -79,6 +79,7 @@ public record ReportContext(
                     .transform(new FryingFatDeduplicator2(fryingFatDeduplicator1.fryingFatHandlersAsMap()))
                     // to handle ingredients from the previous transformer
                     .transform(new QualifiedMappingResolver(nutMapping()))
+                    .transform(new FoodGroupReplacerBasedOnFDM(foodDescriptionModel()))
             );
     }
 
