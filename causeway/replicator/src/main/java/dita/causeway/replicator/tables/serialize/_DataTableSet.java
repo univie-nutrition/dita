@@ -90,7 +90,7 @@ class _DataTableSet {
     public _DataTableSet withPopulateFromSecondaryConnection(
             final EntityManager em) {
         var dataSet = map(dataTable->{
-            final var entityClass = dataTable.elementType().getCorrespondingClass();
+            final var entityClass = dataTable.elementType().correspondingClass();
             System.err.printf("reading secondary table %s%n", entityClass.getSimpleName());
 
             em.getTransaction().begin();
@@ -147,7 +147,7 @@ class _DataTableSet {
             return null; // skip
         }
         var entitySpec = dataTable.elementType();
-        var entityClass = entitySpec.getCorrespondingClass();
+        var entityClass = entitySpec.correspondingClass();
         var factoryService = entitySpec.getFactoryService();
 
         final Can<String> colNames = tableEntry.columns().map(Column::name);
@@ -173,7 +173,7 @@ class _DataTableSet {
                     var valueSpec = colMetamodel.getElementType();
                     // assuming value
                     var valueFacet = valueSpec.valueFacetElseFail();
-                    var cls = valueSpec.getCorrespondingClass();
+                    var cls = valueSpec.correspondingClass();
                     final String valueStringified = row.cellLiterals().get(colIndexMapping[colIndex]);
 
                     // parse value
@@ -249,7 +249,7 @@ class _DataTableSet {
             final DataRow dataRow,
             final StringNormalizerFactory stringNormalizerFactory,
             final TabularData.Format formatOptions) {
-        var entityClass = dataTable.elementType().getCorrespondingClass();
+        var entityClass = dataTable.elementType().correspondingClass();
         var stringNormalizer = stringNormalizerFactory.stringNormalizer(entityClass, column.columnId());
 
         var prop = column.metamodel().getSpecialization().leftIfAny();
@@ -275,7 +275,7 @@ class _DataTableSet {
         // delete all existing entities
         if(insertMode.isDeleteAllThenAdd()) {
             dataTables.forEach(dataTable->{
-                var entityClass = dataTable.elementType().getCorrespondingClass();
+                var entityClass = dataTable.elementType().correspondingClass();
                 repositoryService.removeAll(entityClass);
             });
         }
@@ -294,7 +294,7 @@ class _DataTableSet {
         dataTables.forEach(dataTable->{
 
             em.getTransaction().begin();
-            var entityClass = dataTable.elementType().getCorrespondingClass();
+            var entityClass = dataTable.elementType().correspondingClass();
             Query query = em.createQuery(String.format("DELETE FROM %s", entityClass.getName()));
 
             //log

@@ -127,7 +127,7 @@ public class DitaTableNamesPage implements HelpPage {
             return foodSubGroupIcons();
         }
         return mmc.getSpecificationLoader().specForLogicalTypeName(logicalName)
-                .map(spec->spec.getFacet(FaFacet.class))
+                .map(spec->spec.lookupFacet(FaFacet.class).orElse(null))
                 .filter(FaLayersProvider.class::isInstance)
                 .map(FaLayersProvider.class::cast)
                 .map(FaLayersProvider::getLayers)

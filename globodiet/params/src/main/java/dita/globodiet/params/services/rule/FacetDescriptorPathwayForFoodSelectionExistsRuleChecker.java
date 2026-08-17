@@ -19,26 +19,22 @@
 package dita.globodiet.params.services.rule;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
-
-import jakarta.inject.Inject;
-
-import org.jspecify.annotations.NonNull;
-
-import org.springframework.stereotype.Component;
 
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.collections._Maps;
 import org.apache.causeway.commons.internal.collections._Multimaps;
-
-import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
+import org.springframework.stereotype.Component;
 
 import dita.commons.services.rules.RuleChecker;
 import dita.globodiet.params.classification.FoodGrouping.FoodGroupingKey;
 import dita.globodiet.params.food_list.Food;
 import dita.globodiet.params.pathway.FacetDescriptorPathwayForFood;
 import dita.globodiet.params.services.food.FoodFacetHelperService;
+import jakarta.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
@@ -60,9 +56,8 @@ implements RuleChecker {
 
     @Override
     public Can<RuleViolation> check(@NonNull final Class<?> entityType) {
-        if(FacetDescriptorPathwayForFood.class.equals(entityType)) {
-            return checkForFood();
-        }
+        if(FacetDescriptorPathwayForFood.class.equals(entityType))
+			return checkForFood();
         return Can.empty();
     }
 
@@ -71,7 +66,7 @@ implements RuleChecker {
     private Can<RuleViolation> checkForFood() {
         var violations = new ArrayList<RuleViolation>();
 
-        var foodGroupingKeyByFoodKey = _Maps.<String, FoodGroupingKey>newHashMap();
+        var foodGroupingKeyByFoodKey = new HashMap<String, FoodGroupingKey>();
         var facetCodesAllowedByFoodGroupingKey = _Multimaps.<FoodGroupingKey, String>newSetMultimap();
         var facetCodesAllowedByFoodKey = _Multimaps.<String, String>newSetMultimap();
 
@@ -98,7 +93,9 @@ implements RuleChecker {
         var entries = repositoryService.allInstances(FacetDescriptorPathwayForFood.class);
         for(var entry : entries) {
             var referencedFacetCode = entry.getSelectedFoodFacetCode();
-            if(referencedFacetCode==null) continue; //TODO should we report?
+            if(referencedFacetCode==null) {
+				continue; //TODO should we report?
+			}
             var allowedFacetCodes = facetCodesAllowedByFoodKey.getOrElseEmpty(entry.getFoodCode());
             // assert referencedFacetCode exists within effective group
             if(!allowedFacetCodes.contains(referencedFacetCode)) {

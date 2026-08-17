@@ -113,7 +113,7 @@ implements RuleChecker {
 
         private boolean isUnresolvable(final ManagedObject obj) {
             return !ManagedObjects.isNullOrUnspecifiedOrEmpty(obj)
-                    && obj.objSpec().getCorrespondingClass().getName().endsWith("Unresolvable");
+                    && obj.objSpec().correspondingClass().getName().endsWith("Unresolvable");
         }
     }
 

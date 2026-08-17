@@ -20,17 +20,10 @@ package dita.globodiet.manager.services.lookup;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
-
-import jakarta.inject.Inject;
-
-import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
-import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
-import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
-
-import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.services.bookmark.Bookmark;
 import org.apache.causeway.applib.services.bookmark.BookmarkService;
@@ -38,11 +31,13 @@ import org.apache.causeway.applib.services.linking.DeepLinkService;
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
-import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.internal.functions._Predicates;
+import org.springframework.stereotype.Service;
 
+import dita.globodiet.params.classification.FoodGrouping;
+import dita.globodiet.params.classification.RecipeGrouping;
 import dita.globodiet.params.food_coefficient.DensityFactorForFoodOrRecipe;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_list.ComposedRecipeIngredient;
@@ -59,8 +54,10 @@ import dita.globodiet.params.recipe_list.RecipeGroup;
 import dita.globodiet.params.recipe_list.RecipeIngredient;
 import dita.globodiet.params.recipe_list.RecipeSubgroup;
 import dita.globodiet.params.setting.GroupSubstitution;
-import dita.globodiet.params.classification.FoodGrouping;
-import dita.globodiet.params.classification.RecipeGrouping;
+import io.github.causewaystuff.companion.applib.services.lookup.ForeignKeyLookupService;
+import io.github.causewaystuff.companion.applib.services.lookup.HasSecondaryKey;
+import io.github.causewaystuff.companion.applib.services.lookup.ISecondaryKey;
+import jakarta.inject.Inject;
 
 @Service
 public class ForeignKeyLookupGdParams
@@ -73,10 +70,9 @@ implements ForeignKeyLookupService {
     // -- PREFILTER
 
     private static <T> Predicate<T> prefilter(final Class<T> entityClass){
-        if(Food.class.equals(entityClass)) {
-            // do not lookup SH entries (aliases)
+        if(Food.class.equals(entityClass))
+			// do not lookup SH entries (aliases)
             return t->((Food) t).getTypeOfItem() != Food.TypeOfItem.ALIAS;
-        }
         return _Predicates.alwaysTrue();
     }
 
@@ -128,7 +124,7 @@ implements ForeignKeyLookupService {
             return bookmarkService.lookup(bookmark, lookupKey.correspondingClass());
         }
     }
-    private LookupCache lookupCache = new LookupCache(new ConcurrentHashMap<>());
+    private final LookupCache lookupCache = new LookupCache(new ConcurrentHashMap<>());
 
     // -- LOOKUP
 
@@ -152,56 +148,46 @@ implements ForeignKeyLookupService {
 
     @Override
     public int switchOn(final Object entity) {
-        if(entity instanceof ComposedRecipeIngredient x) {
-            return x.getType() == ComposedRecipeIngredient.Type.RECIPE
+        if(entity instanceof ComposedRecipeIngredient x)
+			return x.getType() == ComposedRecipeIngredient.Type.RECIPE
                     ? 2
                     : 1;
-        }
-        if(entity instanceof DensityFactorForFoodOrRecipe x) {
-            return x.getForFoodOrRecipe() == DensityFactorForFoodOrRecipe.ForFoodOrRecipe.RECIPE
+        if(entity instanceof DensityFactorForFoodOrRecipe x)
+			return x.getForFoodOrRecipe() == DensityFactorForFoodOrRecipe.ForFoodOrRecipe.RECIPE
                     ? 2
                     : 1;
-        }
-        if(entity instanceof NutrientForFoodOrGroup x) {
-            return x.getTypeOfRecord() == NutrientForFoodOrGroup.TypeOfRecord.RECIPE
+        if(entity instanceof NutrientForFoodOrGroup x)
+			return x.getTypeOfRecord() == NutrientForFoodOrGroup.TypeOfRecord.RECIPE
                     ? 2
                     : 1;
-        }
-        if(entity instanceof GroupSubstitution x) {
-            return x.getType() == GroupSubstitution.Type.RECIPE
+        if(entity instanceof GroupSubstitution x)
+			return x.getType() == GroupSubstitution.Type.RECIPE
                     ? 2
                     : 1;
-        }
-        if(entity instanceof RecipeIngredient x) {
-            return x.getTypeOfItem() == RecipeIngredient.TypeOfItem.RECIPE
+        if(entity instanceof RecipeIngredient x)
+			return x.getTypeOfItem() == RecipeIngredient.TypeOfItem.RECIPE
                     ? 2
                     : 1;
-        }
-        if(entity instanceof StandardUnitForFoodOrRecipe x) {
-            return x.getType() == StandardUnitForFoodOrRecipe.Type.RECIPE
+        if(entity instanceof StandardUnitForFoodOrRecipe x)
+			return x.getType() == StandardUnitForFoodOrRecipe.Type.RECIPE
                     ? 2
                     : 1;
-        }
-        if(entity instanceof QuantificationMethodPathwayForFood x) {
-            return x.getQuantificationMethod() == QuantificationMethodPathwayForFood.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForFood x)
+			return x.getQuantificationMethod() == QuantificationMethodPathwayForFood.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
-        }
-        if(entity instanceof QuantificationMethodPathwayForFoodGroup x) {
-            return x.getQuantificationMethod() == QuantificationMethodPathwayForFoodGroup.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForFoodGroup x)
+			return x.getQuantificationMethod() == QuantificationMethodPathwayForFoodGroup.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
-        }
-        if(entity instanceof QuantificationMethodPathwayForRecipe x) {
-            return x.getQuantificationMethod() == QuantificationMethodPathwayForRecipe.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForRecipe x)
+			return x.getQuantificationMethod() == QuantificationMethodPathwayForRecipe.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
-        }
-        if(entity instanceof QuantificationMethodPathwayForRecipeGroup x) {
-            return x.getQuantificationMethod() == QuantificationMethodPathwayForRecipeGroup.QuantificationMethod.PHOTO
+        if(entity instanceof QuantificationMethodPathwayForRecipeGroup x)
+			return x.getQuantificationMethod() == QuantificationMethodPathwayForRecipeGroup.QuantificationMethod.PHOTO
                     ? 1
                     : 2;
-        }
 
         throw _Exceptions.unrecoverable("switchOn type %s not implemented",
                 entity.getClass().getSimpleName());
@@ -212,13 +198,13 @@ implements ForeignKeyLookupService {
         if(FoodGrouping.class.isAssignableFrom(foreignType)) {
             var keys = Decoders.decodeFoodGroupLookupKeyList(stringList).stream()
                     .map(either->either.fold(
-                            (FoodGroup.SecondaryKey left)->satisfiesRequired(foreignType, FoodGroup.class)
+                            (final FoodGroup.SecondaryKey left)->satisfiesRequired(foreignType, FoodGroup.class)
                                     ? left
                                     : null,
-                            (FoodSubgroup.SecondaryKey right)->satisfiesRequired(foreignType, FoodSubgroup.class)
+                            (final FoodSubgroup.SecondaryKey right)->satisfiesRequired(foreignType, FoodSubgroup.class)
                                     ? right
                                     : null))
-                    .filter(_NullSafe::isPresent)
+                    .filter(Objects::nonNull)
                     .map(ISecondaryKey.class::cast)
                     .collect(Can.toCan());
             return _Casts.uncheckedCast(keys);
@@ -227,20 +213,19 @@ implements ForeignKeyLookupService {
         if(RecipeGrouping.class.isAssignableFrom(foreignType)) {
             var keys = Decoders.decodeRecipeGroupLookupKeyList(stringList).stream()
                     .map(either->either.fold(
-                            (RecipeGroup.SecondaryKey left)->satisfiesRequired(foreignType, RecipeGroup.class)
+                            (final RecipeGroup.SecondaryKey left)->satisfiesRequired(foreignType, RecipeGroup.class)
                                     ? left
                                     : null,
-                            (RecipeSubgroup.SecondaryKey right)->satisfiesRequired(foreignType, RecipeSubgroup.class)
+                            (final RecipeSubgroup.SecondaryKey right)->satisfiesRequired(foreignType, RecipeSubgroup.class)
                                     ? right
                                     : null))
-                    .filter(_NullSafe::isPresent)
+                    .filter(Objects::nonNull)
                     .map(ISecondaryKey.class::cast)
                     .collect(Can.toCan());
             return _Casts.uncheckedCast(keys);
         }
-        if(FoodDescriptor.class.equals(foreignType)) {
-            return _Casts.uncheckedCast(Decoders.decodeFacetDecriptorLookupKeyList(stringList));
-        }
+        if(FoodDescriptor.class.equals(foreignType))
+			return _Casts.uncheckedCast(Decoders.decodeFacetDecriptorLookupKeyList(stringList));
         throw _Exceptions.unrecoverable("decodeLookupKey(List) not implemented for foreign type %s",
                 foreignType.getName());
     }
