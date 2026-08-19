@@ -39,7 +39,7 @@ additional
 
         <lombok.version>1.18.46</lombok.version>
 
-        <mariadb.version>3.5.8</mariadb.version>
+        <mariadb.version>3.5.10</mariadb.version>
         <mssql-jdbc.version>13.4.0.jre11</mssql-jdbc.version>
 
         <owlapi.version>5.5.1</owlapi.version>
