@@ -23,14 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
-
 import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.core.config.presets.CausewayPresets;
@@ -48,8 +40,17 @@ import org.apache.causeway.valuetypes.asciidoc.metamodel.semantics.AsciiDocValue
 import org.apache.causeway.valuetypes.asciidoc.ui.wkt.CausewayModuleValAsciidocUiWkt;
 import org.apache.causeway.valuetypes.markdown.metamodel.semantics.MarkdownValueSemantics;
 import org.apache.causeway.valuetypes.markdown.ui.wkt.CausewayModuleValMarkdownUiWkt;
+import org.apache.causeway.valuetypes.vega.metamodel.semantics.VegaValueSemantics;
+import org.apache.causeway.valuetypes.vega.ui.wkt.CausewayModuleValVegaUiWkt;
 import org.apache.causeway.viewer.restfulobjects.viewer.CausewayModuleViewerRestfulObjectsViewer;
 import org.apache.causeway.viewer.wicket.viewer.CausewayModuleViewerWicketViewer;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.commons.types.TabularData;
@@ -101,6 +102,8 @@ import io.github.causewaystuff.companion.codegen.model.Schema.Domain;
     CausewayModuleValAsciidocUiWkt.class,
     MarkdownValueSemantics.class,
     CausewayModuleValMarkdownUiWkt.class,
+    VegaValueSemantics.class,
+    CausewayModuleValVegaUiWkt.class,
     CausewayModuleExtTabularExcel.class, // allows for collection download as excel
 
     // Help Pages

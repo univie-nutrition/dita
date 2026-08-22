@@ -18,19 +18,22 @@
  */
 package dita.globodiet.manager.versions;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
 import org.apache.causeway.applib.annotation.Collection;
 import org.apache.causeway.applib.annotation.DomainObject;
 import org.apache.causeway.applib.annotation.DomainObjectLayout;
+import org.apache.causeway.applib.annotation.LabelPosition;
 import org.apache.causeway.applib.annotation.Nature;
 import org.apache.causeway.applib.annotation.ObjectSupport;
+import org.apache.causeway.applib.annotation.PropertyLayout;
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.valuetypes.vega.applib.builder.VegaNodeLinkDiagram;
+import org.apache.causeway.valuetypes.vega.applib.value.Vega;
 
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.manager.FontawesomeConstants;
 import dita.globodiet.manager.versions.VersionsService.VersionFilter;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @DomainObject(nature=Nature.VIEW_MODEL)
 @Named(DitaModuleGdManager.NAMESPACE + ".BlobStoreView")
@@ -45,10 +48,22 @@ public class VersionsView {
         return "Manage Parameter-Data Versions";
     }
 
+    @PropertyLayout(labelPosition = LabelPosition.NONE)
+    public Vega getChangeTree() {
+    	return new VegaNodeLinkDiagram(settings->
+    			settings
+    				.textAngle(-45),
+    			getVersions().stream()
+    				.map(v->new VegaNodeLinkDiagram.DataPoint(
+    						v.id(), "[%d] %s".formatted(v.id(), v.name()), v.parentId()))
+    				.toList()
+    			)
+    	.build();
+    }
+
     @Collection
     public Can<ParameterDataVersion> getVersions() {
         return versionsService.getVersions()
                 .filter(VersionFilter.NOT_DELETED);
     }
-
 }
