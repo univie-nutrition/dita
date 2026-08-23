@@ -16,9 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package dita.globodiet.manager.dashboard;
-
-import java.util.List;
+package dita.globodiet.manager.versions;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -27,47 +25,51 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
-import dita.globodiet.manager.versions.ParameterDataVersion;
-import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
-import dita.globodiet.manager.versions.VersionsView;
+import dita.commons.types.TabularDiff;
+import dita.commons.util.AsciiDocUtils;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
-@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
-        //restrictTo = RestrictTo.PROTOTYPING
-        )
+@Action(semantics = SemanticsOf.IDEMPOTENT)
 @ActionLayout(
-	fieldSetName="About",
-	position = Position.PANEL,
-	describedAs = "Loads Parameter Data for Browsing from a Parameter Data Version. (Takes a couple of minutes.)")
+		fieldSetName="About",
+		position = Position.PANEL,
+		describedAs = "Generates a Parameter Data Diff between this and another selected version")
 @RequiredArgsConstructor
-public class Dashboard_loadVersionForBrowsing {
+public class ParameterDataVersion_diff {
 
-    @Inject TableSerializerYaml tableSerializer;
-    @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
-    @Inject FactoryService factoryService;
+	@Inject TableSerializerYaml tableSerializer;
+	@Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
+	@Inject FactoryService factoryService;
 
-    final Dashboard dashboard;
-
-    @MemberSupport
-    public AsciiDoc act(
-    		@ParameterLayout(describedAs =
-    				"Select Parameter Data Version to load for browsing.")
-    		final ParameterDataVersion version) {
-    	return factoryService.mixin(Dashboard_loadParameterData.class, dashboard)
-    		.act(ExportFormat.TABLE, version.zippedParameterData());
-    }
+	final ParameterDataVersion mixee;
 
 	@MemberSupport
-    public List<ParameterDataVersion> choicesVersion() {
+	public AsciiDoc act(
+			@ParameterLayout(describedAs =
+			"Select Parameter Data Version as a base to compare against.")
+			final ParameterDataVersion baseVersion) {
+
+		var yamlSource = new TabularDiff(
+				mixee.asTabularData(table2entity),
+				baseVersion.asTabularData(table2entity))
+			.toYaml();
+
+		return AsciiDocUtils
+			.yamlBlock("Parameter Data Diff Result", "Table Data (yaml)", yamlSource);
+	}
+
+	@MemberSupport
+	public Can<ParameterDataVersion> choicesBaseVersion() {
 		return factoryService.viewModel(new VersionsView())
 			.getVersions()
-			.toList();
-    }
+			.filter(baseVersion->baseVersion.id() < mixee.id());
+	}
 
 }

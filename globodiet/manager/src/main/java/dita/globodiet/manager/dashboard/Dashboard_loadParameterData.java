@@ -26,6 +26,7 @@ import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.RestrictTo;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
@@ -43,9 +44,8 @@ import dita.globodiet.params.recipe_list.Recipe.AliasQ;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
-@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
-        //restrictTo = RestrictTo.PROTOTYPING
-        )
+@Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE,
+        restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL,
 		describedAs = "Loads Parameter Data for Browsing from a zipped YAML file. (Takes a couple of minutes.)")
 @RequiredArgsConstructor
@@ -85,7 +85,8 @@ public class Dashboard_loadParameterData {
                 }
             });
 
-        return AsciiDocUtils.yamlBlock("Table Import Result", "Serialized Table Data (yaml)", yamlSource);
+        return AsciiDocUtils
+        		.yamlBlock("Table Import Result", "Serialized Table Data (yaml)", yamlSource);
     }
 
 }

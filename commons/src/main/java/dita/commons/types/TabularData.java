@@ -34,7 +34,6 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Lists;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
-
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -106,11 +105,10 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         private String check(final String raw) {
             if(raw.contains(columnSeparator())
                 || raw.contains(nullSymbol())
-                || raw.contains(doubleQuoteSymbol())) {
-                throw _Exceptions.illegalArgument("raw cell value '%s' must not contain delimiter "
+                || raw.contains(doubleQuoteSymbol()))
+				throw _Exceptions.illegalArgument("raw cell value '%s' must not contain delimiter "
                         + "nor null-symbol "
                         + "nor double-quote-symbol", raw);
-            }
             return raw.replace("\"", doubleQuoteSymbol());
         }
 
@@ -266,7 +264,9 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         final StringBuilder sb = new StringBuilder();
         @Override public String toString() { return sb.toString(); }
         YamlWriter write(final String ...s) {
-            for(var str:s) sb.append(str);
+            for(var str:s) {
+				sb.append(str);
+			}
             return this;
         }
         YamlWriter doubleQuoted(final String s) {
@@ -286,4 +286,5 @@ public record TabularData(Can<TabularData.Table> dataTables) {
             return this;
         }
     }
+
 }

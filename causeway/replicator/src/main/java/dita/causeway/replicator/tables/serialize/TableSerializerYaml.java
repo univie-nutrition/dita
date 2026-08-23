@@ -23,11 +23,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-
-import org.springframework.stereotype.Service;
-
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
@@ -42,8 +37,7 @@ import org.apache.causeway.core.metamodel.facets.object.entity.EntityOrmMetadata
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
-
-import lombok.SneakyThrows;
+import org.springframework.stereotype.Service;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableService;
@@ -53,6 +47,9 @@ import dita.commons.types.TabularData.NameTransformer;
 import dita.commons.types.TabularData.Row;
 import dita.commons.types.TabularData.Table;
 import io.github.causewaystuff.companion.applib.jpa.EnumConverter;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import lombok.SneakyThrows;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
 public class TableSerializerYaml {
@@ -122,8 +119,8 @@ public class TableSerializerYaml {
 
     /**
      * Populates the (primary) data-store from tabular data as given by the {@code clob}.
-     * <p>
-     * Returns the serialized version of the load result as yaml.
+     *
+     * <p>Returns the serialized version of the load result as yaml.
      */
     public String load(
             final Clob clob,
@@ -132,7 +129,8 @@ public class TableSerializerYaml {
             final InsertMode insertMode,
             final Consumer<? super ManagedObject> modifier) {
 
-        if(insertMode.isDoNothing()) return "Ignored";
+        if(insertMode.isDoNothing())
+        	return "Ignored";
 
         var tabularData = TabularData.populateFromYaml(clob.asString(), format())
                 .transform(nameTransformer);
@@ -149,8 +147,8 @@ public class TableSerializerYaml {
     /**
      * Populates the (secondary) data-store as represented by {@code pm}
      * from tabular data as given by the {@code clob}.
-     * <p>
-     * Returns the serialized version of the load result as yaml.
+     *
+     * <p>Returns the serialized version of the load result as yaml.
      */
     public String replicate(
             final Clob clob,

@@ -19,6 +19,7 @@
 package dita.globodiet.manager.versions;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -40,12 +41,14 @@ import org.apache.causeway.applib.annotation.Where;
 import org.apache.causeway.applib.fa.FontAwesomeLayers;
 import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.applib.value.Blob;
+import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.core.metamodel.context.MetaModelContext;
 import org.apache.causeway.valuetypes.markdown.applib.value.Markdown;
 import org.jspecify.annotations.NonNull;
 
+import dita.commons.types.TabularData;
 import dita.globodiet.manager.DitaModuleGdManager;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -255,11 +258,6 @@ public record ParameterDataVersion(
         return versionsExportService.getFoodDescriptionModelAsYaml(this);
     }
 
-    @Programmatic // don't leak IP
-    public Blob zippedParameterData() {
-    	return versionsExportService.zippedParameterDataYaml(this);
-	}
-
     @Action
     @ActionLayout(
             sequence = "4.2",
@@ -303,6 +301,22 @@ public record ParameterDataVersion(
 //    }
 
     // -- UTILITY
+
+    @Programmatic
+    public Blob zippedParameterData() {
+    	return versionsExportService.zippedParameterDataYaml(this);
+    }
+
+    @Programmatic
+    public TabularData asTabularData(final TabularData.NameTransformer nameTransformer) {
+    	var baseYaml = zippedParameterData()
+				.unZip(CommonMimeType.YAML)
+				.toClob(StandardCharsets.UTF_8)
+				.asString();
+    	return TabularData
+				.populateFromYaml(baseYaml, TabularData.Format.defaults())
+                .transform(nameTransformer);
+    }
 
     @Programmatic
     void writeManifest(final @NonNull File dir) {
