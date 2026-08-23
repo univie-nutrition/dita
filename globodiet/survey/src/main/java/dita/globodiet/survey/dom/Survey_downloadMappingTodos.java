@@ -22,22 +22,18 @@ package dita.globodiet.survey.dom;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
-import jakarta.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSink;
-
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import dita.commons.util.FormatUtils;
 import dita.recall24.reporter.format.TodoFormat;
@@ -45,6 +41,8 @@ import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import dita.recall24.reporter.todo.TodoReporter;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import jakarta.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
 @Action
 @ActionLayout(
@@ -63,7 +61,7 @@ public class Survey_downloadMappingTodos {
     private final Survey mixee;
 
     @MemberSupport
-    public Clob act(
+    public Blob act(
         @Parameter
         @ParameterLayout(describedAs = "use CSV Format (for debugging)")
         final boolean useCSVFormat) {
@@ -77,7 +75,10 @@ public class Survey_downloadMappingTodos {
             .defaultTransform();
         return useCSVFormat
             ? csvFormat(reportContext)
-            : yamlFormat(reportContext);
+        		.toBlobUtf8()
+            : yamlFormat(reportContext)
+            	.toBlobUtf8()
+            	.zip();
     }
 
     // -- HELPER
