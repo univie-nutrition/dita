@@ -18,11 +18,10 @@
  */
 package dita.globodiet.manager.versions;
 
-import jakarta.inject.Inject;
-
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 
+import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
 //@Action
@@ -40,7 +39,7 @@ class ParameterDataVersion_updateName {
             final String name) {
 
         //version.setName(name);
-        versionsService.writeManifest(version);
+        //TODO versionsService.writeManifest(version);
         return version;
     }
 

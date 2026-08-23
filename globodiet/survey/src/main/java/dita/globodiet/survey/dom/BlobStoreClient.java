@@ -26,8 +26,6 @@ import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import org.jspecify.annotations.NonNull;
-
 import org.apache.causeway.applib.exceptions.UnrecoverableException;
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
@@ -37,9 +35,7 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.sid.SemanticIdentifier.SystemId;
@@ -56,6 +52,8 @@ import io.github.causewaystuff.blobstore.applib.BlobDescriptor.Compression;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.cache.CachableAggregate;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public record BlobStoreClient(

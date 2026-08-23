@@ -57,7 +57,11 @@ import jakarta.inject.Named;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsExportService")
-public class VersionsExportService {
+public record VersionsExportService(
+		VersionsService versionsService,
+	    TableSerializerYaml tableSerializer,
+	    TabularData.NameTransformer entity2table,
+	    TabularData.NameTransformer table2entity) {
 
     public enum ExportFormat {
         TABLE,
@@ -86,11 +90,17 @@ public class VersionsExportService {
             SpecialDietPredefinedAnswer.class
             );
 
-    @Inject private VersionsService versionsService;
-    @Inject private TableSerializerYaml tableSerializer;
-
-    @Inject @Qualifier("entity2table") private TabularData.NameTransformer entity2table;
-    @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
+    @Inject
+    public VersionsExportService(
+    		final VersionsService versionsService,
+    	    final TableSerializerYaml tableSerializer,
+    	    @Qualifier("entity2table") final TabularData.NameTransformer entity2table,
+    	    @Qualifier("table2entity") final TabularData.NameTransformer table2entity) {
+    	this.versionsService = versionsService;
+    	this.tableSerializer = tableSerializer;
+    	this.entity2table = entity2table;
+    	this.table2entity = table2entity;
+    }
 
     public Blob getFoodDescriptionModelAsYaml(final ParameterDataVersion parameterDataVersion) {
         var yamlTabular = tablesAsYamlFromVersion(parameterDataVersion,

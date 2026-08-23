@@ -18,50 +18,33 @@
  */
 package dita.globodiet.manager.versions;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
-
-import jakarta.inject.Named;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.io.DataSource;
-import org.apache.causeway.commons.io.FileUtils;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import dita.globodiet.manager.DitaModuleGdManager;
+import io.github.causewaystuff.blobstore.applib.BlobDescriptor;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import jakarta.inject.Named;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsService")
-public class VersionsService {
+public record VersionsService(
+		BlobStore blobStore) {
 
-    @Deprecated
-    @Value("${dita.globodiet.survey.blobstore.resource}")
-    private String blobStoreRoot;
-
-    @Deprecated
-    @Getter(lazy = true) @Accessors(fluent=true)
-    private final File rootDirectory = new File(new File(blobStoreRoot), "versions");
-
-    @Autowired @Qualifier("survey")
-    private BlobStore blobStore;
+    public VersionsService(@Qualifier("survey") final BlobStore blobStore) {
+    	this.blobStore = Objects.requireNonNull(blobStore, ()->"no blobstore");
+    }
 
     @RequiredArgsConstructor
     public enum VersionFilter implements Predicate<ParameterDataVersion> {
@@ -77,47 +60,43 @@ public class VersionsService {
      * Lists all {@link ParameterDataVersion}(s), as recovered from file-system on the fly.
      */
     public Can<ParameterDataVersion> getVersions() {
-
-        var versionDirs = blobStore.listDescriptors(NamedPath.of(), false);
-
-        System.err.println("----- VERSIONS");
-
-        System.err.printf("blobStore: %s%n", blobStore.getClass());
-
-        versionDirs.forEach(dir->{
-            System.err.printf("dir: %s%n", dir);
-        });
-
-        System.err.println("--------------");
-
-        return rootDirectory().exists()
-                ? Can.ofArray(
-                    rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
-                            && new File(dir, "manifest.yaml").exists()))
-                    .map(ParameterDataVersion::fromDirectory)
-                    .sorted((a, b)->b.creationTime().compareTo(a.creationTime()))
-                : Can.empty();
+    	return blobStore.listDescriptors(NamedPath.of("versions"), true)
+            .stream()
+            .map(BlobDescriptor::path)
+            .filter(path->path.lastName()
+            		.map(name->name.equals("manifest.yaml"))
+            		.orElse(false))
+            .map(blobStore::lookupBlob)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .map(Blob::asDataSource)
+            .map(ParameterDataVersionDto::fromDataSource)
+            .sorted((a, b)->Integer.compare(b.getId(), a.getId()))
+            .map(ParameterDataVersion::new)
+            .collect(Can.toCan());
     }
 
-    /**
-     * Lists all {@link ParameterDataVersion}(s), as recovered from file-system on the fly.
-     */
-    public Can<ParameterDataVersion> getVersions1() {
-        return rootDirectory().exists()
-                ? Can.ofArray(
-                    rootDirectory().listFiles((FileFilter) dir -> dir.isDirectory()
-                            && new File(dir, "manifest.yaml").exists()))
-                    .map(ParameterDataVersion::fromDirectory)
-                    .sorted((a, b)->b.creationTime().compareTo(a.creationTime()))
-                : Can.empty();
+    public Optional<ParameterDataVersion> lookupVersion(final String versionId) {
+        return lookupVersionDto(versionId)
+        		.map(ParameterDataVersion::new);
     }
 
-    public Optional<ParameterDataVersion> lookupVersion(final int versionId) {
-        return getVersions()
-                .stream()
-                .filter(v->v.id() == versionId)
-                .findFirst();
+    public Optional<ParameterDataVersionDto> lookupVersionDto(final String versionId) {
+    	return lookupResource(versionId, "manifest.yaml")
+    			.map(Blob::asDataSource)
+    			.map(ParameterDataVersionDto::fromDataSource);
     }
+
+    public Optional<Blob> lookupResource(final String versionId, final String name) {
+		return blobStore.lookupBlob(NamedPath.of("versions", versionId, name));
+	}
+    public Blob lookupResourceElseFail(final String versionId, final String name) {
+		return lookupResource(versionId, name)
+				.orElseThrow(()->new NoSuchElementException(
+						NamedPath.of("versions", versionId, name)
+						.toString("/")));
+	}
+
 
 //    /**
 //     * Does not actually delete from blob-store,
@@ -171,20 +150,22 @@ public class VersionsService {
 
     // -- UTILITY
 
-    public void writeManifest(final @Nullable ParameterDataVersion version) {
-        if(version==null)
-            return;
-        version.writeManifest(lookupVersionFolderElseFail(version));
-    }
+//    public void writeManifest(final @Nullable ParameterDataVersion version) {
+//        if(version==null)
+//            return;
+//        version.writeManifest(lookupVersionFolderElseFail(version));
+//    }
 
     // -- HELPER
 
     /**
      * Resolves a file resource relative to the given version's blob-store sub-folder.
      */
-    private DataSource resolveResource(final ParameterDataVersion parameterDataVersion, final String resourceName) {
-        var versionFolder = new File(rootDirectory(), "" + parameterDataVersion.id());
-        return DataSource.ofFile(new File(versionFolder, resourceName));
+    private Blob resolveResource(final ParameterDataVersion parameterDataVersion, final String resource) {
+    	var versionId = "" + parameterDataVersion.id();
+    	var path = NamedPath.of("versions", versionId, resource);
+    	return blobStore.lookupBlob(path)
+    			.orElseThrow(()->new NoSuchElementException(path.toString("/")));
     }
 
     /**
@@ -196,7 +177,7 @@ public class VersionsService {
             final Optional<String> filenameOverride) {
         return new Blob(filenameOverride.orElse(resourceName),
                 CommonMimeType._7Z.mimeType(),
-                resolveResource(parameterDataVersion, resourceName + ".7z").bytes());
+                resolveResource(parameterDataVersion, resourceName).bytes());
     }
 
     Blob resolveZippedResource(
@@ -205,22 +186,22 @@ public class VersionsService {
             final Optional<String> filenameOverride) {
         return new Blob(filenameOverride.orElse(resourceName),
                 CommonMimeType.ZIP.mimeType(),
-                resolveResource(parameterDataVersion, resourceName + ".zip").bytes());
+                resolveResource(parameterDataVersion, resourceName).bytes());
     }
 
-    /**
-     * Get the next free id by just incrementing the max id found when enumerating all versions.
-     */
-    private int getNextFreeVersionId() {
-        return 1 + getVersions().stream()
-                .mapToInt(ParameterDataVersion::id)
-                .max()
-                .orElse(10001);
-    }
-
-    private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
-        var versionFolder = new File(rootDirectory(), "" + version.id());
-        return FileUtils.existingDirectoryElseFail(versionFolder);
-    }
+//    /**
+//     * Get the next free id by just incrementing the max id found when enumerating all versions.
+//     */
+//    private int getNextFreeVersionId() {
+//        return 1 + getVersions().stream()
+//                .mapToInt(ParameterDataVersion::id)
+//                .max()
+//                .orElse(10001);
+//    }
+//
+//    private File lookupVersionFolderElseFail(final @NonNull ParameterDataVersion version) {
+//        var versionFolder = new File(rootDirectory(), "" + version.id());
+//        return FileUtils.existingDirectoryElseFail(versionFolder);
+//    }
 
 }

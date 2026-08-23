@@ -18,13 +18,11 @@
  */
 package dita.globodiet.manager.versions;
 
-import java.io.File;
 import java.time.ZonedDateTime;
-
-import org.jspecify.annotations.NonNull;
 
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.jspecify.annotations.NonNull;
 
 import lombok.Data;
 
@@ -33,8 +31,7 @@ public class ParameterDataVersionDto {
 
     // -- FACTORIES
 
-    public static ParameterDataVersionDto fromDirectory(final @NonNull File dir) {
-        var dataSource = DataSource.ofFile(new File(dir, "manifest.yaml"));
+    public static ParameterDataVersionDto fromDataSource(final @NonNull DataSource dataSource) {
         var dto = YamlUtils.tryRead(ParameterDataVersionDto.class, dataSource)
             .valueAsNonNullElseFail();
         return dto;

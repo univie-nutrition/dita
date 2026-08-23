@@ -20,6 +20,14 @@ package dita.commons.types;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+
+import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.collections._Sets;
 
 /// comparison of 2 typed collections
 public record Diff<L, R>(
@@ -57,6 +65,34 @@ public record Diff<L, R>(
         innerMismatch.add(Pair.of(left, right));
         return this;
     }
+
+	public void process(final Iterable<? extends L> lefties, final Iterable<? extends R> righties,
+			final Function<L, String> leftSignatureFun, final Function<R, String> rightSignatureFun, final BiPredicate<L, R> equality) {
+		var leftMap = _NullSafe.stream(lefties)
+			.collect(Collectors.toMap(leftSignatureFun, UnaryOperator.identity()));
+		var rightMap = _NullSafe.stream(righties)
+			.collect(Collectors.toMap(rightSignatureFun, UnaryOperator.identity()));
+		_Sets.minus(leftMap.keySet(), rightMap.keySet())
+			.stream()
+			.map(leftMap::get)
+			.map(Objects::requireNonNull)
+			.map(leftOuter::add);
+		_Sets.minus(rightMap.keySet(), leftMap.keySet())
+			.stream()
+			.map(rightMap::get)
+			.map(Objects::requireNonNull)
+			.map(rightOuter::add);
+		_Sets.intersect(leftMap.keySet(), rightMap.keySet())
+			.forEach(key->{
+				L left = Objects.requireNonNull(leftMap.get(key));
+				R right = Objects.requireNonNull(rightMap.get(key));
+				if(equality.test(left, right)) {
+					addInnerMatch(left, right);
+				} else {
+					addInnerMismatch(left, right);
+				}
+			});
+	}
 
 }
 

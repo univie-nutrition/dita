@@ -18,24 +18,152 @@
  */
 package dita.commons.types;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.io.YamlUtils.YamlWriter;
 import org.springframework.util.Assert;
 
+import dita.commons.types.TabularData.Column;
+import dita.commons.types.TabularData.Row;
 import dita.commons.types.TabularData.Table;
 
 public record TabularDiff(
 		TabularData main,
-		TabularData base) {
+		TabularData base,
+		TabularData.Format formatOptions) {
+
+	public TabularDiff(
+			final TabularData main,
+			final TabularData base) {
+		this(main, base, TabularData.Format.defaults());
+	}
 
 	public String toYaml() {
 
 		var mainTablesByKey = main.dataTables()
-			.toMap(Table::key);
+			.toMap(Table::key, (_, _)->{throw new UnsupportedOperationException();}, TreeMap::new);
 		var baseTablesByKey = base.dataTables()
-			.toMap(Table::key);
+			.toMap(Table::key, (_, _)->{throw new UnsupportedOperationException();}, TreeMap::new);
 
 		Assert.isTrue(mainTablesByKey.keySet().equals(baseTablesByKey.keySet()),
 				()->"table key sets need to be equal (table adding/removing not supported)");
 
-		return "TODO";
+		var rowDiffByTableKey = new TreeMap<String, RowDiffHolder>();
+
+		var diff = Diff.typed(Table.class, Table.class);
+		diff.process(
+				mainTablesByKey.values(), baseTablesByKey.values(),
+				Table::key, Table::key,
+				(a, b)->{
+					var rowDiffHolder = rowDiff(a, b);
+					var rowDiff = rowDiffHolder.rowDiff();
+					var additions = rowDiff.leftOuter();
+					var deletions = rowDiff.rightOuter();
+					var changes = rowDiff.innerMismatch();
+					if(additions.isEmpty()
+							&& deletions.isEmpty()
+							&& changes.isEmpty())
+						return true;
+					rowDiffByTableKey.put(rowDiffHolder.key(), rowDiffHolder);
+					return false;
+				});
+
+        var yaml = new YamlWriter();
+        yaml.write("tables:").nl();
+
+        rowDiffByTableKey
+        	.forEach((key, rowDiffHolder)->{
+        		yaml.ind().sq().write(key, ":").nl();
+
+        		// col header
+                yaml.ind().ind().ind().write("cols:").nl();
+                rowDiffHolder.columns().forEach(col->
+                    yaml.ind().ind().ind().sq().dq(colTitle(col)).nl());
+
+                if(!rowDiffHolder.additions().isEmpty()) {
+                	yaml.ind().ind().ind().write("added rows:").nl();
+                	rowDiffHolder.additions().stream()
+	                	.map(this::formatRow)
+	                	.sorted()
+	                	.forEach(rowLiteral->{
+	                		yaml.ind().ind().ind().sq().dq(rowLiteral).nl();
+	                	});
+                }
+                if(!rowDiffHolder.deletions().isEmpty()) {
+                	yaml.ind().ind().ind().write("removed rows:").nl();
+                	rowDiffHolder.deletions().stream()
+	                	.map(this::formatRow)
+	                	.sorted()
+	                	.forEach(rowLiteral->{
+	                		yaml.ind().ind().ind().sq().dq(rowLiteral).nl();
+	                	});
+                }
+                if(!rowDiffHolder.changes().isEmpty()) {
+                	yaml.ind().ind().ind().write("changed rows:").nl();
+					rowDiffHolder.changes().forEach((final Pair<Row, Row> change)->{
+						var newRow = change.left();
+						var oldRow = change.right();
+						final var mergedRow = new Row(new ArrayList<>());
+						rowDiffHolder.columns().forEach(IndexedConsumer.zeroBased((i, col)->{
+							var newCell = formatCell(newRow.cellLiterals().get(i));
+							var oldCell = formatCell(oldRow.cellLiterals().get(i));
+							mergedRow.cellLiterals().add(newCell.equals(oldCell)
+									? newCell
+									: "%s->%s".formatted(oldCell, newCell));
+						}));
+					});
+                }
+        	});
+
+        return yaml.toString();
 	}
+
+	String formatRow(final Row row) {
+		return row.cellLiterals()
+	        .stream()
+	        .map(this::formatCell)
+            .collect(Collectors.joining(formatOptions.columnSeparator()));
+	}
+
+	String colTitle(final Column col) {
+		return col.description()
+                .map(desc->String.format("%s: %s", col.name(), desc.replace('\n', '|')))
+                .orElse(col.name());
+	}
+
+	private String formatCell(final String cellValue) {
+        return cellValue==null
+                ? formatOptions.nullSymbol()
+                : cellValue.replaceAll("\"", formatOptions.doubleQuoteSymbol());
+    }
+
+	record RowDiffHolder(
+			Table mainTable,
+			Table baseTable,
+			Diff<Row, Row> rowDiff) {
+
+		Can<Column> columns() { return mainTable().columns(); }
+		List<Row> additions() { return rowDiff.leftOuter(); }
+		List<Row> deletions() { return rowDiff.rightOuter(); }
+		List<Pair<Row, Row>> changes() { return rowDiff.innerMismatch(); }
+
+		String key() { return mainTable().key(); }
+	}
+
+	RowDiffHolder rowDiff(final Table leftTable, final Table rightTable) {
+		Assert.isTrue(leftTable.columns().equals(rightTable.columns()),
+				()->"table columns differ in table %s".formatted(leftTable.key()));
+		var rowDiff = Diff.typed(Row.class, Row.class);
+		rowDiff.process(
+				leftTable.rows(), rightTable.rows(),
+				this::formatRow, this::formatRow,
+				Row::equals);
+		return new RowDiffHolder(leftTable, rightTable, rowDiff);
+	}
+
 }

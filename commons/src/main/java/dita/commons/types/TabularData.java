@@ -34,6 +34,7 @@ import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Lists;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.apache.causeway.commons.io.YamlUtils;
+import org.apache.causeway.commons.io.YamlUtils.YamlWriter;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -221,7 +222,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         yaml.write("tables:").nl();
 
         dataTables.forEach(dataTable->{
-            yaml.ind().ul().write(dataTable.key(), ":").nl();
+            yaml.ind().sq().write(dataTable.key(), ":").nl();
 
             yaml.ind().ind().ind().write("cols:").nl();
             dataTable.columns().forEach(col->{
@@ -229,7 +230,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
                     .map(desc->String.format("%s: %s", col.name(), desc.replace('\n', '|')))
                     .orElse(col.name());
 
-                yaml.ind().ind().ind().ul().doubleQuoted(colLiteral).nl();
+                yaml.ind().ind().ind().sq().dq(colLiteral).nl();
             });
 
             yaml.ind().ind().ind().write("rows:").nl();
@@ -248,7 +249,7 @@ public record TabularData(Can<TabularData.Table> dataTables) {
 
             rowLiterals
                 .forEach(rowLiteral->{
-                    yaml.ind().ind().ind().ul().doubleQuoted(rowLiteral).nl();
+                    yaml.ind().ind().ind().sq().dq(rowLiteral).nl();
                 });
         });
         return yaml.toString();
@@ -258,33 +259,6 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         return cellValue==null
                 ? formatOptions.nullSymbol()
                 : cellValue.replaceAll("\"", formatOptions.doubleQuoteSymbol());
-    }
-
-    private static class YamlWriter {
-        final StringBuilder sb = new StringBuilder();
-        @Override public String toString() { return sb.toString(); }
-        YamlWriter write(final String ...s) {
-            for(var str:s) {
-				sb.append(str);
-			}
-            return this;
-        }
-        YamlWriter doubleQuoted(final String s) {
-            write("\"", s, "\"");
-            return this;
-        }
-        YamlWriter ind() {
-            sb.append("  ");
-            return this;
-        }
-        YamlWriter nl() {
-            sb.append('\n');
-            return this;
-        }
-        YamlWriter ul() {
-            sb.append("- ");
-            return this;
-        }
     }
 
 }

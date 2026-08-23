@@ -82,8 +82,6 @@ public record ParameterDataVersion(
 	    boolean sticky,
 
 	    @Programmatic
-	    String memento,
-	    @Programmatic
 	    OptionalInt parentId,
 		@Programmatic
 		VersionsService versionsService,
@@ -94,18 +92,17 @@ public record ParameterDataVersion(
 
 	@Inject
 	public ParameterDataVersion(
-			final String memento) {
-		var dto = ParameterDataVersionDto.fromDirectory(new File(memento));
-		this(memento, dto);
+			final String versionId) {
+		var mmc = MetaModelContext.instanceElseFail();
+		var versionsService = mmc.lookupServiceElseFail(VersionsService.class);
+		this(versionsService.lookupVersionDto(versionId).orElseThrow());
 	}
 
 	ParameterDataVersion(
-			final String memento,
 			final ParameterDataVersionDto dto) {
 		var mmc = MetaModelContext.instanceElseFail();
 		this(dto.getId(), dto.getName(), dto.getDescription(), dto.getCreationTime(), dto.getSystemId(),
 				dto.isDeleted(), dto.isSticky(),
-				memento,
 				dto.getParentId()!=null
 					? OptionalInt.of(dto.getParentId())
 					: OptionalInt.empty(),
@@ -113,13 +110,6 @@ public record ParameterDataVersion(
 				mmc.lookupServiceElseFail(VersionsExportService.class),
 				mmc.lookupServiceElseFail(FactoryService.class));
 	}
-
-    // -- FACTORIES
-
-    public static ParameterDataVersion fromDirectory(final @NonNull File dir) {
-        var dto = ParameterDataVersionDto.fromDirectory(dir);
-        return new ParameterDataVersion(dir.getAbsolutePath(), dto);
-    }
 
     // -- IMPL
 
@@ -155,7 +145,7 @@ public record ParameterDataVersion(
     @PropertyLayout(hidden = Where.ALL_TABLES)
     public ParameterDataVersion getParent() {
         return parentId().isPresent()
-        		? versionsService.lookupVersion(parentId().getAsInt()).orElse(null)
+        		? versionsService.lookupVersion("" + parentId().getAsInt()).orElse(null)
 				: null;
     }
 
@@ -340,7 +330,7 @@ public record ParameterDataVersion(
 
 	@Override
 	public String viewModelMemento() {
-		return memento;
+		return "" + id;
 	}
 
 }
