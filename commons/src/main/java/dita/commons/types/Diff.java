@@ -76,12 +76,12 @@ public record Diff<L, R>(
 			.stream()
 			.map(leftMap::get)
 			.map(Objects::requireNonNull)
-			.map(leftOuter::add);
+			.forEach(leftOuter::add);
 		_Sets.minus(rightMap.keySet(), leftMap.keySet())
 			.stream()
 			.map(rightMap::get)
 			.map(Objects::requireNonNull)
-			.map(rightOuter::add);
+			.forEach(rightOuter::add);
 		_Sets.intersect(leftMap.keySet(), rightMap.keySet())
 			.forEach(key->{
 				L left = Objects.requireNonNull(leftMap.get(key));
