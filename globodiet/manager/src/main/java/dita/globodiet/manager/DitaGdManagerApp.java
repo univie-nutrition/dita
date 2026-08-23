@@ -18,6 +18,7 @@
  */
 package dita.globodiet.manager;
 
+import org.apache.causeway.commons.internal.os._OsUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -42,6 +43,9 @@ public class DitaGdManagerApp extends SpringBootServletInitializer {
 
         //SpringProfileUtil.addActiveProfile("SQLSERVER");
         //SpringProfileUtil.addActiveProfile("H2");
+
+        // activates when sys-env THERE_CAN_BE_ONLY_ONE=true
+        _OsUtil.thereCanBeOnlyOne();
 
         SpringApplication.run(new Class[] { DitaGdManagerApp.class }, args);
     }

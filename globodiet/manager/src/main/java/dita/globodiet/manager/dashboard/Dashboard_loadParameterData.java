@@ -18,9 +18,7 @@
  */
 package dita.globodiet.manager.dashboard;
 
-import jakarta.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Qualifier;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -29,10 +27,10 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.Parameter;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
-import org.apache.causeway.applib.value.Clob;
+import org.apache.causeway.applib.value.Blob;
+import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
-
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
@@ -42,13 +40,16 @@ import dita.globodiet.manager.versions.VersionsExportService;
 import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.Recipe.AliasQ;
+import jakarta.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
 @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE
         //restrictTo = RestrictTo.PROTOTYPING
         )
-@ActionLayout(fieldSetName="About", position = Position.PANEL)
+@ActionLayout(fieldSetName="About", position = Position.PANEL,
+		describedAs = "Loads Parameter Data for Browsing from a zipped YAML file. (Takes a couple of minutes.)")
 @RequiredArgsConstructor
-public class Dashboard_loadYaml {
+public class Dashboard_loadParameterData {
 
     @Inject private TableSerializerYaml tableSerializer;
     @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
@@ -59,9 +60,13 @@ public class Dashboard_loadYaml {
     public AsciiDoc act(
             @Parameter
             final ExportFormat format,
-            @Parameter
+            @Parameter(fileAccept = "*.zip")
             @ParameterLayout(named = "tableData")
-            final Clob tableData) {
+            final Blob zippedTableData) {
+
+    	var tableData = zippedTableData
+    			.unZip(CommonMimeType.YAML)
+				.toClob(StandardCharsets.UTF_8);
 
         var yamlSource = tableSerializer.load(tableData,
                 format==ExportFormat.ENTITY

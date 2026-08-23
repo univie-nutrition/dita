@@ -22,17 +22,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
 import org.apache.causeway.applib.value.Blob;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.sid.SemanticIdentifier.SystemId;
@@ -56,6 +52,8 @@ import dita.globodiet.params.setting.FoodConsumptionOccasion;
 import dita.globodiet.params.setting.PlaceOfConsumption;
 import dita.globodiet.params.setting.SpecialDayPredefinedAnswer;
 import dita.globodiet.params.setting.SpecialDietPredefinedAnswer;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @Service
 @Named(DitaModuleGdManager.NAMESPACE + ".VersionsExportService")
@@ -131,13 +129,15 @@ public class VersionsExportService {
             final ParameterDataVersion parameterDataVersion,
             final Predicate<? super Table> tableFilter,
             final ExportFormat format) {
-        var tableDataClob = getTableData(parameterDataVersion);
+        var tableDataYaml = zippedParameterDataYaml(parameterDataVersion)
+                .unZip(CommonMimeType.YAML)
+                .toClob(StandardCharsets.UTF_8);
         var nameTransformer = format==ExportFormat.TABLE
                 ? TabularData.NameTransformer.IDENTITY
                 : table2entity;
 
         var tables = TabularData.populateFromYaml(
-                tableDataClob.asString(),
+        		tableDataYaml.asString(),
                 format())
             .transform(nameTransformer)
             .dataTables()
@@ -164,6 +164,10 @@ public class VersionsExportService {
         return clob;
     }
 
+    public Blob zippedParameterDataYaml(final ParameterDataVersion parameterDataVersion) {
+    	return versionsService.resolveZippedResource(parameterDataVersion, "gd-params.yaml", Optional.empty());
+    }
+
     // -- UTILITY
 
     public static Predicate<ObjectSpecification> paramsTableFilter() {
@@ -172,12 +176,6 @@ public class VersionsExportService {
     }
 
     // -- HELPER
-
-    private Clob getTableData(final ParameterDataVersion parameterDataVersion) {
-        return versionsService.resolveZippedResource(parameterDataVersion, "gd-params.yaml", Optional.empty())
-                .unZip(CommonMimeType.YAML)
-                .toClob(StandardCharsets.UTF_8);
-    }
 
     private static TabularData.Format format() {
         return TabularData.Format.defaults();

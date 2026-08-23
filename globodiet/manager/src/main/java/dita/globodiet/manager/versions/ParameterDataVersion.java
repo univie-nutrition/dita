@@ -23,11 +23,6 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import org.jspecify.annotations.NonNull;
-
 import org.apache.causeway.applib.ViewModel;
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
@@ -49,8 +44,11 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.apache.causeway.core.metamodel.context.MetaModelContext;
 import org.apache.causeway.valuetypes.markdown.applib.value.Markdown;
+import org.jspecify.annotations.NonNull;
 
 import dita.globodiet.manager.DitaModuleGdManager;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 @DomainObject(nature=Nature.VIEW_MODEL, introspection = Introspection.ANNOTATION_REQUIRED)
 @Named(DitaModuleGdManager.NAMESPACE + ".ParameterDataVersion")
@@ -124,7 +122,7 @@ public record ParameterDataVersion(
 
     @ObjectSupport
     public String title() {
-        return String.format("Parameter-Data [%s]", name());
+        return String.format("[%s] %s", id, name());
     }
 
     @ObjectSupport
@@ -256,6 +254,11 @@ public record ParameterDataVersion(
     public Blob downloadFoodDescriptionModel() {
         return versionsExportService.getFoodDescriptionModelAsYaml(this);
     }
+
+    @Programmatic // don't leak IP
+    public Blob zippedParameterData() {
+    	return versionsExportService.zippedParameterDataYaml(this);
+	}
 
     @Action
     @ActionLayout(

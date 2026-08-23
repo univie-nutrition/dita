@@ -55,7 +55,7 @@ public class VersionsView {
     				.textAngle(-45),
     			getVersions().stream()
     				.map(v->new VegaNodeLinkDiagram.DataPoint(
-    						v.id(), "[%d] %s".formatted(v.id(), v.name()), v.parentId()))
+    						v.id(), v.title(), v.parentId()))
     				.toList()
     			)
     	.build();
