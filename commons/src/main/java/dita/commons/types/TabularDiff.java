@@ -19,6 +19,7 @@
 package dita.commons.types;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -35,12 +36,14 @@ import dita.commons.types.TabularData.Table;
 public record TabularDiff(
 		TabularData main,
 		TabularData base,
+		TabularData.SecondaryKeyProvider secondaryKeyProvider,
 		TabularData.Format formatOptions) {
 
 	public TabularDiff(
 			final TabularData main,
-			final TabularData base) {
-		this(main, base, TabularData.Format.defaults());
+			final TabularData base,
+			final TabularData.SecondaryKeyProvider secondaryKeyProvider) {
+		this(main, base, secondaryKeyProvider, TabularData.Format.defaults());
 	}
 
 	public String toYaml() {
@@ -74,7 +77,7 @@ public record TabularDiff(
 				});
 
         var yaml = new YamlWriter();
-        yaml.write("tables:").nl();
+        yaml.write("changed tables:").nl();
 
         rowDiffByTableKey
         	.forEach((key, rowDiffHolder)->{
@@ -109,13 +112,14 @@ public record TabularDiff(
 						var newRow = change.left();
 						var oldRow = change.right();
 						final var mergedRow = new Row(new ArrayList<>());
-						rowDiffHolder.columns().forEach(IndexedConsumer.zeroBased((i, col)->{
+						rowDiffHolder.columns().forEach(IndexedConsumer.zeroBased((i, _)->{
 							var newCell = formatCell(newRow.cellLiterals().get(i));
 							var oldCell = formatCell(oldRow.cellLiterals().get(i));
 							mergedRow.cellLiterals().add(newCell.equals(oldCell)
 									? newCell
 									: "%s->%s".formatted(oldCell, newCell));
 						}));
+						yaml.ind().ind().ind().sq().dq(formatRow(mergedRow)).nl();
 					});
                 }
         	});
@@ -123,14 +127,14 @@ public record TabularDiff(
         return yaml.toString();
 	}
 
-	String formatRow(final Row row) {
+	private String formatRow(final Row row) {
 		return row.cellLiterals()
 	        .stream()
 	        .map(this::formatCell)
             .collect(Collectors.joining(formatOptions.columnSeparator()));
 	}
 
-	String colTitle(final Column col) {
+	private String colTitle(final Column col) {
 		return col.description()
                 .map(desc->String.format("%s: %s", col.name(), desc.replace('\n', '|')))
                 .orElse(col.name());
@@ -142,9 +146,17 @@ public record TabularDiff(
                 : cellValue.replaceAll("\"", formatOptions.doubleQuoteSymbol());
     }
 
+	String formatSecondaryKey(final Row row, final BitSet secKey) {
+		return row.secondaryKey(secKey)
+				.stream()
+				.map(this::formatCell)
+				.collect(Collectors.joining(formatOptions.columnSeparator()));
+	}
+
 	record RowDiffHolder(
 			Table mainTable,
 			Table baseTable,
+			BitSet secKey,
 			Diff<Row, Row> rowDiff) {
 
 		Can<Column> columns() { return mainTable().columns(); }
@@ -158,12 +170,15 @@ public record TabularDiff(
 	RowDiffHolder rowDiff(final Table leftTable, final Table rightTable) {
 		Assert.isTrue(leftTable.columns().equals(rightTable.columns()),
 				()->"table columns differ in table %s".formatted(leftTable.key()));
+		var secKey = secondaryKeyProvider.lookupSecondaryKeyElseFail(leftTable.key());
+		Assert.isTrue(secKey.cardinality()>0, ()->"no secondary key in table " + leftTable.key());
 		var rowDiff = Diff.typed(Row.class, Row.class);
 		rowDiff.process(
 				leftTable.rows(), rightTable.rows(),
-				this::formatRow, this::formatRow,
+				row->formatSecondaryKey(row, secKey),
+				row->formatSecondaryKey(row, secKey),
 				Row::equals);
-		return new RowDiffHolder(leftTable, rightTable, rowDiff);
+		return new RowDiffHolder(leftTable, rightTable, secKey, rowDiff);
 	}
 
 }

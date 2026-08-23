@@ -301,14 +301,13 @@ public record ParameterDataVersion(
     }
 
     @Programmatic
-    public TabularData asTabularData(final TabularData.NameTransformer nameTransformer) {
+    public TabularData asTabularData() {
     	var baseYaml = zippedParameterData()
 				.unZip(CommonMimeType.YAML)
 				.toClob(StandardCharsets.UTF_8)
 				.asString();
     	return TabularData
-				.populateFromYaml(baseYaml, TabularData.Format.defaults())
-                .transform(nameTransformer);
+				.populateFromYaml(baseYaml, TabularData.Format.defaults());
     }
 
     @Programmatic

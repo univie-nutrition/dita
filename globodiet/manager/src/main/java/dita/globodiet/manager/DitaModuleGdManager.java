@@ -62,6 +62,7 @@ import dita.globodiet.manager.help.DitaEntityDiagramPage2;
 import dita.globodiet.manager.help.DitaTableNamesPage;
 import dita.globodiet.manager.metadata.EntitySchemaProvider;
 import dita.globodiet.manager.metadata.Persistable_schema;
+import dita.globodiet.manager.schema.SecondaryKeyProviderForDiffReporter;
 import dita.globodiet.manager.schema.transform.EntityToTableTransformerFromSchema;
 import dita.globodiet.manager.schema.transform.TableToEntityTransformerFromSchema;
 import dita.globodiet.manager.services.iconfa.IconFaServiceGdParams;
@@ -171,6 +172,11 @@ public class DitaModuleGdManager {
     @Bean @Qualifier("table2entity")
     public TabularData.NameTransformer table2entity(final EntitySchemaProvider entitySchemaProvider) {
         return new TableToEntityTransformerFromSchema("dita.globodiet.params", entitySchemaProvider.asDomain());
+    }
+
+    @Bean @Qualifier("diff")
+    public TabularData.SecondaryKeyProvider secondaryKeyProviderForDiff() {
+        return new SecondaryKeyProviderForDiffReporter();
     }
 
     @Configuration

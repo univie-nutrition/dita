@@ -32,7 +32,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularDiff;
-import dita.commons.util.AsciiDocUtils;
+import dita.commons.util.FormatUtils;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
@@ -46,6 +46,7 @@ public class ParameterDataVersion_diff {
 
 	@Inject TableSerializerYaml tableSerializer;
 	@Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
+	@Inject @Qualifier("diff") TabularData.SecondaryKeyProvider secondaryKeyProvider;
 	@Inject FactoryService factoryService;
 
 	final ParameterDataVersion mixee;
@@ -56,13 +57,13 @@ public class ParameterDataVersion_diff {
 			"Select Parameter Data Version as a base to compare against.")
 			final ParameterDataVersion baseVersion) {
 
-		var yamlSource = new TabularDiff(
-				mixee.asTabularData(table2entity),
-				baseVersion.asTabularData(table2entity))
+		var yaml = new TabularDiff(
+				filter(mixee.asTabularData()),
+				filter(baseVersion.asTabularData()),
+				secondaryKeyProvider)
 			.toYaml();
 
-		return AsciiDocUtils
-			.yamlBlock("Parameter Data Diff Result", "Table Data (yaml)", yamlSource);
+		return FormatUtils.adocSourceBlock("yaml", yaml);
 	}
 
 	@MemberSupport
@@ -70,6 +71,13 @@ public class ParameterDataVersion_diff {
 		return factoryService.viewModel(new VersionsView())
 			.getVersions()
 			.filter(baseVersion->baseVersion.id() < mixee.id());
+	}
+
+	private TabularData filter(final TabularData orig) {
+		return orig.transform(table2entity)
+			.filter(
+				table->secondaryKeyProvider.lookupSecondaryKey(table.key()).isPresent(),
+				row->!row.cellLiterals().contains("ALIAS"));
 	}
 
 }

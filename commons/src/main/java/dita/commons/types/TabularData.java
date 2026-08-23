@@ -19,12 +19,15 @@
 package dita.commons.types;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.causeway.commons.collections.Can;
@@ -41,6 +44,16 @@ import org.jspecify.annotations.NonNull;
  * Represents a database snapshot with stringified cell values.
  */
 public record TabularData(Can<TabularData.Table> dataTables) {
+
+	@FunctionalInterface
+	public static interface SecondaryKeyProvider {
+        Optional<BitSet> lookupSecondaryKey(String tableKey);
+        default BitSet lookupSecondaryKeyElseFail(final String tableKey) {
+    		return lookupSecondaryKey(tableKey)
+    				.orElseThrow(()->new NoSuchElementException(
+    						"table not found using SecondaryKeyProvider " + tableKey));
+    	}
+	}
 
     /**
      * Transforms table and columns names.
@@ -115,20 +128,25 @@ public record TabularData(Can<TabularData.Table> dataTables) {
 
     }
 
-    public static record Row(List<String> cellLiterals) {
+    public record Row(List<String> cellLiterals) {
+    	public List<String> secondaryKey(final BitSet secondaryKeySelector) {
+    		return secondaryKeySelector.stream()
+    			.mapToObj(cellLiterals::get)
+    			.toList();
+    	}
+    }
+
+    public record Column(String name, Optional<String> description) {
 
     }
 
-    public static record Column(String name, Optional<String> description) {
-
-    }
-
-    public static record Table(String key, Can<Column> columns, Can<Row> rows) {
+    public record Table(String key, Can<Column> columns, Can<Row> rows) {
 
     }
 
     public static TabularData populateFromYaml(
-            final String tableDataSerializedAsYaml, final TabularData.Format formatOptions) {
+            final String tableDataSerializedAsYaml,
+            final TabularData.Format formatOptions) {
 
         var asMap = YamlUtils
                 .tryReadCustomized(HashMap.class, tableDataSerializedAsYaml, loader->{
@@ -160,22 +178,15 @@ public record TabularData(Can<TabularData.Table> dataTables) {
                         ? (Collection<String>) rowsLit
                         : Collections.<String>emptyList();
 
-                System.err.printf("table %s (rows=%d)%n", tableKey, _NullSafe.size(rowLiterals));
-                //System.err.printf("  cols:%n");
-
                 var columns = Can.ofIterable(colLiterals)
                     .map(TabularData::parseColumnFromStringified);
-
-                //columns.forEach(c->System.err.printf("   %s%n", c));
 
                 final int colCount = _NullSafe.size(colLiterals);
 
                 var cellLiterals = new String[colCount];
 
-                //System.err.printf("  rows:%n");
                 var rows = _NullSafe.stream(rowLiterals)
                     .map(rowLiteral->{
-                        //System.err.printf("  - %s%n", rowLiteral);
                         formatOptions.parseRow(rowLiteral, cellLiterals);
                         return _Lists.ofArray(cellLiterals); // defensive copy
                     })
@@ -190,18 +201,30 @@ public record TabularData(Can<TabularData.Table> dataTables) {
         return new TabularData(Can.ofCollection(dataTables));
     }
 
+    public TabularData filter(
+    		final Predicate<? super Table> tableFilter,
+    		final Predicate<? super Row> rowFilter) {
+        return new TabularData(dataTables.stream()
+        		.filter(tableFilter)
+        		.map(origTable->new Table(
+        				origTable.key(),
+        				origTable.columns(),
+        				origTable.rows().filter(rowFilter)))
+        		.collect(Can.toCan()));
+    }
+
     public TabularData transform(final NameTransformer transformer) {
-        return new TabularData(dataTables.map(dataTable->
+        return new TabularData(dataTables.map(origTable->
             new Table(
-                    transformer.transformTable(dataTable.key()),
-                    dataTable
+                    transformer.transformTable(origTable.key()),
+                    origTable
                         .columns()
                         .map(col->
                             new Column(
                                    transformer.transformColumn(
-                                           new BiString(dataTable.key(), col.name())),
+                                           new BiString(origTable.key(), col.name())),
                                    col.description())),
-                    dataTable.rows())
+                    origTable.rows())
         ));
     }
 
