@@ -19,7 +19,6 @@
 package dita.globodiet.manager.versions;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.apache.causeway.applib.value.Blob;
@@ -139,7 +138,7 @@ public record VersionsExportService(
             final ParameterDataVersion parameterDataVersion,
             final Predicate<? super Table> tableFilter,
             final ExportFormat format) {
-        var tableDataYaml = zippedParameterDataYaml(parameterDataVersion)
+        var tableDataYaml = versionsService.zippedParameterDataYaml(parameterDataVersion)
                 .unZip(CommonMimeType.YAML)
                 .toClob(StandardCharsets.UTF_8);
         var nameTransformer = format==ExportFormat.TABLE
@@ -172,10 +171,6 @@ public record VersionsExportService(
                 tableFilter,
                 rowSortingEnabled);
         return clob;
-    }
-
-    public Blob zippedParameterDataYaml(final ParameterDataVersion parameterDataVersion) {
-    	return versionsService.resolveZippedResource(parameterDataVersion, "gd-params.yaml", Optional.empty());
     }
 
     // -- UTILITY

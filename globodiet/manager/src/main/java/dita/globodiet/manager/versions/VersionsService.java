@@ -72,13 +72,13 @@ public record VersionsService(
             .map(Blob::asDataSource)
             .map(ParameterDataVersionDto::fromDataSource)
             .sorted((a, b)->Integer.compare(b.getId(), a.getId()))
-            .map(ParameterDataVersion::new)
+            .map(dto-> new ParameterDataVersion(dto, this))
             .collect(Can.toCan());
     }
 
     public Optional<ParameterDataVersion> lookupVersion(final String versionId) {
         return lookupVersionDto(versionId)
-        		.map(ParameterDataVersion::new);
+        		.map(dto-> new ParameterDataVersion(dto, this));
     }
 
     public Optional<ParameterDataVersionDto> lookupVersionDto(final String versionId) {
@@ -147,6 +147,10 @@ public record VersionsService(
         var resultingFileName = String.format("GloboDiet-%s.7z", timestamp);
         return resolve7ZippedResource(parameterDataVersion, "GloboDiet", Optional.of(resultingFileName));
     }
+
+	public Blob zippedParameterDataYaml(final ParameterDataVersion parameterDataVersion) {
+		return resolveZippedResource(parameterDataVersion, "gd-params.yaml", Optional.empty());
+	}
 
     // -- UTILITY
 

@@ -82,33 +82,36 @@ public record ParameterDataVersion(
 	    boolean sticky,
 
 	    @Programmatic
-	    OptionalInt parentId,
-		@Programmatic
-		VersionsService versionsService,
-		@Programmatic
-	    VersionsExportService versionsExportService,
+	    VersionsService versionsService,
 	    @Programmatic
-	    FactoryService factoryService) implements ViewModel {
+	    OptionalInt parentId) implements ViewModel {
 
 	@Inject
 	public ParameterDataVersion(
-			final String versionId) {
-		var mmc = MetaModelContext.instanceElseFail();
-		var versionsService = mmc.lookupServiceElseFail(VersionsService.class);
-		this(versionsService.lookupVersionDto(versionId).orElseThrow());
+			final String versionId,
+			final VersionsService versionsService) {
+		this(versionsService.lookupVersionDto(versionId).orElseThrow(),
+				versionsService);
 	}
 
 	ParameterDataVersion(
-			final ParameterDataVersionDto dto) {
-		var mmc = MetaModelContext.instanceElseFail();
+			final ParameterDataVersionDto dto,
+			final VersionsService versionsService) {
 		this(dto.getId(), dto.getName(), dto.getDescription(), dto.getCreationTime(), dto.getSystemId(),
 				dto.isDeleted(), dto.isSticky(),
+				versionsService,
 				dto.getParentId()!=null
 					? OptionalInt.of(dto.getParentId())
-					: OptionalInt.empty(),
-				mmc.lookupServiceElseFail(VersionsService.class),
-				mmc.lookupServiceElseFail(VersionsExportService.class),
-				mmc.lookupServiceElseFail(FactoryService.class));
+					: OptionalInt.empty());
+	}
+
+	@Programmatic
+	private VersionsExportService versionsExportService() {
+		return MetaModelContext.instanceElseFail().lookupServiceElseFail(VersionsExportService.class);
+	}
+	@Programmatic
+	private FactoryService factoryService() {
+		return MetaModelContext.instanceElseFail().lookupServiceElseFail(FactoryService.class);
 	}
 
     // -- IMPL
@@ -136,7 +139,7 @@ public record ParameterDataVersion(
     @Property(snapshot = Snapshot.EXCLUDED)
     @PropertyLayout(hidden = Where.EVERYWHERE, navigable = Navigable.PARENT)
     public VersionsView getBlobStoreView() {
-        return factoryService.viewModel(new VersionsView());
+        return factoryService().viewModel(new VersionsView());
     }
 
     // -- PARENT
@@ -145,7 +148,7 @@ public record ParameterDataVersion(
     @PropertyLayout(hidden = Where.ALL_TABLES)
     public ParameterDataVersion getParent() {
         return parentId().isPresent()
-        		? versionsService.lookupVersion("" + parentId().getAsInt()).orElse(null)
+        		? versionsService().lookupVersion("" + parentId().getAsInt()).orElse(null)
 				: null;
     }
 
@@ -245,7 +248,7 @@ public record ParameterDataVersion(
             fieldSetName="Details",
             position = Position.PANEL)
     public Blob downloadFoodDescriptionModel() {
-        return versionsExportService.getFoodDescriptionModelAsYaml(this);
+        return versionsExportService().getFoodDescriptionModelAsYaml(this);
     }
 
     @Action
@@ -255,7 +258,7 @@ public record ParameterDataVersion(
             fieldSetName="Details",
             position = Position.PANEL)
     public Blob downloadSpecialDayAndOthers() {
-        return versionsExportService.getSpecialDayAndOthers(this);
+        return versionsExportService().getSpecialDayAndOthers(this);
     }
 
     // -- [5] BAK DOWNLOAD
@@ -267,7 +270,7 @@ public record ParameterDataVersion(
             fieldSetName="Details",
             position = Position.PANEL)
     public Blob downloadBAK() {
-        return versionsService.getBAK(this);
+        return versionsService().getBAK(this);
     }
 
     // -- [6] DELETE
@@ -294,7 +297,7 @@ public record ParameterDataVersion(
 
     @Programmatic
     public Blob zippedParameterData() {
-    	return versionsExportService.zippedParameterDataYaml(this);
+    	return versionsService().zippedParameterDataYaml(this);
     }
 
     @Programmatic
