@@ -176,7 +176,7 @@ public class DitaModuleGdManager {
 
     @Bean @Qualifier("diff")
     public TabularData.SecondaryKeyProvider secondaryKeyProviderForDiff() {
-        return new SecondaryKeyProviderForDiffReporter();
+        return new SecondaryKeyProviderForDiffReporter("dita.globodiet.params");
     }
 
     @Configuration

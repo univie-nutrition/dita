@@ -26,14 +26,16 @@ import java.util.stream.IntStream;
 import dita.commons.types.TabularData;
 
 public record SecondaryKeyProviderForDiffReporter(
+		String namespacePrefix,
         Map<String, BitSet> lookup)
 implements TabularData.SecondaryKeyProvider {
 
-	public SecondaryKeyProviderForDiffReporter() {
-		this(Map.<String, BitSet>of(
-      		  "dita.globodiet.params.food_list.Food", bitSet(0),
-      		  "dita.globodiet.params.recipe_list.Recipe", bitSet(0),
-      		  "dita.globodiet.params.recipe_list.RecipeIngredient", bitSet(0, 5, 24)
+	public SecondaryKeyProviderForDiffReporter(final String namespacePrefix) {
+		this(namespacePrefix,
+				Map.<String, BitSet>of(
+				namespacePrefix + ".food_list.Food", bitSet(0),
+				namespacePrefix + ".recipe_list.Recipe", bitSet(0),
+				namespacePrefix + ".recipe_list.RecipeIngredient", bitSet(0, 5, 24)
       		));
 	}
 
