@@ -21,8 +21,10 @@ package dita.commons.types;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
@@ -37,16 +39,14 @@ public record TabularDiff(
 		TabularData main,
 		TabularData base,
 		TabularData.SecondaryKeyProvider secondaryKeyProvider,
-		TabularData.Format formatOptions) {
+		TabularData.Format formatOptions,
+		TableDiff tableDiff) {
 
 	public TabularDiff(
 			final TabularData main,
 			final TabularData base,
 			final TabularData.SecondaryKeyProvider secondaryKeyProvider) {
-		this(main, base, secondaryKeyProvider, TabularData.Format.defaults());
-	}
-
-	public String toYaml() {
+		this(main, base, secondaryKeyProvider, TabularData.Format.defaults(), new TableDiff());
 
 		var mainTablesByKey = main.dataTables()
 			.toMap(Table::key, (_, _)->{throw new UnsupportedOperationException();}, TreeMap::new);
@@ -56,10 +56,7 @@ public record TabularDiff(
 		Assert.isTrue(mainTablesByKey.keySet().equals(baseTablesByKey.keySet()),
 				()->"table key sets need to be equal (table adding/removing not supported)");
 
-		var rowDiffByTableKey = new TreeMap<String, RowDiffHolder>();
-
-		var diff = Diff.typed(Table.class, Table.class);
-		diff.process(
+		tableDiff.tableDiff().process(
 				mainTablesByKey.values(), baseTablesByKey.values(),
 				Table::key, Table::key,
 				(a, b)->{
@@ -72,16 +69,18 @@ public record TabularDiff(
 							&& deletions.isEmpty()
 							&& changes.isEmpty())
 						return true;
-					rowDiffByTableKey.put(rowDiffHolder.key(), rowDiffHolder);
+					tableDiff.rowDiffByTableKey.put(rowDiffHolder.tableKey(), rowDiffHolder);
 					return false;
 				});
+	}
 
+	public String toYaml() {
         var yaml = new YamlWriter();
         yaml.write("changed tables:").nl();
 
-        rowDiffByTableKey
-        	.forEach((key, rowDiffHolder)->{
-        		yaml.ind().sq().write(key, ":").nl();
+        tableDiff.steamRowDiffs()
+        	.forEach(rowDiffHolder->{
+        		yaml.ind().sq().write(rowDiffHolder.tableKey(), ":").nl();
 
         		// col header
                 yaml.ind().ind().ind().write("cols:").nl();
@@ -153,7 +152,18 @@ public record TabularDiff(
 				.collect(Collectors.joining(formatOptions.columnSeparator()));
 	}
 
-	record RowDiffHolder(
+	public record TableDiff(
+			Diff<Table, Table> tableDiff,
+			Map<String, RowDiff> rowDiffByTableKey) {
+		TableDiff() {
+			this(Diff.typed(Table.class, Table.class), new TreeMap<String, RowDiff>());
+		}
+		Stream<RowDiff> steamRowDiffs() {
+			return rowDiffByTableKey.values().stream();
+		}
+	}
+
+	public record RowDiff(
 			Table mainTable,
 			Table baseTable,
 			BitSet secKey,
@@ -164,10 +174,10 @@ public record TabularDiff(
 		List<Row> deletions() { return rowDiff.rightOuter(); }
 		List<Pair<Row, Row>> changes() { return rowDiff.innerMismatch(); }
 
-		String key() { return mainTable().key(); }
+		String tableKey() { return mainTable().key(); }
 	}
 
-	RowDiffHolder rowDiff(final Table leftTable, final Table rightTable) {
+	RowDiff rowDiff(final Table leftTable, final Table rightTable) {
 		Assert.isTrue(leftTable.columns().equals(rightTable.columns()),
 				()->"table columns differ in table %s".formatted(leftTable.key()));
 		var secKey = secondaryKeyProvider.lookupSecondaryKeyElseFail(leftTable.key());
@@ -178,7 +188,7 @@ public record TabularDiff(
 				row->formatSecondaryKey(row, secKey),
 				row->formatSecondaryKey(row, secKey),
 				Row::equals);
-		return new RowDiffHolder(leftTable, rightTable, secKey, rowDiff);
+		return new RowDiff(leftTable, rightTable, secKey, rowDiff);
 	}
 
 }
