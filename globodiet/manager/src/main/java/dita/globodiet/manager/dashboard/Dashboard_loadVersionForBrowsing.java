@@ -18,8 +18,6 @@
  */
 package dita.globodiet.manager.dashboard;
 
-import java.util.List;
-
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -27,6 +25,7 @@ import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterLayout;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.applib.services.factory.FactoryService;
+import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -34,7 +33,8 @@ import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.globodiet.manager.versions.ParameterDataVersion;
 import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
-import dita.globodiet.manager.versions.VersionsView;
+import dita.globodiet.manager.versions.VersionsService;
+import dita.globodiet.manager.versions.VersionsService.VersionFilter;
 import jakarta.inject.Inject;
 import lombok.RequiredArgsConstructor;
 
@@ -50,6 +50,7 @@ public class Dashboard_loadVersionForBrowsing {
 
     @Inject TableSerializerYaml tableSerializer;
     @Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
+    @Inject VersionsService versionsService;
     @Inject FactoryService factoryService;
 
     final Dashboard dashboard;
@@ -64,10 +65,9 @@ public class Dashboard_loadVersionForBrowsing {
     }
 
 	@MemberSupport
-    public List<ParameterDataVersion> choicesVersion() {
-		return factoryService.viewModel(new VersionsView())
-			.getVersions()
-			.toList();
+    public Can<ParameterDataVersion> choicesVersion() {
+		 return versionsService.getVersions()
+	                .filter(VersionFilter.NOT_DELETED);
     }
 
 }

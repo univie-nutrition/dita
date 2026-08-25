@@ -41,20 +41,15 @@ import dita.globodiet.manager.versions.VersionsExportService;
 import dita.globodiet.manager.versions.VersionsExportService.ExportFormat;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.params.recipe_list.Recipe.AliasQ;
-import jakarta.inject.Inject;
-import lombok.RequiredArgsConstructor;
 
 @Action(semantics = SemanticsOf.IDEMPOTENT_ARE_YOU_SURE,
         restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="About", position = Position.PANEL,
 		describedAs = "Loads Parameter Data for Browsing from a zipped YAML file. (Takes a couple of minutes.)")
-@RequiredArgsConstructor
-public class Dashboard_loadParameterData {
-
-    @Inject private TableSerializerYaml tableSerializer;
-    @Inject @Qualifier("table2entity") private TabularData.NameTransformer table2entity;
-
-    final Dashboard dashboard;
+public record Dashboard_loadParameterData(
+		Dashboard dashboard,
+		TableSerializerYaml tableSerializer,
+	    @Qualifier("table2entity") TabularData.NameTransformer table2entity) {
 
     @MemberSupport
     public AsciiDoc act(

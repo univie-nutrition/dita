@@ -18,6 +18,7 @@
  */
 package dita.causeway.replicator.tables.serialize;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -25,19 +26,15 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.functional.IndexedConsumer;
+import org.apache.causeway.commons.functional.Try;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
+import org.apache.causeway.commons.internal.base._Timing;
 import org.apache.causeway.core.metamodel.consent.InteractionInitiatedBy;
 import org.apache.causeway.core.metamodel.facets.object.entity.EntityOrmMetadata.ColumnOrmMetadata;
 import org.apache.causeway.core.metamodel.facets.object.value.ValueSerializer.Format;
@@ -47,8 +44,8 @@ import org.apache.causeway.core.metamodel.tabular.simple.DataColumn;
 import org.apache.causeway.core.metamodel.tabular.simple.DataRow;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
 import org.apache.causeway.persistence.jpa.eclipselink.metamodel.EclipseLinkMetadataUtils;
-
-import lombok.Getter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.InsertMode;
 import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNormalizer;
@@ -56,6 +53,9 @@ import dita.causeway.replicator.tables.serialize.TableSerializerYaml.StringNorma
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Column;
 import dita.commons.types.TabularData.Table;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import lombok.Getter;
 
 /**
  * Represents an ordered set of {@link DataTable}(s). Order is by logical entity type name (lexicographically).
@@ -143,29 +143,34 @@ class _DataTableSet {
 
         var dataTable = Optional.ofNullable(dataTableByLogicalName.get(entityLogicalTypeName))
                 .orElse(null);
-        if(dataTable==null) {
-            return null; // skip
-        }
+        if(dataTable==null)
+			return null; // skip
         var entitySpec = dataTable.elementType();
         var entityClass = entitySpec.correspondingClass();
-        var factoryService = entitySpec.getFactoryService();
 
         final Can<String> colNames = tableEntry.columns().map(Column::name);
 
-        System.err.printf("read table %s | %s%n", entityLogicalTypeName, colNames);
-        //System.err.printf("  cols:%n");
+        var lookup = MethodHandles.lookup();
+        var propSetters = dataTable.dataColumns()
+        	.stream()
+        	.map(DataColumn::metamodel)
+        	.flatMap(assoz->BatchSetter.create(assoz, lookup).stream())
+        	.toList();
+
+		var entityConstructor = Try.call(entityClass::getConstructor)
+				.valueAsNonNullElseFail();
+
+        var stopWatch = _Timing.now();
+        System.err.printf("read table %s | %s", entityLogicalTypeName, colNames);
 
         final int[] colIndexMapping =
                 guardAgainstColumnsVsMetamodelMismatch(dataTable, colNames);
 
-        //System.err.printf("  rows:%n");
         var dataElements = tableEntry.rows()
             .map(row->{
                 // create a new entity instance from each row
-
-                var entityPojo = factoryService.detachedEntity(entityClass);
-                var entity = ManagedObject.adaptSingular(entitySpec, entityPojo);
-
+                var entityPojo = Try.call(()->entityConstructor.newInstance())
+                		.valueAsNonNullElseFail();
                 int colIndex = 0;
 
                 for(var col : dataTable.dataColumns()){
@@ -178,30 +183,31 @@ class _DataTableSet {
 
                     // parse value
                     ManagedObject value = _EnumResolver.get(cls, "code")
-                            .map(r->{
-                                var enumObj = r.resolve(valueStringified);
-                                return enumObj!=null
-                                        ? ManagedObject.adaptSingular(valueSpec, enumObj)
-                                        : ManagedObject.empty(valueSpec);
-                            })
-                            .orElseGet(()->
-                                valueStringified!=null
-                                        ? ManagedObject.adaptSingular(
-                                                valueSpec,
-                                                valueFacet.destring(Format.JSON, valueStringified))
-                                        : ManagedObject.empty(valueSpec));
+                        .map(r->{
+                            var enumObj = r.resolve(valueStringified);
+                            return enumObj!=null
+                                    ? ManagedObject.adaptSingular(valueSpec, enumObj)
+                                    : ManagedObject.empty(valueSpec);
+                        })
+                        .orElseGet(()->
+                            valueStringified!=null
+                                    ? ManagedObject.adaptSingular(
+                                            valueSpec,
+                                            valueFacet.destring(Format.JSON, valueStringified))
+                                    : ManagedObject.empty(valueSpec));
 
                     // directly set entity property
-                    colMetamodel.getSpecialization()
-                    .left()
-                    .ifPresent(prop->prop.set(entity, value, InteractionInitiatedBy.PASS_THROUGH));
+                	propSetters.get(colIndex)
+                		.setAssociationValue(entityPojo, value.getPojo());
 
                     colIndex++;
                 }
-                return entity;
+                return ManagedObject.entity(entitySpec, entityPojo, Optional.empty());
             });
 
-        //FIXME
+        stopWatch.stop();
+        System.err.printf(" %s%n", stopWatch);
+
         var populated = dataTable.withDataElements(dataElements);
         return populated;
     }
@@ -269,9 +275,8 @@ class _DataTableSet {
     public _DataTableSet insertToDatabase(
             final RepositoryService repositoryService,
             final InsertMode insertMode) {
-        if(insertMode==InsertMode.DO_NOTHING) {
-            return this;
-        }
+        if(insertMode==InsertMode.DO_NOTHING)
+			return this;
         // delete all existing entities
         if(insertMode.isDeleteAllThenAdd()) {
             dataTables.forEach(dataTable->{
@@ -391,16 +396,14 @@ class _DataTableSet {
             final TabularData.@NonNull Format formatOptions,
             final @NonNull StringNormalizer stringNormalizer) {
 
-        if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue)) {
-            return formatOptions.nullSymbol();
-        }
+        if(ManagedObjects.isNullOrUnspecifiedOrEmpty(cellValue))
+			return formatOptions.nullSymbol();
 
         var valueSpec = cellValue.objSpec();
 
-        if(cellValue.getPojo() instanceof Enum enumeration) {
-            // stringify Enum as uppercase name
+        if(cellValue.getPojo() instanceof Enum enumeration)
+			// stringify Enum as uppercase name
             return String.format("%s", enumeration.name());
-        }
 
         // assuming value
         var valueFacet = valueSpec.valueFacetElseFail();

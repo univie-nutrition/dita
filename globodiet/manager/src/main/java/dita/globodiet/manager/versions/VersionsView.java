@@ -63,7 +63,7 @@ public class VersionsView {
 
     @Collection
     public Can<ParameterDataVersion> getVersions() {
-        return versionsService.getVersions()
-                .filter(VersionFilter.NOT_DELETED);
+    	 return versionsService.getVersions()
+                 .filter(VersionFilter.NOT_DELETED);
     }
 }

@@ -80,6 +80,10 @@ public record VersionsService(
         return lookupVersionDto(versionId)
         		.map(dto-> new ParameterDataVersion(dto, this));
     }
+    public ParameterDataVersion lookupVersionElseFail(final String versionId) {
+        return lookupVersion(versionId)
+        		.orElseThrow(()->new NoSuchElementException("Version %s not found".formatted(versionId)));
+    }
 
     public Optional<ParameterDataVersionDto> lookupVersionDto(final String versionId) {
     	return lookupResource(versionId, "manifest.yaml")

@@ -23,58 +23,54 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterLayout;
+import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.SemanticsOf;
-import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import dita.causeway.replicator.tables.serialize.TableSerializerYaml;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularDiff;
 import dita.commons.util.FormatUtils;
-import jakarta.inject.Inject;
-import lombok.RequiredArgsConstructor;
+import dita.globodiet.manager.versions.VersionsService.VersionFilter;
 
 @Action(semantics = SemanticsOf.IDEMPOTENT)
 @ActionLayout(
 		fieldSetName="About",
 		position = Position.PANEL,
 		describedAs = "Generates a Parameter Data Diff between this and another selected version")
-@RequiredArgsConstructor
-public class ParameterDataVersion_diff {
-
-	@Inject TableSerializerYaml tableSerializer;
-	@Inject @Qualifier("table2entity") TabularData.NameTransformer table2entity;
-	@Inject @Qualifier("diff") TabularData.SecondaryKeyProvider secondaryKeyProvider;
-	@Inject FactoryService factoryService;
-
-	final ParameterDataVersion mixee;
+public record ParameterDataVersion_diff(
+		ParameterDataVersion mixee,
+		@Qualifier("table2entity") TabularData.NameTransformer nameTransformer,
+		@Qualifier("diff") TabularData.SecondaryKeyProvider secondaryKeyProvider,
+		VersionsService versionsService)  {
 
 	@MemberSupport
 	public AsciiDoc act(
 			@ParameterLayout(describedAs =
 			"Select Parameter Data Version as a base to compare against.")
 			final ParameterDataVersion baseVersion) {
-
-		var yaml = new TabularDiff(
-				filter(mixee.asTabularData()),
-				filter(baseVersion.asTabularData()),
-				secondaryKeyProvider)
-			.toYaml();
-
-		return FormatUtils.adocSourceBlock("yaml", yaml);
+		return FormatUtils.adocSourceBlock("yaml", diff(baseVersion).toYaml());
 	}
 
 	@MemberSupport
 	public Can<ParameterDataVersion> choicesBaseVersion() {
-		return factoryService.viewModel(new VersionsView())
-			.getVersions()
+		return versionsService.getVersions()
+            .filter(VersionFilter.NOT_DELETED)
 			.filter(baseVersion->baseVersion.id() < mixee.id());
 	}
 
+	@Programmatic
+	public TabularDiff diff(
+			final ParameterDataVersion baseVersion) {
+		return new TabularDiff(
+				filter(mixee.asTabularData()),
+				filter(baseVersion.asTabularData()),
+				secondaryKeyProvider);
+	}
+
 	private TabularData filter(final TabularData orig) {
-		return orig.transform(table2entity)
+		return orig.transform(nameTransformer)
 			.filter(
 				table->secondaryKeyProvider.lookupSecondaryKey(table.key()).isPresent(),
 				row->!row.cellLiterals().contains("ALIAS"));
