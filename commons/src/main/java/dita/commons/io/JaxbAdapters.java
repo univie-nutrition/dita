@@ -22,17 +22,15 @@ import javax.measure.Quantity;
 import javax.measure.Unit;
 import javax.measure.format.UnitFormat;
 
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.springframework.util.StringUtils;
-
-import lombok.experimental.UtilityClass;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Sex;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import lombok.experimental.UtilityClass;
 import tech.units.indriya.format.SimpleUnitFormat;
 import tech.units.indriya.quantity.Quantities;
 
@@ -142,14 +140,16 @@ public class JaxbAdapters {
             int p=0;
             if(StringUtils.hasLength(prefix)){
                 p = x.indexOf(prefix);
-                if(p==-1)
-                    p=0; // prefix not found
-                else
-                    p=p+prefix.length();
+                if(p==-1) {
+					p=0; // prefix not found
+				} else {
+					p=p+prefix.length();
+				}
             }
             int q = -1;
-            if(StringUtils.hasLength(suffix))
-                q = x.indexOf(suffix,p);
+            if(StringUtils.hasLength(suffix)) {
+				q = x.indexOf(suffix,p);
+			}
             if(q==-1)
                 return x.substring(p); // suffix not found
             return x.substring(p, q);

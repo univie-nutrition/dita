@@ -19,23 +19,44 @@
 package dita.foodon.fdm;
 
 import java.util.Collection;
-
-import lombok.Builder;
-import lombok.experimental.UtilityClass;
+import java.util.List;
 
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
+import lombok.Builder;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 class Dtos {
 
     @Builder
-    public record FoodDescriptionModelDto (
+    record FoodDescriptionModelDto (
             Collection<Food> food,
             Collection<Recipe> recipes,
             Collection<RecipeIngredient> ingredients,
             Collection<ClassificationFacet> classificationFacets) {
     }
+
+    FoodDescriptionModelDto toDto(final FoodDescriptionModel fdm) {
+        return new FoodDescriptionModelDto(
+                fdm.foodBySid().values(),
+                fdm.recipeBySid().values(),
+                fdm.ingredientsByRecipeSid().values().stream()
+                	.flatMap(List::stream)
+                	.map(RecipeIngredientResolved::data)
+                	.toList(),
+                fdm.classificationFacetBySid().values());
+    }
+
+    FoodDescriptionModel fromDto(final FoodDescriptionModelDto dto) {
+        return FdmUtils.resolve(
+        		dto.food(),
+        		dto.recipes(),
+        		dto.ingredients(),
+        		dto.classificationFacets());
+    }
+
 }

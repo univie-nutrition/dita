@@ -20,23 +20,21 @@ package dita.globodiet.manager.versions;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import org.apache.causeway.commons.collections.Can;
-import org.apache.causeway.commons.internal.base._NullSafe;
-import org.apache.causeway.commons.internal.base._Strings;
-import org.apache.causeway.commons.internal.collections._Multimaps;
-import org.apache.causeway.commons.internal.collections._Multimaps.ListMultimap;
-import org.jspecify.annotations.Nullable;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import dita.commons.sid.SemanticIdentifier;
-import dita.commons.sid.SemanticIdentifier.ObjectId.Context;
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.sid.SemanticIdentifierSet;
-import dita.commons.types.TabularData.Row;
-import dita.commons.types.TabularDiff;
-import dita.commons.types.TabularDiff.RowDiff;
+import dita.commons.types.Diff;
+import dita.foodon.fdm.FoodDescriptionModel;
+import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
+import dita.globodiet.manager.versions.FdmDiffFactory.FdmDiff;
+import dita.recall24.dto.Annotated;
+import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.Correction24;
 import dita.recall24.dto.Correction24.CompositeCorr;
 import dita.recall24.dto.Correction24.CompositeCorr.Addition;
@@ -44,14 +42,12 @@ import dita.recall24.dto.Correction24.CompositeCorr.Deletion;
 import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
+import dita.recall24.dto.Record24.Composite;
+import dita.recall24.dto.Record24.Consumption;
 
-public record CorrectionTemplateFactory(TabularDiff tabularDiff) {
+public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 
 	public Correction24 create(final InterviewSet24 interviewSet) {
-
-        var ingredientChanges = ingredientChanges();
-        var ingredientAdditions = ingredientChanges.groupByRecipeId(ingredientChanges.additions());
-        var ingredientDeletions = ingredientChanges.groupByRecipeId(ingredientChanges.deletions());
 
         var corrs = new ArrayList<CompositeCorr>();
         interviewSet.transform(new RecallNode24.Transfomer() {
@@ -59,8 +55,8 @@ public record CorrectionTemplateFactory(TabularDiff tabularDiff) {
 			public <T extends RecallNode24> T transform(final T node) {
 				if(node instanceof Record24.Composite composite) {
 
-					var additions = calculateCorrectionAdditions(ingredientAdditions.get(composite.sid()));
-					var deletions = calculateCorrectionDeletions(ingredientDeletions.get(composite.sid()));
+					var additions = calculateCorrectionAdditions(composite.sid());
+					var deletions = calculateCorrectionDeletions(composite.sid());
 
 					if(additions.size()==0
 							&& deletions.size()==0)
@@ -69,8 +65,11 @@ public record CorrectionTemplateFactory(TabularDiff tabularDiff) {
 					var coors = CompositeCorr.Coordinates.of(composite);
 		            String rename = null;
 		            SemanticIdentifier newGroupSid = null;
+
+		            var occurrence = new Occurrence(composite, sid->facetLiteral(sid));
+
 					corrs.add(new CompositeCorr(coors, rename, newGroupSid,
-							additions, deletions));
+							additions, deletions, Map.of("comments", occurrence.comments())));
 				}
 				return node;
 			}
@@ -80,56 +79,90 @@ public record CorrectionTemplateFactory(TabularDiff tabularDiff) {
 		return corr24;
 	}
 
-	List<Addition> calculateCorrectionAdditions(final @Nullable Collection<IngredientAdapter> list) {
-		return _NullSafe.stream(list).map(IngredientAdapter::asCorrectionAddition).toList();
+	List<Addition> calculateCorrectionAdditions(final SemanticIdentifier recipeSid) {
+		var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(recipeSid, Diff.empty());
+		return ingredientDiff.leftOuter().stream()
+			.map(RecipeIngredientResolved::data)
+			.map(it->new Addition(it.foodSid(), it.amountGrams(), it.foodFacetSids()))
+			.toList();
 	}
-    List<Deletion> calculateCorrectionDeletions(final @Nullable Collection<IngredientAdapter> list) {
-    	return _NullSafe.stream(list).map(IngredientAdapter::asCorrectionDeletion).toList();
+    List<Deletion> calculateCorrectionDeletions(final SemanticIdentifier recipeSid) {
+    	var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(recipeSid, Diff.empty());
+		return ingredientDiff.rightOuter().stream()
+			.map(RecipeIngredientResolved::data)
+			.map(it->new Deletion(it.foodSid()))
+			.toList();
     }
 
-	record IngredientChanges(RowDiff rowDiff){
-		List<IngredientAdapter> additions() {
-			return adapt(rowDiff.rowDiff().leftOuter());
-		}
-		List<IngredientAdapter> deletions() {
-			return adapt(rowDiff.rowDiff().rightOuter());
-		}
-		List<IngredientAdapter> adapt(final Collection<Row> rows) {
-			return rows.stream().map(IngredientAdapter::new).toList();
-		}
-		ListMultimap<SemanticIdentifier, IngredientAdapter> groupByRecipeId(final Collection<IngredientAdapter> adapters) {
-			var multimap = _Multimaps.<SemanticIdentifier, IngredientAdapter>newListMultimap();
-			adapters.forEach(adapter->multimap.putElement(adapter.recipeSid(), adapter));
-			return multimap;
-		}
-	}
+    FoodDescriptionModel fdm() {
+    	return fdmDiff.mainFdm();
+    }
 
-	//TODO it would perhaps be simpler to diff with the FDM directly instead
-	record IngredientAdapter(Row row){
-		SemanticIdentifier recipeSid() {
-			return new SemanticIdentifier(SystemId.parse("at.gd/2.0"), Context.RECIPE.objectId(row.cellLiterals().get(0)));
-		}
-		SemanticIdentifier sid() {
-			return new SemanticIdentifier(SystemId.parse("at.gd/2.0"), Context.FOOD.objectId(row.cellLiterals().get(5)));
-		}
-        BigDecimal amountGrams() {
-        	return new BigDecimal(row.cellLiterals().get(12));
-        }
-        SemanticIdentifierSet facets() {
-        	return new SemanticIdentifierSet(_Strings.splitThenStream(row.cellLiterals().get(4), ",")
-            		.map(fourdigits->new SemanticIdentifier(SystemId.parse("at.gd/2.0"), Context.FOOD_DESCRIPTOR.objectId(fourdigits)))
-            		.collect(Can.toCan()));
-        }
-		Addition asCorrectionAddition() {
-			return new Addition(sid(), amountGrams(), facets());
-		}
-		Deletion asCorrectionDeletion() {
-			return new Deletion(sid());
-		}
-	}
+    String facetLiteral(final SemanticIdentifier sid) {
+        return Optional.ofNullable(
+        		fdm().classificationFacetBySid()
+                    .get(sid))
+                .map(ClassificationFacet::name)
+                .orElse(sid.toStringNoBox());
+    }
 
-	IngredientChanges ingredientChanges() {
-		return new IngredientChanges(tabularDiff.tableDiff().rowDiffByTableKey().get("dita.globodiet.params.recipe_list.RecipeIngredient"));
-	}
+    private record Occurrence(
+            CompositeCorr.Coordinates coors,
+            Composite composite,
+            List<String> facetLiterals,
+            List<String> notes,
+            BigDecimal amountConsumedTotal,
+            List<Consumption> ingredientConsumptions,
+            Function<SemanticIdentifier, String> facetLiteralProvider) {
+        Occurrence(
+        		final Composite composite,
+        		final Function<SemanticIdentifier, String> facetLiteralProvider){
+            this(CompositeCorr.Coordinates.of(composite),
+                composite,
+                composite.facetSids().elements()
+	    			.map(facetLiteralProvider)
+	    			.toList(),
+                notes(composite),
+                streamConsumptions(composite)
+                    .map(Consumption::amountConsumed)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add),
+                streamConsumptions(composite).toList(),
+                facetLiteralProvider);
+        }
+        List<String> comments() {
+        	var comments = new ArrayList<String>();
+            comments.add("ingredients consumed:");
+            ingredientConsumptions()
+            	.forEach(ingrCons->{
+            		comments.add("- %s %s %s (%s) {%s}"
+            			.formatted(
+	                        ingrCons.amountConsumed(), ingrCons.consumptionUnit(),
+	                        ingrCons.name(), ingrCons.sid().objectId().toString(),
+	                        formatFacets(ingrCons.facetSids())));
+            	});
+            comments.add("amount-consumed-total: %.2fg"
+            		.formatted(amountConsumedTotal().doubleValue()));
+			return comments;
+		}
+        String formatFacets(final SemanticIdentifierSet sids) {
+            if(sids.elements().isEmpty())
+            	return "";
+            return "%s (%s)".formatted(
+                    sids.shortFormat(","),
+                    sids.elements().map(facetLiteralProvider).join(", "));
+        }
+        @SuppressWarnings("unchecked")
+        static List<String> notes(final Composite composite) {
+            return composite.lookupAnnotation(Annotated.NOTES)
+                .map(Annotation::value)
+                .map(x->(List<String>)x)
+                .orElseGet(List::of);
+        }
+        static Stream<Consumption> streamConsumptions(final Composite composite) {
+            return composite.subRecords().stream()
+                .filter(Consumption.class::isInstance)
+                .map(Consumption.class::cast);
+        }
+    }
 
 }

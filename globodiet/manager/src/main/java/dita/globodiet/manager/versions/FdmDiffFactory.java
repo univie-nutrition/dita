@@ -1,0 +1,80 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package dita.globodiet.manager.versions;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.types.Diff;
+import dita.foodon.fdm.FoodDescriptionModel;
+
+public record FdmDiffFactory() {
+
+	record FdmDiff(
+			FoodDescriptionModel mainFdm,
+			Diff<FoodDescriptionModel.Food, FoodDescriptionModel.Food> foodDiff,
+			Diff<FoodDescriptionModel.Recipe, FoodDescriptionModel.Recipe> recipeDiff,
+			Map<SemanticIdentifier, Diff<FoodDescriptionModel.RecipeIngredientResolved, FoodDescriptionModel.RecipeIngredientResolved>> ingredientDiffByRecipeSid) {
+	}
+
+	public FdmDiff diff(final FoodDescriptionModel main, final FoodDescriptionModel base) {
+		var fdmDiff = new FdmDiff(
+				main,
+				Diff.typed(FoodDescriptionModel.Food.class, FoodDescriptionModel.Food.class),
+				Diff.typed(FoodDescriptionModel.Recipe.class, FoodDescriptionModel.Recipe.class),
+				new HashMap<>());
+
+		fdmDiff.foodDiff().process(
+				main.foodBySid().values(), base.foodBySid().values(),
+				food->food.sid().toStringNoBox(), food->food.sid().toStringNoBox(),
+				FoodDescriptionModel.Food::equals);
+
+		fdmDiff.recipeDiff().process(
+				main.recipeBySid().values(), base.recipeBySid().values(),
+				recipe->recipe.sid().toStringNoBox(), recipe->recipe.sid().toStringNoBox(),
+				(a, b) -> a.groupSid().equals(b.groupSid())
+					&& a.name().equals(b.name()));
+
+		join(main.recipeBySid().keySet(), base.recipeBySid().keySet())
+			.forEach(recipeId->{
+				var ingrDiff = Diff.typed(FoodDescriptionModel.RecipeIngredientResolved.class, FoodDescriptionModel.RecipeIngredientResolved.class);
+				fdmDiff.ingredientDiffByRecipeSid().put(recipeId, ingrDiff);
+
+				var leftIngredients = main.ingredientsByRecipeSid().getOrDefault(recipeId, List.of());
+				var rightIngredients = base.ingredientsByRecipeSid().getOrDefault(recipeId, List.of());
+				ingrDiff.process(
+						leftIngredients, rightIngredients,
+						ingr->ingr.key().toString(), ingr->ingr.key().toString(),
+						(a, b)-> a.data().equals(b.data()));
+			});
+
+		return fdmDiff;
+	}
+
+	<T> Set<T> join(final Set<T> a, final Set<T> b) {
+		var joined = new HashSet<>(a);
+		joined.addAll(b);
+		return joined;
+	}
+
+}

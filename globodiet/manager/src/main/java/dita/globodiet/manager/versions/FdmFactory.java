@@ -27,13 +27,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
-
-import org.springframework.util.StringUtils;
-
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.collections._Streams;
 import org.apache.causeway.commons.io.TextUtils;
+import org.jspecify.annotations.Nullable;
+import org.springframework.util.StringUtils;
 
 import dita.commons.sid.SemanticIdentifier.ObjectId;
 import dita.commons.sid.SemanticIdentifier.SystemId;
@@ -67,21 +65,20 @@ record FdmFactory(
     // -- FACTORIES
 
     public FoodDescriptionModel createFoodDescriptionModel() {
-        return new FoodDescriptionModel(
-                FdmUtils.collectFoodBySid(streamFood()),
-                FdmUtils.collectRecipeBySid(streamRecipe()),
-                FdmUtils.collectIngredientsByRecipeSid(streamRecipeIngredient()),
-                FdmUtils.collectClassificationFacetBySid(
-                        _Streams.<ClassificationFacet>concat(
-                                streamFoodGroups(),
-                                streamFoodSubgroups(),
-                                streamFoodFacet(),
-                                streamFoodDescriptor(),
-                                streamRecipeGroups(),
-                                streamRecipeSubgroups(),
-                                streamRecipeFacet(),
-                                streamRecipeDescriptor())
-                        ));
+        return FdmUtils.resolve(
+                streamFood().toList(),
+                streamRecipe().toList(),
+                streamRecipeIngredient().toList(),
+                _Streams.<ClassificationFacet>concat(
+                        streamFoodGroups(),
+                        streamFoodSubgroups(),
+                        streamFoodFacet(),
+                        streamFoodDescriptor(),
+                        streamRecipeGroups(),
+                        streamRecipeSubgroups(),
+                        streamRecipeFacet(),
+                        streamRecipeDescriptor()).toList()
+        		);
     }
 
     // -- FOOD
@@ -304,8 +301,7 @@ record FdmFactory(
                 SemanticIdentifierSet.ofStream(_Strings.splitThenStream(cellLiterals.get(4), ",")
                         .map(sidFactory()::foodDescriptor)),
                 new BigDecimal(cellLiterals.get(12)),
-                bigdecElseDefault(cellLiterals.get(39), null)
-                );
+                bigdecElseDefault(cellLiterals.get(39), null));
     }
 
     // dita.globodiet.params.food_descript.FoodFacet = FACETS

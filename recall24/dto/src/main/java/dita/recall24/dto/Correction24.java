@@ -105,8 +105,19 @@ public record Correction24(
             @Nullable String rename,
             @Nullable SemanticIdentifier groupSid,
             @Singular @NonNull List<Addition> additions,
-            @Singular @NonNull List<Deletion> deletions
+            @Singular @NonNull List<Deletion> deletions,
+            @JsonIgnore Map<String, Object> properties
             ) {
+
+    	public CompositeCorr(
+                @NonNull final Coordinates coordinates,
+                @Nullable final String rename,
+                @Nullable final SemanticIdentifier groupSid,
+                @NonNull final List<Addition> additions,
+                @NonNull final List<Deletion> deletions) {
+    		this(coordinates, rename, groupSid, additions, deletions, Map.of());
+    	}
+
         /// Assumes that a composite consumption can be uniquely found by its {@link SemanticIdentifier} within a specific {@link Meal24}.
         /// In other words: we assume there are no duplicated composite consumptions per meal
         public record Coordinates(
@@ -159,22 +170,36 @@ public record Correction24(
         public record Addition(
             @NonNull SemanticIdentifier sid,
             @NonNull BigDecimal amountGrams,
-            @NonNull SemanticIdentifierSet facets) {
+            @NonNull SemanticIdentifierSet facets,
+            @JsonIgnore Map<String, Object> properties) {
+        	public Addition(
+                    @NonNull final SemanticIdentifier sid,
+                    @NonNull final BigDecimal amountGrams,
+                    @Nullable final SemanticIdentifierSet facets) {
+        		this(sid, amountGrams, facets, Map.of());
+        	}
             // canonical constructor
             public Addition(
                 @NonNull final SemanticIdentifier sid,
                 @NonNull final BigDecimal amountGrams,
-                @Nullable final SemanticIdentifierSet facets) {
+                @Nullable final SemanticIdentifierSet facets,
+                @Nullable final Map<String, Object> properties) {
                 this.sid = sid;
                 this.amountGrams = amountGrams;
                 this.facets = facets!=null ? facets : SemanticIdentifierSet.empty();
+                this.properties = properties;
             }
             public QualifiedMapKey asQualifiedMapKey() {
                 return new QualifiedMapKey(sid, facets);
             }
         }
         public record Deletion(
-            @NonNull SemanticIdentifier sid) {
+            @NonNull SemanticIdentifier sid,
+            @JsonIgnore Map<String, Object> properties) {
+        	public Deletion(
+                    @NonNull final SemanticIdentifier sid) {
+        		this(sid, Map.of());
+            }
         }
     }
 
@@ -193,6 +218,11 @@ public record Correction24(
 
     public String toYaml() {
         return YamlUtils.toStringUtf8(this, FormatUtils.yamlOptions());
+    }
+
+    public String toYamlWithComments(final CorrectionCommentFactory commentFactory) {
+        return CorrectionCommentFactory.postprocess(
+        		YamlUtils.toStringUtf8(this, commentFactory.yamlOptions()));
     }
 
     public static Try<Correction24> tryFromYaml(final String yaml) {

@@ -25,11 +25,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
+import org.jspecify.annotations.Nullable;
+
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 
@@ -39,7 +39,7 @@ import dita.commons.sid.SemanticIdentifierSet;
 public record FoodDescriptionModel(
         Map<SemanticIdentifier, Food> foodBySid,
         Map<SemanticIdentifier, Recipe> recipeBySid,
-        Map<SemanticIdentifier, List<RecipeIngredient>> ingredientsByRecipeSid,
+        Map<SemanticIdentifier, List<RecipeIngredientResolved>> ingredientsByRecipeSid,
         Map<SemanticIdentifier, ClassificationFacet> classificationFacetBySid
         ) {
 
@@ -77,6 +77,31 @@ public record FoodDescriptionModel(
             BigDecimal rawToCookedCoefficient) {
     }
 
+    public record RecipeIngredientResolved(
+    		Key key,
+    		Recipe recipe,
+    		Food food,
+    		RecipeIngredient data) {
+    	public record Key(
+    			SemanticIdentifier recipeSid,
+    			SemanticIdentifier foodSid,
+    			/**
+    			 * Counts (1 based) ingredient occurrences of same foodSid.
+    			 * Forms a unique key together with recipeSid and foodSid.
+    			 */
+    			int ordinal) {
+    		@Override
+    		public final String toString() {
+    			return recipeSid.toStringNoBox() + "::" + foodSid.toStringNoBox() + "::" + ordinal;
+    		}
+    	}
+       	public SemanticIdentifier recipeSid() { return data.recipeSid(); }
+       	public SemanticIdentifier foodSid() { return data.foodSid(); }
+       	public SemanticIdentifierSet foodFacetSids() { return data.foodFacetSids(); }
+    	public BigDecimal amountGrams() { return data.amountGrams(); }
+    	public BigDecimal rawToCookedCoefficient() { return data.rawToCookedCoefficient(); }
+    }
+
     public record ClassificationFacet(
             SemanticIdentifier sid,
             String name) {
@@ -84,11 +109,14 @@ public record FoodDescriptionModel(
 
     // -- FACTORIES
 
+	/**
+     * empty, but mutable
+     */
     public static FoodDescriptionModel empty() {
         return new FoodDescriptionModel(
                 new HashMap<SemanticIdentifier, Food>(),
                 new HashMap<SemanticIdentifier, Recipe>(),
-                new HashMap<SemanticIdentifier, List<RecipeIngredient>>(),
+                new HashMap<SemanticIdentifier, List<RecipeIngredientResolved>>(),
                 new HashMap<SemanticIdentifier, ClassificationFacet>());
     }
 
@@ -119,7 +147,7 @@ public record FoodDescriptionModel(
     /**
      * Streams all ingredients of given recipe.
      */
-    public Stream<RecipeIngredient> streamIngredients(@Nullable final Recipe recipe) {
+    public Stream<RecipeIngredientResolved> streamIngredients(@Nullable final Recipe recipe) {
         return recipe!=null
                 ? _NullSafe.stream(ingredientsByRecipeSid.get(recipe.sid()))
                 : Stream.empty();
@@ -130,7 +158,7 @@ public record FoodDescriptionModel(
      */
     public BigDecimal sumAmountGramsForRecipe(@Nullable final Recipe recipe) {
         return streamIngredients(recipe)
-            .map(RecipeIngredient::amountGrams)
+            .map(RecipeIngredientResolved::amountGrams)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

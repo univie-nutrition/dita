@@ -21,10 +21,6 @@ package dita.globodiet.manager.editing.wip;
 import java.math.BigDecimal;
 import java.util.List;
 
-import jakarta.inject.Inject;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
@@ -34,15 +30,14 @@ import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
-
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.util.NumberUtils;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
 import dita.globodiet.params.recipe_list.Recipe;
 import dita.globodiet.survey.dom.BlobStoreClient;
 import dita.globodiet.survey.dom.Survey;
@@ -52,6 +47,8 @@ import dita.recall24.dto.MemorizedFood24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
+import jakarta.inject.Inject;
+import lombok.RequiredArgsConstructor;
 
 @Action(restrictTo = RestrictTo.PROTOTYPING)
 @ActionLayout(fieldSetName="listOfRecipe", position = Position.PANEL)
@@ -92,7 +89,7 @@ public class RecipeManager_generateProtocolFromRecipes {
     // -- HELPER
 
     private record RecordFactory(FoodDescriptionModel foodDescriptionModel) {
-        Record24.Composite toCompositeRecord(final SemanticIdentifier recipeSid, final List<RecipeIngredient> ingredients) {
+        Record24.Composite toCompositeRecord(final SemanticIdentifier recipeSid, final List<RecipeIngredientResolved> ingredients) {
             var recipe = foodDescriptionModel.recipeBySid().get(recipeSid);
 
             var recipeTotalGram = foodDescriptionModel.sumAmountGramsForRecipe(recipe);
@@ -106,9 +103,9 @@ public class RecipeManager_generateProtocolFromRecipes {
                 Can.empty());
         }
 
-        Record24.Food toIngredientRecord(final FoodDescriptionModel.RecipeIngredient ingredient, final BigDecimal normativeFactor) {
+        Record24.Food toIngredientRecord(final FoodDescriptionModel.RecipeIngredientResolved ingredient, final BigDecimal normativeFactor) {
             final SemanticIdentifier sid = ingredient.foodSid();
-            final String name = foodDescriptionModel.foodBySid().get(sid).name();
+            final String name = ingredient.food().name();
             final SemanticIdentifierSet facetSids = ingredient.foodFacetSids();
             final BigDecimal amountConsumed = NumberUtils.reducedPrecision(ingredient.amountGrams().multiply(normativeFactor), 3);
             final ConsumptionUnit consumptionUnit = ConsumptionUnit.GRAM;

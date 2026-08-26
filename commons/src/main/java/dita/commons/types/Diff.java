@@ -40,6 +40,10 @@ public record Diff<L, R>(
     /// L elements not matching their corresponding R element
     List<Pair<L, R>> innerMismatch) {
 
+	public static <L, R> Diff<L, R> empty() {
+        return new Diff<>(List.of(), List.of(), List.of(), List.of());
+    }
+
     /// typed {@link Diff} instance with mutable members
     public static <L, R> Diff<L, R> typed(final Class<L> leftType, final Class<R> rightType) {
         return new Diff<>(new ArrayList<L>(), new ArrayList<R>(),

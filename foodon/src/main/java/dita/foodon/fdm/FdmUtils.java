@@ -24,16 +24,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
-
 import org.apache.causeway.commons.internal.base._NullSafe;
+import org.apache.causeway.commons.internal.collections._Multimaps;
 import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
-
-import lombok.experimental.UtilityClass;
+import org.jspecify.annotations.Nullable;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.util.FormatUtils;
@@ -42,6 +41,8 @@ import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
 import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredient;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class FdmUtils {
@@ -50,13 +51,13 @@ public class FdmUtils {
 
     public static FoodDescriptionModel fromYaml(final String yaml) {
         return YamlUtils.tryRead(FoodDescriptionModelDto.class, yaml, FormatUtils.yamlOptions())
-            .mapSuccessWhenPresent(FdmUtils::fromDto)
+            .mapSuccessWhenPresent(Dtos::fromDto)
             .valueAsNonNullElseFail();
     }
 
     public FoodDescriptionModel fromYaml(final DataSource ds) {
         return YamlUtils.tryRead(FoodDescriptionModelDto.class, ds, FormatUtils.yamlOptions())
-            .mapSuccessWhenPresent(FdmUtils::fromDto)
+            .mapSuccessWhenPresent(Dtos::fromDto)
             .valueAsNonNullElseFail();
     }
 
@@ -65,12 +66,12 @@ public class FdmUtils {
     public void toYaml(
             final FoodDescriptionModel fdm,
             final DataSink ds) {
-        YamlUtils.write(toDto(fdm), ds, FormatUtils.yamlOptions());
+        YamlUtils.write(Dtos.toDto(fdm), ds, FormatUtils.yamlOptions());
     }
 
     public String toYaml(
             final FoodDescriptionModel fdm) {
-        return YamlUtils.toStringUtf8(toDto(fdm), FormatUtils.yamlOptions());
+        return YamlUtils.toStringUtf8(Dtos.toDto(fdm), FormatUtils.yamlOptions());
     }
 
     public Stream<Food> streamFood(final FoodDescriptionModel fdm) {
@@ -85,7 +86,7 @@ public class FdmUtils {
         return fdm.classificationFacetBySid().values().stream();
     }
 
-    public Stream<RecipeIngredient> streamIngredients(final FoodDescriptionModel fdm) {
+    public Stream<RecipeIngredientResolved> streamIngredients(final FoodDescriptionModel fdm) {
         return fdm.ingredientsByRecipeSid().values().stream().flatMap(List::stream);
     }
 
@@ -150,22 +151,49 @@ public class FdmUtils {
         return map;
     }
 
+	public static FoodDescriptionModel resolve(
+			final Collection<Food> food,
+			final Collection<Recipe> recipes,
+			final Collection<RecipeIngredient> ingredients,
+			final Collection<ClassificationFacet> classificationFacets) {
+
+		var foodBySid = FdmUtils.collectFoodBySid(food);
+    	var recipeBySid = FdmUtils.collectRecipeBySid(recipes);
+    	var ingredientBySid = _Multimaps.<SemanticIdentifier, RecipeIngredientResolved>newListMultimap();
+        var classificationsBySid = FdmUtils.collectClassificationFacetBySid(classificationFacets);
+
+        var context = new Context();
+        ingredients.forEach(ingr->{
+        	ingredientBySid.putElement(ingr.recipeSid(), new RecipeIngredientResolved(
+    				new RecipeIngredientResolved.Key(ingr.recipeSid(), ingr.foodSid(), context.ordinal(ingr.recipeSid(), ingr.foodSid())),
+    				recipeBySid.get(ingr.recipeSid()),
+    				foodBySid.get(ingr.foodSid()),
+    				ingr));
+        });
+
+        return new FoodDescriptionModel(
+        		Collections.unmodifiableMap(foodBySid),
+        		Collections.unmodifiableMap(recipeBySid),
+        		Collections.unmodifiableMap(ingredientBySid),
+        		Collections.unmodifiableMap(classificationsBySid));
+	}
+
     // -- HELPER
 
-    FoodDescriptionModelDto toDto(final FoodDescriptionModel fdm) {
-        return new FoodDescriptionModelDto(
-                fdm.foodBySid().values(),
-                fdm.recipeBySid().values(),
-                streamIngredients(fdm).toList(),
-                fdm.classificationFacetBySid().values());
-    }
-
-    FoodDescriptionModel fromDto(final FoodDescriptionModelDto dto) {
-        return new FoodDescriptionModel(
-                collectFoodBySid(dto.food()),
-                collectRecipeBySid(dto.recipes()),
-                collectIngredientsByRecipeSid(dto.ingredients()),
-                collectClassificationFacetBySid(dto.classificationFacets()));
+    private record Context(Map<OrdinalCounterKey, LongAdder> ordinalCounterMap) {
+    	private record OrdinalCounterKey(
+    			SemanticIdentifier recipeSid,
+    			SemanticIdentifier foodSid) {
+    	}
+    	Context() {
+    		this(new HashMap<>());
+    	}
+		public int ordinal(final SemanticIdentifier recipeSid, final SemanticIdentifier foodSid) {
+			var key = new OrdinalCounterKey(recipeSid, foodSid);
+			var counter = ordinalCounterMap.computeIfAbsent(key, _->new LongAdder());
+			counter.increment();
+			return counter.intValue();
+		}
     }
 
 }

@@ -35,6 +35,7 @@ import dita.commons.types.LanguageId;
 import dita.commons.types.TabularData;
 import dita.commons.types.TabularData.Table;
 import dita.foodon.fdm.FdmUtils;
+import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.manager.DitaModuleGdManager;
 import dita.globodiet.params.food_descript.FoodDescriptor;
 import dita.globodiet.params.food_descript.FoodFacet;
@@ -101,7 +102,7 @@ public record VersionsExportService(
     	this.table2entity = table2entity;
     }
 
-    public Blob getFoodDescriptionModelAsYaml(final ParameterDataVersion parameterDataVersion) {
+    public FoodDescriptionModel getFoodDescriptionModel(final ParameterDataVersion parameterDataVersion) {
         var yamlTabular = tablesAsYamlFromVersion(parameterDataVersion,
                 table->FDM_ENTITIES.stream()
                     .anyMatch(cls->table.key().endsWith("." + cls.getSimpleName())),
@@ -109,8 +110,11 @@ public record VersionsExportService(
 
         var tabularData = TabularData.populateFromYaml(yamlTabular, TabularData.Format.defaults());
         var fdmFactory = new FdmFactory(SystemId.parse(parameterDataVersion.systemId()), tabularData);
-        var yaml = FdmUtils.toYaml(fdmFactory.createFoodDescriptionModel());
+        return fdmFactory.createFoodDescriptionModel();
+    }
 
+    public Blob getFoodDescriptionModelAsYaml(final ParameterDataVersion parameterDataVersion) {
+        var yaml = FdmUtils.toYaml(getFoodDescriptionModel(parameterDataVersion));
         return Clob.of("fdm", CommonMimeType.YAML, yaml)
                 .toBlobUtf8()
                 .zip();

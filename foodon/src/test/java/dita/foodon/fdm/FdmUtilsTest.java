@@ -18,6 +18,8 @@
  */
 package dita.foodon.fdm;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +29,6 @@ import org.approvaltests.Approvals;
 import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
@@ -72,7 +72,7 @@ class FdmUtilsTest {
                                 new BigDecimal("0.324"))
                         ))
                 .build();
-        var fdm = FdmUtils.fromDto(dto);
+        var fdm = Dtos.fromDto(dto);
         var yaml = FdmUtils.toYaml(fdm);
 
         //debug
