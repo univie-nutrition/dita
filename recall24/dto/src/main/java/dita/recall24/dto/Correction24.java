@@ -106,7 +106,7 @@ public record Correction24(
             @Nullable SemanticIdentifier groupSid,
             @Singular @NonNull List<Addition> additions,
             @Singular @NonNull List<Deletion> deletions,
-            @JsonIgnore Map<String, Object> properties
+            @JsonIgnore List<String> comments
             ) {
 
     	public CompositeCorr(
@@ -115,7 +115,7 @@ public record Correction24(
                 @Nullable final SemanticIdentifier groupSid,
                 @NonNull final List<Addition> additions,
                 @NonNull final List<Deletion> deletions) {
-    		this(coordinates, rename, groupSid, additions, deletions, Map.of());
+    		this(coordinates, rename, groupSid, additions, deletions, List.of());
     	}
 
         /// Assumes that a composite consumption can be uniquely found by its {@link SemanticIdentifier} within a specific {@link Meal24}.
@@ -171,23 +171,23 @@ public record Correction24(
             @NonNull SemanticIdentifier sid,
             @NonNull BigDecimal amountGrams,
             @NonNull SemanticIdentifierSet facets,
-            @JsonIgnore Map<String, Object> properties) {
+            @JsonIgnore List<String> comments) {
         	public Addition(
                     @NonNull final SemanticIdentifier sid,
                     @NonNull final BigDecimal amountGrams,
                     @Nullable final SemanticIdentifierSet facets) {
-        		this(sid, amountGrams, facets, Map.of());
+        		this(sid, amountGrams, facets, List.of());
         	}
             // canonical constructor
             public Addition(
                 @NonNull final SemanticIdentifier sid,
                 @NonNull final BigDecimal amountGrams,
                 @Nullable final SemanticIdentifierSet facets,
-                @Nullable final Map<String, Object> properties) {
+                final List<String> comments) {
                 this.sid = sid;
                 this.amountGrams = amountGrams;
                 this.facets = facets!=null ? facets : SemanticIdentifierSet.empty();
-                this.properties = properties;
+                this.comments = comments;
             }
             public QualifiedMapKey asQualifiedMapKey() {
                 return new QualifiedMapKey(sid, facets);
@@ -195,10 +195,10 @@ public record Correction24(
         }
         public record Deletion(
             @NonNull SemanticIdentifier sid,
-            @JsonIgnore Map<String, Object> properties) {
+            @JsonIgnore List<String> comments) {
         	public Deletion(
                     @NonNull final SemanticIdentifier sid) {
-        		this(sid, Map.of());
+        		this(sid, List.of());
             }
         }
     }

@@ -21,7 +21,6 @@ package dita.globodiet.manager.versions;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -72,7 +71,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 	                var deletions = calculateCorrectionDeletions(occurrence, ingredientDiff.rightOuter());
 
 					corrs.add(new CompositeCorr(coors, rename, newGroupSid,
-							additions, deletions, Map.of("comments", occurrence.comments())));
+							additions, deletions, occurrence.comments()));
 				}
 				return node;
 			}
@@ -89,7 +88,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 					ingr.foodSid(),
 					ingr.amountGrams(),
 					ingr.foodFacetSids(),
-					Map.<String, Object>of("comments", List.of(ingr.food().name()))))
+					List.of(ingr.food().name())))
 			.toList();
 	}
 
@@ -102,7 +101,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
             		.anyMatch(d->d.foodSid().equals(ingrCons.sid())))
 	        .map(ingrCons -> new Deletion(
 	        		ingrCons.sid(),
-	        		Map.<String, Object>of("comments", List.of(ingrCons.name()))))
+	        		List.of(ingrCons.name())))
 	        .toList();
 	}
 

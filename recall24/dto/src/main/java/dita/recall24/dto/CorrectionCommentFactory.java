@@ -18,18 +18,23 @@
  */
 package dita.recall24.dto;
 
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.io.YamlUtils.YamlWriter;
 
-import dita.commons.io.JaxbAdapters;
+import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.recall24.dto.Correction24.CompositeCorr;
 import dita.recall24.dto.Correction24.CompositeCorr.Addition;
 import dita.recall24.dto.Correction24.CompositeCorr.Coordinates;
 import dita.recall24.dto.Correction24.CompositeCorr.Deletion;
 import dita.recall24.dto.Correction24.FoodByNameCorr;
 import dita.recall24.dto.Correction24.RespondentCorr;
+import io.github.causewaystuff.commons.base.types.NamedPath;
 import lombok.SneakyThrows;
 
 public record CorrectionCommentFactory() {
@@ -43,12 +48,10 @@ public record CorrectionCommentFactory() {
 	 */
 	record Correction24YamlEmitter(
 			YamlWriter writer,
-	    	JaxbAdapters.NamedPathAdapter namedPathAdapter,
 	    	DateTimeFormatter localDateTimeFormat) {
 
 		Correction24YamlEmitter() {
 			this(new YamlWriter(),
-	    		new JaxbAdapters.NamedPathAdapter(),
 	    		DateTimeFormatter.ofPattern("HH:mm:ss"));
 		}
 
@@ -94,39 +97,26 @@ public record CorrectionCommentFactory() {
 	    }
 
 	    private void writeRespondentCorr(final RespondentCorr resp) {
-	        writer.sq().write("alias: ").dq(resp.alias()).nl();
-	        if (resp.withdraw() != null) {
-	            writer.ind().write("withdraw: ").write(resp.withdraw().toString()).nl();
-	        }
-	        if (resp.newAlias() != null) {
-	            writer.ind().write("newAlias: ").dq(resp.newAlias()).nl();
-	        }
-	        if (resp.dateOfBirth() != null) {
-	            writer.ind().write("dateOfBirth: ").dq(resp.dateOfBirth().toString()).nl();
-	        }
-	        if (resp.sex() != null) {
-	            writer.ind().write("sex: ").dq(resp.sex().name()).nl();
-	        }
+	    	kv(0, "- alias", resp.alias());
+	        kv(1, "withdraw", resp.withdraw());
+	        kv(1, "newAlias", resp.newAlias());
+	        kv(1, "dateOfBirth", resp.dateOfBirth());
+            kv(1, "sex", resp.sex());
 	    }
 
 	    private void writeFoodByNameCorr(final FoodByNameCorr food) {
-	        writer.sq().write("name: ").dq(food.name()).nl();
-	        if (food.sid() != null) {
-	            writer.ind().write("sid: ").dq(food.sid().toStringNoBox()).nl();
-	        }
+	        kv(0, "- name", food.name());
+	        kv(1, "sid", food.sid());
 	    }
 
 	    private void writeCompositeCorr(final CompositeCorr comp) {
 	        writer.sq().write("coordinates:").nl();
 	        writeCoordinates(comp.coordinates()); // Indent 3 for properties under coordinates
-	        // rename
-	        if (comp.rename() != null) {
-	            writer.ind().write("rename: ").dq(comp.rename()).nl();
-	        }
-	        // groupSid
-	        if (comp.groupSid() != null) {
-	            writer.ind().write("groupSid: ").dq(comp.groupSid().toStringNoBox()).nl();
-	        }
+	        writeComments(1, comp.comments());
+
+	        kv(1, "rename", comp.rename());
+	        kv(1, "groupSid", comp.groupSid());
+
 	        // additions
 	        List<Addition> additions = comp.additions();
 	        if (additions != null && !additions.isEmpty()) {
@@ -149,41 +139,59 @@ public record CorrectionCommentFactory() {
 	        }
 	    }
 
-	    @SneakyThrows
+		@SneakyThrows
 	    private void writeCoordinates(final Coordinates coords) {
 	        if (coords == null)
 	        	return;
-	        if (coords.sid() != null) {
-	            writer.ind(2).write("sid: ").dq(coords.sid().toStringNoBox()).nl();
-	        }
-	        if (coords.respondentId() != null) {
-	            writer.ind(2).write("respondentId: ").dq(coords.respondentId()).nl();
-	        }
-	        writer.ind(2).write("interviewOrdinal: ").write(String.valueOf(coords.interviewOrdinal())).nl();
-	        if (coords.mealHourOfDay() != null) {
-	            writer.ind(2).write("mealHourOfDay: ").dq(coords.mealHourOfDay().format(localDateTimeFormat)).nl();
-	        }
-	        if (coords.name() != null) {
-	            writer.ind(2).write("name: ").dq(coords.name()).nl();
-	        }
-	        if (coords.source() != null) {
-	            writer.ind(2).write("source: ").dq(namedPathAdapter.marshal(coords.source())).nl();
-	        }
+            kv(2, "sid", coords.sid());
+            kv(2, "respondentId", coords.respondentId());
+	        kv(2, "interviewOrdinal", coords.interviewOrdinal());
+            kv(2, "mealHourOfDay", coords.mealHourOfDay());
+            kv(2, "name", coords.name());
+            kv(2, "source", coords.source());
 	    }
 
 	    private void writeAddition(final Addition add) {
-	        writer.ind().sq();
-	        writer.write("sid: ").dq(add.sid().toStringNoBox()).nl();
-	        writer.ind(2).write("amountGrams: ").write(add.amountGrams().toString()).nl();
-	        if (add.facets() != null) {
-	            writer.ind(2).write("facets: ").dq(add.facets().toStringNoBox()).nl();
-	        }
+	    	writeComments(2, add.comments());
+	        kv(1, "- sid", add.sid());
+	        kv(2, "amountGrams", add.amountGrams());
+	        kv(2, "facets", add.facets());
 	    }
 
 	    private void writeDeletion(final Deletion del) {
-	        writer.ind().sq();
-	        writer.write("sid: ").dq(del.sid().toStringNoBox()).nl();
+	    	writeComments(2, del.comments());
+	    	kv(1, "- sid", del.sid());
 	    }
+
+        /** key: value w/ newline; line is not emitted if value is null; */
+        private <T> void kv(final int indentCount, final String key, final T value) {
+        	if(value==null)
+        		return;
+        	writer.ind(indentCount).write(key, ": ");
+        	switch (value) {
+        		case BigDecimal v -> writer.write(v.toString());
+				case Integer i -> writer.write(""+i);
+				case Long i -> writer.write(""+i);
+				case Short i -> writer.write(""+i);
+				case Byte i -> writer.write(""+i);
+				case Double f -> writer.write(""+f);
+				case Float f -> writer.write(""+f);
+				case Boolean b -> writer.write(""+b);
+				case Enum<?> b -> writer.dq(b.name());
+				case SemanticIdentifier sid -> writer.dq(sid.toStringNoBox());
+				case SemanticIdentifierSet sidSet -> writer.dq(sidSet.toStringNoBox());
+				case NamedPath v -> writer.dq(v.toString("/"));
+				case LocalTime v -> writer.dq(v.format(localDateTimeFormat));
+				default -> writer.dq(value.toString());
+			};
+			writer.nl();
+        }
+
+        private void writeComments(final int indentCount, final List<String> comments) {
+        	_NullSafe.stream(comments)
+        	.forEach(comment->
+        	writer.ind(indentCount).write("# ").write(comment).nl());
+        }
 	}
 
 }
