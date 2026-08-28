@@ -221,8 +221,7 @@ public record Correction24(
     }
 
     public String toYamlWithComments(final CorrectionCommentFactory commentFactory) {
-        return CorrectionCommentFactory.postprocess(
-        		YamlUtils.toStringUtf8(this, commentFactory.yamlOptions()));
+        return CorrectionCommentFactory.toYaml(this);
     }
 
     public static Try<Correction24> tryFromYaml(final String yaml) {

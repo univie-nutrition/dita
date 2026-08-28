@@ -18,6 +18,8 @@
  */
 package dita.recall24.model.corr;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,8 +30,6 @@ import org.approvaltests.Approvals;
 import org.approvaltests.reporters.DiffReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifier.ObjectId;
@@ -42,12 +42,13 @@ import dita.recall24.dto.Correction24.CompositeCorr.Addition;
 import dita.recall24.dto.Correction24.CompositeCorr.Coordinates;
 import dita.recall24.dto.Correction24.CompositeCorr.Deletion;
 import dita.recall24.dto.Correction24.RespondentCorr;
+import dita.recall24.dto.CorrectionCommentFactory;
 import dita.testing.ApprovalTestOptions;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
 class Correction24Test {
 
-    private SystemId systemId = new SystemId("at.gd", "2.0");
+    private final SystemId systemId = new SystemId("at.gd", "2.0");
 
     @Test
     void coordinateEquality() {
@@ -66,6 +67,18 @@ class Correction24Test {
         //System.err.printf("Correction24Test%n%s%n", corr.toYaml());
 
         assertEquals(corr, Correction24.tryFromYaml(originalYaml).valueAsNonNullElseFail());
+        Approvals.verify(originalYaml, ApprovalTestOptions.yamlOptions());
+    }
+
+    @Test
+    @UseReporter(DiffReporter.class)
+    void roundtripOnYamlWithComments() {
+        var corr = sampleCorrection();
+        var corrCommentFactory = new CorrectionCommentFactory();
+		var originalYaml = corr.toYamlWithComments(corrCommentFactory);
+        // debug
+        System.err.printf("Correction24Test%n%s%n", originalYaml);
+        //assertEquals(corr, Correction24.tryFromYaml(originalYaml).valueAsNonNullElseFail());
         Approvals.verify(originalYaml, ApprovalTestOptions.yamlOptions());
     }
 

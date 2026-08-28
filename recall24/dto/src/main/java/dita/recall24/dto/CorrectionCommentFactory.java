@@ -18,91 +18,172 @@
  */
 package dita.recall24.dto;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-import org.apache.causeway.commons.io.JsonUtils.JacksonCustomizer;
-import org.apache.causeway.commons.io.TextUtils;
+import org.apache.causeway.commons.io.YamlUtils.YamlWriter;
 
-import dita.commons.util.FormatUtils;
+import dita.commons.io.JaxbAdapters;
 import dita.recall24.dto.Correction24.CompositeCorr;
-import tools.jackson.core.JacksonException;
-import tools.jackson.core.JsonGenerator;
-import tools.jackson.databind.SerializationContext;
-import tools.jackson.databind.module.SimpleModule;
-import tools.jackson.databind.ser.std.StdSerializer;
+import dita.recall24.dto.Correction24.CompositeCorr.Addition;
+import dita.recall24.dto.Correction24.CompositeCorr.Coordinates;
+import dita.recall24.dto.Correction24.CompositeCorr.Deletion;
+import dita.recall24.dto.Correction24.FoodByNameCorr;
+import dita.recall24.dto.Correction24.RespondentCorr;
+import lombok.SneakyThrows;
 
 public record CorrectionCommentFactory() {
 
-	public JacksonCustomizer[] yamlOptions() {
-		return new JacksonCustomizer[] {
-				FormatUtils.yamlOptions(),
-				builder->builder.addModule(new SimpleModule()
-		                .addSerializer(new CompositeCorrSerializer())),
-			};
+	public static String toYaml(final Correction24 correction24) {
+		return new Correction24YamlEmitter().toYaml(correction24);
 	}
 
-	public static String postprocess(final String yaml) {
-		boolean inComments = false;
-		String indent = "";
-		var lines = new ArrayList<String>();
-		for(String line : TextUtils.readLines(yaml)) {
-			var trimmed = line.stripLeading();
-			if(line.contains("comment: \"START\"")) {
-				inComments = true;
-				indent = line.substring(0, line.length() - trimmed.length());
-				continue;
-			}
-			if(line.contains("comment: \"END\"")) {
-				inComments = false;
-				continue;
-			}
-			if(!inComments) {
-				lines.add(line);
-				continue;
-			}
-			var converted = trimmed;
-			if(trimmed.startsWith("comment:")) {
-				converted = "# " + trimmed.substring(10);
-			} else if(trimmed.startsWith("\\")) {
-				converted = "#  " + trimmed.substring(1);
-			}
-			if(converted.endsWith("\"")) {
-				converted = converted.substring(0, converted.length()-1);
-			}
-			lines.add(indent + converted);
-		}
-		return lines.stream().collect(Collectors.joining("\n"));
-	}
+	/**
+	 * Convert Correction24 DTO to YAML.
+	 */
+	record Correction24YamlEmitter(
+			YamlWriter writer,
+	    	JaxbAdapters.NamedPathAdapter namedPathAdapter,
+	    	DateTimeFormatter localDateTimeFormat) {
 
-	private static class CompositeCorrSerializer
-    extends StdSerializer<Correction24.CompositeCorr> {
-        CompositeCorrSerializer() {
-            super(Correction24.CompositeCorr.class);
-        }
-		@SuppressWarnings("unchecked")
-		@Override
-		public void serialize(final CompositeCorr value, final JsonGenerator gen,
-				final SerializationContext ctxt) throws JacksonException {
-			gen.writeStartObject();
-			ctxt.defaultSerializeProperty("coordinates", value.coordinates(), gen);
-			Optional.ofNullable(value.properties())
-				.map(map->map.get("comments"))
-				.map(java.util.List.class::cast)
-				.filter(list->!list.isEmpty())
-				.ifPresent(list->{
-					ctxt.defaultSerializeProperty("comment", "START", gen);
-					list.forEach(
-						comment->ctxt.defaultSerializeProperty("comment", comment, gen));
-					ctxt.defaultSerializeProperty("comment", "END", gen);
-				});
-			ctxt.defaultSerializeProperty("rename", value.rename(), gen);
-			ctxt.defaultSerializeProperty("groupSid", value.groupSid(), gen);
-			ctxt.defaultSerializeProperty("additions", value.additions(), gen);
-			ctxt.defaultSerializeProperty("deletions", value.deletions(), gen);
-			gen.writeEndObject();
+		Correction24YamlEmitter() {
+			this(new YamlWriter(),
+	    		new JaxbAdapters.NamedPathAdapter(),
+	    		DateTimeFormatter.ofPattern("HH:mm:ss"));
 		}
-    }
+
+	    public String toYaml(final Correction24 correction) {
+	        if (correction == null)
+				return "null";
+
+	        // 1. Respondents
+	        List<RespondentCorr> respondents = correction.respondents();
+	        if (respondents != null && !respondents.isEmpty()) {
+	            writer.write("respondents:").nl();
+	            for (RespondentCorr resp : respondents) {
+	                writeRespondentCorr(resp);
+	            }
+	        } else {
+	            writer.write("respondents: []").nl();
+	        }
+
+	        // 2. FoodByName
+	        List<FoodByNameCorr> foodByName = correction.foodByName();
+	        if (foodByName != null && !foodByName.isEmpty()) {
+	            writer.write("foodByName:").nl();
+	            for (FoodByNameCorr food : foodByName) {
+	                writeFoodByNameCorr(food);
+	            }
+	        } else {
+	            writer.write("foodByName: []").nl();
+	        }
+
+	        // 3. Composites
+	        List<CompositeCorr> composites = correction.composites();
+	        if (composites != null && !composites.isEmpty()) {
+	            writer.write("composites:").nl();
+	            for (CompositeCorr comp : composites) {
+	                writeCompositeCorr(comp);
+	            }
+	        } else {
+	            writer.write("composites: []").nl();
+	        }
+
+	        String result = writer.toString();
+	        return result;
+	    }
+
+	    private void writeRespondentCorr(final RespondentCorr resp) {
+	        writer.sq().write("alias: ").dq(resp.alias()).nl();
+	        if (resp.withdraw() != null) {
+	            writer.ind().write("withdraw: ").write(resp.withdraw().toString()).nl();
+	        }
+	        if (resp.newAlias() != null) {
+	            writer.ind().write("newAlias: ").dq(resp.newAlias()).nl();
+	        }
+	        if (resp.dateOfBirth() != null) {
+	            writer.ind().write("dateOfBirth: ").dq(resp.dateOfBirth().toString()).nl();
+	        }
+	        if (resp.sex() != null) {
+	            writer.ind().write("sex: ").dq(resp.sex().name()).nl();
+	        }
+	    }
+
+	    private void writeFoodByNameCorr(final FoodByNameCorr food) {
+	        writer.sq().write("name: ").dq(food.name()).nl();
+	        if (food.sid() != null) {
+	            writer.ind().write("sid: ").dq(food.sid().toStringNoBox()).nl();
+	        }
+	    }
+
+	    private void writeCompositeCorr(final CompositeCorr comp) {
+	        writer.sq().write("coordinates:").nl();
+	        writeCoordinates(comp.coordinates()); // Indent 3 for properties under coordinates
+	        // rename
+	        if (comp.rename() != null) {
+	            writer.ind().write("rename: ").dq(comp.rename()).nl();
+	        }
+	        // groupSid
+	        if (comp.groupSid() != null) {
+	            writer.ind().write("groupSid: ").dq(comp.groupSid().toStringNoBox()).nl();
+	        }
+	        // additions
+	        List<Addition> additions = comp.additions();
+	        if (additions != null && !additions.isEmpty()) {
+	            writer.ind().write("additions:").nl();
+	            for (Addition add : additions) {
+	                writeAddition(add);
+	            }
+	        } else {
+	            writer.ind().write("additions: []").nl();
+	        }
+	        // deletions
+	        List<Deletion> deletions = comp.deletions();
+	        if (deletions != null && !deletions.isEmpty()) {
+	            writer.ind().write("deletions:").nl();
+	            for (Deletion del : deletions) {
+	                writeDeletion(del);
+	            }
+	        } else {
+	            writer.ind().write("deletions: []").nl();
+	        }
+	    }
+
+	    @SneakyThrows
+	    private void writeCoordinates(final Coordinates coords) {
+	        if (coords == null)
+	        	return;
+	        if (coords.sid() != null) {
+	            writer.ind(2).write("sid: ").dq(coords.sid().toStringNoBox()).nl();
+	        }
+	        if (coords.respondentId() != null) {
+	            writer.ind(2).write("respondentId: ").dq(coords.respondentId()).nl();
+	        }
+	        writer.ind(2).write("interviewOrdinal: ").write(String.valueOf(coords.interviewOrdinal())).nl();
+	        if (coords.mealHourOfDay() != null) {
+	            writer.ind(2).write("mealHourOfDay: ").dq(coords.mealHourOfDay().format(localDateTimeFormat)).nl();
+	        }
+	        if (coords.name() != null) {
+	            writer.ind(2).write("name: ").dq(coords.name()).nl();
+	        }
+	        if (coords.source() != null) {
+	            writer.ind(2).write("source: ").dq(namedPathAdapter.marshal(coords.source())).nl();
+	        }
+	    }
+
+	    private void writeAddition(final Addition add) {
+	        writer.ind().sq();
+	        writer.write("sid: ").dq(add.sid().toStringNoBox()).nl();
+	        writer.ind(2).write("amountGrams: ").write(add.amountGrams().toString()).nl();
+	        if (add.facets() != null) {
+	            writer.ind(2).write("facets: ").dq(add.facets().toStringNoBox()).nl();
+	        }
+	    }
+
+	    private void writeDeletion(final Deletion del) {
+	        writer.ind().sq();
+	        writer.write("sid: ").dq(del.sid().toStringNoBox()).nl();
+	    }
+	}
 
 }

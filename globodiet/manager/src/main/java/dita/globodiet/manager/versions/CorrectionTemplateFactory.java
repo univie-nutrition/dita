@@ -55,18 +55,21 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 			public <T extends RecallNode24> T transform(final T node) {
 				if(node instanceof Record24.Composite composite) {
 
-					var additions = calculateCorrectionAdditions(composite.sid());
-					var deletions = calculateCorrectionDeletions(composite.sid());
-
-					if(additions.size()==0
-							&& deletions.size()==0)
+					var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(composite.sid(), Diff.empty());
+					if(ingredientDiff.leftOuter().size()==0
+							&& ingredientDiff.rightOuter().size()==0)
+						//TODO check for changes also
 						return node; // skip
+
 
 					var coors = CompositeCorr.Coordinates.of(composite);
 		            String rename = null;
 		            SemanticIdentifier newGroupSid = null;
 
 		            var occurrence = new Occurrence(composite, sid->facetLiteral(sid));
+
+	                var additions = calculateCorrectionAdditions(occurrence, ingredientDiff.leftOuter());
+	                var deletions = calculateCorrectionDeletions(occurrence, ingredientDiff.rightOuter());
 
 					corrs.add(new CompositeCorr(coors, rename, newGroupSid,
 							additions, deletions, Map.of("comments", occurrence.comments())));
@@ -79,20 +82,29 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 		return corr24;
 	}
 
-	List<Addition> calculateCorrectionAdditions(final SemanticIdentifier recipeSid) {
-		var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(recipeSid, Diff.empty());
-		return ingredientDiff.leftOuter().stream()
-			.map(RecipeIngredientResolved::data)
-			.map(it->new Addition(it.foodSid(), it.amountGrams(), it.foodFacetSids()))
+	List<Addition> calculateCorrectionAdditions(final Occurrence occurrence,
+			final List<RecipeIngredientResolved> leftOuter) {
+		return leftOuter.stream()
+			.map(ingr -> new Addition(
+					ingr.foodSid(),
+					ingr.amountGrams(),
+					ingr.foodFacetSids(),
+					Map.<String, Object>of("comments", List.of(ingr.food().name()))))
 			.toList();
 	}
-    List<Deletion> calculateCorrectionDeletions(final SemanticIdentifier recipeSid) {
-    	var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(recipeSid, Diff.empty());
-		return ingredientDiff.rightOuter().stream()
-			.map(RecipeIngredientResolved::data)
-			.map(it->new Deletion(it.foodSid()))
-			.toList();
-    }
+
+	List<Deletion> calculateCorrectionDeletions(final Occurrence occurrence,
+			final List<RecipeIngredientResolved> rightOuter) {
+        return occurrence.ingredientConsumptions()
+    		.stream()
+            .filter(ingrCons->rightOuter
+            		.stream()
+            		.anyMatch(d->d.foodSid().equals(ingrCons.sid())))
+	        .map(ingrCons -> new Deletion(
+	        		ingrCons.sid(),
+	        		Map.<String, Object>of("comments", List.of(ingrCons.name()))))
+	        .toList();
+	}
 
     FoodDescriptionModel fdm() {
     	return fdmDiff.mainFdm();
