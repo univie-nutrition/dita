@@ -71,12 +71,11 @@ class Correction24Test {
 
     @Test
     @UseReporter(DiffReporter.class)
-    void roundtripOnYamlWithComments() {
+    void yamlWithComments() {
         var corr = sampleCorrection();
 		var originalYaml = corr.toYamlWithComments();
         // debug
-        System.err.printf("Correction24Test%n%s%n", originalYaml);
-        //assertEquals(corr, Correction24.tryFromYaml(originalYaml).valueAsNonNullElseFail());
+        //System.err.printf("Correction24Test%n%s%n", originalYaml);
         Approvals.verify(originalYaml, ApprovalTestOptions.yamlOptions());
     }
 
