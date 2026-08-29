@@ -13,7 +13,10 @@ composites:
     interviewOrdinal: 1
     mealHourOfDay: "19:30:00"
     source: "path/sample.xml"
+  # a comment spanning
+  # 2 lines
   additions:
+    # an addition comment
   - sid: "at.gd/2.0:food/01581"
     amountGrams: 2.5
     facets: ""
@@ -21,6 +24,7 @@ composites:
     amountGrams: 1.1
     facets: "at.gd/2.0:fd/0133, at.gd/2.0:fd/0266"
   deletions:
+    # a deletion comment
   - sid: "at.gd/2.0:food/01617"
 - coordinates:
     sid: "at.gd/2.0:recp/00301"

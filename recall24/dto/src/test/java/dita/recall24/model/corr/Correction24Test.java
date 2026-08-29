@@ -42,7 +42,6 @@ import dita.recall24.dto.Correction24.CompositeCorr.Addition;
 import dita.recall24.dto.Correction24.CompositeCorr.Coordinates;
 import dita.recall24.dto.Correction24.CompositeCorr.Deletion;
 import dita.recall24.dto.Correction24.RespondentCorr;
-import dita.recall24.dto.CorrectionCommentFactory;
 import dita.testing.ApprovalTestOptions;
 import io.github.causewaystuff.commons.base.types.NamedPath;
 
@@ -74,8 +73,7 @@ class Correction24Test {
     @UseReporter(DiffReporter.class)
     void roundtripOnYamlWithComments() {
         var corr = sampleCorrection();
-        var corrCommentFactory = new CorrectionCommentFactory();
-		var originalYaml = corr.toYamlWithComments(corrCommentFactory);
+		var originalYaml = corr.toYamlWithComments();
         // debug
         System.err.printf("Correction24Test%n%s%n", originalYaml);
         //assertEquals(corr, Correction24.tryFromYaml(originalYaml).valueAsNonNullElseFail());
@@ -102,9 +100,10 @@ class Correction24Test {
                 List.of(),
                 List.of(CompositeCorr.builder()
                         .coordinates(sampleCoors())
-                        .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets()))
+                        .addition(new Addition(food("01581"), new BigDecimal("2.5"), facets(), List.of("an addition comment")))
                         .addition(new Addition(food("01234"), new BigDecimal("1.1"), facets("0133", "0266")))
-                        .deletion(new Deletion(food("01617")))
+                        .deletion(new Deletion(food("01617"), List.of("a deletion comment")))
+                        .comments(List.of("a comment spanning", "2 lines"))
                         .build(),
                         CompositeCorr.builder()
                         .coordinates(sampleCoors())
