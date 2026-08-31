@@ -54,18 +54,27 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 			public <T extends RecallNode24> T transform(final T node) {
 				if(node instanceof Record24.Composite composite) {
 
+					// for each composite consumption we check whether it is affected by changes as reported by the diff.
+					// (1) recipe name (typos) or group may have changed
+					// (2) the recipe diff may include additions, that are not seen in the current consumption
+					// (3) the recipe diff may include deletions, that are not seen in the current consumption
+					// based on an analysis, we generate a Correction24 instance, that records all potentially required changes
+
+					// ad 2) needs left outer of diff(additions, ingredients)
+					// ad 3) needs left outer of diff(deletions, ingredients)
+
 					var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(composite.sid(), Diff.empty());
 					if(ingredientDiff.leftOuter().size()==0
 							&& ingredientDiff.rightOuter().size()==0)
 						//TODO check for changes also
 						return node; // skip
 
+					var occurrence = new Occurrence(composite, sid->facetLiteral(sid));
+
 
 					var coors = CompositeCorr.Coordinates.of(composite);
 		            String rename = null;
 		            SemanticIdentifier newGroupSid = null;
-
-		            var occurrence = new Occurrence(composite, sid->facetLiteral(sid));
 
 	                var additions = calculateCorrectionAdditions(occurrence, ingredientDiff.leftOuter());
 	                var deletions = calculateCorrectionDeletions(occurrence, ingredientDiff.rightOuter());
@@ -82,8 +91,12 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 	}
 
 	List<Addition> calculateCorrectionAdditions(final Occurrence occurrence,
-			final List<RecipeIngredientResolved> leftOuter) {
-		return leftOuter.stream()
+			final List<RecipeIngredientResolved> ingredientsAddedInMain) {
+		var ingredientDiff = Diff.typed(RecipeIngredientResolved.class, Consumption.class);
+		ingredientDiff.process(ingredientsAddedInMain, occurrence.ingredientConsumptions(),
+				RecipeIngredientResolved::key, occurrence::key, (a, b) -> true);
+
+		return ingredientDiff.leftOuter().stream()
 			.map(ingr -> new Addition(
 					ingr.foodSid(),
 					ingr.amountGrams(),
@@ -93,16 +106,16 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 	}
 
 	List<Deletion> calculateCorrectionDeletions(final Occurrence occurrence,
-			final List<RecipeIngredientResolved> rightOuter) {
-        return occurrence.ingredientConsumptions()
-    		.stream()
-            .filter(ingrCons->rightOuter
-            		.stream()
-            		.anyMatch(d->d.foodSid().equals(ingrCons.sid())))
-	        .map(ingrCons -> new Deletion(
-	        		ingrCons.sid(),
-	        		List.of(ingrCons.name())))
-	        .toList();
+			final List<RecipeIngredientResolved> ingredientsRemovedFromMain) {
+		var ingredientDiff = Diff.typed(RecipeIngredientResolved.class, Consumption.class);
+		ingredientDiff.process(ingredientsRemovedFromMain, occurrence.ingredientConsumptions(),
+				RecipeIngredientResolved::key, occurrence::key, (a, b) -> true);
+
+		return ingredientDiff.leftOuter().stream()
+			.map(ingr -> new Deletion(
+	        		ingr.foodSid(),
+	        		List.of(ingr.food().name())))
+			.toList();
 	}
 
     FoodDescriptionModel fdm() {
@@ -125,7 +138,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
             BigDecimal amountConsumedTotal,
             List<Consumption> ingredientConsumptions,
             Function<SemanticIdentifier, String> facetLiteralProvider) {
-        Occurrence(
+    	private Occurrence(
         		final Composite composite,
         		final Function<SemanticIdentifier, String> facetLiteralProvider){
             this(CompositeCorr.Coordinates.of(composite),
@@ -140,7 +153,10 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
                 streamConsumptions(composite).toList(),
                 facetLiteralProvider);
         }
-        List<String> comments() {
+    	RecipeIngredientResolved.Key key(final Consumption consumption) {
+			return new RecipeIngredientResolved.Key(composite.sid(), consumption.sid(), 0); //TODO the ordinal has no
+    	}
+    	private List<String> comments() {
         	var comments = new ArrayList<String>();
             comments.add("ingredients consumed:");
             ingredientConsumptions()
@@ -155,7 +171,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
             		.formatted(amountConsumedTotal().doubleValue()));
 			return comments;
 		}
-        String formatFacets(final SemanticIdentifierSet sids) {
+    	private String formatFacets(final SemanticIdentifierSet sids) {
             if(sids.elements().isEmpty())
             	return "";
             return "%s (%s)".formatted(
@@ -163,13 +179,13 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
                     sids.elements().map(facetLiteralProvider).join(", "));
         }
         @SuppressWarnings("unchecked")
-        static List<String> notes(final Composite composite) {
+        private static List<String> notes(final Composite composite) {
             return composite.lookupAnnotation(Annotated.NOTES)
                 .map(Annotation::value)
                 .map(x->(List<String>)x)
                 .orElseGet(List::of);
         }
-        static Stream<Consumption> streamConsumptions(final Composite composite) {
+        private static Stream<Consumption> streamConsumptions(final Composite composite) {
             return composite.subRecords().stream()
                 .filter(Consumption.class::isInstance)
                 .map(Consumption.class::cast);
