@@ -20,6 +20,7 @@ package dita.globodiet.manager.versions;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -128,6 +129,22 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
                     .get(sid))
                 .map(ClassificationFacet::name)
                 .orElse(sid.toStringNoBox());
+    }
+
+    private record ConsumptionComparatorIgnoringAmount() implements Comparator<Consumption> {
+		@Override
+		public int compare(final Consumption a, final Consumption b) {
+			int c = a.sid().compareTo(b.sid());
+			if(c!=0)
+				return c;
+			c = a.name().compareTo(b.name());
+			if(c!=0)
+				return c;
+			c = a.facetSids().compareTo(b.facetSids());
+			if(c!=0)
+				return c;
+			return c;
+		}
     }
 
     private record Occurrence(

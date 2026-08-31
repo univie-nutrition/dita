@@ -82,17 +82,24 @@ public record FoodDescriptionModel(
     		Recipe recipe,
     		Food food,
     		RecipeIngredient data) {
+
+    	public RecipeIngredientResolved(
+        		final Recipe recipe,
+        		final Food food,
+        		final RecipeIngredient data) {
+    		this(new Key(recipe.sid(), food.sid(), data.foodFacetSids().hashCode()), recipe, food, data);
+    	}
+
     	public record Key(
     			SemanticIdentifier recipeSid,
     			SemanticIdentifier foodSid,
     			/**
-    			 * Counts (1 based) ingredient occurrences of same foodSid.
-    			 * Forms a unique key together with recipeSid and foodSid.
+    			 * unique hash generated from facets
     			 */
-    			int ordinal) {
+    			int facetHash) {
     		@Override
     		public final String toString() {
-    			return recipeSid.toStringNoBox() + "::" + foodSid.toStringNoBox() + "::" + ordinal;
+    			return recipeSid.toStringNoBox() + "::" + foodSid.toStringNoBox() + "::" + facetHash;
     		}
     	}
        	public SemanticIdentifier recipeSid() { return data.recipeSid(); }

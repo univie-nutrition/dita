@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.LongAdder;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -33,6 +33,7 @@ import org.apache.causeway.commons.io.DataSink;
 import org.apache.causeway.commons.io.DataSource;
 import org.apache.causeway.commons.io.YamlUtils;
 import org.jspecify.annotations.Nullable;
+import org.springframework.util.Assert;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.util.FormatUtils;
@@ -159,41 +160,48 @@ public class FdmUtils {
 
 		var foodBySid = FdmUtils.collectFoodBySid(food);
     	var recipeBySid = FdmUtils.collectRecipeBySid(recipes);
-    	var ingredientBySid = _Multimaps.<SemanticIdentifier, RecipeIngredientResolved>newListMultimap();
+    	var ingredientByRecipeSid = _Multimaps.<SemanticIdentifier, RecipeIngredientResolved>newListMultimap();
         var classificationsBySid = FdmUtils.collectClassificationFacetBySid(classificationFacets);
 
-        var context = new Context();
         ingredients.forEach(ingr->{
-        	ingredientBySid.putElement(ingr.recipeSid(), new RecipeIngredientResolved(
-    				new RecipeIngredientResolved.Key(ingr.recipeSid(), ingr.foodSid(), context.ordinal(ingr.recipeSid(), ingr.foodSid())),
-    				recipeBySid.get(ingr.recipeSid()),
-    				foodBySid.get(ingr.foodSid()),
-    				ingr));
+
+        	var resolved = new RecipeIngredientResolved(
+        			recipeBySid.get(ingr.recipeSid()),
+        			foodBySid.get(ingr.foodSid()),
+        			ingr);
+
+        	var ingrSeenBefore = ingredientByRecipeSid.getOrElseNew(ingr.recipeSid());
+        	mergeDuplicates(ingrSeenBefore, resolved);
         });
 
         return new FoodDescriptionModel(
         		Collections.unmodifiableMap(foodBySid),
         		Collections.unmodifiableMap(recipeBySid),
-        		Collections.unmodifiableMap(ingredientBySid),
+        		Collections.unmodifiableMap(ingredientByRecipeSid),
         		Collections.unmodifiableMap(classificationsBySid));
 	}
 
-    // -- HELPER
-
-    private record Context(Map<OrdinalCounterKey, LongAdder> ordinalCounterMap) {
-    	private record OrdinalCounterKey(
-    			SemanticIdentifier recipeSid,
-    			SemanticIdentifier foodSid) {
-    	}
-    	Context() {
-    		this(new HashMap<>());
-    	}
-		public int ordinal(final SemanticIdentifier recipeSid, final SemanticIdentifier foodSid) {
-			var key = new OrdinalCounterKey(recipeSid, foodSid);
-			var counter = ordinalCounterMap.computeIfAbsent(key, _->new LongAdder());
-			counter.increment();
-			return counter.intValue();
+	private static void mergeDuplicates(
+			final List<RecipeIngredientResolved> ingrSeenBefore,
+			final RecipeIngredientResolved resolved) {
+		var duplicate = ingrSeenBefore.stream()
+				.filter(ingr->ingr.key().equals(resolved.key()))
+				.findFirst()
+				.orElse(null);
+		if(duplicate==null) {
+			ingrSeenBefore.add(resolved);
+			return;
 		}
-    }
+		ingrSeenBefore.replaceAll(ingr->ingr==duplicate ? mergeDuplicate(duplicate, resolved) : ingr);
+
+	}
+
+	private static RecipeIngredientResolved mergeDuplicate(
+			final RecipeIngredientResolved a,
+			final RecipeIngredientResolved b) {
+		Assert.isTrue(Objects.equals(a.rawToCookedCoefficient(), b.rawToCookedCoefficient()), ()->"cannot merge when raw-to-cooked mismatch");
+		return new RecipeIngredientResolved(a.recipe(), a.food(),
+				new RecipeIngredient(a.recipeSid(), a.foodSid(), a.foodFacetSids(), a.amountGrams().add(b.amountGrams()), a.rawToCookedCoefficient()));
+	}
 
 }
