@@ -604,7 +604,8 @@ public record Correction24(
         public Record24 apply(final Record24 orig) {
             if(compCorr.deletions()!=null) {
                 for(var deletion : compCorr.deletions()) {
-                    if(deletion.sid().equals(orig.sid())) {
+                    if(deletion.sid().equals(orig.sid())
+                    		&& deletion.facets().equals(orig.facetSids())) {
                         notesModifiable.add("CORR DELETED: %s (%s)".formatted(
                                 deletion.sid().objectId(),
                                 nameBySidLookup.apply(deletion.sid())));
