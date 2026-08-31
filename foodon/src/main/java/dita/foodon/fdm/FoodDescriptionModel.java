@@ -81,13 +81,15 @@ public record FoodDescriptionModel(
     		Key key,
     		Recipe recipe,
     		Food food,
+    		int relativeMassPermille,
     		RecipeIngredient data) {
 
     	public RecipeIngredientResolved(
         		final Recipe recipe,
         		final Food food,
+        		final int relativeMassPermille,
         		final RecipeIngredient data) {
-    		this(new Key(recipe.sid(), food.sid(), data.foodFacetSids().hashCode()), recipe, food, data);
+    		this(new Key(recipe.sid(), food.sid(), data.foodFacetSids().hashCode()), recipe, food, relativeMassPermille, data);
     	}
 
     	public record Key(

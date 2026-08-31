@@ -18,6 +18,8 @@
  */
 package dita.foodon.fdm;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -163,11 +165,16 @@ public class FdmUtils {
     	var ingredientByRecipeSid = _Multimaps.<SemanticIdentifier, RecipeIngredientResolved>newListMultimap();
         var classificationsBySid = FdmUtils.collectClassificationFacetBySid(classificationFacets);
 
+        var totalAmount = ingredients.stream()
+        	.map(RecipeIngredient::amountGrams)
+        	.reduce(BigDecimal.ZERO, BigDecimal::add);
+
         ingredients.forEach(ingr->{
 
         	var resolved = new RecipeIngredientResolved(
         			recipeBySid.get(ingr.recipeSid()),
         			foodBySid.get(ingr.foodSid()),
+        			ingr.amountGrams().movePointLeft(3).divide(totalAmount, 0, RoundingMode.HALF_UP).intValueExact(),
         			ingr);
 
         	var ingrSeenBefore = ingredientByRecipeSid.getOrElseNew(ingr.recipeSid());
@@ -200,7 +207,7 @@ public class FdmUtils {
 			final RecipeIngredientResolved a,
 			final RecipeIngredientResolved b) {
 		Assert.isTrue(Objects.equals(a.rawToCookedCoefficient(), b.rawToCookedCoefficient()), ()->"cannot merge when raw-to-cooked mismatch");
-		return new RecipeIngredientResolved(a.recipe(), a.food(),
+		return new RecipeIngredientResolved(a.recipe(), a.food(), a.relativeMassPermille() + b.relativeMassPermille(),
 				new RecipeIngredient(a.recipeSid(), a.foodSid(), a.foodFacetSids(), a.amountGrams().add(b.amountGrams()), a.rawToCookedCoefficient()));
 	}
 
