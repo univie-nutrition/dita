@@ -196,7 +196,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Composite> asBuilder() {
+        public Composite.Builder asBuilder() {
             return Builder.of(this);
         }
 
@@ -348,7 +348,7 @@ permits
 			Assert.isTrue(equalsIgnoreAmount(other), ()->"cannot merge food that does not satisfy the equalsIgnoreAmount relation");
 			Assert.isTrue(Objects.equals(this.consumptionUnit, other.consumptionUnit), ()->"cannot merge food with differing consumptionUnit");
 			Assert.isTrue(Objects.equals(this.annotations, other.annotations), ()->"cannot merge food with differing annotations");
-			return ((Food.Builder) asBuilder())
+			return asBuilder()
 				.amountConsumed(this.amountConsumed.add(other.amountConsumed))
 				.build();
 		}
@@ -362,7 +362,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Food> asBuilder() {
+        public Food.Builder asBuilder() {
             return Builder.of(this);
         }
 
@@ -437,7 +437,7 @@ permits
         @Override
         public Consumption withAnnotationAdded(@Nullable final Annotation annotation) {
             if(annotation==null) return this;
-            return ((Food.Builder)asBuilder())
+            return asBuilder()
                     .addAnnotation(annotation)
                     .build();
         }
@@ -467,7 +467,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<TypeOfFatUsed> asBuilder() {
+        public TypeOfFatUsed.Builder asBuilder() {
             return Builder.of(this);
         }
 
@@ -516,7 +516,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<TypeOfMilkOrLiquidUsed> asBuilder() {
+        public TypeOfMilkOrLiquidUsed.Builder asBuilder() {
             return Builder.of(this);
         }
 
@@ -566,7 +566,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<FryingFat> asBuilder() {
+        public FryingFat.Builder asBuilder() {
             return Builder.of(this);
         }
 
@@ -607,7 +607,7 @@ permits
         @Override
         public Consumption withAnnotationAdded(@Nullable final Annotation annotation) {
             if(annotation==null) return this;
-            return ((FryingFat.Builder)asBuilder())
+            return asBuilder()
                     .addAnnotation(annotation)
                     .build();
         }
@@ -633,7 +633,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Product> asBuilder() {
+        public Product.Builder asBuilder() {
             return Builder.of(this);
         }
 
@@ -674,7 +674,7 @@ permits
         @Override
         public Consumption withAnnotationAdded(final Annotation annotation) {
             if(annotation==null) return this;
-            return ((Product.Builder)asBuilder())
+            return asBuilder()
                     .addAnnotation(annotation)
                     .build();
         }
@@ -697,7 +697,7 @@ permits
 
         @SuppressWarnings("unchecked")
         @Override
-        public Builder24<Comment> asBuilder() {
+        public Comment.Builder asBuilder() {
             return Builder.of(this);
         }
 

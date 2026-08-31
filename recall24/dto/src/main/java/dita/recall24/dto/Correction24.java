@@ -387,7 +387,7 @@ public record Correction24(
                     var foodByNameCorr = foodByNameCorrs.get(food.name());
                     if(foodByNameCorr==null){yield node;}
 
-                    var builder = (Food.Builder)food.asBuilder();
+                    var builder = food.asBuilder();
 
                     log.info("about to correct {}", foodByNameCorr);
 
@@ -503,7 +503,7 @@ public record Correction24(
                         .orElseGet(()->compCorrByCoors.get(CompositeCorr.Coordinates.ofRelaxed(composite)));
                     if(compCorr==null){yield node;}
 
-                    var builder = (Composite.Builder)composite.asBuilder();
+                    var builder = composite.asBuilder();
 
                     log.info("about to correct {}", compCorr);
 
@@ -534,19 +534,19 @@ public record Correction24(
                             if(sr instanceof Consumption consumption)
                                 return switch (consumption) {
                                     case Food food -> {
-                                        var foodBuilder = (Food.Builder)(food.asBuilder());
+                                        var foodBuilder = food.asBuilder();
                                         var amountConsumed = NumberUtils.reducedPrecision(foodBuilder.amountConsumed().multiply(correctionFactor), 2);
                                         foodBuilder.amountConsumed(amountConsumed);
                                         yield foodBuilder.build();
                                     }
                                     case FryingFat fryingFat -> {
-                                        var fryingFatBuilder = (FryingFat.Builder)(fryingFat.asBuilder());
+                                        var fryingFatBuilder = fryingFat.asBuilder();
                                         var amountConsumed = NumberUtils.reducedPrecision(fryingFatBuilder.amountConsumed().multiply(correctionFactor), 2);
                                         fryingFatBuilder.amountConsumed(amountConsumed);
                                         yield fryingFatBuilder.build();
                                     }
                                     case Product product -> {
-                                        var productBuilder = (Product.Builder)(product.asBuilder());
+                                        var productBuilder = product.asBuilder();
                                         var amountConsumed = NumberUtils.reducedPrecision(productBuilder.amountConsumed().multiply(correctionFactor), 2);
                                         productBuilder.amountConsumed(amountConsumed);
                                         yield productBuilder.build();
