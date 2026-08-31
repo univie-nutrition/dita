@@ -604,12 +604,17 @@ public record Correction24(
         public Record24 apply(final Record24 orig) {
             if(compCorr.deletions()!=null) {
                 for(var deletion : compCorr.deletions()) {
-                    if(deletion.sid().equals(orig.sid())
-                    		&& deletion.facets().equals(orig.facetSids())) {
-                        notesModifiable.add("CORR DELETED: %s (%s)".formatted(
-                                deletion.sid().objectId(),
-                                nameBySidLookup.apply(deletion.sid())));
-                        return null;
+
+                    if(deletion.sid().equals(orig.sid())) {
+                    	// support of legacy correction data, where the facets field was not available
+                    	// when empty then always apply
+                    	if(deletion.facets().elements().isEmpty()
+                    			|| deletion.facets().equals(orig.facetSids())) {
+	                        notesModifiable.add("CORR DELETED: %s (%s)".formatted(
+	                                deletion.sid().objectId(),
+	                                nameBySidLookup.apply(deletion.sid())));
+	                        return null;
+                    	}
                     }
                 }
             }
