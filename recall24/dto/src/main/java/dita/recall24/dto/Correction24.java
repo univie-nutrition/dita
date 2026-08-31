@@ -169,20 +169,20 @@ public record Correction24(
         }
         public record Addition(
             @NonNull SemanticIdentifier sid,
-            @NonNull BigDecimal amountGrams,
             @NonNull SemanticIdentifierSet facets,
+            @NonNull BigDecimal amountGrams,
             @JsonIgnore List<String> comments) {
         	public Addition(
                     @NonNull final SemanticIdentifier sid,
-                    @NonNull final BigDecimal amountGrams,
-                    @Nullable final SemanticIdentifierSet facets) {
-        		this(sid, amountGrams, facets, List.of());
+                    @Nullable final SemanticIdentifierSet facets,
+                    @NonNull final BigDecimal amountGrams) {
+        		this(sid, facets, amountGrams, List.of());
         	}
             // canonical constructor
             public Addition(
                 @NonNull final SemanticIdentifier sid,
-                @NonNull final BigDecimal amountGrams,
                 @Nullable final SemanticIdentifierSet facets,
+                @NonNull final BigDecimal amountGrams,
                 final List<String> comments) {
                 this.sid = sid;
                 this.amountGrams = amountGrams;
@@ -195,11 +195,22 @@ public record Correction24(
         }
         public record Deletion(
             @NonNull SemanticIdentifier sid,
+            @NonNull SemanticIdentifierSet facets,
             @JsonIgnore List<String> comments) {
         	public Deletion(
                     @NonNull final SemanticIdentifier sid) {
-        		this(sid, List.of());
+        		this(sid, SemanticIdentifierSet.empty(), List.of());
             }
+            // canonical constructor
+            public Deletion(
+                @NonNull final SemanticIdentifier sid,
+                @Nullable final SemanticIdentifierSet facets,
+                final List<String> comments) {
+                this.sid = sid;
+                this.facets = facets!=null ? facets : SemanticIdentifierSet.empty();
+                this.comments = comments;
+            }
+
         }
     }
 

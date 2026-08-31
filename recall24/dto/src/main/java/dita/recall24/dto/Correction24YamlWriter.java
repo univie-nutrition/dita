@@ -132,13 +132,14 @@ record Correction24YamlWriter(
     private void writeAddition(final Addition add) {
     	writeComments(2, add.comments());
         kv(1, "- sid", add.sid());
-        kv(2, "amountGrams", add.amountGrams());
         kv(2, "facets", add.facets());
+        kv(2, "amountGrams", add.amountGrams());
     }
 
     private void writeDeletion(final Deletion del) {
     	writeComments(2, del.comments());
     	kv(1, "- sid", del.sid());
+    	kv(2, "facets", del.facets());
     }
 
     /** key: value w/ newline; line is not emitted if value is null; */

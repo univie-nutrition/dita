@@ -287,6 +287,52 @@ Recipe changes can be converted automatically into a `Correction24` template.
 This is useful when the Food Description Model (FDM) changes after interview
 data has already been collected.
 
+[plantuml,fig-corr-template-generation,svg]
+.Correction template generation from FDM changes
+----
+@startuml
+
+left to right direction
+skinparam componentStyle rectangle
+
+database "Previous FDM" as oldFdm
+database "Current FDM" as newFdm
+database "Record24.Composite\nentries" as records
+
+component "FdmDiffFactory" as fdmDiffFactory
+component "Diff utility" as diff
+component "CorrectionTemplateFactory" as templateFactory
+
+rectangle "Correction24\ncorrection template" as correction
+
+component "Expert review" as review
+component "Interview-set\npost processing" as processing
+
+oldFdm --> fdmDiffFactory
+newFdm --> fdmDiffFactory
+
+fdmDiffFactory --> diff : creates FDM Diff
+
+diff --> templateFactory : recipe changes
+records --> templateFactory : composite entries
+
+templateFactory --> correction : creates
+
+correction --> review : optional
+review --> processing : approved corrections
+correction --> processing : direct application
+
+note bottom of templateFactory
+  Matches recipes and consumption entries
+  using Coordinates.
+  Ingredient changes are represented as
+  deletions and additions.
+end note
+
+@enduml
+----
+
+
 The `CorrectionTemplateFactory` compares two FDM versions and creates a
 correction template for the existing `Record24.Composite` entries, 
 typically contained within an `InterviewSet` of a particular `Survey`. The

@@ -99,8 +99,8 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 		return ingredientDiff.leftOuter().stream()
 			.map(ingr -> new Addition(
 					ingr.foodSid(),
-					ingr.amountGrams(),
 					ingr.foodFacetSids(),
+					ingr.amountGrams(),
 					List.of(ingr.food().name())))
 			.toList();
 	}
@@ -114,6 +114,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 		return ingredientDiff.leftOuter().stream()
 			.map(ingr -> new Deletion(
 	        		ingr.foodSid(),
+	        		ingr.foodFacetSids(),
 	        		List.of(ingr.food().name())))
 			.toList();
 	}
