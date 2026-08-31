@@ -54,12 +54,13 @@ class Coordinates << (R,orchid) >> {
 
 class Addition << (R,orchid) >> {
     sid: SemanticIdentifier
-    amountGrams: BigDecimal
     facets: SemanticIdentifierSet
+    amountGrams: BigDecimal
 }
 
 class Deletion << (R,orchid) >> {
     sid: SemanticIdentifier
+    facets: SemanticIdentifierSet
 }
 
 Correction24 --> "*" RespondentCorr: respondents
@@ -195,6 +196,7 @@ Correction of composite consumptions supports 4 basic changes:
 ** requires `facets` of food to add
 * *DELETE* Ingredient: 
 ** requires identifier (_sid_) of food to remove
+** requires `facets` of food to remove
 
 After those changes are applied, all the ingredient amounts are recalculated 
 such that the composite's total amount consumed stays the same (as compared to before the correction). 
@@ -217,17 +219,19 @@ class Coordinates << (R,orchid) >> {
     respondentId: String
     interviewOrdinal: int
     mealHourOfDay: LocalTime
+    name: String (optional)
     source: NamedPath 
 }
 
 class Addition << (R,orchid) >> {
     sid: SemanticIdentifier
-    amountGrams: BigDecimal
     facets: SemanticIdentifierSet
+    amountGrams: BigDecimal
 }
 
 class Deletion << (R,orchid) >> {
     sid: SemanticIdentifier
+    facets: SemanticIdentifierSet
 }
 
 CompositeCorr --> "1" Coordinates: coordinates
@@ -250,6 +254,7 @@ composites:
   deletions: 
     # DELETE food/02280 Fond, Fleisch {assocRecp=465} 413.56g (82.71%)
   - sid: "at.gd/2.0:food/02280"
+    facets: ""
   additions: 
     # ADD food/01399 Wasser, Leitung 302,72g
   - sid: "at.gd/2.0:food/01399"
@@ -276,6 +281,136 @@ composites:
   additions: []
 ----
 
+=== Generating corrections from FDM changes
+
+Recipe changes can be converted automatically into a `Correction24` template.
+This is useful when the Food Description Model (FDM) changes after interview
+data has already been collected.
+
+The `CorrectionTemplateFactory` compares two FDM versions and creates a
+correction template for the existing `Record24.Composite` entries, 
+typically contained within an `InterviewSet` of a particular `Survey`. The
+correction template contains all recipe changes that may need to be applied to the
+interview data. Experts may then review the template and decide which individual 
+corrections to apply.
+
+==== Comparing FDM versions
+
+The comparison is based on the recipe ingredients. Ingredient order is not
+significant: reordering ingredients without changing their content does not
+produce a correction.
+
+Each recipe ingredient is identified within the FDM by a key containing:
+
+* the recipe SID (`recipeSid`)
+* the food SID (`foodSid`)
+* a facet hash
+
+The facet hash is required because a recipe may contain the same food more than
+once with different facets. Consequently, two ingredients with the same food
+SID but different facets are treated as different ingredients.
+
+The comparison identifies the following changes:
+
+* ingredients present only in the old FDM version (governed by above key)
+* ingredients present only in the new FDM version (governed by above key)
+* ingredients with the same key but a changed relative amount
+* ingredients whose facets changed, represented as a deletion and an addition (part of the above)
+* ingredients that are unchanged
+
+Ingredient amounts are compared using their relative mass in permille, rather
+than their absolute mass. This makes the comparison independent of differences
+in the total mass of the recipe.
+
+The comparison can be viewed conceptually as follows:
+
+[source,text]
+----
+old ingredients          new ingredients
+----------------------   ----------------------
+key only in old       -> DELETE
+key only in new       -> ADD
+same key, changed     -> DELETE + ADD
+same key, unchanged   -> no correction
+----
+
+==== Translating changes into Correction24
+
+The resulting corrections are attached to the corresponding composite
+consumption using its `Coordinates`.
+
+An ingredient addition is written as an `Addition` containing:
+
+* the food SID
+* the new amount in grams
+* the new facets
+
+An ingredient deletion is written as a `Deletion` containing the food SID and
+the facets of the ingredient to remove. Together, these fields identify the
+ingredient to delete.
+
+Changes that are neither pure additions nor pure deletions are represented as
+a combination of both operations:
+
+. emit a `Deletion` for the old ingredient, including its old facets
+. emit an `Addition` for the new ingredient, including its new amount and facets
+
+This representation is also used when an ingredient's facets change. Since the
+facets form part of the ingredient key, a facet change appears as one deleted
+ingredient and one added ingredient.
+
+For an amount-only change, the old and new ingredients have the same food SID
+and facets, but different relative masses. 
+The factory therefore emits both a deletion and an addition for that
+ingredient.
+
+[source,yaml]
+.Example: amount change generated as delete plus add
+----
+composites:
+- coordinates:
+    sid: "at.gd/2.0:recp/00514"
+    respondentId: "EB_9999"
+    interviewOrdinal: 1
+    mealHourOfDay: "13:00:00"
+    source: "wave1/Interview-12345.xml"
+  deletions:
+  - sid: "at.gd/2.0:food/01581"
+    facets: ""
+  additions:
+  - sid: "at.gd/2.0:food/01581"
+    facets: ""
+    amountGrams: 6.05
+----
+
+The generated correction must preserve the distinction between ingredients
+that have the same food SID but different facets. A correction must therefore
+not match ingredients by food SID alone when the source FDM contains duplicate
+food SIDs with different facets.
+
+==== Inputs and output
+
+The `CorrectionTemplateFactory` receives:
+
+* the existing `Record24.Composite` entries
+* the difference between the old and new FDM versions
+
+It returns a `Correction24` containing corrections for all matching composite
+entries.
+
+For each changed recipe, the factory:
+
+. finds the corresponding `Record24.Composite` entry or entries
+  using their recipe SID and available consumption coordinates
+. compares the old and new ingredient sets without considering ingredient order
+. creates `Deletion` entries for removed or replaced ingredients
+. creates `Addition` entries for new or replaced ingredients
+. adds the resulting `CompositeCorr` to the output `Correction24`
+
+If the available coordinates do not identify a single consumption entry, the
+correction is applied to every matching entry, as described in
+<<_consumption_identification,Consumption Identification>>.
+
 == Consumption Identification
 
 [plantuml,fig-corr-coors,svg]
@@ -298,7 +433,8 @@ class Coordinates << (R,orchid) >> {
 @enduml
 ----
 
-Consumption entries have no identifier per-se, so we use multiple *coordinates* to narrow down specific entries:
+Consumption entries do not have a single identifier. Instead, multiple
+*coordinates* are used to narrow down the intended entry:
 
 * `sid`: SemanticIdentifier of the recipe in question
 * `respondentId`
