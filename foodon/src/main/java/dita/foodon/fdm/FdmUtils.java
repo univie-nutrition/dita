@@ -154,6 +154,14 @@ public class FdmUtils {
         return map;
     }
 
+    public static BigDecimal totalAmountGrams(
+    		final Collection<RecipeIngredient> ingredients) {
+    	var totalAmount = ingredients.stream()
+            	.map(RecipeIngredient::amountGrams)
+            	.reduce(BigDecimal.ZERO, BigDecimal::add);
+    	return totalAmount;
+    }
+
 	public static FoodDescriptionModel resolve(
 			final Collection<Food> food,
 			final Collection<Recipe> recipes,
@@ -164,10 +172,7 @@ public class FdmUtils {
     	var recipeBySid = FdmUtils.collectRecipeBySid(recipes);
     	var ingredientByRecipeSid = _Multimaps.<SemanticIdentifier, RecipeIngredientResolved>newListMultimap();
         var classificationsBySid = FdmUtils.collectClassificationFacetBySid(classificationFacets);
-
-        var totalAmount = ingredients.stream()
-        	.map(RecipeIngredient::amountGrams)
-        	.reduce(BigDecimal.ZERO, BigDecimal::add);
+        var totalAmount = totalAmountGrams(ingredients);
 
         ingredients.forEach(ingr->{
 
