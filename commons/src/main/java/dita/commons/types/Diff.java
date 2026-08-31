@@ -70,12 +70,12 @@ public record Diff<L, R>(
         return this;
     }
 
-	public void process(final Iterable<? extends L> lefties, final Iterable<? extends R> righties,
-			final Function<L, String> leftSignatureFun, final Function<R, String> rightSignatureFun, final BiPredicate<L, R> equality) {
+	public <T> void process(final Iterable<? extends L> lefties, final Iterable<? extends R> righties,
+			final Function<L, T> leftKeyFun, final Function<R, T> rightKeyFun, final BiPredicate<L, R> equality) {
 		var leftMap = _NullSafe.stream(lefties)
-			.collect(Collectors.toMap(leftSignatureFun, UnaryOperator.identity()));
+			.collect(Collectors.toMap(leftKeyFun, UnaryOperator.identity()));
 		var rightMap = _NullSafe.stream(righties)
-			.collect(Collectors.toMap(rightSignatureFun, UnaryOperator.identity()));
+			.collect(Collectors.toMap(rightKeyFun, UnaryOperator.identity()));
 		_Sets.minus(leftMap.keySet(), rightMap.keySet())
 			.stream()
 			.map(leftMap::get)
