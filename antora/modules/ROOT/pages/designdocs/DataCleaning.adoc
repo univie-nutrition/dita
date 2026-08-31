@@ -297,7 +297,7 @@ skinparam componentStyle rectangle
 
 database "Previous FDM" as oldFdm
 database "Current FDM" as newFdm
-database "Record24.Composite\nentries" as records
+database "InterviewSet" as records
 
 component "FdmDiffFactory" as fdmDiffFactory
 component "Diff utility" as diff
@@ -311,16 +311,16 @@ component "Interview-set\npost processing" as processing
 oldFdm --> fdmDiffFactory
 newFdm --> fdmDiffFactory
 
-fdmDiffFactory --> diff : creates FDM Diff
+fdmDiffFactory -> diff : creates FDM Diff
 
 diff --> templateFactory : recipe changes
 records --> templateFactory : composite entries
 
 templateFactory --> correction : creates
 
-correction --> review : optional
-review --> processing : approved corrections
-correction --> processing : direct application
+correction -> review : optional
+review -> processing : approved corrections
+correction -> processing : direct application
 
 note bottom of templateFactory
   Matches recipes and consumption entries
@@ -332,13 +332,16 @@ end note
 @enduml
 ----
 
+The following components participate in generating a correction template:
 
-The `CorrectionTemplateFactory` compares two FDM versions and creates a
-correction template for the existing `Record24.Composite` entries, 
-typically contained within an `InterviewSet` of a particular `Survey`. The
-correction template contains all recipe changes that may need to be applied to the
-interview data. Experts may then review the template and decide which individual 
-corrections to apply.
+* `FdmDiffFactory` compares the previous and current FDM versions.
+* The resulting `Diff` describes changed recipes and their ingredients.
+* `CorrectionTemplateFactory` combines the FDM changes with existing
+  `Record24.Composite` from an `InterviewSet` of a particular `Survey`.
+* The factory creates a `Correction24` containing the corresponding
+  `CompositeCorr` entries.
+* The generated correction template may be reviewed before being applied to
+  the interview data.
 
 ==== Comparing FDM versions
 
