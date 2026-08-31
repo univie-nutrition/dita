@@ -36,6 +36,7 @@ import org.apache.causeway.commons.functional.IndexedConsumer;
 import org.apache.causeway.commons.internal.assertions._Assert;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -322,6 +323,36 @@ permits
             Map<String, Serializable> annotations
             ) implements Consumption {
 
+        /**
+         * Used for ingredient duplicate detection.
+         *
+         * <p>Also ignores annotations and consumptionUnit.
+         */
+		public boolean equalsIgnoreAmount(@Nullable final Food other) {
+			if(other==null)
+				return false;
+			return Objects.equals(this.sid, other.sid)
+					&& Objects.equals(this.name, other.name)
+					&& Objects.equals(this.facetSids, other.facetSids)
+					&& Objects.equals(this.rawToCookedCoefficient, other.rawToCookedCoefficient);
+		}
+
+		/**
+		 * Merges 2 {@link Food} by summing their amount.
+		 *
+		 * <p>Requires the {@link #equalsIgnoreAmount(Food)} relation to be satisfied
+		 * and also requires {@link #annotations()} and {@link #consumptionUnit()} to be equal.
+		 * Throws {@link IllegalArgumentException} otherwise.
+		 */
+		public Food merge(@Nullable final Food other) {
+			Assert.isTrue(equalsIgnoreAmount(other), ()->"cannot merge food that does not satisfy the equalsIgnoreAmount relation");
+			Assert.isTrue(Objects.equals(this.consumptionUnit, other.consumptionUnit), ()->"cannot merge food with differing consumptionUnit");
+			Assert.isTrue(Objects.equals(this.annotations, other.annotations), ()->"cannot merge food with differing annotations");
+			return ((Food.Builder) asBuilder())
+				.amountConsumed(this.amountConsumed.add(other.amountConsumed))
+				.build();
+		}
+
         @Override
         public void visitDepthFirst(final int level, final IndexedConsumer<Record24> onRecord) {
             onRecord.accept(level, this);
@@ -410,6 +441,7 @@ permits
                     .addAnnotation(annotation)
                     .build();
         }
+
     }
 
     /**

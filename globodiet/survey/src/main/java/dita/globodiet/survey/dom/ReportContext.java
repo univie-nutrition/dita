@@ -27,6 +27,7 @@ import dita.commons.sid.dmap.DirectMap;
 import dita.commons.sid.qmap.QualifiedMap;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
+import dita.globodiet.survey.util.DuplicateIngredientMerger;
 import dita.globodiet.survey.util.FoodGroupReplacerBasedOnFDM;
 import dita.globodiet.survey.util.FryingFatDeduplicator1;
 import dita.globodiet.survey.util.FryingFatDeduplicator2;
@@ -80,6 +81,7 @@ public record ReportContext(
                     // to handle ingredients from the previous transformer
                     .transform(new QualifiedMappingResolver(nutMapping()))
                     .transform(new FoodGroupReplacerBasedOnFDM(foodDescriptionModel()))
+                    .transform(new DuplicateIngredientMerger())
             );
     }
 

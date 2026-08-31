@@ -26,12 +26,11 @@ import org.apache.causeway.applib.services.factory.FactoryService;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Strings;
 
-import lombok.experimental.UtilityClass;
-
 import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.commons.types.Message;
 import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.dom.SurveyDeps.Survey_dependentCampaignMappedBySurvey;
+import dita.globodiet.survey.util.DuplicateIngredientMerger;
 import dita.globodiet.survey.util.InterviewUtils;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Correction24;
@@ -39,6 +38,7 @@ import dita.recall24.dto.InterviewSet24;
 import dita.recall24.dto.util.Recall24DtoUtils;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
 import io.github.causewaystuff.commons.base.types.NamedPath;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Campaigns {
@@ -108,6 +108,7 @@ public class Campaigns {
 
         for(Correction24 correction : corrections) {
             compositesCorrected = compositesCorrected
+            		.transform(new DuplicateIngredientMerger())
                     .transform(correction.asCompositeTransformer(
                     		sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).name(),
                     		sid->foodDescriptionModel.lookupFoodBySidElseFail(sid).groupSid()));
