@@ -98,5 +98,11 @@ public record Diff<L, R>(
 			});
 	}
 
+	public boolean isAllSame() {
+		return leftOuter.isEmpty()
+				&& rightOuter.isEmpty()
+				&& innerMismatch.isEmpty();
+	}
+
 }
 

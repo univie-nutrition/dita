@@ -19,7 +19,6 @@
 package dita.foodon.fdm;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.causeway.commons.internal.base._NullSafe;
@@ -39,6 +39,7 @@ import org.springframework.util.Assert;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.util.FormatUtils;
+import dita.commons.util.NumberUtils;
 import dita.foodon.fdm.Dtos.FoodDescriptionModelDto;
 import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
 import dita.foodon.fdm.FoodDescriptionModel.Food;
@@ -172,18 +173,22 @@ public class FdmUtils {
     	var recipeBySid = FdmUtils.collectRecipeBySid(recipes);
     	var ingredientByRecipeSid = _Multimaps.<SemanticIdentifier, RecipeIngredientResolved>newListMultimap();
         var classificationsBySid = FdmUtils.collectClassificationFacetBySid(classificationFacets);
-        var totalAmount = totalAmountGrams(ingredients);
 
-        ingredients.forEach(ingr->{
+        var ingrByRecipe = ingredients.stream()
+        	.collect(Collectors.groupingBy(RecipeIngredient::recipeSid));
 
-        	var resolved = new RecipeIngredientResolved(
-        			recipeBySid.get(ingr.recipeSid()),
-        			foodBySid.get(ingr.foodSid()),
-        			ingr.amountGrams().movePointLeft(3).divide(totalAmount, 0, RoundingMode.HALF_UP).intValueExact(),
-        			ingr);
+        ingrByRecipe.forEach((_, ingrList)->{
+        	var totalAmount = totalAmountGrams(ingrList);
+        	ingrList.forEach(ingr->{
+            	var resolved = new RecipeIngredientResolved(
+            			recipeBySid.get(ingr.recipeSid()),
+            			foodBySid.get(ingr.foodSid()),
+            			NumberUtils.permillion(ingr.amountGrams(), totalAmount),
+            			ingr);
 
-        	var ingrSeenBefore = ingredientByRecipeSid.getOrElseNew(ingr.recipeSid());
-        	mergeDuplicates(ingrSeenBefore, resolved);
+            	var ingrSeenBefore = ingredientByRecipeSid.getOrElseNew(ingr.recipeSid());
+            	mergeDuplicates(ingrSeenBefore, resolved);
+        	});
         });
 
         return new FoodDescriptionModel(

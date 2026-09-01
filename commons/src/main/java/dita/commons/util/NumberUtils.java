@@ -28,12 +28,10 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.causeway.commons.internal.assertions._Assert;
 import org.jspecify.annotations.Nullable;
 
-import org.apache.causeway.commons.internal.assertions._Assert;
-
 import lombok.experimental.UtilityClass;
-
 import tech.units.indriya.function.DefaultNumberSystem;
 import tech.units.indriya.internal.function.Calculator;
 
@@ -180,12 +178,12 @@ public class NumberUtils {
 
     // -- FORMATTING
 
-    private DecimalFormat DF3 = new DecimalFormat("###.###",DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+    private final DecimalFormat DF3 = new DecimalFormat("###.###",DecimalFormatSymbols.getInstance(Locale.ENGLISH));
     {
         DF3.setRoundingMode(RoundingMode.HALF_UP);
     }
 
-    private DefaultNumberSystem DFNS = new DefaultNumberSystem();
+    private final DefaultNumberSystem DFNS = new DefaultNumberSystem();
 
     public String scientificFormat(@Nullable final Number number){
         return scientificFormat(number, "");
@@ -247,5 +245,15 @@ public class NumberUtils {
                 ? String.format("%.1f", 100. * asDouble) + "%"
                 : "NaN%";
     }
+
+    public int permillion(final BigDecimal part, final BigDecimal total) {
+    	var ppm = part.movePointRight(6).doubleValue()
+    			/ total.doubleValue();
+    	return (int)Math.round(ppm);
+    }
+
+	public BigDecimal totalTimesPermillion(final BigDecimal total, final int permillion) {
+		return total.movePointLeft(6).multiply(BigDecimal.valueOf(permillion));
+	}
 
 }

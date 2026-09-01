@@ -30,6 +30,7 @@ import org.apache.causeway.commons.internal.base._NullSafe;
 import org.apache.causeway.commons.internal.base._Strings;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
 import org.jspecify.annotations.Nullable;
+import org.springframework.util.Assert;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
@@ -85,12 +86,16 @@ public record FoodDescriptionModel(
     		int relativeMassPermille,
     		RecipeIngredient data) {
 
+    	public RecipeIngredientResolved {
+    		Assert.isTrue(relativeMassPermille>0, ()->"relativeMassPermille must be greater than zero");
+    	}
+
     	public RecipeIngredientResolved(
         		final Recipe recipe,
         		final Food food,
-        		final int relativeMassPermille,
+        		final int relativeMassPermillion,
         		final RecipeIngredient data) {
-    		this(new Key(recipe.sid(), food.sid(), data.foodFacetSids().hashCode()), recipe, food, relativeMassPermille, data);
+    		this(new Key(recipe.sid(), food.sid(), data.foodFacetSids().hashCode()), recipe, food, relativeMassPermillion, data);
     	}
 
     	public record Key(

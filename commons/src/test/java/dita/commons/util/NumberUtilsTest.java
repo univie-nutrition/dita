@@ -18,15 +18,15 @@
  */
 package dita.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import lombok.RequiredArgsConstructor;
 
@@ -106,7 +106,17 @@ class NumberUtilsTest {
     	var adjustedValue = NumberUtils.roundToFitUnscaledLimit(b, limit);
     	assertEquals(b.doubleValue(), adjustedValue.doubleValue(), 1E-8);
     	assertTrue(adjustedValue.unscaledValue().longValueExact()<=limit.longValueExact());
+    }
 
+    @Test
+    void permille() {
+    	assertEquals(2, NumberUtils.permillion(BigDecimal.valueOf(2), BigDecimal.valueOf(1000000)));
+    	assertEquals(200000, NumberUtils.permillion(BigDecimal.valueOf(2), BigDecimal.valueOf(10)));
+    }
+
+    @Test
+    void totalTimesPermille() {
+    	assertEquals(new BigDecimal("0.000050"), NumberUtils.totalTimesPermillion(BigDecimal.valueOf(50), 1));
     }
 
 }
