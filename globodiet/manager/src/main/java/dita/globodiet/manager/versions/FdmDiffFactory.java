@@ -22,11 +22,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.Diff;
 import dita.foodon.fdm.FoodDescriptionModel;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
 
 public record FdmDiffFactory() {
 
@@ -64,8 +66,10 @@ public record FdmDiffFactory() {
 				var rightIngredients = base.ingredientsByRecipeSid().getOrDefault(recipeId, List.of());
 				ingrDiff.process(
 						leftIngredients, rightIngredients,
-						ingr->ingr.key().toString(), ingr->ingr.key().toString(),
-						(a, b)-> a.data().equals(b.data()));
+						RecipeIngredientResolved::key, RecipeIngredientResolved::key,
+						(a, b) -> Objects.equals(a.key(), b.key())
+				        	&& Math.abs(a.relativeMassPermille()-b.relativeMassPermille())<=2 // account for rounding errors +/- 2 permille
+				            && Objects.equals(a.rawToCookedCoefficient(), b.rawToCookedCoefficient()));
 			});
 
 		return fdmDiff;

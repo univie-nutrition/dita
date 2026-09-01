@@ -189,7 +189,7 @@ public class FdmUtils {
         return new FoodDescriptionModel(
         		Collections.unmodifiableMap(foodBySid),
         		Collections.unmodifiableMap(recipeBySid),
-        		Collections.unmodifiableMap(ingredientByRecipeSid),
+        		ingredientByRecipeSid.asUnmodifiable(),
         		Collections.unmodifiableMap(classificationsBySid));
 	}
 

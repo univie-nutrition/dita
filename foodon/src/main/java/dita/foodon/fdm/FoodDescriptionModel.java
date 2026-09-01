@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -109,6 +110,19 @@ public record FoodDescriptionModel(
        	public SemanticIdentifierSet foodFacetSids() { return data.foodFacetSids(); }
     	public BigDecimal amountGrams() { return data.amountGrams(); }
     	public BigDecimal rawToCookedCoefficient() { return data.rawToCookedCoefficient(); }
+
+    	@Override public final boolean equals(final Object obj) {
+    		return obj instanceof RecipeIngredientResolved other
+				? this.key.equals(other.key)
+					&& this.data.equals(other.data)
+				: false;
+    	}
+    	@Override public final int hashCode() {
+    		return Objects.hash(key, amountGrams());
+    	}
+    	@Override public final String toString() {
+    		return "RecipeIngredientResolved[key=%s, amountGrams=%s]".formatted(key, amountGrams());
+    	}
     }
 
     public record ClassificationFacet(

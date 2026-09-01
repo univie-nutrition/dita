@@ -21,15 +21,20 @@ package dita.globodiet.manager.versions;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Diff;
+import dita.commons.types.Pair;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.foodon.fdm.FoodDescriptionModel.ClassificationFacet;
+import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
 import dita.globodiet.manager.versions.FdmDiffFactory.FdmDiff;
 import dita.recall24.dto.Annotated;
@@ -43,6 +48,7 @@ import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Consumption;
+import dita.recall24.dto.Record24.Food;
 
 public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 
@@ -53,34 +59,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 			@Override
 			public <T extends RecallNode24> T transform(final T node) {
 				if(node instanceof Record24.Composite composite) {
-
-					// for each composite consumption we check whether it is affected by changes as reported by the diff.
-					// (1) recipe name (typos) or group may have changed
-					// (2) the recipe diff may include additions, that are not seen in the current consumption
-					// (3) the recipe diff may include deletions, that are not seen in the current consumption
-					// based on an analysis, we generate a Correction24 instance, that records all potentially required changes
-
-					// ad 2) needs left outer of diff(additions, ingredients)
-					// ad 3) needs left outer of diff(deletions, ingredients)
-
-					var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(composite.sid(), Diff.empty());
-					if(ingredientDiff.leftOuter().size()==0
-							&& ingredientDiff.rightOuter().size()==0)
-						//TODO check for changes also
-						return node; // skip
-
-					var occurrence = new Occurrence(composite, sid->facetLiteral(sid));
-
-
-					var coors = CompositeCorr.Coordinates.of(composite);
-		            String rename = null;
-		            SemanticIdentifier newGroupSid = null;
-
-	                var additions = calculateCorrectionAdditions(occurrence, ingredientDiff.leftOuter());
-	                var deletions = calculateCorrectionDeletions(occurrence, ingredientDiff.rightOuter());
-
-					corrs.add(new CompositeCorr(coors, rename, newGroupSid,
-							additions, deletions, occurrence.comments()));
+	                correctionFor(composite).ifPresent(corrs::add);
 				}
 				return node;
 			}
@@ -88,6 +67,285 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 
         var corr24 = new Correction24(null, null, corrs);
 		return corr24;
+	}
+
+	private Optional<CompositeCorr> correctionFor(final Composite composite) {
+
+        final var recipeSid = composite.sid();
+
+        final var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid()
+            .getOrDefault(recipeSid, Diff.empty());
+
+        final var recipeChangeOpt = recipeChangeFor(recipeSid);
+        final var facts = new CompositeFacts(composite);
+
+        final var affectedFoodSids = new TreeSet<SemanticIdentifier>();
+
+        // 1) Ingredients added in main FDM.
+        ingredientDiff.leftOuter().forEach(ingr -> {
+            if (ingr.foodSid() != null) {
+                affectedFoodSids.add(ingr.foodSid());
+            }
+        });
+
+        // 2) Ingredients removed from main FDM.
+        ingredientDiff.rightOuter().forEach(ingr -> {
+            if (ingr.foodSid() != null) {
+                affectedFoodSids.add(ingr.foodSid());
+            }
+        });
+
+        // 3) Ingredients present in both versions, but changed.
+        //
+        // We deliberately do NOT treat pure absolute-amount changes as meaningful.
+        // Instead, we compare relative mass.
+        ingredientDiff.innerMismatch().forEach(pair -> {
+            final var mainIng = pair.left();
+            final var baseIng = pair.right();
+
+            if (isMeaningfulIngredientChange(mainIng, baseIng)) {
+                if (mainIng.foodSid() != null) {
+                    affectedFoodSids.add(mainIng.foodSid());
+                }
+                if (baseIng.foodSid() != null) {
+                    affectedFoodSids.add(baseIng.foodSid());
+                }
+            }
+        });
+
+        if (affectedFoodSids.isEmpty() && recipeChangeOpt.isEmpty())
+			return Optional.empty();
+
+        final var additions = new ArrayList<Addition>();
+        final var deletions = new ArrayList<Deletion>();
+        final var comments = new ArrayList<String>();
+
+        String rename = null;
+        SemanticIdentifier newGroupSid = null;
+
+        var change = recipeChangeOpt.orElse(null);
+
+        if(change!=null) {
+            if (!Objects.equals(change.baseName(), change.mainName())) {
+                rename = change.mainName();
+                comments.add("RENAME %s -> %s".formatted(change.baseName(), change.mainName()));
+            }
+
+            if (!Objects.equals(change.baseGroupSid(), change.mainGroupSid())) {
+                newGroupSid = change.mainGroupSid();
+                comments.add("GROUP CHANGE %s -> %s".formatted(
+                    change.baseGroupSid() != null ? change.baseGroupSid().toStringNoBox() : "∅",
+                    change.mainGroupSid() != null ? change.mainGroupSid().toStringNoBox() : "∅"
+                ));
+            }
+        }
+
+        final var mainIngredients = mainIngredientsFor(recipeSid);
+
+        // We replace by foodSid.
+        //
+        // This is intentional:
+        // - Correction24.Deletion only has a sid, no facets.
+        // - The same foodSid may occur multiple times with different facets.
+        // - If any variant of that foodSid changed, replacing all variants with the
+        //   main-FDM variants is the safest delete + add strategy.
+        for (final var foodSid : affectedFoodSids) {
+
+            final var currentFoods = facts.foodsBySid(foodSid);
+
+            final var targetFoods = mainIngredients.stream()
+                .filter(ingr -> Objects.equals(ingr.foodSid(), foodSid))
+                .toList();
+
+            // Delete current ingredient(s) for this SID, if any.
+            if (!currentFoods.isEmpty()) {
+                deletions.add(new Deletion(foodSid));
+
+                final var currentNames = currentFoods.stream()
+                    .map(Food::name)
+                    .collect(Collectors.joining(","));
+
+                comments.add("CORR DELETE affected ingredient(s): %s [%s]"
+                    .formatted(foodSid.toStringNoBox(), currentNames));
+            }
+
+            // Add new main-FDM ingredient(s) for this SID.
+            for (final var target : targetFoods) {
+                final var amount = target.amountGrams() != null
+                    ? target.amountGrams()
+                    : BigDecimal.ZERO;
+
+                final var facets = target.foodFacetSids() != null
+                    ? target.foodFacetSids().toStringNoBox()
+                    : "";
+
+                final var additionComments = List.of(
+                    "main FDM ingredient: %s [%s]"
+                        .formatted(target.food().name(), facets)
+                );
+
+                additions.add(new Addition(
+                    target.foodSid(),
+                    target.foodFacetSids(),
+                    amount,
+                    additionComments
+                ));
+
+                comments.add("CORR ADD affected ingredient: %s %s [%s]"
+                    .formatted(foodSid.toStringNoBox(), amount, facets));
+            }
+        }
+
+        if (additions.isEmpty()
+            && deletions.isEmpty()
+            && rename == null
+            && newGroupSid == null)
+			return Optional.empty();
+
+        final var coordinates = CompositeCorr.Coordinates.of(composite);
+
+        return Optional.of(new CompositeCorr(
+            coordinates,
+            rename,
+            newGroupSid,
+            additions,
+            deletions,
+            comments
+        ));
+    }
+
+    private boolean isMeaningfulIngredientChange(
+        final RecipeIngredientResolved main,
+        final RecipeIngredientResolved base) {
+
+        // Same food identity?
+        if (!Objects.equals(main.foodSid(), base.foodSid()))
+			return true;
+
+        // Facets are part of the ingredient key, but include this check defensively.
+        if (!Objects.equals(main.foodFacetSids(), base.foodFacetSids()))
+			return true;
+
+        // Relative amount changed?
+        if (main.relativeMassPermille() != base.relativeMassPermille())
+			return true;
+
+        // Raw-to-cooked coefficient changed?
+        if (!Objects.equals(main.rawToCookedCoefficient(), base.rawToCookedCoefficient()))
+			return true;
+
+        // Pure absolute amount changes are ignored on purpose.
+        return false;
+    }
+
+    private List<RecipeIngredientResolved> mainIngredientsFor(final SemanticIdentifier recipeSid) {
+        return fdmDiff.mainFdm()
+            .lookupRecipeBySid(recipeSid)
+            .map(recipe -> fdmDiff.mainFdm().streamIngredients(recipe).toList())
+            .orElseGet(List::of);
+    }
+
+    private Optional<RecipeChange> recipeChangeFor(final SemanticIdentifier recipeSid) {
+        final var main = fdmDiff.mainFdm().lookupRecipeBySid(recipeSid).orElse(null);
+        final var base = baseRecipeFor(recipeSid);
+
+        if (main == null || base == null)
+			return Optional.empty();
+
+        final boolean nameChanged = !Objects.equals(main.name(), base.name());
+        final boolean groupChanged = !Objects.equals(main.groupSid(), base.groupSid());
+
+        if (!nameChanged && !groupChanged)
+			return Optional.empty();
+
+        return Optional.of(new RecipeChange(
+            base.name(),
+            main.name(),
+            base.groupSid(),
+            main.groupSid()
+        ));
+    }
+
+    private Recipe baseRecipeFor(final SemanticIdentifier recipeSid) {
+        final var pairs = Stream.concat(
+            fdmDiff.recipeDiff().innerMatch().stream(),
+            fdmDiff.recipeDiff().innerMismatch().stream()
+        );
+
+        return pairs
+            .map(Pair::right)
+            .filter(Objects::nonNull)
+            .filter(recipe -> Objects.equals(recipe.sid(), recipeSid))
+            .findFirst()
+            .orElse(null);
+    }
+
+    private String facetLiteral(final SemanticIdentifier sid) {
+        return Optional.ofNullable(
+            fdmDiff.mainFdm()
+                .classificationFacetBySid()
+                .get(sid)
+        )
+            .map(FoodDescriptionModel.ClassificationFacet::name)
+            .orElse(sid.toStringNoBox());
+    }
+
+    private record RecipeChange(
+        String baseName,
+        String mainName,
+        SemanticIdentifier baseGroupSid,
+        SemanticIdentifier mainGroupSid
+    ) {
+    }
+
+    /**
+     * Small helper replacing the old Occurrence class.
+     *
+     * We group current composite Food sub-records by SemanticIdentifier.
+     */
+    private static class CompositeFacts {
+
+        private final Map<SemanticIdentifier, List<Food>> foodsBySid;
+
+        CompositeFacts(final Composite composite) {
+            this.foodsBySid = composite.subRecords()
+                .stream()
+                .filter(Food.class::isInstance)
+                .map(Food.class::cast)
+                .filter(food -> food.sid() != null)
+                .collect(Collectors.groupingBy(Food::sid));
+        }
+
+        List<Food> foodsBySid(final SemanticIdentifier sid) {
+            return foodsBySid.getOrDefault(sid, List.of());
+        }
+    }
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/// For each composite consumption we check whether it is affected by changes as reported by the diff.
+	/// * recipe name (typos) or group may have changed
+	/// * the recipe diff may include additions, that are not seen in the current consumption
+	/// * the recipe diff may include deletions, that are not seen in the current consumption
+	/// Based on an analysis, we generate a Correction24 instance, that records all potentially required changes
+	Optional<CompositeCorr> correctionFor2(final Composite composite) {
+		var ingredientDiff = fdmDiff.ingredientDiffByRecipeSid().getOrDefault(composite.sid(), Diff.empty());
+		if(ingredientDiff.leftOuter().size()==0
+				&& ingredientDiff.rightOuter().size()==0)
+			//TODO check for changes also
+			return Optional.empty(); // skip
+
+		var occurrence = new Occurrence(composite, this::facetLiteral);
+
+		var coors = CompositeCorr.Coordinates.of(composite);
+        String rename = null;
+        SemanticIdentifier newGroupSid = null;
+
+        var additions = calculateCorrectionAdditions(occurrence, ingredientDiff.leftOuter());
+        var deletions = calculateCorrectionDeletions(occurrence, ingredientDiff.rightOuter());
+
+		return Optional.of(new CompositeCorr(coors, rename, newGroupSid,
+				additions, deletions, occurrence.comments()));
 	}
 
 	List<Addition> calculateCorrectionAdditions(final Occurrence occurrence,
@@ -123,13 +381,13 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     	return fdmDiff.mainFdm();
     }
 
-    String facetLiteral(final SemanticIdentifier sid) {
-        return Optional.ofNullable(
-        		fdm().classificationFacetBySid()
-                    .get(sid))
-                .map(ClassificationFacet::name)
-                .orElse(sid.toStringNoBox());
-    }
+//    String facetLiteral(final SemanticIdentifier sid) {
+//        return Optional.ofNullable(
+//        		fdm().classificationFacetBySid()
+//                    .get(sid))
+//                .map(ClassificationFacet::name)
+//                .orElse(sid.toStringNoBox());
+//    }
 
     private record Occurrence(
             CompositeCorr.Coordinates coors,

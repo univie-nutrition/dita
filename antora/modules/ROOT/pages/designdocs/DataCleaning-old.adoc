@@ -1,0 +1,542 @@
+= Data Cleaning
+:includedir: includes
+
+Typically with surveys, data will be entered incorrectly by interviewers 
+or issues with recipes are discovered only *after* interviews had been conducted.
+Hence it is likely that respondent and consumption data will need correction as a post processing step.
+
+_Dita_ implements an interview-set transformer, that corrects interview data based on uploaded correction files.
+Those correction files have following structure:
+
+[plantuml,fig-corr-overview,svg]
+.Correction24
+----
+@startuml
+
+hide empty fields
+hide empty methods
+
+class Correction24 << (R,orchid) >> {
+}
+
+class RespondentCorr << (R,orchid) >> {
+    alias: String
+    withdraw: boolean
+    newAlias: String
+    dateOfBirth: LocalDate
+}
+
+enum Sex {
+    UNCLASSIFIED
+    MALE
+    FEMALE
+}
+
+RespondentCorr --> Sex : sex
+
+class FoodByNameCorr << (R,orchid) >> {
+    name: String
+    sid: SemanticIdentifier
+}
+
+class CompositeCorr << (R,orchid) >> {
+    rename: String
+    groupSid: SemanticIdentifier
+}
+
+class Coordinates << (R,orchid) >> {
+    sid: SemanticIdentifier
+    respondentId: String
+    interviewOrdinal: int
+    mealHourOfDay: LocalTime
+    source: NamedPath 
+}
+
+class Addition << (R,orchid) >> {
+    sid: SemanticIdentifier
+    facets: SemanticIdentifierSet
+    amountGrams: BigDecimal
+}
+
+class Deletion << (R,orchid) >> {
+    sid: SemanticIdentifier
+    facets: SemanticIdentifierSet
+}
+
+Correction24 --> "*" RespondentCorr: respondents
+Correction24 --> "*" FoodByNameCorr: foodByName
+Correction24 --> "*" CompositeCorr: composites
+CompositeCorr --> "1" Coordinates: coordinates
+CompositeCorr --> "*" Addition: additions
+CompositeCorr --> "*" Deletion: deletions
+
+@enduml
+----
+
+[source,yaml]
+.Correction YAML basic structure
+----
+respondents:
+- alias: "EB_9999"
+  #...
+# and so on ...  
+foodByName:
+- name: "Maiswaffeln"
+  sid: "at.gd/2.0:food/02423"
+# and so on ...  
+composites:
+- coordinates:
+    #...
+  rename: # optional: new name or empty or omitted
+  groupSid: # optional: new group or empty or omitted
+  deletions:
+    #...
+  additions:
+    #...
+# and so on ...    
+----
+
+== Respondent Correction
+
+Allows to correct defect data entered during interview such as the _Respondent-Id_, _Sex_ or _Date of Birth_.
+Also allows to remove interviews from respondents, that later wished to withdraw from the survey.
+
+[plantuml,fig-corr-resp,svg]
+.Respondent correction
+----
+@startuml
+
+hide empty fields
+hide empty methods
+
+class RespondentCorr << (R,orchid) >> {
+    alias: String
+    withdraw: boolean
+    newAlias: String
+    dateOfBirth: LocalDate
+}
+
+enum Sex {
+    UNCLASSIFIED
+    MALE
+    FEMALE
+}
+
+RespondentCorr -> Sex : sex
+
+@enduml
+----
+
+Some examples:  
+
+[source,yaml]
+.Fixing respondent-id typo
+----
+respondents:
+- alias: "EB9999"
+  newAlias: "EB_9999"
+----
+
+[source,yaml]
+.Fixing respondent-data
+----
+respondents:
+- alias: "EB_9999"
+  dateOfBirth: 1999-11-22
+  sex: MALE
+----
+
+[source,yaml]
+.Respondent withdrawal
+----
+respondents:
+- alias: "EB_9999"
+  withdraw: true
+----
+
+== Consumption Correction
+
+=== Food
+
+Correcting food consumptions, that have no identifier, only a name.
+
+[plantuml,fig-corr-foodbyname,svg]
+.Food by name correction
+----
+@startuml
+
+hide empty fields
+hide empty methods
+
+class FoodByNameCorr << (R,orchid) >> {
+    name: String
+    sid: SemanticIdentifier
+}
+
+@enduml
+----
+
+[source,yaml]
+.Fixes food with missing identifier (having a name but no sid)
+----
+foodByName:
+- name: "Maiswaffeln"
+  sid: "at.gd/2.0:food/02423"
+----
+
+=== Composite
+
+Correction of composite consumptions supports 4 basic changes:
+
+* Renaming of the composite consumption entry
+* Update of the composite's group (membership)
+* *ADD* Ingredient: 
+** requires identifier (`sid`) of food to add
+** requires `amountGrams` of food to add
+** requires `facets` of food to add
+* *DELETE* Ingredient: 
+** requires identifier (_sid_) of food to remove
+** requires `facets` of food to remove
+
+After those changes are applied, all the ingredient amounts are recalculated 
+such that the composite's total amount consumed stays the same (as compared to before the correction). 
+
+[plantuml,fig-corr-comp,svg]
+.Composite correction
+----
+@startuml
+
+hide empty fields
+hide empty methods
+
+class CompositeCorr << (R,orchid) >> {
+    rename: String
+    groupSid: SemanticIdentifier
+}
+
+class Coordinates << (R,orchid) >> {
+    sid: SemanticIdentifier
+    respondentId: String
+    interviewOrdinal: int
+    mealHourOfDay: LocalTime
+    name: String (optional)
+    source: NamedPath 
+}
+
+class Addition << (R,orchid) >> {
+    sid: SemanticIdentifier
+    facets: SemanticIdentifierSet
+    amountGrams: BigDecimal
+}
+
+class Deletion << (R,orchid) >> {
+    sid: SemanticIdentifier
+    facets: SemanticIdentifierSet
+}
+
+CompositeCorr --> "1" Coordinates: coordinates
+CompositeCorr --> "*" Addition: additions
+CompositeCorr --> "*" Deletion: deletions
+
+@enduml
+----
+
+[source,yaml]
+.Fixes a composite consumption by deleting and adding specific ingredients
+----
+composites:
+- coordinates: 
+    sid: "at.gd/2.0:recp/00514"
+    respondentId: "EB_9999"
+    interviewOrdinal: 1
+    mealHourOfDay: "13:00:00"
+    source: "wave1/Interview-12345.xml"
+  deletions: 
+    # DELETE food/02280 Fond, Fleisch {assocRecp=465} 413.56g (82.71%)
+  - sid: "at.gd/2.0:food/02280"
+    facets: ""
+  additions: 
+    # ADD food/01399 Wasser, Leitung 302,72g
+  - sid: "at.gd/2.0:food/01399"
+    amountGrams:  302.72
+    facets: ""
+    # ADD food/01581 Streuwürze 6,05g
+  - sid: "at.gd/2.0:food/01581"
+    amountGrams:  6.05
+    facets: ""
+----
+
+[source,yaml]
+.Changes a composite consumption name
+----
+composites:
+- coordinates: 
+    sid: "at.gd/2.0:recp/00514"
+    respondentId: "EB_9999"
+    interviewOrdinal: 1
+    mealHourOfDay: "13:00:00"
+    source: "wave1/Interview-12345.xml"
+  rename: "New Name"
+  deletions: [] 
+  additions: []
+----
+
+== Consumption Identification
+
+[plantuml,fig-corr-coors,svg]
+.Composite coordinates
+----
+@startuml
+
+hide empty fields
+hide empty methods
+
+class Coordinates << (R,orchid) >> {
+    sid: SemanticIdentifier
+    respondentId: String
+    interviewOrdinal: int
+    mealHourOfDay: LocalTime
+    name: String
+    source: NamedPath 
+}
+
+@enduml
+----
+
+Consumption entries do not have a single identifier. Instead, multiple
+*coordinates* are used to narrow down the intended entry:
+
+* `sid`: SemanticIdentifier of the recipe in question
+* `respondentId`
+* `interviewOrdinal`
+* `mealHourOfDay`
+* `name` : optional name of the composite entry, in case of ad-hoc or modified composite food entries
+* `source`: path of the interview source file in question
+
+WARNING: This might still not be enough information to nail down the exact consumption entry. In which case
+corrections will be applied to *all* entries that match the coordinates. 
+
+NOTE: Special care needs to be taken when uploading new interview data, 
+as this may render those coordinates invalid. It may also render any of the above corrections invalid!
+
+== Working with multiple Correction Files
+
+Multiple correction files can be uploaded each representing a `Correction24` data structure. 
+_Dita_ automatically collects these into a single `Correction24` object for interview data post processing.
+
+Here are some templates:
+
+[source,yaml]
+.only correcting respondents
+----
+respondents:
+- alias: "EB_9999"
+  #...
+# and so on ...
+foodByName: []
+composites: []
+----
+
+[source,yaml]
+.only correcting composite consumptions
+----
+respondents: []
+foodByName: []
+composites:
+- coordinates:
+    #...
+  rename: # optional: new name or empty or omitted
+  groupSid: # optional: new group or empty or omitted
+  deletions:
+    #...
+  additions:
+    #...
+# and so on ...     
+----
+
+== Working with multiple Correction Steps
+
+A (single) `Correction24` may not contain any coordinate duplicates, 
+because correction application targeted for the same composite coordinates say,
+is *not commutative*, meaning application order matters. 
+Hence _Dita_ allows for a sequence of `Correction24` *steps* to be applied in order.  
+
+== Generating corrections from FDM changes
+
+Recipe changes can be converted automatically into a `Correction24` template.
+This is useful when the Food Description Model (FDM) changes after interview
+data has already been collected.
+
+[plantuml,fig-corr-template-generation,svg]
+.Correction template generation from FDM changes
+----
+@startuml
+
+left to right direction
+skinparam componentStyle rectangle
+
+database "Previous FDM" as oldFdm
+database "Current FDM" as newFdm
+database "InterviewSet" as records
+
+component "FdmDiffFactory" as fdmDiffFactory
+component "FDM Diff" as diff
+component "CorrectionTemplateFactory" as templateFactory
+
+rectangle "Correction24\ncorrection template" as correction
+
+component "Expert review" as review
+component "Interview-set\npost processing" as processing
+
+oldFdm --> fdmDiffFactory
+newFdm --> fdmDiffFactory
+
+fdmDiffFactory -> diff : creates
+
+diff --> templateFactory : recipe changes
+records --> templateFactory : composite entries
+
+templateFactory --> correction : creates
+
+correction -> review : optional
+review -> processing : approved corrections
+correction -> processing : direct application
+
+note bottom of templateFactory
+  Matches recipes and consumption entries
+  using Coordinates.
+  Ingredient changes are represented as
+  deletions and additions.
+end note
+
+@enduml
+----
+
+The following components participate in generating a correction template:
+
+* `FdmDiffFactory` compares the previous and current FDM versions.
+* The resulting `Diff` describes changed recipes and their ingredients.
+* `CorrectionTemplateFactory` combines the FDM changes with existing
+  `Record24.Composite` from an `InterviewSet` of a particular `Survey`.
+* The factory creates a `Correction24` containing the corresponding
+  `CompositeCorr` entries.
+* The generated correction template may be reviewed before being applied to
+  the interview data.
+
+=== Comparing FDM versions
+
+The comparison is based on the recipe ingredients. Ingredient order is not
+significant: reordering ingredients without changing their content does not
+produce a correction.
+
+Each recipe ingredient is identified within the FDM by a key containing:
+
+* the recipe SID (`recipeSid`)
+* the food SID (`foodSid`)
+* a facet hash
+
+The facet hash is required because a recipe may contain the same food more than
+once with different facets. Consequently, two ingredients with the same food
+SID but different facets are treated as different ingredients.
+
+The comparison identifies the following changes:
+
+* ingredients present only in the old FDM version (governed by above key)
+* ingredients present only in the new FDM version (governed by above key)
+* ingredients with the same key but a changed relative amount
+* ingredients whose facets changed, represented as a deletion and an addition (part of the above)
+* ingredients that are unchanged
+
+Ingredient amounts are compared using their relative mass in permille, rather
+than their absolute mass. This makes the comparison independent of differences
+in the total mass of the recipe.
+
+The comparison can be viewed conceptually as follows:
+
+[source,text]
+----
+old ingredients          new ingredients
+----------------------   ----------------------
+key only in old       -> DELETE
+key only in new       -> ADD
+same key, changed     -> DELETE + ADD
+same key, unchanged   -> no correction
+----
+
+=== Translating changes into Correction24
+
+The resulting corrections are attached to the corresponding composite
+consumption using its `Coordinates`.
+
+An ingredient addition is written as an `Addition` containing:
+
+* the food SID
+* the new facets
+* the new amount in grams
+
+An ingredient deletion is written as a `Deletion` containing the food SID and
+the facets of the ingredient to remove. Together, these fields identify the
+ingredient to delete.
+
+Changes that are neither pure additions nor pure deletions are represented as
+a combination of both operations:
+
+. emit a `Deletion` for the old ingredient, including its old facets
+. emit an `Addition` for the new ingredient, including its new amount and facets
+
+This representation is also used when an ingredient's facets change. Since the
+facets form part of the ingredient key, a facet change appears as one deleted
+ingredient and one added ingredient.
+
+For an amount-only change, the old and new ingredients have the same food SID
+and facets, but different relative masses. 
+The factory therefore emits both a deletion and an addition for that
+ingredient.
+
+[source,yaml]
+.Example: amount change generated as delete plus add
+----
+composites:
+- coordinates:
+    sid: "at.gd/2.0:recp/00514"
+    respondentId: "EB_9999"
+    interviewOrdinal: 1
+    mealHourOfDay: "13:00:00"
+    source: "wave1/Interview-12345.xml"
+  deletions:
+  - sid: "at.gd/2.0:food/01581"
+    facets: ""
+  additions:
+  - sid: "at.gd/2.0:food/01581"
+    facets: ""
+    amountGrams: 6.05
+----
+
+The generated correction must preserve the distinction between ingredients
+that have the same food SID but different facets. A correction must therefore
+not match ingredients by food SID alone when the source FDM contains duplicate
+food SIDs with different facets.
+
+=== Inputs and output
+
+The `CorrectionTemplateFactory` receives:
+
+* the existing `Record24.Composite` entries
+* the difference between the old and new FDM versions
+
+It returns a `Correction24` containing corrections for all matching composite
+entries.
+
+For each changed recipe, the factory:
+
+. finds the corresponding `Record24.Composite` entry or entries
+  using their recipe SID and available consumption coordinates
+. compares the old and new ingredient sets without considering ingredient order
+. creates `Deletion` entries for removed or replaced ingredients
+. creates `Addition` entries for new or replaced ingredients
+. adds the resulting `CompositeCorr` to the output `Correction24`
+
+If the available coordinates do not identify a single consumption entry, the
+correction is applied to every matching entry, as described in
+<<_consumption_identification,Consumption Identification>>.
+
