@@ -176,7 +176,8 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
             	.forEach(ingrCons->{
             		comments.add("- %s %s %s (%s) {%s}"
             			.formatted(
-	                        ingrCons.amountConsumed(), ingrCons.consumptionUnit(),
+        					formatDecimal(ingrCons.amountConsumed()),
+        					ingrCons.consumptionUnit(),
 	                        ingrCons.name(), ingrCons.sid().objectId().toString(),
 	                        formatFacets(ingrCons.facetSids())));
             	});
@@ -234,7 +235,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     		additions().add(new Addition(
     				recipeIngr.foodSid(),
     				recipeIngr.foodFacetSids(),
-    				newAmount,
+    				NumberUtils.reducedPrecision(newAmount, 2),
     				List.of(
 						"ADD " + formatNameAndFacets(recipeIngr),
 						secondaryComment)));
@@ -253,10 +254,10 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     		add(ingredientChange.left(), newAmount,
     				"amount changed in FDM %sg -> %sg (%s%% %s%%)"
 					.formatted(
-							ingredientChange.right().amountGrams(),
-							ingredientChange.left().amountGrams(),
-							BigDecimal.valueOf(oldPpm).movePointLeft(4), // converts ppm to percent 10^-6 -> 10^-2
-							BigDecimal.valueOf(newPpm).movePointLeft(4)));
+							formatDecimal(ingredientChange.right().amountGrams()),
+							formatDecimal(ingredientChange.left().amountGrams()),
+							formatDecimal(BigDecimal.valueOf(oldPpm).movePointLeft(4)), // converts ppm to percent 10^-6 -> 10^-2
+							formatDecimal(BigDecimal.valueOf(newPpm).movePointLeft(4))));
     		del(ingredientChange.left(), "change of amount");
 		}
 		CompositeCorr build() {
@@ -288,6 +289,10 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     		)
             .map(FoodDescriptionModel.ClassificationFacet::name)
             .orElse(sid.toStringNoBox());
+    }
+
+    private static String formatDecimal(final BigDecimal bd) {
+    	return NumberUtils.reducedPrecision(bd, 2).toPlainString();
     }
 
 }
