@@ -23,14 +23,10 @@ import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.ActionLayout.Position;
 import org.apache.causeway.applib.annotation.MemberSupport;
 import org.apache.causeway.applib.annotation.ParameterLayout;
-import org.apache.causeway.applib.annotation.Programmatic;
 import org.apache.causeway.applib.annotation.SemanticsOf;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.valuetypes.asciidoc.applib.value.AsciiDoc;
-import org.springframework.beans.factory.annotation.Qualifier;
 
-import dita.commons.types.TabularData;
-import dita.commons.types.TabularDiff;
 import dita.commons.util.FormatUtils;
 import dita.globodiet.manager.versions.VersionsService.VersionFilter;
 
@@ -41,16 +37,23 @@ import dita.globodiet.manager.versions.VersionsService.VersionFilter;
 		describedAs = "Generates a Parameter Data Diff between this and another selected version")
 public record ParameterDataVersion_diff(
 		ParameterDataVersion mixee,
-		@Qualifier("table2entity") TabularData.NameTransformer nameTransformer,
-		@Qualifier("diff") TabularData.SecondaryKeyProvider secondaryKeyProvider,
-		VersionsService versionsService)  {
+		VersionsService versionsService,
+		VersionsExportService versionsExportService)  {
 
 	@MemberSupport
 	public AsciiDoc act(
 			@ParameterLayout(describedAs =
 			"Select Parameter Data Version as a base to compare against.")
 			final ParameterDataVersion baseVersion) {
-		return FormatUtils.adocSourceBlock("yaml", diff(baseVersion).toYaml());
+
+		var mainVersion = mixee;
+
+		var mainFdm = versionsExportService.getFoodDescriptionModel(mainVersion);
+        var baseFdm = versionsExportService.getFoodDescriptionModel(baseVersion);
+
+        var fdmDiff = new FdmDiffFactory().diff(mainFdm, baseFdm);
+
+		return FormatUtils.adocSourceBlock("yaml", fdmDiff.toYaml());
 	}
 
 	@MemberSupport
@@ -58,22 +61,6 @@ public record ParameterDataVersion_diff(
 		return versionsService.getVersions()
             .filter(VersionFilter.NOT_DELETED)
 			.filter(baseVersion->baseVersion.id() < mixee.id());
-	}
-
-	@Programmatic
-	public TabularDiff diff(
-			final ParameterDataVersion baseVersion) {
-		return new TabularDiff(
-				filter(mixee.asTabularData()),
-				filter(baseVersion.asTabularData()),
-				secondaryKeyProvider);
-	}
-
-	private TabularData filter(final TabularData orig) {
-		return orig.transform(nameTransformer)
-			.filter(
-				table->secondaryKeyProvider.lookupSecondaryKey(table.key()).isPresent(),
-				row->!row.cellLiterals().contains("ALIAS"));
 	}
 
 }

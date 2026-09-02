@@ -26,6 +26,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
+
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.Diff;
 import dita.commons.types.Pair;
@@ -34,7 +36,7 @@ import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
 
 public record FdmDiffFactory() {
 
-	record FdmDiff(
+	public record FdmDiff(
 			FoodDescriptionModel mainFdm,
 			FoodDescriptionModel baseFdm,
 			Diff<FoodDescriptionModel.Food, FoodDescriptionModel.Food> foodDiff,
@@ -96,6 +98,9 @@ public record FdmDiffFactory() {
 				));
 	    }
 
+		public @Nullable String toYaml() {
+			return new FdmDiffYamlWriter(this).toYaml();
+		}
 	}
 
 	public FdmDiff diff(final FoodDescriptionModel main, final FoodDescriptionModel base) {
@@ -140,5 +145,4 @@ public record FdmDiffFactory() {
 		joined.addAll(b);
 		return joined;
 	}
-
 }

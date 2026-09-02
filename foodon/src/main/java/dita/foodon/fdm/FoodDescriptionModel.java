@@ -172,6 +172,17 @@ public record FoodDescriptionModel(
                 .orElseThrow(()->_Exceptions.illegalArgument("failed to resolve recipe for sid %s", sid));
     }
 
+    public String facetSetLiteral(final SemanticIdentifierSet sids) {
+    	return sids.elements().map(this::facetLiteral).join(", ");
+    }
+
+    public String facetLiteral(final SemanticIdentifier sid) {
+        return Optional.ofNullable(classificationFacetBySid()
+                .get(sid))
+            .map(FoodDescriptionModel.ClassificationFacet::name)
+            .orElse(sid.toStringNoBox());
+    }
+
     /**
      * Streams all ingredients of given recipe.
      */

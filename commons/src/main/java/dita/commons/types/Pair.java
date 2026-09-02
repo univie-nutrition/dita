@@ -21,13 +21,13 @@ package dita.commons.types;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import org.apache.causeway.commons.internal.base._Strings;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-
-import org.apache.causeway.commons.internal.base._Strings;
 
 /// typed 2-tuple
 public record Pair<L, R>(L left, R right) {
@@ -58,9 +58,11 @@ public record Pair<L, R>(L left, R right) {
             final @Nullable Iterable<Pair<L, R>> iterable,
             final @NonNull Supplier<Map<L, R>> mapFactory) {
         final Map<L, R> map = mapFactory.get();
-        if(iterable!=null) for(var pair : iterable) {
-            map.put(pair.left(), pair.right());
-        }
+        if(iterable!=null) {
+			for(var pair : iterable) {
+			    map.put(pair.left(), pair.right());
+			}
+		}
         return map;
     }
 
@@ -71,6 +73,13 @@ public record Pair<L, R>(L left, R right) {
         return map.isEmpty()
             ? Collections.emptyMap() // allows the original map to be garbage collected
             : Collections.unmodifiableMap(map);
+    }
+
+    // --
+
+    @SuppressWarnings("unlikely-arg-type")
+	public boolean equal() {
+    	return Objects.equals(left, right);
     }
 
 }

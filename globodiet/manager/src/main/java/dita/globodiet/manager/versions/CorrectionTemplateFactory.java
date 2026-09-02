@@ -34,7 +34,6 @@ import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Pair;
 import dita.commons.util.NumberUtils;
-import dita.foodon.fdm.FoodDescriptionModel;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
 import dita.globodiet.manager.versions.FdmDiffFactory.FdmDiff;
 import dita.recall24.dto.Annotated;
@@ -49,10 +48,17 @@ import dita.recall24.dto.Record24;
 import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Consumption;
 
-public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
+public record CorrectionTemplateFactory(
+		FdmDiff fdmDiff,
+		/// Amount of mass change of an ingredient relative to the recipe's total amount in units of parts per million (ppm),
+		/// that must be exceeded in order for a change to be emitted.
+		/// Changes that fall below given threshold are simply ignored with the output. (10000ppm = 1%)
+		int ppmThreshold,
+		/// Whether to include group changes,
+		/// however this is not needed because the Report Generator does correct groups automatically from its selected FDM.
+		boolean includeGroupCorrections) {
 
 	public Correction24 create(final InterviewSet24 interviewSet) {
-
         var corrs = new ArrayList<CompositeCorr>();
         interviewSet.transform(new RecallNode24.Transfomer() {
 			@Override
@@ -87,10 +93,12 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
         recipeChange.nameChange()
         	.map(Pair::left)
         	.ifPresent(builder.rename()::set);
-//XXX DISABLED
-//        recipeChange.groupChange()
-//	    	.map(Pair::left)
-//	    	.ifPresent(builder.newGroupSid()::set);
+
+        if(includeGroupCorrections) {
+        	recipeChange.groupChange()
+	        	.map(Pair::left)
+	        	.ifPresent(builder.newGroupSid()::set);
+        }
 
         compWrapper.ingredients().stream()
 	        .forEach(food->{
@@ -114,10 +122,13 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
 	        		builder.del(ingredientRemoved, "ingredient was removed from the recipe in the FDM");
 	        	} else if(ingredientChanged!=null) {
 	        		// an ingredient was changed, that has the same ingredient key as the food
-	        		final BigDecimal newAmount = NumberUtils.totalTimesPermillion(
-	        				compWrapper.amountConsumedTotal(),
-	        				ingredientChanged.left().relativeMassPermille());
-	        		builder.change(ingredientChanged, newAmount);
+	        		final int deltaPpm = Math.abs(ingredientChanged.left().relativeMassPermille() - ingredientChanged.right().relativeMassPermille());
+	        		if(deltaPpm>=ppmThreshold) { // ignore if below threshold
+		        		final BigDecimal newAmount = NumberUtils.totalTimesPermillion(
+		        				compWrapper.amountConsumedTotal(),
+		        				ingredientChanged.left().relativeMassPermille());
+		        		builder.change(ingredientChanged, newAmount);
+	        		}
 	        	}
 	        });
         // for each ingredient that was added to the recipe, but is not in the composite -> do add
@@ -237,7 +248,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     				recipeIngr.foodFacetSids(),
     				NumberUtils.reducedPrecision(newAmount, 2),
     				List.of(
-						"ADD " + formatNameAndFacets(recipeIngr),
+						formatNameAndFacets(recipeIngr),
 						secondaryComment)));
     	}
     	void del(final RecipeIngredientResolved recipeIngr, final String secondaryComment) {
@@ -245,7 +256,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     				recipeIngr.foodSid(),
     				recipeIngr.foodFacetSids(),
     				List.of(
-						"DEL " + formatNameAndFacets(recipeIngr),
+						formatNameAndFacets(recipeIngr),
 						secondaryComment)));
     	}
     	void change(final Pair<RecipeIngredientResolved, RecipeIngredientResolved> ingredientChange, final BigDecimal newAmount) {
@@ -282,13 +293,7 @@ public record CorrectionTemplateFactory(FdmDiff fdmDiff) {
     }
 
     private String facetLiteral(final SemanticIdentifier sid) {
-        return Optional.ofNullable(
-            fdmDiff.mainFdm()
-                .classificationFacetBySid()
-                .get(sid)
-    		)
-            .map(FoodDescriptionModel.ClassificationFacet::name)
-            .orElse(sid.toStringNoBox());
+        return fdmDiff.mainFdm().facetLiteral(sid);
     }
 
     private static String formatDecimal(final BigDecimal bd) {

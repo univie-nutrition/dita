@@ -64,6 +64,7 @@ record Correction24YamlWriter(
         if (composites != null && !composites.isEmpty()) {
             writer.write("composites:").nl();
             for (CompositeCorr comp : composites) {
+            	writer.write("# =============================== next recipe consumption from interviews ===============================").nl();
                 writeCompositeCorr(comp);
             }
         } else {
@@ -130,15 +131,17 @@ record Correction24YamlWriter(
     }
 
     private void writeAddition(final Addition add) {
+    	writer.ind(1).sq().write("sid: ").dq(add.sid().toStringNoBox()).write(" # -------- ingredient addition --------").nl();
     	writeComments(2, add.comments());
-        kv(1, "- sid", add.sid());
+        //kv(1, "- sid", add.sid());
         kv(2, "facets", add.facets());
         kv(2, "amountGrams", add.amountGrams());
     }
 
     private void writeDeletion(final Deletion del) {
+    	writer.ind(1).sq().write("sid: ").dq(del.sid().toStringNoBox()).write(" # -------- ingredient deletion --------").nl();
     	writeComments(2, del.comments());
-    	kv(1, "- sid", del.sid());
+    	//kv(1, "- sid", del.sid());
     	kv(2, "facets", del.facets());
     }
 
@@ -148,7 +151,7 @@ record Correction24YamlWriter(
     		return;
     	writer.ind(indentCount).write(key, ": ");
     	switch (value) {
-    		case BigDecimal v -> writer.write(v.toString());
+    		case BigDecimal v -> writer.write(v.toPlainString());
 			case Integer i -> writer.write(""+i);
 			case Long i -> writer.write(""+i);
 			case Short i -> writer.write(""+i);
@@ -168,7 +171,7 @@ record Correction24YamlWriter(
 
     private void writeComments(final int indentCount, final List<String> comments) {
     	_NullSafe.stream(comments)
-    	.forEach(comment->
-    	writer.ind(indentCount).write("# ").write(comment).nl());
+    		.forEach(comment->
+    			writer.ind(indentCount).write("# ").write(comment).nl());
     }
 }

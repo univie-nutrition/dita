@@ -61,7 +61,18 @@ public record ParameterDataVersion_generateCorrectionTemplate(
 			@ParameterLayout(describedAs =
 			"Select Parameter Data Version as a base to compare against.")
 			final ParameterDataVersion baseVersion,
-			final Survey survey) {
+			@ParameterLayout(describedAs =
+					"The servey to create the Correction template for.")
+			final Survey survey,
+			@ParameterLayout(describedAs =
+					"Amount of mass change of an ingredient relative to the recipe's total amount in units of parts per million (ppm),"
+					+ "that must be exceeded in order for a change to be emitted. Changes that fall below given threshold are simply "
+					+ "ignored with the output. (10000ppm = 1%)")
+			final int ppmThreshold,
+			@ParameterLayout(describedAs =
+					"Whether to include group changes, however this is not needed "
+					+ "because the Report Generator does correct groups automatically from a selected FDM.")
+			final boolean includeGroupCorrections) {
 
 		var mainVersion = mixee;
 
@@ -77,10 +88,14 @@ public record ParameterDataVersion_generateCorrectionTemplate(
                 .load()
                 .defaultTransform();
 
-		var corr24 = new CorrectionTemplateFactory(fdmDiff)
+		var corr24 = new CorrectionTemplateFactory(fdmDiff, ppmThreshold, includeGroupCorrections)
         		.create(reportContext.interviewSet());
 
-		return Clob.of("correction-template", CommonMimeType.YAML, corr24.toYamlWithComments());
+		return Clob.of("correction-template-v%s-v%s-%s"
+				.formatted(
+						baseVersion.id(),
+						mainVersion.id(),
+						survey.secondaryKey().code()), CommonMimeType.YAML, corr24.toYamlWithComments());
 	}
 
 	@MemberSupport
@@ -93,6 +108,16 @@ public record ParameterDataVersion_generateCorrectionTemplate(
 	@MemberSupport
 	public List<Survey> choicesSurvey() {
 		return repositoryService.allInstances(Survey.class);
+	}
+
+	@MemberSupport
+	public int defaultPpmThreshold() {
+		return 10_000;
+	}
+
+	@MemberSupport
+	public boolean defaultIncludeGroupCorrections() {
+		return false;
 	}
 
 }
