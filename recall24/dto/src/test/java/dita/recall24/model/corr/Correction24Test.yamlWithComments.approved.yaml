@@ -7,6 +7,7 @@ respondents:
   withdraw: true
 foodByName: []
 composites:
+# =============================== next recipe consumption from interviews ===============================
 - coordinates:
     sid: "at.gd/2.0:recp/00301"
     respondentId: "EB_0077"
@@ -16,17 +17,18 @@ composites:
   # a comment spanning
   # 2 lines
   additions:
+  - sid: "at.gd/2.0:food/01581" # -------- ingredient addition --------
     # an addition comment
-  - sid: "at.gd/2.0:food/01581"
     facets: ""
     amountGrams: 2.5
-  - sid: "at.gd/2.0:food/01234"
+  - sid: "at.gd/2.0:food/01234" # -------- ingredient addition --------
     facets: "at.gd/2.0:fd/0133, at.gd/2.0:fd/0266"
     amountGrams: 1.1
   deletions:
+  - sid: "at.gd/2.0:food/01617" # -------- ingredient deletion --------
     # a deletion comment
-  - sid: "at.gd/2.0:food/01617"
     facets: "at.gd/2.0:fd/0133"
+# =============================== next recipe consumption from interviews ===============================
 - coordinates:
     sid: "at.gd/2.0:recp/00301"
     respondentId: "EB_0077"
@@ -36,6 +38,7 @@ composites:
   rename: "Hello World!"
   additions: []
   deletions: []
+# =============================== next recipe consumption from interviews ===============================
 - coordinates:
     sid: "at.gd/2.0:recp/00301"
     respondentId: "EB_0077"
